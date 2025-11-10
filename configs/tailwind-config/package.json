@@ -1,0 +1,24 @@
+{
+  "name": "@i2l/tailwind-config",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./theme.css": "./theme.css",
+    "./components.css": "./components.css",
+    "./tokens": {
+      "types": "./tokens.d.ts",
+      "default": "./tokens.js"
+    }
+  },
+  "scripts": {
+    "build": "node index.js",
+    "dev": "npm run build",
+    "postinstall": "npm run build",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.14"
+  }
+}

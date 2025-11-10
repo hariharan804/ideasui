@@ -1,0 +1,12 @@
+node_modules
+dist
+build
+.next
+.turbo
+coverage
+*.min.js
+*.config.js
+.eslintcache
+jest.config.js
+TEST_PAGE_EXAMPLE.tsx
+i18n-examples.ts

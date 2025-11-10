@@ -1,6 +1,6 @@
 {
   "name": "my-component-lib",
-  "description": "Modern component library built with ShadCN/UI and Next.js",
+  "description": "Modern component library built with ShadCN/UI(Radix + shadcn + Tailwind) and Next.js",
   "version": "0.1.0",
   "type": "monorepo",
   "framework": "next.js",
@@ -11,7 +11,7 @@
         "framework": "react",
         "bundler": "rollup",
         "styling": "tailwindcss",
-        "baseComponents": "shadcn-ui",
+        "baseComponents": "shadcn-ui (Radix + shadcn + Tailwind)",
         "typescript": true,
         "exports": {
           "main": "./dist/index.js",
@@ -45,7 +45,7 @@
       "framework": "next.js",
       "language": "typescript",
       "styling": "tailwindcss",
-      "components": "shadcn-ui",
+      "components": "shadcn-ui(Radix + shadcn + Tailwind)",
       "stateManagement": "react-hooks"
     },
     "build": {
@@ -100,7 +100,7 @@
   },
   "features": {
     "componentLibrary": {
-      "baseFramework": "shadcn-ui",
+      "baseFramework": "shadcn-ui(Radix + shadcn + Tailwind)",
       "customization": "css-variables",
       "theming": "dark-light-mode",
       "accessibility": "wcag-compliant",

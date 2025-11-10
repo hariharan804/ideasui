@@ -11,8 +11,8 @@
 
 ### 2. Core Dependencies
 - [ ] Install React & TypeScript
-- [ ] Install Tailwind CSS
-- [ ] Install ShadCN/UI dependencies
+- [ ] Install Tailwind v4 CSS
+- [ ] Install ShadCN/UI(Radix + shadcn + Tailwind) dependencies
 - [ ] Install build tools (Rollup)
 - [ ] Install testing framework (Jest)
 
@@ -24,7 +24,7 @@
 - [ ] GitHub Actions CI/CD
 
 ### 4. Component Library Setup
-- [ ] Initialize ShadCN/UI
+- [ ] Initialize ShadCN/UI(Radix + shadcn + Tailwind)
 - [ ] Create base component structure
 - [ ] Set up component exports
 - [ ] Configure TypeScript declarations
@@ -67,7 +67,7 @@ cd my-component-lib
 # 2. Install dependencies
 npm install
 
-# 3. Add ShadCN/UI
+# 3. Add ShadCN/UI(Radix + shadcn + Tailwind)
 npx shadcn-ui@latest init
 
 # 4. Set up Storybook
