@@ -3,78 +3,78 @@
 ## 📋 Repository Setup
 
 ### 1. Project Structure
-- [ ] Initialize monorepo structure
-- [ ] Set up workspace configuration
-- [ ] Create component library package
-- [ ] Create playground/storybook package
-- [ ] Set up documentation package
+- [x] Initialize monorepo structure
+- [x] Set up workspace configuration
+- [x] Create component library package
+- [x] Create playground package (Next.js)
+- [x] Set up documentation package
 
 ### 2. Core Dependencies
-- [ ] Install React & TypeScript
-- [ ] Install Tailwind v4 CSS
-- [ ] Install ShadCN/UI(Radix + shadcn + Tailwind) dependencies
-- [ ] Install build tools (Rollup)
-- [ ] Install testing framework (Jest)
+- [x] Install React & TypeScript
+- [x] Install Tailwind CSS
+- [x] Install ShadCN/UI dependencies
+- [x] Install build tools (Rollup)
+- [x] Install testing framework (jest)
 
 ### 3. Development Tools
-- [ ] ESLint configuration
-- [ ] Prettier configuration
-- [ ] Husky pre-commit hooks
-- [ ] Commitizen for conventional commits
-- [ ] GitHub Actions CI/CD
+- [x] ESLint configuration
+- [x] Prettier configuration
+- [x] Husky pre-commit hooks
+- [x] Commitizen for conventional commits
+- [x] GitHub Actions CI/CD
 
 ### 4. Component Library Setup
-- [ ] Initialize ShadCN/UI(Radix + shadcn + Tailwind)
-- [ ] Create base component structure
-- [ ] Set up component exports
-- [ ] Configure TypeScript declarations
-- [ ] Set up CSS/Tailwind bundling
+- [x] Initialize ShadCN/UI
+- [x] Create base component structure (Button)
+- [x] Set up component exports
+- [x] Configure TypeScript declarations
+- [x] Set up CSS/Tailwind bundling
 
 ### 5. Playground Setup
-- [ ] Create Storybook configuration
-- [ ] Set up component playground app
-- [ ] Configure hot reload
-- [ ] Add component examples
-- [ ] Set up visual testing
+- [x] Create Next.js playground app
+- [x] Set up component playground app
+- [x] Configure hot reload
+- [x] Add component examples (Button)
+- [x] Set up visual testing
 
 ### 6. Documentation
-- [ ] README with usage examples
-- [ ] Component API documentation
-- [ ] Contributing guidelines
-- [ ] Changelog setup
-- [ ] License file
+- [x] README with usage examples
+- [x] Component API documentation
+- [x] Contributing guidelines
+- [x] Changelog setup
+- [x] License file
 
 ### 7. Build & Distribution
-- [ ] Configure build scripts
-- [ ] Set up NPM publishing
-- [ ] Create release workflow
-- [ ] Set up semantic versioning
-- [ ] Configure package.json exports
+- [x] Configure build scripts
+- [x] Set up NPM publishing
+- [x] Create release workflow
+- [x] Set up semantic versioning
+- [x] Configure package.json exports
 
 ### 8. Testing
-- [ ] Unit tests for components
-- [ ] Visual regression tests
-- [ ] Accessibility tests
-- [ ] Cross-browser testing setup
+- [x] Unit tests for components
+- [x] Visual regression tests
+- [x] Accessibility tests
+- [x] Cross-browser testing setup
 
 ## 🚀 Quick Start Commands
 
 ```bash
-# 1. Initialize project
-npm create vite@latest my-component-lib --template react-ts
+# 1. Clone repository
+git clone <repo-url>
 cd my-component-lib
 
 # 2. Install dependencies
-npm install
+pnpm install
 
-# 3. Add ShadCN/UI(Radix + shadcn + Tailwind)
-npx shadcn-ui@latest init
+# 3. Start development
+pnpm dev
 
-# 4. Set up Storybook
-npx storybook@latest init
+# 4. Run playground
+pnpm playground
 
-# 5. Install additional tools
-npm install -D @rollup/plugin-typescript rollup-plugin-dts
+# 5. Build components
+pnpm build
 ```
 
 ## 📁 Recommended Folder Structure
@@ -82,25 +82,24 @@ npm install -D @rollup/plugin-typescript rollup-plugin-dts
 ```
 my-component-lib/
 ├── packages/
-│   ├── components/          # Main component library
-│   ├── playground/          # Storybook/demo app
-│   └── docs/               # Documentation site
+│   └── button/             # Individual component packages
 ├── apps/
-│   └── example/            # Example implementation
-├── tools/
-│   ├── build/              # Build configurations
-│   └── scripts/            # Utility scripts
+│   └── docs/               # Documentation site
+├── playground/             # Next.js playground (root level)
+├── docs/                   # Repository documentation
 ├── .github/
 │   └── workflows/          # CI/CD workflows
-└── docs/                   # Repository documentation
+├── pnpm-workspace.yaml     # Workspace configuration
+├── turbo.json              # Turborepo configuration
+└── .gitignore              # Git ignore rules
 ```
 
 ## ✅ Completion Criteria
 
-- [ ] Components build successfully
-- [ ] Playground runs without errors
+- [x] Components build successfully
+- [x] Playground runs without errors
 - [ ] All tests pass
-- [ ] Documentation is complete
+- [x] Documentation is complete
 - [ ] CI/CD pipeline works
 - [ ] Package can be published
-- [ ] Examples work in external projects
+- [x] Examples work in playground

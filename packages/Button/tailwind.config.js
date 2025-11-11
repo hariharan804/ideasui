@@ -1,0 +1,1 @@
+module.exports = require('@i2l/tailwind-config')

@@ -38,5 +38,5 @@ module.exports = {
       statements: 0,
     },
   },
-  setupFilesAfterEnv: ['@i2l/jest-config/jest.setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/../../configs/jest-config/jest.setup.js'],
 };
