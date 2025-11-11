@@ -1,0 +1,1 @@
+module.exports = require('@i2l/eslint-config')
