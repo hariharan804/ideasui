@@ -45,6 +45,7 @@
     "@i2l/eslint-config": "*",
     "@i2l/jest-config": "*",
     "@i2l/tailwind-config": "*",
+    "@i2l/rollup-config": "*",
     "@i2l/tsconfig": "*"
   }
 }

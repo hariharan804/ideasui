@@ -1,15 +1,172 @@
-Github package publish config implementations not NPM package
+npm warn Could not resolve dependency:
+npm warn peer storybook@"^8.6.14" from @storybook/blocks@8.6.14
+npm warn node_modules/@storybook/addon-essentials/node_modules/@storybook/addon-docs/node_modules/@storybook/blocks
+npm warn   @storybook/blocks@"8.6.14" from @storybook/addon-docs@8.6.14
+npm warn   node_modules/@storybook/addon-essentials/node_modules/@storybook/addon-docs
+npm warn
+npm warn Conflicting peer dependency: storybook@8.6.14
+npm warn node_modules/storybook
+npm warn   peer storybook@"^8.6.14" from @storybook/blocks@8.6.14
+npm warn   node_modules/@storybook/addon-essentials/node_modules/@storybook/addon-docs/node_modules/@storybook/blocks
+npm warn     @storybook/blocks@"8.6.14" from @storybook/addon-docs@8.6.14
+npm warn     node_modules/@storybook/addon-essentials/node_modules/@storybook/addon-docs
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: @storybook/csf-plugin@8.6.14
+npm warn Found: storybook@10.0.7
+npm warn node_modules/storybook
+npm warn   dev storybook@"^10.0.7" from the root project
+npm warn   6 more (@storybook/builder-webpack5, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer storybook@"^8.6.14" from @storybook/csf-plugin@8.6.14
+npm warn node_modules/@storybook/addon-essentials/node_modules/@storybook/addon-docs/node_modules/@storybook/csf-plugin
+npm warn   @storybook/csf-plugin@"8.6.14" from @storybook/addon-docs@8.6.14
+npm warn   node_modules/@storybook/addon-essentials/node_modules/@storybook/addon-docs
+npm warn
+npm warn Conflicting peer dependency: storybook@8.6.14
+npm warn node_modules/storybook
+npm warn   peer storybook@"^8.6.14" from @storybook/csf-plugin@8.6.14
+npm warn   node_modules/@storybook/addon-essentials/node_modules/@storybook/addon-docs/node_modules/@storybook/csf-plugin
+npm warn     @storybook/csf-plugin@"8.6.14" from @storybook/addon-docs@8.6.14
+npm warn     node_modules/@storybook/addon-essentials/node_modules/@storybook/addon-docs
+npm warn ERESOLVE overriding peer dependency
+npm warn While resolving: @storybook/react-dom-shim@8.6.14
+npm warn Found: storybook@10.0.7
+npm warn node_modules/storybook
+npm warn   dev storybook@"^10.0.7" from the root project
+npm warn   6 more (@storybook/builder-webpack5, ...)
+npm warn
+npm warn Could not resolve dependency:
+npm warn peer storybook@"^8.6.14" from @storybook/react-dom-shim@8.6.14
+npm warn node_modules/@storybook/addon-essentials/node_modules/@storybook/addon-docs/node_modules/@storybook/react-dom-shim
+npm warn   @storybook/react-dom-shim@"8.6.14" from @storybook/addon-docs@8.6.14
+npm warn   node_modules/@storybook/addon-essentials/node_modules/@storybook/addon-docs
+npm warn
+npm warn Conflicting peer dependency: storybook@8.6.14
+npm warn node_modules/storybook
+npm warn   peer storybook@"^8.6.14" from @storybook/react-dom-shim@8.6.14
+npm warn   node_modules/@storybook/addon-essentials/node_modules/@storybook/addon-docs/node_modules/@storybook/react-dom-shim
+npm warn     @storybook/react-dom-shim@"8.6.14" from @storybook/addon-docs@8.6.14
+npm warn     node_modules/@storybook/addon-essentials/node_modules/@storybook/addon-docs
 
-@your-org/button:dev: [!] TypeError: dts is not a function
-@your-org/button:dev:     at Object.<anonymous> (C:\Users\Hari\Documents\yuva\lib\packages\Button\rollup.config.js:28:15)
-@your-org/button:dev:     at Module._compile (node:internal/modules/cjs/loader:1469:14)
-@your-org/button:dev:     at Object.Module._extensions..js (node:internal/modules/cjs/loader:1548:10)
-@your-org/button:dev:     at Module.load (node:internal/modules/cjs/loader:1288:32)
-@your-org/button:dev:     at Function.Module._load (node:internal/modules/cjs/loader:1104:12)
-@your-org/button:dev:     at cjsLoader (node:internal/modules/esm/translators:346:17)
-@your-org/button:dev:     at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:286:7)
-@your-org/button:dev:     at ModuleJob.run (node:internal/modules/esm/module_job:234:25)
-@your-org/button:dev:     at ModuleLoader.import (node:internal/modules/esm/loader:473:24)
-@your-org/button:dev:     at getConfigFileExport (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\loadConfigFile.js:472:17) 
+> @your-org/ui@0.1.0 prepare
+> husky install
+
+husky - install command is DEPRECATED
+
+added 1 package, removed 132 packages, and audited 2026 packages in 31s
+
+387 packages are looking for funding
+  run `npm fund` for details
+
+9 vulnerabilities (2 moderate, 4 high, 3 critical)
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+
+
+
+
+
+
+
+
+
+
+@your-org/button:dev: bundles src/index.ts → dist/index.js, dist/index.esm.js...
+@your-org/button:dev: (!) [plugin typescript] src/__tests__/button.test.tsx (5:1): @rollup/plugin-typescript TS2582: Cannot find name 'describe'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`.       
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:5:1
 @your-org/button:dev: 
+@your-org/button:dev: 5 describe('Button', () => {
+@your-org/button:dev:   ~~~~~~~~
 @your-org/button:dev: 
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:5:1
+@your-org/button:dev: 
+@your-org/button:dev: 5 describe('Button', () => {
+@your-org/button:dev:   ~~~~~~~~
+@your-org/button:dev: 
+@your-org/button:dev: (!) [plugin typescript] src/__tests__/button.test.tsx (6:3): @rollup/plugin-typescript TS2582: Cannot find name 'it'. Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`.
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:6:3
+@your-org/button:dev: 
+@your-org/button:dev: 6   it('renders correctly', () => {
+@your-org/button:dev:     ~~
+@your-org/button:dev: 
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:6:3
+@your-org/button:dev: 
+@your-org/button:dev: 6   it('renders correctly', () => {
+@your-org/button:dev:     ~~
+@your-org/button:dev: 
+@your-org/button:dev: (!) [plugin typescript] src/__tests__/button.test.tsx (8:5): @rollup/plugin-typescript TS2304: Cannot find name 'expect'.
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:8:5
+@your-org/button:dev: 
+@your-org/button:dev: 8     expect(screen.getByRole('button')).toBeInTheDocument()
+@your-org/button:dev:       ~~~~~~
+@your-org/button:dev: 
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:8:5
+@your-org/button:dev: 
+@your-org/button:dev: 8     expect(screen.getByRole('button')).toBeInTheDocument()
+@your-org/button:dev:       ~~~~~~
+@your-org/button:dev: 
+@your-org/button:dev: (!) [plugin typescript] src/__tests__/button.test.tsx (11:3): @rollup/plugin-typescript TS2582: Cannot find name 'it'. 
+Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`.
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:11:3
+@your-org/button:dev: 
+@your-org/button:dev: 11   it('handles click events', async () => {
+@your-org/button:dev:      ~~
+@your-org/button:dev: 
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:11:3
+@your-org/button:dev: 
+@your-org/button:dev: 11   it('handles click events', async () => {
+@your-org/button:dev:      ~~
+@your-org/button:dev: 
+@your-org/button:dev: (!) [plugin typescript] src/__tests__/button.test.tsx (12:25): @rollup/plugin-typescript TS2304: Cannot find name 'jest'.
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:12:25
+@your-org/button:dev: 
+@your-org/button:dev: 12     const handleClick = jest.fn()
+@your-org/button:dev:                            ~~~~
+@your-org/button:dev: 
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:12:25
+@your-org/button:dev: 
+@your-org/button:dev: 12     const handleClick = jest.fn()
+@your-org/button:dev:                            ~~~~
+@your-org/button:dev: 
+@your-org/button:dev: (!) [plugin typescript] src/__tests__/button.test.tsx (16:5): @rollup/plugin-typescript TS2304: Cannot find name 'expect'.
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:16:5
+@your-org/button:dev: 
+@your-org/button:dev: 16     expect(handleClick).toHaveBeenCalledTimes(1)
+@your-org/button:dev:        ~~~~~~
+@your-org/button:dev: 
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:16:5
+@your-org/button:dev: 
+@your-org/button:dev: 16     expect(handleClick).toHaveBeenCalledTimes(1)
+@your-org/button:dev:        ~~~~~~
+@your-org/button:dev: 
+@your-org/button:dev: (!) [plugin typescript] src/__tests__/button.test.tsx (19:3): @rollup/plugin-typescript TS2582: Cannot find name 'it'. 
+Do you need to install type definitions for a test runner? Try `npm i --save-dev @types/jest` or `npm i --save-dev @types/mocha`.
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:19:3
+@your-org/button:dev: 
+@your-org/button:dev: 19   it('applies variant styles', () => {
+@your-org/button:dev:      ~~
+@your-org/button:dev: 
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:19:3
+@your-org/button:dev: 
+@your-org/button:dev: 19   it('applies variant styles', () => {
+@your-org/button:dev:      ~~
+@your-org/button:dev: 
+@your-org/button:dev: (!) [plugin typescript] src/__tests__/button.test.tsx (21:5): @rollup/plugin-typescript TS2304: Cannot find name 'expect'.
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:21:5
+@your-org/button:dev: 
+@your-org/button:dev: 21     expect(screen.getByRole('button')).toHaveClass('bg-destructive')
+@your-org/button:dev:        ~~~~~~
+@your-org/button:dev: 
+@your-org/button:dev: C:/Users/Hari/Documents/yuva/lib/packages/Button/src/__tests__/button.test.tsx:21:5
+@your-org/button:dev: 
+@your-org/button:dev: 21     expect(screen.getByRole('button')).toHaveClass('bg-destructive')
+@your-org/button:dev:        ~~~~~~
+@your-org/button:dev: 
+@your-org/button:dev: (!) Unresolved dependencies
+@your-org/button:dev: https://rollupjs.org/troubleshooting/#warning-treating-module-as-external-dependency
+@your-org/button:dev: react/jsx-runtime (imported by "src/components/button.tsx")
