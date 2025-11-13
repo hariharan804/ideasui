@@ -1,5 +1,5 @@
 {
-  "name": "@mylib/button",
+  "name": "@your-org/button",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },

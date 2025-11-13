@@ -1,1 +1,1 @@
-export { Button } from '@mylib/button'
+export { Button } from '@your-org/button'

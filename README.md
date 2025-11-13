@@ -6,7 +6,7 @@ A modern, accessible component library built on top of ShadCN/UI with TypeScript
 
 ```bash
 # Install the library
-npm install @mylib/ui
+npm install @your-org/ui
 
 # Install peer dependencies
 npm install react react-dom
@@ -18,8 +18,7 @@ npm install -D tailwindcss
 ## 📦 Usage
 
 ```tsx
-import { Button, Card, Input } from '@mylib/ui'
-import '@mylib/ui/styles'
+import { Button } from '@your-org/ui'
 
 function App() {
   return (
@@ -60,19 +59,19 @@ function App() {
 
 ```bash
 # Install dependencies
-pnpm install
+npm install
 
 # Start development
-pnpm dev
+npm run dev
 
 # Run Storybook
-pnpm storybook
+npm run storybook
 
 # Run tests
-pnpm test
+npm test
 
 # Build library
-pnpm build
+npm run build
 ```
 
 ## 📋 Repository Setup Checklist
