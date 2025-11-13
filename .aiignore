@@ -1,22 +1,8 @@
 Github package publish config implementations not NPM package
 
-@your-org/button:dev: > rollup -c --watch
-@your-org/button:dev: 
-@your-org/button:dev: (node:8312) Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
-@your-org/button:dev: (Use `node --trace-warnings ...` to show where the warning was created)
-@your-org/button:dev: [!] RollupError: Node tried to load your configuration file as CommonJS even though it is likely an ES module. To resolve this, change the extension of your configuration to ".mjs", set "type": "module" in your package.json file or pass the "--bundleConfigAsCjs" flag.
-@your-org/button:dev: 
-@your-org/button:dev: Original error: Cannot use import statement outside a module
-@your-org/button:dev: https://rollupjs.org/command-line-interface/#bundleconfigascjs
-@your-org/button:dev: C:\Users\Hari\Documents\yuva\lib\packages\Button\rollup.config.js:1
-@your-org/button:dev: import typescript from '@rollup/plugin-typescript'
-@your-org/button:dev: ^^^^^^
-@your-org/button:dev: 
-@your-org/button:dev: SyntaxError: Node tried to load your configuration file as CommonJS even though it is likely an ES module. To resolve this, change the extension of your configuration to ".mjs", set "type": "module" in your package.json file or pass the "--bundleConfigAsCjs" flag.
-@your-org/button:dev: 
-@your-org/button:dev: Original error: Cannot use import statement outside a module
-@your-org/button:dev:     at wrapSafe (node:internal/modules/cjs/loader:1378:20)
-@your-org/button:dev:     at Module._compile (node:internal/modules/cjs/loader:1428:41)
+@your-org/button:dev: [!] TypeError: dts is not a function
+@your-org/button:dev:     at Object.<anonymous> (C:\Users\Hari\Documents\yuva\lib\packages\Button\rollup.config.js:28:15)
+@your-org/button:dev:     at Module._compile (node:internal/modules/cjs/loader:1469:14)
 @your-org/button:dev:     at Object.Module._extensions..js (node:internal/modules/cjs/loader:1548:10)
 @your-org/button:dev:     at Module.load (node:internal/modules/cjs/loader:1288:32)
 @your-org/button:dev:     at Function.Module._load (node:internal/modules/cjs/loader:1104:12)
@@ -25,20 +11,5 @@ Github package publish config implementations not NPM package
 @your-org/button:dev:     at ModuleJob.run (node:internal/modules/esm/module_job:234:25)
 @your-org/button:dev:     at ModuleLoader.import (node:internal/modules/esm/loader:473:24)
 @your-org/button:dev:     at getConfigFileExport (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\loadConfigFile.js:472:17) 
-@your-org/button:dev:   [cause] C:\Users\Hari\Documents\yuva\lib\packages\Button\rollup.config.js:1
-@your-org/button:dev:   import typescript from '@rollup/plugin-typescript'
-@your-org/button:dev:   ^^^^^^
-@your-org/button:dev: 
-@your-org/button:dev:   SyntaxError: Cannot use import statement outside a module
-@your-org/button:dev:       at wrapSafe (node:internal/modules/cjs/loader:1378:20)
-@your-org/button:dev:       at Module._compile (node:internal/modules/cjs/loader:1428:41)
-@your-org/button:dev:       at Object.Module._extensions..js (node:internal/modules/cjs/loader:1548:10)
-@your-org/button:dev:       at Module.load (node:internal/modules/cjs/loader:1288:32)
-@your-org/button:dev:       at Function.Module._load (node:internal/modules/cjs/loader:1104:12)
-@your-org/button:dev:       at cjsLoader (node:internal/modules/esm/translators:346:17)
-@your-org/button:dev:       at ModuleWrap.<anonymous> (node:internal/modules/esm/translators:286:7)
-@your-org/button:dev:       at ModuleJob.run (node:internal/modules/esm/module_job:234:25)
-@your-org/button:dev:       at ModuleLoader.import (node:internal/modules/esm/loader:473:24)
-@your-org/button:dev:       at getConfigFileExport (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\loadConfigFile.js:472:17)
 @your-org/button:dev: 
 @your-org/button:dev: 
