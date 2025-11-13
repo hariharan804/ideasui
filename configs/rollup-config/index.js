@@ -19,7 +19,8 @@ function createConfig(external = []) {
       ],
       external: ['react', 'react-dom', 'react/jsx-runtime', ...external],
       plugins: [typescript({ 
-        exclude: ['**/*.test.*', '**/*.spec.*', '**/__tests__/**', '**/*.stories.*'],
+        include: ['src/**/*'],
+        exclude: ['src/**/*.test.*', 'src/**/*.spec.*', 'src/**/__tests__/**', 'src/**/*.stories.*'],
         compilerOptions: {
           declaration: true,
           declarationDir: 'dist'
