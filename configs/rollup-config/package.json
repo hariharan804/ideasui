@@ -1,0 +1,9 @@
+{
+  "name": "@i2l/rollup-config",
+  "version": "0.1.0",
+  "main": "index.js",
+  "dependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup-plugin-dts": "^6.1.1"
+  }
+}
