@@ -54,10 +54,8 @@ export default function Home() {
             📚 Stories
           </a>
           <a
-            className="flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-gray-600 to-gray-700 px-5 text-white transition-all hover:from-gray-700 hover:to-gray-800 transform hover:scale-105"
-            href="https://nextjs.org/docs"
-            target="_blank"
-            rel="noopener noreferrer"
+            className="flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-red-500 px-5 text-white transition-all hover:from-orange-600 hover:to-red-600 transform hover:scale-105"
+            href="/docs"
           >
             📖 Docs
           </a>
