@@ -1,1 +1,2 @@
-export { Button } from '@your-org/button'
+// Re-export components from packages
+export { Button } from '../packages/Button/src'
