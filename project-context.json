@@ -50,7 +50,7 @@
     },
     "build": {
       "monorepo": "turborepo",
-      "packageManager": "pnpm",
+      "packageManager": "npm",
       "bundler": "rollup",
       "compiler": "typescript"
     },
@@ -91,12 +91,12 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "playground": "pnpm --filter playground dev",
-    "docs": "pnpm --filter docs dev"
+    "playground": "npm --filter playground dev",
+    "docs": "npm --filter docs dev"
   },
   "workspace": {
     "packages": ["packages/*", "apps/*"],
-    "packageManager": "pnpm"
+    "packageManager": "npm"
   },
   "features": {
     "componentLibrary": {

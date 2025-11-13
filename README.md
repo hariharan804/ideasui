@@ -41,6 +41,7 @@ function App() {
 - [🏗️ Build & Deployment](./docs/BUILD_DEPLOYMENT.md) - Release process
 - [🧪 Testing Strategy](./docs/TESTING_STRATEGY.md) - Quality assurance
 - [📖 API Documentation](./docs/API_DOCUMENTATION.md) - Component reference
+- [📦 GitHub Packages Publishing](./docs/GITHUB_PACKAGES_PUBLISHING.md) - Publishing guide
 
 ## 🎯 Features
 

@@ -1,5 +1,8 @@
 {
   "name": "@mylib/button",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "version": "0.1.0",
   "description": "Button component built with ShadCN/UI",
   "main": "./dist/index.js",
@@ -17,7 +20,10 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c --watch"
+    "dev": "rollup -c --watch",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
+    "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
