@@ -17,8 +17,14 @@ function createConfig(external = []) {
           sourcemap: true,
         },
       ],
-      external: ['react', 'react-dom', ...external],
-      plugins: [typescript()],
+      external: ['react', 'react-dom', 'react/jsx-runtime', ...external],
+      plugins: [typescript({ 
+        exclude: ['**/*.test.*', '**/*.spec.*', '**/__tests__/**', '**/*.stories.*'],
+        compilerOptions: {
+          declaration: true,
+          declarationDir: 'dist'
+        }
+      })],
     },
     {
       input: 'src/index.ts',
