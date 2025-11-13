@@ -14,23 +14,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          
       - uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'pnpm'
+          cache: 'npm'
           registry-url: 'https://npm.pkg.github.com'
           
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
         
       - name: Build packages
-        run: pnpm build
+        run: npm run build
         
       - name: Publish to GitHub Packages
-        run: pnpm publish --registry https://npm.pkg.github.com
+        run: npm publish --registry https://npm.pkg.github.com
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

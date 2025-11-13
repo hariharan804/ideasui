@@ -13,6 +13,9 @@
     },
     "lint": {
       "outputs": []
+    },
+    "type-check": {
+      "outputs": []
     }
   }
 }

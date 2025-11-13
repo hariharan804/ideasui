@@ -65,16 +65,16 @@ git clone <repo-url>
 cd my-component-lib
 
 # 2. Install dependencies
-pnpm install
+npm install
 
 # 3. Start development
-pnpm dev
+npm run dev
 
 # 4. Run playground
-pnpm playground
+npm run playground
 
 # 5. Build components
-pnpm build
+npm run build
 ```
 
 ## 📁 Recommended Folder Structure
@@ -89,8 +89,7 @@ my-component-lib/
 ├── docs/                   # Repository documentation
 ├── .github/
 │   └── workflows/          # CI/CD workflows
-├── pnpm-workspace.yaml     # Workspace configuration
-├── turbo.json              # Turborepo configuration
+├── package.json            # Workspace configuration
 └── .gitignore              # Git ignore rules
 ```
 

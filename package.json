@@ -1,7 +1,9 @@
 {
-  "name": "my-component-lib",
+  "name": "@your-org/ui",
   "version": "0.1.0",
-  "private": true,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "description": "Component library built with ShadCN/UI and Next.js",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -32,8 +34,8 @@
     "test:visual:ui": "playwright test tests/visual --ui",
     "test:a11y": "playwright test tests/accessibility",
     "test:cross-browser": "playwright test --project=chromium --project=firefox --project=webkit",
-    "playground": "pnpm --filter playground dev",
-    "docs": "pnpm --filter docs dev",
+    "playground": "npm run dev --workspace=playground",
+    "docs": "npm run dev --workspace=docs",
     "generate": "plop"
   },
   "lint-staged": {
@@ -45,7 +47,18 @@
       "path": "cz-conventional-changelog"
     }
   },
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "configs/*"
+  ],
+  "dependencies": {
+    "@mylib/button": "*"
+  },
   "devDependencies": {
+    "@rollup/plugin-typescript": "^11.0.0",
+    "rollup": "^4.0.0",
+    "rollup-plugin-dts": "^6.0.0",
     "turbo": "^1.10.0",
     "typescript": "^5.0.0",
     "@types/node": "^20.0.0",
@@ -85,5 +98,5 @@
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
-  "packageManager": "pnpm@8.0.0"
+
 }
