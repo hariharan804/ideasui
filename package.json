@@ -42,9 +42,9 @@
     "test:visual:ui": "playwright test tests/visual --ui",
     "test:a11y": "playwright test tests/accessibility",
     "test:cross-browser": "playwright test --project=chromium --project=firefox --project=webkit",
-    "playground": "npm run dev --workspace=playground",
     "docs": "npm run dev --workspace=docs",
     "docs:build": "npm run build --workspace=docs",
+    "playground": "npm run storybook --workspace=docs",
     "generate": "plop"
   },
   "lint-staged": {
