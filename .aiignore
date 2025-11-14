@@ -1,158 +1,33 @@
-
-
-
-
-
-docs:dev:  ✓ Ready in 57.6s
-docs:dev:  ○ Compiling / ...
-docs:dev:  ⚠ Lockfile was successfully patched, please run "npm install" to ensure @next/swc dependencies are downloadeddocs:dev:  ✓ Compiled / in 159.6s (2333 modules)
-docs:dev:  ✓ Compiled in 20.7s (2333 modules)
-docs:dev:  ⨯ Error: Cannot find module 'critters'
-docs:dev: Require stack:
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\apps\docs\.next\server\pages\_document.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\require.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\load-components.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\build\utils.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\dev\hot-middleware.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\dev\hot-reloader-webpack.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js        
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\lib\router-server.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\lib\start-server.js
-docs:dev:     at Function.<anonymous> (node:internal/modules/cjs/loader:1249:15)
-docs:dev:     at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\require-hook.js:55:36
-docs:dev:     at Function._load (node:internal/modules/cjs/loader:1075:27)
-docs:dev:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
-docs:dev:     at wrapModuleLoad (node:internal/modules/cjs/loader:219:24)
-docs:dev:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
-docs:dev:     at mod.require (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\require-hook.js:65:28)     
-docs:dev:     at require (node:internal/modules/helpers:138:16)
-docs:dev:     at Object.critters (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:6:19856)
-docs:dev:     at r (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:6:20380)
-docs:dev:     at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:6:15039
-docs:dev:     at u (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:6:15286)
-docs:dev:     at async e8 (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:28:329)
-docs:dev:     at async doRender (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:1414:30) 
-docs:dev:     at async cacheEntry.responseCache.get.routeKind (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:1588:28) {
-docs:dev:   code: 'MODULE_NOT_FOUND',
-docs:dev:   requireStack: [
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\compiled\\next-server\\pages.runtime.dev.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\apps\\docs\\.next\\server\\pages\\_document.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\require.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\load-components.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\build\\utils.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',  
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\lib\\router-server.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\lib\\start-server.js'
-docs:dev:   ],
-docs:dev:   page: '/'
-docs:dev: }
-docs:dev:  ○ Compiling /_error ...
-docs:dev:  ✓ Compiled /_error in 8.6s (2335 modules)
-docs:dev:  ⨯ TypeError: r(...) is not a constructor
-docs:dev:     at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:6:15035
-docs:dev:     at u (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:6:15286)
-docs:dev:     at async e8 (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:28:329)
-docs:dev:     at async doRender (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:1414:30) 
-docs:dev:     at async cacheEntry.responseCache.get.routeKind (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:1588:28)
-docs:dev:     at async DevServer.renderToResponseWithComponentsImpl (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:1496:28)
-docs:dev:     at async DevServer.renderErrorToResponseImpl (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:2182:24)
-docs:dev:     at async pipe.req.req (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:2056:30)
-docs:dev:     at async DevServer.pipeImpl (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:922:25)
-docs:dev:     at async NextNodeServer.handleCatchallRenderRequest (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\next-server.js:287:21)
-docs:dev:     at async DevServer.handleRequestImpl (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:818:17)
-docs:dev:     at async C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\dev\next-dev-server.js:339:20
-docs:dev:     at async Span.traceAsyncFn (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\trace\trace.js:154:20)docs:dev:     at async DevServer.handleRequest (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
-docs:dev:     at async invokeRender (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\lib\router-server.js:179:21)
-docs:dev:    automatically enabled Fast Refresh for 3 custom loaders
-docs:dev: Error: Cannot find module 'critters'
-docs:dev: Require stack:
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\apps\docs\.next\server\pages\_document.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\require.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\load-components.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\build\utils.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\dev\hot-middleware.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\dev\hot-reloader-webpack.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js        
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\lib\router-server.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\lib\start-server.js
-docs:dev:     at Function.<anonymous> (node:internal/modules/cjs/loader:1249:15)
-docs:dev:     at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\require-hook.js:55:36
-docs:dev:     at Function._load (node:internal/modules/cjs/loader:1075:27)
-docs:dev:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
-docs:dev:     at wrapModuleLoad (node:internal/modules/cjs/loader:219:24)
-docs:dev:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
-docs:dev:     at mod.require (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\require-hook.js:65:28)     
-docs:dev:     at require (node:internal/modules/helpers:138:16)
-docs:dev:     at Object.critters (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:6:19856)
-docs:dev:     at r (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:6:20380)
-docs:dev:     at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:6:15039
-docs:dev:     at u (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:6:15286)
-docs:dev:     at async e8 (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:28:329)
-docs:dev:     at async doRender (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:1414:30) 
-docs:dev:     at async cacheEntry.responseCache.get.routeKind (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:1588:28) {
-docs:dev:   code: 'MODULE_NOT_FOUND',
-docs:dev:   requireStack: [
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\compiled\\next-server\\pages.runtime.dev.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\apps\\docs\\.next\\server\\pages\\_document.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\require.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\load-components.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\build\\utils.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',        
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\lib\\router-server.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\lib\\start-server.js'
-docs:dev:   ],
-docs:dev:   page: '/'
-docs:dev: }
-docs:dev:  ⨯ TypeError: r(...) is not a constructor
-docs:dev:     at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:6:15035
-docs:dev:     at u (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:6:15286)
-docs:dev:     at async e8 (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\next-server\pages.runtime.dev.js:28:329)
-docs:dev:     at async doRender (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:1414:30) 
-docs:dev:     at async cacheEntry.responseCache.get.routeKind (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:1588:28)
-docs:dev:     at async DevServer.renderToResponseWithComponentsImpl (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:1496:28)
-docs:dev:     at async DevServer.renderErrorToResponseImpl (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:2182:24)
-docs:dev:     at async pipe.req.req (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:2056:30)
-docs:dev:     at async DevServer.pipeImpl (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:922:25)
-docs:dev:     at async C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\dev\next-dev-server.js:339:20     
-docs:dev:     at async Span.traceAsyncFn (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\trace\trace.js:154:20)docs:dev:     at async DevServer.handleRequest (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
-docs:dev:     at async invokeRender (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\lib\router-server.js:179:21)
-docs:dev:     at async requestHandlerImpl (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\lib\router-server.js:395:24)
-docs:dev:     at async Server.requestListener (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\lib\start-server.js:141:13)
-docs:dev: Error: Cannot find module 'critters'
-docs:dev: Require stack:
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\post-process.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\render.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\future\route-modules\pages\module.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\future\route-modules\pages\builtin\_error.js 
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\load-default-error-components.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\dev\next-dev-server.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\next.js
-docs:dev: - C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\lib\start-server.js
-docs:dev:     at Function.<anonymous> (node:internal/modules/cjs/loader:1249:15)
-docs:dev:     at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\require-hook.js:55:36
-docs:dev:     at Function._load (node:internal/modules/cjs/loader:1075:27)
-docs:dev:     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
-docs:dev:     at wrapModuleLoad (node:internal/modules/cjs/loader:219:24)
-docs:dev:     at Module.<anonymous> (node:internal/modules/cjs/loader:1340:12)
-docs:dev:     at mod.require (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\require-hook.js:65:28)     
-docs:dev:     at require (node:internal/modules/helpers:138:16)
-docs:dev:     at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\post-process.js:147:30
-docs:dev:     at postProcessHTML (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\post-process.js:165:29)docs:dev:     at async renderToHTMLImpl (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\render.js:1016:27)
-docs:dev:     at async doRender (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:1414:30) 
-docs:dev:     at async cacheEntry.responseCache.get.routeKind (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:1588:28)
-docs:dev:     at async DevServer.renderToResponseWithComponentsImpl (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:1496:28)
-docs:dev:     at async pipe.req.req (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\server\base-server.js:2056:30) {
-docs:dev:   code: 'MODULE_NOT_FOUND',
-docs:dev:   requireStack: [
-docs:dev:  GET / 500 in 204781ms
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\post-process.js',
-docs:dev:  GET / 500 in 333ms
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\render.js',
-docs:dev:     'C:\\Users\\Hari\\Documents\\yuva\\lib\\node_modules\\next\\dist\\server\\future\\route-modules\\pages\\module.js',
-docs:dev:     'C:\\Users\\Hari\\Doc
+@your-org/button:dev: bundles src/index.ts → dist/index.d.ts...
+@your-org/button:dev: (!) Unresolved dependencies
+@your-org/button:dev: https://rollupjs.org/troubleshooting/#warning-treating-module-as-external-dependency
+@your-org/button:dev: @/components/button (imported by "src/index.ts")
+@your-org/button:dev: created dist/index.d.ts in 23.4s
+@your-org/button:dev: 
+@your-org/button:dev: [2025-11-14 22:56:51] waiting for changes...
+@your-org/button:dev: bundles src/index.ts → dist/index.js, dist/index.esm.js...
+@your-org/button:dev: [!] RollupError: src/index.ts (1:38): Expected ',', got 'ButtonProps' (Note that you need plugins to import files that 
+are not JavaScript)
+@your-org/button:dev: src/index.ts (1:38)
+@your-org/button:dev: 1: export { Button, buttonVariants, type ButtonProps } from "./components/button"
+@your-org/button:dev:                                          ^
+@your-org/button:dev:     at Object.getRollupError (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\parseAst.js:285:41)     
+@your-org/button:dev:     at ParseError.initialise (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:16070:40)     
+@your-org/button:dev:     at convertNode (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:17953:10)
+@your-org/button:dev:     at convertProgram (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:17193:12)
+@your-org/button:dev:     at Module.setSource (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:18943:24)
+@your-org/button:dev:     at ModuleLoader.addModuleSource (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:22592:13)
+@your-org/button:dev:   [cause] RollupError: Expected ',', got 'ButtonProps'
+@your-org/button:dev:       at Object.getRollupError (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\parseAst.js:285:41)
+@your-org/button:dev:       at ParseError.initialise (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:16070:40)
+@your-org/button:dev:       at convertNode (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:17953:10)
+@your-org/button:dev:       at convertProgram (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:17193:12)
+@your-org/button:dev:       at Module.setSource (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:18943:24)        
+@your-org/button:dev:       at ModuleLoader.addModuleSource (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:22592:13)
+@your-org/button:dev: 
+@your-org/button:dev: 
+@your-org/button:dev: bundles src/index.ts → dist/index.d.ts...
+@your-org/button:dev: (!) Unresolved dependencies
+@your-org/button:dev: https://rollupjs.org/troubleshooting/#warning-treating-module-as-external-dependency
+@your-org/button:dev: class-variance-authority/types (imported by "src/components/button.tsx")
+@your-org/button:dev: created dist/index.d.ts in 8s
