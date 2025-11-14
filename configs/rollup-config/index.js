@@ -23,7 +23,10 @@ function createConfig(external = []) {
         exclude: ['src/**/*.test.*', 'src/**/*.spec.*', 'src/**/__tests__/**', 'src/**/*.stories.*'],
         compilerOptions: {
           declaration: true,
-          declarationDir: 'dist'
+          declarationDir: 'dist',
+          target: 'es2015',
+          module: 'esnext',
+          moduleResolution: 'node'
         }
       })],
     },

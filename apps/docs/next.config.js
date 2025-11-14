@@ -1,17 +1,6 @@
 const withNextra = require('nextra')({
   theme: 'nextra-theme-docs',
-  themeConfig: './theme.config.tsx',
-  latex: true,
-  search: {
-    codeblocks: false
-  },
-  defaultShowCopyCode: true
+  themeConfig: './theme.config.tsx'
 })
 
-module.exports = withNextra({
-  reactStrictMode: true,
-  swcMinify: true,
-  experimental: {
-    optimizeCss: true
-  }
-})
+module.exports = withNextra()
