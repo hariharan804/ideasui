@@ -44,6 +44,7 @@
     "test:cross-browser": "playwright test --project=chromium --project=firefox --project=webkit",
     "playground": "npm run dev --workspace=playground",
     "docs": "npm run dev --workspace=docs",
+    "docs:build": "npm run build --workspace=docs",
     "generate": "plop"
   },
   "lint-staged": {
