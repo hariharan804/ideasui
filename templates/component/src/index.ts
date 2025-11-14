@@ -1,2 +1,1 @@
-export { {{name}}, {{camelCase name}}Variants } from "@/components/{{kebabCase name}}"
-export type { {{name}}Props } from "@/components/{{kebabCase name}}"
+export { {{name}}, {{camelCase name}}Variants, type {{name}}Props } from "./{{kebabCase name}}"

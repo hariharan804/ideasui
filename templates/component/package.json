@@ -1,5 +1,5 @@
 {
-  "name": "@mylib/{{kebabCase name}}",
+  "name": "@your-org/{{kebabCase name}}",
   "version": "0.1.0",
   "description": "{{name}} component built with ShadCN/UI",
   "main": "./dist/index.js",
@@ -36,9 +36,9 @@
     "@rollup/plugin-typescript": "^11.0.0",
     "rollup-plugin-dts": "^6.0.0",
     "typescript": "^5.0.0",
-    "@i2l/eslint-config": "*",
-    "@i2l/jest-config": "*",
-    "@i2l/tailwind-config": "*",
-    "@i2l/tsconfig": "*"
+    "@your-org/eslint-config": "*",
+    "@your-org/jest-config": "*",
+    "@your-org/tailwind-config": "*",
+    "@your-org/tsconfig": "*"
   }
 }

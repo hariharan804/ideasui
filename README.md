@@ -37,6 +37,7 @@ function App() {
 - [🛠️ Development Setup](./docs/DEVELOPMENT_SETUP.md) - Local development guide
 - [🎮 Playground Setup](./docs/PLAYGROUND_SETUP.md) - Storybook configuration
 - [📝 Component Guidelines](./docs/COMPONENT_GUIDELINES.md) - Development standards
+- [🏷️ Naming Conventions](./docs/NAMING_CONVENTIONS.md) - Naming rules and cases
 - [🏗️ Build & Deployment](./docs/BUILD_DEPLOYMENT.md) - Release process
 - [🧪 Testing Strategy](./docs/TESTING_STRATEGY.md) - Quality assurance
 - [📖 API Documentation](./docs/API_DOCUMENTATION.md) - Component reference
