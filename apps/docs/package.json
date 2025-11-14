@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
-    "build": "next build",
-    "start": "next start",
+    "dev:docs": "next dev -p 3001",
+    "build:docs": "next build",
+    "start:docs": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
