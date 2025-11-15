@@ -1,81 +1,67 @@
-// packages/rollup-config/src/index.mjs
-import path from 'path';
-import typescript from '@rollup/plugin-typescript';
-import dts from 'rollup-plugin-dts';
-import alias from '@rollup/plugin-alias';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import typescript from '@rollup/plugin-typescript'
+import commonjs from '@rollup/plugin-commonjs'
+import { babel } from '@rollup/plugin-babel'
+import terser from '@rollup/plugin-terser'
+import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 
-/**
- * createConfig(optionsOrExternal)
- *
- * Usage:
- *   createConfig(['react', ...])                     // simple: pass externals array
- *   createConfig({ external: [...], extraExternals: [...] }) // object form
- */
-export function createConfig(opts = {}) {
-  // backward-compatible: allow passing array directly
-  const externalFromArg = Array.isArray(opts) ? opts : (opts.external || []);
-  const extraExternals = (opts.extraExternals || []).concat([
-    // add any common type-only subpath you want treated external by default
-    'class-variance-authority/types',
-  ]);
+const extensions = ['.js', '.jsx', '.ts', '.tsx']
+export function rollupConfig({ 
+  external = ['react', 'react-dom', 'react/jsx-runtime'], 
+  input = 'src/index.ts', 
+  output = [] 
+} = {}) {
+ 
+  return {
+    input,
+    output: [
+      {
+        file: 'dist/index.js',
+        format: 'cjs',
+        sourcemap: true,
+        exports: 'named',
+      },
+      {
+        file: 'dist/index.esm.js',
+        format: 'esm',
+        sourcemap: true,
+      },
+      ...output,
+    ],
+    external: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      ...external,
+    ],
+    plugins: [
+      // keep peerDepsExternal early
+      peerDepsExternal(),
 
-  const external = [
-    'react',
-    'react-dom',
-    'react/jsx-runtime',
-    ...externalFromArg,
-    ...extraExternals,
-  ];
+      // resolve node modules
+      nodeResolve({ extensions }),
 
-  // core config factory returned so consumer can call createConfig(...) or default export.
-  return [
-    {
-      input: 'src/index.ts',
-      output: [
-        { file: 'dist/index.js', format: 'cjs', sourcemap: true, exports: 'named' },
-        { file: 'dist/index.esm.js', format: 'esm', sourcemap: true },
-      ],
-      external,
-      plugins: [
-        // alias so '@' -> src inside consumer packages
-        alias({ entries: [{ find: '@', replacement: path.resolve(process.cwd(), 'src') }] }),
+      // convert commonjs -> esm
+      commonjs(),
 
-        // IMPORTANT: compile TypeScript BEFORE Rollup's parser sees code
-        // Use supported options for @rollup/plugin-typescript (no tsconfigOverride)
-        typescript({
-          tsconfig: './tsconfig.json',
-          compilerOptions: {
-            // we rely on rollup-plugin-dts to produce types
-            declaration: false,
-            declarationMap: false,
-            sourceMap: true,
-            // keep module/es target in tsconfig; overrides kept minimal
-          },
-          include: ['src/**/*'],
-          exclude: ['node_modules/**', 'dist/**'],
-        }),
+      // compile TS -> JS (without relying on it to produce final d.ts)
+      typescript({
+        tsconfig: './tsconfig.json',
+        // Let tsc/rollup-plugin-dts handle declarations; avoid multiple declaration emitters
+        declaration: false,
+        sourceMap: true,
+        exclude: ['**/*.stories.*', '**/*.test.*'],
+      }),
 
-        // resolve node modules AFTER TS step (ts plugin strips TS syntax)
-        nodeResolve({
-          extensions: ['.mjs', '.js', '.json', '.ts', '.tsx'],
-          browser: true,
-        }),
+      // Babel for final transpilation (if you need broader target support)
+      babel({
+        babelHelpers: 'bundled', // or 'runtime' if you use transform-runtime
+        extensions,
+        exclude: 'node_modules/**',
+      }),
 
-        // convert CJS -> ESM (run after typescript transform)
-        commonjs({ include: /node_modules/ }),
-      ],
-    },
-
-    // produce a single .d.ts bundle using rollup-plugin-dts
-    {
-      input: 'src/index.ts',
-      output: { file: 'dist/index.d.ts', format: 'esm' },
-      plugins: [dts()],
-    },
-  ];
+      // optional: minify (you can remove for library)
+      terser(),
+    ],
+  }
 }
-
-// default export (helps `import createConfig from '@i2l/rollup-config'` style)
-export default createConfig;
