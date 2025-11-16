@@ -30,21 +30,30 @@ module.exports = function (plop) {
       },
       {
         type: 'add',
-        path: 'apps/playground/src/components/{{kebabCase name}}.tsx',
+        path: 'apps/playground/components/{{kebabCase name}}.tsx',
         templateFile: 'templates/example/compoent.hbs',
+        skipIfExists: true,
       },
+      // {
+      //   type: 'add',
+      //   path: 'apps/playground/app/components/{{pascalCase name}}.tsx',
+      //   templateFile: 'templates/example/compoent.hbs',
+      //   skipIfExists: true,
+      // },
       {
         type: 'append',
-        path: 'apps/playground/src/components/example.tsx',
+        path: 'apps/playground/components/example.tsx',
         pattern: /\/\/ ### APPEND COMPONENT HERE ###/,
         templateFile: 'templates/example/example.hbs',
+        skipIfExists: true,
       },
       {
         type: 'append',
-        path: 'apps/playground/src/components/example.tsx',
+        path: 'apps/playground/components/example.tsx',
         pattern: /\/\/ ### IMPORT COMPONENT HERE ###/,
         template:
-          "import {{pascalCase name}}Preview from '../{{pascalCase name}}';",
+          "import {{pascalCase name}}Preview from './{{kebabCase name}}';",
+        skipIfExists: true,
       },
       function (data) {
         return `✅ Component created: packages/${plop.getHelper('kebabCase')(data.name)}/`
