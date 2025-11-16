@@ -42,7 +42,7 @@
     "docs": "npm run dev --workspace=docs",
     "docs:build": "npm run build --workspace=docs",
     "playground": "npm run storybook --workspace=docs",
-    "generate": "plop",
+    "create": "plop",
     "check-naming": "node scripts/check-naming.js"
   },
   "lint-staged": {
