@@ -1,5 +1,5 @@
 import DynamicPlayground from '../../components/dynamic-playground'
 
-export default function ComponentsPage() {
+export default function DynamicComponentsPage() {
   return <DynamicPlayground />
 }

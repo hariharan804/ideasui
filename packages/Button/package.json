@@ -5,17 +5,16 @@
   },
   "version": "0.1.0",
   "description": "Button component built with ShadCN/UI",
+  "type": "module",
   "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.js"
-    },
+    ".": "./dist/index.js",
     "./package.json": "./package.json"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

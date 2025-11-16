@@ -12,6 +12,7 @@
     "@your-org/button": "*",
     "next": "16.0.3",
     "react": "19.2.0",
+    "@i2l/tailwind-config": "*",
     "react-dom": "19.2.0"
   },
   "devDependencies": {

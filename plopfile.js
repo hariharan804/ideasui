@@ -1,11 +1,9 @@
 module.exports = function (plop) {
   // Add custom helpers
   plop.setHelper('kebabCase', (text) => {
-    return text
-      .replace(/([a-z])([A-Z])/g, '$1-$2')
-      .toLowerCase()
+    return text.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
   })
-  
+
   plop.setGenerator('component', {
     description: 'Create a new component package following naming conventions',
     prompts: [
@@ -19,8 +17,8 @@ module.exports = function (plop) {
             return 'Must be PascalCase (e.g., Button, InputField, DatePicker)'
           }
           return true
-        }
-      }
+        },
+      },
     ],
     actions: [
       {
@@ -28,7 +26,25 @@ module.exports = function (plop) {
         destination: 'packages/{{kebabCase name}}/',
         base: 'templates/component/',
         templateFiles: 'templates/component/**/*',
-        skipIfExists: true
+        skipIfExists: true,
+      },
+      {
+        type: 'add',
+        path: 'apps/playground/src/components/{{kebabCase name}}.tsx',
+        templateFile: 'templates/example/compoent.hbs',
+      },
+      {
+        type: 'append',
+        path: 'apps/playground/src/components/example.tsx',
+        pattern: /\/\/ ### APPEND COMPONENT HERE ###/,
+        templateFile: 'templates/example/example.hbs',
+      },
+      {
+        type: 'append',
+        path: 'apps/playground/src/components/example.tsx',
+        pattern: /\/\/ ### IMPORT COMPONENT HERE ###/,
+        template:
+          "import {{pascalCase name}}Preview from '../{{pascalCase name}}';",
       },
       function (data) {
         return `✅ Component created: packages/${plop.getHelper('kebabCase')(data.name)}/`
@@ -40,14 +56,14 @@ module.exports = function (plop) {
         return `🧩 Component: ${data.name}`
       },
       function () {
-        return '\n🚀 Next steps:';
+        return '\n🚀 Next steps:'
       },
       function (data) {
         return `   npm run dev --workspace=packages/${plop.getHelper('kebabCase')(data.name)}`
       },
       function () {
         return '   npm run check-naming  # Verify naming conventions'
-      }
-    ]
+      },
+    ],
   })
 }

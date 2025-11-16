@@ -1,7 +1,7 @@
 {
   "name": "@your-org/{{kebabCase name}}",
-  "version": "0.1.0",
-  "description": "{{name}} component built with ShadCN/UI",
+  "version": "0.0.0",
+  "description": "{{sentenceCase name}} component",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
@@ -12,33 +12,29 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c --watch",
+    "build": "tsup",
+    "dev": "tsup --watch",
     "test": "jest",
-    "lint": "eslint src --ext .ts,.tsx"
+    "lint": "eslint src --ext .ts,.tsx --cache"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.0.2",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.0.0",
-    "tailwind-merge": "^2.0.0"
+    "@i2l/lib": "*"
   },
   "devDependencies": {
+    "@i2l/eslint-config": "*",
+    "@i2l/jest-config": "*",
+    "@i2l/tsup-config": "*",
+    "@i2l/tsconfig": "*",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "rollup": "^4.0.0",
-    "@rollup/plugin-typescript": "^11.0.0",
-    "rollup-plugin-dts": "^6.0.0",
-    "typescript": "^5.0.0",
-    "@your-org/eslint-config": "*",
-    "@your-org/jest-config": "*",
-    "@your-org/tailwind-config": "*",
-    "@your-org/tsconfig": "*"
+    "typescript": "^5.9.3"
   }
 }

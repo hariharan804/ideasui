@@ -20,24 +20,31 @@ export const componentRegistry: Record<string, ComponentConfig> = {
     props: {
       variant: {
         type: 'select',
-        options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
+        options: [
+          'default',
+          'destructive',
+          'outline',
+          'secondary',
+          'ghost',
+          'link',
+        ],
         defaultValue: 'default',
-        label: 'Variant'
+        label: 'Variant',
       },
       size: {
         type: 'select',
         options: ['default', 'sm', 'lg', 'icon'],
         defaultValue: 'default',
-        label: 'Size'
+        label: 'Size',
       },
       disabled: {
         type: 'boolean',
         defaultValue: false,
-        label: 'Disabled'
-      }
+        label: 'Disabled',
+      },
     },
-    defaultChildren: 'Click Me'
-  }
+    defaultChildren: 'Click Me',
+  },
 }
 
 export const getComponentNames = () => Object.keys(componentRegistry)

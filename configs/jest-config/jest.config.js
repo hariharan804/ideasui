@@ -1,4 +1,5 @@
 module.exports = {
+  setupFilesAfterEnv: ['<rootDir>/../../configs/jest-config/jest.setup.js'],
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   roots: ['<rootDir>'],
@@ -38,5 +39,4 @@ module.exports = {
       statements: 0,
     },
   },
-  setupFilesAfterEnv: ['<rootDir>/../../configs/jest-config/jest.setup.js'],
 };
