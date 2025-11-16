@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image'
 
 export default function Home() {
   return (
@@ -17,20 +17,20 @@ export default function Home() {
             To get started, edit the page.tsx file.
           </h1>
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
+            Looking for a starting point or more instructions? Head over to{' '}
             <a
               href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
               className="font-medium text-zinc-950 dark:text-zinc-50"
             >
               Templates
-            </a>{" "}
-            or the{" "}
+            </a>{' '}
+            or the{' '}
             <a
               href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
               className="font-medium text-zinc-950 dark:text-zinc-50"
             >
               Learning
-            </a>{" "}
+            </a>{' '}
             center.
           </p>
         </div>
@@ -43,15 +43,9 @@ export default function Home() {
           </a>
           <a
             className="flex h-12 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 px-5 text-white transition-all hover:from-blue-600 hover:to-cyan-600 transform hover:scale-105"
-            href="/components"
+            href="/playground"
           >
             🎮 Playground
-          </a>
-          <a
-            className="flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-green-500 to-emerald-500 px-5 text-white transition-all hover:from-green-600 hover:to-emerald-600 transform hover:scale-105"
-            href="/storybook"
-          >
-            📚 Stories
           </a>
           <a
             className="flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-red-500 px-5 text-white transition-all hover:from-orange-600 hover:to-red-600 transform hover:scale-105"
@@ -62,5 +56,5 @@ export default function Home() {
         </div>
       </main>
     </div>
-  );
+  )
 }
