@@ -5,9 +5,6 @@
     "registry": "https://npm.pkg.github.com"
   },
   "description": "Component library built with ShadCN/UI and Next.js",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
