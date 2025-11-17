@@ -3,7 +3,8 @@ import { Button } from '@your-org/button'
 import React from 'react'
 
 // ### IMPORT COMPONENT HERE ###
-import ButtonPreview from './button';
+import LibPreview from './lib';
+import ButtonPreview from './button'
 // import SelectPreview from '../Select';
 // import { Button, HeroUIProvider } from '@heroui/react';
 // import HooksPreview from '../Hooks';
@@ -24,10 +25,15 @@ interface componentListProps {
 const COMPONENT_LIST: componentListProps[] = [
   //
   // ### APPEND COMPONENT HERE ###
-    {
-      name: 'Button',
-      component: <ButtonPreview />,
-    },
+
+{
+  name: 'Lib',
+  component: <LibPreview />,
+},
+  {
+    name: 'Button',
+    component: <ButtonPreview />,
+  },
   //   {
   //     name: 'Hooks',
   //     component: <HooksPreview />,
@@ -59,7 +65,7 @@ const COMPONENT_LIST: componentListProps[] = [
   //
 ]
 
-function Example({ type = 'Next.js' }) {
+function Example() {
   const [component, setComponent] = React.useState<componentListProps>({
     name: '',
     component: <></>,
@@ -108,10 +114,10 @@ function Example({ type = 'Next.js' }) {
       <>
         <div style={{ maxWidth: '100%', minHeight: '100%' }}>
           <div className="flex flex-row items-center justify-between bg-color-surfaceContainerHighest px-4 py-2 font-bold">
-            {type}
+            <div />
             <Button
               size="sm"
-              onPress={toggleTheme}
+              onClick={toggleTheme}
               className="rounded-md bg-color-onSurfaceVariant px-4 py-2 text-color-surfaceVariant"
             >
               {theme === 'dark' ? 'Dark' : 'Light'} Mode

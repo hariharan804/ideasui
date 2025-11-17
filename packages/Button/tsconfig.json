@@ -10,6 +10,13 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["dist", "node_modules", "**/*.test.*", "**/*.spec.*", "**/__tests__/**", "**/*.stories.*"]
+  "include": ["src/**/*", "src/button.tsx"],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/__tests__/**",
+    "**/*.stories.*"
+  ]
 }

@@ -31,6 +31,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
     "type-check": "turbo run type-check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -42,9 +43,6 @@
     "test:visual:ui": "playwright test tests/visual --ui",
     "test:a11y": "playwright test tests/accessibility",
     "test:cross-browser": "playwright test --project=chromium --project=firefox --project=webkit",
-    "docs": "npm run dev --workspace=docs",
-    "docs:build": "npm run build --workspace=docs",
-    "playground": "npm run storybook --workspace=docs",
     "create": "plop",
     "check-naming": "node scripts/check-naming.js"
   },

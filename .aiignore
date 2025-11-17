@@ -1,33 +1,129 @@
-@your-org/button:dev: bundles src/index.ts → dist/index.d.ts...
-@your-org/button:dev: (!) Unresolved dependencies
-@your-org/button:dev: https://rollupjs.org/troubleshooting/#warning-treating-module-as-external-dependency
-@your-org/button:dev: @/components/button (imported by "src/index.ts")
-@your-org/button:dev: created dist/index.d.ts in 23.4s
-@your-org/button:dev: 
-@your-org/button:dev: [2025-11-14 22:56:51] waiting for changes...
-@your-org/button:dev: bundles src/index.ts → dist/index.js, dist/index.esm.js...
-@your-org/button:dev: [!] RollupError: src/index.ts (1:38): Expected ',', got 'ButtonProps' (Note that you need plugins to import files that 
-are not JavaScript)
-@your-org/button:dev: src/index.ts (1:38)
-@your-org/button:dev: 1: export { Button, buttonVariants, type ButtonProps } from "./components/button"
-@your-org/button:dev:                                          ^
-@your-org/button:dev:     at Object.getRollupError (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\parseAst.js:285:41)     
-@your-org/button:dev:     at ParseError.initialise (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:16070:40)     
-@your-org/button:dev:     at convertNode (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:17953:10)
-@your-org/button:dev:     at convertProgram (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:17193:12)
-@your-org/button:dev:     at Module.setSource (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:18943:24)
-@your-org/button:dev:     at ModuleLoader.addModuleSource (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:22592:13)
-@your-org/button:dev:   [cause] RollupError: Expected ',', got 'ButtonProps'
-@your-org/button:dev:       at Object.getRollupError (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\parseAst.js:285:41)
-@your-org/button:dev:       at ParseError.initialise (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:16070:40)
-@your-org/button:dev:       at convertNode (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:17953:10)
-@your-org/button:dev:       at convertProgram (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:17193:12)
-@your-org/button:dev:       at Module.setSource (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:18943:24)        
-@your-org/button:dev:       at ModuleLoader.addModuleSource (C:\Users\Hari\Documents\yuva\lib\node_modules\rollup\dist\shared\rollup.js:22592:13)
-@your-org/button:dev: 
-@your-org/button:dev: 
-@your-org/button:dev: bundles src/index.ts → dist/index.d.ts...
-@your-org/button:dev: (!) Unresolved dependencies
-@your-org/button:dev: https://rollupjs.org/troubleshooting/#warning-treating-module-as-external-dependency
-@your-org/button:dev: class-variance-authority/types (imported by "src/components/button.tsx")
-@your-org/button:dev: created dist/index.d.ts in 8s
+info => Using default Webpack5 setup
+<i> [webpack-dev-middleware] wait until bundle finished
+ERROR in main
+Module not found: TypeError: Cannot read properties of undefined (reading 'tap')
+
+ERROR in Module not found: TypeError: Cannot read properties of undefined (reading 'tap')
+
+ERROR in main
+Module not found: TypeError: Cannot read properties of undefined (reading 'tap')
+
+ERROR in   Error: Child compilation failed:
+  Module not found: TypeError: Cannot read properties of undefined (reading 'tap')
+  ModuleNotFoundError: Module not found: TypeError: Cannot read properties of undefined (reading 'tap')
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:89080
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:419627
+      at eval (eval at create (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:13:28  858), <anonymous>:10:1)
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:413352
+      at eval (eval at create (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:13:28  858), <anonymous>:9:1)
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:417533
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:410919
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:417752
+      at NormalModuleFactory.resolveRequestArray (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpa  ck\bundle5.js:28:422676)
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:417694
+  Module not found: TypeError: Cannot read properties of undefined (reading 'tap')
+  ModuleNotFoundError: Module not found: TypeError: Cannot read properties of undefined (reading 'tap')
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:89080
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:419627
+      at eval (eval at create (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:13:28  858), <anonymous>:10:1)
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:413352
+      at eval (eval at create (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:13:28  858), <anonymous>:9:1)
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:417533
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:410919
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:417752
+      at NormalModuleFactory.resolveRequestArray (C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpa  ck\bundle5.js:28:422676)
+      at C:\Users\Hari\Documents\yuva\lib\node_modules\next\dist\compiled\webpack\bundle5.js:28:417694
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:89080
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:419627
+
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:413352
+
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:417533
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:410919
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:417752
+
+  - bundle5.js:28 NormalModuleFactory.resolveRequestArray
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:422676
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:417694
+
+  - Module not found: TypeError: Cannot read properties of undefined (reading 'tap')
+
+  - ModuleNotFoundError: Module not found: TypeError: Cannot read properties of undefined (reading 'tap')
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:89080
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:419627
+
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:413352
+
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:417533
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:410919
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:417752
+
+  - bundle5.js:28 NormalModuleFactory.resolveRequestArray
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:422676
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:417694
+
+  - child-compiler.js:211
+    [lib]/[html-webpack-plugin]/lib/child-compiler.js:211:18
+
+  - bundle5.js:28 finalCallback
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:141064
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:141493
+
+  - bundle5.js:28
+    [lib]/[next]/dist/compiled/webpack/bundle5.js:28:149262
+
+
+  - task_queues:105 process.processTicksAndRejections
+    node:internal/process/task_queues:105:5
+
+
+
+2 ERRORS in child compilations (Use 'stats.children: true' resp. '--stats-children' for more details)
+preview compiled with 6 errors
+=> Failed to build the preview
+99% end closing watch compilationWARN Force closed preview build
+SB_BUILDER-WEBPACK5_0003 (WebpackCompilationError): There were problems when compiling your code with Webpack.
+Run Storybook with --debug-webpack for more information.
+    at starter (.\node_modules\@storybook\builder-webpack5\dist\index.js:1:24163)
+    at starter.next (<anonymous>)
+    at Module.start (.\node_modules\@storybook\builder-webpack5\dist\index.js:1:26142)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async storybookDevServer (.\node_modules\@storybook\core\dist\core-server\index.cjs:36423:79)
+    at async buildOrThrow (.\node_modules\@storybook\core\dist\core-server\index.cjs:35049:12)
+    at async buildDevStandalone (.\node_modules\@storybook\core\dist\core-server\index.cjs:37628:78)
+    at async withTelemetry (.\node_modules\@storybook\core\dist\core-server\index.cjs:35788:12)
+    at async dev (.\node_modules\@storybook\core\dist\cli\bin\index.cjs:5874:3)
+    at async s.<anonymous> (.\node_modules\@storybook\core\dist\cli\bin\index.cjs:6052:74)
+
+WARN Broken build, fix the error above.
+WARN You may need to refresh the browser.
