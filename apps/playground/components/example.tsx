@@ -3,7 +3,7 @@ import { Button } from '@your-org/button'
 import React from 'react'
 
 // ### IMPORT COMPONENT HERE ###
-import LibPreview from './lib';
+import LibPreview from './lib'
 import ButtonPreview from './button'
 // import SelectPreview from '../Select';
 // import { Button, HeroUIProvider } from '@heroui/react';
@@ -26,13 +26,14 @@ const COMPONENT_LIST: componentListProps[] = [
   //
   // ### APPEND COMPONENT HERE ###
 
-{
-  name: 'Lib',
-  component: <LibPreview />,
-},
   {
     name: 'Button',
     component: <ButtonPreview />,
+  },
+
+  {
+    name: 'Lib',
+    component: <LibPreview />,
   },
   //   {
   //     name: 'Hooks',
