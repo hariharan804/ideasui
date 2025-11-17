@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/react'
+import type { Preview } from '@storybook/react-vite'
 // import '../apps/playground/app/globals.css'
 import '../app/globals.css'
 
@@ -15,7 +15,7 @@ const preview: Preview = {
       toc: true,
     },
     viewport: {
-      viewports: {
+      options: {
         mobile: {
           name: 'Mobile',
           styles: {
