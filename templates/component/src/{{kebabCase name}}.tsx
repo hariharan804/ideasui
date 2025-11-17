@@ -10,7 +10,7 @@ const {{pascalCase name}} = forwardRef<HTMLDivElement, {{pascalCase name}}Props>
         className={cn({{camelCase name}}, className)}
         ref={ref}
         {...rest}
-      />
+      >{{camelCase name}} Change here</div>
     )
   }
 )
