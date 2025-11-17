@@ -1,1 +1,2 @@
-export { {{name}}, {{camelCase name}}Variants, type {{name}}Props } from "./{{kebabCase name}}"
+export { {{name}} } from "./{{kebabCase name}}"
+export type {{name}}Props from "./type"
