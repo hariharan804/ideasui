@@ -1,5 +1,4 @@
 'use client'
-import { Button } from '@your-org/button'
 import React from 'react'
 
 // ### IMPORT COMPONENT HERE ###

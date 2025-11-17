@@ -1,10 +1,7 @@
-import React from 'react';
-import Lib from '@i2l_dev/lib';
+import React from 'react'
 
-const LibPreview = () =>{
-  return (
-    <Lib />
-  )
+const LibPreview = () => {
+  return <h1>Lib</h1>
 }
 
-export default LibPreview;
+export default LibPreview

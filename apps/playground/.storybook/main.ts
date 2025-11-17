@@ -4,8 +4,8 @@ import path from 'path'
 
 const config: StorybookConfig = {
   stories: [
-    '../packages/*/src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '../apps/*/stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'
+    '../**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../../../packages/button/src/stories/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
     '@storybook/addon-essentials',
@@ -13,25 +13,25 @@ const config: StorybookConfig = {
     '@storybook/addon-viewport',
     '@storybook/addon-controls',
     '@storybook/addon-actions',
-    '@storybook/addon-docs'
+    '@storybook/addon-docs',
   ],
   framework: {
     name: '@storybook/react-vite',
-    options: {}
+    options: {},
   },
   typescript: {
     check: false,
-    reactDocgen: 'react-docgen-typescript'
+    reactDocgen: 'react-docgen-typescript',
   },
   async viteFinal(config) {
     return mergeConfig(config, {
       resolve: {
         alias: {
-          '@': path.resolve(__dirname, '../packages')
-        }
-      }
+          '@': path.resolve(__dirname, '../packages'),
+        },
+      },
     })
-  }
+  },
 }
 
 export default config

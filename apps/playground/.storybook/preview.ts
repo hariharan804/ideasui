@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react'
-import '../configs/tailwind-config/theme.css'
+// import '../apps/playground/app/globals.css'
+import '../app/globals.css'
 
 const preview: Preview = {
   parameters: {

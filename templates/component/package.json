@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "description": "{{sentenceCase name}} component",
   "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "exports": {
+   "exports": {
     ".": {
-      "import": "./dist/index.esm.js",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     }
@@ -15,6 +15,7 @@
   "files": [
     "dist"
   ],
+  "sideEffects": false
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

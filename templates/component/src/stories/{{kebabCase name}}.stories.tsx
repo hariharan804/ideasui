@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { {{name}} } from '@/components/{{kebabCase name}}'
+import { {{name}} } from '../index'
 
 const meta: Meta<typeof {{name}}> = {
   title: 'Components/{{name}}',
@@ -8,16 +8,6 @@ const meta: Meta<typeof {{name}}> = {
     layout: 'centered'
   },
   tags: ['autodocs'],
-  argTypes: {
-    variant: {
-      control: { type: 'select' },
-      options: ['default', 'secondary']
-    },
-    size: {
-      control: { type: 'select' },
-      options: ['default', 'sm', 'lg']
-    }
-  }
 }
 
 export default meta
@@ -32,8 +22,8 @@ export const Default: Story = {
 export const Variants: Story = {
   render: () => (
     <div className="flex gap-2">
-      <{{name}} variant="default">Default</{{name}}>
-      <{{name}} variant="secondary">Secondary</{{name}}>
+      <{{name}}>Default</{{name}}>
+      <{{name}}>Secondary</{{name}}>
     </div>
   )
 }

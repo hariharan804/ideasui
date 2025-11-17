@@ -1,204 +1,157 @@
+'use client'
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cva } from 'class-variance-authority'
 import { cn } from './lib/utils'
-import { ButtonProps } from './type'
 import { useRipple } from './ripple'
+import { ButtonProps } from './type'
 
-const buttonVariants = cva(
+/* ---------------------------- VARIANTS ---------------------------- */
+
+export const buttonVariants = cva(
   'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
         solid: '',
-        outline: 'border-2 bg-transparent',
+        outline: 'border bg-transparent',
         ghost: 'bg-transparent',
-        link: 'underline-offset-4 hover:underline bg-transparent',
+        link: 'underline-offset-4 hover:underline bg-transparent p-0 h-auto',
       },
       color: {
-        primary: '',
-        secondary: '',
-        success: '',
-        warning: '',
-        danger: '',
-        info: '',
-        gray: '',
+        primary: 'text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800',
+        secondary:
+          'text-white bg-gray-600 hover:bg-gray-700 active:bg-gray-800',
+        success:
+          'text-white bg-green-600 hover:bg-green-700 active:bg-green-800',
+        warning:
+          'text-white bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700',
+        danger: 'text-white bg-red-600 hover:bg-red-700 active:bg-red-800',
+        info: 'text-white bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800',
+        gray: 'text-gray-900 bg-gray-100 hover:bg-gray-200 active:bg-gray-300',
       },
       size: {
         xs: 'h-7 px-2 text-xs',
         sm: 'h-8 px-3 text-sm',
-        default: 'h-10 px-4 py-2',
+        md: 'h-10 px-4',
         lg: 'h-12 px-6 text-lg',
         xl: 'h-14 px-8 text-xl',
-        icon: 'h-10 w-10',
-      },
-      loading: {
-        true: 'cursor-not-allowed',
-        false: '',
+        icon: 'h-10 w-10 p-0',
       },
       fullWidth: {
         true: 'w-full',
-        false: '',
+      },
+      loading: {
+        true: 'cursor-not-allowed opacity-90',
       },
     },
     defaultVariants: {
       variant: 'solid',
       color: 'primary',
-      size: 'default',
-      loading: false,
+      size: 'md',
       fullWidth: false,
+      loading: false,
     },
-    compoundVariants: [
-      // Solid variants
-      { variant: 'solid', color: 'primary', class: 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800' },
-      { variant: 'solid', color: 'secondary', class: 'bg-gray-600 text-white hover:bg-gray-700 active:bg-gray-800' },
-      { variant: 'solid', color: 'success', class: 'bg-green-600 text-white hover:bg-green-700 active:bg-green-800' },
-      { variant: 'solid', color: 'warning', class: 'bg-yellow-500 text-white hover:bg-yellow-600 active:bg-yellow-700' },
-      { variant: 'solid', color: 'danger', class: 'bg-red-600 text-white hover:bg-red-700 active:bg-red-800' },
-      { variant: 'solid', color: 'info', class: 'bg-cyan-600 text-white hover:bg-cyan-700 active:bg-cyan-800' },
-      { variant: 'solid', color: 'gray', class: 'bg-gray-100 text-gray-900 hover:bg-gray-200 active:bg-gray-300' },
-      
-      // Outline variants
-      { variant: 'outline', color: 'primary', class: 'border-blue-600 text-blue-600 hover:bg-blue-50 active:bg-blue-100' },
-      { variant: 'outline', color: 'secondary', class: 'border-gray-600 text-gray-600 hover:bg-gray-50 active:bg-gray-100' },
-      { variant: 'outline', color: 'success', class: 'border-green-600 text-green-600 hover:bg-green-50 active:bg-green-100' },
-      { variant: 'outline', color: 'warning', class: 'border-yellow-500 text-yellow-600 hover:bg-yellow-50 active:bg-yellow-100' },
-      { variant: 'outline', color: 'danger', class: 'border-red-600 text-red-600 hover:bg-red-50 active:bg-red-100' },
-      { variant: 'outline', color: 'info', class: 'border-cyan-600 text-cyan-600 hover:bg-cyan-50 active:bg-cyan-100' },
-      { variant: 'outline', color: 'gray', class: 'border-gray-300 text-gray-700 hover:bg-gray-50 active:bg-gray-100' },
-      
-      // Ghost variants
-      { variant: 'ghost', color: 'primary', class: 'text-blue-600 hover:bg-blue-50 active:bg-blue-100' },
-      { variant: 'ghost', color: 'secondary', class: 'text-gray-600 hover:bg-gray-50 active:bg-gray-100' },
-      { variant: 'ghost', color: 'success', class: 'text-green-600 hover:bg-green-50 active:bg-green-100' },
-      { variant: 'ghost', color: 'warning', class: 'text-yellow-600 hover:bg-yellow-50 active:bg-yellow-100' },
-      { variant: 'ghost', color: 'danger', class: 'text-red-600 hover:bg-red-50 active:bg-red-100' },
-      { variant: 'ghost', color: 'info', class: 'text-cyan-600 hover:bg-cyan-50 active:bg-cyan-100' },
-      { variant: 'ghost', color: 'gray', class: 'text-gray-600 hover:bg-gray-50 active:bg-gray-100' },
-      
-      // Link variants
-      { variant: 'link', color: 'primary', class: 'text-blue-600 hover:text-blue-700' },
-      { variant: 'link', color: 'secondary', class: 'text-gray-600 hover:text-gray-700' },
-      { variant: 'link', color: 'success', class: 'text-green-600 hover:text-green-700' },
-      { variant: 'link', color: 'warning', class: 'text-yellow-600 hover:text-yellow-700' },
-      { variant: 'link', color: 'danger', class: 'text-red-600 hover:text-red-700' },
-      { variant: 'link', color: 'info', class: 'text-cyan-600 hover:text-cyan-700' },
-      { variant: 'link', color: 'gray', class: 'text-gray-600 hover:text-gray-700' },
-    ],
   }
 )
 
-const LoadingSpinner = ({ size = 'default', className }: { size?: string; className?: string }) => {
-  const spinnerSize =
-    {
-      xs: 'h-3 w-3',
-      sm: 'h-3 w-3',
-      default: 'h-4 w-4',
-      lg: 'h-5 w-5',
-      xl: 'h-6 w-6',
-      icon: 'h-4 w-4',
-    }[size] || 'h-4 w-4'
+/* ---------------------------- SPINNER ---------------------------- */
 
-  return (
-    <svg
-      className={cn('animate-spin', spinnerSize, className)}
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <circle
-        className="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        strokeWidth="4"
-      />
-      <path
-        className="opacity-75"
-        fill="currentColor"
-        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-      />
-    </svg>
-  )
+const spinnerSizeMap: Record<string, string> = {
+  xs: 'h-3 w-3',
+  sm: 'h-3 w-3',
+  md: 'h-4 w-4',
+  lg: 'h-5 w-5',
+  xl: 'h-6 w-6',
+  icon: 'h-4 w-4',
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const LoadingSpinner = ({ size }: { size: string }) => (
+  <svg
+    className={cn('animate-spin', spinnerSizeMap[size] || 'h-4 w-4')}
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <circle
+      className="opacity-25"
+      cx="12"
+      cy="12"
+      r="10"
+      stroke="currentColor"
+      strokeWidth="4"
+    />
+    <path
+      className="opacity-75"
+      fill="currentColor"
+      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+    />
+  </svg>
+)
+
+/* ---------------------------- BUTTON ---------------------------- */
+
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
+      asChild = false,
+      children,
       className,
       classNames,
-      variant,
-      color,
-      size,
-      asChild = false,
-      loading = false,
-      loadingText,
-      fullWidth = false,
       leftIcon,
       rightIcon,
-      children,
-      disabled,
+      loading = false,
+      loadingText,
+      fullWidth,
       ripple = false,
       onClick,
-      ...props
+      size = 'md',
+      color,
+      disabled,
+      ...rest
     },
     ref
   ) => {
-    const Comp = asChild ? Slot : 'button'
+    const Component = asChild ? Slot : 'button'
     const isDisabled = disabled || loading
     const { addRipple, rippleElements } = useRipple(ripple && !isDisabled)
-    
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      if (ripple && !isDisabled) {
-        addRipple(event)
-      }
-      onClick?.(event)
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (ripple) addRipple(e)
+      onClick?.(e)
     }
 
     return (
-      <Comp
-        className={cn(
-          buttonVariants({ variant, color, size, loading, fullWidth }),
-          ripple && 'relative overflow-hidden',
-          className,
-          classNames?.root
-        )}
+      <Component
         ref={ref}
         disabled={isDisabled}
         aria-disabled={isDisabled}
         onClick={handleClick}
-        {...props}
+        className={cn(
+          buttonVariants({ size, fullWidth, loading, color }),
+          className,
+          ripple && 'relative overflow-hidden'
+        )}
+        {...rest}
       >
-        {loading && (
-          <LoadingSpinner 
-            size={size || 'default'} 
-            className={classNames?.spinner}
-          />
+        {loading ? (
+          <LoadingSpinner size={size as any} />
+        ) : (
+          leftIcon && <span className="mr-2 flex-shrink-0">{leftIcon}</span>
         )}
-        {!loading && leftIcon && (
-          <span className={cn('mr-2 flex-shrink-0', classNames?.leftIcon)}>
-            {leftIcon}
-          </span>
-        )}
-        <span className={cn(
-          loading && 'ml-2',
-          classNames?.content,
-          loading && loadingText && classNames?.loadingText
-        )}>
+
+        <span className={loading ? 'ml-2' : ''}>
           {loading && loadingText ? loadingText : children}
         </span>
+
         {!loading && rightIcon && (
-          <span className={cn('ml-2 flex-shrink-0', classNames?.rightIcon)}>
-            {rightIcon}
-          </span>
+          <span className="ml-2 flex-shrink-0">{rightIcon}</span>
         )}
+
         {ripple && rippleElements}
-      </Comp>
+      </Component>
     )
   }
 )
-Button.displayName = 'Button'
 
-export { Button, buttonVariants, type ButtonProps }
-export { Ripple, useRipple } from './ripple'
+Button.displayName = 'Button'
