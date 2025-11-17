@@ -1,5 +1,5 @@
 import { Button } from '@your-org/button'
 
-export default function ButtonComponent() {
+export default function ButtonPreview() {
   return <Button />
 }

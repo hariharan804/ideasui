@@ -3,6 +3,7 @@ import { Button } from '@your-org/button'
 import React from 'react'
 
 // ### IMPORT COMPONENT HERE ###
+import ButtonPreview from './button';
 // import SelectPreview from '../Select';
 // import { Button, HeroUIProvider } from '@heroui/react';
 // import HooksPreview from '../Hooks';
@@ -23,10 +24,10 @@ interface componentListProps {
 const COMPONENT_LIST: componentListProps[] = [
   //
   // ### APPEND COMPONENT HERE ###
-  //   {
-  //     name: 'Select',
-  //     component: <SelectPreview />,
-  //   },
+    {
+      name: 'Button',
+      component: <ButtonPreview />,
+    },
   //   {
   //     name: 'Hooks',
   //     component: <HooksPreview />,

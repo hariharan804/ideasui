@@ -24,6 +24,9 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "dev:next": "turbo run dev:next",
+    "build:next": "turbo run build:next",
+    "start:next": "turbo run dev:next",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
