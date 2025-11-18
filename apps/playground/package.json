@@ -16,10 +16,10 @@
     "@your-org/lib": "*",
     "next": "16.0.3",
     "react": "19.2.0",
-    "@i2l/tailwind-config": "*",
     "react-dom": "19.2.0"
   },
   "devDependencies": {
+    "@i2l/tailwind-config": "*",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

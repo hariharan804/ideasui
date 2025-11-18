@@ -11,7 +11,7 @@ export function createSharedConfig({
     outDir,
     clean: !isWatch,
     dts: true, // generate dts files
-    format: ['esm', 'cjs'],
+    format: ['esm'],
     bundle: true,
     target: 'es2020',
     skipNodeModulesBundle: true,

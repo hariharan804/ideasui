@@ -115,13 +115,13 @@ function Example() {
         <div style={{ maxWidth: '100%', minHeight: '100%' }}>
           <div className="flex flex-row items-center justify-between bg-color-surfaceContainerHighest px-4 py-2 font-bold">
             <div />
-            <Button
-              size="sm"
+            <button
+              // size="sm"
               onClick={toggleTheme}
               className="rounded-md bg-color-onSurfaceVariant px-4 py-2 text-color-surfaceVariant"
             >
               {theme === 'dark' ? 'Dark' : 'Light'} Mode
-            </Button>
+            </button>
           </div>
           {param ? (
             <div className="p-3"> {component?.component}</div>

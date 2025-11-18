@@ -2,7 +2,7 @@ const baseConfig = require('./base');
 const reactConfig = require('./react');
 // const nextConfig = require('./next');
 const importPlugin = require('eslint-plugin-import');
-const sonarjsPlugin = require('eslint-plugin-sonarjs');
+// const sonarjsPlugin = require('eslint-plugin-sonarjs');
 const unicornPlugin = require('eslint-plugin-unicorn');
 const prettierPlugin = require('eslint-plugin-prettier');
 // const tailwindPlugin = require('eslint-plugin-tailwindcss');
@@ -19,7 +19,7 @@ const config = [
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     plugins: {
       import: importPlugin,
-      sonarjs: sonarjsPlugin,
+      // sonarjs: sonarjsPlugin,
       unicorn: unicornPlugin,
       prettier: prettierPlugin,
       // tailwindcss: tailwindPlugin,

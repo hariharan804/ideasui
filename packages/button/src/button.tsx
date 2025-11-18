@@ -1,59 +1,177 @@
 'use client'
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
-import { cva } from 'class-variance-authority'
+import { tv, type VariantProps } from 'tailwind-variants'
 import { cn } from './lib/utils'
 import { useRipple } from './ripple'
 import { ButtonProps } from './type'
 
 /* ---------------------------- VARIANTS ---------------------------- */
 
-export const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
-  {
-    variants: {
-      variant: {
-        solid: '',
-        outline: 'border bg-transparent',
-        ghost: 'bg-transparent',
-        link: 'underline-offset-4 hover:underline bg-transparent p-0 h-auto',
-      },
-      color: {
-        primary: 'text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800',
-        secondary:
-          'text-white bg-gray-600 hover:bg-gray-700 active:bg-gray-800',
-        success:
-          'text-white bg-green-600 hover:bg-green-700 active:bg-green-800',
-        warning:
-          'text-white bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700',
-        danger: 'text-white bg-red-600 hover:bg-red-700 active:bg-red-800',
-        info: 'text-white bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800',
-        gray: 'text-gray-900 bg-gray-100 hover:bg-gray-200 active:bg-gray-300',
-      },
-      size: {
-        xs: 'h-7 px-2 text-xs',
-        sm: 'h-8 px-3 text-sm',
-        md: 'h-10 px-4',
-        lg: 'h-12 px-6 text-lg',
-        xl: 'h-14 px-8 text-xl',
-        icon: 'h-10 w-10 p-0',
-      },
-      fullWidth: {
-        true: 'w-full',
-      },
-      loading: {
-        true: 'cursor-not-allowed opacity-90',
-      },
-    },
-    defaultVariants: {
-      variant: 'solid',
-      color: 'primary',
-      size: 'md',
-      fullWidth: false,
-      loading: false,
-    },
+/**
+ * Color styles (variant -> color -> tailwind classes)
+ * Add or modify colors to match your tailwind config tokens.
+ */
+export const COLOR_STYLES = {
+  solid: {
+    primary: 'text-white bg-primary hover:bg-primary-700 active:bg-primary-800',
+    secondary:
+      'text-white bg-secondary hover:bg-secondary-700 active:bg-secondary-800',
+    success: 'text-white bg-success hover:bg-success-700 active:bg-success-800',
+    warning: 'text-black bg-warning hover:bg-warning-700 active:bg-warning-800',
+    danger: 'text-white bg-danger hover:bg-danger-700 active:bg-danger-800',
+    info: 'text-white bg-info hover:bg-info-700 active:bg-info-800',
+    gray: 'text-gray-900 bg-gray-100 hover:bg-gray-200 active:bg-gray-300',
+  },
+
+  outline: {
+    primary: 'text-primary border border-primary hover:bg-primary/10',
+    secondary: 'text-secondary border border-secondary hover:bg-secondary/10',
+    success: 'text-success border border-success hover:bg-success/10',
+    warning: 'text-warning border border-warning hover:bg-warning/10',
+    danger: 'text-danger border border-danger hover:bg-danger/10',
+    info: 'text-info border border-info hover:bg-info/10',
+    gray: 'text-gray-700 border border-gray-300 hover:bg-gray-100',
+  },
+
+  ghost: {
+    primary: 'text-primary hover:bg-primary/10',
+    secondary: 'text-secondary hover:bg-secondary/10',
+    success: 'text-success hover:bg-success/10',
+    warning: 'text-warning hover:bg-warning/10',
+    danger: 'text-danger hover:bg-danger/10',
+    info: 'text-info hover:bg-info/10',
+    gray: 'text-gray-700 hover:bg-gray-100',
+  },
+
+  soft: {
+    primary:
+      'text-primary bg-primary/15 hover:bg-primary/25 active:bg-primary/35',
+    secondary:
+      'text-secondary bg-secondary/15 hover:bg-secondary/25 active:bg-secondary/35',
+    success:
+      'text-success bg-success/15 hover:bg-success/25 active:bg-success/35',
+    warning:
+      'text-warning bg-warning/15 hover:bg-warning/25 active:bg-warning/35',
+    danger: 'text-danger bg-danger/15 hover:bg-danger/25 active:bg-danger/35',
+    info: 'text-info bg-info/15 hover:bg-info/25 active:bg-info/35',
+    gray: 'text-gray-700 bg-gray-100 hover:bg-gray-200 active:bg-gray-300',
+  },
+
+  link: {
+    primary: 'text-primary underline-offset-4 hover:underline',
+    secondary: 'text-secondary underline-offset-4 hover:underline',
+    success: 'text-success underline-offset-4 hover:underline',
+    warning: 'text-warning underline-offset-4 hover:underline',
+    danger: 'text-danger underline-offset-4 hover:underline',
+    info: 'text-info underline-offset-4 hover:underline',
+    gray: 'text-gray-700 underline-offset-4 hover:underline',
+  },
+} as const
+
+/** Types for variants */
+type Variant = 'solid' | 'outline' | 'ghost' | 'soft' | 'link'
+type Color =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'info'
+  | 'gray'
+type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon'
+
+/** helper to build compoundVariants programmatically */
+function buildCompoundVariants() {
+  const compound: Array<Record<string, any>> = []
+
+  const variantKeys = Object.keys(COLOR_STYLES) as Variant[]
+  for (const variant of variantKeys) {
+    const colorMap = COLOR_STYLES[
+      variant as keyof typeof COLOR_STYLES
+    ] as Record<string, string>
+    for (const color of Object.keys(colorMap) as Color[]) {
+      compound.push({
+        variant,
+        color,
+        class: colorMap[color],
+      })
+    }
   }
-)
+
+  return compound
+}
+
+/** base classes shared by all buttons */
+const baseClasses =
+  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
+
+/** sizes */
+const sizeMap: Record<Size, string> = {
+  xs: 'h-7 px-2 text-xs',
+  sm: 'h-8 px-3 text-sm',
+  md: 'h-10 px-4',
+  lg: 'h-12 px-6 text-lg',
+  xl: 'h-14 px-8 text-xl',
+  icon: 'h-10 w-10 p-0',
+}
+
+/**
+ * The tv config
+ * - We keep variant and color keys minimal (empty strings) because compoundVariants will inject the color classes
+ */
+export const buttonVariants = tv({
+  base: baseClasses,
+  variants: {
+    variant: {
+      solid: '',
+      outline: 'border bg-transparent',
+      ghost: 'bg-transparent hover:bg-opacity-10',
+      soft: '',
+      link: 'underline-offset-4 hover:underline bg-transparent p-0 h-auto',
+    },
+    color: {
+      primary: '',
+      secondary: '',
+      success: '',
+      warning: '',
+      danger: '',
+      info: '',
+      gray: '',
+    },
+    size: {
+      xs: sizeMap.xs,
+      sm: sizeMap.sm,
+      md: sizeMap.md,
+      lg: sizeMap.lg,
+      xl: sizeMap.xl,
+      icon: sizeMap.icon,
+    },
+    fullWidth: {
+      true: 'w-full',
+      false: '',
+    },
+    loading: {
+      true: 'cursor-not-allowed opacity-90',
+      false: '',
+    },
+    /** optional: iconOnly modifies spacing if you want special behavior for icon-only buttons */
+    iconOnly: {
+      true: 'p-0 w-10 h-10',
+      false: '',
+    },
+  },
+  compoundVariants: buildCompoundVariants(),
+  defaultVariants: {
+    variant: 'solid',
+    color: 'primary',
+    size: 'md',
+    fullWidth: false,
+    loading: false,
+    iconOnly: false,
+  },
+})
+export type ButtonVariantProps = VariantProps<typeof buttonVariants>
 
 /* ---------------------------- SPINNER ---------------------------- */
 
@@ -103,16 +221,17 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       loading = false,
       loadingText,
       fullWidth,
-      ripple = false,
+      ripple = true,
       onClick,
       size = 'md',
       color,
       disabled,
+      variant,
       ...rest
     },
     ref
   ) => {
-    const Component = asChild ? Slot : 'button'
+    const Component = (asChild ? Slot : 'button') as any
     const isDisabled = disabled || loading
     const { addRipple, rippleElements } = useRipple(ripple && !isDisabled)
 
@@ -128,7 +247,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         aria-disabled={isDisabled}
         onClick={handleClick}
         className={cn(
-          buttonVariants({ size, fullWidth, loading, color }),
+          buttonVariants({ size, fullWidth, loading, color, variant }),
           className,
           ripple && 'relative overflow-hidden'
         )}

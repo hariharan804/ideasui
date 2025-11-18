@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  transpilePackages: ['@your-org/button'],
 
-export default nextConfig;
+  /* config options here */
+}
+
+export default nextConfig

@@ -1,6 +1,6 @@
 /* Tailwind v4 base styles */
 @import '@i2l/tailwind-config/theme.css';
 
-/* Component classes */
-@import '@i2l/tailwind-config/components.css';
+/* Component classes
+@import '@i2l/tailwind-config/components.css';  */
 @source '../../../node_modules/@your-org/**/*.{js,ts,jsx,tsx,mdx}';

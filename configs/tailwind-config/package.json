@@ -12,9 +12,7 @@
     }
   },
   "scripts": {
-    "build": "node index.js",
-    "dev": "npm run build",
-    "postinstall": "npm run build",
+    "generate-theme": "node index.js",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

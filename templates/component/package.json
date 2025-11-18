@@ -2,14 +2,13 @@
   "name": "@your-org/{{kebabCase name}}",
   "version": "0.0.0",
   "description": "{{sentenceCase name}} component",
-  "main": "./dist/index.js",
+  "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-   "exports": {
+  "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
     }
   },
   "files": [
