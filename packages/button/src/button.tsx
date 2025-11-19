@@ -1,6 +1,5 @@
 'use client'
 import * as React from 'react'
-import { Slot } from '@radix-ui/react-slot'
 import { tv, type VariantProps } from 'tailwind-variants'
 import { cn } from './lib/utils'
 import { useRipple } from './ripple'
@@ -82,7 +81,7 @@ type Color =
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon'
 
 /** helper to build compoundVariants programmatically */
-function buildCompoundVariants() {
+export function buildCompoundVariants() {
   const compound: Array<Record<string, any>> = []
 
   const variantKeys = Object.keys(COLOR_STYLES) as Variant[]
@@ -104,7 +103,7 @@ function buildCompoundVariants() {
 
 /** base classes shared by all buttons */
 const baseClasses =
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
+  'inline-flex items-center justify-center cursor-pointer whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 capitalize'
 
 /** sizes */
 const sizeMap: Record<Size, string> = {
@@ -160,6 +159,14 @@ export const buttonVariants = tv({
       true: 'p-0 w-10 h-10',
       false: '',
     },
+    radius: {
+      full: 'rounded-full',
+      none: 'rounded-none',
+      sm: 'rounded-sm',
+      md: 'rounded-md',
+      lg: 'rounded-lg',
+      xl: 'rounded-xl',
+    },
   },
   compoundVariants: buildCompoundVariants(),
   defaultVariants: {
@@ -212,7 +219,7 @@ const LoadingSpinner = ({ size }: { size: string }) => (
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      asChild = false,
+      component = 'button',
       children,
       className,
       classNames,
@@ -227,11 +234,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       color,
       disabled,
       variant,
+      iconOnly,
+      radius,
       ...rest
     },
     ref
   ) => {
-    const Component = (asChild ? Slot : 'button') as any
+    const Component = component as any
     const isDisabled = disabled || loading
     const { addRipple, rippleElements } = useRipple(ripple && !isDisabled)
 
@@ -247,7 +256,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         aria-disabled={isDisabled}
         onClick={handleClick}
         className={cn(
-          buttonVariants({ size, fullWidth, loading, color, variant }),
+          buttonVariants({
+            size,
+            fullWidth,
+            loading,
+            color,
+            iconOnly,
+            variant,
+            radius,
+          }),
           className,
           ripple && 'relative overflow-hidden'
         )}

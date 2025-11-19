@@ -1,5 +1,4 @@
 Component Name: [Component Name]
-Submitted by: [Name] | Date: [Date]
 
 Props:
 children (required): Button label or content

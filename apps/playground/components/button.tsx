@@ -1,8 +1,8 @@
 'use client'
 
-import { Button } from '@your-org/button'
+import { Button, buildCompoundVariants } from '@your-org/button'
 
-type Variant = 'solid' | 'outline' | 'ghost' | 'link'
+type Variant = 'solid' | 'outline' | 'ghost' | 'soft' | 'link'
 type Color =
   | 'primary'
   | 'secondary'
@@ -13,7 +13,7 @@ type Color =
   | 'gray'
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon'
 
-const variants: Variant[] = ['solid', 'outline', 'ghost', 'link']
+const variants: Variant[] = ['solid', 'outline', 'ghost', 'soft', 'link']
 const colors: Color[] = [
   'primary',
   'secondary',
@@ -26,6 +26,10 @@ const colors: Color[] = [
 const sizes: Size[] = ['xs', 'sm', 'md', 'lg', 'xl', 'icon']
 
 const ButtonShowcase = () => {
+  console.debug(
+    '🚀 ~ buildCompoundVariants ~ compound:',
+    buildCompoundVariants()
+  )
   return (
     <div className="space-y-8 p-4">
       {/* Variants Section */}
@@ -84,13 +88,28 @@ const ButtonShowcase = () => {
                 {size}:
               </span>
               <div className="flex flex-1 flex-wrap items-center gap-2">
-                <Button size={size} variant="solid" color="primary">
+                <Button
+                  size={size}
+                  variant="solid"
+                  color="primary"
+                  iconOnly={size === 'icon'}
+                >
                   {size === 'icon' ? '★' : 'Button'}
                 </Button>
-                <Button size={size} variant="outline" color="primary">
+                <Button
+                  size={size}
+                  variant="outline"
+                  color="primary"
+                  iconOnly={size === 'icon'}
+                >
                   {size === 'icon' ? '★' : 'Outline'}
                 </Button>
-                <Button size={size} variant="ghost" color="primary">
+                <Button
+                  size={size}
+                  variant="ghost"
+                  color="primary"
+                  iconOnly={size === 'icon'}
+                >
                   {size === 'icon' ? '★' : 'Ghost'}
                 </Button>
               </div>

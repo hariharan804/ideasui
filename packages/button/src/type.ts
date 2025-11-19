@@ -38,10 +38,10 @@ export interface ButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'>,
     VariantProps<typeof buttonVariants> {
   /**
-   * Change the default rendered element for the one passed as a child, merging their props and behavior.
-   * @default false
+   * The component to render as component
+   * @default button
    */
-  asChild?: boolean
+  component?: React.ElementType
 
   /**
    * Show loading spinner and disable the button
@@ -60,6 +60,11 @@ export interface ButtonProps
    */
   fullWidth?: boolean
 
+  /**
+   * Radius of the button
+   * @default md
+   */
+  radius?: 'full' | 'none' | 'sm' | 'md' | 'lg' | 'xl'
   /**
    * Icon to show before the button text
    */
@@ -80,6 +85,12 @@ export interface ButtonProps
    * @default false
    */
   ripple?: boolean
+
+  /**
+   * Custom variant for button+
+   * @default false
+   */
+  customVariant?: string
 
   /**
    * ARIA label for accessibility
