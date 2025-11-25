@@ -13,6 +13,7 @@
   },
   "scripts": {
     "generate-theme": "node index.js",
+    "generate-color": "node color-scale-generator.js",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
