@@ -13,11 +13,13 @@
   },
   "scripts": {
     "generate-theme": "node index.js",
-    "generate-color": "node colors.mjs",
+    "generate-color": "node colors-gen.mjs",
+    "generate-color2": "node paleate.mjs",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "chroma-js": "^3.1.2",
+    "culori": "^4.0.2",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.14"
   }

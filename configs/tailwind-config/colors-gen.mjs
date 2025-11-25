@@ -1,56 +1,53 @@
-#!/usr/bin/env node
+// color-generator-fixed.mjs
 /**
- * color-generator.mjs
- * Industry-grade color scale generator using chroma-js (LCH interpolation)
- *
- * Outputs:
- *  - CSS variables (colors.css)
- *  - JSON tokens (colors.json)
- *  - Tailwind config snippet (tailwind-colors.js)
- *
- * Options:
- *  - base (hex string)
- *  - secondary (hex string, optional)
- *  - contrastCheck (boolean)
- *  - output (folder)
+ * Single-file, non-CLI LCH color scale generator (fixed)
+ * - Explicit L targets for perceptual uniformity
+ * - Forces light[500] === base
+ * - Computes dark[500] from base (same hue/chroma idea, L adjusted)
+ * - Per-family chroma multipliers, chroma damping near extremes
+ * - Monotonicity retries and final enforcement
  *
  * Usage:
- *  node color-generator.mjs --base '#861afd' --contrastCheck --output ./build
+ * import { generateDesignTokens } from './color-generator-fixed.mjs'
+ * const out = generateDesignTokens({
+ *   base: '#861afd',
+ *   contrastCheck: false,
+ *   writeFiles: true,
+ *   outputDir: './theme-output'
+ * })
+ *
+ * out.tokens.primary.light[500] // '#861afd'
+ * out.tokens.primary.dark[500]  // computed dark base
  */
 
 import fs from 'fs'
 import path from 'path'
 import chroma from 'chroma-js'
-import yargs from 'yargs'
-import { hideBin } from 'yargs/helpers'
 
-/* -----------------------
-   Utilities / Validation
-   ----------------------- */
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v))
 
-function normalizeHex(hex) {
+export function normalizeHex(hex) {
   if (!hex) throw new Error('Hex required')
   hex = String(hex).trim()
   if (!hex.startsWith('#')) hex = '#' + hex
-  // Expand shorthand #abc
   if (/^#([0-9a-fA-F]{3})$/.test(hex)) {
     hex = hex.replace(
       /^#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])$/,
       (_, r, g, b) => `#${r}${r}${g}${g}${b}${b}`
     )
   }
-  if (!/^#([0-9a-fA-F]{6})$/.test(hex)) {
-    throw new Error('Invalid hex: ' + hex)
-  }
+  if (!/^#([0-9a-fA-F]{6})$/.test(hex)) throw new Error('Invalid hex: ' + hex)
   return hex.toLowerCase()
 }
 
-/* WCAG contrast using relative luminance (sRGB) */
 function relativeLuminance(hex) {
-  const c = chroma(hex).rgb().map((v) => v / 255).map((v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)))
+  const c = chroma(hex)
+    .rgb()
+    .map((v) => v / 255)
+    .map((v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)))
   return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
 }
+
 function contrastRatio(a, b) {
   const L1 = relativeLuminance(a)
   const L2 = relativeLuminance(b)
@@ -59,263 +56,366 @@ function contrastRatio(a, b) {
   return (bright + 0.05) / (dark + 0.05)
 }
 
-/* Adjust a color's L (lightness) in LCH space to reach a target contrast vs textColor */
-function adjustLForContrast(hexColor, textHex, targetRatio = 4.5, maxSteps = 60) {
-  const col = chroma(hexColor).lch() // [L, C, H]
-  let [L, C, H] = col
-  // Determine direction: if text is white, likely need to darken (reduce L)
-  // but we check both directions in practice — start with the most probable
+function adjustLForContrast(hexColor, textHex, target = 4.5, maxSteps = 40) {
+  // minimize modifications: nudge L only
+  let [L, C, H] = chroma(hexColor).lch()
   const textLum = relativeLuminance(textHex)
-  const startContrast = contrastRatio(hexColor, textHex)
-  if (startContrast >= targetRatio) return chroma(hexColor).hex().toLowerCase()
-
-  // Two-phase approach: try nudging L in both directions with increasing magnitude
-  // Favor minimal perceptual change.
-  for (let i = 1; i <= maxSteps; i++) {
-    // alternate sign: -i, +i, -2i, +2i ... but we prefer directional prioritization
-    const sign = textLum > 0.5 ? -1 : -1 // usually darken for white text; keep this heuristic
-    const candidateL = clamp(L + sign * i * 0.8, 0.1, 99.9) // step ~0.8
-    const candidate = chroma.lch(candidateL, C, H).hex()
-    if (contrastRatio(candidate, textHex) >= targetRatio) return candidate.toLowerCase()
+  const preferDarken = textLum > 0.5
+  for (let step = 1; step <= maxSteps; step++) {
+    const delta = 0.9 * step
+    const candL = clamp(L + (preferDarken ? -delta : delta), 0.1, 99.9)
+    const cand = chroma.lch(candL, C, H).hex()
+    if (contrastRatio(cand, textHex) >= target) return cand.toLowerCase()
   }
-
-  // If not found, fallback to stronger adjustments (convert to black/white extremes)
-  const fallback = textLum > 0.5 ? '#000000' : '#ffffff'
-  return fallback
+  return textLum > 0.5 ? '#000000' : '#ffffff'
 }
 
-/* -----------------------
-   Core generator
-   ----------------------- */
-
-function createScale({
+/**
+ * createFamilyScaleFixed - robust, predictable scale per family
+ *
+ * Options:
+ *  - baseHex (required) - brand base (light 500)
+ *  - steps (default 11 shade keys)
+ *  - lightLtargets, darkLtargets - arrays with same length as steps (tuned defaults below)
+ *  - chromaMultiplier - how strongly to respect base chroma (0.6 - 1.1), default recommended per family
+ *  - contrastCheck, contrastTarget - optional WCAG enforcement
+ */
+function createFamilyScaleFixed({
   baseHex,
   steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950],
-  lightPoints = ['white', baseHex, chroma(baseHex).darken(3).hex()],
-  mode = 'lch',
+  lightLtargets = [98, 94, 86, 76, 66, 54, 44, 34, 24, 14, 6],
+  darkLtargets = [6, 12, 22, 32, 44, 56, 68, 76, 84, 90, 96],
+  chromaMultiplier = 1.0,
   contrastCheck = false,
   contrastTarget = 4.5,
-}) {
-  // lightPoints: three anchors - light (usually near white), base (500), dark
-  // we'll sample 11 colors using chroma.scale
-  const scale = chroma.scale(lightPoints).mode(mode).padding(0.05).colors(steps.length)
-  const result = {}
-  steps.forEach((k, i) => {
-    let hex = chroma(scale[i]).hex().toLowerCase()
-    if (contrastCheck) {
-      // Decide text color expectation: light shades -> dark text, dark shades -> white text
-      const useWhite = k >= 600
-      const textHex = useWhite ? '#ffffff' : '#000000'
-      const ratio = contrastRatio(hex, textHex)
-      if (ratio < contrastTarget) {
-        // adjust using LCH nudging
-        hex = adjustLForContrast(hex, textHex, contrastTarget)
+  maxRetries = 3,
+} = {}) {
+  if (!baseHex) throw new Error('baseHex required')
+  baseHex = chroma(baseHex).hex().toLowerCase()
+  if (lightLtargets.length !== steps.length)
+    throw new Error('lightLtargets length mismatch')
+  if (darkLtargets.length !== steps.length)
+    throw new Error('darkLtargets length mismatch')
+
+  const [baseL, baseC, baseH] = chroma(baseHex).lch()
+  let midC = clamp(baseC * chromaMultiplier, 4, 110)
+
+  const synth = (Ltarget, usedMidC) => {
+    const midPoint = 50
+    const d = Math.abs(Ltarget - midPoint) / midPoint // 0..1
+    // reduce chroma towards extremes (avoids neon)
+    const chromaScale = clamp(1 - d * 0.6, 0.35, 1)
+    const C = clamp(usedMidC * chromaScale, 3, 120)
+    return chroma.lch(Ltarget, C, baseH).hex().toLowerCase()
+  }
+
+  const build = (currentMidC) => {
+    const light = {}
+    for (let i = 0; i < steps.length; i++) {
+      const key = steps[i]
+      let hex = synth(lightLtargets[i], currentMidC)
+      if (key === 500) hex = chroma(baseHex).hex().toLowerCase() // enforce
+      if (contrastCheck) {
+        const text = Number(key) >= 600 ? '#ffffff' : '#000000'
+        if (contrastRatio(hex, text) < contrastTarget)
+          hex = adjustLForContrast(hex, text, contrastTarget)
       }
+      light[key] = chroma(hex).hex().toLowerCase()
     }
-    result[k] = chroma(hex).hex().toLowerCase()
-  })
-  return result
-}
 
-/* Generate semantic scales: primary, secondary, success, warning, error, info */
-export function generateAll({
-  base = '#6b21a8', // default purple
-  secondary = null,
-  steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950],
-  contrastCheck = false,
-  contrastTarget = 4.5,
-  outputDir = './',
-  names = {
-    primary: 'primary',
-    secondary: 'secondary',
-    success: 'success',
-    warning: 'warning',
-    error: 'error',
-    info: 'info',
-  },
-}) {
-  base = normalizeHex(base)
-  secondary = secondary ? normalizeHex(secondary) : null
+    // compute dark500: same hue, gently increased L for legibility on dark surfaces
+    const computeDark500 = (() => {
+      let newL
+      if (baseL <= 40) newL = baseL + 28
+      else if (baseL <= 60) newL = baseL + 18
+      else newL = baseL + 8
+      newL = clamp(newL, 6, 94)
+      const newC = clamp(baseC * 0.95, 4, 110)
+      return chroma.lch(newL, newC, baseH).hex().toLowerCase()
+    })()
 
-  // Primary scale (light -> base -> dark anchor)
-  const primaryAnchors = ['#ffffff', base, chroma(base).darken(2.2).hex()]
-  const primary = createScale({
-    baseHex: base,
-    steps,
-    lightPoints: primaryAnchors,
-    contrastCheck,
-    contrastTarget,
-  })
+    const dark = {}
+    for (let i = 0; i < steps.length; i++) {
+      const key = steps[i]
+      let hex = synth(darkLtargets[i], currentMidC)
+      if (key === 500) hex = computeDark500
+      if (contrastCheck) {
+        const text = Number(key) <= 400 ? '#ffffff' : '#000000'
+        if (contrastRatio(hex, text) < contrastTarget)
+          hex = adjustLForContrast(hex, text, contrastTarget)
+      }
+      dark[key] = chroma(hex).hex().toLowerCase()
+    }
 
-  // Secondary: complementary-ish if not provided
-  if (!secondary) {
-    const hcl = chroma(base).lch()
-    const hue = (hcl[2] + 180) % 360
-    secondary = chroma.lch(hcl[0], clamp(hcl[1] * 0.9, 15, 90), hue).hex()
-  }
-  const secondaryAnchors = ['#ffffff', secondary, chroma(secondary).darken(2.2).hex()]
-  const secondaryScale = createScale({
-    baseHex: secondary,
-    steps,
-    lightPoints: secondaryAnchors,
-    contrastCheck,
-    contrastTarget,
-  })
-
-  // Semantic colors (success/warning/error/info) with typical hues
-  const successBase = chroma.lch(60, 45, 140).hex() // green-ish
-  const warningBase = chroma.lch(64, 55, 80).hex()  // orange-ish
-  const errorBase   = chroma.lch(53, 65, 20).hex()  // red-ish
-  const infoBase    = chroma.lch(60, 55, 260).hex() // blue-ish
-
-  const success = createScale({ baseHex: successBase, steps, contrastCheck, contrastTarget })
-  const warning = createScale({ baseHex: warningBase, steps, contrastCheck, contrastTarget })
-  const error   = createScale({ baseHex: errorBase,   steps, contrastCheck, contrastTarget })
-  const info    = createScale({ baseHex: infoBase,    steps, contrastCheck, contrastTarget })
-
-  // Neutrals: generate near-zero chroma greys using base L reference
-  const neutralLight = {}
-  const neutralDark = {}
-  const neutralSteps = [98, 96, 90, 83, 64, 45, 32, 25, 15, 9, 4] // L values for 50..950
-  steps.forEach((k, i) => {
-    const L = clamp(neutralSteps[i], 2, 98)
-    neutralLight[k] = chroma.lch(L, 2, 260).hex().toLowerCase()
-    neutralDark[k]  = chroma.lch(100 - L, 2, 260).hex().toLowerCase()
-  })
-
-  const tokens = {
-    primary,
-    secondary: secondaryScale,
-    neutral: {
-      light: neutralLight,
-      dark: neutralDark,
-    },
-    success,
-    warning,
-    error,
-    info,
+    return { light, dark }
   }
 
-  // Semantic aliases and interactive states
-  const aliases = createAliases(tokens)
+  function isMonotonic(scales) {
+    const order = (obj) =>
+      Object.keys(obj)
+        .map(Number)
+        .sort((a, b) => a - b)
+        .map((k) => chroma(obj[k]).lch()[0])
+    const Llight = order(scales.light)
+    for (let i = 1; i < Llight.length; i++)
+      if (!(Llight[i] <= Llight[i - 1] + 0.8)) return false
+    const Ldark = order(scales.dark)
+    for (let i = 1; i < Ldark.length; i++)
+      if (!(Ldark[i] >= Ldark[i - 1] - 0.8)) return false
+    return true
+  }
 
-  // emit files
-  const css = buildCSS(tokens, aliases)
-  const json = JSON.stringify({ tokens, aliases }, null, 2)
-  const tailwind = buildTailwindSnippet(aliases)
+  let attempt = 0
+  let scales = build(midC)
+  while (attempt < maxRetries && !isMonotonic(scales)) {
+    attempt++
+    midC = clamp(midC * 0.72, 3, 110)
+    scales = build(midC)
+  }
 
-  if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true })
-  fs.writeFileSync(path.join(outputDir, 'colors.css'), css, 'utf8')
-  fs.writeFileSync(path.join(outputDir, 'colors.json'), json, 'utf8')
-  fs.writeFileSync(path.join(outputDir, 'tailwind-colors.js'), tailwind, 'utf8')
+  // final enforcement: sort by L to ensure monotonic while preserving hexes
+  if (!isMonotonic(scales)) {
+    const enforce = (obj, ascending) => {
+      const arr = Object.entries(obj).map(([k, v]) => ({
+        k: Number(k),
+        L: chroma(v).lch()[0],
+        hex: v,
+      }))
+      arr.sort((a, b) => (ascending ? a.L - b.L : b.L - a.L))
+      const out = {}
+      arr.forEach((entry, idx) => (out[steps[idx]] = entry.hex))
+      return out
+    }
+    scales.light = enforce(scales.light, false) // descending L
+    scales.dark = enforce(scales.dark, true) // ascending L
+  }
 
-  return { tokens, aliases, css, json, tailwind }
+  // ensure center keys
+  if (!scales.light[500])
+    scales.light[500] = chroma(baseHex).hex().toLowerCase()
+  if (!scales.dark[500]) {
+    const fallback = chroma
+      .lch(clamp(baseL + 18, 6, 94), clamp(baseC * 0.95, 4, 110), baseH)
+      .hex()
+      .toLowerCase()
+    scales.dark[500] = fallback
+  }
+
+  return scales
 }
 
 /* -----------------------
-   Aliases & helpers
+   Assemble tokens
    ----------------------- */
-function createAliases(tokens) {
-  // For each semantic family map 500 -> var(--color-*-500), on-colors and states
-  const families = ['primary', 'secondary', 'success', 'warning', 'error', 'info']
-  const aliases = { light: {}, dark: {} }
 
-  families.forEach((fam) => {
-    const shadesLight = tokens[fam]
-    const shadesDark = tokens[fam] // dark currently same shape (could be inverted separately)
-    // default on-color heuristics
-    const onLight = contrastRatio(shadesLight[500], '#ffffff') >= 4.5 ? '#ffffff' : '#000000'
-    const onDark = contrastRatio(shadesDark[500], '#ffffff') >= 4.5 ? '#ffffff' : '#000000'
-
-    aliases.light[`--${fam}`] = shadesLight[500]
-    aliases.light[`--${fam}-on`] = onLight
-    aliases.light[`--${fam}-hover`] = shadesLight[600] || shadesLight[700]
-    aliases.light[`--${fam}-active`] = shadesLight[700] || shadesLight[800]
-    aliases.light[`--${fam}-disabled`] = shadesLight[200] || shadesLight[100]
-
-    aliases.dark[`--${fam}`] = shadesDark[500]
-    aliases.dark[`--${fam}-on`] = onDark
-    aliases.dark[`--${fam}-hover`] = shadesDark[400] || shadesDark[300]
-    aliases.dark[`--${fam}-active`] = shadesDark[300] || shadesDark[200]
-    aliases.dark[`--${fam}-disabled`] = shadesDark[700] || shadesDark[800]
-  })
-
-  // core tokens
-  aliases.light['--surface'] = tokens.neutral.light[50]
-  aliases.light['--surface-muted'] = tokens.neutral.light[100]
-  aliases.light['--text'] = tokens.neutral.light[900]
-  aliases.light['--border'] = tokens.neutral.light[200]
-
-  aliases.dark['--surface'] = tokens.neutral.dark[950]
-  aliases.dark['--surface-muted'] = tokens.neutral.dark[900]
-  aliases.dark['--text'] = tokens.neutral.dark[50]
-  aliases.dark['--border'] = tokens.neutral.dark[800]
-
-  return aliases
-}
-
-/* CSS output (variables block) */
-function buildCSS(tokens, aliases) {
-  const lines = ['/* Generated Design System Colors (LCH) */', ':root {']
-  // primary / semantic families
-  Object.entries(tokens).forEach(([family, value]) => {
-    if (family === 'neutral') return
-    lines.push(`  /* ${family} (light) */`)
-    Object.entries(value).forEach(([k, v]) => lines.push(`  --color-${family}-${k}: ${v};`))
+function buildCSS(tokens) {
+  const lines = ['/* Generated Colors (LCH - fixed) */', ':root {']
+  for (const [fam, scales] of Object.entries(tokens)) {
+    if (fam === 'neutral') continue
+    lines.push(`  /* ${fam} (light) */`)
+    for (const [k, v] of Object.entries(scales.light))
+      lines.push(`  --color-${fam}-${k}: ${v};`)
     lines.push('')
-  })
-
-  // neutral
+  }
   lines.push('  /* neutral (light) */')
-  Object.entries(tokens.neutral.light).forEach(([k, v]) => lines.push(`  --color-neutral-${k}: ${v};`))
-  lines.push('  /* semantic aliases (light) */')
-  Object.entries(aliases.light).forEach(([k, v]) => lines.push(`  ${k}: ${v};`))
-
+  for (const [k, v] of Object.entries(tokens.neutral.light))
+    lines.push(`  --color-neutral-${k}: ${v};`)
   lines.push('}')
+  lines.push('')
   lines.push('.dark {')
-  Object.entries(tokens).forEach(([family, value]) => {
-    if (family === 'neutral') return
-    lines.push(`  /* ${family} (dark) */`)
-    Object.entries(value).forEach(([k, v]) => lines.push(`  --color-${family}-${k}: ${v};`))
+  for (const [fam, scales] of Object.entries(tokens)) {
+    if (fam === 'neutral') continue
+    lines.push(`  /* ${fam} (dark) */`)
+    for (const [k, v] of Object.entries(scales.dark))
+      lines.push(`  --color-${fam}-${k}: ${v};`)
     lines.push('')
-  })
+  }
   lines.push('  /* neutral (dark) */')
-  Object.entries(tokens.neutral.dark).forEach(([k, v]) => lines.push(`  --color-neutral-${k}: ${v};`))
-  lines.push('  /* semantic aliases (dark) */')
-  Object.entries(aliases.dark).forEach(([k, v]) => lines.push(`  ${k}: ${v};`))
+  for (const [k, v] of Object.entries(tokens.neutral.dark))
+    lines.push(`  --color-neutral-${k}: ${v};`)
   lines.push('}')
   return lines.join('\n')
 }
 
-/* Tailwind snippet */
-function buildTailwindSnippet(aliases) {
-  return `// Generated Tailwind color tokens (import or paste into theme.extend.colors)
-module.exports = {
-  light: ${JSON.stringify(Object.fromEntries(Object.entries(aliases.light).map(([k,v]) => [k.replace(/^--/, ''), v])), null, 2)},
-  dark: ${JSON.stringify(Object.fromEntries(Object.entries(aliases.dark).map(([k,v]) => [k.replace(/^--/, ''), v])), null, 2)}
-};`
+function buildTailwind(tokens) {
+  return `// Tailwind tokens (literal scales for light + dark)\nmodule.exports = ${JSON.stringify(tokens, null, 2)};`
 }
 
 /* -----------------------
-   CLI
+   Public API
    ----------------------- */
-if (import.meta.url === `file://${process.argv[1]}`) {
-  const argv = yargs(hideBin(process.argv))
-    .option('base', { type: 'string', alias: 'b', demandOption: true })
-    .option('secondary', { type: 'string' })
-    .option('contrastCheck', { type: 'boolean', default: false })
-    .option('output', { type: 'string', default: './build' })
-    .argv
 
-  const out = generateAll({
-    base: argv.base,
-    secondary: argv.secondary,
-    contrastCheck: argv.contrastCheck,
-    outputDir: argv.output,
+/**
+ * generateDesignTokens(options)
+ * options:
+ *  - base (hex) required
+ *  - secondary (hex) optional
+ *  - contrastCheck (bool) default false
+ *  - contrastTarget (number) default 4.5
+ *  - writeFiles (bool) default false
+ *  - outputDir (string) default './build'
+ *  - overrides (object) optional per-family overrides:
+ *      { primary: { chromaMultiplier, lightLtargets, darkLtargets }, ... }
+ */
+export function generateDesignTokens({
+  base,
+  secondary = null,
+  contrastCheck = false,
+  contrastTarget = 4.5,
+  writeFiles = false,
+  outputDir = './build',
+  overrides = {},
+} = {}) {
+  if (!base) throw new Error('base color required')
+  base = normalizeHex(base)
+  if (secondary) secondary = normalizeHex(secondary)
+
+  const steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
+
+  // per-family recommended chroma multipliers
+  const familyDefaults = {
+    primary: {
+      chromaMultiplier: 0.85,
+      lightLtargets: undefined,
+      darkLtargets: undefined,
+    },
+    secondary: { chromaMultiplier: 0.95 },
+    success: { chromaMultiplier: 0.95 },
+    warning: { chromaMultiplier: 0.95 },
+    error: { chromaMultiplier: 0.95 },
+    info: { chromaMultiplier: 0.95 },
+  }
+
+  const primaryCfg = { ...familyDefaults.primary, ...(overrides.primary || {}) }
+  const secondaryCfg = {
+    ...familyDefaults.secondary,
+    ...(overrides.secondary || {}),
+  }
+
+  // primary
+  const primary = createFamilyScaleFixed({
+    baseHex: base,
+    steps,
+    lightLtargets: primaryCfg.lightLtargets || [
+      98, 94, 86, 76, 66, 54, 44, 34, 24, 14, 6,
+    ],
+    darkLtargets: primaryCfg.darkLtargets || [
+      6, 12, 22, 32, 44, 56, 68, 76, 84, 90, 96,
+    ],
+    chromaMultiplier: primaryCfg.chromaMultiplier,
+    contrastCheck,
+    contrastTarget,
   })
 
-  console.log('✅ generated colors in', argv.output)
-  console.log('Primary 500:', normalizeHex(argv.base))
-  if (argv.secondary) console.log('Secondary 500:', normalizeHex(argv.secondary))
-  console.log('Contrast checking:', argv.contrastCheck)
+  // secondary (auto complementary if not provided)
+  if (!secondary) {
+    const [L, C, H] = chroma(base).lch()
+    const secC = clamp(C * 0.9, 4, 90)
+    const secH = (H + 180) % 360
+    secondary = chroma.lch(L, secC, secH).hex()
+  }
+  const secondaryScales = createFamilyScaleFixed({
+    baseHex: secondary,
+    steps,
+    lightLtargets: secondaryCfg.lightLtargets,
+    darkLtargets: secondaryCfg.darkLtargets,
+    chromaMultiplier: secondaryCfg.chromaMultiplier,
+    contrastCheck,
+    contrastTarget,
+  })
+
+  // semantic families bases (good LCH seeds)
+  const successBase = chroma.lch(60, 45, 140).hex()
+  const warningBase = chroma.lch(64, 55, 80).hex()
+  const errorBase = chroma.lch(53, 65, 20).hex()
+  const infoBase = chroma.lch(60, 55, 260).hex()
+
+  const success = createFamilyScaleFixed({
+    baseHex: successBase,
+    steps,
+    chromaMultiplier: 0.95,
+    contrastCheck,
+    contrastTarget,
+  })
+  const warning = createFamilyScaleFixed({
+    baseHex: warningBase,
+    steps,
+    chromaMultiplier: 0.95,
+    contrastCheck,
+    contrastTarget,
+  })
+  const error = createFamilyScaleFixed({
+    baseHex: errorBase,
+    steps,
+    chromaMultiplier: 0.95,
+    contrastCheck,
+    contrastTarget,
+  })
+  const info = createFamilyScaleFixed({
+    baseHex: infoBase,
+    steps,
+    chromaMultiplier: 0.95,
+    contrastCheck,
+    contrastTarget,
+  })
+
+  // neutrals
+  const neutralLight = {}
+  const neutralDark = {}
+  const neutralL = [98, 96, 90, 83, 64, 45, 32, 25, 15, 9, 4]
+  steps.forEach((k, i) => {
+    neutralLight[k] = chroma.lch(neutralL[i], 2, 260).hex().toLowerCase()
+    neutralDark[k] = chroma
+      .lch(100 - neutralL[i], 2, 260)
+      .hex()
+      .toLowerCase()
+  })
+
+  const tokens = {
+    primary,
+    secondary: secondaryScales,
+    success,
+    warning,
+    error,
+    info,
+    neutral: { light: neutralLight, dark: neutralDark },
+  }
+
+  const css = buildCSS(tokens)
+  const tailwind = buildTailwind(tokens)
+
+  if (writeFiles) {
+    if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true })
+    fs.writeFileSync(path.join(outputDir, 'colors.css'), css, 'utf8')
+    fs.writeFileSync(
+      path.join(outputDir, 'colors.json'),
+      JSON.stringify(tokens, null, 2),
+      'utf8'
+    )
+    fs.writeFileSync(
+      path.join(outputDir, 'tailwind-colors.js'),
+      tailwind,
+      'utf8'
+    )
+  }
+
+  return { tokens, css, tailwind }
 }
+
+/* -----------------------
+   Quick example (comment out in production)
+   ----------------------- */
+// const out = generateDesignTokens({ base: '#861afd', contrastCheck: true, writeFiles: false })
+// console.log('primary.light.500', out.tokens.primary.light[500])
+// console.log('primary.dark.500', out.tokens.primary.dark[500])
+
+/* -----------------------
+   Example quick-test (comment out or remove in production)
+   ----------------------- */
+const result = generateDesignTokens({
+  base: '#861afd',
+  contrastCheck: false,
+  writeFiles: true,
+})
+console.log('primary light 500:', result.tokens.primary.light[500])
+console.log('primary dark 500 :', result.tokens.primary.dark[500])
