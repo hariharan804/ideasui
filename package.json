@@ -83,6 +83,7 @@
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.47.0",
     "@typescript-eslint/parser": "^8.47.0",
+    "clean-package": "^2.2.0",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.39.1",
@@ -107,5 +108,5 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "packageManager": "npm@11.6.2"
+  "packageManager": "pnpm@9.12.3"
 }

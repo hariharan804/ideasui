@@ -2,40 +2,33 @@
   "name": "@your-org/{{kebabCase name}}",
   "version": "0.0.0",
   "description": "{{sentenceCase name}} component",
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "sideEffects": false
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "clean-package": "../../clean-package.config.json",
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "jest",
     "lint": "eslint src --ext .ts,.tsx --cache",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix --cache"
+    "lint:fix": "eslint src --ext .ts,.tsx --fix --cache",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
   },
   "dependencies": {
-    "@i2l/lib": "*"
+    "@i2l/lib": "workspace:*"
   },
   "devDependencies": {
-    "@i2l/eslint-config": "*",
-    "@i2l/jest-config": "*",
-    "@i2l/tsup-config": "*",
-    "@i2l/tsconfig": "*",
+    "@i2l/eslint-config": "workspace:*",
+    "@i2l/jest-config": "workspace:*",
+    "@i2l/tsup-config": "workspace:*",
+    "@i2l/tsconfig": "workspace:*",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "clean-package": "^2.2.0"
   }
 }

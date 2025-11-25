@@ -1,0 +1,13 @@
+{
+  "indent": 2,
+  "remove": [
+    "scripts",
+    "devDependencies",
+    "eslintConfig",
+    "jest",
+    "lint-staged",
+    "config",
+    "commitlint",
+    "packageManager"
+  ]
+}

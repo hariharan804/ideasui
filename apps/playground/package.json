@@ -12,14 +12,14 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@your-org/button": "*",
-    "@your-org/lib": "*",
+    "@your-org/button": "workspace:*",
+    "@your-org/lib": "workspace:*",
     "next": "16.0.3",
     "react": "19.2.0",
     "react-dom": "19.2.0"
   },
   "devDependencies": {
-    "@i2l/tailwind-config": "*",
+    "@i2l/tailwind-config": "workspace:*",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
