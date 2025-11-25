@@ -13,11 +13,13 @@
   },
   "scripts": {
     "generate-theme": "node index.js",
-    "generate-color": "node color-scale-generator.js",
+    "generate-color": "node colors.js",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "chroma-js": "^3.1.2",
     "tailwind-merge": "^3.3.1",
-    "tailwindcss": "^4.1.14"
+    "tailwindcss": "^4.1.14",
+    "yargs": "^18.0.0"
   }
 }
