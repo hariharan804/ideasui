@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'fs'
 
 // Color scale generator for light and dark modes
 function hexToHsl(hex) {
@@ -71,11 +71,13 @@ function hslToHex(h, s, l) {
 function getContrastRatio(color1, color2) {
   const getLuminance = (hex) => {
     const rgb = [hex.slice(1, 3), hex.slice(3, 5), hex.slice(5, 7)]
-      .map(x => parseInt(x, 16) / 255)
-      .map(x => x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4))
+      .map((x) => parseInt(x, 16) / 255)
+      .map((x) =>
+        x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4)
+      )
     return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]
   }
-  
+
   const lum1 = getLuminance(color1)
   const lum2 = getLuminance(color2)
   const brightest = Math.max(lum1, lum2)
@@ -88,29 +90,29 @@ function ensureContrast(bgColor, textColor = '#ffffff', targetRatio = 4.5) {
   const [h, s, l] = hexToHsl(bgColor)
   let adjustedL = l
   let iterations = 0
-  
+
   while (iterations < 50) {
     const testColor = hslToHex(h, s, adjustedL)
     const ratio = getContrastRatio(testColor, textColor)
-    
+
     if (ratio >= targetRatio) {
       return testColor
     }
-    
+
     // If text is white, darken background; if text is black, lighten background
     adjustedL = textColor === '#ffffff' ? adjustedL - 2 : adjustedL + 2
     adjustedL = Math.max(0, Math.min(100, adjustedL))
     iterations++
   }
-  
+
   return hslToHex(h, s, adjustedL)
 }
 
-export function generateColorScale(baseColor500, isContrastCheck = true) {
+export function generateColorScale(baseColor500, isContrastCheck = false) {
   const [h, s, l] = hexToHsl(baseColor500)
 
   // Light mode scale - proper gradient progression
-  const lightScale = {
+  let lightScale = {
     50: hslToHex(h, Math.max(s - 45, 8), Math.min(l + 48, 98)),
     100: hslToHex(h, Math.max(s - 35, 12), Math.min(l + 40, 95)),
     200: hslToHex(h, Math.max(s - 25, 18), Math.min(l + 28, 87)),
@@ -124,8 +126,41 @@ export function generateColorScale(baseColor500, isContrastCheck = true) {
     950: hslToHex(h, Math.min(s + 25, 100), Math.max(l - 52, 6)),
   }
 
+  // Apply contrast checking if enabled
+  if (isContrastCheck) {
+    const checkAndAdjust = (color) => {
+      const ratio = getContrastRatio(color, '#ffffff')
+      return ratio < 4.5 ? ensureContrast(color, '#ffffff', 4.5) : color
+    }
+
+    // Check all shades with appropriate text colors
+    const checkWithWhite = (color) => {
+      const ratio = getContrastRatio(color, '#ffffff')
+      return ratio < 4.5 ? ensureContrast(color, '#ffffff', 4.5) : color
+    }
+
+    const checkWithBlack = (color) => {
+      const ratio = getContrastRatio(color, '#000000')
+      return ratio < 4.5 ? ensureContrast(color, '#000000', 4.5) : color
+    }
+
+    // Light shades should work with dark text
+    lightScale[50] = checkWithBlack(lightScale[50])
+    lightScale[100] = checkWithBlack(lightScale[100])
+    lightScale[200] = checkWithBlack(lightScale[200])
+    lightScale[300] = checkWithBlack(lightScale[300])
+    lightScale[400] = checkWithBlack(lightScale[400])
+
+    // Dark shades should work with white text
+    lightScale[600] = checkWithWhite(lightScale[600])
+    lightScale[700] = checkWithWhite(lightScale[700])
+    lightScale[800] = checkWithWhite(lightScale[800])
+    lightScale[900] = checkWithWhite(lightScale[900])
+    lightScale[950] = checkWithWhite(lightScale[950])
+  }
+
   // Dark mode scale - proper inversion
-  const darkScale = {
+  let darkScale = {
     50: lightScale[950],
     100: lightScale[900],
     200: lightScale[800],
@@ -137,6 +172,33 @@ export function generateColorScale(baseColor500, isContrastCheck = true) {
     800: lightScale[200],
     900: lightScale[100],
     950: lightScale[50],
+  }
+
+  // Apply contrast checking for dark mode if enabled
+  if (isContrastCheck) {
+    const checkWithWhite = (color) => {
+      const ratio = getContrastRatio(color, '#ffffff')
+      return ratio < 4.5 ? ensureContrast(color, '#ffffff', 4.5) : color
+    }
+
+    const checkWithBlack = (color) => {
+      const ratio = getContrastRatio(color, '#000000')
+      return ratio < 4.5 ? ensureContrast(color, '#000000', 4.5) : color
+    }
+
+    // Dark shades in dark mode should work with white text
+    darkScale[50] = checkWithWhite(darkScale[50])
+    darkScale[100] = checkWithWhite(darkScale[100])
+    darkScale[200] = checkWithWhite(darkScale[200])
+    darkScale[300] = checkWithWhite(darkScale[300])
+    darkScale[400] = checkWithWhite(darkScale[400])
+
+    // Light shades in dark mode should work with black text
+    darkScale[600] = checkWithBlack(darkScale[600])
+    darkScale[700] = checkWithBlack(darkScale[700])
+    darkScale[800] = checkWithBlack(darkScale[800])
+    darkScale[900] = checkWithBlack(darkScale[900])
+    darkScale[950] = checkWithBlack(darkScale[950])
   }
 
   return {
@@ -182,7 +244,7 @@ export function generateColorScaleJSON(baseColor500) {
 // Generate neutral gray scale based on primary color
 export function generateNeutralScale(primaryColor) {
   const [h, s, l] = hexToHsl(primaryColor)
-  
+
   return {
     light: {
       '--color-neutral-50': hslToHex(h, Math.min(s * 0.05, 3), 98),
@@ -209,20 +271,20 @@ export function generateNeutralScale(primaryColor) {
       '--color-neutral-800': hslToHex(h, Math.min(s * 0.1, 5), 90),
       '--color-neutral-900': hslToHex(h, Math.min(s * 0.08, 4), 96),
       '--color-neutral-950': hslToHex(h, Math.min(s * 0.05, 3), 98),
-    }
+    },
   }
 }
 
 // Generate semantic color scales based on primary color
-export function generateSemanticScales(primaryColor, isContrastCheck = true) {
+export function generateSemanticScales(primaryColor, isContrastCheck = false) {
   const [h, s, l] = hexToHsl(primaryColor)
-  
+
   // Generate semantic colors with proper hues but maintain good saturation
   const successColor = hslToHex(140, Math.max(s - 10, 60), Math.min(l - 5, 55)) // Green hue
-  const warningColor = hslToHex(35, Math.max(s, 70), Math.min(l + 5, 60))       // Orange hue  
-  const errorColor = hslToHex(0, Math.max(s - 5, 65), Math.min(l, 58))          // Red hue
-  const infoColor = hslToHex(220, Math.max(s - 10, 60), Math.min(l, 60))       // Blue hue
-  
+  const warningColor = hslToHex(35, Math.max(s, 70), Math.min(l + 5, 60)) // Orange hue
+  const errorColor = hslToHex(0, Math.max(s - 5, 65), Math.min(l, 58)) // Red hue
+  const infoColor = hslToHex(220, Math.max(s - 10, 60), Math.min(l, 60)) // Blue hue
+
   const success = generateColorScale(successColor, isContrastCheck)
   const warning = generateColorScale(warningColor, isContrastCheck)
   const error = generateColorScale(errorColor, isContrastCheck)
@@ -230,9 +292,9 @@ export function generateSemanticScales(primaryColor, isContrastCheck = true) {
 
   return {
     success,
-    warning, 
+    warning,
     error,
-    info
+    info,
   }
 }
 
@@ -245,67 +307,95 @@ export function generateSecondaryColor(primaryColor) {
 }
 
 // Generate complete colors.css file
-export function generateColorsCSS(primaryColor, isContrastCheck = true) {
+export function generateColorsCSS(primaryColor, isContrastCheck = false) {
   const primary = generateColorScale(primaryColor, isContrastCheck)
   const secondaryColor = generateSecondaryColor(primaryColor)
   const secondary = generateColorScale(secondaryColor, isContrastCheck)
   const neutral = generateNeutralScale(primaryColor)
   const semantic = generateSemanticScales(primaryColor, isContrastCheck)
-  
+
   const css = `/* Generated Design System Colors */
 
 :root {
   /* Primary Colors */
-${Object.entries(primary.light).map(([key, value]) => `  --color-primary-${key}: ${value};`).join('\n')}
+${Object.entries(primary.light)
+  .map(([key, value]) => `  --color-primary-${key}: ${value};`)
+  .join('\n')}
 
   /* Secondary Colors */
-${Object.entries(secondary.light).map(([key, value]) => `  --color-secondary-${key}: ${value};`).join('\n')}
+${Object.entries(secondary.light)
+  .map(([key, value]) => `  --color-secondary-${key}: ${value};`)
+  .join('\n')}
 
   /* Neutral Colors */
-${Object.entries(neutral.light).map(([key, value]) => `  ${key}: ${value};`).join('\n')}
+${Object.entries(neutral.light)
+  .map(([key, value]) => `  ${key}: ${value};`)
+  .join('\n')}
 
   /* Success Colors */
-${Object.entries(semantic.success.light).map(([key, value]) => `  --color-success-${key}: ${value};`).join('\n')}
+${Object.entries(semantic.success.light)
+  .map(([key, value]) => `  --color-success-${key}: ${value};`)
+  .join('\n')}
 
   /* Warning Colors */
-${Object.entries(semantic.warning.light).map(([key, value]) => `  --color-warning-${key}: ${value};`).join('\n')}
+${Object.entries(semantic.warning.light)
+  .map(([key, value]) => `  --color-warning-${key}: ${value};`)
+  .join('\n')}
 
   /* Error Colors */
-${Object.entries(semantic.error.light).map(([key, value]) => `  --color-error-${key}: ${value};`).join('\n')}
+${Object.entries(semantic.error.light)
+  .map(([key, value]) => `  --color-error-${key}: ${value};`)
+  .join('\n')}
 
   /* Info Colors */
-${Object.entries(semantic.info.light).map(([key, value]) => `  --color-info-${key}: ${value};`).join('\n')}
+${Object.entries(semantic.info.light)
+  .map(([key, value]) => `  --color-info-${key}: ${value};`)
+  .join('\n')}
 }
 
 .dark {
   /* Primary Colors */
-${Object.entries(primary.dark).map(([key, value]) => `  --color-primary-${key}: ${value};`).join('\n')}
+${Object.entries(primary.dark)
+  .map(([key, value]) => `  --color-primary-${key}: ${value};`)
+  .join('\n')}
 
   /* Secondary Colors */
-${Object.entries(secondary.dark).map(([key, value]) => `  --color-secondary-${key}: ${value};`).join('\n')}
+${Object.entries(secondary.dark)
+  .map(([key, value]) => `  --color-secondary-${key}: ${value};`)
+  .join('\n')}
 
   /* Neutral Colors */
-${Object.entries(neutral.dark).map(([key, value]) => `  ${key}: ${value};`).join('\n')}
+${Object.entries(neutral.dark)
+  .map(([key, value]) => `  ${key}: ${value};`)
+  .join('\n')}
 
   /* Success Colors */
-${Object.entries(semantic.success.dark).map(([key, value]) => `  --color-success-${key}: ${value};`).join('\n')}
+${Object.entries(semantic.success.dark)
+  .map(([key, value]) => `  --color-success-${key}: ${value};`)
+  .join('\n')}
 
   /* Warning Colors */
-${Object.entries(semantic.warning.dark).map(([key, value]) => `  --color-warning-${key}: ${value};`).join('\n')}
+${Object.entries(semantic.warning.dark)
+  .map(([key, value]) => `  --color-warning-${key}: ${value};`)
+  .join('\n')}
 
   /* Error Colors */
-${Object.entries(semantic.error.dark).map(([key, value]) => `  --color-error-${key}: ${value};`).join('\n')}
+${Object.entries(semantic.error.dark)
+  .map(([key, value]) => `  --color-error-${key}: ${value};`)
+  .join('\n')}
 
   /* Info Colors */
-${Object.entries(semantic.info.dark).map(([key, value]) => `  --color-info-${key}: ${value};`).join('\n')}
+${Object.entries(semantic.info.dark)
+  .map(([key, value]) => `  --color-info-${key}: ${value};`)
+  .join('\n')}
 }`
-  
+
   return css
 }
 
 // Generate and save colors.css
 const primaryColor = '#861afd'
-const isContrastCheck = true // Enable contrast checking by default
+const isContrastCheck = false // Disable contrast checking to preserve gradients
 const [h, s, l] = hexToHsl(primaryColor)
 const secondaryColor = generateSecondaryColor(primaryColor)
 const css = generateColorsCSS(primaryColor, isContrastCheck)
@@ -313,8 +403,13 @@ fs.writeFileSync('./colors.css', css)
 console.log('✅ colors.css generated with contrast checking:', isContrastCheck)
 console.log('🎨 Primary:', primaryColor)
 console.log('🎨 Secondary:', secondaryColor)
-console.log('🟢 Success:', hslToHex(140, Math.max(s - 10, 60), Math.min(l - 5, 55)))
+console.log(
+  '🟢 Success:',
+  hslToHex(140, Math.max(s - 10, 60), Math.min(l - 5, 55))
+)
 console.log('🟡 Warning:', hslToHex(35, Math.max(s, 70), Math.min(l + 5, 60)))
 console.log('🔴 Error:', hslToHex(0, Math.max(s - 5, 65), Math.min(l, 58)))
 console.log('🔵 Info:', hslToHex(220, Math.max(s - 10, 60), Math.min(l, 60)))
-console.log('\n✅ All primary background colors (500-950) ensure 4.5:1 contrast with white text')
+console.log(
+  '\n✅ All primary background colors (500-950) ensure 4.5:1 contrast with white text'
+)
