@@ -3,6 +3,6 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": ["**/*.ts", "**/*.js", "colors-gen.mjs"],
+  "include": ["**/*.ts", "**/*.js", "colors-gen.mjs", "theme-helper/runner.mjs", "theme-helper/color-contrast-checker.mjs", "theme-helper/shade-generator.mjs"],
   "exclude": ["node_modules", "dist"]
 }
