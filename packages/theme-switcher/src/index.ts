@@ -6,7 +6,7 @@ export { useTheme } from './use-theme'
 // Utilities and adapters
 export { createScript } from './script'
 export { storageAdapters } from './storage'
-export { updateDOM, resolveTheme } from './dom-updater'
+// export { updateDOM, resolveTheme } from './dom-updater'
 
 // Type definitions
 export type { ThemeConfig, ThemeMode, StorageAdapter } from './types'
