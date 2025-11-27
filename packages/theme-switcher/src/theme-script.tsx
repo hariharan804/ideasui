@@ -1,31 +1,36 @@
 import * as React from 'react'
 import type { ThemeConfig } from './types'
-import { defaultConfig } from './types'
 import { createScript } from './script'
+import { defaultConfig } from './themes.config'
 
-/** Props for ThemeScript component */
 export interface ThemeScriptProps extends Partial<ThemeConfig> {
-  /** CSP nonce for inline script */
   nonce?: string
-  /** Additional script element props */
-  scriptProps?: React.ScriptHTMLAttributes<HTMLScriptElement>
+  scriptProps?: Omit<
+    React.ScriptHTMLAttributes<HTMLScriptElement>,
+    'id' | 'nonce' | 'dangerouslySetInnerHTML' | 'suppressHydrationWarning'
+  >
+  id?: string
 }
 
-/**
- * SSR-friendly theme script that prevents FOUC
- * Must be placed in document <head>
- */
-export const ThemeScript = React.memo<ThemeScriptProps>((props = {}) => {
-  const { nonce, scriptProps, ...themeProps } = props
-  
+export const ThemeScript = React.memo<ThemeScriptProps>((props) => {
+  const { nonce, scriptProps, id = 'theme-script', ...themeProps } = props || {}
+
   const script = React.useMemo(() => {
-    const config = { ...defaultConfig, ...themeProps }
-    return createScript(config)
+    // Ensure 'system' is present in themes if you persist it anywhere else.
+    const merged: ThemeConfig = {
+      ...defaultConfig,
+      ...themeProps,
+      // defensive: dedupe themes
+      themes: Array.from(
+        new Set([...(defaultConfig.themes || []), ...(themeProps.themes || [])])
+      ),
+    }
+    return createScript(merged)
   }, [themeProps])
 
   return (
     <script
-       id="itheme"
+      id={id}
       {...scriptProps}
       suppressHydrationWarning
       nonce={nonce}

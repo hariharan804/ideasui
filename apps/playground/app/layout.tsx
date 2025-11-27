@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 // import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import React from 'react'
-import { ThemeScript, ThemeSwitcher } from '@your-org/theme-switcher'
+import { ThemeController, ThemeScript } from '@your-org/theme-switcher'
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
@@ -27,16 +27,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head className="dark:bg-bg-primary1">
+      <head>
         <ThemeScript
           themes={['light', 'dark']}
           defaultTheme="system"
           storageKey="theme"
           mode="class"
         />
-        <ThemeSwitcher />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <ThemeController />
+        {children}
+      </body>
     </html>
   )
 }
