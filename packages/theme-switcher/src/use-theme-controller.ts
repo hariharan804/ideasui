@@ -77,9 +77,22 @@ export function useThemeController(options: UseThemeController = {}) {
         else storage.setItem(storageKey, v)
       }
 
-      // --- bootstrap ---
-      const initial = getStored() || defaultTheme
+      // --- bootstrap (seed storage if empty) ---
+      const rawStored = getStored() // null | 'light' | 'dark' | 'system' | custom
+      const initial = rawStored ?? defaultTheme // e.g. 'dark' if you set defaultTheme: 'dark'
       const initialResolved = resolve(initial)
+
+      // Seed storage on first run:
+      // - if initial is concrete (not 'system'), store it (so 'dark' persists)
+      // - if initial is 'system', keep storage empty by default
+      if (rawStored == null) {
+        if (initial === 'system') {
+          // keep empty (or setStored('system') / setStored(initialResolved) if you prefer)
+          setStored(null)
+        } else {
+          setStored(initial)
+        }
+      }
 
       themeStore.set({
         theme: initial,
@@ -112,6 +125,7 @@ export function useThemeController(options: UseThemeController = {}) {
           lastResolved = nextResolved
         }
 
+        // persist only when theme actually changed
         if (snap.theme !== lastTheme) {
           setStored(snap.theme === 'system' ? null : snap.theme)
           lastTheme = snap.theme
@@ -143,7 +157,7 @@ export function useThemeController(options: UseThemeController = {}) {
           // set both if changed (single notification)
           if (s.theme !== next || s.resolved !== r) {
             themeStore.set({ theme: next, resolved: r, themes, systemThemes })
-            // subscriber will do DOM write; our shallow-compare avoids churn
+            // subscriber will do DOM write; store's shallow-compare avoids churn
           }
         }
       }
