@@ -28,12 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <ThemeScript
-          themes={['light', 'dark']}
-          defaultTheme="system"
-          storageKey="theme"
-          mode="class"
-        />
+        <ThemeScript />
       </head>
       <body className="antialiased">
         <ThemeController />
