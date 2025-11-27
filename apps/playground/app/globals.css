@@ -4,3 +4,5 @@
 /* Component classes
 @import '@i2l/tailwind-config/components.css';  */
 @source '../../../node_modules/@your-org/**/*.{js,ts,jsx,tsx,mdx}';
+/* @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *)); */
+@custom-variant dark (&:where(.dark, .dark *));

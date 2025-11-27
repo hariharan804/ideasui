@@ -12,7 +12,7 @@
     }
   },
   "scripts": {
-    "generate-theme": "node index.js",
+    "generate-theme": "node ./theme-helper/industry-standard-shades.mjs ",
     "generate-color": "node colors-gen.mjs",
     "generate-color2": "node paleate.mjs",
     "type-check": "tsc --noEmit"

@@ -1,9 +1,33 @@
+'use client'
+import { useTheme } from '@your-org/theme-switcher'
 import Image from 'next/image'
+import { useEffect } from 'react'
 
 export default function Home() {
+  const theme = useTheme()
+  // console.log('👨‍💻 ~ Home ~ theme:', theme)
+
+  // useEffect(() => {
+  //   window.testSystemTheme = () => {
+  //     const event = new MediaQueryListEvent('change', {
+  //       matches: !window.matchMedia('(prefers-color-scheme: dark)').matches,
+  //       media: '(prefers-color-scheme: dark)',
+  //     })
+  //     window.matchMedia('(prefers-color-scheme: dark)').dispatchEvent(event)
+  //   }
+  //   console.log(
+  //     '👨‍💻 ~ Home ~ window.33:',
+  //     window.matchMedia('(prefers-color-scheme: dark)')
+  //   )
+  //   console.log(
+  //     '👨‍💻 ~ Home ~ window.testSystemTheme:',
+  //     window.matchMedia('(prefers-color-scheme: dark)').matches
+  //   )
+  // }, [])
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans">
+      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white sm:items-start">
         <Image
           className="dark:invert"
           src="/next.svg"
@@ -13,21 +37,33 @@ export default function Home() {
           priority
         />
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+          <div className="p-6 bg-blue-500 dark:bg-red-500"></div>
+          <button
+            className="text-xl text-primary dark:bg-red-500"
+            onClick={() => {
+              const themes = ['light', 'dark', 'system']
+              const currentIndex = themes.indexOf(theme?.theme || 'system')
+              const nextTheme = themes[(currentIndex + 1) % themes.length]
+              theme?.setTheme(nextTheme)
+            }}
+          >
+            {theme?.theme} ({theme?.resolvedTheme})
+          </button>
+          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black">
             To get started, edit the page.tsx file.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+          <p className="max-w-md text-lg leading-8 text-zinc-600 ">
             Looking for a starting point or more instructions? Head over to{' '}
             <a
               href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              className="font-medium text-zinc-950  "
             >
               Templates
             </a>{' '}
             or the{' '}
             <a
               href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              className="font-medium text-zinc-950 "
             >
               Learning
             </a>{' '}

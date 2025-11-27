@@ -14,6 +14,7 @@
   "dependencies": {
     "@your-org/button": "workspace:*",
     "@your-org/lib": "workspace:*",
+    "@your-org/theme-switcher": "workspace:*",
     "next": "16.0.3",
     "react": "19.2.0",
     "react-dom": "19.2.0"

@@ -25,6 +25,18 @@ export function generateCSS(theme, config = {}) {
   })
 
   css += `
+  /* Color Tokens - Light Mode */
+  --color-secondary: var(--color-secondary-500);
+  --color-secondary-foreground: var(--color-secondary-50);
+  --color-success: var(--color-success-500);
+  --color-success-foreground: var(--color-success-50);
+  --color-warning: var(--color-warning-500);
+  --color-warning-foreground: var(--color-warning-50);
+  --color-error: var(--color-error-500);
+  --color-error-foreground: var(--color-error-50);
+  --color-info: var(--color-info-500);
+  --color-info-foreground: var(--color-info-50);
+  
   /* Semantic Colors - Light Mode */
   --color-background: var(--color-neutral-50);
   --color-foreground: var(--color-neutral-900);
@@ -39,6 +51,18 @@ export function generateCSS(theme, config = {}) {
   css += `}
 
 .dark {
+  /* Color Tokens - Dark Mode */
+  --color-secondary: var(--color-secondary-400);
+  --color-secondary-foreground: var(--color-secondary-950);
+  --color-success: var(--color-success-400);
+  --color-success-foreground: var(--color-success-950);
+  --color-warning: var(--color-warning-400);
+  --color-warning-foreground: var(--color-warning-950);
+  --color-error: var(--color-error-400);
+  --color-error-foreground: var(--color-error-950);
+  --color-info: var(--color-info-400);
+  --color-info-foreground: var(--color-info-950);
+  
   /* Semantic Colors - Dark Mode */
   --color-background: var(--color-neutral-950);
   --color-foreground: var(--color-neutral-50);
@@ -49,14 +73,12 @@ export function generateCSS(theme, config = {}) {
   --color-border: var(--color-neutral-800);
   --color-input: var(--color-neutral-800);
   --color-ring: var(--color-primary-400);
-  --color-destructive: var(--color-danger-400);
-  --color-destructive-foreground: var(--color-danger-950);
+  --color-destructive: var(--color-error-400);
+  --color-destructive-foreground: var(--color-error-950);
   --color-accent: var(--color-neutral-800);
   --color-accent-foreground: var(--color-neutral-50);
   --color-popover: var(--color-neutral-900);
   --color-popover-foreground: var(--color-neutral-50);
-  --color-secondary: var(--color-neutral-800);
-  --color-secondary-foreground: var(--color-neutral-50);
 `
 
   // Dark mode colors
@@ -92,8 +114,7 @@ export function generateCSS(theme, config = {}) {
   --text-3xs--line-height: calc(1 / 0.25);
   --text-2xs: 0.5rem;
   --text-2xs--line-height: calc(1 / 0.5);
-  /* Other Typography Scale overrides from tailwindcss */
-
+ 
   /* Spacing */
   --spacing-0: 0px;
   --spacing-1: 0.25rem;
@@ -125,15 +146,7 @@ export function generateCSS(theme, config = {}) {
   --spacing-72: 18rem;
   --spacing-80: 20rem;
   --spacing-96: 24rem;
-  
-  /* Border Radius Scale */
-  /* Radius overrides from tailwindcss */
-  
-  /* Animations 
-  --animate-spin: spin 1s linear infinite;
-  --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  */
-
+ 
   /* Interactive States */
   --opacity-hover: ${finalConfig.hoverOpacity};
   --opacity-disabled: ${finalConfig.disabledOpacity};
@@ -166,8 +179,7 @@ export function generateCSS(theme, config = {}) {
   --ring-color: var(--color-primary-500);
   
   /* Border Widths */
-  --border-1.5: 1.5px;
-  
+  --border-1-5: 1.5px;
   
   /* Semantic Colors */
   --color-background: var(--color-neutral-50);
@@ -194,13 +206,8 @@ export function generateCSS(theme, config = {}) {
   --backdrop-blur-md: blur(12px);
   --backdrop-blur-lg: blur(16px);
   --backdrop-blur-xl: blur(24px);
-  
-  /* Gradients 
-  --gradient-to-r: linear-gradient(to right, var(--tw-gradient-stops));
-  --gradient-to-l: linear-gradient(to left, var(--tw-gradient-stops));
-  --gradient-to-t: linear-gradient(to top, var(--tw-gradient-stops));
-  --gradient-to-b: linear-gradient(to bottom, var(--tw-gradient-stops));
-  */
+
+   /* Other token overrides from tailwindcss */
 }
  `
 

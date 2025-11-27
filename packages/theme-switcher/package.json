@@ -1,0 +1,26 @@
+{
+  "name": "@your-org/theme-switcher",
+  "version": "1.0.0",
+  "description": "SSR-friendly theme switcher with no dependencies",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "theme",
+    "dark-mode",
+    "ssr",
+    "react"
+  ],
+  "license": "MIT"
+}
