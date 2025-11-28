@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "SSR-friendly theme switcher with no dependencies",
   "main": "./src/index.ts",
+  "files": [
+    "src",
+    "theme.css"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./theme.css": "./src/theme.css"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch"

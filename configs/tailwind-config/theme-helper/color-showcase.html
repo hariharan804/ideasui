@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Theme Color Showcase</title>
+    <link rel="stylesheet" href="./brand-theme.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .color-box {
+            @apply w-20 h-20 rounded-lg flex items-center justify-center text-xs font-mono;
+        }
+        .color-name {
+            @apply text-xs font-mono mt-1 text-center;
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground p-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold">Brand Theme Color Showcase</h1>
+            <button onclick="toggleTheme()" class="bg-primary text-on-primary px-4 py-2 rounded-lg">
+                Toggle Dark Mode
+            </button>
+        </div>
+
+        <!-- Primary Colors -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Primary Colors</h2>
+            <div class="grid grid-cols-11 gap-4">
+                <div class="text-center">
+                    <div class="color-box bg-primary-50 text-primary-950">50</div>
+                    <div class="color-name">bg-primary-50</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-primary-100 text-primary-900">100</div>
+                    <div class="color-name">bg-primary-100</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-primary-200 text-primary-800">200</div>
+                    <div class="color-name">bg-primary-200</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-primary-300 text-primary-700">300</div>
+                    <div class="color-name">bg-primary-300</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-primary-400 text-primary-50">400</div>
+                    <div class="color-name">bg-primary-400</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-primary-500 text-on-primary">500</div>
+                    <div class="color-name">bg-primary-500</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-primary-600 text-on-primary">600</div>
+                    <div class="color-name">bg-primary-600</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-primary-700 text-on-primary">700</div>
+                    <div class="color-name">bg-primary-700</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-primary-800 text-primary-50">800</div>
+                    <div class="color-name">bg-primary-800</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-primary-900 text-primary-50">900</div>
+                    <div class="color-name">bg-primary-900</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-primary-950 text-primary-50">950</div>
+                    <div class="color-name">bg-primary-950</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Secondary Colors -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Secondary Colors</h2>
+            <div class="grid grid-cols-11 gap-4">
+                <div class="text-center">
+                    <div class="color-box bg-secondary-50 text-secondary-950">50</div>
+                    <div class="color-name">bg-secondary-50</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-secondary-100 text-secondary-900">100</div>
+                    <div class="color-name">bg-secondary-100</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-secondary-200 text-secondary-800">200</div>
+                    <div class="color-name">bg-secondary-200</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-secondary-300 text-secondary-700">300</div>
+                    <div class="color-name">bg-secondary-300</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-secondary-400 text-secondary-50">400</div>
+                    <div class="color-name">bg-secondary-400</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-secondary-500 text-on-secondary">500</div>
+                    <div class="color-name">bg-secondary-500</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-secondary-600 text-on-secondary">600</div>
+                    <div class="color-name">bg-secondary-600</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-secondary-700 text-on-secondary">700</div>
+                    <div class="color-name">bg-secondary-700</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-secondary-800 text-secondary-50">800</div>
+                    <div class="color-name">bg-secondary-800</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-secondary-900 text-secondary-50">900</div>
+                    <div class="color-name">bg-secondary-900</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-secondary-950 text-secondary-50">950</div>
+                    <div class="color-name">bg-secondary-950</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Colors -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Success Colors</h2>
+            <div class="grid grid-cols-11 gap-4">
+                <div class="text-center">
+                    <div class="color-box bg-success-50 text-success-950">50</div>
+                    <div class="color-name">bg-success-50</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-success-100 text-success-900">100</div>
+                    <div class="color-name">bg-success-100</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-success-200 text-success-800">200</div>
+                    <div class="color-name">bg-success-200</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-success-300 text-success-700">300</div>
+                    <div class="color-name">bg-success-300</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-success-400 text-success-50">400</div>
+                    <div class="color-name">bg-success-400</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-success-500 text-on-success">500</div>
+                    <div class="color-name">bg-success-500</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-success-600 text-on-success">600</div>
+                    <div class="color-name">bg-success-600</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-success-700 text-on-success">700</div>
+                    <div class="color-name">bg-success-700</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-success-800 text-success-50">800</div>
+                    <div class="color-name">bg-success-800</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-success-900 text-success-50">900</div>
+                    <div class="color-name">bg-success-900</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-success-950 text-success-50">950</div>
+                    <div class="color-name">bg-success-950</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Warning Colors -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Warning Colors</h2>
+            <div class="grid grid-cols-11 gap-4">
+                <div class="text-center">
+                    <div class="color-box bg-warning-50 text-warning-950">50</div>
+                    <div class="color-name">bg-warning-50</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-warning-100 text-warning-900">100</div>
+                    <div class="color-name">bg-warning-100</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-warning-200 text-warning-800">200</div>
+                    <div class="color-name">bg-warning-200</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-warning-300 text-warning-700">300</div>
+                    <div class="color-name">bg-warning-300</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-warning-400 text-warning-50">400</div>
+                    <div class="color-name">bg-warning-400</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-warning-500 text-on-warning">500</div>
+                    <div class="color-name">bg-warning-500</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-warning-600 text-on-warning">600</div>
+                    <div class="color-name">bg-warning-600</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-warning-700 text-on-warning">700</div>
+                    <div class="color-name">bg-warning-700</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-warning-800 text-warning-50">800</div>
+                    <div class="color-name">bg-warning-800</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-warning-900 text-warning-50">900</div>
+                    <div class="color-name">bg-warning-900</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-warning-950 text-warning-50">950</div>
+                    <div class="color-name">bg-warning-950</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Danger Colors -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Danger Colors</h2>
+            <div class="grid grid-cols-11 gap-4">
+                <div class="text-center">
+                    <div class="color-box bg-danger-50 text-danger-950">50</div>
+                    <div class="color-name">bg-danger-50</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-danger-100 text-danger-900">100</div>
+                    <div class="color-name">bg-danger-100</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-danger-200 text-danger-800">200</div>
+                    <div class="color-name">bg-danger-200</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-danger-300 text-danger-700">300</div>
+                    <div class="color-name">bg-danger-300</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-danger-400 text-danger-50">400</div>
+                    <div class="color-name">bg-danger-400</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-danger-500 text-on-danger">500</div>
+                    <div class="color-name">bg-danger-500</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-danger-600 text-on-danger">600</div>
+                    <div class="color-name">bg-danger-600</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-danger-700 text-on-danger">700</div>
+                    <div class="color-name">bg-danger-700</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-danger-800 text-danger-50">800</div>
+                    <div class="color-name">bg-danger-800</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-danger-900 text-danger-50">900</div>
+                    <div class="color-name">bg-danger-900</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-danger-950 text-danger-50">950</div>
+                    <div class="color-name">bg-danger-950</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Colors -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Info Colors</h2>
+            <div class="grid grid-cols-11 gap-4">
+                <div class="text-center">
+                    <div class="color-box bg-info-50 text-info-950">50</div>
+                    <div class="color-name">bg-info-50</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-info-100 text-info-900">100</div>
+                    <div class="color-name">bg-info-100</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-info-200 text-info-800">200</div>
+                    <div class="color-name">bg-info-200</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-info-300 text-info-700">300</div>
+                    <div class="color-name">bg-info-300</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-info-400 text-info-50">400</div>
+                    <div class="color-name">bg-info-400</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-info-500 text-on-info">500</div>
+                    <div class="color-name">bg-info-500</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-info-600 text-on-info">600</div>
+                    <div class="color-name">bg-info-600</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-info-700 text-on-info">700</div>
+                    <div class="color-name">bg-info-700</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-info-800 text-info-50">800</div>
+                    <div class="color-name">bg-info-800</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-info-900 text-info-50">900</div>
+                    <div class="color-name">bg-info-900</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-info-950 text-info-50">950</div>
+                    <div class="color-name">bg-info-950</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Neutral Colors -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Neutral Colors</h2>
+            <div class="grid grid-cols-11 gap-4">
+                <div class="text-center">
+                    <div class="color-box bg-neutral-50 text-neutral-950">50</div>
+                    <div class="color-name">bg-neutral-50</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-neutral-100 text-neutral-900">100</div>
+                    <div class="color-name">bg-neutral-100</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-neutral-200 text-neutral-800">200</div>
+                    <div class="color-name">bg-neutral-200</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-neutral-300 text-neutral-700">300</div>
+                    <div class="color-name">bg-neutral-300</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-neutral-400 text-neutral-50">400</div>
+                    <div class="color-name">bg-neutral-400</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-neutral-500 text-neutral-50">500</div>
+                    <div class="color-name">bg-neutral-500</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-neutral-600 text-neutral-50">600</div>
+                    <div class="color-name">bg-neutral-600</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-neutral-700 text-neutral-50">700</div>
+                    <div class="color-name">bg-neutral-700</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-neutral-800 text-neutral-50">800</div>
+                    <div class="color-name">bg-neutral-800</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-neutral-900 text-neutral-50">900</div>
+                    <div class="color-name">bg-neutral-900</div>
+                </div>
+                <div class="text-center">
+                    <div class="color-box bg-neutral-950 text-neutral-50">950</div>
+                    <div class="color-name">bg-neutral-950</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Material Design 3 Tokens -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Material Design 3 Tokens</h2>
+            <div class="grid grid-cols-4 gap-6">
+                <div class="space-y-4">
+                    <h3 class="text-lg font-medium">Primary</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-4">
+                            <div class="color-box bg-primary text-on-primary">Primary</div>
+                            <code class="text-sm">bg-primary text-on-primary</code>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="color-box bg-primary-container text-on-primary-container">Container</div>
+                            <code class="text-sm">bg-primary-container</code>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-lg font-medium">Secondary</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-4">
+                            <div class="color-box bg-secondary text-on-secondary">Secondary</div>
+                            <code class="text-sm">bg-secondary text-on-secondary</code>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="color-box bg-secondary-container text-on-secondary-container">Container</div>
+                            <code class="text-sm">bg-secondary-container</code>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-lg font-medium">Surface</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-4">
+                            <div class="color-box bg-surface text-on-surface">Surface</div>
+                            <code class="text-sm">bg-surface text-on-surface</code>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="color-box bg-surface-variant text-on-surface-variant">Variant</div>
+                            <code class="text-sm">bg-surface-variant</code>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-lg font-medium">Outline</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-4">
+                            <div class="color-box border-4 border-outline bg-surface text-on-surface">Outline</div>
+                            <code class="text-sm">border-outline</code>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="color-box border-4 border-outline-variant bg-surface text-on-surface">Variant</div>
+                            <code class="text-sm">border-outline-variant</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Semantic Tokens -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">Semantic Tokens</h2>
+            <div class="grid grid-cols-3 gap-6">
+                <div class="space-y-2">
+                    <div class="flex items-center gap-4">
+                        <div class="color-box bg-background text-foreground">Background</div>
+                        <code class="text-sm">bg-background text-foreground</code>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-4">
+                        <div class="color-box bg-card text-card-foreground">Card</div>
+                        <code class="text-sm">bg-card text-card-foreground</code>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-4">
+                        <div class="color-box bg-muted text-muted-foreground">Muted</div>
+                        <code class="text-sm">bg-muted text-muted-foreground</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+        }
+    </script>
+</body>
+</html>
