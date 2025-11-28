@@ -8,19 +8,15 @@ export const createScript = (cfg: ThemeConfig) => {
   )
 
   return `(function(){try{
-    var d=document.documentElement, key=${JSON.stringify(storageKey)};
-    var themes=${JSON.stringify(themes)}, sys=${JSON.stringify(systemThemes)};
-    var def=${JSON.stringify(defaultTheme)}, mode=${JSON.stringify(mode)};
-    var classes=${JSON.stringify(themeClassList)};
-    function prefersDark(){try{return !!(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)}catch(_){return false}}
-    function resolve(t){return t==='system'?(prefersDark()?sys.dark:sys.light):(themes.indexOf(t)>=0?t:def)}
-    function apply(r){if(mode==='class'){for(var i=0;i<classes.length;i++)d.classList.remove(classes[i]);d.classList.add(r)}else{d.setAttribute('data-theme',r)}}
-    var stored=null;try{stored=localStorage.getItem(key)}catch(_){}
-    var initial=stored||def; apply(resolve(initial));
-    var mq=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)');
-    function onSys(){var s=null;try{s=localStorage.getItem(key)}catch(_){}
-      if(s===null||s==='system'){apply(resolve('system'))}}
-    if(mq){mq.addEventListener?mq.addEventListener('change',onSys):mq.addListener(onSys)}
-    window.addEventListener('storage',function(e){if(e&&e.key===key){var n=e.newValue==null?'system':e.newValue; if(n==='system'||themes.indexOf(n)>=0){apply(resolve(n))}}})
-  }catch(_){}})()`
+    var el=document.documentElement,key=${JSON.stringify(storageKey)},themes=${JSON.stringify(themes)},sys=${JSON.stringify(systemThemes)};
+    var def=${JSON.stringify(defaultTheme)},mode=${JSON.stringify(mode)},classes=${JSON.stringify(themeClassList)},lastTheme='',classRegex=new RegExp('\\\\b('+classes.join('|')+')\\\\b','g');
+    function prefersDark(){try{return !!(window.matchMedia?.('(prefers-color-scheme: dark)')?.matches)}catch(e){console.warn('Theme media query error:',e);return false}}
+    function resolve(t){return t==='system'?(prefersDark()?sys.dark:sys.light):(themes.includes(t)?t:def)}
+    function apply(r){if(r===lastTheme)return;lastTheme=r;if(mode==='class'){el.className=el.className.replace(classRegex,'').trim();if(r)el.classList.add(r)}else{el.setAttribute('data-theme',r)}}
+    try{var stored=localStorage?.getItem?.(key),initial=stored||def;apply(resolve(initial))}catch(e){console.warn('Theme init storage error:',e);apply(resolve(def))}
+    var mq=window.matchMedia?.('(prefers-color-scheme: dark)');
+    function onSys(){try{var s=localStorage?.getItem?.(key);if(!s||s==='system')apply(resolve('system'))}catch(e){console.warn('Theme sync error:',e)}}
+    if(mq)mq.addEventListener?.('change',onSys)||mq.addListener?.(onSys);
+    window.addEventListener('storage',function(e){if(e?.key===key){var n=e.newValue||'system';if(n==='system'||themes.includes(n))apply(resolve(n))}})
+  }catch(e){console.warn('Theme critical error:',e);try{document.documentElement.className=document.documentElement.className.replace(new RegExp('\\\\b('+${JSON.stringify(themeClassList)}.join('|')+')\\\\b','g'),'').trim()+' '+${JSON.stringify(defaultTheme)}}catch(_){document.documentElement.className=${JSON.stringify(defaultTheme)}}})()`
 }

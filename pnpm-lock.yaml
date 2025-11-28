@@ -135,9 +135,9 @@ importers:
       '@your-org/lib':
         specifier: workspace:*
         version: link:../../packages/lib
-      '@your-org/theme-switcher':
+      '@your-org/theme-controller':
         specifier: workspace:*
-        version: link:../../packages/theme-switcher
+        version: link:../../packages/theme-controller
       next:
         specifier: 16.0.3
         version: 16.0.3(@babel/core@7.28.5)(@playwright/test@1.56.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -364,7 +364,7 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/theme-switcher:
+  packages/theme-controller:
     dependencies:
       react:
         specifier: '>=16.8.0'

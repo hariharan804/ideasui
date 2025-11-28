@@ -43,39 +43,6 @@ export function generateShades(baseColor) {
   return { light: lightShades, dark: darkShades }
 }
 
-// Generate neutral grays
-// export function generateNeutrals() {
-//   return {
-//     light: {
-//       50: '#fafafa',
-//       100: '#f5f5f5',
-//       200: '#e5e5e5',
-//       300: '#d4d4d4',
-//       400: '#a3a3a3',
-//       500: '#737373',
-//       600: '#525252',
-//       700: '#404040',
-//       800: '#262626',
-//       900: '#171717',
-//       950: '#0a0a0a',
-//     },
-//     dark: {
-//       50: '#0a0a0a',
-//       100: '#171717',
-//       200: '#262626',
-//       300: '#404040',
-//       400: '#525252',
-//       500: '#737373',
-//       600: '#a3a3a3',
-//       700: '#d4d4d4',
-//       800: '#e5e5e5',
-//       900: '#f5f5f5',
-//       950: '#fafafa',
-//     },
-//   }
-// }
-
-// Complete theme with semantic colors
 export function generateCompleteTheme() {
   // const colors = {
   //   primary: '#861afd', // Blue - main brand
@@ -85,7 +52,7 @@ export function generateCompleteTheme() {
   //   error: '#ef4444', // Red
   //   info: '#06b6d4', // Cyan
   // }
-  const colors = getSemanticColors('#0177fe') // #861afd, #0177fe
+  const colors = getSemanticColors('#3264fb') // #861afd, #0177fe
   const theme = { light: {}, dark: {} }
 
   Object.entries(colors).forEach(([name, color]) => {
@@ -101,11 +68,6 @@ export function generateCompleteTheme() {
     theme.dark[name] = shades.dark
   })
 
-  // Add neutrals
-  // const neutrals = generateNeutrals()
-  // theme.light.neutral = neutrals.light
-  // theme.dark.neutral = neutrals.dark
-
   return theme
 }
 
@@ -116,16 +78,13 @@ const tsContent = `export const completeTheme = ${JSON.stringify(completeTheme, 
 
 export type ThemeColors = typeof completeTheme`
 
-
-
 const cssContent = generateCSS(completeTheme, {
   hoverOpacity: 0.85,
   disabledOpacity: 0.4,
-  transitionNormal: '200ms ease-in-out'
+  transitionNormal: '200ms ease-in-out',
 })
 
-fs.writeFileSync('./generated-theme-constants.ts', tsContent)
-fs.writeFileSync('./brand-theme.css', cssContent)
+fs.writeFileSync('./theme-helper/generated-theme-constants.ts', tsContent)
+fs.writeFileSync('./theme-helper/brand-theme.css', cssContent)
 console.log('✅ Theme constants generated!')
 console.log('✅ Brand theme CSS generated!')
-

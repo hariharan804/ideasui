@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev:next": "next dev",
+    "dev:next": "next dev -p 5000",
     "build:next": "next build",
     "start:next": "next start",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx --cache",

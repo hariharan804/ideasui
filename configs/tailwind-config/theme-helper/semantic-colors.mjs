@@ -1,66 +1,171 @@
 import chroma from 'chroma-js'
 
 /**
- * Generate semantic colors from primary brand color
- *
- * Usage:
- * getSemanticColors('#3b82f6')
- *
- * Returns: { secondary, warning, success, danger, neutral }
+ * Generate secondary color using color theory
+ * @param {string} primaryColor - Hex color
+ * @param {string} variant - Color relationship type
+ * @returns {string} - Secondary hex color
  */
-// Generate secondary color variants
 export function generateSecondary(primaryColor, variant = 'complementary') {
   const primary = chroma(primaryColor)
   const [h, s, l] = primary.hsl()
 
-  switch (variant) {
-    case 'complementary':
-      return chroma.hsl((h + 180) % 360, s * 0.7, l * 0.9).hex()
-    case 'monochromatic':
-      return chroma.hsl(h, s * 0.4, l * 1.2).hex()
-    case 'triadic':
-      return chroma.hsl((h + 120) % 360, s * 0.8, l).hex()
-    case 'analogous':
-      return chroma.hsl((h + 30) % 360, s * 0.9, l * 0.8).hex()
-    case 'split-complementary':
-      return chroma.hsl((h + 150) % 360, s * 0.8, l * 0.9).hex()
-    default:
-      return chroma.hsl((h + 180) % 360, s * 0.7, l * 0.9).hex()
+  const variants = {
+    complementary: {
+      hue: (h + 180) % 360,
+      saturation: s * 0.7,
+      lightness: l * 0.9,
+    },
+    monochromatic: {
+      hue: h,
+      saturation: s * 0.4,
+      lightness: l * 1.2,
+    },
+    triadic: {
+      hue: (h + 120) % 360,
+      saturation: s * 0.8,
+      lightness: l,
+    },
+    analogous: {
+      hue: (h + 30) % 360,
+      saturation: s * 0.9,
+      lightness: l * 0.8,
+    },
+    'split-complementary': {
+      hue: (h + 150) % 360,
+      saturation: s * 0.8,
+      lightness: l * 0.9,
+    },
   }
+
+  const config = variants[variant] || variants.complementary
+
+  return chroma
+    .hsl(
+      config.hue,
+      Math.max(0, Math.min(1, config.saturation)),
+      Math.max(0, Math.min(1, config.lightness))
+    )
+    .hex()
 }
 
-export function getSemanticColors(
-  primaryColor,
-  customSecondary = null,
-  secondaryVariant = 'complementary'
-) {
+/**
+ * Generate semantic colors maintaining base hues but adapting to primary
+ */
+function generateWarning(primaryColor) {
+  const [, s, l] = chroma(primaryColor).hsl()
+  return chroma.hsl(40, s * 0.9, Math.max(0.5, l * 0.9)).hex() // Amber base
+}
+
+function generateSuccess(primaryColor) {
+  const [, s, l] = chroma(primaryColor).hsl()
+  return chroma.hsl(142, s * 0.8, Math.max(0.35, l * 0.7)).hex() // Green base
+}
+
+function generateDanger(primaryColor) {
+  const [, s, l] = chroma(primaryColor).hsl()
+  return chroma.hsl(0, s * 0.85, Math.max(0.55, l * 0.8)).hex() // Red base
+}
+
+function generateInfo(primaryColor) {
+  const [, s, l] = chroma(primaryColor).hsl()
+  return chroma.hsl(200, s * 0.8, Math.max(0.5, l * 0.8)).hex() // Blue base
+}
+
+/**
+ * Generate neutral color (desaturated version of primary)
+ */
+function generateNeutral(primaryColor) {
   const primary = chroma(primaryColor)
   const [h, s, l] = primary.hsl()
 
+  return chroma.hsl(h, 0.05, 0.45).hex()
+}
+
+/**
+ * Generate semantic colors from primary brand color
+ *
+ * @param {string} primaryColor - Primary brand color (hex)
+ * @param {object} options - Configuration options
+ * @returns {object} - Semantic colors { primary, secondary, warning, success, danger, info, neutral }
+ *
+ * Usage:
+ * getSemanticColors('#861afd')
+ * getSemanticColors('#861afd', { secondaryVariant: 'triadic' })
+ */
+export function getSemanticColors(primaryColor, options = {}) {
+  const {
+    secondaryVariant = 'monochromatic',
+    customSecondary = null,
+    customWarning = null,
+    customSuccess = null,
+    customDanger = null,
+    customInfo = null,
+    customNeutral = null,
+  } = options
+
+  // Validate primary color
+  if (!chroma.valid(primaryColor)) {
+    throw new Error(`Invalid primary color: ${primaryColor}`)
+  }
+
+  // Generate all colors dynamically
+  const secondary =
+    customSecondary || generateSecondary(primaryColor, secondaryVariant)
+  const warning = customWarning || generateWarning(primaryColor)
+  const success = customSuccess || generateSuccess(primaryColor)
+  const danger = customDanger || generateDanger(primaryColor)
+  const info = customInfo || generateInfo(primaryColor)
+  const neutral = customNeutral || generateNeutral(primaryColor)
+
+  // Validate all colors
+  ;[secondary, warning, success, danger, info, neutral].forEach((color) => {
+    if (!chroma.valid(color)) {
+      throw new Error(`Generated invalid color: ${color}`)
+    }
+  })
+
   return {
     primary: primaryColor,
-    secondary:
-      customSecondary || generateSecondary(primaryColor, secondaryVariant),
-    warning: chroma.hsl(40, 0.9, 0.55).hex(),
-    success: chroma.hsl(142, 0.76, 0.36).hex(),
-    danger: chroma.hsl(0, 0.84, 0.6).hex(),
-    neutral: chroma.hsl(h, 0.05, 0.45).hex(),
+    secondary: secondary,
+    warning: warning,
+    success: success,
+    danger: danger,
+    info: info,
+    neutral: neutral,
   }
 }
 
-const colors = getSemanticColors('#861afd')
-console.log('👨‍💻 ~ colors:', colors)
+// ============ EXAMPLES ============
 
-// Test different secondary variants
-// const variants = [
-//   'complementary',
-//   'monochromatic',
-//   'triadic',
-//   'analogous',
-//   'split-complementary',
-// ]
+// // Basic usage - all colors generated from primary
+// const colors1 = getSemanticColors('#861afd')
+// console.log(colors1)
+// // {
+// //   primary: '#861afd',
+// //   secondary: '#1afd86',
+// //   warning: '#fd9c1a',
+// //   success: '#1afd6d',
+// //   danger: '#fd1a3d',
+// //   info: '#1a9cfd',
+// //   neutral: '#8b6d97'
+// // }
 
-// variants.forEach((variant) => {
-//   const colors = getAllSemanticColors('#861afd', null, variant)
-//   console.log(`🎨 ${variant}:`, colors.secondary)
+// // Different secondary variant
+// const colors2 = getSemanticColors('#861afd', {
+//   secondaryVariant: 'triadic',
 // })
+// console.log('👨💻 ~ colors2:', colors2)
+
+// // Override specific colors if needed
+// const colors3 = getSemanticColors('#861afd', {
+//   customDanger: '#dc2626',
+//   customNeutral: '#767676',
+// })
+// console.log('👨💻 ~ colors3:', colors3)
+
+// // Try different primary colors
+// const colors4 = getSemanticColors('#015fcb')
+// console.log('👨💻 ~ colors4:', colors4)
+// const colors5 = getSemanticColors('#f59e0b')
+// console.log('👨💻 ~ colors5:', colors5)

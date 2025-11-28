@@ -22,22 +22,29 @@ export function generateCSS(theme, config = {}) {
     Object.entries(shades).forEach(([shade, hex]) => {
       css += `  --color-${colorName}-${shade}: ${hex};\n`
     })
+    if (colorName === 'neutral') {
+      Object.entries(shades).forEach(([shade, hex]) => {
+        css += `  --color-gray-${shade}: var(--color-neutral-${shade});\n`
+      })
+    }
   })
 
   css += `
   /* Color Tokens - Light Mode */
+  --color-primary: var(--color-primary-500);
+  --color-primary-foreground: var(--color-primary-50);
   --color-secondary: var(--color-secondary-500);
   --color-secondary-foreground: var(--color-secondary-50);
   --color-success: var(--color-success-500);
   --color-success-foreground: var(--color-success-50);
   --color-warning: var(--color-warning-500);
   --color-warning-foreground: var(--color-warning-50);
-  --color-error: var(--color-error-500);
-  --color-error-foreground: var(--color-error-50);
+  --color-danger: var(--color-danger-500);
+  --color-danger-foreground: var(--color-danger-50);
   --color-info: var(--color-info-500);
   --color-info-foreground: var(--color-info-50);
-  
-  /* Semantic Colors - Light Mode */
+
+  /* Semantic Colors */
   --color-background: var(--color-neutral-50);
   --color-foreground: var(--color-neutral-900);
   --color-muted: var(--color-neutral-100);
@@ -46,24 +53,28 @@ export function generateCSS(theme, config = {}) {
   --color-card-foreground: var(--color-neutral-900);
   --color-border: var(--color-neutral-200);
   --color-input: var(--color-neutral-200);
-  --color-ring: var(--color-primary-500);`
+  --color-ring: var(--color-primary-500);
+  --color-white: #ffffff;
+  --color-black: #000000;`
 
   css += `}
 
 .dark {
   /* Color Tokens - Dark Mode */
+  --color-primary: var(--color-primary-400);
+  --color-primary-foreground: var(--color-primary-950);
   --color-secondary: var(--color-secondary-400);
   --color-secondary-foreground: var(--color-secondary-950);
   --color-success: var(--color-success-400);
   --color-success-foreground: var(--color-success-950);
   --color-warning: var(--color-warning-400);
   --color-warning-foreground: var(--color-warning-950);
-  --color-error: var(--color-error-400);
-  --color-error-foreground: var(--color-error-950);
+  --color-danger: var(--color-danger-400);
+  --color-danger-foreground: var(--color-danger-950);
   --color-info: var(--color-info-400);
   --color-info-foreground: var(--color-info-950);
-  
-  /* Semantic Colors - Dark Mode */
+
+  /* Dark Mode Semantics */
   --color-background: var(--color-neutral-950);
   --color-foreground: var(--color-neutral-50);
   --color-muted: var(--color-neutral-900);
@@ -73,12 +84,8 @@ export function generateCSS(theme, config = {}) {
   --color-border: var(--color-neutral-800);
   --color-input: var(--color-neutral-800);
   --color-ring: var(--color-primary-400);
-  --color-destructive: var(--color-error-400);
-  --color-destructive-foreground: var(--color-error-950);
-  --color-accent: var(--color-neutral-800);
-  --color-accent-foreground: var(--color-neutral-50);
-  --color-popover: var(--color-neutral-900);
-  --color-popover-foreground: var(--color-neutral-50);
+  --color-white: #000000;
+  --color-black: #ffffff;
 `
 
   // Dark mode colors
@@ -86,16 +93,17 @@ export function generateCSS(theme, config = {}) {
     Object.entries(shades).forEach(([shade, hex]) => {
       css += `  --color-${colorName}-${shade}: ${hex};\n`
     })
+    if (colorName === 'neutral') {
+      Object.entries(shades).forEach(([shade, hex]) => {
+        css += `  --color-gray-${shade}: var(--color-neutral-${shade});\n`
+      })
+    }
   })
 
   css += `}
 }
 
 @theme {
-  /* Typography */
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --font-mono: ui-monospace, 'Cascadia Code', monospace;
-  
   /* Colors - Reference CSS variables */
 `
 
@@ -104,6 +112,11 @@ export function generateCSS(theme, config = {}) {
     Object.entries(shades).forEach(([shade]) => {
       css += `  --color-${colorName}-${shade}: var(--color-${colorName}-${shade});\n`
     })
+    if (colorName === 'neutral') {
+      Object.entries(shades).forEach(([shade, hex]) => {
+        css += `  --color-gray-${shade}: var(--color-neutral-${shade});\n`
+      })
+    }
   })
 
   css += `
@@ -181,7 +194,55 @@ export function generateCSS(theme, config = {}) {
   /* Border Widths */
   --border-1-5: 1.5px;
   
-  /* Semantic Colors */
+  /* Material Design 3 Color Pairs */
+  --color-primary: var(--color-primary-500);
+  --color-primary-foreground: var(--color-primary-50);
+  --color-on-primary: var(--color-white);
+  --color-primary-container: var(--color-primary-100);
+  --color-on-primary-container: var(--color-primary-900);
+  
+  --color-secondary: var(--color-secondary-500);
+  --color-secondary-foreground: var(--color-secondary-50);
+  --color-on-secondary: var(--color-white);
+  --color-secondary-container: var(--color-secondary-100);
+  --color-on-secondary-container: var(--color-secondary-900);
+  
+  --color-success: var(--color-success-500);
+  --color-success-foreground: var(--color-success-50);
+  --color-on-success: var(--color-white);
+  --color-success-container: var(--color-success-100);
+  --color-on-success-container: var(--color-success-900);
+  
+  --color-warning: var(--color-warning-500);
+  --color-warning-foreground: var(--color-warning-50);
+  --color-on-warning: var(--color-white);
+  --color-warning-container: var(--color-warning-100);
+  --color-on-warning-container: var(--color-warning-900);
+
+  --color-danger: var(--color-danger-500);
+  --color-danger-foreground: var(--color-danger-50);
+  --color-on-danger: var(--color-white);
+  --color-danger-container: var(--color-danger-100);
+  --color-on-danger-container: var(--color-danger-900);
+  
+  --color-info: var(--color-info-500);
+  --color-info-foreground: var(--color-info-50);
+  --color-on-info: var(--color-white);
+  --color-info-container: var(--color-info-100);
+  --color-on-info-container: var(--color-info-900);
+  
+  --color-surface: var(--color-neutral-50);
+  --color-on-surface: var(--color-neutral-900);
+  --color-surface-variant: var(--color-neutral-100);
+  --color-on-surface-variant: var(--color-neutral-500);
+  
+  --color-outline: var(--color-neutral-300);
+  --color-outline-variant: var(--color-neutral-200);
+  
+  --color-disabled: var(--color-neutral-200);
+  --color-on-disabled: var(--color-neutral-400);
+
+  /* Legacy Semantic Colors */
   --color-background: var(--color-neutral-50);
   --color-foreground: var(--color-neutral-900);
   --color-muted: var(--color-neutral-100);
@@ -197,17 +258,15 @@ export function generateCSS(theme, config = {}) {
   --color-accent-foreground: var(--color-neutral-900);
   --color-popover: var(--color-neutral-50);
   --color-popover-foreground: var(--color-neutral-900);
-  --color-secondary: var(--color-neutral-100);
-  --color-secondary-foreground: var(--color-neutral-900);
- 
+  --color-white: var(--color-white);
+  --color-black: var(--color-black);
+
   /* Backdrop Blur */
   --backdrop-blur-sm: blur(4px);
   --backdrop-blur: blur(8px);
   --backdrop-blur-md: blur(12px);
   --backdrop-blur-lg: blur(16px);
   --backdrop-blur-xl: blur(24px);
-
-   /* Other token overrides from tailwindcss */
 }
  `
 
