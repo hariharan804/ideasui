@@ -1,4 +1,4 @@
-import ColorShowcase from "@/components/ColorShowcase";
+import ColorShowcase from './ColorShowcase'
 
 export default function Colors() {
   return <ColorShowcase />

@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-
 @layer base {
   :root,
   :host {

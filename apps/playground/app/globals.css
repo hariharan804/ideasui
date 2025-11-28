@@ -1,8 +1,10 @@
 /* Tailwind v4 base styles */
-@import '@i2l/tailwind-config/theme.css';
+/* @import '@i2l/tailwind-config/theme.css'; */
 
 /* Component classes
 @import '@i2l/tailwind-config/components.css';  */
+@import '@your-org/theme-controller/theme.css';
 @source '../../../node_modules/@your-org/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../components/*.{js,ts,jsx,tsx,mdx}';
 /* @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *)); */
 @custom-variant dark (&:where(.dark, .dark *));
