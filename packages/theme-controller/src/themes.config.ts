@@ -4,7 +4,7 @@ import { ThemeConfig } from './types'
 export const defaultConfig: ThemeConfig = {
   themes: ['light', 'dark', 'system'],
   defaultTheme: 'dark',
-  storageKey: 'theme',
+  storageKey: 'itheme',
   mode: 'class',
   systemThemes: { light: 'light', dark: 'dark' },
 }

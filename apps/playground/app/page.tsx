@@ -1,29 +1,9 @@
 'use client'
-import { useTheme } from '@your-org/theme-switcher'
+import { useTheme } from '@your-org/theme-controller'
 import Image from 'next/image'
-import { useEffect } from 'react'
 
 export default function Home() {
   const theme = useTheme()
-  // console.log('👨‍💻 ~ Home ~ theme:', theme)
-
-  // useEffect(() => {
-  //   window.testSystemTheme = () => {
-  //     const event = new MediaQueryListEvent('change', {
-  //       matches: !window.matchMedia('(prefers-color-scheme: dark)').matches,
-  //       media: '(prefers-color-scheme: dark)',
-  //     })
-  //     window.matchMedia('(prefers-color-scheme: dark)').dispatchEvent(event)
-  //   }
-  //   console.log(
-  //     '👨‍💻 ~ Home ~ window.33:',
-  //     window.matchMedia('(prefers-color-scheme: dark)')
-  //   )
-  //   console.log(
-  //     '👨‍💻 ~ Home ~ window.testSystemTheme:',
-  //     window.matchMedia('(prefers-color-scheme: dark)').matches
-  //   )
-  // }, [])
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans">
@@ -49,7 +29,7 @@ export default function Home() {
           >
             {theme?.theme} ({theme?.resolvedTheme})
           </button>
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black">
+          {/* <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black">
             To get started, edit the page.tsx file.
           </h1>
           <p className="max-w-md text-lg leading-8 text-zinc-600 ">
@@ -68,9 +48,9 @@ export default function Home() {
               Learning
             </a>{' '}
             center.
-          </p>
+          </p> */}
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-base font-medium">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-base font-medium">
           <a
             className="flex h-12 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-5 text-white transition-all hover:from-purple-600 hover:to-pink-600 transform hover:scale-105"
             href="/library"
@@ -89,7 +69,7 @@ export default function Home() {
           >
             📖 Docs
           </a>
-        </div>
+        </div> */}
       </main>
     </div>
   )

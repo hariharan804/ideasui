@@ -1,5 +1,5 @@
 {
-  "name": "@your-org/theme-switcher",
+  "name": "@your-org/theme-controller",
   "version": "1.0.0",
   "description": "SSR-friendly theme switcher with no dependencies",
   "main": "./src/index.ts",
