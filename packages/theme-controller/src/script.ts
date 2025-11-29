@@ -3,20 +3,92 @@ import type { ThemeConfig } from './types'
 
 export const createScript = (cfg: ThemeConfig) => {
   const { storageKey, defaultTheme, themes, mode, systemThemes } = cfg
+
+  // All possible theme class names we might add/remove
   const themeClassList = Array.from(
     new Set([...themes, systemThemes.light, systemThemes.dark])
   )
 
+  // Prebuild literals for injection
+  const KEY = JSON.stringify(storageKey)
+  const THEMES = JSON.stringify(themes)
+  const SYS = JSON.stringify(systemThemes)
+  const DEF = JSON.stringify(defaultTheme)
+  const MODE = JSON.stringify(mode)
+  const CLS_PATTERN = JSON.stringify(themeClassList.join('|'))
+
+  // Returned IIFE (no optional-call syntax, no nested ${} in JS strings)
   return `(function(){try{
-    var el=document.documentElement,key=${JSON.stringify(storageKey)},themes=${JSON.stringify(themes)},sys=${JSON.stringify(systemThemes)};
-    var def=${JSON.stringify(defaultTheme)},mode=${JSON.stringify(mode)},classes=${JSON.stringify(themeClassList)},lastTheme='',classRegex=new RegExp('\\\\b('+classes.join('|')+')\\\\b','g');
-    function prefersDark(){try{return !!(window.matchMedia?.('(prefers-color-scheme: dark)')?.matches)}catch(e){console.warn('Theme media query error:',e);return false}}
-    function resolve(t){return t==='system'?(prefersDark()?sys.dark:sys.light):(themes.includes(t)?t:def)}
-    function apply(r){if(r===lastTheme)return;lastTheme=r;if(mode==='class'){el.className=el.className.replace(classRegex,'').trim();if(r)el.classList.add(r)}else{el.setAttribute('data-theme',r)}}
-    try{var stored=localStorage?.getItem?.(key),initial=stored||def;apply(resolve(initial))}catch(e){console.warn('Theme init storage error:',e);apply(resolve(def))}
-    var mq=window.matchMedia?.('(prefers-color-scheme: dark)');
-    function onSys(){try{var s=localStorage?.getItem?.(key);if(!s||s==='system')apply(resolve('system'))}catch(e){console.warn('Theme sync error:',e)}}
-    if(mq)mq.addEventListener?.('change',onSys)||mq.addListener?.(onSys);
-    window.addEventListener('storage',function(e){if(e?.key===key){var n=e.newValue||'system';if(n==='system'||themes.includes(n))apply(resolve(n))}})
-  }catch(e){console.warn('Theme critical error:',e);try{document.documentElement.className=document.documentElement.className.replace(new RegExp('\\\\b('+${JSON.stringify(themeClassList)}.join('|')+')\\\\b','g'),'').trim()+' '+${JSON.stringify(defaultTheme)}}catch(_){document.documentElement.className=${JSON.stringify(defaultTheme)}}})()`
+    var d=document,el=d.documentElement;
+    var key=${KEY},themes=${THEMES},sys=${SYS},def=${DEF},mode=${MODE};
+    var lastTheme='';
+    var classRegex=new RegExp('\\\\b(?:'+${CLS_PATTERN}+')\\\\b','g');
+
+    function mm(){try{return typeof window!=='undefined' && typeof window.matchMedia==='function' ? window.matchMedia('(prefers-color-scheme: dark)') : null;}catch(_){return null;}}
+    function prefersDark(){var q=mm();try{return !!(q && q.matches);}catch(_){return false;}}
+    function resolve(t){
+      if(t==='system'){return prefersDark()?sys.dark:sys.light;}
+      return themes.indexOf(t)>=0 ? t : def;
+    }
+    function stripThemeClasses(){
+      try{el.className = el.className.replace(classRegex,'').replace(/\\s+/g,' ').trim();}catch(_){}
+    }
+    function apply(next){
+      if(next===lastTheme) return;
+      lastTheme=next||'';
+      if(mode==='class'){
+        stripThemeClasses();
+        if(next){ el.classList.add(next); }
+      }else{
+        if(next){ el.setAttribute('data-theme',next); }
+        else{ el.removeAttribute('data-theme'); }
+      }
+    }
+
+    // Initial
+    var initial;
+    try{
+      var stored = (typeof localStorage!=='undefined' && localStorage.getItem) ? localStorage.getItem(key) : null;
+      initial = stored || def;
+    }catch(_){
+      initial = def;
+    }
+    apply(resolve(initial));
+
+    // React to system changes when in "system"
+    var q = mm();
+    function onSys(){
+      try{
+        var s = (typeof localStorage!=='undefined' && localStorage.getItem) ? localStorage.getItem(key) : null;
+        if(!s || s==='system'){ apply(resolve('system')); }
+      }catch(_){}
+    }
+    if(q){
+      if(q.addEventListener){ q.addEventListener('change', onSys); }
+      else if(q.addListener){ q.addListener(onSys); }
+    }
+
+    // Cross-tab sync
+    if(typeof window!=='undefined' && window.addEventListener){
+      window.addEventListener('storage', function(e){
+        try{
+          if(e && e.key===key){
+            var n = e.newValue || 'system';
+            if(n==='system' || themes.indexOf(n)>=0){ apply(resolve(n)); }
+          }
+        }catch(_){}
+      });
+    }
+  }catch(e){
+    try{
+      // Fallback: strip known theme classes and apply default
+      var cleanup=new RegExp('\\\\b(?:'+${CLS_PATTERN}+')\\\\b','g');
+      var cn=document.documentElement.className||'';
+      cn=cn.replace(cleanup,'').replace(/\\s+/g,' ').trim();
+      document.documentElement.className=(cn?cn+' ':'')+${DEF};
+    }catch(_){
+      document.documentElement.className=${DEF};
+    }
+    console.warn('Theme init error:',e);
+  }})();`
 }

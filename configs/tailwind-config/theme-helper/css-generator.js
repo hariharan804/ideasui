@@ -1,7 +1,8 @@
 // Generate CSS file with industry-standard tokens following theme.css structure
 export function generateCSS(theme, config = {}) {
-  const PREFIX = 'iui'
-  
+  const BRAND_NAME = 'iui'
+  const PREFIX = BRAND_NAME ? `--${BRAND_NAME}-color-` : '--color-'
+
   const defaultConfig = {
     hoverOpacity: 0.8,
     disabledOpacity: 0.5,
@@ -22,85 +23,89 @@ export function generateCSS(theme, config = {}) {
   // Light mode colors
   Object.entries(theme.light).forEach(([colorName, shades]) => {
     Object.entries(shades).forEach(([shade, hex]) => {
-      css += `  --${PREFIX}-color-${colorName}-${shade}: ${hex};\n`
+      css += `  ${PREFIX}${colorName}-${shade}: ${hex};\n`
     })
     if (colorName === 'neutral') {
       Object.entries(shades).forEach(([shade, hex]) => {
-        css += `  --${PREFIX}-color-gray-${shade}: var(--${PREFIX}-color-neutral-${shade});\n`
+        css += `  ${PREFIX}gray-${shade}: var(${PREFIX}neutral-${shade});\n`
       })
     }
   })
 
   css += `
   /* Color Tokens - Light Mode */
-  --${PREFIX}-color-primary: var(--${PREFIX}-color-primary-500);
-  --${PREFIX}-color-primary-foreground: var(--${PREFIX}-color-primary-50);
-  --${PREFIX}-color-secondary: var(--${PREFIX}-color-secondary-500);
-  --${PREFIX}-color-secondary-foreground: var(--${PREFIX}-color-secondary-50);
-  --${PREFIX}-color-success: var(--${PREFIX}-color-success-500);
-  --${PREFIX}-color-success-foreground: var(--${PREFIX}-color-success-50);
-  --${PREFIX}-color-warning: var(--${PREFIX}-color-warning-500);
-  --${PREFIX}-color-warning-foreground: var(--${PREFIX}-color-warning-50);
-  --${PREFIX}-color-danger: var(--${PREFIX}-color-danger-500);
-  --${PREFIX}-color-danger-foreground: var(--${PREFIX}-color-danger-50);
-  --${PREFIX}-color-info: var(--${PREFIX}-color-info-500);
-  --${PREFIX}-color-info-foreground: var(--${PREFIX}-color-info-50);
+  ${PREFIX}primary: var(${PREFIX}primary-500);
+  ${PREFIX}primary-foreground: var(${PREFIX}primary-50);
+  ${PREFIX}secondary: var(${PREFIX}secondary-500);
+  ${PREFIX}secondary-foreground: var(${PREFIX}secondary-50);
+  ${PREFIX}success: var(${PREFIX}success-500);
+  ${PREFIX}success-foreground: var(${PREFIX}success-50);
+  ${PREFIX}warning: var(${PREFIX}warning-500);
+  ${PREFIX}warning-foreground: var(${PREFIX}warning-50);
+  ${PREFIX}danger: var(${PREFIX}danger-500);
+  ${PREFIX}danger-foreground: var(${PREFIX}danger-50);
+  ${PREFIX}info: var(${PREFIX}info-500);
+  ${PREFIX}info-foreground: var(${PREFIX}info-50);
 
   /* Semantic Colors */
-  --${PREFIX}-color-background: var(--${PREFIX}-color-neutral-50);
-  --${PREFIX}-color-foreground: var(--${PREFIX}-color-neutral-900);
-  --${PREFIX}-color-muted: var(--${PREFIX}-color-neutral-100);
-  --${PREFIX}-color-muted-foreground: var(--${PREFIX}-color-neutral-500);
-  --${PREFIX}-color-card: var(--${PREFIX}-color-neutral-50);
-  --${PREFIX}-color-card-foreground: var(--${PREFIX}-color-neutral-900);
-  --${PREFIX}-color-border: var(--${PREFIX}-color-neutral-200);
-  --${PREFIX}-color-input: var(--${PREFIX}-color-neutral-200);
-  --${PREFIX}-color-ring: var(--${PREFIX}-color-primary-500);
-  --${PREFIX}-color-white: #ffffff;
-  --${PREFIX}-color-black: #000000;`
+  ${PREFIX}background: var(${PREFIX}neutral-50);
+  ${PREFIX}foreground: var(${PREFIX}neutral-900);
+  ${PREFIX}muted: var(${PREFIX}neutral-100);
+  ${PREFIX}muted-foreground: var(${PREFIX}neutral-500);
+  ${PREFIX}card: var(${PREFIX}neutral-50);
+  ${PREFIX}card-foreground: var(${PREFIX}neutral-900);
+  ${PREFIX}border: var(${PREFIX}neutral-200);
+  ${PREFIX}input: var(${PREFIX}neutral-200);
+  ${PREFIX}ring: var(${PREFIX}primary-500);
+  ${PREFIX}white: #ffffff;
+  ${PREFIX}black: #000000;
+}
+  `
 
-  css += `}
+  css += `
 
-.dark {
-  /* Color Tokens - Dark Mode */
-  --${PREFIX}-color-primary: var(--${PREFIX}-color-primary-400);
-  --${PREFIX}-color-primary-foreground: var(--${PREFIX}-color-primary-950);
-  --${PREFIX}-color-secondary: var(--${PREFIX}-color-secondary-400);
-  --${PREFIX}-color-secondary-foreground: var(--${PREFIX}-color-secondary-950);
-  --${PREFIX}-color-success: var(--${PREFIX}-color-success-400);
-  --${PREFIX}-color-success-foreground: var(--${PREFIX}-color-success-950);
-  --${PREFIX}-color-warning: var(--${PREFIX}-color-warning-400);
-  --${PREFIX}-color-warning-foreground: var(--${PREFIX}-color-warning-950);
-  --${PREFIX}-color-danger: var(--${PREFIX}-color-danger-400);
-  --${PREFIX}-color-danger-foreground: var(--${PREFIX}-color-danger-950);
-  --${PREFIX}-color-info: var(--${PREFIX}-color-info-400);
-  --${PREFIX}-color-info-foreground: var(--${PREFIX}-color-info-950);
-
-  /* Dark Mode Semantics */
-  --${PREFIX}-color-background: var(--${PREFIX}-color-neutral-950);
-  --${PREFIX}-color-foreground: var(--${PREFIX}-color-neutral-50);
-  --${PREFIX}-color-muted: var(--${PREFIX}-color-neutral-900);
-  --${PREFIX}-color-muted-foreground: var(--${PREFIX}-color-neutral-400);
-  --${PREFIX}-color-card: var(--${PREFIX}-color-neutral-900);
-  --${PREFIX}-color-card-foreground: var(--${PREFIX}-color-neutral-50);
-  --${PREFIX}-color-border: var(--${PREFIX}-color-neutral-800);
-  --${PREFIX}-color-input: var(--${PREFIX}-color-neutral-800);
-  --${PREFIX}-color-ring: var(--${PREFIX}-color-primary-400);
-  --${PREFIX}-color-white: #000000;
-  --${PREFIX}-color-black: #ffffff;
-`
-
+.dark {`
   // Dark mode colors
   Object.entries(theme.dark).forEach(([colorName, shades]) => {
     Object.entries(shades).forEach(([shade, hex]) => {
-      css += `  --${PREFIX}-color-${colorName}-${shade}: ${hex};\n`
+      css += `  ${PREFIX}${colorName}-${shade}: ${hex};\n`
     })
     if (colorName === 'neutral') {
       Object.entries(shades).forEach(([shade, hex]) => {
-        css += `  --${PREFIX}-color-gray-${shade}: var(--${PREFIX}-color-neutral-${shade});\n`
+        css += `  ${PREFIX}gray-${shade}: var(${PREFIX}neutral-${shade});\n`
       })
     }
   })
+
+  css += `
+
+  /* Color Tokens - Dark Mode */
+  ${PREFIX}primary: var(${PREFIX}primary-400);
+  ${PREFIX}primary-foreground: var(${PREFIX}primary-950);
+  ${PREFIX}secondary: var(${PREFIX}secondary-400);
+  ${PREFIX}secondary-foreground: var(${PREFIX}secondary-950);
+  ${PREFIX}success: var(${PREFIX}success-400);
+  ${PREFIX}success-foreground: var(${PREFIX}success-950);
+  ${PREFIX}warning: var(${PREFIX}warning-400);
+  ${PREFIX}warning-foreground: var(${PREFIX}warning-950);
+  ${PREFIX}danger: var(${PREFIX}danger-400);
+  ${PREFIX}danger-foreground: var(${PREFIX}danger-950);
+  ${PREFIX}info: var(${PREFIX}info-400);
+  ${PREFIX}info-foreground: var(${PREFIX}info-950);
+
+  /* Dark Mode Semantics */
+  ${PREFIX}background: var(${PREFIX}neutral-950);
+  ${PREFIX}foreground: var(${PREFIX}neutral-50);
+  ${PREFIX}muted: var(${PREFIX}neutral-900);
+  ${PREFIX}muted-foreground: var(${PREFIX}neutral-400);
+  ${PREFIX}card: var(${PREFIX}neutral-900);
+  ${PREFIX}card-foreground: var(${PREFIX}neutral-50);
+  ${PREFIX}border: var(${PREFIX}neutral-800);
+  ${PREFIX}input: var(${PREFIX}neutral-800);
+  ${PREFIX}ring: var(${PREFIX}primary-400);
+  ${PREFIX}white: #000000;
+  ${PREFIX}black: #ffffff;
+`
 
   css += `}
 }
@@ -112,11 +117,11 @@ export function generateCSS(theme, config = {}) {
   // Reference colors in @theme
   Object.entries(theme.light).forEach(([colorName, shades]) => {
     Object.entries(shades).forEach(([shade]) => {
-      css += `  --color-${colorName}-${shade}: var(--${PREFIX}-color-${colorName}-${shade});\n`
+      css += `  --color-${colorName}-${shade}: var(${PREFIX}${colorName}-${shade});\n`
     })
     if (colorName === 'neutral') {
       Object.entries(shades).forEach(([shade, hex]) => {
-        css += `  --color-gray-${shade}: var(--${PREFIX}-color-neutral-${shade});\n`
+        css += `  --color-gray-${shade}: var(${PREFIX}neutral-${shade});\n`
       })
     }
   })
@@ -183,77 +188,77 @@ export function generateCSS(theme, config = {}) {
   /* Focus Ring */
   --ring-width: 2px;
   --ring-offset: 2px;
-  --ring-color: var(--${PREFIX}-color-primary-500);
+  --ring-color: var(${PREFIX}primary-500);
   
   /* Border Widths */
   --border-1-5: 1.5px;
   
   /* Material Design 3 Color Pairs */
-  --color-primary: var(--${PREFIX}-color-primary-500);
-  --color-primary-foreground: var(--${PREFIX}-color-primary-50);
-  --color-on-primary: var(--${PREFIX}-color-white);
-  --color-primary-container: var(--${PREFIX}-color-primary-100);
-  --color-on-primary-container: var(--${PREFIX}-color-primary-900);
+  --color-primary: var(${PREFIX}primary-500);
+  --color-primary-foreground: var(${PREFIX}primary-50);
+  --color-on-primary: var(${PREFIX}white);
+  --color-primary-container: var(${PREFIX}primary-100);
+  --color-on-primary-container: var(${PREFIX}primary-900);
   
-  --color-secondary: var(--${PREFIX}-color-secondary-500);
-  --color-secondary-foreground: var(--${PREFIX}-color-secondary-50);
-  --color-on-secondary: var(--${PREFIX}-color-white);
-  --color-secondary-container: var(--${PREFIX}-color-secondary-100);
-  --color-on-secondary-container: var(--${PREFIX}-color-secondary-900);
+  --color-secondary: var(${PREFIX}secondary-500);
+  --color-secondary-foreground: var(${PREFIX}secondary-50);
+  --color-on-secondary: var(${PREFIX}white);
+  --color-secondary-container: var(${PREFIX}secondary-100);
+  --color-on-secondary-container: var(${PREFIX}secondary-900);
   
-  --color-success: var(--${PREFIX}-color-success-500);
-  --color-success-foreground: var(--${PREFIX}-color-success-50);
-  --color-on-success: var(--${PREFIX}-color-white);
-  --color-success-container: var(--${PREFIX}-color-success-100);
-  --color-on-success-container: var(--${PREFIX}-color-success-900);
+  --color-success: var(${PREFIX}success-500);
+  --color-success-foreground: var(${PREFIX}success-50);
+  --color-on-success: var(${PREFIX}white);
+  --color-success-container: var(${PREFIX}success-100);
+  --color-on-success-container: var(${PREFIX}success-900);
   
-  --color-warning: var(--${PREFIX}-color-warning-500);
-  --color-warning-foreground: var(--${PREFIX}-color-warning-50);
-  --color-on-warning: var(--${PREFIX}-color-white);
-  --color-warning-container: var(--${PREFIX}-color-warning-100);
-  --color-on-warning-container: var(--${PREFIX}-color-warning-900);
+  --color-warning: var(${PREFIX}warning-500);
+  --color-warning-foreground: var(${PREFIX}warning-50);
+  --color-on-warning: var(${PREFIX}white);
+  --color-warning-container: var(${PREFIX}warning-100);
+  --color-on-warning-container: var(${PREFIX}warning-900);
 
-  --color-danger: var(--${PREFIX}-color-danger-500);
-  --color-danger-foreground: var(--${PREFIX}-color-danger-50);
-  --color-on-danger: var(--${PREFIX}-color-white);
-  --color-danger-container: var(--${PREFIX}-color-danger-100);
-  --color-on-danger-container: var(--${PREFIX}-color-danger-900);
+  --color-danger: var(${PREFIX}danger-500);
+  --color-danger-foreground: var(${PREFIX}danger-50);
+  --color-on-danger: var(${PREFIX}white);
+  --color-danger-container: var(${PREFIX}danger-100);
+  --color-on-danger-container: var(${PREFIX}danger-900);
   
-  --color-info: var(--${PREFIX}-color-info-500);
-  --color-info-foreground: var(--${PREFIX}-color-info-50);
-  --color-on-info: var(--${PREFIX}-color-white);
-  --color-info-container: var(--${PREFIX}-color-info-100);
-  --color-on-info-container: var(--${PREFIX}-color-info-900);
+  --color-info: var(${PREFIX}info-500);
+  --color-info-foreground: var(${PREFIX}info-50);
+  --color-on-info: var(${PREFIX}white);
+  --color-info-container: var(${PREFIX}info-100);
+  --color-on-info-container: var(${PREFIX}info-900);
   
-  --color-surface: var(--${PREFIX}-color-neutral-50);
-  --color-on-surface: var(--${PREFIX}-color-neutral-900);
-  --color-surface-variant: var(--${PREFIX}-color-neutral-100);
-  --color-on-surface-variant: var(--${PREFIX}-color-neutral-500);
+  --color-surface: var(${PREFIX}neutral-50);
+  --color-on-surface: var(${PREFIX}neutral-900);
+  --color-surface-variant: var(${PREFIX}neutral-100);
+  --color-on-surface-variant: var(${PREFIX}neutral-500);
   
-  --color-outline: var(--${PREFIX}-color-neutral-300);
-  --color-outline-variant: var(--${PREFIX}-color-neutral-200);
+  --color-outline: var(${PREFIX}neutral-300);
+  --color-outline-variant: var(${PREFIX}neutral-200);
   
-  --color-disabled: var(--${PREFIX}-color-neutral-200);
-  --color-on-disabled: var(--${PREFIX}-color-neutral-400);
+  --color-disabled: var(${PREFIX}neutral-200);
+  --color-on-disabled: var(${PREFIX}neutral-400);
 
   /* Legacy Semantic Colors */
-  --color-background: var(--${PREFIX}-color-neutral-50);
-  --color-foreground: var(--${PREFIX}-color-neutral-900);
-  --color-muted: var(--${PREFIX}-color-neutral-100);
-  --color-muted-foreground: var(--${PREFIX}-color-neutral-500);
-  --color-card: var(--${PREFIX}-color-neutral-50);
-  --color-card-foreground: var(--${PREFIX}-color-neutral-900);
-  --color-border: var(--${PREFIX}-color-neutral-200);
-  --color-input: var(--${PREFIX}-color-neutral-200);
-  --color-ring: var(--${PREFIX}-color-primary-500);
-  --color-destructive: var(--${PREFIX}-color-danger-500);
-  --color-destructive-foreground: var(--${PREFIX}-color-danger-50);
-  --color-accent: var(--${PREFIX}-color-neutral-100);
-  --color-accent-foreground: var(--${PREFIX}-color-neutral-900);
-  --color-popover: var(--${PREFIX}-color-neutral-50);
-  --color-popover-foreground: var(--${PREFIX}-color-neutral-900);
-  --color-white: var(--${PREFIX}-color-white);
-  --color-black: var(--${PREFIX}-color-black);
+  --color-background: var(${PREFIX}neutral-50);
+  --color-foreground: var(${PREFIX}neutral-900);
+  --color-muted: var(${PREFIX}neutral-100);
+  --color-muted-foreground: var(${PREFIX}neutral-500);
+  --color-card: var(${PREFIX}neutral-50);
+  --color-card-foreground: var(${PREFIX}neutral-900);
+  --color-border: var(${PREFIX}neutral-200);
+  --color-input: var(${PREFIX}neutral-200);
+  --color-ring: var(${PREFIX}primary-500);
+  --color-destructive: var(${PREFIX}danger-500);
+  --color-destructive-foreground: var(${PREFIX}danger-50);
+  --color-accent: var(${PREFIX}neutral-100);
+  --color-accent-foreground: var(${PREFIX}neutral-900);
+  --color-popover: var(${PREFIX}neutral-50);
+  --color-popover-foreground: var(${PREFIX}neutral-900);
+  --color-white: var(${PREFIX}white);
+  --color-black: var(${PREFIX}black);
 
   /* Backdrop Blur */
   --backdrop-blur-sm: blur(4px);

@@ -116,36 +116,11 @@
   --iui-color-input: var(--iui-color-neutral-200);
   --iui-color-ring: var(--iui-color-primary-500);
   --iui-color-white: #ffffff;
-  --iui-color-black: #000000;}
+  --iui-color-black: #000000;
+}
+  
 
-.dark {
-  /* Color Tokens - Dark Mode */
-  --iui-color-primary: var(--iui-color-primary-400);
-  --iui-color-primary-foreground: var(--iui-color-primary-950);
-  --iui-color-secondary: var(--iui-color-secondary-400);
-  --iui-color-secondary-foreground: var(--iui-color-secondary-950);
-  --iui-color-success: var(--iui-color-success-400);
-  --iui-color-success-foreground: var(--iui-color-success-950);
-  --iui-color-warning: var(--iui-color-warning-400);
-  --iui-color-warning-foreground: var(--iui-color-warning-950);
-  --iui-color-danger: var(--iui-color-danger-400);
-  --iui-color-danger-foreground: var(--iui-color-danger-950);
-  --iui-color-info: var(--iui-color-info-400);
-  --iui-color-info-foreground: var(--iui-color-info-950);
-
-  /* Dark Mode Semantics */
-  --iui-color-background: var(--iui-color-neutral-950);
-  --iui-color-foreground: var(--iui-color-neutral-50);
-  --iui-color-muted: var(--iui-color-neutral-900);
-  --iui-color-muted-foreground: var(--iui-color-neutral-400);
-  --iui-color-card: var(--iui-color-neutral-900);
-  --iui-color-card-foreground: var(--iui-color-neutral-50);
-  --iui-color-border: var(--iui-color-neutral-800);
-  --iui-color-input: var(--iui-color-neutral-800);
-  --iui-color-ring: var(--iui-color-primary-400);
-  --iui-color-white: #000000;
-  --iui-color-black: #ffffff;
-  --iui-color-primary-50: #1b2131;
+.dark {  --iui-color-primary-50: #1b2131;
   --iui-color-primary-100: #232d4e;
   --iui-color-primary-200: #2a3e79;
   --iui-color-primary-300: #2d4ca9;
@@ -233,6 +208,34 @@
   --iui-color-gray-800: var(--iui-color-neutral-800);
   --iui-color-gray-900: var(--iui-color-neutral-900);
   --iui-color-gray-950: var(--iui-color-neutral-950);
+
+
+  /* Color Tokens - Dark Mode */
+  --iui-color-primary: var(--iui-color-primary-400);
+  --iui-color-primary-foreground: var(--iui-color-primary-950);
+  --iui-color-secondary: var(--iui-color-secondary-400);
+  --iui-color-secondary-foreground: var(--iui-color-secondary-950);
+  --iui-color-success: var(--iui-color-success-400);
+  --iui-color-success-foreground: var(--iui-color-success-950);
+  --iui-color-warning: var(--iui-color-warning-400);
+  --iui-color-warning-foreground: var(--iui-color-warning-950);
+  --iui-color-danger: var(--iui-color-danger-400);
+  --iui-color-danger-foreground: var(--iui-color-danger-950);
+  --iui-color-info: var(--iui-color-info-400);
+  --iui-color-info-foreground: var(--iui-color-info-950);
+
+  /* Dark Mode Semantics */
+  --iui-color-background: var(--iui-color-neutral-950);
+  --iui-color-foreground: var(--iui-color-neutral-50);
+  --iui-color-muted: var(--iui-color-neutral-900);
+  --iui-color-muted-foreground: var(--iui-color-neutral-400);
+  --iui-color-card: var(--iui-color-neutral-900);
+  --iui-color-card-foreground: var(--iui-color-neutral-50);
+  --iui-color-border: var(--iui-color-neutral-800);
+  --iui-color-input: var(--iui-color-neutral-800);
+  --iui-color-ring: var(--iui-color-primary-400);
+  --iui-color-white: #000000;
+  --iui-color-black: #ffffff;
 }
 }
 

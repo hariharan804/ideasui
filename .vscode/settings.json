@@ -28,5 +28,6 @@
   "files.exclude": {
     "**/.turbo": true,
     "**/node_modules": false
-  }
+  },
+  "kiroAgent.configureMCP": "Disabled"
 }

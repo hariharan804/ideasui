@@ -29,10 +29,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <ThemeScript />
+        <ThemeScript defaultTheme="light" />
       </head>
       <body className="antialiased">
-        <ThemeController />
+        <ThemeController defaultTheme="light" />
         {children}
       </body>
     </html>
