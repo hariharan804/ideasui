@@ -85,6 +85,6 @@ const cssContent = generateCSS(completeTheme, {
 })
 
 fs.writeFileSync('./theme-helper/generated-theme-constants.ts', tsContent)
-fs.writeFileSync('./theme-helper/brand-theme.css', cssContent)
+fs.writeFileSync('./theme.css', cssContent)
 console.log('✅ Theme constants generated!')
 console.log('✅ Brand theme CSS generated!')

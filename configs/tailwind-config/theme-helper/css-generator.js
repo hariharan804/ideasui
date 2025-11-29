@@ -14,7 +14,8 @@ export function generateCSS(theme, config = {}) {
   }
 
   const finalConfig = { ...defaultConfig, ...config }
-  let css = `@import "tailwindcss";
+  // @import "tailwindcss";
+  let css = `
 
 @layer base {
 :root, :host {
