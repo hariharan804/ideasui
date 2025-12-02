@@ -20,6 +20,9 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-links',
     '@storybook/addon-a11y',
+    '@storybook/addon-viewport',
+    '@storybook/addon-backgrounds',
+    '@storybook/addon-design-tokens',
     {
       name: '@storybook/addon-docs',
       options: {
