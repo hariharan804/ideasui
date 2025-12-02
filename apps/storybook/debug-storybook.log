@@ -1,36 +1,36 @@
-[20:06:18.374] [INFO] storybook v10.1.2
-[20:06:23.497] [DEBUG] Getting package.json info for C:/Users/Hari/Documents/yuva/lib/apps/storybook/package.json...
-[20:06:23.573] [WARN] Could not resolve addon "storybook/addon-essentials", skipping. Is it installed?
-[20:06:23.604] [WARN] Could not resolve addon "storybook/addon-links", skipping. Is it installed?
-[20:06:23.637] [WARN] Could not resolve addon "storybook/addon-a11y", skipping. Is it installed?
-[20:06:23.692] [WARN] Could not resolve addon "storybook/addon-docs", skipping. Is it installed?
-[20:06:23.766] [WARN] Could not resolve addon "@storybook/addon-vitest", skipping. Is it installed?
-[20:06:25.004] [WARN] Could not resolve addon "storybook/addon-essentials", skipping. Is it installed?
-[20:06:25.010] [WARN] Could not resolve addon "storybook/addon-links", skipping. Is it installed?
-[20:06:25.013] [WARN] Could not resolve addon "storybook/addon-a11y", skipping. Is it installed?
-[20:06:25.018] [WARN] Could not resolve addon "storybook/addon-docs", skipping. Is it installed?
-[20:06:25.030] [WARN] Could not resolve addon "@storybook/addon-vitest", skipping. Is it installed?
-[20:06:40.599] [DEBUG] Serving static files from [36mapps/storybook/public[39m at [36m/[39m
-[20:06:40.643] [INFO] Starting...
-[20:06:41.103] [WARN] No story files found for the specified pattern: [34m**\*.mdx[39m
-[20:06:41.115] [WARN] No story files found for the specified pattern: [34m**\*.stories.@(js|jsx|ts|tsx|mdx)[39m
-[20:06:43.944] [DEBUG] Starting preview..
-[20:06:47.478] [ERROR] Failed to build the preview
-[20:06:47.491] [ERROR] Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@storybook/addon-vitest' imported from .\node_modules\.vite-temp\vite.config.ts.timestamp-1764513407364-ecb8835a24dbf.mjs
-Did you mean to import "@storybook/addon-vitest/dist/vitest-plugin/index.js"?
-    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:268:9)
-    at packageResolve (node:internal/modules/esm/resolve:768:81)
-    at moduleResolve (node:internal/modules/esm/resolve:854:18)
-    at defaultResolve (node:internal/modules/esm/resolve:984:11)
-    at nextResolve (node:internal/modules/esm/hooks:748:28)
-    at Hooks.resolve (node:internal/modules/esm/hooks:240:30)
-    at handleMessage (node:internal/modules/esm/worker:199:24)
-    at Immediate.checkForMessages [as _onImmediate] (node:internal/modules/esm/worker:141:28)
-    at process.processImmediate (node:internal/timers:491:21)
-[20:06:47.548] [WARN] Broken build, fix the error above.
+[22:13:18.985] [INFO] storybook v10.1.2
+[22:13:25.455] [DEBUG] Getting package.json info for C:/Users/Hari/Documents/yuva/lib/apps/storybook/package.json...
+[22:13:25.485] [WARN] You are currently using Storybook [1m10.1.2[22m but you have packages which are incompatible with it:
+
+- @storybook/addon-essentials@8.6.14 which depends on 8.6.14
+ Repo: https://github.com/storybookjs/storybook/tree/next/code/addons/essentials
+
+Please consider updating your packages or contacting the maintainers for compatibility details.
+
+For more details on compatibility guidance, see:
+https://github.com/storybookjs/storybook/issues/32836
+[22:13:31.701] [DEBUG] Serving static files from [36mapps/storybook/public[39m at [36m/[39m
+[22:13:31.703] [INFO] Starting...
+[22:13:31.890] [WARN] No story files found for the specified pattern: [34m**\*.mdx[39m
+[22:13:31.894] [WARN] No story files found for the specified pattern: [34m**\*.stories.@(js|jsx|ts|tsx|mdx)[39m
+[22:13:34.179] [ERROR] [38;2;241;97;97mSB_CORE-SERVER_0004 (NoMatchingExportError): There was an exports mismatch error when trying to build Storybook.
+Please check whether the versions of your Storybook packages match whenever possible, as this might be the cause.
+
+Problematic example:
+{ "@storybook/react": "7.5.3", "@storybook/react-vite": "7.4.5", "storybook": "7.3.0" }
+
+Correct example:
+{ "@storybook/react": "7.5.3", "@storybook/react-vite": "7.5.3", "storybook": "7.5.3" }
+
+Please run `npx storybook doctor` for guidance on how to fix this issue.
+
+More info: 
+[39m
+    at buildOrThrow (file:///C:/Users/Hari/Documents/yuva/lib/node_modules/.pnpm/storybook@10.1.2_@testing-library+dom@10.4.1_prettier@3.6.2_react-dom@18.3.0_react@18.3.0__react@18.3.0/node_modules/storybook/dist/core-server/index.js:5561:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async buildDevStandalone (file:///C:/Users/Hari/Documents/yuva/lib/node_modules/.pnpm/storybook@10.1.2_@testing-library+dom@10.4.1_prettier@3.6.2_react-dom@18.3.0_react@18.3.0__react@18.3.0/node_modules/storybook/dist/core-server/index.js:7582:66)
+    at async withTelemetry (file:///C:/Users/Hari/Documents/yuva/lib/node_modules/.pnpm/storybook@10.1.2_@testing-library+dom@10.4.1_prettier@3.6.2_react-dom@18.3.0_react@18.3.0__react@18.3.0/node_modules/storybook/dist/_node-chunks/chunk-U5ZVDYGC.js:205:12)
+    at async dev (file:///C:/Users/Hari/Documents/yuva/lib/node_modules/.pnpm/storybook@10.1.2_@testing-library+dom@10.4.1_prettier@3.6.2_react-dom@18.3.0_react@18.3.0__react@18.3.0/node_modules/storybook/dist/bin/core.js:2734:3)
+    at async _Command.<anonymous> (file:///C:/Users/Hari/Documents/yuva/lib/node_modules/.pnpm/storybook@10.1.2_@testing-library+dom@10.4.1_prettier@3.6.2_react-dom@18.3.0_react@18.3.0__react@18.3.0/node_modules/storybook/dist/bin/core.js:2795:92)
+[22:13:34.219] [WARN] Broken build, fix the error above.
 You may need to refresh the browser.
-[20:06:47.612] [WARN] Could not resolve addon "storybook/addon-essentials", skipping. Is it installed?
-[20:06:47.614] [WARN] Could not resolve addon "storybook/addon-links", skipping. Is it installed?
-[20:06:47.621] [WARN] Could not resolve addon "storybook/addon-a11y", skipping. Is it installed?
-[20:06:47.623] [WARN] Could not resolve addon "storybook/addon-docs", skipping. Is it installed?
-[20:06:47.632] [WARN] Could not resolve addon "@storybook/addon-vitest", skipping. Is it installed?
