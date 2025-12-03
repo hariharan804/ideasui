@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@your-org/button'],
+  transpilePackages: ['@ideasui/button'],
 
   /* config options here */
 }

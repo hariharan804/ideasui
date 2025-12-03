@@ -1,5 +1,5 @@
 {
-  "name": "@iui/utils",
+  "name": "@ideasui/utils",
   "version": "0.0.0",
   "description": "Lib component",
   "main": "./src/index.ts",
@@ -23,10 +23,10 @@
     "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
-    "@iui/eslint-config": "workspace:*",
-    "@iui/jest-config": "workspace:*",
-    "@iui/tsup-config": "workspace:*",
-    "@iui/tsconfig": "workspace:*",
+    "@ideasui/eslint-config": "workspace:*",
+    "@ideasui/jest-config": "workspace:*",
+    "@ideasui/tsup-config": "workspace:*",
+    "@ideasui/tsconfig": "workspace:*",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "typescript": "^5.9.3",

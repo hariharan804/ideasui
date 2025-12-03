@@ -6,7 +6,7 @@ IdeasUI is a modern, accessible component library built with TypeScript, Tailwin
 
 ```bash
 # Install IdeasUI
-npm install @iui/ui
+npm install @ideasui/ui
 
 # Install peer dependencies
 npm install react react-dom
@@ -18,7 +18,7 @@ npm install -D tailwindcss
 ## 📦 Usage
 
 ```tsx
-import { Button } from '@iui/ui'
+import { Button } from '@ideasui/ui'
 
 function App() {
   return (

@@ -9,8 +9,8 @@ const config: StorybookConfig = {
   },
 
   stories: [
-    '../**/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../**/*.mdx',
+    '../**/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../packages/components/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../packages/primitives/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../packages/themes/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)',

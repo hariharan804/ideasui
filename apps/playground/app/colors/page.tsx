@@ -1,5 +1,5 @@
 'use client'
-import { useTheme } from '@your-org/theme-controller'
+import { useTheme } from '@ideasui/theme-controller'
 import { useState } from 'react'
 
 const Box = ({ className, label }: { className: string; label: string }) => (

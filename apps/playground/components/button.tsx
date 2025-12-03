@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, buildCompoundVariants } from '@your-org/button'
+import { Button, buildCompoundVariants } from '@ideasui/button'
 
 type Variant = 'solid' | 'outline' | 'ghost' | 'soft' | 'link'
 type Color =

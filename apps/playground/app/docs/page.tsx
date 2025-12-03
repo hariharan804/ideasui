@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@your-org/button'
+import { Button } from '@ideasui/button'
 
 const codeExamples = {
-  basic: `import { Button } from '@your-org/button'
+  basic: `import { Button } from '@ideasui/button'
 
 export default function App() {
   return <Button>Click me</Button>
@@ -202,7 +202,7 @@ export default function DocsPage() {
 
                 <div>
                   <h3 className="text-xl font-semibold mb-4">Installation</h3>
-                  <CodeBlock code="npm install @your-org/button" />
+                  <CodeBlock code="npm install @ideasui/button" />
                 </div>
               </div>
             )}

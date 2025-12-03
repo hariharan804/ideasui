@@ -13,7 +13,7 @@ const decorators: Preview['decorators'] = [
         : undefined
 
     return (
-      <div className="bg-dark" lang={locale} dir={direction}>
+      <div className="" lang={locale} dir={direction}>
         <Story />
       </div>
     )

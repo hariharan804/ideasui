@@ -1,1 +1,1 @@
-module.exports = require('@iui/jest-config')
+module.exports = require('@ideasui/jest-config')

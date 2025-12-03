@@ -1,5 +1,5 @@
 'use client'
-import { useTheme } from '@your-org/theme-controller'
+import { useTheme } from '@ideasui/theme-controller'
 import Image from 'next/image'
 
 export default function Home() {
@@ -45,7 +45,9 @@ export default function Home() {
               <h2 className="text-2xl font-semibold">Heading 2</h2>
               <p className="text-base">Regular paragraph text</p>
               <p className="text-sm text-gray-600">Small muted text</p>
-              <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono">Code text</code>
+              <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono">
+                Code text
+              </code>
             </div>
           </div>
 
@@ -53,10 +55,18 @@ export default function Home() {
           <div className="w-full space-y-4">
             <h2 className="text-xl font-semibold">Borders</h2>
             <div className="grid grid-cols-2 gap-4">
-              <div className="p-4 border border-gray-200 rounded">Default border</div>
-              <div className="p-4 border-2 border-blue-500 rounded">Colored border</div>
-              <div className="p-4 border border-dashed border-gray-400 rounded">Dashed border</div>
-              <div className="p-4 border-l-4 border-green-500 bg-green-50">Left accent</div>
+              <div className="p-4 border border-gray-200 rounded">
+                Default border
+              </div>
+              <div className="p-4 border-2 border-blue-500 rounded">
+                Colored border
+              </div>
+              <div className="p-4 border border-dashed border-gray-400 rounded">
+                Dashed border
+              </div>
+              <div className="p-4 border-l-4 border-green-500 bg-green-50">
+                Left accent
+              </div>
             </div>
           </div>
 
@@ -65,9 +75,15 @@ export default function Home() {
             <h2 className="text-xl font-semibold">Backgrounds</h2>
             <div className="grid grid-cols-2 gap-4">
               <div className="p-4 bg-gray-100 rounded">Gray background</div>
-              <div className="p-4 bg-blue-500 text-white rounded">Blue background</div>
-              <div className="p-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded">Gradient</div>
-              <div className="p-4 bg-red-50 border border-red-200 text-red-800 rounded">Alert style</div>
+              <div className="p-4 bg-blue-500 text-white rounded">
+                Blue background
+              </div>
+              <div className="p-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded">
+                Gradient
+              </div>
+              <div className="p-4 bg-red-50 border border-red-200 text-red-800 rounded">
+                Alert style
+              </div>
             </div>
           </div>
           {/* <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black">

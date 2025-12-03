@@ -8,13 +8,13 @@
 ```
 ✅ Good:
 - packages/input-field/
-- @your-org/date-picker
+- @ideasui/date-picker
 - button-group.tsx
 - multi-select.stories.tsx
 
 ❌ Bad:
 - packages/InputField/
-- @your-org/DatePicker
+- @ideasui/DatePicker
 - ButtonGroup.tsx
 ```
 
@@ -93,7 +93,7 @@ const maxFileSize = 1024 * 1024
 
 ```
 packages/date-picker/              # kebab-case folder
-├── package.json                   # "name": "@your-org/date-picker"
+├── package.json                   # "name": "@ideasui/date-picker"
 ├── src/
 │   ├── date-picker.tsx           # kebab-case file
 │   ├── date-picker-types.ts      # kebab-case types
@@ -144,7 +144,7 @@ DatePicker.displayName = 'DatePicker' // PascalCase
 
 | Context | Case | Example |
 |---------|------|---------|
-| Package name | kebab-case | `@your-org/input-field` |
+| Package name | kebab-case | `@ideasui/input-field` |
 | Folder name | kebab-case | `packages/input-field/` |
 | File name | kebab-case | `input-field.tsx` |
 | Component name | PascalCase | `InputField` |

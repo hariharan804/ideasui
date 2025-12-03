@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 // import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import React from 'react'
-import { ThemeController, ThemeScript } from '@your-org/theme-controller'
-// import '@your-org/theme-controller/theme.css'
+import { ThemeController, ThemeScript } from '@ideasui/theme-controller'
+// import '@ideasui/theme-controller/theme.css'
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',

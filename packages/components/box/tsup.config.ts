@@ -1,4 +1,4 @@
-import { createSharedConfig } from '@iui/tsup-config'
+import { createSharedConfig } from '@ideasui/tsup-config'
 
 const isWatch = process.argv.includes('--watch')
 
