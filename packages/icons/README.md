@@ -5,7 +5,7 @@ Shared icon library with commonly used SVG icons as React components.
 ## 📦 Installation
 
 ```bash
-npm install @your-org/icons
+npm install @iui/icons
 ```
 
 ## 🎯 Available Icons
@@ -27,7 +27,7 @@ npm install @your-org/icons
 ## 🚀 Usage
 
 ```tsx
-import { ChevronDown, Check, Loader } from '@your-org/icons'
+import { ChevronDown, Check, Loader } from '@iui/icons'
 
 function MyComponent() {
   return (

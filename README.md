@@ -1,12 +1,12 @@
-# Component Library with ShadCN/UI
+# IdeasUI - Component Library
 
-A modern, accessible component library built on top of ShadCN/UI with TypeScript, Tailwind CSS, and comprehensive tooling.
+IdeasUI is a modern, accessible component library built with TypeScript, Tailwind CSS, and comprehensive tooling.
 
 ## 🚀 Quick Start
 
 ```bash
-# Install the library
-npm install @your-org/ui
+# Install IdeasUI
+npm install @iui/ui
 
 # Install peer dependencies
 npm install react react-dom
@@ -18,7 +18,7 @@ npm install -D tailwindcss
 ## 📦 Usage
 
 ```tsx
-import { Button } from '@your-org/ui'
+import { Button } from '@iui/ui'
 
 function App() {
   return (
@@ -45,7 +45,7 @@ function App() {
 
 ## 🎯 Features
 
-- ✅ Built on ShadCN/UI foundation
+- ✅ Modern React components with TypeScript
 - ✅ TypeScript support with full type safety
 - ✅ Tailwind CSS for styling
 - ✅ Storybook playground for development

@@ -1,1 +1,1 @@
-module.exports = require('@your-org/eslint-config')
+module.exports = require('@iui/eslint-config')

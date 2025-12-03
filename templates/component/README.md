@@ -5,13 +5,13 @@
 ## Installation
 
 ```bash
-npm install @your-org/{{kebabCase name}}
+npm install @iui/{{kebabCase name}}
 ```
 
 ## Usage
 
 ```tsx
-import { {{pascalCase name}} } from '@your-org/{{kebabCase name}}'
+import { {{pascalCase name}} } from '@iui/{{kebabCase name}}'
 
 function App() {
   return (

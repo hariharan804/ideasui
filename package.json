@@ -1,10 +1,10 @@
 {
-  "name": "@your-org/ui",
+  "name": "@iui/ui",
   "version": "0.1.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "description": "Component library built with ShadCN/UI and Next.js",
+  "description": "IdeasUI - Modern React component library built with TypeScript and Tailwind CSS",
   "files": [
     "dist"
   ],
@@ -16,7 +16,7 @@
     "react",
     "components",
     "ui",
-    "shadcn",
+    "design-system",
     "tailwind"
   ],
   "author": "Your Name",

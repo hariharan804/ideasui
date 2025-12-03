@@ -1,1 +1,1 @@
-module.exports = require('@your-org/jest-config')
+module.exports = require('@iui/jest-config')

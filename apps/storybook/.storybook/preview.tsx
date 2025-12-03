@@ -23,7 +23,7 @@ const decorators: Preview['decorators'] = [
 
 const commonTheme = {
   brandTitle: 'IdeasUI',
-  brandUrl: 'https://ui.com',
+  brandUrl: 'https://ideasui.com',
   brandTarget: '_self',
 }
 

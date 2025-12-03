@@ -1,6 +1,6 @@
-# Packages Structure Guide
+# IdeasUI Packages Structure Guide
 
-This document explains the organization and usage of packages in our component library.
+This document explains the organization and usage of packages in the IdeasUI component library.
 
 ## 📁 Structure Overview
 
@@ -185,7 +185,7 @@ Each package should follow this structure:
 
 ```json
 {
-  "name": "@your-org/package-name",
+  "name": "@iui/package-name",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -233,18 +233,18 @@ Each package should follow this structure:
 ### Installing Packages
 ```bash
 # Install specific component
-npm install @your-org/button
+npm install @iui/button
 
 # Install multiple packages
-npm install @your-org/button @your-org/input @your-org/themes
+npm install @iui/button @iui/input @iui/themes
 ```
 
 ### Using in Applications
 ```tsx
 // Import components
-import { Button } from '@your-org/button'
-import { useLocalStorage } from '@your-org/hooks'
-import { cn } from '@your-org/utils'
+import { Button } from '@iui/button'
+import { useLocalStorage } from '@iui/hooks'
+import { cn } from '@iui/utils'
 
 // Use in component
 function App() {

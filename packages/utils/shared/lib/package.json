@@ -1,5 +1,5 @@
 {
-  "name": "@your-org/lib",
+  "name": "@iui/utils",
   "version": "0.0.0",
   "description": "Lib component",
   "main": "./src/index.ts",
@@ -23,10 +23,10 @@
     "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
-    "@i2l/eslint-config": "workspace:*",
-    "@i2l/jest-config": "workspace:*",
-    "@i2l/tsup-config": "workspace:*",
-    "@i2l/tsconfig": "workspace:*",
+    "@iui/eslint-config": "workspace:*",
+    "@iui/jest-config": "workspace:*",
+    "@iui/tsup-config": "workspace:*",
+    "@iui/tsconfig": "workspace:*",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "typescript": "^5.9.3",
