@@ -5,45 +5,71 @@ import { generateCSS } from './css-generator.js'
 import fs from 'fs'
 import path from 'path'
 /**
+ * Convert color to specified format
+ */
+function formatColor(color, format = 'hex') {
+  const c = chroma(color)
+  
+  switch (format) {
+    case 'hex':
+      return c.hex()
+    case 'rgb':
+      return c.css('rgb')
+    case 'rgba':
+      return c.css('rgba')
+    case 'hsl':
+      return c.css('hsl')
+    case 'oklch':
+      const [l, c_val, h] = c.oklch()
+      return `oklch(${l.toFixed(3)} ${c_val.toFixed(3)} ${h.toFixed(1)})`
+    case 'p3':
+      const [r, g, b] = c.rgb()
+      return `color(display-p3 ${(r/255).toFixed(3)} ${(g/255).toFixed(3)} ${(b/255).toFixed(3)})`
+    default:
+      return c.hex()
+  }
+}
+
+/**
  * Generate WCAG-compliant color shades for component libraries
  * Includes semantic colors and neutral palette
  */
-export function generateShades(baseColor) {
+export function generateShades(baseColor, format = 'hex') {
   const base = chroma(baseColor)
   const [h, s, l] = base.hsl()
 
   const lightShades = {
-    50: chroma.hsl(h, s * 0.15, 0.97).hex(),
-    100: chroma.hsl(h, s * 0.25, 0.94).hex(),
-    200: chroma.hsl(h, s * 0.4, 0.87).hex(),
-    300: chroma.hsl(h, s * 0.6, 0.76).hex(),
-    400: chroma.hsl(h, s * 0.8, 0.63).hex(),
-    500: baseColor,
-    600: chroma.hsl(h, s, l * 0.85).hex(),
-    700: chroma.hsl(h, s, l * 0.7).hex(),
-    800: chroma.hsl(h, s, l * 0.55).hex(),
-    900: chroma.hsl(h, s, l * 0.4).hex(),
-    950: chroma.hsl(h, s, l * 0.25).hex(),
+    50: formatColor(chroma.hsl(h, s * 0.15, 0.97), format),
+    100: formatColor(chroma.hsl(h, s * 0.25, 0.94), format),
+    200: formatColor(chroma.hsl(h, s * 0.4, 0.87), format),
+    300: formatColor(chroma.hsl(h, s * 0.6, 0.76), format),
+    400: formatColor(chroma.hsl(h, s * 0.8, 0.63), format),
+    500: formatColor(baseColor, format),
+    600: formatColor(chroma.hsl(h, s, l * 0.85), format),
+    700: formatColor(chroma.hsl(h, s, l * 0.7), format),
+    800: formatColor(chroma.hsl(h, s, l * 0.55), format),
+    900: formatColor(chroma.hsl(h, s, l * 0.4), format),
+    950: formatColor(chroma.hsl(h, s, l * 0.25), format),
   }
 
   const darkShades = {
-    50: chroma.hsl(h, s * 0.3, 0.15).hex(),
-    100: chroma.hsl(h, s * 0.4, 0.22).hex(),
-    200: chroma.hsl(h, s * 0.5, 0.32).hex(),
-    300: chroma.hsl(h, s * 0.6, 0.42).hex(),
-    400: chroma.hsl(h, s * 0.7, 0.52).hex(),
-    500: chroma.hsl(h, s * 0.85, 0.72).hex(), // Brighter for dark mode
-    600: chroma.hsl(h, s * 0.7, 0.82).hex(),
-    700: chroma.hsl(h, s * 0.6, 0.87).hex(),
-    800: chroma.hsl(h, s * 0.4, 0.92).hex(),
-    900: chroma.hsl(h, s * 0.25, 0.95).hex(),
-    950: chroma.hsl(h, s * 0.15, 0.97).hex(),
+    50: formatColor(chroma.hsl(h, s * 0.3, 0.15), format),
+    100: formatColor(chroma.hsl(h, s * 0.4, 0.22), format),
+    200: formatColor(chroma.hsl(h, s * 0.5, 0.32), format),
+    300: formatColor(chroma.hsl(h, s * 0.6, 0.42), format),
+    400: formatColor(chroma.hsl(h, s * 0.7, 0.52), format),
+    500: formatColor(chroma.hsl(h, s * 0.85, 0.72), format), // Brighter for dark mode
+    600: formatColor(chroma.hsl(h, s * 0.7, 0.82), format),
+    700: formatColor(chroma.hsl(h, s * 0.6, 0.87), format),
+    800: formatColor(chroma.hsl(h, s * 0.4, 0.92), format),
+    900: formatColor(chroma.hsl(h, s * 0.25, 0.95), format),
+    950: formatColor(chroma.hsl(h, s * 0.15, 0.97), format),
   }
 
   return { light: lightShades, dark: darkShades }
 }
 
-export function generateCompleteTheme() {
+export function generateCompleteTheme(format = 'hex') {
   // const colors = {
   //   primary: '#861afd', // Blue - main brand
   //   secondary: '#3b82f6', // Gray - secondary actions
@@ -63,7 +89,7 @@ export function generateCompleteTheme() {
       contrastValue: 4.7,
     })
 
-    const shades = generateShades(contrast?.backgroundColor)
+    const shades = generateShades(contrast?.backgroundColor, format)
     theme.light[name] = shades.light
     theme.dark[name] = shades.dark
   })
@@ -71,7 +97,9 @@ export function generateCompleteTheme() {
   return theme
 }
 
-const completeTheme = generateCompleteTheme()
+const completeTheme = generateCompleteTheme('oklch')
+// const oklchTheme = generateCompleteTheme('oklch')
+// const rgbTheme = generateCompleteTheme('rgb')
 
 // Write to TypeScript constants file
 const tsContent = `export const completeTheme = ${JSON.stringify(completeTheme, null, 2)} as const

@@ -73,6 +73,14 @@ function generateInfo(primaryColor) {
 }
 
 /**
+ * Generate tertiary color using triadic harmony
+ */
+function generateTertiary(primaryColor) {
+  const [h, s, l] = chroma(primaryColor).hsl()
+  return chroma.hsl((h + 240) % 360, s * 0.75, l * 0.85).hex()
+}
+
+/**
  * Generate neutral color (desaturated version of primary)
  */
 function generateNeutral(primaryColor) {
@@ -87,7 +95,7 @@ function generateNeutral(primaryColor) {
  *
  * @param {string} primaryColor - Primary brand color (hex)
  * @param {object} options - Configuration options
- * @returns {object} - Semantic colors { primary, secondary, warning, success, danger, info, neutral }
+ * @returns {object} - Semantic colors { primary, secondary, tertiary, warning, success, danger, info, neutral }
  *
  * Usage:
  * getSemanticColors('#861afd')
@@ -97,6 +105,7 @@ export function getSemanticColors(primaryColor, options = {}) {
   const {
     secondaryVariant = 'monochromatic',
     customSecondary = null,
+    customTertiary = null,
     customWarning = null,
     customSuccess = null,
     customDanger = null,
@@ -112,6 +121,7 @@ export function getSemanticColors(primaryColor, options = {}) {
   // Generate all colors dynamically
   const secondary =
     customSecondary || generateSecondary(primaryColor, secondaryVariant)
+  const tertiary = customTertiary || generateTertiary(primaryColor)
   const warning = customWarning || generateWarning(primaryColor)
   const success = customSuccess || generateSuccess(primaryColor)
   const danger = customDanger || generateDanger(primaryColor)
@@ -119,7 +129,7 @@ export function getSemanticColors(primaryColor, options = {}) {
   const neutral = customNeutral || generateNeutral(primaryColor)
 
   // Validate all colors
-  ;[secondary, warning, success, danger, info, neutral].forEach((color) => {
+  ;[secondary, tertiary, warning, success, danger, info, neutral].forEach((color) => {
     if (!chroma.valid(color)) {
       throw new Error(`Generated invalid color: ${color}`)
     }
@@ -128,6 +138,7 @@ export function getSemanticColors(primaryColor, options = {}) {
   return {
     primary: primaryColor,
     secondary: secondary,
+    tertiary: tertiary,
     warning: warning,
     success: success,
     danger: danger,
