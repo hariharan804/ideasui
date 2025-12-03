@@ -30,6 +30,89 @@ function App() {
 }
 ```
 
+## 📁 Project Structure
+
+```
+lib/
+├── packages/
+│   ├── components/          # UI Components (@ideasui/box, @ideasui/button)
+│   │   ├── box/            # Flexible container component
+│   │   └── button/         # Interactive button component
+│   ├── core/               # Core system packages
+│   │   └── provider/       # IdeasUI Provider (@ideasui/provider)
+│   ├── primitives/         # Headless components
+│   │   └── toggle/         # Toggle primitive (@ideasui/toggle-primitive)
+│   ├── hooks/              # React hooks (@ideasui/hooks)
+│   ├── utils/              # Shared utilities (@ideasui/utils)
+│   │   └── shared/lib/     # Utility functions (cn, clsx)
+│   ├── icons/              # Icon library (@ideasui/icons)
+│   ├── tokens/             # Design tokens (@ideasui/tokens)
+│   ├── themes/             # Theme system
+│   │   └── theme-controller/ # Theme management (@ideasui/theme-controller)
+│   └── cli/                # CLI tools (@ideasui/cli)
+├── apps/
+│   ├── playground/         # Next.js playground app
+│   └── storybook/          # Storybook documentation app
+├── configs/
+│   ├── eslint-config/      # Shared ESLint configuration
+│   ├── jest-config/        # Shared Jest configuration
+│   ├── tailwind-config/    # Tailwind CSS configuration
+│   ├── tsconfig/           # TypeScript configurations
+│   └── tsup-config/        # Build tool configuration
+├── development/            # Development workspace
+│   └── components/         # Ready-to-use components
+├── docs/                   # Documentation files
+├── scripts/                # Build and utility scripts
+├── templates/              # Component generation templates
+└── tests/                  # End-to-end and visual tests
+```
+
+### 🧩 Primitives vs Components
+
+**Primitives** (`/primitives`) - Headless, unstyled components that provide behavior and logic:
+- No styling or visual appearance
+- Pure logic and state management
+- Render props or compound component patterns
+- Maximum flexibility for custom styling
+- Example: `@ideasui/toggle-primitive` provides toggle state without any UI
+
+**Components** (`/components`) - Complete, styled UI components ready to use:
+- Pre-styled with Tailwind CSS
+- Built on top of primitives or standalone
+- Consistent design system appearance
+- Customizable through props and variants
+- Example: `@ideasui/button` provides a complete button with styling
+
+```tsx
+// Primitive - You provide the UI
+<Toggle>
+  {({ isOn, toggle }) => (
+    <button onClick={toggle}>
+      {isOn ? 'ON' : 'OFF'}
+    </button>
+  )}
+</Toggle>
+
+// Component - UI is provided
+<Button variant="primary" size="md">
+  Click me
+</Button>
+```
+
+### 📦 Package Overview
+
+| Package | Description | Status |
+|---------|-------------|--------|
+| `@ideasui/provider` | Core provider for global configuration | ✅ Ready |
+| `@ideasui/tokens` | Design system tokens (colors, spacing, typography) | ✅ Ready |
+| `@ideasui/utils` | Shared utility functions | ✅ Ready |
+| `@ideasui/icons` | SVG icon components | ✅ Ready |
+| `@ideasui/box` | Flexible container component | ✅ Ready |
+| `@ideasui/button` | Interactive button component | ✅ Ready |
+| `@ideasui/toggle-primitive` | Headless toggle component | ✅ Ready |
+| `@ideasui/theme-controller` | Theme management system | ✅ Ready |
+| `@ideasui/cli` | Component generation CLI | ✅ Ready |
+
 ## 📚 Documentation
 
 - [📋 Setup Checklist](./SETUP_CHECKLIST.md) - Complete setup guide
