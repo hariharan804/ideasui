@@ -1,0 +1,31 @@
+{
+  "name": "@your-org/icons",
+  "version": "0.0.0",
+  "description": "Shared icon library",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "jest"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "dependencies": {
+    "@your-org/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@your-org/tsconfig": "workspace:*",
+    "@your-org/tsup-config": "workspace:*",
+    "typescript": "^5.9.3"
+  }
+}
