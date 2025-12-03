@@ -59,7 +59,7 @@ module.exports = function (plop) {
         return `✅ Component created: packages/components/${plop.getHelper('kebabCase')(data.name)}/`
       },
       function (data) {
-        return `📦 Package name: @iui/${plop.getHelper('kebabCase')(data.name)}`
+        return `📦 Package name: @ideasui/${plop.getHelper('kebabCase')(data.name)}`
       },
       function (data) {
         return `🧩 Component: ${data.name}`

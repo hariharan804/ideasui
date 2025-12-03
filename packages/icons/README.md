@@ -5,7 +5,7 @@ Shared icon library with commonly used SVG icons as React components.
 ## 📦 Installation
 
 ```bash
-npm install @iui/icons
+npm install @ideasui/icons
 ```
 
 ## 🎯 Available Icons
@@ -27,7 +27,7 @@ npm install @iui/icons
 ## 🚀 Usage
 
 ```tsx
-import { ChevronDown, Check, Loader } from '@iui/icons'
+import { ChevronDown, Check, Loader } from '@ideasui/icons'
 
 function MyComponent() {
   return (
@@ -68,7 +68,7 @@ interface IconProps extends React.SVGAttributes<SVGElement> {
 
 ### Button with Icon
 ```tsx
-import { Check } from '@your-org/icons'
+import { Check } from '@ideasui/icons'
 
 <Button>
   <Check size={16} />
@@ -78,7 +78,7 @@ import { Check } from '@your-org/icons'
 
 ### Input with Search
 ```tsx
-import { Search } from '@your-org/icons'
+import { Search } from '@ideasui/icons'
 
 <div className="relative">
   <Search className="absolute left-3 top-3" size={16} />
@@ -88,7 +88,7 @@ import { Search } from '@your-org/icons'
 
 ### Loading Button
 ```tsx
-import { Loader } from '@your-org/icons'
+import { Loader } from '@ideasui/icons'
 
 <Button disabled={loading}>
   {loading ? <Loader size={16} /> : 'Submit'}

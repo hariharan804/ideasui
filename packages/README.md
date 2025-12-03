@@ -185,7 +185,7 @@ Each package should follow this structure:
 
 ```json
 {
-  "name": "@iui/package-name",
+  "name": "@ideasui/package-name",
   "version": "0.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -233,18 +233,18 @@ Each package should follow this structure:
 ### Installing Packages
 ```bash
 # Install specific component
-npm install @iui/button
+npm install @ideasui/button
 
 # Install multiple packages
-npm install @iui/button @iui/input @iui/themes
+npm install @ideasui/button @ideasui/input @ideasui/themes
 ```
 
 ### Using in Applications
 ```tsx
 // Import components
-import { Button } from '@iui/button'
-import { useLocalStorage } from '@iui/hooks'
-import { cn } from '@iui/utils'
+import { Button } from '@ideasui/button'
+import { useLocalStorage } from '@ideasui/hooks'
+import { cn } from '@ideasui/utils'
 
 // Use in component
 function App() {

@@ -1,5 +1,5 @@
 {
-  "name": "@iui/icons",
+  "name": "@ideasui/icons",
   "version": "0.0.0",
   "description": "Shared icon library",
   "main": "./dist/index.js",
@@ -21,11 +21,11 @@
     "react": ">=18.0.0"
   },
   "dependencies": {
-    "@iui/utils": "workspace:*"
+    "@ideasui/utils": "workspace:*"
   },
   "devDependencies": {
-    "@iui/tsconfig": "workspace:*",
-    "@iui/tsup-config": "workspace:*",
+    "@ideasui/tsconfig": "workspace:*",
+    "@ideasui/tsup-config": "workspace:*",
     "typescript": "^5.9.3"
   }
 }

@@ -1,7 +1,7 @@
 'use client'
 import * as React from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
-import { cn } from '@iui/utils'
+import { cn } from '@ideasui/utils'
 import type { {{pascalCase name}}Props } from './type'
 
 const {{camelCase name}}Variants = tv({

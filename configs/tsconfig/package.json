@@ -1,5 +1,5 @@
 {
-  "name": "@i2l/tsconfig",
+  "name": "@ideasui/tsconfig",
   "version": "1.0.0",
   "private": true,
   "main": "index.js",

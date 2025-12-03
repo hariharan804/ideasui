@@ -1,5 +1,5 @@
 {
-  "name": "@i2l/jest-config",
+  "name": "@ideasui/jest-config",
   "version": "1.0.0",
   "private": true,
   "main": "./jest.config.js",

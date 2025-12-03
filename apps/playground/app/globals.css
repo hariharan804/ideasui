@@ -4,7 +4,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* 2) Bring in your tokens/themes/utilities */
-@import '@i2l/tailwind-config/theme.css';
+@import '@ideasui/tailwind-config/theme.css';
 
 /* 3) Point Tailwind at places where classnames appear */
 @source "./app/**/*.{js,ts,jsx,tsx,mdx}";

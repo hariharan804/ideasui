@@ -19,7 +19,7 @@ packages/{component}/
 
 ## Naming Convention
 
-- **Package**: `@your-org/{component}` (lowercase)
+- **Package**: `@ideasui/{component}` (lowercase)
 - **Folder**: `packages/{component}` (lowercase)
 - **Component**: `{Component}` (PascalCase)
 - **Files**: `{component}.tsx` (lowercase)
@@ -33,5 +33,5 @@ packages/button/
 │   ├── __tests__/
 │   │   └── button.test.tsx
 │   └── index.ts            # export { Button }
-└── package.json (name: "@your-org/button")
+└── package.json (name: "@ideasui/button")
 ```

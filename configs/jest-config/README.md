@@ -1,11 +1,11 @@
-# @i2l/jest-config
+# @ideasui/jest-config
 
 Shared Jest configuration and testing utilities for the monorepo.
 
 ## Installation
 
 ```bash
-npm install --save-dev @i2l/jest-config
+npm install --save-dev @ideasui/jest-config
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ Create `jest.config.js` in your package:
 
 ```js
 module.exports = {
-  ...require('@i2l/jest-config/jest.config.js'),
+  ...require('@ideasui/jest-config/jest.config.js'),
 };
 ```
 
@@ -24,16 +24,16 @@ module.exports = {
 
 ```js
 // React testing utilities
-import { renderWithProviders, userEvent } from '@i2l/jest-config/test-utils/react';
+import { renderWithProviders, userEvent } from '@ideasui/jest-config/test-utils/react';
 
 // Hook testing utilities
-import { renderHookWithProviders } from '@i2l/jest-config/test-utils/hooks';
+import { renderHookWithProviders } from '@ideasui/jest-config/test-utils/hooks';
 
 // Mock utilities
-import { mockUser, mockApiResponse, mockLocalStorage } from '@i2l/jest-config/test-utils/mocks';
+import { mockUser, mockApiResponse, mockLocalStorage } from '@ideasui/jest-config/test-utils/mocks';
 
 // Common utilities
-import { sleep, waitFor, testId, getByTestId } from '@i2l/jest-config/test-utils';
+import { sleep, waitFor, testId, getByTestId } from '@ideasui/jest-config/test-utils';
 ```
 
 ## Features
@@ -61,7 +61,7 @@ import { sleep, waitFor, testId, getByTestId } from '@i2l/jest-config/test-utils
 
 ```js
 // Component testing
-import { renderWithProviders, screen } from '@i2l/jest-config/test-utils/react';
+import { renderWithProviders, screen } from '@ideasui/jest-config/test-utils/react';
 
 test('renders component', () => {
   renderWithProviders(<MyComponent />);
@@ -69,7 +69,7 @@ test('renders component', () => {
 });
 
 // Hook testing
-import { renderHookWithProviders } from '@i2l/jest-config/test-utils/hooks';
+import { renderHookWithProviders } from '@ideasui/jest-config/test-utils/hooks';
 
 test('custom hook', () => {
   const { result } = renderHookWithProviders(() => useMyHook());
@@ -77,7 +77,7 @@ test('custom hook', () => {
 });
 
 // Mock usage
-import { mockUser, mockApiResponse } from '@i2l/jest-config/test-utils/mocks';
+import { mockUser, mockApiResponse } from '@ideasui/jest-config/test-utils/mocks';
 
 const user = mockUser({ name: 'John Doe' });
 const response = await mockApiResponse({ data: user });
@@ -89,7 +89,7 @@ Override any config:
 
 ```js
 module.exports = {
-  ...require('@i2l/jest-config/jest.config.js'),
+  ...require('@ideasui/jest-config/jest.config.js'),
   coverageThreshold: {
     global: {
       branches: 80,

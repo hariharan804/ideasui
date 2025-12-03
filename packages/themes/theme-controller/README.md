@@ -1,4 +1,4 @@
-# @your-org/theme-switcher
+# @ideasui/theme-switcher
 
 Enterprise-grade theme switcher with flexible configuration and SSR support.
 
@@ -15,13 +15,13 @@ Enterprise-grade theme switcher with flexible configuration and SSR support.
 ## Installation
 
 ```bash
-npm install @your-org/theme-switcher
+npm install @ideasui/theme-switcher
 ```
 
 ## Quick Start
 
 ```tsx
-import { ThemeScript, useTheme } from '@your-org/theme-switcher'
+import { ThemeScript, useTheme } from '@ideasui/theme-switcher'
 
 // 1. Add script to prevent FOUC
 function RootLayout({ children }) {

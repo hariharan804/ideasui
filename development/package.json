@@ -1,5 +1,5 @@
 {
-  "name": "@your-org/ui-dev",
+  "name": "@ideasui/ui-dev",
   "version": "0.1.0",
   "description": "Development components with React Aria integration",
   "main": "components/index.ts",

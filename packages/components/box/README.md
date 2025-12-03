@@ -5,13 +5,13 @@ Flexible container component with comprehensive styling props for building layou
 ## Installation
 
 ```bash
-npm install @iui/box
+npm install @ideasui/box
 ```
 
 ## Usage
 
 ```tsx
-import { Box } from '@iui/box'
+import { Box } from '@ideasui/box'
 
 function App() {
   return (

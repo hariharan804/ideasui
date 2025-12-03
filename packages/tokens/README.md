@@ -266,7 +266,7 @@ export type Theme = typeof lightTheme
 ### Tailwind Config
 ```js
 // tailwind.config.js
-const { colors, spacing, fontFamily, fontSize } = require('@your-org/tokens')
+const { colors, spacing, fontFamily, fontSize } = require('@ideasui/tokens')
 
 module.exports = {
   theme: {
@@ -310,7 +310,7 @@ module.exports = {
 
 ### In Components
 ```tsx
-import { colors, spacing } from '@your-org/tokens'
+import { colors, spacing } from '@ideasui/tokens'
 
 const Button = styled.button`
   background-color: ${colors.primary[500]};

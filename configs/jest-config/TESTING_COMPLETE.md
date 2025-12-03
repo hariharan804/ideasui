@@ -301,7 +301,7 @@ module.exports = {
 
 ```javascript
 module.exports = {
-  ...require('@i2l/jest-config'),
+  ...require('@ideasui/jest-config'),
 };
 ```
 

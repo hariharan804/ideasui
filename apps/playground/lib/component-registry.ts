@@ -1,4 +1,4 @@
-import { Button } from '@your-org/button'
+import { Button } from '@ideasui/button'
 import { ComponentType } from 'react'
 
 export interface PropConfig {

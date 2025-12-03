@@ -1,5 +1,5 @@
 {
-  "name": "@iui/button",
+  "name": "@ideasui/button",
   "version": "0.0.0",
   "description": "Button component",
   "main": "./src/index.ts",
@@ -20,14 +20,14 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
-    "@iui/utils": "workspace:*",
+    "@ideasui/utils": "workspace:*",
     "tailwind-variants": "^3.1.1"
   },
   "devDependencies": {
-    "@iui/eslint-config": "workspace:*",
-    "@iui/jest-config": "workspace:*",
-    "@iui/tsconfig": "workspace:*",
-    "@iui/tsup-config": "workspace:*",
+    "@ideasui/eslint-config": "workspace:*",
+    "@ideasui/jest-config": "workspace:*",
+    "@ideasui/tsconfig": "workspace:*",
+    "@ideasui/tsup-config": "workspace:*",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "typescript": "^5.9.3",

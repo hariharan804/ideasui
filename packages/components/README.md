@@ -26,7 +26,7 @@ component-name/
 'use client'
 import * as React from 'react'
 import { tv, type VariantProps } from 'tailwind-variants'
-import { cn } from '@your-org/utils'
+import { cn } from '@ideasui/utils'
 
 const componentVariants = tv({
   base: 'base-classes',
@@ -239,7 +239,7 @@ export const Button = (props) => {
 
 ```json
 {
-  "name": "@your-org/component-name",
+  "name": "@ideasui/component-name",
   "version": "0.0.0",
   "description": "Component description",
   "main": "./dist/index.js",
@@ -263,7 +263,7 @@ export const Button = (props) => {
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
-    "@your-org/utils": "workspace:*",
+    "@ideasui/utils": "workspace:*",
     "tailwind-variants": "^0.1.20",
     "react-aria": "^3.32.1"
   }

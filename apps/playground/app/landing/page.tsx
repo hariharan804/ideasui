@@ -21,7 +21,7 @@ import {
   Lightbulb,
   Shield,
 } from 'lucide-react'
-import { useTheme } from '@your-org/theme-controller'
+import { useTheme } from '@ideasui/theme-controller'
 
 export default function ComponentLibraryLanding() {
   const { theme, setTheme } = useTheme()

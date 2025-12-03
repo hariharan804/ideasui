@@ -1,1 +1,1 @@
-module.exports = require('@iui/eslint-config')
+module.exports = require('@ideasui/eslint-config')

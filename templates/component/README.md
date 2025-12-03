@@ -5,13 +5,13 @@
 ## Installation
 
 ```bash
-npm install @iui/{{kebabCase name}}
+npm install @ideasui/{{kebabCase name}}
 ```
 
 ## Usage
 
 ```tsx
-import { {{pascalCase name}} } from '@iui/{{kebabCase name}}'
+import { {{pascalCase name}} } from '@ideasui/{{kebabCase name}}'
 
 function App() {
   return (

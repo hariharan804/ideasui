@@ -2,9 +2,9 @@ const customRules = require('./rules');
 
 module.exports = {
   extends: ['./react.js'],
-  plugins: ['@i2l'],
+  plugins: ['@ideasui'],
   rules: {
-    '@i2l/react-namespace': 'error',
+    '@ideasui/react-namespace': 'error',
     'react/react-in-jsx-scope': 'error', // Require React import
   },
 };
