@@ -1,0 +1,24 @@
+{
+  "name": "@iui/provider",
+  "version": "0.0.0",
+  "description": "Core provider for IdeasUI components",
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "jest"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "dependencies": {
+    "@iui/theme-controller": "workspace:*"
+  },
+  "devDependencies": {
+    "@iui/tsconfig": "workspace:*",
+    "@iui/tsup-config": "workspace:*",
+    "@types/react": "^18.2.0",
+    "typescript": "^5.9.3"
+  }
+}

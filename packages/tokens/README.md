@@ -1,28 +1,47 @@
-# Design Tokens Package
+# IdeasUI Design Tokens
 
-Design system values for colors, spacing, typography, and other design properties.
+Design system tokens for consistent styling across IdeasUI components.
 
-## 📋 Token Categories
+## Installation
 
-### 1. Colors
-- **Semantic Colors**: Primary, secondary, success, warning, danger
-- **Neutral Colors**: Gray scale from 50-950
-- **Brand Colors**: Company-specific colors
-- **System Colors**: Background, foreground, border, ring
+```bash
+npm install @iui/tokens
+```
 
-### 2. Spacing
-- **Scale**: 0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 56, 64
-- **Semantic**: xs, sm, md, lg, xl, 2xl, 3xl
+## Usage
 
-### 3. Typography
-- **Font Families**: Sans, serif, mono
-- **Font Sizes**: xs, sm, base, lg, xl, 2xl, 3xl, 4xl, 5xl, 6xl
-- **Font Weights**: thin, light, normal, medium, semibold, bold, extrabold
-- **Line Heights**: tight, snug, normal, relaxed, loose
+```tsx
+import { colors, spacing, fontSize } from '@iui/tokens'
 
-### 4. Shadows
-- **Elevation**: sm, md, lg, xl, 2xl
-- **Colors**: Neutral and colored shadows
+// Use in components
+const Button = styled.button`
+  background: ${colors.primary[500]};
+  padding: ${spacing[4]};
+  font-size: ${fontSize.base[0]};
+`
+```
+
+## Token Categories
+
+### Colors
+- Primary, secondary, success, warning, danger, neutral
+- Each with 50-950 scale
+
+### Spacing
+- 0-96 scale following Tailwind conventions
+- Semantic spacing (xs, sm, md, lg, xl)
+
+### Typography
+- Font families (sans, serif, mono)
+- Font sizes with line heights
+- Font weights and letter spacing
+
+### Shadows
+- Box shadows and drop shadows
+- Multiple elevation levels
+
+### Other
+- Border radius, breakpoints, z-index values
 
 ## 🎨 Token Structure
 

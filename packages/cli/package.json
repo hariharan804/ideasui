@@ -1,0 +1,27 @@
+{
+  "name": "@iui/cli",
+  "version": "0.0.0",
+  "description": "CLI for IdeasUI component library",
+  "main": "./dist/index.js",
+  "bin": {
+    "iui": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "dependencies": {
+    "commander": "^11.0.0",
+    "chalk": "^4.1.2",
+    "inquirer": "^8.2.6",
+    "fs-extra": "^11.1.1",
+    "ora": "^5.4.1"
+  },
+  "devDependencies": {
+    "@iui/tsconfig": "workspace:*",
+    "@iui/tsup-config": "workspace:*",
+    "@types/fs-extra": "^11.0.1",
+    "@types/inquirer": "^8.2.6",
+    "typescript": "^5.9.3"
+  }
+}

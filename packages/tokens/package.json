@@ -1,0 +1,17 @@
+{
+  "name": "@iui/tokens",
+  "version": "0.0.0",
+  "description": "Design tokens for IdeasUI",
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@iui/tsconfig": "workspace:*",
+    "@iui/tsup-config": "workspace:*",
+    "typescript": "^5.9.3"
+  }
+}
