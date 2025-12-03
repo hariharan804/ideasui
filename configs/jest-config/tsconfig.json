@@ -1,5 +1,5 @@
 {
-  "extends": "@i2l/tsconfig/base.json",
+  "extends": "@ideasui/tsconfig/base.json",
   "compilerOptions": {
     "outDir": "dist"
   },

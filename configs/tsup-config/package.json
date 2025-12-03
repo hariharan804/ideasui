@@ -1,5 +1,5 @@
 {
-  "name": "@i2l/tsup-config",
+  "name": "@ideasui/tsup-config",
   "version": "1.0.0",
   "main": "index.mjs",
   "scripts": {

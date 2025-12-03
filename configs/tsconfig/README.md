@@ -1,4 +1,4 @@
-# @i2l/tsconfig
+# @ideasui/tsconfig
 
 Shared TypeScript configurations for enterprise monorepo.
 
@@ -57,7 +57,7 @@ For backend/CLI applications.
 
 ```json
 {
-  "extends": "@i2l/tsconfig/nextjs.json",
+  "extends": "@ideasui/tsconfig/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -75,7 +75,7 @@ For backend/CLI applications.
 
 ```json
 {
-  "extends": "@i2l/tsconfig/react.json",
+  "extends": "@ideasui/tsconfig/react.json",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src"
@@ -91,7 +91,7 @@ For backend/CLI applications.
 
 ```json
 {
-  "extends": "@i2l/tsconfig/node.json",
+  "extends": "@ideasui/tsconfig/node.json",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src"

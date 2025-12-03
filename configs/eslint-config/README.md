@@ -1,4 +1,4 @@
-# @i2l/eslint-config
+# @ideasui/eslint-config
 
 Enterprise-grade ESLint and Prettier configuration for large teams.
 
@@ -15,7 +15,7 @@ Enterprise-grade ESLint and Prettier configuration for large teams.
 ## Installation
 
 ```bash
-npm install @i2l/eslint-config --save-dev
+npm install @ideasui/eslint-config --save-dev
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ Create `.eslintrc.js`:
 
 ```js
 module.exports = {
-  extends: ['@i2l/eslint-config'],
+  extends: ['@ideasui/eslint-config'],
 };
 ```
 
@@ -34,7 +34,7 @@ module.exports = {
 
 ```js
 module.exports = {
-  extends: ['@i2l/eslint-config/react'],
+  extends: ['@ideasui/eslint-config/react'],
 };
 ```
 
@@ -42,7 +42,7 @@ module.exports = {
 
 ```js
 module.exports = {
-  extends: ['@i2l/eslint-config/next'],
+  extends: ['@ideasui/eslint-config/next'],
 };
 ```
 
@@ -51,7 +51,7 @@ module.exports = {
 Create `.prettierrc.js`:
 
 ```js
-module.exports = require('@i2l/eslint-config/.prettierrc.js');
+module.exports = require('@ideasui/eslint-config/.prettierrc.js');
 ```
 
 ## Scripts
@@ -147,7 +147,7 @@ Override rules in your project's `.eslintrc.js`:
 
 ```js
 module.exports = {
-  extends: ['@i2l/eslint-config/next'],
+  extends: ['@ideasui/eslint-config/next'],
   rules: {
     // Your custom rules
     'no-console': 'off',

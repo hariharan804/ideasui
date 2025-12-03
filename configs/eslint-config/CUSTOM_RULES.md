@@ -4,7 +4,7 @@
 
 Enforces using React namespace instead of named imports.
 
-### Rule: `@i2l/react-namespace`
+### Rule: `@ideasui/react-namespace`
 
 **Purpose:** Maintain consistent React API usage across the codebase.
 
@@ -48,7 +48,7 @@ In your `.eslintrc.js`:
 
 ```js
 module.exports = {
-  extends: ['@i2l/eslint-config/react-namespace'],
+  extends: ['@ideasui/eslint-config/react-namespace'],
 };
 ```
 
@@ -56,9 +56,9 @@ module.exports = {
 
 ```js
 module.exports = {
-  extends: ['@i2l/eslint-config/react'],
+  extends: ['@ideasui/eslint-config/react'],
   rules: {
-    '@i2l/react-namespace': 'error',
+    '@ideasui/react-namespace': 'error',
     'react/react-in-jsx-scope': 'error',
   },
 };
@@ -124,9 +124,9 @@ module.exports = {
 
 ```js
 module.exports = {
-  plugins: ['@i2l'],
+  plugins: ['@ideasui'],
   rules: {
-    '@i2l/my-rule': 'error',
+    '@ideasui/my-rule': 'error',
   },
 };
 ```

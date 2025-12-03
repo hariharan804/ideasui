@@ -35,7 +35,7 @@
     "react-dom": "18.3.0"
   },
   "devDependencies": {
-    "@i2l/tailwind-config": "workspace:*",
+    "@ideasui/tailwind-config": "workspace:*",
     "@storybook/addon-a11y": "^10.1.2",
     "@storybook/addon-docs": "^10.1.2",
     "@storybook/addon-links": "^10.1.2",
