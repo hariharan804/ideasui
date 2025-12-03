@@ -1,1 +1,1 @@
-module.exports = require('@i2l/eslint-config')
+module.exports = require('@your-org/eslint-config')

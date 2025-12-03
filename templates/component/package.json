@@ -19,13 +19,16 @@
     "react-dom": ">=16.8.0"
   },
   "dependencies": {
-    "@i2l/lib": "workspace:*"
+    "@your-org/utils": "workspace:*",
+    "@your-org/icons": "workspace:*",
+    "tailwind-variants": "^0.1.20",
+    "react-aria": "^3.32.1"
   },
   "devDependencies": {
-    "@i2l/eslint-config": "workspace:*",
-    "@i2l/jest-config": "workspace:*",
-    "@i2l/tsup-config": "workspace:*",
-    "@i2l/tsconfig": "workspace:*",
+    "@your-org/eslint-config": "workspace:*",
+    "@your-org/jest-config": "workspace:*",
+    "@your-org/tsup-config": "workspace:*",
+    "@your-org/tsconfig": "workspace:*",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "typescript": "^5.9.3",

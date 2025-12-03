@@ -1,37 +1,47 @@
-# Component Template
+# {{pascalCase name}} Component
 
-Standard structure for all components in `packages/{component}`:
+{{sentenceCase name}} component built with React, TypeScript, and Tailwind CSS.
 
-```
-packages/{component}/
-├── src/
-│   ├── {component}.tsx         # Main component
-│   ├── __tests__/
-│   │   └── {component}.test.tsx # Tests
-│   ├── lib/
-│   │   └── utils.ts            # Component utilities
-│   └── index.ts                # Exports
-├── package.json                # Component package
-├── tsconfig.json              # TypeScript config
-├── rollup.config.js           # Build config
-└── jest.config.js             # Test config
+## Installation
+
+```bash
+npm install @your-org/{{kebabCase name}}
 ```
 
-## Naming Convention
+## Usage
 
-- **Package**: `@your-org/{component}` (lowercase)
-- **Folder**: `packages/{component}` (lowercase)
-- **Component**: `{Component}` (PascalCase)
-- **Files**: `{component}.tsx` (lowercase)
+```tsx
+import { {{pascalCase name}} } from '@your-org/{{kebabCase name}}'
 
-## Example
-
+function App() {
+  return (
+    <{{pascalCase name}} variant="default" size="md">
+      {{pascalCase name}} Content
+    </{{pascalCase name}}>
+  )
+}
 ```
-packages/button/
-├── src/
-│   ├── button.tsx          # Main component
-│   ├── __tests__/
-│   │   └── button.test.tsx
-│   └── index.ts            # export { Button }
-└── package.json (name: "@your-org/button")
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'default' \| 'secondary' | 'default' | Visual variant |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | Component size |
+| children | ReactNode | - | Component content |
+| className | string | - | Additional CSS classes |
+
+## Examples
+
+### Variants
+```tsx
+<{{pascalCase name}} variant="default">Default</{{pascalCase name}}>
+<{{pascalCase name}} variant="secondary">Secondary</{{pascalCase name}}>
+```
+
+### Sizes
+```tsx
+<{{pascalCase name}} size="sm">Small</{{pascalCase name}}>
+<{{pascalCase name}} size="md">Medium</{{pascalCase name}}>
+<{{pascalCase name}} size="lg">Large</{{pascalCase name}}>
 ```

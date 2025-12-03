@@ -23,7 +23,7 @@ module.exports = function (plop) {
     actions: [
       {
         type: 'addMany',
-        destination: 'packages/{{kebabCase name}}/',
+        destination: 'packages/components/{{kebabCase name}}/,
         base: 'templates/component/',
         templateFiles: 'templates/component/**/*',
         skipIfExists: true,
@@ -56,7 +56,7 @@ module.exports = function (plop) {
         skipIfExists: true,
       },
       function (data) {
-        return `✅ Component created: packages/${plop.getHelper('kebabCase')(data.name)}/`
+        return `✅ Component created: packages/components/${plop.getHelper('kebabCase')(data.name)}/`
       },
       function (data) {
         return `📦 Package name: @your-org/${plop.getHelper('kebabCase')(data.name)}`
@@ -68,7 +68,7 @@ module.exports = function (plop) {
         return '\n🚀 Next steps:'
       },
       function (data) {
-        return `   npm run dev --workspace=packages/${plop.getHelper('kebabCase')(data.name)}`
+        return `   npm run dev --workspace=packages/components/${plop.getHelper('kebabCase')(data.name)}`
       },
       function () {
         return '   npm run check-naming  # Verify naming conventions'

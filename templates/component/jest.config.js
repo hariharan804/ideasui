@@ -1,1 +1,1 @@
-module.exports = require('@i2l/jest-config')
+module.exports = require('@your-org/jest-config')
