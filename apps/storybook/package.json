@@ -31,29 +31,29 @@
     "start": "pnpm dlx http-server storybook-static"
   },
   "dependencies": {
-    "react": "18.3.0",
-    "react-dom": "18.3.0"
+    "react": "19.2.1",
+    "react-dom": "19.2.1"
   },
   "devDependencies": {
     "@ideasui/tailwind-config": "workspace:*",
-    "@storybook/addon-a11y": "^10.1.2",
-    "@storybook/addon-docs": "^10.1.2",
-    "@storybook/addon-links": "^10.1.2",
-    "@storybook/addon-vitest": "^10.1.2",
-    "@storybook/cli": "^10.1.2",
-    "@storybook/react": "^10.1.2",
-    "@storybook/react-vite": "^10.1.2",
+    "@storybook/addon-a11y": "^10.1.4",
+    "@storybook/addon-docs": "^10.1.4",
+    "@storybook/addon-links": "^10.1.4",
+    "@storybook/addon-vitest": "^10.1.4",
+    "@storybook/cli": "^10.1.4",
+    "@storybook/react": "^10.1.4",
+    "@storybook/react-vite": "^10.1.4",
     "@tailwindcss/postcss": "4.1.17",
     "@tailwindcss/vite": "4.1.17",
     "@vitejs/plugin-react": "^5.1.1",
-    "@vitest/browser-playwright": "^4.0.14",
-    "@vitest/coverage-v8": "^4.0.14",
+    "@vitest/browser-playwright": "^4.0.15",
+    "@vitest/coverage-v8": "^4.0.15",
     "playwright": "^1.57.0",
     "remark-gfm": "^4.0.1",
-    "storybook": "^10.1.2",
+    "storybook": "^10.1.4",
     "tailwindcss": "4.1.17",
-    "vite": "^7.2.4",
-    "vitest": "^4.0.14"
+    "vite": "^7.2.6",
+    "vitest": "^4.0.15"
   },
   "tsup": {
     "clean": true,

@@ -4,7 +4,7 @@
   "description": "CLI for IdeasUI component library",
   "main": "./dist/index.js",
   "bin": {
-    "iui": "./dist/index.js"
+    "ideasui": "./dist/index.js"
   },
   "scripts": {
     "build": "tsup",
@@ -21,6 +21,8 @@
     "@ideasui/tsconfig": "workspace:*",
     "@ideasui/tsup-config": "workspace:*",
     "@types/fs-extra": "^11.0.1",
+    "@types/commander": "^11.0.0",
+    "@types/chalk": "^4.1.2",
     "@types/inquirer": "^8.2.6",
     "typescript": "^5.9.3"
   }

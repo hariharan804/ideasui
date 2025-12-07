@@ -19,17 +19,17 @@
     "react-dom": ">=16.8.0"
   },
   "dependencies": {
-    "clsx": "^2.0.0",
-    "tailwind-merge": "^2.0.0"
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@ideasui/eslint-config": "workspace:*",
     "@ideasui/jest-config": "workspace:*",
-    "@ideasui/tsup-config": "workspace:*",
     "@ideasui/tsconfig": "workspace:*",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "typescript": "^5.9.3",
-    "clean-package": "^2.2.0"
+    "@ideasui/tsup-config": "workspace:*",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "clean-package": "^2.2.0",
+    "typescript": "^5.9.3"
   }
 }
