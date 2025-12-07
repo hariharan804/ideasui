@@ -1,5 +1,5 @@
 {
-  "name": "@iui/cli",
+  "name": "@ideasui/cli",
   "version": "0.0.0",
   "description": "CLI for IdeasUI component library",
   "main": "./dist/index.js",
@@ -18,8 +18,8 @@
     "ora": "^5.4.1"
   },
   "devDependencies": {
-    "@iui/tsconfig": "workspace:*",
-    "@iui/tsup-config": "workspace:*",
+    "@ideasui/tsconfig": "workspace:*",
+    "@ideasui/tsup-config": "workspace:*",
     "@types/fs-extra": "^11.0.1",
     "@types/inquirer": "^8.2.6",
     "typescript": "^5.9.3"

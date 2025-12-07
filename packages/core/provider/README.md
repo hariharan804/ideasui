@@ -5,13 +5,13 @@ Core provider component that configures the IdeasUI component library globally.
 ## Installation
 
 ```bash
-npm install @iui/provider
+npm install @ideasui/provider
 ```
 
 ## Usage
 
 ```tsx
-import { IdeasUIProvider } from '@iui/provider'
+import { IdeasUIProvider } from '@ideasui/provider'
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
 Access the current IdeasUI configuration:
 
 ```tsx
-import { useIdeasUI } from '@iui/provider'
+import { useIdeasUI } from '@ideasui/provider'
 
 function MyComponent() {
   const { defaultTheme, disableAnimations } = useIdeasUI()
@@ -56,7 +56,7 @@ function MyComponent() {
 
 ### Basic Setup
 ```tsx
-import { IdeasUIProvider } from '@iui/provider'
+import { IdeasUIProvider } from '@ideasui/provider'
 
 function App() {
   return (

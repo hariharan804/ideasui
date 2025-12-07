@@ -5,13 +5,13 @@ Headless toggle component that provides toggle state management without any styl
 ## Installation
 
 ```bash
-npm install @iui/toggle-primitive
+npm install @ideasui/toggle-primitive
 ```
 
 ## Usage
 
 ```tsx
-import { Toggle } from '@iui/toggle-primitive'
+import { Toggle } from '@ideasui/toggle-primitive'
 
 function App() {
   return (

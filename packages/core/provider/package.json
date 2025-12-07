@@ -1,5 +1,5 @@
 {
-  "name": "@iui/provider",
+  "name": "@ideasui/provider",
   "version": "0.0.0",
   "description": "Core provider for IdeasUI components",
   "main": "./src/index.ts",
@@ -13,11 +13,11 @@
     "react": ">=18.0.0"
   },
   "dependencies": {
-    "@iui/theme-controller": "workspace:*"
+    "@ideasui/theme-controller": "workspace:*"
   },
   "devDependencies": {
-    "@iui/tsconfig": "workspace:*",
-    "@iui/tsup-config": "workspace:*",
+    "@ideasui/tsconfig": "workspace:*",
+    "@ideasui/tsup-config": "workspace:*",
     "@types/react": "^18.2.0",
     "typescript": "^5.9.3"
   }

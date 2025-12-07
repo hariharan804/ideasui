@@ -5,13 +5,13 @@ Design system tokens for consistent styling across IdeasUI components.
 ## Installation
 
 ```bash
-npm install @iui/tokens
+npm install @ideasui/tokens
 ```
 
 ## Usage
 
 ```tsx
-import { colors, spacing, fontSize } from '@iui/tokens'
+import { colors, spacing, fontSize } from '@ideasui/tokens'
 
 // Use in components
 const Button = styled.button`

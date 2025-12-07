@@ -26,13 +26,13 @@ export async function initProject(options: InitOptions) {
         type: 'input',
         name: 'componentsDir',
         message: 'Components directory:',
-        default: './src/components'
+        default: './src/components',
       },
       {
         type: 'confirm',
         name: 'installDeps',
         message: 'Install IdeasUI dependencies?',
-        default: true
+        default: true,
       },
       {
         type: 'list',
@@ -40,8 +40,8 @@ export async function initProject(options: InitOptions) {
         message: 'Package manager:',
         choices: ['npm', 'yarn', 'pnpm'],
         default: 'npm',
-        when: (answers) => answers.installDeps
-      }
+        when: (answers) => answers.installDeps,
+      },
     ])
 
     // Create directories
@@ -58,11 +58,10 @@ export async function initProject(options: InitOptions) {
     }
 
     spinner.succeed(chalk.green('✨ IdeasUI initialized successfully!'))
-    
+
     console.log(chalk.cyan('\nNext steps:'))
     console.log('  iui create component Button')
     console.log('  npm run dev')
-    
   } catch (error) {
     spinner.fail(chalk.red(`Failed to initialize: ${error}`))
     process.exit(1)
@@ -84,18 +83,18 @@ export * from './ui'
 
 async function installDependencies(packageManager: string) {
   const { spawn } = require('child_process')
-  
+
   const deps = [
-    '@iui/provider',
-    '@iui/tokens',
-    '@iui/utils',
+    '@ideasui/provider',
+    '@ideasui/tokens',
+    '@ideasui/utils',
     'tailwind-variants',
-    'react-aria'
+    'react-aria',
   ]
 
   return new Promise((resolve, reject) => {
     const child = spawn(packageManager, ['install', ...deps], {
-      stdio: 'inherit'
+      stdio: 'inherit',
     })
 
     child.on('close', (code: number) => {

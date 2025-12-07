@@ -2,7 +2,7 @@
 
 import { Command } from 'commander'
 import chalk from 'chalk'
-import { createComponent } from './commands/create'
+// import { createComponent } from './commands/create'
 import { initProject } from './commands/init'
 
 const program = new Command()
@@ -12,12 +12,12 @@ program
   .description('CLI for IdeasUI component library')
   .version('0.0.0')
 
-program
-  .command('create <type> <name>')
-  .description('Create a new component')
-  .option('-t, --template <template>', 'Component template', 'default')
-  .option('-d, --dir <directory>', 'Output directory', './src/components')
-  .action(createComponent)
+// program
+//   .command('create <type> <name>')
+//   .description('Create a new component')
+//   .option('-t, --template <template>', 'Component template', 'default')
+//   .option('-d, --dir <directory>', 'Output directory', './src/components')
+//   .action(createComponent)
 
 program
   .command('init')

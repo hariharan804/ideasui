@@ -431,6 +431,25 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  packages/primitives/toggle:
+    dependencies:
+      react:
+        specifier: '>=18.0.0'
+        version: 18.3.0
+    devDependencies:
+      '@ideasui/tsconfig':
+        specifier: workspace:*
+        version: link:../../../configs/tsconfig
+      '@ideasui/tsup-config':
+        specifier: workspace:*
+        version: link:../../../configs/tsup-config
+      '@types/react':
+        specifier: ^18.2.0
+        version: 18.3.27
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/themes/theme-controller:
     dependencies:
       react:

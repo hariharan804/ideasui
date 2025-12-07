@@ -1,5 +1,5 @@
 {
-  "name": "@iui/toggle-primitive",
+  "name": "@ideasui/toggle-primitive",
   "version": "0.0.0",
   "description": "Headless toggle primitive component",
   "main": "./src/index.ts",
@@ -12,12 +12,9 @@
   "peerDependencies": {
     "react": ">=18.0.0"
   },
-  "dependencies": {
-    "@iui/hooks": "workspace:*"
-  },
   "devDependencies": {
-    "@iui/tsconfig": "workspace:*",
-    "@iui/tsup-config": "workspace:*",
+    "@ideasui/tsconfig": "workspace:*",
+    "@ideasui/tsup-config": "workspace:*",
     "@types/react": "^18.2.0",
     "typescript": "^5.9.3"
   }

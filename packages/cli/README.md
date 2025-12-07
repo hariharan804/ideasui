@@ -5,7 +5,7 @@ Command-line interface for creating and managing IdeasUI components.
 ## Installation
 
 ```bash
-npm install -g @iui/cli
+npm install -g @ideasui/cli
 ```
 
 ## Commands
