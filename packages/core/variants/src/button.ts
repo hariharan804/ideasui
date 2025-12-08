@@ -1,30 +1,24 @@
-import { tv } from 'tailwind-variants';
-import { colors, buttonSizes, radius } from './system';
+import { tv } from 'tailwind-variants'
+import { colors, buttonSizes, radius } from './system'
 
-// Generate color variants dynamically
-const colorVariants = Object.keys(colors).reduce((acc, color) => {
-  acc[color] = '';
-  return acc;
-}, {} as Record<string, string>);
+// Get strictly-typed color keys
+const colorKeys = Object.keys(colors) as Array<keyof typeof colors>
 
-// Generate compound variants dynamically
-const compoundVariants = Object.entries(colors).flatMap(([colorKey, colorValue]) => [
-  {
-    variant: 'solid' as const,
-    color: colorKey as keyof typeof colors,
-    class: colorValue.solid,
+// Create a type-safe color variant map (values are unused, tv only needs the keys)
+const colorVariants = colorKeys.reduce(
+  (acc, key) => {
+    acc[key] = ''
+    return acc
   },
-  {
-    variant: 'outline' as const,
-    color: colorKey as keyof typeof colors,
-    class: colorValue.outline,
-  },
-  {
-    variant: 'ghost' as const,
-    color: colorKey as keyof typeof colors,
-    class: colorValue.ghost,
-  },
-]);
+  {} as Record<keyof typeof colors, string>
+)
+
+// Build compound variants from your system tokens
+const compoundVariants = colorKeys.flatMap((color) => [
+  { variant: 'solid' as const, color, class: colors[color].solid },
+  { variant: 'outline' as const, color, class: colors[color].outline },
+  { variant: 'ghost' as const, color, class: colors[color].ghost },
+])
 
 /**
  * Button variants for IdeasUI components
@@ -36,6 +30,9 @@ export const buttonVariants = tv({
     'transition-colors duration-200',
     'focus:outline-none focus:ring-2 focus:ring-offset-2',
     'disabled:opacity-50 disabled:pointer-events-none',
+    // a couple of useful states you’ll likely want
+    'data-[state=loading]:cursor-wait',
+    'select-none',
   ],
   variants: {
     variant: {
@@ -46,6 +43,13 @@ export const buttonVariants = tv({
     color: colorVariants,
     size: buttonSizes,
     radius,
+    // optional: square/icon buttons
+    isIcon: {
+      true: 'aspect-square p-0',
+    },
+    fullWidth: {
+      true: 'w-full',
+    },
   },
   compoundVariants,
   defaultVariants: {
@@ -54,4 +58,4 @@ export const buttonVariants = tv({
     size: 'md',
     radius: 'md',
   },
-});
+})
