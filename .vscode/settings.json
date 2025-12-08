@@ -29,5 +29,6 @@
     "**/.turbo": true,
     "**/node_modules": false
   },
-  "kiroAgent.configureMCP": "Disabled"
+  "kiroAgent.configureMCP": "Disabled",
+  "cSpell.words": ["ideasui"]
 }
