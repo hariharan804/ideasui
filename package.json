@@ -1,18 +1,105 @@
 {
-  "name": "ideasui",
+  "name": "@ideasui/root",
   "private": true,
+  "version": "0.1.0",
+  "description": "IdeasUI - Modern React component library built with TypeScript and Tailwind CSS",
+  "files": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/my-component-lib.git"
+  },
+  "keywords": ["react", "components", "ui", "design-system", "tailwind"],
+  "author": "Your Name",
+  "license": "MIT",
   "scripts": {
-    "build": "turbo run build",
     "dev": "turbo run dev",
+    "build": "turbo run build",
+    "dev:next": "turbo run dev:next",
+    "build:next": "turbo run build:next",
+    "start:next": "turbo run dev:next",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "lint": "turbo run lint",
-    "test": "turbo run test",
-    "generate": "plop"
+    "lint:fix": "turbo run lint:fix",
+    "type-check": "turbo run type-check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky",
+    "commit": "cz",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test:visual": "playwright test tests/visual",
+    "test:visual:ui": "playwright test tests/visual --ui",
+    "test:a11y": "playwright test tests/accessibility",
+    "test:cross-browser": "playwright test --project=chromium --project=firefox --project=webkit",
+    "create": "plop",
+    "check-naming": "node scripts/check-naming.js"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{json,md,css}": ["prettier --write"]
+  },
+  "config": {
+    "commitizen": { "path": "cz-conventional-changelog" }
+  },
+  "workspaces": [
+    "packages/components/*",
+    "packages/themes/*",
+    "packages/utils/*",
+    "packages/hooks/*",
+    "packages/primitives/*",
+    "packages/icons/*",
+    "packages/tokens/*",
+    "packages/cli/*",
+    "apps/*",
+    "configs/*"
+  ],
   "devDependencies": {
-    "plop": "^4.0.0",
-    "turbo": "^1.10.0"
+    "@axe-core/playwright": "^4.11.0",
+    "@commitlint/cli": "^20.2.0",
+    "@commitlint/config-conventional": "^20.2.0",
+    "@playwright/test": "^1.57.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@storybook/addon-a11y": "^10.1.4",
+    "@storybook/addon-docs": "^10.1.4",
+    "@storybook/react-vite": "^10.1.4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.10.1",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.48.1",
+    "@typescript-eslint/parser": "^8.48.1",
+    "clean-package": "^2.2.0",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-storybook": "10.1.4",
+    "husky": "^9.1.7",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "lint-staged": "^16.2.7",
+    "plop": "^4.0.4",
+    "prettier": "^3.7.4",
+    "semantic-release": "^25.0.2",
+    "storybook": "^10.1.4",
+    "ts-jest": "^29.4.6",
+    "turbo": "^2.6.3",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.6"
   },
-  "dependencies": {
-    "tailwind-variants": "^3.2.2"
-  }
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "packageManager": "pnpm@9.12.3"
 }
