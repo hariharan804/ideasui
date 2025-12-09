@@ -1,7 +1,7 @@
 {
   "name": "@ideasui/{{kebabCase name}}",
   "version": "0.0.0",
-  "description": "{{sentenceCase name}} component",
+  "description": "{{pascalCase name}} component for IdeasUI",
   "main": "./src/index.ts",
   "sideEffects": false,
   "clean-package": "../../clean-package.config.json",
@@ -29,6 +29,8 @@
     "@ideasui/jest-config": "workspace:*",
     "@ideasui/tsup-config": "workspace:*",
     "@ideasui/tsconfig": "workspace:*",
+    "@ideasui/variants": "workspace:*",
+    "@ideasui/utils": "workspace:*",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "typescript": "^5.9.3",
