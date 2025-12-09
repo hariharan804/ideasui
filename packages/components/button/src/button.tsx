@@ -1,9 +1,9 @@
 'use client'
 import * as React from 'react'
-import { tv, type VariantProps } from 'tailwind-variants'
 import { cn } from './lib/utils'
 import { useRipple } from './ripple'
 import { ButtonProps } from './type'
+import { buttonVariants } from '@ideasui/variants/button'
 
 /* ---------------------------- VARIANTS ---------------------------- */
 
@@ -78,7 +78,7 @@ type Color =
   | 'danger'
   | 'info'
   | 'gray'
-type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon'
+// type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon'
 
 /** helper to build compoundVariants programmatically */
 export function buildCompoundVariants() {
@@ -102,83 +102,83 @@ export function buildCompoundVariants() {
 }
 
 /** base classes shared by all buttons */
-const baseClasses =
-  'inline-flex items-center justify-center cursor-pointer whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 capitalize'
+// const baseClasses =
+//   'inline-flex items-center justify-center cursor-pointer whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 capitalize'
 
-/** sizes */
-const sizeMap: Record<Size, string> = {
-  xs: 'h-7 px-2 text-xs',
-  sm: 'h-8 px-3 text-sm',
-  md: 'h-10 px-4',
-  lg: 'h-12 px-6 text-lg',
-  xl: 'h-14 px-8 text-xl',
-  icon: 'h-10 w-10 p-0',
-}
+// /** sizes */
+// const sizeMap: Record<Size, string> = {
+//   xs: 'h-7 px-2 text-xs',
+//   sm: 'h-8 px-3 text-sm',
+//   md: 'h-10 px-4',
+//   lg: 'h-12 px-6 text-lg',
+//   xl: 'h-14 px-8 text-xl',
+//   icon: 'h-10 w-10 p-0',
+// }
 
 /**
  * The tv config
  * - We keep variant and color keys minimal (empty strings) because compoundVariants will inject the color classes
  */
-export const buttonVariants = tv({
-  base: baseClasses,
-  variants: {
-    variant: {
-      solid: '',
-      outline: 'border bg-transparent',
-      ghost: 'bg-transparent hover:bg-opacity-10',
-      soft: '',
-      link: 'underline-offset-4 hover:underline bg-transparent p-0 h-auto',
-    },
-    color: {
-      primary: '',
-      secondary: '',
-      success: '',
-      warning: '',
-      danger: '',
-      info: '',
-      gray: '',
-    },
-    size: {
-      xs: sizeMap.xs,
-      sm: sizeMap.sm,
-      md: sizeMap.md,
-      lg: sizeMap.lg,
-      xl: sizeMap.xl,
-      icon: sizeMap.icon,
-    },
-    fullWidth: {
-      true: 'w-full',
-      false: '',
-    },
-    loading: {
-      true: 'cursor-not-allowed opacity-90',
-      false: '',
-    },
-    /** optional: iconOnly modifies spacing if you want special behavior for icon-only buttons */
-    iconOnly: {
-      true: 'p-0 w-10 h-10',
-      false: '',
-    },
-    radius: {
-      full: 'rounded-full',
-      none: 'rounded-none',
-      sm: 'rounded-sm',
-      md: 'rounded-md',
-      lg: 'rounded-lg',
-      xl: 'rounded-xl',
-    },
-  },
-  compoundVariants: buildCompoundVariants(),
-  defaultVariants: {
-    variant: 'solid',
-    color: 'primary',
-    size: 'md',
-    fullWidth: false,
-    loading: false,
-    iconOnly: false,
-  },
-})
-export type ButtonVariantProps = VariantProps<typeof buttonVariants>
+// export const buttonVariants = tv({
+//   base: baseClasses,
+//   variants: {
+//     variant: {
+//       solid: '',
+//       outline: 'border bg-transparent',
+//       ghost: 'bg-transparent hover:bg-opacity-10',
+//       soft: '',
+//       link: 'underline-offset-4 hover:underline bg-transparent p-0 h-auto',
+//     },
+//     color: {
+//       primary: '',
+//       secondary: '',
+//       success: '',
+//       warning: '',
+//       danger: '',
+//       info: '',
+//       gray: '',
+//     },
+//     size: {
+//       xs: sizeMap.xs,
+//       sm: sizeMap.sm,
+//       md: sizeMap.md,
+//       lg: sizeMap.lg,
+//       xl: sizeMap.xl,
+//       icon: sizeMap.icon,
+//     },
+//     fullWidth: {
+//       true: 'w-full',
+//       false: '',
+//     },
+//     loading: {
+//       true: 'cursor-not-allowed opacity-90',
+//       false: '',
+//     },
+//     /** optional: iconOnly modifies spacing if you want special behavior for icon-only buttons */
+//     iconOnly: {
+//       true: 'p-0 w-10 h-10',
+//       false: '',
+//     },
+//     radius: {
+//       full: 'rounded-full',
+//       none: 'rounded-none',
+//       sm: 'rounded-sm',
+//       md: 'rounded-md',
+//       lg: 'rounded-lg',
+//       xl: 'rounded-xl',
+//     },
+//   },
+//   compoundVariants: buildCompoundVariants(),
+//   defaultVariants: {
+//     variant: 'solid',
+//     color: 'primary',
+//     size: 'md',
+//     fullWidth: false,
+//     loading: false,
+//     iconOnly: false,
+//   },
+// })
+// export type ButtonVariantProps = VariantProps<typeof buttonVariants>
 
 /* ---------------------------- SPINNER ---------------------------- */
 
@@ -259,9 +259,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           buttonVariants({
             size,
             fullWidth,
-            loading,
+            // loading,
             color,
-            iconOnly,
+            // iconOnly,
             variant,
             radius,
           }),

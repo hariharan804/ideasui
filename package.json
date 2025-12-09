@@ -11,5 +11,8 @@
   "devDependencies": {
     "plop": "^4.0.0",
     "turbo": "^1.10.0"
+  },
+  "dependencies": {
+    "tailwind-variants": "^3.2.2"
   }
 }

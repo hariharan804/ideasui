@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "@ideasui/utils": "workspace:*",
-    "@radix-ui/react-slot": "^1.2.4",
-    "tailwind-variants": "^3.2.2"
+    "@ideasui/variants": "workspace:*",
+    "@radix-ui/react-slot": "^1.2.4"
   },
   "devDependencies": {
     "@ideasui/eslint-config": "workspace:*",
