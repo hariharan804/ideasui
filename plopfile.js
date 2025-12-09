@@ -1,78 +1,150 @@
 module.exports = function (plop) {
-  // Add custom helpers
-  plop.setHelper('kebabCase', (text) => {
-    return text.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
-  })
-
+  // Full component generator (component + variant + primitive)
   plop.setGenerator('component', {
-    description: 'Create a new component package following naming conventions',
+    description: 'Create complete component (component + variant + primitive)',
     prompts: [
       {
         type: 'input',
         name: 'name',
-        message: 'Component name (PascalCase, e.g., InputField, DatePicker):',
-        validate: (input) => {
-          if (!input) return 'Component name is required'
-          if (!/^[A-Z][a-zA-Z0-9]*$/.test(input)) {
-            return 'Must be PascalCase (e.g., Button, InputField, DatePicker)'
-          }
-          return true
-        },
+        message: 'Component name (kebab-case):',
+        validate: (input) => /^[a-z-]+$/.test(input) || 'Use kebab-case (e.g., date-picker)'
+      }
+    ],
+    actions: [
+      // Create component package
+      {
+        type: 'addMany',
+        destination: 'packages/components/{{name}}/',
+        base: 'templates/component/',
+        templateFiles: 'templates/component/**/*'
       },
+      // Create primitive package
+      {
+        type: 'addMany',
+        destination: 'packages/primitives/{{name}}-primitive/',
+        base: 'templates/primitive/',
+        templateFiles: 'templates/primitive/**/*'
+      },
+      // Add variant to variants package
+      {
+        type: 'add',
+        path: 'packages/core/variants/src/{{name}}.ts',
+        templateFile: 'templates/variant/variant.ts.hbs'
+      }
+    ]
+  });
+
+  // Component only generator
+  plop.setGenerator('component-only', {
+    description: 'Create UI component package only',
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Component name (kebab-case):',
+        validate: (input) => /^[a-z-]+$/.test(input) || 'Use kebab-case (e.g., date-picker)'
+      }
     ],
     actions: [
       {
         type: 'addMany',
-        destination: 'packages/components/{{kebabCase name}}/,
+        destination: 'packages/components/{{name}}/',
         base: 'templates/component/',
-        templateFiles: 'templates/component/**/*',
-        skipIfExists: true,
-      },
+        templateFiles: 'templates/component/**/*'
+      }
+    ]
+  });
+
+  // Primitive only generator
+  plop.setGenerator('primitive-only', {
+    description: 'Create primitive package only',
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Primitive name (kebab-case):',
+        validate: (input) => /^[a-z-]+$/.test(input) || 'Use kebab-case (e.g., toggle-primitive)'
+      }
+    ],
+    actions: [
+      {
+        type: 'addMany',
+        destination: 'packages/primitives/{{name}}/',
+        base: 'templates/primitive/',
+        templateFiles: 'templates/primitive/**/*'
+      }
+    ]
+  });
+
+  // Hook generator
+  plop.setGenerator('hook', {
+    description: 'Create a new React hook package',
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Hook name (kebab-case):',
+        validate: (input) => /^[a-z-]+$/.test(input) || 'Use kebab-case (e.g., use-local-storage)'
+      }
+    ],
+    actions: [
+      {
+        type: 'addMany',
+        destination: 'packages/hooks/{{name}}/',
+        base: 'templates/hook/',
+        templateFiles: 'templates/hook/**/*'
+      }
+    ]
+  });
+
+  // Utility generator
+  plop.setGenerator('util', {
+    description: 'Create a new utility package',
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Utility name (kebab-case):',
+        validate: (input) => /^[a-z-]+$/.test(input) || 'Use kebab-case (e.g., date-utils)'
+      }
+    ],
+    actions: [
+      {
+        type: 'addMany',
+        destination: 'packages/utils/{{name}}/',
+        base: 'templates/util/',
+        templateFiles: 'templates/util/**/*'
+      }
+    ]
+  });
+
+  // Variant only generator
+  plop.setGenerator('variant-only', {
+    description: 'Add component variant to @ideasui/variants only',
+    prompts: [
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Component name (kebab-case):',
+        validate: (input) => /^[a-z-]+$/.test(input) || 'Use kebab-case (e.g., input-field)'
+      }
+    ],
+    actions: [
       {
         type: 'add',
-        path: 'apps/playground/components/{{kebabCase name}}.tsx',
-        templateFile: 'templates/example/compoent.hbs',
-        skipIfExists: true,
-      },
-      // {
-      //   type: 'add',
-      //   path: 'apps/playground/app/components/{{pascalCase name}}.tsx',
-      //   templateFile: 'templates/example/compoent.hbs',
-      //   skipIfExists: true,
-      // },
-      {
-        type: 'append',
-        path: 'apps/playground/components/example.tsx',
-        pattern: /\/\/ ### APPEND COMPONENT HERE ###/,
-        templateFile: 'templates/example/example.hbs',
-        skipIfExists: true,
-      },
-      {
-        type: 'append',
-        path: 'apps/playground/components/example.tsx',
-        pattern: /\/\/ ### IMPORT COMPONENT HERE ###/,
-        template:
-          "import {{pascalCase name}}Preview from './{{kebabCase name}}';",
-        skipIfExists: true,
-      },
-      function (data) {
-        return `✅ Component created: packages/components/${plop.getHelper('kebabCase')(data.name)}/`
-      },
-      function (data) {
-        return `📦 Package name: @ideasui/${plop.getHelper('kebabCase')(data.name)}`
-      },
-      function (data) {
-        return `🧩 Component: ${data.name}`
-      },
-      function () {
-        return '\n🚀 Next steps:'
-      },
-      function (data) {
-        return `   npm run dev --workspace=packages/components/${plop.getHelper('kebabCase')(data.name)}`
-      },
-      function () {
-        return '   npm run check-naming  # Verify naming conventions'
-      },
-    ],
-  })
-}
+        path: 'packages/core/variants/src/{{name}}.ts',
+        templateFile: 'templates/variant/variant.ts.hbs'
+      }
+    ]
+  });
+
+  // Helpers
+  plop.setHelper('pascalCase', (text) => {
+    return text.replace(/(^\w|-\w)/g, (match) => match.replace('-', '').toUpperCase());
+  });
+
+  plop.setHelper('camelCase', (text) => {
+    const pascal = text.replace(/(^\w|-\w)/g, (match) => match.replace('-', '').toUpperCase());
+    return pascal.charAt(0).toLowerCase() + pascal.slice(1);
+  });
+};
