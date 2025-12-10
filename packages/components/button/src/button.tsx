@@ -1,9 +1,9 @@
 'use client'
 import * as React from 'react'
-import { cn } from './lib/utils'
 import { useRipple } from './ripple'
 import { ButtonProps } from './type'
 import { buttonVariants } from '@ideasui/variants/button'
+import { cn } from '@ideasui/utils'
 
 /* ---------------------------- VARIANTS ---------------------------- */
 

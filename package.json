@@ -8,7 +8,13 @@
     "type": "git",
     "url": "https://github.com/username/my-component-lib.git"
   },
-  "keywords": ["react", "components", "ui", "design-system", "tailwind"],
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "design-system",
+    "tailwind"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "scripts": {
@@ -27,8 +33,8 @@
     "format:check": "prettier --check .",
     "prepare": "husky",
     "commit": "cz",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "storybook": "turbo run dev --filter=@ideasui/storybook",
+    "build-storybook": "turbo run build --filter=@ideasui/storybook",
     "test:visual": "playwright test tests/visual",
     "test:visual:ui": "playwright test tests/visual --ui",
     "test:a11y": "playwright test tests/accessibility",
@@ -37,11 +43,18 @@
     "check-naming": "node scripts/check-naming.js"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
-    "*.{json,md,css}": ["prettier --write"]
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css}": [
+      "prettier --write"
+    ]
   },
   "config": {
-    "commitizen": { "path": "cz-conventional-changelog" }
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "workspaces": [
     "packages/components/*",

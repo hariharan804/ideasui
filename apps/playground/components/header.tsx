@@ -4,14 +4,20 @@ import { useRouter } from 'next/navigation'
 import { ArrowLeft, Moon, Sun, Github, ExternalLink } from 'lucide-react'
 
 interface HeaderProps {
-  theme: 'light' | 'dark'
-  onToggleTheme: () => void
+  theme?: 'light' | 'dark'
+  onToggleTheme?: () => void
   showBackButton?: boolean
   title?: string
   subtitle?: string
 }
 
-function Header({ theme, onToggleTheme, showBackButton = false, title, subtitle }: HeaderProps) {
+function Header({
+  theme,
+  onToggleTheme,
+  showBackButton = false,
+  title,
+  subtitle,
+}: HeaderProps) {
   const router = useRouter()
 
   const goBack = () => {
@@ -48,9 +54,7 @@ function Header({ theme, onToggleTheme, showBackButton = false, title, subtitle 
                 {title || 'IdeasUI Playground'}
               </h1>
               {subtitle && (
-                <p className="text-sm text-gray-600 mt-1">
-                  {subtitle}
-                </p>
+                <p className="text-sm text-gray-600 mt-1">{subtitle}</p>
               )}
             </div>
           </div>
@@ -80,7 +84,11 @@ function Header({ theme, onToggleTheme, showBackButton = false, title, subtitle 
               className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
               title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             >
-              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              {theme === 'dark' ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
             </button>
           </div>
         </div>

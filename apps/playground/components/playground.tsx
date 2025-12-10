@@ -39,52 +39,25 @@ const categories = Array.from(
 function Playground() {
   const router = useRouter()
 
-  const [theme, setTheme] = React.useState('light')
   const [searchQuery, setSearchQuery] = React.useState('')
   const [selectedCategory, setSelectedCategory] = React.useState<string>('All')
   const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('grid')
-
-  React.useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'light'
-    setTheme(savedTheme)
-
-    if (savedTheme === 'dark') {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }, [])
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark'
-    setTheme(newTheme)
-    localStorage.setItem('theme', newTheme)
-
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }
 
   const navigateToComponent = (name: string) => {
     router.push(`/playground/${name.toLowerCase()}`)
   }
 
   const filteredComponents = COMPONENT_LIST.filter((item) => {
-    const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory
+    const matchesSearch = item.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
+    const matchesCategory =
+      selectedCategory === 'All' || item.category === selectedCategory
     return matchesSearch && matchesCategory
   })
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header
-        theme={theme}
-        onToggleTheme={toggleTheme}
-        subtitle="Interactive component showcase and documentation"
-      />
-
+    <div>
       {/* Filters */}
       <div className="container mx-auto px-6 py-6">
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
