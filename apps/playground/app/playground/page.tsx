@@ -1,5 +1,5 @@
 'use client'
-import Example from '@/components/example'
+import Example from '@/components/playground'
 
 export default function Playground() {
   return (
