@@ -1,7 +1,7 @@
 module.exports = function (plop) {
-  // Full component generator (component + variant + primitive)
+  // Full component generator (component + variant)
   plop.setGenerator('component', {
-    description: 'Create complete component (component + variant + primitive)',
+    description: 'Create complete component (component + variant)',
     prompts: [
       {
         type: 'input',
@@ -18,14 +18,6 @@ module.exports = function (plop) {
         destination: 'packages/components/{{name}}/',
         base: 'templates/component/',
         templateFiles: 'templates/component/**/*',
-        skipIfExists: true,
-      },
-      // Create primitive package
-      {
-        type: 'addMany',
-        destination: 'packages/primitives/{{name}}-primitive/',
-        base: 'templates/primitive/',
-        templateFiles: 'templates/primitive/**/*',
         skipIfExists: true,
       },
       // Add variant to variants package
@@ -78,29 +70,6 @@ module.exports = function (plop) {
         destination: 'packages/components/{{name}}/',
         base: 'templates/component/',
         templateFiles: 'templates/component/**/*',
-        skipIfExists: true,
-      },
-    ],
-  })
-
-  // Primitive only generator
-  plop.setGenerator('primitive-only', {
-    description: 'Create primitive package only',
-    prompts: [
-      {
-        type: 'input',
-        name: 'name',
-        message: 'Primitive name (kebab-case):',
-        validate: (input) =>
-          /^[a-z-]+$/.test(input) || 'Use kebab-case (e.g., toggle-primitive)',
-      },
-    ],
-    actions: [
-      {
-        type: 'addMany',
-        destination: 'packages/primitives/{{name}}/',
-        base: 'templates/primitive/',
-        templateFiles: 'templates/primitive/**/*',
         skipIfExists: true,
       },
     ],

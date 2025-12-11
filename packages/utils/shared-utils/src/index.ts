@@ -1,1 +1,1 @@
-export { cn } from './utils'
+export { cn, toDataAttr, mergeProps } from './utils'

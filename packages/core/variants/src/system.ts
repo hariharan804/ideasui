@@ -27,6 +27,14 @@ export const buttonSizes = {
   xl: 'h-14 px-8 text-lg',
 } as const;
 
+export const spinnerSizes = {
+  xs: 'h-3 w-3',
+  sm: 'h-3 w-3',
+  md: 'h-4 w-4',
+  lg: 'h-5 w-5',
+  xl: 'h-6 w-6',
+} as const;
+
 export const colors = {
   default: {
     solid: 'bg-gray-600 text-white hover:bg-gray-700',
@@ -102,6 +110,7 @@ export const disabled = {
 export type Spacing = keyof typeof spacing;
 export type Size = keyof typeof sizes;
 export type ButtonSize = keyof typeof buttonSizes;
+export type SpinnerSize = keyof typeof spinnerSizes;
 export type ColorVariant = keyof typeof colors;
 export type ColorType = keyof typeof colors.primary;
 export type Radius = keyof typeof radius;

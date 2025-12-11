@@ -61,7 +61,6 @@
     "packages/themes/*",
     "packages/utils/*",
     "packages/hooks/*",
-    "packages/primitives/*",
     "packages/icons/*",
     "packages/tokens/*",
     "packages/cli/*",
