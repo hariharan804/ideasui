@@ -1,9 +1,5 @@
-import * as React from 'react'
-import { useButton as useAriaButton } from 'react-aria'
-import { useFocusRing } from 'react-aria'
-import { useHover } from 'react-aria'
-import { usePress } from 'react-aria'
-import type { AriaButtonProps } from 'react-aria'
+import { useRef, useState, useCallback } from 'react'
+import { useButton as useAriaButton, useFocusRing, useHover } from 'react-aria'
 import type { ButtonProps } from './button-types'
 import { toDataAttr, mergeProps } from '@ideasui/utils'
 
@@ -33,8 +29,8 @@ export function useButton(props: UseButtonProps) {
     ...otherProps
   } = props
 
-  const domRef = React.useRef<HTMLButtonElement>(null)
-  const [ripples, setRipples] = React.useState<
+  const domRef = useRef<HTMLButtonElement>(null)
+  const [ripples, setRipples] = useState<
     Array<{ key: number; x: number; y: number }>
   >([])
   const isDisabled = isDisabledProp || isLoading
@@ -44,7 +40,7 @@ export function useButton(props: UseButtonProps) {
   })
 
   // Convert onClick to onPress handler
-  const handlePress = React.useCallback(
+  const handlePress = useCallback(
     (e: any) => {
       if (onClick) {
         // Create a synthetic mouse event-like object
@@ -97,7 +93,7 @@ export function useButton(props: UseButtonProps) {
   )
 
   const { isHovered, hoverProps } = useHover({ isDisabled })
-  const handleRipple = React.useCallback(
+  const handleRipple = useCallback(
     (event: React.MouseEvent) => {
       if (isDisabled) return
 
@@ -117,7 +113,7 @@ export function useButton(props: UseButtonProps) {
     [isDisabled]
   )
 
-  const getButtonProps = React.useCallback(
+  const getButtonProps = useCallback(
     (props: any = {}) => ({
       'data-disabled': toDataAttr(isDisabled),
       'data-focus': toDataAttr(isFocused),

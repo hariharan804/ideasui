@@ -1,5 +1,5 @@
 'use client'
-import * as React from 'react'
+import React, { useEffect, useImperativeHandle, useMemo } from 'react'
 import { useButton } from './use-button'
 import { buttonVariants } from '@ideasui/variants/button'
 import { spinnerSizes, type SpinnerSize } from '@ideasui/variants/system'
@@ -15,7 +15,7 @@ const Ripple = ({
   y: number
   onComplete: () => void
 }) => {
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setTimeout(onComplete, 600)
     return () => clearTimeout(timer)
   }, [onComplete])
@@ -78,16 +78,34 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const Component = as || 'button'
+    // Validate 'as' prop - ensure it's a valid component
+    const Component = React.useMemo(() => {
+      if (!as) return 'button'
+      
+      // Check if it's a valid React component or HTML element
+      if (typeof as === 'string') {
+        // Validate HTML element names
+        const validElements = ['button', 'a', 'div', 'span', 'input']
+        return validElements.includes(as) ? as : 'button'
+      }
+      
+      // For React components, check if it's a valid component
+      if (typeof as === 'function' || (typeof as === 'object' && as !== null)) {
+        return as
+      }
+      
+      // Fallback to button for invalid values
+      return 'button'
+    }, [as])
 
     const { buttonProps, isLoading, domRef, ripples } = useButton({
-      as,
+      as: Component,
       loading,
       disabled,
       ...props,
     })
 
-    React.useImperativeHandle(ref, () => domRef.current!)
+    useImperativeHandle(ref, () => domRef.current!)
 
     return (
       <Component
@@ -133,33 +151,4 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }
 )
 
-Button.displayName = 'Button'
-
-// Compound component pattern
-const ButtonGroup = ({
-  children,
-  className,
-  ...props
-}: {
-  children: React.ReactNode
-  className?: string
-}) => (
-  <div
-    className={cn(
-      'inline-flex rounded-md shadow-sm',
-      '[&>button:not(:first-child)]:ml-[-1px]',
-      '[&>button:not(:first-child):not(:last-child)]:rounded-none',
-      '[&>button:first-child:not(:last-child)]:rounded-r-none',
-      '[&>button:last-child:not(:first-child)]:rounded-l-none',
-      className
-    )}
-    role="group"
-    {...props}
-  >
-    {children}
-  </div>
-)
-
-ButtonGroup.displayName = 'IdeasUI.ButtonGroup'
-
-export { ButtonGroup }
+Button.displayName = 'IdeasUI.Button'
