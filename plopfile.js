@@ -98,29 +98,6 @@ module.exports = function (plop) {
     ],
   })
 
-  // Utility generator
-  plop.setGenerator('util', {
-    description: 'Create a new utility package',
-    prompts: [
-      {
-        type: 'input',
-        name: 'name',
-        message: 'Utility name (kebab-case):',
-        validate: (input) =>
-          /^[a-z-]+$/.test(input) || 'Use kebab-case (e.g., date-utils)',
-      },
-    ],
-    actions: [
-      {
-        type: 'addMany',
-        destination: 'packages/utils/{{name}}/',
-        base: 'templates/util/',
-        templateFiles: 'templates/util/**/*',
-        skipIfExists: true,
-      },
-    ],
-  })
-
   // Variant only generator
   plop.setGenerator('variant-only', {
     description: 'Add component variant to @ideasui/variants only',
