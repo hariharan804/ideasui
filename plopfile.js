@@ -99,7 +99,7 @@ module.exports = function (plop) {
   })
 
   // Utility generator
-  ;(plop.setGenerator('util', {
+  plop.setGenerator('util', {
     description: 'Create a new utility package',
     prompts: [
       {

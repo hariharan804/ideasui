@@ -1,7 +1,5 @@
 # @ideasui/{{kebabCase name}}
 
-{{description}}
-
 ## Installation ```bash # Using npm npm install @ideasui/{{kebabCase name}}
 
 # Using yarn yarn add @ideasui/{{kebabCase name}}

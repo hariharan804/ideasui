@@ -1,6 +1,4 @@
 /**
- * {{sentenceCase description}}
- * 
  * @param value - Description of the parameter
  * @returns Description of the return value
  */
