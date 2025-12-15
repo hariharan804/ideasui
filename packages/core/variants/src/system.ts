@@ -9,7 +9,7 @@ export const spacing = {
   md: 'p-4',
   lg: 'p-6',
   xl: 'p-8',
-} as const;
+} as const
 
 export const sizes = {
   xs: 'h-6 w-6',
@@ -17,7 +17,7 @@ export const sizes = {
   md: 'h-10 w-10',
   lg: 'h-12 w-12',
   xl: 'h-16 w-16',
-} as const;
+} as const
 
 export const buttonSizes = {
   xs: 'h-6 px-2 text-xs',
@@ -25,7 +25,7 @@ export const buttonSizes = {
   md: 'h-10 px-4 text-sm',
   lg: 'h-12 px-6 text-base',
   xl: 'h-14 px-8 text-lg',
-} as const;
+} as const
 
 export const spinnerSizes = {
   xs: 'h-3 w-3',
@@ -33,45 +33,46 @@ export const spinnerSizes = {
   md: 'h-4 w-4',
   lg: 'h-5 w-5',
   xl: 'h-6 w-6',
-} as const;
+} as const
 
 export const colors = {
   default: {
-    solid: 'bg-gray-600 text-white hover:bg-gray-700',
-    outline: 'border-2 border-gray-600 text-gray-600 hover:bg-gray-50',
-    ghost: 'text-gray-600 hover:bg-gray-50',
+    solid: 'bg-gray-500 text-white hover:bg-gray-600',
+    outline: 'border-2 border-gray-500 text-gray-500 hover:bg-gray-50',
+    ghost: 'text-gray-500 hover:bg-gray-50',
   },
   primary: {
-    solid: 'bg-blue-600 text-white hover:bg-blue-700',
-    outline: 'border-2 border-blue-600 text-blue-600 hover:bg-blue-50',
-    ghost: 'text-blue-600 hover:bg-blue-50',
+    solid: 'bg-primary-500 text-white hover:bg-primary-600',
+    outline: 'border-2 border-primary-500 text-primary-500 hover:bg-primary-50',
+    ghost: 'text-primary-500 hover:bg-primary-50',
   },
   secondary: {
-    solid: 'bg-gray-600 text-white hover:bg-gray-700',
-    outline: 'border-2 border-gray-600 text-gray-600 hover:bg-gray-50',
-    ghost: 'text-gray-600 hover:bg-gray-50',
+    solid: 'bg-secondary-500 text-white hover:bg-secondary-600',
+    outline:
+      'border-2 border-secondary-500 text-secondary-500 hover:bg-secondary-50',
+    ghost: 'text-secondary-500 hover:bg-secondary-50',
   },
   success: {
-    solid: 'bg-green-600 text-white hover:bg-green-700',
-    outline: 'border-2 border-green-600 text-green-600 hover:bg-green-50',
-    ghost: 'text-green-600 hover:bg-green-50',
+    solid: 'bg-success-500 text-white hover:bg-success-600',
+    outline: 'border-2 border-success-500 text-success-500 hover:bg-success-50',
+    ghost: 'text-success-500 hover:bg-success-50',
   },
   warning: {
-    solid: 'bg-yellow-600 text-white hover:bg-yellow-700',
-    outline: 'border-2 border-yellow-600 text-yellow-600 hover:bg-yellow-50',
-    ghost: 'text-yellow-600 hover:bg-yellow-50',
+    solid: 'bg-warning-500 text-white hover:bg-warning-600',
+    outline: 'border-2 border-warning-500 text-warning-500 hover:bg-warning-50',
+    ghost: 'text-warning-500 hover:bg-warning-50',
   },
   danger: {
-    solid: 'bg-red-600 text-white hover:bg-red-700',
-    outline: 'border-2 border-red-600 text-red-600 hover:bg-red-50',
-    ghost: 'text-red-600 hover:bg-red-50',
+    solid: 'bg-danger-500 text-white hover:bg-danger-600',
+    outline: 'border-2 border-danger-500 text-danger-500 hover:bg-danger-50',
+    ghost: 'text-danger-500 hover:bg-danger-50',
   },
   info: {
-    solid: 'bg-cyan-600 text-white hover:bg-cyan-700',
-    outline: 'border-2 border-cyan-600 text-cyan-600 hover:bg-cyan-50',
-    ghost: 'text-cyan-600 hover:bg-cyan-50',
+    solid: 'bg-info-500 text-white hover:bg-info-600',
+    outline: 'border-2 border-info-500 text-info-500 hover:bg-info-50',
+    ghost: 'text-info-500 hover:bg-info-50',
   },
-} as const;
+} as const
 
 export const radius = {
   none: 'rounded-none',
@@ -80,7 +81,7 @@ export const radius = {
   lg: 'rounded-lg',
   xl: 'rounded-xl',
   full: 'rounded-full',
-} as const;
+} as const
 
 export const shadows = {
   none: 'shadow-none',
@@ -88,32 +89,36 @@ export const shadows = {
   md: 'shadow-md',
   lg: 'shadow-lg',
   xl: 'shadow-xl',
-} as const;
+} as const
 
 export const transitions = {
   none: 'transition-none',
   all: 'transition-all duration-200 ease-in-out',
   colors: 'transition-colors duration-200 ease-in-out',
   transform: 'transition-transform duration-200 ease-in-out',
-} as const;
+} as const
 
 export const focus = {
-  default: 'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
-  primary: 'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
-  secondary: 'focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2',
-} as const;
+  default:
+    'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+  primary:
+    'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+  secondary:
+    'focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2',
+} as const
 
 export const disabled = {
-  default: 'disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
-} as const;
+  default:
+    'disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
+} as const
 
-export type Spacing = keyof typeof spacing;
-export type Size = keyof typeof sizes;
-export type ButtonSize = keyof typeof buttonSizes;
-export type SpinnerSize = keyof typeof spinnerSizes;
-export type ColorVariant = keyof typeof colors;
-export type ColorType = keyof typeof colors.primary;
-export type Radius = keyof typeof radius;
-export type Shadow = keyof typeof shadows;
-export type Transition = keyof typeof transitions;
-export type Focus = keyof typeof focus;
+export type Spacing = keyof typeof spacing
+export type Size = keyof typeof sizes
+export type ButtonSize = keyof typeof buttonSizes
+export type SpinnerSize = keyof typeof spinnerSizes
+export type ColorVariant = keyof typeof colors
+export type ColorType = keyof typeof colors.primary
+export type Radius = keyof typeof radius
+export type Shadow = keyof typeof shadows
+export type Transition = keyof typeof transitions
+export type Focus = keyof typeof focus

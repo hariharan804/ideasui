@@ -9,7 +9,7 @@ import path from 'path'
  */
 function formatColor(color, format = 'hex') {
   const c = chroma(color)
-  
+
   switch (format) {
     case 'hex':
       return c.hex()
@@ -24,7 +24,7 @@ function formatColor(color, format = 'hex') {
       return `oklch(${l.toFixed(3)} ${c_val.toFixed(3)} ${h.toFixed(1)})`
     case 'p3':
       const [r, g, b] = c.rgb()
-      return `color(display-p3 ${(r/255).toFixed(3)} ${(g/255).toFixed(3)} ${(b/255).toFixed(3)})`
+      return `color(display-p3 ${(r / 255).toFixed(3)} ${(g / 255).toFixed(3)} ${(b / 255).toFixed(3)})`
     default:
       return c.hex()
   }
@@ -78,7 +78,7 @@ export function generateCompleteTheme(format = 'hex') {
   //   error: '#ef4444', // Red
   //   info: '#06b6d4', // Cyan
   // }
-  const colors = getSemanticColors('#3264fb') // #861afd, #0177fe
+  const colors = getSemanticColors('#861afd') // #861afd, #0177fe
   const theme = { light: {}, dark: {} }
 
   Object.entries(colors).forEach(([name, color]) => {

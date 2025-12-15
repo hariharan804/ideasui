@@ -4,10 +4,16 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* 2) Bring in your tokens/themes/utilities */
-@import '@ideasui/tailwind-config/theme.css';
+@import '@ideasui/theme-controller/theme.css';
 
 /* 3) Point Tailwind at places where classnames appear */
 @source "./app/**/*.{js,ts,jsx,tsx,mdx}";
 @source "./src/**/*.{js,ts,jsx,tsx,mdx}";
 @source "../components/**/*.{js,ts,jsx,tsx,mdx}";
 @source "../../../packages/**/src/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../../node_modules/@ideasui/**/*.{js,ts,jsx,tsx,mdx,css}";
+
+html,
+body {
+  @apply min-h-screen bg-white text-gray-900;
+}

@@ -2,23 +2,21 @@
 import React from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, Moon, Sun, Github, ExternalLink } from 'lucide-react'
+import { useTheme } from '@ideasui/theme-controller'
 
 interface HeaderProps {
-  theme?: 'light' | 'dark'
-  onToggleTheme?: () => void
   showBackButton?: boolean
   title?: string
   subtitle?: string
 }
 
-function Header({
-  theme,
-  onToggleTheme,
-  showBackButton = false,
-  title,
-  subtitle,
-}: HeaderProps) {
+function Header({ showBackButton = false, title, subtitle }: HeaderProps) {
   const router = useRouter()
+  const { resolvedTheme, setTheme, themes } = useTheme()
+
+  const onToggleTheme = () => {
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+  }
 
   const goBack = () => {
     router.push('/playground')
@@ -82,9 +80,9 @@ function Header({
             <button
               onClick={onToggleTheme}
               className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
-              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+              title={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode`}
             >
-              {theme === 'dark' ? (
+              {resolvedTheme === 'dark' ? (
                 <Sun className="w-5 h-5" />
               ) : (
                 <Moon className="w-5 h-5" />
