@@ -1,0 +1,38 @@
+{
+  "name": "@ideasui/ripple",
+  "version": "0.0.0",
+  "description": "Ripple component for IdeasUI",
+  "main": "./src/index.ts",
+  "sideEffects": false,
+  "clean-package": "../../clean-package.config.json",
+  "scripts": {
+    "build": "tsup",
+    "test": "jest",
+    "lint": "eslint src --ext .ts,.tsx --cache",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix --cache",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "dependencies": {
+    "@ideasui/utils": "workspace:*",
+    "@ideasui/icons": "workspace:*",
+    "tailwind-variants": "^0.1.20",
+    "react-aria": "^3.32.1"
+  },
+  "devDependencies": {
+    "@ideasui/eslint-config": "workspace:*",
+    "@ideasui/jest-config": "workspace:*",
+    "@ideasui/tsup-config": "workspace:*",
+    "@ideasui/tsconfig": "workspace:*",
+    "@ideasui/variants": "workspace:*",
+    "@ideasui/utils": "workspace:*",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.9.3",
+    "clean-package": "^2.2.0"
+  }
+}

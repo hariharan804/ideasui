@@ -59,10 +59,10 @@
   "workspaces": [
     "packages/components/*",
     "packages/themes/*",
-    "packages/utils/*",
+    "packages/utils",
     "packages/hooks/*",
-    "packages/icons/*",
-    "packages/cli/*",
+    "packages/icons",
+    "packages/cli",
     "apps/*",
     "configs/*"
   ],

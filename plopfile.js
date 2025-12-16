@@ -27,6 +27,12 @@ module.exports = function (plop) {
         templateFile: 'templates/variant/variant.ts',
         skipIfExists: true,
       },
+      {
+        type: 'modify',
+        path: 'packages/core/variants/src/index.ts',
+        pattern: /(### EXPORT VARIANT HERE ###)/gi,
+        template: "$1\nexport * from './{{name}}'",
+      },
       // Create playground page
       // Add import to playground.tsx
       {

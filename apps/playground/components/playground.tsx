@@ -23,6 +23,11 @@ const COMPONENT_LIST: ComponentItem[] = [
   },
 
   {
+    name: 'Ripple',
+    category: 'Core',
+  },
+
+  {
     name: 'Button',
     category: 'Form',
   },
