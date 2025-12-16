@@ -24,30 +24,30 @@ module.exports = function (plop) {
       {
         type: 'add',
         path: 'packages/core/variants/src/{{name}}.ts',
-        templateFile: 'templates/variant/variant.ts.hbs',
+        templateFile: 'templates/variant/variant.ts',
         skipIfExists: true,
       },
       // Create playground page
-      {
-        type: 'add',
-        path: 'apps/playground/components/{{name}}.tsx',
-        templateFile: 'templates/playground/{{name}}.tsx.hbs',
-        skipIfExists: true,
-      },
       // Add import to playground.tsx
       {
-        type: 'modify',
-        path: 'apps/playground/components/playground.tsx',
-        pattern: /(### IMPORT COMPONENT HERE ###)/gi,
-        template: "$1\nimport {{pascalCase name}}Preview from './{{name}}'",
+        type: 'add',
+        path: 'apps/playground/app/(layout)/playground/{{name}}/page.tsx',
+        templateFile: 'templates/playground/page.tsx',
+        skipIfExists: true,
       },
+      // {
+      //   type: 'modify',
+      //   path: 'apps/playground/components/playground.tsx',
+      //   pattern: /(### IMPORT COMPONENT HERE ###)/gi,
+      //   template: "$1\nimport {{pascalCase name}}Preview from './{{name}}'",
+      // },
       // Add to component list
       {
         type: 'modify',
         path: 'apps/playground/components/playground.tsx',
         pattern: /(### APPEND COMPONENT HERE ###)/gi,
         template:
-          "$1\n\n  {\n    name: '{{pascalCase name}}',\n    category: 'Core',\n    component: <{{pascalCase name}}Preview />,\n  },",
+          "$1\n\n  {\n    name: '{{pascalCase name}}',\n    category: 'Core',\n  },",
       },
     ],
   })
@@ -114,7 +114,7 @@ module.exports = function (plop) {
       {
         type: 'add',
         path: 'packages/core/variants/src/{{name}}.ts',
-        templateFile: 'templates/variant/variant.ts.hbs',
+        templateFile: 'templates/variant/variant.ts',
         skipIfExists: true,
       },
     ],

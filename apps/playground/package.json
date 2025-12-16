@@ -14,6 +14,7 @@
   "dependencies": {
     "@ideasui/button": "workspace:*",
     "@ideasui/theme-controller": "workspace:*",
+    "@ideasui/ripple": "workspace:*",
     "lucide-react": "^0.556.0",
     "next": "^16.0.7",
     "react": "^19.2.1",

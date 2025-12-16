@@ -5,12 +5,9 @@ import { Search, Grid, List } from 'lucide-react'
 import Header from './header'
 
 // ### IMPORT COMPONENT HERE ###
-import LibPreview from './lib'
-import ButtonPreview from './button'
 
 interface ComponentItem {
   name: string
-  component: React.ReactNode
   category?: string
 }
 
@@ -21,13 +18,16 @@ const COMPONENT_LIST: ComponentItem[] = [
   // ### APPEND COMPONENT HERE ###
 
   {
+    name: 'Ripple',
+    category: 'Core',
+  },
+
+  {
     name: 'Button',
-    component: <ButtonPreview />,
     category: 'Form',
   },
   {
     name: 'Lib',
-    component: <LibPreview />,
     category: 'Core',
   },
 ]
