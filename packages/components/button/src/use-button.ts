@@ -1,22 +1,7 @@
 import { useRef, useState, useCallback } from 'react'
 import { useButton as useAriaButton, useFocusRing, useHover } from 'react-aria'
-import type { ButtonProps } from './button-types'
+import type { UseButtonProps } from './button-types'
 import { toDataAttr, mergeProps } from '@ideasui/utils'
-
-export interface UseButtonProps extends Omit<ButtonProps, 'children'> {
-  /**
-   * Ref to the DOM node
-   */
-  ref?: React.Ref<HTMLButtonElement>
-  /**
-   * Whether the button should display a loading spinner
-   */
-  isLoading?: boolean
-  /**
-   * Whether the button is disabled
-   */
-  isDisabled?: boolean
-}
 
 export function useButton(props: UseButtonProps) {
   const {
@@ -26,7 +11,20 @@ export function useButton(props: UseButtonProps) {
     isDisabled: isDisabledProp = disabled,
     onClick,
     autoFocus,
-    ...otherProps
+    as,
+    variant,
+    color,
+    size,
+    radius,
+    fullWidth,
+    loadingText,
+    startContent,
+    endContent,
+    formAction,
+    value,
+    className,
+    style,
+    ...ariaCompatibleProps
   } = props
 
   const domRef = useRef<HTMLButtonElement>(null)
@@ -54,24 +52,6 @@ export function useButton(props: UseButtonProps) {
     },
     [onClick]
   )
-
-  // Filter out props that conflict with AriaButtonProps
-  const {
-    as,
-    variant,
-    color,
-    size,
-    radius,
-    fullWidth,
-    loadingText,
-    startContent,
-    endContent,
-    formAction,
-    value,
-    className,
-    style,
-    ...ariaCompatibleProps
-  } = otherProps
 
   // Only pass specific props that React Aria expects
   const ariaProps = {

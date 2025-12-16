@@ -17,7 +17,14 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * Color variant based on semantic intent
    * @default 'default'
    */
-  color?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info'
+  color?:
+    | 'default'
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'info'
 
   /**
    * Size of the button
@@ -57,4 +64,19 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * Content to show at the end of the button
    */
   endContent?: React.ReactNode
+}
+
+export interface UseButtonProps extends Omit<ButtonProps, 'children'> {
+  /**
+   * Ref to the DOM node
+   */
+  ref?: React.Ref<HTMLButtonElement>
+  /**
+   * Whether the button should display a loading spinner
+   */
+  isLoading?: boolean
+  /**
+   * Whether the button is disabled
+   */
+  isDisabled?: boolean
 }
