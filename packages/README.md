@@ -199,7 +199,6 @@ Each package should follow this structure:
   },
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch",
     "test": "jest"
   }
 }

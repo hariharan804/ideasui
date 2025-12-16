@@ -7,8 +7,7 @@
     "ideasui": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch"
+    "build": "tsup"
   },
   "dependencies": {
     "commander": "^11.0.0",

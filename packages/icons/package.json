@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch",
+    "": "tsup --watch",
     "test": "jest"
   },
   "peerDependencies": {

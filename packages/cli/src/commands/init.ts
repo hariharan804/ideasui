@@ -61,7 +61,6 @@ export async function initProject(options: InitOptions) {
 
     console.log(chalk.cyan('\nNext steps:'))
     console.log('  iui create component Button')
-    console.log('  npm run dev')
   } catch (error) {
     spinner.fail(chalk.red(`Failed to initialize: ${error}`))
     process.exit(1)

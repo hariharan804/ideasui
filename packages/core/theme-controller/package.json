@@ -12,8 +12,7 @@
     "./theme.css": "./src/theme.css"
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch"
+    "build": "tsup"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
