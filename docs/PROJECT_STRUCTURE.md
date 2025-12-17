@@ -64,6 +64,7 @@ my-component-lib/
 ## 📦 Package Responsibilities
 
 ### `packages/ui`
+
 - Core component library
 - ShadCN/UI base components
 - TypeScript definitions
@@ -71,6 +72,7 @@ my-component-lib/
 - Utility functions and hooks
 
 ### `packages/playground`
+
 - Next.js playground application
 - Interactive component demos
 - Live component testing
@@ -78,6 +80,7 @@ my-component-lib/
 - Component showcase
 
 ### `apps/docs`
+
 - Next.js documentation site
 - API reference with MDX
 - Usage guides and examples
@@ -87,6 +90,7 @@ my-component-lib/
 ## 🔧 Configuration Files
 
 ### Root Level
+
 - `package.json` - Workspace dependencies and scripts
 - `pnpm-workspace.yaml` - Package manager workspace config
 - `turbo.json` - Build system configuration
@@ -95,6 +99,7 @@ my-component-lib/
 - `tsconfig.json` - Base TypeScript config
 
 ### Package Level
+
 - `package.json` - Package-specific dependencies
 - `tsconfig.json` - Package TypeScript config
 - `tailwind.config.js` - Tailwind configuration

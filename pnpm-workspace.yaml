@@ -1,10 +1,10 @@
 packages:
-  - 'packages/components/*'
-  - 'packages/core/*'
-  - 'packages/themes/*'
-  - 'packages/utils'
-  - 'packages/hooks/*'
-  - 'packages/icons'
-  - 'packages/cli'
-  - 'apps/*'
-  - 'configs/*'
+  - "packages/components/*"
+  - "packages/core/*"
+  - "packages/themes/*"
+  - "packages/utils"
+  - "packages/hooks/*"
+  - "packages/icons"
+  - "packages/cli"
+  - "apps/*"
+  - "configs/*"

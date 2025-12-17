@@ -1,24 +1,25 @@
-import * as React from 'react'
-import { IconProps } from './types'
+import type {IconProps} from "./types";
+
+import * as React from "react";
 
 export const X = React.forwardRef<SVGSVGElement, IconProps>(
-  ({ size = 24, color = 'currentColor', ...props }, ref) => (
+  ({size = 24, color = "currentColor", ...props}, ref) => (
     <svg
       ref={ref}
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
       fill="none"
+      height={size}
       stroke={color}
-      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      width={size}
       {...props}
     >
       <path d="M18 6 6 18" />
       <path d="m6 6 12 12" />
     </svg>
-  )
-)
+  ),
+);
 
-X.displayName = 'X'
+X.displayName = "X";

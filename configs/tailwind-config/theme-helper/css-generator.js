@@ -1,37 +1,37 @@
 // Generate CSS file with industry-standard tokens following theme.css structure
 export function generateCSS(theme, config = {}) {
-  const BRAND_NAME = 'iui'
-  const PREFIX = BRAND_NAME ? `--${BRAND_NAME}-color-` : '--color-'
+  const BRAND_NAME = "iui";
+  const PREFIX = BRAND_NAME ? `--${BRAND_NAME}-color-` : "--color-";
 
   const defaultConfig = {
     hoverOpacity: 0.8,
     disabledOpacity: 0.5,
     loadingOpacity: 0.6,
     overlayOpacity: 0.75,
-    transitionFast: '150ms ease',
-    transitionNormal: '250ms ease',
-    transitionSlow: '350ms ease',
-  }
+    transitionFast: "150ms ease",
+    transitionNormal: "250ms ease",
+    transitionSlow: "350ms ease",
+  };
 
-  const finalConfig = { ...defaultConfig, ...config }
+  const finalConfig = {...defaultConfig, ...config};
   // @import "tailwindcss";
   let css = `
 
 @layer base {
 :root, :host {
-`
+`;
 
   // Light mode colors
   Object.entries(theme.light).forEach(([colorName, shades]) => {
     Object.entries(shades).forEach(([shade, hex]) => {
-      css += `  ${PREFIX}${colorName}-${shade}: ${hex};\n`
-    })
-    if (colorName === 'neutral') {
+      css += `  ${PREFIX}${colorName}-${shade}: ${hex};\n`;
+    });
+    if (colorName === "neutral") {
       Object.entries(shades).forEach(([shade, hex]) => {
-        css += `  ${PREFIX}gray-${shade}: var(${PREFIX}neutral-${shade});\n`
-      })
+        css += `  ${PREFIX}gray-${shade}: var(${PREFIX}neutral-${shade});\n`;
+      });
     }
-  })
+  });
 
   css += `
   /* Color Tokens - Light Mode */
@@ -61,22 +61,22 @@ export function generateCSS(theme, config = {}) {
   ${PREFIX}white: #ffffff;
   ${PREFIX}black: #000000;
 }
-  `
+  `;
 
   css += `
 
-.dark {`
+.dark {`;
   // Dark mode colors
   Object.entries(theme.dark).forEach(([colorName, shades]) => {
     Object.entries(shades).forEach(([shade, hex]) => {
-      css += `  ${PREFIX}${colorName}-${shade}: ${hex};\n`
-    })
-    if (colorName === 'neutral') {
+      css += `  ${PREFIX}${colorName}-${shade}: ${hex};\n`;
+    });
+    if (colorName === "neutral") {
       Object.entries(shades).forEach(([shade, hex]) => {
-        css += `  ${PREFIX}gray-${shade}: var(${PREFIX}neutral-${shade});\n`
-      })
+        css += `  ${PREFIX}gray-${shade}: var(${PREFIX}neutral-${shade});\n`;
+      });
     }
-  })
+  });
 
   css += `
 
@@ -106,26 +106,26 @@ export function generateCSS(theme, config = {}) {
   ${PREFIX}ring: var(${PREFIX}primary-400);
   ${PREFIX}white: #000000;
   ${PREFIX}black: #ffffff;
-`
+`;
 
   css += `}
 }
 
 @theme {
   /* Colors - Reference CSS variables */
-`
+`;
 
   // Reference colors in @theme
   Object.entries(theme.light).forEach(([colorName, shades]) => {
     Object.entries(shades).forEach(([shade]) => {
-      css += `  --color-${colorName}-${shade}: var(${PREFIX}${colorName}-${shade});\n`
-    })
-    if (colorName === 'neutral') {
+      css += `  --color-${colorName}-${shade}: var(${PREFIX}${colorName}-${shade});\n`;
+    });
+    if (colorName === "neutral") {
       Object.entries(shades).forEach(([shade, hex]) => {
-        css += `  --color-gray-${shade}: var(${PREFIX}neutral-${shade});\n`
-      })
+        css += `  --color-gray-${shade}: var(${PREFIX}neutral-${shade});\n`;
+      });
     }
-  })
+  });
 
   css += `
   /* Spacing */
@@ -268,7 +268,7 @@ export function generateCSS(theme, config = {}) {
   --backdrop-blur-lg: blur(16px);
   --backdrop-blur-xl: blur(24px);
 }
- `
+ `;
 
-  return css
+  return css;
 }

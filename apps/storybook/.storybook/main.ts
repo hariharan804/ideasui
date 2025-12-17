@@ -1,29 +1,29 @@
 // .storybook/main.ts
-import type { StorybookConfig } from '@storybook/react-vite'
-import remarkGfm from 'remark-gfm'
+import type {StorybookConfig} from "@storybook/react-vite";
+import remarkGfm from "remark-gfm";
 
 const config: StorybookConfig = {
   framework: {
-    name: '@storybook/react-vite',
+    name: "@storybook/react-vite",
     options: {},
   },
 
   stories: [
-    '../**/*.mdx',
-    '../**/*.stories.@(js|jsx|ts|tsx|mdx)',
-    '../../../packages/components/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
-    '../../../packages/primitives/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
-    '../../../packages/themes/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
+    "../**/*.mdx",
+    "../**/*.stories.@(js|jsx|ts|tsx|mdx)",
+    "../../../packages/components/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+    "../../../packages/primitives/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+    "../../../packages/themes/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
   ],
 
-  staticDirs: ['../public'],
+  staticDirs: ["../public"],
 
   addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-links',
-    '@storybook/addon-a11y',
+    "@storybook/addon-essentials",
+    "@storybook/addon-links",
+    "@storybook/addon-a11y",
     {
-      name: '@storybook/addon-docs',
+      name: "@storybook/addon-docs",
       options: {
         mdxPluginOptions: {
           mdxCompileOptions: {
@@ -32,14 +32,14 @@ const config: StorybookConfig = {
         },
       },
     },
-    '@storybook/addon-vitest',
+    "@storybook/addon-vitest",
   ],
 
-  core: { disableTelemetry: true },
+  core: {disableTelemetry: true},
 
   typescript: {
     reactDocgen: false,
   },
-}
+};
 
-export default config
+export default config;

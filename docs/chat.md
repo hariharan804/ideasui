@@ -10,26 +10,26 @@ Use **Radix Primitives + Tailwind v4 + `class-variance-authority` (or `tailwind-
 
 # Why this stack (short)
 
-* **Radix** gives accessible, unstyled primitives — you get correct semantics and keyboard behavior for free (essential for industry-grade libs). ([radix-ui.com][2])
-* **Tailwind v4** provides utility-first styling and a consistent token system; `shadcn/ui` shows this combination scales well and is widely adopted as a pattern. ([Shadcn UI][3])
-* **cva / tailwind-variants** keeps variant logic small and type-safe (better than large switch logic in components).
-* **tsup** (or rollup) for bundling — tsup is quick, supports ESM + CJS, and works well for React TS libs. ([Stack Overflow][4])
+- **Radix** gives accessible, unstyled primitives — you get correct semantics and keyboard behavior for free (essential for industry-grade libs). ([radix-ui.com][2])
+- **Tailwind v4** provides utility-first styling and a consistent token system; `shadcn/ui` shows this combination scales well and is widely adopted as a pattern. ([Shadcn UI][3])
+- **cva / tailwind-variants** keeps variant logic small and type-safe (better than large switch logic in components).
+- **tsup** (or rollup) for bundling — tsup is quick, supports ESM + CJS, and works well for React TS libs. ([Stack Overflow][4])
 
 ---
 
 # Concrete tech stack (copy/paste-ready)
 
-* UI primitives: **@radix-ui/react-primitives** (Radix primitives). ([radix-ui.com][1])
-* Styling: **Tailwind CSS v4** + optional design tokens (CSS vars). ([Shadcn UI][3])
-* Variant management: **class-variance-authority (cva)** or **tailwind-variants**
-* Small helpers: **clsx** / **tailwind-merge** for merging classes safely
-* Bundler: **tsup** (fast) — fallback: **Rollup** for fine-grained control. ([Stack Overflow][4])
-* Type system: **TypeScript** (declarations emitted)
-* Stories / Docs: **Storybook** (CSF + MDX) — publish interactive docs + visual tests. ([Storybook][5])
-* Unit / component tests: **Vitest** + **@testing-library/react** (fast, modern). ([Vitest][6])
-* Visual regression: **Chromatic** (Storybook hosting + visual diffs) or Playwright snapshots
-* CI: **GitHub Actions** (lint/test/build/publish)
-* Release: **semantic-release** (conventional commits -> automated changelog & npm releases)
+- UI primitives: **@radix-ui/react-primitives** (Radix primitives). ([radix-ui.com][1])
+- Styling: **Tailwind CSS v4** + optional design tokens (CSS vars). ([Shadcn UI][3])
+- Variant management: **class-variance-authority (cva)** or **tailwind-variants**
+- Small helpers: **clsx** / **tailwind-merge** for merging classes safely
+- Bundler: **tsup** (fast) — fallback: **Rollup** for fine-grained control. ([Stack Overflow][4])
+- Type system: **TypeScript** (declarations emitted)
+- Stories / Docs: **Storybook** (CSF + MDX) — publish interactive docs + visual tests. ([Storybook][5])
+- Unit / component tests: **Vitest** + **@testing-library/react** (fast, modern). ([Vitest][6])
+- Visual regression: **Chromatic** (Storybook hosting + visual diffs) or Playwright snapshots
+- CI: **GitHub Actions** (lint/test/build/publish)
+- Release: **semantic-release** (conventional commits -> automated changelog & npm releases)
 
 ---
 
@@ -71,10 +71,10 @@ Use **Radix Primitives + Tailwind v4 + `class-variance-authority` (or `tailwind-
 
 # QA / testing strategy (practical)
 
-* **Unit**: Vitest + React Testing Library for behavior (clicks, aria, loading). ([Vitest][6])
-* **Visual**: Storybook stories + Chromatic snapshots.
-* **E2E** (optional): Playwright for cross-browser checks when component has complex interactions.
-* **Accessibility**: axe-core in tests or Storybook a11y addon.
+- **Unit**: Vitest + React Testing Library for behavior (clicks, aria, loading). ([Vitest][6])
+- **Visual**: Storybook stories + Chromatic snapshots.
+- **E2E** (optional): Playwright for cross-browser checks when component has complex interactions.
+- **Accessibility**: axe-core in tests or Storybook a11y addon.
 
 ---
 
@@ -87,10 +87,10 @@ Use **Radix Primitives + Tailwind v4 + `class-variance-authority` (or `tailwind-
 
 # Inspirations & references (read these)
 
-* Radix primitives overview (accessibility first). ([radix-ui.com][1])
-* shadcn/ui — canonical example of Radix + Tailwind components and how to structure components & stories. ([Shadcn UI][7])
-* tsup / bundling guides for component libraries. ([Stack Overflow][4])
-* Storybook docs & structuring best practices. ([Storybook][5])
+- Radix primitives overview (accessibility first). ([radix-ui.com][1])
+- shadcn/ui — canonical example of Radix + Tailwind components and how to structure components & stories. ([Shadcn UI][7])
+- tsup / bundling guides for component libraries. ([Stack Overflow][4])
+- Storybook docs & structuring best practices. ([Storybook][5])
 
 ---
 

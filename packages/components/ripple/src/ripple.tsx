@@ -1,37 +1,31 @@
-import * as React from 'react'
-import { rippleVariants } from '@ideasui/variants/ripple'
-import { cn } from '@ideasui/utils'
-import { useRipple } from './use-ripple'
-import type { RippleProps, RippleItem } from './ripple-types'
+import type {RippleProps, RippleItem} from "./ripple-types";
+
+import * as React from "react";
+import {rippleVariants} from "@ideasui/variants/ripple";
+import {cn} from "@ideasui/utils";
+
+import {useRipple} from "./use-ripple";
 
 function clamp(value: number, min: number, max: number) {
-  return Math.min(Math.max(value, min), max)
+  return Math.min(Math.max(value, min), max);
 }
 
 interface RippleEffectProps {
-  ripples: RippleItem[]
-  color?: string
-  onClear: (key: React.Key) => void
+  ripples: RippleItem[];
+  color?: string;
+  onClear: (key: React.Key) => void;
 }
 
-function RippleEffect({
-  ripples,
-  color = 'currentColor',
-  onClear,
-}: RippleEffectProps) {
+function RippleEffect({ripples, color = "currentColor", onClear}: RippleEffectProps) {
   return (
     <>
       {ripples.map((ripple) => {
-        const duration = clamp(
-          0.01 * ripple.size,
-          0.2,
-          ripple.size > 100 ? 0.75 : 0.5
-        )
+        const duration = clamp(0.01 * ripple.size, 0.2, ripple.size > 100 ? 0.75 : 0.5);
 
         return (
           <span
             key={ripple.key}
-            className="absolute rounded-full pointer-events-none animate-ripple"
+            className="animate-ripple pointer-events-none absolute rounded-full"
             style={{
               left: ripple.x,
               top: ripple.y,
@@ -42,20 +36,20 @@ function RippleEffect({
             }}
             onAnimationEnd={() => onClear(ripple.key)}
           />
-        )
+        );
       })}
     </>
-  )
+  );
 }
 
 export const Ripple = React.forwardRef<HTMLDivElement, RippleProps>(
   (
     {
       className,
-      variant = 'solid',
-      color = 'primary',
-      size = 'md',
-      radius = 'md',
+      variant = "solid",
+      color = "primary",
+      size = "md",
+      radius = "md",
       disabled = false,
       rippleColor,
       children,
@@ -63,42 +57,42 @@ export const Ripple = React.forwardRef<HTMLDivElement, RippleProps>(
       onMouseDown,
       ...props
     },
-    ref
+    ref,
   ) => {
-    const { ripples, onClear, onPress } = useRipple()
+    const {ripples, onClear, onPress} = useRipple();
 
     const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
       if (!disabled) {
-        onPress(event)
+        onPress(event);
       }
-      onMouseDown?.(event)
-    }
+      onMouseDown?.(event);
+    };
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-      onClick?.(event)
-    }
+      onClick?.(event);
+    };
 
     return (
       <div
         ref={ref}
+        aria-disabled={disabled}
         className={cn(
-          rippleVariants({ variant, color, size, radius }),
-          'relative overflow-hidden cursor-pointer select-none',
-          disabled && 'pointer-events-none opacity-50',
-          className
+          rippleVariants({variant, color, size, radius}),
+          "relative cursor-pointer overflow-hidden select-none",
+          disabled && "pointer-events-none opacity-50",
+          className,
         )}
-        onMouseDown={handleMouseDown}
-        onClick={handleClick}
         role="button"
         tabIndex={disabled ? -1 : 0}
-        aria-disabled={disabled}
+        onClick={handleClick}
+        onMouseDown={handleMouseDown}
         {...props}
       >
         {children}
-        <RippleEffect ripples={ripples} color={rippleColor} onClear={onClear} />
+        <RippleEffect color={rippleColor} ripples={ripples} onClear={onClear} />
       </div>
-    )
-  }
-)
+    );
+  },
+);
 
-Ripple.displayName = 'IdeasUI.Ripple'
+Ripple.displayName = "IdeasUI.Ripple";

@@ -5,4 +5,4 @@
  * and traversal.
  */
 
-export * from './attributes'
+export * from "./attributes";

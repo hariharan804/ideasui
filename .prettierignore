@@ -12,3 +12,4 @@ pnpm-lock.yaml
 !jest.config.js
 !plopfile.js
 !tsup.config.ts
+templates/

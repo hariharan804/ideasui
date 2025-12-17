@@ -8,13 +8,13 @@ A versatile button component with multiple variants and sizes.
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'default' \| 'destructive' \| 'outline' \| 'secondary' \| 'ghost' \| 'link'` | `'default'` | Visual style variant |
-| `size` | `'default' \| 'sm' \| 'lg' \| 'icon'` | `'default'` | Size of the button |
-| `asChild` | `boolean` | `false` | Render as child component |
-| `disabled` | `boolean` | `false` | Disable the button |
-| `onClick` | `(event: MouseEvent) => void` | - | Click event handler |
+| Prop       | Type                                                                          | Default     | Description               |
+| ---------- | ----------------------------------------------------------------------------- | ----------- | ------------------------- |
+| `variant`  | `'default' \| 'destructive' \| 'outline' \| 'secondary' \| 'ghost' \| 'link'` | `'default'` | Visual style variant      |
+| `size`     | `'default' \| 'sm' \| 'lg' \| 'icon'`                                         | `'default'` | Size of the button        |
+| `asChild`  | `boolean`                                                                     | `false`     | Render as child component |
+| `disabled` | `boolean`                                                                     | `false`     | Disable the button        |
+| `onClick`  | `(event: MouseEvent) => void`                                                 | -           | Click event handler       |
 
 #### Usage
 
@@ -40,13 +40,13 @@ A styled input component with proper focus states.
 
 #### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `type` | `string` | `'text'` | Input type |
-| `placeholder` | `string` | - | Placeholder text |
-| `disabled` | `boolean` | `false` | Disable the input |
-| `value` | `string` | - | Controlled value |
-| `onChange` | `(event: ChangeEvent) => void` | - | Change event handler |
+| Prop          | Type                           | Default  | Description          |
+| ------------- | ------------------------------ | -------- | -------------------- |
+| `type`        | `string`                       | `'text'` | Input type           |
+| `placeholder` | `string`                       | -        | Placeholder text     |
+| `disabled`    | `boolean`                      | `false`  | Disable the input    |
+| `value`       | `string`                       | -        | Controlled value     |
+| `onChange`    | `(event: ChangeEvent) => void` | -        | Change event handler |
 
 #### Usage
 
@@ -57,9 +57,9 @@ import { Input } from '@mylib/ui'
 <Input placeholder="Enter text..." />
 
 // Controlled input
-<Input 
-  value={value} 
-  onChange={(e) => setValue(e.target.value)} 
+<Input
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
 />
 ```
 
@@ -79,14 +79,7 @@ A flexible card container with header, content, and footer sections.
 #### Usage
 
 ```tsx
-import { 
-  Card, 
-  CardHeader, 
-  CardTitle, 
-  CardDescription, 
-  CardContent, 
-  CardFooter 
-} from '@mylib/ui'
+import {Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter} from "@mylib/ui";
 
 <Card>
   <CardHeader>
@@ -99,7 +92,7 @@ import {
   <CardFooter>
     <Button>Action</Button>
   </CardFooter>
-</Card>
+</Card>;
 ```
 
 ## 🎨 Styling System
@@ -132,21 +125,46 @@ import {
 #### Typography Scale
 
 ```css
-.text-xs { font-size: 0.75rem; line-height: 1rem; }
-.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
-.text-base { font-size: 1rem; line-height: 1.5rem; }
-.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
 ```
 
 #### Spacing Scale
 
 ```css
-.p-1 { padding: 0.25rem; }
-.p-2 { padding: 0.5rem; }
-.p-4 { padding: 1rem; }
-.p-6 { padding: 1.5rem; }
-.p-8 { padding: 2rem; }
+.p-1 {
+  padding: 0.25rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.p-4 {
+  padding: 1rem;
+}
+.p-6 {
+  padding: 1.5rem;
+}
+.p-8 {
+  padding: 2rem;
+}
 ```
 
 ### CSS Variables
@@ -160,7 +178,7 @@ const CustomCard = styled.div`
   color: hsl(var(--foreground));
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius);
-`
+`;
 ```
 
 ## 🔧 Utility Functions
@@ -170,16 +188,16 @@ const CustomCard = styled.div`
 Merges Tailwind CSS classes with proper conflict resolution.
 
 ```tsx
-import { cn } from '@mylib/ui'
+import {cn} from "@mylib/ui";
 
 // Basic usage
-cn('px-4', 'py-2') // 'px-4 py-2'
+cn("px-4", "py-2"); // 'px-4 py-2'
 
 // Conditional classes
-cn('base-class', condition && 'conditional-class')
+cn("base-class", condition && "conditional-class");
 
 // Tailwind conflict resolution
-cn('p-4', 'p-2') // 'p-2' (p-2 overrides p-4)
+cn("p-4", "p-2"); // 'p-2' (p-2 overrides p-4)
 ```
 
 ### formatters
@@ -187,11 +205,11 @@ cn('p-4', 'p-2') // 'p-2' (p-2 overrides p-4)
 Common formatting utilities.
 
 ```tsx
-import { formatters } from '@mylib/ui'
+import {formatters} from "@mylib/ui";
 
-formatters.currency(1234.56) // '$1,234.56'
-formatters.date(new Date()) // 'Jan 1, 2024'
-formatters.truncate('Long text...', 10) // 'Long te...'
+formatters.currency(1234.56); // '$1,234.56'
+formatters.date(new Date()); // 'Jan 1, 2024'
+formatters.truncate("Long text...", 10); // 'Long te...'
 ```
 
 ## 🪝 Custom Hooks
@@ -201,17 +219,12 @@ formatters.truncate('Long text...', 10) // 'Long te...'
 Persist state in localStorage with SSR support.
 
 ```tsx
-import { useLocalStorage } from '@mylib/ui'
+import {useLocalStorage} from "@mylib/ui";
 
 function MyComponent() {
-  const [value, setValue] = useLocalStorage('key', 'default')
-  
-  return (
-    <input 
-      value={value} 
-      onChange={(e) => setValue(e.target.value)} 
-    />
-  )
+  const [value, setValue] = useLocalStorage("key", "default");
+
+  return <input value={value} onChange={(e) => setValue(e.target.value)} />;
 }
 ```
 
@@ -220,17 +233,17 @@ function MyComponent() {
 Debounce rapidly changing values.
 
 ```tsx
-import { useDebounce } from '@mylib/ui'
+import {useDebounce} from "@mylib/ui";
 
 function SearchComponent() {
-  const [query, setQuery] = useState('')
-  const debouncedQuery = useDebounce(query, 300)
-  
+  const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounce(query, 300);
+
   useEffect(() => {
     // API call with debounced query
-  }, [debouncedQuery])
-  
-  return <input onChange={(e) => setQuery(e.target.value)} />
+  }, [debouncedQuery]);
+
+  return <input onChange={(e) => setQuery(e.target.value)} />;
 }
 ```
 
@@ -241,7 +254,7 @@ function SearchComponent() {
 ```tsx
 // Tailwind breakpoints
 sm: '640px'   // Small devices
-md: '768px'   // Medium devices  
+md: '768px'   // Medium devices
 lg: '1024px'  // Large devices
 xl: '1280px'  // Extra large devices
 2xl: '1536px' // 2X large devices
@@ -264,18 +277,14 @@ xl: '1280px'  // Extra large devices
 ### Theme Toggle
 
 ```tsx
-import { useTheme } from '@mylib/ui'
+import {useTheme} from "@mylib/ui";
 
 function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
-  
+  const {theme, setTheme} = useTheme();
+
   return (
-    <Button 
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-    >
-      Toggle Theme
-    </Button>
-  )
+    <Button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>Toggle Theme</Button>
+  );
 }
 ```
 
@@ -283,9 +292,7 @@ function ThemeToggle() {
 
 ```tsx
 // Automatic dark mode support
-<div className="bg-white dark:bg-gray-900 text-black dark:text-white">
-  Content adapts to theme
-</div>
+<div className="bg-white text-black dark:bg-gray-900 dark:text-white">Content adapts to theme</div>
 ```
 
 ## 🔍 TypeScript Support
@@ -293,29 +300,25 @@ function ThemeToggle() {
 ### Component Props
 
 ```tsx
-import type { ButtonProps } from '@mylib/ui'
+import type {ButtonProps} from "@mylib/ui";
 
 // Extend component props
 interface CustomButtonProps extends ButtonProps {
-  loading?: boolean
+  loading?: boolean;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ 
-  loading, 
-  children, 
-  ...props 
-}) => (
+const CustomButton: React.FC<CustomButtonProps> = ({loading, children, ...props}) => (
   <Button disabled={loading} {...props}>
-    {loading ? 'Loading...' : children}
+    {loading ? "Loading..." : children}
   </Button>
-)
+);
 ```
 
 ### Variant Types
 
 ```tsx
-import type { VariantProps } from 'class-variance-authority'
-import type { buttonVariants } from '@mylib/ui'
+import type {VariantProps} from "class-variance-authority";
+import type {buttonVariants} from "@mylib/ui";
 
-type ButtonVariants = VariantProps<typeof buttonVariants>
+type ButtonVariants = VariantProps<typeof buttonVariants>;
 ```

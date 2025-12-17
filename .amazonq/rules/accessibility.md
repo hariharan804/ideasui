@@ -3,6 +3,7 @@
 ## 🎯 Core Accessibility Principles
 
 ### WCAG 2.1 AA Compliance
+
 - All components must meet WCAG 2.1 AA standards
 - Color contrast ratio minimum 4.5:1 for normal text
 - Color contrast ratio minimum 3:1 for large text
@@ -12,6 +13,7 @@
 ## ⌨️ Keyboard Navigation
 
 ### Required Support:
+
 - Tab navigation through interactive elements
 - Enter/Space activation for buttons
 - Arrow key navigation for lists/menus
@@ -19,38 +21,33 @@
 - Focus management for dynamic content
 
 ### Implementation:
+
 ```tsx
 // ✅ Proper keyboard support
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ onKeyDown, ...props }, ref) => {
-    const handleKeyDown = (event: React.KeyboardEvent) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault()
-        // Handle activation
-      }
-      onKeyDown?.(event)
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({onKeyDown, ...props}, ref) => {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      // Handle activation
     }
+    onKeyDown?.(event);
+  };
 
-    return (
-      <button
-        ref={ref}
-        onKeyDown={handleKeyDown}
-        {...props}
-      />
-    )
-  }
-)
+  return <button ref={ref} onKeyDown={handleKeyDown} {...props} />;
+});
 ```
 
 ## 🔊 Screen Reader Support
 
 ### ARIA Attributes:
+
 - Use semantic HTML elements first
 - Add ARIA labels when needed
 - Provide ARIA descriptions for complex interactions
 - Use ARIA live regions for dynamic updates
 
 ### Examples:
+
 ```tsx
 // ✅ Proper ARIA usage
 <button
@@ -83,12 +80,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 ## 🎨 Visual Accessibility
 
 ### Color & Contrast:
+
 - Never rely on color alone to convey information
 - Provide text alternatives for color-coded content
 - Use sufficient color contrast ratios
 - Support high contrast mode
 
 ### Focus Indicators:
+
 ```tsx
 // ✅ Visible focus indicators
 const focusStyles = 'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
@@ -101,6 +100,7 @@ const focusStyles = 'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:r
 ## 🏗️ Semantic HTML
 
 ### Use Proper Elements:
+
 - `<button>` for actions
 - `<a>` for navigation
 - `<input>` for form controls
@@ -108,6 +108,7 @@ const focusStyles = 'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:r
 - `<main>`, `<nav>`, `<aside>` for landmarks
 
 ### Examples:
+
 ```tsx
 // ✅ Semantic structure
 <main>
@@ -137,6 +138,7 @@ const focusStyles = 'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:r
 ## 🔄 Dynamic Content
 
 ### Live Regions:
+
 ```tsx
 // ✅ Announce dynamic changes
 <div aria-live="polite" aria-atomic="true">
@@ -150,16 +152,17 @@ const focusStyles = 'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:r
 ```
 
 ### Focus Management:
+
 ```tsx
 // ✅ Manage focus in modals
-const Modal = ({ isOpen, onClose, children }) => {
-  const modalRef = useRef<HTMLDivElement>(null)
+const Modal = ({isOpen, onClose, children}) => {
+  const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen && modalRef.current) {
-      modalRef.current.focus()
+      modalRef.current.focus();
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   return (
     <div
@@ -168,47 +171,51 @@ const Modal = ({ isOpen, onClose, children }) => {
       aria-modal="true"
       tabIndex={-1}
       onKeyDown={(e) => {
-        if (e.key === 'Escape') onClose()
+        if (e.key === "Escape") onClose();
       }}
     >
       {children}
     </div>
-  )
-}
+  );
+};
 ```
 
 ## 📱 Mobile Accessibility
 
 ### Touch Targets:
+
 - Minimum 44px × 44px touch targets
 - Adequate spacing between interactive elements
 - Support for zoom up to 200%
 
 ### Examples:
+
 ```tsx
 // ✅ Adequate touch targets
 <button className="min-h-[44px] min-w-[44px] p-2">
-  <Icon className="w-6 h-6" />
+  <Icon className="h-6 w-6" />
 </button>
 ```
 
 ## 🧪 Testing Requirements
 
 ### Automated Testing:
+
 ```tsx
 // ✅ Accessibility tests
-import { axe, toHaveNoViolations } from 'jest-axe'
+import {axe, toHaveNoViolations} from "jest-axe";
 
-expect.extend(toHaveNoViolations)
+expect.extend(toHaveNoViolations);
 
-test('Button has no accessibility violations', async () => {
-  const { container } = render(<Button>Click me</Button>)
-  const results = await axe(container)
-  expect(results).toHaveNoViolations()
-})
+test("Button has no accessibility violations", async () => {
+  const {container} = render(<Button>Click me</Button>);
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
 ```
 
 ### Manual Testing:
+
 - Test with keyboard only
 - Test with screen reader (NVDA, JAWS, VoiceOver)
 - Test with high contrast mode
@@ -218,6 +225,7 @@ test('Button has no accessibility violations', async () => {
 ## 📋 Accessibility Checklist
 
 ### For Every Component:
+
 - [ ] Semantic HTML elements used
 - [ ] Proper ARIA attributes added
 - [ ] Keyboard navigation works
@@ -230,6 +238,7 @@ test('Button has no accessibility violations', async () => {
 - [ ] Respects reduced motion preferences
 
 ### For Interactive Components:
+
 - [ ] Role and state communicated
 - [ ] Keyboard shortcuts documented
 - [ ] Focus management implemented

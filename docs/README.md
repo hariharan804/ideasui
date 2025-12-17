@@ -17,20 +17,21 @@ This directory contains all documentation for the component library setup and us
 
 ## 🎯 Quick Navigation
 
-| Document | Purpose | Audience |
-|----------|---------|----------|
-| [Project Structure](./PROJECT_STRUCTURE.md) | Repository organization | All developers |
-| [Development Setup](./DEVELOPMENT_SETUP.md) | Local development | New contributors |
-| [Component Guidelines](./COMPONENT_GUIDELINES.md) | Component standards | Component authors |
-| [Playground Setup](./PLAYGROUND_SETUP.md) | Testing environment | QA & developers |
-| [Build & Deploy](./BUILD_DEPLOYMENT.md) | Release process | Maintainers |
-| [Testing Strategy](./TESTING_STRATEGY.md) | Quality assurance | All developers |
-| [API Documentation](./API_DOCUMENTATION.md) | Usage reference | Library users |
-| [GitHub Packages Publishing](./GITHUB_PACKAGES_PUBLISHING.md) | Publishing guide | Maintainers |
+| Document                                                      | Purpose                 | Audience          |
+| ------------------------------------------------------------- | ----------------------- | ----------------- |
+| [Project Structure](./PROJECT_STRUCTURE.md)                   | Repository organization | All developers    |
+| [Development Setup](./DEVELOPMENT_SETUP.md)                   | Local development       | New contributors  |
+| [Component Guidelines](./COMPONENT_GUIDELINES.md)             | Component standards     | Component authors |
+| [Playground Setup](./PLAYGROUND_SETUP.md)                     | Testing environment     | QA & developers   |
+| [Build & Deploy](./BUILD_DEPLOYMENT.md)                       | Release process         | Maintainers       |
+| [Testing Strategy](./TESTING_STRATEGY.md)                     | Quality assurance       | All developers    |
+| [API Documentation](./API_DOCUMENTATION.md)                   | Usage reference         | Library users     |
+| [GitHub Packages Publishing](./GITHUB_PACKAGES_PUBLISHING.md) | Publishing guide        | Maintainers       |
 
 ## 🔄 Documentation Updates
 
 Keep documentation updated when:
+
 - Adding new components
 - Changing build processes
 - Updating dependencies

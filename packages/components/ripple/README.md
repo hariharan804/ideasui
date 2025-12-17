@@ -11,18 +11,14 @@ npm install @ideasui/ripple
 ## Usage
 
 ```tsx
-import { Ripple } from '@ideasui/ripple'
+import {Ripple} from "@ideasui/ripple";
 
 function App() {
   return (
-    <Ripple 
-      variant="solid" 
-      color="primary" 
-      onClick={() => console.log('Clicked!')}
-    >
+    <Ripple variant="solid" color="primary" onClick={() => console.log("Clicked!")}>
       Click me for ripple effect
     </Ripple>
-  )
+  );
 }
 ```
 
@@ -41,30 +37,30 @@ function App() {
 
 ### RippleProps
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| variant | 'solid' \| 'outline' \| 'ghost' | 'solid' | Visual style variant |
-| color | ColorVariant | 'primary' | Color variant based on semantic intent |
-| size | ButtonSize | 'md' | Size of the component |
-| radius | Radius | 'md' | Border radius variant |
-| disabled | boolean | false | Whether the ripple is disabled |
-| duration | number | 600 | Duration of ripple animation in milliseconds |
-| rippleColor | string | - | Custom ripple color (overrides color variant) |
-| center | boolean | false | Whether to center the ripple effect |
-| children | ReactNode | - | Content to render inside the ripple container |
-| onClick | function | - | Click event handler |
-| onMouseDown | function | - | Mouse down event handler |
+| Prop        | Type                            | Default   | Description                                   |
+| ----------- | ------------------------------- | --------- | --------------------------------------------- |
+| variant     | 'solid' \| 'outline' \| 'ghost' | 'solid'   | Visual style variant                          |
+| color       | ColorVariant                    | 'primary' | Color variant based on semantic intent        |
+| size        | ButtonSize                      | 'md'      | Size of the component                         |
+| radius      | Radius                          | 'md'      | Border radius variant                         |
+| disabled    | boolean                         | false     | Whether the ripple is disabled                |
+| duration    | number                          | 600       | Duration of ripple animation in milliseconds  |
+| rippleColor | string                          | -         | Custom ripple color (overrides color variant) |
+| center      | boolean                         | false     | Whether to center the ripple effect           |
+| children    | ReactNode                       | -         | Content to render inside the ripple container |
+| onClick     | function                        | -         | Click event handler                           |
+| onMouseDown | function                        | -         | Mouse down event handler                      |
 
 ### useRipple Hook
 
 ```tsx
-import { useRipple } from '@ideasui/ripple'
+import {useRipple} from "@ideasui/ripple";
 
-const { ripples, addRipple, clearRipples, containerRef } = useRipple({
+const {ripples, addRipple, clearRipples, containerRef} = useRipple({
   disabled: false,
   duration: 600,
-  center: false
-})
+  center: false,
+});
 ```
 
 ## Examples
@@ -106,10 +102,7 @@ const { ripples, addRipple, clearRipples, containerRef } = useRipple({
 ### With Event Handlers
 
 ```tsx
-<Ripple 
-  onClick={() => alert('Clicked!')}
-  onMouseDown={() => console.log('Mouse down')}
->
+<Ripple onClick={() => alert("Clicked!")} onMouseDown={() => console.log("Mouse down")}>
   Interactive Ripple
 </Ripple>
 ```
@@ -117,22 +110,18 @@ const { ripples, addRipple, clearRipples, containerRef } = useRipple({
 ### Using the Hook
 
 ```tsx
-import { useRipple } from '@ideasui/ripple'
+import {useRipple} from "@ideasui/ripple";
 
 function CustomRippleButton() {
-  const { ripples, addRipple, containerRef } = useRipple()
-  
+  const {ripples, addRipple, containerRef} = useRipple();
+
   return (
-    <button 
-      ref={containerRef}
-      onMouseDown={addRipple}
-      className="relative overflow-hidden"
-    >
+    <button ref={containerRef} onMouseDown={addRipple} className="relative overflow-hidden">
       Custom Button
       {ripples.map((ripple) => (
         <span
           key={ripple.key}
-          className="absolute bg-white/30 rounded-full animate-ripple"
+          className="animate-ripple absolute rounded-full bg-white/30"
           style={{
             left: ripple.x,
             top: ripple.y,
@@ -142,7 +131,7 @@ function CustomRippleButton() {
         />
       ))}
     </button>
-  )
+  );
 }
 ```
 

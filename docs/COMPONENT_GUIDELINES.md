@@ -140,7 +140,7 @@ export interface MyComponentProps
 
 /**
  * MyComponent description
- * 
+ *
  * @example
  * <MyComponent variant="secondary" size="lg">
  *   Content here
@@ -168,18 +168,18 @@ export { MyComponent, myComponentVariants }
 
 ```typescript
 // src/components/ui/index.ts
-export { Button, buttonVariants } from "./button"
-export { Input } from "./input"
-export { Card, CardHeader, CardContent, CardFooter } from "./card"
+export {Button, buttonVariants} from "./button";
+export {Input} from "./input";
+export {Card, CardHeader, CardContent, CardFooter} from "./card";
 ```
 
 ### Main Export
 
 ```typescript
 // src/index.ts
-export * from "./components/ui"
-export * from "./lib/utils"
-export * from "./hooks"
+export * from "./components/ui";
+export * from "./lib/utils";
+export * from "./hooks";
 ```
 
 ## 🧪 Testing Guidelines
@@ -208,15 +208,15 @@ describe('Button', () => {
 
 ### Component Documentation
 
-```typescript
+````typescript
 /**
  * Button component for user interactions
- * 
+ *
  * @param variant - Visual style variant
  * @param size - Size of the button
  * @param asChild - Render as child component
  * @param children - Button content
- * 
+ *
  * @example
  * ```tsx
  * <Button variant="outline" size="lg">
@@ -224,21 +224,21 @@ describe('Button', () => {
  * </Button>
  * ```
  */
-```
+````
 
 ### Story Documentation
 
 ```typescript
 export default {
-  title: 'Components/Button',
+  title: "Components/Button",
   component: Button,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   parameters: {
     docs: {
       description: {
-        component: 'A versatile button component with multiple variants and sizes.',
+        component: "A versatile button component with multiple variants and sizes.",
       },
     },
   },
-}
+};
 ```

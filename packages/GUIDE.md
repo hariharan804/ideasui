@@ -30,19 +30,19 @@ packages/
 
 > **Rule of thumb**
 >
-> * **`components/*`** → styled, themable, end‑user components.
-> * **`primitives/*`** → headless, accessible logic only (no brand styles).
-> * **`core/*`** → engines and global providers.
-> * **`react/`** → single import surface for apps: `import { Button } from "@ideasui/react"`.
+> - **`components/*`** → styled, themable, end‑user components.
+> - **`primitives/*`** → headless, accessible logic only (no brand styles).
+> - **`core/*`** → engines and global providers.
+> - **`react/`** → single import surface for apps: `import { Button } from "@ideasui/react"`.
 
 ---
 
 ## 2) Naming, versioning & publishing
 
-* Package names are **scoped**: `@ideasui/<name>` (e.g., `@ideasui/button`).
-* Use **kebab-case** for package folders and names.
-* Versioning via **Changesets** (recommended): create a changeset for any user-facing change.
-* Public packages include only built outputs via the `files` field.
+- Package names are **scoped**: `@ideasui/<name>` (e.g., `@ideasui/button`).
+- Use **kebab-case** for package folders and names.
+- Versioning via **Changesets** (recommended): create a changeset for any user-facing change.
+- Public packages include only built outputs via the `files` field.
 
 **Minimal `package.json` template**
 
@@ -73,11 +73,11 @@ packages/
 
 ## 3) Dependency rules (keep layers clean)
 
-* `components/*` may depend on: `@ideasui/system`, `@ideasui/provider`, `@ideasui/tokens`, `@ideasui/hooks`, `@ideasui/utils`, `@ideasui/icons`.
-* `primitives/*` may depend on: `@ideasui/hooks`, `@ideasui/utils` (no `system` styles).
-* `react/` depends on: all publishable leaf packages (re-exports only).
-* `utils/shared` is **internal-only**; never list it as a dependency—import via relative path within the monorepo.
-* **No circular deps.** If needed, extract shared bits into `@ideasui/utils` or `@ideasui/system`.
+- `components/*` may depend on: `@ideasui/system`, `@ideasui/provider`, `@ideasui/tokens`, `@ideasui/hooks`, `@ideasui/utils`, `@ideasui/icons`.
+- `primitives/*` may depend on: `@ideasui/hooks`, `@ideasui/utils` (no `system` styles).
+- `react/` depends on: all publishable leaf packages (re-exports only).
+- `utils/shared` is **internal-only**; never list it as a dependency—import via relative path within the monorepo.
+- **No circular deps.** If needed, extract shared bits into `@ideasui/utils` or `@ideasui/system`.
 
 ---
 
@@ -98,13 +98,13 @@ packages/components/button/
 
 **Index files**
 
-* Each package: `src/index.ts` → exports the public API of that package.
-* Aggregator `@ideasui/react`: `src/index.ts` re-exports from components/primitives/hooks.
+- Each package: `src/index.ts` → exports the public API of that package.
+- Aggregator `@ideasui/react`: `src/index.ts` re-exports from components/primitives/hooks.
 
 **Styling**
 
-* Prefer `@ideasui/system` (variant utilities, slot classes).
-* Keep tokens in `@ideasui/tokens` and access via CSS vars or JS exports.
+- Prefer `@ideasui/system` (variant utilities, slot classes).
+- Keep tokens in `@ideasui/tokens` and access via CSS vars or JS exports.
 
 ---
 
@@ -153,7 +153,7 @@ Button.displayName = 'Button'
 
 ```ts
 // src/index.ts
-export * from './Button'
+export * from "./Button";
 ```
 
 **Tests** (`vitest`): `src/__tests__/Button.test.tsx`
@@ -197,7 +197,7 @@ Toggle.displayName = 'Toggle'
 
 ```ts
 // src/index.ts
-export * from './Toggle'
+export * from "./Toggle";
 ```
 
 Publish as `@ideasui/toggle-primitive`.
@@ -210,36 +210,47 @@ Place inside `packages/hooks`.
 
 ```ts
 // src/useControllableState.ts
-import * as React from 'react'
+import * as React from "react";
 
-export function useControllableState<T>({ value, defaultValue, onChange }:{ value?: T, defaultValue: T, onChange?: (v:T)=>void }){
-  const [state, setState] = React.useState<T>(value ?? defaultValue)
-  const isControlled = value !== undefined
-  const set = React.useCallback((v: T) => {
-    if (!isControlled) setState(v)
-    onChange?.(v)
-  }, [isControlled, onChange])
-  return [isControlled ? (value as T) : state, set] as const
+export function useControllableState<T>({
+  value,
+  defaultValue,
+  onChange,
+}: {
+  value?: T;
+  defaultValue: T;
+  onChange?: (v: T) => void;
+}) {
+  const [state, setState] = React.useState<T>(value ?? defaultValue);
+  const isControlled = value !== undefined;
+  const set = React.useCallback(
+    (v: T) => {
+      if (!isControlled) setState(v);
+      onChange?.(v);
+    },
+    [isControlled, onChange],
+  );
+  return [isControlled ? (value as T) : state, set] as const;
 }
 
 // src/index.ts
-export * from './useControllableState'
+export * from "./useControllableState";
 ```
 
 ---
 
 ## 8) `@ideasui/system` (style engine) basics
 
-* Provides: `cva`/`cx` helpers, slot API, and tokens → classnames mapping.
-* No React dependency; keeps runtime light.
-* Components import from `@ideasui/system` for variants and composition.
+- Provides: `cva`/`cx` helpers, slot API, and tokens → classnames mapping.
+- No React dependency; keeps runtime light.
+- Components import from `@ideasui/system` for variants and composition.
 
 Example:
 
 ```ts
 // src/slot.ts (inside system)
 export function cx(...parts: Array<string | undefined | false>) {
-  return parts.filter(Boolean).join(' ')
+  return parts.filter(Boolean).join(" ");
 }
 ```
 
@@ -247,34 +258,34 @@ export function cx(...parts: Array<string | undefined | false>) {
 
 ## 9) `@ideasui/provider`
 
-* Wraps app with theme, direction (`ltr/rtl`), and config context.
+- Wraps app with theme, direction (`ltr/rtl`), and config context.
 
 ```tsx
 // src/IdeasUIProvider.tsx
-import * as React from 'react'
-import { ThemeController } from '@ideasui/theme-controller'
+import * as React from "react";
+import {ThemeController} from "@ideasui/theme-controller";
 
-export function IdeasUIProvider({ children }: { children: React.ReactNode }) {
-  return <ThemeController>{children}</ThemeController>
+export function IdeasUIProvider({children}: {children: React.ReactNode}) {
+  return <ThemeController>{children}</ThemeController>;
 }
 
-export * from './IdeasUIProvider'
+export * from "./IdeasUIProvider";
 ```
 
 ---
 
 ## 10) `@ideasui/react` aggregator
 
-* Single import surface for consumers.
-* Re-export from leaf packages (do **not** implement here).
+- Single import surface for consumers.
+- Re-export from leaf packages (do **not** implement here).
 
 ```ts
 // packages/react/src/index.ts
-export * from '@ideasui/provider'
-export * from '@ideasui/button'
-export * from '@ideasui/box'
-export * from '@ideasui/icons'
-export * from '@ideasui/hooks'
+export * from "@ideasui/provider";
+export * from "@ideasui/button";
+export * from "@ideasui/box";
+export * from "@ideasui/icons";
+export * from "@ideasui/hooks";
 // ...and so on
 ```
 
@@ -282,10 +293,10 @@ export * from '@ideasui/hooks'
 
 ## 11) Tokens, Themes, Icons
 
-* `@ideasui/tokens`: Export JS + CSS variables for colors, spacing, typography. Keep raw source in JSON/TS; build to ESM/CJS and CSS.
-* `themes/base`: primitive theme maps; no runtime switching.
-* `@ideasui/theme-controller`: handles system/theme switching + persistence (e.g., `class` or `data-theme` strategy).
-* `@ideasui/icons`: React components generated from SVGs (use a build script to convert `/svg/*.svg` → React).
+- `@ideasui/tokens`: Export JS + CSS variables for colors, spacing, typography. Keep raw source in JSON/TS; build to ESM/CJS and CSS.
+- `themes/base`: primitive theme maps; no runtime switching.
+- `@ideasui/theme-controller`: handles system/theme switching + persistence (e.g., `class` or `data-theme` strategy).
+- `@ideasui/icons`: React components generated from SVGs (use a build script to convert `/svg/*.svg` → React).
 
 ---
 
@@ -326,35 +337,35 @@ Linking in the playground app happens automatically via workspace protocol (`wor
 
 ## 13) Testing & visual regression
 
-* Unit tests: `vitest + @testing-library/react` in each package under `src/__tests__`.
-* Visual tests: Playwright in `tests/` at repo root, pointing to Storybook stories.
+- Unit tests: `vitest + @testing-library/react` in each package under `src/__tests__`.
+- Visual tests: Playwright in `tests/` at repo root, pointing to Storybook stories.
 
 ---
 
 ## 14) Documentation (Storybook)
 
-* Each component provides a `*.stories.mdx|tsx` under `apps/storybook/stories` or colocated in its package (preferred: colocate and auto-register).
-* Include: usage, props table (TS), accessibility notes, and theming examples.
+- Each component provides a `*.stories.mdx|tsx` under `apps/storybook/stories` or colocated in its package (preferred: colocate and auto-register).
+- Include: usage, props table (TS), accessibility notes, and theming examples.
 
 ---
 
 ## 15) Releases & publishing
 
-* Create/modify changesets → version bump + changelog.
-* CI runs: build → test → publish to npm with provenance.
-* Scoped public packages require `npm publish --access public` (handled in CI). Ensure `files` only includes `dist`.
+- Create/modify changesets → version bump + changelog.
+- CI runs: build → test → publish to npm with provenance.
+- Scoped public packages require `npm publish --access public` (handled in CI). Ensure `files` only includes `dist`.
 
 ---
 
 ## 16) Code review checklist (per PR)
 
-* [ ] Public API exported from `src/index.ts`
-* [ ] No breaking changes without a changeset
-* [ ] No direct imports from `utils/shared`
-* [ ] A11y: keyboard + ARIA covered; tests added
-* [ ] Theming: respects `@ideasui/provider` context
-* [ ] Storybook story added/updated
-* [ ] Tree-shakeable (no side effects, proper `module`/`exports`)
+- [ ] Public API exported from `src/index.ts`
+- [ ] No breaking changes without a changeset
+- [ ] No direct imports from `utils/shared`
+- [ ] A11y: keyboard + ARIA covered; tests added
+- [ ] Theming: respects `@ideasui/provider` context
+- [ ] Storybook story added/updated
+- [ ] Tree-shakeable (no side effects, proper `module`/`exports`)
 
 ---
 

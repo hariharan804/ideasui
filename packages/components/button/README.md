@@ -11,14 +11,14 @@ npm install @ideasui/button
 ## Usage
 
 ```tsx
-import { Button } from '@ideasui/button'
+import {Button} from "@ideasui/button";
 
 function App() {
   return (
     <Button variant="solid" color="primary" size="md">
       Click me
     </Button>
-  )
+  );
 }
 ```
 
@@ -26,18 +26,18 @@ function App() {
 
 ### ButtonProps
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| variant | 'solid' \| 'outline' \| 'ghost' | 'solid' | Visual style variant |
-| color | 'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'info' | 'default' | Color variant based on semantic intent |
-| size | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Size of the button |
-| radius | 'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full' | 'md' | Border radius variant |
-| fullWidth | boolean | false | Whether button should take full width |
-| loading | boolean | false | Whether button is in loading state |
-| loadingText | string | - | Text to show when loading |
-| startContent | ReactNode | - | Content to show at start of button |
-| endContent | ReactNode | - | Content to show at end of button |
-| disabled | boolean | false | Whether button is disabled |
+| Prop         | Type                                                                                  | Default   | Description                            |
+| ------------ | ------------------------------------------------------------------------------------- | --------- | -------------------------------------- |
+| variant      | 'solid' \| 'outline' \| 'ghost'                                                       | 'solid'   | Visual style variant                   |
+| color        | 'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'info' | 'default' | Color variant based on semantic intent |
+| size         | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'                                                  | 'md'      | Size of the button                     |
+| radius       | 'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'                                      | 'md'      | Border radius variant                  |
+| fullWidth    | boolean                                                                               | false     | Whether button should take full width  |
+| loading      | boolean                                                                               | false     | Whether button is in loading state     |
+| loadingText  | string                                                                                | -         | Text to show when loading              |
+| startContent | ReactNode                                                                             | -         | Content to show at start of button     |
+| endContent   | ReactNode                                                                             | -         | Content to show at end of button       |
+| disabled     | boolean                                                                               | false     | Whether button is disabled             |
 
 ## Examples
 
@@ -115,9 +115,9 @@ The component uses Tailwind CSS classes and can be customized via:
 Full TypeScript support with exported types:
 
 ```tsx
-import type { ButtonProps } from '@ideasui/button'
+import type {ButtonProps} from "@ideasui/button";
 
 const MyButton: React.FC<ButtonProps> = (props) => {
-  return <Button {...props} />
-}
+  return <Button {...props} />;
+};
 ```

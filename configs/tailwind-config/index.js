@@ -1,3 +1,3 @@
-import { generateThemeCSS } from './theme-generater.js';
+import {generateThemeCSS} from "./theme-generater.js";
 
 generateThemeCSS();

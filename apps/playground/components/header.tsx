@@ -1,98 +1,94 @@
-'use client'
-import React from 'react'
-import { useRouter } from 'next/navigation'
-import { ArrowLeft, Moon, Sun, Github, ExternalLink } from 'lucide-react'
-import { useTheme } from '@ideasui/theme-controller'
+"use client";
+import React from "react";
+import {useRouter} from "next/navigation";
+import {ArrowLeft, Moon, Sun, Github, ExternalLink} from "lucide-react";
+import {useTheme} from "@ideasui/theme-controller";
 
 interface HeaderProps {
-  showBackButton?: boolean
-  title?: string
-  subtitle?: string
+  showBackButton?: boolean;
+  title?: string;
+  subtitle?: string;
 }
 
-function Header({ showBackButton = false, title, subtitle }: HeaderProps) {
-  const router = useRouter()
-  const { resolvedTheme, setTheme, themes } = useTheme()
+function Header({showBackButton = false, title, subtitle}: HeaderProps) {
+  const router = useRouter();
+  const {resolvedTheme, setTheme, themes} = useTheme();
 
   const onToggleTheme = () => {
-    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-  }
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  };
 
   const goBack = () => {
-    router.push('/playground')
-  }
+    router.push("/playground");
+  };
 
   const goToGithub = () => {
-    window.open('https://github.com/your-username/ideasui', '_blank')
-  }
+    window.open("https://github.com/your-username/ideasui", "_blank");
+  };
 
   const goToDocs = () => {
-    window.open('/docs', '_blank')
-  }
+    window.open("/docs", "_blank");
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur-md">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            {showBackButton && (
+            {showBackButton ? (
               <>
                 <button
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
                   onClick={goBack}
-                  className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors rounded-lg hover:bg-gray-100"
                 >
-                  <ArrowLeft className="w-4 h-4" />
+                  <ArrowLeft className="h-4 w-4" />
                   Back to Components
                 </button>
                 <div className="h-6 w-px bg-gray-300" />
               </>
-            )}
+            ) : null}
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                {title || 'IdeasUI Playground'}
-              </h1>
-              {subtitle && (
-                <p className="text-sm text-gray-600 mt-1">{subtitle}</p>
-              )}
+              <h1 className="text-2xl font-bold text-gray-900">{title || "IdeasUI Playground"}</h1>
+              {subtitle ? <p className="mt-1 text-sm text-gray-600">{subtitle}</p> : null}
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             {/* Documentation Link */}
             <button
+              className="hidden items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 sm:flex"
               onClick={goToDocs}
-              className="hidden sm:flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors rounded-lg hover:bg-gray-100"
             >
-              <ExternalLink className="w-4 h-4" />
+              <ExternalLink className="h-4 w-4" />
               Docs
             </button>
 
             {/* GitHub Link */}
             <button
+              className="hidden items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 sm:flex"
               onClick={goToGithub}
-              className="hidden sm:flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors rounded-lg hover:bg-gray-100"
             >
-              <Github className="w-4 h-4" />
+              <Github className="h-4 w-4" />
               GitHub
             </button>
 
             {/* Theme Toggle */}
             <button
+              className="rounded-lg bg-gray-100 p-2 transition-colors hover:bg-gray-200"
+              title={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
               onClick={onToggleTheme}
-              className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors"
-              title={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode`}
             >
-              {resolvedTheme === 'dark' ? (
-                <Sun className="w-5 h-5" />
+              {resolvedTheme === "dark" ? (
+                <Sun className="h-5 w-5" />
               ) : (
-                <Moon className="w-5 h-5" />
+                <Moon className="h-5 w-5" />
               )}
             </button>
           </div>
         </div>
       </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

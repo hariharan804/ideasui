@@ -22,7 +22,6 @@
     "@ideasui/variants": "workspace:*"
   },
   "devDependencies": {
-    "@ideasui/eslint-config": "workspace:*",
     "@ideasui/utils": "workspace:*",
     "@ideasui/variants": "workspace:*",
     "@types/react": "^18.3.27",

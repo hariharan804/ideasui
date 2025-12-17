@@ -1,82 +1,75 @@
-import * as React from 'react'
+import type {ElementType, ReactNode, Ref} from "react";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * The element or component to render as
    * @default 'button'
    */
-  as?: React.ElementType
+  as?: ElementType;
 
   /**
    * Visual variant of the button
    * @default 'solid'
    */
-  variant?: 'solid' | 'outline' | 'ghost'
+  variant?: "solid" | "outline" | "ghost";
 
   /**
    * Color variant based on semantic intent
    * @default 'default'
    */
-  color?:
-    | 'default'
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'info'
+  color?: "default" | "primary" | "secondary" | "success" | "warning" | "danger" | "info";
 
   /**
    * Size of the button
    * @default 'md'
    */
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
 
   /**
    * Border radius variant
    * @default 'md'
    */
-  radius?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'
+  radius?: "none" | "sm" | "md" | "lg" | "xl" | "full";
 
   /**
    * Whether the button should take full width
    * @default false
    */
-  fullWidth?: boolean
+  fullWidth?: boolean;
 
   /**
    * Whether the button is in loading state
    * @default false
    */
-  loading?: boolean
+  loading?: boolean;
 
   /**
    * Text to show when loading
    */
-  loadingText?: string
+  loadingText?: string;
 
   /**
    * Content to show at the start of the button
    */
-  startContent?: React.ReactNode
+  startContent?: ReactNode;
 
   /**
    * Content to show at the end of the button
    */
-  endContent?: React.ReactNode
+  endContent?: ReactNode;
 }
 
-export interface UseButtonProps extends Omit<ButtonProps, 'children'> {
+export interface UseButtonProps extends Omit<ButtonProps, "children"> {
   /**
    * Ref to the DOM node
    */
-  ref?: React.Ref<HTMLButtonElement>
+  ref?: Ref<HTMLButtonElement>;
   /**
    * Whether the button should display a loading spinner
    */
-  isLoading?: boolean
+  isLoading?: boolean;
   /**
    * Whether the button is disabled
    */
-  isDisabled?: boolean
+  isDisabled?: boolean;
 }

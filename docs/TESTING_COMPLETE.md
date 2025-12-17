@@ -71,19 +71,19 @@ cd apps/web && npm run test:cucumber
 **Example:**
 
 ```tsx
-import { render, screen } from '@testing-library/react';
-import { Button } from './Button';
+import {render, screen} from "@testing-library/react";
+import {Button} from "./Button";
 
-describe('Button', () => {
-  it('renders with text', () => {
+describe("Button", () => {
+  it("renders with text", () => {
     render(<Button>Click me</Button>);
-    expect(screen.getByText('Click me')).toBeDefined();
+    expect(screen.getByText("Click me")).toBeDefined();
   });
 
-  it('handles click events', () => {
+  it("handles click events", () => {
     const onClick = jest.fn();
     render(<Button onClick={onClick}>Click</Button>);
-    screen.getByText('Click').click();
+    screen.getByText("Click").click();
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 });
@@ -104,17 +104,17 @@ describe('Button', () => {
 **Example:**
 
 ```typescript
-import { test, expect } from '@playwright/test';
+import {test, expect} from "@playwright/test";
 
-test('homepage loads correctly', async ({ page }) => {
-  await page.goto('/');
-  await expect(page.getByRole('heading')).toBeVisible();
+test("homepage loads correctly", async ({page}) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading")).toBeVisible();
 });
 
-test('navigation works', async ({ page }) => {
-  await page.goto('/');
-  await page.click('text=Theme');
-  await expect(page).toHaveURL('/theme');
+test("navigation works", async ({page}) => {
+  await page.goto("/");
+  await page.click("text=Theme");
+  await expect(page).toHaveURL("/theme");
 });
 ```
 
@@ -142,16 +142,16 @@ Feature: User Login
 **Example Steps:**
 
 ```typescript
-import { Given, When, Then } from '@cucumber/cucumber';
-import { expect } from '@playwright/test';
+import {Given, When, Then} from "@cucumber/cucumber";
+import {expect} from "@playwright/test";
 
-Given('I am on the login page', async function () {
-  await this.page.goto('/login');
+Given("I am on the login page", async function () {
+  await this.page.goto("/login");
 });
 
-When('I enter valid credentials', async function () {
-  await this.page.fill('[name="email"]', 'user@example.com');
-  await this.page.fill('[name="password"]', 'password123');
+When("I enter valid credentials", async function () {
+  await this.page.fill('[name="email"]', "user@example.com");
+  await this.page.fill('[name="password"]', "password123");
 });
 ```
 
@@ -206,22 +206,22 @@ npm run test:cucumber:report      # With HTML report
 ### Unit Test Structure
 
 ```typescript
-describe('ComponentName', () => {
+describe("ComponentName", () => {
   // Setup
   beforeEach(() => {
     // Common setup
   });
 
   // Test cases
-  it('should do something', () => {
+  it("should do something", () => {
     // Arrange
-    const input = 'test';
+    const input = "test";
 
     // Act
     const result = doSomething(input);
 
     // Assert
-    expect(result).toBe('expected');
+    expect(result).toBe("expected");
   });
 });
 ```
@@ -229,14 +229,14 @@ describe('ComponentName', () => {
 ### E2E Test Structure
 
 ```typescript
-test.describe('Feature Name', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+test.describe("Feature Name", () => {
+  test.beforeEach(async ({page}) => {
+    await page.goto("/");
   });
 
-  test('should perform action', async ({ page }) => {
-    await page.click('button');
-    await expect(page.locator('.result')).toBeVisible();
+  test("should perform action", async ({page}) => {
+    await page.click("button");
+    await expect(page.locator(".result")).toBeVisible();
   });
 });
 ```
@@ -274,15 +274,15 @@ Feature: Feature Name
 
 ```javascript
 module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
-  roots: ['<rootDir>'],
-  testMatch: ['**/__tests__/**/*.ts?(x)', '**/?(*.)+(spec|test).ts?(x)'],
+  preset: "ts-jest",
+  testEnvironment: "jsdom",
+  roots: ["<rootDir>"],
+  testMatch: ["**/__tests__/**/*.ts?(x)", "**/?(*.)+(spec|test).ts?(x)"],
   transform: {
-    '^.+\\.(ts|tsx)$': [
-      'ts-jest',
+    "^.+\\.(ts|tsx)$": [
+      "ts-jest",
       {
-        tsconfig: { jsx: 'react', esModuleInterop: true },
+        tsconfig: {jsx: "react", esModuleInterop: true},
       },
     ],
   },
@@ -301,7 +301,7 @@ module.exports = {
 
 ```javascript
 module.exports = {
-  ...require('@ideasui/jest-config'),
+  ...require("@ideasui/jest-config"),
 };
 ```
 
@@ -311,20 +311,20 @@ module.exports = {
 
 ```typescript
 export default defineConfig({
-  testDir: '../../apps/web/e2e',
+  testDir: "../../apps/web/e2e",
   fullyParallel: true,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   use: {
-    baseURL: 'http://localhost:3000',
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    baseURL: "http://localhost:3000",
+    trace: "on-first-retry",
+    screenshot: "only-on-failure",
+    video: "retain-on-failure",
   },
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+      name: "chromium",
+      use: {...devices["Desktop Chrome"], channel: "chrome"},
     },
   ],
 });
@@ -337,8 +337,8 @@ export default defineConfig({
 ```javascript
 module.exports = {
   default: {
-    require: ['e2e/steps/**/*.ts', '../../configs/cucumber-config/steps/**/*.ts'],
-    format: ['progress', 'html:e2e/reports/cucumber-report.html'],
+    require: ["e2e/steps/**/*.ts", "../../configs/cucumber-config/steps/**/*.ts"],
+    format: ["progress", "html:e2e/reports/cucumber-report.html"],
     parallel: 2,
   },
 };
@@ -435,7 +435,7 @@ baseURL: 'http://localhost:3001'
 test.setTimeout(60000);
 
 // Use proper waits
-await page.waitForLoadState('networkidle');
+await page.waitForLoadState("networkidle");
 ```
 
 ### Module not found

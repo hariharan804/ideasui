@@ -1,21 +1,19 @@
 // script.ts
-import type { ThemeConfig } from './types'
+import type {ThemeConfig} from "./types";
 
 export const createScript = (cfg: ThemeConfig) => {
-  const { storageKey, defaultTheme, themes, mode, systemThemes } = cfg
+  const {storageKey, defaultTheme, themes, mode, systemThemes} = cfg;
 
   // All possible theme class names we might add/remove
-  const themeClassList = Array.from(
-    new Set([...themes, systemThemes.light, systemThemes.dark])
-  )
+  const themeClassList = Array.from(new Set([...themes, systemThemes.light, systemThemes.dark]));
 
   // Prebuild literals for injection
-  const KEY = JSON.stringify(storageKey)
-  const THEMES = JSON.stringify(themes)
-  const SYS = JSON.stringify(systemThemes)
-  const DEF = JSON.stringify(defaultTheme)
-  const MODE = JSON.stringify(mode)
-  const CLS_PATTERN = JSON.stringify(themeClassList.join('|'))
+  const KEY = JSON.stringify(storageKey);
+  const THEMES = JSON.stringify(themes);
+  const SYS = JSON.stringify(systemThemes);
+  const DEF = JSON.stringify(defaultTheme);
+  const MODE = JSON.stringify(mode);
+  const CLS_PATTERN = JSON.stringify(themeClassList.join("|"));
 
   // Returned IIFE (no optional-call syntax, no nested ${} in JS strings)
   return `(function(){try{
@@ -90,5 +88,5 @@ export const createScript = (cfg: ThemeConfig) => {
       document.documentElement.className=${DEF};
     }
     console.warn('Theme init error:',e);
-  }})();`
-}
+  }})();`;
+};

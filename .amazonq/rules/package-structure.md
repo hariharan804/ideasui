@@ -3,6 +3,7 @@
 ## 📦 Package Organization
 
 ### Package Categories:
+
 ```
 packages/
 ├── components/          # Styled UI components (@ideasui/button)
@@ -20,6 +21,7 @@ packages/
 ## 🏗️ Component Package Structure
 
 ### Standard Layout:
+
 ```
 packages/components/button/
 ├── src/
@@ -37,6 +39,7 @@ packages/components/button/
 ## 📄 Package.json Requirements
 
 ### Minimal Configuration:
+
 ```json
 {
   "name": "@ideasui/button",
@@ -74,19 +77,21 @@ packages/components/button/
 ## 🔧 Build Configuration
 
 ### TSUp Config (tsup.config.ts):
+
 ```typescript
-import { defineConfig } from 'tsup'
+import {defineConfig} from "tsup";
 
 export default defineConfig({
-  entry: ['src/index.ts'],
-  format: ['cjs', 'esm'],
+  entry: ["src/index.ts"],
+  format: ["cjs", "esm"],
   dts: true,
   clean: true,
-  external: ['react', 'react-dom'],
-})
+  external: ["react", "react-dom"],
+});
 ```
 
 ### TypeScript Config (tsconfig.json):
+
 ```json
 {
   "extends": "../../../configs/tsconfig/base.json",
@@ -102,18 +107,20 @@ export default defineConfig({
 ## 📋 Export Patterns
 
 ### Component Exports (src/index.ts):
+
 ```typescript
 // Export main component
-export { Button } from './button'
+export {Button} from "./button";
 
 // Export types
-export type { ButtonProps } from './button-types'
+export type {ButtonProps} from "./button-types";
 
 // Export variants (if applicable)
-export { buttonVariants } from './button'
+export {buttonVariants} from "./button";
 ```
 
 ### Component File (src/button.tsx):
+
 ```typescript
 import * as React from 'react'
 import { buttonVariants } from '@ideasui/variants'
@@ -138,12 +145,14 @@ Button.displayName = 'Button'
 ## 🎯 Dependency Rules
 
 ### Allowed Dependencies:
+
 - **Components** can depend on: `@ideasui/variants`, `@ideasui/utils`, `@ideasui/hooks`, `@ideasui/icons`
 - **Primitives** can depend on: `@ideasui/utils`, `@ideasui/hooks`
 - **Core packages** can depend on: `@ideasui/utils`
 - **Utils** should have minimal dependencies
 
 ### Forbidden Dependencies:
+
 - No circular dependencies
 - Components cannot depend on other components
 - Primitives cannot depend on styled components
@@ -152,7 +161,8 @@ Button.displayName = 'Button'
 ## 📚 Documentation Requirements
 
 ### README.md Template:
-```markdown
+
+````markdown
 # @ideasui/button
 
 Button component for user interactions.
@@ -162,18 +172,19 @@ Button component for user interactions.
 ```bash
 npm install @ideasui/button
 ```
+````
 
 ## Usage
 
 ```tsx
-import { Button } from '@ideasui/button'
+import {Button} from "@ideasui/button";
 
 function App() {
   return (
     <Button variant="outline" size="lg">
       Click me
     </Button>
-  )
+  );
 }
 ```
 
@@ -181,15 +192,16 @@ function App() {
 
 ### ButtonProps
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| variant | 'solid' \| 'outline' \| 'ghost' | 'solid' | Visual style variant |
-| size | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | Size of the button |
+| Prop    | Type                                 | Default | Description          |
+| ------- | ------------------------------------ | ------- | -------------------- |
+| variant | 'solid' \| 'outline' \| 'ghost'      | 'solid' | Visual style variant |
+| size    | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md'    | Size of the button   |
 
 ## Examples
 
 [Include usage examples]
-```
+
+````
 
 ## 🧪 Testing Structure
 
@@ -218,16 +230,18 @@ describe('Button', () => {
     expect(results).toHaveNoViolations()
   })
 })
-```
+````
 
 ## 🔄 Versioning & Publishing
 
 ### Changesets:
+
 - Use changesets for version management
 - Create changeset for any user-facing change
 - Follow semantic versioning (semver)
 
 ### Publishing:
+
 - Only `dist` folder is published
 - Use `files` field to control published content
 - Set `sideEffects: false` for tree-shaking
@@ -236,6 +250,7 @@ describe('Button', () => {
 ## 📁 File Naming Conventions
 
 ### Required Patterns:
+
 - Main component: `button.tsx`
 - Types: `button-types.ts`
 - Tests: `button.test.tsx`
@@ -243,6 +258,7 @@ describe('Button', () => {
 - All files use kebab-case
 
 ### Folder Structure:
+
 - Use kebab-case for all folder names
 - Group related files in subdirectories
 - Keep flat structure when possible

@@ -5,11 +5,12 @@
 ### Vite Build Setup
 
 #### `packages/ui/vite.config.ts`
+
 ```typescript
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
-import dts from 'vite-plugin-dts'
+import {defineConfig} from "vite";
+import react from "@vitejs/plugin-react";
+import {resolve} from "path";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
   plugins: [
@@ -20,27 +21,27 @@ export default defineConfig({
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      name: 'MyComponentLib',
-      formats: ['es', 'umd'],
+      entry: resolve(__dirname, "src/index.ts"),
+      name: "MyComponentLib",
+      formats: ["es", "umd"],
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ["react", "react-dom"],
       output: {
         globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
+          react: "React",
+          "react-dom": "ReactDOM",
         },
       },
     },
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      "@": resolve(__dirname, "src"),
     },
   },
-})
+});
 ```
 
 ### Package.json Configuration
@@ -61,9 +62,7 @@ export default defineConfig({
     },
     "./styles": "./dist/style.css"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
@@ -91,6 +90,7 @@ pnpm add -D @commitlint/cli @commitlint/config-conventional
 ### Release Configuration
 
 #### `.releaserc.json`
+
 ```json
 {
   "branches": ["main"],
@@ -108,6 +108,7 @@ pnpm add -D @commitlint/cli @commitlint/config-conventional
 ### GitHub Actions Workflow
 
 #### `.github/workflows/release.yml`
+
 ```yaml
 name: Release
 
@@ -126,8 +127,8 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "18"
+          registry-url: "https://registry.npmjs.org"
 
       - uses: pnpm/action-setup@v2
         with:
@@ -181,6 +182,7 @@ npm publish --tag beta
 ### Registry Configuration
 
 #### `.npmrc`
+
 ```
 registry=https://registry.npmjs.org/
 //registry.npmjs.org/:_authToken=${NPM_TOKEN}
@@ -191,6 +193,7 @@ registry=https://registry.npmjs.org/
 ### Build Pipeline
 
 #### `.github/workflows/ci.yml`
+
 ```yaml
 name: CI
 
@@ -209,30 +212,30 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
+
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          
+
       - uses: pnpm/action-setup@v2
         with:
           version: 8
-          
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        
+
       - name: Type check
         run: pnpm type-check
-        
+
       - name: Lint
         run: pnpm lint
-        
+
       - name: Test
         run: pnpm test
-        
+
       - name: Build
         run: pnpm build
-        
+
       - name: Build Storybook
         run: pnpm build-storybook
 ```
@@ -240,6 +243,7 @@ jobs:
 ### Visual Testing
 
 #### `.github/workflows/visual-tests.yml`
+
 ```yaml
 name: Visual Tests
 
@@ -256,18 +260,18 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          
+
       - uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          
+          node-version: "18"
+
       - uses: pnpm/action-setup@v2
         with:
           version: 8
-          
+
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      
+
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:

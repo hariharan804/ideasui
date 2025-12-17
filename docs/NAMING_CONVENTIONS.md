@@ -3,6 +3,7 @@
 ## Case Types & Usage
 
 ### 📁 **kebab-case** (lowercase with hyphens)
+
 **When to use:** Package names, folder names, file names, URLs, CSS classes
 
 ```
@@ -19,6 +20,7 @@
 ```
 
 ### 🐪 **camelCase** (first letter lowercase)
+
 **When to use:** Variables, functions, object properties, component props
 
 ```tsx
@@ -35,6 +37,7 @@ const OnClick = () => {}
 ```
 
 ### 🏛️ **PascalCase** (first letter uppercase)
+
 **When to use:** React components, TypeScript interfaces/types, classes
 
 ```tsx
@@ -51,6 +54,7 @@ type variantType = 'default' | 'outline'
 ```
 
 ### 🐍 **snake_case** (lowercase with underscores)
+
 **When to use:** Database fields, environment variables, constants
 
 ```
@@ -65,6 +69,7 @@ const maxRetryCount = 3
 ```
 
 ### 📢 **SCREAMING_SNAKE_CASE** (uppercase with underscores)
+
 **When to use:** Constants, environment variables
 
 ```tsx
@@ -80,14 +85,14 @@ const maxFileSize = 1024 * 1024
 
 ## File Naming Rules
 
-| File Type | Case | Example |
-|-----------|------|---------|
-| Components | kebab-case | `button.tsx`, `input-field.tsx` |
-| Tests | kebab-case | `button.test.tsx`, `utils.spec.ts` |
-| Stories | kebab-case | `button.stories.tsx` |
-| Utilities | kebab-case | `format-date.ts`, `api-client.ts` |
-| Types | kebab-case | `button-types.ts`, `api-types.ts` |
-| Configs | kebab-case | `rollup.config.js`, `jest.config.js` |
+| File Type  | Case       | Example                              |
+| ---------- | ---------- | ------------------------------------ |
+| Components | kebab-case | `button.tsx`, `input-field.tsx`      |
+| Tests      | kebab-case | `button.test.tsx`, `utils.spec.ts`   |
+| Stories    | kebab-case | `button.stories.tsx`                 |
+| Utilities  | kebab-case | `format-date.ts`, `api-client.ts`    |
+| Types      | kebab-case | `button-types.ts`, `api-types.ts`    |
+| Configs    | kebab-case | `rollup.config.js`, `jest.config.js` |
 
 ## Package Structure Example
 
@@ -123,7 +128,7 @@ export const DatePicker = React.forwardRef< // PascalCase component
   DatePickerProps
 >(({ selectedDate, onDateChange, className, ...props }, ref) => {
   const [isOpen, setIsOpen] = useState(false) // camelCase state
-  
+
   const handleDateSelect = (date: Date) => { // camelCase function
     onDateChange?.(date)
   }
@@ -142,14 +147,14 @@ DatePicker.displayName = 'DatePicker' // PascalCase
 
 ## Quick Reference
 
-| Context | Case | Example |
-|---------|------|---------|
-| Package name | kebab-case | `@ideasui/input-field` |
-| Folder name | kebab-case | `packages/input-field/` |
-| File name | kebab-case | `input-field.tsx` |
-| Component name | PascalCase | `InputField` |
-| Variable name | camelCase | `inputValue` |
-| Function name | camelCase | `handleInputChange` |
-| Interface name | PascalCase | `InputFieldProps` |
-| Type name | PascalCase | `VariantType` |
-| Constant | SCREAMING_SNAKE_CASE | `MAX_LENGTH` |
+| Context        | Case                 | Example                 |
+| -------------- | -------------------- | ----------------------- |
+| Package name   | kebab-case           | `@ideasui/input-field`  |
+| Folder name    | kebab-case           | `packages/input-field/` |
+| File name      | kebab-case           | `input-field.tsx`       |
+| Component name | PascalCase           | `InputField`            |
+| Variable name  | camelCase            | `inputValue`            |
+| Function name  | camelCase            | `handleInputChange`     |
+| Interface name | PascalCase           | `InputFieldProps`       |
+| Type name      | PascalCase           | `VariantType`           |
+| Constant       | SCREAMING_SNAKE_CASE | `MAX_LENGTH`            |

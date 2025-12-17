@@ -21,10 +21,10 @@ npm install @ideasui/theme-switcher
 ## Quick Start
 
 ```tsx
-import { ThemeScript, useTheme } from '@ideasui/theme-switcher'
+import {ThemeScript, useTheme} from "@ideasui/theme-switcher";
 
 // 1. Add script to prevent FOUC
-function RootLayout({ children }) {
+function RootLayout({children}) {
   return (
     <html>
       <head>
@@ -32,17 +32,13 @@ function RootLayout({ children }) {
       </head>
       <body>{children}</body>
     </html>
-  )
+  );
 }
 
 // 2. Use theme hook
 function App() {
-  const { theme, setTheme } = useTheme()
-  return (
-    <button onClick={() => setTheme('dark')}>
-      Current: {theme}
-    </button>
-  )
+  const {theme, setTheme} = useTheme();
+  return <button onClick={() => setTheme("dark")}>Current: {theme}</button>;
 }
 ```
 
@@ -52,18 +48,22 @@ function App() {
 
 ```tsx
 const themeConfig = {
-  themes: ['light', 'dark', 'purple', 'green'],
-  defaultTheme: 'light',
-  storageKey: 'app-theme'
-}
+  themes: ["light", "dark", "purple", "green"],
+  defaultTheme: "light",
+  storageKey: "app-theme",
+};
 
 function App() {
-  const { theme, setTheme } = useTheme(themeConfig)
+  const {theme, setTheme} = useTheme(themeConfig);
   return (
     <select value={theme} onChange={(e) => setTheme(e.target.value)}>
-      {themeConfig.themes.map(t => <option key={t} value={t}>{t}</option>)}
+      {themeConfig.themes.map((t) => (
+        <option key={t} value={t}>
+          {t}
+        </option>
+      ))}
     </select>
-  )
+  );
 }
 ```
 
@@ -74,9 +74,9 @@ function App() {
   mode="class"
   attribute="class"
   value={{
-    light: 'theme-light',
-    dark: 'theme-dark',
-    purple: 'theme-purple'
+    light: "theme-light",
+    dark: "theme-dark",
+    purple: "theme-purple",
   }}
 />
 ```
@@ -84,11 +84,7 @@ function App() {
 ### Custom Selector
 
 ```tsx
-<ThemeScript
-  selector="[data-theme]"
-  attribute="data-theme"
-  mode="attribute"
-/>
+<ThemeScript selector="[data-theme]" attribute="data-theme" mode="attribute" />
 ```
 
 ### Storage Adapters
@@ -112,12 +108,15 @@ const { theme } = useTheme({ storage: customStorage })
 ## API Reference
 
 ### ThemeScript
+
 Prevents FOUC by applying theme before hydration.
 
 ### useTheme(options)
+
 Main hook for theme management.
 
 **Options:**
+
 - `themes: string[]` - Available themes
 - `defaultTheme: string` - Default theme
 - `storageKey: string` - Storage key

@@ -201,5 +201,5 @@
   /* Typography */
   --font-sans: ui-sans-serif, system-ui, sans-serif;
   --font-serif: ui-serif, Georgia, serif;
-  --font-mono: ui-monospace, 'Cascadia Code', monospace;
+  --font-mono: ui-monospace, "Cascadia Code", monospace;
 }

@@ -26,12 +26,12 @@ function App() {
 
 ### {{pascalCase name}}Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| variant | 'solid' \| 'outline' \| 'ghost' | 'solid' | Visual style variant |
-| color | ColorVariant | 'default' | Color variant based on semantic intent |
-| size | ButtonSize | 'md' | Size of the component |
-| radius | Radius | 'md' | Border radius variant |
+| Prop    | Type                            | Default   | Description                            |
+| ------- | ------------------------------- | --------- | -------------------------------------- |
+| variant | 'solid' \| 'outline' \| 'ghost' | 'solid'   | Visual style variant                   |
+| color   | ColorVariant                    | 'default' | Color variant based on semantic intent |
+| size    | ButtonSize                      | 'md'      | Size of the component                  |
+| radius  | Radius                          | 'md'      | Border radius variant                  |
 
 ## Examples
 

@@ -5,6 +5,7 @@ UI components with complete styling and behavior using Tailwind CSS and React Ar
 ## 📋 Component Structure
 
 Each component follows this structure:
+
 ```
 component-name/
 ├── src/
@@ -24,6 +25,7 @@ component-name/
 ### Method 1: Using Plop Generator (Recommended)
 
 1. **Generate component with all files**:
+
    ```bash
    npm run generate
    # Select: component
@@ -40,12 +42,14 @@ component-name/
 ### Method 2: Create Individual Parts
 
 1. **Component only**:
+
    ```bash
    npm run generate
    # Select: component-only
    ```
 
 2. **Primitive only**:
+
    ```bash
    npm run generate
    # Select: primitive-only
@@ -60,12 +64,14 @@ component-name/
 ### Method 3: Manual Creation
 
 1. **Create component folder**:
+
    ```bash
    mkdir packages/components/my-button
    cd packages/components/my-button
    ```
 
 2. **Create package structure**:
+
    ```bash
    mkdir src src/__tests__
    touch package.json README.md tsconfig.json
@@ -80,28 +86,30 @@ component-name/
 ### Development Workflow
 
 1. **Development Mode (Direct Source)**:
+
    ```bash
    # Components use src/index.ts directly in dev mode
    # No build step needed - changes reflect immediately
-   
+
    # Start playground with hot reload
    npm run dev:playground
-   
+
    # Or start all dev processes
    npm run dev
    ```
 
 2. **Turbo Commands (Root Level)**:
+
    ```bash
    # Run specific component dev mode
    npm run dev -- --filter=@ideasui/button
-   
+
    # Run all components dev mode
    npm run dev -- --filter=@ideasui/*
-   
+
    # Run playground only
    npm run dev -- --filter=playground
-   
+
    # Run multiple packages
    npm run dev -- --filter=@ideasui/button --filter=@ideasui/input
    ```
@@ -115,18 +123,20 @@ component-name/
 ### Testing Components
 
 1. **Run unit tests**:
+
    ```bash
    # Single component (Turbo)
    npm run test -- --filter=@ideasui/button
-   
+
    # All components
    npm run test -- --filter=@ideasui/*
-   
+
    # Specific pattern
    npm run test -- --filter=*button*
    ```
 
 2. **Run with coverage**:
+
    ```bash
    npm run test:coverage -- --filter=@ideasui/button
    ```
@@ -139,25 +149,28 @@ component-name/
 ### Building Components (For Publishing)
 
 1. **Build single component**:
+
    ```bash
    # Using Turbo filter
    npm run build -- --filter=@ideasui/button
    ```
 
 2. **Build all packages**:
+
    ```bash
    # Build all components
    npm run build -- --filter=@ideasui/*
-   
+
    # Build everything
    npm run build
    ```
 
 3. **Pre-publish build**:
+
    ```bash
    # Automatically changes package.json main field to dist/index.js
    npm run build:publish -- --filter=@ideasui/button
-   
+
    # Check build output
    ls packages/components/my-button/dist/
    # Should see: index.js, index.mjs, index.d.ts
@@ -166,6 +179,7 @@ component-name/
 ### Storybook Development
 
 1. **Start Storybook**:
+
    ```bash
    npm run storybook
    ```
@@ -181,32 +195,35 @@ component-name/
 ### Step 1: Prepare Component for Publishing
 
 1. **Run pre-publish checks**:
+
    ```bash
    # Test the component
    npm run test -- --filter=@ideasui/button
-   
+
    # Lint the code
    npm run lint -- --filter=@ideasui/button
-   
+
    # Type check
    npm run type-check -- --filter=@ideasui/button
    ```
 
 2. **Build for production**:
+
    ```bash
    # Build with automatic package.json update
    npm run build:publish -- --filter=@ideasui/button
-   
+
    # Or build all components
    npm run build:publish -- --filter=@ideasui/*
    ```
 
 3. **Verify build output**:
+
    ```bash
    # Check dist folder
    ls packages/components/button/dist/
    # Should see: index.js, index.mjs, index.d.ts
-   
+
    # Verify package.json was updated
    cat packages/components/button/package.json | grep '"main"'
    # Should show: "main": "./dist/index.js"
@@ -215,29 +232,32 @@ component-name/
 ### Step 2: Test Built Package
 
 1. **Pack and test locally**:
+
    ```bash
    cd packages/components/button
    npm pack
    # Creates: ideasui-button-0.1.0.tgz
-   
+
    # Test in another project
    cd /path/to/test-project
    npm install /path/to/ideasui-button-0.1.0.tgz
    ```
 
 2. **Test import/export**:
+
    ```tsx
    // In test project
-   import { Button } from '@ideasui/button'
-   
+   import {Button} from "@ideasui/button";
+
    function App() {
-     return <Button>Test</Button>
+     return <Button>Test</Button>;
    }
    ```
 
 ### Step 3: Version and Publish
 
 1. **Create changeset**:
+
    ```bash
    npx changeset
    # Select: @ideasui/button
@@ -246,6 +266,7 @@ component-name/
    ```
 
 2. **Version packages**:
+
    ```bash
    npx changeset version
    # Updates package.json versions
@@ -253,10 +274,11 @@ component-name/
    ```
 
 3. **Final build and publish**:
+
    ```bash
    # Build all packages for publishing
    npm run build:publish
-   
+
    # Publish to npm
    npx changeset publish
    ```
@@ -264,10 +286,11 @@ component-name/
 ### Step 4: Post-Publish Cleanup
 
 1. **Revert to development mode**:
+
    ```bash
    # Reset package.json to development mode
    npm run dev:reset -- --filter=@ideasui/button
-   
+
    # Or reset all packages
    npm run dev:reset
    ```
@@ -297,32 +320,33 @@ component-name/
 ### Update Script (scripts/update-package-json.js)
 
 ```javascript
-const fs = require('fs')
-const path = require('path')
+const fs = require("fs");
+const path = require("path");
 
-const mode = process.argv[2] // 'publish' or 'dev'
-const packagePath = path.join(__dirname, '../package.json')
-const pkg = require(packagePath)
+const mode = process.argv[2]; // 'publish' or 'dev'
+const packagePath = path.join(__dirname, "../package.json");
+const pkg = require(packagePath);
 
-if (mode === 'publish') {
+if (mode === "publish") {
   // Switch to built files
-  pkg.main = './dist/index.js'
-  pkg.module = './dist/index.mjs'
-  pkg.types = './dist/index.d.ts'
+  pkg.main = "./dist/index.js";
+  pkg.module = "./dist/index.mjs";
+  pkg.types = "./dist/index.d.ts";
 } else {
   // Switch to source files
-  pkg.main = './src/index.ts'
-  pkg.module = './src/index.ts'
-  pkg.types = './src/index.ts'
+  pkg.main = "./src/index.ts";
+  pkg.module = "./src/index.ts";
+  pkg.types = "./src/index.ts";
 }
 
-fs.writeFileSync(packagePath, JSON.stringify(pkg, null, 2))
-console.log(`Updated package.json for ${mode} mode`)
+fs.writeFileSync(packagePath, JSON.stringify(pkg, null, 2));
+console.log(`Updated package.json for ${mode} mode`);
 ```
 
 ## ✅ Pre-Publish Checklist
 
 ### Before Publishing:
+
 - [ ] Component tests pass
 - [ ] No linting errors
 - [ ] TypeScript compiles without errors
@@ -333,6 +357,7 @@ console.log(`Updated package.json for ${mode} mode`)
 - [ ] Changeset created with proper version bump
 
 ### After Publishing:
+
 - [ ] Package appears on npm
 - [ ] Installation works: `npm install @ideasui/button`
 - [ ] Import/export works in test project
@@ -343,6 +368,7 @@ console.log(`Updated package.json for ${mode} mode`)
 ## 🚨 Common Issues
 
 ### Build Issues:
+
 ```bash
 # Missing dist files
 npm run build -- --filter=@ideasui/button
@@ -355,6 +381,7 @@ npm install
 ```
 
 ### Publishing Issues:
+
 ```bash
 # Not logged in to npm
 npm login
@@ -409,11 +436,13 @@ npm run build -- --filter=!@ideasui/button
 ### Debugging
 
 1. **Check build errors**:
+
    ```bash
    npm run build -- --filter=@ideasui/button 2>&1 | grep ERROR
    ```
 
 2. **Lint issues**:
+
    ```bash
    npm run lint -- --filter=@ideasui/button
    ```
@@ -426,12 +455,14 @@ npm run build -- --filter=!@ideasui/button
 ## 🔄 Development vs Production
 
 ### Development Mode
+
 - **Source**: Direct `src/index.ts` mapping
 - **Hot Reload**: Immediate changes
 - **No Build**: Skip build process
 - **Fast**: Instant feedback
 
 ### Production/Publishing
+
 - **Built**: Uses `dist/index.js`
 - **Optimized**: Bundled and minified
 - **Types**: Generated `.d.ts` files
@@ -440,217 +471,216 @@ npm run build -- --filter=!@ideasui/button
 ## 🎯 Component Guidelines
 
 ### 1. Component Template
+
 ```tsx
-'use client'
-import * as React from 'react'
-import { tv, type VariantProps } from 'tailwind-variants'
-import { cn } from '@ideasui/utils'
+"use client";
+import * as React from "react";
+import {tv, type VariantProps} from "tailwind-variants";
+import {cn} from "@ideasui/utils";
 
 const componentVariants = tv({
-  base: 'base-classes',
+  base: "base-classes",
   variants: {
     variant: {
-      primary: 'primary-classes',
-      secondary: 'secondary-classes'
+      primary: "primary-classes",
+      secondary: "secondary-classes",
     },
     size: {
-      sm: 'small-classes',
-      md: 'medium-classes',
-      lg: 'large-classes'
-    }
+      sm: "small-classes",
+      md: "medium-classes",
+      lg: "large-classes",
+    },
   },
   defaultVariants: {
-    variant: 'primary',
-    size: 'md'
-  }
-})
+    variant: "primary",
+    size: "md",
+  },
+});
 
 interface ComponentProps
-  extends React.HTMLAttributes<HTMLElement>,
-    VariantProps<typeof componentVariants> {
-  children: React.ReactNode
+  extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof componentVariants> {
+  children: React.ReactNode;
 }
 
 export const Component = React.forwardRef<HTMLElement, ComponentProps>(
-  ({ className, variant, size, children, ...props }, ref) => {
+  ({className, variant, size, children, ...props}, ref) => {
     return (
-      <element
-        ref={ref}
-        className={cn(componentVariants({ variant, size }), className)}
-        {...props}
-      >
+      <element ref={ref} className={cn(componentVariants({variant, size}), className)} {...props}>
         {children}
       </element>
-    )
-  }
-)
+    );
+  },
+);
 
-Component.displayName = 'Component'
+Component.displayName = "Component";
 ```
 
 ### 2. TypeScript Interfaces
+
 ```tsx
 // types.ts
 export interface ComponentProps
-  extends React.HTMLAttributes<HTMLElement>,
-    VariantProps<typeof componentVariants> {
+  extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof componentVariants> {
   /**
    * Component content
    */
-  children: React.ReactNode
-  
+  children: React.ReactNode;
+
   /**
    * Visual variant
    * @default 'primary'
    */
-  variant?: 'primary' | 'secondary'
-  
+  variant?: "primary" | "secondary";
+
   /**
    * Component size
    * @default 'md'
    */
-  size?: 'sm' | 'md' | 'lg'
-  
+  size?: "sm" | "md" | "lg";
+
   /**
    * Disabled state
    */
-  disabled?: boolean
+  disabled?: boolean;
 }
 ```
 
 ### 3. Variants Configuration
+
 ```tsx
 // variants.ts
-import { tv } from 'tailwind-variants'
+import {tv} from "tailwind-variants";
 
 export const componentVariants = tv({
   base: [
-    'inline-flex items-center justify-center',
-    'rounded-md font-medium transition-colors',
-    'focus-visible:outline-none focus-visible:ring-2',
-    'disabled:pointer-events-none disabled:opacity-50'
+    "inline-flex items-center justify-center",
+    "rounded-md font-medium transition-colors",
+    "focus-visible:outline-none focus-visible:ring-2",
+    "disabled:pointer-events-none disabled:opacity-50",
   ],
   variants: {
     variant: {
-      primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
-      secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+      primary: "bg-primary text-primary-foreground hover:bg-primary/90",
+      secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
     },
     size: {
-      sm: 'h-8 px-3 text-sm',
-      md: 'h-10 px-4',
-      lg: 'h-12 px-6 text-lg'
-    }
+      sm: "h-8 px-3 text-sm",
+      md: "h-10 px-4",
+      lg: "h-12 px-6 text-lg",
+    },
   },
   defaultVariants: {
-    variant: 'primary',
-    size: 'md'
-  }
-})
+    variant: "primary",
+    size: "md",
+  },
+});
 ```
 
 ## 🧪 Testing
 
 ### Unit Test Template
+
 ```tsx
 // __tests__/component.test.tsx
-import { render, screen } from '@testing-library/react'
-import { Component } from '../component'
+import {render, screen} from "@testing-library/react";
+import {Component} from "../component";
 
-describe('Component', () => {
-  it('renders correctly', () => {
-    render(<Component>Test</Component>)
-    expect(screen.getByText('Test')).toBeInTheDocument()
-  })
+describe("Component", () => {
+  it("renders correctly", () => {
+    render(<Component>Test</Component>);
+    expect(screen.getByText("Test")).toBeInTheDocument();
+  });
 
-  it('applies variant classes', () => {
-    render(<Component variant="secondary">Test</Component>)
-    const element = screen.getByText('Test')
-    expect(element).toHaveClass('bg-secondary')
-  })
+  it("applies variant classes", () => {
+    render(<Component variant="secondary">Test</Component>);
+    const element = screen.getByText("Test");
+    expect(element).toHaveClass("bg-secondary");
+  });
 
-  it('forwards ref', () => {
-    const ref = React.createRef<HTMLButtonElement>()
-    render(<Component ref={ref}>Test</Component>)
-    expect(ref.current).toBeInstanceOf(HTMLButtonElement)
-  })
-})
+  it("forwards ref", () => {
+    const ref = React.createRef<HTMLButtonElement>();
+    render(<Component ref={ref}>Test</Component>);
+    expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+  });
+});
 ```
 
 ## 📖 Storybook Stories
 
 ### Story Template
+
 ```tsx
 // stories/component.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react'
-import { Component } from '../component'
+import type {Meta, StoryObj} from "@storybook/react";
+import {Component} from "../component";
 
 const meta: Meta<typeof Component> = {
-  title: 'Components/Component',
+  title: "Components/Component",
   component: Component,
   parameters: {
-    layout: 'centered'
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: { type: 'select' },
-      options: ['primary', 'secondary']
-    }
-  }
-}
+      control: {type: "select"},
+      options: ["primary", "secondary"],
+    },
+  },
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    children: 'Primary Component'
-  }
-}
+    children: "Primary Component",
+  },
+};
 
 export const Secondary: Story = {
   args: {
-    variant: 'secondary',
-    children: 'Secondary Component'
-  }
-}
+    variant: "secondary",
+    children: "Secondary Component",
+  },
+};
 ```
 
 ## 🎨 Styling Guidelines
 
 ### 1. Use Tailwind Variants
+
 - Leverage `tailwind-variants` for consistent styling
 - Define base classes and variants
 - Use compound variants for complex combinations
 
 ### 2. Accessibility First
+
 - Include proper ARIA attributes
 - Support keyboard navigation
 - Ensure color contrast compliance
 - Use semantic HTML elements
 
 ### 3. React Aria Integration
+
 ```tsx
-import { useButton, useFocusRing } from 'react-aria'
+import {useButton, useFocusRing} from "react-aria";
 
 export const Button = (props) => {
-  const ref = useRef()
-  const { buttonProps } = useButton(props, ref)
-  const { focusProps, isFocusVisible } = useFocusRing()
-  
+  const ref = useRef();
+  const {buttonProps} = useButton(props, ref);
+  const {focusProps, isFocusVisible} = useFocusRing();
+
   return (
     <button
       {...buttonProps}
       {...focusProps}
-      className={cn(
-        buttonVariants(),
-        isFocusVisible && 'ring-2 ring-ring'
-      )}
+      className={cn(buttonVariants(), isFocusVisible && "ring-ring ring-2")}
     >
       {props.children}
     </button>
-  )
-}
+  );
+};
 ```
 
 ## 📦 Package.json Template

@@ -1,18 +1,19 @@
-import * as React from 'react'
-import { IconProps } from './types'
+import type {IconProps} from "./types";
+
+import * as React from "react";
 
 export const EyeOff = React.forwardRef<SVGSVGElement, IconProps>(
-  ({ size = 24, color = 'currentColor', ...props }, ref) => (
+  ({size = 24, color = "currentColor", ...props}, ref) => (
     <svg
       ref={ref}
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
       fill="none"
+      height={size}
       stroke={color}
-      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      width={size}
       {...props}
     >
       <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
@@ -20,7 +21,7 @@ export const EyeOff = React.forwardRef<SVGSVGElement, IconProps>(
       <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
       <line x1="2" x2="22" y1="2" y2="22" />
     </svg>
-  )
-)
+  ),
+);
 
-EyeOff.displayName = 'EyeOff'
+EyeOff.displayName = "EyeOff";

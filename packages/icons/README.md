@@ -11,10 +11,12 @@ npm install @ideasui/icons
 ## 🎯 Available Icons
 
 ### Navigation
+
 - `ChevronDown` - Dropdown arrows
 - `ChevronUp` - Collapse arrows
 
 ### Actions
+
 - `Check` - Success states, checkboxes
 - `X` - Close buttons, remove actions
 - `Search` - Search inputs
@@ -22,12 +24,13 @@ npm install @ideasui/icons
 - `EyeOff` - Hide password
 
 ### States
+
 - `Loader` - Loading spinner (with animation)
 
 ## 🚀 Usage
 
 ```tsx
-import { ChevronDown, Check, Loader } from '@ideasui/icons'
+import {ChevronDown, Check, Loader} from "@ideasui/icons";
 
 function MyComponent() {
   return (
@@ -36,7 +39,7 @@ function MyComponent() {
       <Check color="green" />
       <Loader size={20} className="text-blue-500" />
     </div>
-  )
+  );
 }
 ```
 
@@ -46,58 +49,60 @@ All icons accept these props:
 
 ```tsx
 interface IconProps extends React.SVGAttributes<SVGElement> {
-  size?: number | string    // Default: 24
-  color?: string           // Default: 'currentColor'
+  size?: number | string; // Default: 24
+  color?: string; // Default: 'currentColor'
 }
 ```
 
 ## 📋 Icon List
 
-| Icon | Component | Use Case |
-|------|-----------|----------|
-| ⬇️ | `ChevronDown` | Dropdowns, accordions |
-| ⬆️ | `ChevronUp` | Collapse, scroll to top |
-| ✅ | `Check` | Success, checkboxes |
-| ❌ | `X` | Close, delete, remove |
-| 🔍 | `Search` | Search inputs |
-| 👁️ | `Eye` | Show password |
-| 🙈 | `EyeOff` | Hide password |
-| ⏳ | `Loader` | Loading states |
+| Icon | Component     | Use Case                |
+| ---- | ------------- | ----------------------- |
+| ⬇️   | `ChevronDown` | Dropdowns, accordions   |
+| ⬆️   | `ChevronUp`   | Collapse, scroll to top |
+| ✅   | `Check`       | Success, checkboxes     |
+| ❌   | `X`           | Close, delete, remove   |
+| 🔍   | `Search`      | Search inputs           |
+| 👁️   | `Eye`         | Show password           |
+| 🙈   | `EyeOff`      | Hide password           |
+| ⏳   | `Loader`      | Loading states          |
 
 ## 🎯 Usage in Components
 
 ### Button with Icon
+
 ```tsx
-import { Check } from '@ideasui/icons'
+import {Check} from "@ideasui/icons";
 
 <Button>
   <Check size={16} />
   Save Changes
-</Button>
+</Button>;
 ```
 
 ### Input with Search
+
 ```tsx
-import { Search } from '@ideasui/icons'
+import {Search} from "@ideasui/icons";
 
 <div className="relative">
-  <Search className="absolute left-3 top-3" size={16} />
+  <Search className="absolute top-3 left-3" size={16} />
   <Input className="pl-10" placeholder="Search..." />
-</div>
+</div>;
 ```
 
 ### Loading Button
-```tsx
-import { Loader } from '@ideasui/icons'
 
-<Button disabled={loading}>
-  {loading ? <Loader size={16} /> : 'Submit'}
-</Button>
+```tsx
+import {Loader} from "@ideasui/icons";
+
+<Button disabled={loading}>{loading ? <Loader size={16} /> : "Submit"}</Button>;
 ```
 
 ## 🔧 Customization
 
 ### Size
+
 ```tsx
 <ChevronDown size={12} />  // Small
 <ChevronDown size={24} />  // Default
@@ -105,6 +110,7 @@ import { Loader } from '@ideasui/icons'
 ```
 
 ### Color
+
 ```tsx
 <Check color="green" />
 <Check color="#10b981" />
@@ -112,6 +118,7 @@ import { Loader } from '@ideasui/icons'
 ```
 
 ### Animation
+
 ```tsx
 <Loader className="animate-spin text-blue-500" />
 ```

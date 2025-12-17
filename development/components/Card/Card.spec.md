@@ -1,9 +1,11 @@
 # Card Component Specification
 
 ## Component Name
+
 Card
 
 ## Props
+
 - `children` (required): Card content
 - `variant` (optional, default: 'elevated'): 'elevated', 'outlined', 'filled'
 - `padding` (optional, default: 'md'): 'none', 'sm', 'md', 'lg', 'xl'
@@ -17,6 +19,7 @@ Card
 - `disabled` (optional): Disable card interactions
 
 ## React Aria Integration
+
 - Uses `useButton` when clickable
 - Implements `useFocusRing` for keyboard focus
 - Supports `usePress` for interaction handling
@@ -24,6 +27,7 @@ Card
 - Proper semantic structure
 
 ## Behavior & States
+
 - **Default**: Static container with proper spacing
 - **Clickable**: Interactive with hover and focus states
 - **Hover**: Subtle elevation change for clickable cards
@@ -32,6 +36,7 @@ Card
 - **Loading**: Optional loading state with skeleton
 
 ## Accessibility Features
+
 - WCAG 2.1 AA compliant
 - Proper semantic structure
 - Keyboard navigation for interactive cards
@@ -40,6 +45,7 @@ Card
 - Color contrast compliance
 
 ## Implementation Approach
+
 - React functional component with forwardRef
 - TypeScript for type safety
 - Tailwind CSS with variants

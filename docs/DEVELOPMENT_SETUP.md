@@ -3,7 +3,8 @@
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - pnpm (recommended) or npm
 - Git
 
@@ -76,6 +77,7 @@ pnpm add -D @next/bundle-analyzer
 ## 🔧 Configuration Files
 
 ### Root `package.json`
+
 ```json
 {
   "name": "my-component-lib",
@@ -95,6 +97,7 @@ pnpm add -D @next/bundle-analyzer
 ```
 
 ### `turbo.json`
+
 ```json
 {
   "pipeline": {
@@ -114,6 +117,7 @@ pnpm add -D @next/bundle-analyzer
 ```
 
 ### Component Library `package.json`
+
 ```json
 {
   "name": "@mylib/ui",

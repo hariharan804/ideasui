@@ -1,12 +1,12 @@
-require('@testing-library/jest-dom');
+require("@testing-library/jest-dom");
 
 // Make React available globally in tests
-global.React = require('react');
+global.React = require("react");
 
 // Mock window.matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
+  value: jest.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,

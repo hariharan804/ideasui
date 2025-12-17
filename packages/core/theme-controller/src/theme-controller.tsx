@@ -1,9 +1,11 @@
-'use client'
+"use client";
 
-import { useThemeController } from './use-theme-controller'
-import type { ThemeConfig } from './types'
+import type {ThemeConfig} from "./types";
+
+import {useThemeController} from "./use-theme-controller";
 
 export function ThemeController(props: Partial<ThemeConfig>) {
-  useThemeController(props)
-  return null // no UI
+  useThemeController(props);
+
+  return null; // no UI
 }

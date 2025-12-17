@@ -1,41 +1,40 @@
-'use client'
-import { useTheme } from '@ideasui/theme-controller'
-import { useState } from 'react'
+"use client";
+import {useTheme} from "@ideasui/theme-controller";
 
-const Box = ({ className, label }: { className: string; label: string }) => (
+const Box = ({className, label}: {className: string; label: string}) => (
   <div className="flex items-center gap-4">
     <div
-      className={`w-20 h-20 rounded-lg flex items-center justify-center text-xs font-mono ${className}`}
+      className={`flex h-20 w-20 items-center justify-center rounded-lg font-mono text-xs ${className}`}
     >
       {label}
     </div>
     <code className="text-sm">{className}</code>
   </div>
-)
+);
 
 export default function ColorsPage() {
-  const { theme, setTheme } = useTheme()
+  const {theme, setTheme} = useTheme();
 
   const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark')
-  }
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   return (
     <div className="bg-background text-foreground p-8">
-      <div className="flex justify-between items-center mb-8">
+      <div className="mb-8 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Static Color Showcase</h1>
 
         <button
+          className="bg-primary text-on-primary rounded-lg px-4 py-2 transition-opacity hover:opacity-90"
           onClick={toggleTheme}
-          className="bg-primary text-on-primary px-4 py-2 rounded-lg hover:opacity-90 transition-opacity"
         >
-          Toggle {theme === 'light' ? 'Light' : 'Dark'}
+          Toggle {theme === "light" ? "Light" : "Dark"}
         </button>
       </div>
 
       {/* PRIMARY */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Primary</h2>
+        <h2 className="mb-4 text-2xl font-semibold">Primary</h2>
         <div className="grid grid-cols-6 gap-4">
           <Box className="bg-primary-50 text-primary-950" label="50" />
           <Box className="bg-primary-100 text-primary-950" label="100" />
@@ -53,7 +52,7 @@ export default function ColorsPage() {
 
       {/* SECONDARY */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Secondary</h2>
+        <h2 className="mb-4 text-2xl font-semibold">Secondary</h2>
         <div className="grid grid-cols-6 gap-4">
           <Box className="bg-secondary-50 text-secondary-950" label="50" />
           <Box className="bg-secondary-100 text-secondary-950" label="100" />
@@ -71,7 +70,7 @@ export default function ColorsPage() {
 
       {/* SUCCESS */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Success</h2>
+        <h2 className="mb-4 text-2xl font-semibold">Success</h2>
         <div className="grid grid-cols-6 gap-4">
           <Box className="bg-success-50 text-success-950" label="50" />
           <Box className="bg-success-100 text-success-950" label="100" />
@@ -89,7 +88,7 @@ export default function ColorsPage() {
 
       {/* WARNING */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Warning</h2>
+        <h2 className="mb-4 text-2xl font-semibold">Warning</h2>
         <div className="grid grid-cols-6 gap-4">
           <Box className="bg-warning-50 text-warning-950" label="50" />
           <Box className="bg-warning-100 text-warning-950" label="100" />
@@ -107,7 +106,7 @@ export default function ColorsPage() {
 
       {/* DANGER */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Danger</h2>
+        <h2 className="mb-4 text-2xl font-semibold">Danger</h2>
         <div className="grid grid-cols-6 gap-4">
           <Box className="bg-danger-50 text-danger-950" label="50" />
           <Box className="bg-danger-100 text-danger-950" label="100" />
@@ -125,7 +124,7 @@ export default function ColorsPage() {
 
       {/* INFO */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Info</h2>
+        <h2 className="mb-4 text-2xl font-semibold">Info</h2>
         <div className="grid grid-cols-6 gap-4">
           <Box className="bg-info-50 text-info-950" label="50" />
           <Box className="bg-info-100 text-info-950" label="100" />
@@ -143,9 +142,7 @@ export default function ColorsPage() {
 
       {/* --- MD3 TOKENS --- */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">
-          Material Design 3 Tokens
-        </h2>
+        <h2 className="mb-4 text-2xl font-semibold">Material Design 3 Tokens</h2>
 
         <div className="grid grid-cols-3 gap-6">
           <Box className="bg-primary text-on-primary" label="primary" />
@@ -159,37 +156,22 @@ export default function ColorsPage() {
             label="secondary-container"
           />
           <Box className="bg-surface text-on-surface" label="surface" />
-          <Box
-            className="bg-surface-variant text-on-surface-variant"
-            label="surface-variant"
-          />
-          <Box className="border-4 border-outline" label="outline" />
-          <Box
-            className="border-4 border-outline-variant"
-            label="outline-var"
-          />
+          <Box className="bg-surface-variant text-on-surface-variant" label="surface-variant" />
+          <Box className="border-outline border-4" label="outline" />
+          <Box className="border-outline-variant border-4" label="outline-var" />
         </div>
       </section>
 
       {/* --- SEMANTIC TOKENS --- */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Semantic Tokens</h2>
+        <h2 className="mb-4 text-2xl font-semibold">Semantic Tokens</h2>
 
         <div className="grid grid-cols-3 gap-6">
-          <Box
-            className="bg-background text-foreground"
-            label="background / foreground"
-          />
-          <Box
-            className="bg-card text-card-foreground"
-            label="card / card-foreground"
-          />
-          <Box
-            className="bg-muted text-muted-foreground"
-            label="muted / muted-foreground"
-          />
+          <Box className="bg-background text-foreground" label="background / foreground" />
+          <Box className="bg-card text-card-foreground" label="card / card-foreground" />
+          <Box className="bg-muted text-muted-foreground" label="muted / muted-foreground" />
         </div>
       </section>
     </div>
-  )
+  );
 }

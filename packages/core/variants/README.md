@@ -2,14 +2,14 @@
 
 Dynamic variant system for IdeasUI components using tailwind-variants.
 "exports": {
-    ".": "./src/index.ts",
-    "./button": "./src/button.ts",
-    "./input": "./src/input.ts",
-    "./card": "./src/card.ts",
-    "./badge": "./src/badge.ts",
-    "./ripple": "./src/ripple.ts",
-    "./system": "./src/system.ts"
-  },
+".": "./src/index.ts",
+"./button": "./src/button.ts",
+"./input": "./src/input.ts",
+"./card": "./src/card.ts",
+"./badge": "./src/badge.ts",
+"./ripple": "./src/ripple.ts",
+"./system": "./src/system.ts"
+},
 
 ## 📦 Package Structure
 
@@ -38,25 +38,28 @@ packages/core/variants/
 ## 🔧 System Tokens
 
 ### Colors (Semantic Intent System)
+
 ```typescript
 colors = {
-  default: { solid, outline, ghost },
-  primary: { solid, outline, ghost },
-  secondary: { solid, outline, ghost },
-  success: { solid, outline, ghost },
-  warning: { solid, outline, ghost },
-  danger: { solid, outline, ghost },
-  info: { solid, outline, ghost },
-}
+  default: {solid, outline, ghost},
+  primary: {solid, outline, ghost},
+  secondary: {solid, outline, ghost},
+  success: {solid, outline, ghost},
+  warning: {solid, outline, ghost},
+  danger: {solid, outline, ghost},
+  info: {solid, outline, ghost},
+};
 ```
 
 ### Sizes
+
 ```typescript
-sizes = { xs, sm, md, lg, xl }           // Square dimensions
-buttonSizes = { xs, sm, md, lg, xl }     // Button-specific sizing
+sizes = {xs, sm, md, lg, xl}; // Square dimensions
+buttonSizes = {xs, sm, md, lg, xl}; // Button-specific sizing
 ```
 
 ### Other Tokens
+
 ```typescript
 spacing = { xs, sm, md, lg, xl }         // Padding variants
 radius = { none, sm, md, lg, xl, full }  // Border radius
@@ -69,6 +72,7 @@ disabled = { default }
 ## 🚀 Usage
 
 ### Basic Import
+
 ```typescript
 import { buttonVariants } from '@ideasui/variants'
 
@@ -81,6 +85,7 @@ const Button = ({ variant, color, size, radius, className, ...props }) => (
 ```
 
 ### Component Examples
+
 ```tsx
 // Default button
 <Button>Click me</Button>
@@ -98,22 +103,27 @@ const Button = ({ variant, color, size, radius, className, ...props }) => (
 ## 🔄 Dynamic Generation
 
 ### How It Works
+
 ```typescript
 // Auto-generates color variants from system
-const colorVariants = Object.keys(colors).reduce((acc, color) => {
-  acc[color] = '';
-  return acc;
-}, {} as Record<string, string>);
+const colorVariants = Object.keys(colors).reduce(
+  (acc, color) => {
+    acc[color] = "";
+    return acc;
+  },
+  {} as Record<string, string>,
+);
 
 // Auto-generates compound variants
 const compoundVariants = Object.entries(colors).flatMap(([colorKey, colorValue]) => [
-  { variant: 'solid', color: colorKey, class: colorValue.solid },
-  { variant: 'outline', color: colorKey, class: colorValue.outline },
-  { variant: 'ghost', color: colorKey, class: colorValue.ghost },
+  {variant: "solid", color: colorKey, class: colorValue.solid},
+  {variant: "outline", color: colorKey, class: colorValue.outline},
+  {variant: "ghost", color: colorKey, class: colorValue.ghost},
 ]);
 ```
 
 ### Benefits
+
 - Add new color → Automatically available in all components
 - Remove color → Automatically removed from all components
 - Type-safe → TypeScript ensures consistency
@@ -122,18 +132,20 @@ const compoundVariants = Object.entries(colors).flatMap(([colorKey, colorValue])
 ## 📝 Adding New Colors
 
 1. **Add to system.ts**:
+
 ```typescript
 export const colors = {
   // ... existing colors
   purple: {
-    solid: 'bg-purple-600 text-white hover:bg-purple-700',
-    outline: 'border-2 border-purple-600 text-purple-600 hover:bg-purple-50',
-    ghost: 'text-purple-600 hover:bg-purple-50',
+    solid: "bg-purple-600 text-white hover:bg-purple-700",
+    outline: "border-2 border-purple-600 text-purple-600 hover:bg-purple-50",
+    ghost: "text-purple-600 hover:bg-purple-50",
   },
 } as const;
 ```
 
 2. **Automatically available everywhere**:
+
 ```tsx
 <Button color="purple">Purple Button</Button>
 <Badge color="purple">Purple Badge</Badge>
@@ -142,34 +154,37 @@ export const colors = {
 ## 🎨 Creating New Component Variants
 
 ```typescript
-import { tv } from 'tailwind-variants';
-import { colors, buttonSizes, radius } from './system';
+import {tv} from "tailwind-variants";
+import {colors, buttonSizes, radius} from "./system";
 
 // Generate dynamic variants
-const colorVariants = Object.keys(colors).reduce((acc, color) => {
-  acc[color] = '';
-  return acc;
-}, {} as Record<string, string>);
+const colorVariants = Object.keys(colors).reduce(
+  (acc, color) => {
+    acc[color] = "";
+    return acc;
+  },
+  {} as Record<string, string>,
+);
 
 const compoundVariants = Object.entries(colors).flatMap(([colorKey, colorValue]) => [
-  { variant: 'solid', color: colorKey, class: colorValue.solid },
+  {variant: "solid", color: colorKey, class: colorValue.solid},
   // ... other variants
 ]);
 
 export const newComponentVariants = tv({
-  base: ['base-classes'],
+  base: ["base-classes"],
   variants: {
-    variant: { solid: '', outline: '', ghost: '' },
+    variant: {solid: "", outline: "", ghost: ""},
     color: colorVariants,
     size: buttonSizes,
     radius,
   },
   compoundVariants,
   defaultVariants: {
-    variant: 'solid',
-    color: 'default',
-    size: 'md',
-    radius: 'md',
+    variant: "solid",
+    color: "default",
+    size: "md",
+    radius: "md",
   },
 });
 ```
@@ -178,13 +193,13 @@ export const newComponentVariants = tv({
 
 ```typescript
 // Available types
-type ColorVariant = keyof typeof colors;     // 'default' | 'primary' | ...
-type ButtonSize = keyof typeof buttonSizes;  // 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-type Radius = keyof typeof radius;           // 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'
+type ColorVariant = keyof typeof colors; // 'default' | 'primary' | ...
+type ButtonSize = keyof typeof buttonSizes; // 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+type Radius = keyof typeof radius; // 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'
 
 // Component props interface
 interface ButtonProps {
-  variant?: 'solid' | 'outline' | 'ghost';
+  variant?: "solid" | "outline" | "ghost";
   color?: ColorVariant;
   size?: ButtonSize;
   radius?: Radius;
@@ -195,6 +210,7 @@ interface ButtonProps {
 ## 🛠️ Configuration
 
 ### Package.json
+
 ```json
 {
   "name": "@ideasui/variants",
@@ -208,15 +224,16 @@ interface ButtonProps {
 ```
 
 ### Tailwind Config
+
 Ensure all variant classes are included in your Tailwind build by referencing the variants package in your `content` array:
 
 ```javascript
 module.exports = {
   content: [
-    './packages/core/variants/src/**/*.{ts,tsx}',
+    "./packages/core/variants/src/**/*.{ts,tsx}",
     // ... other paths
   ],
-}
+};
 ```
 
 ## 🔍 Best Practices

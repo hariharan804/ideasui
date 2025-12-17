@@ -1,10 +1,10 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* 1) Variants must exist before any file that uses them */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* 2) Bring in your tokens/themes/utilities */
-@import '@ideasui/theme-controller/theme.css';
+@import "@ideasui/theme-controller/theme.css";
 
 /* 3) Point Tailwind at places where classnames appear */
 @source "./app/**/*.{js,ts,jsx,tsx,mdx}";

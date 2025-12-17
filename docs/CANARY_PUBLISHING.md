@@ -5,6 +5,7 @@ Guide for publishing and testing canary versions of IdeasUI components before st
 ## 🧪 What is Canary Publishing?
 
 Canary publishing allows you to:
+
 - Test components in real projects before stable release
 - Get feedback from early adopters
 - Catch integration issues early
@@ -15,11 +16,13 @@ Canary publishing allows you to:
 ### Method 1: Using Changesets (Recommended)
 
 1. **Create snapshot changeset**:
+
    ```bash
    npx changeset version --snapshot canary
    ```
 
 2. **Build and publish canary**:
+
    ```bash
    npm run build:publish
    npx changeset publish --tag canary
@@ -34,11 +37,13 @@ Canary publishing allows you to:
 ### Method 2: Manual Canary Publish
 
 1. **Build component**:
+
    ```bash
    npm run build:publish -- --filter=@ideasui/button
    ```
 
 2. **Navigate to component**:
+
    ```bash
    cd packages/components/button
    ```
@@ -51,14 +56,15 @@ Canary publishing allows you to:
 ### Method 3: Specific Component Canary
 
 1. **Single component canary**:
+
    ```bash
    # Build specific component
    npm run build -- --filter=@ideasui/button
-   
+
    # Update version manually
    cd packages/components/button
    npm version prerelease --preid=canary
-   
+
    # Publish canary
    npm publish --tag canary
    ```
@@ -80,20 +86,20 @@ npm install @ideasui/button@canary
 
 ```tsx
 // pages/index.tsx or app/page.tsx
-import { Button } from '@ideasui/button'
+import {Button} from "@ideasui/button";
 
 export default function Home() {
   return (
-    <div className="p-8 space-y-4">
+    <div className="space-y-4 p-8">
       <h1>Canary Testing</h1>
-      
+
       {/* Test all variants */}
       <div className="space-x-2">
         <Button variant="solid">Solid</Button>
         <Button variant="outline">Outline</Button>
         <Button variant="ghost">Ghost</Button>
       </div>
-      
+
       {/* Test all colors */}
       <div className="space-x-2">
         <Button color="primary">Primary</Button>
@@ -101,7 +107,7 @@ export default function Home() {
         <Button color="warning">Warning</Button>
         <Button color="danger">Danger</Button>
       </div>
-      
+
       {/* Test all sizes */}
       <div className="space-x-2">
         <Button size="xs">XS</Button>
@@ -111,7 +117,7 @@ export default function Home() {
         <Button size="xl">XL</Button>
       </div>
     </div>
-  )
+  );
 }
 ```
 
@@ -133,31 +139,29 @@ npm run lint
 
 ```tsx
 // components/TestComponent.tsx
-import { Button } from '@ideasui/button'
-import type { ButtonProps } from '@ideasui/button'
+import {Button} from "@ideasui/button";
+import type {ButtonProps} from "@ideasui/button";
 
 interface TestProps {
-  buttonProps: ButtonProps
+  buttonProps: ButtonProps;
 }
 
-export function TestComponent({ buttonProps }: TestProps) {
-  return (
-    <Button {...buttonProps}>
-      TypeScript Test
-    </Button>
-  )
+export function TestComponent({buttonProps}: TestProps) {
+  return <Button {...buttonProps}>TypeScript Test</Button>;
 }
 ```
 
 ## ✅ Canary Testing Checklist
 
 ### Installation & Import
+
 - [ ] Canary version installs without errors
 - [ ] Component imports correctly
 - [ ] TypeScript types work properly
 - [ ] No peer dependency conflicts
 
 ### Visual Testing
+
 - [ ] All variants render correctly
 - [ ] All colors display properly
 - [ ] All sizes work as expected
@@ -166,6 +170,7 @@ export function TestComponent({ buttonProps }: TestProps) {
 - [ ] Disabled states work
 
 ### Functionality Testing
+
 - [ ] Click handlers work
 - [ ] Keyboard navigation functions
 - [ ] Form integration works
@@ -173,6 +178,7 @@ export function TestComponent({ buttonProps }: TestProps) {
 - [ ] Ref forwarding works
 
 ### Build Testing
+
 - [ ] Development mode works
 - [ ] Production build succeeds
 - [ ] No console errors/warnings
@@ -180,6 +186,7 @@ export function TestComponent({ buttonProps }: TestProps) {
 - [ ] Tree shaking works
 
 ### Integration Testing
+
 - [ ] Works with other UI libraries
 - [ ] CSS-in-JS compatibility
 - [ ] SSR/SSG compatibility
@@ -193,11 +200,13 @@ export function TestComponent({ buttonProps }: TestProps) {
 ## Canary Feedback: @ideasui/button@canary
 
 ### Environment
+
 - Framework: Next.js 14
 - Node: v18.17.0
 - Package Manager: npm
 
 ### Testing Results
+
 - [ ] Installation successful
 - [ ] Visual rendering correct
 - [ ] Functionality works
@@ -205,14 +214,17 @@ export function TestComponent({ buttonProps }: TestProps) {
 - [ ] Build process
 
 ### Issues Found
+
 - Issue 1: Description
 - Issue 2: Description
 
 ### Suggestions
+
 - Suggestion 1
 - Suggestion 2
 
 ### Overall Rating
+
 - [ ] Ready for stable release
 - [ ] Needs minor fixes
 - [ ] Needs major changes
@@ -265,12 +277,14 @@ npm view @ideasui/button dist-tags
 ### If Issues Found
 
 1. **Stop recommending canary**:
+
    ```bash
    # Don't promote to stable
    # Fix issues first
    ```
 
 2. **Publish fixed canary**:
+
    ```bash
    # Fix issues in code
    # Publish new canary version
@@ -340,17 +354,20 @@ rm -rf canary-test-$COMPONENT
 ## 📚 Best Practices
 
 ### Canary Naming
+
 - Use semantic versioning with prerelease identifier
 - Include date/time for uniqueness: `0.1.0-canary-20231201`
 - Keep canary versions short-lived
 
 ### Testing Strategy
+
 - Test in multiple environments
 - Test with different bundlers
 - Test with different React versions
 - Get feedback from diverse users
 
 ### Communication
+
 - Clearly mark as canary/experimental
 - Provide feedback channels
 - Document known issues

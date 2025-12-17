@@ -1,7 +1,7 @@
 // Main exports
-export * from './react';
-export * from './hooks';
-export * from './mocks';
+export * from "./react";
+export * from "./hooks";
+export * from "./mocks";
 
 // Common test utilities
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -9,19 +9,20 @@ export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve
 export const waitFor = async (
   callback: () => boolean,
   timeout = 5000,
-  interval = 50
+  interval = 50,
 ): Promise<void> => {
   const startTime = Date.now();
+
   while (!callback()) {
     if (Date.now() - startTime > timeout) {
-      throw new Error('Timeout waiting for condition');
+      throw new Error("Timeout waiting for condition");
     }
     await sleep(interval);
   }
 };
 
 // Test ID helpers
-export const testId = (id: string) => ({ 'data-testid': id });
+export const testId = (id: string) => ({"data-testid": id});
 export const getByTestId = (id: string) => `[data-testid="${id}"]`;
 
 // Accessibility helpers

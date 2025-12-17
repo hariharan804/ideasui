@@ -1,7 +1,0 @@
-# Build outputs
-dist/
-build/
-*.tsbuildinfo
-
-# Cache
-.turbo/

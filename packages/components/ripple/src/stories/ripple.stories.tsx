@@ -1,48 +1,49 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Ripple } from '../ripple'
+import type {Meta, StoryObj} from "@storybook/react";
+
+import {Ripple} from "../ripple";
 
 const meta: Meta<typeof Ripple> = {
-  title: 'Components/Ripple',
+  title: "Components/Ripple",
   component: Ripple,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: 'select',
-      options: ['solid', 'outline', 'ghost'],
+      control: "select",
+      options: ["solid", "outline", "ghost"],
     },
     color: {
-      control: 'select',
-      options: ['default', 'primary', 'secondary', 'success', 'warning', 'danger'],
+      control: "select",
+      options: ["default", "primary", "secondary", "success", "warning", "danger"],
     },
     size: {
-      control: 'select',
-      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      control: "select",
+      options: ["xs", "sm", "md", "lg", "xl"],
     },
     radius: {
-      control: 'select',
-      options: ['none', 'sm', 'md', 'lg', 'xl', 'full'],
+      control: "select",
+      options: ["none", "sm", "md", "lg", "xl", "full"],
     },
     disabled: {
-      control: 'boolean',
+      control: "boolean",
     },
 
     rippleColor: {
-      control: 'color',
+      control: "color",
     },
   },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: 'Click me',
+    children: "Click me",
   },
-}
+};
 
 export const Variants: Story = {
   render: () => (
@@ -52,7 +53,7 @@ export const Variants: Story = {
       <Ripple variant="ghost">Ghost</Ripple>
     </div>
   ),
-}
+};
 
 export const Colors: Story = {
   render: () => (
@@ -65,7 +66,7 @@ export const Colors: Story = {
       <Ripple color="danger">Danger</Ripple>
     </div>
   ),
-}
+};
 
 export const Sizes: Story = {
   render: () => (
@@ -77,7 +78,7 @@ export const Sizes: Story = {
       <Ripple size="xl">XL</Ripple>
     </div>
   ),
-}
+};
 
 export const Radius: Story = {
   render: () => (
@@ -90,52 +91,38 @@ export const Radius: Story = {
       <Ripple radius="full">Full</Ripple>
     </div>
   ),
-}
+};
 
 export const CustomRippleColor: Story = {
   args: {
-    children: 'Custom Ripple',
-    rippleColor: '#ff6b6b',
-    variant: 'outline',
+    children: "Custom Ripple",
+    rippleColor: "#ff6b6b",
+    variant: "outline",
   },
-}
-
-
+};
 
 export const Disabled: Story = {
   args: {
-    children: 'Disabled',
+    children: "Disabled",
     disabled: true,
   },
-}
+};
 
 export const Interactive: Story = {
   render: () => (
     <div className="grid grid-cols-3 gap-4">
-      <Ripple 
-        variant="solid" 
-        color="primary"
-        onClick={() => alert('Primary clicked!')}
-      >
+      <Ripple color="primary" variant="solid" onClick={() => alert("Primary clicked!")}>
         Primary Action
       </Ripple>
-      <Ripple 
-        variant="outline" 
-        color="secondary"
-        onClick={() => alert('Secondary clicked!')}
-      >
+      <Ripple color="secondary" variant="outline" onClick={() => alert("Secondary clicked!")}>
         Secondary Action
       </Ripple>
-      <Ripple 
-        variant="ghost" 
-        color="success"
-        onClick={() => alert('Success clicked!')}
-      >
+      <Ripple color="success" variant="ghost" onClick={() => alert("Success clicked!")}>
         Success Action
       </Ripple>
     </div>
   ),
-}
+};
 
 export const WithIcons: Story = {
   render: () => (
@@ -144,25 +131,25 @@ export const WithIcons: Story = {
         <span>❤️</span>
         Like
       </Ripple>
-      <Ripple variant="outline" className="gap-2">
+      <Ripple className="gap-2" variant="outline">
         <span>📤</span>
         Share
       </Ripple>
-      <Ripple variant="ghost" className="gap-2">
+      <Ripple className="gap-2" variant="ghost">
         <span>💬</span>
         Comment
       </Ripple>
     </div>
   ),
-}
+};
 
 export const Playground: Story = {
   args: {
-    children: 'Playground',
-    variant: 'solid',
-    color: 'primary',
-    size: 'md',
-    radius: 'md',
+    children: "Playground",
+    variant: "solid",
+    color: "primary",
+    size: "md",
+    radius: "md",
     disabled: false,
   },
-}
+};

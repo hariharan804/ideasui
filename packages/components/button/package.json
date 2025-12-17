@@ -23,7 +23,6 @@
     "react-aria": "^3.45.0"
   },
   "devDependencies": {
-    "@ideasui/eslint-config": "workspace:*",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "clean-package": "^2.2.0",

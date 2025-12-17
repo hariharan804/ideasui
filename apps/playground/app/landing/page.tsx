@@ -1,5 +1,5 @@
-'use client'
-import React, { useState, useEffect } from 'react'
+"use client";
+import React, {useState, useEffect} from "react";
 import {
   Moon,
   Sun,
@@ -8,7 +8,6 @@ import {
   Palette,
   Code,
   ArrowRight,
-  Check,
   Sparkles,
   Layout,
   Layers,
@@ -20,70 +19,72 @@ import {
   Rocket,
   Lightbulb,
   Shield,
-} from 'lucide-react'
-import { useTheme } from '@ideasui/theme-controller'
+} from "lucide-react";
+import {useTheme} from "@ideasui/theme-controller";
 
 export default function ComponentLibraryLanding() {
-  const { theme, setTheme } = useTheme()
-  const [scrollY, setScrollY] = useState(0)
-  const [activeTab, setActiveTab] = useState(0)
+  const {theme, setTheme} = useTheme();
+  const [scrollY, setScrollY] = useState(0);
+  const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    const handleScroll = () => setScrollY(window.scrollY);
 
-  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light')
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
   const features = [
     {
       icon: Zap,
-      title: 'Lightning Fast',
-      desc: 'Optimized components for peak performance and minimal bundle size',
-      color: 'primary',
+      title: "Lightning Fast",
+      desc: "Optimized components for peak performance and minimal bundle size",
+      color: "primary",
     },
     {
       icon: Palette,
-      title: 'Fully Themeable',
-      desc: 'Complete design system with dark mode and custom themes',
-      color: 'secondary',
+      title: "Fully Themeable",
+      desc: "Complete design system with dark mode and custom themes",
+      color: "secondary",
     },
     {
       icon: Box,
-      title: '80+ Components',
-      desc: 'Production-ready UI components for any project',
-      color: 'success',
+      title: "80+ Components",
+      desc: "Production-ready UI components for any project",
+      color: "success",
     },
     {
       icon: Code,
-      title: 'TypeScript First',
-      desc: 'Full type safety and intellisense support',
-      color: 'info',
+      title: "TypeScript First",
+      desc: "Full type safety and intellisense support",
+      color: "info",
     },
     {
       icon: Shield,
-      title: 'Accessible',
-      desc: 'WCAG 2.1 compliant with keyboard navigation',
-      color: 'warning',
+      title: "Accessible",
+      desc: "WCAG 2.1 compliant with keyboard navigation",
+      color: "warning",
     },
     {
       icon: Layers,
-      title: 'Composable',
-      desc: 'Build complex UIs with simple building blocks',
-      color: 'danger',
+      title: "Composable",
+      desc: "Build complex UIs with simple building blocks",
+      color: "danger",
     },
-  ]
+  ];
 
   const codeExamples = [
     {
-      title: 'Button Component',
+      title: "Button Component",
       code: `<Button variant="primary">
   Click me
 </Button>`,
     },
     {
-      title: 'Card Component',
+      title: "Card Component",
       code: `<Card>
   <CardHeader>
     <CardTitle>Title</CardTitle>
@@ -91,75 +92,69 @@ export default function ComponentLibraryLanding() {
 </Card>`,
     },
     {
-      title: 'Input Component',
+      title: "Input Component",
       code: `<Input 
   placeholder="Email"
   type="email"
 />`,
     },
-  ]
+  ];
 
   return (
     <div className={theme}>
-      <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+      <div className="bg-background text-foreground min-h-screen transition-colors duration-300">
         {/* Floating Header */}
         <header
-          className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-            scrollY > 50
-              ? 'bg-background/80 backdrop-blur-lg shadow-lg'
-              : 'bg-transparent'
+          className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+            scrollY > 50 ? "bg-background/80 shadow-lg backdrop-blur-lg" : "bg-transparent"
           }`}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-20">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex h-20 items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-primary rounded-xl blur opacity-50"></div>
-                  <div className="relative w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
-                    <Sparkles className="w-6 h-6 text-primary-foreground" />
+                  <div className="bg-primary absolute inset-0 rounded-xl opacity-50 blur" />
+                  <div className="from-primary to-secondary relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br">
+                    <Sparkles className="text-primary-foreground h-6 w-6" />
                   </div>
                 </div>
-                <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <span className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-2xl font-bold text-transparent">
                   IdeasUI
                 </span>
               </div>
 
-              <nav className="hidden md:flex items-center space-x-8">
+              <nav className="hidden items-center space-x-8 md:flex">
                 <a
-                  href="#features"
                   className="text-muted-foreground hover:text-foreground transition-colors"
+                  href="#features"
                 >
                   Features
                 </a>
                 <a
-                  href="#components"
                   className="text-muted-foreground hover:text-foreground transition-colors"
+                  href="#components"
                 >
                   Components
                 </a>
                 <a
-                  href="#docs"
                   className="text-muted-foreground hover:text-foreground transition-colors"
+                  href="#docs"
                 >
                   Docs
                 </a>
                 <a
-                  href="#pricing"
                   className="text-muted-foreground hover:text-foreground transition-colors"
+                  href="#pricing"
                 >
                   Pricing
                 </a>
                 <button
+                  className="bg-muted hover:bg-muted/80 rounded-lg p-2.5 transition-all hover:scale-105"
                   onClick={toggleTheme}
-                  className="p-2.5 rounded-lg bg-muted hover:bg-muted/80 transition-all hover:scale-105"
                 >
-                  {theme === 'light' ? (
-                    <Moon className="w-5 h-5" />
-                  ) : (
-                    <Sun className="w-5 h-5" />
-                  )}
+                  {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
                 </button>
-                <button className="px-5 py-2.5 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-all hover:scale-105 hover:shadow-lg">
+                <button className="bg-primary text-primary-foreground rounded-lg px-5 py-2.5 font-medium transition-all hover:scale-105 hover:opacity-90 hover:shadow-lg">
                   Get Started
                 </button>
               </nav>
@@ -168,76 +163,74 @@ export default function ComponentLibraryLanding() {
         </header>
 
         {/* Hero Section with Gradient Orbs */}
-        <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <section className="relative overflow-hidden px-4 pt-32 pb-20 sm:px-6 lg:px-8">
           {/* Animated Background Orbs */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="bg-primary/20 absolute top-0 left-1/4 h-96 w-96 animate-pulse rounded-full blur-3xl" />
             <div
-              className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse"
-              style={{ animationDelay: '1s' }}
-            ></div>
+              className="bg-secondary/20 absolute right-1/4 bottom-0 h-96 w-96 animate-pulse rounded-full blur-3xl"
+              style={{animationDelay: "1s"}}
+            />
             <div
-              className="absolute top-1/2 left-1/2 w-96 h-96 bg-success/10 rounded-full blur-3xl animate-pulse"
-              style={{ animationDelay: '2s' }}
-            ></div>
+              className="bg-success/10 absolute top-1/2 left-1/2 h-96 w-96 animate-pulse rounded-full blur-3xl"
+              style={{animationDelay: "2s"}}
+            />
           </div>
 
-          <div className="max-w-7xl mx-auto relative z-10">
-            <div className="text-center max-w-4xl mx-auto">
+          <div className="relative z-10 mx-auto max-w-7xl">
+            <div className="mx-auto max-w-4xl text-center">
               {/* Badge */}
-              <div className="inline-flex items-center space-x-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-8 animate-bounce">
-                <Rocket className="w-4 h-4 text-primary" />
-                <span className="text-sm font-semibold text-primary">
+              <div className="bg-primary/10 border-primary/20 mb-8 inline-flex animate-bounce items-center space-x-2 rounded-full border px-4 py-2">
+                <Rocket className="text-primary h-4 w-4" />
+                <span className="text-primary text-sm font-semibold">
                   New Launch - v2.0 is here!
                 </span>
               </div>
 
               {/* Main Heading */}
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black mb-6 leading-tight">
+              <h1 className="mb-6 text-5xl leading-tight font-black sm:text-6xl lg:text-7xl">
                 Build beautiful apps
                 <br />
-                <span className="bg-gradient-to-r from-primary via-secondary to-success bg-clip-text text-transparent animate-pulse">
+                <span className="from-primary via-secondary to-success animate-pulse bg-gradient-to-r bg-clip-text text-transparent">
                   in minutes, not days
                 </span>
               </h1>
 
-              <p className="text-xl sm:text-2xl text-muted-foreground mb-10 leading-relaxed">
-                The most advanced React component library with 80+ components,
-                full TypeScript support, and beautiful design out of the box.
+              <p className="text-muted-foreground mb-10 text-xl leading-relaxed sm:text-2xl">
+                The most advanced React component library with 80+ components, full TypeScript
+                support, and beautiful design out of the box.
               </p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-                <button className="group px-8 py-4 bg-gradient-to-r from-primary to-secondary text-primary-foreground rounded-xl font-semibold transition-all hover:scale-105 hover:shadow-2xl hover:shadow-primary/50 flex items-center space-x-2">
-                  <Play className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              <div className="mb-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <button className="group from-primary to-secondary text-primary-foreground hover:shadow-primary/50 flex items-center space-x-2 rounded-xl bg-gradient-to-r px-8 py-4 font-semibold transition-all hover:scale-105 hover:shadow-2xl">
+                  <Play className="h-5 w-5 transition-transform group-hover:scale-110" />
                   <span>Start Building</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </button>
-                <button className="px-8 py-4 bg-card border-2 border-border rounded-xl font-semibold transition-all hover:scale-105 hover:border-primary hover:shadow-lg flex items-center space-x-2">
-                  <Github className="w-5 h-5" />
+                <button className="bg-card border-border hover:border-primary flex items-center space-x-2 rounded-xl border-2 px-8 py-4 font-semibold transition-all hover:scale-105 hover:shadow-lg">
+                  <Github className="h-5 w-5" />
                   <span>View on GitHub</span>
                 </button>
               </div>
 
               {/* Stats Bar */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
+              <div className="mx-auto grid max-w-3xl grid-cols-2 gap-6 md:grid-cols-4">
                 {[
-                  { icon: Download, value: '100K+', label: 'Downloads' },
-                  { icon: Star, value: '12K+', label: 'GitHub Stars' },
-                  { icon: Box, value: '80+', label: 'Components' },
-                  { icon: Code, value: '99%', label: 'Type Safe' },
+                  {icon: Download, value: "100K+", label: "Downloads"},
+                  {icon: Star, value: "12K+", label: "GitHub Stars"},
+                  {icon: Box, value: "80+", label: "Components"},
+                  {icon: Code, value: "99%", label: "Type Safe"},
                 ].map((stat, idx) => (
                   <div
                     key={idx}
-                    className="p-4 bg-card/50 backdrop-blur-sm border border-border rounded-xl hover:scale-105 transition-transform"
+                    className="bg-card/50 border-border rounded-xl border p-4 backdrop-blur-sm transition-transform hover:scale-105"
                   >
-                    <stat.icon className="w-6 h-6 text-primary mx-auto mb-2" />
-                    <div className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    <stat.icon className="text-primary mx-auto mb-2 h-6 w-6" />
+                    <div className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-3xl font-bold text-transparent">
                       {stat.value}
                     </div>
-                    <div className="text-sm text-muted-foreground">
-                      {stat.label}
-                    </div>
+                    <div className="text-muted-foreground text-sm">{stat.label}</div>
                   </div>
                 ))}
               </div>
@@ -246,42 +239,38 @@ export default function ComponentLibraryLanding() {
         </section>
 
         {/* Live Component Preview */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center space-x-2 px-4 py-2 bg-success/10 border border-success/20 rounded-full mb-4">
-                <Lightbulb className="w-4 h-4 text-success" />
-                <span className="text-sm font-semibold text-success">
-                  Interactive Preview
-                </span>
+        <section className="bg-muted/30 px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-12 text-center">
+              <div className="bg-success/10 border-success/20 mb-4 inline-flex items-center space-x-2 rounded-full border px-4 py-2">
+                <Lightbulb className="text-success h-4 w-4" />
+                <span className="text-success text-sm font-semibold">Interactive Preview</span>
               </div>
-              <h2 className="text-4xl lg:text-5xl font-bold mb-4">
-                See it in action
-              </h2>
-              <p className="text-xl text-muted-foreground">
+              <h2 className="mb-4 text-4xl font-bold lg:text-5xl">See it in action</h2>
+              <p className="text-muted-foreground text-xl">
                 Components that look great and work perfectly
               </p>
             </div>
 
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div className="grid items-center gap-8 lg:grid-cols-2">
               {/* Code Preview */}
               <div className="space-y-4">
-                <div className="flex space-x-2 border-b border-border">
+                <div className="border-border flex space-x-2 border-b">
                   {codeExamples.map((example, idx) => (
                     <button
                       key={idx}
-                      onClick={() => setActiveTab(idx)}
-                      className={`px-4 py-2 font-medium transition-colors border-b-2 ${
+                      className={`border-b-2 px-4 py-2 font-medium transition-colors ${
                         activeTab === idx
-                          ? 'border-primary text-primary'
-                          : 'border-transparent text-muted-foreground hover:text-foreground'
+                          ? "border-primary text-primary"
+                          : "text-muted-foreground hover:text-foreground border-transparent"
                       }`}
+                      onClick={() => setActiveTab(idx)}
                     >
                       {example.title}
                     </button>
                   ))}
                 </div>
-                <div className="bg-neutral-950 p-6 rounded-xl border border-border overflow-hidden">
+                <div className="border-border overflow-hidden rounded-xl border bg-neutral-950 p-6">
                   <pre className="text-success-400 font-mono text-sm">
                     <code>{codeExamples[activeTab].code}</code>
                   </pre>
@@ -289,35 +278,31 @@ export default function ComponentLibraryLanding() {
               </div>
 
               {/* Live Preview */}
-              <div className="bg-card p-8 rounded-2xl border border-border shadow-2xl">
-                <h3 className="text-lg font-semibold mb-6 text-muted-foreground">
-                  Live Preview
-                </h3>
+              <div className="bg-card border-border rounded-2xl border p-8 shadow-2xl">
+                <h3 className="text-muted-foreground mb-6 text-lg font-semibold">Live Preview</h3>
                 <div className="space-y-4">
                   <div className="flex flex-wrap gap-3">
-                    <button className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-all hover:scale-105">
+                    <button className="bg-primary text-primary-foreground rounded-lg px-6 py-3 font-medium transition-all hover:scale-105 hover:opacity-90">
                       Primary Button
                     </button>
-                    <button className="px-6 py-3 bg-secondary text-secondary-foreground rounded-lg font-medium hover:opacity-90 transition-all hover:scale-105">
+                    <button className="bg-secondary text-secondary-foreground rounded-lg px-6 py-3 font-medium transition-all hover:scale-105 hover:opacity-90">
                       Secondary
                     </button>
-                    <button className="px-6 py-3 border-2 border-primary text-primary rounded-lg font-medium hover:bg-primary hover:text-primary-foreground transition-all hover:scale-105">
+                    <button className="border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-lg border-2 px-6 py-3 font-medium transition-all hover:scale-105">
                       Outline
                     </button>
                   </div>
-                  <div className="p-6 bg-gradient-to-br from-primary/5 to-secondary/5 border border-border rounded-xl">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full"></div>
+                  <div className="from-primary/5 to-secondary/5 border-border rounded-xl border bg-gradient-to-br p-6">
+                    <div className="mb-3 flex items-center space-x-3">
+                      <div className="from-primary to-secondary h-12 w-12 rounded-full bg-gradient-to-br" />
                       <div>
                         <div className="font-semibold">Beautiful Card</div>
-                        <div className="text-sm text-muted-foreground">
-                          With gradient accents
-                        </div>
+                        <div className="text-muted-foreground text-sm">With gradient accents</div>
                       </div>
                     </div>
-                    <p className="text-sm text-muted-foreground">
-                      Every component is crafted with attention to detail and
-                      modern design principles.
+                    <p className="text-muted-foreground text-sm">
+                      Every component is crafted with attention to detail and modern design
+                      principles.
                     </p>
                   </div>
                 </div>
@@ -327,33 +312,33 @@ export default function ComponentLibraryLanding() {
         </section>
 
         {/* Features Grid */}
-        <section id="features" className="py-20 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-4">
+        <section className="px-4 py-20 sm:px-6 lg:px-8" id="features">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-16 text-center">
+              <h2 className="mb-4 text-4xl font-bold lg:text-5xl">
                 Everything you need to
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  {' '}
+                <span className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-transparent">
+                  {" "}
                   build amazing
                 </span>
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-muted-foreground mx-auto max-w-2xl text-xl">
                 Powerful features that make development a breeze
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {features.map((feature, idx) => (
                 <div
                   key={idx}
-                  className="group p-8 bg-card border border-border rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-300 hover:border-primary/50"
+                  className="group bg-card border-border hover:border-primary/50 rounded-2xl border p-8 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 >
                   <div
-                    className={`w-14 h-14 bg-${feature.color}/10 border border-${feature.color}/20 rounded-xl mb-5 flex items-center justify-center group-hover:scale-110 transition-transform`}
+                    className={`h-14 w-14 bg-${feature.color}/10 border border-${feature.color}/20 mb-5 flex items-center justify-center rounded-xl transition-transform group-hover:scale-110`}
                   >
-                    <feature.icon className={`w-7 h-7 text-${feature.color}`} />
+                    <feature.icon className={`h-7 w-7 text-${feature.color}`} />
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                  <h3 className="mb-2 text-xl font-bold">{feature.title}</h3>
                   <p className="text-muted-foreground">{feature.desc}</p>
                 </div>
               ))}
@@ -362,67 +347,62 @@ export default function ComponentLibraryLanding() {
         </section>
 
         {/* Component Showcase */}
-        <section
-          id="components"
-          className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30"
-        >
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-4">
+        <section className="bg-muted/30 px-4 py-20 sm:px-6 lg:px-8" id="components">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-16 text-center">
+              <h2 className="mb-4 text-4xl font-bold lg:text-5xl">
                 Components that
-                <span className="bg-gradient-to-r from-success to-info bg-clip-text text-transparent">
-                  {' '}
+                <span className="from-success to-info bg-gradient-to-r bg-clip-text text-transparent">
+                  {" "}
                   just work
                 </span>
               </h2>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-muted-foreground text-xl">
                 From simple buttons to complex data tables
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid gap-6 md:grid-cols-3">
               {/* Component Card 1 */}
-              <div className="bg-card border border-border rounded-2xl p-6 hover:shadow-xl transition-all">
-                <div className="h-40 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl mb-4 flex items-center justify-center">
-                  <Layout className="w-16 h-16 text-primary" />
+              <div className="bg-card border-border rounded-2xl border p-6 transition-all hover:shadow-xl">
+                <div className="from-primary/20 to-secondary/20 mb-4 flex h-40 items-center justify-center rounded-xl bg-gradient-to-br">
+                  <Layout className="text-primary h-16 w-16" />
                 </div>
-                <h3 className="text-lg font-bold mb-2">Layout Components</h3>
-                <p className="text-sm text-muted-foreground mb-4">
+                <h3 className="mb-2 text-lg font-bold">Layout Components</h3>
+                <p className="text-muted-foreground mb-4 text-sm">
                   Grids, containers, and spacing utilities
                 </p>
-                <div className="flex items-center text-sm text-primary font-medium">
+                <div className="text-primary flex items-center text-sm font-medium">
                   <span>15 Components</span>
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </div>
               </div>
 
               {/* Component Card 2 */}
-              <div className="bg-card border border-border rounded-2xl p-6 hover:shadow-xl transition-all">
-                <div className="h-40 bg-gradient-to-br from-success/20 to-info/20 rounded-xl mb-4 flex items-center justify-center">
-                  <Box className="w-16 h-16 text-success" />
+              <div className="bg-card border-border rounded-2xl border p-6 transition-all hover:shadow-xl">
+                <div className="from-success/20 to-info/20 mb-4 flex h-40 items-center justify-center rounded-xl bg-gradient-to-br">
+                  <Box className="text-success h-16 w-16" />
                 </div>
-                <h3 className="text-lg font-bold mb-2">Form Components</h3>
-                <p className="text-sm text-muted-foreground mb-4">
+                <h3 className="mb-2 text-lg font-bold">Form Components</h3>
+                <p className="text-muted-foreground mb-4 text-sm">
                   Inputs, selects, and validation
                 </p>
-                <div className="flex items-center text-sm text-success font-medium">
+                <div className="text-success flex items-center text-sm font-medium">
                   <span>25 Components</span>
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </div>
               </div>
 
               {/* Component Card 3 */}
-              <div className="bg-card border border-border rounded-2xl p-6 hover:shadow-xl transition-all">
-                <div className="h-40 bg-gradient-to-br from-warning/20 to-danger/20 rounded-xl mb-4 flex items-center justify-center">
-                  <Layers className="w-16 h-16 text-warning" />
+              <div className="bg-card border-border rounded-2xl border p-6 transition-all hover:shadow-xl">
+                <div className="from-warning/20 to-danger/20 mb-4 flex h-40 items-center justify-center rounded-xl bg-gradient-to-br">
+                  <Layers className="text-warning h-16 w-16" />
                 </div>
-                <h3 className="text-lg font-bold mb-2">Data Display</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Tables, lists, and cards
-                </p>
-                <div className="flex items-center text-sm text-warning font-medium">
+                <h3 className="mb-2 text-lg font-bold">Data Display</h3>
+                <p className="text-muted-foreground mb-4 text-sm">Tables, lists, and cards</p>
+                <div className="text-warning flex items-center text-sm font-medium">
                   <span>20 Components</span>
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </div>
               </div>
             </div>
@@ -430,24 +410,24 @@ export default function ComponentLibraryLanding() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-5xl mx-auto">
-            <div className="relative overflow-hidden bg-gradient-to-r from-primary via-secondary to-success p-12 rounded-3xl">
-              <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-5xl">
+            <div className="from-primary via-secondary to-success relative overflow-hidden rounded-3xl bg-gradient-to-r p-12">
+              <div className="bg-grid-pattern absolute inset-0 opacity-10" />
               <div className="relative z-10 text-center">
-                <h2 className="text-4xl lg:text-5xl font-bold text-primary-foreground mb-6">
+                <h2 className="text-primary-foreground mb-6 text-4xl font-bold lg:text-5xl">
                   Start building today
                 </h2>
-                <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-                  Join thousands of developers who are already building amazing
-                  products with IdeasUI
+                <p className="text-primary-foreground/90 mx-auto mb-8 max-w-2xl text-xl">
+                  Join thousands of developers who are already building amazing products with
+                  IdeasUI
                 </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <button className="px-8 py-4 bg-white text-primary rounded-xl font-semibold hover:scale-105 transition-all hover:shadow-2xl flex items-center space-x-2">
+                <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                  <button className="text-primary flex items-center space-x-2 rounded-xl bg-white px-8 py-4 font-semibold transition-all hover:scale-105 hover:shadow-2xl">
                     <span>Get Started Free</span>
-                    <ArrowRight className="w-5 h-5" />
+                    <ArrowRight className="h-5 w-5" />
                   </button>
-                  <button className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-xl font-semibold hover:scale-105 transition-all hover:bg-white/10">
+                  <button className="rounded-xl border-2 border-white bg-transparent px-8 py-4 font-semibold text-white transition-all hover:scale-105 hover:bg-white/10">
                     View Documentation
                   </button>
                 </div>
@@ -457,101 +437,80 @@ export default function ComponentLibraryLanding() {
         </section>
 
         {/* Footer */}
-        <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-border bg-muted/20">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-4 gap-8 mb-8">
+        <footer className="border-border bg-muted/20 border-t px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-8 grid gap-8 md:grid-cols-4">
               <div className="col-span-2">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center">
-                    <Sparkles className="w-6 h-6 text-primary-foreground" />
+                <div className="mb-4 flex items-center space-x-3">
+                  <div className="from-primary to-secondary flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br">
+                    <Sparkles className="text-primary-foreground h-6 w-6" />
                   </div>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  <span className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-2xl font-bold text-transparent">
                     IdeasUI
                   </span>
                 </div>
                 <p className="text-muted-foreground mb-4">
-                  The modern component library for building beautiful React
-                  applications.
+                  The modern component library for building beautiful React applications.
                 </p>
                 <div className="flex space-x-4">
                   <a
+                    className="bg-muted hover:bg-primary hover:text-primary-foreground rounded-lg p-2 transition-colors"
                     href="#"
-                    className="p-2 bg-muted rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors"
                   >
-                    <Github className="w-5 h-5" />
+                    <Github className="h-5 w-5" />
                   </a>
                   <a
+                    className="bg-muted hover:bg-primary hover:text-primary-foreground rounded-lg p-2 transition-colors"
                     href="#"
-                    className="p-2 bg-muted rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors"
                   >
-                    <Twitter className="w-5 h-5" />
+                    <Twitter className="h-5 w-5" />
                   </a>
                 </div>
               </div>
               <div>
-                <h4 className="font-semibold mb-4">Product</h4>
-                <ul className="space-y-2 text-muted-foreground">
+                <h4 className="mb-4 font-semibold">Product</h4>
+                <ul className="text-muted-foreground space-y-2">
                   <li>
-                    <a
-                      href="#"
-                      className="hover:text-primary transition-colors"
-                    >
+                    <a className="hover:text-primary transition-colors" href="#">
                       Components
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="#"
-                      className="hover:text-primary transition-colors"
-                    >
+                    <a className="hover:text-primary transition-colors" href="#">
                       Templates
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="#"
-                      className="hover:text-primary transition-colors"
-                    >
+                    <a className="hover:text-primary transition-colors" href="#">
                       Pricing
                     </a>
                   </li>
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-4">Resources</h4>
-                <ul className="space-y-2 text-muted-foreground">
+                <h4 className="mb-4 font-semibold">Resources</h4>
+                <ul className="text-muted-foreground space-y-2">
                   <li>
-                    <a
-                      href="#"
-                      className="hover:text-primary transition-colors"
-                    >
+                    <a className="hover:text-primary transition-colors" href="#">
                       Documentation
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="#"
-                      className="hover:text-primary transition-colors"
-                    >
+                    <a className="hover:text-primary transition-colors" href="#">
                       Blog
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="#"
-                      className="hover:text-primary transition-colors"
-                    >
+                    <a className="hover:text-primary transition-colors" href="#">
                       Support
                     </a>
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between">
-              <p className="text-sm text-muted-foreground">
-                © 2024 IdeasUI. All rights reserved.
-              </p>
-              <p className="text-sm text-muted-foreground">
+            <div className="border-border flex flex-col items-center justify-between border-t pt-8 md:flex-row">
+              <p className="text-muted-foreground text-sm">© 2024 IdeasUI. All rights reserved.</p>
+              <p className="text-muted-foreground text-sm">
                 Built with React, TypeScript & Tailwind CSS
               </p>
             </div>
@@ -559,5 +518,5 @@ export default function ComponentLibraryLanding() {
         </footer>
       </div>
     </div>
-  )
+  );
 }

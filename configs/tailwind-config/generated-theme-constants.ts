@@ -1,6 +1,6 @@
 export const completeTheme = {
-  "light": {
-    "primary": {
+  light: {
+    primary: {
       "50": "#f6f7f8",
       "100": "#eceff3",
       "200": "#d1ddeb",
@@ -11,9 +11,9 @@ export const completeTheme = {
       "700": "#01428e",
       "800": "#013470",
       "900": "#002651",
-      "950": "#001833"
+      "950": "#001833",
     },
-    "secondary": {
+    secondary: {
       "50": "#f8f7f7",
       "100": "#f2f0ed",
       "200": "#e7dfd5",
@@ -24,9 +24,9 @@ export const completeTheme = {
       "700": "#6c4314",
       "800": "#55350f",
       "900": "#3e260b",
-      "950": "#271807"
+      "950": "#271807",
     },
-    "warning": {
+    warning: {
       "50": "#f8f8f7",
       "100": "#f3f1ed",
       "200": "#e8e1d4",
@@ -37,9 +37,9 @@ export const completeTheme = {
       "700": "#583f0d",
       "800": "#45320a",
       "900": "#322408",
-      "950": "#1f1705"
+      "950": "#1f1705",
     },
-    "success": {
+    success: {
       "50": "#f6f8f7",
       "100": "#edf3ef",
       "200": "#d4e8db",
@@ -50,9 +50,9 @@ export const completeTheme = {
       "700": "#0d5b29",
       "800": "#0a4820",
       "900": "#073417",
-      "950": "#04210f"
+      "950": "#04210f",
     },
-    "danger": {
+    danger: {
       "50": "#f8f7f7",
       "100": "#f2eeee",
       "200": "#e5d6d6",
@@ -63,9 +63,9 @@ export const completeTheme = {
       "700": "#862626",
       "800": "#691e1e",
       "900": "#4c1616",
-      "950": "#300e0e"
+      "950": "#300e0e",
     },
-    "neutral": {
+    neutral: {
       "50": "#f7f7f7",
       "100": "#f0f0f0",
       "200": "#dddede",
@@ -76,9 +76,9 @@ export const completeTheme = {
       "700": "#4c5054",
       "800": "#3c3f42",
       "900": "#2c2e30",
-      "950": "#1b1d1e"
+      "950": "#1b1d1e",
     },
-    "gray": {
+    gray: {
       "50": "#f7f7f7",
       "100": "#f0f0f0",
       "200": "#dedede",
@@ -89,11 +89,11 @@ export const completeTheme = {
       "700": "#515151",
       "800": "#3f3f3f",
       "900": "#2e2e2e",
-      "950": "#1d1d1d"
-    }
+      "950": "#1d1d1d",
+    },
   },
-  "dark": {
-    "primary": {
+  dark: {
+    primary: {
       "50": "#1b2532",
       "100": "#22374e",
       "200": "#294f7a",
@@ -104,9 +104,9 @@ export const completeTheme = {
       "700": "#cadcf2",
       "800": "#e3eaf3",
       "900": "#eff2f5",
-      "950": "#f6f7f8"
+      "950": "#f6f7f8",
     },
-    "secondary": {
+    secondary: {
       "50": "#2e271e",
       "100": "#483929",
       "200": "#6e5435",
@@ -117,9 +117,9 @@ export const completeTheme = {
       "700": "#ecdfd0",
       "800": "#f0ebe5",
       "900": "#f4f2f0",
-      "950": "#f8f7f7"
+      "950": "#f8f7f7",
     },
-    "warning": {
+    warning: {
       "50": "#2f291e",
       "100": "#493e28",
       "200": "#705c34",
@@ -130,9 +130,9 @@ export const completeTheme = {
       "700": "#ece3cf",
       "800": "#f1ede5",
       "900": "#f5f3f0",
-      "950": "#f8f8f7"
+      "950": "#f8f8f7",
     },
-    "success": {
+    success: {
       "50": "#1e2f24",
       "100": "#274933",
       "200": "#337049",
@@ -143,9 +143,9 @@ export const completeTheme = {
       "700": "#cfedda",
       "800": "#e4f1e9",
       "900": "#f0f5f2",
-      "950": "#f6f8f7"
+      "950": "#f6f8f7",
     },
-    "danger": {
+    danger: {
       "50": "#2d2020",
       "100": "#452c2c",
       "200": "#683b3b",
@@ -156,9 +156,9 @@ export const completeTheme = {
       "700": "#e9d3d3",
       "800": "#efe6e6",
       "900": "#f4f0f0",
-      "950": "#f8f7f7"
+      "950": "#f8f7f7",
     },
-    "neutral": {
+    neutral: {
       "50": "#262627",
       "100": "#373839",
       "200": "#505154",
@@ -169,9 +169,9 @@ export const completeTheme = {
       "700": "#dddedf",
       "800": "#eaebeb",
       "900": "#f2f2f2",
-      "950": "#f7f7f7"
+      "950": "#f7f7f7",
     },
-    "gray": {
+    gray: {
       "50": "#262626",
       "100": "#383838",
       "200": "#525252",
@@ -182,9 +182,9 @@ export const completeTheme = {
       "700": "#dedede",
       "800": "#ebebeb",
       "900": "#f2f2f2",
-      "950": "#f7f7f7"
-    }
-  }
-} as const
+      "950": "#f7f7f7",
+    },
+  },
+} as const;
 
-export type ThemeColors = typeof completeTheme
+export type ThemeColors = typeof completeTheme;

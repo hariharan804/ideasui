@@ -1,52 +1,52 @@
-import * as React from 'react'
-import type { ColorVariant, ButtonSize, Radius } from '@ideasui/variants'
+import type {ColorVariant, ButtonSize, Radius} from "@ideasui/variants";
+import type * as React from "react";
 
 export interface RippleProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * Visual style variant
    * @default 'solid'
    */
-  variant?: 'solid' | 'outline' | 'ghost'
-  
+  variant?: "solid" | "outline" | "ghost";
+
   /**
    * Color variant based on semantic intent
    * @default 'primary'
    */
-  color?: ColorVariant
-  
+  color?: ColorVariant;
+
   /**
    * Size of the ripple effect
    * @default 'md'
    */
-  size?: ButtonSize
-  
+  size?: ButtonSize;
+
   /**
    * Border radius variant
    * @default 'md'
    */
-  radius?: Radius
-  
+  radius?: Radius;
+
   /**
    * Whether the ripple is disabled
    * @default false
    */
-  disabled?: boolean
-  
+  disabled?: boolean;
+
   /**
    * Custom ripple color (overrides color variant)
    */
-  rippleColor?: string
-  
+  rippleColor?: string;
+
   /**
    * Children to render inside the ripple container
    */
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 export interface UseRippleProps {}
 export interface RippleItem {
-  key: React.Key
-  x: number
-  y: number
-  size: number
+  key: React.Key;
+  x: number;
+  y: number;
+  size: number;
 }

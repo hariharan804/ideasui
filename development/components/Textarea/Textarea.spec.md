@@ -1,9 +1,11 @@
 # Textarea Component Specification
 
 ## Component Name
+
 Textarea
 
 ## Props
+
 - `value` (optional): Textarea value
 - `defaultValue` (optional): Default textarea value
 - `placeholder` (optional): Placeholder text
@@ -18,11 +20,13 @@ Textarea
 - `onChange` (optional): Handle value changes
 
 ## React Aria Integration
+
 - Uses `useTextField` hook
 - Implements `useFocusRing` for focus management
 - ARIA attributes for validation states
 
 ## Behavior & States
+
 - **Default**: Ready for text input
 - **Focus**: Clear focus indication
 - **Filled**: Shows entered content
@@ -30,6 +34,7 @@ Textarea
 - **Disabled**: Non-interactive state
 
 ## Accessibility Features
+
 - WCAG 2.1 AA compliant
 - Proper label association
 - Error message announcement

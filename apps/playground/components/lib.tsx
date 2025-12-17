@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const LibPreview = () => {
-  return <h1>Lib</h1>
-}
+  return <h1>Lib</h1>;
+};
 
-export default LibPreview
+export default LibPreview;

@@ -1,9 +1,11 @@
 # Checkbox Component Specification
 
 ## Component Name
+
 Checkbox
 
 ## Props
+
 - `checked` (optional): Checked state
 - `defaultChecked` (optional): Default checked state
 - `indeterminate` (optional): Indeterminate state
@@ -14,11 +16,13 @@ Checkbox
 - `className` (optional): Custom CSS classes
 
 ## React Aria Integration
+
 - Uses `useCheckbox` hook
 - Implements `useFocusRing` for focus management
 - ARIA attributes for states
 
 ## Behavior & States
+
 - **Unchecked**: Default state
 - **Checked**: Selected state
 - **Indeterminate**: Partial selection
@@ -26,6 +30,7 @@ Checkbox
 - **Disabled**: Non-interactive state
 
 ## Accessibility Features
+
 - WCAG 2.1 AA compliant
 - Keyboard navigation (Space key)
 - Screen reader compatible

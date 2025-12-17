@@ -1,63 +1,65 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Button } from '../button'
-import { Heart, Download, ArrowRight } from 'lucide-react'
+import type {Meta, StoryObj} from "@storybook/react";
+
+import {Heart, Download, ArrowRight} from "lucide-react";
+
+import {Button} from "../button";
 
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: "Components/Button",
   component: Button,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     docs: {
       description: {
-        component: 'A versatile button component with multiple variants, sizes, and states.'
-      }
-    }
+        component: "A versatile button component with multiple variants, sizes, and states.",
+      },
+    },
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     variant: {
-      control: { type: 'select' },
-      options: ['solid', 'outline', 'ghost'],
-      description: 'Visual style variant'
+      control: {type: "select"},
+      options: ["solid", "outline", "ghost"],
+      description: "Visual style variant",
     },
     color: {
-      control: { type: 'select' },
-      options: ['default', 'primary', 'secondary', 'success', 'warning', 'danger', 'info'],
-      description: 'Color variant based on semantic intent'
+      control: {type: "select"},
+      options: ["default", "primary", "secondary", "success", "warning", "danger", "info"],
+      description: "Color variant based on semantic intent",
     },
     size: {
-      control: { type: 'select' },
-      options: ['xs', 'sm', 'md', 'lg', 'xl'],
-      description: 'Size of the button'
+      control: {type: "select"},
+      options: ["xs", "sm", "md", "lg", "xl"],
+      description: "Size of the button",
     },
     radius: {
-      control: { type: 'select' },
-      options: ['none', 'sm', 'md', 'lg', 'xl', 'full'],
-      description: 'Border radius variant'
+      control: {type: "select"},
+      options: ["none", "sm", "md", "lg", "xl", "full"],
+      description: "Border radius variant",
     },
     loading: {
-      control: { type: 'boolean' },
-      description: 'Loading state'
+      control: {type: "boolean"},
+      description: "Loading state",
     },
     disabled: {
-      control: { type: 'boolean' },
-      description: 'Disabled state'
+      control: {type: "boolean"},
+      description: "Disabled state",
     },
     fullWidth: {
-      control: { type: 'boolean' },
-      description: 'Full width button'
-    }
-  }
-}
+      control: {type: "boolean"},
+      description: "Full width button",
+    },
+  },
+};
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: 'Button'
-  }
-}
+    children: "Button",
+  },
+};
 
 export const Variants: Story = {
   render: () => (
@@ -66,8 +68,8 @@ export const Variants: Story = {
       <Button variant="outline">Outline</Button>
       <Button variant="ghost">Ghost</Button>
     </div>
-  )
-}
+  ),
+};
 
 export const Colors: Story = {
   render: () => (
@@ -80,8 +82,8 @@ export const Colors: Story = {
       <Button color="danger">Danger</Button>
       <Button color="info">Info</Button>
     </div>
-  )
-}
+  ),
+};
 
 export const Sizes: Story = {
   render: () => (
@@ -92,37 +94,37 @@ export const Sizes: Story = {
       <Button size="lg">Large</Button>
       <Button size="xl">Extra Large</Button>
     </div>
-  )
-}
+  ),
+};
 
 export const WithIcons: Story = {
   render: () => (
     <div className="flex gap-4">
-      <Button startContent={<Heart className="w-4 h-4" />}>
-        Like
-      </Button>
-      <Button endContent={<Download className="w-4 h-4" />}>
-        Download
-      </Button>
-      <Button 
-        startContent={<Heart className="w-4 h-4" />}
-        endContent={<ArrowRight className="w-4 h-4" />}
+      <Button startContent={<Heart className="h-4 w-4" />}>Like</Button>
+      <Button endContent={<Download className="h-4 w-4" />}>Download</Button>
+      <Button
+        endContent={<ArrowRight className="h-4 w-4" />}
+        startContent={<Heart className="h-4 w-4" />}
       >
         Like & Share
       </Button>
     </div>
-  )
-}
+  ),
+};
 
 export const Loading: Story = {
   render: () => (
     <div className="flex gap-4">
       <Button loading>Loading</Button>
-      <Button loading loadingText="Saving...">Save</Button>
-      <Button loading variant="outline">Loading Outline</Button>
+      <Button loading loadingText="Saving...">
+        Save
+      </Button>
+      <Button loading variant="outline">
+        Loading Outline
+      </Button>
     </div>
-  )
-}
+  ),
+};
 
 export const States: Story = {
   render: () => (
@@ -131,8 +133,8 @@ export const States: Story = {
       <Button disabled>Disabled</Button>
       <Button loading>Loading</Button>
     </div>
-  )
-}
+  ),
+};
 
 export const Radius: Story = {
   render: () => (
@@ -144,23 +146,23 @@ export const Radius: Story = {
       <Button radius="xl">Extra Large</Button>
       <Button radius="full">Full</Button>
     </div>
-  )
-}
+  ),
+};
 
 export const FullWidth: Story = {
   render: () => (
     <div className="w-96">
       <Button fullWidth>Full Width Button</Button>
     </div>
-  )
-}
+  ),
+};
 
 export const Playground: Story = {
   args: {
-    children: 'Playground Button',
-    variant: 'solid',
-    color: 'primary',
-    size: 'md',
-    radius: 'md'
-  }
-}
+    children: "Playground Button",
+    variant: "solid",
+    color: "primary",
+    size: "md",
+    radius: "md",
+  },
+};

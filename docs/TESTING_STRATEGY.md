@@ -15,35 +15,37 @@
 ### Vitest Configuration
 
 #### `packages/ui/vitest.config.ts`
+
 ```typescript
-import { defineConfig } from 'vitest/config'
-import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
+import {defineConfig} from "vitest/config";
+import react from "@vitejs/plugin-react";
+import {resolve} from "path";
 
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'jsdom',
-    setupFiles: ['./src/test/setup.ts'],
+    environment: "jsdom",
+    setupFiles: ["./src/test/setup.ts"],
     globals: true,
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      "@": resolve(__dirname, "src"),
     },
   },
-})
+});
 ```
 
 #### `src/test/setup.ts`
+
 ```typescript
-import '@testing-library/jest-dom'
-import { cleanup } from '@testing-library/react'
-import { afterEach } from 'vitest'
+import "@testing-library/jest-dom";
+import {cleanup} from "@testing-library/react";
+import {afterEach} from "vitest";
 
 afterEach(() => {
-  cleanup()
-})
+  cleanup();
+});
 ```
 
 ### Dependencies
@@ -57,6 +59,7 @@ pnpm add -D vitest @testing-library/react @testing-library/jest-dom @testing-lib
 ### Component Test Example
 
 #### `__tests__/Button.test.tsx`
+
 ```typescript
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -77,9 +80,9 @@ describe('Button', () => {
   it('handles click events', async () => {
     const handleClick = vi.fn()
     const user = userEvent.setup()
-    
+
     render(<Button onClick={handleClick}>Click me</Button>)
-    
+
     await user.click(screen.getByRole('button'))
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
@@ -104,23 +107,24 @@ describe('Button', () => {
 ### Utility Function Tests
 
 #### `__tests__/utils.test.ts`
+
 ```typescript
-import { cn } from '../src/lib/utils'
+import {cn} from "../src/lib/utils";
 
-describe('cn utility', () => {
-  it('merges classes correctly', () => {
-    expect(cn('class1', 'class2')).toBe('class1 class2')
-  })
+describe("cn utility", () => {
+  it("merges classes correctly", () => {
+    expect(cn("class1", "class2")).toBe("class1 class2");
+  });
 
-  it('handles conditional classes', () => {
-    expect(cn('base', true && 'conditional')).toBe('base conditional')
-    expect(cn('base', false && 'conditional')).toBe('base')
-  })
+  it("handles conditional classes", () => {
+    expect(cn("base", true && "conditional")).toBe("base conditional");
+    expect(cn("base", false && "conditional")).toBe("base");
+  });
 
-  it('handles Tailwind conflicts', () => {
-    expect(cn('p-4', 'p-2')).toBe('p-2')
-  })
-})
+  it("handles Tailwind conflicts", () => {
+    expect(cn("p-4", "p-2")).toBe("p-2");
+  });
+});
 ```
 
 ## 🎨 Visual Testing
@@ -132,6 +136,7 @@ pnpm add -D @storybook/test-runner
 ```
 
 #### `package.json`
+
 ```json
 {
   "scripts": {
@@ -148,6 +153,7 @@ pnpm add -D chromatic
 ```
 
 #### `package.json`
+
 ```json
 {
   "scripts": {
@@ -159,25 +165,26 @@ pnpm add -D chromatic
 ### Visual Regression Tests
 
 #### `.storybook/test-runner.ts`
+
 ```typescript
-import type { TestRunnerConfig } from '@storybook/test-runner'
-import { checkA11y, injectAxe } from 'axe-playwright'
+import type {TestRunnerConfig} from "@storybook/test-runner";
+import {checkA11y, injectAxe} from "axe-playwright";
 
 const config: TestRunnerConfig = {
   async preRender(page) {
-    await injectAxe(page)
+    await injectAxe(page);
   },
   async postRender(page) {
-    await checkA11y(page, '#root', {
+    await checkA11y(page, "#root", {
       detailedReport: true,
       detailedReportOptions: {
         html: true,
       },
-    })
+    });
   },
-}
+};
 
-export default config
+export default config;
 ```
 
 ## ♿ Accessibility Testing
@@ -189,6 +196,7 @@ pnpm add -D @axe-core/playwright axe-playwright
 ```
 
 #### `__tests__/accessibility.test.tsx`
+
 ```typescript
 import { render } from '@testing-library/react'
 import { axe, toHaveNoViolations } from 'jest-axe'
@@ -206,10 +214,10 @@ describe('Button Accessibility', () => {
   it('supports keyboard navigation', async () => {
     render(<Button>Keyboard Button</Button>)
     const button = screen.getByRole('button')
-    
+
     button.focus()
     expect(button).toHaveFocus()
-    
+
     await user.keyboard('{Enter}')
     // Test button activation
   })
@@ -221,6 +229,7 @@ describe('Button Accessibility', () => {
 ### Component Composition Tests
 
 #### `__tests__/integration/Form.test.tsx`
+
 ```typescript
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -253,18 +262,14 @@ describe('Form Integration', () => {
 ### Coverage Configuration
 
 #### `vitest.config.ts`
+
 ```typescript
 export default defineConfig({
   test: {
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'src/test/',
-        '**/*.d.ts',
-        '**/*.stories.tsx',
-      ],
+      provider: "v8",
+      reporter: ["text", "json", "html"],
+      exclude: ["node_modules/", "src/test/", "**/*.d.ts", "**/*.stories.tsx"],
       thresholds: {
         global: {
           branches: 80,
@@ -275,7 +280,7 @@ export default defineConfig({
       },
     },
   },
-})
+});
 ```
 
 ### Coverage Scripts
@@ -307,15 +312,15 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
       - uses: pnpm/action-setup@v2
         with:
           version: 8
-      
+
       - run: pnpm install --frozen-lockfile
       - run: pnpm test:coverage
       - run: pnpm test-storybook:ci
-      
+
       - name: Upload coverage
         uses: codecov/codecov-action@v3
         with:
@@ -325,6 +330,7 @@ jobs:
 ## 📋 Testing Checklist
 
 ### Component Testing
+
 - [ ] Renders correctly
 - [ ] Props work as expected
 - [ ] Event handlers function
@@ -335,6 +341,7 @@ jobs:
 - [ ] Error boundaries
 
 ### Integration Testing
+
 - [ ] Component composition
 - [ ] State management
 - [ ] Context providers
@@ -342,6 +349,7 @@ jobs:
 - [ ] Navigation flows
 
 ### Visual Testing
+
 - [ ] All stories render
 - [ ] No visual regressions
 - [ ] Responsive design

@@ -11,40 +11,41 @@ npm install @ideasui/box
 ## Usage
 
 ```tsx
-import { Box } from '@ideasui/box'
+import {Box} from "@ideasui/box";
 
 function App() {
   return (
     <Box p={4} bg="gray" rounded="md">
       Box Content
     </Box>
-  )
+  );
 }
 ```
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| as | ElementType | 'div' | Element or component to render |
-| display | string | 'block' | Display type |
-| p | number | - | Padding on all sides |
-| px | number | - | Horizontal padding |
-| py | number | - | Vertical padding |
-| m | number \| 'auto' | - | Margin on all sides |
-| mx | number \| 'auto' | - | Horizontal margin |
-| my | number \| 'auto' | - | Vertical margin |
-| bg | string | - | Background color |
-| border | number | - | Border width |
-| borderColor | string | - | Border color |
-| rounded | string | - | Border radius |
-| shadow | string | - | Box shadow |
-| position | string | - | Position type |
-| overflow | string | - | Overflow behavior |
+| Prop        | Type             | Default | Description                    |
+| ----------- | ---------------- | ------- | ------------------------------ |
+| as          | ElementType      | 'div'   | Element or component to render |
+| display     | string           | 'block' | Display type                   |
+| p           | number           | -       | Padding on all sides           |
+| px          | number           | -       | Horizontal padding             |
+| py          | number           | -       | Vertical padding               |
+| m           | number \| 'auto' | -       | Margin on all sides            |
+| mx          | number \| 'auto' | -       | Horizontal margin              |
+| my          | number \| 'auto' | -       | Vertical margin                |
+| bg          | string           | -       | Background color               |
+| border      | number           | -       | Border width                   |
+| borderColor | string           | -       | Border color                   |
+| rounded     | string           | -       | Border radius                  |
+| shadow      | string           | -       | Box shadow                     |
+| position    | string           | -       | Position type                  |
+| overflow    | string           | -       | Overflow behavior              |
 
 ## Examples
 
 ### Basic Usage
+
 ```tsx
 <Box p={4} bg="white" rounded="md">
   Basic box with padding, background, and rounded corners
@@ -52,6 +53,7 @@ function App() {
 ```
 
 ### As Different Elements
+
 ```tsx
 <Box as="section" p={6} bg="gray">
   Rendered as a section element
@@ -63,38 +65,34 @@ function App() {
 ```
 
 ### Layout Container
+
 ```tsx
 <Box display="flex" p={4} bg="gray" rounded="lg">
-  <Box p={2} bg="primary" rounded="sm" mx={1}>Item 1</Box>
-  <Box p={2} bg="secondary" rounded="sm" mx={1}>Item 2</Box>
-  <Box p={2} bg="success" rounded="sm" mx={1}>Item 3</Box>
+  <Box p={2} bg="primary" rounded="sm" mx={1}>
+    Item 1
+  </Box>
+  <Box p={2} bg="secondary" rounded="sm" mx={1}>
+    Item 2
+  </Box>
+  <Box p={2} bg="success" rounded="sm" mx={1}>
+    Item 3
+  </Box>
 </Box>
 ```
 
 ### Card-like Component
+
 ```tsx
-<Box 
-  p={6} 
-  bg="white" 
-  border={1} 
-  borderColor="gray" 
-  rounded="lg" 
-  shadow="md"
->
+<Box p={6} bg="white" border={1} borderColor="gray" rounded="lg" shadow="md">
   <h3>Card Title</h3>
   <p>Card content with shadow and border</p>
 </Box>
 ```
 
 ### Responsive Design
+
 ```tsx
-<Box 
-  p={[2, 4, 6]} 
-  mx="auto" 
-  bg="white" 
-  rounded="md"
-  className="max-w-md"
->
+<Box p={[2, 4, 6]} mx="auto" bg="white" rounded="md" className="max-w-md">
   Responsive padding and centered layout
 </Box>
 ```
@@ -102,6 +100,7 @@ function App() {
 ## Spacing Scale
 
 The spacing scale follows Tailwind CSS conventions:
+
 - 0 = 0px
 - 1 = 0.25rem (4px)
 - 2 = 0.5rem (8px)

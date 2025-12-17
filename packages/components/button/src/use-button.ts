@@ -1,7 +1,8 @@
-import { useRef, useState, useCallback } from 'react'
-import { useButton as useAriaButton, useFocusRing, useHover } from 'react-aria'
-import type { UseButtonProps } from './button-types'
-import { toDataAttr, mergeProps } from '@ideasui/utils'
+import type {UseButtonProps} from "./button-types";
+
+import {useRef, useState, useCallback} from "react";
+import {useButton as useAriaButton, useFocusRing, useHover} from "react-aria";
+import {toDataAttr, mergeProps} from "@ideasui/utils";
 
 export function useButton(props: UseButtonProps) {
   const {
@@ -25,17 +26,15 @@ export function useButton(props: UseButtonProps) {
     className,
     style,
     ...ariaCompatibleProps
-  } = props
+  } = props;
 
-  const domRef = useRef<HTMLButtonElement>(null)
-  const [ripples, setRipples] = useState<
-    Array<{ key: number; x: number; y: number }>
-  >([])
-  const isDisabled = isDisabledProp || isLoading
+  const domRef = useRef<HTMLButtonElement>(null);
+  const [ripples, setRipples] = useState<Array<{key: number; x: number; y: number}>>([]);
+  const isDisabled = isDisabledProp || isLoading;
 
-  const { isFocusVisible, isFocused, focusProps } = useFocusRing({
+  const {isFocusVisible, isFocused, focusProps} = useFocusRing({
     autoFocus,
-  })
+  });
 
   // Convert onClick to onPress handler
   const handlePress = useCallback(
@@ -46,12 +45,13 @@ export function useButton(props: UseButtonProps) {
           ...e,
           currentTarget: domRef.current,
           target: domRef.current,
-        }
-        onClick(syntheticEvent as React.MouseEvent<HTMLButtonElement>)
+        };
+
+        onClick(syntheticEvent as React.MouseEvent<HTMLButtonElement>);
       }
     },
-    [onClick]
-  )
+    [onClick],
+  );
 
   // Only pass specific props that React Aria expects
   const ariaProps = {
@@ -65,59 +65,61 @@ export function useButton(props: UseButtonProps) {
     formNoValidate: ariaCompatibleProps.formNoValidate,
     formTarget: ariaCompatibleProps.formTarget,
     name: ariaCompatibleProps.name,
-  }
+  };
 
-  const { buttonProps: ariaButtonProps, isPressed } = useAriaButton(
-    ariaProps,
-    domRef
-  )
+  const {buttonProps: ariaButtonProps, isPressed} = useAriaButton(ariaProps, domRef);
 
-  const { isHovered, hoverProps } = useHover({ isDisabled })
+  const {isHovered, hoverProps} = useHover({isDisabled});
   const handleRipple = useCallback(
     (event: React.MouseEvent) => {
-      if (isDisabled) return
+      if (isDisabled) {
+        return;
+      }
 
-      const rect = domRef.current?.getBoundingClientRect()
-      if (!rect) return
+      const rect = domRef.current?.getBoundingClientRect();
 
-      const x = event.clientX - rect.left
-      const y = event.clientY - rect.top
-      const key = Date.now()
+      if (!rect) {
+        return;
+      }
 
-      setRipples((prev) => [...prev, { key, x, y }])
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const key = Date.now();
+
+      setRipples((prev) => [...prev, {key, x, y}]);
 
       setTimeout(() => {
-        setRipples((prev) => prev.filter((ripple) => ripple.key !== key))
-      }, 600)
+        setRipples((prev) => prev.filter((ripple) => ripple.key !== key));
+      }, 600);
     },
-    [isDisabled]
-  )
+    [isDisabled],
+  );
 
   const getButtonProps = useCallback(
     (props: any = {}) => ({
-      'data-disabled': toDataAttr(isDisabled),
-      'data-focus': toDataAttr(isFocused),
-      'data-pressed': toDataAttr(isPressed),
-      'data-focus-visible': toDataAttr(isFocusVisible),
-      'data-hover': toDataAttr(isHovered),
-      'data-loading': toDataAttr(isLoading),
+      "data-disabled": toDataAttr(isDisabled),
+      "data-focus": toDataAttr(isFocused),
+      "data-pressed": toDataAttr(isPressed),
+      "data-focus-visible": toDataAttr(isFocusVisible),
+      "data-hover": toDataAttr(isHovered),
+      "data-loading": toDataAttr(isLoading),
       ...mergeProps(
         ariaButtonProps,
         focusProps,
         hoverProps,
         {
           ref: domRef,
-          'aria-busy': isLoading,
-          'aria-live': isLoading ? 'polite' : undefined,
-          'aria-label': isLoading ? 'Loading' : props['aria-label'],
+          "aria-busy": isLoading,
+          "aria-live": isLoading ? "polite" : undefined,
+          "aria-label": isLoading ? "Loading" : props["aria-label"],
           onMouseDown: handleRipple,
           style: {
-            minHeight: '44px',
-            minWidth: '44px',
+            minHeight: "44px",
+            minWidth: "44px",
             ...props.style,
           },
         },
-        props
+        props,
       ),
     }),
     [
@@ -131,8 +133,8 @@ export function useButton(props: UseButtonProps) {
       isFocusVisible,
       isHovered,
       handleRipple,
-    ]
-  )
+    ],
+  );
 
   return {
     domRef,
@@ -145,7 +147,7 @@ export function useButton(props: UseButtonProps) {
     ripples,
     buttonProps: getButtonProps(),
     getButtonProps,
-  }
+  };
 }
 
-export type UseButtonReturn = ReturnType<typeof useButton>
+export type UseButtonReturn = ReturnType<typeof useButton>;

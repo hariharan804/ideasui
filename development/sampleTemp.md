@@ -10,7 +10,6 @@ onClick (optional): Handle click events
 className (optional): Custom CSS classes
 aria-label (optional): Accessibility label
 
-
 Behavior & States:
 Default: Component ready for interaction
 Hover: Visual feedback when mouse hovers
@@ -18,7 +17,6 @@ Focus: Keyboard accessible with visible focus ring
 Active: Visual change when being pressed
 Disabled: Not interactive, reduced opacity
 Loading: Show spinner, block user interaction
-
 
 Approach:
 Use React functional component with React.forwardRef for ref support

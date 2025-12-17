@@ -1,8 +1,8 @@
-import { defineConfig } from 'tsup'
+import {defineConfig} from "tsup";
 // Tsup config
 export function createSharedConfig({
-  entry = 'src/index.ts',
-  outDir = 'dist',
+  entry = "src/index.ts",
+  outDir = "dist",
   isWatch = false,
   external = [],
 }) {
@@ -11,16 +11,16 @@ export function createSharedConfig({
     outDir,
     clean: !isWatch,
     dts: true, // generate dts files
-    format: ['esm'],
+    format: ["esm"],
     bundle: true,
-    target: 'es2020',
+    target: "es2020",
     skipNodeModulesBundle: true,
     sourcemap: isWatch,
     minify: !isWatch,
-    external: ['react', 'react-dom', 'react/jsx-runtime', ...external],
+    external: ["react", "react-dom", "react/jsx-runtime", ...external],
     esbuildOptions(options) {
       // modern JSX
-      options.jsx = 'automatic'
+      options.jsx = "automatic";
     },
-  })
+  });
 }

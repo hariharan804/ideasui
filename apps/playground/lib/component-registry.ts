@@ -1,17 +1,18 @@
-import { Button } from '@ideasui/button'
-import { ComponentType } from 'react'
+import type {ComponentType} from "react";
+
+import {Button} from "@ideasui/button";
 
 export interface PropConfig {
-  type: 'select' | 'boolean' | 'string' | 'number'
-  options?: string[]
-  defaultValue: any
-  label: string
+  type: "select" | "boolean" | "string" | "number";
+  options?: string[];
+  defaultValue: any;
+  label: string;
 }
 
 export interface ComponentConfig {
-  component: ComponentType<any>
-  props: Record<string, PropConfig>
-  defaultChildren?: string
+  component: ComponentType<any>;
+  props: Record<string, PropConfig>;
+  defaultChildren?: string;
 }
 
 export const componentRegistry: Record<string, ComponentConfig> = {
@@ -19,32 +20,25 @@ export const componentRegistry: Record<string, ComponentConfig> = {
     component: Button,
     props: {
       variant: {
-        type: 'select',
-        options: [
-          'default',
-          'destructive',
-          'outline',
-          'secondary',
-          'ghost',
-          'link',
-        ],
-        defaultValue: 'default',
-        label: 'Variant',
+        type: "select",
+        options: ["default", "destructive", "outline", "secondary", "ghost", "link"],
+        defaultValue: "default",
+        label: "Variant",
       },
       size: {
-        type: 'select',
-        options: ['default', 'sm', 'lg', 'icon'],
-        defaultValue: 'default',
-        label: 'Size',
+        type: "select",
+        options: ["default", "sm", "lg", "icon"],
+        defaultValue: "default",
+        label: "Size",
       },
       disabled: {
-        type: 'boolean',
+        type: "boolean",
         defaultValue: false,
-        label: 'Disabled',
+        label: "Disabled",
       },
     },
-    defaultChildren: 'Click Me',
+    defaultChildren: "Click Me",
   },
-}
+};
 
-export const getComponentNames = () => Object.keys(componentRegistry)
+export const getComponentNames = () => Object.keys(componentRegistry);

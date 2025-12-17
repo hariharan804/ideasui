@@ -3,12 +3,14 @@
 ## 🎯 Core Principles
 
 ### Component Structure
+
 - Use `React.forwardRef` for all components
 - Export component and variants from same file
 - Include TypeScript interfaces with JSDoc
 - Implement proper `displayName` for debugging
 
 ### Styling Standards
+
 - Use `tailwind-variants` for variant systems
 - Import from `@ideasui/variants` for consistency
 - Support all color variants: primary, secondary, success, warning, danger
@@ -16,12 +18,14 @@
 - Implement radius variants: none, sm, md, lg, xl, full
 
 ### File Organization
+
 - Components in `packages/components/<name>/`
 - Primitives in `packages/primitives/<name>/`
 - Use kebab-case for all file and folder names
 - Separate concerns: component, types, variants, tests
 
 ### Code Quality
+
 - Max 50 lines per function
 - Max 300 lines per file
 - Use TypeScript strict mode
@@ -46,6 +50,7 @@ packages/components/button/
 ## 🔧 Required Exports
 
 Every component package must export:
+
 - Main component with forwardRef
 - TypeScript interfaces
 - Variant definitions

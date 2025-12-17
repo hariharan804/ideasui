@@ -18,7 +18,7 @@ npm install -D tailwindcss
 ## 📦 Usage
 
 ```tsx
-import { Button } from '@ideasui/ui'
+import {Button} from "@ideasui/ui";
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
       <Input placeholder="Enter your name" />
       <Button className="mt-4">Submit</Button>
     </Card>
-  )
+  );
 }
 ```
 
@@ -70,6 +70,7 @@ lib/
 ### 🧩 Primitives vs Components
 
 **Primitives** (`/primitives`) - Headless, unstyled components that provide behavior and logic:
+
 - No styling or visual appearance
 - Pure logic and state management
 - Render props or compound component patterns
@@ -77,6 +78,7 @@ lib/
 - Example: `@ideasui/toggle-primitive` provides toggle state without any UI
 
 **Components** (`/components`) - Complete, styled UI components ready to use:
+
 - Pre-styled with Tailwind CSS
 - Built on top of primitives or standalone
 - Consistent design system appearance
@@ -101,17 +103,17 @@ lib/
 
 ### 📦 Package Overview
 
-| Package | Description | Status |
-|---------|-------------|--------|
-| `@ideasui/provider` | Core provider for global configuration | ✅ Ready |
-| `@ideasui/tokens` | Design system tokens (colors, spacing, typography) | ✅ Ready |
-| `@ideasui/utils` | Shared utility functions | ✅ Ready |
-| `@ideasui/icons` | SVG icon components | ✅ Ready |
-| `@ideasui/box` | Flexible container component | ✅ Ready |
-| `@ideasui/button` | Interactive button component | ✅ Ready |
-| `@ideasui/toggle-primitive` | Headless toggle component | ✅ Ready |
-| `@ideasui/theme-controller` | Theme management system | ✅ Ready |
-| `@ideasui/cli` | Component generation CLI | ✅ Ready |
+| Package                     | Description                                        | Status   |
+| --------------------------- | -------------------------------------------------- | -------- |
+| `@ideasui/provider`         | Core provider for global configuration             | ✅ Ready |
+| `@ideasui/tokens`           | Design system tokens (colors, spacing, typography) | ✅ Ready |
+| `@ideasui/utils`            | Shared utility functions                           | ✅ Ready |
+| `@ideasui/icons`            | SVG icon components                                | ✅ Ready |
+| `@ideasui/box`              | Flexible container component                       | ✅ Ready |
+| `@ideasui/button`           | Interactive button component                       | ✅ Ready |
+| `@ideasui/toggle-primitive` | Headless toggle component                          | ✅ Ready |
+| `@ideasui/theme-controller` | Theme management system                            | ✅ Ready |
+| `@ideasui/cli`              | Component generation CLI                           | ✅ Ready |
 
 ## 📚 Documentation
 

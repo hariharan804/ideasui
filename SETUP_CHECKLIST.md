@@ -3,6 +3,7 @@
 ## 📋 Repository Setup
 
 ### 1. Project Structure
+
 - [x] Initialize monorepo structure
 - [x] Set up workspace configuration
 - [x] Create component library package
@@ -10,6 +11,7 @@
 - [x] Set up documentation package
 
 ### 2. Core Dependencies
+
 - [x] Install React & TypeScript
 - [x] Install Tailwind CSS
 - [x] Install ShadCN/UI dependencies
@@ -17,6 +19,7 @@
 - [x] Install testing framework (jest)
 
 ### 3. Development Tools
+
 - [x] ESLint configuration
 - [x] Prettier configuration
 - [x] Husky pre-commit hooks
@@ -24,6 +27,7 @@
 - [x] GitHub Actions CI/CD
 
 ### 4. Component Library Setup
+
 - [x] Initialize ShadCN/UI
 - [x] Create base component structure (Button)
 - [x] Set up component exports
@@ -31,6 +35,7 @@
 - [x] Set up CSS/Tailwind bundling
 
 ### 5. Playground Setup
+
 - [x] Create Next.js playground app
 - [x] Set up component playground app
 - [x] Configure hot reload
@@ -38,6 +43,7 @@
 - [x] Set up visual testing
 
 ### 6. Documentation
+
 - [x] README with usage examples
 - [x] Component API documentation
 - [x] Contributing guidelines
@@ -45,6 +51,7 @@
 - [x] License file
 
 ### 7. Build & Distribution
+
 - [x] Configure build scripts
 - [x] Set up NPM publishing
 - [x] Create release workflow
@@ -52,6 +59,7 @@
 - [x] Configure package.json exports
 
 ### 8. Testing
+
 - [x] Unit tests for components
 - [x] Visual regression tests
 - [x] Accessibility tests

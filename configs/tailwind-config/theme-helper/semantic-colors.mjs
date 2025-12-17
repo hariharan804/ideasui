@@ -1,4 +1,4 @@
-import chroma from 'chroma-js'
+import chroma from "chroma-js";
 
 /**
  * Generate secondary color using color theory
@@ -6,9 +6,9 @@ import chroma from 'chroma-js'
  * @param {string} variant - Color relationship type
  * @returns {string} - Secondary hex color
  */
-export function generateSecondary(primaryColor, variant = 'complementary') {
-  const primary = chroma(primaryColor)
-  const [h, s, l] = primary.hsl()
+export function generateSecondary(primaryColor, variant = "complementary") {
+  const primary = chroma(primaryColor);
+  const [h, s, l] = primary.hsl();
 
   const variants = {
     complementary: {
@@ -31,63 +31,63 @@ export function generateSecondary(primaryColor, variant = 'complementary') {
       saturation: s * 0.9,
       lightness: l * 0.8,
     },
-    'split-complementary': {
+    "split-complementary": {
       hue: (h + 150) % 360,
       saturation: s * 0.8,
       lightness: l * 0.9,
     },
-  }
+  };
 
-  const config = variants[variant] || variants.complementary
+  const config = variants[variant] || variants.complementary;
 
   return chroma
     .hsl(
       config.hue,
       Math.max(0, Math.min(1, config.saturation)),
-      Math.max(0, Math.min(1, config.lightness))
+      Math.max(0, Math.min(1, config.lightness)),
     )
-    .hex()
+    .hex();
 }
 
 /**
  * Generate semantic colors maintaining base hues but adapting to primary
  */
 function generateWarning(primaryColor) {
-  const [, s, l] = chroma(primaryColor).hsl()
-  return chroma.hsl(40, s * 0.9, Math.max(0.5, l * 0.9)).hex() // Amber base
+  const [, s, l] = chroma(primaryColor).hsl();
+  return chroma.hsl(40, s * 0.9, Math.max(0.5, l * 0.9)).hex(); // Amber base
 }
 
 function generateSuccess(primaryColor) {
-  const [, s, l] = chroma(primaryColor).hsl()
-  return chroma.hsl(142, s * 0.8, Math.max(0.35, l * 0.7)).hex() // Green base
+  const [, s, l] = chroma(primaryColor).hsl();
+  return chroma.hsl(142, s * 0.8, Math.max(0.35, l * 0.7)).hex(); // Green base
 }
 
 function generateDanger(primaryColor) {
-  const [, s, l] = chroma(primaryColor).hsl()
-  return chroma.hsl(0, s * 0.85, Math.max(0.55, l * 0.8)).hex() // Red base
+  const [, s, l] = chroma(primaryColor).hsl();
+  return chroma.hsl(0, s * 0.85, Math.max(0.55, l * 0.8)).hex(); // Red base
 }
 
 function generateInfo(primaryColor) {
-  const [, s, l] = chroma(primaryColor).hsl()
-  return chroma.hsl(200, s * 0.8, Math.max(0.5, l * 0.8)).hex() // Blue base
+  const [, s, l] = chroma(primaryColor).hsl();
+  return chroma.hsl(200, s * 0.8, Math.max(0.5, l * 0.8)).hex(); // Blue base
 }
 
 /**
  * Generate tertiary color using triadic harmony
  */
 function generateTertiary(primaryColor) {
-  const [h, s, l] = chroma(primaryColor).hsl()
-  return chroma.hsl((h + 240) % 360, s * 0.75, l * 0.85).hex()
+  const [h, s, l] = chroma(primaryColor).hsl();
+  return chroma.hsl((h + 240) % 360, s * 0.75, l * 0.85).hex();
 }
 
 /**
  * Generate neutral color (desaturated version of primary)
  */
 function generateNeutral(primaryColor) {
-  const primary = chroma(primaryColor)
-  const [h, s, l] = primary.hsl()
+  const primary = chroma(primaryColor);
+  const [h, s, l] = primary.hsl();
 
-  return chroma.hsl(h, 0.05, 0.45).hex()
+  return chroma.hsl(h, 0.05, 0.45).hex();
 }
 
 /**
@@ -103,7 +103,7 @@ function generateNeutral(primaryColor) {
  */
 export function getSemanticColors(primaryColor, options = {}) {
   const {
-    secondaryVariant = 'monochromatic',
+    secondaryVariant = "monochromatic",
     customSecondary = null,
     customTertiary = null,
     customWarning = null,
@@ -111,29 +111,28 @@ export function getSemanticColors(primaryColor, options = {}) {
     customDanger = null,
     customInfo = null,
     customNeutral = null,
-  } = options
+  } = options;
 
   // Validate primary color
   if (!chroma.valid(primaryColor)) {
-    throw new Error(`Invalid primary color: ${primaryColor}`)
+    throw new Error(`Invalid primary color: ${primaryColor}`);
   }
 
   // Generate all colors dynamically
-  const secondary =
-    customSecondary || generateSecondary(primaryColor, secondaryVariant)
-  const tertiary = customTertiary || generateTertiary(primaryColor)
-  const warning = customWarning || generateWarning(primaryColor)
-  const success = customSuccess || generateSuccess(primaryColor)
-  const danger = customDanger || generateDanger(primaryColor)
-  const info = customInfo || generateInfo(primaryColor)
-  const neutral = customNeutral || generateNeutral(primaryColor)
+  const secondary = customSecondary || generateSecondary(primaryColor, secondaryVariant);
+  const tertiary = customTertiary || generateTertiary(primaryColor);
+  const warning = customWarning || generateWarning(primaryColor);
+  const success = customSuccess || generateSuccess(primaryColor);
+  const danger = customDanger || generateDanger(primaryColor);
+  const info = customInfo || generateInfo(primaryColor);
+  const neutral = customNeutral || generateNeutral(primaryColor);
 
   // Validate all colors
-  ;[secondary, tertiary, warning, success, danger, info, neutral].forEach((color) => {
+  [secondary, tertiary, warning, success, danger, info, neutral].forEach((color) => {
     if (!chroma.valid(color)) {
-      throw new Error(`Generated invalid color: ${color}`)
+      throw new Error(`Generated invalid color: ${color}`);
     }
-  })
+  });
 
   return {
     primary: primaryColor,
@@ -144,7 +143,7 @@ export function getSemanticColors(primaryColor, options = {}) {
     danger: danger,
     info: info,
     neutral: neutral,
-  }
+  };
 }
 
 // ============ EXAMPLES ============

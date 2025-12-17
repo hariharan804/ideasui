@@ -5,5 +5,5 @@
  * that can be used across the application.
  */
 
-export * from './utils'
+export * from "./utils";
 // Export other shared utilities here

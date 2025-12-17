@@ -5,7 +5,9 @@ This directory contains comprehensive rules and guidelines for developing IdeasU
 ## 📋 Rule Categories
 
 ### 🎯 [Component Development](./component-development.md)
+
 Core principles for building React components including:
+
 - Component structure and patterns
 - Styling standards with Tailwind CSS
 - File organization and naming
@@ -13,7 +15,9 @@ Core principles for building React components including:
 - Accessibility guidelines
 
 ### 🏷️ [Naming Conventions](./naming-conventions.md)
+
 Comprehensive naming rules for:
+
 - File and folder naming (kebab-case)
 - Variable and function naming (camelCase)
 - Component and type naming (PascalCase)
@@ -21,7 +25,9 @@ Comprehensive naming rules for:
 - Package naming patterns
 
 ### 🔧 [Code Quality](./code-quality.md)
+
 Standards for maintaining high code quality:
+
 - Performance guidelines
 - Modern JavaScript/TypeScript patterns
 - Security best practices
@@ -30,7 +36,9 @@ Standards for maintaining high code quality:
 - Testing requirements
 
 ### ♿ [Accessibility](./accessibility.md)
+
 WCAG 2.1 AA compliance requirements:
+
 - Keyboard navigation support
 - Screen reader compatibility
 - Color contrast standards
@@ -39,7 +47,9 @@ WCAG 2.1 AA compliance requirements:
 - Focus management
 
 ### 📦 [Package Structure](./package-structure.md)
+
 Guidelines for organizing packages:
+
 - Package categories and organization
 - Standard file structures
 - Build and configuration requirements
@@ -85,28 +95,27 @@ These rules are living documents that should be updated as the project evolves:
 ## 🎯 Quick Reference
 
 ### File Naming:
+
 - Components: `button.tsx`
 - Types: `button-types.ts`
 - Tests: `button.test.tsx`
 - Stories: `button.stories.tsx`
 
 ### Component Pattern:
+
 ```tsx
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({className, variant, size, ...props}, ref) => {
     return (
-      <button
-        ref={ref}
-        className={cn(buttonVariants({ variant, size }), className)}
-        {...props}
-      />
-    )
-  }
-)
-Button.displayName = 'Button'
+      <button ref={ref} className={cn(buttonVariants({variant, size}), className)} {...props} />
+    );
+  },
+);
+Button.displayName = "Button";
 ```
 
 ### Package Structure:
+
 ```
 packages/components/button/
 ├── src/

@@ -13,24 +13,25 @@ pnpm add ../ui
 ### Storybook Configuration
 
 #### `.storybook/main.ts`
+
 ```typescript
-import type { StorybookConfig } from '@storybook/react-vite';
+import type {StorybookConfig} from "@storybook/react-vite";
 
 const config: StorybookConfig = {
-  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
+  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx|mdx)"],
   addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    '@storybook/addon-a11y',
-    '@storybook/addon-docs'
+    "@storybook/addon-essentials",
+    "@storybook/addon-interactions",
+    "@storybook/addon-a11y",
+    "@storybook/addon-docs",
   ],
   framework: {
-    name: '@storybook/react-vite',
+    name: "@storybook/react-vite",
     options: {},
   },
   typescript: {
     check: false,
-    reactDocgen: 'react-docgen-typescript',
+    reactDocgen: "react-docgen-typescript",
   },
 };
 
@@ -38,13 +39,14 @@ export default config;
 ```
 
 #### `.storybook/preview.ts`
+
 ```typescript
-import type { Preview } from '@storybook/react';
-import '../src/index.css'; // Tailwind styles
+import type {Preview} from "@storybook/react";
+import "../src/index.css"; // Tailwind styles
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
+    actions: {argTypesRegex: "^on[A-Z].*"},
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -65,6 +67,7 @@ export default preview;
 ### Button Component Story
 
 #### `src/stories/Button.stories.tsx`
+
 ```typescript
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '@mylib/ui';
@@ -124,6 +127,7 @@ export const Sizes: Story = {
 ### Interactive Playground Story
 
 #### `src/stories/Playground.stories.tsx`
+
 ```typescript
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button, Input, Card } from '@mylib/ui';
@@ -141,7 +145,7 @@ export default meta;
 export const FormExample: StoryObj = {
   render: () => {
     const [value, setValue] = useState('');
-    
+
     return (
       <Card className="p-6 w-96">
         <div className="space-y-4">
@@ -150,7 +154,7 @@ export const FormExample: StoryObj = {
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
-          <Button 
+          <Button
             onClick={() => alert(`Value: ${value}`)}
             disabled={!value}
           >
@@ -168,21 +172,20 @@ export const FormExample: StoryObj = {
 ### Tailwind Setup
 
 #### `tailwind.config.js`
+
 ```javascript
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-    "../ui/src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}", "../ui/src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {},
   },
   plugins: [],
-}
+};
 ```
 
 #### `src/index.css`
+
 ```css
 @tailwind base;
 @tailwind components;
@@ -198,6 +201,7 @@ pnpm add -D @storybook/test-runner chromatic
 ```
 
 #### `package.json` scripts
+
 ```json
 {
   "scripts": {
@@ -227,7 +231,7 @@ pnpm add -D gh-pages
 name: Deploy Storybook
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   deploy:
@@ -236,7 +240,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
       - run: pnpm install
       - run: pnpm build-storybook
       - uses: peaceiris/actions-gh-pages@v3

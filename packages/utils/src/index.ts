@@ -4,16 +4,16 @@
 // DO NOT export ARIA internals here
 
 // Core utilities
-export { mergeProps, getUniqueID } from './shared/utils'
+export {mergeProps, getUniqueID} from "./shared/utils";
 
 // style
-export { cn } from './style/tailwind'
+export {cn} from "./style/tailwind";
 
 // aria
 // export * from './aria'
 
 // dom
-export { toDataAttr } from './dom/attributes'
+export {toDataAttr} from "./dom/attributes";
 
 // react
 // export * from './react'

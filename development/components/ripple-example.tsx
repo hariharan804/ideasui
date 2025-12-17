@@ -1,9 +1,9 @@
-import React from 'react'
-import { Ripple } from '@ideasui/ripple'
+import React from "react";
+import {Ripple} from "@ideasui/ripple";
 
 export function RippleExample() {
   return (
-    <div className="p-8 space-y-8">
+    <div className="space-y-8 p-8">
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Ripple Component Examples</h2>
         <p className="text-gray-600">
@@ -52,15 +52,9 @@ export function RippleExample() {
           <Ripple rippleColor="#ff6b6b" variant="outline">
             Custom Color
           </Ripple>
-          <Ripple center>
-            Center Ripple
-          </Ripple>
-          <Ripple duration={1200}>
-            Slow Animation
-          </Ripple>
-          <Ripple duration={300}>
-            Fast Animation
-          </Ripple>
+          <Ripple center>Center Ripple</Ripple>
+          <Ripple duration={1200}>Slow Animation</Ripple>
+          <Ripple duration={300}>Fast Animation</Ripple>
         </div>
       </section>
 
@@ -68,24 +62,17 @@ export function RippleExample() {
       <section className="space-y-4">
         <h3 className="text-lg font-semibold">Interactive</h3>
         <div className="flex gap-4">
-          <Ripple 
-            color="primary"
-            onClick={() => alert('Primary action triggered!')}
-          >
+          <Ripple color="primary" onClick={() => alert("Primary action triggered!")}>
             Primary Action
           </Ripple>
-          <Ripple 
-            variant="outline"
+          <Ripple
             color="secondary"
-            onClick={() => console.log('Secondary action')}
+            variant="outline"
+            onClick={() => console.log("Secondary action")}
           >
             Secondary Action
           </Ripple>
-          <Ripple 
-            variant="ghost"
-            color="success"
-            onClick={() => alert('Success!')}
-          >
+          <Ripple color="success" variant="ghost" onClick={() => alert("Success!")}>
             Success Action
           </Ripple>
         </div>
@@ -108,18 +95,18 @@ export function RippleExample() {
             <span>❤️</span>
             Like
           </Ripple>
-          <Ripple variant="outline" className="gap-2">
+          <Ripple className="gap-2" variant="outline">
             <span>📤</span>
             Share
           </Ripple>
-          <Ripple variant="ghost" className="gap-2">
+          <Ripple className="gap-2" variant="ghost">
             <span>💬</span>
             Comment
           </Ripple>
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default RippleExample
+export default RippleExample;

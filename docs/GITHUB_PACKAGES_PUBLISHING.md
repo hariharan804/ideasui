@@ -23,13 +23,16 @@ Each component package is configured for GitHub Packages:
 ### 2. Authentication Setup
 
 #### Root `.npmrc`
+
 ```
 @mylib:registry=https://npm.pkg.github.com
 //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
 ```
 
 #### GitHub Token
+
 Create a Personal Access Token with `packages:write` permission:
+
 1. Go to GitHub Settings → Developer settings → Personal access tokens
 2. Generate new token (classic)
 3. Select scopes: `write:packages`, `read:packages`
@@ -54,6 +57,7 @@ pnpm publish --registry https://npm.pkg.github.com
 ### Automated Publishing (GitHub Actions)
 
 #### Workflow Trigger
+
 Publishing happens automatically when you create a git tag:
 
 ```bash
@@ -63,6 +67,7 @@ git push origin v1.0.0
 ```
 
 #### Workflow File
+
 ```yaml
 # .github/workflows/publish.yml
 name: Publish to GitHub Packages
@@ -70,7 +75,7 @@ name: Publish to GitHub Packages
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   publish:
@@ -85,9 +90,9 @@ jobs:
           version: 8
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'pnpm'
-          registry-url: 'https://npm.pkg.github.com'
+          node-version: "18"
+          cache: "pnpm"
+          registry-url: "https://npm.pkg.github.com"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build packages
@@ -134,6 +139,7 @@ pnpm add @mylib/button
 ### Example: Publishing Button Component v1.0.0
 
 #### Step 1: Prepare Release
+
 ```bash
 # Update version in package.json
 cd packages/button
@@ -141,11 +147,13 @@ npm version 1.0.0
 ```
 
 #### Step 2: Build Package
+
 ```bash
 pnpm build
 ```
 
 #### Step 3: Create Git Tag
+
 ```bash
 git add .
 git commit -m "feat: release button component v1.0.0"
@@ -155,11 +163,13 @@ git push origin v1.0.0
 ```
 
 #### Step 4: Verify Publication
+
 1. Go to your GitHub repository
 2. Click "Packages" tab
 3. Verify `@mylib/button` package appears
 
 #### Step 5: Test Installation
+
 ```bash
 # In a test project
 echo "@mylib:registry=https://npm.pkg.github.com" > .npmrc
@@ -169,6 +179,7 @@ npm install @mylib/button
 ## 🔍 Package Visibility
 
 ### Public Packages
+
 ```json
 {
   "publishConfig": {
@@ -179,6 +190,7 @@ npm install @mylib/button
 ```
 
 ### Private Packages (Default)
+
 ```json
 {
   "publishConfig": {
@@ -192,18 +204,21 @@ npm install @mylib/button
 ### Common Issues
 
 #### 1. Authentication Failed
+
 ```bash
 # Check token permissions
 # Ensure token has packages:write scope
 ```
 
 #### 2. Package Not Found
+
 ```bash
 # Verify registry configuration
 npm config get @mylib:registry
 ```
 
 #### 3. Permission Denied
+
 ```bash
 # Check repository permissions
 # Ensure you have write access to the repository
@@ -225,6 +240,7 @@ pnpm publish --dry-run --registry https://npm.pkg.github.com
 ## 📊 Package Management
 
 ### View Published Packages
+
 ```bash
 # List all versions
 npm view @mylib/button versions --registry=https://npm.pkg.github.com
@@ -234,6 +250,7 @@ npm view @mylib/button --registry=https://npm.pkg.github.com
 ```
 
 ### Unpublish Package
+
 ```bash
 # Unpublish specific version
 npm unpublish @mylib/button@1.0.0 --registry=https://npm.pkg.github.com
@@ -242,6 +259,7 @@ npm unpublish @mylib/button@1.0.0 --registry=https://npm.pkg.github.com
 ## 🔄 Multi-Package Publishing
 
 ### Publish All Packages
+
 ```bash
 # Build all packages
 pnpm build
@@ -255,6 +273,7 @@ done
 ```
 
 ### Workspace Publishing
+
 ```bash
 # Using pnpm workspaces
 pnpm -r publish --registry https://npm.pkg.github.com

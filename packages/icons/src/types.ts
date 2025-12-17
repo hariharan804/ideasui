@@ -1,6 +1,6 @@
-import * as React from 'react'
+import type * as React from "react";
 
 export interface IconProps extends React.SVGAttributes<SVGElement> {
-  size?: number | string
-  color?: string
+  size?: number | string;
+  color?: string;
 }

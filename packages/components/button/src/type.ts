@@ -1,119 +1,120 @@
-import * as React from 'react'
-import { type VariantProps } from 'tailwind-variants'
-import { buttonVariants } from './button'
+import type * as React from "react";
+import type {VariantProps} from "tailwind-variants";
+import type {buttonVariants} from "./button";
 
 export interface ButtonClassNames {
   /**
    * Override root button classes
    */
-  root?: string
+  root?: string;
 
   /**
    * Override loading spinner classes
    */
-  spinner?: string
+  spinner?: string;
 
   /**
    * Override content/text classes
    */
-  content?: string
+  content?: string;
 
   /**
    * Override loading text classes
    */
-  loadingText?: string
+  loadingText?: string;
 
   /**
    * Override left icon classes
    */
-  leftIcon?: string
+  leftIcon?: string;
 
   /**
    * Override right icon classes
    */
-  rightIcon?: string
+  rightIcon?: string;
 }
 
 export interface ButtonProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'color'>,
+  extends
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "color">,
     VariantProps<typeof buttonVariants> {
   /**
    * The component to render as component
    * @default button
    */
-  component?: React.ElementType
+  component?: React.ElementType;
 
   /**
    * Show loading spinner and disable the button
    * @default false
    */
-  loading?: boolean
+  loading?: boolean;
 
   /**
    * Text to show when loading
    */
-  loadingText?: string
+  loadingText?: string;
 
   /**
    * Make button full width
    * @default false
    */
-  fullWidth?: boolean
+  fullWidth?: boolean;
 
   /**
    * Radius of the button
    * @default md
    */
-  radius?: 'full' | 'none' | 'sm' | 'md' | 'lg' | 'xl'
+  radius?: "full" | "none" | "sm" | "md" | "lg" | "xl";
   /**
    * Icon to show before the button text
    */
-  leftIcon?: React.ReactNode
+  leftIcon?: React.ReactNode;
 
   /**
    * Icon to show after the button text
    */
-  rightIcon?: React.ReactNode
+  rightIcon?: React.ReactNode;
 
   /**
    * Override specific element classes
    */
-  classNames?: ButtonClassNames
+  classNames?: ButtonClassNames;
 
   /**
    * Enable ripple effect on click
    * @default false
    */
-  ripple?: boolean
+  ripple?: boolean;
 
   /**
    * Custom variant for button+
    * @default false
    */
-  customVariant?: string
+  customVariant?: string;
 
   /**
    * ARIA label for accessibility
    */
-  'aria-label'?: string
+  "aria-label"?: string;
 
   /**
    * ARIA described by for accessibility
    */
-  'aria-describedby'?: string
+  "aria-describedby"?: string;
 
   /**
    * ARIA expanded state for accessibility
    */
-  'aria-expanded'?: boolean
+  "aria-expanded"?: boolean;
 
   /**
    * ARIA pressed state for accessibility
    */
-  'aria-pressed'?: boolean
+  "aria-pressed"?: boolean;
 
   /**
    * ARIA controls for accessibility
    */
-  'aria-controls'?: string
+  "aria-controls"?: string;
 }
