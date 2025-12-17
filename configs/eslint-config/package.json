@@ -11,8 +11,8 @@
     "./react-namespace": "./react-namespace.js"
   },
   "dependencies": {
-    "@next/eslint-plugin-next": "^16.0.7",
-    "eslint-config-next": "^16.0.7",
+    "@next/eslint-plugin-next": "^16.0.10",
+    "eslint-config-next": "^16.0.10",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.5.4",
@@ -26,11 +26,11 @@
     "type-check": "echo 'No TypeScript files to check'"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@typescript-eslint/eslint-plugin": "^8.48.1",
-    "@typescript-eslint/parser": "^8.48.1",
-    "eslint": "^9.39.1",
+    "@eslint/js": "^9.39.2",
+    "@typescript-eslint/eslint-plugin": "^8.50.0",
+    "@typescript-eslint/parser": "^8.50.0",
+    "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.1.18"
   }
 }

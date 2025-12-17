@@ -23,11 +23,11 @@
   },
   "devDependencies": {
     "@ideasui/eslint-config": "workspace:*",
-    "@ideasui/variants": "workspace:*",
     "@ideasui/utils": "workspace:*",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "typescript": "^5.9.3",
-    "clean-package": "^2.2.0"
+    "@ideasui/variants": "workspace:*",
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.7",
+    "clean-package": "^2.2.0",
+    "typescript": "^5.9.3"
   }
 }

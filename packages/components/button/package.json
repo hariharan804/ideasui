@@ -20,8 +20,7 @@
   "dependencies": {
     "@ideasui/utils": "workspace:*",
     "@ideasui/variants": "workspace:*",
-    "react-aria": "^3.32.1",
-    "@radix-ui/react-slot": "^1.2.4"
+    "react-aria": "^3.45.0"
   },
   "devDependencies": {
     "@ideasui/eslint-config": "workspace:*",
