@@ -13,10 +13,7 @@
   "baseBranch": "master",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@ideasui/eslint-config",
-    "@ideasui/jest-config",
-    "@ideasui/tsconfig",
-    "@ideasui/tsup-config"
+    "@ideasui/eslint-config"
   ],
   "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
     "onlyUpdatePeerDependentsWhenOutOfRange": true

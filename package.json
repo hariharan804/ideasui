@@ -68,6 +68,7 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@storybook/addon-a11y": "^10.1.4",
+    "commitlint-plugin-function-rules": "^4.0.2",
     "@storybook/addon-docs": "^10.1.4",
     "@storybook/react-vite": "^10.1.4",
     "@testing-library/jest-dom": "^6.9.1",
@@ -104,7 +105,8 @@
     "react-dom": "^18.2.0"
   },
   "engines": {
-    "node": ">=18.18.0"
+    "pnpm": ">=10.x",
+    "node": ">=22.x"
   },
   "packageManager": "pnpm@9.12.3"
 }
