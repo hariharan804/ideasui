@@ -1,12 +1,24 @@
 {
-  "extends": "./configs/tsconfig/base.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"],
-      "@mylib/*": ["./packages/*/src"]
-    }
+    "target": "esnext",
+    "module": "esnext",
+    "types": ["@testing-library/jest-dom", "node"],
+    "lib": ["dom", "esnext"],
+    "declaration": true,
+    "sourceMap": true,
+    "moduleResolution": "bundler",
+    "skipLibCheck": true,
+    "strict": true,
+    "isolatedModules": true,
+    "noFallthroughCasesInSwitch": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "noImplicitAny": false
   },
-  "include": ["src", "packages", "apps", "playground"],
-  "exclude": ["node_modules", "dist", ".next"]
+  "include": ["packages"],
+  "exclude": ["**/node_modules", "**/dist", "**/.turbo"]
 }

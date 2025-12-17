@@ -1,5 +1,14 @@
 dist/
 node_modules/
 .next/
-coverage/
-*.md
+.coverage/
+.changeset
+.next
+build
+pnpm-lock.yaml
+!.storybook
+!.commitlintrc.cjs
+!.lintstagedrc.cjs
+!jest.config.js
+!plopfile.js
+!tsup.config.ts

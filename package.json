@@ -28,6 +28,8 @@
     "test:coverage": "jest --coverage",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix",
+    "lint1": "eslint --max-warnings=0 --cache",
+    "lint1:fix": "eslint --max-warnings=0 --fix --cache",
     "type-check": "turbo run type-check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -42,15 +44,7 @@
     "create": "plop",
     "check-naming": "node scripts/check-naming.js"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md,css}": [
-      "prettier --write"
-    ]
-  },
+
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"

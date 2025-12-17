@@ -104,8 +104,8 @@ export const buttonVariants = tv({...})
 - Core: `@ideasui/provider`, `@ideasui/variants`
 
 ### Internal Packages:
-- Configs: `@ideasui/eslint-config`, `@ideasui/tsconfig`
-- Tools: `@ideasui/cli`, `@ideasui/build-tools`
+- Configs: `@ideasui/eslint-config`
+- Tools: `@ideasui/cli`
 
 ## 🚫 Naming Anti-patterns
 

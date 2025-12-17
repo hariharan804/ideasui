@@ -1,8 +1,5 @@
 {
-  "extends": "@ideasui/tsconfig/base.json",
-  "compilerOptions": {
-    "outDir": "dist"
-  },
-  "include": ["**/*.ts", "**/*.js", "colors-gen.mjs", "theme-helper/runner.mjs", "theme-helper/color-contrast-checker.mjs", "theme-helper/shade-generator-old.mjs"],
+  "extends": "../../tsconfig.json",
+  "include": ["**/*.ts", "**/*.js"],
   "exclude": ["node_modules", "dist"]
 }

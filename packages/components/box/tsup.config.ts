@@ -1,7 +1,6 @@
-import { createSharedConfig } from '@ideasui/tsup-config'
-
-const isWatch = process.argv.includes('--watch')
+import { createSharedConfig } from '../../../configs/tsup-config/index.mjs'
 
 export default createSharedConfig({
-  isWatch,
+  entry: 'src/index.ts',
+  outDir: 'dist',
 })

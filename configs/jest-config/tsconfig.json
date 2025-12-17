@@ -1,8 +1,0 @@
-{
-  "extends": "@ideasui/tsconfig/base.json",
-  "compilerOptions": {
-    "outDir": "dist"
-  },
-  "include": ["**/*.ts", "**/*.js"],
-  "exclude": ["node_modules", "dist"]
-}

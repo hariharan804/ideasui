@@ -17,8 +17,6 @@
     "ora": "^9.0.0"
   },
   "devDependencies": {
-    "@ideasui/tsconfig": "workspace:*",
-    "@ideasui/tsup-config": "workspace:*",
     "typescript": "^5.9.3"
   }
 }

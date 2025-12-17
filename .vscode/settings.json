@@ -12,9 +12,12 @@
   "files.associations": {
     "*.css": "tailwindcss"
   },
+  "tailwindCSS.experimental.configFile": {
+    "apps/docs/styles/globals.css": "apps/playground/**/*",
+    "packages/storybook/.storybook/style.css": ["packages/core/theme/**/*", "packages/components/**/*"]
+  },
   "tailwindCSS.experimental.classRegex": [
-    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
-    ["cn\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+    ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
   "search.exclude": {
     "**/node_modules": true,
@@ -29,6 +32,5 @@
     "**/.turbo": true,
     "**/node_modules": false
   },
-  "kiroAgent.configureMCP": "Disabled",
   "cSpell.words": ["ideasui"]
 }

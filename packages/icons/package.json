@@ -24,8 +24,6 @@
     "@ideasui/utils": "workspace:*"
   },
   "devDependencies": {
-    "@ideasui/tsconfig": "workspace:*",
-    "@ideasui/tsup-config": "workspace:*",
     "typescript": "^5.9.3"
   }
 }

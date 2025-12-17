@@ -4,7 +4,7 @@
 // DO NOT export ARIA internals here
 
 // Core utilities
-export { mergeProps } from './shared/utils'
+export { mergeProps, getUniqueID } from './shared/utils'
 
 // style
 export { cn } from './style/tailwind'

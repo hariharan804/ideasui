@@ -1,23 +1,38 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Ripple } from '../index'
+import { Ripple } from '../ripple'
 
 const meta: Meta<typeof Ripple> = {
   title: 'Components/Ripple',
   component: Ripple,
   parameters: {
-    layout: 'centered'
+    layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: { type: 'select' },
-      options: ['default', 'secondary']
+      control: 'select',
+      options: ['solid', 'outline', 'ghost'],
+    },
+    color: {
+      control: 'select',
+      options: ['default', 'primary', 'secondary', 'success', 'warning', 'danger'],
     },
     size: {
-      control: { type: 'select' },
-      options: ['sm', 'md', 'lg']
-    }
-  }
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+    },
+    radius: {
+      control: 'select',
+      options: ['none', 'sm', 'md', 'lg', 'xl', 'full'],
+    },
+    disabled: {
+      control: 'boolean',
+    },
+
+    rippleColor: {
+      control: 'color',
+    },
+  },
 }
 
 export default meta
@@ -25,25 +40,129 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    children: 'Ripple Component'
-  }
+    children: 'Click me',
+  },
 }
 
 export const Variants: Story = {
   render: () => (
-    <div className="flex gap-2">
-      <Ripple variant="default">Default</Ripple>
-      <Ripple variant="secondary">Secondary</Ripple>
+    <div className="flex gap-4">
+      <Ripple variant="solid">Solid</Ripple>
+      <Ripple variant="outline">Outline</Ripple>
+      <Ripple variant="ghost">Ghost</Ripple>
     </div>
-  )
+  ),
+}
+
+export const Colors: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-4">
+      <Ripple color="default">Default</Ripple>
+      <Ripple color="primary">Primary</Ripple>
+      <Ripple color="secondary">Secondary</Ripple>
+      <Ripple color="success">Success</Ripple>
+      <Ripple color="warning">Warning</Ripple>
+      <Ripple color="danger">Danger</Ripple>
+    </div>
+  ),
 }
 
 export const Sizes: Story = {
   render: () => (
-    <div className="flex gap-2 items-center">
-      <Ripple size="sm">Small</Ripple>
-      <Ripple size="md">Medium</Ripple>
-      <Ripple size="lg">Large</Ripple>
+    <div className="flex items-center gap-4">
+      <Ripple size="xs">XS</Ripple>
+      <Ripple size="sm">SM</Ripple>
+      <Ripple size="md">MD</Ripple>
+      <Ripple size="lg">LG</Ripple>
+      <Ripple size="xl">XL</Ripple>
     </div>
-  )
+  ),
+}
+
+export const Radius: Story = {
+  render: () => (
+    <div className="flex gap-4">
+      <Ripple radius="none">None</Ripple>
+      <Ripple radius="sm">Small</Ripple>
+      <Ripple radius="md">Medium</Ripple>
+      <Ripple radius="lg">Large</Ripple>
+      <Ripple radius="xl">XL</Ripple>
+      <Ripple radius="full">Full</Ripple>
+    </div>
+  ),
+}
+
+export const CustomRippleColor: Story = {
+  args: {
+    children: 'Custom Ripple',
+    rippleColor: '#ff6b6b',
+    variant: 'outline',
+  },
+}
+
+
+
+export const Disabled: Story = {
+  args: {
+    children: 'Disabled',
+    disabled: true,
+  },
+}
+
+export const Interactive: Story = {
+  render: () => (
+    <div className="grid grid-cols-3 gap-4">
+      <Ripple 
+        variant="solid" 
+        color="primary"
+        onClick={() => alert('Primary clicked!')}
+      >
+        Primary Action
+      </Ripple>
+      <Ripple 
+        variant="outline" 
+        color="secondary"
+        onClick={() => alert('Secondary clicked!')}
+      >
+        Secondary Action
+      </Ripple>
+      <Ripple 
+        variant="ghost" 
+        color="success"
+        onClick={() => alert('Success clicked!')}
+      >
+        Success Action
+      </Ripple>
+    </div>
+  ),
+}
+
+export const WithIcons: Story = {
+  render: () => (
+    <div className="flex gap-4">
+      <Ripple className="gap-2">
+        <span>❤️</span>
+        Like
+      </Ripple>
+      <Ripple variant="outline" className="gap-2">
+        <span>📤</span>
+        Share
+      </Ripple>
+      <Ripple variant="ghost" className="gap-2">
+        <span>💬</span>
+        Comment
+      </Ripple>
+    </div>
+  ),
+}
+
+export const Playground: Story = {
+  args: {
+    children: 'Playground',
+    variant: 'solid',
+    color: 'primary',
+    size: 'md',
+    radius: 'md',
+    disabled: false,
+  },
 }

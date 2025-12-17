@@ -1,11 +1,6 @@
-import { defineConfig } from 'tsup'
+import { createSharedConfig } from '../../../configs/tsup-config/index.mjs'
 
-export default defineConfig({
-  entry: ['src/index.ts'],
-  format: ['cjs', 'esm'],
-  dts: true,
-  clean: true,
-  external: ['react', 'react-dom'],
-  minify: true,
-  treeshake: true
+export default createSharedConfig({
+  entry: 'src/index.ts',
+  outDir: 'dist',
 })

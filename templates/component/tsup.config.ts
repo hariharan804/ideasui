@@ -1,5 +1,4 @@
-// packages/button/tsup.config.ts
-import { createSharedConfig } from '@ideasui/tsup-config'
+import { createSharedConfig } from '../../tsup-config.mjs'
 
 const isWatch = process.argv.includes('--watch')
 

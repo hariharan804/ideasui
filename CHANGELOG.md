@@ -9,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Initial component library setup
-- Button component with ShadCN/UI foundation
 - TypeScript support
 - Storybook playground
 - Testing framework (Jest + Playwright)

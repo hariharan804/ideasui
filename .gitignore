@@ -100,3 +100,68 @@ Thumbs.db
 
 # Turbo
 .turbo
+
+# Debug logs (all locations)
+**/debug.log
+**/debug.log.*
+
+# Build artifacts
+**/dist/
+**/build/
+**/.next/
+**/out/
+**/coverage/
+**/.nyc_output/
+
+# Cache directories
+**/.cache/
+**/.parcel-cache/
+**/.eslintcache
+**/.rpt2_cache/
+**/.rts2_cache_*/
+**/*.tsbuildinfo
+
+# Package manager
+**/node_modules/
+**/.pnp
+**/.pnp.js
+**/pnpm-lock.yaml
+**/yarn.lock
+**/package-lock.json
+
+# Environment files
+**/.env
+**/.env.*
+!**/.env.example
+
+# IDE and editor files
+**/.vscode/settings.json
+**/.idea/
+**/*.swp
+**/*.swo
+**/*~
+
+# OS files
+**/.DS_Store
+**/.DS_Store?
+**/._*
+**/Thumbs.db
+**/ehthumbs.db
+
+# Temporary files
+**/tmp/
+**/temp/
+**/*.tmp
+**/*.temp
+
+# Test artifacts
+**/test-results/
+**/playwright-report/
+**/playwright/.cache/
+
+# Storybook
+**/storybook-static/
+**/.storybook-out/
+
+# Changesets
+**/.changeset/debug.log

@@ -1,6 +1,13 @@
 import { cn } from '../style'
 
 /**
+ * Generate a unique ID with optional prefix
+ */
+export function getUniqueID(prefix: string = '') {
+  return `${prefix}${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+}
+
+/**
  * Merge multiple props objects
  */
 export function mergeProps(
@@ -29,4 +36,8 @@ export function mergeProps(
   }
 
   return result
+}
+
+export function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max)
 }

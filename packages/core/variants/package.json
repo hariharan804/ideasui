@@ -2,9 +2,11 @@
   "name": "@ideasui/variants",
   "version": "0.1.0",
   "description": "Tailwind CSS variants system for IdeasUI components",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "exports": {
     ".": {
-       "default": "./src/index.ts"
+      "default": "./src/index.ts"
     },
     "./*": {
       "default": "./src/*.ts"

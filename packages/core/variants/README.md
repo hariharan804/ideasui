@@ -1,6 +1,15 @@
 # @ideasui/variants
 
 Dynamic variant system for IdeasUI components using tailwind-variants.
+"exports": {
+    ".": "./src/index.ts",
+    "./button": "./src/button.ts",
+    "./input": "./src/input.ts",
+    "./card": "./src/card.ts",
+    "./badge": "./src/badge.ts",
+    "./ripple": "./src/ripple.ts",
+    "./system": "./src/system.ts"
+  },
 
 ## 📦 Package Structure
 

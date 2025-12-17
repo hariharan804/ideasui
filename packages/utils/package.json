@@ -31,9 +31,7 @@
   },
   "devDependencies": {
     "@ideasui/eslint-config": "workspace:*",
-    "@ideasui/jest-config": "workspace:*",
     "@ideasui/tsconfig": "workspace:*",
-    "@ideasui/tsup-config": "workspace:*",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "clean-package": "^2.2.0",

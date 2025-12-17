@@ -1,0 +1,25 @@
+module.exports = {
+  extends: ["@commitlint/config-conventional"],
+  helpUrl: "https://github.com/@ideas2logic/ideasui/blob/main/CONTRIBUTING.md#commit-convention",
+  rules: {
+    "type-enum": [
+      2,
+      "always",
+      ["feat", "fix", "docs", "style", "refactor", "perf", "test", "build", "ci", "chore", "revert", "add", "update", "remove"],
+    ],
+    "scope-enum": [
+      1,
+      "always",
+      ["components", "utils", "hooks", "icons", "themes", "docs", "config", "deps", "release"],
+    ],
+    "scope-empty": [0],
+    "header-max-length": [2, "always", 100],
+    "body-max-line-length": [2, "always", 100],
+    "footer-max-line-length": [2, "always", 100],
+    "subject-case": [2, "always", "lower-case"],
+    "subject-empty": [2, "never"],
+    "subject-full-stop": [2, "never", "."],
+    "type-case": [2, "always", "lower-case"],
+    "type-empty": [2, "never"],
+  },
+}

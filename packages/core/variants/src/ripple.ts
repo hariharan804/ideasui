@@ -31,13 +31,16 @@ const compoundVariants = Object.entries(colors).flatMap(([colorKey, colorValue])
  */
 export const rippleVariants = tv({
   base: [
-    // Add base classes here
+    'inline-flex items-center justify-center',
+    'font-medium transition-colors duration-200',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
+    'disabled:pointer-events-none disabled:opacity-50',
   ],
   variants: {
     variant: {
       solid: '',
       outline: 'border-2 bg-transparent',
-      ghost: 'bg-transparent',
+      ghost: 'bg-transparent hover:bg-opacity-10',
     },
     color: colorVariants,
     size: buttonSizes,
@@ -46,7 +49,7 @@ export const rippleVariants = tv({
   compoundVariants,
   defaultVariants: {
     variant: 'solid',
-    color: 'default',
+    color: 'primary',
     size: 'md',
     radius: 'md',
   },
