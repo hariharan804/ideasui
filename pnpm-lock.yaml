@@ -182,6 +182,9 @@ importers:
       '@ideasui/theme-controller':
         specifier: workspace:*
         version: link:../../packages/core/theme-controller
+      '@ideasui/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       lucide-react:
         specifier: ^0.556.0
         version: 0.556.0(react@19.2.3)

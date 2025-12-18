@@ -3,6 +3,7 @@ import React from "react";
 import {useRouter} from "next/navigation";
 import {ArrowLeft, Moon, Sun, Github, ExternalLink} from "lucide-react";
 import {useTheme} from "@ideasui/theme-controller";
+import Link from "next/link";
 
 interface HeaderProps {
   showBackButton?: boolean;
@@ -27,7 +28,7 @@ function Header({showBackButton = false, title, subtitle}: HeaderProps) {
   };
 
   const goToDocs = () => {
-    window.open("/docs", "_blank");
+    router.push("/docs");
   };
 
   return (
@@ -48,7 +49,11 @@ function Header({showBackButton = false, title, subtitle}: HeaderProps) {
               </>
             ) : null}
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{title || "IdeasUI Playground"}</h1>
+              <Link href={"/"}>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  {title || "IdeasUI Playground"}
+                </h1>
+              </Link>
               {subtitle ? <p className="mt-1 text-sm text-gray-600">{subtitle}</p> : null}
             </div>
           </div>

@@ -1,5 +1,5 @@
 "use client";
-import { ArrowRight, Palette, Package, Wrench, Eye, Code2 } from "lucide-react";
+import {ArrowRight, Palette, Package, Wrench, Eye, Code2} from "lucide-react";
 
 const navigationItems = [
   {
@@ -26,7 +26,7 @@ const navigationItems = [
   {
     title: "Preview",
     description: "Live component previews and demos",
-    href: "/preview",
+    href: "/playground",
     icon: Eye,
     gradient: "from-orange-500 to-red-500",
   },
@@ -51,7 +51,7 @@ export default function Home() {
               </span>{" "}
               Playground
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600 max-w-2xl mx-auto">
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
               Explore components, test different versions, and experiment with our design system.
               Everything you need to build beautiful interfaces.
             </p>
@@ -68,36 +68,36 @@ export default function Home() {
               <a
                 key={item.href}
                 href={item.href}
-                className="group relative overflow-hidden rounded-2xl bg-white p-8 shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
+                className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
               >
                 {/* Background Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-5`} />
-                
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-5`}
+                />
+
                 {/* Content */}
                 <div className="relative">
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="mb-4 flex items-center justify-between">
                     <div className={`rounded-xl bg-gradient-to-r ${item.gradient} p-3`}>
                       <Icon className="h-6 w-6 text-white" />
                     </div>
-                    <ArrowRight className="h-5 w-5 text-gray-400 transition-all duration-300 group-hover:text-gray-600 group-hover:translate-x-1" />
+                    <ArrowRight className="h-5 w-5 text-gray-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gray-600" />
                   </div>
-                  
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                    {item.title}
-                  </h3>
-                  
-                  <p className="text-gray-600 leading-relaxed">
-                    {item.description}
-                  </p>
-                  
+
+                  <h3 className="mb-2 text-xl font-semibold text-gray-900">{item.title}</h3>
+
+                  <p className="leading-relaxed text-gray-600">{item.description}</p>
+
                   {/* Hover Effect */}
-                  <div className={`absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r ${item.gradient} transition-all duration-300 group-hover:w-full`} />
+                  <div
+                    className={`absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r ${item.gradient} transition-all duration-300 group-hover:w-full`}
+                  />
                 </div>
               </a>
             );
           })}
         </div>
-        
+
         {/* Quick Stats */}
         <div className="mt-16 grid grid-cols-2 gap-8 sm:grid-cols-4">
           <div className="text-center">
