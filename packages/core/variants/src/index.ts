@@ -9,6 +9,7 @@ export * from "./input";
 export * from "./card";
 export * from "./badge";
 export * from "./ripple";
+export * from "./box";
 
 // ### EXPORT VARIANT HERE ###
 

@@ -43,7 +43,6 @@ export interface RippleProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
 }
 
-export interface UseRippleProps {}
 export interface RippleItem {
   key: React.Key;
   x: number;

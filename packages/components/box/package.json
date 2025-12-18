@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@ideasui/utils": "workspace:*",
+    "@ideasui/variants": "workspace:*",
     "tailwind-variants": "^3.2.2"
   },
   "devDependencies": {

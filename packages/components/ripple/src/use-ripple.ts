@@ -1,7 +1,21 @@
-import type {RippleItem, UseRippleProps} from "./ripple-types";
-
 import * as React from "react";
 import {getUniqueID} from "@ideasui/utils";
+import type {RippleItem} from "./ripple-types";
+
+export interface UseRippleProps {
+  /**
+   * Whether the ripple is disabled
+   */
+  disabled?: boolean
+  /**
+   * Duration of the ripple animation in milliseconds
+   */
+  duration?: number
+  /**
+   * Whether to center the ripple effect
+   */
+  center?: boolean
+}
 
 export function useRipple(props: UseRippleProps = {}) {
   const [ripples, setRipples] = React.useState<RippleItem[]>([]);

@@ -1,6 +1,6 @@
 import type * as React from "react";
 import type {VariantProps} from "tailwind-variants";
-// Import will be available after compilation
+import type {boxVariants} from "@ideasui/variants";
 
 export interface BoxProps
   extends React.HTMLAttributes<HTMLElement>, VariantProps<typeof boxVariants> {

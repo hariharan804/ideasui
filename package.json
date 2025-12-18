@@ -19,7 +19,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "turbo run dev",
-    "build": "turbo run build",
+    "build": "turbo run build --filter=!@ideasui/storybook",
     "dev:next": "turbo run dev:next",
     "build:next": "turbo run build:next",
     "start:next": "turbo run dev:next",
@@ -110,6 +110,7 @@
     "shell-quote": "^1.8.3",
     "storybook": "^10.1.10",
     "ts-jest": "^29.4.6",
+    "tsup": "^8.3.5",
     "turbo": "^2.6.3",
     "typescript": "^5.9.3",
     "vite": "^7.3.0"
