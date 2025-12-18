@@ -123,11 +123,6 @@ Thumbs.db
 
 # Package manager
 **/node_modules/
-**/.pnp
-**/.pnp.js
-**/pnpm-lock.yaml
-**/yarn.lock
-**/package-lock.json
 
 # Environment files
 **/.env

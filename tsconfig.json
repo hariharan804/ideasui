@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "types": ["@testing-library/jest-dom", "node"],
+    "types": ["node", "jest", "@testing-library/jest-dom"],
     "lib": ["dom", "esnext"],
     "declaration": true,
     "sourceMap": true,
@@ -20,5 +20,5 @@
     "noImplicitAny": false
   },
   "include": ["packages"],
-  "exclude": ["**/node_modules", "**/dist", "**/.turbo"]
+  "exclude": ["**/node_modules", "**/dist", "**/.turbo", "templates"]
 }

@@ -1,0 +1,25 @@
+name: "Test"
+description: "Runs all tests including unit and visual tests"
+
+runs:
+  using: composite
+  steps:
+    - name: Run unit tests
+      shell: bash
+      run: pnpm run test
+
+    - name: Run type checking
+      shell: bash
+      run: pnpm run typecheck
+
+    - name: Run linting
+      shell: bash
+      run: pnpm run lint
+
+    - name: Install Playwright browsers
+      shell: bash
+      run: pnpm run playwright:install
+
+    - name: Run visual tests
+      shell: bash
+      run: pnpm run test:visual

@@ -1,0 +1,72 @@
+name: Question
+description: Ask a question about using IdeasUI
+title: "[Question]: "
+labels: ["question", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question about using IdeasUI? We're here to help!
+        
+        **Note**: For general discussions, consider using [GitHub Discussions](https://github.com/ideas2logic-lab/ideasui/discussions) instead.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Question Category
+      description: What category does your question fall into?
+      options:
+        - Component Usage
+        - Styling/Theming
+        - TypeScript/Types
+        - Integration
+        - Best Practices
+        - Performance
+        - Accessibility
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: component
+    attributes:
+      label: Component (if applicable)
+      description: Which component is your question about?
+      placeholder: e.g., Button, Box, Ripple
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: Ask your question here...
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Provide context about what you're trying to achieve
+      placeholder: What are you trying to build or accomplish?
+
+  - type: textarea
+    id: attempted
+    attributes:
+      label: What Have You Tried?
+      description: What solutions have you already attempted?
+      placeholder: Describe what you've tried so far...
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Code Example
+      description: Share relevant code if applicable
+      render: tsx
+      placeholder: |
+        // Your current code
+        import { Button } from "@ideasui/button"
+        
+        export default function Example() {
+          return <Button>Click me</Button>
+        }

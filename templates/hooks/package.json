@@ -1,0 +1,31 @@
+{
+  "name": "@ideasui/{{kebabCase name}}",
+  "version": "0.0.0",
+  "description": "{{pascalCase name}} hook for IdeasUI",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "sideEffects": false,
+  "clean-package": "../../clean-package.config.json",
+  "scripts": {
+    "build": "tsup src --dts",
+    "dev": "pnpm build:dev --watch",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit",
+    "build:dev": "tsup src",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "dependencies": {
+    "@ideasui/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "clean-package": "^2.2.0",
+    "typescript": "^5.9.3"
+  }
+}

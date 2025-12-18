@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
     branches: [main]
 
@@ -12,23 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v2
+      - name: Setup environment
+        uses: ./.github/composite-actions/install
+
+      - name: Run tests
+        uses: ./.github/composite-actions/test
+
+      - name: Build packages
+        uses: ./.github/composite-actions/build
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        if: always()
         with:
-          version: 8
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "18"
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Type check
-        run: pnpm type-check
-
-      - name: Build
-        run: pnpm build
+          file: ./coverage/lcov.info

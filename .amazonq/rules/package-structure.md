@@ -60,7 +60,6 @@ packages/components/button/
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "test": "vitest run",
     "lint": "eslint ."
   },
   "peerDependencies": {

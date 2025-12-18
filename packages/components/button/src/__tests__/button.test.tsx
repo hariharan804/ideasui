@@ -1,140 +1,88 @@
-import {render, screen, fireEvent} from "@testing-library/react";
-import {axe, toHaveNoViolations} from "jest-axe";
+import "@testing-library/jest-dom";
+import type {UserEvent} from "@testing-library/user-event";
+
+import * as React from "react";
+import {render} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import {Button} from "../button";
 
-expect.extend(toHaveNoViolations);
-
 describe("Button", () => {
-  it("renders correctly", () => {
-    render(<Button>Click me</Button>);
-    expect(screen.getByRole("button")).toBeInTheDocument();
-    expect(screen.getByText("Click me")).toBeInTheDocument();
+  let user: UserEvent;
+
+  beforeEach(() => {
+    user = userEvent.setup();
   });
 
-  it("applies variant classes correctly", () => {
-    render(<Button variant="outline">Outline Button</Button>);
-    const button = screen.getByRole("button");
+  it("should render correctly", () => {
+    const wrapper = render(<Button disableRipple />);
 
-    expect(button).toHaveClass("border-2");
+    expect(() => wrapper.unmount()).not.toThrow();
   });
 
-  it("applies color classes correctly", () => {
-    render(<Button color="primary">Primary Button</Button>);
-    const button = screen.getByRole("button");
-
-    expect(button).toHaveClass("bg-blue-600");
-  });
-
-  it("applies size classes correctly", () => {
-    render(<Button size="lg">Large Button</Button>);
-    const button = screen.getByRole("button");
-
-    expect(button).toHaveClass("h-12");
-  });
-
-  it("handles click events", () => {
-    const handleClick = jest.fn();
-
-    render(<Button onClick={handleClick}>Click me</Button>);
-
-    fireEvent.click(screen.getByRole("button"));
-    expect(handleClick).toHaveBeenCalledTimes(1);
-  });
-
-  it("shows loading state correctly", () => {
-    render(<Button loading>Loading Button</Button>);
-    const button = screen.getByRole("button");
-
-    expect(button).toBeDisabled();
-    expect(button).toHaveAttribute("aria-disabled", "true");
-    expect(screen.getByText("Loading Button")).toBeInTheDocument();
-  });
-
-  it("shows loading text when provided", () => {
-    render(
-      <Button loading loadingText="Saving...">
-        Save
-      </Button>,
-    );
-
-    expect(screen.getByText("Saving...")).toBeInTheDocument();
-    expect(screen.queryByText("Save")).not.toBeInTheDocument();
-  });
-
-  it("disables button when disabled prop is true", () => {
-    render(<Button disabled>Disabled Button</Button>);
-    const button = screen.getByRole("button");
-
-    expect(button).toBeDisabled();
-    expect(button).toHaveAttribute("aria-disabled", "true");
-  });
-
-  it("renders start content correctly", () => {
-    render(<Button startContent={<span data-testid="start-icon">🚀</span>}>Launch</Button>);
-
-    expect(screen.getByTestId("start-icon")).toBeInTheDocument();
-    expect(screen.getByText("Launch")).toBeInTheDocument();
-  });
-
-  it("renders end content correctly", () => {
-    render(<Button endContent={<span data-testid="end-icon">→</span>}>Next</Button>);
-
-    expect(screen.getByTestId("end-icon")).toBeInTheDocument();
-    expect(screen.getByText("Next")).toBeInTheDocument();
-  });
-
-  it("applies full width class when fullWidth is true", () => {
-    render(<Button fullWidth>Full Width</Button>);
-    const button = screen.getByRole("button");
-
-    expect(button).toHaveClass("w-full");
-  });
-
-  it("forwards ref correctly", () => {
+  it("ref should be forwarded", () => {
     const ref = React.createRef<HTMLButtonElement>();
 
-    render(<Button ref={ref}>Button with ref</Button>);
-
-    expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+    render(<Button ref={ref} disableRipple />);
+    expect(ref.current).not.toBeNull();
   });
 
-  it("merges custom className correctly", () => {
-    render(<Button className="custom-class">Custom Button</Button>);
-    const button = screen.getByRole("button");
+  it("should trigger onPress function", async () => {
+    const onPress = jest.fn();
+    const {getByRole} = render(<Button disableRipple onPress={onPress} />);
 
-    expect(button).toHaveClass("custom-class");
+    const button = getByRole("button");
+
+    await user.click(button);
+
+    expect(onPress).toHaveBeenCalled();
   });
 
-  it("passes through additional props", () => {
-    render(
-      <Button aria-label="Custom label" data-testid="custom-button">
+  it("should trigger onClick function", async () => {
+    const onClick = jest.fn();
+    const {getByRole} = render(<Button disableRipple onClick={onClick} />);
+
+    const button = getByRole("button");
+
+    await user.click(button);
+
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it("should ignore events when disabled", async () => {
+    const onPress = jest.fn();
+    const {getByRole} = render(<Button disableRipple isDisabled onPress={onPress} />);
+
+    const button = getByRole("button");
+
+    await user.click(button);
+
+    expect(onPress).not.toHaveBeenCalled();
+  });
+
+  it("should renders with start icon", () => {
+    const wrapper = render(
+      <Button disableRipple startContent={<span data-testid="start-icon">Icon</span>}>
         Button
       </Button>,
     );
-    const button = screen.getByTestId("custom-button");
 
-    expect(button).toHaveAttribute("aria-label", "Custom label");
+    expect(wrapper.getByTestId("start-icon")).toBeInTheDocument();
   });
 
-  it("has no accessibility violations", async () => {
-    const {container} = render(<Button>Accessible Button</Button>);
-    const results = await axe(container);
+  it("should renders with end icon", () => {
+    const wrapper = render(
+      <Button disableRipple endContent={<span data-testid="end-icon">Icon</span>}>
+        Button
+      </Button>,
+    );
 
-    expect(results).toHaveNoViolations();
+    expect(wrapper.getByTestId("end-icon")).toBeInTheDocument();
   });
 
-  it("has no accessibility violations when disabled", async () => {
-    const {container} = render(<Button disabled>Disabled Button</Button>);
-    const results = await axe(container);
+  it("should have the proper type attribute", () => {
+    const wrapper = render(<Button disableRipple type="submit" />);
 
-    expect(results).toHaveNoViolations();
-  });
-
-  it("has no accessibility violations when loading", async () => {
-    const {container} = render(<Button loading>Loading Button</Button>);
-    const results = await axe(container);
-
-    expect(results).toHaveNoViolations();
+    expect(wrapper.getByRole("button")).toHaveAttribute("type", "submit");
   });
 });

@@ -1,0 +1,20 @@
+# Global owners
+* @ideas2logic-lab/ideasui-maintainers
+
+# Component packages
+/packages/components/ @ideas2logic-lab/ideasui-maintainers
+
+# Core packages
+/packages/core/ @ideas2logic-lab/ideasui-maintainers
+
+# Documentation
+/docs/ @ideas2logic-lab/ideasui-maintainers
+*.md @ideas2logic-lab/ideasui-maintainers
+
+# GitHub workflows and templates
+/.github/ @ideas2logic-lab/ideasui-maintainers
+
+# Configuration files
+/package.json @ideas2logic-lab/ideasui-maintainers
+/tsconfig.json @ideas2logic-lab/ideasui-maintainers
+/turbo.json @ideas2logic-lab/ideasui-maintainers

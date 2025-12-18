@@ -1,20 +1,14 @@
-const path = require("path");
-
 module.exports = {
-  ...require("./configs/jest-config/jest.config.js"),
-  setupFilesAfterEnv: [path.join(__dirname, "configs", "jest-config", "jest.setup.js")],
-  projects: [
-    {
-      displayName: "components",
-      testMatch: ["<rootDir>/packages/components/**/src/**/*.test.{ts,tsx}"],
-    },
-    {
-      displayName: "utils",
-      testMatch: ["<rootDir>/packages/utils/**/src/**/*.test.{ts,tsx}"],
-    },
-    {
-      displayName: "core",
-      testMatch: ["<rootDir>/packages/core/**/src/**/*.test.{ts,tsx}"],
-    },
-  ],
+  testEnvironment: "jsdom",
+  testTimeout: 35000,
+  collectCoverageFrom: ["packages/**/*.{ts,tsx}"],
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
+  modulePathIgnorePatterns: ["<rootDir>/examples", "<rootDir>/templates"],
+  transform: {
+    "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.(js|jsx)$": "babel-jest",
+  },
+  preset: "ts-jest",
+  transformIgnorePatterns: ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"],
+  setupFilesAfterEnv: ["@testing-library/jest-dom", "./scripts/setup-test.ts"],
 };

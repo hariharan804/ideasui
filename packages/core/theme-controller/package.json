@@ -12,7 +12,13 @@
     "./theme.css": "./src/theme.css"
   },
   "scripts": {
-    "build": "tsup"
+    "build": "tsup src --dts",
+    "dev": "pnpm build:dev --watch",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit",
+    "build:dev": "tsup src",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

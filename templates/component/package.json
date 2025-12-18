@@ -6,10 +6,11 @@
   "sideEffects": false,
   "clean-package": "../../clean-package.config.json",
   "scripts": {
-    "build": "tsup",
-    "test": "jest",
-    "lint": "eslint src --ext .ts,.tsx --cache",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix --cache",
+    "build": "tsup src --dts",
+    "dev": "pnpm build:dev --watch",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit",
+    "build:dev": "tsup src",
     "prepack": "clean-package",
     "postpack": "clean-package restore"
   },

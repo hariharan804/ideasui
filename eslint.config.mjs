@@ -48,7 +48,7 @@ export default defineConfig([
     "**/*.config.js",
     "**/.DS_Store",
     "**/node_modules",
-    "**/templates/**",
+    "templates/**",
     "**/.next",
     "**/build",
     "!**/.storybook",

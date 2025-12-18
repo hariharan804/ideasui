@@ -105,7 +105,7 @@ packages/date-picker/              # kebab-case folder
 │   ├── __tests__/
 │   │   └── date-picker.test.tsx  # kebab-case test
 │   └── index.ts
-└── rollup.config.js              # kebab-case config
+└── tsup.config.js              # kebab-case config
 ```
 
 ## Code Example

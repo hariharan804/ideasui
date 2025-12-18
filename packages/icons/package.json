@@ -2,16 +2,35 @@
   "name": "@ideasui/icons",
   "version": "0.0.0",
   "description": "Shared icon library",
+  "author": "IdeasUI<support@ideasui.com>",
+  "homepage": "https://ideasui.com",
+  "license": "MIT",
   "main": "./src/index.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ideas2logic-lab/ideasui.git",
+    "directory": "packages/icons"
+  },
+  "bugs": {
+    "url": "https://github.com/ideas2logic-lab/ideasui/issues"
+  },
   "exports": {
     ".": {
       "import": "./src/index.ts"
     }
   },
   "scripts": {
-    "build": "tsup",
-    "": "tsup --watch",
-    "test": "jest"
+    "build": "tsup src --dts",
+    "dev": "pnpm build:dev --watch",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit",
+    "build:dev": "tsup src",
+    "test": "jest",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   },
   "peerDependencies": {
     "react": ">=18.0.0"

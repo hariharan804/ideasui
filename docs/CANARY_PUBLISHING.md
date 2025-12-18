@@ -24,13 +24,13 @@ Canary publishing allows you to:
 2. **Build and publish canary**:
 
    ```bash
-   npm run build:publish
+   pnpm run build:publish
    npx changeset publish --tag canary
    ```
 
 3. **Verify canary published**:
    ```bash
-   npm view @ideasui/button dist-tags
+   pnpm view @ideasui/button dist-tags
    # Should show: canary: 0.1.0-canary-20231201
    ```
 
@@ -39,7 +39,7 @@ Canary publishing allows you to:
 1. **Build component**:
 
    ```bash
-   npm run build:publish -- --filter=@ideasui/button
+   pnpm run build:publish -- --filter=@ideasui/button
    ```
 
 2. **Navigate to component**:
@@ -50,7 +50,7 @@ Canary publishing allows you to:
 
 3. **Publish with canary tag**:
    ```bash
-   npm publish --tag canary
+   pnpm publish --tag canary
    ```
 
 ### Method 3: Specific Component Canary
@@ -59,14 +59,14 @@ Canary publishing allows you to:
 
    ```bash
    # Build specific component
-   npm run build -- --filter=@ideasui/button
+   pnpm run build -- --filter=@ideasui/button
 
    # Update version manually
    cd packages/components/button
-   npm version prerelease --preid=canary
+   pnpm version prerelease --preid=canary
 
    # Publish canary
-   npm publish --tag canary
+   pnpm publish --tag canary
    ```
 
 ## 🔍 Testing Canary Versions
@@ -79,7 +79,7 @@ npx create-next-app@latest canary-test
 cd canary-test
 
 # Install canary version
-npm install @ideasui/button@canary
+pnpm install @ideasui/button@canary
 ```
 
 ### 2. Test Component Integration
@@ -125,14 +125,14 @@ export default function Home() {
 
 ```bash
 # Test development
-npm run dev
+pnpm run dev
 
 # Test production build
-npm run build
-npm run start
+pnpm run build
+pnpm run start
 
 # Check for errors
-npm run lint
+pnpm run lint
 ```
 
 ### 4. Test TypeScript Integration
@@ -201,9 +201,9 @@ export function TestComponent({buttonProps}: TestProps) {
 
 ### Environment
 
-- Framework: Next.js 14
-- Node: v18.17.0
-- Package Manager: npm
+- Framework: Next.js 16
+- Node: v20
+- Package Manager: pnpm
 
 ### Testing Results
 
@@ -235,8 +235,8 @@ export function TestComponent({buttonProps}: TestProps) {
 ```bash
 # Share canary version info
 echo "Test canary version:"
-echo "npm install @ideasui/button@canary"
-echo "Version: $(npm view @ideasui/button@canary version)"
+echo "pnpm install @ideasui/button@canary"
+echo "Version: $(pnpm view @ideasui/button@canary version)"
 ```
 
 ## 🔄 Promoting Canary to Stable
@@ -258,7 +258,7 @@ npx changeset
 npx changeset version
 
 # Build and publish stable
-npm run build:publish
+pnpm run build:publish
 npx changeset publish
 ```
 
@@ -266,10 +266,10 @@ npx changeset publish
 
 ```bash
 # Remove canary tag (optional)
-npm dist-tag rm @ideasui/button canary
+pnpm dist-tag rm @ideasui/button canary
 
 # Verify stable version
-npm view @ideasui/button dist-tags
+pnpm view @ideasui/button dist-tags
 ```
 
 ## 🚨 Canary Rollback
@@ -288,20 +288,20 @@ npm view @ideasui/button dist-tags
    ```bash
    # Fix issues in code
    # Publish new canary version
-   npm version prerelease --preid=canary
-   npm publish --tag canary
+   pnpm version prerelease --preid=canary
+   pnpm publish --tag canary
    ```
 
 3. **Deprecate broken canary**:
    ```bash
    # Deprecate specific version
-   npm deprecate @ideasui/button@0.1.0-canary-broken "Use newer canary version"
+   pnpm deprecate @ideasui/button@0.1.0-canary-broken "Use newer canary version"
    ```
 
 ## 📋 Canary Workflow Summary
 
 1. **Develop** → Component ready for testing
-2. **Canary Publish** → `npm publish --tag canary`
+2. **Canary Publish** → `pnpm publish --tag canary`
 3. **Test** → Install and test in real projects
 4. **Feedback** → Collect user feedback
 5. **Fix** → Address issues if found
@@ -315,10 +315,10 @@ npm view @ideasui/button dist-tags
 ```json
 {
   "scripts": {
-    "canary:publish": "npm run build:publish && npm publish --tag canary",
-    "canary:test": "npm pack && echo 'Test with: npm install ./ideasui-button-*.tgz'",
+    "canary:publish": "pnpm run build:publish && pnpm publish --tag canary",
+    "canary:test": "pnpm pack && echo 'Test with: pnpm install ./ideasui-button-*.tgz'",
     "canary:promote": "npx changeset version && npx changeset publish",
-    "canary:cleanup": "npm dist-tag rm @ideasui/button canary"
+    "canary:cleanup": "pnpm dist-tag rm @ideasui/button canary"
   }
 }
 ```
@@ -330,7 +330,7 @@ npm view @ideasui/button dist-tags
 # canary-test.sh
 
 COMPONENT=$1
-VERSION=$(npm view @ideasui/$COMPONENT@canary version)
+VERSION=$(pnpm view @ideasui/$COMPONENT@canary version)
 
 echo "Testing canary: @ideasui/$COMPONENT@$VERSION"
 
@@ -339,8 +339,8 @@ mkdir canary-test-$COMPONENT
 cd canary-test-$COMPONENT
 
 # Initialize project
-npm init -y
-npm install @ideasui/$COMPONENT@canary
+pnpm init -y
+pnpm install @ideasui/$COMPONENT@canary
 
 # Test import
 echo "import { $COMPONENT } from '@ideasui/$COMPONENT'" > test.js

@@ -4,10 +4,6 @@
   "version": "0.1.0",
   "description": "IdeasUI - Modern React component library built with TypeScript and Tailwind CSS",
   "files": [],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/username/my-component-lib.git"
-  },
   "keywords": [
     "react",
     "components",
@@ -15,8 +11,19 @@
     "design-system",
     "tailwind"
   ],
-  "author": "Your Name",
+  "author": "IdeasUI<support@ideasui.com>",
+  "homepage": "https://ideasui.com",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ideas2logic-lab/ideasui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ideas2logic-lab/ideasui/issues"
+  },
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build --filter=!@ideasui/storybook",
@@ -35,10 +42,10 @@
     "commit": "git add . && cz",
     "storybook": "turbo run dev --filter=@ideasui/storybook",
     "build-storybook": "turbo run build --filter=@ideasui/storybook",
-    "test:visual": "playwright test tests/visual",
-    "test:visual:ui": "playwright test tests/visual --ui",
-    "test:a11y": "playwright test tests/accessibility",
+    "test:visual": "playwright test",
+    "test:visual:ui": "playwright test --ui",
     "test:cross-browser": "playwright test --project=chromium --project=firefox --project=webkit",
+    "playwright:install": "playwright install",
     "create": "plop",
     "check-naming": "node scripts/check-naming.js"
   },

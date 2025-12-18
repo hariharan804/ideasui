@@ -13,8 +13,13 @@
     }
   },
   "scripts": {
-    "build": "tsup",
-    "clean": "rm -rf dist"
+    "build": "tsup src --dts",
+    "dev": "pnpm build:dev --watch",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit",
+    "build:dev": "tsup src",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   },
   "keywords": [
     "tailwind",
@@ -24,8 +29,20 @@
     "react",
     "typescript"
   ],
-  "author": "IdeasUI Team",
+  "author": "IdeasUI<support@ideasui.com>",
+  "homepage": "https://ideasui.com",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ideas2logic-lab/ideasui.git",
+    "directory": "packages/core/variants"
+  },
+  "bugs": {
+    "url": "https://github.com/ideas2logic-lab/ideasui/issues"
+  },
   "dependencies": {
     "clsx": "^2.1.1",
     "tailwind-variants": "^3.2.2"

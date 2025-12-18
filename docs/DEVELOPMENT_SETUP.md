@@ -13,168 +13,100 @@
 ```bash
 # 1. Clone and setup
 git clone <your-repo>
-cd my-component-lib
+cd ideasui
 pnpm install
 
-# 2. Initialize ShadCN/UI
-cd packages/ui
-npx shadcn-ui@latest init
+# 2. Install Playwright browsers
+pnpm run playwright:install
 
 # 3. Start development
-pnpm dev
+pnpm run dev
+
+# 4. Run Storybook
+pnpm run storybook
 ```
 
-## 📋 Step-by-Step Setup
+## 📁 Project Structure
 
-### 1. Initialize Monorepo
-
-```bash
-# Create workspace configuration
-echo "packages:\n  - 'packages/*'\n  - 'apps/*'" > pnpm-workspace.yaml
-
-# Install workspace dependencies
-pnpm add -D typescript @types/node turbo
+```
+lib/
+├── packages/
+│   ├── components/          # UI Components (box, button, ripple)
+│   ├── core/               # Core packages (variants, theme-controller)
+│   ├── utils/              # Shared utilities
+│   ├── icons/              # Icon library
+│   └── cli/                # CLI tools
+├── apps/
+│   ├── playground/         # Next.js playground
+│   └── storybook/          # Storybook documentation
+├── templates/              # Component generation templates
+├── configs/                # Shared configurations
+└── scripts/                # Build and utility scripts
 ```
 
-### 2. Setup Component Library Package
+## 🔧 Key Technologies
 
-```bash
-mkdir -p packages/ui/src/components/ui
-cd packages/ui
-
-# Initialize package
-npm init -y
-
-# Install dependencies
-pnpm add react react-dom
-pnpm add -D @types/react @types/react-dom typescript vite
-
-# Initialize ShadCN
-npx shadcn-ui@latest init
-```
-
-### 3. Setup Playground (Next.js)
-
-```bash
-mkdir -p packages/playground
-cd packages/playground
-
-# Initialize Next.js app
-npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir=false
-
-# Install component library
-pnpm add ../ui
-```
-
-### 4. Configure Build Tools
-
-```bash
-# Install build dependencies
-pnpm add -D rollup @rollup/plugin-typescript rollup-plugin-dts
-pnpm add -D @next/bundle-analyzer
-```
-
-## 🔧 Configuration Files
-
-### Root `package.json`
-
-```json
-{
-  "name": "my-component-lib",
-  "private": true,
-  "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "test": "turbo run test",
-    "lint": "turbo run lint",
-    "playground": "pnpm --filter playground dev"
-  },
-  "devDependencies": {
-    "turbo": "^1.10.0",
-    "typescript": "^5.0.0"
-  }
-}
-```
-
-### `turbo.json`
-
-```json
-{
-  "pipeline": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
-    },
-    "dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "test": {
-      "dependsOn": ["build"]
-    }
-  }
-}
-```
-
-### Component Library `package.json`
-
-```json
-{
-  "name": "@mylib/ui",
-  "version": "0.1.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./styles": "./dist/index.css"
-  },
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch"
-  }
-}
-```
+- **Monorepo**: Turbo + pnpm workspaces
+- **Components**: React + TypeScript
+- **Styling**: Tailwind CSS + tailwind-variants
+- **Testing**: Jest + Playwright
+- **Documentation**: Storybook
+- **Build**: tsup
+- **Linting**: ESLint + Prettier + Husky
 
 ## 🛠️ Development Commands
 
 ```bash
 # Start all development servers
-pnpm dev
+pnpm run dev
 
 # Build all packages
-pnpm build
+pnpm run build
 
-# Run playground
-pnpm playground
+# Run Storybook
+pnpm run storybook
 
-# Add new ShadCN component
-cd packages/ui
-npx shadcn-ui@latest add button
+# Run unit tests
+pnpm run test
+pnpm run test:watch
+pnpm run test:coverage
 
-# Run tests
-pnpm test
+# Run visual tests
+pnpm run test:visual
+pnpm run test:visual:ui
 
-# Lint code
-pnpm lint
+# Generate new components
+pnpm run create
+
+# Lint and format code
+pnpm run lint
+pnpm run lint:fix
+pnpm run format
+
+# Type checking
+pnpm run typecheck
 ```
 
 ## 🔍 Troubleshooting
 
 ### Common Issues
 
-1. **ShadCN components not found**
-   - Ensure `components.json` is in the ui package
-   - Check import paths in stories
+1. **Playwright browsers not installed**
+   - Run `pnpm run playwright:install` to install browsers
+   - Required for visual regression tests
 
-2. **Tailwind styles not applied**
-   - Verify Tailwind config in both ui and playground
-   - Check CSS imports in Next.js app
+2. **Jest tests failing**
+   - Ensure `@testing-library/jest-dom` is properly configured
+   - Check test setup in `scripts/setup-test.ts`
 
-3. **TypeScript errors**
-   - Ensure proper tsconfig extends
-   - Check package exports configuration
+3. **Component imports not working**
+   - Verify package builds with `pnpm run build`
+   - Check workspace dependencies in package.json
+
+4. **Storybook not loading components**
+   - Ensure components are properly exported from `src/index.ts`
+   - Check Storybook configuration in `apps/storybook`
+
+5. **TypeScript errors**
+   - Run `pnpm run typecheck` to identify issues
+   - Ensure proper tsconfig extends in each package

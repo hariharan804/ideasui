@@ -5,27 +5,40 @@ IdeasUI is a modern, accessible component library built with TypeScript, Tailwin
 ## 🚀 Quick Start
 
 ```bash
-# Install IdeasUI
-npm install @ideasui/ui
+# Clone the repository
+git clone <repository-url>
+cd lib
 
-# Install peer dependencies
-npm install react react-dom
+# Install dependencies
+pnpm install
 
-# Install Tailwind CSS (if not already installed)
-npm install -D tailwindcss
+pnpm run storybook
+
+# Install Playwright browsers (for visual testing)
+pnpm run playwright:install
+
+# Start development
+pnpm run dev
+
+# Build
+pnpm run build
 ```
 
 ## 📦 Usage
 
 ```tsx
-import {Button} from "@ideasui/ui";
+import {Button} from "@ideasui/button";
+import {Box} from "@ideasui/box";
+import {Ripple} from "@ideasui/ripple";
 
 function App() {
   return (
-    <Card className="p-6">
-      <Input placeholder="Enter your name" />
-      <Button className="mt-4">Submit</Button>
-    </Card>
+    <Box className="p-6">
+      <Button variant="solid" color="primary" size="md">
+        Click me
+      </Button>
+      <Ripple />
+    </Box>
   );
 }
 ```
@@ -35,20 +48,16 @@ function App() {
 ```
 lib/
 ├── packages/
-│   ├── components/          # UI Components (@ideasui/box, @ideasui/button)
-│   │   ├── box/            # Flexible container component
-│   │   └── button/         # Interactive button component
+│   ├── components/          # UI Components
+│   │   ├── box/            # Flexible container component (@ideasui/box)
+│   │   ├── button/         # Interactive button component (@ideasui/button)
+│   │   └── ripple/         # Material Design ripple effect (@ideasui/ripple)
 │   ├── core/               # Core system packages
-│   │   └── provider/       # IdeasUI Provider (@ideasui/provider)
-│   ├── primitives/         # Headless components
-│   │   └── toggle/         # Toggle primitive (@ideasui/toggle-primitive)
+│   │   ├── theme-controller/ # Theme management (@ideasui/theme-controller)
+│   │   └── variants/       # Styling variants system (@ideasui/variants)
 │   ├── hooks/              # React hooks (@ideasui/hooks)
 │   ├── utils/              # Shared utilities (@ideasui/utils)
-│   │   └── shared/lib/     # Utility functions (cn, clsx)
 │   ├── icons/              # Icon library (@ideasui/icons)
-│   ├── tokens/             # Design tokens (@ideasui/tokens)
-│   ├── themes/             # Theme system
-│   │   └── theme-controller/ # Theme management (@ideasui/theme-controller)
 │   └── cli/                # CLI tools (@ideasui/cli)
 ├── apps/
 │   ├── playground/         # Next.js playground app
@@ -59,61 +68,13 @@ lib/
 │   ├── tailwind-config/    # Tailwind CSS configuration
 │   ├── tsconfig/           # TypeScript configurations
 │   └── tsup-config/        # Build tool configuration
-├── development/            # Development workspace
-│   └── components/         # Ready-to-use components
-├── docs/                   # Documentation files
-├── scripts/                # Build and utility scripts
 ├── templates/              # Component generation templates
-└── tests/                  # End-to-end and visual tests
+│   ├── component/          # Component template
+│   ├── hooks/              # Hook template
+│   └── variant/            # Variant template
+├── scripts/                # Build and utility scripts
+└── .amazonq/               # Amazon Q development rules
 ```
-
-### 🧩 Primitives vs Components
-
-**Primitives** (`/primitives`) - Headless, unstyled components that provide behavior and logic:
-
-- No styling or visual appearance
-- Pure logic and state management
-- Render props or compound component patterns
-- Maximum flexibility for custom styling
-- Example: `@ideasui/toggle-primitive` provides toggle state without any UI
-
-**Components** (`/components`) - Complete, styled UI components ready to use:
-
-- Pre-styled with Tailwind CSS
-- Built on top of primitives or standalone
-- Consistent design system appearance
-- Customizable through props and variants
-- Example: `@ideasui/button` provides a complete button with styling
-
-```tsx
-// Primitive - You provide the UI
-<Toggle>
-  {({ isOn, toggle }) => (
-    <button onClick={toggle}>
-      {isOn ? 'ON' : 'OFF'}
-    </button>
-  )}
-</Toggle>
-
-// Component - UI is provided
-<Button variant="primary" size="md">
-  Click me
-</Button>
-```
-
-### 📦 Package Overview
-
-| Package                     | Description                                        | Status   |
-| --------------------------- | -------------------------------------------------- | -------- |
-| `@ideasui/provider`         | Core provider for global configuration             | ✅ Ready |
-| `@ideasui/tokens`           | Design system tokens (colors, spacing, typography) | ✅ Ready |
-| `@ideasui/utils`            | Shared utility functions                           | ✅ Ready |
-| `@ideasui/icons`            | SVG icon components                                | ✅ Ready |
-| `@ideasui/box`              | Flexible container component                       | ✅ Ready |
-| `@ideasui/button`           | Interactive button component                       | ✅ Ready |
-| `@ideasui/toggle-primitive` | Headless toggle component                          | ✅ Ready |
-| `@ideasui/theme-controller` | Theme management system                            | ✅ Ready |
-| `@ideasui/cli`              | Component generation CLI                           | ✅ Ready |
 
 ## 📚 Documentation
 
@@ -132,32 +93,57 @@ lib/
 
 - ✅ Modern React components with TypeScript
 - ✅ TypeScript support with full type safety
-- ✅ Tailwind CSS for styling
+- ✅ Tailwind CSS with variants system
 - ✅ Storybook playground for development
-- ✅ Comprehensive testing setup
-- ✅ Automated CI/CD pipeline
-- ✅ Accessibility compliant
+- ✅ Comprehensive testing (Jest + Playwright)
+- ✅ Visual regression testing
+- ✅ ESLint + Prettier + Husky git hooks
+- ✅ Automated versioning with changesets
+- ✅ Component generation templates
+- ✅ Accessibility compliant (WCAG 2.1)
 - ✅ Dark mode support
 - ✅ Tree-shakeable exports
 - ✅ SSR compatible
+- ✅ Monorepo with Turbo
+- ✅ Material Design ripple effects
 
 ## 🛠️ Development
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
-# Start development
-npm run dev
+# Start development (all packages)
+pnpm run dev
 
 # Run Storybook
-npm run storybook
+pnpm run storybook
 
-# Run tests
-npm test
+# Run unit tests
+pnpm run test
+pnpm run test:watch
+pnpm run test:coverage
+
+# Run visual regression tests
+pnpm run test:visual
+pnpm run test:visual:ui
+
+# Install Playwright browsers
+pnpm run playwright:install
+
+# Linting and formatting
+pnpm run lint
+pnpm run lint:fix
+pnpm run format
 
 # Build library
-npm run build
+pnpm run build
+
+# Type checking
+pnpm run typecheck
+
+# Generate new components
+pnpm run create
 ```
 
 ## 📋 Repository Setup Checklist

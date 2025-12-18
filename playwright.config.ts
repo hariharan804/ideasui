@@ -1,7 +1,8 @@
 import {defineConfig, devices} from "@playwright/test";
 
 export default defineConfig({
-  testDir: "./tests/visual",
+  testDir: "./packages",
+  testMatch: ["**/packages/components/**/src/__tests__/*.spec.ts"],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -26,7 +27,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "pnpm storybook",
+    command: "pnpm run storybook",
     url: "http://localhost:6006",
     reuseExistingServer: !process.env.CI,
   },

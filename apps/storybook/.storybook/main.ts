@@ -32,7 +32,6 @@ const config: StorybookConfig = {
         },
       },
     },
-    "@storybook/addon-vitest",
   ],
 
   core: {disableTelemetry: true},
