@@ -47,7 +47,18 @@
     "test:cross-browser": "playwright test --project=chromium --project=firefox --project=webkit",
     "playwright:install": "playwright install",
     "create": "plop",
-    "check-naming": "node scripts/check-naming.js"
+    "check-naming": "node scripts/check-naming.js",
+    "clean": "pnpm turbo:clean && pnpm clean:test && pnpm clean:lock && pnpm clean:node-modules && pnpm install --hoist",
+    "clean:node-modules": "rimraf ./apps/**/node_modules && rimraf ./packages/**/**/node_modules && rimraf ./node_modules",
+    "clean:lock": "rimraf ./pnpm-lock.yaml",
+    "clean:test": "jest --clearCache",
+    "clean:changelogs": "rimraf ./packages/**/**/CHANGELOG.md && rimraf ./packages/**/CHANGELOG.md",
+    "changeset:canary": "changeset pre enter canary",
+    "changeset:beta": "changeset pre enter beta",
+    "version": "changeset version",
+    "release": "changeset publish",
+    "version:canary": "changeset version --snapshot canary",
+    "release:canary": "changeset publish --snapshot --no-git-tag --tag canary"
   },
   "config": {
     "commitizen": {
