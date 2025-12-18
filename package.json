@@ -77,7 +77,6 @@
     "@semantic-release/git": "^10.0.1",
     "@storybook/addon-a11y": "^10.1.10",
     "@storybook/addon-docs": "^10.1.10",
-    "@storybook/react-vite": "^10.1.10",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",
@@ -119,12 +118,7 @@
     "ts-jest": "^29.4.6",
     "tsup": "^8.3.5",
     "turbo": "^2.6.3",
-    "typescript": "^5.9.3",
-    "vite": "^7.3.0"
-  },
-  "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18"
+    "typescript": "^5.9.3"
   },
   "engines": {
     "pnpm": ">=10.x",
