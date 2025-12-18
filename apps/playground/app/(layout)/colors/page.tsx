@@ -1,177 +1,181 @@
 "use client";
-import {useTheme} from "@ideasui/theme-controller";
 
-const Box = ({className, label}: {className: string; label: string}) => (
-  <div className="flex items-center gap-4">
-    <div
-      className={`flex h-20 w-20 items-center justify-center rounded-lg font-mono text-xs ${className}`}
-    >
-      {label}
-    </div>
-    <code className="text-sm">{className}</code>
-  </div>
-);
+import { useState } from "react";
+import { completeTheme } from "./generated-theme-constants";
+import { Check, Copy, Palette } from "lucide-react";
 
 export default function ColorsPage() {
-  const {theme, setTheme} = useTheme();
+  const [copiedClass, setCopiedClass] = useState<string | null>(null);
+  const [selectedTheme, setSelectedTheme] = useState<"light" | "dark">("light");
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+  const copyToClipboard = async (className: string) => {
+    await navigator.clipboard.writeText(className);
+    setCopiedClass(className);
+    setTimeout(() => setCopiedClass(null), 2000);
   };
 
+  const colorCategories = Object.keys(completeTheme.light) as Array<keyof typeof completeTheme.light>;
+
   return (
-    <div className="bg-background text-foreground p-8">
-      <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Static Color Showcase</h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <div className="mb-4 flex items-center justify-center gap-3">
+            <Palette className="h-8 w-8 text-purple-600" />
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Color Palette
+            </h1>
+          </div>
+          <p className="text-lg text-slate-600 mb-6">
+            Click any color to copy its Tailwind CSS class name
+          </p>
+          
+          {/* Theme Toggle */}
+          <div className="inline-flex rounded-lg bg-white p-1 shadow-sm border">
+            {(["light", "dark"] as const).map((theme) => (
+              <button
+                key={theme}
+                onClick={() => setSelectedTheme(theme)}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                  selectedTheme === theme
+                    ? "bg-purple-600 text-white shadow-sm"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                {theme.charAt(0).toUpperCase() + theme.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
 
-        <button
-          className="bg-primary text-on-primary rounded-lg px-4 py-2 transition-opacity hover:opacity-90"
-          onClick={toggleTheme}
-        >
-          Toggle {theme === "light" ? "Light" : "Dark"}
-        </button>
+        {/* Color Grid */}
+        <div className="space-y-12">
+          {colorCategories.map((category) => (
+            <div key={category} className="bg-white rounded-2xl p-8 shadow-sm border">
+              <h2 className="text-2xl font-semibold mb-6 capitalize text-slate-800 flex items-center gap-2">
+                <div 
+                  className="w-4 h-4 rounded-full"
+                  style={{ backgroundColor: completeTheme[selectedTheme][category]["500"] }}
+                />
+                {category}
+              </h2>
+              
+              <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-11 gap-3">
+                {Object.entries(completeTheme[selectedTheme][category]).map(([shade, color]) => {
+                  const className = `bg-${category}-${shade}`;
+                  const textClassName = `text-${category}-${shade}`;
+                  const borderClassName = `border-${category}-${shade}`;
+                  
+                  return (
+                    <div key={shade} className="group">
+                      {/* Color Swatch */}
+                      <div
+                        className="aspect-square rounded-lg shadow-sm border border-slate-200 cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-md relative overflow-hidden"
+                        style={{ backgroundColor: color }}
+                        onClick={() => copyToClipboard(className)}
+                      >
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-200" />
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                          {copiedClass === className ? (
+                            <Check className="h-4 w-4 text-white drop-shadow-lg" />
+                          ) : (
+                            <Copy className="h-4 w-4 text-white drop-shadow-lg" />
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Shade Label */}
+                      <div className="mt-2 text-center">
+                        <div className="text-sm font-medium text-slate-700">{shade}</div>
+                        <div className="text-xs text-slate-500 font-mono">{color.slice(0, 20)}...</div>
+                      </div>
+                      
+                      {/* Class Options */}
+                      <div className="mt-2 space-y-1">
+                        <button
+                          onClick={() => copyToClipboard(className)}
+                          className={`w-full text-xs px-2 py-1 rounded border transition-colors font-mono ${
+                            copiedClass === className
+                              ? "bg-green-100 border-green-300 text-green-700"
+                              : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100"
+                          }`}
+                        >
+                          {copiedClass === className ? "Copied!" : className}
+                        </button>
+                        
+                        <button
+                          onClick={() => copyToClipboard(textClassName)}
+                          className={`w-full text-xs px-2 py-1 rounded border transition-colors font-mono ${
+                            copiedClass === textClassName
+                              ? "bg-green-100 border-green-300 text-green-700"
+                              : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100"
+                          }`}
+                        >
+                          {copiedClass === textClassName ? "Copied!" : textClassName}
+                        </button>
+                        
+                        <button
+                          onClick={() => copyToClipboard(borderClassName)}
+                          className={`w-full text-xs px-2 py-1 rounded border transition-colors font-mono ${
+                            copiedClass === borderClassName
+                              ? "bg-green-100 border-green-300 text-green-700"
+                              : "bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100"
+                          }`}
+                        >
+                          {copiedClass === borderClassName ? "Copied!" : borderClassName}
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Usage Examples */}
+        <div className="mt-12 bg-white rounded-2xl p-8 shadow-sm border">
+          <h2 className="text-2xl font-semibold mb-6 text-slate-800">Usage Examples</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium text-slate-700">Background Colors</h3>
+              <div className="space-y-2">
+                {["primary", "secondary", "success", "warning", "danger"].map((color) => (
+                  <div key={color} className="flex items-center gap-3">
+                    <div 
+                      className="w-8 h-8 rounded"
+                      style={{ backgroundColor: completeTheme[selectedTheme][color as keyof typeof completeTheme.light]["500"] }}
+                    />
+                    <code className="text-sm bg-slate-100 px-2 py-1 rounded font-mono">
+                      bg-{color}-500
+                    </code>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium text-slate-700">Text Colors</h3>
+              <div className="space-y-2">
+                {["primary", "secondary", "success", "warning", "danger"].map((color) => (
+                  <div key={color} className="flex items-center gap-3">
+                    <span 
+                      className="text-lg font-semibold"
+                      style={{ color: completeTheme[selectedTheme][color as keyof typeof completeTheme.light]["600"] }}
+                    >
+                      Sample Text
+                    </span>
+                    <code className="text-sm bg-slate-100 px-2 py-1 rounded font-mono">
+                      text-{color}-600
+                    </code>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-      {/* PRIMARY */}
-      <section className="mb-12">
-        <h2 className="mb-4 text-2xl font-semibold">Primary</h2>
-        <div className="grid grid-cols-6 gap-4">
-          <Box className="bg-primary-50 text-primary-950" label="50" />
-          <Box className="bg-primary-100 text-primary-950" label="100" />
-          <Box className="bg-primary-200 text-primary-950" label="200" />
-          <Box className="bg-primary-300 text-primary-950" label="300" />
-          <Box className="bg-primary-400 text-primary-50" label="400" />
-          <Box className="bg-primary-500 text-primary-50" label="500" />
-          <Box className="bg-primary-600 text-primary-50" label="600" />
-          <Box className="bg-primary-700 text-primary-50" label="700" />
-          <Box className="bg-primary-800 text-primary-50" label="800" />
-          <Box className="bg-primary-900 text-primary-50" label="900" />
-          <Box className="bg-primary-950 text-primary-50" label="950" />
-        </div>
-      </section>
-
-      {/* SECONDARY */}
-      <section className="mb-12">
-        <h2 className="mb-4 text-2xl font-semibold">Secondary</h2>
-        <div className="grid grid-cols-6 gap-4">
-          <Box className="bg-secondary-50 text-secondary-950" label="50" />
-          <Box className="bg-secondary-100 text-secondary-950" label="100" />
-          <Box className="bg-secondary-200 text-secondary-950" label="200" />
-          <Box className="bg-secondary-300 text-secondary-950" label="300" />
-          <Box className="bg-secondary-400 text-secondary-50" label="400" />
-          <Box className="bg-secondary-500 text-secondary-50" label="500" />
-          <Box className="bg-secondary-600 text-secondary-50" label="600" />
-          <Box className="bg-secondary-700 text-secondary-50" label="700" />
-          <Box className="bg-secondary-800 text-secondary-50" label="800" />
-          <Box className="bg-secondary-900 text-secondary-50" label="900" />
-          <Box className="bg-secondary-950 text-secondary-50" label="950" />
-        </div>
-      </section>
-
-      {/* SUCCESS */}
-      <section className="mb-12">
-        <h2 className="mb-4 text-2xl font-semibold">Success</h2>
-        <div className="grid grid-cols-6 gap-4">
-          <Box className="bg-success-50 text-success-950" label="50" />
-          <Box className="bg-success-100 text-success-950" label="100" />
-          <Box className="bg-success-200 text-success-950" label="200" />
-          <Box className="bg-success-300 text-success-950" label="300" />
-          <Box className="bg-success-400 text-success-50" label="400" />
-          <Box className="bg-success-500 text-success-50" label="500" />
-          <Box className="bg-success-600 text-success-50" label="600" />
-          <Box className="bg-success-700 text-success-50" label="700" />
-          <Box className="bg-success-800 text-success-50" label="800" />
-          <Box className="bg-success-900 text-success-50" label="900" />
-          <Box className="bg-success-950 text-success-50" label="950" />
-        </div>
-      </section>
-
-      {/* WARNING */}
-      <section className="mb-12">
-        <h2 className="mb-4 text-2xl font-semibold">Warning</h2>
-        <div className="grid grid-cols-6 gap-4">
-          <Box className="bg-warning-50 text-warning-950" label="50" />
-          <Box className="bg-warning-100 text-warning-950" label="100" />
-          <Box className="bg-warning-200 text-warning-950" label="200" />
-          <Box className="bg-warning-300 text-warning-950" label="300" />
-          <Box className="bg-warning-400 text-warning-50" label="400" />
-          <Box className="bg-warning-500 text-warning-50" label="500" />
-          <Box className="bg-warning-600 text-warning-50" label="600" />
-          <Box className="bg-warning-700 text-warning-50" label="700" />
-          <Box className="bg-warning-800 text-warning-50" label="800" />
-          <Box className="bg-warning-900 text-warning-50" label="900" />
-          <Box className="bg-warning-950 text-warning-50" label="950" />
-        </div>
-      </section>
-
-      {/* DANGER */}
-      <section className="mb-12">
-        <h2 className="mb-4 text-2xl font-semibold">Danger</h2>
-        <div className="grid grid-cols-6 gap-4">
-          <Box className="bg-danger-50 text-danger-950" label="50" />
-          <Box className="bg-danger-100 text-danger-950" label="100" />
-          <Box className="bg-danger-200 text-danger-950" label="200" />
-          <Box className="bg-danger-300 text-danger-950" label="300" />
-          <Box className="bg-danger-400 text-danger-50" label="400" />
-          <Box className="bg-danger-500 text-danger-50" label="500" />
-          <Box className="bg-danger-600 text-danger-50" label="600" />
-          <Box className="bg-danger-700 text-danger-50" label="700" />
-          <Box className="bg-danger-800 text-danger-50" label="800" />
-          <Box className="bg-danger-900 text-danger-50" label="900" />
-          <Box className="bg-danger-950 text-danger-50" label="950" />
-        </div>
-      </section>
-
-      {/* INFO */}
-      <section className="mb-12">
-        <h2 className="mb-4 text-2xl font-semibold">Info</h2>
-        <div className="grid grid-cols-6 gap-4">
-          <Box className="bg-info-50 text-info-950" label="50" />
-          <Box className="bg-info-100 text-info-950" label="100" />
-          <Box className="bg-info-200 text-info-950" label="200" />
-          <Box className="bg-info-300 text-info-950" label="300" />
-          <Box className="bg-info-400 text-info-50" label="400" />
-          <Box className="bg-info-500 text-info-50" label="500" />
-          <Box className="bg-info-600 text-info-50" label="600" />
-          <Box className="bg-info-700 text-info-50" label="700" />
-          <Box className="bg-info-800 text-info-50" label="800" />
-          <Box className="bg-info-900 text-info-50" label="900" />
-          <Box className="bg-info-950 text-info-50" label="950" />
-        </div>
-      </section>
-
-      {/* --- MD3 TOKENS --- */}
-      <section className="mb-12">
-        <h2 className="mb-4 text-2xl font-semibold">Material Design 3 Tokens</h2>
-
-        <div className="grid grid-cols-3 gap-6">
-          <Box className="bg-primary text-on-primary" label="primary" />
-          <Box
-            className="bg-primary-container text-on-primary-container"
-            label="primary-container"
-          />
-          <Box className="bg-secondary text-on-secondary" label="secondary" />
-          <Box
-            className="bg-secondary-container text-on-secondary-container"
-            label="secondary-container"
-          />
-          <Box className="bg-surface text-on-surface" label="surface" />
-          <Box className="bg-surface-variant text-on-surface-variant" label="surface-variant" />
-          <Box className="border-outline border-4" label="outline" />
-          <Box className="border-outline-variant border-4" label="outline-var" />
-        </div>
-      </section>
-
-      {/* --- SEMANTIC TOKENS --- */}
-      <section className="mb-12">
-        <h2 className="mb-4 text-2xl font-semibold">Semantic Tokens</h2>
-
-        <div className="grid grid-cols-3 gap-6">
-          <Box className="bg-background text-foreground" label="background / foreground" />
-          <Box className="bg-card text-card-foreground" label="card / card-foreground" />
-          <Box className="bg-muted text-muted-foreground" label="muted / muted-foreground" />
-        </div>
-      </section>
     </div>
   );
 }

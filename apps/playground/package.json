@@ -9,7 +9,12 @@
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx --cache",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --cache --fix",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test:alpha": "clean-package --config clean-package.alpha.json && pnpm install",
+    "test:beta": "clean-package --config clean-package.beta.json && pnpm install",
+    "test:canary": "clean-package --config clean-package.canary.json && pnpm install",
+    "test:latest": "clean-package --config clean-package.latest.json && pnpm install",
+    "restore:workspace": "clean-package --config clean-package.workspace.json && pnpm install"
   },
   "dependencies": {
     "@ideasui/button": "workspace:*",
@@ -21,7 +26,6 @@
     "react-dom": "^19.2.3"
   },
   "devDependencies": {
-    "@ideasui/tailwind-config": "workspace:*",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "^24.10.4",
     "@types/react": "^19.2.7",

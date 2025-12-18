@@ -2,7 +2,10 @@ import {defineConfig, devices} from "@playwright/test";
 
 export default defineConfig({
   testDir: "./packages",
-  testMatch: ["**/packages/components/**/src/__tests__/*.spec.ts"],
+  testMatch: [
+    "**/packages/components/**/src/__tests__/*.spec.ts",
+    "**/packages/hooks/**/src/__tests__/*.spec.ts",
+  ],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

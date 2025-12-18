@@ -208,9 +208,6 @@ importers:
         specifier: ^19.2.3
         version: 19.2.3(react@19.2.3)
     devDependencies:
-      '@ideasui/tailwind-config':
-        specifier: workspace:*
-        version: link:../../configs/tailwind-config
       '@tailwindcss/postcss':
         specifier: ^4.1.18
         version: 4.1.18

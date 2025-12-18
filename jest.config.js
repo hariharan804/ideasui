@@ -1,7 +1,12 @@
 module.exports = {
   testEnvironment: "jsdom",
   testTimeout: 35000,
-  collectCoverageFrom: ["packages/**/*.{ts,tsx}"],
+  collectCoverageFrom: [
+    "packages/components/**/*.{ts,tsx}",
+    "packages/hooks/**/*.{ts,tsx}",
+    "packages/core/**/*.{ts,tsx}",
+    "packages/utils/**/*.{ts,tsx}"
+  ],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
   modulePathIgnorePatterns: ["<rootDir>/examples", "<rootDir>/templates"],
   transform: {

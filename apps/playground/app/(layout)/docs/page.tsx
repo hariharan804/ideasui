@@ -1,274 +1,300 @@
 "use client";
 
-import {useState} from "react";
-import {Button} from "@ideasui/button";
+import {useState, useEffect, useMemo} from "react";
+import {FileText, Book, ExternalLink, Search} from "lucide-react";
 
-const codeExamples = {
-  basic: `import { Button } from '@ideasui/button'
+interface DocFile {
+  name: string;
+  path: string;
+  description: string;
+}
 
-export default function App() {
-  return <Button>Click me</Button>
-}`,
-  variants: `<Button variant="default">Default</Button>
-<Button variant="destructive">Destructive</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="link">Link</Button>`,
-  sizes: `<Button size="sm">Small</Button>
-<Button size="default">Default</Button>
-<Button size="lg">Large</Button>
-<Button size="icon">🚀</Button>`,
-  disabled: `<Button disabled>Disabled Button</Button>`,
-};
+const DOC_FILES: DocFile[] = [
+  {name: "README.md", path: "../../README.md", description: "Main project documentation"},
+  {
+    name: "SETUP_CHECKLIST.md",
+    path: "../../SETUP_CHECKLIST.md",
+    description: "Complete setup guide",
+  },
+  {
+    name: "CONTRIBUTING.md",
+    path: "../../docs/CONTRIBUTING.md",
+    description: "Contribution guidelines",
+  },
+  {
+    name: "COMPONENT_GUIDELINES.md",
+    path: "../../docs/COMPONENT_GUIDELINES.md",
+    description: "Component development standards",
+  },
+  {
+    name: "NAMING_CONVENTIONS.md",
+    path: "../../docs/NAMING_CONVENTIONS.md",
+    description: "Naming rules and cases",
+  },
+  {
+    name: "TESTING_STRATEGY.md",
+    path: "../../docs/TESTING_STRATEGY.md",
+    description: "Quality assurance guide",
+  },
+  {
+    name: "BUILD_DEPLOYMENT.md",
+    path: "../../docs/BUILD_DEPLOYMENT.md",
+    description: "Release process",
+  },
+  {
+    name: "API_DOCUMENTATION.md",
+    path: "../../docs/API_DOCUMENTATION.md",
+    description: "Component reference",
+  },
+];
 
 export default function DocsPage() {
-  const [activeTab, setActiveTab] = useState("overview");
+  const [selectedDoc, setSelectedDoc] = useState<string>("README.md");
+  const [searchTerm, setSearchTerm] = useState("");
+  // const [docContent, setDocContent] = useState<string>("");
 
-  const CodeBlock = ({code}: {code: string}) => (
-    <div className="relative">
-      <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-sm text-gray-100">
-        <code>{code}</code>
-      </pre>
-      <button
-        className="absolute top-2 right-2 rounded bg-gray-700 px-2 py-1 text-xs text-white hover:bg-gray-600"
-        onClick={() => navigator.clipboard.writeText(code)}
-      >
-        Copy
-      </button>
-    </div>
+  // Mock content for demonstration
+  const mockContent = useMemo(
+    () => ({
+      "README.md": `# IdeasUI - Component Library
+
+IdeasUI is a modern, accessible component library built with TypeScript, Tailwind CSS, and comprehensive tooling.
+
+## 🚀 Quick Start
+
+\`\`\`bash
+# Clone the repository
+git clone <repository-url>
+cd lib
+
+# Install dependencies
+pnpm install
+
+# Start development
+pnpm run dev
+\`\`\`
+
+## 📦 Usage
+
+\`\`\`tsx
+import {Button} from "@ideasui/button";
+import {Box} from "@ideasui/box";
+
+function App() {
+  return (
+    <Box className="p-6">
+      <Button variant="solid" color="primary" size="md">
+        Click me
+      </Button>
+    </Box>
   );
+}
+\`\`\`
 
-  const PropTable = () => (
-    <div className="overflow-x-auto">
-      <table className="w-full border-collapse border border-gray-300">
-        <thead>
-          <tr className="bg-gray-50">
-            <th className="border border-gray-300 px-4 py-2 text-left">Prop</th>
-            <th className="border border-gray-300 px-4 py-2 text-left">Type</th>
-            <th className="border border-gray-300 px-4 py-2 text-left">Default</th>
-            <th className="border border-gray-300 px-4 py-2 text-left">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">variant</td>
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">
-              'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link'
-            </td>
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">'default'</td>
-            <td className="border border-gray-300 px-4 py-2">
-              The visual style variant of the button
-            </td>
-          </tr>
-          <tr className="bg-gray-50">
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">size</td>
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">
-              'default' | 'sm' | 'lg' | 'icon'
-            </td>
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">'default'</td>
-            <td className="border border-gray-300 px-4 py-2">The size of the button</td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">disabled</td>
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">boolean</td>
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">false</td>
-            <td className="border border-gray-300 px-4 py-2">Whether the button is disabled</td>
-          </tr>
-          <tr className="bg-gray-50">
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">onClick</td>
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">{"() => void"}</td>
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">-</td>
-            <td className="border border-gray-300 px-4 py-2">Click event handler</td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">children</td>
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">ReactNode</td>
-            <td className="border border-gray-300 px-4 py-2 font-mono text-sm">-</td>
-            <td className="border border-gray-300 px-4 py-2">Button content</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+## 🎯 Features
+
+- ✅ Modern React components with TypeScript
+- ✅ Tailwind CSS with variants system
+- ✅ Storybook playground for development
+- ✅ Comprehensive testing (Jest + Playwright)
+- ✅ Accessibility compliant (WCAG 2.1)
+- ✅ Dark mode support
+- ✅ Tree-shakeable exports`,
+
+      "SETUP_CHECKLIST.md": `# Setup Checklist
+
+Complete setup guide for IdeasUI component library.
+
+## ✅ Prerequisites
+
+- [ ] Node.js 18+ installed
+- [ ] pnpm package manager
+- [ ] Git configured
+
+## 🛠️ Development Setup
+
+- [ ] Clone repository
+- [ ] Install dependencies
+- [ ] Run initial build
+- [ ] Start Storybook
+- [ ] Run tests
+
+## 📋 Configuration
+
+- [ ] ESLint configuration
+- [ ] Prettier setup
+- [ ] Husky git hooks
+- [ ] Changesets for versioning`,
+
+      "CONTRIBUTING.md": `# Contributing to IdeasUI
+
+Thank you for your interest in contributing to IdeasUI!
+
+## 🤝 How to Contribute
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
+
+## 📝 Development Guidelines
+
+- Follow the component guidelines
+- Write comprehensive tests
+- Update documentation
+- Use conventional commits
+
+## 🧪 Testing
+
+Run the test suite before submitting:
+
+\`\`\`bash
+pnpm run test
+pnpm run test:visual
+\`\`\``,
+    }),
+    [],
+  );
+  const docContent =
+    (mockContent[selectedDoc as keyof typeof mockContent] as string) || "Content not available";
+  // useEffect(() => {
+  //   // In a real implementation, you would fetch the actual file content
+  //   setDocContent(
+  //     (mockContent[selectedDoc as keyof typeof mockContent] as string) || "Content not available",
+  //   );
+  // }, [selectedDoc]);
+
+  const filteredDocs = DOC_FILES.filter(
+    (doc) =>
+      doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doc.description.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <div className="sticky top-0 z-50 border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <h1 className="text-xl font-semibold">Button</h1>
-              <span className="rounded bg-blue-100 px-2 py-1 text-sm text-blue-800">Component</span>
-            </div>
-            <div className="flex items-center space-x-4">
-              <a className="text-blue-600 hover:text-blue-800" href="/library">
-                ← Back to Library
-              </a>
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="mx-auto max-w-7xl px-6 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="mb-4 flex items-center gap-3">
+            <Book className="h-8 w-8 text-blue-600" />
+            <h1 className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-4xl font-bold text-transparent">
+              Documentation
+            </h1>
           </div>
+          <p className="text-lg text-slate-600">
+            Browse and preview all documentation files from the project root
+          </p>
         </div>
-      </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-8 lg:flex-row">
-          {/* Sidebar Navigation */}
-          <div className="flex-shrink-0 lg:w-64">
-            <div className="sticky top-24">
-              <nav className="space-y-1">
-                {[
-                  {id: "overview", label: "Overview"},
-                  {id: "examples", label: "Examples"},
-                  {id: "api", label: "API Reference"},
-                  {id: "playground", label: "Playground"},
-                ].map((tab) => (
+        <div className="grid gap-8 lg:grid-cols-4">
+          {/* Sidebar */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-8 rounded-2xl border bg-white p-6 shadow-sm">
+              {/* Search */}
+              <div className="relative mb-6">
+                <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Search docs..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full rounded-lg border border-slate-200 py-2 pr-4 pl-10 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+              </div>
+
+              {/* File List */}
+              <div className="space-y-2">
+                <h3 className="mb-3 text-sm font-semibold text-slate-700">Documentation Files</h3>
+                {filteredDocs.map((doc) => (
                   <button
-                    key={tab.id}
-                    className={`w-full rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors ${
-                      activeTab === tab.id
-                        ? "bg-blue-100 text-blue-700"
-                        : "text-gray-600 hover:bg-gray-100"
-                    }`}
-                    onClick={() => setActiveTab(tab.id)}
+                    key={doc.name}
+                    onClick={() => setSelectedDoc(doc.name)}
+                    className={`w-full rounded-lg p-3 text-left transition-all ${
+                      selectedDoc === doc.name
+                        ? "border-blue-300 bg-blue-100 text-blue-700"
+                        : "border-transparent hover:bg-slate-50"
+                    } border`}
                   >
-                    {tab.label}
+                    <div className="flex items-start gap-2">
+                      <FileText className="mt-0.5 h-4 w-4 flex-shrink-0" />
+                      <div>
+                        <div className="text-sm font-medium">{doc.name}</div>
+                        <div className="mt-1 text-xs text-slate-500">{doc.description}</div>
+                      </div>
+                    </div>
                   </button>
                 ))}
-              </nav>
+              </div>
+
+              {/* External Links */}
+              <div className="mt-8 border-t border-slate-200 pt-6">
+                <h3 className="mb-3 text-sm font-semibold text-slate-700">External Links</h3>
+                <div className="space-y-2">
+                  <a
+                    href="https://github.com/your-repo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-blue-600"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    GitHub Repository
+                  </a>
+                  <a
+                    href="/storybook"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-blue-600"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    Storybook
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Main Content */}
-          <div className="max-w-4xl flex-1">
-            {activeTab === "overview" && (
-              <div className="space-y-8">
-                <div>
-                  <h2 className="mb-4 text-2xl font-bold">Button</h2>
-                  <p className="mb-6 text-lg text-gray-600">
-                    Buttons allow users to take actions, and make choices, with a single tap.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="mb-4 text-xl font-semibold">Basic Usage</h3>
-                  <div className="space-y-4">
-                    <div className="rounded-lg border bg-gray-50 p-6">
-                      <Button>Default Button</Button>
-                    </div>
-                    <CodeBlock code={codeExamples.basic} />
+          {/* Content */}
+          <div className="lg:col-span-3">
+            <div className="overflow-hidden rounded-2xl border bg-white shadow-sm">
+              {/* Header */}
+              <div className="border-b border-slate-200 bg-slate-50 px-6 py-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-5 w-5 text-slate-600" />
+                    <h2 className="text-lg font-semibold text-slate-800">{selectedDoc}</h2>
                   </div>
-                </div>
-
-                <div>
-                  <h3 className="mb-4 text-xl font-semibold">Installation</h3>
-                  <CodeBlock code="npm install @ideasui/button" />
-                </div>
-              </div>
-            )}
-
-            {activeTab === "examples" && (
-              <div className="space-y-8">
-                <div>
-                  <h2 className="mb-4 text-2xl font-bold">Examples</h2>
-                </div>
-
-                <div>
-                  <h3 className="mb-4 text-xl font-semibold">Variants</h3>
-                  <div className="space-y-4">
-                    <div className="flex flex-wrap gap-4 rounded-lg border bg-gray-50 p-6">
-                      <Button variant="default">Default</Button>
-                      <Button variant="destructive">Destructive</Button>
-                      <Button variant="outline">Outline</Button>
-                      <Button variant="secondary">Secondary</Button>
-                      <Button variant="ghost">Ghost</Button>
-                      <Button variant="link">Link</Button>
-                    </div>
-                    <CodeBlock code={codeExamples.variants} />
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="mb-4 text-xl font-semibold">Sizes</h3>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4 rounded-lg border bg-gray-50 p-6">
-                      <Button size="sm">Small</Button>
-                      <Button size="default">Default</Button>
-                      <Button size="lg">Large</Button>
-                      <Button size="icon">🚀</Button>
-                    </div>
-                    <CodeBlock code={codeExamples.sizes} />
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="mb-4 text-xl font-semibold">Disabled State</h3>
-                  <div className="space-y-4">
-                    <div className="rounded-lg border bg-gray-50 p-6">
-                      <Button disabled>Disabled Button</Button>
-                    </div>
-                    <CodeBlock code={codeExamples.disabled} />
+                  <div className="text-sm text-slate-500">
+                    Last updated: {new Date().toLocaleDateString()}
                   </div>
                 </div>
               </div>
-            )}
 
-            {activeTab === "api" && (
-              <div className="space-y-8">
-                <div>
-                  <h2 className="mb-4 text-2xl font-bold">API Reference</h2>
-                  <p className="mb-6 text-gray-600">
-                    Complete reference of all props and their types.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="mb-4 text-xl font-semibold">Props</h3>
-                  <PropTable />
-                </div>
-
-                <div>
-                  <h3 className="mb-4 text-xl font-semibold">CSS Classes</h3>
-                  <p className="mb-4 text-gray-600">
-                    The Button component uses Tailwind CSS classes. You can customize the appearance
-                    by overriding these classes.
-                  </p>
-                  <div className="rounded-lg bg-gray-50 p-4">
-                    <p className="font-mono text-sm">
-                      Base classes: inline-flex items-center justify-center rounded-md text-sm
-                      font-medium
-                    </p>
+              {/* Content */}
+              <div className="p-6">
+                <div className="prose prose-slate max-w-none">
+                  <div className="overflow-x-auto rounded-lg border bg-slate-50 p-6 font-mono text-sm whitespace-pre-wrap">
+                    {docContent}
                   </div>
                 </div>
               </div>
-            )}
 
-            {activeTab === "playground" && (
-              <div className="space-y-8">
-                <div>
-                  <h2 className="mb-4 text-2xl font-bold">Interactive Playground</h2>
-                  <p className="mb-6 text-gray-600">
-                    Experiment with different props and see the changes in real-time.
-                  </p>
-                </div>
-
-                <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-                  <p className="text-blue-800">
-                    🚀 <strong>Try the full playground:</strong> Visit the{" "}
-                    <a className="font-medium underline" href="/components">
-                      interactive playground
-                    </a>{" "}
-                    for a complete experience with live prop editing.
-                  </p>
-                </div>
-
-                <div className="rounded-lg border bg-gray-50 p-8 text-center">
-                  <Button onClick={() => (window.location.href = "/components")}>
-                    Open Full Playground
-                  </Button>
+              {/* Footer */}
+              <div className="border-t border-slate-200 bg-slate-50 px-6 py-4">
+                <div className="flex items-center justify-between text-sm text-slate-600">
+                  <div>
+                    Found an issue?{" "}
+                    <a href="#" className="text-blue-600 hover:underline">
+                      Edit on GitHub
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <button className="text-blue-600 hover:underline">Share</button>
+                    <button className="text-blue-600 hover:underline">Print</button>
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>

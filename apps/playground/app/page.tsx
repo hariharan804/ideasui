@@ -1,121 +1,123 @@
 "use client";
-import {useTheme} from "@ideasui/theme-controller";
-import Image from "next/image";
+import { ArrowRight, Palette, Package, Wrench, Eye, Code2 } from "lucide-react";
+
+const navigationItems = [
+  {
+    title: "Colors",
+    description: "Explore color palettes and copy Tailwind classes",
+    href: "/colors",
+    icon: Palette,
+    gradient: "from-purple-500 to-pink-500",
+  },
+  {
+    title: "Installer",
+    description: "Dynamic package installer for all release tags",
+    href: "/installer",
+    icon: Package,
+    gradient: "from-blue-500 to-cyan-500",
+  },
+  {
+    title: "Components",
+    description: "Interactive component playground",
+    href: "/components",
+    icon: Wrench,
+    gradient: "from-green-500 to-emerald-500",
+  },
+  {
+    title: "Preview",
+    description: "Live component previews and demos",
+    href: "/preview",
+    icon: Eye,
+    gradient: "from-orange-500 to-red-500",
+  },
+];
 
 export default function Home() {
-  const theme = useTheme();
-
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between bg-white px-16 py-32 sm:items-start">
-        <Image
-          priority
-          alt="Next.js logo"
-          className="dark:invert"
-          height={20}
-          src="/next.svg"
-          width={100}
-        />
-        <div className="flex flex-col items-center gap-8 text-center sm:items-start sm:text-left">
-          {/* Theme Controls */}
-          <div className="flex gap-2">
-            {["light", "dark", "system"].map((themeOption) => (
-              <button
-                key={themeOption}
-                className={`rounded-md border px-4 py-2 transition-colors ${
-                  theme?.theme === themeOption
-                    ? "bg-primary border-primary-500 text-white"
-                    : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
-                }`}
-                onClick={() => theme?.setTheme(themeOption)}
-              >
-                {themeOption}
-              </button>
-            ))}
-          </div>
-          <p className="text-sm text-gray-600">
-            Current: {theme?.theme} (Resolved: {theme?.resolvedTheme})
-          </p>
-
-          {/* Text Showcase */}
-          <div className="w-full space-y-4">
-            <h2 className="text-xl font-semibold">Text Styles</h2>
-            <div className="grid gap-2">
-              <h1 className="text-4xl font-bold">Heading 1</h1>
-              <h2 className="text-2xl font-semibold">Heading 2</h2>
-              <p className="text-base">Regular paragraph text</p>
-              <p className="text-sm text-gray-600">Small muted text</p>
-              <code className="rounded bg-gray-100 px-2 py-1 font-mono text-sm">Code text</code>
-            </div>
-          </div>
-
-          {/* Borders Showcase */}
-          <div className="w-full space-y-4">
-            <h2 className="text-xl font-semibold">Borders</h2>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="rounded border border-gray-200 p-4">Default border</div>
-              <div className="rounded border-2 border-blue-500 p-4">Colored border</div>
-              <div className="rounded border border-dashed border-gray-400 p-4">Dashed border</div>
-              <div className="border-l-4 border-green-500 bg-green-50 p-4">Left accent</div>
-            </div>
-          </div>
-
-          {/* Backgrounds Showcase */}
-          <div className="w-full space-y-4">
-            <h2 className="text-xl font-semibold">Backgrounds</h2>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="rounded bg-gray-100 p-4">Gray background</div>
-              <div className="rounded bg-blue-500 p-4 text-white">Blue background</div>
-              <div className="rounded bg-gradient-to-r from-purple-500 to-pink-500 p-4 text-white">
-                Gradient
-              </div>
-              <div className="rounded border border-red-200 bg-red-50 p-4 text-red-800">
-                Alert style
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10" />
+        <div className="relative mx-auto max-w-7xl px-6 py-24 sm:py-32">
+          <div className="text-center">
+            <div className="mb-8 flex items-center justify-center">
+              <div className="rounded-2xl bg-white p-4 shadow-lg">
+                <Code2 className="h-12 w-12 text-blue-600" />
               </div>
             </div>
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                IdeasUI
+              </span>{" "}
+              Playground
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-gray-600 max-w-2xl mx-auto">
+              Explore components, test different versions, and experiment with our design system.
+              Everything you need to build beautiful interfaces.
+            </p>
           </div>
-          {/* <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 ">
-            Looking for a starting point or more instructions? Head over to{' '}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950  "
-            >
-              Templates
-            </a>{' '}
-            or the{' '}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 "
-            >
-              Learning
-            </a>{' '}
-            center.
-          </p> */}
         </div>
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-base font-medium">
-          <a
-            className="flex h-12 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-5 text-white transition-all hover:from-purple-600 hover:to-pink-600 transform hover:scale-105"
-            href="/library"
-          >
-            🏛️ Library
-          </a>
-          <a
-            className="flex h-12 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 px-5 text-white transition-all hover:from-blue-600 hover:to-cyan-600 transform hover:scale-105"
-            href="/playground"
-          >
-            🎮 Playground
-          </a>
-          <a
-            className="flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-red-500 px-5 text-white transition-all hover:from-orange-600 hover:to-red-600 transform hover:scale-105"
-            href="/docs"
-          >
-            📖 Docs
-          </a>
-        </div> */}
-      </main>
+      </div>
+
+      {/* Navigation Grid */}
+      <div className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
+          {navigationItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                className="group relative overflow-hidden rounded-2xl bg-white p-8 shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
+              >
+                {/* Background Gradient */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-5`} />
+                
+                {/* Content */}
+                <div className="relative">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`rounded-xl bg-gradient-to-r ${item.gradient} p-3`}>
+                      <Icon className="h-6 w-6 text-white" />
+                    </div>
+                    <ArrowRight className="h-5 w-5 text-gray-400 transition-all duration-300 group-hover:text-gray-600 group-hover:translate-x-1" />
+                  </div>
+                  
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    {item.title}
+                  </h3>
+                  
+                  <p className="text-gray-600 leading-relaxed">
+                    {item.description}
+                  </p>
+                  
+                  {/* Hover Effect */}
+                  <div className={`absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r ${item.gradient} transition-all duration-300 group-hover:w-full`} />
+                </div>
+              </a>
+            );
+          })}
+        </div>
+        
+        {/* Quick Stats */}
+        <div className="mt-16 grid grid-cols-2 gap-8 sm:grid-cols-4">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-gray-900">50+</div>
+            <div className="text-sm text-gray-600">Components</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-gray-900">4</div>
+            <div className="text-sm text-gray-600">Release Tags</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-gray-900">100%</div>
+            <div className="text-sm text-gray-600">TypeScript</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-gray-900">A11Y</div>
+            <div className="text-sm text-gray-600">Compliant</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
