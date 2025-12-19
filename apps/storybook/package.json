@@ -33,7 +33,7 @@
   "dependencies": {
     "react": "19.2.1",
     "react-dom": "19.2.1",
-    "@ideasui/theme-controller": "workspace:*"
+    "@ideasui/theme": "workspace:*"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^10.1.10",

@@ -4,7 +4,7 @@
     "dependencies": {
       "@ideasui/button": "latest",
       "@ideasui/ripple": "latest",
-      "@ideasui/theme-controller": "latest",
+      "@ideasui/theme": "latest",
       "@ideasui/box": "latest",
       "@ideasui/variants": "latest",
       "@ideasui/utils": "latest",

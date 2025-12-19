@@ -1,19 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { Package, Download, Check, AlertCircle, Copy } from "lucide-react";
+import {useState} from "react";
+import {Package, Download, Check, AlertCircle, Copy} from "lucide-react";
 
 const RELEASE_TAGS = {
-  latest: { label: "Latest", description: "Stable release", color: "green" },
-  canary: { label: "Canary", description: "Latest development build", color: "yellow" },
-  beta: { label: "Beta", description: "Beta releases", color: "blue" },
-  alpha: { label: "Alpha", description: "Alpha releases", color: "purple" },
+  latest: {label: "Latest", description: "Stable release", color: "green"},
+  canary: {label: "Canary", description: "Latest development build", color: "yellow"},
+  beta: {label: "Beta", description: "Beta releases", color: "blue"},
+  alpha: {label: "Alpha", description: "Alpha releases", color: "purple"},
 } as const;
 
 const PACKAGES = [
   "@ideasui/button",
-  "@ideasui/ripple", 
-  "@ideasui/theme-controller",
+  "@ideasui/ripple",
+  "@ideasui/theme",
   "@ideasui/box",
   "@ideasui/variants",
   "@ideasui/utils",
@@ -27,8 +27,8 @@ export default function InstallerPage() {
 
   const generateInstallCommand = (packageManager: "npm" | "pnpm" | "yarn") => {
     const packages = Array.from(selectedPackages);
-    const packagesWithTag = packages.map(pkg => `${pkg}@${selectedTag}`).join(" ");
-    
+    const packagesWithTag = packages.map((pkg) => `${pkg}@${selectedTag}`).join(" ");
+
     switch (packageManager) {
       case "npm":
         return `npm install ${packagesWithTag}`;
@@ -65,7 +65,7 @@ export default function InstallerPage() {
         <div className="mb-8 text-center">
           <div className="mb-4 flex items-center justify-center gap-3">
             <Package className="h-8 w-8 text-blue-600" />
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-4xl font-bold text-transparent">
               Package Installer
             </h1>
           </div>
@@ -76,32 +76,35 @@ export default function InstallerPage() {
 
         <div className="space-y-8">
           {/* Release Tag Selection */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm border">
-            <h2 className="text-xl font-semibold mb-4 text-slate-800">Release Tag</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="rounded-2xl border bg-white p-6 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold text-slate-800">Release Tag</h2>
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
               {Object.entries(RELEASE_TAGS).map(([tag, info]) => (
                 <button
                   key={tag}
                   onClick={() => setSelectedTag(tag as keyof typeof RELEASE_TAGS)}
-                  className={`p-4 rounded-lg border-2 transition-all text-left ${
+                  className={`rounded-lg border-2 p-4 text-left transition-all ${
                     selectedTag === tag
                       ? "border-blue-500 bg-blue-50"
                       : "border-slate-200 hover:border-slate-300"
                   }`}
                 >
-                  <div className="flex items-center gap-2 mb-2">
-                    <div 
-                      className={`w-3 h-3 rounded-full ${
-                        info.color === "green" ? "bg-green-500" :
-                        info.color === "yellow" ? "bg-yellow-500" :
-                        info.color === "blue" ? "bg-blue-500" :
-                        "bg-purple-500"
+                  <div className="mb-2 flex items-center gap-2">
+                    <div
+                      className={`h-3 w-3 rounded-full ${
+                        info.color === "green"
+                          ? "bg-green-500"
+                          : info.color === "yellow"
+                            ? "bg-yellow-500"
+                            : info.color === "blue"
+                              ? "bg-blue-500"
+                              : "bg-purple-500"
                       }`}
                     />
                     <span className="font-semibold text-slate-800">{info.label}</span>
                   </div>
                   <p className="text-sm text-slate-600">{info.description}</p>
-                  <code className="text-xs bg-slate-100 px-2 py-1 rounded mt-2 block font-mono">
+                  <code className="mt-2 block rounded bg-slate-100 px-2 py-1 font-mono text-xs">
                     @{tag}
                   </code>
                 </button>
@@ -110,30 +113,30 @@ export default function InstallerPage() {
           </div>
 
           {/* Package Selection */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm border">
-            <div className="flex items-center justify-between mb-4">
+          <div className="rounded-2xl border bg-white p-6 shadow-sm">
+            <div className="mb-4 flex items-center justify-between">
               <h2 className="text-xl font-semibold text-slate-800">Packages</h2>
               <div className="flex gap-2">
                 <button
                   onClick={selectAll}
-                  className="text-sm px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors"
+                  className="rounded bg-blue-100 px-3 py-1 text-sm text-blue-700 transition-colors hover:bg-blue-200"
                 >
                   Select All
                 </button>
                 <button
                   onClick={selectNone}
-                  className="text-sm px-3 py-1 bg-slate-100 text-slate-700 rounded hover:bg-slate-200 transition-colors"
+                  className="rounded bg-slate-100 px-3 py-1 text-sm text-slate-700 transition-colors hover:bg-slate-200"
                 >
                   Select None
                 </button>
               </div>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {PACKAGES.map((pkg) => (
                 <label
                   key={pkg}
-                  className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${
+                  className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
                     selectedPackages.has(pkg)
                       ? "border-blue-300 bg-blue-50"
                       : "border-slate-200 hover:border-slate-300"
@@ -143,7 +146,7 @@ export default function InstallerPage() {
                     type="checkbox"
                     checked={selectedPackages.has(pkg)}
                     onChange={() => togglePackage(pkg)}
-                    className="w-4 h-4 text-blue-600 rounded"
+                    className="h-4 w-4 rounded text-blue-600"
                   />
                   <code className="font-mono text-sm text-slate-700">{pkg}</code>
                 </label>
@@ -152,11 +155,11 @@ export default function InstallerPage() {
           </div>
 
           {/* Install Commands */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm border">
-            <h2 className="text-xl font-semibold mb-4 text-slate-800">Install Commands</h2>
-            
+          <div className="rounded-2xl border bg-white p-6 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold text-slate-800">Install Commands</h2>
+
             {selectedPackages.size === 0 ? (
-              <div className="flex items-center gap-2 text-amber-600 bg-amber-50 p-4 rounded-lg">
+              <div className="flex items-center gap-2 rounded-lg bg-amber-50 p-4 text-amber-600">
                 <AlertCircle className="h-5 w-5" />
                 <span>Please select at least one package to install</span>
               </div>
@@ -166,11 +169,11 @@ export default function InstallerPage() {
                   const command = generateInstallCommand(pm);
                   return (
                     <div key={pm} className="relative">
-                      <div className="flex items-center justify-between mb-2">
+                      <div className="mb-2 flex items-center justify-between">
                         <span className="text-sm font-medium text-slate-700 uppercase">{pm}</span>
                         <button
                           onClick={() => copyCommand(command)}
-                          className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 transition-colors"
+                          className="flex items-center gap-1 text-sm text-blue-600 transition-colors hover:text-blue-700"
                         >
                           {copiedCommand === command ? (
                             <>
@@ -185,7 +188,7 @@ export default function InstallerPage() {
                           )}
                         </button>
                       </div>
-                      <div className="bg-slate-900 text-slate-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+                      <div className="overflow-x-auto rounded-lg bg-slate-900 p-4 font-mono text-sm text-slate-100">
                         {command}
                       </div>
                     </div>
@@ -197,9 +200,9 @@ export default function InstallerPage() {
 
           {/* Package.json Preview */}
           {selectedPackages.size > 0 && (
-            <div className="bg-white rounded-2xl p-6 shadow-sm border">
-              <h2 className="text-xl font-semibold mb-4 text-slate-800">Package.json Preview</h2>
-              <div className="bg-slate-900 text-slate-100 p-4 rounded-lg font-mono text-sm overflow-x-auto">
+            <div className="rounded-2xl border bg-white p-6 shadow-sm">
+              <h2 className="mb-4 text-xl font-semibold text-slate-800">Package.json Preview</h2>
+              <div className="overflow-x-auto rounded-lg bg-slate-900 p-4 font-mono text-sm text-slate-100">
                 <div className="text-blue-300">{`{`}</div>
                 <div className="ml-2 text-green-300">"dependencies":</div>
                 <div className="ml-2 text-blue-300">{`{`}</div>

@@ -1,9 +1,9 @@
 import chroma from "chroma-js";
 import {getSemanticColors} from "./semantic-colors.mjs";
 import {colorContrastChecker} from "./color-contrast-checker.mjs";
-import {generateCSS} from "./css-generator.js";
+import {generateCSS} from "./css-generator.mjs";
 import fs from "fs";
-import path from "path";
+
 /**
  * Convert color to specified format
  */
@@ -112,7 +112,7 @@ const cssContent = generateCSS(completeTheme, {
   transitionNormal: "200ms ease-in-out",
 });
 
-fs.writeFileSync("./theme-helper/generated-theme-constants.ts", tsContent);
-fs.writeFileSync("./theme.css", cssContent);
+fs.writeFileSync("./src/theme-constants.ts", tsContent);
+fs.writeFileSync("./src/theme.css", cssContent);
 console.log("✅ Theme constants generated!");
 console.log("✅ Brand theme CSS generated!");

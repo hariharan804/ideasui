@@ -3,7 +3,7 @@ import type {Metadata} from "next";
 // import { Geist, Geist_Mono } from 'next/font/google'
 import "./globals.css";
 import React from "react";
-import {ThemeController, ThemeScript} from "@ideasui/theme-controller";
+import {ThemeController, ThemeScript} from "@ideasui/theme";
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',

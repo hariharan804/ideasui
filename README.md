@@ -53,7 +53,7 @@ lib/
 │   │   ├── button/         # Interactive button component (@ideasui/button)
 │   │   └── ripple/         # Material Design ripple effect (@ideasui/ripple)
 │   ├── core/               # Core system packages
-│   │   ├── theme-controller/ # Theme management (@ideasui/theme-controller)
+│   │   ├── theme-controller/ # Theme management (@ideasui/theme)
 │   │   └── variants/       # Styling variants system (@ideasui/variants)
 │   ├── hooks/              # React hooks (@ideasui/hooks)
 │   ├── utils/              # Shared utilities (@ideasui/utils)

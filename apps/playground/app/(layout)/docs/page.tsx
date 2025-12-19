@@ -14,16 +14,19 @@ interface DocFile {
 
 const DOC_FILES: DocFile[] = [
   {name: "README.md", path: "README.md", description: "Main project documentation"},
-  {name: "SETUP_CHECKLIST.md", path: "SETUP_CHECKLIST.md", description: "Complete setup guide"},
-  {name: "CONTRIBUTING.md", path: "docs/CONTRIBUTING.md", description: "Contribution guidelines"},
   {
-    name: "COMPONENT_GUIDELINES.md",
-    path: "docs/COMPONENT_GUIDELINES.md",
-    description: "Component development standards",
+    name: "CONTRIBUTING.md",
+    path: "../../../../CONTRIBUTING.md",
+    description: "Contribution guidelines",
   },
+  // {
+  //   name: "COMPONENT_GUIDELINES.md",
+  //   path: "docs/COMPONENT_GUIDELINES.md",
+  //   description: "Component development standards",
+  // },
   {
     name: "NAMING_CONVENTIONS.md",
-    path: "docs/NAMING_CONVENTIONS.md",
+    path: "../../docs/NAMING_CONVENTIONS.md",
     description: "Naming rules and cases",
   },
   {
@@ -219,7 +222,7 @@ export default function DocsPage() {
             )}
 
             {/* Footer */}
-            {!loading && !error && (
+            {/* {!loading && !error && (
               <div className="border-t border-slate-200 bg-slate-50 px-6 py-4 md:px-8">
                 <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-slate-600">
                   <div>
@@ -238,7 +241,7 @@ export default function DocsPage() {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@
     "@ideasui/button": "workspace:*",
     "@ideasui/ripple": "workspace:*",
     "@ideasui/utils": "workspace:*",
-    "@ideasui/theme-controller": "workspace:*",
+    "@ideasui/theme": "workspace:*",
     "lucide-react": "^0.556.0",
     "next": "^16.0.10",
     "remark-gfm": "^4.0.1",

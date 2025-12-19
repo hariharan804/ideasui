@@ -4,7 +4,7 @@
     "dependencies": {
       "@ideasui/button": "alpha",
       "@ideasui/ripple": "alpha",
-      "@ideasui/theme-controller": "alpha",
+      "@ideasui/theme": "alpha",
       "@ideasui/box": "alpha",
       "@ideasui/variants": "alpha",
       "@ideasui/utils": "alpha",

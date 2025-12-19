@@ -1,6 +1,6 @@
 // Generate CSS file with industry-standard tokens following theme.css structure
 export function generateCSS(theme, config = {}) {
-  const BRAND_NAME = "iui";
+  const BRAND_NAME = "ideasui";
   const PREFIX = BRAND_NAME ? `--${BRAND_NAME}-color-` : "--color-";
 
   const defaultConfig = {

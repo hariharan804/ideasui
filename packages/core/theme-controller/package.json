@@ -1,5 +1,5 @@
 {
-  "name": "@ideasui/theme-controller",
+  "name": "@ideasui/theme",
   "version": "1.0.0",
   "description": "SSR-friendly theme switcher with no dependencies",
   "main": "./src/index.ts",
@@ -9,7 +9,8 @@
   ],
   "exports": {
     ".": "./src/index.ts",
-    "./theme.css": "./src/theme.css"
+    "./theme.css": "./src/theme.css",
+    "theme-constants": "./src/theme-constants.ts"
   },
   "scripts": {
     "build": "tsup src --dts",
@@ -18,7 +19,8 @@
     "typecheck": "tsc --noEmit",
     "build:dev": "tsup src",
     "prepack": "clean-package",
-    "postpack": "clean-package restore"
+    "postpack": "clean-package restore",
+    "generate-theme": "node src/theme-generator/industry-standard-shades.mjs"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -35,5 +37,8 @@
     "ssr",
     "react"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "chroma-js": "^3.2.0"
+  }
 }

@@ -24,7 +24,7 @@ packages/
 ├─ tokens/               # Design tokens (colors, spacing, radii) (@ideasui/tokens)
 ├─ themes/
 │  ├─ base/              # Base theme definitions (not always published)
-│  └─ controller/        # Theme switching logic (@ideasui/theme-controller)
+│  └─ controller/        # Theme switching logic (@ideasui/theme)
 └─ cli/                  # DX tooling/CLIs (@ideasui/cli)
 ```
 
@@ -263,7 +263,7 @@ export function cx(...parts: Array<string | undefined | false>) {
 ```tsx
 // src/IdeasUIProvider.tsx
 import * as React from "react";
-import {ThemeController} from "@ideasui/theme-controller";
+import {ThemeController} from "@ideasui/theme";
 
 export function IdeasUIProvider({children}: {children: React.ReactNode}) {
   return <ThemeController>{children}</ThemeController>;
@@ -295,7 +295,7 @@ export * from "@ideasui/hooks";
 
 - `@ideasui/tokens`: Export JS + CSS variables for colors, spacing, typography. Keep raw source in JSON/TS; build to ESM/CJS and CSS.
 - `themes/base`: primitive theme maps; no runtime switching.
-- `@ideasui/theme-controller`: handles system/theme switching + persistence (e.g., `class` or `data-theme` strategy).
+- `@ideasui/theme`: handles system/theme switching + persistence (e.g., `class` or `data-theme` strategy).
 - `@ideasui/icons`: React components generated from SVGs (use a build script to convert `/svg/*.svg` → React).
 
 ---

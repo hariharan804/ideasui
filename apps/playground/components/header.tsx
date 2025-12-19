@@ -2,7 +2,7 @@
 import React from "react";
 import {useRouter} from "next/navigation";
 import {ArrowLeft, Moon, Sun, Github, ExternalLink} from "lucide-react";
-import {useTheme} from "@ideasui/theme-controller";
+import {useTheme} from "@ideasui/theme";
 import Link from "next/link";
 
 interface HeaderProps {

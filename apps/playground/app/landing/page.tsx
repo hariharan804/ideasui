@@ -20,7 +20,7 @@ import {
   Lightbulb,
   Shield,
 } from "lucide-react";
-import {useTheme} from "@ideasui/theme-controller";
+import {useTheme} from "@ideasui/theme";
 
 export default function ComponentLibraryLanding() {
   const {theme, setTheme} = useTheme();

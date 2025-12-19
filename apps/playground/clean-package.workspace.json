@@ -4,7 +4,7 @@
     "dependencies": {
       "@ideasui/button": "workspace:*",
       "@ideasui/ripple": "workspace:*",
-      "@ideasui/theme-controller": "workspace:*",
+      "@ideasui/theme": "workspace:*",
       "@ideasui/box": "workspace:*",
       "@ideasui/variants": "workspace:*",
       "@ideasui/utils": "workspace:*",
