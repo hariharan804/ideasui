@@ -62,12 +62,6 @@ lib/
 ├── apps/
 │   ├── playground/         # Next.js playground app
 │   └── storybook/          # Storybook documentation app
-├── configs/
-│   ├── eslint-config/      # Shared ESLint configuration
-│   ├── jest-config/        # Shared Jest configuration
-│   ├── tailwind-config/    # Tailwind CSS configuration
-│   ├── tsconfig/           # TypeScript configurations
-│   └── tsup-config/        # Build tool configuration
 ├── templates/              # Component generation templates
 │   ├── component/          # Component template
 │   ├── hooks/              # Hook template

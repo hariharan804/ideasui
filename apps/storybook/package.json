@@ -32,10 +32,10 @@
   },
   "dependencies": {
     "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react-dom": "19.2.1",
+    "@ideasui/theme-controller": "workspace:*"
   },
   "devDependencies": {
-    "@ideasui/tailwind-config": "workspace:*",
     "@storybook/addon-a11y": "^10.1.10",
     "@storybook/addon-docs": "^10.1.10",
     "@storybook/addon-links": "^10.1.10",
