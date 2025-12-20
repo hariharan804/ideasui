@@ -58,7 +58,8 @@
     "version": "changeset version",
     "release": "changeset publish",
     "version:canary": "changeset version --snapshot canary",
-    "release:canary": "changeset publish --snapshot --no-git-tag --tag canary"
+    "release:canary": "changeset publish --snapshot --no-git-tag --tag canary",
+    "api:check": "api-extractor run --local --diagnostics"
   },
   "config": {
     "commitizen": {
@@ -72,8 +73,7 @@
     "packages/hooks/*",
     "packages/icons",
     "packages/cli",
-    "apps/*",
-    "configs/*"
+    "apps/*"
   ],
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
@@ -82,12 +82,14 @@
     "@eslint/compat": "^2.0.0",
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.2",
+    "@microsoft/api-extractor": "^7.55.2",
     "@next/eslint-plugin-next": "^16.0.10",
     "@playwright/test": "^1.57.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@storybook/addon-a11y": "^10.1.10",
     "@storybook/addon-docs": "^10.1.10",
+    "@storybook/react": "^10.1.10",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",
@@ -123,8 +125,10 @@
     "plop": "^4.0.4",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "rimraf": "^6.1.2",
     "semantic-release": "^25.0.2",
     "shell-quote": "^1.8.3",
+    "size-limit": "^12.0.0",
     "storybook": "^10.1.10",
     "ts-jest": "^29.4.6",
     "tsup": "^8.3.5",

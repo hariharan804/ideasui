@@ -188,6 +188,24 @@ export default defineConfig([
           reservedFirst: true,
         },
       ],
+      "react/require-default-props": "off",
+      "react/jsx-no-useless-fragment": "error",
+      "react-hooks/exhaustive-deps": "error",
+      "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/consistent-type-exports": "error",
+      "import/no-default-export": "error",
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "ImportDeclaration[source.value='react']",
+          message: "Use named React imports only",
+        },
+      ],
+      "import/no-default-export": "error",
+      "@typescript-eslint/no-explicit-any": "error",
+      "@typescript-eslint/consistent-type-exports": "error",
+      "react/jsx-no-useless-fragment": "error",
+      "react/require-default-props": "off",
 
       // React Hooks
       "react-hooks/rules-of-hooks": "error",

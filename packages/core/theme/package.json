@@ -4,20 +4,20 @@
   "description": "SSR-friendly theme switcher with no dependencies",
   "main": "./src/index.ts",
   "files": [
-    "src",
-    "theme.css"
+    "src"
   ],
   "exports": {
     ".": "./src/index.ts",
-    "./theme.css": "./src/theme.css",
-    "./theme-constants": "./src/theme-constants.ts"
+    "./theme-constants": "./src/theme-constants.ts",
+    "./theme.css": "./theme.css"
   },
   "scripts": {
-    "build": "tsup src --dts",
-    "dev": "pnpm build:dev --watch",
     "clean": "rimraf dist .turbo",
+    "build:css": "copyfiles theme.css dist",
+    "prebuild": "pnpm run clean",
+    "build": "tsup src && pnpm run build:css",
+    "dev": "tsup src --watch",
     "typecheck": "tsc --noEmit",
-    "build:dev": "tsup src",
     "prepack": "clean-package",
     "postpack": "clean-package restore",
     "generate-theme": "node src/theme-generate/industry-standard-shades.mjs"
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@types/react": "^19.2.7",
+    "copyfiles": "^2.4.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },

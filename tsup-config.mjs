@@ -5,15 +5,19 @@ export function createSharedConfig({
   outDir = "dist",
   isWatch = false,
   external = [],
+  ...rest
 }) {
-  return defineConfig({
-    entry: [entry],
+  return defineConfig((options) => ({
+    ...options,
+    ...rest,
+    entry: typeof entry === "string" ? [entry] : entry,
     outDir,
     clean: !isWatch,
     dts: true, // generate dts files
-    format: ["esm"],
+    banner: {js: '"use client";'},
     bundle: true,
     target: "es2020",
+    format: ["cjs", "esm"],
     skipNodeModulesBundle: true,
     sourcemap: isWatch,
     minify: !isWatch,
@@ -22,5 +26,5 @@ export function createSharedConfig({
       // modern JSX
       options.jsx = "automatic";
     },
-  });
+  }));
 }

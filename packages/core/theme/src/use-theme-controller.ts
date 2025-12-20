@@ -1,4 +1,3 @@
-"use client";
 import type {ThemeConfig, StorageAdapter} from "./types";
 
 import {useEffect, useRef} from "react";

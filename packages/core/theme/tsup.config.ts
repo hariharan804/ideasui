@@ -1,6 +1,10 @@
 import {createSharedConfig} from "../../../tsup-config.mjs";
+import {defineConfig} from "tsup";
 
-export default createSharedConfig({
-  entry: "src/index.ts",
-  outDir: "dist",
+const config = createSharedConfig({
+  external: ["*.css"],
+  bundle: false,
+  entry: ["src/**/!(.d|.stories|*.test|*.css).{ts,tsx}"],
 });
+
+export default defineConfig(config);

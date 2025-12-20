@@ -1,7 +1,7 @@
 // Main exports
 export * from "./react";
 export * from "./hooks";
-export * from "./mocks";
+// export * from "./mocks";
 
 // Common test utilities
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -32,6 +32,6 @@ export const expectAccessible = async (_element: HTMLElement) => {
 };
 
 // Snapshot helpers
-export const createSnapshot = (component: any) => {
-  return expect(component).toMatchSnapshot();
-};
+// export const createSnapshot = (component: any) => {
+//   return expect(component).toMatchSnapshot();
+// };

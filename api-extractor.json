@@ -1,0 +1,26 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
+  "mainEntryPointFilePath": "<projectFolder>/packages/cli/dist/index.d.ts",
+
+  "dtsRollup": {
+    "enabled": true
+  },
+
+  "apiReport": {
+    "enabled": true,
+    "reportFileName": "api-report.md",
+    "reportFolder": "<projectFolder>/api"
+  },
+
+  "docModel": {
+    "enabled": false
+  },
+
+  "messages": {
+    "compilerMessageReporting": {
+      "default": {
+        "logLevel": "warning"
+      }
+    }
+  }
+}

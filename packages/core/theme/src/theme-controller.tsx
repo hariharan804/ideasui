@@ -1,5 +1,3 @@
-"use client";
-
 import type {ThemeConfig} from "./types";
 
 import {useThemeController} from "./use-theme-controller";
