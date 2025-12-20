@@ -6,6 +6,6 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   optimizeDeps: {
-    include: ["@storybook/theming", "@mdx-js/react"],
+    include: ["@mdx-js/react"],
   },
 });

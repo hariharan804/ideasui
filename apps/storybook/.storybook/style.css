@@ -11,3 +11,4 @@
 @source "./src/**/*.{js,ts,jsx,tsx,mdx}";
 @source "../components/**/*.{js,ts,jsx,tsx,mdx}";
 @source "../../../packages/**/src/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../../packages/**/stories/**/*.{js,ts,jsx,tsx,mdx}";

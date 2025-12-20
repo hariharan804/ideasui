@@ -11,15 +11,14 @@ const config: StorybookConfig = {
   stories: [
     "../**/*.mdx",
     "../**/*.stories.@(js|jsx|ts|tsx|mdx)",
-    "../../../packages/components/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-    "../../../packages/primitives/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
-    "../../../packages/themes/**/src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+    "../../../packages/components/**/stories/*.stories.@(js|jsx|ts|tsx|mdx)",
+    "../../../packages/primitives/**/stories/*.stories.@(js|jsx|ts|tsx|mdx)",
+    "../../../packages/themes/**/stories/*.stories.@(js|jsx|ts|tsx|mdx)",
   ],
 
   staticDirs: ["../public"],
 
   addons: [
-    "@storybook/addon-essentials",
     "@storybook/addon-links",
     "@storybook/addon-a11y",
     {

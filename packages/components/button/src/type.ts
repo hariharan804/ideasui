@@ -1,6 +1,6 @@
 import type * as React from "react";
 import type {VariantProps} from "tailwind-variants";
-import type {buttonVariants} from "./button";
+import type {buttonVariants} from "@ideasui/variants/button";
 
 export interface ButtonClassNames {
   /**

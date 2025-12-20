@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { {{pascalCase name}} } from '../index'
+import type { Meta } from '@storybook/react'
+import { {{pascalCase name}} } from '../src'
 
-const meta: Meta<typeof {{pascalCase name}}> = {
+const meta = {
   title: 'Components/{{pascalCase name}}',
   component: {{pascalCase name}},
   parameters: {
@@ -18,18 +18,17 @@ const meta: Meta<typeof {{pascalCase name}}> = {
       options: ['sm', 'md', 'lg']
     }
   }
-}
+} as Meta<typeof {{pascalCase name}}>
 
 export default meta
-type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
+export const Default = {
   args: {
     children: '{{pascalCase name}} Component'
   }
 }
 
-export const Variants: Story = {
+export const Variants = {
   render: () => (
     <div className="flex gap-2">
       <{{pascalCase name}} variant="default">Default</{{pascalCase name}}>
@@ -38,7 +37,7 @@ export const Variants: Story = {
   )
 }
 
-export const Sizes: Story = {
+export const Sizes = {
   render: () => (
     <div className="flex gap-2 items-center">
       <{{pascalCase name}} size="sm">Small</{{pascalCase name}}>

@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.1.0",
   "description": "IdeasUI - Modern React component library built with TypeScript and Tailwind CSS",
-  "files": [],
   "keywords": [
     "react",
     "components",
@@ -58,8 +57,7 @@
     "version": "changeset version",
     "release": "changeset publish",
     "version:canary": "changeset version --snapshot canary",
-    "release:canary": "changeset publish --snapshot --no-git-tag --tag canary",
-    "api:check": "api-extractor run --local --diagnostics"
+    "release:canary": "changeset publish --snapshot --no-git-tag --tag canary"
   },
   "config": {
     "commitizen": {
@@ -82,7 +80,6 @@
     "@eslint/compat": "^2.0.0",
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.2",
-    "@microsoft/api-extractor": "^7.55.2",
     "@next/eslint-plugin-next": "^16.0.10",
     "@playwright/test": "^1.57.0",
     "@semantic-release/changelog": "^6.0.3",
