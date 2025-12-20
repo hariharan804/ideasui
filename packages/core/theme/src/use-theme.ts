@@ -1,7 +1,7 @@
 "use client";
 import {useSyncExternalStore, useCallback} from "react";
 
-import {themeStore} from "./store";
+import {themeStore} from "./utils/store";
 
 export function useTheme() {
   const subscribe = useCallback((cb: () => void) => themeStore.subscribe(cb), []);

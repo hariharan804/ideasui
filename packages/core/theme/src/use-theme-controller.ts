@@ -3,9 +3,9 @@ import type {ThemeConfig, StorageAdapter} from "./types";
 
 import {useEffect, useRef} from "react";
 
-import {themeStore} from "./store";
-import {defaultConfig} from "./themes.config";
-import {storageAdapters} from "./storage";
+import {themeStore} from "./utils/store";
+import {defaultConfig} from "./utils/themes.config";
+import {storageAdapters} from "./utils/storage";
 
 export interface UseThemeController extends Partial<ThemeConfig> {
   attribute?: "class" | "data-theme";

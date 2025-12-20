@@ -1,4 +1,4 @@
-import type {StorageAdapter} from "./types";
+import type {StorageAdapter} from "../types";
 
 /** localStorage adapter with SSR safety and error handling */
 class LocalStorageAdapter implements StorageAdapter {

@@ -1,9 +1,8 @@
+import {memo, useMemo} from "react";
 import type {ThemeConfig} from "./types";
 
-import * as React from "react";
-
-import {createScript} from "./script";
-import {defaultConfig} from "./themes.config";
+import {createScript} from "./utils/script";
+import {defaultConfig} from "./utils/themes.config";
 
 export interface ThemeScriptProps extends Partial<ThemeConfig> {
   nonce?: string;
@@ -34,10 +33,10 @@ const validateThemeConfig = (config: ThemeConfig): ThemeConfig => {
   };
 };
 
-export const ThemeScript = React.memo<ThemeScriptProps>((props) => {
+export const ThemeScript = memo<ThemeScriptProps>((props) => {
   const {nonce, scriptProps, id = "theme-script", ...themeProps} = props;
 
-  const script = React.useMemo(() => {
+  const script = useMemo(() => {
     const merged: ThemeConfig = {
       ...defaultConfig,
       ...themeProps,

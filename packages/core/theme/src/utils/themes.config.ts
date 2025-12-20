@@ -1,4 +1,4 @@
-import type {ThemeConfig} from "./types";
+import type {ThemeConfig} from "../types";
 
 /** Default configuration - sensible defaults for most use cases */
 export const defaultConfig: ThemeConfig = {

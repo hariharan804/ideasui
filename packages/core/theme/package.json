@@ -10,7 +10,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./theme.css": "./src/theme.css",
-    "theme-constants": "./src/theme-constants.ts"
+    "./theme-constants": "./src/theme-constants.ts"
   },
   "scripts": {
     "build": "tsup src --dts",
@@ -20,7 +20,7 @@
     "build:dev": "tsup src",
     "prepack": "clean-package",
     "postpack": "clean-package restore",
-    "generate-theme": "node src/theme-generator/industry-standard-shades.mjs"
+    "generate-theme": "node src/theme-generate/industry-standard-shades.mjs"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

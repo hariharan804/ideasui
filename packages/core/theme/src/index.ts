@@ -5,8 +5,8 @@ export {useThemeController} from "./use-theme-controller";
 export {useTheme} from "./use-theme";
 
 // Utilities and adapters
-export {createScript} from "./script";
-export {storageAdapters} from "./storage";
+export {createScript} from "./utils/script";
+export {storageAdapters} from "./utils/storage";
 
 // Type definitions
 export type {ThemeConfig, ThemeMode, StorageAdapter} from "./types";

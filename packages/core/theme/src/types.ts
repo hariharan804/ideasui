@@ -1,4 +1,4 @@
-import type {storageAdapters} from "./storage";
+import type {storageAdapters} from "./utils/storage";
 
 /** How themes are applied to DOM elements */
 export type ThemeMode =
