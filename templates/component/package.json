@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "{{pascalCase name}} component for IdeasUI",
   "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "clean-package": "../../clean-package.config.json",
   "scripts": {

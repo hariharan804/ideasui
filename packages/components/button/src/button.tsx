@@ -2,32 +2,33 @@
 import type {ButtonProps} from "./button-types";
 import type {SpinnerSize} from "@ideasui/variants/system";
 
-import React, {useEffect, useImperativeHandle} from "react";
+import React, {useImperativeHandle} from "react";
 import {buttonVariants} from "@ideasui/variants/button";
 import {spinnerSizes} from "@ideasui/variants/system";
 import {cn} from "@ideasui/utils";
 
 import {useButton} from "./use-button";
+import {Ripple} from "@ideasui/ripple";
 
-const Ripple = ({x, y, onComplete}: {x: number; y: number; onComplete: () => void}) => {
-  useEffect(() => {
-    const timer = setTimeout(onComplete, 600);
+// const Ripple = ({x, y, onComplete}: {x: number; y: number; onComplete: () => void}) => {
+//   useEffect(() => {
+//     const timer = setTimeout(onComplete, 600);
 
-    return () => clearTimeout(timer);
-  }, [onComplete]);
+//     return () => clearTimeout(timer);
+//   }, [onComplete]);
 
-  return (
-    <span
-      className="pointer-events-none absolute animate-ping rounded-full bg-current opacity-30"
-      style={{
-        left: x - 10,
-        top: y - 10,
-        width: 20,
-        height: 20,
-      }}
-    />
-  );
-};
+//   return (
+//     <span
+//       className="pointer-events-none absolute animate-ping rounded-full bg-current opacity-30"
+//       style={{
+//         left: x - 10,
+//         top: y - 10,
+//         width: 20,
+//         height: 20,
+//       }}
+//     />
+//   );
+// };
 
 const Spinner = ({size}: {size: SpinnerSize}) => {
   return (
@@ -63,6 +64,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       startContent,
       endContent,
       fullWidth = false,
+      disableRipple = false,
       ...props
     },
     ref,
@@ -90,7 +92,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       return "button";
     }, [as]);
 
-    const {buttonProps, isLoading, domRef, ripples} = useButton({
+    const {getButtonProps, isLoading, domRef, getRippleProps} = useButton({
       as: Component,
       loading,
       disabled,
@@ -101,7 +103,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <Component
-        {...buttonProps}
+        {...getButtonProps()}
         className={cn(
           buttonVariants({
             variant,
@@ -118,9 +120,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           className,
         )}
       >
-        {ripples.map((ripple) => (
-          <Ripple key={ripple.key} x={ripple.x} y={ripple.y} onComplete={() => {}} />
-        ))}
         {isLoading ? <Spinner size={size} /> : null}
         {!isLoading && startContent ? <span className="mr-2 shrink-0">{startContent}</span> : null}
 
@@ -129,6 +128,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         </span>
 
         {!isLoading && endContent ? <span className="ml-2 shrink-0">{endContent}</span> : null}
+        {!disableRipple && <Ripple {...getRippleProps()} />}
       </Component>
     );
   },

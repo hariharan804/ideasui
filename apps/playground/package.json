@@ -17,14 +17,15 @@
   "dependencies": {
     "@ideasui/button": "workspace:*",
     "@ideasui/ripple": "workspace:*",
-    "@ideasui/utils": "workspace:*",
     "@ideasui/theme": "workspace:*",
+    "@ideasui/utils": "workspace:*",
+    "framer-motion": "^12.23.26",
     "lucide-react": "^0.556.0",
     "next": "^16.0.10",
-    "remark-gfm": "^4.0.1",
-    "react-markdown": "10.1.0",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react-dom": "^19.2.3",
+    "react-markdown": "10.1.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",

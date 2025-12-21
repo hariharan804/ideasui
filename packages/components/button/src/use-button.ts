@@ -3,7 +3,7 @@ import type {UseButtonProps} from "./button-types";
 import {useRef, useState, useCallback} from "react";
 import {useButton as useAriaButton, useFocusRing, useHover} from "react-aria";
 import {toDataAttr, mergeProps} from "@ideasui/utils";
-
+import {useRipple, RippleProps} from "@ideasui/ripple";
 export function useButton(props: UseButtonProps) {
   const {
     loading = false,
@@ -29,30 +29,21 @@ export function useButton(props: UseButtonProps) {
   } = props;
 
   const domRef = useRef<HTMLButtonElement>(null);
-  const [ripples, setRipples] = useState<Array<{key: number; x: number; y: number}>>([]);
   const isDisabled = isDisabledProp || isLoading;
 
   const {isFocusVisible, isFocused, focusProps} = useFocusRing({
     autoFocus,
   });
 
-  // Convert onClick to onPress handler
+  const {onPress: handleRipple, onClear: onClearRipple, ripples} = useRipple();
   const handlePress = useCallback(
     (e: any) => {
-      if (onClick) {
-        // Create a synthetic mouse event-like object
-        const syntheticEvent = {
-          ...e,
-          currentTarget: domRef.current,
-          target: domRef.current,
-        };
-
-        onClick(syntheticEvent as React.MouseEvent<HTMLButtonElement>);
-      }
+      // if (disableRipple || isDisabled || disableAnimation) return;
+      domRef.current && handleRipple(e);
+      onClick && onClick(e);
     },
-    [onClick],
+    [isDisabled, domRef],
   );
-
   // Only pass specific props that React Aria expects
   const ariaProps = {
     onPress: handlePress,
@@ -70,29 +61,10 @@ export function useButton(props: UseButtonProps) {
   const {buttonProps: ariaButtonProps, isPressed} = useAriaButton(ariaProps, domRef);
 
   const {isHovered, hoverProps} = useHover({isDisabled});
-  const handleRipple = useCallback(
-    (event: React.MouseEvent) => {
-      if (isDisabled) {
-        return;
-      }
 
-      const rect = domRef.current?.getBoundingClientRect();
-
-      if (!rect) {
-        return;
-      }
-
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-      const key = Date.now();
-
-      setRipples((prev) => [...prev, {key, x, y}]);
-
-      setTimeout(() => {
-        setRipples((prev) => prev.filter((ripple) => ripple.key !== key));
-      }, 600);
-    },
-    [isDisabled],
+  const getRippleProps = useCallback(
+    () => ({ripples, onClear: onClearRipple}),
+    [ripples, onClearRipple],
   );
 
   const getButtonProps = useCallback(
@@ -112,7 +84,6 @@ export function useButton(props: UseButtonProps) {
           "aria-busy": isLoading,
           "aria-live": isLoading ? "polite" : undefined,
           "aria-label": isLoading ? "Loading" : props["aria-label"],
-          onMouseDown: handleRipple,
           style: {
             minHeight: "44px",
             minWidth: "44px",
@@ -145,8 +116,8 @@ export function useButton(props: UseButtonProps) {
     isFocusVisible,
     isHovered,
     ripples,
-    buttonProps: getButtonProps(),
     getButtonProps,
+    getRippleProps,
   };
 }
 

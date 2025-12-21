@@ -1,49 +1,31 @@
-import * as React from "react";
+import {useCallback, useState} from "react";
+import {RippleType} from "./ripple-types";
 import {getUniqueID} from "@ideasui/utils";
-import type {RippleItem} from "./ripple-types";
 
-export interface UseRippleProps {
-  /**
-   * Whether the ripple is disabled
-   */
-  disabled?: boolean
-  /**
-   * Duration of the ripple animation in milliseconds
-   */
-  duration?: number
-  /**
-   * Whether to center the ripple effect
-   */
-  center?: boolean
-}
+export function useRipple() {
+  const [ripples, setRipples] = useState<RippleType[]>([]);
 
-export function useRipple(props: UseRippleProps = {}) {
-  const [ripples, setRipples] = React.useState<RippleItem[]>([]);
+  const onPress = useCallback((event: any) => {
+    const trigger = event.target;
 
-  const onPress = React.useCallback((event: React.MouseEvent<HTMLElement>) => {
-    const trigger = event.currentTarget;
-    const rect = trigger.getBoundingClientRect();
     const size = Math.max(trigger.clientWidth, trigger.clientHeight);
-
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
+    debugger;
     setRipples((prevRipples) => [
       ...prevRipples,
       {
         key: getUniqueID(prevRipples.length.toString()),
         size,
-        x: x - size / 2,
-        y: y - size / 2,
+        x: event.x - size / 2,
+        y: event.y - size / 2,
       },
     ]);
   }, []);
 
-  const onClear = React.useCallback((key: React.Key) => {
+  const onClear = useCallback((key: React.Key) => {
     setRipples((prevState) => prevState.filter((ripple) => ripple.key !== key));
   }, []);
 
-  return {ripples, onClear, onPress, ...props};
+  return {ripples, onClear, onPress};
 }
 
 export type UseRippleReturn = ReturnType<typeof useRipple>;

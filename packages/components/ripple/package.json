@@ -6,6 +6,9 @@
   "homepage": "https://ideasui.com",
   "license": "MIT",
   "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "clean-package": "../../clean-package.config.json",
   "publishConfig": {
@@ -29,8 +32,9 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react": ">=18 || >=19.0.0",
+    "react-dom": ">=18 || >=19.0.0",
+    "framer-motion": ">=11.5.6 || >=12.0.0-alpha.1"
   },
   "dependencies": {
     "@ideasui/utils": "workspace:*",

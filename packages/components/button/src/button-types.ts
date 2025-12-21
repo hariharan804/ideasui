@@ -57,6 +57,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * Content to show at the end of the button
    */
   endContent?: ReactNode;
+
+  /**
+   * Whether the button should display a ripple effect
+   * @default false
+   */
+  disableRipple?: boolean;
 }
 
 export interface UseButtonProps extends Omit<ButtonProps, "children"> {
@@ -72,4 +78,8 @@ export interface UseButtonProps extends Omit<ButtonProps, "children"> {
    * Whether the button is disabled
    */
   isDisabled?: boolean;
+  /**
+   * Whether to disable the ripple effect
+   */
+  disableRipple?: boolean;
 }

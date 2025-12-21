@@ -6,6 +6,9 @@
   "homepage": "https://ideasui.com",
   "license": "MIT",
   "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "clean-package": "../../clean-package.config.json",
   "publishConfig": {
@@ -35,6 +38,7 @@
   "dependencies": {
     "@ideasui/utils": "workspace:*",
     "@ideasui/variants": "workspace:*",
+    "@ideasui/ripple": "workspace:*",
     "react-aria": "^3.45.0"
   },
   "devDependencies": {

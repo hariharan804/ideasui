@@ -9,18 +9,23 @@ const config: StorybookConfig = {
   },
 
   stories: [
-    "../**/*.mdx",
-    "../**/*.stories.@(js|jsx|ts|tsx|mdx)",
-    "../../../packages/components/**/stories/*.stories.@(js|jsx|ts|tsx|mdx)",
-    "../../../packages/primitives/**/stories/*.stories.@(js|jsx|ts|tsx|mdx)",
-    "../../../packages/themes/**/stories/*.stories.@(js|jsx|ts|tsx|mdx)",
+    "../../../packages/components/button/stories/*.stories.@(js|jsx|ts|tsx|mdx)",
+    "../../../packages/components/ripple/stories/*.stories.@(js|jsx|ts|tsx|mdx)",
+
+    // safety exclusions (pnpm + build artifacts)
+    "!**/node_modules/**",
+    "!**/node_modules",
+    "!**/.pnpm/**",
+    "!**/dist/**",
+    "!**/build/**",
   ],
 
   staticDirs: ["../public"],
-
+  refs: {},
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-a11y",
+
     {
       name: "@storybook/addon-docs",
       options: {
