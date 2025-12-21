@@ -9,7 +9,7 @@ export function useRipple() {
     const trigger = event.target;
 
     const size = Math.max(trigger.clientWidth, trigger.clientHeight);
-    debugger;
+
     setRipples((prevRipples) => [
       ...prevRipples,
       {
