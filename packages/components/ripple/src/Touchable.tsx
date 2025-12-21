@@ -2,13 +2,14 @@ import * as React from "react";
 import {useTouchableRipple} from "./use-touchable-ripple";
 import {TouchableRipple} from "./touchable-ripple";
 import {cn} from "@ideasui/utils";
+import {forwardRef} from "@ideasui/utils/react";
 
 export interface TouchableProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * Render element type
    * @default "button"
    */
-  as?: any; // keyof JSX.IntrinsicElements;
+  as?: keyof JSX.IntrinsicElements;
 
   /**
    * Disable ripple & interactions
@@ -29,7 +30,7 @@ export interface TouchableProps extends React.HTMLAttributes<HTMLElement> {
  * • Pointer + keyboard safe
  * • Works with any element
  */
-export const Touchable = React.forwardRef<HTMLElement, TouchableProps>(
+export const Touchable = forwardRef<"button", TouchableProps>(
   (
     {
       as: Component = "button",
