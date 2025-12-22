@@ -42,10 +42,10 @@
     "react-aria": "^3.45.0"
   },
   "devDependencies": {
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
     "clean-package": "^2.2.0",
     "lucide-react": "^0.556.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "typescript": "^5.9.3"
   }
 }

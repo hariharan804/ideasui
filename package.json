@@ -48,6 +48,7 @@
     "create": "plop",
     "check-naming": "node scripts/check-naming.js",
     "clean": "pnpm turbo:clean && pnpm clean:test && pnpm clean:lock && pnpm clean:node-modules && pnpm install --hoist",
+    "clean:dist": "rimraf ./packages/**/dist ./apps/**/dist ./packages/components/**/dist ./packages/core/**/dist ./packages/hooks/**/dist ",
     "clean:node-modules": "rimraf ./apps/**/node_modules && rimraf ./packages/**/**/node_modules && rimraf ./node_modules",
     "clean:lock": "rimraf ./pnpm-lock.yaml",
     "clean:test": "jest --clearCache",
@@ -131,6 +132,12 @@
     "tsup": "^8.3.5",
     "turbo": "^2.6.3",
     "typescript": "^5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "^19.0.0",
+      "@types/react-dom": "^19.0.0"
+    }
   },
   "engines": {
     "pnpm": ">=10.x",

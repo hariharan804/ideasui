@@ -18,8 +18,8 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "dependencies": {
     "@ideasui/utils": "workspace:*",
@@ -31,8 +31,8 @@
     "@ideasui/eslint-config": "workspace:*",
     "@ideasui/variants": "workspace:*",
     "@ideasui/utils": "workspace:*",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "typescript": "^5.9.3",
     "clean-package": "^2.2.0"
   }

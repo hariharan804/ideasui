@@ -48,8 +48,6 @@
     "tailwind-variants": "^3.2.2"
   },
   "devDependencies": {
-    "@types/node": "^20.19.27",
-    "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {

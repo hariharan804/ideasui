@@ -23,11 +23,12 @@
     "generate-theme": "node src/theme-generate/industry-standard-shades.mjs"
   },
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "devDependencies": {
-    "@types/react": "^19.2.7",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "copyfiles": "^2.4.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"

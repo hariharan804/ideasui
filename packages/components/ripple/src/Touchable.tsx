@@ -1,27 +1,24 @@
 import * as React from "react";
 import {useTouchableRipple} from "./use-touchable-ripple";
 import {TouchableRipple} from "./touchable-ripple";
-import {cn, forwardRef, type PolymorphicComponent} from "@ideasui/utils";
+import {cn} from "@ideasui/utils";
+import {forwardRef} from "@ideasui/utils/react";
+import {Slot} from "@ideasui/slot";
 
-/**
- * Props for Touchable component
- */
 export interface TouchableProps extends React.HTMLAttributes<HTMLElement> {
   /**
-   * Element type to render as
+   * Render element type
    * @default "button"
    */
-  as?: React.ElementType;
+  as?: keyof React.JSX.IntrinsicElements;
 
   /**
    * Disable ripple & interactions
-   * @default false
    */
   disabled?: boolean;
 
   /**
    * Ripple color
-   * @default "currentColor"
    */
   rippleColor?: string;
 }
@@ -37,14 +34,14 @@ export interface TouchableProps extends React.HTMLAttributes<HTMLElement> {
 export const Touchable = forwardRef<"button", TouchableProps>(
   (
     {
-      as: Component = "button",
+      as = "button",
       children,
       className,
       disabled = false,
       rippleColor,
       onPointerDown,
       onKeyDown,
-      ...restProps
+      ...props
     },
     ref,
   ) => {
@@ -52,7 +49,7 @@ export const Touchable = forwardRef<"button", TouchableProps>(
 
     const handlePointerDown = (event: React.PointerEvent<HTMLElement>) => {
       if (!disabled) {
-        onClick(event as any);
+        onClick(event);
       }
       onPointerDown?.(event);
     };
@@ -62,14 +59,15 @@ export const Touchable = forwardRef<"button", TouchableProps>(
 
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        onClick(event as any);
+        onClick(event);
       }
 
       onKeyDown?.(event);
     };
 
     return (
-      <Component
+      <Slot
+        as={as}
         ref={ref as any}
         className={cn(
           "relative overflow-hidden",
@@ -79,11 +77,11 @@ export const Touchable = forwardRef<"button", TouchableProps>(
         onPointerDown={handlePointerDown}
         onKeyDown={handleKeyDown}
         aria-disabled={disabled || undefined}
-        {...restProps}
+        {...props}
       >
         {children}
         <TouchableRipple ripples={ripples} color={rippleColor} onClear={onClear} />
-      </Component>
+      </Slot>
     );
   },
 );

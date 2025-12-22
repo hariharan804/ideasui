@@ -37,9 +37,10 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "react": ">=18.0.0"
+    "react": ">=18"
   },
   "dependencies": {
+    "react": "19.2.3",
     "@ideasui/utils": "workspace:*"
   },
   "devDependencies": {
