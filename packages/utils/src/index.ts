@@ -16,4 +16,4 @@ export {cn} from "./style/tailwind";
 export {toDataAttr} from "./dom/attributes";
 
 // react
-// export * from './react'
+export {forwardRef, type PolymorphicComponent} from "./react/polymorphic-ref";
