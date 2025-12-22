@@ -1,6 +1,6 @@
 import {useCallback, useState} from "react";
-import {RippleType} from "./ripple-types";
 import {getUniqueID} from "@ideasui/utils";
+import {RippleType} from "./ripple";
 
 export function useRipple() {
   const [ripples, setRipples] = useState<RippleType[]>([]);

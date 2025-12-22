@@ -1,17 +1,7 @@
 import * as React from "react";
 import type {HTMLMotionProps} from "framer-motion";
-
 import {LazyMotion, AnimatePresence, m} from "framer-motion";
-import type {RippleType} from "./ripple-types";
 import {clamp} from "@ideasui/utils/shared";
-
-export interface RippleProps {
-  ripples: RippleType[];
-  color?: string;
-  style?: React.CSSProperties;
-  motionProps?: Omit<HTMLMotionProps<"span">, "ref">;
-  onClear: (key: React.Key) => void;
-}
 
 /**
  * Load Framer Motion DOM features once
@@ -73,7 +63,20 @@ const loadFeatures = () => import("framer-motion").then((res) => res.domAnimatio
 // );
 
 // Ripple.displayName = "IdeasUI.Ripple";
+export interface RippleType {
+  key: React.Key;
+  x: number;
+  y: number;
+  size: number;
+}
 
+export interface RippleProps {
+  ripples: RippleType[];
+  color?: string;
+  style?: React.CSSProperties;
+  motionProps?: Omit<HTMLMotionProps<"span">, "ref">;
+  onClear: (key: React.Key) => void;
+}
 export const Ripple = (props: RippleProps) => {
   const {ripples = [], motionProps, color = "currentColor", style, onClear} = props;
 

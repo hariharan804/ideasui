@@ -2,25 +2,7 @@ import * as React from "react";
 import {useTouchableRipple} from "./use-touchable-ripple";
 import {TouchableRipple} from "./touchable-ripple";
 import {cn} from "@ideasui/utils";
-import {forwardRef} from "@ideasui/utils/react";
-
-export interface TouchableProps extends React.HTMLAttributes<HTMLElement> {
-  /**
-   * Render element type
-   * @default "button"
-   */
-  as?: keyof JSX.IntrinsicElements;
-
-  /**
-   * Disable ripple & interactions
-   */
-  disabled?: boolean;
-
-  /**
-   * Ripple color
-   */
-  rippleColor?: string;
-}
+import {ComponentProps} from "@ideasui/utils/react";
 
 /**
  * Touchable
@@ -30,25 +12,34 @@ export interface TouchableProps extends React.HTMLAttributes<HTMLElement> {
  * • Pointer + keyboard safe
  * • Works with any element
  */
-export const Touchable = forwardRef<"button", TouchableProps>(
+export interface TouchableProps extends ComponentProps<{
+  /**
+   * Element to render
+   * @default "button"
+   */
+  as?: React.ElementType;
+  /**
+   * Disable ripple & interactions
+   */
+  disabled?: boolean;
+
+  /**
+   * Ripple color
+   */
+  rippleColor?: string;
+}> {}
+
+export const Touchable = React.forwardRef<HTMLElement, TouchableProps>(
   (
-    {
-      as: Component = "button",
-      children,
-      className,
-      disabled = false,
-      rippleColor,
-      onPointerDown,
-      onKeyDown,
-      ...props
-    },
+    {as, children, className, disabled = false, rippleColor, onPointerDown, onKeyDown, ...props},
     ref,
   ) => {
+    const Component = (as || "button") as React.ElementType;
     const {ripples, onClick, onClear} = useTouchableRipple();
 
     const handlePointerDown = (event: React.PointerEvent<HTMLElement>) => {
       if (!disabled) {
-        onClick(event);
+        onClick(event as any);
       }
       onPointerDown?.(event);
     };
@@ -58,7 +49,7 @@ export const Touchable = forwardRef<"button", TouchableProps>(
 
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        onClick(event);
+        onClick(event as any);
       }
 
       onKeyDown?.(event);
@@ -66,7 +57,7 @@ export const Touchable = forwardRef<"button", TouchableProps>(
 
     return (
       <Component
-        ref={ref as any}
+        ref={ref}
         className={cn(
           "relative overflow-hidden",
           disabled ? "pointer-events-none opacity-50" : "",

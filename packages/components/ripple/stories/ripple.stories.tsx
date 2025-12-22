@@ -116,7 +116,7 @@ export const TouchableButton: Story = {
 export const TouchableRippleCard: Story = {
   render: (args) => {
     return (
-      <Touchable {...args}>
+      <Touchable {...args} as="a" href="#" target="_blank" className="inline-block">
         <div className="bg-primary flex h-50 w-92 items-center justify-center rounded-md text-white">
           Touchable
         </div>

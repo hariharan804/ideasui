@@ -1,38 +1,24 @@
 import * as React from "react";
 
-/* -------------------------------------------------------
- * Core types
- * ----------------------------------------------------- */
-
-export type ElementType = React.ElementType;
-
-export type AsProp<E extends ElementType> = {
-  as?: E;
+/**
+ * Base props for polymorphic components
+ * Extends HTMLAttributes but omits 'as' to avoid conflicts
+ */
+export type PolymorphicProps = Omit<React.HTMLAttributes<HTMLElement>, "as"> & {
+  /**
+   * Render element type
+   * @default "div"
+   */
+  as?: React.ElementType;
 };
 
-type PropsToOmit<E extends ElementType, P> = keyof (AsProp<E> & P);
+/**
+ * Component props with polymorphic support
+ * @template T - Additional props to merge
+ */
+export type ComponentProps<T = {}> = PolymorphicProps & T;
 
 /**
- * Polymorphic props
+ * Ref type for polymorphic components
  */
-export type PolymorphicProps<E extends ElementType, P = {}> = P &
-  AsProp<E> &
-  Omit<React.ComponentPropsWithoutRef<E>, PropsToOmit<E, P>>;
-
-/**
- * Polymorphic ref
- */
-export type PolymorphicRef<E extends ElementType> = React.ComponentPropsWithRef<E>["ref"];
-
-export function createPolymorphicComponent<DefaultElement extends ElementType, Props = {}>(
-  render: <E extends ElementType = DefaultElement>(
-    props: PolymorphicProps<E, any>,
-    ref: PolymorphicRef<E>,
-  ) => React.ReactElement | null,
-) {
-  return React.forwardRef(render) as <E extends ElementType = DefaultElement>(
-    props: PolymorphicProps<E, Props> & {
-      ref?: PolymorphicRef<E>;
-    },
-  ) => React.ReactNode | null;
-}
+export type PolymorphicRef = React.Ref<HTMLElement>;

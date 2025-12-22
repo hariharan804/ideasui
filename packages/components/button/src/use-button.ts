@@ -1,9 +1,28 @@
-import type {UseButtonProps} from "./button-types";
-
-import {useRef, useState, useCallback} from "react";
+import {useRef, useCallback, Ref} from "react";
 import {useButton as useAriaButton, useFocusRing, useHover} from "react-aria";
 import {toDataAttr, mergeProps} from "@ideasui/utils";
 import {useRipple, RippleProps} from "@ideasui/ripple";
+import {ButtonProps} from "./button";
+
+export interface UseButtonProps extends Omit<ButtonProps, "children"> {
+  /**
+   * Ref to the DOM node
+   */
+  ref?: Ref<HTMLButtonElement>;
+  /**
+   * Whether the button should display a loading spinner
+   */
+  isLoading?: boolean;
+  /**
+   * Whether the button is disabled
+   */
+  isDisabled?: boolean;
+  /**
+   * Whether to disable the ripple effect
+   */
+  disableRipple?: boolean;
+}
+
 export function useButton(props: UseButtonProps) {
   const {
     loading = false,

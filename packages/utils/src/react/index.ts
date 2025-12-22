@@ -1,2 +1,1 @@
-export {forwardRef} from "./forward-ref";
-export {createPolymorphicComponent} from "./polymorphic";
+export type {PolymorphicProps, ComponentProps, PolymorphicRef} from "./polymorphic";
