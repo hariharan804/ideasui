@@ -17,3 +17,22 @@
 - types
 - classnames
 - Animation/Motion Props
+
+                  "name": "as",
+                  "type": "ElementType",
+                  "description": "The element or component to render as",
+                  "optional": true,
+                  "idDepercated": true,
+                  "default": "button"
+
+                  Event need type like - "onPressChange": (isPressed: boolean) => void
+
+                  component-docs ui needed morder better ui and ux with eyecatch ui
+
+create taiwind css v4 plugin for consumer use theme like @import "tailwindcss"; @plugin './ideas-ui.ts'; also support tailwind.config.js allready we have theme.css and theme constants also posible theme setting for globle usage example disabled animation its disable all the component animation
+theme/
+├─ tokens/
+├─ recipes/
+├─ themes/
+├─ system/  
+└─ index.ts
