@@ -1,4 +1,19 @@
 - docs not render -
 - tailwind config clean up -
 - ripple component playgroud
-- Get compoent and other packages list - auto genrated script
+- Get component and other packages list - auto generated script
+
+- component name
+- component description
+- Installation - npm, pnpm, yarn, bun
+  installation instusction - The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.
+
+- Import
+- Usage
+- variants and usage
+- API
+- Events
+- Props
+- types
+- classnames
+- Animation/Motion Props

@@ -50,7 +50,7 @@ function getElementRef(element: React.ReactElement) {
   }
 
   // Production mode - try both methods as fallback
-  return (element.props as {ref?: React.Ref<unknown>}).ref || (element as any).ref;
+  return (element.props as {ref?: React.Ref<unknown>}).ref ?? (element as any).ref;
 }
 
 // ============================================================================
@@ -77,13 +77,18 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
   // Start with child props as base
   const overrideProps = {...childProps};
 
-  // Process each child prop for intelligent merging
-  for (const propName in childProps) {
+  // Get all unique prop names from both objects
+  const childKeys = Object.keys(childProps);
+  const slotKeys = Object.keys(slotProps);
+  const allPropNames = [...childKeys, ...slotKeys.filter(key => !childKeys.includes(key))];
+
+  // Process each prop for intelligent merging
+  for (const propName of allPropNames) {
     const slotPropValue = slotProps[propName];
     const childPropValue = childProps[propName];
 
-    // Skip if slot doesn't have this prop
-    if (!(propName in slotProps)) continue;
+    // Skip if neither object has this prop
+    if (!(propName in slotProps) && !(propName in childProps)) continue;
 
     // Event handlers (onClick, onFocus, etc.) - compose both functions
     if (EVENT_HANDLER_REGEX.test(propName)) {
@@ -101,7 +106,7 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
     }
     // Style objects - merge with slot styles taking precedence
     else if (propName === "style") {
-      overrideProps[propName] = {...slotPropValue, ...childPropValue};
+      overrideProps[propName] = {...childPropValue, ...slotPropValue};
     }
     // CSS classes - concatenate with space separator
     else if (propName === "className") {
@@ -124,7 +129,7 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
  * Safely calls all refs when the element mounts/unmounts
  */
 function composeRefs<T>(...refs: (React.Ref<T> | undefined)[]): React.Ref<T> {
-  return (node: T) => {
+  return React.useCallback((node: T) => {
     refs.forEach((ref) => {
       if (typeof ref === "function") {
         // Function ref - call directly
@@ -135,7 +140,7 @@ function composeRefs<T>(...refs: (React.Ref<T> | undefined)[]): React.Ref<T> {
       }
       // Ignore null/undefined refs
     });
-  };
+  }, refs);
 }
 
 // ============================================================================
