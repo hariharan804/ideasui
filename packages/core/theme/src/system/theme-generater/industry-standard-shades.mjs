@@ -101,18 +101,35 @@ const completeTheme = generateCompleteTheme("oklch");
 // const oklchTheme = generateCompleteTheme('oklch')
 // const rgbTheme = generateCompleteTheme('rgb')
 
-// Write to TypeScript constants file
-const tsContent = `export const completeTheme = ${JSON.stringify(completeTheme, null, 2)} as const
+// Write to TypeScript constants file in the exact format needed
+const formatColorTokens = (theme) => {
+  const formatTheme = (themeData, themeName = "") => {
+    const colorEntries = Object.entries(themeData)
+      .map(([colorName, shades]) => {
+        const shadeEntries = Object.entries(shades)
+          .map(([shade, value]) => `    ${shade}: '${value}',`)
+          .join("\n");
+        return `  ${colorName}: {\n${shadeEntries}\n  },`;
+      })
+      .join("\n");
 
-export type ThemeColors = typeof completeTheme`;
+    const exportName = themeName ? `${themeName}ColorTokens` : "colorTokens";
+    return `export const ${exportName} = {\n${colorEntries}\n} as const;`;
+  };
 
-const cssContent = generateCSS(completeTheme, {
-  hoverOpacity: 0.85,
-  disabledOpacity: 0.4,
-  transitionNormal: "200ms ease-in-out",
-});
+  return [formatTheme(theme.light), "", formatTheme(theme.dark, "dark")].join("\n");
+};
 
-fs.writeFileSync("./src/theme-constants.ts", tsContent);
-fs.writeFileSync("./src/theme.css", cssContent);
-console.log("✅ Theme constants generated!");
+const tsContent = formatColorTokens(completeTheme);
+
+// const cssContent = generateCSS(completeTheme, {
+//   hoverOpacity: 0.85,
+//   disabledOpacity: 0.4,
+//   transitionNormal: "200ms ease-in-out",
+// });
+
+// fs.writeFileSync("../tokens/colors.ts", tsContent);
+fs.writeFileSync("./colors.ts", tsContent);
+// fs.writeFileSync("./src/theme.css", cssContent);
+// console.log("✅ Theme constants generated!");
 console.log("✅ Brand theme CSS generated!");

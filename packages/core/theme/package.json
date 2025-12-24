@@ -24,6 +24,9 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
+   "dependencies": {
+    "chroma-js": "^3.2.0"
+  },
   "peerDependencies": {
     "tailwindcss": ">=4"
   },
