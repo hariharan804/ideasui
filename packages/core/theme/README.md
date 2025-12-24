@@ -1,126 +1,232 @@
-# @ideasui/theme-switcher
+# @ideasui/theme
 
-Enterprise-grade theme switcher with flexible configuration and SSR support.
-
-## Features
-
-- ✅ **Multiple themes** - Support any number of custom themes
-- ✅ **Flexible DOM updates** - Class, attribute, or selector-based
-- ✅ **Storage adapters** - localStorage, sessionStorage, or memory
-- ✅ **SSR/SSG compatible** - No hydration mismatches
-- ✅ **System theme detection** - Automatic dark/light detection
-- ✅ **Zero dependencies** - Only React peer dependency
-- ✅ **TypeScript** - Full type safety
+Tailwind CSS v4 theme system for IdeasUI with comprehensive color tokens, semantic colors, and global theme settings.
 
 ## Installation
 
 ```bash
-npm install @ideasui/theme-switcher
+npm install @ideasui/theme tailwindcss@next
 ```
 
-## Quick Start
+## Usage
 
-```tsx
-import {ThemeScript, useTheme} from "@ideasui/theme-switcher";
+### Basic Setup
 
-// 1. Add script to prevent FOUC
-function RootLayout({children}) {
-  return (
-    <html>
-      <head>
-        <ThemeScript />
-      </head>
-      <body>{children}</body>
-    </html>
-  );
-}
+Create your CSS file:
 
-// 2. Use theme hook
-function App() {
-  const {theme, setTheme} = useTheme();
-  return <button onClick={() => setTheme("dark")}>Current: {theme}</button>;
-}
+```css
+@import "tailwindcss";
+@plugin "@ideasui/theme";
 ```
 
-## Advanced Configuration
+Or use with configuration:
 
-### Multiple Custom Themes
+```css
+@import "tailwindcss";
+@plugin "./ideas-ui.ts";
+```
 
-```tsx
-const themeConfig = {
-  themes: ["light", "dark", "purple", "green"],
-  defaultTheme: "light",
-  storageKey: "app-theme",
+Create `ideas-ui.ts`:
+
+```typescript
+import { ideasUIPlugin } from '@ideasui/theme';
+
+export default ideasUIPlugin({
+  disableAnimations: false,
+  mode: 'light',
+});
+```
+
+### Advanced Configuration
+
+```typescript
+import { ideasUIPlugin } from '@ideasui/theme';
+
+export default ideasUIPlugin({
+  // Disable all animations globally
+  disableAnimations: true,
+  
+  // Theme mode
+  mode: 'dark',
+  
+  // Custom color overrides
+  colors: {
+    primary: {
+      500: 'oklch(0.6 0.3 280)', // Custom primary color
+    },
+  },
+  
+  // Custom spacing
+  spacing: {
+    '18': '4.5rem',
+  },
+  
+  // Custom border radius
+  borderRadius: {
+    'xl': '1rem',
+  },
+  
+  // Custom animations
+  animation: {
+    'custom-bounce': 'bounce 1s ease-in-out infinite',
+  },
+});
+```
+
+### Predefined Themes
+
+```typescript
+import { themes } from '@ideasui/theme';
+
+// Available themes
+const theme = themes.light;      // Default light theme
+const theme = themes.dark;       // Default dark theme
+const theme = themes.accessible; // High contrast, no animations
+const theme = themes.minimal;    // Minimal design with reduced colors
+const theme = themes.vibrant;    // High saturation colors
+const theme = themes.corporate;  // Professional blue theme
+```
+
+### Using with tailwind.config.js
+
+```javascript
+import { ideasUIPlugin } from '@ideasui/theme';
+
+export default {
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  plugins: [
+    ideasUIPlugin({
+      disableAnimations: process.env.NODE_ENV === 'test',
+      mode: 'system',
+    }),
+  ],
 };
-
-function App() {
-  const {theme, setTheme} = useTheme(themeConfig);
-  return (
-    <select value={theme} onChange={(e) => setTheme(e.target.value)}>
-      {themeConfig.themes.map((t) => (
-        <option key={t} value={t}>
-          {t}
-        </option>
-      ))}
-    </select>
-  );
-}
 ```
 
-### CSS Class Mode
+## Color System
+
+### Color Scales
+
+All colors follow a consistent 11-step scale (50-950):
+
+- `primary` - Main brand color
+- `secondary` - Secondary brand color  
+- `success` - Success states
+- `warning` - Warning states
+- `danger` - Error/destructive states
+- `info` - Informational states
+- `neutral` - Grayscale colors
+
+### Semantic Colors
+
+Semantic colors automatically adapt to light/dark mode:
+
+- `background` / `foreground`
+- `muted` / `muted-foreground`
+- `card` / `card-foreground`
+- `border` / `input` / `ring`
+- `primary` / `primary-foreground`
+- `secondary` / `secondary-foreground`
+- `success` / `success-foreground`
+- `warning` / `warning-foreground`
+- `danger` / `danger-foreground`
+- `info` / `info-foreground`
+
+### Usage Examples
 
 ```tsx
-<ThemeScript
-  mode="class"
-  attribute="class"
-  value={{
-    light: "theme-light",
-    dark: "theme-dark",
-    purple: "theme-purple",
-  }}
-/>
+// Using color scales
+<div className="bg-primary-500 text-primary-50">Primary Button</div>
+<div className="bg-success-100 text-success-900 border border-success-200">Success Alert</div>
+
+// Using semantic colors
+<div className="bg-background text-foreground border border-border">Card</div>
+<button className="bg-primary text-primary-foreground">Button</button>
 ```
 
-### Custom Selector
+## Global Settings
 
-```tsx
-<ThemeScript selector="[data-theme]" attribute="data-theme" mode="attribute" />
+### Disable Animations
+
+```typescript
+// Disable all animations globally
+ideasUIPlugin({ disableAnimations: true })
+
+// Or add class to HTML
+<html className="no-animations">
 ```
 
-### Storage Adapters
+### Theme Mode
 
-```tsx
-// Use sessionStorage
-const { theme } = useTheme({ storage: 'session' })
-
-// Use memory storage (no persistence)
-const { theme } = useTheme({ storage: 'memory' })
-
-// Custom storage adapter
-const customStorage = {
-  getItem: (key) => /* custom logic */,
-  setItem: (key, value) => /* custom logic */,
-  removeItem: (key) => /* custom logic */
-}
-const { theme } = useTheme({ storage: customStorage })
+```typescript
+// Set theme mode
+ideasUIPlugin({ mode: 'dark' })    // Always dark
+ideasUIPlugin({ mode: 'light' })   // Always light  
+ideasUIPlugin({ mode: 'system' })  // Follow system preference
 ```
 
-## API Reference
+## Component Recipes
 
-### ThemeScript
+Pre-built component styles are available:
 
-Prevents FOUC by applying theme before hydration.
+```typescript
+import { recipes } from '@ideasui/theme';
 
-### useTheme(options)
+// Button recipe
+const buttonClasses = recipes.button.base; // Base styles
+const primaryButton = recipes.button.variants.variant.solid; // Variant styles
 
-Main hook for theme management.
+// Input recipe  
+const inputClasses = recipes.input.base;
 
-**Options:**
+// Card recipe
+const cardClasses = recipes.card.base;
+```
 
-- `themes: string[]` - Available themes
-- `defaultTheme: string` - Default theme
-- `storageKey: string` - Storage key
-- `mode: 'class' | 'attribute' | 'selector'` - DOM update mode
-- `storage: StorageAdapter` - Storage strategy
+## CSS Variables
 
-Build your own UI components using the `useTheme` hook.
+All colors are available as CSS variables:
+
+```css
+/* Color scales */
+var(--color-primary-500)
+var(--color-success-100)
+
+/* Semantic colors */
+var(--color-background)
+var(--color-foreground)
+var(--color-primary)
+var(--color-primary-foreground)
+```
+
+## TypeScript Support
+
+Full TypeScript support with type definitions:
+
+```typescript
+import type { ThemeConfig, ColorTokens, IdeasUITheme } from '@ideasui/theme';
+
+const config: ThemeConfig = {
+  disableAnimations: true,
+  colors: {
+    primary: {
+      500: 'oklch(0.6 0.3 280)',
+    },
+  },
+};
+```
+
+## Accessibility
+
+- WCAG 2.1 AA compliant color contrasts
+- Respects `prefers-reduced-motion`
+- High contrast theme available
+- Screen reader utilities included
+
+## Migration from v3
+
+The plugin is designed to work alongside existing Tailwind CSS v3 configurations. Colors and utilities maintain the same class names for easy migration.
+
+## License
+
+MIT

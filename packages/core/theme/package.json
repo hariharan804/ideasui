@@ -1,46 +1,44 @@
 {
   "name": "@ideasui/theme",
-  "version": "1.0.0",
-  "description": "SSR-friendly theme switcher with no dependencies",
-  "main": "./src/index.ts",
-  "files": [
-    "src"
-  ],
+  "version": "0.1.0",
+  "description": "Tailwind CSS v4 theme system for IdeasUI",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./theme-constants": "./src/theme-constants.ts",
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
     "./theme.css": "./theme.css"
   },
+  "files": [
+    "dist",
+    "theme.css"
+  ],
+  "sideEffects": false,
   "scripts": {
-    "clean": "rimraf dist .turbo",
-    "build:css": "copyfiles theme.css dist",
-    "prebuild": "pnpm run clean",
-    "build": "tsup src && pnpm run build:css",
-    "dev": "tsup src --watch",
-    "typecheck": "tsc --noEmit",
-    "prepack": "clean-package",
-    "postpack": "clean-package restore",
-    "generate-theme": "node src/theme-generate/industry-standard-shades.mjs"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18"
+    "tailwindcss": ">=4"
   },
   "devDependencies": {
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "copyfiles": "^2.4.1",
-    "tsup": "^8.5.1",
-    "typescript": "^5.9.3"
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
   },
   "keywords": [
+    "tailwindcss",
     "theme",
-    "dark-mode",
-    "ssr",
-    "react"
+    "design-system",
+    "css",
+    "ui"
   ],
-  "license": "MIT",
-  "dependencies": {
-    "chroma-js": "^3.2.0"
-  }
+  "author": "IdeasUI Team",
+  "license": "MIT"
 }

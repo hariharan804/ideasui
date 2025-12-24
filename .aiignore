@@ -27,10 +27,10 @@
 
                   Event need type like - "onPressChange": (isPressed: boolean) => void
 
-                  component-docs ui needed morder better ui and ux with eyecatch ui
+                  component-docs ui needed morden better ui and ux with eyecatch ui
 
-create taiwind css v4 plugin for consumer use theme like @import "tailwindcss"; @plugin './ideas-ui.ts'; also support tailwind.config.js allready we have theme.css and theme constants also posible theme setting for globle usage example disabled animation its disable all the component animation
-theme/
+create tailwind css v4 plugin for consumer use theme like @import "tailwindcss"; @plugin './ideas-ui.ts'; also support tailwind.config.js allready we have theme.css and theme constants also posible theme setting for globle usage example disabled animation its disable all the component animation
+packages/core/theme/
 ├─ tokens/
 ├─ recipes/
 ├─ themes/

@@ -214,16 +214,46 @@ function extractPropsFromInterface(interfaceBody) {
   let match;
   
   while ((match = propRegex.exec(interfaceBody)) !== null) {
-    const description = match[1]
+    const comment = match[1];
+    const propName = match[2];
+    const propType = match[3].trim().replace(/\n\s*/g, ' ');
+    const isOptional = interfaceBody.includes(propName + '?:');
+    
+    // Extract description
+    const description = comment
       .replace(/\*/g, '')
       .replace(/@\w+\s+[^\n]*/g, '') // Remove @tags
       .trim();
     
+    // Extract @default value
+    const defaultMatch = comment.match(/@default\s+([^\n]+)/);
+    const defaultValue = defaultMatch ? defaultMatch[1].trim().replace(/["']/g, '') : undefined;
+    
+    // Check if deprecated
+    const isDeprecated = /@deprecated/i.test(comment);
+    
+    // Handle event types with proper signature
+    let finalType = propType;
+    if (propName.startsWith('on') && propType.includes('=>')) {
+      // Extract event signature: (param: type) => void
+      const eventMatch = propType.match(/\(([^)]*)\)\s*=>\s*(\w+)/);
+      if (eventMatch) {
+        finalType = `(${eventMatch[1]}) => ${eventMatch[2]}`;
+      }
+    }
+    
+    // Handle ElementType for 'as' prop
+    if (propName === 'as' && (propType.includes('ElementType') || propType.includes('React.ElementType'))) {
+      finalType = 'ElementType';
+    }
+    
     props.push({
-      name: match[2],
-      type: match[3].trim().replace(/\n\s*/g, ' '),
+      name: propName,
+      type: finalType,
       description,
-      optional: interfaceBody.includes(match[2] + '?:')
+      optional: isOptional,
+      default: defaultValue,
+      isDeprecated
     });
   }
   
@@ -235,11 +265,20 @@ function extractPropsFromInterface(interfaceBody) {
     const propName = simpleMatch[1];
     // Skip if already found with JSDoc
     if (!props.find(p => p.name === propName)) {
+      let propType = simpleMatch[2].trim().replace(/\n\s*/g, ' ');
+      
+      // Handle ElementType for 'as' prop
+      if (propName === 'as' && (propType.includes('ElementType') || propType.includes('React.ElementType'))) {
+        propType = 'ElementType';
+      }
+      
       props.push({
         name: propName,
-        type: simpleMatch[2].trim().replace(/\n\s*/g, ' '),
+        type: propType,
         description: '',
-        optional: interfaceBody.includes(propName + '?:')
+        optional: interfaceBody.includes(propName + '?:'),
+        default: undefined,
+        isDeprecated: false
       });
     }
   }
@@ -263,14 +302,19 @@ function extractProps(content) {
 }
 
 function extractEvents(content) {
-  const eventRegex = /on(\w+)\??\s*:\s*\([^)]*\)\s*=>\s*void/g;
+  const eventRegex = /on(\w+)\??\s*:\s*\(([^)]*)\)\s*=>\s*(\w+)/g;
   const events = [];
   let match;
   
   while ((match = eventRegex.exec(content)) !== null) {
+    const eventName = `on${match[1]}`;
+    const params = match[2].trim();
+    const returnType = match[3];
+    
     events.push({
-      name: `on${match[1]}`,
-      type: 'function'
+      name: eventName,
+      type: `(${params}) => ${returnType}`,
+      description: `Event handler for ${match[1].toLowerCase()} events`
     });
   }
   
