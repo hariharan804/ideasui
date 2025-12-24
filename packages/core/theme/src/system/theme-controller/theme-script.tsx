@@ -1,17 +1,8 @@
 import {memo, useMemo} from "react";
-import type {ThemeConfig} from "./types";
+import type {ThemeConfig, ThemeScriptProps} from "./types";
 
 import {createScript} from "./utils/script";
 import {defaultConfig} from "./utils/themes.config";
-
-export interface ThemeScriptProps extends Partial<ThemeConfig> {
-  nonce?: string;
-  scriptProps?: Omit<
-    React.ScriptHTMLAttributes<HTMLScriptElement>,
-    "id" | "nonce" | "dangerouslySetInnerHTML" | "suppressHydrationWarning"
-  >;
-  id?: string;
-}
 
 const validateThemeConfig = (config: ThemeConfig): ThemeConfig => {
   const isValidString = (str: unknown): str is string =>

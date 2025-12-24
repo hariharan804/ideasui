@@ -4,7 +4,7 @@ import type {ThemeConfig} from "../types";
 export const defaultConfig: ThemeConfig = {
   themes: ["light", "dark", "system"],
   defaultTheme: "light",
-  storageKey: "itheme",
+  storageKey: "ideasui-theme",
   mode: "class",
   systemThemes: {light: "light", dark: "dark"},
 };
