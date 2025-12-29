@@ -1,0 +1,36 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.eol": "\n",
+  "eslint.alwaysShowStatus": true,
+  "prettier.enableDebugLogs": false,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.experimental.configFile": {
+    "apps/docs/styles/globals.css": "apps/playground/**/*",
+    "packages/storybook/.storybook/style.css": ["packages/core/theme/**/*", "packages/components/**/*"]
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/.turbo": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/package-lock.json": true
+  },
+  "files.exclude": {
+    "**/.turbo": true,
+    "**/node_modules": false
+  },
+  "cSpell.words": ["ideasui"]
+}
