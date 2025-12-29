@@ -1,129 +1,76 @@
 import * as React from "react";
 import type {HTMLMotionProps} from "framer-motion";
 import {LazyMotion, AnimatePresence, m} from "framer-motion";
-import {clamp} from "@ideasui/utils/shared";
+import {clamp} from "@ideasui/utils";
 
-/**
- * Load Framer Motion DOM features once
- */
-const loadFeatures = () => import("framer-motion").then((res) => res.domAnimation);
+const motionFeatures = () => import("framer-motion").then((mod) => mod.domAnimation);
 
-/**
- * Normalize animation duration based on size
- */
-// function getDuration(size: number) {
-//   if (size < 80) return 0.35;
-//   if (size < 160) return 0.45;
-//   return 0.6;
-// }
-
-// export const Ripple = React.memo(
-//   ({ripples, color = "currentColor", style, motionProps, onClear}: RippleProps) => {
-//     if (ripples.length === 0) return null;
-
-//     return (
-//       <LazyMotion features={loadFeatures}>
-//         <AnimatePresence>
-//           {ripples.map((ripple) => (
-//             <m.span
-//               key={ripple.key}
-//               aria-hidden
-//               initial={{
-//                 transform: `translate(${ripple.x}px, ${ripple.y}px) scale(0)`,
-//                 opacity: 0.35,
-//               }}
-//               animate={{
-//                 transform: `translate(${ripple.x}px, ${ripple.y}px) scale(2)`,
-//                 opacity: 0,
-//               }}
-//               exit={{opacity: 0}}
-//               transition={{
-//                 duration: getDuration(ripple.size),
-//                 ease: "easeOut",
-//               }}
-//               style={{
-//                 position: "absolute",
-//                 width: ripple.size,
-//                 height: ripple.size,
-//                 borderRadius: "50%",
-//                 backgroundColor: color,
-//                 pointerEvents: "none",
-//                 transformOrigin: "center",
-//                 willChange: "transform, opacity",
-//                 ...style,
-//               }}
-//               onAnimationComplete={() => onClear(ripple.key)}
-//               {...motionProps}
-//             />
-//           ))}
-//         </AnimatePresence>
-//       </LazyMotion>
-//     );
-//   },
-// );
-
-// Ripple.displayName = "IdeasUI.Ripple";
-export interface RippleType {
-  key: React.Key;
-  x: number;
-  y: number;
-  size: number;
+export interface RippleItem {
+  id: React.Key;
+  posX: number;
+  posY: number;
+  diameter: number;
 }
 
 export interface RippleProps {
-  ripples: RippleType[];
+  ripples: RippleItem[];
   color?: string;
   style?: React.CSSProperties;
   motionProps?: Omit<HTMLMotionProps<"span">, "ref">;
-  onClear: (key: React.Key) => void;
+  onClear: (id: React.Key) => void;
 }
-export const Ripple = (props: RippleProps) => {
-  const {ripples = [], motionProps, color = "currentColor", style, onClear} = props;
+
+export const Ripple = React.memo<RippleProps>(({ripples = [], motionProps, color = "currentColor", style, onClear}) => {
+  if (!ripples.length) return null;
 
   return (
-    <>
-      {ripples.map((ripple) => {
-        const duration = clamp(0.01 * ripple.size, 0.2, ripple.size > 100 ? 0.75 : 0.5);
+    <LazyMotion features={motionFeatures}>
+      <AnimatePresence>
+        {ripples.map((ripple) => {
+          const animDuration = clamp(ripple.diameter * 0.008, 0.15, ripple.diameter > 120 ? 0.8 : 0.6);
+          const translateX = ripple.posX - ripple.diameter / 2;
+          const translateY = ripple.posY - ripple.diameter / 2;
 
-        return (
-          <LazyMotion key={ripple.key} features={loadFeatures}>
-            <AnimatePresence mode="popLayout">
-              <m.span
-                animate={{
-                  transform: `translate(${ripple.x}px, ${ripple.y}px) scale(2)`,
-                  opacity: 0,
-                }}
-                className="heroui-ripple"
-                exit={{opacity: 0}}
-                initial={{
-                  transform: `translate(${ripple.x}px, ${ripple.y}px) scale(0)`,
-                  opacity: 0.35,
-                }}
-                style={{
-                  position: "absolute",
-                  backgroundColor: color,
-                  borderRadius: "100%",
-                  transformOrigin: "center",
-                  pointerEvents: "none",
-                  overflow: "hidden",
-                  inset: 0,
-                  zIndex: 0,
-                  width: `${ripple.size}px`,
-                  height: `${ripple.size}px`,
-                  ...style,
-                }}
-                transition={{duration}}
-                onAnimationComplete={() => {
-                  onClear(ripple.key);
-                }}
-                {...motionProps}
-              />
-            </AnimatePresence>
-          </LazyMotion>
-        );
-      })}
-    </>
+          return (
+            <m.span
+              key={ripple.id}
+              className="ideasui-ripple-effect"
+              initial={{
+                scale: 0,
+                opacity: 0.4,
+                x: translateX,
+                y: translateY,
+              }}
+              animate={{
+                scale: 2.2,
+                opacity: 0,
+                x: translateX,
+                y: translateY,
+              }}
+              exit={{opacity: 0}}
+              transition={{
+                duration: animDuration,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              style={{
+                position: "absolute",
+                width: ripple.diameter,
+                height: ripple.diameter,
+                backgroundColor: color,
+                borderRadius: "50%",
+                pointerEvents: "none",
+                transformOrigin: "center",
+                zIndex: 1,
+                ...style,
+              }}
+              onAnimationComplete={() => onClear(ripple.id)}
+              {...motionProps}
+            />
+          );
+        })}
+      </AnimatePresence>
+    </LazyMotion>
   );
-};
+});
 
 Ripple.displayName = "IdeasUI.Ripple";

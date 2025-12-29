@@ -1,28 +1,34 @@
 import {useCallback, useState} from "react";
 import {getUniqueID} from "@ideasui/utils";
-import {RippleType} from "./ripple";
+import {RippleItem} from "./ripple";
 
 export function useRipple() {
-  const [ripples, setRipples] = useState<RippleType[]>([]);
+  const [ripples, setRipples] = useState<RippleItem[]>([]);
 
-  const onPress = useCallback((event: any) => {
-    const trigger = event.target;
+  const onPress = useCallback((event: React.MouseEvent | React.TouchEvent) => {
+    const target = event.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    
+    const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX;
+    const clientY = 'touches' in event ? event.touches[0].clientY : event.clientY;
+    
+    const diameter = Math.max(target.offsetWidth, target.offsetHeight) * 1.5;
+    const posX = clientX - rect.left;
+    const posY = clientY - rect.top;
 
-    const size = Math.max(trigger.clientWidth, trigger.clientHeight);
-
-    setRipples((prevRipples) => [
-      ...prevRipples,
+    setRipples((prev) => [
+      ...prev,
       {
-        key: getUniqueID(prevRipples.length.toString()),
-        size,
-        x: event.x - size / 2,
-        y: event.y - size / 2,
+        id: getUniqueID(`ripple-${Date.now()}`),
+        diameter,
+        posX,
+        posY,
       },
     ]);
   }, []);
 
-  const onClear = useCallback((key: React.Key) => {
-    setRipples((prevState) => prevState.filter((ripple) => ripple.key !== key));
+  const onClear = useCallback((id: React.Key) => {
+    setRipples((prev) => prev.filter((ripple) => ripple.id !== id));
   }, []);
 
   return {ripples, onClear, onPress};
