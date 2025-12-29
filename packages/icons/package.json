@@ -1,0 +1,51 @@
+{
+  "name": "@ideasui/icons",
+  "version": "0.0.0",
+  "description": "Shared icon library",
+  "author": "IdeasUI<support@ideasui.com>",
+  "homepage": "https://ideasui.com",
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ideas2logic-lab/ideasui.git",
+    "directory": "packages/icons"
+  },
+  "bugs": {
+    "url": "https://github.com/ideas2logic-lab/ideasui/issues"
+  },
+  "exports": {
+    ".": {
+      "import": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "build": "pnpm generate && tsup src --dts",
+    "dev": "pnpm build:dev --watch",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit",
+    "build:dev": "tsup src",
+    "test": "jest",
+    "generate": "node scripts/generate-icons.js",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "dependencies": {
+    "react": "19.2.3",
+    "@ideasui/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "svgo": "^3.0.0",
+    "typescript": "^5.9.3"
+  }
+}

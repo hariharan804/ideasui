@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 GitHub Discussions
+    url: https://github.com/ideas2logic-lab/ideasui/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 📚 Documentation
+    url: https://ideasui.com
+    about: Check our documentation for guides and API reference
+  - name: 🎨 Storybook
+    url: https://storybook.ideasui.com
+    about: Explore components and their variants in Storybook

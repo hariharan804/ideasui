@@ -1,0 +1,47 @@
+{
+  "name": "@ideasui/theme",
+  "version": "0.1.0",
+  "description": "Tailwind CSS v4 theme system for IdeasUI",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./theme.css": "./theme.css"
+  },
+  "files": [
+    "dist",
+    "theme.css"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+   "dependencies": {
+    "chroma-js": "^3.2.0"
+  },
+  "peerDependencies": {
+    "tailwindcss": ">=4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "tailwindcss",
+    "theme",
+    "design-system",
+    "css",
+    "ui"
+  ],
+  "author": "IdeasUI Team",
+  "license": "MIT"
+}

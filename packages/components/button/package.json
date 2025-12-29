@@ -1,0 +1,51 @@
+{
+  "name": "@ideasui/button",
+  "version": "0.0.0",
+  "description": "Button component",
+  "author": "IdeasUI<support@ideasui.com>",
+  "homepage": "https://ideasui.com",
+  "license": "MIT",
+  "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "clean-package": "../../clean-package.config.json",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ideas2logic-lab/ideasui.git",
+    "directory": "packages/components/button"
+  },
+  "bugs": {
+    "url": "https://github.com/ideas2logic-lab/ideasui/issues"
+  },
+  "scripts": {
+    "build": "tsup src --dts",
+    "dev": "pnpm build:dev --watch",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit",
+    "build:dev": "tsup src",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "@ideasui/utils": "workspace:*",
+    "@ideasui/variants": "workspace:*",
+    "@ideasui/ripple": "workspace:*",
+    "react-aria": "^3.45.0"
+  },
+  "devDependencies": {
+    "clean-package": "^2.2.0",
+    "lucide-react": "^0.556.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "typescript": "^5.9.3"
+  }
+}

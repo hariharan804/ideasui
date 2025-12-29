@@ -1,0 +1,39 @@
+{
+  "name": "@ideasui/ui-dev",
+  "version": "0.1.0",
+  "description": "Development components with React Aria integration",
+  "main": "components/index.ts",
+  "types": "components/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-aria": "^3.32.1",
+    "react-stately": "^3.31.1",
+    "tailwind-variants": "^0.1.20",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "accessibility",
+    "react-aria",
+    "tailwind"
+  ]
+}

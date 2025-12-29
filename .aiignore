@@ -1,0 +1,38 @@
+- docs not render -
+- tailwind config clean up -
+- ripple component playgroud
+- Get component and other packages list - auto generated script
+
+- component name
+- component description
+- Installation - npm, pnpm, yarn, bun
+  installation instusction - The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.
+
+- Import
+- Usage
+- variants and usage
+- API
+- Events
+- Props
+- types
+- classnames
+- Animation/Motion Props
+
+                  "name": "as",
+                  "type": "ElementType",
+                  "description": "The element or component to render as",
+                  "optional": true,
+                  "idDepercated": true,
+                  "default": "button"
+
+                  Event need type like - "onPressChange": (isPressed: boolean) => void
+
+                  component-docs ui needed morden better ui and ux with eyecatch ui
+
+create tailwind css v4 plugin for consumer use theme like @import "tailwindcss"; @plugin './ideas-ui.ts'; also support tailwind.config.js allready we have theme.css and theme constants also posible theme setting for globle usage example disabled animation its disable all the component animation
+packages/core/theme/
+├─ tokens/
+├─ recipes/
+├─ themes/
+├─ system/  
+└─ index.ts

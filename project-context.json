@@ -1,0 +1,166 @@
+{
+  "name": "my-component-lib",
+  "description": "Modern component library built with ShadCN/UI(Radix + shadcn + Tailwind) and Next.js",
+  "version": "0.1.0",
+  "type": "monorepo",
+  "framework": "next.js",
+  "structure": {
+    "packages": {
+      "ui": {
+        "type": "component-library",
+        "framework": "react",
+        "bundler": "rollup",
+        "styling": "tailwindcss",
+        "baseComponents": "shadcn-ui (Radix + shadcn + Tailwind)",
+        "typescript": true,
+        "exports": {
+          "main": "./dist/index.js",
+          "module": "./dist/index.esm.js",
+          "types": "./dist/index.d.ts",
+          "styles": "./dist/index.css"
+        }
+      },
+      "playground": {
+        "type": "nextjs-app",
+        "framework": "next.js",
+        "version": "14+",
+        "appDirectory": true,
+        "purpose": "component-testing",
+        "features": ["hot-reload", "component-demos", "interactive-examples"]
+      }
+    },
+    "apps": {
+      "docs": {
+        "type": "nextjs-app",
+        "framework": "next.js",
+        "version": "14+",
+        "appDirectory": true,
+        "purpose": "documentation",
+        "features": ["mdx", "api-docs", "examples", "guides"]
+      }
+    }
+  },
+  "technologies": {
+    "frontend": {
+      "framework": "next.js",
+      "language": "typescript",
+      "styling": "tailwindcss",
+      "components": "shadcn-ui(Radix + shadcn + Tailwind)",
+      "stateManagement": "react-hooks"
+    },
+    "build": {
+      "monorepo": "turborepo",
+      "packageManager": "npm",
+      "bundler": "rollup",
+      "compiler": "typescript"
+    },
+    "development": {
+      "playground": "next.js",
+      "testing": "vitest",
+      "linting": "eslint",
+      "formatting": "prettier"
+    },
+    "deployment": {
+      "ci": "github-actions",
+      "registry": "npm",
+      "versioning": "semantic-release",
+      "hosting": "vercel"
+    }
+  },
+  "dependencies": {
+    "core": {
+      "react": "^18.0.0",
+      "react-dom": "^18.0.0",
+      "next": "^14.0.0"
+    },
+    "ui": {
+      "@radix-ui/react-slot": "^1.0.0",
+      "class-variance-authority": "^0.7.0",
+      "clsx": "^2.0.0",
+      "tailwind-merge": "^2.0.0"
+    },
+    "build": {
+      "typescript": "^5.0.0",
+      "tailwindcss": "^3.3.0",
+      "rollup": "^4.0.0",
+      "turbo": "^1.10.0"
+    }
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "playground": "npm --filter playground dev",
+    "docs": "npm --filter docs dev"
+  },
+  "workspace": {
+    "packages": ["packages/*", "apps/*"],
+    "packageManager": "npm"
+  },
+  "features": {
+    "componentLibrary": {
+      "baseFramework": "shadcn-ui(Radix + shadcn + Tailwind)",
+      "customization": "css-variables",
+      "theming": "dark-light-mode",
+      "accessibility": "wcag-compliant",
+      "responsive": true,
+      "treeshaking": true
+    },
+    "playground": {
+      "liveEditing": true,
+      "componentPreview": true,
+      "codeExamples": true,
+      "responsiveTesting": true,
+      "themeToggle": true
+    },
+    "documentation": {
+      "apiReference": true,
+      "interactiveExamples": true,
+      "migrationGuides": true,
+      "designTokens": true,
+      "searchable": true
+    }
+  },
+  "configuration": {
+    "shadcn": {
+      "style": "default",
+      "rsc": true,
+      "tsx": true,
+      "tailwind": {
+        "config": "tailwind.config.js",
+        "css": "app/globals.css",
+        "baseColor": "slate",
+        "cssVariables": true
+      },
+      "aliases": {
+        "components": "@/components",
+        "utils": "@/lib/utils"
+      }
+    },
+    "nextjs": {
+      "appDirectory": true,
+      "typescript": true,
+      "tailwindcss": true,
+      "eslint": true,
+      "srcDirectory": false
+    }
+  },
+  "deployment": {
+    "playground": {
+      "platform": "vercel",
+      "domain": "playground.mylib.dev",
+      "environment": "production"
+    },
+    "docs": {
+      "platform": "vercel",
+      "domain": "docs.mylib.dev",
+      "environment": "production"
+    },
+    "npm": {
+      "registry": "https://registry.npmjs.org/",
+      "scope": "@mylib",
+      "access": "public"
+    }
+  }
+}

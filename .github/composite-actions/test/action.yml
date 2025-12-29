@@ -1,0 +1,9 @@
+name: "Test"
+description: "Runs all tests including unit"
+
+runs:
+  using: composite
+  steps:
+    - name: Run unit tests
+      shell: bash
+      run: pnpm run test

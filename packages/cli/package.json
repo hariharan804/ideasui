@@ -1,0 +1,28 @@
+{
+  "name": "@ideasui/cli",
+  "version": "0.0.0",
+  "description": "CLI for IdeasUI component library",
+  "main": "./src/index.ts",
+  "bin": {
+    "ideasui": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsup src --dts",
+    "dev": "pnpm build:dev --watch",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit",
+    "build:dev": "tsup src",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^14.0.2",
+    "fs-extra": "^11.3.2",
+    "inquirer": "^13.1.0",
+    "ora": "^9.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

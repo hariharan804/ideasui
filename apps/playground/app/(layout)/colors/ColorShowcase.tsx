@@ -1,0 +1,169 @@
+"use client";
+import {useState} from "react";
+
+const ColorBox = ({className, children}: {className: string; children: React.ReactNode}) => (
+  <div
+    className={`flex h-20 w-20 items-center justify-center rounded-lg font-mono text-xs ${className}`}
+  >
+    {children}
+  </div>
+);
+
+const ColorSection = ({
+  title,
+  colors,
+}: {
+  title: string;
+  colors: Array<{shade: string; bg: string; text: string}>;
+}) => (
+  <section className="mb-12">
+    <h2 className="mb-6 text-2xl font-semibold">{title}</h2>
+    <div className="grid grid-cols-11 gap-4">
+      {colors.map(({shade, bg, text}) => (
+        <div key={shade} className="text-center">
+          <ColorBox className={`${bg} ${text}`}>{shade}</ColorBox>
+          <div className="mt-1 font-mono text-xs">{bg}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+);
+
+const MaterialDesignSection = () => (
+  <section className="mb-12">
+    <h2 className="mb-6 text-2xl font-semibold">Material Design 3 Tokens</h2>
+    <div className="grid grid-cols-4 gap-6">
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium">Primary</h3>
+        <div className="space-y-2">
+          <div className="flex items-center gap-4">
+            <ColorBox className="bg-primary text-on-primary">Primary</ColorBox>
+            <code className="text-sm">bg-primary text-on-primary</code>
+          </div>
+          <div className="flex items-center gap-4">
+            <ColorBox className="bg-primary-container text-on-primary-container">
+              Container
+            </ColorBox>
+            <code className="text-sm">bg-primary-container</code>
+          </div>
+        </div>
+      </div>
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium">Secondary</h3>
+        <div className="space-y-2">
+          <div className="flex items-center gap-4">
+            <ColorBox className="bg-secondary text-on-secondary">Secondary</ColorBox>
+            <code className="text-sm">bg-secondary text-on-secondary</code>
+          </div>
+          <div className="flex items-center gap-4">
+            <ColorBox className="bg-secondary-container text-on-secondary-container">
+              Container
+            </ColorBox>
+            <code className="text-sm">bg-secondary-container</code>
+          </div>
+        </div>
+      </div>
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium">Surface</h3>
+        <div className="space-y-2">
+          <div className="flex items-center gap-4">
+            <ColorBox className="bg-surface text-on-surface">Surface</ColorBox>
+            <code className="text-sm">bg-surface text-on-surface</code>
+          </div>
+          <div className="flex items-center gap-4">
+            <ColorBox className="bg-surface-variant text-on-surface-variant">Variant</ColorBox>
+            <code className="text-sm">bg-surface-variant</code>
+          </div>
+        </div>
+      </div>
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium">Outline</h3>
+        <div className="space-y-2">
+          <div className="flex items-center gap-4">
+            <ColorBox className="border-outline bg-surface text-on-surface border-4">
+              Outline
+            </ColorBox>
+            <code className="text-sm">border-outline</code>
+          </div>
+          <div className="flex items-center gap-4">
+            <ColorBox className="border-outline-variant bg-surface text-on-surface border-4">
+              Variant
+            </ColorBox>
+            <code className="text-sm">border-outline-variant</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const SemanticSection = () => (
+  <section className="mb-12">
+    <h2 className="mb-6 text-2xl font-semibold">Semantic Tokens</h2>
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+      <div className="flex items-center gap-4">
+        <ColorBox className="bg-background text-foreground">Background</ColorBox>
+        <code className="text-sm">bg-background text-foreground</code>
+      </div>
+      <div className="flex items-center gap-4">
+        <ColorBox className="bg-card text-card-foreground">Card</ColorBox>
+        <code className="text-sm">bg-card text-card-foreground</code>
+      </div>
+      <div className="flex items-center gap-4">
+        <ColorBox className="bg-muted text-muted-foreground">Muted</ColorBox>
+        <code className="text-sm">bg-muted text-muted-foreground</code>
+      </div>
+    </div>
+  </section>
+);
+
+export default function ColorShowcase() {
+  const [isDark, setIsDark] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    document.documentElement.classList.toggle("dark");
+  };
+
+  const shades = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950"];
+
+  const generateColors = (colorName: string) =>
+    shades.map((shade) => ({
+      shade,
+      bg: `bg-${colorName}-${shade}`,
+      text: parseInt(shade) >= 500 ? `text-${colorName}-50` : `text-${colorName}-950`,
+    }));
+
+  const colorSections = [
+    {title: "Primary Colors", colors: generateColors("primary")},
+    {title: "Secondary Colors", colors: generateColors("secondary")},
+    {title: "Success Colors", colors: generateColors("success")},
+    {title: "Warning Colors", colors: generateColors("warning")},
+    {title: "Danger Colors", colors: generateColors("danger")},
+    {title: "Info Colors", colors: generateColors("info")},
+    {title: "Neutral Colors", colors: generateColors("neutral")},
+  ];
+
+  return (
+    <div className="bg-background text-foreground p-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-8 flex items-center justify-between">
+          <h1 className="text-3xl font-bold">Brand Theme Color Showcase</h1>
+          <button
+            className="bg-primary text-on-primary rounded-lg px-4 py-2 transition-opacity hover:opacity-90"
+            onClick={toggleTheme}
+          >
+            Toggle {isDark ? "Light" : "Dark"} Mode
+          </button>
+        </div>
+
+        {colorSections.map((section) => (
+          <ColorSection key={section.title} {...section} />
+        ))}
+
+        <MaterialDesignSection />
+        <SemanticSection />
+      </div>
+    </div>
+  );
+}

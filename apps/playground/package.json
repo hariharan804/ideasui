@@ -1,0 +1,38 @@
+{
+  "name": "@ideasui/playground",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev:next": "next dev -p 5000",
+    "build:next": "next build",
+    "start:next": "next start",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test:alpha": "clean-package --config clean-package.alpha.json && pnpm install",
+    "test:beta": "clean-package --config clean-package.beta.json && pnpm install",
+    "test:canary": "clean-package --config clean-package.canary.json && pnpm install",
+    "test:latest": "clean-package --config clean-package.latest.json && pnpm install",
+    "restore:workspace": "clean-package --config clean-package.workspace.json && pnpm install"
+  },
+  "dependencies": {
+    "@ideasui/button": "workspace:*",
+    "@ideasui/ripple": "workspace:*",
+    "@ideasui/theme": "workspace:*",
+    "@ideasui/utils": "workspace:*",
+    "framer-motion": "^12.23.26",
+    "lucide-react": "^0.556.0",
+    "next": "^16.0.10",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-markdown": "10.1.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/node": "^24.10.4",
+    "@types/react": "^19.2.3",
+    "@types/react-dom": "^19.2.3",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
+  }
+}

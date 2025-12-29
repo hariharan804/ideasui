@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+/* 1) Variants must exist before any file that uses them */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* 2) Bring in your tokens/themes/utilities */
+@import "@ideasui/theme/theme.css";
+
+/* 3) Point Tailwind at places where classnames appear */
+@source "./app/**/*.{js,ts,jsx,tsx,mdx}";
+@source "./src/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../components/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../../packages/**/src/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../../node_modules/@ideasui/**/*.{js,ts,jsx,tsx,mdx,css}";
+
+html,
+body {
+  @apply min-h-screen bg-white text-gray-900;
+}

@@ -1,0 +1,82 @@
+name: Canary Release
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [canary]
+  workflow_dispatch:
+    inputs:
+      component:
+        description: 'Component to publish (leave empty for all)'
+        required: false
+        type: string
+
+jobs:
+  canary:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup environment
+        uses: ./.github/composite-actions/install
+
+      - name: Run tests
+        uses: ./.github/composite-actions/test
+
+      - name: Build packages
+        uses: ./.github/composite-actions/build
+
+      - name: Create canary version
+        run: |
+          # Create snapshot changeset for canary
+          npx changeset version --snapshot canary
+          
+      - name: Publish canary to npm
+        run: |
+          # Publish all packages with canary tag
+          npx changeset publish --tag canary
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Comment on merged PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { execSync } = require('child_process');
+            
+            // Get published canary versions
+            const packages = ['button', 'box', 'ripple', 'utils', 'variants', 'icons'];
+            const canaryVersions = packages.map(pkg => {
+              try {
+                const version = execSync(`npm view @ideasui/${pkg}@canary version`, { encoding: 'utf8' }).trim();
+                return `- \`@ideasui/${pkg}@${version}\``;
+              } catch (e) {
+                return `- \`@ideasui/${pkg}\` (no canary version)`;
+              }
+            }).join('\n');
+
+            const comment = `## 🧪 Canary Release Published
+
+            Test these canary versions:
+
+            ${canaryVersions}
+
+            ### Installation
+            \`\`\`bash
+            pnpm install @ideasui/button@canary @ideasui/box@canary
+            \`\`\`
+
+            ### Testing
+            These canary versions are now available for testing.
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

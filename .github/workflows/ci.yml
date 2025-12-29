@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  security-events: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        uses: ./.github/composite-actions/install
+
+      # 1️⃣ Type Safety Gate (Public API protection)
+      - name: TypeScript Check
+        run: pnpm tsc --noEmit
+
+      # 2️⃣ ESLint → Inline PR Review Comments
+      - name: ESLint Review
+        uses: reviewdog/action-eslint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          fail_on_error: true
+
+      # 3️⃣ Unit Tests
+      - name: Run tests
+        uses: ./.github/composite-actions/test
+
+      # 4️⃣ Build Packages (publish safety)
+      - name: Build packages
+        uses: ./.github/composite-actions/build
+
+      # 5️⃣ Coverage Upload (non-blocking for PRs)
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        if: always()
+        with:
+          files: ./coverage/lcov.info
+          fail_ci_if_error: false
+
+      # 6️⃣ Security Scan (FREE for public repos)
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: Analyze CodeQL
+        uses: github/codeql-action/analyze@v3

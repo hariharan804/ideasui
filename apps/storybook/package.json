@@ -1,0 +1,63 @@
+{
+  "name": "@ideasui/storybook",
+  "version": "2.0.0",
+  "description": "The HeroUI react components storybook ",
+  "keywords": [
+    "storybook"
+  ],
+  "type": "module",
+  "author": "Ui <support@heroui.com>",
+  "homepage": "https://ui.com",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "sideEffects": true,
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ui/ui.git",
+    "directory": "packages/components/storybook"
+  },
+  "bugs": {
+    "url": "https://github.com/ui/ui/issues"
+  },
+  "scripts": {
+    "dev": "pnpm storybook dev -p 6006",
+    "build": "pnpm storybook build",
+    "start": "pnpm dlx http-server storybook-static"
+  },
+  "dependencies": {
+    "@ideasui/theme": "workspace:*",
+    "framer-motion": "^12.23.26",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.1.10",
+    "@storybook/addon-docs": "^10.1.10",
+    "@storybook/addon-links": "^10.1.10",
+    "@storybook/cli": "^10.1.10",
+    "@storybook/react": "^10.1.10",
+    "@storybook/react-vite": "^10.1.10",
+    "@tailwindcss/postcss": "4.1.17",
+    "@tailwindcss/vite": "4.1.17",
+    "@vitejs/plugin-react": "^5.1.2",
+    "playwright": "^1.57.0",
+    "remark-gfm": "^4.0.1",
+    "storybook": "^10.1.10",
+    "tailwindcss": "4.1.17",
+    "vite": "^7.3.0"
+  },
+  "tsup": {
+    "clean": true,
+    "target": "es2019",
+    "format": [
+      "cjs",
+      "esm"
+    ]
+  }
+}

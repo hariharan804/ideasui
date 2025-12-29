@@ -1,0 +1,14 @@
+{
+  "remove": [],
+  "replace": {
+    "dependencies": {
+      "@ideasui/button": "beta",
+      "@ideasui/ripple": "beta",
+      "@ideasui/theme": "beta",
+      "@ideasui/box": "beta",
+      "@ideasui/variants": "beta",
+      "@ideasui/utils": "beta",
+      "@ideasui/hooks": "beta"
+    }
+  }
+}
