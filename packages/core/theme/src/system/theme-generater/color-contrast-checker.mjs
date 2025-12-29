@@ -2,28 +2,13 @@
  * Color Contrast Checker - Ensures WCAG compliance for text/background color combinations
  */
 
-interface ContrastCheckOptions {
-  backgroundColor: string;
-  textColor?: string;
-  isContrastCheck?: boolean;
-  contrastValue?: number;
-  adjustColor?: 'text' | 'background' | 'auto';
-}
-
-interface ContrastResult {
-  textColor: string;
-  backgroundColor: string;
-  ratio: number;
-  passed: boolean;
-}
-
 export function colorContrastChecker({
   backgroundColor,
   textColor = "#ffffff",
   isContrastCheck = true,
   contrastValue = 4.7,
   adjustColor = "background",
-}: ContrastCheckOptions): ContrastResult {
+}) {
   if (!backgroundColor || typeof backgroundColor !== 'string') {
     throw new Error('backgroundColor is required and must be a valid hex color');
   }
@@ -61,12 +46,12 @@ export function colorContrastChecker({
 }
 
 // Validate hex color format
-function isValidHexColor(hex: string): boolean {
+function isValidHexColor(hex) {
   return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(hex);
 }
 
 // Convert hex color to RGB values
-function hexToRgb(hex: string): [number, number, number] {
+function hexToRgb(hex) {
   if (!isValidHexColor(hex)) {
     throw new Error(`Invalid hex color: ${hex}`);
   }
@@ -84,7 +69,7 @@ function hexToRgb(hex: string): [number, number, number] {
 }
 
 // Convert RGB values to hex color
-function rgbToHex(r: number, g: number, b: number): string {
+function rgbToHex(r, g, b) {
   if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
     throw new Error(`Invalid RGB values: r=${r}, g=${g}, b=${b}`);
   }
@@ -93,7 +78,7 @@ function rgbToHex(r: number, g: number, b: number): string {
 }
 
 // Calculate relative luminance using WCAG formula
-function getLuminance(hex: string): number {
+function getLuminance(hex) {
   try {
     const [r, g, b] = hexToRgb(hex).map((c) => {
       c = c / 255;
@@ -107,7 +92,7 @@ function getLuminance(hex: string): number {
 }
 
 // Calculate contrast ratio between two colors
-function getContrastRatio(color1: string, color2: string): number {
+function getContrastRatio(color1, color2) {
   try {
     const lum1 = getLuminance(color1);
     const lum2 = getLuminance(color2);
@@ -122,11 +107,11 @@ function getContrastRatio(color1: string, color2: string): number {
 
 // Adjust colors to meet target contrast ratio
 function adjustColors(
-  textColor: string,
-  backgroundColor: string,
-  targetRatio: number,
-  adjustColor: 'text' | 'background' | 'auto' = "background"
-): { textColor: string; backgroundColor: string; ratio: number } {
+  textColor,
+  backgroundColor,
+  targetRatio,
+  adjustColor = "background"
+) {
   let adjustedText = textColor;
   let adjustedBg = backgroundColor;
   let ratio = getContrastRatio(adjustedText, adjustedBg);
@@ -167,7 +152,7 @@ function adjustColors(
 }
 
 // Adjust color luminance by making it lighter or darker
-function adjustLuminance(hex: string, lighter: boolean): string {
+function adjustLuminance(hex, lighter) {
   try {
     const [r, g, b] = hexToRgb(hex);
     const step = lighter ? 10 : -10;
