@@ -1,15 +1,19 @@
-import { colorTokens, darkColorTokens } from './tokens/colors';
-import { systemTokens } from './tokens/system';
-import { defaultLayout, lightLayout, darkLayout } from './tokens/layout';
-import type { ThemeConfig, ColorTokens } from './system/types';
-import type { PluginAPI } from 'tailwindcss/types/config';
+import {colorTokens, darkColorTokens} from "./tokens/colors";
+import {systemTokens} from "./tokens/system";
+import {defaultLayout, lightLayout, darkLayout} from "./tokens/layout";
+import type {ThemeConfig, ColorTokens} from "./system/types";
+interface PluginAPI {
+  addBase: (styles: Record<string, Record<string, string>>) => void;
+  addUtilities: (utilities: Record<string, Record<string, string>>) => void;
+  addVariant: (name: string, definition: string[]) => void;
+}
 
-const DEFAULT_PREFIX = 'ideasui' as const;
+const DEFAULT_PREFIX = "ideasui" as const;
 const MAX_THEME_NAME_LENGTH = 50;
 const VALID_THEME_NAME_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]*$/;
 
 interface ResolvedConfig {
-  variants: Array<{ name: string; definition: string[] }>;
+  variants: Array<{name: string; definition: string[]}>;
   utilities: Record<string, Record<string, string>>;
   colors: Record<string, string>;
   baseStyles: Record<string, Record<string, string>>;
@@ -27,7 +31,7 @@ interface ThemeData {
  */
 const isValidThemeName = (themeName: string): boolean => {
   return (
-    typeof themeName === 'string' &&
+    typeof themeName === "string" &&
     themeName.length > 0 &&
     themeName.length <= MAX_THEME_NAME_LENGTH &&
     VALID_THEME_NAME_REGEX.test(themeName)
@@ -50,10 +54,10 @@ const generateCssSelector = (themeName: string): string => {
  * @returns Object with semantic color variables
  */
 const generateSemanticColors = (prefix: string, isDark: boolean) => ({
-  [`--${prefix}-color-background`]: `var(--${prefix}-color-neutral-${isDark ? '950' : '50'})`,
-  [`--${prefix}-color-foreground`]: `var(--${prefix}-color-neutral-${isDark ? '50' : '900'})`,
-  [`--${prefix}-color-primary`]: `var(--${prefix}-color-primary-${isDark ? '400' : '500'})`,
-  [`--${prefix}-color-primary-foreground`]: `var(--${prefix}-color-primary-${isDark ? '950' : '50'})`,
+  [`--${prefix}-color-background`]: `var(--${prefix}-color-neutral-${isDark ? "950" : "50"})`,
+  [`--${prefix}-color-foreground`]: `var(--${prefix}-color-neutral-${isDark ? "50" : "900"})`,
+  [`--${prefix}-color-primary`]: `var(--${prefix}-color-primary-${isDark ? "400" : "500"})`,
+  [`--${prefix}-color-primary-foreground`]: `var(--${prefix}-color-primary-${isDark ? "950" : "50"})`,
 });
 
 /**
@@ -69,12 +73,12 @@ const processColorTokens = (
   prefix: string,
   cssSelector: string,
   baseSelector: string,
-  resolved: ResolvedConfig
+  resolved: ResolvedConfig,
 ): void => {
   Object.entries(mergedColors).forEach(([colorName, shades]) => {
-    if (shades && typeof shades === 'object') {
+    if (shades && typeof shades === "object") {
       Object.entries(shades).forEach(([shade, value]) => {
-        if (typeof value === 'string') {
+        if (typeof value === "string") {
           const varName = `--${prefix}-color-${colorName}-${shade}`;
           resolved.utilities[cssSelector][varName] = value;
           if (baseSelector) {
@@ -99,11 +103,11 @@ const processLayoutTokens = (
   prefix: string,
   cssSelector: string,
   baseSelector: string,
-  resolved: ResolvedConfig
+  resolved: ResolvedConfig,
 ): void => {
   Object.entries(mergedLayout).forEach(([key, value]) => {
     if (value !== undefined && value !== null) {
-      const kebabKey = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+      const kebabKey = key.replace(/([A-Z])/g, "-$1").toLowerCase();
       const varName = `--${prefix}-${kebabKey}`;
       const stringValue = String(value);
       resolved.utilities[cssSelector][varName] = stringValue;
@@ -120,9 +124,9 @@ const processLayoutTokens = (
  * @param resolved - Resolved config object to update
  */
 const generateTailwindColors = (prefix: string, resolved: ResolvedConfig): void => {
-  Object.keys(colorTokens).forEach(colorName => {
+  Object.keys(colorTokens).forEach((colorName) => {
     const colorKey = colorName as keyof ColorTokens;
-    Object.keys(colorTokens[colorKey]).forEach(shade => {
+    Object.keys(colorTokens[colorKey]).forEach((shade) => {
       resolved.colors[`${colorName}-${shade}`] = `var(--${prefix}-color-${colorName}-${shade})`;
     });
     resolved.colors[colorName] = `var(--${prefix}-color-${colorName})`;
@@ -148,12 +152,12 @@ const resolveConfig = (
   globalLayout: Record<string, string | number> = {},
 ): ResolvedConfig => {
   // Input validation
-  if (!themes || typeof themes !== 'object') {
-    throw new Error('Themes must be a valid object');
+  if (!themes || typeof themes !== "object") {
+    throw new Error("Themes must be a valid object");
   }
-  
-  if (!defaultTheme || typeof defaultTheme !== 'string') {
-    throw new Error('Default theme must be a valid string');
+
+  if (!defaultTheme || typeof defaultTheme !== "string") {
+    throw new Error("Default theme must be a valid string");
   }
 
   if (!isValidThemeName(defaultTheme)) {
@@ -175,20 +179,20 @@ const resolveConfig = (
         continue;
       }
 
-      if (!themeConfig || typeof themeConfig !== 'object') {
+      if (!themeConfig || typeof themeConfig !== "object") {
         console.warn(`Invalid theme config for '${themeName}', skipping`);
         continue;
       }
 
       const cssSelector = generateCssSelector(themeName);
-      const scheme = themeName === 'light' || themeName === 'dark' ? themeName : 'light';
-      const baseSelector = themeName === defaultTheme ? `:root, [data-theme=${themeName}]` : '';
+      const scheme = themeName === "light" || themeName === "dark" ? themeName : "light";
+      const baseSelector = themeName === defaultTheme ? `:root, [data-theme=${themeName}]` : "";
 
       // Initialize base styles
       if (baseSelector) {
-        resolved.baseStyles[baseSelector] = { 'color-scheme': scheme };
+        resolved.baseStyles[baseSelector] = {"color-scheme": scheme};
       }
-      resolved.utilities[cssSelector] = { 'color-scheme': scheme };
+      resolved.utilities[cssSelector] = {"color-scheme": scheme};
 
       // Add theme variant
       resolved.variants.push({
@@ -197,27 +201,27 @@ const resolveConfig = (
       });
 
       // Process colors
-      const baseColors = themeName === 'dark' ? darkColorTokens : colorTokens;
-      const mergedColors = themeConfig.colors 
+      const baseColors = themeName === "dark" ? darkColorTokens : colorTokens;
+      const mergedColors = themeConfig.colors
         ? Object.keys(baseColors).reduce((acc, colorName) => {
             const colorKey = colorName as keyof ColorTokens;
             acc[colorKey] = {
               ...baseColors[colorKey],
-              ...(themeConfig.colors?.[colorKey] || {})
+              ...(themeConfig.colors?.[colorKey] || {}),
             };
             return acc;
           }, {} as ColorTokens)
         : baseColors;
-      
+
       processColorTokens(mergedColors, prefix, cssSelector, baseSelector, resolved);
 
       // Process layout
-      const baseLayout = themeName === 'dark' ? darkLayout : lightLayout;
-      const mergedLayout = { ...globalLayout, ...baseLayout, ...themeConfig.layout };
+      const baseLayout = themeName === "dark" ? darkLayout : lightLayout;
+      const mergedLayout = {...globalLayout, ...baseLayout, ...themeConfig.layout};
       processLayoutTokens(mergedLayout, prefix, cssSelector, baseSelector, resolved);
 
       // Add semantic colors
-      const semanticVars = generateSemanticColors(prefix, themeName === 'dark');
+      const semanticVars = generateSemanticColors(prefix, themeName === "dark");
       Object.assign(resolved.utilities[cssSelector], semanticVars);
       if (baseSelector) {
         Object.assign(resolved.baseStyles[baseSelector], semanticVars);
@@ -227,8 +231,10 @@ const resolveConfig = (
     generateTailwindColors(prefix, resolved);
     return resolved;
   } catch (error) {
-    console.error('Error resolving theme config:', error);
-    throw new Error(`Failed to resolve theme configuration: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    console.error("Error resolving theme config:", error);
+    throw new Error(
+      `Failed to resolve theme configuration: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
   }
 };
 
@@ -252,26 +258,26 @@ const corePlugin = (
     const resolved = resolveConfig(themes, defaultTheme, prefix, globalLayout);
 
     return {
-      handler: ({ addBase, addUtilities, addVariant }: PluginAPI) => {
+      handler: ({addBase, addUtilities, addVariant}: PluginAPI) => {
         try {
           addBase(resolved.baseStyles);
           addUtilities(resolved.utilities);
-          
+
           resolved.variants.forEach((variant) => {
             addVariant(variant.name, variant.definition);
           });
 
           if (disableAnimations) {
             addBase({
-              '*, *::before, *::after': {
-                'animation-duration': '0.01ms !important',
-                'animation-iteration-count': '1 !important',
-                'transition-duration': '0.01ms !important',
+              "*, *::before, *::after": {
+                "animation-duration": "0.01ms !important",
+                "animation-iteration-count": "1 !important",
+                "transition-duration": "0.01ms !important",
               },
             });
           }
         } catch (error) {
-          console.error('Error applying theme plugin:', error);
+          console.error("Error applying theme plugin:", error);
         }
       },
       config: {
@@ -302,7 +308,7 @@ const corePlugin = (
               disabled: `var(--${prefix}-disabled-opacity)`,
             },
             animation: disableAnimations
-              ? Object.fromEntries(Object.keys(systemTokens.animation).map(key => [key, 'none']))
+              ? Object.fromEntries(Object.keys(systemTokens.animation).map((key) => [key, "none"]))
               : systemTokens.animation,
             keyframes: disableAnimations ? {} : systemTokens.keyframes,
             transitionDuration: systemTokens.transitionDuration,
@@ -312,19 +318,19 @@ const corePlugin = (
       },
     };
   } catch (error) {
-    console.error('Error creating core plugin:', error);
+    console.error("Error creating core plugin:", error);
     throw error;
   }
 };
 
 /**
  * IdeasUI Tailwind CSS plugin for theme management
- * 
+ *
  * @example
  * ```js
  * // tailwind.config.js
  * import { ideasUIPlugin } from '@ideasui/theme';
- * 
+ *
  * export default {
  *   plugins: [
  *     ideasUIPlugin({
@@ -341,7 +347,7 @@ const corePlugin = (
  *   ]
  * }
  * ```
- * 
+ *
  * @param config - Theme configuration options
  * @returns Tailwind CSS plugin
  */
@@ -349,15 +355,15 @@ export function ideasUIPlugin(config: ThemeConfig = {}): any {
   try {
     const {
       themes = {},
-      defaultTheme = 'light',
+      defaultTheme = "light",
       prefix = DEFAULT_PREFIX,
       disableAnimations = false,
       layout: globalLayout = {},
     } = config;
 
     // Validate configuration
-    if (!themes || typeof themes !== 'object') {
-      throw new Error('Invalid themes configuration');
+    if (!themes || typeof themes !== "object") {
+      throw new Error("Invalid themes configuration");
     }
 
     if (!isValidThemeName(defaultTheme)) {
@@ -365,14 +371,14 @@ export function ideasUIPlugin(config: ThemeConfig = {}): any {
     }
 
     const defaultThemes = {
-      light: { colors: colorTokens, layout: lightLayout },
-      dark: { colors: darkColorTokens, layout: darkLayout },
+      light: {colors: colorTokens, layout: lightLayout},
+      dark: {colors: darkColorTokens, layout: darkLayout},
       ...themes,
     };
 
     return corePlugin(defaultThemes, defaultTheme, prefix, disableAnimations, globalLayout);
   } catch (error) {
-    console.error('Error initializing IdeasUI plugin:', error);
+    console.error("Error initializing IdeasUI plugin:", error);
     throw error;
   }
 }
@@ -381,4 +387,5 @@ export * from "./tokens/colors";
 export * from "./tokens/system";
 export * from "./system/types";
 export * from "./recipes";
+export * from "./tokens/design-tokens";
 export {ideasUIPlugin as default};
