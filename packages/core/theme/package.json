@@ -21,19 +21,19 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "generate-theme": "node ./src/system/generator/generate-theme.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
-  },
-   "dependencies": {
-    "chroma-js": "^3.2.0"
   },
   "peerDependencies": {
     "tailwindcss": ">=4"
   },
   "devDependencies": {
+    "@ideasui/utils": "workspace:*",
     "@types/node": "^20.0.0",
     "tsup": "^8.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "chroma-js": "^3.2.0"
   },
   "keywords": [
     "tailwindcss",

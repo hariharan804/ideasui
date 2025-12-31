@@ -1,7 +1,7 @@
 // PUBLIC API — safe for end-users
 
 // Core utilities
-export * from "./core";
+export {logger} from "./core";
 
 // Browser utilities
 export * from "./browser";

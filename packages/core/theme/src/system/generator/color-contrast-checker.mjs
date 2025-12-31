@@ -2,7 +2,7 @@
  * Color Contrast Checker - Ensures WCAG compliance for text/background color combinations
  */
 
-import { logger } from '@ideasui/utils';
+import chroma from 'chroma-js';
 
 export function colorContrastChecker({
   backgroundColor,
@@ -12,12 +12,12 @@ export function colorContrastChecker({
   adjustColor = "background",
 }) {
   if (!backgroundColor || typeof backgroundColor !== 'string') {
-    logger.throw('backgroundColor is required and must be a valid hex color');
+    console.error('[IdeasUI] backgroundColor is required and must be a valid hex color');
     return { textColor, backgroundColor, ratio: 1, passed: false };
   }
   
   if (!isValidHexColor(backgroundColor) || !isValidHexColor(textColor)) {
-    logger.throw('Colors must be valid hex format (#RRGGBB)');
+    console.error('[IdeasUI] Colors must be valid hex format (#RRGGBB)');
     return { textColor, backgroundColor, ratio: 1, passed: false };
   }
 
@@ -28,15 +28,15 @@ export function colorContrastChecker({
   }
 
   if (ratio >= contrastValue) {
-    logger.info("✅ Passed Ratio =======>  ", ratio);
+    console.log("✅ Passed Ratio =======>  ", ratio);
     return { textColor, backgroundColor, ratio, passed: true };
   }
   
-  logger.warn("❌ Failed Ratio =======>  ", ratio);
+  console.warn("❌ Failed Ratio =======>  ", ratio);
 
   try {
     const adjusted = adjustColors(textColor, backgroundColor, contrastValue, adjustColor);
-    logger.info("👽 adjusted colors:", adjusted?.backgroundColor);
+    console.log("👽 adjusted colors:", adjusted?.backgroundColor);
     return {
       textColor: adjusted.textColor,
       backgroundColor: adjusted.backgroundColor,
@@ -44,7 +44,7 @@ export function colorContrastChecker({
       passed: true,
     };
   } catch (error) {
-    logger.error('Error adjusting colors:', error);
+    console.error('Error adjusting colors:', error);
     return { textColor, backgroundColor, ratio, passed: false };
   }
 }
@@ -52,20 +52,20 @@ export function colorContrastChecker({
 function isValidHexColor(hex) {
   const isValid = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(hex);
   if (!isValid) {
-    logger.warn(`Invalid hex color format: ${hex}`);
+    console.warn(`Invalid hex color format: ${hex}`);
   }
   return isValid;
 }
 
 function hexToRgb(hex) {
   if (!isValidHexColor(hex)) {
-    logger.throw(`Invalid hex color: ${hex}`);
+    console.error(`Invalid hex color: ${hex}`);
     return [0, 0, 0];
   }
   
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   if (!result) {
-    logger.throw(`Failed to parse hex color: ${hex}`);
+    console.error(`Failed to parse hex color: ${hex}`);
     return [0, 0, 0];
   }
   
@@ -78,7 +78,7 @@ function hexToRgb(hex) {
 
 function rgbToHex(r, g, b) {
   if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
-    logger.throw(`Invalid RGB values: r=${r}, g=${g}, b=${b}`);
+    console.error(`Invalid RGB values: r=${r}, g=${g}, b=${b}`);
     return '#000000';
   }
   
@@ -93,7 +93,7 @@ function getLuminance(hex) {
     });
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
   } catch (error) {
-    logger.error(`Error calculating luminance for ${hex}:`, error);
+    console.error(`Error calculating luminance for ${hex}:`, error);
     return 0;
   }
 }
@@ -106,7 +106,7 @@ function getContrastRatio(color1, color2) {
     const darkest = Math.min(lum1, lum2);
     return (brightest + 0.05) / (darkest + 0.05);
   } catch (error) {
-    logger.error(`Error calculating contrast ratio between ${color1} and ${color2}:`, error);
+    console.error(`Error calculating contrast ratio between ${color1} and ${color2}:`, error);
     return 1;
   }
 }
@@ -144,13 +144,13 @@ function adjustColors(
       ratio = newRatio;
       iterations++;
     } catch (error) {
-      logger.error('Error during color adjustment:', error);
+      console.error('Error during color adjustment:', error);
       break;
     }
   }
 
   if (iterations >= maxIterations) {
-    logger.warn('Maximum iterations reached during color adjustment');
+    console.warn('Maximum iterations reached during color adjustment');
   }
 
   return { textColor: adjustedText, backgroundColor: adjustedBg, ratio };
@@ -167,7 +167,7 @@ function adjustLuminance(hex, lighter) {
 
     return rgbToHex(newR, newG, newB);
   } catch (error) {
-    logger.error(`Error adjusting luminance for ${hex}:`, error);
+    console.error(`Error adjusting luminance for ${hex}:`, error);
     return hex;
   }
 }
