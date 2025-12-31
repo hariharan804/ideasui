@@ -1,10 +1,10 @@
 import {memo, useMemo} from "react";
-import type {ThemeConfig, ThemeScriptProps} from "./types";
+import type {ThemeScriptConfig, ThemeScriptProps} from "./types";
 
 import {createScript} from "./utils/script";
 import {defaultConfig} from "./utils/themes.config";
 
-const validateThemeConfig = (config: ThemeConfig): ThemeConfig => {
+const validateThemeConfig = (config: ThemeScriptConfig): ThemeScriptConfig => {
   const isValidString = (str: unknown): str is string =>
     typeof str === "string" && /^[\w.:-]+$/.test(str) && str.length < 50;
 
@@ -25,10 +25,10 @@ const validateThemeConfig = (config: ThemeConfig): ThemeConfig => {
 };
 
 export const ThemeScript = memo<ThemeScriptProps>((props) => {
-  const {nonce, scriptProps, id = "theme-script", ...themeProps} = props;
+  const {nonce, scriptProps, id = "ideasui-theme-script", ...themeProps} = props;
 
   const script = useMemo(() => {
-    const merged: ThemeConfig = {
+    const merged: ThemeScriptConfig = {
       ...defaultConfig,
       ...themeProps,
       themes: Array.from(new Set([...(defaultConfig.themes || []), ...(themeProps.themes || [])])),
@@ -49,4 +49,4 @@ export const ThemeScript = memo<ThemeScriptProps>((props) => {
   );
 });
 
-ThemeScript.displayName = "ThemeScript";
+ThemeScript.displayName = "IdeasUI.ThemeScript";

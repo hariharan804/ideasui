@@ -5,5 +5,5 @@ export {useThemeController} from "./use-theme-controller";
 export {useTheme} from "./use-theme";
 
 // Type definitions
-export type {ThemeConfig, ThemeMode, StorageAdapter, ThemeScriptProps} from "./types";
+export type {ThemeScriptConfig, ThemeModeVariant, StorageAdapter, ThemeScriptProps} from "./types";
 export type {UseThemeController} from "./use-theme-controller";

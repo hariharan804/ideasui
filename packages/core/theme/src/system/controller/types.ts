@@ -1,12 +1,12 @@
 import type {storageAdapters} from "./utils/storage";
 
 /** How themes are applied to DOM elements */
-export type ThemeMode =
+export type ThemeModeVariant =
   | "class" // Uses CSS classes: html.dark { ... } (Tailwind CSS standard)
   | "attribute"; // Uses data attributes: html[data-theme="dark"] { ... }
 
 /** Complete theme configuration interface */
-export interface ThemeConfig {
+export interface ThemeScriptConfig {
   /** Available theme names */
   themes: string[];
   /** Default theme when none is stored */
@@ -18,7 +18,7 @@ export interface ThemeConfig {
    * - 'class': Adds theme as CSS class (Tailwind CSS standard)
    * - 'attribute': Sets theme as data attribute value
    */
-  mode: ThemeMode;
+  mode: ThemeModeVariant;
 
   /** Mapping of system preferences to theme names */
   systemThemes: {light: string; dark: string};
@@ -36,7 +36,7 @@ export interface StorageAdapter {
   removeItem(key: string): void;
 }
 
-export interface ThemeScriptProps extends Partial<ThemeConfig> {
+export interface ThemeScriptProps extends Partial<ThemeScriptConfig> {
   nonce?: string;
   scriptProps?: Omit<
     React.ScriptHTMLAttributes<HTMLScriptElement>,

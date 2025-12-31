@@ -1,7 +1,7 @@
-import type {ThemeConfig} from "../types";
+import type {ThemeScriptConfig} from "../types";
 
 /** Default configuration - sensible defaults for most use cases */
-export const defaultConfig: ThemeConfig = {
+export const defaultConfig: ThemeScriptConfig = {
   themes: ["light", "dark", "system"],
   defaultTheme: "light",
   storageKey: "ideasui-theme",

@@ -1,4 +1,4 @@
-import type {ThemeConfig, StorageAdapter} from "./types";
+import type {ThemeScriptConfig, StorageAdapter} from "./types";
 
 import {useEffect, useRef} from "react";
 
@@ -6,7 +6,7 @@ import {themeStore} from "./utils/store";
 import {defaultConfig} from "./utils/themes.config";
 import {storageAdapters} from "./utils/storage";
 
-export interface UseThemeController extends Partial<ThemeConfig> {
+export interface UseThemeController extends Partial<ThemeScriptConfig> {
   attribute?: "class" | "data-theme";
   systemThemes?: {light: string; dark: string};
 }
@@ -19,7 +19,7 @@ let teardowns: Array<() => void> = [];
 export function useThemeController(options: UseThemeController = {}) {
   const attrMode = options.attribute === "data-theme" ? "attribute" : options.attribute;
 
-  const merged: ThemeConfig = {
+  const merged: ThemeScriptConfig = {
     ...defaultConfig,
     ...options,
     mode: attrMode ?? options.mode ?? defaultConfig.mode,
