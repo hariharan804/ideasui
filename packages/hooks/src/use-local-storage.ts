@@ -1,16 +1,34 @@
 import {useState, useCallback} from "react";
 
 /**
- * Custom hook for managing localStorage state
+ * Custom hook for managing localStorage state with automatic serialization and SSR support
  *
- * @param key - The localStorage key
- * @param initialValue - Initial value if key doesn't exist
- * @returns Tuple of [value, setValue, removeValue]
+ * @param key - The localStorage key to store the value under
+ * @param initialValue - Initial value to use if the key doesn't exist in localStorage
+ * @returns Tuple containing [current value, setValue function, removeValue function]
  *
  * @example
  * ```tsx
+ * // Basic usage for theme preference
  * const [theme, setTheme, removeTheme] = useLocalStorage('theme', 'light')
+ *
+ * // Usage with objects
+ * const [user, setUser] = useLocalStorage('user', { name: '', email: '' })
+ *
+ * // Usage with function updates
+ * setTheme(prev => prev === 'light' ? 'dark' : 'light')
+ *
+ * // Remove from localStorage
+ * removeTheme() // Resets to initialValue
  * ```
+ *
+ * @usage Ideal for persisting user preferences, form data, or any state that should survive page refreshes
+ *
+ * @see {@link https://react.dev/reference/react/useState} for useState reference
+ * @see {@link https://react.dev/reference/react/useCallback} for useCallback reference
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage} for localStorage reference
+ *
+ * @since 1.0.0
  */
 export function useLocalStorage<T>(
   key: string,

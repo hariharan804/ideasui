@@ -9,16 +9,28 @@ export interface UseCounterReturn {
 }
 
 /**
- * Custom hook for managing counter state
+ * Custom hook for managing counter state with increment, decrement, reset, and set operations
  *
  * @param initialValue - Initial counter value
- * @param step - Step size for increment/decrement
- * @returns Counter state and handlers
+ * @param step - Step size for increment/decrement operations
+ * @returns Counter state and control functions
+ *
+ * @default initialValue 0
+ * @default step 1
  *
  * @example
  * ```tsx
+ * // Basic usage
  * const {count, increment, decrement, reset} = useCounter(0, 1)
+ *
+ * // With custom initial value and step
+ * const {count, increment, decrement, set} = useCounter(10, 5)
  * ```
+ *
+ * @see {@link https://react.dev/reference/react/useState} for useState reference
+ * @see {@link https://react.dev/reference/react/useCallback} for useCallback reference
+ *
+ * @since 1.0.0
  */
 export function useCounter(initialValue = 0, step = 1): UseCounterReturn {
   const [count, setCount] = useState(initialValue);

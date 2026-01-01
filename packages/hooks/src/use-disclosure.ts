@@ -9,15 +9,34 @@ export interface UseDisclosureReturn {
 }
 
 /**
- * Custom hook for managing disclosure state (modals, dropdowns, etc.)
+ * Custom hook for managing disclosure state for UI components like modals, dropdowns, and collapsible content
  *
- * @param defaultIsOpen - Initial open state
- * @returns Disclosure state and handlers
+ * @param defaultIsOpen - Initial open state of the disclosure
+ * @returns Object containing disclosure state and control functions
+ *
+ * @default defaultIsOpen false
  *
  * @example
  * ```tsx
+ * // Basic usage for modal
  * const {isOpen, onOpen, onClose, onToggle} = useDisclosure()
+ *
+ * // With initial open state
+ * const disclosure = useDisclosure(true)
+ *
+ * // Usage in component
+ * <button onClick={onOpen}>Open Modal</button>
+ * <Modal isOpen={isOpen} onClose={onClose}>
+ *   <button onClick={onToggle}>Toggle</button>
+ * </Modal>
  * ```
+ *
+ * @usage Perfect for modals, dropdowns, accordions, tooltips, and any show/hide UI patterns
+ *
+ * @see {@link https://react.dev/reference/react/useState} for useState reference
+ * @see {@link https://react.dev/reference/react/useCallback} for useCallback reference
+ *
+ * @since 1.0.0
  */
 export function useDisclosure(defaultIsOpen = false): UseDisclosureReturn {
   const [isOpen, setIsOpen] = useState(defaultIsOpen);
