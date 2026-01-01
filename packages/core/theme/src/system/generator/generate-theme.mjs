@@ -95,19 +95,32 @@ export function generateShades(baseColor, colorNameOverride = null, format = "ok
     950: formatColor(chroma.oklch(baseL * 0.28, baseC * 0.4, finalHue), format),
   };
 
-  // Dark mode: inverted lightness with same locked hue and balanced chroma
+  // Dark mode: inverted lightness with explicitly locked hue
+  const darkHueMap = {
+    primary: 300.0,
+    secondary: 305.1,
+    tertiary: 145.4,
+    success: 145.4,
+    warning: 60.0, // Critical: lock at 60.0°
+    danger: 28.2,
+    info: 243.0, // Critical: lock at 243.0°
+    neutral: 306.3,
+  };
+
+  const darkHue = darkHueMap[colorName] || finalHue;
+
   const darkShades = {
-    50: formatColor(chroma.oklch(0.15, baseC * 0.35, finalHue), format),
-    100: formatColor(chroma.oklch(0.22, baseC * 0.45, finalHue), format),
-    200: formatColor(chroma.oklch(0.32, baseC * 0.52, finalHue), format),
-    300: formatColor(chroma.oklch(0.42, baseC * 0.6, finalHue), format),
-    400: formatColor(chroma.oklch(0.52, baseC * 0.72, finalHue), format),
-    500: formatColor(chroma.oklch(0.72, baseC * 0.85, finalHue), format),
-    600: formatColor(chroma.oklch(0.82, baseC * 0.7, finalHue), format),
-    700: formatColor(chroma.oklch(0.87, baseC * 0.58, finalHue), format),
-    800: formatColor(chroma.oklch(0.92, baseC * 0.4, finalHue), format),
-    900: formatColor(chroma.oklch(0.95, baseC * 0.25, finalHue), format),
-    950: formatColor(chroma.oklch(0.97, baseC * 0.14, finalHue), format),
+    50: formatColor(chroma.oklch(0.15, baseC * 0.35, darkHue), format),
+    100: formatColor(chroma.oklch(0.22, baseC * 0.45, darkHue), format),
+    200: formatColor(chroma.oklch(0.32, baseC * 0.52, darkHue), format),
+    300: formatColor(chroma.oklch(0.42, baseC * 0.6, darkHue), format),
+    400: formatColor(chroma.oklch(0.52, baseC * 0.72, darkHue), format),
+    500: formatColor(chroma.oklch(0.72, baseC * 0.85, darkHue), format),
+    600: formatColor(chroma.oklch(0.82, baseC * 0.7, darkHue), format),
+    700: formatColor(chroma.oklch(0.87, baseC * 0.58, darkHue), format),
+    800: formatColor(chroma.oklch(0.92, baseC * 0.4, darkHue), format),
+    900: formatColor(chroma.oklch(0.95, baseC * 0.25, darkHue), format),
+    950: formatColor(chroma.oklch(0.97, baseC * 0.14, darkHue), format),
   };
 
   return {light: lightShades, dark: darkShades};
