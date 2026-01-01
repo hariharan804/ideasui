@@ -67,39 +67,44 @@ export const ColorComparison: Story = {
   render: () => (
     <div className="space-y-8">
       <h2 className="text-2xl font-bold">Light vs Dark Comparison</h2>
-      {Object.keys(colorTokens).map((colorName) => (
-        <div key={colorName} className="space-y-4">
-          <h3 className="text-lg font-semibold capitalize">{colorName}</h3>
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <h4 className="text-sm font-medium mb-3">Light Theme</h4>
-              <div className="flex gap-1">
-                {Object.entries(colorTokens[colorName as keyof typeof colorTokens]).map(([shade, value]) => (
-                  <div
-                    key={shade}
-                    className="w-8 h-8 rounded border"
-                    style={{ backgroundColor: value }}
-                    title={`${colorName}-${shade}: ${value}`}
-                  />
-                ))}
+      {Object.keys(colorTokens).map((colorName) => {
+        const lightShades = colorTokens[colorName as keyof typeof colorTokens];
+        const darkShades = darkColorTokens[colorName as keyof typeof darkColorTokens];
+        
+        return (
+          <div key={colorName} className="space-y-4">
+            <h3 className="text-lg font-semibold capitalize">{colorName}</h3>
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <h4 className="text-sm font-medium mb-3">Light Theme</h4>
+                <div className="flex gap-1">
+                  {Object.entries(lightShades).map(([shade, value]) => (
+                    <div
+                      key={shade}
+                      className="w-8 h-8 rounded border"
+                      style={{ backgroundColor: value }}
+                      title={`${colorName}-${shade}: ${value}`}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-            <div>
-              <h4 className="text-sm font-medium mb-3">Dark Theme</h4>
-              <div className="flex gap-1">
-                {Object.entries(darkColorTokens[colorName as keyof typeof darkColorTokens]).map(([shade, value]) => (
-                  <div
-                    key={shade}
-                    className="w-8 h-8 rounded border"
-                    style={{ backgroundColor: value }}
-                    title={`${colorName}-${shade}: ${value}`}
-                  />
-                ))}
+              <div>
+                <h4 className="text-sm font-medium mb-3">Dark Theme</h4>
+                <div className="flex gap-1">
+                  {Object.entries(darkShades).map(([shade, value]) => (
+                    <div
+                      key={shade}
+                      className="w-8 h-8 rounded border"
+                      style={{ backgroundColor: value }}
+                      title={`${colorName}-${shade}: ${value}`}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   ),
 };

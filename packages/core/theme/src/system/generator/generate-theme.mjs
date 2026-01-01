@@ -7,6 +7,16 @@ import fs from "fs";
  * Convert color to specified format
  */
 function formatColor(color, format = "hex") {
+  // Handle direct OKLCH values to preserve exact hue
+  if (Array.isArray(color) && color.length === 3) {
+    const [l, c_val, h] = color;
+    if (format === "oklch") {
+      // Handle NaN hue for grayscale colors
+      const hueValue = isNaN(h) || c_val === 0 ? 0 : h;
+      return `oklch(${l.toFixed(3)} ${c_val.toFixed(3)} ${hueValue.toFixed(1)})`;
+    }
+  }
+  
   const c = chroma(color);
 
   switch (format) {
@@ -20,7 +30,8 @@ function formatColor(color, format = "hex") {
       return c.css("hsl");
     case "oklch":
       const [l, c_val, h] = c.oklch();
-      return `oklch(${l.toFixed(3)} ${c_val.toFixed(3)} ${h.toFixed(1)})`;
+      const hueValue = isNaN(h) || c_val === 0 ? 0 : h;
+      return `oklch(${l.toFixed(3)} ${c_val.toFixed(3)} ${hueValue.toFixed(1)})`;
     case "p3":
       const [r, g, b] = c.rgb();
       return `color(display-p3 ${(r / 255).toFixed(3)} ${(g / 255).toFixed(3)} ${(b / 255).toFixed(3)})`;
@@ -62,10 +73,6 @@ export function generateShades(baseColor, colorNameOverride = null, format = "ok
   const base = chroma(baseColor);
   const [baseL, baseC, baseH] = base.oklch();
 
-  // Detect color name and get locked hue
-  const {name: detectedName, lockedHue} = detectColorName(baseH);
-  const colorName = colorNameOverride || detectedName;
-
   // Define locked hues explicitly for each semantic color
   const hueMap = {
     primary: 300.0,
@@ -76,51 +83,40 @@ export function generateShades(baseColor, colorNameOverride = null, format = "ok
     danger: 28.2,
     info: 243.0,
     neutral: 306.3,
+    gray: 0,
   };
 
-  const finalHue = hueMap[colorName] || lockedHue;
+  // ALWAYS use locked hue for semantic colors, regardless of input
+  const finalHue = hueMap[colorNameOverride] || baseH;
 
-  // Light mode: smooth lightness and chroma progression with locked hue
+  // Light mode: ALL shades use the same locked hue
   const lightShades = {
-    50: formatColor(chroma.oklch(0.98, baseC * 0.08, finalHue), format),
-    100: formatColor(chroma.oklch(0.95, baseC * 0.15, finalHue), format),
-    200: formatColor(chroma.oklch(0.88, baseC * 0.32, finalHue), format),
-    300: formatColor(chroma.oklch(0.78, baseC * 0.5, finalHue), format),
-    400: formatColor(chroma.oklch(0.65, baseC * 0.7, finalHue), format),
-    500: formatColor(chroma.oklch(baseL, baseC, finalHue), format),
-    600: formatColor(chroma.oklch(baseL * 0.88, baseC * 0.95, finalHue), format),
-    700: formatColor(chroma.oklch(baseL * 0.75, baseC * 0.85, finalHue), format),
-    800: formatColor(chroma.oklch(baseL * 0.58, baseC * 0.7, finalHue), format),
-    900: formatColor(chroma.oklch(baseL * 0.42, baseC * 0.55, finalHue), format),
-    950: formatColor(chroma.oklch(baseL * 0.28, baseC * 0.4, finalHue), format),
+    50: formatColor([0.98, baseC * 0.08, finalHue], format),
+    100: formatColor([0.95, baseC * 0.15, finalHue], format),
+    200: formatColor([0.88, baseC * 0.32, finalHue], format),
+    300: formatColor([0.78, baseC * 0.5, finalHue], format),
+    400: formatColor([0.65, baseC * 0.7, finalHue], format),
+    500: formatColor([baseL, baseC, finalHue], format),
+    600: formatColor([baseL * 0.88, baseC * 0.95, finalHue], format),
+    700: formatColor([baseL * 0.75, baseC * 0.85, finalHue], format),
+    800: formatColor([baseL * 0.58, baseC * 0.7, finalHue], format),
+    900: formatColor([baseL * 0.42, baseC * 0.55, finalHue], format),
+    950: formatColor([baseL * 0.28, baseC * 0.4, finalHue], format),
   };
 
-  // Dark mode: inverted lightness with explicitly locked hue
-  const darkHueMap = {
-    primary: 300.0,
-    secondary: 305.1,
-    tertiary: 145.4,
-    success: 145.4,
-    warning: 60.0, // Critical: lock at 60.0°
-    danger: 28.2,
-    info: 243.0, // Critical: lock at 243.0°
-    neutral: 306.3,
-  };
-
-  const darkHue = darkHueMap[colorName] || finalHue;
-
+  // Dark mode: ALL shades use the same locked hue
   const darkShades = {
-    50: formatColor(chroma.oklch(0.15, baseC * 0.35, darkHue), format),
-    100: formatColor(chroma.oklch(0.22, baseC * 0.45, darkHue), format),
-    200: formatColor(chroma.oklch(0.32, baseC * 0.52, darkHue), format),
-    300: formatColor(chroma.oklch(0.42, baseC * 0.6, darkHue), format),
-    400: formatColor(chroma.oklch(0.52, baseC * 0.72, darkHue), format),
-    500: formatColor(chroma.oklch(0.72, baseC * 0.85, darkHue), format),
-    600: formatColor(chroma.oklch(0.82, baseC * 0.7, darkHue), format),
-    700: formatColor(chroma.oklch(0.87, baseC * 0.58, darkHue), format),
-    800: formatColor(chroma.oklch(0.92, baseC * 0.4, darkHue), format),
-    900: formatColor(chroma.oklch(0.95, baseC * 0.25, darkHue), format),
-    950: formatColor(chroma.oklch(0.97, baseC * 0.14, darkHue), format),
+    50: formatColor([0.15, baseC * 0.35, finalHue], format),
+    100: formatColor([0.22, baseC * 0.45, finalHue], format),
+    200: formatColor([0.32, baseC * 0.52, finalHue], format),
+    300: formatColor([0.42, baseC * 0.6, finalHue], format),
+    400: formatColor([0.52, baseC * 0.72, finalHue], format),
+    500: formatColor([0.72, baseC * 0.85, finalHue], format),
+    600: formatColor([0.82, baseC * 0.7, finalHue], format),
+    700: formatColor([0.87, baseC * 0.58, finalHue], format),
+    800: formatColor([0.92, baseC * 0.4, finalHue], format),
+    900: formatColor([0.95, baseC * 0.25, finalHue], format),
+    950: formatColor([0.97, baseC * 0.14, finalHue], format),
   };
 
   return {light: lightShades, dark: darkShades};
@@ -133,27 +129,44 @@ export function generateCompleteTheme(format = "oklch") {
   const semanticColors = getSemanticColors("#861afd");
   const theme = {light: {}, dark: {}};
 
-  // Map of color names to their target hues
-  const colorNameMap = {
-    primary: 300.0,
-    secondary: 305.1,
-    tertiary: 145.4,
-    success: 145.4,
-    warning: 60.0,
-    danger: 28.2,
-    info: 243.0,
-    neutral: 306.3,
-  };
-
   Object.entries(semanticColors).forEach(([name, color]) => {
-    // Get the appropriate locked hue for this color
-    const lockedHue = colorNameMap[name] || null;
-
-    // Generate shades with explicit color name
+    // Generate shades with explicit color name to force hue locking
     const shades = generateShades(color, name, format);
     theme.light[name] = shades.light;
     theme.dark[name] = shades.dark;
   });
+
+  // Add gray color with zero chroma (pure grayscale)
+  const grayShades = {
+    light: {
+      50: formatColor([0.98, 0, 0], format),
+      100: formatColor([0.95, 0, 0], format),
+      200: formatColor([0.88, 0, 0], format),
+      300: formatColor([0.78, 0, 0], format),
+      400: formatColor([0.65, 0, 0], format),
+      500: formatColor([0.5, 0, 0], format),
+      600: formatColor([0.44, 0, 0], format),
+      700: formatColor([0.375, 0, 0], format),
+      800: formatColor([0.29, 0, 0], format),
+      900: formatColor([0.21, 0, 0], format),
+      950: formatColor([0.14, 0, 0], format),
+    },
+    dark: {
+      50: formatColor([0.15, 0, 0], format),
+      100: formatColor([0.22, 0, 0], format),
+      200: formatColor([0.32, 0, 0], format),
+      300: formatColor([0.42, 0, 0], format),
+      400: formatColor([0.52, 0, 0], format),
+      500: formatColor([0.72, 0, 0], format),
+      600: formatColor([0.82, 0, 0], format),
+      700: formatColor([0.87, 0, 0], format),
+      800: formatColor([0.92, 0, 0], format),
+      900: formatColor([0.95, 0, 0], format),
+      950: formatColor([0.97, 0, 0], format),
+    }
+  };
+  theme.light.gray = grayShades.light;
+  theme.dark.gray = grayShades.dark;
 
   return theme;
 }

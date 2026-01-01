@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { systemTokens } from '../src/tokens/system';
 import { defaultLayout } from '../src/tokens/layout';
+import { colorTokens, darkColorTokens } from '../src/tokens/colors';
 
 const meta: Meta = {
   title: 'Theme/Tokens',
@@ -11,6 +12,33 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj;
+
+const ColorPalette = ({ title, colors }: { 
+  title: string; 
+  colors: Record<string, Record<string, string>>;
+}) => (
+  <div className="space-y-6">
+    <h3 className="text-lg font-semibold">{title}</h3>
+    {Object.entries(colors).map(([colorName, shades]) => (
+      <div key={colorName} className="space-y-2">
+        <h4 className="text-md font-medium capitalize">{colorName}</h4>
+        <div className="flex flex-wrap gap-2">
+          {Object.entries(shades).map(([shade, value]) => (
+            <div key={shade} className="text-center">
+              <div 
+                className="w-16 h-16 rounded-lg border border-gray-200 mb-2"
+                style={{ backgroundColor: value }}
+                title={value}
+              />
+              <div className="text-xs font-medium">{shade}</div>
+              <div className="text-xs text-gray-500 font-mono">{value}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+);
 
 const TokenGroup = ({ title, tokens }: { title: string; tokens: Record<string, any> }) => (
   <div className="space-y-4">
@@ -25,6 +53,30 @@ const TokenGroup = ({ title, tokens }: { title: string; tokens: Record<string, a
     </div>
   </div>
 );
+
+export const Colors: Story = {
+  render: () => (
+    <div className="space-y-12">
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Color Tokens</h2>
+        <p className="text-gray-600 mb-8">Semantic color palette with OKLCH values</p>
+      </div>
+      <ColorPalette title="Light Mode Colors" colors={colorTokens} />
+    </div>
+  ),
+};
+
+export const DarkColors: Story = {
+  render: () => (
+    <div className="space-y-12 bg-gray-900 text-white p-8 rounded-lg">
+      <div>
+        <h2 className="text-2xl font-bold mb-4">Dark Mode Colors</h2>
+        <p className="text-gray-300 mb-8">Dark theme color palette with OKLCH values</p>
+      </div>
+      <ColorPalette title="Dark Mode Colors" colors={darkColorTokens} />
+    </div>
+  ),
+};
 
 export const Spacing: Story = {
   render: () => (
@@ -82,7 +134,7 @@ export const Typography: Story = {
       <div className="space-y-4">
         {Object.entries(systemTokens.fontSize).map(([key, value]) => {
           const [fontSize, config] = Array.isArray(value) ? value : [value, {}];
-          const lineHeight = typeof config === 'object' && config.lineHeight ? config.lineHeight : 'normal';
+          const lineHeight = typeof config === 'object' && config?.lineHeight ? config.lineHeight : 'normal';
           
           return (
             <div key={key} className="flex items-center gap-6 p-4 border rounded-lg">
@@ -90,14 +142,14 @@ export const Typography: Story = {
               <div className="flex-1">
                 <div 
                   className="text-gray-900"
-                  style={{ fontSize, lineHeight }}
+                  style={{ fontSize: String(fontSize), lineHeight: String(lineHeight) }}
                 >
                   The quick brown fox jumps over the lazy dog
                 </div>
               </div>
               <div className="text-xs text-gray-500">
-                <div>Size: {fontSize}</div>
-                <div>Line: {lineHeight}</div>
+                <div>Size: {String(fontSize)}</div>
+                <div>Line: {String(lineHeight)}</div>
               </div>
             </div>
           );
@@ -167,6 +219,7 @@ export const AllTokens: Story = {
         <p className="text-gray-600 mb-8">Complete overview of the design system tokens</p>
       </div>
       
+      <ColorPalette title="Colors" colors={colorTokens} />
       <TokenGroup title="Spacing" tokens={systemTokens.spacing} />
       <TokenGroup title="Border Radius" tokens={systemTokens.borderRadius} />
       <TokenGroup title="Font Size" tokens={systemTokens.fontSize} />
