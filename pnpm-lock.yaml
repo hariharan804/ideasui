@@ -144,6 +144,9 @@ importers:
       jest:
         specifier: ^30.2.0
         version: 30.2.0(@types/node@24.10.4)
+      jest-axe:
+        specifier: ^10.0.0
+        version: 10.0.0
       jest-environment-jsdom:
         specifier: ^30.2.0
         version: 30.2.0
@@ -197,7 +200,7 @@ importers:
         version: link:../../packages/components/ripple
       '@ideasui/theme':
         specifier: workspace:*
-        version: link:../../packages/core/theme-old
+        version: link:../../packages/core/theme
       '@ideasui/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -246,7 +249,7 @@ importers:
     dependencies:
       '@ideasui/theme':
         specifier: workspace:*
-        version: link:../../packages/core/theme-old
+        version: link:../../packages/core/theme
       framer-motion:
         specifier: ^12.23.26
         version: 12.23.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -327,12 +330,12 @@ importers:
       '@ideasui/ripple':
         specifier: workspace:*
         version: link:../ripple
+      '@ideasui/theme':
+        specifier: workspace:*
+        version: link:../../core/theme
       '@ideasui/utils':
         specifier: workspace:*
         version: link:../../utils
-      '@ideasui/variants':
-        specifier: workspace:*
-        version: link:../../core/variants
       react-aria:
         specifier: ^3.45.0
         version: 3.45.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -358,12 +361,12 @@ importers:
       '@ideasui/slot':
         specifier: workspace:*
         version: link:../slot
+      '@ideasui/theme':
+        specifier: workspace:*
+        version: link:../../core/theme
       '@ideasui/utils':
         specifier: workspace:*
         version: link:../../utils
-      '@ideasui/variants':
-        specifier: workspace:*
-        version: link:../../core/variants
       framer-motion:
         specifier: '>=11.5.6 || >=12.0.0-alpha.1'
         version: 12.23.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -3456,6 +3459,10 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
+  axe-core@4.10.2:
+    resolution: {integrity: sha512-RE3mdQ7P3FRSe7eqCWoeQ/Z9QXrtniSjp1wUjt5nRC3WIpz5rSCve6o3fsZ2aCpJtrZjSZgjwXAoTO5k4tEI0w==}
+    engines: {node: '>=4'}
+
   axe-core@4.11.0:
     resolution: {integrity: sha512-ilYanEU8vxxBexpJd8cWM4ElSQq4QctCLKih0TSfjIfCQTeyH/6zVrmIJfLPrKTKJRbiG+cfnZbQIjAlJmF1jQ==}
     engines: {node: '>=4'}
@@ -5315,6 +5322,10 @@ packages:
     resolution: {integrity: sha512-qjdpeo2yKlYTH7nFdK0vbZWuTCesk4o63v5iVOlhMQPfuIZQfW/HI35SjfhA+4qpg36rnFSvUK5b1m+ckIblQQ==}
     engines: {node: '>= 0.6.0'}
 
+  jest-axe@10.0.0:
+    resolution: {integrity: sha512-9QR0M7//o5UVRnEUUm68IsGapHrcKGakYy9dKWWMX79LmeUKguDI6DREyljC5I13j78OUmtKLF5My6ccffLFBg==}
+    engines: {node: '>= 16.0.0'}
+
   jest-changed-files@29.7.0:
     resolution: {integrity: sha512-fEArFiwf1BpQ+4bXSprcDc3/x4HSzL4al2tozwVpDFpsxALjLYdyiIK4e5Vz66GQJIbXJ82+35PtysofptNX2w==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -5438,6 +5449,10 @@ packages:
   jest-leak-detector@30.2.0:
     resolution: {integrity: sha512-M6jKAjyzjHG0SrQgwhgZGy9hFazcudwCNovY/9HPIicmNSBuockPSedAP9vlPK6ONFJ1zfyH/M2/YYJxOz5cdQ==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
+
+  jest-matcher-utils@29.2.2:
+    resolution: {integrity: sha512-4DkJ1sDPT+UX2MR7Y3od6KtvRi9Im1ZGLGgdLFLm4lPexbTaCgJW5NN3IOXlQHF7NSHY/VHhflQ+WoKtD/vyCw==}
+    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
 
   jest-matcher-utils@29.7.0:
     resolution: {integrity: sha512-sBkD+Xi9DtcChsI3L3u0+N0opgPYnCRPtGcQYrgXmR+hmt/fYfWAL0xRXYU8eWOdfuLgBe0YCW3AFtnRLagq/g==}
@@ -11794,6 +11809,8 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.1.0
 
+  axe-core@4.10.2: {}
+
   axe-core@4.11.0: {}
 
   axobject-query@4.1.0: {}
@@ -13965,6 +13982,13 @@ snapshots:
 
   java-properties@1.0.2: {}
 
+  jest-axe@10.0.0:
+    dependencies:
+      axe-core: 4.10.2
+      chalk: 4.1.2
+      jest-matcher-utils: 29.2.2
+      lodash.merge: 4.6.2
+
   jest-changed-files@29.7.0:
     dependencies:
       execa: 5.1.1
@@ -14240,6 +14264,13 @@ snapshots:
     dependencies:
       '@jest/get-type': 30.1.0
       pretty-format: 30.2.0
+
+  jest-matcher-utils@29.2.2:
+    dependencies:
+      chalk: 4.1.2
+      jest-diff: 29.7.0
+      jest-get-type: 29.6.3
+      pretty-format: 29.7.0
 
   jest-matcher-utils@29.7.0:
     dependencies:

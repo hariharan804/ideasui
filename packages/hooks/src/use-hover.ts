@@ -14,10 +14,10 @@ import {useState, useCallback, useRef} from "react";
 export function useHover<T extends HTMLElement>(): [
   boolean,
   {
-    ref: React.RefObject<T>;
+    ref: React.RefObject<T | null>;
     onMouseEnter: () => void;
     onMouseLeave: () => void;
-  }
+  },
 ] {
   const [isHovered, setIsHovered] = useState(false);
   const ref = useRef<T>(null);

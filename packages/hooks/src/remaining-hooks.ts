@@ -55,7 +55,11 @@ export function useFetch<T>(url: string) {
 }
 
 export function useAsync<T>(asyncFunction: () => Promise<T>, deps: any[] = []) {
-  const [state, setState] = useState({data: null, loading: true, error: null});
+  const [state, setState] = useState<{data: T | null; loading: boolean; error: Error | null}>({
+    data: null,
+    loading: true,
+    error: null,
+  });
 
   useEffect(() => {
     setState({data: null, loading: true, error: null});

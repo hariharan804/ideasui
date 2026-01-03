@@ -1,27 +1,16 @@
-import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-
-/**
- * Use previous value hook
- */
-export function usePrevious<T>(value: T): T | undefined {
-  const ref = useRef<T>();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
+import {useEffect, useState, useCallback} from "react";
 
 /**
  * Use mounted state hook
  */
 export function useMounted(): boolean {
   const [mounted, setMounted] = useState(false);
-  
+
   useEffect(() => {
     setMounted(true);
     return () => setMounted(false);
   }, []);
-  
+
   return mounted;
 }
 
@@ -48,7 +37,7 @@ export function useControllableState<T>({
       }
       onChange?.(newValue);
     },
-    [isControlled, onChange]
+    [isControlled, onChange],
   );
 
   return [currentValue as T, setValue];
@@ -62,7 +51,7 @@ export function useDisclosure(defaultOpen = false) {
 
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
-  const toggle = useCallback(() => setIsOpen(prev => !prev), []);
+  const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
 
   return {
     isOpen,
@@ -79,7 +68,7 @@ export function useDisclosure(defaultOpen = false) {
 export function useOutsideClick(
   ref: React.RefObject<HTMLElement>,
   handler: (event: MouseEvent | TouchEvent) => void,
-  enabled = true
+  enabled = true,
 ) {
   useEffect(() => {
     if (!enabled) return;
@@ -90,12 +79,12 @@ export function useOutsideClick(
       }
     };
 
-    document.addEventListener('mousedown', handleClick);
-    document.addEventListener('touchstart', handleClick);
+    document.addEventListener("mousedown", handleClick);
+    document.addEventListener("touchstart", handleClick);
 
     return () => {
-      document.removeEventListener('mousedown', handleClick);
-      document.removeEventListener('touchstart', handleClick);
+      document.removeEventListener("mousedown", handleClick);
+      document.removeEventListener("touchstart", handleClick);
     };
   }, [ref, handler, enabled]);
 }
@@ -103,44 +92,38 @@ export function useOutsideClick(
 /**
  * Use escape key hook
  */
-export function useEscapeKey(
-  handler: (event: KeyboardEvent) => void,
-  enabled = true
-) {
+export function useEscapeKey(handler: (event: KeyboardEvent) => void, enabled = true) {
   useEffect(() => {
     if (!enabled) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         handler(event);
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [handler, enabled]);
 }
 
 /**
  * Use focus trap hook
  */
-export function useFocusTrap(
-  ref: React.RefObject<HTMLElement>,
-  enabled = true
-) {
+export function useFocusTrap(ref: React.RefObject<HTMLElement>, enabled = true) {
   useEffect(() => {
     if (!enabled || !ref.current) return;
 
     const container = ref.current;
     const focusableElements = container.querySelectorAll(
-      'input, select, textarea, button, a[href], [tabindex]:not([tabindex="-1"])'
+      'input, select, textarea, button, a[href], [tabindex]:not([tabindex="-1"])',
     );
-    
+
     const firstElement = focusableElements[0] as HTMLElement;
     const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== 'Tab') return;
+      if (event.key !== "Tab") return;
 
       if (event.shiftKey) {
         if (document.activeElement === firstElement) {
@@ -155,11 +138,11 @@ export function useFocusTrap(
       }
     };
 
-    container.addEventListener('keydown', handleKeyDown);
+    container.addEventListener("keydown", handleKeyDown);
     firstElement?.focus();
 
     return () => {
-      container.removeEventListener('keydown', handleKeyDown);
+      container.removeEventListener("keydown", handleKeyDown);
     };
   }, [ref, enabled]);
 }
@@ -186,10 +169,7 @@ export function useDebouncedValue<T>(value: T, delay: number): T {
 /**
  * Use local storage hook
  */
-export function useLocalStorage<T>(
-  key: string,
-  initialValue: T
-): [T, (value: T) => void] {
+export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       const item = window.localStorage.getItem(key);
@@ -208,7 +188,7 @@ export function useLocalStorage<T>(
         console.error(`Error saving to localStorage:`, error);
       }
     },
-    [key]
+    [key],
   );
 
   return [storedValue, setValue];
@@ -228,8 +208,8 @@ export function useMediaQuery(query: string): boolean {
       setMatches(event.matches);
     };
 
-    media.addEventListener('change', listener);
-    return () => media.removeEventListener('change', listener);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
   }, [query]);
 
   return matches;
@@ -253,8 +233,8 @@ export function useWindowSize() {
     };
 
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return windowSize;
@@ -263,5 +243,4 @@ export function useWindowSize() {
 /**
  * Use isomorphic layout effect (SSR safe)
  */
-export const useIsomorphicLayoutEffect =
-  typeof window !== 'undefined' ? useEffect : useEffect;
+export const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useEffect : useEffect;
