@@ -1,5 +1,5 @@
 import {colorTokens, darkColorTokens} from "./tokens/colors";
-import {systemTokens} from "./tokens/system";
+import {systemTokens} from "./tokens";
 import {defaultLayout, lightLayout, darkLayout} from "./tokens/layout";
 import type {ThemeConfig, ColorTokens} from "./system/types";
 interface PluginAPI {
@@ -384,7 +384,7 @@ export function ideasUIPlugin(config: ThemeConfig = {}): any {
 }
 
 export * from "./tokens/colors";
-export * from "./tokens/system";
+export * from "./tokens";
 export * from "./system/types";
 export * from "./recipes";
 export * from "./tokens/design-tokens";
