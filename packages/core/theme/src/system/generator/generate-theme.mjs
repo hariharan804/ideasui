@@ -16,7 +16,7 @@ function formatColor(color, format = "hex") {
       return `oklch(${l.toFixed(3)} ${c_val.toFixed(3)} ${hueValue.toFixed(1)})`;
     }
   }
-  
+
   const c = chroma(color);
 
   switch (format) {
@@ -126,7 +126,7 @@ export function generateShades(baseColor, colorNameOverride = null, format = "ok
  * Generate complete theme with all semantic colors
  */
 export function generateCompleteTheme(format = "oklch") {
-  const semanticColors = getSemanticColors("#861afd");
+  const semanticColors = getSemanticColors("#0ea5e9"); // #0ea5e9  #861afd
   const theme = {light: {}, dark: {}};
 
   Object.entries(semanticColors).forEach(([name, color]) => {
@@ -163,7 +163,7 @@ export function generateCompleteTheme(format = "oklch") {
       800: formatColor([0.92, 0, 0], format),
       900: formatColor([0.95, 0, 0], format),
       950: formatColor([0.97, 0, 0], format),
-    }
+    },
   };
   theme.light.gray = grayShades.light;
   theme.dark.gray = grayShades.dark;

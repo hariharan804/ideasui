@@ -1,8 +1,169 @@
 "use client";
-
 import {useState} from "react";
-import {completeTheme} from "@ideasui/theme/theme-constants";
 import {Check, Copy, Palette} from "lucide-react";
+import {colorTokens, darkColorTokens} from "@ideasui/theme";
+// Define color tokens
+// const colorTokens = {
+//   primary: {
+//     "50": "#f0f9ff",
+//     "100": "#e0f2fe",
+//     "200": "#bae6fd",
+//     "300": "#7dd3fc",
+//     "400": "#38bdf8",
+//     "500": "#0ea5e9",
+//     "600": "#0284c7",
+//     "700": "#0369a1",
+//     "800": "#075985",
+//     "900": "#0c4a6e",
+//     "950": "#082f49",
+//   },
+//   secondary: {
+//     "50": "#f8fafc",
+//     "100": "#f1f5f9",
+//     "200": "#e2e8f0",
+//     "300": "#cbd5e1",
+//     "400": "#94a3b8",
+//     "500": "#64748b",
+//     "600": "#475569",
+//     "700": "#334155",
+//     "800": "#1e293b",
+//     "900": "#0f172a",
+//     "950": "#020617",
+//   },
+//   success: {
+//     "50": "#f0fdf4",
+//     "100": "#dcfce7",
+//     "200": "#bbf7d0",
+//     "300": "#86efac",
+//     "400": "#4ade80",
+//     "500": "#22c55e",
+//     "600": "#16a34a",
+//     "700": "#15803d",
+//     "800": "#166534",
+//     "900": "#14532d",
+//     "950": "#052e16",
+//   },
+//   warning: {
+//     "50": "#fffbeb",
+//     "100": "#fef3c7",
+//     "200": "#fde68a",
+//     "300": "#fcd34d",
+//     "400": "#fbbf24",
+//     "500": "#f59e0b",
+//     "600": "#d97706",
+//     "700": "#b45309",
+//     "800": "#92400e",
+//     "900": "#78350f",
+//     "950": "#451a03",
+//   },
+//   danger: {
+//     "50": "#fef2f2",
+//     "100": "#fee2e2",
+//     "200": "#fecaca",
+//     "300": "#fca5a5",
+//     "400": "#f87171",
+//     "500": "#ef4444",
+//     "600": "#dc2626",
+//     "700": "#b91c1c",
+//     "800": "#991b1b",
+//     "900": "#7f1d1d",
+//     "950": "#450a0a",
+//   },
+//   neutral: {
+//     "50": "#fafafa",
+//     "100": "#f5f5f5",
+//     "200": "#e5e5e5",
+//     "300": "#d4d4d4",
+//     "400": "#a3a3a3",
+//     "500": "#737373",
+//     "600": "#525252",
+//     "700": "#404040",
+//     "800": "#262626",
+//     "900": "#171717",
+//     "950": "#0a0a0a",
+//   },
+// };
+
+// const darkColorTokens = {
+//   primary: {
+//     "50": "#082f49",
+//     "100": "#0c4a6e",
+//     "200": "#075985",
+//     "300": "#0369a1",
+//     "400": "#0284c7",
+//     "500": "#0ea5e9",
+//     "600": "#38bdf8",
+//     "700": "#7dd3fc",
+//     "800": "#bae6fd",
+//     "900": "#e0f2fe",
+//     "950": "#f0f9ff",
+//   },
+//   secondary: {
+//     "50": "#020617",
+//     "100": "#0f172a",
+//     "200": "#1e293b",
+//     "300": "#334155",
+//     "400": "#475569",
+//     "500": "#64748b",
+//     "600": "#94a3b8",
+//     "700": "#cbd5e1",
+//     "800": "#e2e8f0",
+//     "900": "#f1f5f9",
+//     "950": "#f8fafc",
+//   },
+//   success: {
+//     "50": "#052e16",
+//     "100": "#14532d",
+//     "200": "#166534",
+//     "300": "#15803d",
+//     "400": "#16a34a",
+//     "500": "#22c55e",
+//     "600": "#4ade80",
+//     "700": "#86efac",
+//     "800": "#bbf7d0",
+//     "900": "#dcfce7",
+//     "950": "#f0fdf4",
+//   },
+//   warning: {
+//     "50": "#451a03",
+//     "100": "#78350f",
+//     "200": "#92400e",
+//     "300": "#b45309",
+//     "400": "#d97706",
+//     "500": "#f59e0b",
+//     "600": "#fbbf24",
+//     "700": "#fcd34d",
+//     "800": "#fde68a",
+//     "900": "#fef3c7",
+//     "950": "#fffbeb",
+//   },
+//   danger: {
+//     "50": "#450a0a",
+//     "100": "#7f1d1d",
+//     "200": "#991b1b",
+//     "300": "#b91c1c",
+//     "400": "#dc2626",
+//     "500": "#ef4444",
+//     "600": "#f87171",
+//     "700": "#fca5a5",
+//     "800": "#fecaca",
+//     "900": "#fee2e2",
+//     "950": "#fef2f2",
+//   },
+//   neutral: {
+//     "50": "#0a0a0a",
+//     "100": "#171717",
+//     "200": "#262626",
+//     "300": "#404040",
+//     "400": "#525252",
+//     "500": "#737373",
+//     "600": "#a3a3a3",
+//     "700": "#d4d4d4",
+//     "800": "#e5e5e5",
+//     "900": "#f5f5f5",
+//     "950": "#fafafa",
+//   },
+// };
 
 export default function ColorsPage() {
   const [copiedClass, setCopiedClass] = useState<string | null>(null);
@@ -14,9 +175,12 @@ export default function ColorsPage() {
     setTimeout(() => setCopiedClass(null), 2000);
   };
 
-  const colorCategories = Object.keys(completeTheme.light) as Array<
-    keyof typeof completeTheme.light
-  >;
+  const colors = {
+    light: colorTokens,
+    dark: darkColorTokens,
+  };
+
+  const colorCategories = Object.keys(colorTokens) as Array<keyof typeof colorTokens>;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
@@ -58,13 +222,13 @@ export default function ColorsPage() {
               <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-slate-800 capitalize">
                 <div
                   className="h-4 w-4 rounded-full"
-                  style={{backgroundColor: completeTheme[selectedTheme][category]["500"]}}
+                  style={{backgroundColor: colors[selectedTheme][category]["500"]}}
                 />
                 {category}
               </h2>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-5 lg:grid-cols-11">
-                {Object.entries(completeTheme[selectedTheme][category]).map(([shade, color]) => {
+                {Object.entries(colors[selectedTheme][category]).map(([shade, color]) => {
                   const className = `bg-${category}-${shade}`;
                   const textClassName = `text-${category}-${shade}`;
                   const borderClassName = `border-${category}-${shade}`;
@@ -90,9 +254,7 @@ export default function ColorsPage() {
                       {/* Shade Label */}
                       <div className="mt-2 text-center">
                         <div className="text-sm font-medium text-slate-700">{shade}</div>
-                        <div className="font-mono text-xs text-slate-500">
-                          {color.slice(0, 20)}...
-                        </div>
+                        <div className="font-mono text-xs text-slate-500">{color}</div>
                       </div>
 
                       {/* Class Options */}
@@ -151,9 +313,7 @@ export default function ColorsPage() {
                       className="h-8 w-8 rounded"
                       style={{
                         backgroundColor:
-                          completeTheme[selectedTheme][color as keyof typeof completeTheme.light][
-                            "500"
-                          ],
+                          colors[selectedTheme][color as keyof typeof colorTokens]["500"],
                       }}
                     />
                     <code className="rounded bg-slate-100 px-2 py-1 font-mono text-sm">
@@ -172,10 +332,7 @@ export default function ColorsPage() {
                     <span
                       className="text-lg font-semibold"
                       style={{
-                        color:
-                          completeTheme[selectedTheme][color as keyof typeof completeTheme.light][
-                            "600"
-                          ],
+                        color: colors[selectedTheme][color as keyof typeof colorTokens]["600"],
                       }}
                     >
                       Sample Text

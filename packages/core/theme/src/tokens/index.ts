@@ -5,6 +5,7 @@ import {fontSize} from "./font-size";
 import {keyframes} from "./keyframes";
 import {spacing} from "./spacing";
 import {transitionDuration, transitionTimingFunction} from "./transition";
+import {colorTokens, darkColorTokens} from "./colors";
 import {focus, disabled} from "./classes";
 import {
   colorVariants,
@@ -32,6 +33,8 @@ export {
   focus,
   disabled,
   colorsWithVariant,
+  colorTokens,
+  darkColorTokens,
 };
 
 // Types

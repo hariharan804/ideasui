@@ -36,9 +36,9 @@
   "devDependencies": {
     "@ideasui/utils": "workspace:*",
     "@types/node": "^20.0.0",
+    "chroma-js": "^3.2.0",
     "tsup": "^8.0.0",
-    "typescript": "^5.0.0",
-    "chroma-js": "^3.2.0"
+    "typescript": "^5.0.0"
   },
   "keywords": [
     "tailwindcss",
@@ -48,5 +48,8 @@
     "ui"
   ],
   "author": "IdeasUI Team",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "tailwind-variants": "^3.2.2"
+  }
 }
