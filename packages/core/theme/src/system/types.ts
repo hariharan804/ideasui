@@ -1,9 +1,12 @@
 export interface ThemeConfig {
   /** Theme configurations */
-  themes?: Record<string, {
-    colors?: Partial<ColorTokens>;
-    layout?: Record<string, string | number>;
-  }>;
+  themes?: Record<
+    string,
+    {
+      colors?: Partial<ColorTokens>;
+      layout?: Record<string, string | number>;
+    }
+  >;
   /** Default theme name */
   defaultTheme?: "light" | "dark" | string;
   /** CSS variable prefix */
@@ -25,27 +28,27 @@ export interface ThemeConfig {
 }
 
 export interface ColorScale {
-  50: string;
-  100: string;
-  200: string;
-  300: string;
-  400: string;
-  500: string;
-  600: string;
-  700: string;
-  800: string;
-  900: string;
-  950: string;
+  50?: string;
+  100?: string;
+  200?: string;
+  300?: string;
+  400?: string;
+  500?: string;
+  600?: string;
+  700?: string;
+  800?: string;
+  900?: string;
+  950?: string;
 }
 
 export interface ColorTokens {
-  primary: ColorScale;
-  secondary: ColorScale;
-  success: ColorScale;
-  warning: ColorScale;
-  danger: ColorScale;
-  info: ColorScale;
-  neutral: ColorScale;
+  primary?: ColorScale;
+  secondary?: ColorScale;
+  success?: ColorScale;
+  warning?: ColorScale;
+  danger?: ColorScale;
+  info?: ColorScale;
+  neutral?: ColorScale;
 }
 
 export interface SemanticColors {
