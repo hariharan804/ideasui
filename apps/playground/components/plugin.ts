@@ -1,11 +1,4 @@
 import {ideasUIPlugin} from "@ideasui/theme";
+import type {Config} from "tailwindcss";
 
-export default ideasUIPlugin({
-  //   disableAnimations: false,
-  //   mode: "light",
-  //   colors: {
-  //     primary: {
-  //       500: "oklch(0.55 0.25 260)", // Custom purple
-  //     },
-  //   },
-});
+export default ideasUIPlugin({}) as unknown as Config;
