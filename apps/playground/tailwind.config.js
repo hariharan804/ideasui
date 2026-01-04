@@ -1,4 +1,4 @@
-import {ideasUIPlugin} from "@ideasui/theme";
+import {ideasUIPlugin} from "@ideasui/theme/plugin";
 
 export default {
   plugins: [

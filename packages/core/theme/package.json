@@ -17,6 +17,9 @@
     },
     "./token": {
       "import": "./src/tokens/index.ts"
+    },
+    "./plugin": {
+      "import": "./src/system/plugin.ts"
     }
   },
   "files": [
@@ -50,6 +53,9 @@
   "author": "IdeasUI Team",
   "license": "MIT",
   "dependencies": {
+    "color": "^5.0.3",
+    "deepmerge": "^4.3.1",
+    "flat": "^6.0.1",
     "tailwind-variants": "^3.2.2"
   }
 }

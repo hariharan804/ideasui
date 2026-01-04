@@ -1,169 +1,7 @@
 "use client";
 import {useState} from "react";
 import {Check, Copy, Palette} from "lucide-react";
-import {colorTokens, darkColorTokens} from "@ideasui/theme";
-// Define color tokens
-// const colorTokens = {
-//   primary: {
-//     "50": "#f0f9ff",
-//     "100": "#e0f2fe",
-//     "200": "#bae6fd",
-//     "300": "#7dd3fc",
-//     "400": "#38bdf8",
-//     "500": "#0ea5e9",
-//     "600": "#0284c7",
-//     "700": "#0369a1",
-//     "800": "#075985",
-//     "900": "#0c4a6e",
-//     "950": "#082f49",
-//   },
-//   secondary: {
-//     "50": "#f8fafc",
-//     "100": "#f1f5f9",
-//     "200": "#e2e8f0",
-//     "300": "#cbd5e1",
-//     "400": "#94a3b8",
-//     "500": "#64748b",
-//     "600": "#475569",
-//     "700": "#334155",
-//     "800": "#1e293b",
-//     "900": "#0f172a",
-//     "950": "#020617",
-//   },
-//   success: {
-//     "50": "#f0fdf4",
-//     "100": "#dcfce7",
-//     "200": "#bbf7d0",
-//     "300": "#86efac",
-//     "400": "#4ade80",
-//     "500": "#22c55e",
-//     "600": "#16a34a",
-//     "700": "#15803d",
-//     "800": "#166534",
-//     "900": "#14532d",
-//     "950": "#052e16",
-//   },
-//   warning: {
-//     "50": "#fffbeb",
-//     "100": "#fef3c7",
-//     "200": "#fde68a",
-//     "300": "#fcd34d",
-//     "400": "#fbbf24",
-//     "500": "#f59e0b",
-//     "600": "#d97706",
-//     "700": "#b45309",
-//     "800": "#92400e",
-//     "900": "#78350f",
-//     "950": "#451a03",
-//   },
-//   danger: {
-//     "50": "#fef2f2",
-//     "100": "#fee2e2",
-//     "200": "#fecaca",
-//     "300": "#fca5a5",
-//     "400": "#f87171",
-//     "500": "#ef4444",
-//     "600": "#dc2626",
-//     "700": "#b91c1c",
-//     "800": "#991b1b",
-//     "900": "#7f1d1d",
-//     "950": "#450a0a",
-//   },
-//   neutral: {
-//     "50": "#fafafa",
-//     "100": "#f5f5f5",
-//     "200": "#e5e5e5",
-//     "300": "#d4d4d4",
-//     "400": "#a3a3a3",
-//     "500": "#737373",
-//     "600": "#525252",
-//     "700": "#404040",
-//     "800": "#262626",
-//     "900": "#171717",
-//     "950": "#0a0a0a",
-//   },
-// };
-
-// const darkColorTokens = {
-//   primary: {
-//     "50": "#082f49",
-//     "100": "#0c4a6e",
-//     "200": "#075985",
-//     "300": "#0369a1",
-//     "400": "#0284c7",
-//     "500": "#0ea5e9",
-//     "600": "#38bdf8",
-//     "700": "#7dd3fc",
-//     "800": "#bae6fd",
-//     "900": "#e0f2fe",
-//     "950": "#f0f9ff",
-//   },
-//   secondary: {
-//     "50": "#020617",
-//     "100": "#0f172a",
-//     "200": "#1e293b",
-//     "300": "#334155",
-//     "400": "#475569",
-//     "500": "#64748b",
-//     "600": "#94a3b8",
-//     "700": "#cbd5e1",
-//     "800": "#e2e8f0",
-//     "900": "#f1f5f9",
-//     "950": "#f8fafc",
-//   },
-//   success: {
-//     "50": "#052e16",
-//     "100": "#14532d",
-//     "200": "#166534",
-//     "300": "#15803d",
-//     "400": "#16a34a",
-//     "500": "#22c55e",
-//     "600": "#4ade80",
-//     "700": "#86efac",
-//     "800": "#bbf7d0",
-//     "900": "#dcfce7",
-//     "950": "#f0fdf4",
-//   },
-//   warning: {
-//     "50": "#451a03",
-//     "100": "#78350f",
-//     "200": "#92400e",
-//     "300": "#b45309",
-//     "400": "#d97706",
-//     "500": "#f59e0b",
-//     "600": "#fbbf24",
-//     "700": "#fcd34d",
-//     "800": "#fde68a",
-//     "900": "#fef3c7",
-//     "950": "#fffbeb",
-//   },
-//   danger: {
-//     "50": "#450a0a",
-//     "100": "#7f1d1d",
-//     "200": "#991b1b",
-//     "300": "#b91c1c",
-//     "400": "#dc2626",
-//     "500": "#ef4444",
-//     "600": "#f87171",
-//     "700": "#fca5a5",
-//     "800": "#fecaca",
-//     "900": "#fee2e2",
-//     "950": "#fef2f2",
-//   },
-//   neutral: {
-//     "50": "#0a0a0a",
-//     "100": "#171717",
-//     "200": "#262626",
-//     "300": "#404040",
-//     "400": "#525252",
-//     "500": "#737373",
-//     "600": "#a3a3a3",
-//     "700": "#d4d4d4",
-//     "800": "#e5e5e5",
-//     "900": "#f5f5f5",
-//     "950": "#fafafa",
-//   },
-// };
+import {lightColorTokens, darkColorTokens} from "@ideasui/theme";
 
 export default function ColorsPage() {
   const [copiedClass, setCopiedClass] = useState<string | null>(null);
@@ -176,11 +14,11 @@ export default function ColorsPage() {
   };
 
   const colors = {
-    light: colorTokens,
+    light: lightColorTokens,
     dark: darkColorTokens,
   };
 
-  const colorCategories = Object.keys(colorTokens) as Array<keyof typeof colorTokens>;
+  const colorCategories = Object.keys(lightColorTokens) as Array<keyof typeof lightColorTokens>;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
@@ -303,45 +141,148 @@ export default function ColorsPage() {
         {/* Usage Examples */}
         <div className="mt-12 rounded-2xl border bg-white p-8 shadow-sm">
           <h2 className="mb-6 text-2xl font-semibold text-slate-800">Usage Examples</h2>
-          <div className="grid gap-6 md:grid-cols-2">
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium text-slate-700">Background Colors</h3>
-              <div className="space-y-2">
-                {["primary", "secondary", "success", "warning", "danger"].map((color) => (
-                  <div key={color} className="flex items-center gap-3">
-                    <div
-                      className="h-8 w-8 rounded"
-                      style={{
-                        backgroundColor:
-                          colors[selectedTheme][color as keyof typeof colorTokens]["500"],
-                      }}
-                    />
-                    <code className="rounded bg-slate-100 px-2 py-1 font-mono text-sm">
-                      bg-{color}-500
-                    </code>
-                  </div>
-                ))}
+
+          <div className="space-y-12">
+            {/* Buttons */}
+            <div>
+              <h3 className="mb-4 text-lg font-medium text-slate-700">Buttons</h3>
+              <div className="flex flex-wrap gap-4">
+                <button className="bg-primary-500 hover:bg-primary-600 active:bg-primary-700 rounded-lg px-4 py-2 text-white">
+                  Primary Button
+                </button>
+                <button className="bg-secondary-500 hover:bg-secondary-600 active:bg-secondary-700 rounded-lg px-4 py-2 text-white">
+                  Secondary Button
+                </button>
+                <button className="bg-success-500 hover:bg-success-600 active:bg-success-700 rounded-lg px-4 py-2 text-white">
+                  Success Action
+                </button>
+                <button className="bg-danger-500 hover:bg-danger-600 active:bg-danger-700 rounded-lg px-4 py-2 text-white">
+                  Delete Item
+                </button>
+                <button className="border-primary-500 text-primary-600 hover:bg-primary-50 rounded-lg border px-4 py-2">
+                  Outline Button
+                </button>
+              </div>
+              <div className="mt-2 text-sm text-slate-500">
+                <code className="text-xs">bg-primary-600 hover:bg-primary-700 text-white</code>
               </div>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium text-slate-700">Text Colors</h3>
-              <div className="space-y-2">
-                {["primary", "secondary", "success", "warning", "danger"].map((color) => (
-                  <div key={color} className="flex items-center gap-3">
-                    <span
-                      className="text-lg font-semibold"
-                      style={{
-                        color: colors[selectedTheme][color as keyof typeof colorTokens]["600"],
-                      }}
-                    >
-                      Sample Text
-                    </span>
-                    <code className="rounded bg-slate-100 px-2 py-1 font-mono text-sm">
-                      text-{color}-600
-                    </code>
-                  </div>
-                ))}
+            {/* Badges */}
+            <div>
+              <h3 className="mb-4 text-lg font-medium text-slate-700">Badges & Chips</h3>
+              <div className="flex flex-wrap gap-4">
+                <span className="bg-primary-100 text-primary-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium">
+                  New Feature
+                </span>
+                <span className="bg-success-100 text-success-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium">
+                  Completed
+                </span>
+                <span className="bg-warning-100 text-warning-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium">
+                  Pending
+                </span>
+                <span className="bg-danger-100 text-danger-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium">
+                  Failed
+                </span>
+                <span className="bg-info-100 text-info-800 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium">
+                  Info
+                </span>
+              </div>
+              <div className="mt-2 text-sm text-slate-500">
+                <code className="text-xs">bg-primary-100 text-primary-800</code>
+              </div>
+            </div>
+
+            {/* Cards & Borders */}
+            <div>
+              <h3 className="mb-4 text-lg font-medium text-slate-700">Cards & Borders</h3>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div className="border-primary-200 bg-primary-50 rounded-xl border p-6">
+                  <h4 className="text-primary-900 mb-2 font-semibold">Primary Card</h4>
+                  <p className="text-primary-700 text-sm">
+                    A card with primary theme styling, using lighter shades for background.
+                  </p>
+                </div>
+                <div className="border-danger-200 rounded-xl border bg-white p-6 shadow-sm">
+                  <h4 className="text-danger-700 mb-2 font-semibold">Error State</h4>
+                  <p className="text-sm text-slate-600">
+                    Border colored with <code className="text-danger-600">border-danger-200</code>{" "}
+                    to indicate errors.
+                  </p>
+                </div>
+                <div className="border-l-info-500 rounded-xl border border-l-4 bg-white p-6 shadow-sm">
+                  <h4 className="mb-2 font-semibold text-slate-800">Info Panel</h4>
+                  <p className="text-sm text-slate-600">
+                    Left border accent using{" "}
+                    <code className="text-blue-600">border-l-info-500</code>.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Typography & Links */}
+            <div>
+              <h3 className="mb-4 text-lg font-medium text-slate-700">Typography</h3>
+              <div className="space-y-4">
+                <p className="text-slate-600">
+                  Regular text can involve links that are{" "}
+                  <a
+                    href="#"
+                    className="text-primary-600 hover:text-primary-700 decoration-primary-300 font-medium underline underline-offset-4"
+                  >
+                    styled with primary colors
+                  </a>
+                  .
+                </p>
+                <p className="text-sm text-slate-500">
+                  Status text: <span className="text-success-600 font-medium">Order Confirmed</span>{" "}
+                  • <span className="text-warning-600 font-medium">Processing</span> •{" "}
+                  <span className="font-medium text-neutral-500">Cancelled</span>
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="space-y-4">
+                <h3 className="text-lg font-medium text-slate-700">Background Swatches</h3>
+                <div className="space-y-2">
+                  {["primary", "secondary", "success", "warning", "danger"].map((color) => (
+                    <div key={color} className="flex items-center gap-3">
+                      <div
+                        className="h-8 w-8 rounded"
+                        style={{
+                          backgroundColor:
+                            colors[selectedTheme][color as keyof typeof lightColorTokens]["500"],
+                        }}
+                      />
+                      <code className="rounded bg-slate-100 px-2 py-1 font-mono text-sm">
+                        bg-{color}-500
+                      </code>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h3 className="text-lg font-medium text-slate-700">Text Swatches</h3>
+                <div className="space-y-2">
+                  {["primary", "secondary", "success", "warning", "danger"].map((color) => (
+                    <div key={color} className="flex items-center gap-3">
+                      <span
+                        className="text-lg font-semibold"
+                        style={{
+                          color:
+                            colors[selectedTheme][color as keyof typeof lightColorTokens]["600"],
+                        }}
+                      >
+                        Sample Text
+                      </span>
+                      <code className="rounded bg-slate-100 px-2 py-1 font-mono text-sm">
+                        text-{color}-600
+                      </code>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

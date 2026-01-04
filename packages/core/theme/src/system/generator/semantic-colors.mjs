@@ -101,9 +101,10 @@ function generateNeutral(primaryColor) {
  * getSemanticColors('#861afd')
  * getSemanticColors('#861afd', { secondaryVariant: 'triadic' })
  */
-export function getSemanticColors(primaryColor, options = {}) {
+export function getSemanticColors(options = {}) {
   const {
-    secondaryVariant = "monochromatic",
+    primaryColor,
+    secondaryVariant = "complementary",
     customSecondary = null,
     customTertiary = null,
     customWarning = null,
@@ -151,7 +152,7 @@ export function getSemanticColors(primaryColor, options = {}) {
 // // Basic usage - all colors generated from primary
 // const colors1 = getSemanticColors('#861afd')
 // console.log(colors1)
-// // {
+// // { outputs
 // //   primary: '#861afd',
 // //   secondary: '#1afd86',
 // //   warning: '#fd9c1a',
@@ -160,7 +161,16 @@ export function getSemanticColors(primaryColor, options = {}) {
 // //   info: '#1a9cfd',
 // //   neutral: '#8b6d97'
 // // }
-
+// {
+//   primary: '#861afd',
+//   secondary: '#a685ca',
+//   tertiary: '#1fce72',
+//   warning: '#f0a50f',
+//   success: '#15ae4d',
+//   danger: '#ec2c2c',
+//   info: '#1ba1e4',
+//   neutral: '#726d78'
+// }
 // // Different secondary variant
 // const colors2 = getSemanticColors('#861afd', {
 //   secondaryVariant: 'triadic',
