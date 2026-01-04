@@ -1,6 +1,6 @@
 # IdeasUI Package List
 
-Generated on: 2025-12-23T11:03:41.481Z
+Generated on: 2025-12-29T16:24:01.335Z
 
 ## Components
 
@@ -60,7 +60,7 @@ import { Button } from "@ideasui/button";
 
 | Event | Type |
 |-------|------|
-| onComplete | `function` |
+| onComplete | `() => void` |
 
 #### Package Details
 
@@ -129,7 +129,7 @@ import { Ripple } from "@ideasui/ripple";
 
 | Event | Type |
 |-------|------|
-| onClear | `function` |
+| onClear | `(key: React.Key) => void` |
 
 #### Package Details
 
@@ -179,7 +179,7 @@ import { Slot } from "@ideasui/slot";
 
 | Prop | Type | Description | Optional |
 |------|------|-------------|----------|
-| as | `React.ElementType` | Element or component to render as | ✓ |
+| as | `ElementType` | Element or component to render as | ✓ |
 | asChild | `boolean` | Merge props with the first child instead of rendering wrapper | ✓ |
 | children | `React.ReactNode` | Content to render inside the slot | ✓ |
 
@@ -195,6 +195,36 @@ import { Slot } from "@ideasui/slot";
 ## Core
 
 ### theme
+
+**Tailwind CSS v4 theme system for IdeasUI**
+
+#### Installation
+
+```bash
+# npm
+npm install @ideasui/theme
+
+# pnpm
+pnpm add @ideasui/theme
+
+# yarn
+yarn add @ideasui/theme
+
+# bun
+bun add @ideasui/theme
+```
+
+> The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.
+
+#### Package Details
+
+- **Version:** 0.1.0
+- **Path:** `packages/core/theme`
+- **Keywords:** tailwindcss, theme, design-system, css, ui
+
+---
+
+### theme-old
 
 **SSR-friendly theme switcher with no dependencies**
 
@@ -220,13 +250,13 @@ bun add @ideasui/theme
 
 **Import from package**
 ```tsx
-import { ThemeConstants } from "@ideasui/theme";
+import { ThemeConstants } from "@ideasui/theme-old";
 ```
 
 #### Package Details
 
 - **Version:** 1.0.0
-- **Path:** `packages/core/theme`
+- **Path:** `packages/core/theme-old`
 - **Keywords:** theme, dark-mode, ssr, react
 - **Files:** theme-constants.ts, theme-controller.tsx, theme-script.tsx, types.ts, use-theme-controller.ts, use-theme.ts
 

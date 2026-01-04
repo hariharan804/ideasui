@@ -1,19 +1,16 @@
 // PUBLIC API — safe for end-users
-// Only stable utilities should be exported from here.
-// DO NOT export React internals here
-// DO NOT export ARIA internals here
 
 // Core utilities
-export {mergeProps, getUniqueID} from "./shared/utils";
+export {logger} from "./core";
 
-// style
+// Browser utilities
+export * from "./browser";
+
+// Style utilities
 export {cn} from "./style/tailwind";
 
-// aria
-// export * from './aria'
+// Accessibility utilities
+export * from "./aria";
 
-// dom
-export {toDataAttr} from "./dom/attributes";
-
-// react
+// React utilities (public only)
 export {forwardRef, type PolymorphicComponent} from "./react/polymorphic-ref";

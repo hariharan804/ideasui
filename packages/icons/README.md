@@ -1,126 +1,162 @@
-# Icons Package
+# @ideasui/icons
 
-Shared icon library with commonly used SVG icons as React components.
+Dynamic SVG icon system with automatic React component generation.
 
-## 📦 Installation
+## Features
+
+- 🎨 **Dynamic Generation**: Automatically converts SVG files to React components
+- ⚡ **Performance**: Lazy loading with caching and tree-shaking support
+- 🎯 **Type Safe**: Full TypeScript support with auto-generated types
+- ♿ **Accessible**: Built-in accessibility features and ARIA support
+- 🎨 **Customizable**: Consistent styling with IconSet provider
+- 📦 **Optimized**: SVGO optimization for smaller bundle sizes
+
+## Installation
 
 ```bash
 npm install @ideasui/icons
+# or
+pnpm add @ideasui/icons
 ```
 
-## 🎯 Available Icons
+## Usage
 
-### Navigation
-
-- `ChevronDown` - Dropdown arrows
-- `ChevronUp` - Collapse arrows
-
-### Actions
-
-- `Check` - Success states, checkboxes
-- `X` - Close buttons, remove actions
-- `Search` - Search inputs
-- `Eye` - Show password
-- `EyeOff` - Hide password
-
-### States
-
-- `Loader` - Loading spinner (with animation)
-
-## 🚀 Usage
+### Static Icons
 
 ```tsx
-import {ChevronDown, Check, Loader} from "@ideasui/icons";
+import { ArrowRight, Home, User } from '@ideasui/icons';
 
-function MyComponent() {
+function App() {
   return (
     <div>
-      <ChevronDown size={16} />
-      <Check color="green" />
-      <Loader size={20} className="text-blue-500" />
+      <ArrowRight size={24} color="blue" />
+      <Home size={20} className="text-gray-500" />
+      <User size={16} aria-label="User profile" />
     </div>
   );
 }
 ```
 
-## 🎨 Props
-
-All icons accept these props:
+### Dynamic Icons
 
 ```tsx
-interface IconProps extends React.SVGAttributes<SVGElement> {
-  size?: number | string; // Default: 24
-  color?: string; // Default: 'currentColor'
+import { DynamicIcon } from '@ideasui/icons';
+
+function App() {
+  return (
+    <DynamicIcon 
+      name="arrow-right" 
+      size={24} 
+      color="blue"
+      fallback={MyFallbackIcon}
+    />
+  );
 }
 ```
 
-## 📋 Icon List
-
-| Icon | Component     | Use Case                |
-| ---- | ------------- | ----------------------- |
-| ⬇️   | `ChevronDown` | Dropdowns, accordions   |
-| ⬆️   | `ChevronUp`   | Collapse, scroll to top |
-| ✅   | `Check`       | Success, checkboxes     |
-| ❌   | `X`           | Close, delete, remove   |
-| 🔍   | `Search`      | Search inputs           |
-| 👁️   | `Eye`         | Show password           |
-| 🙈   | `EyeOff`      | Hide password           |
-| ⏳   | `Loader`      | Loading states          |
-
-## 🎯 Usage in Components
-
-### Button with Icon
+### Icon Set Provider
 
 ```tsx
-import {Check} from "@ideasui/icons";
+import { IconSet, ArrowRight, Home, User } from '@ideasui/icons';
 
-<Button>
-  <Check size={16} />
-  Save Changes
-</Button>;
+function App() {
+  return (
+    <IconSet size={20} color="gray" className="icon-base">
+      <ArrowRight />
+      <Home />
+      <User />
+    </IconSet>
+  );
+}
 ```
 
-### Input with Search
+## Adding New Icons
+
+1. Add SVG files to the `assets/` directory
+2. Run the generator: `pnpm generate`
+3. Import and use the generated components
+
+### SVG Requirements
+
+- Use `viewBox` instead of fixed dimensions
+- Use `currentColor` for fills/strokes that should be customizable
+- Optimize paths and remove unnecessary elements
+- Follow consistent naming (kebab-case)
+
+## API Reference
+
+### IconProps
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `number \| string` | `24` | Icon size in pixels |
+| `color` | `string` | `'currentColor'` | Icon color (CSS value) |
+| `className` | `string` | - | Additional CSS classes |
+| `aria-label` | `string` | - | Accessibility label |
+| `aria-hidden` | `boolean` | - | Hide from screen readers |
+
+### DynamicIcon
+
+Loads icons dynamically with lazy loading and caching.
 
 ```tsx
-import {Search} from "@ideasui/icons";
-
-<div className="relative">
-  <Search className="absolute top-3 left-3" size={16} />
-  <Input className="pl-10" placeholder="Search..." />
-</div>;
+<DynamicIcon 
+  name="icon-name"
+  size={24}
+  fallback={FallbackComponent}
+/>
 ```
 
-### Loading Button
+### IconSet
+
+Provides consistent styling for multiple icons.
 
 ```tsx
-import {Loader} from "@ideasui/icons";
-
-<Button disabled={loading}>{loading ? <Loader size={16} /> : "Submit"}</Button>;
+<IconSet size={20} color="blue">
+  {/* All child icons inherit these props */}
+</IconSet>
 ```
 
-## 🔧 Customization
+## Development
 
-### Size
+### Generate Components
 
-```tsx
-<ChevronDown size={12} />  // Small
-<ChevronDown size={24} />  // Default
-<ChevronDown size={32} />  // Large
+```bash
+# Generate React components from SVG files
+pnpm generate
+
+# Build the package
+pnpm build
+
+# Run tests
+pnpm test
 ```
 
-### Color
+### File Structure
 
-```tsx
-<Check color="green" />
-<Check color="#10b981" />
-<Check className="text-green-500" />
+```
+packages/icons/
+├── assets/           # SVG source files
+├── src/             # Generated React components
+├── scripts/         # Build scripts
+└── stories/         # Storybook stories
 ```
 
-### Animation
+## Best Practices
 
-```tsx
-<Loader className="animate-spin text-blue-500" />
-```
+1. **Consistent Sizing**: Use the `size` prop instead of CSS width/height
+2. **Semantic Colors**: Use `currentColor` for icons that should inherit text color
+3. **Accessibility**: Always provide `aria-label` for interactive icons
+4. **Performance**: Use `DynamicIcon` for icons loaded conditionally
+5. **Styling**: Use `IconSet` for consistent styling across multiple icons
 
-This package provides essential icons needed for most UI components without external dependencies.
+## Contributing
+
+1. Add SVG files to `assets/` directory
+2. Run `pnpm generate` to create components
+3. Test the generated components
+4. Submit a pull request
+
+## License
+
+MIT

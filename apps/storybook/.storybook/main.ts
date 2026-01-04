@@ -9,12 +9,10 @@ const config: StorybookConfig = {
   },
 
   stories: [
-    "../../../packages/components/button/stories/*.stories.@(js|jsx|ts|tsx|mdx)",
-    "../../../packages/components/ripple/stories/*.stories.@(js|jsx|ts|tsx|mdx)",
-
-    // safety exclusions (pnpm + build artifacts)
+    "../../../packages/components/*/stories/*.stories.@(js|jsx|ts|tsx|mdx)",
+    "../../../packages/core/theme/stories/*.stories.@(js|jsx|ts|tsx|mdx)",
+    // "../../../packages/primitives/*/stories/*.stories.@(js|jsx|ts|tsx|mdx)",
     "!**/node_modules/**",
-    "!**/node_modules",
     "!**/.pnpm/**",
     "!**/dist/**",
     "!**/build/**",

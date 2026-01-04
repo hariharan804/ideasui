@@ -1,12 +1,20 @@
-@import "tailwindcss";
+/* Global styles for playground */
 
-/* 1) Variants must exist before any file that uses them */
-@custom-variant dark (&:where(.dark, .dark *));
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+/* 1) Variants must exist before any file that uses them
+@custom-variant dark (&:where(.dark, .dark *)); 
+@config "../tailwind.config.ts";
+@plugin "../components/plugin.ts";
+ */
+
+@custom-variant dark (&:is(.dark *));
 
 /* 2) Bring in your tokens/themes/utilities */
-@import "@ideasui/theme/theme.css";
+/* @import "@ideasui/theme/theme.css"; */
 
-/* 3) Point Tailwind at places where classnames appear */
+/* 3) Point Tailwind at places where classnames appear @plugin "@ideasui/theme";*/
 @source "./app/**/*.{js,ts,jsx,tsx,mdx}";
 @source "./src/**/*.{js,ts,jsx,tsx,mdx}";
 @source "../components/**/*.{js,ts,jsx,tsx,mdx}";

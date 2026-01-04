@@ -1,29 +1,21 @@
 import React from "react";
-import type {Preview} from "@storybook/react-vite";
+import type {Preview} from "@storybook/react";
 
 import "./style.css";
-// import { withStrictModeSwitcher } from './addons/react-strict-mode'
+
+const rtlLocales = ["ar-AE", "he-IL"];
 
 const decorators: Preview["decorators"] = [
-  (Story, {globals: {locale}}) => {
-    const direction =
-      // @ts-ignore
-      locale && new Intl.Locale(locale)?.textInfo?.direction === "rtl" ? "rtl" : undefined;
+  (Story, {globals: {locale, theme}}) => {
+    const direction = locale && rtlLocales.includes(locale) ? "rtl" : "ltr";
 
     return (
-      <div className="" lang={locale} dir={direction}>
+      <div lang={locale} dir={direction} className={theme === "dark" ? "dark" : ""}>
         <Story />
       </div>
     );
   },
-  // ...(process.env.NODE_ENV !== 'production' ? [withStrictModeSwitcher] : []),
 ];
-
-const commonTheme = {
-  brandTitle: "IdeasUI",
-  brandUrl: "https://ideasui.com",
-  brandTarget: "_self",
-};
 
 const parameters: Preview["parameters"] = {
   options: {
@@ -38,79 +30,47 @@ const parameters: Preview["parameters"] = {
       date: /Date$/,
     },
   },
+  docs: {
+    theme: {
+      brandTitle: "IdeasUI",
+      brandUrl: "https://ideasui.com",
+      brandTarget: "_self",
+    },
+  },
 };
 
 const locales = [
-  "ar-AE",
-  "bg-BG",
-  "cs-CZ",
-  "da-DK",
-  "de-DE",
-  "el-GR",
   "en-US",
   "es-ES",
-  "et-EE",
-  "fi-FI",
   "fr-FR",
-  "he-IL",
-  "hr-HR",
-  "hu-HU",
-  "it-IT",
+  "de-DE",
   "ja-JP",
-  "ko-KR",
-  "lt-LT",
-  "lv-LV",
-  "nb-NO",
-  "nl-NL",
-  "pl-PL",
-  "pt-BR",
-  "pt-PT",
-  "ro-RO",
-  "ru-RU",
-  "sk-SK",
-  "sl-SI",
-  "sr-SP",
-  "sv-SE",
-  "tr-TR",
-  "uk-UA",
   "zh-CN",
-  "zh-TW",
+  "ar-AE",
+  "he-IL",
 ];
 
 const globalTypes: Preview["globalTypes"] = {
+  theme: {
+    name: "Theme",
+    description: "Global theme for components",
+    toolbar: {
+      icon: "paintbrush",
+      items: [
+        {value: "light", title: "Light", icon: "sun"},
+        {value: "dark", title: "Dark", icon: "moon"},
+      ],
+      dynamicTitle: true,
+    },
+  },
   locale: {
     toolbar: {
       icon: "globe",
       items: locales.map((locale) => ({
         value: locale,
-        title: new Intl.DisplayNames(undefined, {type: "language"}).of(locale),
-        right:
-          // @ts-ignore
-          new Intl.Locale(locale)?.textInfo?.direction === "rtl" ? "Right to Left" : undefined,
+        title: new Intl.DisplayNames("en", {type: "language"}).of(locale) || locale,
+        right: rtlLocales.includes(locale) ? "RTL" : undefined,
       })),
-    },
-  },
-  disableAnimation: {
-    name: "Disable Animation",
-    description: "Disable all animations in the stories",
-    toolbar: {
-      icon: "photodrag",
-      items: [
-        {value: true, title: "True"},
-        {value: false, title: "False"},
-      ],
-    },
-  },
-  labelPlacement: {
-    name: "Label Placement",
-    description: "Position of label.",
-    toolbar: {
-      icon: "component",
-      items: [
-        {value: "inside", title: "Inside"},
-        {value: "outside", title: "Outside"},
-        {value: "outside-left", title: "Outside Left"},
-      ],
     },
   },
 };

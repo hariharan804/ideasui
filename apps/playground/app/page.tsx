@@ -46,7 +46,7 @@ export default function Home() {
               </div>
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="from-primary-600 to-secondary-600 bg-gradient-to-r bg-clip-text text-transparent">
                 IdeasUI
               </span>{" "}
               Playground

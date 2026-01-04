@@ -6,4 +6,5 @@
  */
 
 export * from "./utils";
+export * from "./logger";
 // Export other shared utilities here

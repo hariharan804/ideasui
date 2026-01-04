@@ -5,7 +5,7 @@ import type {Metadata} from "next";
 import "./globals.css";
 import React from "react";
 import {ThemeController, ThemeScript} from "@ideasui/theme";
-
+import {ideasUIPlugin} from "@ideasui/theme";
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
 //   subsets: ['latin'],
@@ -27,6 +27,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const plugin = ideasUIPlugin();
+  console.debug("🚀 ~ RootLayout ~ plugin:", plugin);
   return (
     <html suppressHydrationWarning lang="en">
       <head>

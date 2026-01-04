@@ -2,36 +2,44 @@
   "name": "@ideasui/theme",
   "version": "0.1.0",
   "description": "Tailwind CSS v4 theme system for IdeasUI",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "./src/index.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./src/index.ts",
+      "require": "./src/index.ts",
+      "types": "./src/index.ts"
     },
-    "./theme.css": "./theme.css"
+    "./recipes": {
+      "import": "./src/recipes/index.ts"
+    },
+    "./system": {
+      "import": "./src/system/index.ts"
+    },
+    "./token": {
+      "import": "./src/tokens/index.ts"
+    },
+    "./plugin": {
+      "import": "./src/system/plugin.ts"
+    }
   },
   "files": [
-    "dist",
-    "theme.css"
+    "dist"
   ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "generate-theme": "node ./src/system/generator/generate-theme.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
-  },
-   "dependencies": {
-    "chroma-js": "^3.2.0"
   },
   "peerDependencies": {
     "tailwindcss": ">=4"
   },
   "devDependencies": {
+    "@ideasui/utils": "workspace:*",
     "@types/node": "^20.0.0",
+    "chroma-js": "^3.2.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
   },
@@ -43,5 +51,11 @@
     "ui"
   ],
   "author": "IdeasUI Team",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "color": "^5.0.3",
+    "deepmerge": "^4.3.1",
+    "flat": "^6.0.1",
+    "tailwind-variants": "^3.2.2"
+  }
 }

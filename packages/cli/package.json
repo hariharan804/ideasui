@@ -1,10 +1,10 @@
 {
   "name": "@ideasui/cli",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "CLI for IdeasUI component library",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "bin": {
-    "ideasui": "./src/index.ts"
+    "ideasui": "./dist/index.js"
   },
   "scripts": {
     "build": "tsup src --dts",
@@ -24,5 +24,7 @@
   },
   "devDependencies": {
     "typescript": "^5.9.3"
-  }
+  },
+  "files": ["dist"],
+  "keywords": ["ideasui", "cli", "components", "react", "typescript"]
 }

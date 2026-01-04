@@ -39,11 +39,10 @@
   "dependencies": {
     "@ideasui/utils": "workspace:*",
     "@ideasui/slot": "workspace:*",
-    "@ideasui/variants": "workspace:*"
+    "@ideasui/theme": "workspace:*"
   },
   "devDependencies": {
     "@ideasui/utils": "workspace:*",
-    "@ideasui/variants": "workspace:*",
     "clean-package": "^2.2.0",
     "react-aria": "^3.45.0",
     "react": "19.2.3",

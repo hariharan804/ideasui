@@ -8,10 +8,7 @@
       "path": "packages/components/button",
       "keywords": [],
       "hasReadme": true,
-      "componentFiles": [
-        "button.tsx",
-        "use-button.ts"
-      ],
+      "componentFiles": ["button.tsx", "use-button.ts"],
       "installCommands": {
         "npm": "npm install @ideasui/button",
         "pnpm": "pnpm add @ideasui/button",
@@ -29,67 +26,86 @@
                   "name": "as",
                   "type": "ElementType",
                   "description": "The element or component to render as",
-                  "optional": true
+                  "optional": true,
+                  "default": "button",
+                  "isDeprecated": false
                 },
                 {
                   "name": "variant",
                   "type": "\"solid\" | \"outline\" | \"ghost\"",
                   "description": "Visual variant of the button",
-                  "optional": true
+                  "optional": true,
+                  "default": "solid",
+                  "isDeprecated": false
                 },
                 {
                   "name": "color",
                   "type": "\"default\" | \"primary\" | \"secondary\" | \"success\" | \"warning\" | \"danger\" | \"info\"",
                   "description": "Color variant based on semantic intent",
-                  "optional": true
+                  "optional": true,
+                  "default": "default",
+                  "isDeprecated": false
                 },
                 {
                   "name": "size",
                   "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
                   "description": "Size of the button",
-                  "optional": true
+                  "optional": true,
+                  "default": "md",
+                  "isDeprecated": false
                 },
                 {
                   "name": "radius",
                   "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"full\"",
                   "description": "Border radius variant",
-                  "optional": true
+                  "optional": true,
+                  "default": "md",
+                  "isDeprecated": false
                 },
                 {
                   "name": "fullWidth",
                   "type": "boolean",
                   "description": "Whether the button should take full width",
-                  "optional": true
+                  "optional": true,
+                  "default": "false",
+                  "isDeprecated": false
                 },
                 {
                   "name": "loading",
                   "type": "boolean",
                   "description": "Whether the button is in loading state",
-                  "optional": true
+                  "optional": true,
+                  "default": "false",
+                  "isDeprecated": false
                 },
                 {
                   "name": "loadingText",
                   "type": "string",
                   "description": "Text to show when loading",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "startContent",
                   "type": "ReactNode",
                   "description": "Content to show at the start of the button",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "endContent",
                   "type": "ReactNode",
                   "description": "Content to show at the end of the button",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "disableRipple",
                   "type": "boolean",
                   "description": "Whether the button should display a ripple effect",
-                  "optional": true
+                  "optional": true,
+                  "default": "false",
+                  "isDeprecated": false
                 }
               ]
             }
@@ -99,7 +115,8 @@
           "events": [
             {
               "name": "onComplete",
-              "type": "function"
+              "type": "() => void",
+              "description": "Event handler for complete events"
             }
           ],
           "importInstructions": [
@@ -124,25 +141,29 @@
                   "name": "ref",
                   "type": "Ref<HTMLButtonElement>",
                   "description": "Ref to the DOM node",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "isLoading",
                   "type": "boolean",
                   "description": "Whether the button should display a loading spinner",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "isDisabled",
                   "type": "boolean",
                   "description": "Whether the button is disabled",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "disableRipple",
                   "type": "boolean",
                   "description": "Whether to disable the ripple effect",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 }
               ]
             }
@@ -202,25 +223,29 @@
                   "name": "key",
                   "type": "React.Key",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "x",
                   "type": "number",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "y",
                   "type": "number",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "size",
                   "type": "number",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 }
               ]
             },
@@ -231,31 +256,36 @@
                   "name": "ripples",
                   "type": "RippleType[]",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "color",
                   "type": "string",
                   "description": "",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "style",
                   "type": "React.CSSProperties",
                   "description": "",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "motionProps",
                   "type": "Omit<HTMLMotionProps<\"span\">, \"ref\">",
                   "description": "",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "onClear",
                   "type": "(key: React.Key) => void",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 }
               ]
             }
@@ -265,7 +295,8 @@
           "events": [
             {
               "name": "onClear",
-              "type": "function"
+              "type": "(key: React.Key) => void",
+              "description": "Event handler for clear events"
             }
           ],
           "importInstructions": [
@@ -290,31 +321,36 @@
                   "name": "ripples",
                   "type": "TouchableRippleItem[]",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "color",
                   "type": "string",
                   "description": "",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "style",
                   "type": "React.CSSProperties",
                   "description": "",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "motionProps",
                   "type": "Omit<HTMLMotionProps<\"span\">, \"ref\">",
                   "description": "",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "onClear",
                   "type": "(key: React.Key) => void",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 }
               ]
             }
@@ -324,7 +360,8 @@
           "events": [
             {
               "name": "onClear",
-              "type": "function"
+              "type": "(key: React.Key) => void",
+              "description": "Event handler for clear events"
             }
           ],
           "importInstructions": [
@@ -349,19 +386,23 @@
                   "name": "as",
                   "type": "keyof React.JSX.IntrinsicElements",
                   "description": "Render element type",
-                  "optional": true
+                  "optional": true,
+                  "default": "button",
+                  "isDeprecated": false
                 },
                 {
                   "name": "disabled",
                   "type": "boolean",
                   "description": "Disable ripple & interactions",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "rippleColor",
                   "type": "string",
                   "description": "Ripple color",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 }
               ]
             }
@@ -414,25 +455,29 @@
                   "name": "key",
                   "type": "number",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "x",
                   "type": "number",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "y",
                   "type": "number",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "size",
                   "type": "number",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 }
               ]
             },
@@ -443,19 +488,22 @@
                   "name": "ripples",
                   "type": "TouchableRippleItem[]",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "onClick",
                   "type": "( event: | React.PointerEvent<HTMLElement> | React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>, ) => void",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "onClear",
                   "type": "(key: React.Key) => void",
                   "description": "",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 }
               ]
             }
@@ -465,11 +513,13 @@
           "events": [
             {
               "name": "onClick",
-              "type": "function"
+              "type": "(event:\n      | React.PointerEvent<HTMLElement>\n      | React.MouseEvent<HTMLElement>\n      | React.KeyboardEvent<HTMLElement>,) => void",
+              "description": "Event handler for click events"
             },
             {
               "name": "onClear",
-              "type": "function"
+              "type": "(key: React.Key) => void",
+              "description": "Event handler for clear events"
             }
           ],
           "importInstructions": [
@@ -493,18 +543,9 @@
       "version": "0.1.0",
       "description": "Universal polymorphic container component with 'as' prop support",
       "path": "packages/components/slot",
-      "keywords": [
-        "react",
-        "component",
-        "polymorphic",
-        "slot",
-        "as-prop",
-        "typescript"
-      ],
+      "keywords": ["react", "component", "polymorphic", "slot", "as-prop", "typescript"],
       "hasReadme": true,
-      "componentFiles": [
-        "slot.tsx"
-      ],
+      "componentFiles": ["slot.tsx"],
       "installCommands": {
         "npm": "npm install @ideasui/slot",
         "pnpm": "pnpm add @ideasui/slot",
@@ -520,21 +561,26 @@
               "props": [
                 {
                   "name": "as",
-                  "type": "React.ElementType",
+                  "type": "ElementType",
                   "description": "Element or component to render as",
-                  "optional": true
+                  "optional": true,
+                  "default": "div",
+                  "isDeprecated": false
                 },
                 {
                   "name": "asChild",
                   "type": "boolean",
                   "description": "Merge props with the first child instead of rendering wrapper",
-                  "optional": true
+                  "optional": true,
+                  "default": "false",
+                  "isDeprecated": false
                 },
                 {
                   "name": "children",
                   "type": "React.ReactNode",
                   "description": "Content to render inside the slot",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 }
               ]
             }
@@ -562,15 +608,28 @@
     {
       "name": "@ideasui/theme",
       "displayName": "theme",
+      "version": "0.1.0",
+      "description": "Tailwind CSS v4 theme system for IdeasUI",
+      "path": "packages/core/theme",
+      "keywords": ["tailwindcss", "theme", "design-system", "css", "ui"],
+      "hasReadme": true,
+      "componentFiles": [],
+      "installCommands": {
+        "npm": "npm install @ideasui/theme",
+        "pnpm": "pnpm add @ideasui/theme",
+        "yarn": "yarn add @ideasui/theme",
+        "bun": "bun add @ideasui/theme"
+      },
+      "installNote": "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
+      "documentation": {}
+    },
+    {
+      "name": "@ideasui/theme",
+      "displayName": "theme-old",
       "version": "1.0.0",
       "description": "SSR-friendly theme switcher with no dependencies",
-      "path": "packages/core/theme",
-      "keywords": [
-        "theme",
-        "dark-mode",
-        "ssr",
-        "react"
-      ],
+      "path": "packages/core/theme-old",
+      "keywords": ["theme", "dark-mode", "ssr", "react"],
       "hasReadme": true,
       "componentFiles": [
         "theme-constants.ts",
@@ -596,7 +655,7 @@
           "importInstructions": [
             {
               "method": "individual",
-              "code": "import { ThemeConstants } from \"@ideasui/theme\";",
+              "code": "import { ThemeConstants } from \"@ideasui/theme-old\";",
               "description": "Import from package"
             }
           ]
@@ -609,7 +668,7 @@
           "importInstructions": [
             {
               "method": "individual",
-              "code": "import { ThemeController } from \"@ideasui/theme\";",
+              "code": "import { ThemeController } from \"@ideasui/theme-old\";",
               "description": "Import from package"
             }
           ]
@@ -623,19 +682,22 @@
                   "name": "nonce",
                   "type": "string",
                   "description": "",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "scriptProps",
                   "type": "Omit< React.ScriptHTMLAttributes<HTMLScriptElement>, \"id\" | \"nonce\" | \"dangerouslySetInnerHTML\" | \"suppressHydrationWarning\" >",
                   "description": "",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "id",
                   "type": "string",
                   "description": "",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 }
               ]
             }
@@ -646,7 +708,7 @@
           "importInstructions": [
             {
               "method": "individual",
-              "code": "import { ThemeScript } from \"@ideasui/theme\";",
+              "code": "import { ThemeScript } from \"@ideasui/theme-old\";",
               "description": "Import from package"
             }
           ]
@@ -660,31 +722,36 @@
                   "name": "themes",
                   "type": "string[]",
                   "description": "Available theme names",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "defaultTheme",
                   "type": "string",
                   "description": "Default theme when none is stored",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "storageKey",
                   "type": "string",
                   "description": "localStorage key for persistence",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "mode",
                   "type": "ThemeMode",
                   "description": "How to apply theme to DOM\n    - 'class': Adds theme as CSS class (Tailwind CSS standard)\n    - 'attribute': Sets theme as data attribute value",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 },
                 {
                   "name": "systemThemes",
                   "type": "{light: string",
                   "description": "Mapping of system preferences to theme names",
-                  "optional": false
+                  "optional": false,
+                  "isDeprecated": false
                 }
               ]
             },
@@ -704,7 +771,7 @@
           "importInstructions": [
             {
               "method": "individual",
-              "code": "import { Types } from \"@ideasui/theme\";",
+              "code": "import { Types } from \"@ideasui/theme-old\";",
               "description": "Import from package"
             }
           ]
@@ -718,13 +785,15 @@
                   "name": "attribute",
                   "type": "\"class\" | \"data-theme\"",
                   "description": "",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "systemThemes",
                   "type": "{light: string",
                   "description": "",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 }
               ]
             }
@@ -735,7 +804,7 @@
           "importInstructions": [
             {
               "method": "individual",
-              "code": "import { UseThemeController } from \"@ideasui/theme\";",
+              "code": "import { UseThemeController } from \"@ideasui/theme-old\";",
               "description": "Import from package"
             }
           ]
@@ -748,7 +817,7 @@
           "importInstructions": [
             {
               "method": "individual",
-              "code": "import { UseTheme } from \"@ideasui/theme\";",
+              "code": "import { UseTheme } from \"@ideasui/theme-old\";",
               "description": "Import from package"
             }
           ]
@@ -761,14 +830,7 @@
       "version": "0.1.0",
       "description": "Tailwind CSS variants system for IdeasUI components",
       "path": "packages/core/variants",
-      "keywords": [
-        "tailwind",
-        "variants",
-        "css",
-        "design-system",
-        "react",
-        "typescript"
-      ],
+      "keywords": ["tailwind", "variants", "css", "design-system", "react", "typescript"],
       "hasReadme": true,
       "componentFiles": [
         "badge.ts",
@@ -1071,13 +1133,15 @@
                   "name": "size",
                   "type": "number | string",
                   "description": "",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 },
                 {
                   "name": "color",
                   "type": "string",
                   "description": "",
-                  "optional": true
+                  "optional": true,
+                  "isDeprecated": false
                 }
               ]
             }

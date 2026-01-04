@@ -51,15 +51,117 @@ interface TypeItem {
 interface EventItem {
   name: string;
   type: string;
+  description?: string;
 }
 
 interface PackageDocumentationProps {
   className?: string;
 }
 
+const getCategoryIcon = (category: string) => {
+  const icons = {
+    components: "🧩",
+    core: "⚙️",
+    hooks: "🪝",
+    utils: "🛠️",
+    icons: "🎨",
+    cli: "💻"
+  };
+  return icons[category as keyof typeof icons] || "📦";
+};
+
+const getCategoryDescription = (category: string) => {
+  const descriptions = {
+    components: "UI components for building interfaces",
+    core: "Core system packages and themes",
+    hooks: "React hooks for common functionality",
+    utils: "Utility functions and helpers",
+    icons: "Icon components and assets",
+    cli: "Command line tools"
+  };
+  return descriptions[category as keyof typeof descriptions] || "Package collection";
+};
+
+const getPackageIcon = (packageName: string) => {
+  if (packageName.includes("button")) return "🔘";
+  if (packageName.includes("ripple")) return "〰️";
+  if (packageName.includes("theme")) return "🎨";
+  if (packageName.includes("slot")) return "📦";
+  if (packageName.includes("variants")) return "🎭";
+  if (packageName.includes("utils")) return "🔧";
+  if (packageName.includes("icons")) return "✨";
+  if (packageName.includes("cli")) return "⌨️";
+  return "📋";
+};
+
+const PropCard: React.FC<{prop: PropItem}> = ({prop}) => (
+  <div className="rounded-lg border border-gray-200 bg-white p-4 transition-all hover:shadow-md">
+    <div className="mb-2 flex items-start justify-between gap-2">
+      <div className="flex items-center gap-2">
+        <code className="rounded bg-blue-50 px-2 py-1 text-sm font-semibold text-blue-700">
+          {prop.name}
+        </code>
+        {!prop.optional && (
+          <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
+            required
+          </span>
+        )}
+        {prop.isDeprecated && (
+          <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-medium text-orange-700">
+            deprecated
+          </span>
+        )}
+      </div>
+    </div>
+    <div className="mb-2">
+      <code className="text-sm text-gray-600 break-all">{prop.type}</code>
+    </div>
+    {prop.description && (
+      <p className="mb-2 text-sm text-gray-700">{prop.description}</p>
+    )}
+    {prop.default && (
+      <div className="text-xs text-gray-500">
+        Default: <code className="rounded bg-gray-100 px-1">{prop.default}</code>
+      </div>
+    )}
+  </div>
+);
+
+const EventCard: React.FC<{event: EventItem}> = ({event}) => (
+  <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
+    <div className="mb-2 flex items-center gap-2">
+      <code className="rounded bg-purple-100 px-2 py-1 text-sm font-semibold text-purple-700">
+        {event.name}
+      </code>
+      <span className="rounded-full bg-purple-200 px-2 py-0.5 text-xs font-medium text-purple-800">
+        event
+      </span>
+    </div>
+    <code className="mb-2 block text-sm text-purple-600 break-all">{event.type}</code>
+    {event.description && (
+      <p className="text-sm text-purple-700">{event.description}</p>
+    )}
+  </div>
+);
+
+const TypeCard: React.FC<{type: TypeItem}> = ({type}) => (
+  <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+    <div className="mb-2 flex items-center gap-2">
+      <code className="rounded bg-green-100 px-2 py-1 text-sm font-semibold text-green-700">
+        {type.name}
+      </code>
+      <span className="rounded-full bg-green-200 px-2 py-0.5 text-xs font-medium text-green-800">
+        type
+      </span>
+    </div>
+    <code className="text-sm text-green-600 break-all">{type.definition}</code>
+  </div>
+);
+
 const PackageDocumentation: React.FC<PackageDocumentationProps> = ({className}) => {
   const [packageList, setPackageList] = React.useState<PackageData | null>(null);
   const [loading, setLoading] = React.useState(true);
+  const [selectedPackage, setSelectedPackage] = React.useState<Package | null>(null);
 
   React.useEffect(() => {
     fetch("/package-list.json")
@@ -75,11 +177,119 @@ const PackageDocumentation: React.FC<PackageDocumentationProps> = ({className}) 
   }, []);
 
   if (loading) {
-    return <div className="p-8 text-center">Loading documentation...</div>;
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <div className="mb-4 h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600 mx-auto"></div>
+          <p className="text-gray-600">Loading documentation...</p>
+        </div>
+      </div>
+    );
   }
 
   if (!packageList) {
-    return <div className="p-8 text-center text-red-600">Failed to load documentation</div>;
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center text-red-600">
+          <p className="text-xl font-semibold">Failed to load documentation</p>
+          <p className="text-sm">Please check your connection and try again</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (selectedPackage) {
+    return (
+      <div className={`min-h-screen bg-gray-50 ${className || ""}`}>
+        {/* Header */}
+        <div className="sticky top-0 z-10 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
+          <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setSelectedPackage(null)}
+                className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">{selectedPackage.displayName}</h1>
+                <p className="text-sm text-gray-600">{selectedPackage.description}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+          {selectedPackage.documentation && Object.entries(selectedPackage.documentation).map(([fileName, docs]) => (
+            <div key={fileName} className="mb-12">
+              <div className="mb-6 rounded-lg bg-white p-6 shadow-sm">
+                <h2 className="mb-2 text-2xl font-bold text-gray-900">{fileName}</h2>
+                
+                {/* Import Instructions */}
+                {docs.importInstructions && docs.importInstructions.length > 0 && (
+                  <div className="mb-6">
+                    <h3 className="mb-3 text-lg font-semibold text-gray-900">Import</h3>
+                    <div className="space-y-3">
+                      {docs.importInstructions.map((instruction, idx) => (
+                        <div key={idx} className="rounded-lg bg-gray-900 p-4">
+                          <p className="mb-2 text-sm text-gray-300">{instruction.description}</p>
+                          <code className="text-green-400">{instruction.code}</code>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Props */}
+              {docs.interfaces && docs.interfaces.some(i => i.props && i.props.length > 0) && (
+                <div className="mb-8">
+                  <h3 className="mb-4 text-xl font-bold text-gray-900">Props</h3>
+                  {docs.interfaces.map((interfaceItem) => 
+                    interfaceItem.props && interfaceItem.props.length > 0 && (
+                      <div key={interfaceItem.name} className="mb-6">
+                        <h4 className="mb-3 text-lg font-semibold text-gray-800">{interfaceItem.name}</h4>
+                        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                          {interfaceItem.props.map((prop) => (
+                            <PropCard key={prop.name} prop={prop} />
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
+
+              {/* Events */}
+              {docs.events && docs.events.length > 0 && (
+                <div className="mb-8">
+                  <h3 className="mb-4 text-xl font-bold text-gray-900">Events</h3>
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {docs.events.map((event) => (
+                      <EventCard key={event.name} event={event} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Types */}
+              {docs.types && docs.types.length > 0 && (
+                <div className="mb-8">
+                  <h3 className="mb-4 text-xl font-bold text-gray-900">Types</h3>
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {docs.types.map((type) => (
+                      <TypeCard key={type.name} type={type} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -99,7 +309,6 @@ const PackageDocumentation: React.FC<PackageDocumentationProps> = ({className}) 
             Complete reference for modern React components with TypeScript support
           </p>
         </div>
-        <div className="absolute -bottom-1 left-0 right-0 h-20 bg-gradient-to-t from-slate-50 to-transparent"></div>
       </div>
 
       <div className="mx-auto max-w-7xl px-6 py-12">
@@ -110,7 +319,7 @@ const PackageDocumentation: React.FC<PackageDocumentationProps> = ({className}) 
             <section key={category} className="mb-16">
               {/* Category Header */}
               <div className="mb-8 flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg text-xl">
                   {getCategoryIcon(category)}
                 </div>
                 <div>
@@ -120,15 +329,19 @@ const PackageDocumentation: React.FC<PackageDocumentationProps> = ({className}) 
               </div>
 
               {/* Package Grid */}
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {(packages as Package[]).map((pkg) => (
-                  <div key={pkg.name} className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10">
+                  <div 
+                    key={pkg.name} 
+                    className="group cursor-pointer overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10"
+                    onClick={() => setSelectedPackage(pkg)}
+                  >
                     {/* Package Header */}
                     <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 p-6">
                       <div className="absolute right-4 top-4 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-gray-600 backdrop-blur-sm">
                         v{pkg.version}
                       </div>
-                      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg">
+                      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-lg text-xl">
                         {getPackageIcon(pkg.name)}
                       </div>
                       <h3 className="mb-2 text-xl font-bold text-gray-900">{pkg.displayName}</h3>
@@ -156,128 +369,17 @@ const PackageDocumentation: React.FC<PackageDocumentationProps> = ({className}) 
                         </div>
                       )}
 
-                      {/* Installation */}
-                      <div className="space-y-3">
-                        <h4 className="flex items-center gap-2 text-sm font-semibold text-gray-900">
-                          <span className="h-4 w-4 rounded bg-green-100 flex items-center justify-center">
-                            <span className="h-2 w-2 rounded-full bg-green-500"></span>
-                          </span>
-                          Quick Install
-                        </h4>
-                        <div className="space-y-2">
-                          {Object.entries(pkg.installCommands || {}).slice(0, 1).map(([manager, command]) => (
-                            <div key={manager} className="group/code relative">
-                              <pre className="overflow-x-auto rounded-lg bg-gray-900 p-3 text-sm text-gray-100">
-                                <code>{command as string}</code>
-                              </pre>
-                              <button className="absolute right-2 top-2 rounded bg-gray-800 p-1 text-gray-400 opacity-0 transition-opacity group-hover/code:opacity-100 hover:text-white">
-                                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                </svg>
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* API Preview */}
-                      {pkg.documentation && Object.entries(pkg.documentation).map(([fileName, docs]) => (
-                        <div key={fileName} className="space-y-3">
-                          {docs.interfaces && docs.interfaces.length > 0 && (
-                            <div>
-                              <h4 className="flex items-center gap-2 text-sm font-semibold text-gray-900 mb-3">
-                                <span className="h-4 w-4 rounded bg-purple-100 flex items-center justify-center">
-                                  <span className="h-2 w-2 rounded-full bg-purple-500"></span>
-                                </span>
-                                API Reference
-                              </h4>
-                              {docs.interfaces.slice(0, 1).map((interfaceItem) => (
-                                <div key={interfaceItem.name} className="rounded-lg border border-gray-200 overflow-hidden">
-                                  <div className="bg-gray-50 px-4 py-2 border-b border-gray-200">
-                                    <h5 className="font-mono text-sm font-semibold text-gray-900">{interfaceItem.name}</h5>
-                                  </div>
-                                  {interfaceItem.props && interfaceItem.props.length > 0 && (
-                                    <div className="max-h-48 overflow-y-auto">
-                                      <table className="w-full text-sm">
-                                        <thead className="bg-gray-50 sticky top-0">
-                                          <tr>
-                                            <th className="px-3 py-2 text-left font-medium text-gray-700">Prop</th>
-                                            <th className="px-3 py-2 text-left font-medium text-gray-700">Type</th>
-                                            <th className="px-3 py-2 text-center font-medium text-gray-700">Required</th>
-                                          </tr>
-                                        </thead>
-                                        <tbody className="divide-y divide-gray-200">
-                                          {interfaceItem.props.slice(0, 5).map((prop) => (
-                                            <tr key={prop.name} className="hover:bg-gray-50">
-                                              <td className="px-3 py-2">
-                                                <div className="flex items-center gap-2">
-                                                  <code className="font-mono text-xs font-semibold text-blue-600">{prop.name}</code>
-                                                  {prop.isDeprecated && (
-                                                    <span className="rounded bg-red-100 px-1.5 py-0.5 text-xs text-red-600">deprecated</span>
-                                                  )}
-                                                </div>
-                                                {prop.default && (
-                                                  <div className="text-xs text-gray-500 mt-1">default: {prop.default}</div>
-                                                )}
-                                              </td>
-                                              <td className="px-3 py-2">
-                                                <code className="font-mono text-xs text-gray-600">{prop.type}</code>
-                                              </td>
-                                              <td className="px-3 py-2 text-center">
-                                                {prop.optional ? (
-                                                  <span className="text-gray-400">✗</span>
-                                                ) : (
-                                                  <span className="text-green-500">✓</span>
-                                                )}
-                                              </td>
-                                            </tr>
-                                          ))}
-                                        </tbody>
-                                      </table>
-                                      {interfaceItem.props.length > 5 && (
-                                        <div className="bg-gray-50 px-3 py-2 text-center text-xs text-gray-500">
-                                          +{interfaceItem.props.length - 5} more props
-                                        </div>
-                                      )}
-                                    </div>
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                          )}
-
-                          {/* Events Preview */}
-                          {docs.events && docs.events.length > 0 && (
-                            <div>
-                              <h4 className="flex items-center gap-2 text-sm font-semibold text-gray-900 mb-3">
-                                <span className="h-4 w-4 rounded bg-orange-100 flex items-center justify-center">
-                                  <span className="h-2 w-2 rounded-full bg-orange-500"></span>
-                                </span>
-                                Events
-                              </h4>
-                              <div className="space-y-2">
-                                {docs.events.slice(0, 3).map((event) => (
-                                  <div key={event.name} className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2">
-                                    <code className="font-mono text-xs font-semibold text-purple-600">{event.name}</code>
-                                    <code className="font-mono text-xs text-gray-600">{event.type}</code>
-                                  </div>
-                                ))}
-                                {docs.events.length > 3 && (
-                                  <div className="text-center text-xs text-gray-500">
-                                    +{docs.events.length - 3} more events
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ))}
-
-                      {/* Action Button */}
-                      <div className="pt-4 border-t border-gray-100">
-                        <button className="w-full rounded-lg bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:shadow-md hover:shadow-blue-500/25 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                          View Full Documentation
-                        </button>
+                      {/* Quick Stats */}
+                      <div className="flex items-center justify-between text-sm text-gray-500">
+                        <span>
+                          {pkg.documentation ? Object.keys(pkg.documentation).length : 0} files
+                        </span>
+                        <span className="flex items-center gap-1">
+                          Click to explore
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -290,33 +392,5 @@ const PackageDocumentation: React.FC<PackageDocumentationProps> = ({className}) 
     </div>
   );
 };
-
-// Helper functions for icons and descriptions
-function getCategoryIcon(category: string) {
-  const icons = {
-    components: <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" /></svg>,
-    hooks: <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" /></svg>,
-    utils: <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" /></svg>,
-    core: <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 20 20"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-  };
-  return icons[category as keyof typeof icons] || icons.components;
-}
-
-function getCategoryDescription(category: string) {
-  const descriptions = {
-    components: "Ready-to-use React components with TypeScript support",
-    hooks: "Custom React hooks for common functionality", 
-    utils: "Utility functions and helpers",
-    core: "Core system packages and providers"
-  };
-  return descriptions[category as keyof typeof descriptions] || "Package collection";
-}
-
-function getPackageIcon(packageName: string) {
-  // Return a simple geometric shape based on package name
-  const shapes = ['■', '●', '▲', '◆', '★', '▼', '◀', '▶'];
-  const index = packageName.length % shapes.length;
-  return <span className="text-lg">{shapes[index]}</span>;
-}
 
 export default PackageDocumentation;

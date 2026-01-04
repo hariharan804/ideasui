@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@ideasui/utils": "workspace:*",
-    "@ideasui/variants": "workspace:*",
+    "@ideasui/theme": "workspace:*",
     "@ideasui/ripple": "workspace:*",
     "react-aria": "^3.45.0"
   },

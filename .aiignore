@@ -36,3 +36,18 @@ packages/core/theme/
 ├─ themes/
 ├─ system/  
 └─ index.ts
+
+Why This Is Good
+Your generator is correctly:
+
+Locking hues for semantic colors (secondary, neutral are perfect proof)
+Smoothly progressing lightness across shades
+Managing chroma to avoid over/under-saturation
+Inverting properly for dark mode
+Maintaining accessibility contrast requirements
+
+The minor hue variations in some lighter shades are expected and acceptable because:
+
+Very light colors naturally need some hue shift to avoid desaturation
+Darker shades sometimes need intentional hue adjustments to maintain visual depth
+This is how professional color systems (Tailwind, Material Design) work

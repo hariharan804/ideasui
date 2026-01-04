@@ -5,7 +5,7 @@ module.exports = {
     "packages/components/**/*.{ts,tsx}",
     "packages/hooks/**/*.{ts,tsx}",
     "packages/core/**/*.{ts,tsx}",
-    "packages/utils/**/*.{ts,tsx}"
+    "packages/utils/**/*.{ts,tsx}",
   ],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
   modulePathIgnorePatterns: ["<rootDir>/examples", "<rootDir>/templates"],
@@ -15,5 +15,9 @@ module.exports = {
   },
   preset: "ts-jest",
   transformIgnorePatterns: ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"],
-  setupFilesAfterEnv: ["@testing-library/jest-dom", "./scripts/setup-test.ts"],
+  setupFilesAfterEnv: [
+    "@testing-library/jest-dom",
+    "./scripts/setup-test.ts",
+    "<rootDir>/jest.setup.js",
+  ],
 };
