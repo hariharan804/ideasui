@@ -1,4 +1,3 @@
-import Color from "color";
 import plugin from "tailwindcss/plugin";
 import deepMerge from "deepmerge";
 import {
@@ -13,108 +12,159 @@ import {
 } from "../tokens";
 import {lightColorTokens, darkColorTokens} from "../tokens/colors";
 import {darkLayout, lightLayout, lightCommonColors, darkCommonColors} from "../tokens/layout";
-import {ThemeConfig, ColorTokens} from "./types";
-import {flattenThemeObject, kebabCase, mapKeys, omit, escapeSelector} from "./utils";
+import {ThemeConfig, ConfigThemes, ResolvedConfig, ConfigTheme} from "./types";
+import {
+  flattenThemeObject,
+  kebabCase,
+  mapKeys,
+  omit,
+  escapeSelector,
+  parseColorValue,
+  formatColorComponents,
+  isNumericShade,
+  extractColorBaseNames,
+  SEMANTIC_TOKEN_MAP,
+  DEFAULT_PREFIX,
+} from "./utils";
 
-const DEFAULT_PREFIX = "ideasui";
+type ThemeMode = "light" | "dark";
 
 // ─────────────────────────────────────────────────────────────
-// Types
+// Helper Functions
 // ─────────────────────────────────────────────────────────────
-
-type ConfigTheme = {
-  extend?: "light" | "dark";
-  layout?: Record<string, string | number>;
-  colors?: Partial<ColorTokens>;
-};
-
-type ConfigThemes = Record<string, ConfigTheme>;
-
-// ─────────────────────────────────────────────────────────────
-// MD3 Semantic Token Configuration
-// ─────────────────────────────────────────────────────────────
-
-/**
- * Maps semantic token names to shade numbers.
- * Same mappings for both modes since dark shades are already inverted in colors.ts
- */
-const SEMANTIC_TOKEN_MAP = {
-  light: {
-    DEFAULT: "500",
-    on: "50",
-    container: "100",
-    onContainer: "900",
-    subtle: "200",
-    muted: "400",
-    active: "700",
-  },
-  dark: {
-    DEFAULT: "500",
-    on: "50",
-    container: "100",
-    onContainer: "900",
-    subtle: "200",
-    muted: "400",
-    active: "300",
-  },
-} as const;
-
-/** Check if key is a numeric shade (50-950) */
-const isNumericShade = (key: string): boolean =>
-  /^(50|[1-9]50|100|200|300|400|500|600|700|800|900)$/.test(key);
 
 /** Generates semantic CSS vars that reference shade vars */
 function generateSemanticVars(
   colorName: string,
   prefix: string,
-  mode: "light" | "dark",
+  mode: ThemeMode,
 ): Record<string, string> {
   const mapping = SEMANTIC_TOKEN_MAP[mode];
   const result: Record<string, string> = {};
 
   for (const [semantic, shade] of Object.entries(mapping)) {
-    const semanticVar = `--${prefix}-${colorName}-${semantic}`;
-    const shadeVar = `--${prefix}-${colorName}-${shade}`;
-    result[semanticVar] = `var(${shadeVar})`;
+    result[`--${prefix}-${colorName}-${semantic}`] = `var(--${prefix}-${colorName}-${shade})`;
   }
 
   return result;
 }
 
-/** Extracts unique color names from flattened color object */
-function getColorNames(flatColors: Record<string, string>): Set<string> {
-  const colorNames = new Set<string>();
-  for (const key of Object.keys(flatColors)) {
-    const match = key.match(
-      /^([a-z]+)-(\d+|DEFAULT|on|container|onContainer|subtle|muted|active)$/i,
-    );
-    if (match) {
-      colorNames.add(match[1]);
-    }
-  }
-  return colorNames;
+/** Creates CSS selectors for a theme */
+function createThemeSelectors(themeName: string, defaultTheme: string) {
+  const cssSelector = `.${escapeSelector(themeName)}`;
+  const baseSelector =
+    themeName === defaultTheme
+      ? `:root, .${themeName}, [data-theme='${themeName}']`
+      : `.${themeName}, [data-theme='${themeName}']`;
+
+  return {cssSelector, baseSelector};
 }
 
-/** Parses a color value and returns CSS function type and components */
-function parseColorValue(
-  colorValue: string,
-): {cssFn: "hsl" | "oklch"; components: (string | number)[]} | null {
-  try {
-    if (colorValue.startsWith("oklch(")) {
-      const match = colorValue.match(/oklch\(([^)]+)\)/);
-      if (match) {
-        return {
-          cssFn: "oklch",
-          components: match[1].split("/")[0].trim().split(/\s+/),
-        };
+/** Determines the color scheme for a theme */
+function getColorScheme(themeName: string, extend?: "light" | "dark"): string | null {
+  if (themeName === "light" || themeName === "dark") return themeName;
+  return extend || null;
+}
+
+/** Determines the mode (light/dark) for a theme */
+function getThemeMode(themeName: string, extend?: "light" | "dark"): ThemeMode {
+  return themeName === "dark" || extend === "dark" ? "dark" : "light";
+}
+
+// ─────────────────────────────────────────────────────────────
+// Color Processing
+// ─────────────────────────────────────────────────────────────
+
+/** Processes and registers all colors for a theme */
+function processColors(
+  flatColors: Record<string, string>,
+  prefix: string,
+  mode: ThemeMode,
+  resolved: ResolvedConfig,
+  cssSelector: string,
+  baseSelector: string,
+): void {
+  // Process shade colors
+  for (const [colorName, colorValue] of Object.entries(flatColors)) {
+    if (!colorValue) continue;
+
+    // Skip non-numeric shades for shade-based colors
+    if (colorName.includes("-")) {
+      const shade = colorName.split("-").pop() || "";
+      if (!isNumericShade(shade)) continue;
+    }
+
+    const parsed = parseColorValue(colorValue);
+    if (!parsed) continue;
+
+    const {components} = parsed;
+    const colorVar = `--${prefix}-${colorName}`;
+    const formattedValue = formatColorComponents(components);
+    const alphaValue = components[3] ?? "<alpha-value>";
+
+    // Register CSS variable (per-theme)
+    resolved.utilities[cssSelector][colorVar] = formattedValue;
+    resolved.baseStyles[baseSelector][colorVar] = formattedValue;
+
+    // Register Tailwind color only if not already set (first theme wins)
+    if (!resolved.colors[colorName]) {
+      resolved.colors[colorName] = `oklch(var(${colorVar}) / ${alphaValue})`;
+    }
+  }
+
+  // Generate semantic tokens
+  const colorBaseNames = extractColorBaseNames(flatColors);
+
+  for (const baseName of colorBaseNames) {
+    const semanticVars = generateSemanticVars(baseName, prefix, mode);
+
+    for (const [varName, varValue] of Object.entries(semanticVars)) {
+      resolved.utilities[cssSelector][varName] = varValue;
+      resolved.baseStyles[baseSelector][varName] = varValue;
+
+      // Register Tailwind color only if not already set (first theme wins)
+      const tokenName = varName.replace(`--${prefix}-`, "").replace(/-DEFAULT$/, "");
+      if (!resolved.colors[tokenName]) {
+        resolved.colors[tokenName] = `oklch(var(${varName}) / <alpha-value>)`;
       }
     }
-    return {
-      cssFn: "hsl",
-      components: Color(colorValue).hsl().round(2).array(),
-    };
-  } catch {
-    return null;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// Layout Processing
+// ─────────────────────────────────────────────────────────────
+
+/** Processes and registers layout tokens for a theme */
+function processLayout(
+  flatLayout: Record<string, unknown>,
+  prefix: string,
+  resolved: ResolvedConfig,
+  cssSelector: string,
+  baseSelector: string,
+): void {
+  for (const [key, value] of Object.entries(flatLayout)) {
+    if (!value) continue;
+
+    const varName = `--${prefix}-${key}`;
+
+    if (typeof value === "object" && value !== null) {
+      // Handle nested objects
+      for (const [nestedKey, nestedValue] of Object.entries(value as Record<string, string>)) {
+        const nestedVar = `${varName}-${nestedKey}`;
+        resolved.utilities[cssSelector][nestedVar] = nestedValue;
+        resolved.baseStyles[baseSelector][nestedVar] = nestedValue;
+      }
+    } else {
+      // Format opacity values (0.5 → .5)
+      const formattedValue =
+        key.includes("opacity") && typeof value === "number"
+          ? value.toString().replace(/^0\./, ".")
+          : String(value);
+
+      resolved.utilities[cssSelector][varName] = formattedValue;
+      resolved.baseStyles[baseSelector][varName] = formattedValue;
+    }
   }
 }
 
@@ -122,13 +172,9 @@ function parseColorValue(
 // Config Resolution
 // ─────────────────────────────────────────────────────────────
 
-const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: string, prefix: string) => {
-  const resolved: {
-    variants: {name: string; definition: string[]}[];
-    utilities: Record<string, Record<string, any>>;
-    colors: Record<string, string>;
-    baseStyles: Record<string, Record<string, any>>;
-  } = {
+/** Resolves theme configuration into CSS utilities, base styles, and variants */
+function resolveConfig(themes: ConfigThemes, defaultTheme: string, prefix: string): ResolvedConfig {
+  const resolved: ResolvedConfig = {
     variants: [],
     utilities: {},
     colors: {},
@@ -136,105 +182,101 @@ const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: string, prefix: 
   };
 
   for (const [themeName, {extend, layout, colors}] of Object.entries(themes)) {
-    const cssSelector = `.${escapeSelector(themeName)}`;
-    const scheme = themeName === "light" || themeName === "dark" ? themeName : extend;
+    const {cssSelector, baseSelector} = createThemeSelectors(themeName, defaultTheme);
+    const colorScheme = getColorScheme(themeName, extend);
+    const mode = getThemeMode(themeName, extend);
 
-    // Base selector: :root for default, class/data-attr for others
-    const baseSelector =
-      themeName === defaultTheme
-        ? `:root, .${themeName}, [data-theme='${themeName}']`
-        : `.${themeName}, [data-theme='${themeName}']`;
+    // Initialize style objects
+    resolved.baseStyles[baseSelector] = colorScheme ? {"color-scheme": colorScheme} : {};
+    resolved.utilities[cssSelector] = colorScheme ? {"color-scheme": colorScheme} : {};
 
-    resolved.baseStyles[baseSelector] = scheme ? {"color-scheme": scheme} : {};
-    resolved.utilities[cssSelector] = scheme ? {"color-scheme": scheme} : {};
-
-    const flatColors = flattenThemeObject(colors || {}) as Record<string, string>;
-    const flatLayout = layout ? mapKeys(layout, (_, key) => kebabCase(key)) : {};
-
-    // Setup variants (dark:bg-red-500, etc.)
+    // Register variant
     resolved.variants.push({
       name: themeName,
       definition: [`&.${escapeSelector(themeName)}`, `&[data-theme='${themeName}']`],
     });
 
-    const mode = themeName === "dark" || extend === "dark" ? "dark" : "light";
-    const colorNamesSet = getColorNames(flatColors);
+    // Process colors
+    const flatColors = flattenThemeObject(colors || {}) as Record<string, string>;
+    processColors(flatColors, prefix, mode, resolved, cssSelector, baseSelector);
 
-    // Helper to register a color variable
-    const registerColor = (colorName: string, colorValue: string) => {
-      const parsed = parseColorValue(colorValue);
-      if (!parsed) return;
-
-      const {cssFn, components} = parsed;
-      const [c1, c2, c3, defaultAlphaValue] = components;
-      const colorVar = `--${prefix}-${colorName}`;
-      const val1 = cssFn === "hsl" ? c1 : c1;
-      const val2 = cssFn === "hsl" ? `${c2}%` : c2;
-      const val3 = cssFn === "hsl" ? `${c3}%` : c3;
-
-      resolved.utilities[cssSelector]![colorVar] = `${val1} ${val2} ${val3}`;
-      resolved.baseStyles[baseSelector]![colorVar] = `${val1} ${val2} ${val3}`;
-      resolved.colors[colorName] =
-        `${cssFn}(var(${colorVar}) / ${defaultAlphaValue ?? "<alpha-value>"})`;
-    };
-
-    // Process all colors
-    for (const [colorName, colorValue] of Object.entries(flatColors)) {
-      if (!colorValue) continue;
-
-      // For shade-based colors (primary-500), only process numeric shades
-      if (colorName.includes("-")) {
-        const shade = colorName.split("-").pop() || "";
-        if (!isNumericShade(shade)) continue;
-      }
-
-      registerColor(colorName, colorValue);
-    }
-
-    // Generate semantic tokens as CSS var references
-    for (const colorBaseName of colorNamesSet) {
-      const semanticVars = generateSemanticVars(colorBaseName, prefix, mode);
-
-      for (const [varName, varValue] of Object.entries(semanticVars)) {
-        resolved.utilities[cssSelector]![varName] = varValue;
-        resolved.baseStyles[baseSelector]![varName] = varValue;
-
-        // For DEFAULT: register as "primary" so bg-primary works
-        const fullTokenName = varName.replace(`--${prefix}-`, "");
-        const tokenName = fullTokenName.endsWith("-DEFAULT")
-          ? fullTokenName.replace("-DEFAULT", "")
-          : fullTokenName;
-
-        resolved.colors[tokenName] = `oklch(var(${varName}) / <alpha-value>)`;
-      }
-    }
-
-    // Process layout options
-    for (const [key, value] of Object.entries(flatLayout)) {
-      if (!value) continue;
-
-      const layoutVarPrefix = `--${prefix}-${key}`;
-
-      if (typeof value === "object") {
-        for (const [nestedKey, nestedValue] of Object.entries(value)) {
-          const nestedVar = `${layoutVarPrefix}-${nestedKey}`;
-          resolved.utilities[cssSelector]![nestedVar] = nestedValue as string;
-          resolved.baseStyles[baseSelector]![nestedVar] = nestedValue;
-        }
-      } else {
-        const formattedValue =
-          key.includes("opacity") && typeof value === "number"
-            ? value.toString().replace(/^0\./, ".")
-            : String(value);
-
-        resolved.utilities[cssSelector]![layoutVarPrefix] = formattedValue;
-        resolved.baseStyles[baseSelector]![layoutVarPrefix] = formattedValue;
-      }
-    }
+    // Process layout
+    const flatLayout = layout ? mapKeys(layout, (_, key) => kebabCase(key)) : {};
+    processLayout(flatLayout, prefix, resolved, cssSelector, baseSelector);
   }
 
   return resolved;
-};
+}
+
+// ─────────────────────────────────────────────────────────────
+// Theme Building
+// ─────────────────────────────────────────────────────────────
+
+/** Builds the final theme configuration by merging defaults with user config */
+function buildThemes(config: ThemeConfig): ConfigThemes {
+  const {themes: themeData = {}, layout: userLayout = {}} = config;
+
+  // Extract user overrides
+  const userLightColors = themeData.light?.colors || {};
+  const userDarkColors = themeData.dark?.colors || {};
+  const userLightLayout = themeData.light?.layout || {};
+  const userDarkLayout = themeData.dark?.layout || {};
+
+  // Build base layout (global layout merged with mode defaults)
+  const baseLayout =
+    userLayout && typeof userLayout === "object" ? deepMerge(lightLayout, userLayout) : lightLayout;
+
+  // Build theme configs
+  const lightTheme: ConfigTheme = {
+    layout: deepMerge({...baseLayout, ...lightLayout}, userLightLayout),
+    colors: deepMerge({...lightColorTokens, ...lightCommonColors}, userLightColors),
+  };
+
+  const darkTheme: ConfigTheme = {
+    layout: deepMerge({...baseLayout, ...darkLayout}, userDarkLayout),
+    colors: deepMerge({...darkColorTokens, ...darkCommonColors}, userDarkColors),
+  };
+
+  // Merge with any custom themes
+  return {
+    light: lightTheme,
+    dark: darkTheme,
+    ...(omit(themeData, ["light", "dark"]) as ConfigThemes),
+  };
+}
+
+// ─────────────────────────────────────────────────────────────
+// Tailwind Theme Extension
+// ─────────────────────────────────────────────────────────────
+
+/** Creates the Tailwind theme extension configuration */
+function createThemeExtension(
+  colors: Record<string, string>,
+  prefix: string,
+  disableAnimations: boolean,
+) {
+  return {
+    colors,
+    spacing,
+    borderRadius: {
+      ...borderRadius,
+      small: `var(--${prefix}-radius-small)`,
+      medium: `var(--${prefix}-radius-medium)`,
+      large: `var(--${prefix}-radius-large)`,
+    },
+    fontSize,
+    boxShadow: {
+      ...boxShadow,
+      small: `var(--${prefix}-box-shadow-small)`,
+      medium: `var(--${prefix}-box-shadow-medium)`,
+      large: `var(--${prefix}-box-shadow-large)`,
+    },
+    animation: disableAnimations ? {none: "none"} : animation,
+    keyframes: disableAnimations ? {} : keyframes,
+    transitionDuration,
+    transitionTimingFunction,
+  };
+}
 
 // ─────────────────────────────────────────────────────────────
 // Plugin Export
@@ -242,50 +284,19 @@ const resolveConfig = (themes: ConfigThemes = {}, defaultTheme: string, prefix: 
 
 /** IdeasUI Tailwind CSS plugin - generates CSS variables and utilities */
 export const ideasUIPlugin = (config: ThemeConfig = {}): ReturnType<typeof plugin> => {
-  const {
-    themes: themeObject = {},
-    defaultTheme = "light",
-    layout: userLayout = {},
-    prefix = DEFAULT_PREFIX,
-    disableAnimations = false,
-  } = config;
+  const {defaultTheme = "light", prefix = DEFAULT_PREFIX, disableAnimations = false} = config;
 
-  const userLightColors = themeObject?.light?.colors || {};
-  const userDarkColors = themeObject?.dark?.colors || {};
-
-  const defaultLayoutObj =
-    userLayout && typeof userLayout === "object" ? deepMerge(lightLayout, userLayout) : lightLayout;
-
-  const baseLayouts = {
-    light: {...defaultLayoutObj, ...lightLayout},
-    dark: {...defaultLayoutObj, ...darkLayout},
-  };
-
-  const lightTheme: ConfigTheme = {
-    layout: deepMerge(baseLayouts.light, themeObject?.light?.layout || {}),
-    colors: deepMerge({...lightColorTokens, ...lightCommonColors}, userLightColors as any),
-  };
-
-  const darkTheme: ConfigTheme = {
-    layout: deepMerge(baseLayouts.dark, themeObject?.dark?.layout || {}),
-    colors: deepMerge({...darkColorTokens, ...darkCommonColors}, userDarkColors as any),
-  };
-
-  const finalThemes: ConfigThemes = {
-    light: lightTheme,
-    dark: darkTheme,
-    ...(omit(themeObject, ["light", "dark"]) as ConfigThemes),
-  };
-
-  const resolved = resolveConfig(finalThemes, defaultTheme, prefix);
+  const themes = buildThemes(config);
+  const resolved = resolveConfig(themes, defaultTheme, prefix);
 
   return plugin(
     ({addBase, addUtilities, addVariant}) => {
       addBase(resolved.baseStyles);
       addUtilities({...resolved.utilities});
-      resolved.variants.forEach((variant) => {
+
+      for (const variant of resolved.variants) {
         addVariant(variant.name, variant.definition);
-      });
+      }
 
       if (disableAnimations) {
         addBase({
@@ -299,27 +310,7 @@ export const ideasUIPlugin = (config: ThemeConfig = {}): ReturnType<typeof plugi
     },
     {
       theme: {
-        extend: {
-          colors: resolved.colors,
-          spacing,
-          borderRadius: {
-            ...borderRadius,
-            small: `var(--${prefix}-radius-small)`,
-            medium: `var(--${prefix}-radius-medium)`,
-            large: `var(--${prefix}-radius-large)`,
-          },
-          fontSize,
-          boxShadow: {
-            ...boxShadow,
-            small: `var(--${prefix}-box-shadow-small)`,
-            medium: `var(--${prefix}-box-shadow-medium)`,
-            large: `var(--${prefix}-box-shadow-large)`,
-          },
-          animation: disableAnimations ? {none: "none"} : animation,
-          keyframes: disableAnimations ? {} : keyframes,
-          transitionDuration,
-          transitionTimingFunction,
-        },
+        extend: createThemeExtension(resolved.colors, prefix, disableAnimations),
       },
     },
   );
