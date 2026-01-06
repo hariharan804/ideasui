@@ -6,7 +6,7 @@ A comprehensive guide for publishing IdeasUI packages to npm registry.
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 22+
 - pnpm package manager
 - npm account with 2FA enabled
 - Access to @ideasui organization on npm

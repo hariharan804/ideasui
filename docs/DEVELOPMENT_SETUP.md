@@ -4,8 +4,8 @@
 
 ### Prerequisites
 
-- Node.js 18+
-- pnpm (recommended) or npm
+- Node.js 22+
+- pnpm (recommended)
 - Git
 
 ### Initial Setup

@@ -24,4 +24,5 @@
 html,
 body {
   @apply min-h-screen bg-white text-gray-900;
+  font-family: "Inter", sans-serif;
 }

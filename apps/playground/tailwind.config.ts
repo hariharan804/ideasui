@@ -36,6 +36,9 @@ export default {
             // },
             // white: "#fff",
             // black: "#000",
+            danger: {
+              500: "",
+            },
           },
         },
         summar: {

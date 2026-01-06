@@ -5,5 +5,6 @@ export const focus = {
 } as const;
 
 export const disabled = {
-  default: "disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none",
+  default:
+    "ideasui-disabled disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none",
 } as const;
