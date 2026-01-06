@@ -332,7 +332,7 @@ export default function ColorsPage() {
               <h3 className="mb-4 text-lg font-medium text-neutral-700">
                 Semantic Button Patterns
               </h3>
-              <div className="flex flex-wrap gap-4">
+              <div className="bg-common-500 flex flex-wrap gap-4">
                 <button className="bg-primary text-primary-on hover:bg-primary-active rounded-lg px-4 py-2 font-medium transition-colors">
                   Primary Action
                 </button>
