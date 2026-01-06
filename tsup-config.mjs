@@ -13,8 +13,8 @@ export function createSharedConfig({
     entry: typeof entry === "string" ? [entry] : entry,
     outDir,
     clean: !isWatch,
-    dts: true, // generate dts files
-    banner: {js: '"use client";'},
+    dts: !isWatch, // generate dts files
+    // banner: {js: '"use client";'},
     bundle: true,
     target: "es2020",
     format: ["cjs", "esm"],

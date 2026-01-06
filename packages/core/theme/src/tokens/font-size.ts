@@ -13,3 +13,9 @@ export const fontSize = {
   "8xl": ["6rem", {lineHeight: "1"}], // 96px / 96px
   "9xl": ["8rem", {lineHeight: "1"}], // 128px / 128px
 } as const;
+
+export const fontFamily = {
+  sans: "Inter, sans-serif",
+  serif: "Roboto Slab, serif",
+  mono: "Roboto Mono, monospace",
+} as const;
