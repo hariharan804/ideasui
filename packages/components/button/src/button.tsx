@@ -1,10 +1,7 @@
 "use client";
-import type {SpinnerSize} from "@ideasui/variants/system";
 import type {ElementType, ReactNode, Ref} from "react";
-
 import React, {useImperativeHandle} from "react";
-import {buttonVariants} from "@ideasui/variants/button";
-import {spinnerSizes} from "@ideasui/variants/system";
+import {buttonVariants, spinnerSizes, SpinnerSize} from "@ideasui/themes/recipes";
 import {cn} from "@ideasui/utils";
 
 import {useButton} from "./use-button";

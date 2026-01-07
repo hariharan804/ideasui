@@ -90,7 +90,7 @@ This Code of Conduct also applies when community members are representing the pr
 
 If you experience or witness unacceptable behavior, please report it by:
 
-1. **Direct contact**: Email the maintainers at [conduct@ideasui.dev](mailto:conduct@ideasui.dev)
+1. **Direct contact**: Email the maintainers at [conduct@ideasui.com](mailto:conduct@ideasui.com)
 2. **GitHub**: Use the "Report abuse" feature on GitHub
 3. **Private message**: Contact any maintainer directly
 
@@ -145,7 +145,7 @@ Community leaders will follow these guidelines when determining consequences:
 
 If you believe you have been unfairly penalized:
 
-1. **Submit appeal**: Email [appeals@ideasui.dev](mailto:appeals@ideasui.dev) within 30 days
+1. **Submit appeal**: Email [appeals@ideasui.com](mailto:appeals@ideasui.com) within 30 days
 2. **Include information**: Provide detailed explanation of why you believe the decision was unfair
 3. **Review process**: Appeals will be reviewed by different maintainers than those involved in the original decision
 4. **Final decision**: Appeals decisions are final
@@ -191,9 +191,9 @@ If you're experiencing harassment or discrimination that affects your mental hea
 
 ### Educational Resources
 
-- [Inclusive Language Guidelines](https://www.example.com/inclusive-language)
-- [Unconscious Bias Training](https://www.example.com/bias-training)
-- [Conflict Resolution Techniques](https://www.example.com/conflict-resolution)
+- [React Accessibility Guidelines](https://reactjs.org/docs/accessibility.html)
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- [Inclusive Design Principles](https://inclusivedesignprinciples.org/)
 
 ### Community Support
 

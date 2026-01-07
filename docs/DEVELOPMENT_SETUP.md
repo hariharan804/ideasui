@@ -5,7 +5,7 @@
 ### Prerequisites
 
 - Node.js 22+
-- pnpm (recommended)
+- pnpm 10+ (recommended)
 - Git
 
 ### Initial Setup
@@ -29,10 +29,11 @@ pnpm run storybook
 ## 📁 Project Structure
 
 ```
-lib/
+ideasui/
 ├── packages/
-│   ├── components/          # UI Components (box, button, ripple)
-│   ├── core/               # Core packages (variants, theme-controller)
+│   ├── components/          # UI Components (button, ripple, slot, touchable)
+│   ├── core/               # Core packages (theme)
+│   ├── hooks/              # React hooks
 │   ├── utils/              # Shared utilities
 │   ├── icons/              # Icon library
 │   └── cli/                # CLI tools
@@ -40,8 +41,8 @@ lib/
 │   ├── playground/         # Next.js playground
 │   └── storybook/          # Storybook documentation
 ├── templates/              # Component generation templates
-├── configs/                # Shared configurations
-└── scripts/                # Build and utility scripts
+├── scripts/                # Build and utility scripts
+└── docs/                   # Documentation
 ```
 
 ## 🔧 Key Technologies
@@ -74,6 +75,7 @@ pnpm run test:coverage
 # Run visual tests
 pnpm run test:visual
 pnpm run test:visual:ui
+pnpm run test:cross-browser
 
 # Generate new components
 pnpm run create
@@ -84,7 +86,7 @@ pnpm run lint:fix
 pnpm run format
 
 # Type checking
-pnpm run typecheck
+pnpm run type-check
 ```
 
 ## 🔍 Troubleshooting

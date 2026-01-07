@@ -7,11 +7,12 @@ IdeasUI is a modern, accessible component library built with TypeScript, Tailwin
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd lib
+cd ideasui
 
 # Install dependencies
 pnpm install
 
+# Start Storybook
 pnpm run storybook
 
 # Install Playwright browsers (for visual testing)
@@ -20,7 +21,7 @@ pnpm run playwright:install
 # Start development
 pnpm run dev
 
-# Build
+# Build all packages
 pnpm run build
 ```
 
@@ -46,15 +47,14 @@ function App() {
 ## 📁 Project Structure
 
 ```
-lib/
+ideasui/
 ├── packages/
 │   ├── components/          # UI Components
 │   │   ├── box/            # Flexible container component (@ideasui/box)
 │   │   ├── button/         # Interactive button component (@ideasui/button)
 │   │   └── ripple/         # Material Design ripple effect (@ideasui/ripple)
 │   ├── core/               # Core system packages
-│   │   ├── theme-controller/ # Theme management (@ideasui/theme)
-│   │   └── variants/       # Styling variants system (@ideasui/variants)
+│   │   └── theme/          # Theme system with recipes & tokens (@ideasui/theme)
 │   ├── hooks/              # React hooks (@ideasui/hooks)
 │   ├── utils/              # Shared utilities (@ideasui/utils)
 │   ├── icons/              # Icon library (@ideasui/icons)
@@ -65,36 +65,47 @@ lib/
 ├── templates/              # Component generation templates
 │   ├── component/          # Component template
 │   ├── hooks/              # Hook template
-│   └── variant/            # Variant template
+│   └── recipe/             # Recipe template
 ├── scripts/                # Build and utility scripts
 └── .amazonq/               # Amazon Q development rules
 ```
 
-## 📚 Documentation
+## 🎨 Theme System
 
-- [📋 Setup Checklist](./SETUP_CHECKLIST.md) - Complete setup guide
-- [📁 Project Structure](./docs/PROJECT_STRUCTURE.md) - Repository organization
-- [🛠️ Development Setup](./docs/DEVELOPMENT_SETUP.md) - Local development guide
-- [🎮 Playground Setup](./docs/PLAYGROUND_SETUP.md) - Storybook configuration
-- [📝 Component Guidelines](./docs/COMPONENT_GUIDELINES.md) - Development standards
-- [🏷️ Naming Conventions](./docs/NAMING_CONVENTIONS.md) - Naming rules and cases
-- [🏗️ Build & Deployment](./docs/BUILD_DEPLOYMENT.md) - Release process
-- [🧪 Testing Strategy](./docs/TESTING_STRATEGY.md) - Quality assurance
-- [📖 API Documentation](./docs/API_DOCUMENTATION.md) - Component reference
-- [📦 GitHub Packages Publishing](./docs/GITHUB_PACKAGES_PUBLISHING.md) - Publishing guide
+### Color Tokens
+
+- **OKLCH Color Space**: Perceptually uniform colors
+- **Semantic Colors**: Primary, secondary, success, warning, danger, info, neutral, gray
+- **11 Shades**: 50-950 scale for each color
+- **Dark Mode**: Optimized dark theme variants
+
+### Recipes (Tailwind Variants)
+
+```tsx
+import {button} from "@ideasui/theme/recipes";
+
+const {base, icon, label} = button({variant: "solid", color: "primary"});
+```
+
+### Design Tokens
+
+```tsx
+import {colorTokens, darkColorTokens} from "@ideasui/theme/tokens";
+```
 
 ## 🎯 Features
 
 - ✅ Modern React components with TypeScript
-- ✅ TypeScript support with full type safety
-- ✅ Tailwind CSS with variants system
+- ✅ OKLCH color system for better perceptual uniformity
+- ✅ Tailwind Variants (TV) for styling
+- ✅ Comprehensive theme system with recipes
 - ✅ Storybook playground for development
 - ✅ Comprehensive testing (Jest + Playwright)
 - ✅ Visual regression testing
 - ✅ ESLint + Prettier + Husky git hooks
 - ✅ Automated versioning with changesets
 - ✅ Component generation templates
-- ✅ Accessibility compliant (WCAG 2.1)
+- ✅ Accessibility compliant (WCAG 2.1 AA)
 - ✅ Dark mode support
 - ✅ Tree-shakeable exports
 - ✅ SSR compatible
@@ -122,9 +133,6 @@ pnpm run test:coverage
 pnpm run test:visual
 pnpm run test:visual:ui
 
-# Install Playwright browsers
-pnpm run playwright:install
-
 # Linting and formatting
 pnpm run lint
 pnpm run lint:fix
@@ -140,19 +148,15 @@ pnpm run typecheck
 pnpm run create
 ```
 
-## 📋 Repository Setup Checklist
+## 📚 Documentation
 
-Use the [Setup Checklist](./SETUP_CHECKLIST.md) to ensure your component library is properly configured with all necessary tools and processes.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Follow the [Component Guidelines](./docs/COMPONENT_GUIDELINES.md)
-4. Add tests for new components
-5. Update documentation
-6. Submit a pull request
-
-## 📄 License
-
-MIT License - see [LICENSE](./LICENSE) file for details.
+- [📋 Setup Checklist](./SETUP_CHECKLIST.md) - Complete setup guide
+- [📁 Project Structure](./docs/PROJECT_STRUCTURE.md) - Repository organization
+- [🛠️ Development Setup](./docs/DEVELOPMENT_SETUP.md) - Local development guide
+- [🎮 Playground Setup](./docs/PLAYGROUND_SETUP.md) - Storybook configuration
+- [📝 Component Guidelines](./docs/COMPONENT_GUIDELINES.md) - Development standards
+- [🏷️ Naming Conventions](./docs/NAMING_CONVENTIONS.md) - Naming rules and cases
+- [🏗️ Build & Deployment](./docs/BUILD_DEPLOYMENT.md) - Release process
+- [🧪 Testing Strategy](./docs/TESTING_STRATEGY.md) - Quality assurance
+- [📖 API Documentation](./docs/API_DOCUMENTATION.md) - Component reference
+- [📦 GitHub Packages Publishing](./docs/GITHUB_PACKAGES_PUBLISHING.md) - Publishing guide

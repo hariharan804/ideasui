@@ -60,7 +60,9 @@ Button.displayName = "Button"
  */
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Visual style variant */
-  variant?: "solid" | "outline" | "ghost"
+  variant?: "solid" | "outline" | "ghost" | "link"
+  /** Color variant based on semantic intent */
+  color?: "primary" | "secondary" | "success" | "warning" | "danger" | "info" | "neutral" | "gray"
   /** Size of the button */
   size?: "xs" | "sm" | "md" | "lg" | "xl"
   /** Disable ripple effect */
@@ -70,21 +72,22 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 #### **Styling Standards**
 - [ ] Use `tailwind-variants` for variant management
-- [ ] Import variants from `@ideasui/variants`
-- [ ] Support all color variants (primary, secondary, success, warning, danger)
+- [ ] Import recipes from `@ideasui/theme/recipes`
+- [ ] Support all color variants (primary, secondary, success, warning, danger, info, neutral, gray)
 - [ ] Include size variants (xs, sm, md, lg, xl)
 - [ ] Add radius variants (none, sm, md, lg, xl, full)
 
 ```tsx
-import { buttonVariants } from "@ideasui/variants"
+import { button } from "@ideasui/theme/recipes"
 import { cn } from "@ideasui/utils"
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, ...props }, ref) => {
+    const { base } = button({ variant, size })
     return (
       <button
         ref={ref}
-        className={cn(buttonVariants({ variant, size }), className)}
+        className={cn(base(), className)}
         {...props}
       />
     )
@@ -235,20 +238,22 @@ packages/components/button/
 
 ### Color Variants
 All components must support these color variants:
-- `default` - Default gray color
-- `primary` - Brand primary color
+- `primary` - Brand primary color (default)
 - `secondary` - Secondary accent color
 - `success` - Success/positive actions
 - `warning` - Warning/caution actions
 - `danger` - Destructive/error actions
+- `info` - Informational actions
+- `neutral` - Neutral actions
+- `gray` - Gray color variant
 
 ### Size System
 Standard size variants across all components:
-- `xs` - Extra small (24px height)
-- `sm` - Small (32px height)
+- `xs` - Extra small (32px height)
+- `sm` - Small (36px height)
 - `md` - Medium (40px height) - Default
-- `lg` - Large (48px height)
-- `xl` - Extra large (56px height)
+- `lg` - Large (44px height)
+- `xl` - Extra large (48px height)
 
 ### Radius System
 Consistent border radius options:

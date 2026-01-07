@@ -25,13 +25,13 @@
 
 ```tsx
 ✅ Good:
-const buttonVariants = cva(...)
+const buttonVariants = tv(...)
 const isDisabled = true
 const onClick = () => {}
 const { variant, size, className } = props
 
 ❌ Bad:
-const ButtonVariants = cva(...)
+const ButtonVariants = tv(...)
 const IsDisabled = true
 const OnClick = () => {}
 ```
@@ -97,7 +97,7 @@ const maxFileSize = 1024 * 1024
 ## Package Structure Example
 
 ```
-packages/date-picker/              # kebab-case folder
+packages/components/date-picker/   # kebab-case folder
 ├── package.json                   # "name": "@ideasui/date-picker"
 ├── src/
 │   ├── date-picker.tsx           # kebab-case file
@@ -112,9 +112,11 @@ packages/date-picker/              # kebab-case folder
 
 ```tsx
 // ✅ Correct naming in date-picker.tsx
-import { type VariantProps } from 'class-variance-authority' // PascalCase type
+import { type VariantProps } from 'tailwind-variants' // PascalCase type
+import { tv } from 'tailwind-variants'
+import { cn } from '@ideasui/utils'
 
-const datePickerVariants = cva(...)  // camelCase variable
+const datePickerVariants = tv({...})  // camelCase variable
 
 export interface DatePickerProps     // PascalCase interface
   extends React.HTMLAttributes<HTMLDivElement>,
@@ -135,7 +137,7 @@ export const DatePicker = React.forwardRef< // PascalCase component
 
   return (
     <div
-      className={cn(datePickerVariants({ className }))}
+      className={cn(datePickerVariants(), className)}
       ref={ref}
       {...props}
     />

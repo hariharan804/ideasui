@@ -14,6 +14,7 @@ import typescriptEslint from "@typescript-eslint/eslint-plugin";
 // React ecosystem
 import react from "eslint-plugin-react";
 import jsxA11Y from "eslint-plugin-jsx-a11y";
+import reactRefresh from "eslint-plugin-react-refresh";
 
 // Code quality
 import _import from "eslint-plugin-import";
@@ -23,6 +24,7 @@ import unicorn from "eslint-plugin-unicorn";
 import jsdoc from "eslint-plugin-jsdoc";
 import security from "eslint-plugin-security";
 import promise from "eslint-plugin-promise";
+import boundaries from "eslint-plugin-boundaries";
 
 // Styling & formatting
 import prettier from "eslint-plugin-prettier";
@@ -78,6 +80,7 @@ export default defineConfig([
     plugins: {
       react: fixupPluginRules(react),
       "jsx-a11y": fixupPluginRules(jsxA11Y),
+      "react-refresh": fixupPluginRules(reactRefresh),
       import: fixupPluginRules(_import),
       "unused-imports": unusedImports,
       sonarjs: fixupPluginRules(sonarjs),
@@ -85,6 +88,7 @@ export default defineConfig([
       jsdoc: fixupPluginRules(jsdoc),
       security: fixupPluginRules(security),
       promise: fixupPluginRules(promise),
+      boundaries: fixupPluginRules(boundaries),
       prettier: fixupPluginRules(prettier),
       "@typescript-eslint": fixupPluginRules(typescriptEslint),
       // tailwindcss: fixupPluginRules(tailwindcss),
@@ -109,6 +113,25 @@ export default defineConfig([
       react: {
         version: "detect",
       },
+      "boundaries/elements": [
+        {
+          type: "components",
+          pattern: "packages/components/**",
+        },
+        {
+          type: "hooks",
+          pattern: "packages/hooks/**",
+        },
+        {
+          type: "utils",
+          pattern: "packages/utils/**",
+        },
+        {
+          type: "theme",
+          pattern: "packages/core/theme/**",
+        },
+      ],
+      "boundaries/ignore": ["**/*.test.*", "**/*.spec.*", "**/*.stories.*"],
       // tailwindcss: {
       //   callees: ["classnames", "clsx", "cn", "ctl"],
       //   config: "tailwind.config.js",
@@ -220,6 +243,38 @@ export default defineConfig([
       "jsx-a11y/click-events-have-key-events": "warn",
       "jsx-a11y/interactive-supports-focus": "warn",
       "jsx-a11y/no-static-element-interactions": "warn",
+
+      // React Refresh
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true },
+      ],
+
+      // Boundaries
+      "boundaries/element-types": [
+        "error",
+        {
+          default: "disallow",
+          rules: [
+            {
+              from: "components",
+              allow: ["hooks", "utils", "theme"],
+            },
+            {
+              from: "hooks",
+              allow: ["utils"],
+            },
+            {
+              from: "utils",
+              allow: [],
+            },
+            {
+              from: "theme",
+              allow: ["utils"],
+            },
+          ],
+        },
+      ],
 
       // Import management
       "unused-imports/no-unused-vars": "off",

@@ -1,1 +1,10 @@
 responsive design
+
+// Breakpoint-based props
+<Button size={{ base: 'sm', md: 'md', lg: 'lg' }} />
+<Grid cols={{ base: 1, md: 2, lg: 3 }} />
+<Text size={{ base: 'sm', md: 'md', lg: 'lg' }} />
+<Heading level={{ base: 3, md: 2, lg: 1 }} />
+
+const { isMobile, isTablet, isDesktop } = useBreakpoint()
+const screenSize = useMediaQuery('(min-width: 768px)')

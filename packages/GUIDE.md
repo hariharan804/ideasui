@@ -1,6 +1,6 @@
 # IdeasUI Monorepo — `/packages` Developer Guide
 
-This guide explains **what belongs where**, **how to add new code**, and **how to work locally** inside the `lib/packages` workspace. Share this doc with any new contributor.
+This guide explains **what belongs where**, **how to add new code**, and **how to work locally** inside the `lib-v2/packages` workspace. Share this doc with any new contributor.
 
 ---
 
@@ -8,32 +8,24 @@ This guide explains **what belongs where**, **how to add new code**, and **how t
 
 ```
 packages/
-├─ react/                # Aggregator entrypoint: re-exports public API (@ideasui/react)
 ├─ components/           # One package per fully‑styled UI component
 │  ├─ box/               # @ideasui/box
-│  └─ button/            # @ideasui/button
-├─ primitives/           # Headless, accessible building blocks
-│  └─ toggle/            # @ideasui/toggle-primitive
+│  ├─ button/            # @ideasui/button
+│  └─ ripple/            # @ideasui/ripple
 ├─ core/
-│  ├─ provider/          # Theme/dir/config provider (@ideasui/provider)
-│  └─ system/            # Low-level styling system (@ideasui/system)
+│  └─ theme/             # Theme system with recipes & tokens (@ideasui/theme)
 ├─ hooks/                # Cross-cutting React hooks (@ideasui/hooks)
 ├─ utils/                # Public utilities (@ideasui/utils)
-│  └─ shared/            # Internal-only helpers (not published)
 ├─ icons/                # Icon set as React components (@ideasui/icons)
-├─ tokens/               # Design tokens (colors, spacing, radii) (@ideasui/tokens)
-├─ themes/
-│  ├─ base/              # Base theme definitions (not always published)
-│  └─ controller/        # Theme switching logic (@ideasui/theme)
 └─ cli/                  # DX tooling/CLIs (@ideasui/cli)
 ```
 
 > **Rule of thumb**
 >
 > - **`components/*`** → styled, themable, end‑user components.
-> - **`primitives/*`** → headless, accessible logic only (no brand styles).
-> - **`core/*`** → engines and global providers.
-> - **`react/`** → single import surface for apps: `import { Button } from "@ideasui/react"`.
+> - **`core/theme`** → OKLCH color system, recipes, and design tokens.
+> - **`hooks/*`** → reusable React hooks with comprehensive JSDoc.
+> - **`utils/*`** → utility functions and helpers.
 
 ---
 
@@ -57,9 +49,9 @@ packages/
   "sideEffects": false,
   "files": ["dist"],
   "scripts": {
-    "build": "tsup src/index.ts --dts --format cjs,esm",
-    "dev": "tsup src/index.ts --watch",
-    "test": "vitest run",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "jest",
     "lint": "eslint ."
   },
   "peerDependencies": {
@@ -73,11 +65,10 @@ packages/
 
 ## 3) Dependency rules (keep layers clean)
 
-- `components/*` may depend on: `@ideasui/system`, `@ideasui/provider`, `@ideasui/tokens`, `@ideasui/hooks`, `@ideasui/utils`, `@ideasui/icons`.
-- `primitives/*` may depend on: `@ideasui/hooks`, `@ideasui/utils` (no `system` styles).
-- `react/` depends on: all publishable leaf packages (re-exports only).
-- `utils/shared` is **internal-only**; never list it as a dependency—import via relative path within the monorepo.
-- **No circular deps.** If needed, extract shared bits into `@ideasui/utils` or `@ideasui/system`.
+- `components/*` may depend on: `@ideasui/theme`, `@ideasui/utils`, `@ideasui/hooks`, `@ideasui/icons`, `@ideasui/ripple`.
+- `core/theme` provides: recipes (tailwind-variants), color tokens (OKLCH), design system constants.
+- `hooks/*` may depend on: `@ideasui/utils` only.
+- **No circular deps.** If needed, extract shared bits into `@ideasui/utils`.
 
 ---
 
@@ -117,38 +108,33 @@ packages/components/button/
 ```ts
 // src/Button.tsx
 import * as React from 'react'
-import { cx, cva } from '@ideasui/system'
-import { useMergedRefs } from '@ideasui/hooks'
+import { button } from '@ideasui/theme/recipes'
+import type { VariantProps } from 'tailwind-variants'
+import { cn } from '@ideasui/utils'
 
-const buttonStyles = cva('iui-btn', {
-  variants: {
-    variant: {
-      solid: 'iui-btn--solid',
-      outline: 'iui-btn--outline',
-      ghost: 'iui-btn--ghost'
-    },
-    size: {
-      sm: 'iui-btn--sm',
-      md: 'iui-btn--md',
-      lg: 'iui-btn--lg'
-    }
-  },
-  defaultVariants: { variant: 'solid', size: 'md' }
-})
-
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'solid' | 'outline' | 'ghost'
-  size?: 'sm' | 'md' | 'lg'
+export interface ButtonProps 
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, 
+  VariantProps<typeof button> {
+  children?: React.ReactNode;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({ className, children, ...props }, ref) => {
+    const { base } = button(props);
+
     return (
-      <button ref={ref} className={cx(buttonStyles({ variant, size }), className)} {...props} />
-    )
+      <button
+        ref={ref}
+        className={cn(base(), className)}
+        {...props}
+      >
+        {children}
+      </button>
+    );
   }
-)
-Button.displayName = 'Button'
+);
+
+Button.displayName = 'Button';
 ```
 
 ```ts

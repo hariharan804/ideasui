@@ -16,7 +16,7 @@ A comprehensive guide for publishing IdeasUI packages to npm registry.
 ```bash
 # 1. Clone the repository
 git clone https://github.com/ideas2logic-lab/ideasui.git
-cd lib
+cd ideasui
 
 # 2. Install dependencies
 pnpm install
