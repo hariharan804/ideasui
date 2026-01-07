@@ -3,7 +3,7 @@
 // import { Geist, Geist_Mono } from 'next/font/google'
 import "./globals.css";
 import React from "react";
-import {ThemeController, ThemeScript} from "@ideasui/theme";
+import {ThemeProvider, ThemeScript} from "@ideasui/theme";
 // import {ideasUIPlugin} from "@ideasui/theme";
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
@@ -34,7 +34,7 @@ export default function RootLayout({
         <ThemeScript defaultTheme="light" />
       </head>
       <body className="antialiased">
-        <ThemeController defaultTheme="light" />
+        <ThemeProvider defaultTheme="light" />
         {children}
       </body>
     </html>

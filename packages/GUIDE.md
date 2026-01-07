@@ -112,8 +112,8 @@ import { button } from '@ideasui/theme/recipes'
 import type { VariantProps } from 'tailwind-variants'
 import { cn } from '@ideasui/utils'
 
-export interface ButtonProps 
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>, 
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
   VariantProps<typeof button> {
   children?: React.ReactNode;
 }
@@ -249,10 +249,10 @@ export function cx(...parts: Array<string | undefined | false>) {
 ```tsx
 // src/IdeasUIProvider.tsx
 import * as React from "react";
-import {ThemeController} from "@ideasui/theme";
+import {ThemeProvider} from "@ideasui/theme";
 
 export function IdeasUIProvider({children}: {children: React.ReactNode}) {
-  return <ThemeController>{children}</ThemeController>;
+  return <ThemeProvider>{children}</ThemeProvider>;
 }
 
 export * from "./IdeasUIProvider";

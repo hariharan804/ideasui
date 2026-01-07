@@ -3,19 +3,6 @@ import {tv} from "tailwind-variants";
 import {colorVariants} from "../tokens/variants";
 import {borderRadius} from "../tokens";
 
-/**
- * Button **Tailwind Variants** component
- *
- * @example
- * ```js
- * const {base, icon, label} = button({...})
- *
- * <button className={base()}>
- *    <span className={icon()}>Icon</span>
- *    <span className={label()}>Label</span>
- * </button>
- * ```
- */
 const button = tv({
   slots: {
     base: [
