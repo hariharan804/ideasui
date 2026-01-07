@@ -4,6 +4,22 @@
   "version": "0.1.0",
   "type": "monorepo",
   "framework": "react",
+  "commonFeatures": {
+    "accessibility": "WCAG 2.1 AA compliant",
+    "theming": "Light/Dark mode with OKLCH colors",
+    "typescript": "Full TypeScript support",
+    "treeshaking": "Tree-shakeable exports",
+    "ssr": "Server-side rendering compatible",
+    "testing": "Jest + Playwright + jest-axe"
+  },
+  "whyShouldUseThis": {
+    "modernColorSystem": "OKLCH provides perceptually uniform colors across light/dark themes",
+    "accessibility": "Built-in WCAG 2.1 AA compliance with keyboard navigation and screen reader support",
+    "developerExperience": "TypeScript-first with comprehensive JSDoc, recipes for consistent styling",
+    "performance": "Tree-shakeable, SSR-compatible, minimal bundle size",
+    "flexibility": "Tailwind Variants for easy customization without fighting the framework",
+    "materialDesign": "Ripple effects and modern UI patterns out of the box"
+  },
   "structure": {
     "packages": {
       "components": {
@@ -54,7 +70,7 @@
       "playground": {
         "type": "nextjs-app",
         "framework": "next.js",
-        "version": "14+",
+        "version": "15+",
         "appDirectory": true,
         "purpose": "component-testing",
         "features": ["hot-reload", "component-demos", "interactive-examples"]
@@ -82,6 +98,17 @@
         "type": "plop-template",
         "purpose": "recipe-generation",
         "includes": ["tailwind-variants"]
+      },
+      "rules": {
+        "type": "development-guidelines",
+        "purpose": "code-standards",
+        "includes": [
+          "naming-conventions",
+          "component-development",
+          "accessibility",
+          "code-quality",
+          "package-structure"
+        ]
       }
     }
   },
@@ -121,14 +148,14 @@
     },
     "styling": {
       "tailwindcss": ">=4",
-      "tailwind-variants": ">=0.1.0",
+      "tailwind-variants": ">=3.0.0",
       "clsx": "^2.0.0",
       "chroma-js": "^2.4.0"
     },
     "build": {
       "typescript": "^5.0.0",
       "tsup": "^7.0.0",
-      "turbo": "^1.10.0"
+      "turbo": "^2.0.0"
     },
     "testing": {
       "jest": "^29.0.0",
@@ -149,7 +176,15 @@
     "generate:colors": "cd packages/core/theme && node src/system/generator/generate-theme.mjs"
   },
   "workspace": {
-    "packages": ["packages/*", "apps/*"],
+    "packages": [
+      "packages/components/*",
+      "packages/core/*",
+      "packages/hooks",
+      "packages/utils",
+      "packages/icons",
+      "packages/cli",
+      "apps/*"
+    ],
     "packageManager": "pnpm"
   },
   "features": {
@@ -202,12 +237,12 @@
   "deployment": {
     "playground": {
       "platform": "vercel",
-      "domain": "playground.ideasui.come",
+      "domain": "playground.ideasui.com",
       "environment": "production"
     },
     "storybook": {
       "platform": "vercel",
-      "domain": "storybook.ideasui.come",
+      "domain": "storybook.ideasui.com",
       "environment": "production"
     },
     "npm": {

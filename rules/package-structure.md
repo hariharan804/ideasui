@@ -7,15 +7,16 @@
 ```
 packages/
 ├── components/          # Styled UI components (@ideasui/button)
-├── primitives/          # Headless components (@ideasui/toggle-primitive)
+│   ├── button/
+│   ├── ripple/
+│   ├── slot/
+│   └── touchable/
 ├── core/               # Core system packages
-│   ├── provider/       # Global provider (@ideasui/provider)
-│   └── variants/       # Styling system (@ideasui/variants)
-├── hooks/              # React hooks (@ideasui/hooks)
-├── utils/              # Utilities (@ideasui/utils)
-├── icons/              # Icon library (@ideasui/icons)
-├── themes/             # Theme system
-└── cli/                # CLI tools (@ideasui/cli)
+│   └── theme/          # @ideasui/theme - Design system & tokens
+├── hooks/              # @ideasui/hooks - React hooks
+├── utils/              # @ideasui/utils - Utilities
+├── icons/              # @ideasui/icons - Icon library
+└── cli/                # @ideasui/cli - CLI tools
 ```
 
 ## 🏗️ Component Package Structure

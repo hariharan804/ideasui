@@ -12,7 +12,7 @@
 ### Styling Standards
 
 - Use `tailwind-variants` for variant systems
-- Import from `@ideasui/variants` for consistency
+- Import from `@ideasui/theme` for consistency
 - Support all color variants: primary, secondary, success, warning, danger
 - Include size variants: xs, sm, md, lg, xl
 - Implement radius variants: none, sm, md, lg, xl, full

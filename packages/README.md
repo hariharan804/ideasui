@@ -1,234 +1,219 @@
-# IdeasUI Packages Structure Guide
+# IdeasUI Packages — Developer Guide
 
-This document explains the organization and usage of packages in the IdeasUI component library.
+This document explains the organization, structure, and best practices for the IdeasUI monorepo packages.
+
+---
 
 ## 📁 Structure Overview
 
 ```
 packages/
-├── components/          # UI Components
+├── components/          # Styled UI components
+│   ├── button/          # @ideasui/button
+│   ├── ripple/          # @ideasui/ripple
+│   ├── slot/            # @ideasui/slot
+│   └── touchable/       # @ideasui/touchable
 ├── core/
-│   └── theme/          # Theme system with OKLCH colors & recipes
-├── utils/              # Shared utilities
-├── hooks/              # React hooks
-├── icons/              # Icon library
-└── cli/                # CLI tools
+│   └── theme/           # @ideasui/theme - OKLCH colors, recipes, tokens
+├── hooks/               # @ideasui/hooks - React hooks
+├── utils/               # @ideasui/utils - Utility functions
+├── icons/               # @ideasui/icons - Icon components
+└── cli/                 # @ideasui/cli - CLI tools
 ```
+
+---
 
 ## 📦 Package Types
 
 ### 1. Components (`/components`)
 
-**Purpose**: Complete UI components with styling and behavior
-**Code Type**: React components with Tailwind CSS
+Complete UI components with styling and behavior.
 
 ```tsx
-// Example: Button component
-export const Button = ({children, variant = "primary"}) => {
-  return <button className={buttonVariants({variant})}>{children}</button>;
-};
-```
+import {button} from "@ideasui/theme/recipes";
 
-**When to use**: Building complete UI elements that users interact with
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({className, variant, color, children, ...props}, ref) => {
+    const {base} = button({variant, color});
+    return (
+      <button ref={ref} className={cn(base(), className)} {...props}>
+        {children}
+      </button>
+    );
+  },
+);
+```
 
 ### 2. Core Theme (`/core/theme`)
 
-**Purpose**: OKLCH color system, tailwind-variants recipes, design tokens
-**Code Type**: Color generation, theme recipes, design system constants
+OKLCH color system, tailwind-variants recipes, design tokens.
 
 ```tsx
-// Example: Theme recipe
-import { tv } from 'tailwind-variants'
+import {tv} from "tailwind-variants";
 
 export const button = tv({
-  base: 'inline-flex items-center justify-center',
+  base: "inline-flex items-center justify-center",
   variants: {
     variant: {
-      solid: 'bg-primary-500 text-white',
-      outline: 'border-2 border-primary-500 text-primary-500'
-    }
-  }
-})
+      solid: "bg-primary-500 text-white",
+      outline: "border-2 border-primary-500",
+    },
+  },
+});
 ```
 
-**When to use**: Defining component variants, color tokens, design system values
-
-### 3. Utils (`/utils`)
-
-**Purpose**: Pure utility functions, helpers, shared logic
-**Code Type**: TypeScript utilities, no React dependencies
-
-```ts
-// Example: Utility functions
-export const cn = (...classes: string[]) => {
-  return clsx(classes);
-};
-
-export const formatDate = (date: Date) => {
-  return date.toLocaleDateString();
-};
-```
-
-**When to use**: Shared logic that doesn't require React, pure functions
-
-### 4. Hooks (`/hooks`)
-
-**Purpose**: Custom React hooks with comprehensive JSDoc documentation
-**Code Type**: React hooks using useState, useEffect, etc.
+**Theme Provider Usage:**
 
 ```tsx
-/**
- * Custom hook for managing localStorage state with automatic serialization
- * 
- * @param key - The localStorage key to store the value under
- * @param defaultValue - Initial value to use if the key doesn't exist
- * @returns Tuple containing [current value, setValue function, removeValue function]
- * 
- * @example
- * ```tsx
- * const [theme, setTheme, removeTheme] = useLocalStorage('theme', 'light')
- * ```
- */
+import {ThemeProvider, ThemeScript} from "@ideasui/theme";
+
+<html>
+  <head>
+    <ThemeScript defaultTheme="light" />
+  </head>
+  <body>
+    <ThemeProvider defaultTheme="light" />
+    {children}
+  </body>
+</html>;
+```
+
+### 3. Hooks (`/hooks`)
+
+Custom React hooks with JSDoc documentation.
+
+```tsx
 export const useLocalStorage = <T>(key: string, defaultValue: T) => {
   // Implementation...
 };
 ```
 
-**When to use**: Reusable stateful logic, API calls, browser APIs
+### 4. Utils (`/utils`)
+
+Pure utility functions, no React dependencies.
+
+```ts
+export const cn = (...classes: string[]) => clsx(classes);
+```
 
 ### 5. Icons (`/icons`)
 
-**Purpose**: SVG icons as React components
-**Code Type**: React components returning SVG elements
-
-```tsx
-// Example: Icon component
-export const ChevronDown = ({size = 24, ...props}) => {
-  return (
-    <svg width={size} height={size} {...props}>
-      <path d="M6 9l6 6 6-6" />
-    </svg>
-  );
-};
-```
-
-**When to use**: Consistent iconography across the library
+SVG icons as React components.
 
 ### 6. CLI (`/cli`)
 
-**Purpose**: Command-line tools for development workflow
-**Code Type**: Node.js scripts, CLI commands
+Command-line tools for development workflow.
 
-```js
-// Example: Component generator
-#!/usr/bin/env node
-const { generateComponent } = require('./generators')
+---
 
-program
-  .command('create <name>')
-  .description('Create a new component')
-  .action((name) => {
-    generateComponent(name)
-  })
-```
-
-**When to use**: Automating component creation, build processes
-
-## 🔄 Package Dependencies
+## 🔄 Dependency Rules
 
 ```
-components → core/theme + hooks + utils + icons
+components → core/theme + hooks + utils
 core/theme → utils
-hooks → utils
-icons → utils
-utils → (no dependencies)
-cli → core/theme + utils
+hooks      → utils
+utils      → (no dependencies)
 ```
 
-## 📋 Package.json Structure
+**Rules:**
 
-Each package should follow this structure:
+- No circular dependencies
+- Components cannot depend on other components directly
+- Core packages cannot depend on components
+
+---
+
+## 📋 Package.json Template
 
 ```json
 {
-  "name": "@ideasui/package-name",
-  "version": "0.0.0",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "name": "@ideasui/button",
+  "version": "0.1.0",
+  "main": "./src/index.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
     }
   },
-  "scripts": {
-    "build": "tsup",
-    "test": "jest"
+  "files": ["dist"],
+  "sideEffects": false,
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
   }
 }
 ```
 
+---
+
+## 🏗️ Component Package Structure
+
+```
+packages/components/button/
+├── src/
+│   ├── button.tsx           # Main component
+│   ├── use-button.ts        # Hook (optional)
+│   ├── index.ts             # Exports
+│   └── __tests__/
+│       └── button.test.tsx
+├── stories/
+│   └── button.stories.tsx
+├── package.json
+├── README.md
+└── tsconfig.json
+```
+
+### Export Pattern
+
+```ts
+// src/index.ts
+export {Button} from "./button";
+export type {ButtonProps} from "./button";
+```
+
+---
+
 ## 🎯 Best Practices
 
-### Components
+| Package    | Guidelines                                                       |
+| ---------- | ---------------------------------------------------------------- |
+| Components | Use `forwardRef`, include tests, add Storybook stories           |
+| Hooks      | Start with `use` prefix, handle cleanup, return consistent types |
+| Utils      | Keep pure (no side effects), add comprehensive types             |
+| Theme      | Use OKLCH colors, consistent token naming                        |
 
-- Include TypeScript interfaces
-- Add Storybook stories
-- Write unit tests
-- Document props with JSDoc
+---
 
-### Hooks
+## 🚀 Development Commands
 
-- Start with `use` prefix
-- Return arrays or objects consistently
-- Handle cleanup in useEffect
+```bash
+pnpm dev          # Watch mode
+pnpm build        # Build all packages
+pnpm test         # Run tests
+pnpm lint         # Lint code
+pnpm create       # Generate new component (plop)
+```
 
-### Utils
-
-- Keep functions pure (no side effects)
-- Add comprehensive TypeScript types
-- Include JSDoc documentation
-
-### Tokens
-
-- Use consistent naming conventions
-- Export both individual tokens and grouped objects
-- Include TypeScript types for IntelliSense
+---
 
 ## 📖 Usage Examples
 
-### Installing Packages
-
-```bash
-# Install specific component
-npm install @ideasui/button
-
-# Install multiple packages
-npm install @ideasui/button @ideasui/input @ideasui/themes
-```
-
-### Using in Applications
-
 ```tsx
-// Import components
 import {Button} from "@ideasui/button";
 import {useLocalStorage} from "@ideasui/hooks";
 import {cn} from "@ideasui/utils";
 import {button} from "@ideasui/theme/recipes";
 
-// Use in component
 function App() {
   const [theme] = useLocalStorage("theme", "light");
-  const {base} = button({variant: "solid", color: "primary"});
 
   return (
     <div className={cn("app", theme)}>
-      <Button variant="solid" color="primary">Click me</Button>
+      <Button variant="solid" color="primary">
+        Click me
+      </Button>
     </div>
   );
 }
 ```
-
-This structure ensures scalability, maintainability, and follows industry standards for component libraries.

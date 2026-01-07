@@ -1,4 +1,4 @@
-# Naming Conventions Guide
+# Naming Conventions Rules
 
 ## Case Types & Usage
 
@@ -53,21 +53,6 @@ interface buttonProps {}
 type variantType = 'default' | 'outline'
 ```
 
-### 🐍 **snake_case** (lowercase with underscores)
-
-**When to use:** Database fields, environment variables, constants
-
-```
-✅ Good:
-NEXT_PUBLIC_API_URL=...
-const MAX_RETRY_COUNT = 3
-database_field_name
-
-❌ Bad:
-nextPublicApiUrl=...
-const maxRetryCount = 3
-```
-
 ### 📢 **SCREAMING_SNAKE_CASE** (uppercase with underscores)
 
 **When to use:** Constants, environment variables
@@ -94,6 +79,14 @@ const maxFileSize = 1024 * 1024
 | Types      | kebab-case | `button-types.ts`, `api-types.ts`    |
 | Configs    | kebab-case | `rollup.config.js`, `jest.config.js` |
 
+## Package Naming Rules
+
+### Scoped Packages:
+
+- Components: `@ideasui/button`, `@ideasui/input-field`
+- Utilities: `@ideasui/utils`, `@ideasui/hooks`
+- Core: `@ideasui/theme`
+
 ## Package Structure Example
 
 ```
@@ -105,46 +98,7 @@ packages/components/date-picker/   # kebab-case folder
 │   ├── __tests__/
 │   │   └── date-picker.test.tsx  # kebab-case test
 │   └── index.ts
-└── tsup.config.js              # kebab-case config
-```
-
-## Code Example
-
-```tsx
-// ✅ Correct naming in date-picker.tsx
-import { type VariantProps } from 'tailwind-variants' // PascalCase type
-import { tv } from 'tailwind-variants'
-import { cn } from '@ideasui/utils'
-
-const datePickerVariants = tv({...})  // camelCase variable
-
-export interface DatePickerProps     // PascalCase interface
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof datePickerVariants> {
-  selectedDate?: Date                // camelCase prop
-  onDateChange?: (date: Date) => void // camelCase prop
-}
-
-export const DatePicker = React.forwardRef< // PascalCase component
-  HTMLDivElement,
-  DatePickerProps
->(({ selectedDate, onDateChange, className, ...props }, ref) => {
-  const [isOpen, setIsOpen] = useState(false) // camelCase state
-
-  const handleDateSelect = (date: Date) => { // camelCase function
-    onDateChange?.(date)
-  }
-
-  return (
-    <div
-      className={cn(datePickerVariants(), className)}
-      ref={ref}
-      {...props}
-    />
-  )
-})
-
-DatePicker.displayName = 'DatePicker' // PascalCase
+└── tsup.config.js                # kebab-case config
 ```
 
 ## Quick Reference
@@ -160,3 +114,18 @@ DatePicker.displayName = 'DatePicker' // PascalCase
 | Interface name | PascalCase           | `InputFieldProps`       |
 | Type name      | PascalCase           | `VariantType`           |
 | Constant       | SCREAMING_SNAKE_CASE | `MAX_LENGTH`            |
+
+## Naming Anti-patterns
+
+### Avoid:
+
+- Mixed cases: `ButtonComponent`, `inputField`
+- Abbreviations: `btn`, `inp`, `sel`
+- Generic names: `Component`, `Element`, `Item`
+- Redundant suffixes: `ButtonButton`, `InputInput`
+
+### Use Instead:
+
+- Descriptive names: `SubmitButton`, `EmailInput`
+- Full words: `button`, `input`, `select`
+- Specific names: `PrimaryButton`, `SearchInput`

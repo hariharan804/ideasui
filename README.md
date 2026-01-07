@@ -66,8 +66,8 @@ ideasui/
 │   ├── component/          # Component template
 │   ├── hooks/              # Hook template
 │   └── recipe/             # Recipe template
-├── scripts/                # Build and utility scripts
-└── .amazonq/               # Amazon Q development rules
+└── scripts/                # Build and utility scripts
+
 ```
 
 ## 🎨 Theme System
@@ -150,13 +150,8 @@ pnpm run create
 
 ## 📚 Documentation
 
-- [📋 Setup Checklist](./SETUP_CHECKLIST.md) - Complete setup guide
-- [📁 Project Structure](./docs/PROJECT_STRUCTURE.md) - Repository organization
 - [🛠️ Development Setup](./docs/DEVELOPMENT_SETUP.md) - Local development guide
-- [🎮 Playground Setup](./docs/PLAYGROUND_SETUP.md) - Storybook configuration
-- [📝 Component Guidelines](./docs/COMPONENT_GUIDELINES.md) - Development standards
-- [🏷️ Naming Conventions](./docs/NAMING_CONVENTIONS.md) - Naming rules and cases
-- [🏗️ Build & Deployment](./docs/BUILD_DEPLOYMENT.md) - Release process
-- [🧪 Testing Strategy](./docs/TESTING_STRATEGY.md) - Quality assurance
-- [📖 API Documentation](./docs/API_DOCUMENTATION.md) - Component reference
-- [📦 GitHub Packages Publishing](./docs/GITHUB_PACKAGES_PUBLISHING.md) - Publishing guide
+- [📝 Component Standards](./docs/COMPONENT_STANDARDS.md) - Development standards
+- [🧪 Testing Guide](./docs/TESTING_GUIDE.md) - Quality assurance
+- [📦 Packages Guide](./packages/README.md) - Package development guide
+- [📏 Development Rules](./rules/README.md) - Naming conventions, code quality, accessibility
