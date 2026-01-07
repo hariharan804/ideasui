@@ -1,9 +1,0 @@
-src/
-__tests__/
-stories/
-*.test.*
-*.spec.*
-tsconfig.json
-tsup.config.ts
-.eslintrc.*
-jest.config.*

@@ -1,6 +1,33 @@
-# Hooks Package
+# @ideasui/hooks
 
-Custom React hooks for state management, side effects, and reusable logic.
+Custom React hooks for state management, side effects, and reusable logic with comprehensive JSDoc documentation.
+
+## 📦 Installation
+
+```bash
+npm install @ideasui/hooks
+# or
+pnpm add @ideasui/hooks
+# or
+yarn add @ideasui/hooks
+```
+
+## 🚀 Usage
+
+```tsx
+import { useLocalStorage, useDisclosure, useDebounce } from '@ideasui/hooks'
+
+// Use in your components
+function MyComponent() {
+  const [theme, setTheme] = useLocalStorage('theme', 'light')
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const debouncedValue = useDebounce(searchTerm, 300)
+  
+  return (
+    // Your component JSX
+  )
+}
+```
 
 ## 📋 Hook Categories
 
@@ -18,12 +45,19 @@ Custom React hooks for state management, side effects, and reusable logic.
 - `useClickOutside` - Detect clicks outside element
 - `useHover` - Track hover state
 
-### 3. Data Fetching Hooks
+### 4. Performance Hooks
 
-- `useFetch` - Simple data fetching
-- `useAsync` - Async operation state
 - `useDebounce` - Debounce values
 - `useThrottle` - Throttle function calls
+- `usePrevious` - Get previous value
+- `useMount` - Run effect on mount only
+
+### 5. Utility Hooks
+
+- `useInterval` - Declarative setInterval
+- `useTimeout` - Declarative setTimeout
+- `useNow` - Current timestamp with updates
+- `useStopwatch` - Stopwatch functionality
 
 ## 🎯 Hook Template
 
@@ -31,16 +65,32 @@ Custom React hooks for state management, side effects, and reusable logic.
 import {useState, useEffect, useCallback} from "react";
 
 /**
- * Custom hook description
+ * Custom hook for managing localStorage state with automatic serialization and SSR support
  *
- * @param param1 - Parameter description
- * @param param2 - Parameter description
- * @returns Hook return value description
+ * @param key - The localStorage key to store the value under
+ * @param initialValue - Initial value to use if the key doesn't exist in localStorage
+ * @returns Tuple containing [current value, setValue function, removeValue function]
+ *
+ * @default initialValue - Used when localStorage is not available or key doesn't exist
  *
  * @example
  * ```tsx
- * const { value, setValue } = useCustomHook('initial')
+ * // Basic usage for theme preference
+ * const [theme, setTheme, removeTheme] = useLocalStorage('theme', 'light')
+ *
+ * // Usage with objects
+ * const [user, setUser] = useLocalStorage('user', { name: '', email: '' })
+ *
+ * // Remove from localStorage
+ * removeTheme() // Resets to initialValue
  * ```
+ *
+ * @usage Ideal for persisting user preferences, form data, or any state that should survive page refreshes
+ *
+ * @see {@link https://react.dev/reference/react/useState} for useState reference
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage} for localStorage reference
+ *
+ * @since 1.0.0
  */
 export function useCustomHook<T>(initialValue: T, options?: HookOptions): HookReturn<T> {
   const [state, setState] = useState<T>(initialValue);
@@ -232,6 +282,19 @@ const {data, loading, error} = useFetch<User[]>("/api/users");
 ```
 
 ## 🧪 Testing Hooks
+
+### Test Setup
+
+```bash
+# Run tests
+pnpm test
+
+# Run tests in watch mode
+pnpm test:watch
+
+# Run tests with coverage
+pnpm test:coverage
+```
 
 ### Test Template
 

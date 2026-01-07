@@ -1,7 +1,7 @@
 module.exports = function (plop) {
-  // Full component generator (component + variant)
+  // Full component generator (component + recipe)
   plop.setGenerator("component", {
-    description: "Create complete component (component + variant)",
+    description: "Create complete component (component + recipe)",
     prompts: [
       {
         type: "input",
@@ -19,33 +19,26 @@ module.exports = function (plop) {
         templateFiles: "templates/component/**/*",
         skipIfExists: true,
       },
-      // Add variant to variants package
+      // Add recipe to theme package
       {
         type: "add",
-        path: "packages/core/variants/src/{{name}}.ts",
-        templateFile: "templates/variant/variant.ts",
+        path: "packages/core/theme/src/recipes/{{name}}.ts",
+        templateFile: "templates/recipe/{{name}}.ts",
         skipIfExists: true,
       },
       {
         type: "modify",
-        path: "packages/core/variants/src/index.ts",
-        pattern: /(### export variant here ###)/gi,
+        path: "packages/core/theme/src/recipes/index.ts",
+        pattern: /(### export recipe here ###)/gi,
         template: "$1\nexport * from './{{name}}'",
       },
       // Create playground page
-      // Add import to playground.tsx
       {
         type: "add",
         path: "apps/playground/app/(layout)/playground/{{name}}/page.tsx",
         templateFile: "templates/playground/page.tsx",
         skipIfExists: true,
       },
-      // {
-      //   type: 'modify',
-      //   path: 'apps/playground/components/playground.tsx',
-      //   pattern: /(### IMPORT COMPONENT HERE ###)/gi,
-      //   template: "$1\nimport {{pascalCase name}}Preview from './{{name}}'",
-      // },
       // Add to component list
       {
         type: "modify",
@@ -100,9 +93,9 @@ module.exports = function (plop) {
     ],
   });
 
-  // Variant only generator
-  plop.setGenerator("variant-only", {
-    description: "Add component variant to @ideasui/variants only",
+  // Recipe only generator
+  plop.setGenerator("recipe-only", {
+    description: "Add component recipe to @ideasui/theme only",
     prompts: [
       {
         type: "input",
@@ -114,8 +107,8 @@ module.exports = function (plop) {
     actions: [
       {
         type: "add",
-        path: "packages/core/variants/src/{{name}}.ts",
-        templateFile: "templates/variant/variant.ts",
+        path: "packages/core/theme/src/recipes/{{name}}.ts",
+        templateFile: "templates/recipe/{{name}}.ts",
         skipIfExists: true,
       },
     ],
