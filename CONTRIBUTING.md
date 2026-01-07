@@ -112,7 +112,7 @@ We follow the [Conventional Commits](https://conventionalcommits.org/) specifica
 Use the component or package name as the scope:
 
 - `button`, `box`, `ripple` (for components)
-- `utils`, `variants`, `icons` (for packages)
+- `theme`, `utils`, `hooks`, `icons` (for packages)
 - `storybook`, `playground` (for apps)
 - `docs`, `ci`, `build` (for infrastructure)
 
@@ -157,7 +157,8 @@ Our development environment includes:
 - **Turbo**: Monorepo build system
 - **tsup**: TypeScript bundler
 - **Tailwind CSS**: Utility-first CSS framework
-- **tailwind-variants**: Variant management
+- **tailwind-variants**: Component variant management
+- **OKLCH**: Perceptually uniform color system
 
 ### Automation
 

@@ -1,44 +1,39 @@
-import * as React from 'react'
-import { {{camelCase name}}Variants } from '@ideasui/variants'
-import { cn } from '@ideasui/utils'
-import type { {{pascalCase name}}Props } from './{{name}}-types'
-import type { ColorVariant, ButtonSize, Radius } from '@ideasui/variants'
+"use client";
+import * as React from "react";
+import {{{camelCase name}}} from "@ideasui/theme/recipes";
+import type {VariantProps} from "tailwind-variants";
+import {cn} from "@ideasui/utils";
 
-export interface {{pascalCase name}}Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface {{pascalCase name}}Props 
+  extends React.HTMLAttributes<HTMLDivElement>, 
+  VariantProps<typeof {{camelCase name}}> {
   /**
-   * Visual style variant
-   * @default 'solid'
+   * Content of the component
    */
-  variant?: 'solid' | 'outline' | 'ghost'
+  children?: React.ReactNode;
   
   /**
-   * Color variant based on semantic intent
-   * @default 'default'
+   * Custom classes for different slots
    */
-  color?: ColorVariant
-  
-  /**
-   * Size of the component
-   * @default 'md'
-   */
-  size?: ButtonSize
-  
-  /**
-   * Border radius variant
-   * @default 'md'
-   */
-  radius?: Radius
+  customClasses?: {
+    base?: string;
+  };
 }
-export const {{pascalCase name}} = React.forwardRef<HTMLButtonElement, {{pascalCase name}}Props>(
-  ({ className, variant, color, size, radius, ...props }, ref) => {
-    return (
-      <button
-        ref={ref}
-        className={cn({{camelCase name}}Variants({ variant, color, size, radius }), className)}
-        {...props}
-      />
-    )
-  }
-)
 
-{{pascalCase name}}.displayName = 'IdeasUI.{{pascalCase name}}'
+export const {{pascalCase name}} = React.forwardRef<HTMLDivElement, {{pascalCase name}}Props>(
+  ({ className, children, customClasses, ...props }, ref) => {
+    const { base } = {{camelCase name}}(props);
+
+    return (
+      <div
+        ref={ref}
+        className={cn(base(), className, customClasses?.base)}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+{{pascalCase name}}.displayName = "IdeasUI.{{pascalCase name}}";

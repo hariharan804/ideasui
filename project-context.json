@@ -1,25 +1,56 @@
 {
-  "name": "my-component-lib",
-  "description": "Modern component library built with ShadCN/UI(Radix + shadcn + Tailwind) and Next.js",
+  "name": "ideasui-component-library",
+  "description": "Modern, accessible component library built with TypeScript, Tailwind CSS, and OKLCH color system",
   "version": "0.1.0",
   "type": "monorepo",
-  "framework": "next.js",
+  "framework": "react",
   "structure": {
     "packages": {
-      "ui": {
+      "components": {
         "type": "component-library",
         "framework": "react",
-        "bundler": "rollup",
-        "styling": "tailwindcss",
-        "baseComponents": "shadcn-ui (Radix + shadcn + Tailwind)",
+        "bundler": "tsup",
+        "styling": "tailwind-variants",
+        "colorSystem": "oklch",
         "typescript": true,
         "exports": {
           "main": "./dist/index.js",
-          "module": "./dist/index.esm.js",
-          "types": "./dist/index.d.ts",
-          "styles": "./dist/index.css"
+          "module": "./dist/index.mjs",
+          "types": "./dist/index.d.ts"
         }
       },
+      "core": {
+        "theme": {
+          "type": "design-system",
+          "colorSystem": "oklch",
+          "recipes": "tailwind-variants",
+          "tokens": "design-tokens",
+          "features": ["color-generation", "hue-locking", "dark-mode"]
+        }
+      },
+      "hooks": {
+        "type": "react-hooks",
+        "framework": "react",
+        "bundler": "tsup",
+        "typescript": true
+      },
+      "utils": {
+        "type": "utilities",
+        "bundler": "tsup",
+        "typescript": true
+      },
+      "icons": {
+        "type": "icon-library",
+        "bundler": "tsup",
+        "typescript": true
+      },
+      "cli": {
+        "type": "cli-tool",
+        "bundler": "tsup",
+        "typescript": true
+      }
+    },
+    "apps": {
       "playground": {
         "type": "nextjs-app",
         "framework": "next.js",
@@ -27,85 +58,118 @@
         "appDirectory": true,
         "purpose": "component-testing",
         "features": ["hot-reload", "component-demos", "interactive-examples"]
+      },
+      "storybook": {
+        "type": "storybook-app",
+        "framework": "storybook",
+        "version": "10+",
+        "purpose": "documentation",
+        "features": ["component-stories", "visual-testing", "accessibility-testing"]
       }
     },
-    "apps": {
-      "docs": {
-        "type": "nextjs-app",
-        "framework": "next.js",
-        "version": "14+",
-        "appDirectory": true,
-        "purpose": "documentation",
-        "features": ["mdx", "api-docs", "examples", "guides"]
+    "templates": {
+      "component": {
+        "type": "plop-template",
+        "purpose": "component-generation",
+        "includes": ["component", "hook", "tests", "stories"]
+      },
+      "hooks": {
+        "type": "plop-template",
+        "purpose": "hook-generation",
+        "includes": ["hook", "tests"]
+      },
+      "recipe": {
+        "type": "plop-template",
+        "purpose": "recipe-generation",
+        "includes": ["tailwind-variants"]
       }
     }
   },
   "technologies": {
     "frontend": {
-      "framework": "next.js",
+      "framework": "react",
       "language": "typescript",
       "styling": "tailwindcss",
-      "components": "shadcn-ui(Radix + shadcn + Tailwind)",
+      "variants": "tailwind-variants",
+      "colorSystem": "oklch",
       "stateManagement": "react-hooks"
     },
     "build": {
       "monorepo": "turborepo",
-      "packageManager": "npm",
-      "bundler": "rollup",
+      "packageManager": "pnpm",
+      "bundler": "tsup",
       "compiler": "typescript"
     },
     "development": {
       "playground": "next.js",
-      "testing": "vitest",
+      "storybook": "storybook",
+      "testing": "jest + playwright",
       "linting": "eslint",
       "formatting": "prettier"
     },
     "deployment": {
       "ci": "github-actions",
       "registry": "npm",
-      "versioning": "semantic-release",
+      "versioning": "changesets",
       "hosting": "vercel"
     }
   },
   "dependencies": {
     "core": {
-      "react": "^18.0.0",
-      "react-dom": "^18.0.0",
-      "next": "^14.0.0"
+      "react": ">=18.0.0",
+      "react-dom": ">=18.0.0"
     },
-    "ui": {
-      "@radix-ui/react-slot": "^1.0.0",
-      "class-variance-authority": "^0.7.0",
+    "styling": {
+      "tailwindcss": ">=4",
+      "tailwind-variants": ">=0.1.0",
       "clsx": "^2.0.0",
-      "tailwind-merge": "^2.0.0"
+      "chroma-js": "^2.4.0"
     },
     "build": {
       "typescript": "^5.0.0",
-      "tailwindcss": "^3.3.0",
-      "rollup": "^4.0.0",
+      "tsup": "^7.0.0",
       "turbo": "^1.10.0"
+    },
+    "testing": {
+      "jest": "^29.0.0",
+      "@testing-library/react": "^14.0.0",
+      "playwright": "^1.40.0",
+      "jest-axe": "^8.0.0"
     }
   },
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
     "test": "turbo run test",
+    "test:visual": "turbo run test:visual",
     "lint": "turbo run lint",
-    "playground": "npm --filter playground dev",
-    "docs": "npm --filter docs dev"
+    "storybook": "turbo run storybook",
+    "playground": "pnpm --filter playground dev",
+    "create": "plop",
+    "generate:colors": "cd packages/core/theme && node src/system/generator/generate-theme.mjs"
   },
   "workspace": {
     "packages": ["packages/*", "apps/*"],
-    "packageManager": "npm"
+    "packageManager": "pnpm"
   },
   "features": {
     "componentLibrary": {
-      "baseFramework": "shadcn-ui(Radix + shadcn + Tailwind)",
-      "customization": "css-variables",
-      "theming": "dark-light-mode",
-      "accessibility": "wcag-compliant",
+      "colorSystem": "oklch",
+      "variants": "tailwind-variants",
+      "theming": "light-dark-mode",
+      "accessibility": "wcag-2.1-aa",
       "responsive": true,
-      "treeshaking": true
+      "treeshaking": true,
+      "ssr": true,
+      "rippleEffects": true
+    },
+    "themeSystem": {
+      "colorGeneration": true,
+      "hueLocking": true,
+      "semanticColors": true,
+      "designTokens": true,
+      "recipes": true,
+      "darkMode": true
     },
     "playground": {
       "liveEditing": true,
@@ -114,52 +178,41 @@
       "responsiveTesting": true,
       "themeToggle": true
     },
-    "documentation": {
-      "apiReference": true,
+    "storybook": {
+      "componentStories": true,
+      "visualTesting": true,
+      "accessibilityTesting": true,
       "interactiveExamples": true,
-      "migrationGuides": true,
-      "designTokens": true,
-      "searchable": true
+      "designTokens": true
     }
   },
   "configuration": {
-    "shadcn": {
-      "style": "default",
-      "rsc": true,
-      "tsx": true,
-      "tailwind": {
-        "config": "tailwind.config.js",
-        "css": "app/globals.css",
-        "baseColor": "slate",
-        "cssVariables": true
-      },
-      "aliases": {
-        "components": "@/components",
-        "utils": "@/lib/utils"
-      }
+    "tailwind": {
+      "config": "tailwind.config.js",
+      "variants": "tailwind-variants",
+      "colorSystem": "oklch",
+      "darkMode": "class"
     },
-    "nextjs": {
-      "appDirectory": true,
-      "typescript": true,
-      "tailwindcss": true,
-      "eslint": true,
-      "srcDirectory": false
+    "typescript": {
+      "strict": true,
+      "moduleResolution": "node",
+      "target": "es2020"
     }
   },
   "deployment": {
     "playground": {
       "platform": "vercel",
-      "domain": "playground.mylib.dev",
+      "domain": "playground.ideasui.come",
       "environment": "production"
     },
-    "docs": {
+    "storybook": {
       "platform": "vercel",
-      "domain": "docs.mylib.dev",
+      "domain": "storybook.ideasui.come",
       "environment": "production"
     },
     "npm": {
       "registry": "https://registry.npmjs.org/",
-      "scope": "@mylib",
+      "scope": "@ideasui",
       "access": "public"
     }
   }
