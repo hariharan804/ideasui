@@ -5,7 +5,7 @@ export * from "./system/types";
 export * from "./recipes";
 
 //controller
-export {ThemeProvider, useTheme, useThemeController, ThemeScript} from "./system/controller";
+export {ThemeProvider, useTheme, useThemeController, ThemeScript} from "./system/providers";
 
 export {ideasUIPlugin};
 export {ideasUIPlugin as default};

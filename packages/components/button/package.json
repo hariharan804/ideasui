@@ -6,6 +6,12 @@
   "homepage": "https://ideasui.com",
   "license": "MIT",
   "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./recipes": "./src/recipes/index.ts",
+    "./system": "./src/system/index.ts",
+    "./tokens": "./src/tokens/index.ts"
+  },
   "files": [
     "dist"
   ],

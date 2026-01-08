@@ -62,6 +62,32 @@ const button = tv({
         icon: "h-4 w-4",
       },
     },
+    // color: {
+    //   primary: {
+    //     base: "text-primary-500",
+    //   },
+    //   secondary: {
+    //     base: "text-secondary-500",
+    //   },
+    //   success: {
+    //     base: "text-success-500",
+    //   },
+    //   warning: {
+    //     base: "text-warning-500",
+    //   },
+    //   danger: {
+    //     base: "text-danger-500",
+    //   },
+    //   info: {
+    //     base: "text-info-500",
+    //   },
+    //   neutral: {
+    //     base: "text-neutral-500",
+    //   },
+    //   gray: {
+    //     base: "text-gray-500",
+    //   },
+    // },
     color: Object.fromEntries(Object.keys(colorVariants).map((color) => [color, {}])) as Record<
       keyof typeof colorVariants,
       {}
@@ -83,6 +109,11 @@ const button = tv({
       true: "",
       false: {
         base: "transition-colors",
+      },
+    },
+    fullWidth: {
+      true: {
+        base: "w-full",
       },
     },
   },

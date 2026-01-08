@@ -1,7 +1,8 @@
 "use client";
 import type {ElementType, ReactNode, Ref} from "react";
 import React, {useImperativeHandle} from "react";
-import {buttonVariants, spinnerSizes, SpinnerSize} from "@ideasui/themes/recipes";
+import {button as buttonVariants} from "@ideasui/theme/recipes";
+import {ColorVariantProps, SpinnerSizesProps, spinnerSizes} from "@ideasui/theme/token";
 import {cn} from "@ideasui/utils";
 
 import {useButton} from "./use-button";
@@ -27,7 +28,7 @@ import {Ripple} from "@ideasui/ripple";
 //   );
 // };
 
-const Spinner = ({size}: {size: SpinnerSize}) => {
+const Spinner = ({size}: {size: SpinnerSizesProps}) => {
   return (
     <svg
       className={cn("animate-spin", spinnerSizes[size] || "h-4 w-4")}
@@ -59,9 +60,9 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
   /**
    * Color variant based on semantic intent
-   * @default 'default'
+   * @default 'primary'
    */
-  color?: "default" | "primary" | "secondary" | "success" | "warning" | "danger" | "info";
+  color?: ColorVariantProps;
 
   /**
    * Size of the button
@@ -114,7 +115,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       as,
       className,
       variant = "solid",
-      color = "default",
+      color = "primary",
       size = "md",
       radius = "md",
       loading = false,
