@@ -4,7 +4,7 @@
 export {logger} from "./core";
 
 // Browser utilities
-export * from "./browser";
+export * from "./client";
 
 // Style utilities
 export {cn} from "./style/tailwind";

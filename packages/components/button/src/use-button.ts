@@ -1,8 +1,9 @@
 import {useRef, useCallback, Ref} from "react";
 import {useButton as useAriaButton, useFocusRing, useHover} from "react-aria";
-import {toDataAttr, mergeProps} from "@ideasui/utils";
-import {useRipple, RippleProps} from "@ideasui/ripple";
+import {useRipple} from "@ideasui/ripple";
 import {ButtonProps} from "./button";
+import {toDataAttr} from "@ideasui/utils/aria";
+import {mergeProps} from "@ideasui/utils/core";
 
 export interface UseButtonProps extends Omit<ButtonProps, "children"> {
   /**

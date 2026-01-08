@@ -1,6 +1,6 @@
 import {useCallback, useState} from "react";
-import {getUniqueID} from "@ideasui/utils";
 import {RippleItem} from "./ripple";
+import {getUniqueID} from "@ideasui/utils/core";
 
 export function useRipple() {
   const [ripples, setRipples] = useState<RippleItem[]>([]);
@@ -8,10 +8,10 @@ export function useRipple() {
   const onPress = useCallback((event: React.MouseEvent | React.TouchEvent) => {
     const target = event.currentTarget as HTMLElement;
     const rect = target.getBoundingClientRect();
-    
-    const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX;
-    const clientY = 'touches' in event ? event.touches[0].clientY : event.clientY;
-    
+
+    const clientX = "touches" in event ? event.touches[0].clientX : event.clientX;
+    const clientY = "touches" in event ? event.touches[0].clientY : event.clientY;
+
     const diameter = Math.max(target.offsetWidth, target.offsetHeight) * 1.5;
     const posX = clientX - rect.left;
     const posY = clientY - rect.top;

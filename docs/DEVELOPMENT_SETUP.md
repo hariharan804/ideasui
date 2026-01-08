@@ -89,7 +89,48 @@ pnpm run format
 pnpm run type-check
 ```
 
-## 🔍 Troubleshooting
+## 📦 Individual Package Commands
+
+Use `--filter` to run commands on specific packages:
+
+```bash
+# Run scripts for a specific package
+pnpm --filter @ideasui/button build
+pnpm --filter @ideasui/theme dev
+pnpm --filter @ideasui/icons test
+
+# Run scripts using package folder path
+pnpm --filter ./packages/components/button build
+
+# Add a dependency to a specific package
+pnpm --filter @ideasui/button add react-aria
+pnpm --filter @ideasui/button add -D @types/react  # Dev dependency
+
+# Add a workspace package as dependency
+pnpm --filter @ideasui/button add @ideasui/theme@workspace:*
+
+# Remove a dependency from a specific package
+pnpm --filter @ideasui/button remove react-aria
+
+# Install dependencies for a specific package only
+pnpm --filter @ideasui/button install
+
+# Run multiple packages matching a pattern
+pnpm --filter "@ideasui/*" build
+pnpm --filter "./packages/components/*" test
+```
+
+### Useful Filter Patterns
+
+| Pattern                         | Description                          |
+| ------------------------------- | ------------------------------------ |
+| `--filter @ideasui/button`      | Exact package name                   |
+| `--filter "./packages/theme"`   | By folder path                       |
+| `--filter "@ideasui/*"`         | Glob pattern (all @ideasui packages) |
+| `--filter "...@ideasui/button"` | Package and its dependencies         |
+| `--filter "@ideasui/button..."` | Package and its dependents           |
+
+## �🔍 Troubleshooting
 
 ### Common Issues
 

@@ -1,11 +1,4 @@
 /**
- * Convert boolean to data attribute value
- */
-export function toDataAttr(condition: boolean | undefined): string | undefined {
-  return condition ? "true" : undefined;
-}
-
-/**
  * Get element attribute with fallback
  */
 export function getAttr(element: Element, name: string, fallback?: string): string | null {
@@ -49,7 +42,7 @@ export function hasAttr(element: Element, name: string): boolean {
 export function getDataAttr<T = string>(element: Element, name: string): T | null {
   const value = element.getAttribute(`data-${name}`);
   if (value === null) return null;
-  
+
   try {
     return JSON.parse(value) as T;
   } catch {
@@ -70,13 +63,13 @@ export function setDataAttr(element: Element, name: string, value: any): void {
  */
 export function toDataAttrs(data: Record<string, any>): Record<string, string> {
   const result: Record<string, string> = {};
-  
+
   Object.entries(data).forEach(([key, value]) => {
     if (value !== null && value !== undefined) {
       const dataKey = `data-${key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)}`;
       result[dataKey] = typeof value === "string" ? value : JSON.stringify(value);
     }
   });
-  
+
   return result;
 }

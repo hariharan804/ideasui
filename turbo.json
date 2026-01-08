@@ -9,11 +9,11 @@
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "dev": {
-      "cache": false,
+      "cache": true,
       "persistent": true
     },
     "dev:next": {
-      "cache": false,
+      "cache": true,
       "persistent": true
     },
     "start:next": {
