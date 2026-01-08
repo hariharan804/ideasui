@@ -32,6 +32,15 @@ const parameters: Preview["parameters"] = {
   },
   docs: {
     theme: {
+      base: "light",
+      colorPrimary: "#0070f3",
+      colorSecondary: "#6366f1",
+      appBg: "#ffffff",
+      appContentBg: "#ffffff",
+      appBorderColor: "#e5e7eb",
+      appBorderRadius: 8,
+      textColor: "#111827",
+      textInverseColor: "#ffffff",
       brandTitle: "IdeasUI",
       brandUrl: "https://ideasui.com",
       brandTarget: "_self",
@@ -39,16 +48,7 @@ const parameters: Preview["parameters"] = {
   },
 };
 
-const locales = [
-  "en-US",
-  "es-ES",
-  "fr-FR",
-  "de-DE",
-  "ja-JP",
-  "zh-CN",
-  "ar-AE",
-  "he-IL",
-];
+const locales = ["en-US", "es-ES", "fr-FR", "de-DE", "ja-JP", "zh-CN", "ar-AE", "he-IL"];
 
 const globalTypes: Preview["globalTypes"] = {
   theme: {

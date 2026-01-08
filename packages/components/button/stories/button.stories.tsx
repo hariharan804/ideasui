@@ -2,7 +2,7 @@ import type {Meta} from "@storybook/react";
 
 import {Heart, Download, File} from "lucide-react";
 import {Button, ButtonProps} from "../src";
-import {buttonVariants} from "@ideasui/variants/button";
+import {button as buttonVariants} from "@ideasui/theme/recipes";
 import {useState} from "react";
 const meta = {
   title: "Components/Button",
@@ -141,7 +141,6 @@ export const Variants = {
 export const Colors = {
   render: () => (
     <div className="flex flex-wrap gap-4">
-      <Button color="default">Default</Button>
       <Button color="primary">Primary</Button>
       <Button color="secondary">Secondary</Button>
       <Button color="success">Success</Button>
