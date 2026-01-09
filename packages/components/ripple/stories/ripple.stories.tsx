@@ -69,21 +69,34 @@ export const CustomColor: Story = {
   },
 };
 
-export const PointerDown: Story = {
+export const DOMEvents: Story = {
   render: (args) => {
     const {ripples, onClear, onPress} = useRipple();
+
     return (
       <button
-        className="relative cursor-pointer overflow-hidden rounded-lg bg-green-600 px-10 py-5 text-white"
-        onPointerDown={onPress}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            onPress(e as any);
-          }
-        }}
+        className="relative cursor-pointer overflow-hidden rounded-lg bg-orange-600 px-8 py-4 text-white"
+        onClick={onPress}
         {...args}
       >
-        Large Button
+        DOM Click Event
+        <Ripple ripples={ripples} onClear={onClear} />
+      </button>
+    );
+  },
+};
+
+export const MouseDown: Story = {
+  render: (args) => {
+    const {ripples, onClear, onPress} = useRipple();
+
+    return (
+      <button
+        className="relative cursor-pointer overflow-hidden rounded-lg bg-red-600 px-8 py-4 text-white"
+        onMouseDown={onPress}
+        {...args}
+      >
+        Mouse Down Event
         <Ripple ripples={ripples} onClear={onClear} />
       </button>
     );

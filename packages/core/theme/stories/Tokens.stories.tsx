@@ -1,7 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { systemTokens } from '../src/tokens/system';
+import { spacing, borderRadius, fontSize, boxShadow, animation, transitionDuration, transitionTimingFunction } from '../src/tokens';
 import { defaultLayout } from '../src/tokens/layout';
-import { colorTokens, darkColorTokens } from '../src/tokens/colors';
+import { lightColorTokens, darkColorTokens } from '../src/tokens/colors';
+
+const systemTokens = {
+  spacing,
+  borderRadius,
+  fontSize,
+  boxShadow,
+  animation,
+  transitionDuration,
+  transitionTimingFunction,
+};
 
 const meta: Meta = {
   title: 'Theme/Tokens',
@@ -61,7 +71,7 @@ export const Colors: Story = {
         <h2 className="text-2xl font-bold mb-4">Color Tokens</h2>
         <p className="text-gray-600 mb-8">Semantic color palette with OKLCH values</p>
       </div>
-      <ColorPalette title="Light Mode Colors" colors={colorTokens} />
+      <ColorPalette title="Light Mode Colors" colors={lightColorTokens} />
     </div>
   ),
 };
@@ -219,7 +229,7 @@ export const AllTokens: Story = {
         <p className="text-gray-600 mb-8">Complete overview of the design system tokens</p>
       </div>
       
-      <ColorPalette title="Colors" colors={colorTokens} />
+      <ColorPalette title="Colors" colors={lightColorTokens} />
       <TokenGroup title="Spacing" tokens={systemTokens.spacing} />
       <TokenGroup title="Border Radius" tokens={systemTokens.borderRadius} />
       <TokenGroup title="Font Size" tokens={systemTokens.fontSize} />

@@ -1,10 +1,11 @@
-import type {Meta} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react";
 
 import {Heart, Download, File} from "lucide-react";
 import {Button, ButtonProps} from "../src";
 import {button as buttonVariants} from "@ideasui/theme/recipes";
 import {useState} from "react";
-const meta = {
+
+const meta: Meta<typeof Button> = {
   title: "Components/Button",
   component: Button,
   parameters: {
@@ -50,20 +51,24 @@ const meta = {
       description: "Full width button",
     },
   },
-} as Meta<typeof Button>;
+};
 
 export default meta;
-const defaultProps = {
-  ...buttonVariants?.defaultVariants,
+type Story = StoryObj<typeof Button>;
+const defaultProps: Partial<ButtonProps> = {
+  variant: "solid",
+  color: "primary",
+  size: "md",
+  radius: "md",
   children: "Button",
 };
-export const Default = {
+export const Default: Story = {
   args: {
     ...defaultProps,
   },
 };
 
-export const WithIcons = {
+export const WithIcons: Story = {
   args: {
     ...defaultProps,
     startContent: <File className="h-4 w-4" />,
@@ -71,7 +76,7 @@ export const WithIcons = {
   },
 };
 
-export const Loading = {
+export const Loading: Story = {
   args: {
     ...defaultProps,
     loading: true,
@@ -99,14 +104,14 @@ const StateControlled = (args: ButtonProps) => {
   );
 };
 
-export const WithState = {
+export const WithState: Story = {
   render: StateControlled,
   args: {
     ...defaultProps,
   },
 };
 
-export const Radius = {
+export const Radius: Story = {
   render: () => (
     <div className="flex gap-4">
       <Button radius="none">None</Button>
@@ -119,7 +124,7 @@ export const Radius = {
   ),
 };
 
-export const FullWidth = {
+export const FullWidth: Story = {
   render: () => (
     <div className="w-full">
       <div className="min-w-vw" />
@@ -128,7 +133,7 @@ export const FullWidth = {
   ),
 };
 
-export const Variants = {
+export const Variants: Story = {
   render: () => (
     <div className="flex gap-4">
       <Button variant="solid">Solid</Button>
@@ -138,7 +143,7 @@ export const Variants = {
   ),
 };
 
-export const Colors = {
+export const Colors: Story = {
   render: () => (
     <div className="flex flex-wrap gap-4">
       <Button color="primary">Primary</Button>
@@ -151,7 +156,7 @@ export const Colors = {
   ),
 };
 
-export const Sizes = {
+export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Button size="xs">Extra Small</Button>
@@ -163,17 +168,16 @@ export const Sizes = {
   ),
 };
 
-export const IconButton = {
+export const IconButton: Story = {
   args: {
     ...defaultProps,
     radius: "full",
-    isIconOnly: true,
     color: "danger",
     children: <Heart className="h-5 w-5" />,
   },
 };
 
-export const CustomWithClassNames = {
+export const CustomWithClassNames: Story = {
   args: {
     ...defaultProps,
     radius: "full",

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { colorTokens, darkColorTokens } from '../src/tokens/colors';
+import { lightColorTokens, darkColorTokens } from '../src/tokens/colors';
 
 const meta: Meta = {
   title: 'Theme/Colors',
@@ -42,7 +42,7 @@ export const LightColors: Story = {
         <h2 className="text-2xl font-bold mb-6">Light Theme Colors</h2>
         <p className="text-gray-600 mb-8">OKLCH color system for better perceptual uniformity</p>
       </div>
-      {Object.entries(colorTokens).map(([colorName, shades]) => (
+      {Object.entries(lightColorTokens).map(([colorName, shades]) => (
         <ColorScale key={colorName} colorName={colorName} colors={shades} />
       ))}
     </div>
@@ -67,8 +67,8 @@ export const ColorComparison: Story = {
   render: () => (
     <div className="space-y-8">
       <h2 className="text-2xl font-bold">Light vs Dark Comparison</h2>
-      {Object.keys(colorTokens).map((colorName) => {
-        const lightShades = colorTokens[colorName as keyof typeof colorTokens];
+      {Object.keys(lightColorTokens).map((colorName) => {
+        const lightShades = lightColorTokens[colorName as keyof typeof lightColorTokens];
         const darkShades = darkColorTokens[colorName as keyof typeof darkColorTokens];
         
         return (

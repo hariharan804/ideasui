@@ -54,12 +54,12 @@ export function useButton(props: UseButtonProps) {
   const {isFocusVisible, isFocused, focusProps} = useFocusRing({
     autoFocus,
   });
-
   const {onPress: handleRipple, onClear: onClearRipple, ripples} = useRipple();
   const handlePress = useCallback(
     (e: any) => {
       // if (disableRipple || isDisabled || disableAnimation) return;
-      domRef.current && handleRipple(e);
+      // domRef.current &&
+      handleRipple(e);
       onClick && onClick(e);
     },
     [isDisabled, domRef],
