@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface TouchableRippleItem {
-  key: number;
+  key: React.Key;
   x: number;
   y: number;
   size: number;
@@ -47,8 +47,13 @@ export function useTouchableRipple(): UseTouchableRippleReturn {
       let x = rect.width / 2 - size / 2;
       let y = rect.height / 2 - size / 2;
 
-      // Pointer or mouse event
-      if ("clientX" in event && "clientY" in event) {
+      // Pointer or mouse event with valid coordinates
+      if (
+        "clientX" in event &&
+        "clientY" in event &&
+        typeof event.clientX === "number" &&
+        typeof event.clientY === "number"
+      ) {
         if (event.clientX !== 0 || event.clientY !== 0) {
           x = event.clientX - rect.left - size / 2;
           y = event.clientY - rect.top - size / 2;

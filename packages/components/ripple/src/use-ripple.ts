@@ -5,30 +5,40 @@ import {getUniqueID} from "@ideasui/utils/core";
 export function useRipple() {
   const [ripples, setRipples] = useState<RippleItem[]>([]);
 
-  const onPress = useCallback((event: React.MouseEvent | React.TouchEvent) => {
-    const target = event.currentTarget as HTMLElement;
-    const rect = target.getBoundingClientRect();
+  const onPress = useCallback((event: any) => {
+    const trigger = event.currentTarget || event.target;
+    const rect = trigger.getBoundingClientRect();
+    const size = Math.max(trigger.clientWidth, trigger.clientHeight);
 
-    const clientX = "touches" in event ? event.touches[0].clientX : event.clientX;
-    const clientY = "touches" in event ? event.touches[0].clientY : event.clientY;
+    // React Aria events have x/y, DOM events have clientX/clientY
+    let x, y;
+    if (event.x !== undefined && event.y !== undefined) {
+      // React Aria events
+      x = event.x;
+      y = event.y;
+    } else if (event.clientX !== undefined && event.clientY !== undefined) {
+      // DOM events - calculate relative to element
+      x = event.clientX - rect.left;
+      y = event.clientY - rect.top;
+    } else {
+      // Fallback to center
+      x = rect.width / 2;
+      y = rect.height / 2;
+    }
 
-    const diameter = Math.max(target.offsetWidth, target.offsetHeight) * 1.5;
-    const posX = clientX - rect.left;
-    const posY = clientY - rect.top;
-
-    setRipples((prev) => [
-      ...prev,
+    setRipples((prevRipples) => [
+      ...prevRipples,
       {
-        id: getUniqueID(`ripple-${Date.now()}`),
-        diameter,
-        posX,
-        posY,
+        key: getUniqueID(prevRipples.length.toString()),
+        size,
+        x: x - size / 2,
+        y: y - size / 2,
       },
     ]);
   }, []);
 
-  const onClear = useCallback((id: React.Key) => {
-    setRipples((prev) => prev.filter((ripple) => ripple.id !== id));
+  const onClear = useCallback((key: React.Key) => {
+    setRipples((prevState) => prevState.filter((ripple) => ripple.key !== key));
   }, []);
 
   return {ripples, onClear, onPress};

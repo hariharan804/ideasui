@@ -1,7 +1,7 @@
 /**
  * Generate a unique ID with optional prefix
  */
-export function getUniqueID(prefix: string = ""): string {
+export function getUniqueID(prefix: string = "ideasui"): string {
   return `${prefix}${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }
 

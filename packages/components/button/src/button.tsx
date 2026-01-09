@@ -161,26 +161,16 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     });
 
     useImperativeHandle(ref, () => domRef.current!);
+    const recipes = buttonVariants({
+      variant,
+      color,
+      size,
+      radius,
+      fullWidth,
+    });
 
     return (
-      <Component
-        {...getButtonProps()}
-        className={cn(
-          buttonVariants({
-            variant,
-            color,
-            size,
-            radius,
-            fullWidth,
-          }),
-          "relative overflow-hidden",
-          "min-h-11 min-w-11",
-          "transition-all duration-200 ease-in-out",
-          "motion-reduce:transition-none",
-          "active:scale-95 motion-reduce:active:scale-100",
-          className,
-        )}
-      >
+      <Component {...getButtonProps()} className={recipes.base()}>
         {isLoading ? <Spinner size={size} /> : null}
         {!isLoading && startContent ? <span className="mr-2 shrink-0">{startContent}</span> : null}
 
@@ -189,7 +179,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         </span>
 
         {!isLoading && endContent ? <span className="ml-2 shrink-0">{endContent}</span> : null}
-        {!disableRipple && <Ripple {...getRippleProps()} />}
+        {/* {!disableRipple && <Ripple {...getRippleProps()} />} */}
+        <Ripple {...getRippleProps()} />
       </Component>
     );
   },
