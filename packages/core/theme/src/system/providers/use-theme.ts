@@ -1,6 +1,6 @@
-import {useSyncExternalStore, useCallback} from "react";
+import { useSyncExternalStore, useCallback } from 'react';
 
-import {themeStore} from "./utils/store";
+import { themeStore } from './utils/store';
 
 export function useTheme() {
   const subscribe = useCallback((cb: () => void) => themeStore.subscribe(cb), []);
@@ -11,7 +11,7 @@ export function useTheme() {
   const setTheme = useCallback((next: string) => {
     // fire only if changed
     if (next !== themeStore.get().theme) {
-      themeStore.set({theme: next});
+      themeStore.set({ theme: next });
     }
   }, []);
 

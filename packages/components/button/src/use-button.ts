@@ -1,11 +1,11 @@
-import {useRef, useCallback, Ref} from "react";
-import {useButton as useAriaButton, useFocusRing, useHover} from "react-aria";
-import {useRipple} from "@ideasui/ripple";
-import {ButtonProps} from "./button";
-import {toDataAttr} from "@ideasui/utils/aria";
-import {mergeProps} from "@ideasui/utils/react";
+import { useRef, useCallback, Ref } from 'react';
+import { useButton as useAriaButton, useFocusRing, useHover } from 'react-aria';
+import { useRipple } from '@ideasui/ripple';
+import { ButtonProps } from './button';
+import { toDataAttr } from '@ideasui/utils/aria';
+import { mergeProps } from '@ideasui/utils/react';
 
-export interface UseButtonProps extends Omit<ButtonProps, "children"> {
+export interface UseButtonProps extends Omit<ButtonProps, 'children'> {
   /**
    * Ref to the DOM node
    */
@@ -51,10 +51,10 @@ export function useButton(props: UseButtonProps) {
   const domRef = useRef<HTMLButtonElement>(null);
   const isDisabled = isDisabledProp || isLoading;
 
-  const {isFocusVisible, isFocused, focusProps} = useFocusRing({
+  const { isFocusVisible, isFocused, focusProps } = useFocusRing({
     autoFocus,
   });
-  const {onPress: handleRipple, onClear: onClearRipple, ripples} = useRipple();
+  const { onPress: handleRipple, onClear: onClearRipple, ripples } = useRipple();
   const handlePress = useCallback(
     (e: any) => {
       // if (disableRipple || isDisabled || disableAnimation) return;
@@ -78,34 +78,34 @@ export function useButton(props: UseButtonProps) {
     name: ariaCompatibleProps.name,
   };
 
-  const {buttonProps: ariaButtonProps, isPressed} = useAriaButton(ariaProps, domRef);
-  const {isHovered, hoverProps} = useHover({isDisabled});
+  const { buttonProps: ariaButtonProps, isPressed } = useAriaButton(ariaProps, domRef);
+  const { isHovered, hoverProps } = useHover({ isDisabled });
 
   const getRippleProps = useCallback(
-    () => ({ripples, onClear: onClearRipple}),
+    () => ({ ripples, onClear: onClearRipple }),
     [ripples, onClearRipple],
   );
 
   const getButtonProps = useCallback(
     (props: any = {}) => ({
-      "data-disabled": toDataAttr(isDisabled),
-      "data-focus": toDataAttr(isFocused),
-      "data-pressed": toDataAttr(isPressed),
-      "data-focus-visible": toDataAttr(isFocusVisible),
-      "data-hover": toDataAttr(isHovered),
-      "data-loading": toDataAttr(isLoading),
+      'data-disabled': toDataAttr(isDisabled),
+      'data-focus': toDataAttr(isFocused),
+      'data-pressed': toDataAttr(isPressed),
+      'data-focus-visible': toDataAttr(isFocusVisible),
+      'data-hover': toDataAttr(isHovered),
+      'data-loading': toDataAttr(isLoading),
       ...mergeProps(
         ariaButtonProps,
         focusProps,
-        hoverProps, 
+        hoverProps,
         {
           ref: domRef,
-          "aria-busy": isLoading,
-          "aria-live": isLoading ? "polite" : undefined,
-          "aria-label": isLoading ? "Loading" : props["aria-label"],
+          'aria-busy': isLoading,
+          'aria-live': isLoading ? 'polite' : undefined,
+          'aria-label': isLoading ? 'Loading' : props['aria-label'],
           style: {
-            minHeight: "44px",
-            minWidth: "44px",
+            minHeight: '44px',
+            minWidth: '44px',
             ...props.style,
           },
         },

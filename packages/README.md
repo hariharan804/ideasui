@@ -30,11 +30,11 @@ packages/
 Complete UI components with styling and behavior.
 
 ```tsx
-import {button} from "@ideasui/theme/recipes";
+import { button } from '@ideasui/theme/recipes';
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({className, variant, color, children, ...props}, ref) => {
-    const {base} = button({variant, color});
+  ({ className, variant, color, children, ...props }, ref) => {
+    const { base } = button({ variant, color });
     return (
       <button ref={ref} className={cn(base(), className)} {...props}>
         {children}
@@ -49,14 +49,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 OKLCH color system, tailwind-variants recipes, design tokens.
 
 ```tsx
-import {tv} from "tailwind-variants";
+import { tv } from 'tailwind-variants';
 
 export const button = tv({
-  base: "inline-flex items-center justify-center",
+  base: 'inline-flex items-center justify-center',
   variants: {
     variant: {
-      solid: "bg-primary-500 text-white",
-      outline: "border-2 border-primary-500",
+      solid: 'bg-primary-500 text-white',
+      outline: 'border-2 border-primary-500',
     },
   },
 });
@@ -65,7 +65,7 @@ export const button = tv({
 **Theme Provider Usage:**
 
 ```tsx
-import {ThemeProvider, ThemeScript} from "@ideasui/theme";
+import { ThemeProvider, ThemeScript } from '@ideasui/theme';
 
 <html>
   <head>
@@ -168,8 +168,8 @@ packages/components/button/
 
 ```ts
 // src/index.ts
-export {Button} from "./button";
-export type {ButtonProps} from "./button";
+export { Button } from './button';
+export type { ButtonProps } from './button';
 ```
 
 ---
@@ -200,16 +200,16 @@ pnpm create       # Generate new component (plop)
 ## 📖 Usage Examples
 
 ```tsx
-import {Button} from "@ideasui/button";
-import {useLocalStorage} from "@ideasui/hooks";
-import {cn} from "@ideasui/utils";
-import {button} from "@ideasui/theme/recipes";
+import { Button } from '@ideasui/button';
+import { useLocalStorage } from '@ideasui/hooks';
+import { cn } from '@ideasui/utils';
+import { button } from '@ideasui/theme/recipes';
 
 function App() {
-  const [theme] = useLocalStorage("theme", "light");
+  const [theme] = useLocalStorage('theme', 'light');
 
   return (
-    <div className={cn("app", theme)}>
+    <div className={cn('app', theme)}>
       <Button variant="solid" color="primary">
         Click me
       </Button>

@@ -1,4 +1,4 @@
-import {useMemo} from "react";
+import { useMemo } from 'react';
 
 export interface UseDateFormatterOptions {
   locale?: string;
@@ -17,31 +17,31 @@ export interface UseDateFormatterOptions {
  * ```
  */
 export function useDateFormatter(options: UseDateFormatterOptions = {}) {
-  const {locale = "en-US", timeZone} = options;
+  const { locale = 'en-US', timeZone } = options;
 
   const formatters = useMemo(() => {
     const dateFormatter = new Intl.DateTimeFormat(locale, {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
       timeZone,
     });
 
     const timeFormatter = new Intl.DateTimeFormat(locale, {
-      hour: "2-digit",
-      minute: "2-digit",
+      hour: '2-digit',
+      minute: '2-digit',
       timeZone,
     });
 
     const shortDateFormatter = new Intl.DateTimeFormat(locale, {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
       timeZone,
     });
 
     const relativeFormatter = new Intl.RelativeTimeFormat(locale, {
-      numeric: "auto",
+      numeric: 'auto',
     });
 
     return {
@@ -59,15 +59,15 @@ export function useDateFormatter(options: UseDateFormatterOptions = {}) {
   const formatRelative = (date: Date) => {
     const now = new Date();
     const diffInSeconds = Math.floor((date.getTime() - now.getTime()) / 1000);
-    
+
     if (Math.abs(diffInSeconds) < 60) {
-      return formatters.relativeFormatter.format(diffInSeconds, "second");
+      return formatters.relativeFormatter.format(diffInSeconds, 'second');
     } else if (Math.abs(diffInSeconds) < 3600) {
-      return formatters.relativeFormatter.format(Math.floor(diffInSeconds / 60), "minute");
+      return formatters.relativeFormatter.format(Math.floor(diffInSeconds / 60), 'minute');
     } else if (Math.abs(diffInSeconds) < 86400) {
-      return formatters.relativeFormatter.format(Math.floor(diffInSeconds / 3600), "hour");
+      return formatters.relativeFormatter.format(Math.floor(diffInSeconds / 3600), 'hour');
     } else {
-      return formatters.relativeFormatter.format(Math.floor(diffInSeconds / 86400), "day");
+      return formatters.relativeFormatter.format(Math.floor(diffInSeconds / 86400), 'day');
     }
   };
 

@@ -6,7 +6,7 @@ Thank you for your interest in contributing to IdeasUI! This guide will help you
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - pnpm (recommended package manager)
 - Git
 
@@ -365,16 +365,19 @@ We welcome active contributors to become maintainers!
 ### Maintainer Levels
 
 #### **Triager**
+
 - Label and organize issues
 - Help with initial PR reviews
 - Answer community questions
 
 #### **Reviewer**
+
 - Review and approve PRs
 - Merge non-breaking changes
 - Help with release notes
 
 #### **Core Maintainer**
+
 - Full repository access
 - Make architectural decisions
 - Manage releases and versioning

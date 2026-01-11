@@ -3,7 +3,7 @@ import type { IconProps } from './types';
 
 /**
  * Create a custom icon component (Lucide-style)
- * 
+ *
  * @example
  * ```tsx
  * const CustomIcon = createIcon('CustomIcon', [
@@ -13,7 +13,7 @@ import type { IconProps } from './types';
  */
 export function createIcon(
   displayName: string,
-  elements: Array<[string, Record<string, any>]>
+  elements: Array<[string, Record<string, any>]>,
 ): React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>> {
   const IconComponent = React.forwardRef<SVGSVGElement, IconProps>(
     ({ size = 24, color = 'currentColor', strokeWidth = 2, className, ...props }, ref) => (
@@ -30,11 +30,9 @@ export function createIcon(
         className={className}
         {...props}
       >
-        {elements.map(([tag, attrs], index) =>
-          React.createElement(tag, { key: index, ...attrs })
-        )}
+        {elements.map(([tag, attrs], index) => React.createElement(tag, { key: index, ...attrs }))}
       </svg>
-    )
+    ),
   );
 
   IconComponent.displayName = displayName;
@@ -46,7 +44,7 @@ export function createIcon(
  */
 export function createIconFromSvg(
   displayName: string,
-  svgContent: string
+  svgContent: string,
 ): React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>> {
   const IconComponent = React.forwardRef<SVGSVGElement, IconProps>(
     ({ size = 24, color = 'currentColor', strokeWidth = 2, className, ...props }, ref) => {
@@ -72,7 +70,7 @@ export function createIconFromSvg(
           dangerouslySetInnerHTML={{ __html: innerContent }}
         />
       );
-    }
+    },
   );
 
   IconComponent.displayName = displayName;

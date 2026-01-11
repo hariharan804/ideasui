@@ -1,13 +1,13 @@
 {
   "name": "@ideasui/storybook",
-  "version": "2.0.0",
-  "description": "The HeroUI react components storybook ",
+  "version": "0.0.1",
+  "description": "The IdeasUI all components storybook ",
   "keywords": [
     "storybook"
   ],
   "type": "module",
-  "author": "Ui <support@heroui.com>",
-  "homepage": "https://ui.com",
+  "author": "IdeasUI <support@IdeasUI.com>",
+  "homepage": "https://ideasui.com",
   "license": "MIT",
   "main": "src/index.ts",
   "sideEffects": true,
@@ -19,11 +19,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ui/ui.git",
-    "directory": "packages/components/storybook"
+    "url": "git+https://github.com/ideasui/ideasui.git",
+    "directory": "apps/storybook"
   },
   "bugs": {
-    "url": "https://github.com/ui/ui/issues"
+    "url": "https://github.com/ideasui/ideasui/issues"
   },
   "scripts": {
     "dev": "pnpm storybook dev -p 6006",

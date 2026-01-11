@@ -21,7 +21,7 @@ packages/
 ### ThemeProvider Usage
 
 ```tsx
-import {ThemeProvider, ThemeScript} from "@ideasui/theme";
+import { ThemeProvider, ThemeScript } from '@ideasui/theme';
 
 // In layout
 <html>
@@ -38,9 +38,9 @@ import {ThemeProvider, ThemeScript} from "@ideasui/theme";
 ### Recipes (Component Variants)
 
 ```tsx
-import {button} from "@ideasui/theme/recipes";
+import { button } from '@ideasui/theme/recipes';
 
-const {base} = button({variant: "solid", color: "primary"});
+const { base } = button({ variant: 'solid', color: 'primary' });
 ```
 
 ## 🔧 Component Pattern
@@ -49,17 +49,17 @@ const {base} = button({variant: "solid", color: "primary"});
 
 ```tsx
 // button/src/button.tsx
-import {button} from "@ideasui/theme/recipes";
-import {cn} from "@ideasui/utils";
+import { button } from '@ideasui/theme/recipes';
+import { cn } from '@ideasui/utils';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "solid" | "outline" | "ghost";
-  color?: "primary" | "secondary";
+  variant?: 'solid' | 'outline' | 'ghost';
+  color?: 'primary' | 'secondary';
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({className, variant, color, children, ...props}, ref) => {
-    const {base} = button({variant, color});
+  ({ className, variant, color, children, ...props }, ref) => {
+    const { base } = button({ variant, color });
     return (
       <button ref={ref} className={cn(base(), className)} {...props}>
         {children}
@@ -67,15 +67,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
   },
 );
-Button.displayName = "Button";
+Button.displayName = 'Button';
 ```
 
 ### Export Pattern
 
 ```tsx
 // button/src/index.ts
-export {Button} from "./button";
-export type {ButtonProps} from "./button";
+export { Button } from './button';
+export type { ButtonProps } from './button';
 ```
 
 ## 📋 Naming Conventions
@@ -102,10 +102,10 @@ packages/component/
 ### Accessibility Testing
 
 ```tsx
-import {axe} from "jest-axe";
+import { axe } from 'jest-axe';
 
-test("has no accessibility violations", async () => {
-  const {container} = render(<Button>Click</Button>);
+test('has no accessibility violations', async () => {
+  const { container } = render(<Button>Click</Button>);
   expect(await axe(container)).toHaveNoViolations();
 });
 ```

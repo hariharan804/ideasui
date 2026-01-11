@@ -1,7 +1,7 @@
-import type {ThemeScriptConfig} from "../types";
+import type { ThemeScriptConfig } from '../types';
 
 export const createScript = (cfg: ThemeScriptConfig) => {
-  const {storageKey, defaultTheme, themes, mode, systemThemes} = cfg;
+  const { storageKey, defaultTheme, themes, mode, systemThemes } = cfg;
 
   // All possible theme class names we might add/remove
   const themeClassList = Array.from(new Set([...themes, systemThemes.light, systemThemes.dark]));
@@ -12,7 +12,7 @@ export const createScript = (cfg: ThemeScriptConfig) => {
   const SYS = JSON.stringify(systemThemes);
   const DEF = JSON.stringify(defaultTheme);
   const MODE = JSON.stringify(mode);
-  const CLS_PATTERN = JSON.stringify(themeClassList.join("|"));
+  const CLS_PATTERN = JSON.stringify(themeClassList.join('|'));
 
   // Returned IIFE (no optional-call syntax, no nested ${} in JS strings)
   return `(function(){try{

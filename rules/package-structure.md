@@ -79,14 +79,14 @@ packages/components/button/
 ### TSUp Config (tsup.config.ts):
 
 ```typescript
-import {defineConfig} from "tsup";
+import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ["src/index.ts"],
-  format: ["cjs", "esm"],
+  entry: ['src/index.ts'],
+  format: ['cjs', 'esm'],
   dts: true,
   clean: true,
-  external: ["react", "react-dom"],
+  external: ['react', 'react-dom'],
 });
 ```
 
@@ -110,13 +110,13 @@ export default defineConfig({
 
 ```typescript
 // Export main component
-export {Button} from "./button";
+export { Button } from './button';
 
 // Export types
-export type {ButtonProps} from "./button-types";
+export type { ButtonProps } from './button-types';
 
 // Export variants (if applicable)
-export {buttonVariants} from "./button";
+export { buttonVariants } from './button';
 ```
 
 ### Component File (src/button.tsx):
@@ -177,7 +177,7 @@ npm install @ideasui/button
 ## Usage
 
 ```tsx
-import {Button} from "@ideasui/button";
+import { Button } from '@ideasui/button';
 
 function App() {
   return (

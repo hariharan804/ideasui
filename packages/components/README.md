@@ -39,12 +39,14 @@ pnpm run create
 ### Manual Creation
 
 1. **Create component folder**:
+
    ```bash
    mkdir packages/components/my-component
    cd packages/components/my-component
    ```
 
 2. **Use component template**:
+
    ```bash
    # Copy from templates/component/
    cp -r ../../../templates/component/* .
@@ -104,30 +106,25 @@ pnpm run build
 ### Using Theme Recipes
 
 ```tsx
-import { button } from '@ideasui/theme/recipes'
-import type { VariantProps } from 'tailwind-variants'
+import { button } from '@ideasui/theme/recipes';
+import type { VariantProps } from 'tailwind-variants';
 
-export interface ButtonProps 
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof button> {
-  children?: React.ReactNode
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof button> {
+  children?: React.ReactNode;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, ...props }, ref) => {
-    const { base } = button(props)
+    const { base } = button(props);
 
     return (
-      <button
-        ref={ref}
-        className={cn(base(), className)}
-        {...props}
-      >
+      <button ref={ref} className={cn(base(), className)} {...props}>
         {children}
       </button>
-    )
-  }
-)
+    );
+  },
+);
 ```
 
 ### Custom Hooks Pattern
@@ -135,16 +132,19 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 ```tsx
 // use-button.ts
 export function useButton(props: UseButtonProps) {
-  const { disabled, loading, onClick } = props
-  const domRef = useRef<HTMLButtonElement>(null)
+  const { disabled, loading, onClick } = props;
+  const domRef = useRef<HTMLButtonElement>(null);
 
-  const handleClick = useCallback((event: React.MouseEvent) => {
-    if (disabled || loading) {
-      event.preventDefault()
-      return
-    }
-    onClick?.(event)
-  }, [disabled, loading, onClick])
+  const handleClick = useCallback(
+    (event: React.MouseEvent) => {
+      if (disabled || loading) {
+        event.preventDefault();
+        return;
+      }
+      onClick?.(event);
+    },
+    [disabled, loading, onClick],
+  );
 
   return {
     domRef,
@@ -153,8 +153,8 @@ export function useButton(props: UseButtonProps) {
       disabled: disabled || loading,
       onClick: handleClick,
       'aria-disabled': disabled || loading,
-    })
-  }
+    }),
+  };
 }
 ```
 
@@ -200,19 +200,13 @@ npx changeset publish
 // component.tsx
 export const Component = React.forwardRef<HTMLElement, ComponentProps>(
   ({ className, ...props }, ref) => {
-    const { base } = componentRecipe(props)
-    
-    return (
-      <element
-        ref={ref}
-        className={cn(base(), className)}
-        {...props}
-      />
-    )
-  }
-)
+    const { base } = componentRecipe(props);
 
-Component.displayName = 'Component'
+    return <element ref={ref} className={cn(base(), className)} {...props} />;
+  },
+);
+
+Component.displayName = 'Component';
 ```
 
 ## 📄 License

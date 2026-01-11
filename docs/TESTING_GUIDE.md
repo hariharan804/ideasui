@@ -54,7 +54,7 @@ describe("Button", () => {
   it("should trigger onClick function", async () => {
     const onClick = jest.fn();
     const {getByRole} = render(<Button disableRipple onClick={onClick} />);
-    
+
     await user.click(getByRole("button"));
     expect(onClick).toHaveBeenCalled();
   });
@@ -64,6 +64,7 @@ describe("Button", () => {
 ### Test Patterns
 
 #### Testing Props
+
 ```typescript
 it("applies variant classes correctly", () => {
   render(<Button variant="outline">Outline Button</Button>);
@@ -73,17 +74,19 @@ it("applies variant classes correctly", () => {
 ```
 
 #### Testing Events
+
 ```typescript
 it("handles click events", async () => {
   const handleClick = jest.fn();
   render(<Button onClick={handleClick}>Click me</Button>);
-  
+
   await user.click(screen.getByRole("button"));
   expect(handleClick).toHaveBeenCalledTimes(1);
 });
 ```
 
 #### Testing Refs
+
 ```typescript
 it("forwards ref correctly", () => {
   const ref = React.createRef<HTMLButtonElement>();
@@ -100,17 +103,17 @@ Create `.spec.ts` files in component `__tests__/` folders:
 
 ```typescript
 // packages/components/button/src/__tests__/button.spec.ts
-import {test, expect} from '@playwright/test'
+import { test, expect } from '@playwright/test';
 
-test('Button visual regression', async ({page}) => {
-  await page.goto('/iframe.html?id=components-button--default')
-  await expect(page.locator('[data-testid="button"]')).toHaveScreenshot('button-default.png')
-})
+test('Button visual regression', async ({ page }) => {
+  await page.goto('/iframe.html?id=components-button--default');
+  await expect(page.locator('[data-testid="button"]')).toHaveScreenshot('button-default.png');
+});
 
-test('Button variants visual regression', async ({page}) => {
-  await page.goto('/iframe.html?id=components-button--variants')
-  await expect(page.locator('.storybook-button-variants')).toHaveScreenshot('button-variants.png')
-})
+test('Button variants visual regression', async ({ page }) => {
+  await page.goto('/iframe.html?id=components-button--variants');
+  await expect(page.locator('.storybook-button-variants')).toHaveScreenshot('button-variants.png');
+});
 ```
 
 ### Visual Test Best Practices
@@ -125,15 +128,17 @@ test('Button variants visual regression', async ({page}) => {
 ### Jest Issues
 
 #### Issue: "Cannot find name 'describe'"
+
 ```bash
 # Fix: Add @types/jest or configure Jest globals
 pnpm add -D @types/jest
 ```
 
 #### Issue: "matchMedia is not a function"
+
 ```typescript
 // Fix: Already handled in scripts/setup-test.ts
-Object.defineProperty(window, "matchMedia", {
+Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(() => ({
     matches: false,
@@ -144,6 +149,7 @@ Object.defineProperty(window, "matchMedia", {
 ```
 
 #### Issue: Tests timeout
+
 ```javascript
 // Fix: Increase timeout in jest.config.js
 module.exports = {
@@ -154,24 +160,28 @@ module.exports = {
 ### Playwright Issues
 
 #### Issue: "Browsers not installed"
+
 ```bash
 # Fix: Install Playwright browsers
 pnpm run playwright:install
 ```
 
 #### Issue: "No tests found"
+
 ```bash
 # Fix: Check testMatch pattern in playwright.config.ts
 testMatch: ["**/packages/components/**/src/__tests__/*.spec.ts"]
 ```
 
 #### Issue: Screenshots don't match
+
 ```bash
 # Fix: Update screenshots
 pnpm run test:visual -- --update-snapshots
 ```
 
 #### Issue: Storybook not running
+
 ```bash
 # Fix: Start Storybook manually first
 pnpm run storybook
@@ -255,6 +265,7 @@ open coverage/lcov-report/index.html
 ### Coverage Thresholds
 
 Current thresholds in `jest.config.js`:
+
 - Statements: 80%
 - Branches: 80%
 - Functions: 80%

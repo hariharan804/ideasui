@@ -1,6 +1,6 @@
-import {createSharedConfig} from "../../tsup-config.mjs";
+import { createSharedConfig } from '../../tsup-config.mjs';
 
 export default createSharedConfig({
-  entry: "src/index.ts",
-  outDir: "dist",
+  entry: 'src/index.ts',
+  outDir: 'dist',
 });

@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from 'react';
 
 /**
  * Custom hook for media query matching
@@ -15,7 +15,7 @@ export function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === 'undefined') return;
 
     const media = window.matchMedia(query);
     setMatches(media.matches);
@@ -24,8 +24,8 @@ export function useMediaQuery(query: string): boolean {
       setMatches(event.matches);
     };
 
-    media.addEventListener("change", listener);
-    return () => media.removeEventListener("change", listener);
+    media.addEventListener('change', listener);
+    return () => media.removeEventListener('change', listener);
   }, [query]);
 
   return matches;

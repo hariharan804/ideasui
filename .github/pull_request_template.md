@@ -19,7 +19,7 @@ Brief description of the changes made.
 - [ ] Utils
 - [ ] Variants
 - [ ] Icons
-- [ ] Other: ___________
+- [ ] Other: \***\*\_\_\_\*\***
 
 ## Testing
 

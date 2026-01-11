@@ -29,32 +29,34 @@ bun add @ideasui/button
 #### Import
 
 **Import from the main package (recommended)**
+
 ```tsx
-import { Button } from "@ideasui/react";
+import { Button } from '@ideasui/react';
 ```
 
 **Import from individual package**
+
 ```tsx
-import { Button } from "@ideasui/button";
+import { Button } from '@ideasui/button';
 ```
 
 #### API Reference
 
 ##### ButtonProps
 
-| Prop | Type | Description | Optional |
-|------|------|-------------|----------|
-| as | `ElementType` | The element or component to render as | ✓ |
-| variant | `"solid" | "outline" | "ghost"` | Visual variant of the button | ✓ |
-| color | `ColorVariantProps` | Color variant based on semantic intent | ✓ |
-| size | `"xs" | "sm" | "md" | "lg" | "xl"` | Size of the button | ✓ |
-| radius | `"none" | "sm" | "md" | "lg" | "xl" | "full"` | Border radius variant | ✓ |
-| fullWidth | `boolean` | Whether the button should take full width | ✓ |
-| loading | `boolean` | Whether the button is in loading state | ✓ |
-| loadingText | `string` | Text to show when loading | ✓ |
-| startContent | `ReactNode` | Content to show at the start of the button | ✓ |
-| endContent | `ReactNode` | Content to show at the end of the button | ✓ |
-| disableRipple | `boolean` | Whether the button should display a ripple effect | ✓ |
+| Prop          | Type                | Description                                       | Optional |
+| ------------- | ------------------- | ------------------------------------------------- | -------- | ---------------------------- | ----- | ------------------ | --------------------- | --- |
+| as            | `ElementType`       | The element or component to render as             | ✓        |
+| variant       | `"solid"            | "outline"                                         | "ghost"` | Visual variant of the button | ✓     |
+| color         | `ColorVariantProps` | Color variant based on semantic intent            | ✓        |
+| size          | `"xs"               | "sm"                                              | "md"     | "lg"                         | "xl"` | Size of the button | ✓                     |
+| radius        | `"none"             | "sm"                                              | "md"     | "lg"                         | "xl"  | "full"`            | Border radius variant | ✓   |
+| fullWidth     | `boolean`           | Whether the button should take full width         | ✓        |
+| loading       | `boolean`           | Whether the button is in loading state            | ✓        |
+| loadingText   | `string`            | Text to show when loading                         | ✓        |
+| startContent  | `ReactNode`         | Content to show at the start of the button        | ✓        |
+| endContent    | `ReactNode`         | Content to show at the end of the button          | ✓        |
+| disableRipple | `boolean`           | Whether the button should display a ripple effect | ✓        |
 
 #### Package Details
 
@@ -89,40 +91,42 @@ bun add @ideasui/ripple
 #### Import
 
 **Import from the main package (recommended)**
+
 ```tsx
-import { Ripple } from "@ideasui/react";
+import { Ripple } from '@ideasui/react';
 ```
 
 **Import from individual package**
+
 ```tsx
-import { Ripple } from "@ideasui/ripple";
+import { Ripple } from '@ideasui/ripple';
 ```
 
 #### API Reference
 
 ##### RippleItem
 
-| Prop | Type | Description | Optional |
-|------|------|-------------|----------|
-| key | `React.Key` |  | ✗ |
-| x | `number` |  | ✗ |
-| y | `number` |  | ✗ |
-| size | `number` |  | ✗ |
+| Prop | Type        | Description | Optional |
+| ---- | ----------- | ----------- | -------- |
+| key  | `React.Key` |             | ✗        |
+| x    | `number`    |             | ✗        |
+| y    | `number`    |             | ✗        |
+| size | `number`    |             | ✗        |
 
 ##### RippleProps
 
-| Prop | Type | Description | Optional |
-|------|------|-------------|----------|
-| ripples | `RippleItem[]` |  | ✗ |
-| color | `string` |  | ✓ |
-| style | `React.CSSProperties` |  | ✓ |
-| motionProps | `Omit<HTMLMotionProps<"span">, "ref">` |  | ✓ |
-| onClear | `(id: React.Key) => void` |  | ✗ |
+| Prop        | Type                                   | Description | Optional |
+| ----------- | -------------------------------------- | ----------- | -------- |
+| ripples     | `RippleItem[]`                         |             | ✗        |
+| color       | `string`                               |             | ✓        |
+| style       | `React.CSSProperties`                  |             | ✓        |
+| motionProps | `Omit<HTMLMotionProps<"span">, "ref">` |             | ✓        |
+| onClear     | `(id: React.Key) => void`              |             | ✗        |
 
 #### Events
 
-| Event | Type |
-|-------|------|
+| Event   | Type                      |
+| ------- | ------------------------- |
 | onClear | `(id: React.Key) => void` |
 
 #### Package Details
@@ -158,24 +162,26 @@ bun add @ideasui/slot
 #### Import
 
 **Import from the main package (recommended)**
+
 ```tsx
-import { Slot } from "@ideasui/react";
+import { Slot } from '@ideasui/react';
 ```
 
 **Import from individual package**
+
 ```tsx
-import { Slot } from "@ideasui/slot";
+import { Slot } from '@ideasui/slot';
 ```
 
 #### API Reference
 
 ##### SlotProps
 
-| Prop | Type | Description | Optional |
-|------|------|-------------|----------|
-| as | `ElementType` | Element or component to render as | ✓ |
-| asChild | `boolean` | Merge props with the first child instead of rendering wrapper | ✓ |
-| children | `React.ReactNode` | Content to render inside the slot | ✓ |
+| Prop     | Type              | Description                                                   | Optional |
+| -------- | ----------------- | ------------------------------------------------------------- | -------- |
+| as       | `ElementType`     | Element or component to render as                             | ✓        |
+| asChild  | `boolean`         | Merge props with the first child instead of rendering wrapper | ✓        |
+| children | `React.ReactNode` | Content to render inside the slot                             | ✓        |
 
 #### Package Details
 
@@ -276,8 +282,9 @@ bun add @ideasui/icons
 #### Import
 
 **Import from package**
+
 ```tsx
-import { Check } from "@ideasui/src";
+import { Check } from '@ideasui/src';
 ```
 
 #### Package Details
@@ -319,4 +326,3 @@ bun add @ideasui/cli
 - **Keywords:** ideasui, cli, components, react, typescript
 
 ---
-

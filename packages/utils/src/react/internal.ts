@@ -1,11 +1,11 @@
-import * as React from "react";
+import * as React from 'react';
 
 /**
  * Checks if a React component is an IdeasUI component by its display name
  * @internal
  */
 export function isIdeasUIComponent(component: React.ComponentType<any>): boolean {
-  return component?.displayName?.startsWith("IdeasUI.") ?? false;
+  return component?.displayName?.startsWith('IdeasUI.') ?? false;
 }
 
 /**
@@ -14,7 +14,7 @@ export function isIdeasUIComponent(component: React.ComponentType<any>): boolean
  */
 export function getIdeasUIComponentName(component: React.ComponentType<any>): string | null {
   const displayName = component?.displayName;
-  return displayName?.startsWith("IdeasUI.") ? displayName.slice(8) : null;
+  return displayName?.startsWith('IdeasUI.') ? displayName.slice(8) : null;
 }
 
 /**
@@ -22,5 +22,5 @@ export function getIdeasUIComponentName(component: React.ComponentType<any>): st
  * @internal
  */
 export function isIdeasUIElement(element: React.ReactElement): boolean {
-  return typeof element.type === "function" && isIdeasUIComponent(element.type);
+  return typeof element.type === 'function' && isIdeasUIComponent(element.type);
 }

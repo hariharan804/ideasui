@@ -17,34 +17,34 @@ yarn add @ideasui/theme tailwindcss tailwind-variants
 ### Component Recipes
 
 ```tsx
-import { button } from '@ideasui/theme/recipes'
-import type { VariantProps } from 'tailwind-variants'
+import { button } from '@ideasui/theme/recipes';
+import type { VariantProps } from 'tailwind-variants';
 
 // Use recipe in component
-const { base, icon, label } = button({ 
-  variant: 'solid', 
-  color: 'primary', 
-  size: 'md' 
-})
+const { base, icon, label } = button({
+  variant: 'solid',
+  color: 'primary',
+  size: 'md',
+});
 
 // With TypeScript
-type ButtonProps = VariantProps<typeof button>
+type ButtonProps = VariantProps<typeof button>;
 ```
 
 ### Color Tokens
 
 ```tsx
-import { colorTokens, darkColorTokens } from '@ideasui/theme/tokens'
+import { colorTokens, darkColorTokens } from '@ideasui/theme/tokens';
 
 // Access color values
-const primaryColor = colorTokens.primary[500] // 'oklch(0.543 0.284 300.0)'
-const darkPrimary = darkColorTokens.primary[500] // 'oklch(0.720 0.242 300.0)'
+const primaryColor = colorTokens.primary[500]; // 'oklch(0.543 0.284 300.0)'
+const darkPrimary = darkColorTokens.primary[500]; // 'oklch(0.720 0.242 300.0)'
 ```
 
 ### Design Constants
 
 ```tsx
-import { RADIUS_VARIANTS, COLOR_VARIANTS } from '@ideasui/theme/constants'
+import { RADIUS_VARIANTS, COLOR_VARIANTS } from '@ideasui/theme/constants';
 
 // Use in custom recipes
 const myComponent = tv({
@@ -52,9 +52,9 @@ const myComponent = tv({
     radius: {
       none: { base: RADIUS_VARIANTS.none },
       md: { base: RADIUS_VARIANTS.md },
-    }
-  }
-})
+    },
+  },
+});
 ```
 
 ## 🎨 OKLCH Color System
@@ -80,15 +80,15 @@ node src/system/generator/generate-theme.mjs
 
 ```tsx
 // Light mode colors
-colorTokens.primary[500]   // 'oklch(0.543 0.284 300.0)'
-colorTokens.success[500]   // 'oklch(0.657 0.181 145.4)'
-colorTokens.warning[500]   // 'oklch(0.775 0.161 60.0)'
-colorTokens.danger[500]    // 'oklch(0.610 0.225 28.2)'
-colorTokens.info[500]      // 'oklch(0.674 0.144 243.0)'
-colorTokens.gray[500]      // 'oklch(0.500 0.000 0.0)'
+colorTokens.primary[500]; // 'oklch(0.543 0.284 300.0)'
+colorTokens.success[500]; // 'oklch(0.657 0.181 145.4)'
+colorTokens.warning[500]; // 'oklch(0.775 0.161 60.0)'
+colorTokens.danger[500]; // 'oklch(0.610 0.225 28.2)'
+colorTokens.info[500]; // 'oklch(0.674 0.144 243.0)'
+colorTokens.gray[500]; // 'oklch(0.500 0.000 0.0)'
 
 // Dark mode colors
-darkColorTokens.primary[500] // 'oklch(0.720 0.242 300.0)'
+darkColorTokens.primary[500]; // 'oklch(0.720 0.242 300.0)'
 ```
 
 ## 🎅 Component Recipes
@@ -98,33 +98,31 @@ Tailwind-variants recipes for consistent component styling:
 ### Available Recipes
 
 ```tsx
-import { 
+import {
   button,
   // Add other recipes as they're created
-} from '@ideasui/theme/recipes'
+} from '@ideasui/theme/recipes';
 
 // Button recipe with slots
 const { base, icon, label } = button({
-  variant: 'solid',    // solid | outline | ghost
-  color: 'primary',    // primary | secondary | success | warning | danger | info | neutral | gray
-  size: 'md',          // xs | sm | md | lg | xl
-  radius: 'md',        // none | sm | md | lg | xl | full
-  isDisabled: false,   // boolean
-})
+  variant: 'solid', // solid | outline | ghost
+  color: 'primary', // primary | secondary | success | warning | danger | info | neutral | gray
+  size: 'md', // xs | sm | md | lg | xl
+  radius: 'md', // none | sm | md | lg | xl | full
+  isDisabled: false, // boolean
+});
 ```
 
 ### Creating Custom Recipes
 
 ```tsx
-import { tv } from 'tailwind-variants'
-import { RADIUS_VARIANTS, COLOR_VARIANTS } from '@ideasui/theme/constants'
+import { tv } from 'tailwind-variants';
+import { RADIUS_VARIANTS, COLOR_VARIANTS } from '@ideasui/theme/constants';
 
 const myComponent = tv({
   base: 'inline-flex items-center',
   variants: {
-    color: Object.fromEntries(
-      Object.keys(COLOR_VARIANTS).map(color => [color, {}])
-    ),
+    color: Object.fromEntries(Object.keys(COLOR_VARIANTS).map((color) => [color, {}])),
     radius: {
       none: { base: RADIUS_VARIANTS.none },
       md: { base: RADIUS_VARIANTS.md },
@@ -137,7 +135,7 @@ const myComponent = tv({
       class: 'bg-primary-500 text-white hover:bg-primary-600',
     },
   ],
-})
+});
 ```
 
 ## 📊 Design Tokens
@@ -145,35 +143,35 @@ const myComponent = tv({
 ### System Tokens
 
 ```tsx
-import { systemTokens } from '@ideasui/theme/tokens'
+import { systemTokens } from '@ideasui/theme/tokens';
 
 // Spacing scale
-systemTokens.spacing.xs    // '0.25rem'
-systemTokens.spacing.sm    // '0.5rem'
-systemTokens.spacing.md    // '1rem'
+systemTokens.spacing.xs; // '0.25rem'
+systemTokens.spacing.sm; // '0.5rem'
+systemTokens.spacing.md; // '1rem'
 
 // Border radius
-systemTokens.borderRadius.sm  // '0.25rem'
-systemTokens.borderRadius.md  // '0.375rem'
-systemTokens.borderRadius.lg  // '0.5rem'
+systemTokens.borderRadius.sm; // '0.25rem'
+systemTokens.borderRadius.md; // '0.375rem'
+systemTokens.borderRadius.lg; // '0.5rem'
 
 // Typography
-systemTokens.fontSize.sm   // '0.875rem'
-systemTokens.fontSize.base // '1rem'
-systemTokens.fontSize.lg   // '1.125rem'
+systemTokens.fontSize.sm; // '0.875rem'
+systemTokens.fontSize.base; // '1rem'
+systemTokens.fontSize.lg; // '1.125rem'
 ```
 
 ### Layout Tokens
 
 ```tsx
-import { defaultLayout } from '@ideasui/theme/tokens'
+import { defaultLayout } from '@ideasui/theme/tokens';
 
 // Layout-specific tokens
-defaultLayout.radiusSmall     // '0.25rem'
-defaultLayout.radiusMedium    // '0.375rem'
-defaultLayout.radiusLarge     // '0.5rem'
-defaultLayout.hoverOpacity    // '0.8'
-defaultLayout.disabledOpacity // '0.5'
+defaultLayout.radiusSmall; // '0.25rem'
+defaultLayout.radiusMedium; // '0.375rem'
+defaultLayout.radiusLarge; // '0.5rem'
+defaultLayout.hoverOpacity; // '0.8'
+defaultLayout.disabledOpacity; // '0.5'
 ```
 
 ## 🔧 Development
@@ -214,19 +212,19 @@ packages/core/theme/
 Full TypeScript support with comprehensive type definitions:
 
 ```tsx
-import type { VariantProps } from 'tailwind-variants'
-import { button } from '@ideasui/theme/recipes'
+import type { VariantProps } from 'tailwind-variants';
+import { button } from '@ideasui/theme/recipes';
 
 // Component props with recipe variants
 type ButtonProps = VariantProps<typeof button> & {
-  children?: React.ReactNode
-}
+  children?: React.ReactNode;
+};
 
 // Color token types
-import type { ColorTokens, DarkColorTokens } from '@ideasui/theme/tokens'
+import type { ColorTokens, DarkColorTokens } from '@ideasui/theme/tokens';
 
-const lightColors: ColorTokens = colorTokens
-const darkColors: DarkColorTokens = darkColorTokens
+const lightColors: ColorTokens = colorTokens;
+const darkColors: DarkColorTokens = darkColorTokens;
 ```
 
 ## ♿ Accessibility
@@ -243,13 +241,13 @@ const darkColors: DarkColorTokens = darkColorTokens
 
 ```tsx
 // Recipes
-export { button } from './recipes'
+export { button } from './recipes';
 
 // Tokens
-export { colorTokens, darkColorTokens, systemTokens, defaultLayout } from './tokens'
+export { colorTokens, darkColorTokens, systemTokens, defaultLayout } from './tokens';
 
 // Constants
-export { RADIUS_VARIANTS, COLOR_VARIANTS } from './constants'
+export { RADIUS_VARIANTS, COLOR_VARIANTS } from './constants';
 ```
 
 ## 📄 License

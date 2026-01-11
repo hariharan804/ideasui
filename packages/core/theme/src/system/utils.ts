@@ -1,12 +1,12 @@
-import {flatten} from "flat";
-import Color from "color";
-import {ParsedColor} from "./types";
+import { flatten } from 'flat';
+import Color from 'color';
+import { ParsedColor } from './types';
 
 // ─────────────────────────────────────────────────────────────
 // Constants
 // ─────────────────────────────────────────────────────────────
 
-export const DEFAULT_PREFIX = "ideasui";
+export const DEFAULT_PREFIX = 'ideasui';
 
 // ─────────────────────────────────────────────────────────────
 // Semantic Token Configuration
@@ -18,29 +18,29 @@ export const DEFAULT_PREFIX = "ideasui";
  */
 export const SEMANTIC_TOKEN_MAP = {
   light: {
-    DEFAULT: "500",
-    on: "50",
-    container: "100",
-    onContainer: "900",
-    subtle: "200",
-    muted: "400",
-    active: "700",
+    DEFAULT: '500',
+    on: '50',
+    container: '100',
+    onContainer: '900',
+    subtle: '200',
+    muted: '400',
+    active: '700',
   },
   dark: {
-    DEFAULT: "500",
-    on: "50",
-    container: "100",
-    onContainer: "900",
-    subtle: "200",
-    muted: "400",
-    active: "300",
+    DEFAULT: '500',
+    on: '50',
+    container: '100',
+    onContainer: '900',
+    subtle: '200',
+    muted: '400',
+    active: '300',
   },
 } as const;
 
 /**
  * Converts a string to kebab-case
  */
-export const kebabCase = (str: string) => str.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+export const kebabCase = (str: string) => str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 
 /**
  * Maps values of an object
@@ -60,7 +60,7 @@ export function mapKeys<T>(
  * Omits keys from an object
  */
 export function omit<T extends Record<string, any>>(obj: T, keys: string[]) {
-  const result = {...obj};
+  const result = { ...obj };
   keys.forEach((key) => delete result[key]);
   return result;
 }
@@ -69,10 +69,10 @@ export function omit<T extends Record<string, any>>(obj: T, keys: string[]) {
  * Escapes a selector string
  */
 export const escapeSelector = (str: string) => {
-  if (typeof CSS !== "undefined" && CSS.escape) {
+  if (typeof CSS !== 'undefined' && CSS.escape) {
     return CSS.escape(str);
   }
-  return str.replace(/([^\w-])/g, "\\$1");
+  return str.replace(/([^\w-])/g, '\\$1');
 };
 
 /**
@@ -81,7 +81,7 @@ export const escapeSelector = (str: string) => {
 export const flattenThemeObject = <TTarget>(obj: TTarget) => {
   return flatten(obj, {
     safe: true,
-    delimiter: "-",
+    delimiter: '-',
   }) as Record<string, any>;
 };
 
@@ -135,13 +135,13 @@ export function parseColorValue(colorValue: string): ParsedColor | null {
     const trimmed = colorValue.trim();
 
     // Handle oklch input - pass through directly
-    if (trimmed.startsWith("oklch(")) {
+    if (trimmed.startsWith('oklch(')) {
       const match = trimmed.match(/oklch\(([^)]+)\)/);
       if (match) {
-        const parts = match[1].split("/");
+        const parts = match[1].split('/');
         const components = parts[0].trim().split(/\s+/);
         if (parts[1]) components.push(parts[1].trim());
-        return {cssFn: "oklch", components};
+        return { cssFn: 'oklch', components };
       }
     }
 
@@ -155,7 +155,7 @@ export function parseColorValue(colorValue: string): ParsedColor | null {
     if (alpha < 1) {
       components.push(alpha);
     }
-    return {cssFn: "oklch", components};
+    return { cssFn: 'oklch', components };
   } catch {
     return null;
   }

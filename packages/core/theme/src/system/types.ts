@@ -42,7 +42,7 @@ export interface ThemeConfig {
     }
   >;
   /** Default theme name */
-  defaultTheme?: "light" | "dark" | string;
+  defaultTheme?: 'light' | 'dark' | string;
   /** CSS variable prefix */
   prefix?: string;
   /** Global layout configuration */
@@ -93,32 +93,32 @@ export interface SemanticColors {
   background: string;
   foreground: string;
   muted: string;
-  "muted-foreground": string;
+  'muted-foreground': string;
   card: string;
-  "card-foreground": string;
+  'card-foreground': string;
   border: string;
   input: string;
   ring: string;
   primary: string;
-  "primary-foreground": string;
+  'primary-foreground': string;
   secondary: string;
-  "secondary-foreground": string;
+  'secondary-foreground': string;
   success: string;
-  "success-foreground": string;
+  'success-foreground': string;
   warning: string;
-  "warning-foreground": string;
+  'warning-foreground': string;
   danger: string;
-  "danger-foreground": string;
+  'danger-foreground': string;
   info: string;
-  "info-foreground": string;
+  'info-foreground': string;
 }
 
 export interface IdeasUITheme {
-  colors: ColorTokens & {gray: ColorScale};
+  colors: ColorTokens & { gray: ColorScale };
   semanticColors: SemanticColors;
   spacing: Record<string, string>;
   borderRadius: Record<string, string>;
-  fontSize: Record<string, string | [string, {lineHeight: string}]>;
+  fontSize: Record<string, string | [string, { lineHeight: string }]>;
   boxShadow: Record<string, string>;
   animation: Record<string, string>;
   keyframes: Record<string, Record<string, any>>;
@@ -126,13 +126,13 @@ export interface IdeasUITheme {
   transitionTimingFunction: Record<string, string>;
 }
 
-export type ThemeMode = "light" | "dark" | "system";
+export type ThemeMode = 'light' | 'dark' | 'system';
 
 /** All colors are stored and output as OKLCH */
-export type ColorFn = "oklch";
+export type ColorFn = 'oklch';
 
 export type ConfigTheme = {
-  extend?: "light" | "dark";
+  extend?: 'light' | 'dark';
   layout?: Partial<LayoutTokens>;
   colors?: Partial<ColorTokens>;
 };
@@ -140,7 +140,7 @@ export type ConfigTheme = {
 export type ConfigThemes = Record<string, ConfigTheme>;
 
 export type ResolvedConfig = {
-  variants: {name: string; definition: string[]}[];
+  variants: { name: string; definition: string[] }[];
   utilities: Record<string, Record<string, string>>;
   colors: Record<string, string>;
   baseStyles: Record<string, Record<string, string>>;

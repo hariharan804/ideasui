@@ -1,10 +1,10 @@
-import {cn} from "@ideasui/utils";
-import {SpinnerSizesProps, spinnerSizes} from "@ideasui/theme/token";
+import { cn } from '@ideasui/utils';
+import { SpinnerSizesProps, spinnerSizes } from '@ideasui/theme/token';
 
-export const Spinner = ({size}: {size: SpinnerSizesProps}) => {
+export const Spinner = ({ size }: { size: SpinnerSizesProps }) => {
   return (
     <svg
-      className={cn("animate-spin", spinnerSizes[size] || "h-4 w-4")}
+      className={cn('animate-spin', spinnerSizes[size] || 'h-4 w-4')}
       fill="none"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"

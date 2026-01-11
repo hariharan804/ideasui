@@ -1,7 +1,7 @@
-const {relative} = require("path");
-const escape = require("shell-quote").quote;
-const isWin = process.platform === "win32";
-const {ESLint} = require("eslint");
+const { relative } = require('path');
+const escape = require('shell-quote').quote;
+const isWin = process.platform === 'win32';
+const { ESLint } = require('eslint');
 
 const removeIgnoredFiles = async (files) => {
   const cwd = process.cwd();
@@ -14,7 +14,7 @@ const removeIgnoredFiles = async (files) => {
 };
 
 module.exports = {
-  "**/*.{js,ts,jsx,tsx}": async (files) => {
+  '**/*.{js,ts,jsx,tsx}': async (files) => {
     const filesToLint = await removeIgnoredFiles(files);
 
     return filesToLint.map((filename) => {
@@ -23,7 +23,7 @@ module.exports = {
     });
   },
 
-  "**/*.css": async (files) => {
+  '**/*.css': async (files) => {
     const filesToLint = await removeIgnoredFiles(files);
 
     return filesToLint.map((filename) => {

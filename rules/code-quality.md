@@ -45,13 +45,13 @@ const { variant, size, ...props } = buttonProps
 
 ```tsx
 // ❌ Don't use var
-var buttonType = "primary";
+var buttonType = 'primary';
 
 // ❌ Don't use string concatenation
-const message = "Hello " + name;
+const message = 'Hello ' + name;
 
 // ❌ Don't use && for null checks
-const name = user.name || "Anonymous";
+const name = user.name || 'Anonymous';
 
 // ❌ Don't use nested ternaries
 const result = a ? b : c ? d : e;
@@ -77,7 +77,7 @@ const value = obj[key]; // Only if key is validated
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // ❌ Dangerous patterns
-const fn = new Function("return " + userInput); // Never do this
+const fn = new Function('return ' + userInput); // Never do this
 const result = eval(userCode); // Never do this
 ```
 
@@ -94,14 +94,14 @@ const result = eval(userCode); // Never do this
 
 ```tsx
 // ✅ Correct order
-import React from "react";
-import {clsx} from "clsx";
-import {tv} from "tailwind-variants";
+import React from 'react';
+import { clsx } from 'clsx';
+import { tv } from 'tailwind-variants';
 
-import {cn} from "@ideasui/utils";
-import {buttonVariants} from "@ideasui/variants";
+import { cn } from '@ideasui/utils';
+import { buttonVariants } from '@ideasui/variants';
 
-import {Icon} from "./icon";
+import { Icon } from './icon';
 ```
 
 ## ⚛️ React Best Practices
@@ -111,13 +111,13 @@ import {Icon} from "./icon";
 ```tsx
 // ✅ Use forwardRef for components
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({className, variant, size, ...props}, ref) => {
+  ({ className, variant, size, ...props }, ref) => {
     return (
-      <button ref={ref} className={cn(buttonVariants({variant, size}), className)} {...props} />
+      <button ref={ref} className={cn(buttonVariants({ variant, size }), className)} {...props} />
     );
   },
 );
-Button.displayName = "Button";
+Button.displayName = 'Button';
 
 // ✅ Use proper keys in lists
 {
@@ -186,17 +186,17 @@ useEffect(() => {
 
 ```tsx
 // ✅ Good test structure
-describe("Button", () => {
-  it("renders with correct variant classes", () => {
+describe('Button', () => {
+  it('renders with correct variant classes', () => {
     render(<Button variant="outline">Click me</Button>);
-    expect(screen.getByRole("button")).toHaveClass("border-2");
+    expect(screen.getByRole('button')).toHaveClass('border-2');
   });
 
-  it("handles click events", async () => {
+  it('handles click events', async () => {
     const handleClick = jest.fn();
     render(<Button onClick={handleClick}>Click me</Button>);
 
-    await user.click(screen.getByRole("button"));
+    await user.click(screen.getByRole('button'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 });
@@ -230,8 +230,8 @@ describe("Button", () => {
  */
 export interface ButtonProps {
   /** Visual style variant */
-  variant?: "solid" | "outline" | "ghost";
+  variant?: 'solid' | 'outline' | 'ghost';
   /** Size of the button */
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 ````

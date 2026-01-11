@@ -21,7 +21,7 @@ export function setAttrs(element: Element, attrs: Record<string, string | null |
 /**
  * Toggle attribute based on condition
  */
-export function toggleAttr(element: Element, name: string, condition: boolean, value = ""): void {
+export function toggleAttr(element: Element, name: string, condition: boolean, value = ''): void {
   if (condition) {
     element.setAttribute(name, value);
   } else {
@@ -54,7 +54,7 @@ export function getDataAttr<T = string>(element: Element, name: string): T | nul
  * Set data attribute with JSON serialization
  */
 export function setDataAttr(element: Element, name: string, value: any): void {
-  const serialized = typeof value === "string" ? value : JSON.stringify(value);
+  const serialized = typeof value === 'string' ? value : JSON.stringify(value);
   element.setAttribute(`data-${name}`, serialized);
 }
 
@@ -67,7 +67,7 @@ export function toDataAttrs(data: Record<string, any>): Record<string, string> {
   Object.entries(data).forEach(([key, value]) => {
     if (value !== null && value !== undefined) {
       const dataKey = `data-${key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)}`;
-      result[dataKey] = typeof value === "string" ? value : JSON.stringify(value);
+      result[dataKey] = typeof value === 'string' ? value : JSON.stringify(value);
     }
   });
 

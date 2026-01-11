@@ -28,7 +28,7 @@
 
 ### Icon Generation Pipeline
 
-1. **Source**: Lucide/Heroicons compatible SVGs
+1. **Source**: Lucide compatible SVGs
 2. **Processing**: Automated component generation
 3. **Optimization**: SVGO optimization
 4. **Bundling**: Tree-shakeable exports
@@ -67,10 +67,10 @@ npm run icons:optimize
 
 ```tsx
 // Category imports
-import {ChevronDown} from "@ideasui/icons/ui";
-import {Facebook} from "@ideasui/icons/social";
-import {Camera} from "@ideasui/icons/media";
+import { ChevronDown } from '@ideasui/icons/ui';
+import { Facebook } from '@ideasui/icons/social';
+import { Camera } from '@ideasui/icons/media';
 
 // Or full import (tree-shakeable)
-import {ChevronDown, Facebook, Camera} from "@ideasui/icons";
+import { ChevronDown, Facebook, Camera } from '@ideasui/icons';
 ```

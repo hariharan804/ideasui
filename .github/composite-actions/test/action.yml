@@ -1,5 +1,5 @@
-name: "Test"
-description: "Runs all tests including unit"
+name: 'Test'
+description: 'Runs all tests including unit'
 
 runs:
   using: composite

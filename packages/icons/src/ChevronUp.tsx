@@ -1,9 +1,9 @@
-import type {IconProps} from "./types";
+import type { IconProps } from './types';
 
-import * as React from "react";
+import * as React from 'react';
 
 export const ChevronUp = React.forwardRef<SVGSVGElement, IconProps>(
-  ({size = 24, color = "currentColor", ...props}, ref) => (
+  ({ size = 24, color = 'currentColor', ...props }, ref) => (
     <svg
       ref={ref}
       fill="none"
@@ -21,4 +21,4 @@ export const ChevronUp = React.forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-ChevronUp.displayName = "ChevronUp";
+ChevronUp.displayName = 'ChevronUp';

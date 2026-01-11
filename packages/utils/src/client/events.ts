@@ -31,15 +31,12 @@ export const keyboard = {
 export function composeEventHandlers<E>(
   originalEventHandler?: (event: E) => void,
   ourEventHandler?: (event: E) => void,
-  { checkForDefaultPrevented = true } = {}
+  { checkForDefaultPrevented = true } = {},
 ) {
   return function handleEvent(event: E) {
     originalEventHandler?.(event);
 
-    if (
-      checkForDefaultPrevented === false ||
-      !(event as any)?.defaultPrevented
-    ) {
+    if (checkForDefaultPrevented === false || !(event as any)?.defaultPrevented) {
       return ourEventHandler?.(event);
     }
   };

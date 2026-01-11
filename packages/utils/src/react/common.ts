@@ -1,5 +1,5 @@
-import {cn} from "../style/tailwind";
-import * as React from "react";
+import { cn } from '../style/tailwind';
+import * as React from 'react';
 
 /**
  * Merge multiple refs into a single ref callback
@@ -10,7 +10,7 @@ export function mergeRefs<T = any>(
 ): React.RefCallback<T> {
   return (node: T) => {
     refs.forEach((ref) => {
-      if (typeof ref === "function") {
+      if (typeof ref === 'function') {
         ref(node);
       } else if (ref != null) {
         (ref as any).current = node;
@@ -38,19 +38,16 @@ export function mergeProps(
     for (const key in obj) {
       const value = obj[key];
 
-      if (key === "className" || key === "class") {
+      if (key === 'className' || key === 'class') {
         result.className = cn(result.className, value);
-      }
-      else if (key === "style") {
-        result.style = {...(result.style || {}), ...(value || {})};
-      }
-      else if (key === "ref") {
+      } else if (key === 'style') {
+        result.style = { ...(result.style || {}), ...(value || {}) };
+      } else if (key === 'ref') {
         const existing = result.ref;
         result.ref = existing ? mergeRefs(existing, value) : value;
-      }
-      else if (key.startsWith("on") && typeof value === "function") {
+      } else if (key.startsWith('on') && typeof value === 'function') {
         const existing = result[key];
-        if (typeof existing === "function") {
+        if (typeof existing === 'function') {
           result[key] = (...args: any[]) => {
             existing(...args);
             value(...args);
@@ -58,8 +55,7 @@ export function mergeProps(
         } else {
           result[key] = value;
         }
-      }
-      else {
+      } else {
         result[key] = value;
       }
     }

@@ -22,7 +22,7 @@ function MyComponent() {
   const [theme, setTheme] = useLocalStorage('theme', 'light')
   const { isOpen, onOpen, onClose } = useDisclosure()
   const debouncedValue = useDebounce(searchTerm, 300)
-  
+
   return (
     // Your component JSX
   )
@@ -62,7 +62,7 @@ function MyComponent() {
 ## 🎯 Hook Template
 
 ````tsx
-import {useState, useEffect, useCallback} from "react";
+import { useState, useEffect, useCallback } from 'react';
 
 /**
  * Custom hook for managing localStorage state with automatic serialization and SSR support
@@ -133,11 +133,11 @@ interface HookReturn<T> {
 ### 1. useLocalStorage
 
 ```tsx
-import {useState, useEffect} from "react";
+import { useState, useEffect } from 'react';
 
 export function useLocalStorage<T>(key: string, defaultValue: T): [T, (value: T) => void] {
   const [value, setValue] = useState<T>(() => {
-    if (typeof window === "undefined") return defaultValue;
+    if (typeof window === 'undefined') return defaultValue;
 
     try {
       const item = window.localStorage.getItem(key);
@@ -160,13 +160,13 @@ export function useLocalStorage<T>(key: string, defaultValue: T): [T, (value: T)
 }
 
 // Usage
-const [theme, setTheme] = useLocalStorage("theme", "light");
+const [theme, setTheme] = useLocalStorage('theme', 'light');
 ```
 
 ### 2. useDisclosure
 
 ```tsx
-import {useState, useCallback} from "react";
+import { useState, useCallback } from 'react';
 
 interface UseDisclosureReturn {
   isOpen: boolean;
@@ -182,17 +182,17 @@ export function useDisclosure(defaultIsOpen = false): UseDisclosureReturn {
   const onClose = useCallback(() => setIsOpen(false), []);
   const onToggle = useCallback(() => setIsOpen((prev) => !prev), []);
 
-  return {isOpen, onOpen, onClose, onToggle};
+  return { isOpen, onOpen, onClose, onToggle };
 }
 
 // Usage
-const {isOpen, onOpen, onClose} = useDisclosure();
+const { isOpen, onOpen, onClose } = useDisclosure();
 ```
 
 ### 3. useClickOutside
 
 ```tsx
-import {useEffect, useRef} from "react";
+import { useEffect, useRef } from 'react';
 
 export function useClickOutside<T extends HTMLElement>(handler: () => void) {
   const ref = useRef<T>(null);
@@ -204,8 +204,8 @@ export function useClickOutside<T extends HTMLElement>(handler: () => void) {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [handler]);
 
   return ref;
@@ -218,7 +218,7 @@ const ref = useClickOutside<HTMLDivElement>(() => setIsOpen(false));
 ### 4. useDebounce
 
 ```tsx
-import {useState, useEffect} from "react";
+import { useState, useEffect } from 'react';
 
 export function useDebounce<T>(value: T, delay: number): T {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
@@ -241,7 +241,7 @@ const debouncedSearchTerm = useDebounce(searchTerm, 300);
 ### 5. useFetch
 
 ```tsx
-import {useState, useEffect} from "react";
+import { useState, useEffect } from 'react';
 
 interface UseFetchReturn<T> {
   data: T | null;
@@ -260,7 +260,7 @@ export function useFetch<T>(url: string): UseFetchReturn<T> {
       setLoading(true);
       setError(null);
       const response = await fetch(url);
-      if (!response.ok) throw new Error("Failed to fetch");
+      if (!response.ok) throw new Error('Failed to fetch');
       const result = await response.json();
       setData(result);
     } catch (err) {
@@ -274,11 +274,11 @@ export function useFetch<T>(url: string): UseFetchReturn<T> {
     fetchData();
   }, [url]);
 
-  return {data, loading, error, refetch: fetchData};
+  return { data, loading, error, refetch: fetchData };
 }
 
 // Usage
-const {data, loading, error} = useFetch<User[]>("/api/users");
+const { data, loading, error } = useFetch<User[]>('/api/users');
 ```
 
 ## 🧪 Testing Hooks
@@ -299,28 +299,28 @@ pnpm test:coverage
 ### Test Template
 
 ```tsx
-import {renderHook, act} from "@testing-library/react";
-import {useCustomHook} from "../useCustomHook";
+import { renderHook, act } from '@testing-library/react';
+import { useCustomHook } from '../useCustomHook';
 
-describe("useCustomHook", () => {
-  it("should initialize with default value", () => {
-    const {result} = renderHook(() => useCustomHook("initial"));
-    expect(result.current.value).toBe("initial");
+describe('useCustomHook', () => {
+  it('should initialize with default value', () => {
+    const { result } = renderHook(() => useCustomHook('initial'));
+    expect(result.current.value).toBe('initial');
   });
 
-  it("should update value", () => {
-    const {result} = renderHook(() => useCustomHook("initial"));
+  it('should update value', () => {
+    const { result } = renderHook(() => useCustomHook('initial'));
 
     act(() => {
-      result.current.setValue("updated");
+      result.current.setValue('updated');
     });
 
-    expect(result.current.value).toBe("updated");
+    expect(result.current.value).toBe('updated');
   });
 
-  it("should cleanup on unmount", () => {
+  it('should cleanup on unmount', () => {
     const cleanup = jest.fn();
-    const {unmount} = renderHook(() => useCustomHook("test"));
+    const { unmount } = renderHook(() => useCustomHook('test'));
 
     unmount();
     expect(cleanup).toHaveBeenCalled();

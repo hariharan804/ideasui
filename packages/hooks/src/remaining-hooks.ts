@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState, useLayoutEffect} from "react";
+import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 
 export function useFocusTrap<T extends HTMLElement>(enabled = true) {
   const ref = useRef<T>(null);
@@ -14,7 +14,7 @@ export function useFocusTrap<T extends HTMLElement>(enabled = true) {
     const last = focusable[focusable.length - 1] as HTMLElement;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Tab") return;
+      if (event.key !== 'Tab') return;
 
       if (event.shiftKey) {
         if (document.activeElement === first) {
@@ -29,10 +29,10 @@ export function useFocusTrap<T extends HTMLElement>(enabled = true) {
       }
     };
 
-    container.addEventListener("keydown", handleKeyDown);
+    container.addEventListener('keydown', handleKeyDown);
     first?.focus();
 
-    return () => container.removeEventListener("keydown", handleKeyDown);
+    return () => container.removeEventListener('keydown', handleKeyDown);
   }, [enabled]);
 
   return ref;
@@ -51,21 +51,21 @@ export function useFetch<T>(url: string) {
       .finally(() => setLoading(false));
   }, [url]);
 
-  return {data, loading, error};
+  return { data, loading, error };
 }
 
 export function useAsync<T>(asyncFunction: () => Promise<T>, deps: any[] = []) {
-  const [state, setState] = useState<{data: T | null; loading: boolean; error: Error | null}>({
+  const [state, setState] = useState<{ data: T | null; loading: boolean; error: Error | null }>({
     data: null,
     loading: true,
     error: null,
   });
 
   useEffect(() => {
-    setState({data: null, loading: true, error: null});
+    setState({ data: null, loading: true, error: null });
     asyncFunction()
-      .then((data) => setState({data, loading: false, error: null}))
-      .catch((error) => setState({data: null, loading: false, error}));
+      .then((data) => setState({ data, loading: false, error: null }))
+      .catch((error) => setState({ data: null, loading: false, error }));
   }, deps);
 
   return state;
@@ -105,4 +105,4 @@ export function useUpdateEffect(effect: () => void, deps: any[]) {
 }
 
 export const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect;

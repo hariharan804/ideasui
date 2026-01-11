@@ -25,6 +25,14 @@
   "devDependencies": {
     "typescript": "^5.9.3"
   },
-  "files": ["dist"],
-  "keywords": ["ideasui", "cli", "components", "react", "typescript"]
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "ideasui",
+    "cli",
+    "components",
+    "react",
+    "typescript"
+  ]
 }

@@ -14,7 +14,7 @@ type Story = StoryObj;
 const CodeBlock = ({ title, code }: { title: string; code: string }) => (
   <div className="space-y-2">
     <h3 className="text-lg font-semibold">{title}</h3>
-    <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
+    <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-sm text-gray-100">
       <code>{code}</code>
     </pre>
   </div>
@@ -24,8 +24,8 @@ export const BasicUsage: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold mb-4">IdeasUI Theme Plugin</h2>
-        <p className="text-gray-600 mb-8">
+        <h2 className="mb-4 text-2xl font-bold">IdeasUI Theme Plugin</h2>
+        <p className="mb-8 text-gray-600">
           Tailwind CSS plugin for IdeasUI theme system with OKLCH colors and design tokens
         </p>
       </div>
@@ -108,44 +108,42 @@ export const ThemeExamples: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold mb-4">Theme Examples</h2>
-        <p className="text-gray-600 mb-8">Visual examples of different theme configurations</p>
+        <h2 className="mb-4 text-2xl font-bold">Theme Examples</h2>
+        <p className="mb-8 text-gray-600">Visual examples of different theme configurations</p>
       </div>
 
       <div className="space-y-6">
-        <div className="p-6 border rounded-lg">
-          <h3 className="text-lg font-semibold mb-4">Light Theme</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-4 bg-primary-500 text-primary-foreground rounded-lg text-center">
+        <div className="rounded-lg border p-6">
+          <h3 className="mb-4 text-lg font-semibold">Light Theme</h3>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <div className="bg-primary-500 text-primary-foreground rounded-lg p-4 text-center">
               Primary
             </div>
-            <div className="p-4 bg-secondary-500 text-secondary-foreground rounded-lg text-center">
+            <div className="bg-secondary-500 text-secondary-foreground rounded-lg p-4 text-center">
               Secondary
             </div>
-            <div className="p-4 bg-success-500 text-success-foreground rounded-lg text-center">
+            <div className="bg-success-500 text-success-foreground rounded-lg p-4 text-center">
               Success
             </div>
-            <div className="p-4 bg-danger-500 text-danger-foreground rounded-lg text-center">
+            <div className="bg-danger-500 text-danger-foreground rounded-lg p-4 text-center">
               Danger
             </div>
           </div>
         </div>
 
-        <div className="p-6 bg-gray-900 text-white rounded-lg">
-          <h3 className="text-lg font-semibold mb-4">Dark Theme</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="p-4 bg-primary-400 text-primary-950 rounded-lg text-center">
+        <div className="rounded-lg bg-gray-900 p-6 text-white">
+          <h3 className="mb-4 text-lg font-semibold">Dark Theme</h3>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <div className="bg-primary-400 text-primary-950 rounded-lg p-4 text-center">
               Primary
             </div>
-            <div className="p-4 bg-secondary-400 text-secondary-950 rounded-lg text-center">
+            <div className="bg-secondary-400 text-secondary-950 rounded-lg p-4 text-center">
               Secondary
             </div>
-            <div className="p-4 bg-success-400 text-success-950 rounded-lg text-center">
+            <div className="bg-success-400 text-success-950 rounded-lg p-4 text-center">
               Success
             </div>
-            <div className="p-4 bg-danger-400 text-danger-950 rounded-lg text-center">
-              Danger
-            </div>
+            <div className="bg-danger-400 text-danger-950 rounded-lg p-4 text-center">Danger</div>
           </div>
         </div>
       </div>
@@ -157,49 +155,49 @@ export const Features: Story = {
   render: () => (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold mb-4">Plugin Features</h2>
-        <p className="text-gray-600 mb-8">Key features of the IdeasUI theme system</p>
+        <h2 className="mb-4 text-2xl font-bold">Plugin Features</h2>
+        <p className="mb-8 text-gray-600">Key features of the IdeasUI theme system</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="p-6 border rounded-lg">
-          <h3 className="text-lg font-semibold mb-3">🎨 OKLCH Color System</h3>
-          <p className="text-gray-600 text-sm">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="rounded-lg border p-6">
+          <h3 className="mb-3 text-lg font-semibold">🎨 OKLCH Color System</h3>
+          <p className="text-sm text-gray-600">
             Advanced color space for better perceptual uniformity and consistent color relationships
           </p>
         </div>
 
-        <div className="p-6 border rounded-lg">
-          <h3 className="text-lg font-semibold mb-3">🌓 Light/Dark Themes</h3>
-          <p className="text-gray-600 text-sm">
+        <div className="rounded-lg border p-6">
+          <h3 className="mb-3 text-lg font-semibold">🌓 Light/Dark Themes</h3>
+          <p className="text-sm text-gray-600">
             Built-in light and dark theme support with optimized color palettes
           </p>
         </div>
 
-        <div className="p-6 border rounded-lg">
-          <h3 className="text-lg font-semibold mb-3">⚡ Performance Optimized</h3>
-          <p className="text-gray-600 text-sm">
+        <div className="rounded-lg border p-6">
+          <h3 className="mb-3 text-lg font-semibold">⚡ Performance Optimized</h3>
+          <p className="text-sm text-gray-600">
             Efficient CSS variable generation with minimal runtime overhead
           </p>
         </div>
 
-        <div className="p-6 border rounded-lg">
-          <h3 className="text-lg font-semibold mb-3">🔧 Customizable</h3>
-          <p className="text-gray-600 text-sm">
+        <div className="rounded-lg border p-6">
+          <h3 className="mb-3 text-lg font-semibold">🔧 Customizable</h3>
+          <p className="text-sm text-gray-600">
             Extend with custom themes, colors, and design tokens
           </p>
         </div>
 
-        <div className="p-6 border rounded-lg">
-          <h3 className="text-lg font-semibold mb-3">♿ WCAG Compliant</h3>
-          <p className="text-gray-600 text-sm">
+        <div className="rounded-lg border p-6">
+          <h3 className="mb-3 text-lg font-semibold">♿ WCAG Compliant</h3>
+          <p className="text-sm text-gray-600">
             Built-in color contrast checking for accessibility compliance
           </p>
         </div>
 
-        <div className="p-6 border rounded-lg">
-          <h3 className="text-lg font-semibent mb-3">🎯 Type Safe</h3>
-          <p className="text-gray-600 text-sm">
+        <div className="rounded-lg border p-6">
+          <h3 className="font-semibent mb-3 text-lg">🎯 Type Safe</h3>
+          <p className="text-sm text-gray-600">
             Full TypeScript support with comprehensive type definitions
           </p>
         </div>

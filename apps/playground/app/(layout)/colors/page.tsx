@@ -1,11 +1,11 @@
-"use client";
-import {useState} from "react";
-import {Check, Copy, Palette} from "lucide-react";
-import {lightColorTokens, darkColorTokens} from "@ideasui/theme";
+'use client';
+import { useState } from 'react';
+import { Check, Copy, Palette } from 'lucide-react';
+import { lightColorTokens, darkColorTokens } from '@ideasui/theme';
 
 export default function ColorsPage() {
   const [copiedClass, setCopiedClass] = useState<string | null>(null);
-  const [selectedTheme, setSelectedTheme] = useState<"light" | "dark">("light");
+  const [selectedTheme, setSelectedTheme] = useState<'light' | 'dark'>('light');
 
   const copyToClipboard = async (className: string) => {
     await navigator.clipboard.writeText(className);
@@ -37,14 +37,14 @@ export default function ColorsPage() {
 
           {/* Theme Toggle */}
           <div className="inline-flex rounded-lg border bg-white p-1 shadow-sm">
-            {(["light", "dark"] as const).map((theme) => (
+            {(['light', 'dark'] as const).map((theme) => (
               <button
                 key={theme}
                 onClick={() => setSelectedTheme(theme)}
                 className={`rounded-md px-4 py-2 text-sm font-medium transition-all ${
                   selectedTheme === theme
-                    ? "bg-purple-600 text-white shadow-sm"
-                    : "text-neutral-600 hover:text-neutral-900"
+                    ? 'bg-purple-600 text-white shadow-sm'
+                    : 'text-neutral-600 hover:text-neutral-900'
                 }`}
               >
                 {theme.charAt(0).toUpperCase() + theme.slice(1)}
@@ -60,7 +60,7 @@ export default function ColorsPage() {
               <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-neutral-800 capitalize">
                 <div
                   className="h-4 w-4 rounded-full"
-                  style={{backgroundColor: colors[selectedTheme][category]["500"]}}
+                  style={{ backgroundColor: colors[selectedTheme][category]['500'] }}
                 />
                 {category}
               </h2>
@@ -76,7 +76,7 @@ export default function ColorsPage() {
                       {/* Color Swatch */}
                       <div
                         className="relative aspect-square cursor-pointer overflow-hidden rounded-lg border border-neutral-200 shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md"
-                        style={{backgroundColor: color}}
+                        style={{ backgroundColor: color }}
                         onClick={() => copyToClipboard(className)}
                       >
                         <div className="absolute inset-0 bg-black/0 transition-colors duration-200 group-hover:bg-black/10" />
@@ -101,33 +101,33 @@ export default function ColorsPage() {
                           onClick={() => copyToClipboard(className)}
                           className={`w-full rounded border px-2 py-1 font-mono text-xs transition-colors ${
                             copiedClass === className
-                              ? "border-green-300 bg-green-100 text-green-700"
-                              : "border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100"
+                              ? 'border-green-300 bg-green-100 text-green-700'
+                              : 'border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100'
                           }`}
                         >
-                          {copiedClass === className ? "Copied!" : className}
+                          {copiedClass === className ? 'Copied!' : className}
                         </button>
 
                         <button
                           onClick={() => copyToClipboard(textClassName)}
                           className={`w-full rounded border px-2 py-1 font-mono text-xs transition-colors ${
                             copiedClass === textClassName
-                              ? "border-green-300 bg-green-100 text-green-700"
-                              : "border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100"
+                              ? 'border-green-300 bg-green-100 text-green-700'
+                              : 'border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100'
                           }`}
                         >
-                          {copiedClass === textClassName ? "Copied!" : textClassName}
+                          {copiedClass === textClassName ? 'Copied!' : textClassName}
                         </button>
 
                         <button
                           onClick={() => copyToClipboard(borderClassName)}
                           className={`w-full rounded border px-2 py-1 font-mono text-xs transition-colors ${
                             copiedClass === borderClassName
-                              ? "border-green-300 bg-green-100 text-green-700"
-                              : "border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100"
+                              ? 'border-green-300 bg-green-100 text-green-700'
+                              : 'border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100'
                           }`}
                         >
-                          {copiedClass === borderClassName ? "Copied!" : borderClassName}
+                          {copiedClass === borderClassName ? 'Copied!' : borderClassName}
                         </button>
                       </div>
                     </div>
@@ -206,14 +206,14 @@ export default function ColorsPage() {
                 <div className="border-danger-200 rounded-xl border bg-white p-6 shadow-sm">
                   <h4 className="text-danger-700 mb-2 font-semibold">Error State</h4>
                   <p className="text-sm text-neutral-600">
-                    Border colored with <code className="text-danger-600">border-danger-200</code>{" "}
+                    Border colored with <code className="text-danger-600">border-danger-200</code>{' '}
                     to indicate errors.
                   </p>
                 </div>
                 <div className="border-l-info-500 rounded-xl border border-l-4 bg-white p-6 shadow-sm">
                   <h4 className="mb-2 font-semibold text-neutral-800">Info Panel</h4>
                   <p className="text-sm text-neutral-600">
-                    Left border accent using{" "}
+                    Left border accent using{' '}
                     <code className="text-blue-600">border-l-info-500</code>.
                   </p>
                 </div>
@@ -225,7 +225,7 @@ export default function ColorsPage() {
               <h3 className="mb-4 text-lg font-medium text-neutral-700">Typography</h3>
               <div className="space-y-4">
                 <p className="text-neutral-600">
-                  Regular text can involve links that are{" "}
+                  Regular text can involve links that are{' '}
                   <a
                     href="#"
                     className="text-primary-600 hover:text-primary-700 decoration-primary-300 font-medium underline underline-offset-4"
@@ -235,8 +235,8 @@ export default function ColorsPage() {
                   .
                 </p>
                 <p className="text-sm text-neutral-500">
-                  Status text: <span className="text-success-600 font-medium">Order Confirmed</span>{" "}
-                  • <span className="text-warning-600 font-medium">Processing</span> •{" "}
+                  Status text: <span className="text-success-600 font-medium">Order Confirmed</span>{' '}
+                  • <span className="text-warning-600 font-medium">Processing</span> •{' '}
                   <span className="font-medium text-neutral-500">Cancelled</span>
                 </p>
               </div>
@@ -366,7 +366,7 @@ export default function ColorsPage() {
                 <div className="bg-primary-container text-primary-onContainer rounded-xl p-5">
                   <h4 className="font-semibold">Primary Container</h4>
                   <p className="mt-1 text-sm opacity-90">
-                    Uses <code className="text-xs">bg-primary-container</code> with{" "}
+                    Uses <code className="text-xs">bg-primary-container</code> with{' '}
                     <code className="text-xs">text-primary-onContainer</code>
                   </p>
                 </div>
@@ -478,7 +478,7 @@ export default function ColorsPage() {
                 </table>
               </div>
               <p className="mt-4 text-sm text-neutral-500">
-                All semantic tokens reference shade CSS variables:{" "}
+                All semantic tokens reference shade CSS variables:{' '}
                 <code className="text-xs">
                   --ideasui-primary-container: var(--ideasui-primary-100)
                 </code>

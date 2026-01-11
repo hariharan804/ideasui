@@ -1,7 +1,7 @@
-import {useState, useEffect, useCallback, useRef} from "react";
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 export interface UseFetchOptions {
-  method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   headers?: Record<string, string>;
   body?: any;
   enabled?: boolean;
@@ -27,16 +27,13 @@ export interface UseFetchReturn<T> {
  * const {data, loading, error, refetch} = useFetch<User[]>('/api/users')
  * ```
  */
-export function useFetch<T = any>(
-  url: string,
-  options: UseFetchOptions = {}
-): UseFetchReturn<T> {
+export function useFetch<T = any>(url: string, options: UseFetchOptions = {}): UseFetchReturn<T> {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
 
-  const {method = "GET", headers, body, enabled = true} = options;
+  const { method = 'GET', headers, body, enabled = true } = options;
 
   const fetchData = useCallback(async () => {
     if (!enabled) return;
@@ -56,13 +53,13 @@ export function useFetch<T = any>(
       const fetchOptions: RequestInit = {
         method,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           ...headers,
         },
         signal: abortControllerRef.current.signal,
       };
 
-      if (body && method !== "GET") {
+      if (body && method !== 'GET') {
         fetchOptions.body = JSON.stringify(body);
       }
 
@@ -75,7 +72,7 @@ export function useFetch<T = any>(
       const result = await response.json();
       setData(result);
     } catch (err) {
-      if (err instanceof Error && err.name !== "AbortError") {
+      if (err instanceof Error && err.name !== 'AbortError') {
         setError(err);
       }
     } finally {

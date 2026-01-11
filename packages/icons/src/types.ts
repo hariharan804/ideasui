@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-export interface IconProps extends Omit<React.SVGProps<SVGSVGElement>, "ref"> {
+export interface IconProps extends Omit<React.SVGProps<SVGSVGElement>, 'ref'> {
   /** Icon size in pixels */
   size?: number | string;
   /** Icon color (CSS color value) */

@@ -21,8 +21,8 @@ Always export types explicitly:
 
 ```tsx
 // ✅ Correct
-export type {ButtonProps} from "./button";
-export {Button} from "./button";
+export type { ButtonProps } from './button';
+export { Button } from './button';
 
 // ❌ Avoid re-exporting * with types mixed
 ```
@@ -49,7 +49,7 @@ All interactive components use forwardRef:
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => (
   <button ref={ref} {...props} />
 ));
-Button.displayName = "Button";
+Button.displayName = 'Button';
 ```
 
 ### Hooks Return Types

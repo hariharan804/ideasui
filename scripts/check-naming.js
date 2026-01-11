@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 // Naming convention rules
 const rules = {
@@ -23,19 +23,19 @@ class NamingChecker {
   checkFile(filePath) {
     const fileName = path.basename(filePath);
 
-    if (fileName.startsWith(".") || fileName === "index.ts" || fileName === "index.tsx") {
+    if (fileName.startsWith('.') || fileName === 'index.ts' || fileName === 'index.tsx') {
       return;
     }
 
     let isValid = false;
 
-    if (fileName.includes(".test.") || fileName.includes(".spec.")) {
+    if (fileName.includes('.test.') || fileName.includes('.spec.')) {
       isValid = rules.files.tests.test(fileName);
-    } else if (fileName.includes(".stories.")) {
+    } else if (fileName.includes('.stories.')) {
       isValid = rules.files.stories.test(fileName);
-    } else if (fileName.includes(".config.")) {
+    } else if (fileName.includes('.config.')) {
       isValid = rules.files.configs.test(fileName);
-    } else if (fileName.endsWith(".tsx") || fileName.endsWith(".ts")) {
+    } else if (fileName.endsWith('.tsx') || fileName.endsWith('.ts')) {
       isValid = rules.files.components.test(fileName);
     } else {
       return;
@@ -49,7 +49,7 @@ class NamingChecker {
   checkFolder(folderPath) {
     const folderName = path.basename(folderPath);
 
-    if (folderName.startsWith(".") || folderName === "node_modules" || folderName === "__tests__") {
+    if (folderName.startsWith('.') || folderName === 'node_modules' || folderName === '__tests__') {
       return;
     }
 
@@ -60,7 +60,7 @@ class NamingChecker {
 
   checkPackageJson(packagePath) {
     try {
-      const packageJson = JSON.parse(fs.readFileSync(packagePath, "utf8"));
+      const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
 
       if (packageJson.name && !rules.packageName.test(packageJson.name)) {
         this.errors.push(`❌ Package: ${packagePath} - name should be @org/kebab-case`);
@@ -78,14 +78,14 @@ class NamingChecker {
       const stat = fs.statSync(fullPath);
 
       if (stat.isDirectory()) {
-        if (item !== "node_modules" && item !== ".git" && item !== "dist" && item !== ".next") {
+        if (item !== 'node_modules' && item !== '.git' && item !== 'dist' && item !== '.next') {
           this.checkFolder(fullPath);
           this.walkDirectory(fullPath);
         }
       } else {
         this.checkFile(fullPath);
 
-        if (item === "package.json") {
+        if (item === 'package.json') {
           this.checkPackageJson(fullPath);
         }
       }
@@ -93,14 +93,14 @@ class NamingChecker {
   }
 
   run() {
-    console.log("🔍 Checking naming conventions...\n");
+    console.log('🔍 Checking naming conventions...\n');
 
-    this.walkDirectory(".");
+    this.walkDirectory('.');
 
     if (this.errors.length === 0) {
-      console.log("✅ All naming conventions are correct!");
+      console.log('✅ All naming conventions are correct!');
     } else {
-      console.log("Naming Convention Errors:\n");
+      console.log('Naming Convention Errors:\n');
       this.errors.forEach((error) => console.log(error));
       console.log(`\n${this.errors.length} errors found`);
       process.exit(1);

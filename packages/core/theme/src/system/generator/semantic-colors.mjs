@@ -1,4 +1,4 @@
-import chroma from "chroma-js";
+import chroma from 'chroma-js';
 
 /**
  * Generate secondary color using color theory
@@ -6,7 +6,7 @@ import chroma from "chroma-js";
  * @param {string} variant - Color relationship type
  * @returns {string} - Secondary hex color
  */
-export function generateSecondary(primaryColor, variant = "complementary") {
+export function generateSecondary(primaryColor, variant = 'complementary') {
   const primary = chroma(primaryColor);
   const [h, s, l] = primary.hsl();
 
@@ -31,7 +31,7 @@ export function generateSecondary(primaryColor, variant = "complementary") {
       saturation: s * 0.9,
       lightness: l * 0.8,
     },
-    "split-complementary": {
+    'split-complementary': {
       hue: (h + 150) % 360,
       saturation: s * 0.8,
       lightness: l * 0.9,
@@ -104,7 +104,7 @@ function generateNeutral(primaryColor) {
 export function getSemanticColors(options = {}) {
   const {
     primaryColor,
-    secondaryVariant = "complementary",
+    secondaryVariant = 'complementary',
     customSecondary = null,
     customTertiary = null,
     customWarning = null,

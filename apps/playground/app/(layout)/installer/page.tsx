@@ -1,40 +1,40 @@
-"use client";
+'use client';
 
-import {useState} from "react";
-import {Package, Download, Check, AlertCircle, Copy} from "lucide-react";
+import { useState } from 'react';
+import { Package, Download, Check, AlertCircle, Copy } from 'lucide-react';
 
 const RELEASE_TAGS = {
-  latest: {label: "Latest", description: "Stable release", color: "green"},
-  canary: {label: "Canary", description: "Latest development build", color: "yellow"},
-  beta: {label: "Beta", description: "Beta releases", color: "blue"},
-  alpha: {label: "Alpha", description: "Alpha releases", color: "purple"},
+  latest: { label: 'Latest', description: 'Stable release', color: 'green' },
+  canary: { label: 'Canary', description: 'Latest development build', color: 'yellow' },
+  beta: { label: 'Beta', description: 'Beta releases', color: 'blue' },
+  alpha: { label: 'Alpha', description: 'Alpha releases', color: 'purple' },
 } as const;
 
 const PACKAGES = [
-  "@ideasui/button",
-  "@ideasui/ripple",
-  "@ideasui/theme",
-  "@ideasui/box",
-  "@ideasui/variants",
-  "@ideasui/utils",
-  "@ideasui/hooks",
+  '@ideasui/button',
+  '@ideasui/ripple',
+  '@ideasui/theme',
+  '@ideasui/box',
+  '@ideasui/variants',
+  '@ideasui/utils',
+  '@ideasui/hooks',
 ] as const;
 
 export default function InstallerPage() {
-  const [selectedTag, setSelectedTag] = useState<keyof typeof RELEASE_TAGS>("latest");
+  const [selectedTag, setSelectedTag] = useState<keyof typeof RELEASE_TAGS>('latest');
   const [selectedPackages, setSelectedPackages] = useState<Set<string>>(new Set(PACKAGES));
   const [copiedCommand, setCopiedCommand] = useState<string | null>(null);
 
-  const generateInstallCommand = (packageManager: "npm" | "pnpm" | "yarn") => {
+  const generateInstallCommand = (packageManager: 'npm' | 'pnpm' | 'yarn') => {
     const packages = Array.from(selectedPackages);
-    const packagesWithTag = packages.map((pkg) => `${pkg}@${selectedTag}`).join(" ");
+    const packagesWithTag = packages.map((pkg) => `${pkg}@${selectedTag}`).join(' ');
 
     switch (packageManager) {
-      case "npm":
+      case 'npm':
         return `npm install ${packagesWithTag}`;
-      case "pnpm":
+      case 'pnpm':
         return `pnpm add ${packagesWithTag}`;
-      case "yarn":
+      case 'yarn':
         return `yarn add ${packagesWithTag}`;
     }
   };
@@ -85,20 +85,20 @@ export default function InstallerPage() {
                   onClick={() => setSelectedTag(tag as keyof typeof RELEASE_TAGS)}
                   className={`rounded-lg border-2 p-4 text-left transition-all ${
                     selectedTag === tag
-                      ? "border-blue-500 bg-blue-50"
-                      : "border-slate-200 hover:border-slate-300"
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-slate-200 hover:border-slate-300'
                   }`}
                 >
                   <div className="mb-2 flex items-center gap-2">
                     <div
                       className={`h-3 w-3 rounded-full ${
-                        info.color === "green"
-                          ? "bg-green-500"
-                          : info.color === "yellow"
-                            ? "bg-yellow-500"
-                            : info.color === "blue"
-                              ? "bg-blue-500"
-                              : "bg-purple-500"
+                        info.color === 'green'
+                          ? 'bg-green-500'
+                          : info.color === 'yellow'
+                            ? 'bg-yellow-500'
+                            : info.color === 'blue'
+                              ? 'bg-blue-500'
+                              : 'bg-purple-500'
                       }`}
                     />
                     <span className="font-semibold text-slate-800">{info.label}</span>
@@ -138,8 +138,8 @@ export default function InstallerPage() {
                   key={pkg}
                   className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
                     selectedPackages.has(pkg)
-                      ? "border-blue-300 bg-blue-50"
-                      : "border-slate-200 hover:border-slate-300"
+                      ? 'border-blue-300 bg-blue-50'
+                      : 'border-slate-200 hover:border-slate-300'
                   }`}
                 >
                   <input
@@ -165,7 +165,7 @@ export default function InstallerPage() {
               </div>
             ) : (
               <div className="space-y-4">
-                {(["npm", "pnpm", "yarn"] as const).map((pm) => {
+                {(['npm', 'pnpm', 'yarn'] as const).map((pm) => {
                   const command = generateInstallCommand(pm);
                   return (
                     <div key={pm} className="relative">

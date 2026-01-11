@@ -42,11 +42,11 @@ Components can import from:
 ### Recipe Usage
 
 ```tsx
-import {button} from "@ideasui/theme/recipes";
-import {cn} from "@ideasui/utils";
+import { button } from '@ideasui/theme/recipes';
+import { cn } from '@ideasui/utils';
 
-const Button = ({variant, color, size, className, ...props}) => {
-  const {base, icon} = button({variant, color, size});
+const Button = ({ variant, color, size, className, ...props }) => {
+  const { base, icon } = button({ variant, color, size });
 
   return (
     <button className={cn(base(), className)} {...props}>
@@ -82,9 +82,9 @@ Button.displayName = "Button";
 ### React Aria Integration
 
 ```tsx
-import {useButton} from "react-aria";
+import { useButton } from 'react-aria';
 
-const {buttonProps} = useButton(props, ref);
+const { buttonProps } = useButton(props, ref);
 return <button {...buttonProps} />;
 ```
 
@@ -98,21 +98,21 @@ return <button {...buttonProps} />;
 - Keyboard interaction test
 
 ```tsx
-describe("Button", () => {
-  it("renders correctly", () => {
+describe('Button', () => {
+  it('renders correctly', () => {
     render(<Button>Click</Button>);
-    expect(screen.getByRole("button")).toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
-  it("handles click events", async () => {
+  it('handles click events', async () => {
     const onClick = jest.fn();
     render(<Button onClick={onClick}>Click</Button>);
-    await userEvent.click(screen.getByRole("button"));
+    await userEvent.click(screen.getByRole('button'));
     expect(onClick).toHaveBeenCalled();
   });
 
-  it("has no a11y violations", async () => {
-    const {container} = render(<Button>Click</Button>);
+  it('has no a11y violations', async () => {
+    const { container } = render(<Button>Click</Button>);
     expect(await axe(container)).toHaveNoViolations();
   });
 });

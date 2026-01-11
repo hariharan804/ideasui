@@ -1,6 +1,6 @@
-import {useCallback, useState} from "react";
-import {RippleItem} from "./ripple";
-import {getUniqueID} from "@ideasui/utils/core";
+import { useCallback, useState } from 'react';
+import { RippleItem } from './ripple';
+import { getUniqueID } from '@ideasui/utils/core';
 
 export function useRipple() {
   const [ripples, setRipples] = useState<RippleItem[]>([]);
@@ -41,7 +41,7 @@ export function useRipple() {
     setRipples((prevState) => prevState.filter((ripple) => ripple.key !== key));
   }, []);
 
-  return {ripples, onClear, onPress};
+  return { ripples, onClear, onPress };
 }
 
 export type UseRippleReturn = ReturnType<typeof useRipple>;

@@ -1,4 +1,4 @@
-import {useState, useCallback} from "react";
+import { useState, useCallback } from 'react';
 
 export interface UseDatePickerReturn {
   selectedDate: Date | null;
@@ -30,10 +30,13 @@ export function useDatePicker(initialDate?: Date): UseDatePickerReturn {
   const [currentMonth, setCurrentMonth] = useState(() => new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(() => new Date().getFullYear());
 
-  const isSelected = useCallback((date: Date) => {
-    if (!selectedDate) return false;
-    return date.toDateString() === selectedDate.toDateString();
-  }, [selectedDate]);
+  const isSelected = useCallback(
+    (date: Date) => {
+      if (!selectedDate) return false;
+      return date.toDateString() === selectedDate.toDateString();
+    },
+    [selectedDate],
+  );
 
   const isToday = useCallback((date: Date) => {
     const today = new Date();

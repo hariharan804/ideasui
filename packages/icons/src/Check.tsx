@@ -1,9 +1,9 @@
-import type {IconProps} from "./types";
+import type { IconProps } from './types';
 
-import * as React from "react";
+import * as React from 'react';
 
 export const Check = React.forwardRef<SVGSVGElement, IconProps>(
-  ({size = 24, color = "currentColor", ...props}, ref) => (
+  ({ size = 24, color = 'currentColor', ...props }, ref) => (
     <svg
       ref={ref}
       fill="none"
@@ -21,4 +21,4 @@ export const Check = React.forwardRef<SVGSVGElement, IconProps>(
   ),
 );
 
-Check.displayName = "Check";
+Check.displayName = 'Check';

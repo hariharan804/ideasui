@@ -1,9 +1,9 @@
-import type {storageAdapters} from "./utils/storage";
+import type { storageAdapters } from './utils/storage';
 
 /** How themes are applied to DOM elements */
 export type ThemeModeVariant =
-  | "class" // Uses CSS classes: html.dark { ... } (Tailwind CSS standard)
-  | "attribute"; // Uses data attributes: html[data-theme="dark"] { ... }
+  | 'class' // Uses CSS classes: html.dark { ... } (Tailwind CSS standard)
+  | 'attribute'; // Uses data attributes: html[data-theme="dark"] { ... }
 
 /** Complete theme configuration interface */
 export interface ThemeScriptConfig {
@@ -21,7 +21,7 @@ export interface ThemeScriptConfig {
   mode: ThemeModeVariant;
 
   /** Mapping of system preferences to theme names */
-  systemThemes: {light: string; dark: string};
+  systemThemes: { light: string; dark: string };
 
   storage?: keyof typeof storageAdapters;
 }
@@ -40,7 +40,7 @@ export interface ThemeScriptProps extends Partial<ThemeScriptConfig> {
   nonce?: string;
   scriptProps?: Omit<
     React.ScriptHTMLAttributes<HTMLScriptElement>,
-    "id" | "nonce" | "dangerouslySetInnerHTML" | "suppressHydrationWarning"
+    'id' | 'nonce' | 'dangerouslySetInnerHTML' | 'suppressHydrationWarning'
   >;
   id?: string;
 }

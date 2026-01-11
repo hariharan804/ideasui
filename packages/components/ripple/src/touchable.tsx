@@ -1,8 +1,8 @@
-import * as React from "react";
-import {cn} from "@ideasui/utils/style";
-import {forwardRef} from "@ideasui/utils/react";
-import {Ripple} from "./ripple";
-import {useRipple} from "./use-ripple";
+import * as React from 'react';
+import { cn } from '@ideasui/utils/style';
+import { forwardRef } from '@ideasui/utils/react';
+import { Ripple } from './ripple';
+import { useRipple } from './use-ripple';
 
 export interface TouchableProps extends React.HTMLAttributes<HTMLElement> {
   /**
@@ -32,10 +32,10 @@ export interface TouchableProps extends React.HTMLAttributes<HTMLElement> {
  * </Touchable>
  * ```
  */
-export const Touchable = forwardRef<"button", TouchableProps>(
+export const Touchable = forwardRef<'button', TouchableProps>(
   (
     {
-      as: Component = "button",
+      as: Component = 'button',
       children,
       className,
       disabled = false,
@@ -46,7 +46,7 @@ export const Touchable = forwardRef<"button", TouchableProps>(
     },
     ref,
   ) => {
-    const {ripples, onPress, onClear} = useRipple();
+    const { ripples, onPress, onClear } = useRipple();
 
     const handlePointerDown = (event: React.PointerEvent<HTMLElement>) => {
       if (!disabled) {
@@ -58,7 +58,7 @@ export const Touchable = forwardRef<"button", TouchableProps>(
     const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
       if (disabled) return;
 
-      if (event.key === "Enter" || event.key === " ") {
+      if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
         onPress(event as any);
       }
@@ -70,8 +70,8 @@ export const Touchable = forwardRef<"button", TouchableProps>(
       <Component
         ref={ref as any}
         className={cn(
-          "relative overflow-hidden",
-          disabled ? "pointer-events-none opacity-50" : "",
+          'relative overflow-hidden',
+          disabled ? 'pointer-events-none opacity-50' : '',
           className,
         )}
         onPointerDown={handlePointerDown}
@@ -86,4 +86,4 @@ export const Touchable = forwardRef<"button", TouchableProps>(
   },
 );
 
-Touchable.displayName = "IdeasUI.Touchable";
+Touchable.displayName = 'IdeasUI.Touchable';

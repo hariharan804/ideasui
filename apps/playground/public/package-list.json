@@ -8,10 +8,7 @@
       "path": "packages/components/button",
       "keywords": [],
       "hasReadme": true,
-      "componentFiles": [
-        "button.tsx",
-        "use-button.ts"
-      ],
+      "componentFiles": ["button.tsx", "use-button.ts"],
       "installCommands": {
         "npm": "npm install @ideasui/button",
         "pnpm": "pnpm add @ideasui/button",
@@ -493,18 +490,9 @@
       "version": "0.1.0",
       "description": "Universal polymorphic container component with 'as' prop support",
       "path": "packages/components/slot",
-      "keywords": [
-        "react",
-        "component",
-        "polymorphic",
-        "slot",
-        "as-prop",
-        "typescript"
-      ],
+      "keywords": ["react", "component", "polymorphic", "slot", "as-prop", "typescript"],
       "hasReadme": true,
-      "componentFiles": [
-        "slot.tsx"
-      ],
+      "componentFiles": ["slot.tsx"],
       "installCommands": {
         "npm": "npm install @ideasui/slot",
         "pnpm": "pnpm add @ideasui/slot",
@@ -565,12 +553,7 @@
       "version": "1.0.0",
       "description": "SSR-friendly theme switcher with no dependencies",
       "path": "packages/core/theme",
-      "keywords": [
-        "theme",
-        "dark-mode",
-        "ssr",
-        "react"
-      ],
+      "keywords": ["theme", "dark-mode", "ssr", "react"],
       "hasReadme": true,
       "componentFiles": [
         "theme-constants.ts",
@@ -761,14 +744,7 @@
       "version": "0.1.0",
       "description": "Tailwind CSS variants system for IdeasUI components",
       "path": "packages/core/variants",
-      "keywords": [
-        "tailwind",
-        "variants",
-        "css",
-        "design-system",
-        "react",
-        "typescript"
-      ],
+      "keywords": ["tailwind", "variants", "css", "design-system", "react", "typescript"],
       "hasReadme": true,
       "componentFiles": [
         "badge.ts",

@@ -4,7 +4,7 @@
  * - Production: Silent mode, no errors thrown
  */
 
-const isDev = process.env.NODE_ENV === "development";
+const isDev = process.env.NODE_ENV === 'development';
 
 export const logger = {
   /**

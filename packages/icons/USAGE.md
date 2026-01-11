@@ -3,6 +3,7 @@
 ## ✅ **Lucide-Style Icon System Complete**
 
 ### 🎯 **How It Works**
+
 1. Add SVG files to `assets/` directory
 2. Run `pnpm generate` to create React components
 3. Import and use like Lucide icons
@@ -18,18 +19,18 @@ function App() {
     <div>
       {/* Basic usage */}
       <ArrowRight />
-      
+
       {/* With custom props */}
       <Home size={32} color="blue" />
-      
+
       {/* With custom stroke width */}
       <User size={24} strokeWidth={1.5} />
-      
+
       {/* With CSS classes */}
       <Heart className="text-red-500 hover:scale-110" />
-      
+
       {/* All props */}
-      <Search 
+      <Search
         size={20}
         color="currentColor"
         strokeWidth={2}
@@ -44,6 +45,7 @@ function App() {
 ### 🔄 **Adding New Icons**
 
 1. **Add SVG file** to `assets/` directory:
+
 ```bash
 # Example: assets/star.svg
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -52,25 +54,27 @@ function App() {
 ```
 
 2. **Generate components**:
+
 ```bash
 pnpm generate
 ```
 
 3. **Use the new icon**:
+
 ```tsx
 import { Star } from '@ideasui/icons';
 
-<Star size={24} color="gold" />
+<Star size={24} color="gold" />;
 ```
 
 ### 🎨 **Icon Props (Lucide Compatible)**
 
 ```tsx
 interface IconProps {
-  size?: number | string;        // Default: 24
-  color?: string;               // Default: 'currentColor'
+  size?: number | string; // Default: 24
+  color?: string; // Default: 'currentColor'
   strokeWidth?: number | string; // Default: 2
-  className?: string;           // CSS classes
+  className?: string; // CSS classes
   // + all SVG props (onClick, onHover, etc.)
 }
 ```
@@ -104,10 +108,10 @@ Add hundreds of SVG files and they all become importable components:
 
 ```tsx
 // Just like Lucide!
-import { 
-  ArrowRight, 
-  Home, 
-  User, 
+import {
+  ArrowRight,
+  Home,
+  User,
   Settings,
   Search,
   Heart,

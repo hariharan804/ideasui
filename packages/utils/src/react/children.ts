@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 /**
  * Checks if a value is a valid React element
@@ -14,7 +14,7 @@ export function isValidElement(value: any): value is React.ReactElement {
  */
 export function cloneChildrenWithProps(
   children: React.ReactNode,
-  props: Record<string, any>
+  props: Record<string, any>,
 ): React.ReactNode {
   return React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
@@ -38,18 +38,20 @@ export function getChildrenArray(children: React.ReactNode): React.ReactNode[] {
  */
 export function findChildByDisplayName(
   children: React.ReactNode,
-  displayName: string
+  displayName: string,
 ): React.ReactElement | null {
   const childArray = React.Children.toArray(children);
-  
+
   for (const child of childArray) {
-    if (React.isValidElement(child) && 
-        typeof child.type === "function" && 
-        (child.type as any).displayName === displayName) {
+    if (
+      React.isValidElement(child) &&
+      typeof child.type === 'function' &&
+      (child.type as any).displayName === displayName
+    ) {
       return child;
     }
   }
-  
+
   return null;
 }
 

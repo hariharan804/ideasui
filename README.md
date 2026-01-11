@@ -28,9 +28,9 @@ pnpm run build
 ## 📦 Usage
 
 ```tsx
-import {Button} from "@ideasui/button";
-import {Box} from "@ideasui/box";
-import {Ripple} from "@ideasui/ripple";
+import { Button } from '@ideasui/button';
+import { Box } from '@ideasui/box';
+import { Ripple } from '@ideasui/ripple';
 
 function App() {
   return (
@@ -82,15 +82,15 @@ ideasui/
 ### Recipes (Tailwind Variants)
 
 ```tsx
-import {button} from "@ideasui/theme/recipes";
+import { button } from '@ideasui/theme/recipes';
 
-const {base, icon, label} = button({variant: "solid", color: "primary"});
+const { base, icon, label } = button({ variant: 'solid', color: 'primary' });
 ```
 
 ### Design Tokens
 
 ```tsx
-import {colorTokens, darkColorTokens} from "@ideasui/theme/tokens";
+import { colorTokens, darkColorTokens } from '@ideasui/theme/tokens';
 ```
 
 ## 🎯 Features

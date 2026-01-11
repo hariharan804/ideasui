@@ -43,14 +43,7 @@ function App() {
 import { DynamicIcon } from '@ideasui/icons';
 
 function App() {
-  return (
-    <DynamicIcon 
-      name="arrow-right" 
-      size={24} 
-      color="blue"
-      fallback={MyFallbackIcon}
-    />
-  );
+  return <DynamicIcon name="arrow-right" size={24} color="blue" fallback={MyFallbackIcon} />;
 }
 ```
 
@@ -87,24 +80,20 @@ function App() {
 
 ### IconProps
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `number \| string` | `24` | Icon size in pixels |
-| `color` | `string` | `'currentColor'` | Icon color (CSS value) |
-| `className` | `string` | - | Additional CSS classes |
-| `aria-label` | `string` | - | Accessibility label |
-| `aria-hidden` | `boolean` | - | Hide from screen readers |
+| Prop          | Type               | Default          | Description              |
+| ------------- | ------------------ | ---------------- | ------------------------ |
+| `size`        | `number \| string` | `24`             | Icon size in pixels      |
+| `color`       | `string`           | `'currentColor'` | Icon color (CSS value)   |
+| `className`   | `string`           | -                | Additional CSS classes   |
+| `aria-label`  | `string`           | -                | Accessibility label      |
+| `aria-hidden` | `boolean`          | -                | Hide from screen readers |
 
 ### DynamicIcon
 
 Loads icons dynamically with lazy loading and caching.
 
 ```tsx
-<DynamicIcon 
-  name="icon-name"
-  size={24}
-  fallback={FallbackComponent}
-/>
+<DynamicIcon name="icon-name" size={24} fallback={FallbackComponent} />
 ```
 
 ### IconSet

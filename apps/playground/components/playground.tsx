@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import {useRouter} from "next/navigation";
-import {Search, Grid, List} from "lucide-react";
+'use client';
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import { Search, Grid, List } from 'lucide-react';
 
 // ### IMPORT COMPONENT HERE ###
 
@@ -17,12 +17,12 @@ const COMPONENT_LIST: ComponentItem[] = [
   // ### APPEND COMPONENT HERE ###
 
   {
-    name: "Ripple",
-    category: "Core",
+    name: 'Ripple',
+    category: 'Core',
   },
   {
-    name: "Button",
-    category: "Form",
+    name: 'Button',
+    category: 'Form',
   },
 ];
 
@@ -31,9 +31,9 @@ const categories = Array.from(new Set(COMPONENT_LIST.map((item) => item.category
 function Playground() {
   const router = useRouter();
 
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const [selectedCategory, setSelectedCategory] = React.useState<string>("All");
-  const [viewMode, setViewMode] = React.useState<"grid" | "list">("grid");
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [selectedCategory, setSelectedCategory] = React.useState<string>('All');
+  const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('grid');
 
   const navigateToComponent = (name: string) => {
     router.push(`/playground/${name.toLowerCase()}`);
@@ -41,7 +41,7 @@ function Playground() {
 
   const filteredComponents = COMPONENT_LIST.filter((item) => {
     const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === "All" || item.category === selectedCategory;
+    const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
 
     return matchesSearch && matchesCategory;
   });
@@ -81,14 +81,14 @@ function Playground() {
             {/* View Mode Toggle */}
             <div className="flex items-center rounded-lg border border-gray-300 bg-white p-1">
               <button
-                className={`rounded p-1.5 ${viewMode === "grid" ? "bg-primary-500 text-white" : "text-gray-600"}`}
-                onClick={() => setViewMode("grid")}
+                className={`rounded p-1.5 ${viewMode === 'grid' ? 'bg-primary-500 text-white' : 'text-gray-600'}`}
+                onClick={() => setViewMode('grid')}
               >
                 <Grid className="h-4 w-4" />
               </button>
               <button
-                className={`rounded p-1.5 ${viewMode === "list" ? "bg-primary-500 text-white" : "text-gray-600"}`}
-                onClick={() => setViewMode("list")}
+                className={`rounded p-1.5 ${viewMode === 'list' ? 'bg-primary-500 text-white' : 'text-gray-600'}`}
+                onClick={() => setViewMode('list')}
               >
                 <List className="h-4 w-4" />
               </button>
@@ -106,20 +106,20 @@ function Playground() {
         ) : (
           <div
             className={
-              viewMode === "grid"
-                ? "grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
-                : "space-y-4"
+              viewMode === 'grid'
+                ? 'grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'
+                : 'space-y-4'
             }
           >
             {filteredComponents.map((item, index) => (
               <div
                 key={index}
                 className={`group hover:border-primary-300 cursor-pointer rounded-xl border border-gray-200 bg-white p-6 transition-all duration-200 hover:scale-[1.02] hover:shadow-lg ${
-                  viewMode === "list" ? "flex items-center gap-6" : ""
+                  viewMode === 'list' ? 'flex items-center gap-6' : ''
                 }`}
                 onClick={() => navigateToComponent(item.name)}
               >
-                <div className={`${viewMode === "list" ? "flex-1" : ""}`}>
+                <div className={`${viewMode === 'list' ? 'flex-1' : ''}`}>
                   <div className="mb-2 flex items-center justify-between">
                     <h3 className="group-hover:text-primary-600 text-lg font-semibold text-gray-900">
                       {item.name}

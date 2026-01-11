@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import {useState, useEffect} from "react";
-import {FileText, Book, ExternalLink, Search, Loader} from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import {useCallback} from "react";
+import { useState, useEffect } from 'react';
+import { FileText, Book, ExternalLink, Search, Loader } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { useCallback } from 'react';
 
 interface DocFile {
   name: string;
@@ -13,11 +13,11 @@ interface DocFile {
 }
 
 const DOC_FILES: DocFile[] = [
-  {name: "README.md", path: "README.md", description: "Main project documentation"},
+  { name: 'README.md', path: 'README.md', description: 'Main project documentation' },
   {
-    name: "CONTRIBUTING.md",
-    path: "../../../../CONTRIBUTING.md",
-    description: "Contribution guidelines",
+    name: 'CONTRIBUTING.md',
+    path: '../../../../CONTRIBUTING.md',
+    description: 'Contribution guidelines',
   },
   // {
   //   name: "COMPONENT_GUIDELINES.md",
@@ -25,38 +25,38 @@ const DOC_FILES: DocFile[] = [
   //   description: "Component development standards",
   // },
   {
-    name: "NAMING_CONVENTIONS.md",
-    path: "../../docs/NAMING_CONVENTIONS.md",
-    description: "Naming rules and cases",
+    name: 'NAMING_CONVENTIONS.md',
+    path: '../../docs/NAMING_CONVENTIONS.md',
+    description: 'Naming rules and cases',
   },
   {
-    name: "TESTING_STRATEGY.md",
-    path: "docs/TESTING_STRATEGY.md",
-    description: "Quality assurance guide",
+    name: 'TESTING_STRATEGY.md',
+    path: 'docs/TESTING_STRATEGY.md',
+    description: 'Quality assurance guide',
   },
-  {name: "BUILD_DEPLOYMENT.md", path: "docs/BUILD_DEPLOYMENT.md", description: "Release process"},
+  { name: 'BUILD_DEPLOYMENT.md', path: 'docs/BUILD_DEPLOYMENT.md', description: 'Release process' },
   {
-    name: "API_DOCUMENTATION.md",
-    path: "docs/API_DOCUMENTATION.md",
-    description: "Component reference",
+    name: 'API_DOCUMENTATION.md',
+    path: 'docs/API_DOCUMENTATION.md',
+    description: 'Component reference',
   },
 ];
 
 export default function DocsPage() {
   const [selectedDoc, setSelectedDoc] = useState<DocFile>(DOC_FILES[0]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [docContent, setDocContent] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [docContent, setDocContent] = useState<string>('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const getDoc = useCallback(() => {
     setLoading(true);
-    setError("");
+    setError('');
 
     fetch(`/api/docs?file=${encodeURIComponent(selectedDoc.path)}`)
       .then((res) => {
-        if (!res.ok) throw new Error("Failed to load document");
+        if (!res.ok) throw new Error('Failed to load document');
         return res.json();
       })
       .then((data) => setDocContent(data.content))
@@ -81,7 +81,7 @@ export default function DocsPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 p-4 md:p-8 lg:flex-row">
         {/* Sidebar */}
-        <div className={`${sidebarOpen ? "block" : "hidden"} w-full lg:block lg:w-80`}>
+        <div className={`${sidebarOpen ? 'block' : 'hidden'} w-full lg:block lg:w-80`}>
           <div className="sticky top-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg backdrop-blur-sm">
             {/* Header */}
             <div className="mb-6">
@@ -116,20 +116,20 @@ export default function DocsPage() {
                   onClick={() => setSelectedDoc(doc)}
                   className={`w-full rounded-lg border p-3 text-left transition-all ${
                     selectedDoc.name === doc.name
-                      ? "border-blue-300 bg-gradient-to-r from-blue-100 to-purple-100 shadow-sm"
-                      : "border-transparent hover:border-slate-200 hover:bg-slate-50"
+                      ? 'border-blue-300 bg-gradient-to-r from-blue-100 to-purple-100 shadow-sm'
+                      : 'border-transparent hover:border-slate-200 hover:bg-slate-50'
                   }`}
                 >
                   <div className="flex items-start gap-2">
                     <FileText
                       className={`mt-0.5 h-4 w-4 flex-shrink-0 ${
-                        selectedDoc.name === doc.name ? "text-blue-600" : "text-slate-400"
+                        selectedDoc.name === doc.name ? 'text-blue-600' : 'text-slate-400'
                       }`}
                     />
                     <div className="min-w-0 flex-1">
                       <div
                         className={`truncate text-sm font-medium ${
-                          selectedDoc.name === doc.name ? "text-blue-700" : "text-slate-700"
+                          selectedDoc.name === doc.name ? 'text-blue-700' : 'text-slate-700'
                         }`}
                       >
                         {doc.name}
@@ -184,7 +184,7 @@ export default function DocsPage() {
                 onClick={() => setSidebarOpen(!sidebarOpen)}
                 className="rounded-lg bg-blue-50 px-4 py-2 text-sm font-medium text-blue-600 transition-colors hover:bg-blue-100 lg:hidden"
               >
-                {sidebarOpen ? "Hide" : "Show"} Sidebar
+                {sidebarOpen ? 'Hide' : 'Show'} Sidebar
               </button>
             </div>
           </div>

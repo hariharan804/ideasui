@@ -1,4 +1,4 @@
-import {useState, useCallback} from "react";
+import { useState, useCallback } from 'react';
 
 export interface UseControllableStateProps<T> {
   value?: T;
@@ -37,7 +37,7 @@ export function useControllableState<T>({
       }
       onChange?.(newValue);
     },
-    [isControlled, onChange]
+    [isControlled, onChange],
   );
 
   return [currentValue as T, setValue];

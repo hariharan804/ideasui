@@ -1,4 +1,4 @@
-import {useState, useCallback} from "react";
+import { useState, useCallback } from 'react';
 
 export interface DateRange {
   start: Date | null;
@@ -27,27 +27,26 @@ export interface UseDateRangeReturn {
  * ```
  */
 export function useDateRange(
-  initialRange: DateRange = {start: null, end: null}
+  initialRange: DateRange = { start: null, end: null },
 ): UseDateRangeReturn {
   const [range, setRange] = useState<DateRange>(initialRange);
 
   const setStart = useCallback((date: Date | null) => {
-    setRange((prev) => ({...prev, start: date}));
+    setRange((prev) => ({ ...prev, start: date }));
   }, []);
 
   const setEnd = useCallback((date: Date | null) => {
-    setRange((prev) => ({...prev, end: date}));
+    setRange((prev) => ({ ...prev, end: date }));
   }, []);
 
   const clear = useCallback(() => {
-    setRange({start: null, end: null});
+    setRange({ start: null, end: null });
   }, []);
 
   const isValid = range.start !== null && range.end !== null && range.start <= range.end;
 
-  const duration = isValid && range.start && range.end 
-    ? range.end.getTime() - range.start.getTime()
-    : null;
+  const duration =
+    isValid && range.start && range.end ? range.end.getTime() - range.start.getTime() : null;
 
   return {
     range,

@@ -24,9 +24,9 @@
 
 ```tsx
 // ✅ Proper keyboard support
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({onKeyDown, ...props}, ref) => {
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ onKeyDown, ...props }, ref) => {
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter" || event.key === " ") {
+    if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       // Handle activation
     }
@@ -155,7 +155,7 @@ const focusStyles = 'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:r
 
 ```tsx
 // ✅ Manage focus in modals
-const Modal = ({isOpen, onClose, children}) => {
+const Modal = ({ isOpen, onClose, children }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -171,7 +171,7 @@ const Modal = ({isOpen, onClose, children}) => {
       aria-modal="true"
       tabIndex={-1}
       onKeyDown={(e) => {
-        if (e.key === "Escape") onClose();
+        if (e.key === 'Escape') onClose();
       }}
     >
       {children}
@@ -203,12 +203,12 @@ const Modal = ({isOpen, onClose, children}) => {
 
 ```tsx
 // ✅ Accessibility tests
-import {axe, toHaveNoViolations} from "jest-axe";
+import { axe, toHaveNoViolations } from 'jest-axe';
 
 expect.extend(toHaveNoViolations);
 
-test("Button has no accessibility violations", async () => {
-  const {container} = render(<Button>Click me</Button>);
+test('Button has no accessibility violations', async () => {
+  const { container } = render(<Button>Click me</Button>);
   const results = await axe(container);
   expect(results).toHaveNoViolations();
 });

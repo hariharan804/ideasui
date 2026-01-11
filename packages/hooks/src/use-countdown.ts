@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback} from "react";
+import { useState, useEffect, useCallback } from 'react';
 
 export interface UseCountdownReturn {
   timeLeft: number;
@@ -21,10 +21,7 @@ export interface UseCountdownReturn {
  * const {timeLeft, start, pause, reset} = useCountdown(60)
  * ```
  */
-export function useCountdown(
-  initialTime: number,
-  onFinish?: () => void
-): UseCountdownReturn {
+export function useCountdown(initialTime: number, onFinish?: () => void): UseCountdownReturn {
   const [timeLeft, setTimeLeft] = useState(initialTime);
   const [isRunning, setIsRunning] = useState(false);
 

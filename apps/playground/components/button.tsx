@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import {Button} from "@ideasui/button";
-import {Heart, Download, ArrowRight, Star, Plus} from "lucide-react";
+'use client';
+import React from 'react';
+import { Button } from '@ideasui/button';
+import { Heart, Download, ArrowRight, Star, Plus } from 'lucide-react';
 
 function ButtonPreview() {
   return (

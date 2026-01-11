@@ -1,5 +1,5 @@
-import plugin from "tailwindcss/plugin";
-import deepMerge from "deepmerge";
+import plugin from 'tailwindcss/plugin';
+import deepMerge from 'deepmerge';
 import {
   animation,
   borderRadius,
@@ -9,10 +9,10 @@ import {
   spacing,
   transitionDuration,
   transitionTimingFunction,
-} from "../tokens";
-import {lightColorTokens, darkColorTokens} from "../tokens/colors";
-import {darkLayout, lightLayout, lightCommonColors, darkCommonColors} from "../tokens/layout";
-import {ThemeConfig, ConfigThemes, ResolvedConfig, ConfigTheme} from "./types";
+} from '../tokens';
+import { lightColorTokens, darkColorTokens } from '../tokens/colors';
+import { darkLayout, lightLayout, lightCommonColors, darkCommonColors } from '../tokens/layout';
+import { ThemeConfig, ConfigThemes, ResolvedConfig, ConfigTheme } from './types';
 import {
   flattenThemeObject,
   kebabCase,
@@ -25,9 +25,9 @@ import {
   extractColorBaseNames,
   SEMANTIC_TOKEN_MAP,
   DEFAULT_PREFIX,
-} from "./utils";
+} from './utils';
 
-type ThemeMode = "light" | "dark";
+type ThemeMode = 'light' | 'dark';
 
 // ─────────────────────────────────────────────────────────────
 // Helper Functions
@@ -57,18 +57,18 @@ function createThemeSelectors(themeName: string, defaultTheme: string) {
       ? `:root, .${themeName}, [data-theme='${themeName}']`
       : `.${themeName}, [data-theme='${themeName}']`;
 
-  return {cssSelector, baseSelector};
+  return { cssSelector, baseSelector };
 }
 
 /** Determines the color scheme for a theme */
-function getColorScheme(themeName: string, extend?: "light" | "dark"): string | null {
-  if (themeName === "light" || themeName === "dark") return themeName;
+function getColorScheme(themeName: string, extend?: 'light' | 'dark'): string | null {
+  if (themeName === 'light' || themeName === 'dark') return themeName;
   return extend || null;
 }
 
 /** Determines the mode (light/dark) for a theme */
-function getThemeMode(themeName: string, extend?: "light" | "dark"): ThemeMode {
-  return themeName === "dark" || extend === "dark" ? "dark" : "light";
+function getThemeMode(themeName: string, extend?: 'light' | 'dark'): ThemeMode {
+  return themeName === 'dark' || extend === 'dark' ? 'dark' : 'light';
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -89,18 +89,18 @@ function processColors(
     if (!colorValue) continue;
 
     // Skip non-numeric shades for shade-based colors
-    if (colorName.includes("-")) {
-      const shade = colorName.split("-").pop() || "";
+    if (colorName.includes('-')) {
+      const shade = colorName.split('-').pop() || '';
       if (!isNumericShade(shade)) continue;
     }
 
     const parsed = parseColorValue(colorValue);
     if (!parsed) continue;
 
-    const {components} = parsed;
+    const { components } = parsed;
     const colorVar = `--${prefix}-${colorName}`;
     const formattedValue = formatColorComponents(components);
-    const alphaValue = components[3] ?? "<alpha-value>";
+    const alphaValue = components[3] ?? '<alpha-value>';
 
     // Register CSS variable (per-theme)
     resolved.utilities[cssSelector][colorVar] = formattedValue;
@@ -123,7 +123,7 @@ function processColors(
       resolved.baseStyles[baseSelector][varName] = varValue;
 
       // Register Tailwind color only if not already set (first theme wins)
-      const tokenName = varName.replace(`--${prefix}-`, "").replace(/-DEFAULT$/, "");
+      const tokenName = varName.replace(`--${prefix}-`, '').replace(/-DEFAULT$/, '');
       if (!resolved.colors[tokenName]) {
         resolved.colors[tokenName] = `oklch(var(${varName}) / <alpha-value>)`;
       }
@@ -148,7 +148,7 @@ function processLayout(
 
     const varName = `--${prefix}-${key}`;
 
-    if (typeof value === "object" && value !== null) {
+    if (typeof value === 'object' && value !== null) {
       // Handle nested objects
       for (const [nestedKey, nestedValue] of Object.entries(value as Record<string, string>)) {
         const nestedVar = `${varName}-${nestedKey}`;
@@ -158,8 +158,8 @@ function processLayout(
     } else {
       // Format opacity values (0.5 → .5)
       const formattedValue =
-        key.includes("opacity") && typeof value === "number"
-          ? value.toString().replace(/^0\./, ".")
+        key.includes('opacity') && typeof value === 'number'
+          ? value.toString().replace(/^0\./, '.')
           : String(value);
 
       resolved.utilities[cssSelector][varName] = formattedValue;
@@ -181,14 +181,14 @@ function resolveConfig(themes: ConfigThemes, defaultTheme: string, prefix: strin
     baseStyles: {},
   };
 
-  for (const [themeName, {extend, layout, colors}] of Object.entries(themes)) {
-    const {cssSelector, baseSelector} = createThemeSelectors(themeName, defaultTheme);
+  for (const [themeName, { extend, layout, colors }] of Object.entries(themes)) {
+    const { cssSelector, baseSelector } = createThemeSelectors(themeName, defaultTheme);
     const colorScheme = getColorScheme(themeName, extend);
     const mode = getThemeMode(themeName, extend);
 
     // Initialize style objects
-    resolved.baseStyles[baseSelector] = colorScheme ? {"color-scheme": colorScheme} : {};
-    resolved.utilities[cssSelector] = colorScheme ? {"color-scheme": colorScheme} : {};
+    resolved.baseStyles[baseSelector] = colorScheme ? { 'color-scheme': colorScheme } : {};
+    resolved.utilities[cssSelector] = colorScheme ? { 'color-scheme': colorScheme } : {};
 
     // Register variant
     resolved.variants.push({
@@ -225,24 +225,24 @@ function buildThemes(config: ThemeConfig): ConfigThemes {
 
   // Build base layout (global layout merged with mode defaults)
   const baseLayout =
-    userLayout && typeof userLayout === "object" ? deepMerge(lightLayout, userLayout) : lightLayout;
+    userLayout && typeof userLayout === 'object' ? deepMerge(lightLayout, userLayout) : lightLayout;
 
   // Build theme configs
   const lightTheme: ConfigTheme = {
-    layout: deepMerge({...baseLayout, ...lightLayout}, userLightLayout),
-    colors: deepMerge({...lightColorTokens, ...lightCommonColors}, userLightColors),
+    layout: deepMerge({ ...baseLayout, ...lightLayout }, userLightLayout),
+    colors: deepMerge({ ...lightColorTokens, ...lightCommonColors }, userLightColors),
   };
 
   const darkTheme: ConfigTheme = {
-    layout: deepMerge({...baseLayout, ...darkLayout}, userDarkLayout),
-    colors: deepMerge({...darkColorTokens, ...darkCommonColors}, userDarkColors),
+    layout: deepMerge({ ...baseLayout, ...darkLayout }, userDarkLayout),
+    colors: deepMerge({ ...darkColorTokens, ...darkCommonColors }, userDarkColors),
   };
 
   // Merge with any custom themes
   return {
     light: lightTheme,
     dark: darkTheme,
-    ...(omit(themeData, ["light", "dark"]) as ConfigThemes),
+    ...(omit(themeData, ['light', 'dark']) as ConfigThemes),
   };
 }
 
@@ -272,7 +272,7 @@ function createThemeExtension(
       medium: `var(--${prefix}-box-shadow-medium)`,
       large: `var(--${prefix}-box-shadow-large)`,
     },
-    animation: disableAnimations ? {none: "none"} : animation,
+    animation: disableAnimations ? { none: 'none' } : animation,
     keyframes: disableAnimations ? {} : keyframes,
     transitionDuration,
     transitionTimingFunction,
@@ -285,15 +285,15 @@ function createThemeExtension(
 
 /** IdeasUI Tailwind CSS plugin - generates CSS variables and utilities */
 export const ideasUIPlugin = (config: ThemeConfig = {}): ReturnType<typeof plugin> => {
-  const {defaultTheme = "light", prefix = DEFAULT_PREFIX, disableAnimations = false} = config;
+  const { defaultTheme = 'light', prefix = DEFAULT_PREFIX, disableAnimations = false } = config;
 
   const themes = buildThemes(config);
   const resolved = resolveConfig(themes, defaultTheme, prefix);
 
   return plugin(
-    ({addBase, addUtilities, addVariant}) => {
+    ({ addBase, addUtilities, addVariant }) => {
       addBase(resolved.baseStyles);
-      addUtilities({...resolved.utilities});
+      addUtilities({ ...resolved.utilities });
 
       for (const variant of resolved.variants) {
         addVariant(variant.name, variant.definition);
@@ -301,10 +301,10 @@ export const ideasUIPlugin = (config: ThemeConfig = {}): ReturnType<typeof plugi
 
       if (disableAnimations) {
         addBase({
-          "*,*::before,*::after": {
-            animationDuration: "0.01ms !important",
-            animationIterationCount: "1 !important",
-            transitionDuration: "0.01ms !important",
+          '*,*::before,*::after': {
+            animationDuration: '0.01ms !important',
+            animationIterationCount: '1 !important',
+            transitionDuration: '0.01ms !important',
           },
         });
       }

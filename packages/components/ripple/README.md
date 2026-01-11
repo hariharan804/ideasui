@@ -11,11 +11,11 @@ npm install @ideasui/ripple
 ## Usage
 
 ```tsx
-import {Ripple} from "@ideasui/ripple";
+import { Ripple } from '@ideasui/ripple';
 
 function App() {
   return (
-    <Ripple variant="solid" color="primary" onClick={() => console.log("Clicked!")}>
+    <Ripple variant="solid" color="primary" onClick={() => console.log('Clicked!')}>
       Click me for ripple effect
     </Ripple>
   );
@@ -54,9 +54,9 @@ function App() {
 ### useRipple Hook
 
 ```tsx
-import {useRipple} from "@ideasui/ripple";
+import { useRipple } from '@ideasui/ripple';
 
-const {ripples, addRipple, clearRipples, containerRef} = useRipple({
+const { ripples, addRipple, clearRipples, containerRef } = useRipple({
   disabled: false,
   duration: 600,
   center: false,
@@ -102,7 +102,7 @@ const {ripples, addRipple, clearRipples, containerRef} = useRipple({
 ### With Event Handlers
 
 ```tsx
-<Ripple onClick={() => alert("Clicked!")} onMouseDown={() => console.log("Mouse down")}>
+<Ripple onClick={() => alert('Clicked!')} onMouseDown={() => console.log('Mouse down')}>
   Interactive Ripple
 </Ripple>
 ```
@@ -110,10 +110,10 @@ const {ripples, addRipple, clearRipples, containerRef} = useRipple({
 ### Using the Hook
 
 ```tsx
-import {useRipple} from "@ideasui/ripple";
+import { useRipple } from '@ideasui/ripple';
 
 function CustomRippleButton() {
-  const {ripples, addRipple, containerRef} = useRipple();
+  const { ripples, addRipple, containerRef } = useRipple();
 
   return (
     <button ref={containerRef} onMouseDown={addRipple} className="relative overflow-hidden">

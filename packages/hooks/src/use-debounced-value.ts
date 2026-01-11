@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from 'react';
 
 /**
  * Custom hook for debouncing a value with additional controls
@@ -18,7 +18,7 @@ export function useDebouncedValue<T>(value: T, delay: number) {
 
   useEffect(() => {
     setIsPending(true);
-    
+
     const handler = setTimeout(() => {
       setDebouncedValue(value);
       setIsPending(false);

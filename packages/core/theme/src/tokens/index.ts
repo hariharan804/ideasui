@@ -1,12 +1,12 @@
-import {animation} from "./animation";
-import {borderRadius} from "./border-radius";
-import {boxShadow} from "./box-shadow";
-import {fontSize} from "./font-size";
-import {keyframes} from "./keyframes";
-import {spacing} from "./spacing";
-import {transitionDuration, transitionTimingFunction} from "./transition";
-import {lightColorTokens, darkColorTokens} from "./colors";
-import {focus, disabled} from "./classes";
+import { animation } from './animation';
+import { borderRadius } from './border-radius';
+import { boxShadow } from './box-shadow';
+import { fontSize } from './font-size';
+import { keyframes } from './keyframes';
+import { spacing } from './spacing';
+import { transitionDuration, transitionTimingFunction } from './transition';
+import { lightColorTokens, darkColorTokens } from './colors';
+import { focus, disabled } from './classes';
 import {
   colorVariants,
   sizeVariants,
@@ -14,7 +14,7 @@ import {
   colorsWithVariant,
   spinnerSizes,
   squareSizes,
-} from "./variants";
+} from './variants';
 
 export {
   spacing,

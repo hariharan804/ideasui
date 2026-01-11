@@ -1,5 +1,5 @@
-"use client";
-import React, {useState, useEffect} from "react";
+'use client';
+import React, { useState, useEffect } from 'react';
 import {
   Moon,
   Sun,
@@ -19,72 +19,72 @@ import {
   Rocket,
   Lightbulb,
   Shield,
-} from "lucide-react";
-import {useTheme} from "@ideasui/theme";
+} from 'lucide-react';
+import { useTheme } from '@ideasui/theme';
 
 export default function ComponentLibraryLanding() {
-  const {theme, setTheme} = useTheme();
+  const { theme, setTheme } = useTheme();
   const [scrollY, setScrollY] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
+  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
 
   const features = [
     {
       icon: Zap,
-      title: "Lightning Fast",
-      desc: "Optimized components for peak performance and minimal bundle size",
-      color: "primary",
+      title: 'Lightning Fast',
+      desc: 'Optimized components for peak performance and minimal bundle size',
+      color: 'primary',
     },
     {
       icon: Palette,
-      title: "Fully Themeable",
-      desc: "Complete design system with dark mode and custom themes",
-      color: "secondary",
+      title: 'Fully Themeable',
+      desc: 'Complete design system with dark mode and custom themes',
+      color: 'secondary',
     },
     {
       icon: Box,
-      title: "80+ Components",
-      desc: "Production-ready UI components for any project",
-      color: "success",
+      title: '80+ Components',
+      desc: 'Production-ready UI components for any project',
+      color: 'success',
     },
     {
       icon: Code,
-      title: "TypeScript First",
-      desc: "Full type safety and intellisense support",
-      color: "info",
+      title: 'TypeScript First',
+      desc: 'Full type safety and intellisense support',
+      color: 'info',
     },
     {
       icon: Shield,
-      title: "Accessible",
-      desc: "WCAG 2.1 compliant with keyboard navigation",
-      color: "warning",
+      title: 'Accessible',
+      desc: 'WCAG 2.1 compliant with keyboard navigation',
+      color: 'warning',
     },
     {
       icon: Layers,
-      title: "Composable",
-      desc: "Build complex UIs with simple building blocks",
-      color: "danger",
+      title: 'Composable',
+      desc: 'Build complex UIs with simple building blocks',
+      color: 'danger',
     },
   ];
 
   const codeExamples = [
     {
-      title: "Button Component",
+      title: 'Button Component',
       code: `<Button variant="primary">
   Click me
 </Button>`,
     },
     {
-      title: "Card Component",
+      title: 'Card Component',
       code: `<Card>
   <CardHeader>
     <CardTitle>Title</CardTitle>
@@ -92,7 +92,7 @@ export default function ComponentLibraryLanding() {
 </Card>`,
     },
     {
-      title: "Input Component",
+      title: 'Input Component',
       code: `<Input 
   placeholder="Email"
   type="email"
@@ -106,7 +106,7 @@ export default function ComponentLibraryLanding() {
         {/* Floating Header */}
         <header
           className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-            scrollY > 50 ? "bg-background/80 shadow-lg backdrop-blur-lg" : "bg-transparent"
+            scrollY > 50 ? 'bg-background/80 shadow-lg backdrop-blur-lg' : 'bg-transparent'
           }`}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -152,7 +152,7 @@ export default function ComponentLibraryLanding() {
                   className="bg-muted hover:bg-muted/80 rounded-lg p-2.5 transition-all hover:scale-105"
                   onClick={toggleTheme}
                 >
-                  {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+                  {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
                 </button>
                 <button className="bg-primary text-primary-foreground rounded-lg px-5 py-2.5 font-medium transition-all hover:scale-105 hover:opacity-90 hover:shadow-lg">
                   Get Started
@@ -169,11 +169,11 @@ export default function ComponentLibraryLanding() {
             <div className="bg-primary/20 absolute top-0 left-1/4 h-96 w-96 animate-pulse rounded-full blur-3xl" />
             <div
               className="bg-secondary/20 absolute right-1/4 bottom-0 h-96 w-96 animate-pulse rounded-full blur-3xl"
-              style={{animationDelay: "1s"}}
+              style={{ animationDelay: '1s' }}
             />
             <div
               className="bg-success/10 absolute top-1/2 left-1/2 h-96 w-96 animate-pulse rounded-full blur-3xl"
-              style={{animationDelay: "2s"}}
+              style={{ animationDelay: '2s' }}
             />
           </div>
 
@@ -217,10 +217,10 @@ export default function ComponentLibraryLanding() {
               {/* Stats Bar */}
               <div className="mx-auto grid max-w-3xl grid-cols-2 gap-6 md:grid-cols-4">
                 {[
-                  {icon: Download, value: "100K+", label: "Downloads"},
-                  {icon: Star, value: "12K+", label: "GitHub Stars"},
-                  {icon: Box, value: "80+", label: "Components"},
-                  {icon: Code, value: "99%", label: "Type Safe"},
+                  { icon: Download, value: '100K+', label: 'Downloads' },
+                  { icon: Star, value: '12K+', label: 'GitHub Stars' },
+                  { icon: Box, value: '80+', label: 'Components' },
+                  { icon: Code, value: '99%', label: 'Type Safe' },
                 ].map((stat, idx) => (
                   <div
                     key={idx}
@@ -261,8 +261,8 @@ export default function ComponentLibraryLanding() {
                       key={idx}
                       className={`border-b-2 px-4 py-2 font-medium transition-colors ${
                         activeTab === idx
-                          ? "border-primary text-primary"
-                          : "text-muted-foreground hover:text-foreground border-transparent"
+                          ? 'border-primary text-primary'
+                          : 'text-muted-foreground hover:text-foreground border-transparent'
                       }`}
                       onClick={() => setActiveTab(idx)}
                     >
@@ -318,7 +318,7 @@ export default function ComponentLibraryLanding() {
               <h2 className="mb-4 text-4xl font-bold lg:text-5xl">
                 Everything you need to
                 <span className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-transparent">
-                  {" "}
+                  {' '}
                   build amazing
                 </span>
               </h2>
@@ -353,7 +353,7 @@ export default function ComponentLibraryLanding() {
               <h2 className="mb-4 text-4xl font-bold lg:text-5xl">
                 Components that
                 <span className="from-success to-info bg-gradient-to-r bg-clip-text text-transparent">
-                  {" "}
+                  {' '}
                   just work
                 </span>
               </h2>

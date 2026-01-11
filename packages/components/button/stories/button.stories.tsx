@@ -1,21 +1,21 @@
-import type {Meta, StoryObj} from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import {Heart, Download, File} from "lucide-react";
-import {Button, ButtonProps} from "../src";
-import {useState} from "react";
+import { Heart, Download, File } from 'lucide-react';
+import { Button, ButtonProps } from '../src';
+import { useState } from 'react';
 
 const meta: Meta<typeof Button> = {
-  title: "Components/Button",
+  title: 'Components/Button',
   component: Button,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     docs: {
       description: {
-        component: "A versatile button component with multiple variants, sizes, and states.",
+        component: 'A versatile button component with multiple variants, sizes, and states.',
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 };
 
 export default meta;
@@ -23,11 +23,11 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 const defaultProps: Partial<ButtonProps> = {
-  variant: "solid",
-  color: "primary",
-  size: "md",
-  radius: "md",
-  children: "Button",
+  variant: 'solid',
+  color: 'primary',
+  size: 'md',
+  radius: 'md',
+  children: 'Button',
 };
 export const Default: Story = {
   args: {
@@ -56,7 +56,7 @@ const StateControlled = (args: ButtonProps) => {
   const handlePress = (e: any) => {
     setPressedCount((prev) => prev + 1);
   };
-  const label = pressedCount ? "Pressed " + pressedCount : "Press";
+  const label = pressedCount ? 'Pressed ' + pressedCount : 'Press';
   return (
     <div className="flex gap-2">
       <Button {...args} aria-label={label} aria-pressed={pressedCount > 0} onClick={handlePress}>
@@ -136,8 +136,8 @@ export const Sizes: Story = {
 export const IconButton: Story = {
   args: {
     ...defaultProps,
-    radius: "full",
-    color: "danger",
+    radius: 'full',
+    color: 'danger',
     children: <Heart className="h-5 w-5" />,
   },
 };
@@ -145,7 +145,7 @@ export const IconButton: Story = {
 export const CustomWithClassNames: Story = {
   args: {
     ...defaultProps,
-    radius: "full",
-    className: "bg-gradient-to-tr from-primary-500 to-primary-200 text-white shadow-lg",
+    radius: 'full',
+    className: 'bg-gradient-to-tr from-primary-500 to-primary-200 text-white shadow-lg',
   },
 };

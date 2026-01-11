@@ -1,34 +1,34 @@
-"use client";
-import {ArrowRight, Palette, Package, Wrench, Eye, Code2} from "lucide-react";
+'use client';
+import { ArrowRight, Palette, Package, Wrench, Eye, Code2 } from 'lucide-react';
 
 const navigationItems = [
   {
-    title: "Colors",
-    description: "Explore color palettes and copy Tailwind classes",
-    href: "/colors",
+    title: 'Colors',
+    description: 'Explore color palettes and copy Tailwind classes',
+    href: '/colors',
     icon: Palette,
-    gradient: "from-purple-500 to-pink-500",
+    gradient: 'from-purple-500 to-pink-500',
   },
   {
-    title: "Installer",
-    description: "Dynamic package installer for all release tags",
-    href: "/installer",
+    title: 'Installer',
+    description: 'Dynamic package installer for all release tags',
+    href: '/installer',
     icon: Package,
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: 'from-blue-500 to-cyan-500',
   },
   {
-    title: "Components",
-    description: "Interactive component playground",
-    href: "/components",
+    title: 'Components',
+    description: 'Interactive component playground',
+    href: '/components',
     icon: Wrench,
-    gradient: "from-green-500 to-emerald-500",
+    gradient: 'from-green-500 to-emerald-500',
   },
   {
-    title: "Preview",
-    description: "Live component previews and demos",
-    href: "/playground",
+    title: 'Preview',
+    description: 'Live component previews and demos',
+    href: '/playground',
     icon: Eye,
-    gradient: "from-orange-500 to-red-500",
+    gradient: 'from-orange-500 to-red-500',
   },
 ];
 
@@ -48,7 +48,7 @@ export default function Home() {
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
               <span className="from-primary-600 to-secondary-600 bg-gradient-to-r bg-clip-text text-transparent">
                 IdeasUI
-              </span>{" "}
+              </span>{' '}
               Playground
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">

@@ -34,7 +34,7 @@ jobs:
         run: |
           # Create snapshot changeset for canary
           npx changeset version --snapshot canary
-          
+
       - name: Publish canary to npm
         run: |
           # Publish all packages with canary tag
@@ -47,7 +47,7 @@ jobs:
         with:
           script: |
             const { execSync } = require('child_process');
-            
+
             // Get published canary versions
             const packages = ['button', 'box', 'ripple', 'utils', 'variants', 'icons'];
             const canaryVersions = packages.map(pkg => {

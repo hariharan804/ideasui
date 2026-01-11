@@ -1,31 +1,31 @@
-import {memo, useMemo} from "react";
-import type {ThemeScriptConfig, ThemeScriptProps} from "./types";
+import { memo, useMemo } from 'react';
+import type { ThemeScriptConfig, ThemeScriptProps } from './types';
 
-import {createScript} from "./utils/script";
-import {defaultConfig} from "./utils/themes.config";
+import { createScript } from './utils/script';
+import { defaultConfig } from './utils/themes.config';
 
 const validateThemeConfig = (config: ThemeScriptConfig): ThemeScriptConfig => {
   const isValidString = (str: unknown): str is string =>
-    typeof str === "string" && /^[\w.:-]+$/.test(str) && str.length < 50;
+    typeof str === 'string' && /^[\w.:-]+$/.test(str) && str.length < 50;
 
   const validThemes = Array.isArray(config.themes)
     ? config.themes.filter(isValidString)
-    : ["light", "dark"];
+    : ['light', 'dark'];
 
   return {
     ...config,
-    themes: validThemes.length > 0 ? validThemes : ["light", "dark"],
-    defaultTheme: isValidString(config.defaultTheme) ? config.defaultTheme : "light",
-    storageKey: isValidString(config.storageKey) ? config.storageKey : "theme",
+    themes: validThemes.length > 0 ? validThemes : ['light', 'dark'],
+    defaultTheme: isValidString(config.defaultTheme) ? config.defaultTheme : 'light',
+    storageKey: isValidString(config.storageKey) ? config.storageKey : 'theme',
     systemThemes: {
-      light: isValidString(config.systemThemes?.light) ? config.systemThemes.light : "light",
-      dark: isValidString(config.systemThemes?.dark) ? config.systemThemes.dark : "dark",
+      light: isValidString(config.systemThemes?.light) ? config.systemThemes.light : 'light',
+      dark: isValidString(config.systemThemes?.dark) ? config.systemThemes.dark : 'dark',
     },
   };
 };
 
 export const ThemeScript = memo<ThemeScriptProps>((props) => {
-  const {nonce, scriptProps, id = "ideasui-theme-script", ...themeProps} = props;
+  const { nonce, scriptProps, id = 'ideasui-theme-script', ...themeProps } = props;
 
   const script = useMemo(() => {
     const merged: ThemeScriptConfig = {
@@ -42,11 +42,11 @@ export const ThemeScript = memo<ThemeScriptProps>((props) => {
     <script
       id={id}
       {...scriptProps}
-      dangerouslySetInnerHTML={{__html: script}}
+      dangerouslySetInnerHTML={{ __html: script }}
       suppressHydrationWarning
       nonce={nonce}
     />
   );
 });
 
-ThemeScript.displayName = "IdeasUI.ThemeScript";
+ThemeScript.displayName = 'IdeasUI.ThemeScript';

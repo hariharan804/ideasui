@@ -5,4 +5,4 @@
  * to enhance web accessibility.
  */
 
-export * from "./accessibility";
+export * from './accessibility';

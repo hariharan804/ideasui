@@ -1,4 +1,4 @@
-import {useEffect, useRef} from "react";
+import { useEffect, useRef } from 'react';
 
 /**
  * Custom hook for setting up intervals

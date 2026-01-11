@@ -1,37 +1,37 @@
-import {defineConfig, devices} from "@playwright/test";
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: "./packages",
+  testDir: './packages',
   testMatch: [
-    "**/packages/components/**/src/__tests__/*.spec.ts",
-    "**/packages/hooks/**/src/__tests__/*.spec.ts",
+    '**/packages/components/**/src/__tests__/*.spec.ts',
+    '**/packages/hooks/**/src/__tests__/*.spec.ts',
   ],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: "html",
+  reporter: 'html',
   use: {
-    baseURL: "http://localhost:6006",
-    trace: "on-first-retry",
+    baseURL: 'http://localhost:6006',
+    trace: 'on-first-retry',
   },
   projects: [
     {
-      name: "chromium",
-      use: {...devices["Desktop Chrome"]},
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
     },
     {
-      name: "firefox",
-      use: {...devices["Desktop Firefox"]},
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
     },
     {
-      name: "webkit",
-      use: {...devices["Desktop Safari"]},
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
     },
   ],
   webServer: {
-    command: "pnpm run storybook",
-    url: "http://localhost:6006",
+    command: 'pnpm run storybook',
+    url: 'http://localhost:6006',
     reuseExistingServer: !process.env.CI,
   },
 });

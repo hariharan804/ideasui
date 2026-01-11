@@ -1,6 +1,6 @@
 // Main exports
-export * from "./react";
-export * from "./hooks";
+export * from './react';
+export * from './hooks';
 // export * from "./mocks";
 
 // Common test utilities
@@ -15,14 +15,14 @@ export const waitFor = async (
 
   while (!callback()) {
     if (Date.now() - startTime > timeout) {
-      throw new Error("Timeout waiting for condition");
+      throw new Error('Timeout waiting for condition');
     }
     await sleep(interval);
   }
 };
 
 // Test ID helpers
-export const testId = (id: string) => ({"data-testid": id});
+export const testId = (id: string) => ({ 'data-testid': id });
 export const getByTestId = (id: string) => `[data-testid="${id}"]`;
 
 // Accessibility helpers

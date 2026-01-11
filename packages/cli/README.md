@@ -36,9 +36,11 @@ ideasui setup [options]
 ```
 
 **Options:**
+
 - `--skip-install` - Skip package installation
 
 **Features:**
+
 - ✅ Dynamic package discovery from npm registry
 - ✅ Interactive component selection
 - ✅ Automatic Tailwind CSS configuration
@@ -54,6 +56,7 @@ ideasui add [components...] [options]
 ```
 
 **Examples:**
+
 ```bash
 # Add single component
 ideasui add button
@@ -69,6 +72,7 @@ ideasui add button --dev
 ```
 
 **Options:**
+
 - `-a, --all` - Install all available components
 - `--dev` - Install as dev dependency
 
@@ -81,6 +85,7 @@ ideasui list [options]
 ```
 
 **Examples:**
+
 ```bash
 # Basic list
 ideasui list
@@ -90,6 +95,7 @@ ideasui list --detailed
 ```
 
 **Options:**
+
 - `-d, --detailed` - Show detailed package information
 
 ### `init`
@@ -101,6 +107,7 @@ ideasui init [options]
 ```
 
 **Options:**
+
 - `-t, --typescript` - Use TypeScript (default: true)
 - `-s, --styled` - Include styled components
 
@@ -126,6 +133,7 @@ The CLI automatically discovers all published IdeasUI packages from the npm regi
 ### 📦 Smart Package Management
 
 Automatically detects your package manager:
+
 - npm
 - yarn
 - pnpm
@@ -175,18 +183,16 @@ ideasui add --all
 After installation, import and use components:
 
 ```tsx
-import {Button} from "@ideasui/button";
-import {Box} from "@ideasui/box";
-import {useToggle} from "@ideasui/hooks";
+import { Button } from '@ideasui/button';
+import { Box } from '@ideasui/box';
+import { useToggle } from '@ideasui/hooks';
 
 function App() {
   const [isOpen, toggle] = useToggle();
-  
+
   return (
     <Box className="p-6">
-      <Button onClick={toggle}>
-        {isOpen ? "Close" : "Open"}
-      </Button>
+      <Button onClick={toggle}>{isOpen ? 'Close' : 'Open'}</Button>
     </Box>
   );
 }

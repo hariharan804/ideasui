@@ -1,9 +1,7 @@
 /**
  * Get element by id with proper typing
  */
-export function getElementById<T extends HTMLElement = HTMLElement>(
-  id: string
-): T | null {
+export function getElementById<T extends HTMLElement = HTMLElement>(id: string): T | null {
   return document.getElementById(id) as T | null;
 }
 
@@ -39,9 +37,9 @@ export const focus = {
       'button:not([disabled])',
       'a[href]',
       '[tabindex]:not([tabindex="-1"])',
-      '[contenteditable="true"]'
+      '[contenteditable="true"]',
     ].join(',');
-    
+
     return Array.from(container.querySelectorAll(selector));
   },
 
@@ -58,5 +56,5 @@ export const focus = {
   getLast: (container: HTMLElement): HTMLElement | null => {
     const focusable = focus.getFocusable(container);
     return focusable[focusable.length - 1] || null;
-  }
+  },
 };

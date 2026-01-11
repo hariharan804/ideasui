@@ -6,16 +6,16 @@ import chroma from 'chroma-js';
 
 export function colorContrastChecker({
   backgroundColor,
-  textColor = "#ffffff",
+  textColor = '#ffffff',
   isContrastCheck = true,
   contrastValue = 4.7,
-  adjustColor = "background",
+  adjustColor = 'background',
 }) {
   if (!backgroundColor || typeof backgroundColor !== 'string') {
     console.error('[IdeasUI] backgroundColor is required and must be a valid hex color');
     return { textColor, backgroundColor, ratio: 1, passed: false };
   }
-  
+
   if (!isValidHexColor(backgroundColor) || !isValidHexColor(textColor)) {
     console.error('[IdeasUI] Colors must be valid hex format (#RRGGBB)');
     return { textColor, backgroundColor, ratio: 1, passed: false };
@@ -28,15 +28,15 @@ export function colorContrastChecker({
   }
 
   if (ratio >= contrastValue) {
-    console.log("✅ Passed Ratio =======>  ", ratio);
+    console.log('✅ Passed Ratio =======>  ', ratio);
     return { textColor, backgroundColor, ratio, passed: true };
   }
-  
-  console.warn("❌ Failed Ratio =======>  ", ratio);
+
+  console.warn('❌ Failed Ratio =======>  ', ratio);
 
   try {
     const adjusted = adjustColors(textColor, backgroundColor, contrastValue, adjustColor);
-    console.log("👽 adjusted colors:", adjusted?.backgroundColor);
+    console.log('👽 adjusted colors:', adjusted?.backgroundColor);
     return {
       textColor: adjusted.textColor,
       backgroundColor: adjusted.backgroundColor,
@@ -62,18 +62,14 @@ function hexToRgb(hex) {
     console.error(`Invalid hex color: ${hex}`);
     return [0, 0, 0];
   }
-  
+
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   if (!result) {
     console.error(`Failed to parse hex color: ${hex}`);
     return [0, 0, 0];
   }
-  
-  return [
-    parseInt(result[1], 16),
-    parseInt(result[2], 16),
-    parseInt(result[3], 16)
-  ];
+
+  return [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)];
 }
 
 function rgbToHex(r, g, b) {
@@ -81,7 +77,7 @@ function rgbToHex(r, g, b) {
     console.error(`Invalid RGB values: r=${r}, g=${g}, b=${b}`);
     return '#000000';
   }
-  
+
   return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
 }
 
@@ -111,12 +107,7 @@ function getContrastRatio(color1, color2) {
   }
 }
 
-function adjustColors(
-  textColor,
-  backgroundColor,
-  targetRatio,
-  adjustColor = "background"
-) {
+function adjustColors(textColor, backgroundColor, targetRatio, adjustColor = 'background') {
   let adjustedText = textColor;
   let adjustedBg = backgroundColor;
   let ratio = getContrastRatio(adjustedText, adjustedBg);
@@ -125,9 +116,9 @@ function adjustColors(
 
   while (ratio < targetRatio && iterations < maxIterations) {
     try {
-      if (adjustColor === "text") {
+      if (adjustColor === 'text') {
         adjustedText = adjustLuminance(adjustedText, false);
-      } else if (adjustColor === "background") {
+      } else if (adjustColor === 'background') {
         adjustedBg = adjustLuminance(adjustedBg, false);
       } else {
         const textLum = getLuminance(adjustedText);

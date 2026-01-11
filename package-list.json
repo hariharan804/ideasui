@@ -8,11 +8,7 @@
       "path": "packages/components/button",
       "keywords": [],
       "hasReadme": true,
-      "componentFiles": [
-        "button.tsx",
-        "spinner.tsx",
-        "use-button.ts"
-      ],
+      "componentFiles": ["button.tsx", "spinner.tsx", "use-button.ts"],
       "installCommands": {
         "npm": "npm install @ideasui/button",
         "pnpm": "pnpm add @ideasui/button",
@@ -215,11 +211,7 @@
       "path": "packages/components/ripple",
       "keywords": [],
       "hasReadme": true,
-      "componentFiles": [
-        "ripple.tsx",
-        "touchable.tsx",
-        "use-ripple.ts"
-      ],
+      "componentFiles": ["ripple.tsx", "touchable.tsx", "use-ripple.ts"],
       "installCommands": {
         "npm": "npm install @ideasui/ripple",
         "pnpm": "pnpm add @ideasui/ripple",
@@ -403,18 +395,9 @@
       "version": "0.1.0",
       "description": "Universal polymorphic container component with 'as' prop support",
       "path": "packages/components/slot",
-      "keywords": [
-        "react",
-        "component",
-        "polymorphic",
-        "slot",
-        "as-prop",
-        "typescript"
-      ],
+      "keywords": ["react", "component", "polymorphic", "slot", "as-prop", "typescript"],
       "hasReadme": true,
-      "componentFiles": [
-        "slot.tsx"
-      ],
+      "componentFiles": ["slot.tsx"],
       "installCommands": {
         "npm": "npm install @ideasui/slot",
         "pnpm": "pnpm add @ideasui/slot",
@@ -480,13 +463,7 @@
       "version": "0.1.0",
       "description": "Tailwind CSS v4 theme system for IdeasUI",
       "path": "packages/core/theme",
-      "keywords": [
-        "tailwindcss",
-        "theme",
-        "design-system",
-        "css",
-        "ui"
-      ],
+      "keywords": ["tailwindcss", "theme", "design-system", "css", "ui"],
       "hasReadme": true,
       "componentFiles": [],
       "installCommands": {
@@ -796,13 +773,7 @@
       "version": "0.1.0",
       "description": "CLI for IdeasUI component library",
       "path": "packages/cli",
-      "keywords": [
-        "ideasui",
-        "cli",
-        "components",
-        "react",
-        "typescript"
-      ],
+      "keywords": ["ideasui", "cli", "components", "react", "typescript"],
       "hasReadme": true,
       "componentFiles": [],
       "installCommands": {

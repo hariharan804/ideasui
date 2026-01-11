@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import {Ripple} from "@ideasui/ripple";
-import {cn} from "@ideasui/utils";
+import { Ripple } from '@ideasui/ripple';
+import { cn } from '@ideasui/utils';
 
 interface RippleExampleProps {
   className?: string;
-  variant?: "solid" | "bordered" | "light" | "flat" | "faded" | "shadow" | "dot";
-  color?: "default" | "primary" | "secondary" | "success" | "warning" | "danger";
-  radius?: "none" | "sm" | "md" | "lg" | "full";
+  variant?: 'solid' | 'bordered' | 'light' | 'flat' | 'faded' | 'shadow' | 'dot';
+  color?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
+  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full';
   isDisabled?: boolean;
   disableRipple?: boolean;
   children?: React.ReactNode;
@@ -15,12 +15,12 @@ interface RippleExampleProps {
 
 export default function RipplePreview({
   className,
-  variant = "solid",
-  color = "primary",
-  radius = "md",
+  variant = 'solid',
+  color = 'primary',
+  radius = 'md',
   isDisabled = false,
   disableRipple = false,
-  children = "Click me",
+  children = 'Click me',
   ...props
 }: RippleExampleProps) {
   return (
@@ -31,10 +31,10 @@ export default function RipplePreview({
         {/* Basic Ripple Button */}
         <Ripple
           className={cn(
-            "relative flex h-10 items-center justify-center rounded-md px-4 font-medium",
-            "bg-primary text-primary-foreground",
-            "cursor-pointer overflow-hidden select-none",
-            "hover:bg-primary/90 transition-colors",
+            'relative flex h-10 items-center justify-center rounded-md px-4 font-medium',
+            'bg-primary text-primary-foreground',
+            'cursor-pointer overflow-hidden select-none',
+            'hover:bg-primary/90 transition-colors',
             className,
           )}
           // variant={variant}
@@ -50,10 +50,10 @@ export default function RipplePreview({
         {/* Ripple with different variant */}
         <Ripple
           className={cn(
-            "relative flex h-10 items-center justify-center rounded-md border-2 px-4 font-medium",
-            "border-primary text-foreground",
-            "cursor-pointer overflow-hidden select-none",
-            "hover:bg-primary/10 transition-colors",
+            'relative flex h-10 items-center justify-center rounded-md border-2 px-4 font-medium',
+            'border-primary text-foreground',
+            'cursor-pointer overflow-hidden select-none',
+            'hover:bg-primary/10 transition-colors',
             className,
           )}
           // variant="bordered"
@@ -66,13 +66,13 @@ export default function RipplePreview({
 
       <div className="flex flex-wrap gap-4">
         {/* Different colors */}
-        {["primary", "secondary", "success", "warning", "danger"].map((color) => (
+        {['primary', 'secondary', 'success', 'warning', 'danger'].map((color) => (
           <Ripple
             key={color}
             className={cn(
-              "relative flex h-10 items-center justify-center rounded-md px-4 font-medium",
+              'relative flex h-10 items-center justify-center rounded-md px-4 font-medium',
               `bg-${color} text-${color}-foreground`,
-              "cursor-pointer overflow-hidden select-none",
+              'cursor-pointer overflow-hidden select-none',
               `hover:bg-${color}/90`,
               className,
             )}

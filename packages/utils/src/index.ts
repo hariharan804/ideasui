@@ -1,16 +1,16 @@
 // PUBLIC API — safe for end-users
 
 // Core utilities
-export {logger} from "./core";
+export { logger } from './core';
 
 // Browser utilities
-export * from "./client";
+export * from './client';
 
 // Style utilities
-export {cn} from "./style/tailwind";
+export { cn } from './style/tailwind';
 
 // Accessibility utilities
-export * from "./aria";
+export * from './aria';
 
 // React utilities (public only)
-export {forwardRef, type PolymorphicComponent} from "./react/polymorphic-ref";
+export { forwardRef, type PolymorphicComponent } from './react/polymorphic-ref';

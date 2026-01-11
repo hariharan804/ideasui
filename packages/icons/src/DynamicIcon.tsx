@@ -2,7 +2,12 @@ import React, { Suspense, lazy, useMemo } from 'react';
 import type { DynamicIconProps, IconProps } from './types';
 
 // Default fallback icon
-const DefaultFallback: React.FC<IconProps> = ({ size = 24, color = 'currentColor', className, ...props }) => (
+const DefaultFallback: React.FC<IconProps> = ({
+  size = 24,
+  color = 'currentColor',
+  className,
+  ...props
+}) => (
   <svg
     width={size}
     height={size}
@@ -26,7 +31,7 @@ const iconCache = new Map<string, React.ComponentType<IconProps>>();
 
 /**
  * Dynamic icon component that loads icons on demand
- * 
+ *
  * @example
  * ```tsx
  * <DynamicIcon name="arrow-right" size={24} color="blue" />
@@ -49,14 +54,14 @@ export const DynamicIcon: React.FC<DynamicIconProps> = ({
         // Dynamic import with proper error handling
         const module = await import(`./${name}`);
         const Component = module[name] || module.default;
-        
+
         if (!Component) {
           throw new Error(`Icon "${name}" not found in module`);
         }
 
         // Cache the component
         iconCache.set(name, Component);
-        
+
         return { default: Component };
       } catch (error) {
         console.warn(`Failed to load icon "${name}":`, error);

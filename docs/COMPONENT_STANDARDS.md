@@ -5,12 +5,14 @@ A comprehensive guide for creating high-quality, consistent components in IdeasU
 ## 🚀 Quick Start Checklist
 
 ### Before You Start
+
 - [ ] Read the component requirements
 - [ ] Check existing similar components
 - [ ] Plan component API and variants
 - [ ] Set up development environment
 
 ### Component Creation Steps
+
 1. [ ] Generate component using `pnpm run create`
 2. [ ] Implement core functionality
 3. [ ] Add TypeScript interfaces
@@ -25,6 +27,7 @@ A comprehensive guide for creating high-quality, consistent components in IdeasU
 ### ✅ Required Standards
 
 #### **React Patterns**
+
 - [ ] Use `React.forwardRef` for all components
 - [ ] Set `displayName` for debugging
 - [ ] Export TypeScript interfaces
@@ -35,20 +38,17 @@ A comprehensive guide for creating high-quality, consistent components in IdeasU
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, children, ...props }, ref) => {
     return (
-      <button
-        ref={ref}
-        className={cn(buttonVariants({ variant, size }), className)}
-        {...props}
-      >
+      <button ref={ref} className={cn(buttonVariants({ variant, size }), className)} {...props}>
         {children}
       </button>
-    )
-  }
-)
-Button.displayName = "Button"
+    );
+  },
+);
+Button.displayName = 'Button';
 ```
 
 #### **TypeScript Requirements**
+
 - [ ] Define props interface with JSDoc
 - [ ] Extend appropriate HTML element props
 - [ ] Export all types and interfaces
@@ -60,17 +60,18 @@ Button.displayName = "Button"
  */
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Visual style variant */
-  variant?: "solid" | "outline" | "ghost" | "link"
+  variant?: 'solid' | 'outline' | 'ghost' | 'link';
   /** Color variant based on semantic intent */
-  color?: "primary" | "secondary" | "success" | "warning" | "danger" | "info" | "neutral" | "gray"
+  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral' | 'gray';
   /** Size of the button */
-  size?: "xs" | "sm" | "md" | "lg" | "xl"
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   /** Disable ripple effect */
-  disableRipple?: boolean
+  disableRipple?: boolean;
 }
 ```
 
 #### **Styling Standards**
+
 - [ ] Use `tailwind-variants` for variant management
 - [ ] Import recipes from `@ideasui/theme/recipes`
 - [ ] Support all color variants (primary, secondary, success, warning, danger, info, neutral, gray)
@@ -78,24 +79,19 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 - [ ] Add radius variants (none, sm, md, lg, xl, full)
 
 ```tsx
-import { button } from "@ideasui/theme/recipes"
-import { cn } from "@ideasui/utils"
+import { button } from '@ideasui/theme/recipes';
+import { cn } from '@ideasui/utils';
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, ...props }, ref) => {
-    const { base } = button({ variant, size })
-    return (
-      <button
-        ref={ref}
-        className={cn(base(), className)}
-        {...props}
-      />
-    )
-  }
-)
+    const { base } = button({ variant, size });
+    return <button ref={ref} className={cn(base(), className)} {...props} />;
+  },
+);
 ```
 
 #### **Accessibility Requirements**
+
 - [ ] Use semantic HTML elements
 - [ ] Add proper ARIA attributes
 - [ ] Support keyboard navigation
@@ -117,6 +113,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 ### 🧪 Testing Requirements
 
 #### **Unit Tests**
+
 - [ ] Test component rendering
 - [ ] Test all props and variants
 - [ ] Test event handlers
@@ -124,23 +121,24 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 - [ ] Test accessibility
 
 ```tsx
-describe("Button", () => {
-  it("should render correctly", () => {
-    const wrapper = render(<Button>Click me</Button>)
-    expect(() => wrapper.unmount()).not.toThrow()
-  })
+describe('Button', () => {
+  it('should render correctly', () => {
+    const wrapper = render(<Button>Click me</Button>);
+    expect(() => wrapper.unmount()).not.toThrow();
+  });
 
-  it("should handle click events", async () => {
-    const onClick = jest.fn()
-    const { getByRole } = render(<Button onClick={onClick}>Click me</Button>)
-    
-    await user.click(getByRole("button"))
-    expect(onClick).toHaveBeenCalled()
-  })
-})
+  it('should handle click events', async () => {
+    const onClick = jest.fn();
+    const { getByRole } = render(<Button onClick={onClick}>Click me</Button>);
+
+    await user.click(getByRole('button'));
+    expect(onClick).toHaveBeenCalled();
+  });
+});
 ```
 
 #### **Visual Tests**
+
 - [ ] Create visual regression tests
 - [ ] Test all component variants
 - [ ] Test responsive behavior
@@ -148,14 +146,15 @@ describe("Button", () => {
 
 ```tsx
 test('Button visual regression', async ({ page }) => {
-  await page.goto('/iframe.html?id=components-button--default')
-  await expect(page.locator('[data-testid="button"]')).toHaveScreenshot('button-default.png')
-})
+  await page.goto('/iframe.html?id=components-button--default');
+  await expect(page.locator('[data-testid="button"]')).toHaveScreenshot('button-default.png');
+});
 ```
 
 ### 📚 Documentation Requirements
 
 #### **Storybook Stories**
+
 - [ ] Create default story
 - [ ] Create variant showcase
 - [ ] Add interactive controls
@@ -168,13 +167,13 @@ export default {
   parameters: {
     layout: 'centered',
   },
-} satisfies Meta<typeof Button>
+} satisfies Meta<typeof Button>;
 
 export const Default: Story = {
   args: {
     children: 'Button',
   },
-}
+};
 
 export const Variants: Story = {
   render: () => (
@@ -184,10 +183,11 @@ export const Variants: Story = {
       <Button variant="ghost">Ghost</Button>
     </div>
   ),
-}
+};
 ```
 
 #### **README Documentation**
+
 - [ ] Add installation instructions
 - [ ] Include usage examples
 - [ ] Document all props
@@ -196,6 +196,7 @@ export const Variants: Story = {
 ## 🏗️ File Structure Standards
 
 ### Required Files
+
 ```
 packages/components/button/
 ├── src/
@@ -214,6 +215,7 @@ packages/components/button/
 ```
 
 ### Package.json Requirements
+
 ```json
 {
   "name": "@ideasui/button",
@@ -237,7 +239,9 @@ packages/components/button/
 ## 🎨 Design System Integration
 
 ### Color Variants
+
 All components must support these color variants:
+
 - `primary` - Brand primary color (default)
 - `secondary` - Secondary accent color
 - `success` - Success/positive actions
@@ -248,7 +252,9 @@ All components must support these color variants:
 - `gray` - Gray color variant
 
 ### Size System
+
 Standard size variants across all components:
+
 - `xs` - Extra small (32px height)
 - `sm` - Small (36px height)
 - `md` - Medium (40px height) - Default
@@ -256,7 +262,9 @@ Standard size variants across all components:
 - `xl` - Extra large (48px height)
 
 ### Radius System
+
 Consistent border radius options:
+
 - `none` - No border radius
 - `sm` - Small radius (2px)
 - `md` - Medium radius (6px) - Default
@@ -267,6 +275,7 @@ Consistent border radius options:
 ## 🔧 Advanced Patterns
 
 ### Polymorphic Components (Optional)
+
 For components that can render as different elements:
 
 ```tsx
@@ -286,6 +295,7 @@ export const Button = <C extends React.ElementType = "button">({
 ```
 
 ### Compound Components (Optional)
+
 For complex components with sub-components:
 
 ```tsx
@@ -308,6 +318,7 @@ const Card = Object.assign(CardRoot, {
 ## 🚨 Common Mistakes to Avoid
 
 ### ❌ Don't Do This
+
 ```tsx
 // Missing forwardRef
 export const Button = ({ children, ...props }) => {
@@ -330,26 +341,24 @@ export const Button = React.forwardRef(...)
 ```
 
 ### ✅ Do This Instead
+
 ```tsx
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, children, ...props }, ref) => {
     return (
-      <button
-        ref={ref}
-        className={cn(buttonVariants({ variant, size }), className)}
-        {...props}
-      >
+      <button ref={ref} className={cn(buttonVariants({ variant, size }), className)} {...props}>
         {children}
       </button>
-    )
-  }
-)
-Button.displayName = "Button"
+    );
+  },
+);
+Button.displayName = 'Button';
 ```
 
 ## 📊 Quality Gates
 
 ### Before Submitting PR
+
 - [ ] All tests pass (`pnpm run test`)
 - [ ] Visual tests pass (`pnpm run test:visual`)
 - [ ] No linting errors (`pnpm run lint`)
@@ -358,6 +367,7 @@ Button.displayName = "Button"
 - [ ] Component builds successfully (`pnpm run build`)
 
 ### Code Review Checklist
+
 - [ ] Follows naming conventions
 - [ ] Has proper TypeScript types
 - [ ] Includes comprehensive tests
@@ -370,17 +380,20 @@ Button.displayName = "Button"
 ## 🎯 Component Maturity Levels
 
 ### Level 1: Basic Component
+
 - ✅ Renders correctly
 - ✅ Has basic props
 - ✅ Basic styling
 
 ### Level 2: Production Ready
+
 - ✅ Full TypeScript support
 - ✅ Comprehensive testing
 - ✅ Accessibility compliant
 - ✅ Storybook documentation
 
 ### Level 3: Advanced Component
+
 - ✅ Polymorphic support
 - ✅ Compound patterns
 - ✅ Advanced accessibility

@@ -14,13 +14,6 @@ export type { IconProps } from './types';
 export { createIcon } from './createIcon';
 
 // Icon names for dynamic usage
-export const iconNames = [
-  'arrow-right',
-  'heart',
-  'home',
-  'search',
-  'settings',
-  'user',
-] as const;
+export const iconNames = ['arrow-right', 'heart', 'home', 'search', 'settings', 'user'] as const;
 
-export type IconName = typeof iconNames[number];
+export type IconName = (typeof iconNames)[number];

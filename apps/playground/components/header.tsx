@@ -1,9 +1,9 @@
-"use client";
-import React from "react";
-import {useRouter} from "next/navigation";
-import {ArrowLeft, Moon, Sun, Github, ExternalLink} from "lucide-react";
-import {useTheme} from "@ideasui/theme";
-import Link from "next/link";
+'use client';
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import { ArrowLeft, Moon, Sun, Github, ExternalLink } from 'lucide-react';
+import { useTheme } from '@ideasui/theme';
+import Link from 'next/link';
 
 interface HeaderProps {
   showBackButton?: boolean;
@@ -11,24 +11,24 @@ interface HeaderProps {
   subtitle?: string;
 }
 
-function Header({showBackButton = false, title, subtitle}: HeaderProps) {
+function Header({ showBackButton = false, title, subtitle }: HeaderProps) {
   const router = useRouter();
-  const {resolvedTheme, setTheme, themes} = useTheme();
+  const { resolvedTheme, setTheme, themes } = useTheme();
 
   const onToggleTheme = () => {
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
   };
 
   const goBack = () => {
-    router.push("/playground");
+    router.push('/playground');
   };
 
   const goToGithub = () => {
-    window.open("https://github.com/your-username/ideasui", "_blank");
+    window.open('https://github.com/your-username/ideasui', '_blank');
   };
 
   const goToDocs = () => {
-    router.push("/docs");
+    router.push('/docs');
   };
 
   return (
@@ -49,9 +49,9 @@ function Header({showBackButton = false, title, subtitle}: HeaderProps) {
               </>
             ) : null}
             <div>
-              <Link href={"/"}>
+              <Link href={'/'}>
                 <h1 className="text-2xl font-bold text-gray-900">
-                  {title || "IdeasUI Playground"}
+                  {title || 'IdeasUI Playground'}
                 </h1>
               </Link>
               {subtitle ? <p className="mt-1 text-sm text-gray-600">{subtitle}</p> : null}
@@ -80,10 +80,10 @@ function Header({showBackButton = false, title, subtitle}: HeaderProps) {
             {/* Theme Toggle */}
             <button
               className="rounded-lg bg-gray-100 p-2 transition-colors hover:bg-gray-200"
-              title={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
+              title={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode`}
               onClick={onToggleTheme}
             >
-              {resolvedTheme === "dark" ? (
+              {resolvedTheme === 'dark' ? (
                 <Sun className="h-5 w-5" />
               ) : (
                 <Moon className="h-5 w-5" />

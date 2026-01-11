@@ -6,7 +6,7 @@
 
 ```ts
 // tailwind.config.ts
-import ideasUIPlugin from "@ideasui/theme/plugin";
+import ideasUIPlugin from '@ideasui/theme/plugin';
 
 export default {
   plugins: [ideasUIPlugin()],
@@ -75,12 +75,12 @@ Use Tailwind's spacing scale:
 ### Theme Switching
 
 ```tsx
-import {useTheme} from "@ideasui/theme";
+import { useTheme } from '@ideasui/theme';
 
-const {theme, setTheme} = useTheme();
+const { theme, setTheme } = useTheme();
 
 // Toggle
-setTheme(theme === "dark" ? "light" : "dark");
+setTheme(theme === 'dark' ? 'light' : 'dark');
 ```
 
 ### CSS Classes
@@ -92,7 +92,7 @@ setTheme(theme === "dark" ? "light" : "dark");
 }
 
 /* Or use data attribute */
-[data-theme="dark"] .component {
+[data-theme='dark'] .component {
 }
 ```
 
@@ -104,7 +104,7 @@ Ensure all Tailwind classes are in content paths:
 
 ```ts
 export default {
-  content: ["./app/**/*.{ts,tsx}", "./node_modules/@ideasui/**/*.{js,ts,jsx,tsx}"],
+  content: ['./app/**/*.{ts,tsx}', './node_modules/@ideasui/**/*.{js,ts,jsx,tsx}'],
 };
 ```
 

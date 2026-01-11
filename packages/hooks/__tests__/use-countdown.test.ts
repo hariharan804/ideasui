@@ -1,22 +1,22 @@
-import {renderHook, act} from "@testing-library/react";
-import {useCountdown} from "../src/use-countdown";
+import { renderHook, act } from '@testing-library/react';
+import { useCountdown } from '../src/use-countdown';
 
 jest.useFakeTimers();
 
-describe("useCountdown", () => {
+describe('useCountdown', () => {
   afterEach(() => {
     jest.clearAllTimers();
   });
 
-  it("should initialize with provided time", () => {
-    const {result} = renderHook(() => useCountdown(60));
+  it('should initialize with provided time', () => {
+    const { result } = renderHook(() => useCountdown(60));
     expect(result.current.timeLeft).toBe(60);
     expect(result.current.isRunning).toBe(false);
     expect(result.current.isFinished).toBe(false);
   });
 
-  it("should start countdown", () => {
-    const {result} = renderHook(() => useCountdown(3));
+  it('should start countdown', () => {
+    const { result } = renderHook(() => useCountdown(3));
 
     act(() => {
       result.current.start();
@@ -31,8 +31,8 @@ describe("useCountdown", () => {
     expect(result.current.timeLeft).toBe(2);
   });
 
-  it("should pause countdown", () => {
-    const {result} = renderHook(() => useCountdown(5));
+  it('should pause countdown', () => {
+    const { result } = renderHook(() => useCountdown(5));
 
     act(() => {
       result.current.start();
@@ -57,8 +57,8 @@ describe("useCountdown", () => {
     expect(result.current.timeLeft).toBe(3); // Should not change
   });
 
-  it("should reset countdown", () => {
-    const {result} = renderHook(() => useCountdown(10));
+  it('should reset countdown', () => {
+    const { result } = renderHook(() => useCountdown(10));
 
     act(() => {
       result.current.start();
@@ -78,9 +78,9 @@ describe("useCountdown", () => {
     expect(result.current.isRunning).toBe(false);
   });
 
-  it("should call onFinish when countdown reaches 0", () => {
+  it('should call onFinish when countdown reaches 0', () => {
     const onFinish = jest.fn();
-    const {result} = renderHook(() => useCountdown(2, onFinish));
+    const { result } = renderHook(() => useCountdown(2, onFinish));
 
     act(() => {
       result.current.start();

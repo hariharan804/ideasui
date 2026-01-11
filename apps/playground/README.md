@@ -27,6 +27,7 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 ## Purpose
 
 This playground app serves as:
+
 - **Component Testing**: Test IdeasUI components in a real Next.js environment
 - **Development Environment**: Develop and iterate on components
 - **Integration Testing**: Ensure components work correctly with Next.js SSR/SSG
@@ -42,7 +43,7 @@ pnpm run start:next        # Start production server
 
 # Package Testing
 pnpm run test:alpha         # Test with alpha packages
-pnpm run test:beta          # Test with beta packages  
+pnpm run test:beta          # Test with beta packages
 pnpm run test:canary        # Test with canary packages
 pnpm run test:latest        # Test with latest packages
 pnpm run restore:workspace  # Restore workspace dependencies
@@ -51,6 +52,7 @@ pnpm run restore:workspace  # Restore workspace dependencies
 ## IdeasUI Components
 
 The playground includes examples of:
+
 - `@ideasui/button` - Interactive button component
 - `@ideasui/ripple` - Material Design ripple effects
 - `@ideasui/theme` - Theme system with recipes and tokens
@@ -59,9 +61,11 @@ The playground includes examples of:
 ## Learn More
 
 To learn more about IdeasUI:
+
 - [IdeasUI Documentation](https://ideasui.com) - Component library documentation
 - [GitHub Repository](https://github.com/ideas2logic-lab/ideasui) - Source code and issues
 
 To learn more about Next.js:
+
 - [Next.js Documentation](https://nextjs.org/docs) - Next.js features and API
 - [Learn Next.js](https://nextjs.org/learn) - Interactive Next.js tutorial

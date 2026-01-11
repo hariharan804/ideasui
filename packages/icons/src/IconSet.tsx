@@ -13,7 +13,7 @@ export const useIconContext = (): Partial<IconProps> => {
 
 /**
  * Provider component for consistent icon styling across a component tree
- * 
+ *
  * @example
  * ```tsx
  * <IconSet size={20} color="blue" className="icon-base">
@@ -37,22 +37,18 @@ export const IconSet: React.FC<IconSetProps & { children: React.ReactNode }> = (
     ...props,
   };
 
-  return (
-    <IconContext.Provider value={contextValue}>
-      {children}
-    </IconContext.Provider>
-  );
+  return <IconContext.Provider value={contextValue}>{children}</IconContext.Provider>;
 };
 
 /**
  * Higher-order component to wrap icons with context support
  */
 export function withIconContext<P extends IconProps>(
-  Component: React.ComponentType<P>
+  Component: React.ComponentType<P>,
 ): React.ComponentType<P> {
   const WrappedComponent: React.ComponentType<P> = (props) => {
     const contextProps = useIconContext();
-    
+
     // Merge context props with component props (component props take precedence)
     const mergedProps = {
       ...contextProps,
@@ -64,7 +60,7 @@ export function withIconContext<P extends IconProps>(
   };
 
   WrappedComponent.displayName = `withIconContext(${Component.displayName || Component.name})`;
-  
+
   return WrappedComponent;
 }
 

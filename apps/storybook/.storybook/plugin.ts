@@ -1,6 +1,6 @@
-import {ideasUIPlugin} from "@ideasui/theme";
-import type {Config} from "tailwindcss";
+import { ideasUIPlugin } from '@ideasui/theme';
+import type { Config } from 'tailwindcss';
 
 export default ideasUIPlugin({
-  defaultTheme: "light",
+  defaultTheme: 'light',
 }) as unknown as Config;

@@ -1,5 +1,5 @@
-import * as React from "react";
-import {forwardRef} from "@ideasui/utils";
+import * as React from 'react';
+import { forwardRef } from '@ideasui/utils';
 
 /**
  * Props for Slot component
@@ -36,21 +36,21 @@ export interface SlotProps extends React.HTMLAttributes<HTMLElement> {
  */
 function getElementRef(element: React.ReactElement) {
   // React <=18 in DEV - check if props.ref getter has warning
-  let getter = Object.getOwnPropertyDescriptor(element.props, "ref")?.get;
-  let mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
+  let getter = Object.getOwnPropertyDescriptor(element.props, 'ref')?.get;
+  let mayWarn = getter && 'isReactWarning' in getter && getter.isReactWarning;
   if (mayWarn) {
     return (element as any).ref;
   }
 
   // React 19 in DEV - check if element.ref getter has warning
-  getter = Object.getOwnPropertyDescriptor(element, "ref")?.get;
-  mayWarn = getter && "isReactWarning" in getter && getter.isReactWarning;
+  getter = Object.getOwnPropertyDescriptor(element, 'ref')?.get;
+  mayWarn = getter && 'isReactWarning' in getter && getter.isReactWarning;
   if (mayWarn) {
-    return (element.props as {ref?: React.Ref<unknown>}).ref;
+    return (element.props as { ref?: React.Ref<unknown> }).ref;
   }
 
   // Production mode - try both methods as fallback
-  return (element.props as {ref?: React.Ref<unknown>}).ref ?? (element as any).ref;
+  return (element.props as { ref?: React.Ref<unknown> }).ref ?? (element as any).ref;
 }
 
 // ============================================================================
@@ -75,12 +75,12 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
   }
 
   // Start with child props as base
-  const overrideProps = {...childProps};
+  const overrideProps = { ...childProps };
 
   // Get all unique prop names from both objects
   const childKeys = Object.keys(childProps);
   const slotKeys = Object.keys(slotProps);
-  const allPropNames = [...childKeys, ...slotKeys.filter(key => !childKeys.includes(key))];
+  const allPropNames = [...childKeys, ...slotKeys.filter((key) => !childKeys.includes(key))];
 
   // Process each prop for intelligent merging
   for (const propName of allPropNames) {
@@ -105,17 +105,17 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
       }
     }
     // Style objects - merge with slot styles taking precedence
-    else if (propName === "style") {
-      overrideProps[propName] = {...childPropValue, ...slotPropValue};
+    else if (propName === 'style') {
+      overrideProps[propName] = { ...childPropValue, ...slotPropValue };
     }
     // CSS classes - concatenate with space separator
-    else if (propName === "className") {
-      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(" ");
+    else if (propName === 'className') {
+      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(' ');
     }
   }
 
   // Slot props override child props, except for the special cases handled above
-  return {...slotProps, ...overrideProps};
+  return { ...slotProps, ...overrideProps };
 }
 
 // ============================================================================
@@ -131,7 +131,7 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
 function composeRefs<T>(...refs: (React.Ref<T> | undefined)[]): React.Ref<T> {
   return React.useCallback((node: T) => {
     refs.forEach((ref) => {
-      if (typeof ref === "function") {
+      if (typeof ref === 'function') {
         // Function ref - call directly
         ref(node);
       } else if (ref != null) {
@@ -173,14 +173,14 @@ function composeRefs<T>(...refs: (React.Ref<T> | undefined)[]): React.Ref<T> {
  * </Slot>
  * ```
  */
-export const Slot = forwardRef<"div", SlotProps>(
-  ({as: Component = "div", asChild, children, ...props}, ref) => {
+export const Slot = forwardRef<'div', SlotProps>(
+  ({ as: Component = 'div', asChild, children, ...props }, ref) => {
     // AsChild mode: merge props with first child element
     if (asChild) {
       // Development validation - ensure single React element
-      if (process.env.NODE_ENV !== "production") {
+      if (process.env.NODE_ENV !== 'production') {
         if (!React.isValidElement(children)) {
-          throw new Error("Slot: asChild requires a single React element as children");
+          throw new Error('Slot: asChild requires a single React element as children');
         }
       }
 
@@ -203,8 +203,8 @@ export const Slot = forwardRef<"div", SlotProps>(
     }
 
     // Normal mode: render as specified component with props
-    return React.createElement(Component, {ref, ...props}, children);
+    return React.createElement(Component, { ref, ...props }, children);
   },
 );
 
-Slot.displayName = "IdeasUI.Slot";
+Slot.displayName = 'IdeasUI.Slot';

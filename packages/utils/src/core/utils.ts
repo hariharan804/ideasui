@@ -1,7 +1,7 @@
 /**
  * Generate a unique ID with optional prefix
  */
-export function getUniqueID(prefix: string = "ideasui"): string {
+export function getUniqueID(prefix: string = 'ideasui'): string {
   return `${prefix}${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }
 
@@ -34,7 +34,7 @@ export function range(start: number, end?: number, step = 1): number[] {
     end = start;
     start = 0;
   }
-  
+
   const result: number[] = [];
   for (let i = start; i < end; i += step) {
     result.push(i);
@@ -47,10 +47,10 @@ export function range(start: number, end?: number, step = 1): number[] {
  */
 export function omit<T extends Record<string, any>, K extends keyof T>(
   obj: T,
-  keys: K[]
+  keys: K[],
 ): Omit<T, K> {
   const result = { ...obj };
-  keys.forEach(key => delete result[key]);
+  keys.forEach((key) => delete result[key]);
   return result;
 }
 
@@ -59,10 +59,10 @@ export function omit<T extends Record<string, any>, K extends keyof T>(
  */
 export function pick<T extends Record<string, any>, K extends keyof T>(
   obj: T,
-  keys: K[]
+  keys: K[],
 ): Pick<T, K> {
   const result = {} as Pick<T, K>;
-  keys.forEach(key => {
+  keys.forEach((key) => {
     if (key in obj) {
       result[key] = obj[key];
     }

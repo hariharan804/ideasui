@@ -1,19 +1,19 @@
-import {Command} from "commander";
-import chalk from "chalk";
-import {getAvailablePackages} from "../utils/registry";
-import ora from "ora";
+import { Command } from 'commander';
+import chalk from 'chalk';
+import { getAvailablePackages } from '../utils/registry';
+import ora from 'ora';
 
 export const listCommand = new Command()
-  .name("list")
-  .alias("ls")
-  .description("List all available IdeasUI packages")
-  .option("-d, --detailed", "Show detailed information")
+  .name('list')
+  .alias('ls')
+  .description('List all available IdeasUI packages')
+  .option('-d, --detailed', 'Show detailed information')
   .action(async (options) => {
-    const spinner = ora("Fetching packages...").start();
+    const spinner = ora('Fetching packages...').start();
     const packages = await getAvailablePackages();
     spinner.stop();
 
-    console.log(chalk.cyan.bold("📦 Available IdeasUI Packages\n"));
+    console.log(chalk.cyan.bold('📦 Available IdeasUI Packages\n'));
 
     Object.entries(packages).forEach(([key, info]) => {
       if (options.detailed) {
@@ -27,8 +27,8 @@ export const listCommand = new Command()
     });
 
     if (!options.detailed) {
-      console.log(chalk.yellow("\n💡 Use --detailed for more information"));
+      console.log(chalk.yellow('\n💡 Use --detailed for more information'));
     }
-    
-    console.log(chalk.cyan("\n🚀 Install with: ideasui add <component>"));
+
+    console.log(chalk.cyan('\n🚀 Install with: ideasui add <component>'));
   });

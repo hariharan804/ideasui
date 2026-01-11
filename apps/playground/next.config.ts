@@ -1,7 +1,7 @@
-import type {NextConfig} from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@ideasui/button"],
+  transpilePackages: ['@ideasui/button'],
 
   /* config options here */
 };

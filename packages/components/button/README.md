@@ -11,7 +11,7 @@ npm install @ideasui/button
 ## Usage
 
 ```tsx
-import {Button} from "@ideasui/button";
+import { Button } from '@ideasui/button';
 
 function App() {
   return (
@@ -115,7 +115,7 @@ The component uses Tailwind CSS classes and can be customized via:
 Full TypeScript support with exported types:
 
 ```tsx
-import type {ButtonProps} from "@ideasui/button";
+import type { ButtonProps } from '@ideasui/button';
 
 const MyButton: React.FC<ButtonProps> = (props) => {
   return <Button {...props} />;

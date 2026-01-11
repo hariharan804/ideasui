@@ -1,26 +1,26 @@
-import type {Meta, StoryObj} from "@storybook/react";
-import {useButton} from "react-aria";
+import type { Meta, StoryObj } from '@storybook/react';
+import { useButton } from 'react-aria';
 
-import {Ripple, useRipple} from "../src";
-import {useRef} from "react";
+import { Ripple, useRipple } from '../src';
+import { useRef } from 'react';
 
 const meta: Meta<typeof Ripple> = {
-  title: "Components/Ripple",
+  title: 'Components/Ripple',
   component: Ripple,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 };
 
 export default meta;
 
 type Story = StoryObj<typeof Ripple>;
 
-const CustomRipple = ({children, className, ...args}: any) => {
+const CustomRipple = ({ children, className, ...args }: any) => {
   const domRef = useRef<HTMLButtonElement>(null);
-  const {ripples, onClear, onPress} = useRipple();
-  const {buttonProps} = useButton({...args, onPress}, domRef);
+  const { ripples, onClear, onPress } = useRipple();
+  const { buttonProps } = useButton({ ...args, onPress }, domRef);
 
   return (
     <button className={className} {...buttonProps}>
@@ -55,7 +55,7 @@ export const Large: Story = {
 
 export const CustomColor: Story = {
   args: {
-    color: "rgba(255,255,255,0.6)",
+    color: 'rgba(255,255,255,0.6)',
   },
   render: (args) => {
     return (
@@ -71,7 +71,7 @@ export const CustomColor: Story = {
 
 export const DOMEvents: Story = {
   render: (args) => {
-    const {ripples, onClear, onPress} = useRipple();
+    const { ripples, onClear, onPress } = useRipple();
 
     return (
       <button
@@ -88,7 +88,7 @@ export const DOMEvents: Story = {
 
 export const MouseDown: Story = {
   render: (args) => {
-    const {ripples, onClear, onPress} = useRipple();
+    const { ripples, onClear, onPress } = useRipple();
 
     return (
       <button

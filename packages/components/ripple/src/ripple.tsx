@@ -1,10 +1,10 @@
-import * as React from "react";
-import type {HTMLMotionProps} from "framer-motion";
-import {LazyMotion, AnimatePresence, m} from "framer-motion";
-import {clamp} from "@ideasui/utils/core";
-import {forwardRef} from "@ideasui/utils";
+import * as React from 'react';
+import type { HTMLMotionProps } from 'framer-motion';
+import { LazyMotion, AnimatePresence, m } from 'framer-motion';
+import { clamp } from '@ideasui/utils/core';
+import { forwardRef } from '@ideasui/utils';
 
-const motionFeatures = () => import("framer-motion").then((mod) => mod.domAnimation);
+const motionFeatures = () => import('framer-motion').then((mod) => mod.domAnimation);
 
 export interface RippleItem {
   key: React.Key;
@@ -17,12 +17,12 @@ export interface RippleProps {
   ripples: RippleItem[];
   color?: string;
   style?: React.CSSProperties;
-  motionProps?: Omit<HTMLMotionProps<"span">, "ref">;
+  motionProps?: Omit<HTMLMotionProps<'span'>, 'ref'>;
   onClear: (id: React.Key) => void;
 }
 
-export const Ripple = forwardRef<"span", RippleProps>((props: RippleProps, ref) => {
-  const {ripples = [], motionProps, color = "currentColor", style, onClear} = props;
+export const Ripple = forwardRef<'span', RippleProps>((props: RippleProps, ref) => {
+  const { ripples = [], motionProps, color = 'currentColor', style, onClear } = props;
 
   return (
     <LazyMotion features={motionFeatures}>
@@ -39,17 +39,17 @@ export const Ripple = forwardRef<"span", RippleProps>((props: RippleProps, ref) 
                 opacity: 0,
               }}
               className="ideasui-ripple"
-              exit={{opacity: 0}}
+              exit={{ opacity: 0 }}
               initial={{
                 transform: `translate(${ripple.x}px, ${ripple.y}px) scale(0)`,
                 opacity: 0.35,
               }}
               style={{
-                position: "absolute",
+                position: 'absolute',
                 backgroundColor: color,
-                borderRadius: "100%",
-                transformOrigin: "center",
-                pointerEvents: "none",
+                borderRadius: '100%',
+                transformOrigin: 'center',
+                pointerEvents: 'none',
                 zIndex: 0,
                 width: `${ripple.size}px`,
                 height: `${ripple.size}px`,
@@ -57,7 +57,7 @@ export const Ripple = forwardRef<"span", RippleProps>((props: RippleProps, ref) 
                 top: 0,
                 ...style,
               }}
-              transition={{duration}}
+              transition={{ duration }}
               onAnimationComplete={() => {
                 onClear(ripple.key);
               }}
@@ -69,4 +69,4 @@ export const Ripple = forwardRef<"span", RippleProps>((props: RippleProps, ref) 
     </LazyMotion>
   );
 });
-Ripple.displayName = "IdeasUI.Ripple";
+Ripple.displayName = 'IdeasUI.Ripple';

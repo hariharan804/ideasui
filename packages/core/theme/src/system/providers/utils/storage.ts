@@ -1,11 +1,11 @@
-import type {StorageAdapter} from "../types";
+import type { StorageAdapter } from '../types';
 
 /** localStorage adapter with SSR safety and error handling */
 class LocalStorageAdapter implements StorageAdapter {
   getItem(key: string): string | null {
     try {
       // SSR safety check
-      return typeof window !== "undefined" ? localStorage.getItem(key) : null;
+      return typeof window !== 'undefined' ? localStorage.getItem(key) : null;
     } catch {
       // Handle quota exceeded, privacy mode, etc.
       return null;
@@ -14,7 +14,7 @@ class LocalStorageAdapter implements StorageAdapter {
 
   setItem(key: string, value: string): void {
     try {
-      if (typeof window !== "undefined") {
+      if (typeof window !== 'undefined') {
         localStorage.setItem(key, value);
       }
     } catch {
@@ -24,7 +24,7 @@ class LocalStorageAdapter implements StorageAdapter {
 
   removeItem(key: string): void {
     try {
-      if (typeof window !== "undefined") {
+      if (typeof window !== 'undefined') {
         localStorage.removeItem(key);
       }
     } catch {
@@ -37,7 +37,7 @@ class LocalStorageAdapter implements StorageAdapter {
 class SessionStorageAdapter implements StorageAdapter {
   getItem(key: string): string | null {
     try {
-      return typeof window !== "undefined" ? sessionStorage.getItem(key) : null;
+      return typeof window !== 'undefined' ? sessionStorage.getItem(key) : null;
     } catch {
       return null;
     }
@@ -45,7 +45,7 @@ class SessionStorageAdapter implements StorageAdapter {
 
   setItem(key: string, value: string): void {
     try {
-      if (typeof window !== "undefined") {
+      if (typeof window !== 'undefined') {
         sessionStorage.setItem(key, value);
       }
     } catch {}
@@ -53,7 +53,7 @@ class SessionStorageAdapter implements StorageAdapter {
 
   removeItem(key: string): void {
     try {
-      if (typeof window !== "undefined") {
+      if (typeof window !== 'undefined') {
         sessionStorage.removeItem(key);
       }
     } catch {}

@@ -1,5 +1,5 @@
-const {toHaveNoViolations} = require("jest-axe");
-require("@testing-library/jest-dom");
+const { toHaveNoViolations } = require('jest-axe');
+require('@testing-library/jest-dom');
 
 // Add jest-axe matchers
 expect.extend(toHaveNoViolations);
@@ -12,7 +12,7 @@ class ResizeObserverStub {
 }
 
 // Mock for window.matchMedia
-Object.defineProperty(window, "matchMedia", {
+Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
     matches: false,

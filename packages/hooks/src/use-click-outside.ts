@@ -1,4 +1,4 @@
-import {useEffect, useRef} from "react";
+import { useEffect, useRef } from 'react';
 
 /**
  * Custom hook for detecting clicks outside an element
@@ -15,7 +15,7 @@ import {useEffect, useRef} from "react";
  */
 export function useClickOutside<T extends HTMLElement>(
   handler: (event: MouseEvent | TouchEvent) => void,
-  enabled = true
+  enabled = true,
 ) {
   const ref = useRef<T>(null);
 
@@ -28,12 +28,12 @@ export function useClickOutside<T extends HTMLElement>(
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
     };
   }, [handler, enabled]);
 

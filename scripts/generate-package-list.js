@@ -8,37 +8,38 @@ const path = require('path');
  */
 function extractComponentDocs(filePath) {
   if (!fs.existsSync(filePath)) return null;
-  
+
   const content = fs.readFileSync(filePath, 'utf8');
-  
+
   // Extract comprehensive documentation
   const interfaces = extractInterfaces(content);
   const types = extractTypes(content);
   const props = extractProps(content);
   const events = extractEvents(content);
   const importInstructions = generateImportInstructions(filePath);
-  
+
   return {
     interfaces,
     types,
     props,
     events,
-    importInstructions
+    importInstructions,
   };
 }
 
 function extractInterfaces(content) {
-  const interfaceRegex = /export interface (\w+)\s*(?:extends[^{]*)?\s*{([^}]+(?:{[^}]*}[^}]*)*)}/gs;
+  const interfaceRegex =
+    /export interface (\w+)\s*(?:extends[^{]*)?\s*{([^}]+(?:{[^}]*}[^}]*)*)}/gs;
   const interfaces = [];
   let match;
-  
+
   while ((match = interfaceRegex.exec(content)) !== null) {
     const name = match[1];
     const body = match[2];
     const props = extractPropsFromInterface(body);
     interfaces.push({ name, props });
   }
-  
+
   return interfaces;
 }
 
@@ -46,21 +47,21 @@ function extractTypes(content) {
   const typeRegex = /export type (\w+)\s*=\s*([^;\n]+(?:\n[^;\n]*)*);/g;
   const types = [];
   let match;
-  
+
   while ((match = typeRegex.exec(content)) !== null) {
     types.push({
       name: match[1],
-      definition: match[2].trim().replace(/\n\s*/g, ' ')
+      definition: match[2].trim().replace(/\n\s*/g, ' '),
     });
   }
-  
+
   return types;
 }
 
 function extractVariants(content) {
   // Look for variant props in interfaces and tailwind-variants
   const variants = new Set();
-  
+
   // Extract from tailwind-variants tv() calls
   const tvRegex = /tv\(\s*{[^}]*variants:\s*{([^}]+)}/gs;
   let tvMatch;
@@ -72,23 +73,24 @@ function extractVariants(content) {
       variants.add(keyMatch[1]);
     }
   }
-  
+
   // Extract from interface prop types
-  const variantRegex = /\*\s*@default\s+["'](\w+)["']|variant\??\s*:\s*["'](\w+)["']\s*\|\s*["'](\w+)["']/g;
+  const variantRegex =
+    /\*\s*@default\s+["'](\w+)["']|variant\??\s*:\s*["'](\w+)["']\s*\|\s*["'](\w+)["']/g;
   let match;
   while ((match = variantRegex.exec(content)) !== null) {
     if (match[1]) variants.add(match[1]);
     if (match[2]) variants.add(match[2]);
     if (match[3]) variants.add(match[3]);
   }
-  
+
   // Extract variant values from union types
   const unionRegex = /:\s*["'](\w+)["'](?:\s*\|\s*["'](\w+)["'])*/g;
   while ((match = unionRegex.exec(content)) !== null) {
     if (match[1]) variants.add(match[1]);
     if (match[2]) variants.add(match[2]);
   }
-  
+
   return Array.from(variants);
 }
 
@@ -96,76 +98,77 @@ function extractConstants(content) {
   const constantRegex = /export const (\w+)\s*=\s*([^;\n]+(?:\n[^;\n]*)*);/g;
   const constants = [];
   let match;
-  
+
   while ((match = constantRegex.exec(content)) !== null) {
     constants.push({
       name: match[1],
-      value: match[2].trim().replace(/\n\s*/g, ' ')
+      value: match[2].trim().replace(/\n\s*/g, ' '),
     });
   }
-  
+
   return constants;
 }
 
 function extractFunctions(content) {
-  const functionRegex = /\/\*\*([^*]*(?:\*(?!\/)[^*]*)*)\*\/\s*export\s+(?:const|function)\s+(\w+)/g;
+  const functionRegex =
+    /\/\*\*([^*]*(?:\*(?!\/)[^*]*)*)\*\/\s*export\s+(?:const|function)\s+(\w+)/g;
   const functions = [];
   let match;
-  
+
   while ((match = functionRegex.exec(content)) !== null) {
     const description = match[1]
       .replace(/\*/g, '')
       .replace(/@\w+\s+[^\n]*/g, '')
       .trim();
-    
+
     functions.push({
       name: match[2],
-      description
+      description,
     });
   }
-  
+
   return functions;
 }
 
 function generateImportInstructions(filePath) {
   const fileName = path.basename(filePath, path.extname(filePath));
-  
+
   // Convert kebab-case and camelCase to PascalCase
   const componentName = fileName
     .split(/[-_]/)
-    .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join('')
     .replace(/^use/, 'use'); // Keep 'use' prefix lowercase for hooks
-  
+
   // Get package name from file path
   const pathParts = filePath.split(path.sep);
-  const packageIndex = pathParts.findIndex(part => part === 'packages');
+  const packageIndex = pathParts.findIndex((part) => part === 'packages');
   if (packageIndex === -1) return [];
-  
+
   const category = pathParts[packageIndex + 1];
   const packageName = pathParts[packageIndex + 2];
-  
+
   if (category === 'components') {
     return [
       {
         method: 'global',
         code: `import { ${componentName} } from "@ideasui/react";`,
-        description: 'Import from the main package (recommended)'
+        description: 'Import from the main package (recommended)',
       },
       {
         method: 'individual',
         code: `import { ${componentName} } from "@ideasui/${packageName}";`,
-        description: 'Import from individual package'
-      }
+        description: 'Import from individual package',
+      },
     ];
   }
-  
+
   return [
     {
       method: 'individual',
       code: `import { ${componentName} } from "@ideasui/${packageName}";`,
-      description: 'Import from package'
-    }
+      description: 'Import from package',
+    },
   ];
 }
 
@@ -173,65 +176,67 @@ function extractClassNames(content) {
   const classRegex = /className[s]?\s*[=:]\s*["'`]([^"'`]+)["'`]/g;
   const classes = new Set();
   let match;
-  
+
   while ((match = classRegex.exec(content)) !== null) {
-    const classNames = match[1].split(/\s+/).filter(cls => cls.length > 0);
-    classNames.forEach(cls => classes.add(cls));
+    const classNames = match[1].split(/\s+/).filter((cls) => cls.length > 0);
+    classNames.forEach((cls) => classes.add(cls));
   }
-  
+
   return Array.from(classes);
 }
 
 function extractAnimations(content) {
   const animations = [];
-  
+
   // Look for framer-motion props
-  const motionRegex = /(initial|animate|exit|transition|variants)\s*[=:]\s*({[^}]+}|["'][^"']+["'])/g;
+  const motionRegex =
+    /(initial|animate|exit|transition|variants)\s*[=:]\s*({[^}]+}|["'][^"']+["'])/g;
   let match;
-  
+
   while ((match = motionRegex.exec(content)) !== null) {
     animations.push({
       prop: match[1],
-      value: match[2]
+      value: match[2],
     });
   }
-  
+
   // Look for CSS animations
   const cssAnimationRegex = /animation[s]?\s*[=:]\s*["'`]([^"'`]+)["'`]/g;
   while ((match = cssAnimationRegex.exec(content)) !== null) {
     animations.push({
       prop: 'animation',
-      value: match[1]
+      value: match[1],
     });
   }
-  
+
   return animations;
 }
 
 function extractPropsFromInterface(interfaceBody) {
-  const propRegex = /\/\*\*([^*]*(?:\*(?!\/)[^*]*)*)\*\/\s*(\w+)\??\s*:\s*([^;\n]+(?:\n[^;\n]*)*);/g;
+  const propRegex =
+    /\/\*\*([^*]*(?:\*(?!\/)[^*]*)*)\*\/\s*(\w+)\??\s*:\s*([^;\n]+(?:\n[^;\n]*)*);/g;
   const props = [];
   let match;
-  
+
   while ((match = propRegex.exec(interfaceBody)) !== null) {
     const comment = match[1];
     const propName = match[2];
     const propType = match[3].trim().replace(/\n\s*/g, ' ');
     const isOptional = interfaceBody.includes(propName + '?:');
-    
+
     // Extract description
     const description = comment
       .replace(/\*/g, '')
       .replace(/@\w+\s+[^\n]*/g, '') // Remove @tags
       .trim();
-    
+
     // Extract @default value
     const defaultMatch = comment.match(/@default\s+([^\n]+)/);
     const defaultValue = defaultMatch ? defaultMatch[1].trim().replace(/["']/g, '') : undefined;
-    
+
     // Check if deprecated
     const isDeprecated = /@deprecated/i.test(comment);
-    
+
     // Handle event types with proper signature
     let finalType = propType;
     if (propName.startsWith('on') && propType.includes('=>')) {
@@ -241,48 +246,54 @@ function extractPropsFromInterface(interfaceBody) {
         finalType = `(${eventMatch[1]}) => ${eventMatch[2]}`;
       }
     }
-    
+
     // Handle ElementType for 'as' prop
-    if (propName === 'as' && (propType.includes('ElementType') || propType.includes('React.ElementType'))) {
+    if (
+      propName === 'as' &&
+      (propType.includes('ElementType') || propType.includes('React.ElementType'))
+    ) {
       finalType = 'ElementType';
     }
-    
+
     props.push({
       name: propName,
       type: finalType,
       description,
       optional: isOptional,
       default: defaultValue,
-      isDeprecated
+      isDeprecated,
     });
   }
-  
+
   // Also extract simple props without JSDoc
   const simplePropRegex = /^\s*(\w+)\??\s*:\s*([^;\n]+(?:\n[^;\n]*)*);/gm;
   let simpleMatch;
-  
+
   while ((simpleMatch = simplePropRegex.exec(interfaceBody)) !== null) {
     const propName = simpleMatch[1];
     // Skip if already found with JSDoc
-    if (!props.find(p => p.name === propName)) {
+    if (!props.find((p) => p.name === propName)) {
       let propType = simpleMatch[2].trim().replace(/\n\s*/g, ' ');
-      
+
       // Handle ElementType for 'as' prop
-      if (propName === 'as' && (propType.includes('ElementType') || propType.includes('React.ElementType'))) {
+      if (
+        propName === 'as' &&
+        (propType.includes('ElementType') || propType.includes('React.ElementType'))
+      ) {
         propType = 'ElementType';
       }
-      
+
       props.push({
         name: propName,
         type: propType,
         description: '',
         optional: interfaceBody.includes(propName + '?:'),
         default: undefined,
-        isDeprecated: false
+        isDeprecated: false,
       });
     }
   }
-  
+
   return props;
 }
 
@@ -290,14 +301,14 @@ function extractProps(content) {
   const propRegex = /@param\s+(\w+)\s+-\s+([^\n]+)/g;
   const props = [];
   let match;
-  
+
   while ((match = propRegex.exec(content)) !== null) {
     props.push({
       name: match[1],
-      description: match[2].trim()
+      description: match[2].trim(),
     });
   }
-  
+
   return props;
 }
 
@@ -305,19 +316,19 @@ function extractEvents(content) {
   const eventRegex = /on(\w+)\??\s*:\s*\(([^)]*)\)\s*=>\s*(\w+)/g;
   const events = [];
   let match;
-  
+
   while ((match = eventRegex.exec(content)) !== null) {
     const eventName = `on${match[1]}`;
     const params = match[2].trim();
     const returnType = match[3];
-    
+
     events.push({
       name: eventName,
       type: `(${params}) => ${returnType}`,
-      description: `Event handler for ${match[1].toLowerCase()} events`
+      description: `Event handler for ${match[1].toLowerCase()} events`,
     });
   }
-  
+
   return events;
 }
 
@@ -325,15 +336,15 @@ function extractImports(content) {
   const importRegex = /import\s+{([^}]+)}\s+from\s+["']([^"']+)["']/g;
   const imports = [];
   let match;
-  
+
   while ((match = importRegex.exec(content)) !== null) {
-    const components = match[1].split(',').map(c => c.trim());
+    const components = match[1].split(',').map((c) => c.trim());
     imports.push({
       components,
-      from: match[2]
+      from: match[2],
     });
   }
-  
+
   return imports;
 }
 
@@ -341,11 +352,11 @@ function extractUsageExamples(content) {
   const exampleRegex = /@example\s*```([^`]+)```/g;
   const examples = [];
   let match;
-  
+
   while ((match = exampleRegex.exec(content)) !== null) {
     examples.push(match[1].trim());
   }
-  
+
   return examples;
 }
 
@@ -360,38 +371,44 @@ function generatePackageList() {
     hooks: [],
     utils: [],
     icons: [],
-    cli: []
+    cli: [],
   };
 
   // Read all package directories
-  const categories = fs.readdirSync(packagesDir, { withFileTypes: true })
-    .filter(dirent => dirent.isDirectory())
-    .map(dirent => dirent.name);
+  const categories = fs
+    .readdirSync(packagesDir, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
 
-  categories.forEach(category => {
+  categories.forEach((category) => {
     const categoryPath = path.join(packagesDir, category);
-    
+
     if (category === 'components' || category === 'hooks') {
       // These have subdirectories for each package
-      const packages = fs.readdirSync(categoryPath, { withFileTypes: true })
-        .filter(dirent => dirent.isDirectory())
-        .map(dirent => {
+      const packages = fs
+        .readdirSync(categoryPath, { withFileTypes: true })
+        .filter((dirent) => dirent.isDirectory())
+        .map((dirent) => {
           const packageJsonPath = path.join(categoryPath, dirent.name, 'package.json');
           if (fs.existsSync(packageJsonPath)) {
             const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
             const readmePath = path.join(categoryPath, dirent.name, 'README.md');
             const srcPath = path.join(categoryPath, dirent.name, 'src');
-            
+
             // Get component files and extract docs
             const componentFiles = [];
             const documentation = {};
-            
+
             if (fs.existsSync(srcPath)) {
-              const files = fs.readdirSync(srcPath)
-                .filter(file => file.endsWith('.tsx') || file.endsWith('.ts'))
-                .filter(file => !file.includes('.test.') && !file.includes('.stories.') && file !== 'index.ts');
-              
-              files.forEach(file => {
+              const files = fs
+                .readdirSync(srcPath)
+                .filter((file) => file.endsWith('.tsx') || file.endsWith('.ts'))
+                .filter(
+                  (file) =>
+                    !file.includes('.test.') && !file.includes('.stories.') && file !== 'index.ts',
+                );
+
+              files.forEach((file) => {
                 componentFiles.push(file);
                 const filePath = path.join(srcPath, file);
                 const docs = extractComponentDocs(filePath);
@@ -400,15 +417,15 @@ function generatePackageList() {
                 }
               });
             }
-            
+
             // Generate installation commands
             const installCommands = {
               npm: `npm install ${packageJson.name}`,
               pnpm: `pnpm add ${packageJson.name}`,
               yarn: `yarn add ${packageJson.name}`,
-              bun: `bun add ${packageJson.name}`
+              bun: `bun add ${packageJson.name}`,
             };
-            
+
             return {
               name: packageJson.name,
               displayName: dirent.name,
@@ -419,14 +436,15 @@ function generatePackageList() {
               hasReadme: fs.existsSync(readmePath),
               componentFiles,
               installCommands,
-              installNote: "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
-              documentation
+              installNote:
+                'The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.',
+              documentation,
             };
           }
           return null;
         })
         .filter(Boolean);
-      
+
       output[category] = packages;
     } else {
       // Single package directories (utils, icons, cli, core subdirs)
@@ -435,17 +453,21 @@ function generatePackageList() {
         const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
         const readmePath = path.join(categoryPath, 'README.md');
         const srcPath = path.join(categoryPath, 'src');
-        
+
         // Get component files and extract docs
         const componentFiles = [];
         const documentation = {};
-        
+
         if (fs.existsSync(srcPath)) {
-          const files = fs.readdirSync(srcPath)
-            .filter(file => file.endsWith('.tsx') || file.endsWith('.ts'))
-            .filter(file => !file.includes('.test.') && !file.includes('.stories.') && file !== 'index.ts');
-          
-          files.forEach(file => {
+          const files = fs
+            .readdirSync(srcPath)
+            .filter((file) => file.endsWith('.tsx') || file.endsWith('.ts'))
+            .filter(
+              (file) =>
+                !file.includes('.test.') && !file.includes('.stories.') && file !== 'index.ts',
+            );
+
+          files.forEach((file) => {
             componentFiles.push(file);
             const filePath = path.join(srcPath, file);
             const docs = extractComponentDocs(filePath);
@@ -454,14 +476,14 @@ function generatePackageList() {
             }
           });
         }
-        
+
         const installCommands = {
           npm: `npm install ${packageJson.name}`,
           pnpm: `pnpm add ${packageJson.name}`,
           yarn: `yarn add ${packageJson.name}`,
-          bun: `bun add ${packageJson.name}`
+          bun: `bun add ${packageJson.name}`,
         };
-        
+
         output[category].push({
           name: packageJson.name,
           displayName: category,
@@ -472,30 +494,38 @@ function generatePackageList() {
           hasReadme: fs.existsSync(readmePath),
           componentFiles,
           installCommands,
-          installNote: "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
-          documentation
+          installNote:
+            'The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.',
+          documentation,
         });
       } else {
         // Check for subdirectories (like core/variants, core/theme-controller)
-        const subDirs = fs.readdirSync(categoryPath, { withFileTypes: true })
-          .filter(dirent => dirent.isDirectory())
-          .map(dirent => {
+        const subDirs = fs
+          .readdirSync(categoryPath, { withFileTypes: true })
+          .filter((dirent) => dirent.isDirectory())
+          .map((dirent) => {
             const subPackageJsonPath = path.join(categoryPath, dirent.name, 'package.json');
             if (fs.existsSync(subPackageJsonPath)) {
               const packageJson = JSON.parse(fs.readFileSync(subPackageJsonPath, 'utf8'));
               const readmePath = path.join(categoryPath, dirent.name, 'README.md');
               const srcPath = path.join(categoryPath, dirent.name, 'src');
-              
+
               // Get component files and extract docs
               const componentFiles = [];
               const documentation = {};
-              
+
               if (fs.existsSync(srcPath)) {
-                const files = fs.readdirSync(srcPath)
-                  .filter(file => file.endsWith('.tsx') || file.endsWith('.ts'))
-                  .filter(file => !file.includes('.test.') && !file.includes('.stories.') && file !== 'index.ts');
-                
-                files.forEach(file => {
+                const files = fs
+                  .readdirSync(srcPath)
+                  .filter((file) => file.endsWith('.tsx') || file.endsWith('.ts'))
+                  .filter(
+                    (file) =>
+                      !file.includes('.test.') &&
+                      !file.includes('.stories.') &&
+                      file !== 'index.ts',
+                  );
+
+                files.forEach((file) => {
                   componentFiles.push(file);
                   const filePath = path.join(srcPath, file);
                   const docs = extractComponentDocs(filePath);
@@ -504,14 +534,14 @@ function generatePackageList() {
                   }
                 });
               }
-              
+
               const installCommands = {
                 npm: `npm install ${packageJson.name}`,
                 pnpm: `pnpm add ${packageJson.name}`,
                 yarn: `yarn add ${packageJson.name}`,
-                bun: `bun add ${packageJson.name}`
+                bun: `bun add ${packageJson.name}`,
               };
-              
+
               return {
                 name: packageJson.name,
                 displayName: dirent.name,
@@ -522,14 +552,15 @@ function generatePackageList() {
                 hasReadme: fs.existsSync(readmePath),
                 componentFiles,
                 installCommands,
-                installNote: "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
-                documentation
+                installNote:
+                  'The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.',
+                documentation,
               };
             }
             return null;
           })
           .filter(Boolean);
-        
+
         output[category] = subDirs;
       }
     }
@@ -544,15 +575,12 @@ const packageList = generatePackageList();
 // Save as JSON
 fs.writeFileSync(
   path.join(__dirname, '../package-list.json'),
-  JSON.stringify(packageList, null, 2)
+  JSON.stringify(packageList, null, 2),
 );
 
 // Save as markdown for docs
 const markdown = generateMarkdown(packageList);
-fs.writeFileSync(
-  path.join(__dirname, '../PACKAGE_LIST.md'),
-  markdown
-);
+fs.writeFileSync(path.join(__dirname, '../PACKAGE_LIST.md'), markdown);
 
 console.log('✅ Package list generated:');
 console.log('  - package-list.json');
@@ -564,13 +592,13 @@ function generateMarkdown(packageList) {
 
   Object.entries(packageList).forEach(([category, packages]) => {
     if (packages.length === 0) return;
-    
+
     markdown += `## ${category.charAt(0).toUpperCase() + category.slice(1)}\n\n`;
-    
-    packages.forEach(pkg => {
+
+    packages.forEach((pkg) => {
       markdown += `### ${pkg.displayName || pkg.name}\n\n`;
       markdown += `**${pkg.description}**\n\n`;
-      
+
       // Installation
       markdown += `#### Installation\n\n`;
       markdown += `\`\`\`bash\n`;
@@ -580,70 +608,67 @@ function generateMarkdown(packageList) {
       markdown += `# bun\n${pkg.installCommands.bun}\n`;
       markdown += `\`\`\`\n\n`;
       markdown += `> ${pkg.installNote}\n\n`;
-      
+
       // Import
       if (pkg.documentation && Object.keys(pkg.documentation).length > 0) {
         const mainFile = Object.keys(pkg.documentation)[0];
         const docs = pkg.documentation[mainFile];
-        
+
         // Import Instructions
         if (docs.importInstructions && docs.importInstructions.length > 0) {
           markdown += `#### Import\n\n`;
-          docs.importInstructions.forEach(instruction => {
+          docs.importInstructions.forEach((instruction) => {
             markdown += `**${instruction.description}**\n`;
             markdown += `\`\`\`tsx\n${instruction.code}\n\`\`\`\n\n`;
           });
         }
-        
+
         // Usage Examples
         if (docs.usage && docs.usage.length > 0) {
           markdown += `#### Usage\n\n`;
-          docs.usage.forEach(example => {
+          docs.usage.forEach((example) => {
             markdown += `\`\`\`tsx\n${example}\n\`\`\`\n\n`;
           });
         }
-        
 
         // Props/API
         if (docs.interfaces && docs.interfaces.length > 0) {
           markdown += `#### API Reference\n\n`;
-          docs.interfaces.forEach(interface => {
+          docs.interfaces.forEach((interface) => {
             markdown += `##### ${interface.name}\n\n`;
             if (interface.props && interface.props.length > 0) {
               markdown += `| Prop | Type | Description | Optional |\n`;
               markdown += `|------|------|-------------|----------|\n`;
-              interface.props.forEach(prop => {
+              interface.props.forEach((prop) => {
                 markdown += `| ${prop.name} | \`${prop.type}\` | ${prop.description} | ${prop.optional ? '✓' : '✗'} |\n`;
               });
               markdown += `\n`;
             }
           });
         }
-        
+
         // Events
         if (docs.events && docs.events.length > 0) {
           markdown += `#### Events\n\n`;
           markdown += `| Event | Type |\n`;
           markdown += `|-------|------|\n`;
-          docs.events.forEach(event => {
+          docs.events.forEach((event) => {
             markdown += `| ${event.name} | \`${event.type}\` |\n`;
           });
           markdown += `\n`;
         }
-        
+
         // Types
         if (docs.types && docs.types.length > 0) {
           markdown += `#### Types\n\n`;
-          docs.types.forEach(type => {
+          docs.types.forEach((type) => {
             markdown += `\`\`\`tsx\n`;
             markdown += `type ${type.name} = ${type.definition}\n`;
             markdown += `\`\`\`\n\n`;
           });
         }
-        
-
       }
-      
+
       markdown += `#### Package Details\n\n`;
       markdown += `- **Version:** ${pkg.version}\n`;
       markdown += `- **Path:** \`${pkg.path}\`\n`;

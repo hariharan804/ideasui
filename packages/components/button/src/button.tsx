@@ -1,13 +1,13 @@
-"use client";
-import type {ElementType, ReactNode, Ref} from "react";
-import React from "react";
-import {button as buttonVariants} from "@ideasui/theme/recipes";
-import {ColorVariantProps} from "@ideasui/theme/token";
-import {useButton} from "./use-button";
-import {Ripple} from "@ideasui/ripple";
-import {Spinner} from "./spinner";
-import {Slot} from "@ideasui/slot";
-import { forwardRef } from "@ideasui/utils";
+'use client';
+import type { ElementType, ReactNode, Ref } from 'react';
+import React from 'react';
+import { button as buttonVariants } from '@ideasui/theme/recipes';
+import { ColorVariantProps } from '@ideasui/theme/token';
+import { useButton } from './use-button';
+import { Ripple } from '@ideasui/ripple';
+import { Spinner } from './spinner';
+import { Slot } from '@ideasui/slot';
+import { forwardRef } from '@ideasui/utils';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
@@ -20,7 +20,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * Visual variant of the button
    * @default 'solid'
    */
-  variant?: "solid" | "outline" | "ghost";
+  variant?: 'solid' | 'outline' | 'ghost';
 
   /**
    * Color variant based on semantic intent
@@ -32,13 +32,13 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * Size of the button
    * @default 'md'
    */
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
   /**
    * Border radius variant
    * @default 'md'
    */
-  radius?: "none" | "sm" | "md" | "lg" | "xl" | "full";
+  radius?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
   /**
    * Whether the button should take full width
@@ -78,10 +78,10 @@ export const Button = forwardRef<'button', ButtonProps>(
     {
       as,
       className,
-      variant = "solid",
-      color = "primary",
-      size = "md",
-      radius = "md",
+      variant = 'solid',
+      color = 'primary',
+      size = 'md',
+      radius = 'md',
       loading = false,
       loadingText,
       disabled,
@@ -96,25 +96,25 @@ export const Button = forwardRef<'button', ButtonProps>(
   ) => {
     const Component = React.useMemo(() => {
       if (!as) {
-        return "button";
+        return 'button';
       }
 
-      if (typeof as === "string") {
-        const validElements = ["button", "a", "div", "span", "input"];
+      if (typeof as === 'string') {
+        const validElements = ['button', 'a', 'div', 'span', 'input'];
 
-        return validElements.includes(as) ? as : "button";
+        return validElements.includes(as) ? as : 'button';
       }
 
       // For React components, check if it's a valid component
-      if (typeof as === "function" || (typeof as === "object" && as !== null)) {
+      if (typeof as === 'function' || (typeof as === 'object' && as !== null)) {
         return as;
       }
 
       // Fallback to button for invalid values
-      return "button";
+      return 'button';
     }, [as]);
 
-    const {getButtonProps, isLoading, domRef, getRippleProps} = useButton({
+    const { getButtonProps, isLoading, domRef, getRippleProps } = useButton({
       as: Component,
       loading,
       disabled,
@@ -134,7 +134,7 @@ export const Button = forwardRef<'button', ButtonProps>(
         {isLoading ? <Spinner size={size} /> : null}
         {!isLoading && startContent ? <span className="mr-2 shrink-0">{startContent}</span> : null}
 
-        <span className={isLoading ? "ml-2" : ""}>
+        <span className={isLoading ? 'ml-2' : ''}>
           {isLoading && loadingText ? loadingText : children}
         </span>
 
@@ -145,4 +145,4 @@ export const Button = forwardRef<'button', ButtonProps>(
   },
 );
 
-Button.displayName = "IdeasUI.Button";
+Button.displayName = 'IdeasUI.Button';
