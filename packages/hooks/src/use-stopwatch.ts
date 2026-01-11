@@ -46,15 +46,20 @@ export function useStopwatch(autoStart = false): UseStopwatchReturn {
 
   const lap = useCallback(() => {
     const currentTime = time;
+
     setLaps((prev) => [...prev, currentTime]);
+
     return [...laps, currentTime];
   }, [time, laps]);
 
   useEffect(() => {
-    if (!isRunning) return;
+    if (!isRunning) {
+      return;
+    }
 
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTimeRef.current;
+
       elapsedRef.current = elapsed;
       setTime(elapsed);
     }, 10);

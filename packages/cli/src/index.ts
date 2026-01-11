@@ -2,6 +2,7 @@
 
 import { Command } from 'commander';
 import chalk from 'chalk';
+
 import { addCommand } from './commands/add';
 import { listCommand } from './commands/list';
 import { setupCommand } from './commands/setup';

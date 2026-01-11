@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 export interface IconProps extends Omit<React.SVGProps<SVGSVGElement>, 'ref'> {
   /** Icon size in pixels */

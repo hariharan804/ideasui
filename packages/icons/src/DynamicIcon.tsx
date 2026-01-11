@@ -1,5 +1,6 @@
-import React, { Suspense, lazy, useMemo } from 'react';
 import type { DynamicIconProps, IconProps } from './types';
+
+import React, { Suspense, lazy, useMemo } from 'react';
 
 // Default fallback icon
 const DefaultFallback: React.FC<IconProps> = ({
@@ -9,15 +10,15 @@ const DefaultFallback: React.FC<IconProps> = ({
   ...props
 }) => (
   <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
+    className={className}
     fill="none"
+    height={size}
     stroke={color}
-    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
-    className={className}
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    width={size}
     {...props}
   >
     <circle cx="12" cy="12" r="10" />
@@ -32,6 +33,9 @@ const iconCache = new Map<string, React.ComponentType<IconProps>>();
 /**
  * Dynamic icon component that loads icons on demand
  *
+ * @param root0
+ * @param root0.name
+ * @param root0.fallback
  * @example
  * ```tsx
  * <DynamicIcon name="arrow-right" size={24} color="blue" />
@@ -49,7 +53,7 @@ export const DynamicIcon: React.FC<DynamicIconProps> = ({
     }
 
     // Create lazy component
-    const LazyIcon = lazy(async () => {
+    return lazy(async () => {
       try {
         // Dynamic import with proper error handling
         const module = await import(`./${name}`);
@@ -65,12 +69,11 @@ export const DynamicIcon: React.FC<DynamicIconProps> = ({
         return { default: Component };
       } catch (error) {
         console.warn(`Failed to load icon "${name}":`, error);
+
         // Return fallback as default export
         return { default: Fallback };
       }
     });
-
-    return LazyIcon;
   }, [name, Fallback]);
 
   return (

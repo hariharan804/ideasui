@@ -1,5 +1,7 @@
 /**
  * Debounce function calls
+ * @param func
+ * @param wait
  */
 export function debounce<T extends (...args: any[]) => any>(
   func: T,
@@ -19,6 +21,8 @@ export function debounce<T extends (...args: any[]) => any>(
 
 /**
  * Throttle function calls
+ * @param func
+ * @param limit
  */
 export function throttle<T extends (...args: any[]) => any>(func: T, limit: number): T {
   let inThrottle: boolean;

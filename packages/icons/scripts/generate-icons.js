@@ -9,7 +9,7 @@ const SRC_DIR = path.join(__dirname, '../src/icons');
 // Convert kebab-case to PascalCase
 function toPascalCase(str) {
   return str
-    .replace(/[-_](.)/g, (_, char) => char.toUpperCase())
+    .replace(/[_-](.)/g, (_, char) => char.toUpperCase())
     .replace(/^(.)/, (char) => char.toUpperCase());
 }
 
@@ -73,6 +73,7 @@ async function generateIcons() {
 
   if (!fs.existsSync(ASSETS_DIR)) {
     console.log('Assets directory not found. Please add SVG files to assets/ directory');
+
     return;
   }
 

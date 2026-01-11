@@ -72,15 +72,15 @@ export function forwardRef<DefaultElement extends ElementType, Props extends obj
     ref: PolymorphicRef<DefaultElement>,
   ) => React.ReactElement | null,
 ): PolymorphicComponent<DefaultElement, Props> {
-  const Component = React.forwardRef<any, any>((props: any, ref: any) =>
+  return React.forwardRef<any, any>((props: any, ref: any) =>
     render(props, ref),
   ) as PolymorphicComponent<DefaultElement, Props>;
-
-  return Component;
 }
 
 /**
  * Alternative factory with displayName support
+ * @param render
+ * @param displayName
  */
 export function createPolymorphicComponent<
   DefaultElement extends ElementType,
@@ -93,9 +93,11 @@ export function createPolymorphicComponent<
   displayName?: string,
 ): PolymorphicComponent<DefaultElement, Props> {
   const Component = forwardRef<DefaultElement, Props>(render);
+
   if (displayName) {
     Component.displayName = displayName;
   }
+
   return Component;
 }
 

@@ -1,13 +1,15 @@
 'use client';
-import type { ElementType, ReactNode, Ref } from 'react';
+import type { ElementType, ReactNode } from 'react';
+import type { ColorVariantProps } from '@ideasui/theme/token';
+
 import React from 'react';
 import { button as buttonVariants } from '@ideasui/theme/recipes';
-import { ColorVariantProps } from '@ideasui/theme/token';
-import { useButton } from './use-button';
 import { Ripple } from '@ideasui/ripple';
-import { Spinner } from './spinner';
 import { Slot } from '@ideasui/slot';
 import { forwardRef } from '@ideasui/utils';
+
+import { Spinner } from './spinner';
+import { useButton } from './use-button';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**

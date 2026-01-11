@@ -1,5 +1,6 @@
+import type { RippleItem } from './ripple';
+
 import { useCallback, useState } from 'react';
-import { RippleItem } from './ripple';
 import { getUniqueID } from '@ideasui/utils/core';
 
 export function useRipple() {
@@ -12,6 +13,7 @@ export function useRipple() {
 
     // React Aria events have x/y, DOM events have clientX/clientY
     let x, y;
+
     if (event.x !== undefined && event.y !== undefined) {
       // React Aria events
       x = event.x;

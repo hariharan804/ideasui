@@ -32,7 +32,10 @@ export function useDatePicker(initialDate?: Date): UseDatePickerReturn {
 
   const isSelected = useCallback(
     (date: Date) => {
-      if (!selectedDate) return false;
+      if (!selectedDate) {
+        return false;
+      }
+
       return date.toDateString() === selectedDate.toDateString();
     },
     [selectedDate],
@@ -40,11 +43,13 @@ export function useDatePicker(initialDate?: Date): UseDatePickerReturn {
 
   const isToday = useCallback((date: Date) => {
     const today = new Date();
+
     return date.toDateString() === today.toDateString();
   }, []);
 
   const isWeekend = useCallback((date: Date) => {
     const day = date.getDay();
+
     return day === 0 || day === 6;
   }, []);
 
@@ -80,6 +85,7 @@ export function useDatePicker(initialDate?: Date): UseDatePickerReturn {
 
   const goToToday = useCallback(() => {
     const today = new Date();
+
     setCurrentMonth(today.getMonth());
     setCurrentYear(today.getFullYear());
     setSelectedDate(today);

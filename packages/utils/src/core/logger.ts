@@ -9,6 +9,8 @@ const isDev = process.env.NODE_ENV === 'development';
 export const logger = {
   /**
    * Log info message (dev only)
+   * @param message
+   * @param {...any} args
    */
   info: (message: string, ...args: any[]) => {
     if (isDev) {
@@ -18,6 +20,8 @@ export const logger = {
 
   /**
    * Log warning message (dev only)
+   * @param message
+   * @param {...any} args
    */
   warn: (message: string, ...args: any[]) => {
     if (isDev) {
@@ -27,6 +31,8 @@ export const logger = {
 
   /**
    * Log error message (dev only)
+   * @param message
+   * @param {...any} args
    */
   error: (message: string, ...args: any[]) => {
     if (isDev) {
@@ -36,6 +42,7 @@ export const logger = {
 
   /**
    * Throw error in dev, silent in production
+   * @param message
    */
   throw: (message: string) => {
     if (isDev) {
@@ -45,6 +52,8 @@ export const logger = {
 
   /**
    * Assert condition - throw in dev, silent in production
+   * @param condition
+   * @param message
    */
   assert: (condition: boolean, message: string) => {
     if (!condition && isDev) {

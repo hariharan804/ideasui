@@ -1,5 +1,8 @@
+import type { ThemeConfig, ConfigThemes, ResolvedConfig, ConfigTheme } from './types';
+
 import plugin from 'tailwindcss/plugin';
 import deepMerge from 'deepmerge';
+
 import {
   animation,
   borderRadius,
@@ -12,7 +15,7 @@ import {
 } from '../tokens';
 import { lightColorTokens, darkColorTokens } from '../tokens/colors';
 import { darkLayout, lightLayout, lightCommonColors, darkCommonColors } from '../tokens/layout';
-import { ThemeConfig, ConfigThemes, ResolvedConfig, ConfigTheme } from './types';
+
 import {
   flattenThemeObject,
   kebabCase,
@@ -33,7 +36,12 @@ type ThemeMode = 'light' | 'dark';
 // Helper Functions
 // ─────────────────────────────────────────────────────────────
 
-/** Generates semantic CSS vars that reference shade vars */
+/**
+ * Generates semantic CSS vars that reference shade vars
+ * @param colorName
+ * @param prefix
+ * @param mode
+ */
 function generateSemanticVars(
   colorName: string,
   prefix: string,
@@ -49,7 +57,11 @@ function generateSemanticVars(
   return result;
 }
 
-/** Creates CSS selectors for a theme */
+/**
+ * Creates CSS selectors for a theme
+ * @param themeName
+ * @param defaultTheme
+ */
 function createThemeSelectors(themeName: string, defaultTheme: string) {
   const cssSelector = `.${escapeSelector(themeName)}`;
   const baseSelector =
@@ -60,13 +72,24 @@ function createThemeSelectors(themeName: string, defaultTheme: string) {
   return { cssSelector, baseSelector };
 }
 
-/** Determines the color scheme for a theme */
+/**
+ * Determines the color scheme for a theme
+ * @param themeName
+ * @param extend
+ */
 function getColorScheme(themeName: string, extend?: 'light' | 'dark'): string | null {
-  if (themeName === 'light' || themeName === 'dark') return themeName;
+  if (themeName === 'light' || themeName === 'dark') {
+    return themeName;
+  }
+
   return extend || null;
 }
 
-/** Determines the mode (light/dark) for a theme */
+/**
+ * Determines the mode (light/dark) for a theme
+ * @param themeName
+ * @param extend
+ */
 function getThemeMode(themeName: string, extend?: 'light' | 'dark'): ThemeMode {
   return themeName === 'dark' || extend === 'dark' ? 'dark' : 'light';
 }
@@ -75,7 +98,15 @@ function getThemeMode(themeName: string, extend?: 'light' | 'dark'): ThemeMode {
 // Color Processing
 // ─────────────────────────────────────────────────────────────
 
-/** Processes and registers all colors for a theme */
+/**
+ * Processes and registers all colors for a theme
+ * @param flatColors
+ * @param prefix
+ * @param mode
+ * @param resolved
+ * @param cssSelector
+ * @param baseSelector
+ */
 function processColors(
   flatColors: Record<string, string>,
   prefix: string,
@@ -86,16 +117,24 @@ function processColors(
 ): void {
   // Process shade colors
   for (const [colorName, colorValue] of Object.entries(flatColors)) {
-    if (!colorValue) continue;
+    if (!colorValue) {
+      continue;
+    }
 
     // Skip non-numeric shades for shade-based colors
     if (colorName.includes('-')) {
       const shade = colorName.split('-').pop() || '';
-      if (!isNumericShade(shade)) continue;
+
+      if (!isNumericShade(shade)) {
+        continue;
+      }
     }
 
     const parsed = parseColorValue(colorValue);
-    if (!parsed) continue;
+
+    if (!parsed) {
+      continue;
+    }
 
     const { components } = parsed;
     const colorVar = `--${prefix}-${colorName}`;
@@ -124,6 +163,7 @@ function processColors(
 
       // Register Tailwind color only if not already set (first theme wins)
       const tokenName = varName.replace(`--${prefix}-`, '').replace(/-DEFAULT$/, '');
+
       if (!resolved.colors[tokenName]) {
         resolved.colors[tokenName] = `oklch(var(${varName}) / <alpha-value>)`;
       }
@@ -135,7 +175,14 @@ function processColors(
 // Layout Processing
 // ─────────────────────────────────────────────────────────────
 
-/** Processes and registers layout tokens for a theme */
+/**
+ * Processes and registers layout tokens for a theme
+ * @param flatLayout
+ * @param prefix
+ * @param resolved
+ * @param cssSelector
+ * @param baseSelector
+ */
 function processLayout(
   flatLayout: Record<string, unknown>,
   prefix: string,
@@ -144,7 +191,9 @@ function processLayout(
   baseSelector: string,
 ): void {
   for (const [key, value] of Object.entries(flatLayout)) {
-    if (!value) continue;
+    if (!value) {
+      continue;
+    }
 
     const varName = `--${prefix}-${key}`;
 
@@ -152,6 +201,7 @@ function processLayout(
       // Handle nested objects
       for (const [nestedKey, nestedValue] of Object.entries(value as Record<string, string>)) {
         const nestedVar = `${varName}-${nestedKey}`;
+
         resolved.utilities[cssSelector][nestedVar] = nestedValue;
         resolved.baseStyles[baseSelector][nestedVar] = nestedValue;
       }
@@ -172,7 +222,12 @@ function processLayout(
 // Config Resolution
 // ─────────────────────────────────────────────────────────────
 
-/** Resolves theme configuration into CSS utilities, base styles, and variants */
+/**
+ * Resolves theme configuration into CSS utilities, base styles, and variants
+ * @param themes
+ * @param defaultTheme
+ * @param prefix
+ */
 function resolveConfig(themes: ConfigThemes, defaultTheme: string, prefix: string): ResolvedConfig {
   const resolved: ResolvedConfig = {
     variants: [],
@@ -198,10 +253,12 @@ function resolveConfig(themes: ConfigThemes, defaultTheme: string, prefix: strin
 
     // Process colors
     const flatColors = flattenThemeObject(colors || {}) as Record<string, string>;
+
     processColors(flatColors, prefix, mode, resolved, cssSelector, baseSelector);
 
     // Process layout
     const flatLayout = layout ? mapKeys(layout, (_, key) => kebabCase(key)) : {};
+
     processLayout(flatLayout, prefix, resolved, cssSelector, baseSelector);
   }
 
@@ -212,7 +269,10 @@ function resolveConfig(themes: ConfigThemes, defaultTheme: string, prefix: strin
 // Theme Building
 // ─────────────────────────────────────────────────────────────
 
-/** Builds the final theme configuration by merging defaults with user config */
+/**
+ * Builds the final theme configuration by merging defaults with user config
+ * @param config
+ */
 function buildThemes(config: ThemeConfig): ConfigThemes {
   const themeData = config?.themes || {};
   const userLayout = config?.layout || {};
@@ -250,7 +310,12 @@ function buildThemes(config: ThemeConfig): ConfigThemes {
 // Tailwind Theme Extension
 // ─────────────────────────────────────────────────────────────
 
-/** Creates the Tailwind theme extension configuration */
+/**
+ * Creates the Tailwind theme extension configuration
+ * @param colors
+ * @param prefix
+ * @param disableAnimations
+ */
 function createThemeExtension(
   colors: Record<string, string>,
   prefix: string,
@@ -283,7 +348,10 @@ function createThemeExtension(
 // Plugin Export
 // ─────────────────────────────────────────────────────────────
 
-/** IdeasUI Tailwind CSS plugin - generates CSS variables and utilities */
+/**
+ * IdeasUI Tailwind CSS plugin - generates CSS variables and utilities
+ * @param config
+ */
 export const ideasUIPlugin = (config: ThemeConfig = {}): ReturnType<typeof plugin> => {
   const { defaultTheme = 'light', prefix = DEFAULT_PREFIX, disableAnimations = false } = config;
 

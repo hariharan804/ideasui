@@ -1,6 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
 import fs from 'fs';
 import path from 'path';
+
+import { NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   try {
@@ -15,8 +18,10 @@ export async function GET(request: NextRequest) {
 
     // Security: prevent directory traversal
     const resolvedPath = path.resolve(filePath);
+
     console.debug('🚀 ~ GET ~ resolvedPath:', resolvedPath);
     const projectRoot = path.resolve(process.cwd());
+
     console.debug('🚀 ~ GET ~ projectRoot:', projectRoot);
 
     if (!resolvedPath.startsWith(projectRoot)) {
@@ -33,6 +38,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ content });
   } catch (error) {
     console.error('Error reading file:', error);
+
     return NextResponse.json({ error: 'Failed to read file' }, { status: 500 });
   }
 }

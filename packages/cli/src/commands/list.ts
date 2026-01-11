@@ -1,7 +1,8 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { getAvailablePackages } from '../utils/registry';
 import ora from 'ora';
+
+import { getAvailablePackages } from '../utils/registry';
 
 export const listCommand = new Command()
   .name('list')
@@ -11,6 +12,7 @@ export const listCommand = new Command()
   .action(async (options) => {
     const spinner = ora('Fetching packages...').start();
     const packages = await getAvailablePackages();
+
     spinner.stop();
 
     console.log(chalk.cyan.bold('📦 Available IdeasUI Packages\n'));

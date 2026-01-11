@@ -40,12 +40,12 @@ export default function ColorsPage() {
             {(['light', 'dark'] as const).map((theme) => (
               <button
                 key={theme}
-                onClick={() => setSelectedTheme(theme)}
                 className={`rounded-md px-4 py-2 text-sm font-medium transition-all ${
                   selectedTheme === theme
                     ? 'bg-purple-600 text-white shadow-sm'
                     : 'text-neutral-600 hover:text-neutral-900'
                 }`}
+                onClick={() => setSelectedTheme(theme)}
               >
                 {theme.charAt(0).toUpperCase() + theme.slice(1)}
               </button>
@@ -98,34 +98,34 @@ export default function ColorsPage() {
                       {/* Class Options */}
                       <div className="mt-2 space-y-1">
                         <button
-                          onClick={() => copyToClipboard(className)}
                           className={`w-full rounded border px-2 py-1 font-mono text-xs transition-colors ${
                             copiedClass === className
                               ? 'border-green-300 bg-green-100 text-green-700'
                               : 'border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100'
                           }`}
+                          onClick={() => copyToClipboard(className)}
                         >
                           {copiedClass === className ? 'Copied!' : className}
                         </button>
 
                         <button
-                          onClick={() => copyToClipboard(textClassName)}
                           className={`w-full rounded border px-2 py-1 font-mono text-xs transition-colors ${
                             copiedClass === textClassName
                               ? 'border-green-300 bg-green-100 text-green-700'
                               : 'border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100'
                           }`}
+                          onClick={() => copyToClipboard(textClassName)}
                         >
                           {copiedClass === textClassName ? 'Copied!' : textClassName}
                         </button>
 
                         <button
-                          onClick={() => copyToClipboard(borderClassName)}
                           className={`w-full rounded border px-2 py-1 font-mono text-xs transition-colors ${
                             copiedClass === borderClassName
                               ? 'border-green-300 bg-green-100 text-green-700'
                               : 'border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100'
                           }`}
+                          onClick={() => copyToClipboard(borderClassName)}
                         >
                           {copiedClass === borderClassName ? 'Copied!' : borderClassName}
                         </button>
@@ -227,8 +227,8 @@ export default function ColorsPage() {
                 <p className="text-neutral-600">
                   Regular text can involve links that are{' '}
                   <a
-                    href="#"
                     className="text-primary-600 hover:text-primary-700 decoration-primary-300 font-medium underline underline-offset-4"
+                    href="#"
                   >
                     styled with primary colors
                   </a>

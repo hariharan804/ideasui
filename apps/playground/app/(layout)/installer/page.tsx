@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Package, Download, Check, AlertCircle, Copy } from 'lucide-react';
+import { Package, Check, AlertCircle, Copy } from 'lucide-react';
 
 const RELEASE_TAGS = {
   latest: { label: 'Latest', description: 'Stable release', color: 'green' },
@@ -47,6 +47,7 @@ export default function InstallerPage() {
 
   const togglePackage = (pkg: string) => {
     const newSelected = new Set(selectedPackages);
+
     if (newSelected.has(pkg)) {
       newSelected.delete(pkg);
     } else {
@@ -82,12 +83,12 @@ export default function InstallerPage() {
               {Object.entries(RELEASE_TAGS).map(([tag, info]) => (
                 <button
                   key={tag}
-                  onClick={() => setSelectedTag(tag as keyof typeof RELEASE_TAGS)}
                   className={`rounded-lg border-2 p-4 text-left transition-all ${
                     selectedTag === tag
                       ? 'border-blue-500 bg-blue-50'
                       : 'border-slate-200 hover:border-slate-300'
                   }`}
+                  onClick={() => setSelectedTag(tag as keyof typeof RELEASE_TAGS)}
                 >
                   <div className="mb-2 flex items-center gap-2">
                     <div
@@ -118,14 +119,14 @@ export default function InstallerPage() {
               <h2 className="text-xl font-semibold text-slate-800">Packages</h2>
               <div className="flex gap-2">
                 <button
-                  onClick={selectAll}
                   className="rounded bg-blue-100 px-3 py-1 text-sm text-blue-700 transition-colors hover:bg-blue-200"
+                  onClick={selectAll}
                 >
                   Select All
                 </button>
                 <button
-                  onClick={selectNone}
                   className="rounded bg-slate-100 px-3 py-1 text-sm text-slate-700 transition-colors hover:bg-slate-200"
+                  onClick={selectNone}
                 >
                   Select None
                 </button>
@@ -143,10 +144,10 @@ export default function InstallerPage() {
                   }`}
                 >
                   <input
-                    type="checkbox"
                     checked={selectedPackages.has(pkg)}
-                    onChange={() => togglePackage(pkg)}
                     className="h-4 w-4 rounded text-blue-600"
+                    type="checkbox"
+                    onChange={() => togglePackage(pkg)}
                   />
                   <code className="font-mono text-sm text-slate-700">{pkg}</code>
                 </label>
@@ -167,13 +168,14 @@ export default function InstallerPage() {
               <div className="space-y-4">
                 {(['npm', 'pnpm', 'yarn'] as const).map((pm) => {
                   const command = generateInstallCommand(pm);
+
                   return (
                     <div key={pm} className="relative">
                       <div className="mb-2 flex items-center justify-between">
                         <span className="text-sm font-medium text-slate-700 uppercase">{pm}</span>
                         <button
-                          onClick={() => copyCommand(command)}
                           className="flex items-center gap-1 text-sm text-blue-600 transition-colors hover:text-blue-700"
+                          onClick={() => copyCommand(command)}
                         >
                           {copiedCommand === command ? (
                             <>

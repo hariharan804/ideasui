@@ -1,5 +1,6 @@
 /**
  * Get element by id with proper typing
+ * @param id
  */
 export function getElementById<T extends HTMLElement = HTMLElement>(id: string): T | null {
   return document.getElementById(id) as T | null;
@@ -7,9 +8,14 @@ export function getElementById<T extends HTMLElement = HTMLElement>(id: string):
 
 /**
  * Check if element contains another element
+ * @param parent
+ * @param child
  */
 export function contains(parent: Element | null, child: Element | null): boolean {
-  if (!parent || !child) return false;
+  if (!parent || !child) {
+    return false;
+  }
+
   return parent === child || parent.contains(child);
 }
 
@@ -19,15 +25,20 @@ export function contains(parent: Element | null, child: Element | null): boolean
 export const focus = {
   /**
    * Focus element and scroll into view
+   * @param element
+   * @param options
    */
   set: (element: HTMLElement | null, options?: FocusOptions & ScrollIntoViewOptions) => {
-    if (!element) return;
+    if (!element) {
+      return;
+    }
     element.focus(options);
     element.scrollIntoView({ block: 'nearest', ...options });
   },
 
   /**
    * Get all focusable elements within container
+   * @param container
    */
   getFocusable: (container: HTMLElement): HTMLElement[] => {
     const selector = [
@@ -45,6 +56,7 @@ export const focus = {
 
   /**
    * Get first focusable element
+   * @param container
    */
   getFirst: (container: HTMLElement): HTMLElement | null => {
     return focus.getFocusable(container)[0] || null;
@@ -52,9 +64,11 @@ export const focus = {
 
   /**
    * Get last focusable element
+   * @param container
    */
   getLast: (container: HTMLElement): HTMLElement | null => {
     const focusable = focus.getFocusable(container);
+
     return focusable[focusable.length - 1] || null;
   },
 };

@@ -1,5 +1,6 @@
-import React, { createContext, useContext } from 'react';
 import type { IconSetProps, IconProps } from './types';
+
+import React, { createContext, useContext } from 'react';
 
 // Icon context for consistent styling
 const IconContext = createContext<Partial<IconProps>>({});
@@ -14,6 +15,11 @@ export const useIconContext = (): Partial<IconProps> => {
 /**
  * Provider component for consistent icon styling across a component tree
  *
+ * @param root0
+ * @param root0.size
+ * @param root0.color
+ * @param root0.className
+ * @param root0.children
  * @example
  * ```tsx
  * <IconSet size={20} color="blue" className="icon-base">
@@ -42,6 +48,7 @@ export const IconSet: React.FC<IconSetProps & { children: React.ReactNode }> = (
 
 /**
  * Higher-order component to wrap icons with context support
+ * @param Component
  */
 export function withIconContext<P extends IconProps>(
   Component: React.ComponentType<P>,

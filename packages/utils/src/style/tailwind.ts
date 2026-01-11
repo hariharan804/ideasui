@@ -5,6 +5,7 @@ import { twMerge } from 'tailwind-merge';
 
 /**
  * Merge Tailwind CSS classes with conflict resolution
+ * @param {...any} inputs
  */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -12,6 +13,8 @@ export function cn(...inputs: ClassValue[]) {
 
 /**
  * Create conditional Tailwind classes
+ * @param base
+ * @param variants
  */
 export function cva(base: string, variants: Record<string, Record<string, string>>) {
   return (props: Record<string, any>) => {
@@ -19,6 +22,7 @@ export function cva(base: string, variants: Record<string, Record<string, string
 
     Object.entries(variants).forEach(([key, values]) => {
       const value = props[key];
+
       if (value && values[value]) {
         classes.push(values[value]);
       }
@@ -30,6 +34,9 @@ export function cva(base: string, variants: Record<string, Record<string, string
 
 /**
  * Toggle Tailwind classes based on condition
+ * @param condition
+ * @param trueClasses
+ * @param falseClasses
  */
 export function tw(condition: boolean, trueClasses: string, falseClasses = '') {
   return cn(condition ? trueClasses : falseClasses);
@@ -37,6 +44,12 @@ export function tw(condition: boolean, trueClasses: string, falseClasses = '') {
 
 /**
  * Responsive Tailwind class builder
+ * @param classes
+ * @param classes.base
+ * @param classes.sm
+ * @param classes.md
+ * @param classes.lg
+ * @param classes.xl
  */
 export function responsive(classes: {
   base?: string;
@@ -48,12 +61,24 @@ export function responsive(classes: {
 }) {
   const responsiveClasses: string[] = [];
 
-  if (classes.base) responsiveClasses.push(classes.base);
-  if (classes.sm) responsiveClasses.push(`sm:${classes.sm}`);
-  if (classes.md) responsiveClasses.push(`md:${classes.md}`);
-  if (classes.lg) responsiveClasses.push(`lg:${classes.lg}`);
-  if (classes.xl) responsiveClasses.push(`xl:${classes.xl}`);
-  if (classes['2xl']) responsiveClasses.push(`2xl:${classes['2xl']}`);
+  if (classes.base) {
+    responsiveClasses.push(classes.base);
+  }
+  if (classes.sm) {
+    responsiveClasses.push(`sm:${classes.sm}`);
+  }
+  if (classes.md) {
+    responsiveClasses.push(`md:${classes.md}`);
+  }
+  if (classes.lg) {
+    responsiveClasses.push(`lg:${classes.lg}`);
+  }
+  if (classes.xl) {
+    responsiveClasses.push(`xl:${classes.xl}`);
+  }
+  if (classes['2xl']) {
+    responsiveClasses.push(`2xl:${classes['2xl']}`);
+  }
 
   return cn(responsiveClasses);
 }

@@ -1,7 +1,9 @@
-import { useRef, useCallback, Ref } from 'react';
+import type { Ref } from 'react';
+import type { ButtonProps } from './button';
+
+import { useRef, useCallback } from 'react';
 import { useButton as useAriaButton, useFocusRing, useHover } from 'react-aria';
 import { useRipple } from '@ideasui/ripple';
-import { ButtonProps } from './button';
 import { toDataAttr } from '@ideasui/utils/aria';
 import { mergeProps } from '@ideasui/utils/react';
 

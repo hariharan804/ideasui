@@ -1,4 +1,5 @@
 import { execSync } from 'child_process';
+
 import chalk from 'chalk';
 
 export interface PackageInfo {
@@ -22,6 +23,7 @@ export async function getAvailablePackages(): Promise<Record<string, PackageInfo
     packages.forEach((pkg: any) => {
       if (pkg.name.startsWith('@ideasui/')) {
         const shortName = pkg.name.replace('@ideasui/', '');
+
         packageMap[shortName] = {
           name: pkg.name,
           description: pkg.description || 'IdeasUI component',
@@ -34,6 +36,7 @@ export async function getAvailablePackages(): Promise<Record<string, PackageInfo
     return packageMap;
   } catch (error) {
     console.warn(chalk.yellow('⚠️  Could not fetch packages from registry, using fallback'));
+
     return getFallbackPackages();
   }
 }

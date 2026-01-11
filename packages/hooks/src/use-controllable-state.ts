@@ -10,6 +10,9 @@ export interface UseControllableStateProps<T> {
  * Custom hook for managing controllable state (controlled/uncontrolled pattern)
  *
  * @param props - Configuration object
+ * @param props.value
+ * @param props.defaultValue
+ * @param props.onChange
  * @returns Tuple of [value, setValue]
  *
  * @example

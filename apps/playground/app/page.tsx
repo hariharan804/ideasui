@@ -64,11 +64,12 @@ export default function Home() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
           {navigationItems.map((item) => {
             const Icon = item.icon;
+
             return (
               <a
                 key={item.href}
-                href={item.href}
                 className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                href={item.href}
               >
                 {/* Background Gradient */}
                 <div

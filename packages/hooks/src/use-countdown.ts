@@ -33,15 +33,19 @@ export function useCountdown(initialTime: number, onFinish?: () => void): UseCou
   }, [initialTime]);
 
   useEffect(() => {
-    if (!isRunning || timeLeft <= 0) return;
+    if (!isRunning || timeLeft <= 0) {
+      return;
+    }
 
     const interval = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           setIsRunning(false);
           onFinish?.();
+
           return 0;
         }
+
         return prev - 1;
       });
     }, 1000);

@@ -36,7 +36,9 @@ export function useFetch<T = any>(url: string, options: UseFetchOptions = {}): U
   const { method = 'GET', headers, body, enabled = true } = options;
 
   const fetchData = useCallback(async () => {
-    if (!enabled) return;
+    if (!enabled) {
+      return;
+    }
 
     try {
       setLoading(true);
@@ -70,10 +72,11 @@ export function useFetch<T = any>(url: string, options: UseFetchOptions = {}): U
       }
 
       const result = await response.json();
+
       setData(result);
-    } catch (err) {
-      if (err instanceof Error && err.name !== 'AbortError') {
-        setError(err);
+    } catch (error_) {
+      if (error_ instanceof Error && error_.name !== 'AbortError') {
+        setError(error_);
       }
     } finally {
       setLoading(false);

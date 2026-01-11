@@ -1,10 +1,12 @@
+import { execSync } from 'child_process';
+import { existsSync, writeFileSync } from 'fs';
+import { join } from 'path';
+
 import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
 import inquirer from 'inquirer';
-import { execSync } from 'child_process';
-import { existsSync, writeFileSync } from 'fs';
-import { join } from 'path';
+
 import { getAvailablePackages } from '../utils/registry';
 
 export const setupCommand = new Command()
@@ -27,6 +29,7 @@ export const setupCommand = new Command()
     // Get available packages dynamically
     const spinner = ora('Fetching available packages...').start();
     const availablePackages = await getAvailablePackages();
+
     spinner.stop();
 
     // Create choices from available packages
@@ -92,9 +95,16 @@ export const setupCommand = new Command()
   });
 
 function detectPackageManager(): string {
-  if (existsSync('pnpm-lock.yaml')) return 'pnpm';
-  if (existsSync('yarn.lock')) return 'yarn';
-  if (existsSync('bun.lockb')) return 'bun';
+  if (existsSync('pnpm-lock.yaml')) {
+    return 'pnpm';
+  }
+  if (existsSync('yarn.lock')) {
+    return 'yarn';
+  }
+  if (existsSync('bun.lockb')) {
+    return 'bun';
+  }
+
   return 'npm';
 }
 
@@ -116,6 +126,7 @@ function setupTailwindConfig(cwd: string) {
 
   if (existsSync(configPath)) {
     console.log(chalk.yellow('⚠️  Tailwind config already exists, skipping...'));
+
     return;
   }
 
@@ -146,6 +157,7 @@ function createExampleComponent(
 
   if (existsSync(examplePath)) {
     console.log(chalk.yellow('⚠️  Example component already exists, skipping...'));
+
     return;
   }
 

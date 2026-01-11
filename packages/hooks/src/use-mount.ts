@@ -15,6 +15,7 @@ export function useMount(): boolean {
 
   useEffect(() => {
     setIsMounted(true);
+
     return () => setIsMounted(false);
   }, []);
 

@@ -1,5 +1,6 @@
 /**
  * Convert boolean to data attribute value
+ * @param condition
  */
 export function toDataAttr(condition: boolean | undefined): string | undefined {
   return condition ? 'true' : undefined;
@@ -7,6 +8,11 @@ export function toDataAttr(condition: boolean | undefined): string | undefined {
 
 /**
  * ARIA form props generator
+ * @param options
+ * @param options.required
+ * @param options.invalid
+ * @param options.describedBy
+ * @param options.labelledBy
  */
 export function getAriaFormProps(options: {
   required?: boolean;
@@ -24,6 +30,10 @@ export function getAriaFormProps(options: {
 
 /**
  * ARIA disclosure props generator (for dropdowns, modals)
+ * @param options
+ * @param options.expanded
+ * @param options.controls
+ * @param options.hasPopup
  */
 export function getAriaDisclosureProps(options: {
   expanded: boolean;
@@ -39,6 +49,10 @@ export function getAriaDisclosureProps(options: {
 
 /**
  * ARIA listbox props generator
+ * @param options
+ * @param options.multiselectable
+ * @param options.orientation
+ * @param options.activedescendant
  */
 export function getAriaListboxProps(options: {
   multiselectable?: boolean;
@@ -55,6 +69,10 @@ export function getAriaListboxProps(options: {
 
 /**
  * ARIA dialog props generator
+ * @param options
+ * @param options.labelledBy
+ * @param options.describedBy
+ * @param options.modal
  */
 export function getAriaDialogProps(options: {
   labelledBy?: string;
@@ -71,6 +89,9 @@ export function getAriaDialogProps(options: {
 
 /**
  * ARIA tabs props generator
+ * @param options
+ * @param options.orientation
+ * @param options.activedescendant
  */
 export function getAriaTabsProps(options: {
   orientation?: 'horizontal' | 'vertical';
@@ -89,9 +110,12 @@ export function getAriaTabsProps(options: {
 export const screenReader = {
   /**
    * Announce message to screen readers
+   * @param message
+   * @param priority
    */
   announce: (message: string, priority: 'polite' | 'assertive' = 'polite') => {
     const announcement = document.createElement('div');
+
     announcement.setAttribute('aria-live', priority);
     announcement.setAttribute('aria-atomic', 'true');
     announcement.className = 'sr-only';
@@ -106,11 +130,14 @@ export const screenReader = {
 
   /**
    * Create screen reader only text
+   * @param text
    */
   only: (text: string) => {
     const span = document.createElement('span');
+
     span.className = 'sr-only';
     span.textContent = text;
+
     return span;
   },
 };
@@ -121,17 +148,22 @@ export const screenReader = {
 export const liveRegion = {
   /**
    * Create live region element
+   * @param priority
    */
   create: (priority: 'polite' | 'assertive' = 'polite') => {
     const region = document.createElement('div');
+
     region.setAttribute('aria-live', priority);
     region.setAttribute('aria-atomic', 'true');
     region.className = 'sr-only';
+
     return region;
   },
 
   /**
    * Update live region content
+   * @param element
+   * @param message
    */
   update: (element: HTMLElement, message: string) => {
     element.textContent = message;
@@ -144,6 +176,7 @@ export const liveRegion = {
 export const focusTrap = {
   /**
    * Get focusable elements
+   * @param container
    */
   getFocusable: (container: HTMLElement): HTMLElement[] => {
     const selector = [
@@ -161,6 +194,7 @@ export const focusTrap = {
 
   /**
    * Trap focus within container
+   * @param container
    */
   trap: (container: HTMLElement) => {
     const focusable = focusTrap.getFocusable(container);
@@ -168,7 +202,9 @@ export const focusTrap = {
     const last = focusable[focusable.length - 1];
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== 'Tab') return;
+      if (event.key !== 'Tab') {
+        return;
+      }
 
       if (event.shiftKey) {
         if (document.activeElement === first) {

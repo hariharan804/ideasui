@@ -1,5 +1,6 @@
-import React from 'react';
 import type { IconProps } from '../types';
+
+import React from 'react';
 
 /**
  * User icon component
@@ -8,15 +9,15 @@ export const User = React.forwardRef<SVGSVGElement, IconProps>(
   ({ size = 24, color = 'currentColor', strokeWidth = 2, className, ...props }, ref) => (
     <svg
       ref={ref}
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
+      className={className}
       fill="none"
+      height={size}
       stroke={color}
-      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={className}
+      strokeWidth={strokeWidth}
+      viewBox="0 0 24 24"
+      width={size}
       {...props}
     >
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />

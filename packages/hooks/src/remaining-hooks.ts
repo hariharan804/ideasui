@@ -4,7 +4,9 @@ export function useFocusTrap<T extends HTMLElement>(enabled = true) {
   const ref = useRef<T>(null);
 
   useEffect(() => {
-    if (!enabled || !ref.current) return;
+    if (!enabled || !ref.current) {
+      return;
+    }
 
     const container = ref.current;
     const focusable = container.querySelectorAll(
@@ -14,7 +16,9 @@ export function useFocusTrap<T extends HTMLElement>(enabled = true) {
     const last = focusable[focusable.length - 1] as HTMLElement;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== 'Tab') return;
+      if (event.key !== 'Tab') {
+        return;
+      }
 
       if (event.shiftKey) {
         if (document.activeElement === first) {
@@ -98,8 +102,10 @@ export function useUpdateEffect(effect: () => void, deps: any[]) {
   useEffect(() => {
     if (isFirstRender.current) {
       isFirstRender.current = false;
+
       return;
     }
+
     return effect();
   }, deps);
 }

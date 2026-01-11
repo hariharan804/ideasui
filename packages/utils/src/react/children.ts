@@ -2,6 +2,7 @@ import * as React from 'react';
 
 /**
  * Checks if a value is a valid React element
+ * @param value
  * @internal
  */
 export function isValidElement(value: any): value is React.ReactElement {
@@ -10,6 +11,8 @@ export function isValidElement(value: any): value is React.ReactElement {
 
 /**
  * Clones React children and adds props to each child
+ * @param children
+ * @param props
  * @internal
  */
 export function cloneChildrenWithProps(
@@ -20,12 +23,14 @@ export function cloneChildrenWithProps(
     if (React.isValidElement(child)) {
       return React.cloneElement(child, props as any);
     }
+
     return child;
   });
 }
 
 /**
  * Gets all React children as an array
+ * @param children
  * @internal
  */
 export function getChildrenArray(children: React.ReactNode): React.ReactNode[] {
@@ -34,6 +39,8 @@ export function getChildrenArray(children: React.ReactNode): React.ReactNode[] {
 
 /**
  * Finds child component by display name
+ * @param children
+ * @param displayName
  * @internal
  */
 export function findChildByDisplayName(
@@ -57,6 +64,7 @@ export function findChildByDisplayName(
 
 /**
  * Checks if component has children
+ * @param children
  * @internal
  */
 export function hasChildren(children: React.ReactNode): boolean {
@@ -65,6 +73,7 @@ export function hasChildren(children: React.ReactNode): boolean {
 
 /**
  * Gets only valid React elements from children
+ * @param children
  * @internal
  */
 export function getValidElements(children: React.ReactNode): React.ReactElement[] {

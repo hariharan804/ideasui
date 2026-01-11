@@ -1,5 +1,7 @@
+import type { SpinnerSizesProps } from '@ideasui/theme/token';
+
 import { cn } from '@ideasui/utils';
-import { SpinnerSizesProps, spinnerSizes } from '@ideasui/theme/token';
+import { spinnerSizes } from '@ideasui/theme/token';
 
 export const Spinner = ({ size }: { size: SpinnerSizesProps }) => {
   return (

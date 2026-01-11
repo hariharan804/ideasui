@@ -1,5 +1,6 @@
-import * as React from 'react';
 import type { HTMLMotionProps } from 'framer-motion';
+
+import * as React from 'react';
 import { LazyMotion, AnimatePresence, m } from 'framer-motion';
 import { clamp } from '@ideasui/utils/core';
 import { forwardRef } from '@ideasui/utils';
@@ -32,8 +33,8 @@ export const Ripple = forwardRef<'span', RippleProps>((props: RippleProps, ref) 
 
           return (
             <m.span
-              ref={ref}
               key={ripple.key}
+              ref={ref}
               animate={{
                 transform: `translate(${ripple.x}px, ${ripple.y}px) scale(2)`,
                 opacity: 0,

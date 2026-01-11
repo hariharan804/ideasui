@@ -20,7 +20,9 @@ export function useClickOutside<T extends HTMLElement>(
   const ref = useRef<T>(null);
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      return;
+    }
 
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {

@@ -1,5 +1,6 @@
-import React from 'react';
 import type { IconProps } from '../types';
+
+import React from 'react';
 
 /**
  * Search icon component
@@ -8,15 +9,15 @@ export const Search = React.forwardRef<SVGSVGElement, IconProps>(
   ({ size = 24, color = 'currentColor', strokeWidth = 2, className, ...props }, ref) => (
     <svg
       ref={ref}
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
+      className={className}
       fill="none"
+      height={size}
       stroke={color}
-      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={className}
+      strokeWidth={strokeWidth}
+      viewBox="0 0 24 24"
+      width={size}
       {...props}
     >
       <circle cx="11" cy="11" r="8" />

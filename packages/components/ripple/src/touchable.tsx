@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@ideasui/utils/style';
 import { forwardRef } from '@ideasui/utils/react';
+
 import { Ripple } from './ripple';
 import { useRipple } from './use-ripple';
 
@@ -56,7 +57,9 @@ export const Touchable = forwardRef<'button', TouchableProps>(
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-      if (disabled) return;
+      if (disabled) {
+        return;
+      }
 
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
@@ -69,18 +72,18 @@ export const Touchable = forwardRef<'button', TouchableProps>(
     return (
       <Component
         ref={ref as any}
+        aria-disabled={disabled || undefined}
         className={cn(
           'relative overflow-hidden',
           disabled ? 'pointer-events-none opacity-50' : '',
           className,
         )}
-        onPointerDown={handlePointerDown}
         onKeyDown={handleKeyDown}
-        aria-disabled={disabled || undefined}
+        onPointerDown={handlePointerDown}
         {...props}
       >
         {children}
-        <Ripple ripples={ripples} color={rippleColor} onClear={onClear} />
+        <Ripple color={rippleColor} ripples={ripples} onClear={onClear} />
       </Component>
     );
   },

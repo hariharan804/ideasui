@@ -28,7 +28,6 @@ import boundaries from 'eslint-plugin-boundaries';
 
 // Styling & formatting
 import prettier from 'eslint-plugin-prettier';
-// import tailwindcss from "eslint-plugin-tailwindcss";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -91,7 +90,7 @@ export default defineConfig([
       boundaries: fixupPluginRules(boundaries),
       prettier: fixupPluginRules(prettier),
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
-      tailwindcss: fixupPluginRules(tailwindcss),
+      // tailwindcss: fixupPluginRules(tailwindcss),
     },
 
     languageOptions: {
@@ -99,6 +98,8 @@ export default defineConfig([
       ecmaVersion: 12,
       sourceType: 'module',
       parserOptions: {
+        project: true,
+        tsconfigRootDir: __dirname,
         ecmaFeatures: {
           jsx: true,
         },
@@ -132,10 +133,6 @@ export default defineConfig([
         },
       ],
       'boundaries/ignore': ['**/*.test.*', '**/*.spec.*', '**/*.stories.*'],
-      // tailwindcss: {
-      //   callees: ["classnames", "clsx", "cn", "ctl"],
-      //   config: "tailwind.config.js",
-      // },
     },
 
     rules: {
@@ -303,12 +300,6 @@ export default defineConfig([
         { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
         { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
       ],
-
-      // Tailwind CSS
-      'tailwindcss/classnames-order': 'warn',
-      'tailwindcss/no-contradicting-classname': 'error',
-      'tailwindcss/no-custom-classname': 'off',
-      'tailwindcss/enforces-shorthand': 'warn',
 
       // Code quality (SonarJS)
       'sonarjs/cognitive-complexity': ['error', 15],

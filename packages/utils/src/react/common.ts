@@ -1,8 +1,10 @@
+import type * as React from 'react';
+
 import { cn } from '../style/tailwind';
-import * as React from 'react';
 
 /**
  * Merge multiple refs into a single ref callback
+ * @param {...any} refs
  * @internal - Use mergeRefs from main utils instead
  */
 export function mergeRefs<T = any>(
@@ -26,6 +28,7 @@ export function mergeRefs<T = any>(
  * - Merges `ref` callbacks
  * - Chains event handlers (functions starting with `on`)
  * - Overrides other props with the latest value
+ * @param {...any} objects
  */
 export function mergeProps(
   ...objects: Array<Record<string, any> | undefined>
@@ -33,7 +36,9 @@ export function mergeProps(
   const result: Record<string, any> = {};
 
   for (const obj of objects) {
-    if (!obj) continue;
+    if (!obj) {
+      continue;
+    }
 
     for (const key in obj) {
       const value = obj[key];
@@ -44,9 +49,11 @@ export function mergeProps(
         result.style = { ...(result.style || {}), ...(value || {}) };
       } else if (key === 'ref') {
         const existing = result.ref;
+
         result.ref = existing ? mergeRefs(existing, value) : value;
       } else if (key.startsWith('on') && typeof value === 'function') {
         const existing = result[key];
+
         if (typeof existing === 'function') {
           result[key] = (...args: any[]) => {
             existing(...args);

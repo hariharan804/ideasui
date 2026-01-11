@@ -1,9 +1,12 @@
-import React from 'react';
 import type { IconProps } from './types';
+
+import React from 'react';
 
 /**
  * Create a custom icon component (Lucide-style)
  *
+ * @param displayName
+ * @param elements
  * @example
  * ```tsx
  * const CustomIcon = createIcon('CustomIcon', [
@@ -19,15 +22,15 @@ export function createIcon(
     ({ size = 24, color = 'currentColor', strokeWidth = 2, className, ...props }, ref) => (
       <svg
         ref={ref}
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
+        className={className}
         fill="none"
+        height={size}
         stroke={color}
-        strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={className}
+        strokeWidth={strokeWidth}
+        viewBox="0 0 24 24"
+        width={size}
         {...props}
       >
         {elements.map(([tag, attrs], index) => React.createElement(tag, { key: index, ...attrs }))}
@@ -36,11 +39,14 @@ export function createIcon(
   );
 
   IconComponent.displayName = displayName;
+
   return IconComponent;
 }
 
 /**
  * Create an icon from SVG string
+ * @param displayName
+ * @param svgContent
  */
 export function createIconFromSvg(
   displayName: string,
@@ -57,15 +63,15 @@ export function createIconFromSvg(
       return (
         <svg
           ref={ref}
-          width={size}
-          height={size}
-          viewBox="0 0 24 24"
+          className={className}
           fill="none"
+          height={size}
           stroke={color}
-          strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeLinejoin="round"
-          className={className}
+          strokeWidth={strokeWidth}
+          viewBox="0 0 24 24"
+          width={size}
           {...props}
           dangerouslySetInnerHTML={{ __html: innerContent }}
         />
@@ -74,5 +80,6 @@ export function createIconFromSvg(
   );
 
   IconComponent.displayName = displayName;
+
   return IconComponent;
 }

@@ -1,7 +1,7 @@
 import { ideasUIPlugin } from './system/plugin';
 
 export * from './tokens';
-export * from './system/types';
+export type * from './system/types';
 export * from './recipes';
 
 //controller

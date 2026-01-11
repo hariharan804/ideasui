@@ -1,9 +1,11 @@
+import { execSync } from 'child_process';
+import { existsSync } from 'fs';
+import { join } from 'path';
+
 import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
-import { execSync } from 'child_process';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
+
 import { getAvailablePackages } from '../utils/registry';
 
 export const addCommand = new Command()
@@ -24,6 +26,7 @@ export const addCommand = new Command()
     // Get available packages dynamically
     const fetchSpinner = ora('Fetching available packages...').start();
     const availablePackages = await getAvailablePackages();
+
     fetchSpinner.stop();
 
     let packagesToInstall: string[] = [];
@@ -36,6 +39,7 @@ export const addCommand = new Command()
         console.log(chalk.cyan(`  • ${comp}`));
       });
       console.log(chalk.gray('\nUsage: ideasui add button ripple'));
+
       return;
     } else {
       packagesToInstall = components.map((comp) => {
@@ -44,6 +48,7 @@ export const addCommand = new Command()
           console.log(chalk.gray('Available:'), Object.keys(availablePackages).join(', '));
           process.exit(1);
         }
+
         return availablePackages[comp].name;
       });
     }
@@ -73,9 +78,16 @@ export const addCommand = new Command()
   });
 
 function detectPackageManager(): string {
-  if (existsSync('pnpm-lock.yaml')) return 'pnpm';
-  if (existsSync('yarn.lock')) return 'yarn';
-  if (existsSync('bun.lockb')) return 'bun';
+  if (existsSync('pnpm-lock.yaml')) {
+    return 'pnpm';
+  }
+  if (existsSync('yarn.lock')) {
+    return 'yarn';
+  }
+  if (existsSync('bun.lockb')) {
+    return 'bun';
+  }
+
   return 'npm';
 }
 

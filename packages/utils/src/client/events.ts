@@ -4,14 +4,18 @@
 export const keyboard = {
   /**
    * Check if key matches
+   * @param event
+   * @param key
    */
   is: (event: KeyboardEvent, key: string | string[]): boolean => {
     const keys = Array.isArray(key) ? key : [key];
+
     return keys.includes(event.key);
   },
 
   /**
    * Common key checks
+   * @param event
    */
   isEnter: (event: KeyboardEvent) => keyboard.is(event, 'Enter'),
   isSpace: (event: KeyboardEvent) => keyboard.is(event, ' '),
@@ -27,6 +31,10 @@ export const keyboard = {
 
 /**
  * Compose multiple event handlers
+ * @param originalEventHandler
+ * @param ourEventHandler
+ * @param root0
+ * @param root0.checkForDefaultPrevented
  */
 export function composeEventHandlers<E>(
   originalEventHandler?: (event: E) => void,

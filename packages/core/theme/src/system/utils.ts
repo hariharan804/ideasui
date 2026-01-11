@@ -1,6 +1,7 @@
+import type { ParsedColor } from './types';
+
 import { flatten } from 'flat';
 import Color from 'color';
-import { ParsedColor } from './types';
 
 // ─────────────────────────────────────────────────────────────
 // Constants
@@ -39,44 +40,56 @@ export const SEMANTIC_TOKEN_MAP = {
 
 /**
  * Converts a string to kebab-case
+ * @param str
  */
-export const kebabCase = (str: string) => str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+export const kebabCase = (str: string) => str.replace(/([\da-z])([A-Z])/g, '$1-$2').toLowerCase();
 
 /**
  * Maps values of an object
+ * @param obj
+ * @param fn
  */
 export function mapKeys<T>(
   obj: Record<string, T>,
   fn: (value: T, key: string) => string,
 ): Record<string, T> {
   const result: Record<string, T> = {};
+
   Object.keys(obj).forEach((key) => {
     result[fn(obj[key], key)] = obj[key];
   });
+
   return result;
 }
 
 /**
  * Omits keys from an object
+ * @param obj
+ * @param keys
  */
 export function omit<T extends Record<string, any>>(obj: T, keys: string[]) {
   const result = { ...obj };
+
   keys.forEach((key) => delete result[key]);
+
   return result;
 }
 
 /**
  * Escapes a selector string
+ * @param str
  */
 export const escapeSelector = (str: string) => {
   if (typeof CSS !== 'undefined' && CSS.escape) {
     return CSS.escape(str);
   }
+
   return str.replace(/([^\w-])/g, '\\$1');
 };
 
 /**
  * Flattens a theme object
+ * @param obj
  */
 export const flattenThemeObject = <TTarget>(obj: TTarget) => {
   return flatten(obj, {
@@ -89,12 +102,20 @@ export const flattenThemeObject = <TTarget>(obj: TTarget) => {
 // Color Conversion Utilities
 // ─────────────────────────────────────────────────────────────
 
-/** Converts sRGB to Linear RGB */
+/**
+ * Converts sRGB to Linear RGB
+ * @param c
+ */
 function srgbToLinear(c: number): number {
   return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
 }
 
-/** Converts RGB [0-255] to OKLCH [L: 0-1, C: 0-0.4, H: 0-360] */
+/**
+ * Converts RGB [0-255] to OKLCH [L: 0-1, C: 0-0.4, H: 0-360]
+ * @param r
+ * @param g
+ * @param b
+ */
 export function rgbToOklch(r: number, g: number, b: number): [number, number, number] {
   // Normalize RGB to 0-1
   const rn = r / 255;
@@ -123,13 +144,19 @@ export function rgbToOklch(r: number, g: number, b: number): [number, number, nu
   // Convert Oklab to OKLCH
   const C = Math.sqrt(a * a + bOk * bOk);
   let H = (Math.atan2(bOk, a) * 180) / Math.PI;
-  if (H < 0) H += 360;
+
+  if (H < 0) {
+    H += 360;
+  }
 
   // Round to 4 decimal places
   return [Math.round(L * 10000) / 10000, Math.round(C * 10000) / 10000, Math.round(H * 100) / 100];
 }
 
-/** Parses a color value and converts to OKLCH format */
+/**
+ * Parses a color value and converts to OKLCH format
+ * @param colorValue
+ */
 export function parseColorValue(colorValue: string): ParsedColor | null {
   try {
     const trimmed = colorValue.trim();
@@ -137,10 +164,15 @@ export function parseColorValue(colorValue: string): ParsedColor | null {
     // Handle oklch input - pass through directly
     if (trimmed.startsWith('oklch(')) {
       const match = trimmed.match(/oklch\(([^)]+)\)/);
+
       if (match) {
         const parts = match[1].split('/');
         const components = parts[0].trim().split(/\s+/);
-        if (parts[1]) components.push(parts[1].trim());
+
+        if (parts[1]) {
+          components.push(parts[1].trim());
+        }
+
         return { cssFn: 'oklch', components };
       }
     }
@@ -152,35 +184,52 @@ export function parseColorValue(colorValue: string): ParsedColor | null {
     const alpha = color.alpha();
 
     const components: (string | number)[] = [l, c, h];
+
     if (alpha < 1) {
       components.push(alpha);
     }
+
     return { cssFn: 'oklch', components };
   } catch {
     return null;
   }
 }
 
-/** Formats oklch color components */
+/**
+ * Formats oklch color components
+ * @param components
+ */
 export function formatColorComponents(components: (string | number)[]): string {
   const [l, c, h] = components;
+
   return `${l} ${c} ${h}`;
 }
 
-/** Check if key is a numeric shade (50, 100-900, 950) */
+/**
+ * Check if key is a numeric shade (50, 100-900, 950)
+ * @param key
+ */
 export const isNumericShade = (key: string): boolean =>
   /^(50|100|200|300|400|500|600|700|800|900|950)$/.test(key);
 
 /** Regex to extract color base name from flattened key */
 export const COLOR_NAME_REGEX =
-  /^([a-z]+)-(50|100|200|300|400|500|600|700|800|900|950|DEFAULT|on|container|onContainer|subtle|muted|active)$/i;
+  /^([a-z]+)-(50|100|200|300|400|500|600|700|800|900|950|default|on|container|oncontainer|subtle|muted|active)$/i;
 
-/** Extracts unique color base names from flattened color object */
+/**
+ * Extracts unique color base names from flattened color object
+ * @param flatColors
+ */
 export function extractColorBaseNames(flatColors: Record<string, string>): Set<string> {
   const names = new Set<string>();
+
   for (const key of Object.keys(flatColors)) {
     const match = COLOR_NAME_REGEX.exec(key);
-    if (match) names.add(match[1]);
+
+    if (match) {
+      names.add(match[1]);
+    }
   }
+
   return names;
 }

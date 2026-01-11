@@ -33,11 +33,13 @@ export interface SlotProps extends React.HTMLAttributes<HTMLElement> {
  * React <=18: accessing element.props.ref throws warning, use element.ref
  * React 19: accessing element.ref throws warning, use element.props.ref
  * This utility detects the warning and uses the correct method
+ * @param element
  */
 function getElementRef(element: React.ReactElement) {
   // React <=18 in DEV - check if props.ref getter has warning
   let getter = Object.getOwnPropertyDescriptor(element.props, 'ref')?.get;
   let mayWarn = getter && 'isReactWarning' in getter && getter.isReactWarning;
+
   if (mayWarn) {
     return (element as any).ref;
   }
@@ -67,6 +69,8 @@ const EVENT_HANDLER_REGEX = /^on[A-Z]/;
  * - Styles: Merge objects (slot styles override child styles)
  * - ClassNames: Concatenate with space separator
  * - Other props: Slot props override child props
+ * @param slotProps
+ * @param childProps
  */
 function mergeProps(slotProps: Record<string, any>, childProps: Record<string, any>) {
   // Early return if no slot props to merge
@@ -88,7 +92,9 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
     const childPropValue = childProps[propName];
 
     // Skip if neither object has this prop
-    if (!(propName in slotProps) && !(propName in childProps)) continue;
+    if (!(propName in slotProps) && !(propName in childProps)) {
+      continue;
+    }
 
     // Event handlers (onClick, onFocus, etc.) - compose both functions
     if (EVENT_HANDLER_REGEX.test(propName)) {
@@ -96,7 +102,9 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
         // Call child handler first, then slot handler
         overrideProps[propName] = (...args: unknown[]) => {
           const result = childPropValue(...args);
+
           slotPropValue(...args);
+
           return result;
         };
       } else if (slotPropValue) {
@@ -127,6 +135,7 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
  *
  * Handles both function refs and ref objects (useRef, createRef)
  * Safely calls all refs when the element mounts/unmounts
+ * @param {...any} refs
  */
 function composeRefs<T>(...refs: (React.Ref<T> | undefined)[]): React.Ref<T> {
   return React.useCallback((node: T) => {

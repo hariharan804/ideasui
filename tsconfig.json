@@ -15,10 +15,19 @@
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": false,
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "noEmit": true
   },
-  "include": ["packages"],
+  "include": [
+    "packages",
+    "playwright.config.ts",
+    "plopfile.js",
+    "eslint.config.mjs",
+    "prettier.config.js"
+  ],
   "exclude": ["**/node_modules", "**/dist", "**/.turbo", "templates"]
 }

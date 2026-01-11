@@ -1,5 +1,6 @@
-import { memo, useMemo } from 'react';
 import type { ThemeScriptConfig, ThemeScriptProps } from './types';
+
+import { memo, useMemo } from 'react';
 
 import { createScript } from './utils/script';
 import { defaultConfig } from './utils/themes.config';

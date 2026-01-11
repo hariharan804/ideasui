@@ -56,11 +56,14 @@ export default function DocsPage() {
 
     fetch(`/api/docs?file=${encodeURIComponent(selectedDoc.path)}`)
       .then((res) => {
-        if (!res.ok) throw new Error('Failed to load document');
+        if (!res.ok) {
+          throw new Error('Failed to load document');
+        }
+
         return res.json();
       })
       .then((data) => setDocContent(data.content))
-      .catch((err) => setError(err.message))
+      .catch((error_) => setError(error_.message))
       .finally(() => setLoading(false));
   }, [selectedDoc.path]);
 
@@ -100,11 +103,11 @@ export default function DocsPage() {
             <div className="relative mb-6">
               <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-400" />
               <input
-                type="text"
+                className="w-full rounded-lg border border-slate-200 py-2 pr-4 pl-10 text-sm transition-all outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500"
                 placeholder="Search docs..."
+                type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 py-2 pr-4 pl-10 text-sm transition-all outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500"
               />
             </div>
 
@@ -113,12 +116,12 @@ export default function DocsPage() {
               {filteredDocs.map((doc) => (
                 <button
                   key={doc.name}
-                  onClick={() => setSelectedDoc(doc)}
                   className={`w-full rounded-lg border p-3 text-left transition-all ${
                     selectedDoc.name === doc.name
                       ? 'border-blue-300 bg-gradient-to-r from-blue-100 to-purple-100 shadow-sm'
                       : 'border-transparent hover:border-slate-200 hover:bg-slate-50'
                   }`}
+                  onClick={() => setSelectedDoc(doc)}
                 >
                   <div className="flex items-start gap-2">
                     <FileText
@@ -152,10 +155,10 @@ export default function DocsPage() {
                 Resources
               </h4>
               <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-blue-600"
+                href="https://github.com"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 <ExternalLink className="h-4 w-4" />
                 GitHub Repository
@@ -181,8 +184,8 @@ export default function DocsPage() {
                 </div>
               </div>
               <button
-                onClick={() => setSidebarOpen(!sidebarOpen)}
                 className="rounded-lg bg-blue-50 px-4 py-2 text-sm font-medium text-blue-600 transition-colors hover:bg-blue-100 lg:hidden"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
               >
                 {sidebarOpen ? 'Hide' : 'Show'} Sidebar
               </button>
@@ -192,17 +195,17 @@ export default function DocsPage() {
           {/* Content */}
           <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
             {/* Loading State */}
-            {loading && (
+            {loading ? (
               <div className="flex h-96 items-center justify-center">
                 <div className="text-center">
                   <Loader className="mx-auto mb-3 h-8 w-8 animate-spin text-blue-500" />
                   <p className="text-slate-600">Loading documentation...</p>
                 </div>
               </div>
-            )}
+            ) : null}
 
             {/* Error State */}
-            {error && !loading && (
+            {error && !loading ? (
               <div className="border-b border-red-200 bg-red-50 p-6">
                 <div className="flex items-start gap-3">
                   <div className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-red-500" />
@@ -212,7 +215,7 @@ export default function DocsPage() {
                   </div>
                 </div>
               </div>
-            )}
+            ) : null}
 
             {/* Content */}
             {!loading && !error && (
