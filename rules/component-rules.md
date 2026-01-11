@@ -67,7 +67,7 @@ If needed, extend recipes in the theme package, not in components.
 
 ```tsx
 // ✅ Always use forwardRef
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(...);
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(...);
 
 // ✅ Add displayName
 Button.displayName = "Button";

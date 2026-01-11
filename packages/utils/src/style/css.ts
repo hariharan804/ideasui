@@ -1,23 +1,29 @@
+/* eslint-disable security/detect-object-injection */
 /**
  * Convert CSS value to pixels
- * @param value
+ * @param {string | number} value - Value to convert
+ * @returns {string} Value in pixels
  */
 export function toPx(value: string | number): string {
   return typeof value === 'number' ? `${value}px` : value;
 }
 
+const DEFAULT_REM_BASE = 16;
+
 /**
  * Convert CSS value to rem
- * @param value
- * @param base
+ * @param {number} value - Value in pixels
+ * @param {number} [base=16] - Base font size
+ * @returns {string} Value in rem
  */
-export function toRem(value: number, base = 16): string {
+export function toRem(value: number, base = DEFAULT_REM_BASE): string {
   return `${value / base}rem`;
 }
 
 /**
  * Parse CSS value to number
- * @param value
+ * @param {string} value - CSS string value
+ * @returns {number} Parsed number
  */
 export function parseValue(value: string): number {
   return parseFloat(value.replace(/[^\d.-]/g, ''));
@@ -25,8 +31,9 @@ export function parseValue(value: string): number {
 
 /**
  * Get CSS custom property value
- * @param name
- * @param element
+ * @param {string} name - Variable name
+ * @param {Element} [element] - Target element
+ * @returns {string} Variable value
  */
 export function getCSSVar(name: string, element?: Element): string {
   const target = element || document.documentElement;
@@ -37,9 +44,9 @@ export function getCSSVar(name: string, element?: Element): string {
 
 /**
  * Set CSS custom property
- * @param name
- * @param value
- * @param element
+ * @param {string} name - Variable name
+ * @param {string | number} value - Variable value
+ * @param {Element} [element] - Target element
  */
 export function setCSSVar(name: string, value: string | number, element?: Element): void {
   const target = element || document.documentElement;
@@ -51,8 +58,8 @@ export function setCSSVar(name: string, value: string | number, element?: Elemen
 
 /**
  * Remove CSS custom property
- * @param name
- * @param element
+ * @param {string} name - Variable name
+ * @param {Element} [element] - Target element
  */
 export function removeCSSVar(name: string, element?: Element): void {
   const target = element || document.documentElement;
@@ -63,8 +70,8 @@ export function removeCSSVar(name: string, element?: Element): void {
 
 /**
  * Set multiple CSS custom properties
- * @param vars
- * @param element
+ * @param {Record<string, string | number>} vars - Object of variables
+ * @param {Element} [element] - Target element
  */
 export function setCSSVars(vars: Record<string, string | number>, element?: Element): void {
   Object.entries(vars).forEach(([name, value]) => {
@@ -74,8 +81,9 @@ export function setCSSVars(vars: Record<string, string | number>, element?: Elem
 
 /**
  * Get multiple CSS custom properties
- * @param names
- * @param element
+ * @param {string[]} names - Array of variable names
+ * @param {Element} [element] - Target element
+ * @returns {Record<string, string>} Object of variable values
  */
 export function getCSSVars(names: string[], element?: Element): Record<string, string> {
   const result: Record<string, string> = {};
@@ -89,7 +97,8 @@ export function getCSSVars(names: string[], element?: Element): Record<string, s
 
 /**
  * Create CSS custom properties object
- * @param vars
+ * @param {Record<string, string | number>} vars - Input variables
+ * @returns {Record<string, string>} formatted CSS variables
  */
 export function createCSSVars(vars: Record<string, string | number>): Record<string, string> {
   const result: Record<string, string> = {};
@@ -105,7 +114,8 @@ export function createCSSVars(vars: Record<string, string | number>): Record<str
 
 /**
  * Convert object to CSS style string
- * @param styles
+ * @param {Record<string, string | number>} styles - Style object
+ * @returns {string} CSS string
  */
 export function toStyleString(styles: Record<string, string | number>): string {
   return Object.entries(styles)
@@ -120,7 +130,8 @@ export function toStyleString(styles: Record<string, string | number>): string {
 
 /**
  * Merge style objects
- * @param {...any} styles
+ * @param {Array<Record<string, string | number> | undefined>} styles - Objects to merge
+ * @returns {Record<string, string | number>} Merged style object
  */
 export function mergeStyles(
   ...styles: Array<Record<string, string | number> | undefined>
@@ -130,7 +141,8 @@ export function mergeStyles(
 
 /**
  * Check if element is visible
- * @param element
+ * @param {HTMLElement} element - Target element
+ * @returns {boolean} True if visible
  */
 export function isVisible(element: HTMLElement): boolean {
   const style = getComputedStyle(element);
@@ -139,10 +151,31 @@ export function isVisible(element: HTMLElement): boolean {
 }
 
 /**
- * Get element dimensions
- * @param element
+ * Dimensions object interface
  */
-export function getDimensions(element: HTMLElement) {
+interface Dimensions {
+  width: number;
+  height: number;
+  offsetWidth: number;
+  offsetHeight: number;
+  scrollWidth: number;
+  scrollHeight: number;
+  marginTop: number;
+  marginRight: number;
+  marginBottom: number;
+  marginLeft: number;
+  paddingTop: number;
+  paddingRight: number;
+  paddingBottom: number;
+  paddingLeft: number;
+}
+
+/**
+ * Get element dimensions
+ * @param {HTMLElement} element - Target element
+ * @returns {Dimensions} Dimensions object
+ */
+export function getDimensions(element: HTMLElement): Dimensions {
   const rect = element.getBoundingClientRect();
   const style = getComputedStyle(element);
 

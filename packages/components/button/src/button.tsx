@@ -1,8 +1,7 @@
 'use client';
-import type { ElementType, ReactNode } from 'react';
+import { useMemo, type ElementType, type ReactNode } from 'react';
 import type { ColorVariantProps } from '@ideasui/theme/token';
 
-import React from 'react';
 import { button as buttonVariants } from '@ideasui/theme/recipes';
 import { Ripple } from '@ideasui/ripple';
 import { Slot } from '@ideasui/slot';
@@ -96,7 +95,7 @@ export const Button = forwardRef<'button', ButtonProps>(
     },
     ref,
   ) => {
-    const Component = React.useMemo(() => {
+    const Component = useMemo(() => {
       if (!as) {
         return 'button';
       }

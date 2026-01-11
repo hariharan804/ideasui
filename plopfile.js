@@ -1,4 +1,6 @@
 module.exports = function (plop) {
+  const COMPONENT_NAME_MESSAGE = 'Component name (kebab-case):';
+
   // Full component generator (component + recipe)
   plop.setGenerator('component', {
     description: 'Create complete component (component + recipe)',
@@ -6,7 +8,7 @@ module.exports = function (plop) {
       {
         type: 'input',
         name: 'name',
-        message: 'Component name (kebab-case):',
+        message: COMPONENT_NAME_MESSAGE,
         validate: (input) => /^[a-z-]+$/.test(input) || 'Use kebab-case (e.g., date-picker)',
       },
     ],
@@ -56,7 +58,7 @@ module.exports = function (plop) {
       {
         type: 'input',
         name: 'name',
-        message: 'Component name (kebab-case):',
+        message: COMPONENT_NAME_MESSAGE,
         validate: (input) => /^[a-z-]+$/.test(input) || 'Use kebab-case (e.g., date-picker)',
       },
     ],
@@ -100,7 +102,7 @@ module.exports = function (plop) {
       {
         type: 'input',
         name: 'name',
-        message: 'Component name (kebab-case):',
+        message: COMPONENT_NAME_MESSAGE,
         validate: (input) => /^[a-z-]+$/.test(input) || 'Use kebab-case (e.g., input-field)',
       },
     ],

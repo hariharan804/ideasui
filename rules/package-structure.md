@@ -122,12 +122,12 @@ export { buttonVariants } from './button';
 ### Component File (src/button.tsx):
 
 ```typescript
-import * as React from 'react'
+import { forwardRef } from 'react'
 import { buttonVariants } from '@ideasui/variants'
 import { cn } from '@ideasui/utils'
 import type { ButtonProps } from './button-types'
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, ...props }, ref) => {
     return (
       <button

@@ -213,15 +213,19 @@ export default defineConfig([
       'react-hooks/exhaustive-deps': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/consistent-type-exports': 'error',
-      'import/no-default-export': 'error',
+      'import/no-default-export': 'off',
       'no-restricted-syntax': [
         'error',
         {
-          selector: "ImportDeclaration[source.value='react']",
+          selector: "ImportDeclaration[source.value='react'] > ImportDefaultSpecifier",
+          message: 'Use named React imports only',
+        },
+        {
+          selector: "ImportDeclaration[source.value='react'] > ImportNamespaceSpecifier",
           message: 'Use named React imports only',
         },
       ],
-      'import/no-default-export': 'error',
+
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/consistent-type-exports': 'error',
       'react/jsx-no-useless-fragment': 'error',

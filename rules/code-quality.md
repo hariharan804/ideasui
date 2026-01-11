@@ -85,16 +85,21 @@ const result = eval(userCode); // Never do this
 
 ### Import Order:
 
-1. React imports
-2. Third-party libraries
-3. Internal packages (@ideasui/\*)
-4. Relative imports (./components)
+1. Type imports
+2. Built-in modules
+3. Object imports
+4. External packages (including `~/**`)
+5. Internal packages (`@ideasui/*`)
+6. Parent imports
+7. Sibling imports
+8. Index imports
 
 ### Examples:
 
 ```tsx
 // ✅ Correct order
-import React from 'react';
+import { useState } from 'react';
+
 import { clsx } from 'clsx';
 import { tv } from 'tailwind-variants';
 

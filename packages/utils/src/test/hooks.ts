@@ -1,27 +1,36 @@
-import type React from 'react';
 import type { RenderHookOptions } from '@testing-library/react';
 
 import { renderHook } from '@testing-library/react';
+
+import { Wrapper } from './wrapper';
 
 // Custom hook testing utilities
 export function renderHookWithProviders<Result, Props>(
   hook: (props: Props) => Result,
   options?: RenderHookOptions<Props>,
-) {
+): ReturnType<typeof renderHook<Result, Props>> {
   // Add your providers here
-  const Wrapper = ({ children }: { children: React.ReactNode }) => children;
-
   return renderHook(hook, { wrapper: Wrapper, ...options });
 }
 
 // Wait for hook to update
-export async function waitForHookUpdate(callback: () => void, timeout = 1000) {
+const DEFAULT_TIMEOUT = 1000;
+
+export async function waitForHookUpdate(
+  callback: () => void,
+  timeout = DEFAULT_TIMEOUT,
+): Promise<void> {
   return new Promise<void>((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error('Timeout')), timeout);
 
-    callback();
-    clearTimeout(timer);
-    resolve();
+    try {
+      callback();
+      clearTimeout(timer);
+      resolve();
+    } catch (error) {
+      clearTimeout(timer);
+      reject(error);
+    }
   });
 }
 

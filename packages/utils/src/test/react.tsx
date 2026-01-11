@@ -2,20 +2,19 @@ import type { RenderOptions, RenderResult } from '@testing-library/react';
 
 import { render } from '@testing-library/react';
 
+import { Wrapper } from './wrapper';
+
 // Custom render function with providers
 interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
-  initialState?: any;
+  initialState?: unknown;
 }
+
 export function renderWithProviders(
   ui: React.ReactElement,
   options?: Omit<RenderOptions, 'wrapper'> & CustomRenderOptions,
 ): RenderResult {
-  const { initialState, ...renderOptions } = options || {};
-
-  // Add your providers here (Redux, Router, Theme, etc.)
-  function Wrapper({ children }: { children: React.ReactNode }) {
-    return <>{children}</>;
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { initialState: _initialState, ...renderOptions } = options || {};
 
   return render(ui, {
     wrapper: Wrapper,
@@ -23,6 +22,4 @@ export function renderWithProviders(
   });
 }
 
-// Re-export everything from testing library
-export * from '@testing-library/react';
 export { default as userEvent } from '@testing-library/user-event';

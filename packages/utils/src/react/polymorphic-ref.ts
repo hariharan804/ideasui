@@ -1,10 +1,40 @@
-import * as React from 'react';
+import type {
+  ComponentPropsWithoutRef,
+  ComponentPropsWithRef,
+  ElementType,
+  ForwardRefExoticComponent,
+  ReactElement,
+  RefAttributes,
+} from 'react';
+
+import { forwardRef as reactForwardRef } from 'react';
+
+// ... (existing code)
+
+/**
+ * Extract props type from polymorphic component
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ExtractProps<T> = T extends PolymorphicComponent<any, infer P> ? P : never;
+
+/**
+ * Extract default element type from polymorphic component
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ExtractElement<T> = T extends PolymorphicComponent<infer E, any> ? E : never;
+
+/**
+ * Extract ref type from polymorphic component
+ */
+export type ExtractRef<T> =
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  T extends PolymorphicComponent<infer E, any> ? PolymorphicRef<E> : never;
 
 // ============================================================================
 // Core Types for React 19 Polymorphic Components
 // ============================================================================
 
-export type ElementType = React.ElementType;
+export type { ElementType };
 
 /**
  * Polymorphic props that merge custom props with element props
@@ -12,12 +42,12 @@ export type ElementType = React.ElementType;
  */
 export type PolymorphicProps<T extends ElementType, P extends object = {}> = P & {
   as?: T;
-} & Omit<React.ComponentPropsWithoutRef<T>, keyof P | 'as' | 'formAction'>;
+} & Omit<ComponentPropsWithoutRef<T>, keyof P | 'as' | 'formAction'>;
 
 /**
  * Polymorphic ref type extraction
  */
-export type PolymorphicRef<T extends ElementType> = React.ComponentPropsWithRef<T>['ref'];
+export type PolymorphicRef<T extends ElementType> = ComponentPropsWithRef<T>['ref'];
 
 /**
  * Main polymorphic component type - properly extends ForwardRefExoticComponent
@@ -26,14 +56,12 @@ export type PolymorphicRef<T extends ElementType> = React.ComponentPropsWithRef<
 export type PolymorphicComponent<
   DefaultElement extends ElementType = 'div',
   Props extends object = {},
-> = React.ForwardRefExoticComponent<
-  PolymorphicProps<DefaultElement, Props> & React.RefAttributes<any>
-> & {
+> = ForwardRefExoticComponent<PolymorphicProps<DefaultElement, Props> & RefAttributes<unknown>> & {
   <AsElement extends ElementType = DefaultElement>(
     props: PolymorphicProps<AsElement, Props> & {
       ref?: PolymorphicRef<AsElement>;
     },
-  ): React.ReactElement | null;
+  ): ReactElement | null;
   displayName?: string;
 };
 
@@ -44,8 +72,8 @@ export type PolymorphicComponent<
 /**
  * Creates a polymorphic forwardRef component with proper TypeScript support
  *
- * @param render - Component render function
- * @returns Polymorphic component with 'as' prop support
+ * @param {Function} render - Component render function
+ * @returns {PolymorphicComponent} Polymorphic component with 'as' prop support
  *
  * @example
  * ```tsx
@@ -70,17 +98,19 @@ export function forwardRef<DefaultElement extends ElementType, Props extends obj
   render: (
     props: PolymorphicProps<DefaultElement, Props>,
     ref: PolymorphicRef<DefaultElement>,
-  ) => React.ReactElement | null,
+  ) => ReactElement | null,
 ): PolymorphicComponent<DefaultElement, Props> {
-  return React.forwardRef<any, any>((props: any, ref: any) =>
-    render(props, ref),
-  ) as PolymorphicComponent<DefaultElement, Props>;
+  return reactForwardRef(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (props: any, ref: any) => render(props, ref),
+  ) as unknown as PolymorphicComponent<DefaultElement, Props>;
 }
 
 /**
  * Alternative factory with displayName support
- * @param render
- * @param displayName
+ * @param {Function} render - Render function
+ * @param {string} displayName - Component display name
+ * @returns {PolymorphicComponent} Polymorphic component
  */
 export function createPolymorphicComponent<
   DefaultElement extends ElementType,
@@ -89,7 +119,7 @@ export function createPolymorphicComponent<
   render: (
     props: PolymorphicProps<DefaultElement, Props>,
     ref: PolymorphicRef<DefaultElement>,
-  ) => React.ReactElement | null,
+  ) => ReactElement | null,
   displayName?: string,
 ): PolymorphicComponent<DefaultElement, Props> {
   const Component = forwardRef<DefaultElement, Props>(render);
@@ -100,23 +130,3 @@ export function createPolymorphicComponent<
 
   return Component;
 }
-
-// ============================================================================
-// Utility Types
-// ============================================================================
-
-/**
- * Extract props type from polymorphic component
- */
-export type ExtractProps<T> = T extends PolymorphicComponent<any, infer P> ? P : never;
-
-/**
- * Extract default element type from polymorphic component
- */
-export type ExtractElement<T> = T extends PolymorphicComponent<infer E, any> ? E : never;
-
-/**
- * Extract ref type from polymorphic component
- */
-export type ExtractRef<T> =
-  T extends PolymorphicComponent<infer E, any> ? PolymorphicRef<E> : never;

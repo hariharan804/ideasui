@@ -10,7 +10,7 @@ All packages use strict TypeScript:
 {
   "compilerOptions": {
     "strict": true,
-    "noUncheckedIndexedAccess": true
+    "noImplicitAny": false
   }
 }
 ```
@@ -105,9 +105,11 @@ Key rules enforced:
   "tabWidth": 2,
   "useTabs": false,
   "semi": true,
-  "singleQuote": false,
-  "bracketSpacing": false,
-  "jsxBracketSameLine": false
+  "singleQuote": true,
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "trailingComma": "all",
+  "plugins": ["prettier-plugin-tailwindcss"]
 }
 ```
 
