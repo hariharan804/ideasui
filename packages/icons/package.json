@@ -30,7 +30,7 @@
     "build": "pnpm generate && tsup src --dts",
     "dev": "pnpm build:dev --watch",
     "clean": "rimraf dist .turbo",
-    "typecheck": "tsc --noEmit",
+    "type-check": "tsc --noEmit",
     "build:dev": "tsup src",
     "test": "jest",
     "generate": "node scripts/generate-icons.js",

@@ -34,7 +34,7 @@
     "test:coverage": "jest --coverage",
     "lint": "eslint --max-warnings=0 --cache",
     "lint:fix": "eslint --max-warnings=0 --fix --cache",
-    "type-check": "turbo run type-check",
+    "typecheck": "turbo run typecheck",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "preinstall": "npx only-allow pnpm",
