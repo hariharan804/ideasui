@@ -214,7 +214,8 @@ function resolveConfig(themes: ConfigThemes, defaultTheme: string, prefix: strin
 
 /** Builds the final theme configuration by merging defaults with user config */
 function buildThemes(config: ThemeConfig): ConfigThemes {
-  const {themes: themeData = {}, layout: userLayout = {}} = config;
+  const themeData = config?.themes || {};
+  const userLayout = config?.layout || {};
 
   // Extract user overrides
   const userLightColors = themeData.light?.colors || {};

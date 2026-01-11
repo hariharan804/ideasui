@@ -1,6 +1,7 @@
-import {ideasUIPlugin} from "../index";
-import {colorTokens, darkColorTokens} from "../tokens/colors";
-import type {ThemeConfig} from "../system/types";
+import {ideasUIPlugin} from "../src/index";
+import {lightColorTokens, darkColorTokens} from "../src/tokens/colors";
+import {lightLayout} from "../src/tokens/layout";
+import type {ThemeConfig} from "../src/system/types";
 
 describe("ideasUIPlugin", () => {
   let mockPluginAPI: any;
@@ -20,26 +21,6 @@ describe("ideasUIPlugin", () => {
     expect(plugin.config).toBeDefined();
   });
 
-  // it('should handle custom themes', () => {
-  //   const config: ThemeConfig = {
-  //     themes: {
-  //       custom: {
-  //         colors: {
-  //           primary: {
-  //             100: '#f0f9ff',
-  //             500: '#3b82f6',
-  //             950: '#1e3a8a'
-  //           }
-  //         }
-  //       }
-  //     },
-  //     defaultTheme: 'light'
-  //   };
-
-  //   const plugin = ideasUIPlugin(config);
-  //   expect(plugin).toBeDefined();
-  // });
-
   it("should generate correct CSS variables", () => {
     const plugin = ideasUIPlugin({prefix: "test"});
     plugin.handler(mockPluginAPI);
@@ -54,39 +35,36 @@ describe("ideasUIPlugin", () => {
     plugin.handler(mockPluginAPI);
 
     const baseCall = mockPluginAPI.addBase.mock.calls.find(
-      (call: any) => call[0]["*, *::before, *::after"],
+      (call: any) => call[0]["*,*::before,*::after"],
     );
     expect(baseCall).toBeDefined();
   });
 
-  it("should throw error for invalid configuration", () => {
+  it("should handle invalid configuration gracefully", () => {
     expect(() => {
       ideasUIPlugin({themes: null as any});
-    }).toThrow("Invalid themes configuration");
+    }).not.toThrow();
   });
 });
 
 describe("Color System", () => {
-  it("should have valid color tokens", () => {
-    expect(colorTokens).toBeDefined();
-    expect(colorTokens.primary).toBeDefined();
-    expect(colorTokens.primary["500"]).toMatch(/^oklch\(/);
+  it("should have valid light color tokens", () => {
+    expect(lightColorTokens).toBeDefined();
+    expect(lightColorTokens.primary).toBeDefined();
+    expect(lightColorTokens.primary["500"]).toMatch(/^oklch\(/);
   });
 
-  it("should have dark color tokens", () => {
+  it("should have valid dark color tokens", () => {
     expect(darkColorTokens).toBeDefined();
     expect(darkColorTokens.primary).toBeDefined();
     expect(darkColorTokens.primary["500"]).toMatch(/^oklch\(/);
   });
+});
 
-  // it('should have consistent color scales', () => {
-  //   const shades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
-
-  //   Object.keys(colorTokens).forEach(colorName => {
-  //     const colorScale = colorTokens[colorName as keyof typeof colorTokens];
-  //     shades.forEach(shade => {
-  //       expect(colorScale[shade as keyof typeof colorScale]).toBeDefined();
-  //     });
-  //   });
-  // });
+describe("Layout System", () => {
+  it("should have valid layout tokens", () => {
+    expect(lightLayout).toBeDefined();
+    expect(lightLayout.radiusMedium).toBeDefined();
+    expect(lightLayout.radiusMedium).toContain("rem");
+  });
 });

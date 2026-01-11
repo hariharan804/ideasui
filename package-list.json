@@ -8,7 +8,11 @@
       "path": "packages/components/button",
       "keywords": [],
       "hasReadme": true,
-      "componentFiles": ["button.tsx", "use-button.ts"],
+      "componentFiles": [
+        "button.tsx",
+        "spinner.tsx",
+        "use-button.ts"
+      ],
       "installCommands": {
         "npm": "npm install @ideasui/button",
         "pnpm": "pnpm add @ideasui/button",
@@ -40,10 +44,10 @@
                 },
                 {
                   "name": "color",
-                  "type": "\"default\" | \"primary\" | \"secondary\" | \"success\" | \"warning\" | \"danger\" | \"info\"",
+                  "type": "ColorVariantProps",
                   "description": "Color variant based on semantic intent",
                   "optional": true,
-                  "default": "default",
+                  "default": "primary",
                   "isDeprecated": false
                 },
                 {
@@ -112,13 +116,7 @@
           ],
           "types": [],
           "props": [],
-          "events": [
-            {
-              "name": "onComplete",
-              "type": "() => void",
-              "description": "Event handler for complete events"
-            }
-          ],
+          "events": [],
           "importInstructions": [
             {
               "method": "global",
@@ -128,6 +126,24 @@
             {
               "method": "individual",
               "code": "import { Button } from \"@ideasui/button\";",
+              "description": "Import from individual package"
+            }
+          ]
+        },
+        "spinner.tsx": {
+          "interfaces": [],
+          "types": [],
+          "props": [],
+          "events": [],
+          "importInstructions": [
+            {
+              "method": "global",
+              "code": "import { Spinner } from \"@ideasui/react\";",
+              "description": "Import from the main package (recommended)"
+            },
+            {
+              "method": "individual",
+              "code": "import { Spinner } from \"@ideasui/button\";",
               "description": "Import from individual package"
             }
           ]
@@ -201,10 +217,8 @@
       "hasReadme": true,
       "componentFiles": [
         "ripple.tsx",
-        "touchable-ripple.tsx",
-        "Touchable.tsx",
-        "use-ripple.ts",
-        "use-touchable-ripple.ts"
+        "touchable.tsx",
+        "use-ripple.ts"
       ],
       "installCommands": {
         "npm": "npm install @ideasui/ripple",
@@ -217,7 +231,7 @@
         "ripple.tsx": {
           "interfaces": [
             {
-              "name": "RippleType",
+              "name": "RippleItem",
               "props": [
                 {
                   "name": "key",
@@ -254,7 +268,7 @@
               "props": [
                 {
                   "name": "ripples",
-                  "type": "RippleType[]",
+                  "type": "RippleItem[]",
                   "description": "",
                   "optional": false,
                   "isDeprecated": false
@@ -282,7 +296,7 @@
                 },
                 {
                   "name": "onClear",
-                  "type": "(key: React.Key) => void",
+                  "type": "(id: React.Key) => void",
                   "description": "",
                   "optional": false,
                   "isDeprecated": false
@@ -295,7 +309,7 @@
           "events": [
             {
               "name": "onClear",
-              "type": "(key: React.Key) => void",
+              "type": "(id: React.Key) => void",
               "description": "Event handler for clear events"
             }
           ],
@@ -312,72 +326,7 @@
             }
           ]
         },
-        "touchable-ripple.tsx": {
-          "interfaces": [
-            {
-              "name": "TouchableRippleProps",
-              "props": [
-                {
-                  "name": "ripples",
-                  "type": "TouchableRippleItem[]",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "color",
-                  "type": "string",
-                  "description": "",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "style",
-                  "type": "React.CSSProperties",
-                  "description": "",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "motionProps",
-                  "type": "Omit<HTMLMotionProps<\"span\">, \"ref\">",
-                  "description": "",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "onClear",
-                  "type": "(key: React.Key) => void",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                }
-              ]
-            }
-          ],
-          "types": [],
-          "props": [],
-          "events": [
-            {
-              "name": "onClear",
-              "type": "(key: React.Key) => void",
-              "description": "Event handler for clear events"
-            }
-          ],
-          "importInstructions": [
-            {
-              "method": "global",
-              "code": "import { TouchableRipple } from \"@ideasui/react\";",
-              "description": "Import from the main package (recommended)"
-            },
-            {
-              "method": "individual",
-              "code": "import { TouchableRipple } from \"@ideasui/ripple\";",
-              "description": "Import from individual package"
-            }
-          ]
-        },
-        "Touchable.tsx": {
+        "touchable.tsx": {
           "interfaces": [
             {
               "name": "TouchableProps",
@@ -445,95 +394,6 @@
               "description": "Import from individual package"
             }
           ]
-        },
-        "use-touchable-ripple.ts": {
-          "interfaces": [
-            {
-              "name": "TouchableRippleItem",
-              "props": [
-                {
-                  "name": "key",
-                  "type": "number",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "x",
-                  "type": "number",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "y",
-                  "type": "number",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "size",
-                  "type": "number",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                }
-              ]
-            },
-            {
-              "name": "UseTouchableRippleReturn",
-              "props": [
-                {
-                  "name": "ripples",
-                  "type": "TouchableRippleItem[]",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "onClick",
-                  "type": "( event: | React.PointerEvent<HTMLElement> | React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>, ) => void",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "onClear",
-                  "type": "(key: React.Key) => void",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                }
-              ]
-            }
-          ],
-          "types": [],
-          "props": [],
-          "events": [
-            {
-              "name": "onClick",
-              "type": "(event:\n      | React.PointerEvent<HTMLElement>\n      | React.MouseEvent<HTMLElement>\n      | React.KeyboardEvent<HTMLElement>,) => void",
-              "description": "Event handler for click events"
-            },
-            {
-              "name": "onClear",
-              "type": "(key: React.Key) => void",
-              "description": "Event handler for clear events"
-            }
-          ],
-          "importInstructions": [
-            {
-              "method": "global",
-              "code": "import { UseTouchableRipple } from \"@ideasui/react\";",
-              "description": "Import from the main package (recommended)"
-            },
-            {
-              "method": "individual",
-              "code": "import { UseTouchableRipple } from \"@ideasui/ripple\";",
-              "description": "Import from individual package"
-            }
-          ]
         }
       }
     },
@@ -543,9 +403,18 @@
       "version": "0.1.0",
       "description": "Universal polymorphic container component with 'as' prop support",
       "path": "packages/components/slot",
-      "keywords": ["react", "component", "polymorphic", "slot", "as-prop", "typescript"],
+      "keywords": [
+        "react",
+        "component",
+        "polymorphic",
+        "slot",
+        "as-prop",
+        "typescript"
+      ],
       "hasReadme": true,
-      "componentFiles": ["slot.tsx"],
+      "componentFiles": [
+        "slot.tsx"
+      ],
       "installCommands": {
         "npm": "npm install @ideasui/slot",
         "pnpm": "pnpm add @ideasui/slot",
@@ -611,7 +480,13 @@
       "version": "0.1.0",
       "description": "Tailwind CSS v4 theme system for IdeasUI",
       "path": "packages/core/theme",
-      "keywords": ["tailwindcss", "theme", "design-system", "css", "ui"],
+      "keywords": [
+        "tailwindcss",
+        "theme",
+        "design-system",
+        "css",
+        "ui"
+      ],
       "hasReadme": true,
       "componentFiles": [],
       "installCommands": {
@@ -622,366 +497,6 @@
       },
       "installNote": "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
       "documentation": {}
-    },
-    {
-      "name": "@ideasui/theme",
-      "displayName": "theme-old",
-      "version": "1.0.0",
-      "description": "SSR-friendly theme switcher with no dependencies",
-      "path": "packages/core/theme-old",
-      "keywords": ["theme", "dark-mode", "ssr", "react"],
-      "hasReadme": true,
-      "componentFiles": [
-        "theme-constants.ts",
-        "theme-controller.tsx",
-        "theme-script.tsx",
-        "types.ts",
-        "use-theme-controller.ts",
-        "use-theme.ts"
-      ],
-      "installCommands": {
-        "npm": "npm install @ideasui/theme",
-        "pnpm": "pnpm add @ideasui/theme",
-        "yarn": "yarn add @ideasui/theme",
-        "bun": "bun add @ideasui/theme"
-      },
-      "installNote": "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
-      "documentation": {
-        "theme-constants.ts": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { ThemeConstants } from \"@ideasui/theme-old\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "theme-controller.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { ThemeController } from \"@ideasui/theme-old\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "theme-script.tsx": {
-          "interfaces": [
-            {
-              "name": "ThemeScriptProps",
-              "props": [
-                {
-                  "name": "nonce",
-                  "type": "string",
-                  "description": "",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "scriptProps",
-                  "type": "Omit< React.ScriptHTMLAttributes<HTMLScriptElement>, \"id\" | \"nonce\" | \"dangerouslySetInnerHTML\" | \"suppressHydrationWarning\" >",
-                  "description": "",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "id",
-                  "type": "string",
-                  "description": "",
-                  "optional": true,
-                  "isDeprecated": false
-                }
-              ]
-            }
-          ],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { ThemeScript } from \"@ideasui/theme-old\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "types.ts": {
-          "interfaces": [
-            {
-              "name": "ThemeConfig",
-              "props": [
-                {
-                  "name": "themes",
-                  "type": "string[]",
-                  "description": "Available theme names",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "defaultTheme",
-                  "type": "string",
-                  "description": "Default theme when none is stored",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "storageKey",
-                  "type": "string",
-                  "description": "localStorage key for persistence",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "mode",
-                  "type": "ThemeMode",
-                  "description": "How to apply theme to DOM\n    - 'class': Adds theme as CSS class (Tailwind CSS standard)\n    - 'attribute': Sets theme as data attribute value",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "systemThemes",
-                  "type": "{light: string",
-                  "description": "Mapping of system preferences to theme names",
-                  "optional": false,
-                  "isDeprecated": false
-                }
-              ]
-            },
-            {
-              "name": "StorageAdapter",
-              "props": []
-            }
-          ],
-          "types": [
-            {
-              "name": "ThemeMode",
-              "definition": "| \"class\" // Uses CSS classes: html.dark { ... } (Tailwind CSS standard) | \"attribute\""
-            }
-          ],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { Types } from \"@ideasui/theme-old\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "use-theme-controller.ts": {
-          "interfaces": [
-            {
-              "name": "UseThemeController",
-              "props": [
-                {
-                  "name": "attribute",
-                  "type": "\"class\" | \"data-theme\"",
-                  "description": "",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "systemThemes",
-                  "type": "{light: string",
-                  "description": "",
-                  "optional": true,
-                  "isDeprecated": false
-                }
-              ]
-            }
-          ],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { UseThemeController } from \"@ideasui/theme-old\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "use-theme.ts": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { UseTheme } from \"@ideasui/theme-old\";",
-              "description": "Import from package"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "@ideasui/variants",
-      "displayName": "variants",
-      "version": "0.1.0",
-      "description": "Tailwind CSS variants system for IdeasUI components",
-      "path": "packages/core/variants",
-      "keywords": ["tailwind", "variants", "css", "design-system", "react", "typescript"],
-      "hasReadme": true,
-      "componentFiles": [
-        "badge.ts",
-        "box.ts",
-        "button.ts",
-        "card.ts",
-        "input.ts",
-        "ripple.ts",
-        "system.ts"
-      ],
-      "installCommands": {
-        "npm": "npm install @ideasui/variants",
-        "pnpm": "pnpm add @ideasui/variants",
-        "yarn": "yarn add @ideasui/variants",
-        "bun": "bun add @ideasui/variants"
-      },
-      "installNote": "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
-      "documentation": {
-        "badge.ts": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { Badge } from \"@ideasui/variants\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "box.ts": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { Box } from \"@ideasui/variants\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "button.ts": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { Button } from \"@ideasui/variants\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "card.ts": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { Card } from \"@ideasui/variants\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "input.ts": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { Input } from \"@ideasui/variants\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "ripple.ts": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { Ripple } from \"@ideasui/variants\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "system.ts": {
-          "interfaces": [],
-          "types": [
-            {
-              "name": "Spacing",
-              "definition": "keyof typeof spacing"
-            },
-            {
-              "name": "Size",
-              "definition": "keyof typeof sizes"
-            },
-            {
-              "name": "ButtonSize",
-              "definition": "keyof typeof buttonSizes"
-            },
-            {
-              "name": "SpinnerSize",
-              "definition": "keyof typeof spinnerSizes"
-            },
-            {
-              "name": "ColorVariant",
-              "definition": "keyof typeof colors"
-            },
-            {
-              "name": "ColorType",
-              "definition": "keyof typeof colors.primary"
-            },
-            {
-              "name": "Radius",
-              "definition": "keyof typeof radius"
-            },
-            {
-              "name": "Shadow",
-              "definition": "keyof typeof shadows"
-            },
-            {
-              "name": "Transition",
-              "definition": "keyof typeof transitions"
-            },
-            {
-              "name": "Focus",
-              "definition": "keyof typeof focus"
-            }
-          ],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { System } from \"@ideasui/variants\";",
-              "description": "Import from package"
-            }
-          ]
-        }
-      }
     }
   ],
   "hooks": [],
@@ -1018,12 +533,15 @@
         "Check.tsx",
         "ChevronDown.tsx",
         "ChevronUp.tsx",
+        "DynamicIcon.tsx",
         "Eye.tsx",
         "EyeOff.tsx",
+        "IconSet.tsx",
         "Loader.tsx",
         "Search.tsx",
-        "types.ts",
-        "X.tsx"
+        "X.tsx",
+        "createIcon.tsx",
+        "types.ts"
       ],
       "installCommands": {
         "npm": "npm install @ideasui/icons",
@@ -1072,6 +590,19 @@
             }
           ]
         },
+        "DynamicIcon.tsx": {
+          "interfaces": [],
+          "types": [],
+          "props": [],
+          "events": [],
+          "importInstructions": [
+            {
+              "method": "individual",
+              "code": "import { DynamicIcon } from \"@ideasui/src\";",
+              "description": "Import from package"
+            }
+          ]
+        },
         "Eye.tsx": {
           "interfaces": [],
           "types": [],
@@ -1094,6 +625,19 @@
             {
               "method": "individual",
               "code": "import { EyeOff } from \"@ideasui/src\";",
+              "description": "Import from package"
+            }
+          ]
+        },
+        "IconSet.tsx": {
+          "interfaces": [],
+          "types": [],
+          "props": [],
+          "events": [],
+          "importInstructions": [
+            {
+              "method": "individual",
+              "code": "import { IconSet } from \"@ideasui/src\";",
               "description": "Import from package"
             }
           ]
@@ -1124,6 +668,32 @@
             }
           ]
         },
+        "X.tsx": {
+          "interfaces": [],
+          "types": [],
+          "props": [],
+          "events": [],
+          "importInstructions": [
+            {
+              "method": "individual",
+              "code": "import { X } from \"@ideasui/src\";",
+              "description": "Import from package"
+            }
+          ]
+        },
+        "createIcon.tsx": {
+          "interfaces": [],
+          "types": [],
+          "props": [],
+          "events": [],
+          "importInstructions": [
+            {
+              "method": "individual",
+              "code": "import { CreateIcon } from \"@ideasui/src\";",
+              "description": "Import from package"
+            }
+          ]
+        },
         "types.ts": {
           "interfaces": [
             {
@@ -1132,14 +702,73 @@
                 {
                   "name": "size",
                   "type": "number | string",
-                  "description": "",
+                  "description": "Icon size in pixels",
                   "optional": true,
                   "isDeprecated": false
                 },
                 {
                   "name": "color",
                   "type": "string",
-                  "description": "",
+                  "description": "Icon color (CSS color value)",
+                  "optional": true,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "strokeWidth",
+                  "type": "number | string",
+                  "description": "Stroke width",
+                  "optional": true,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "className",
+                  "type": "string",
+                  "description": "Additional CSS classes",
+                  "optional": true,
+                  "isDeprecated": false
+                }
+              ]
+            },
+            {
+              "name": "DynamicIconProps",
+              "props": [
+                {
+                  "name": "name",
+                  "type": "string",
+                  "description": "Name of the icon to load dynamically",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "fallback",
+                  "type": "React.FC<IconProps>",
+                  "description": "Fallback component to show while loading or on error",
+                  "optional": true,
+                  "isDeprecated": false
+                }
+              ]
+            },
+            {
+              "name": "IconSetProps",
+              "props": [
+                {
+                  "name": "size",
+                  "type": "number | string",
+                  "description": "Default size for all icons in the set",
+                  "optional": true,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "color",
+                  "type": "string",
+                  "description": "Default color for all icons in the set",
+                  "optional": true,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "className",
+                  "type": "string",
+                  "description": "Default class name for all icons in the set",
                   "optional": true,
                   "isDeprecated": false
                 }
@@ -1156,19 +785,6 @@
               "description": "Import from package"
             }
           ]
-        },
-        "X.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { X } from \"@ideasui/src\";",
-              "description": "Import from package"
-            }
-          ]
         }
       }
     }
@@ -1177,10 +793,16 @@
     {
       "name": "@ideasui/cli",
       "displayName": "cli",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "CLI for IdeasUI component library",
       "path": "packages/cli",
-      "keywords": [],
+      "keywords": [
+        "ideasui",
+        "cli",
+        "components",
+        "react",
+        "typescript"
+      ],
       "hasReadme": true,
       "componentFiles": [],
       "installCommands": {

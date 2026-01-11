@@ -1,6 +1,6 @@
 # IdeasUI Package List
 
-Generated on: 2025-12-29T16:24:01.335Z
+Generated on: 2026-01-11T17:21:35.037Z
 
 ## Components
 
@@ -46,7 +46,7 @@ import { Button } from "@ideasui/button";
 |------|------|-------------|----------|
 | as | `ElementType` | The element or component to render as | ✓ |
 | variant | `"solid" | "outline" | "ghost"` | Visual variant of the button | ✓ |
-| color | `"default" | "primary" | "secondary" | "success" | "warning" | "danger" | "info"` | Color variant based on semantic intent | ✓ |
+| color | `ColorVariantProps` | Color variant based on semantic intent | ✓ |
 | size | `"xs" | "sm" | "md" | "lg" | "xl"` | Size of the button | ✓ |
 | radius | `"none" | "sm" | "md" | "lg" | "xl" | "full"` | Border radius variant | ✓ |
 | fullWidth | `boolean` | Whether the button should take full width | ✓ |
@@ -56,17 +56,11 @@ import { Button } from "@ideasui/button";
 | endContent | `ReactNode` | Content to show at the end of the button | ✓ |
 | disableRipple | `boolean` | Whether the button should display a ripple effect | ✓ |
 
-#### Events
-
-| Event | Type |
-|-------|------|
-| onComplete | `() => void` |
-
 #### Package Details
 
 - **Version:** 0.0.0
 - **Path:** `packages/components/button`
-- **Files:** button.tsx, use-button.ts
+- **Files:** button.tsx, spinner.tsx, use-button.ts
 
 ---
 
@@ -106,7 +100,7 @@ import { Ripple } from "@ideasui/ripple";
 
 #### API Reference
 
-##### RippleType
+##### RippleItem
 
 | Prop | Type | Description | Optional |
 |------|------|-------------|----------|
@@ -119,23 +113,23 @@ import { Ripple } from "@ideasui/ripple";
 
 | Prop | Type | Description | Optional |
 |------|------|-------------|----------|
-| ripples | `RippleType[]` |  | ✗ |
+| ripples | `RippleItem[]` |  | ✗ |
 | color | `string` |  | ✓ |
 | style | `React.CSSProperties` |  | ✓ |
 | motionProps | `Omit<HTMLMotionProps<"span">, "ref">` |  | ✓ |
-| onClear | `(key: React.Key) => void` |  | ✗ |
+| onClear | `(id: React.Key) => void` |  | ✗ |
 
 #### Events
 
 | Event | Type |
 |-------|------|
-| onClear | `(key: React.Key) => void` |
+| onClear | `(id: React.Key) => void` |
 
 #### Package Details
 
 - **Version:** 0.0.0
 - **Path:** `packages/components/ripple`
-- **Files:** ripple.tsx, touchable-ripple.tsx, Touchable.tsx, use-ripple.ts, use-touchable-ripple.ts
+- **Files:** ripple.tsx, touchable.tsx, use-ripple.ts
 
 ---
 
@@ -224,82 +218,6 @@ bun add @ideasui/theme
 
 ---
 
-### theme-old
-
-**SSR-friendly theme switcher with no dependencies**
-
-#### Installation
-
-```bash
-# npm
-npm install @ideasui/theme
-
-# pnpm
-pnpm add @ideasui/theme
-
-# yarn
-yarn add @ideasui/theme
-
-# bun
-bun add @ideasui/theme
-```
-
-> The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.
-
-#### Import
-
-**Import from package**
-```tsx
-import { ThemeConstants } from "@ideasui/theme-old";
-```
-
-#### Package Details
-
-- **Version:** 1.0.0
-- **Path:** `packages/core/theme-old`
-- **Keywords:** theme, dark-mode, ssr, react
-- **Files:** theme-constants.ts, theme-controller.tsx, theme-script.tsx, types.ts, use-theme-controller.ts, use-theme.ts
-
----
-
-### variants
-
-**Tailwind CSS variants system for IdeasUI components**
-
-#### Installation
-
-```bash
-# npm
-npm install @ideasui/variants
-
-# pnpm
-pnpm add @ideasui/variants
-
-# yarn
-yarn add @ideasui/variants
-
-# bun
-bun add @ideasui/variants
-```
-
-> The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.
-
-#### Import
-
-**Import from package**
-```tsx
-import { Badge } from "@ideasui/variants";
-```
-
-#### Package Details
-
-- **Version:** 0.1.0
-- **Path:** `packages/core/variants`
-- **Keywords:** tailwind, variants, css, design-system, react, typescript
-- **Files:** badge.ts, box.ts, button.ts, card.ts, input.ts, ripple.ts, system.ts
-
----
-
 ## Utils
 
 ### utils
@@ -366,7 +284,7 @@ import { Check } from "@ideasui/src";
 
 - **Version:** 0.0.0
 - **Path:** `packages/icons`
-- **Files:** Check.tsx, ChevronDown.tsx, ChevronUp.tsx, Eye.tsx, EyeOff.tsx, Loader.tsx, Search.tsx, types.ts, X.tsx
+- **Files:** Check.tsx, ChevronDown.tsx, ChevronUp.tsx, DynamicIcon.tsx, Eye.tsx, EyeOff.tsx, IconSet.tsx, Loader.tsx, Search.tsx, X.tsx, createIcon.tsx, types.ts
 
 ---
 
@@ -396,8 +314,9 @@ bun add @ideasui/cli
 
 #### Package Details
 
-- **Version:** 0.0.0
+- **Version:** 0.1.0
 - **Path:** `packages/cli`
+- **Keywords:** ideasui, cli, components, react, typescript
 
 ---
 

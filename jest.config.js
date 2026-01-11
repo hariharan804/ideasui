@@ -10,11 +10,17 @@ module.exports = {
   moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
   modulePathIgnorePatterns: ["<rootDir>/examples", "<rootDir>/templates"],
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest",
-    "^.+\\.(js|jsx)$": "babel-jest",
+    "^.+\\.(ts|tsx|js|jsx)$": [
+      "ts-jest",
+      {
+        tsconfig: {
+          allowJs: true,
+        },
+      },
+    ],
   },
   preset: "ts-jest",
-  transformIgnorePatterns: ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"],
+  transformIgnorePatterns: [],
   setupFilesAfterEnv: [
     "@testing-library/jest-dom",
     "./scripts/setup-test.ts",
