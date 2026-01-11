@@ -16,44 +16,12 @@ const meta: Meta<typeof Button> = {
     },
   },
   tags: ["autodocs"],
-  argTypes: {
-    variant: {
-      control: {type: "select"},
-      options: ["solid", "outline", "ghost"],
-      description: "Visual style variant",
-    },
-    color: {
-      control: {type: "select"},
-      options: ["default", "primary", "secondary", "success", "warning", "danger", "info"],
-      description: "Color variant based on semantic intent",
-    },
-    size: {
-      control: {type: "select"},
-      options: ["xs", "sm", "md", "lg", "xl"],
-      description: "Size of the button",
-    },
-    radius: {
-      control: {type: "select"},
-      options: ["none", "sm", "md", "lg", "xl", "full"],
-      description: "Border radius variant",
-    },
-    loading: {
-      control: {type: "boolean"},
-      description: "Loading state",
-    },
-    disabled: {
-      control: {type: "boolean"},
-      description: "Disabled state",
-    },
-    fullWidth: {
-      control: {type: "boolean"},
-      description: "Full width button",
-    },
-  },
 };
 
 export default meta;
+
 type Story = StoryObj<typeof Button>;
+
 const defaultProps: Partial<ButtonProps> = {
   variant: "solid",
   color: "primary",
@@ -86,8 +54,6 @@ const StateControlled = (args: ButtonProps) => {
   const [pressedCount, setPressedCount] = useState(0);
 
   const handlePress = (e: any) => {
-    // eslint-disable-next-line no-console
-    console.log("Pressed", e);
     setPressedCount((prev) => prev + 1);
   };
   const label = pressedCount ? "Pressed " + pressedCount : "Press";
