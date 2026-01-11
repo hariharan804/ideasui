@@ -2,7 +2,6 @@ import type {Meta, StoryObj} from "@storybook/react";
 
 import {Heart, Download, File} from "lucide-react";
 import {Button, ButtonProps} from "../src";
-import {button as buttonVariants} from "@ideasui/theme/recipes";
 import {useState} from "react";
 
 const meta: Meta<typeof Button> = {

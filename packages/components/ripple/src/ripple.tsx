@@ -2,6 +2,7 @@ import * as React from "react";
 import type {HTMLMotionProps} from "framer-motion";
 import {LazyMotion, AnimatePresence, m} from "framer-motion";
 import {clamp} from "@ideasui/utils/core";
+import {forwardRef} from "@ideasui/utils";
 
 const motionFeatures = () => import("framer-motion").then((mod) => mod.domAnimation);
 
@@ -20,7 +21,7 @@ export interface RippleProps {
   onClear: (id: React.Key) => void;
 }
 
-export const Ripple = (props: RippleProps) => {
+export const Ripple = forwardRef<"span", RippleProps>((props: RippleProps, ref) => {
   const {ripples = [], motionProps, color = "currentColor", style, onClear} = props;
 
   return (
@@ -31,6 +32,7 @@ export const Ripple = (props: RippleProps) => {
 
           return (
             <m.span
+              ref={ref}
               key={ripple.key}
               animate={{
                 transform: `translate(${ripple.x}px, ${ripple.y}px) scale(2)`,
@@ -66,5 +68,5 @@ export const Ripple = (props: RippleProps) => {
       </AnimatePresence>
     </LazyMotion>
   );
-};
+});
 Ripple.displayName = "IdeasUI.Ripple";

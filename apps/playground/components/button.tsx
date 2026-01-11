@@ -27,7 +27,6 @@ function ButtonPreview() {
       <div>
         <h2 className="mb-4 text-xl font-semibold">Colors</h2>
         <div className="flex flex-wrap gap-4">
-          <Button color="default">Default</Button>
           <Button color="primary">Primary</Button>
           <Button color="secondary">Secondary</Button>
           <Button color="success">Success</Button>

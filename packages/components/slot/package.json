@@ -7,7 +7,7 @@
   "license": "MIT",
   "main": "./src/index.ts",
   "files": [
-    "dist"
+    "src"
   ],
   "sideEffects": false,
   "clean-package": "../../clean-package.config.json",

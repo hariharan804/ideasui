@@ -44,6 +44,7 @@
   "dependencies": {
     "@ideasui/utils": "workspace:*",
     "@ideasui/theme": "workspace:*",
+    "@ideasui/slot": "workspace:*",
     "@ideasui/ripple": "workspace:*",
     "react-aria": "^3.45.0"
   },

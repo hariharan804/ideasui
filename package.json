@@ -37,6 +37,7 @@
     "type-check": "turbo run type-check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "preinstall": "npx only-allow pnpm",
     "prepare": "husky",
     "commit": "git add . && cz",
     "storybook": "turbo run dev --filter=@ideasui/storybook",
@@ -139,7 +140,10 @@
   "pnpm": {
     "overrides": {
       "@types/react": "^19.0.0",
-      "@types/react-dom": "^19.0.0"
+      "@types/react-dom": "^19.0.0",
+      "rimraf": "^6.0.0",
+      "glob": "^10.0.0",
+      "test-exclude": "^7.0.0"
     }
   },
   "engines": {

@@ -3,7 +3,7 @@ import {useButton as useAriaButton, useFocusRing, useHover} from "react-aria";
 import {useRipple} from "@ideasui/ripple";
 import {ButtonProps} from "./button";
 import {toDataAttr} from "@ideasui/utils/aria";
-import {mergeProps} from "@ideasui/utils/core";
+import {mergeProps} from "@ideasui/utils/react";
 
 export interface UseButtonProps extends Omit<ButtonProps, "children"> {
   /**
@@ -79,7 +79,6 @@ export function useButton(props: UseButtonProps) {
   };
 
   const {buttonProps: ariaButtonProps, isPressed} = useAriaButton(ariaProps, domRef);
-
   const {isHovered, hoverProps} = useHover({isDisabled});
 
   const getRippleProps = useCallback(
@@ -98,7 +97,7 @@ export function useButton(props: UseButtonProps) {
       ...mergeProps(
         ariaButtonProps,
         focusProps,
-        hoverProps,
+        hoverProps, 
         {
           ref: domRef,
           "aria-busy": isLoading,

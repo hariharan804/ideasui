@@ -1,6 +1,8 @@
 import * as React from "react";
-import {cn, forwardRef} from "@ideasui/utils";
-import {useRipple, Ripple} from "@ideasui/ripple";
+import {cn} from "@ideasui/utils/style";
+import {forwardRef} from "@ideasui/utils/react";
+import {Ripple} from "./ripple";
+import {useRipple} from "./use-ripple";
 
 export interface TouchableProps extends React.HTMLAttributes<HTMLElement> {
   /**
@@ -22,7 +24,7 @@ export interface TouchableProps extends React.HTMLAttributes<HTMLElement> {
 
 /**
  * Touchable component with ripple effects
- * 
+ *
  * @example
  * ```tsx
  * <Touchable as="div" rippleColor="blue">

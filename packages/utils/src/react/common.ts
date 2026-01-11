@@ -1,26 +1,35 @@
+import {cn} from "../style/tailwind";
 import * as React from "react";
 
 /**
  * Merge multiple refs into a single ref callback
  * @internal - Use mergeRefs from main utils instead
  */
-export function mergeRefs<T = any>(...refs: Array<React.MutableRefObject<T> | React.LegacyRef<T>>): React.RefCallback<T> {
+export function mergeRefs<T = any>(
+  ...refs: Array<React.RefObject<T> | React.LegacyRef<T>>
+): React.RefCallback<T> {
   return (node: T) => {
     refs.forEach((ref) => {
       if (typeof ref === "function") {
         ref(node);
       } else if (ref != null) {
-        (ref as React.MutableRefObject<T>).current = node;
+        (ref as any).current = node;
       }
     });
   };
 }
 
 /**
- * Enhanced mergeProps with conflict resolution
- * @internal - Use mergeProps from main utils instead
+ * Merges multiple props objects together.
+ * - Handles `className` and `class` merging via `cn`
+ * - Merges `style` objects
+ * - Merges `ref` callbacks
+ * - Chains event handlers (functions starting with `on`)
+ * - Overrides other props with the latest value
  */
-export function mergeProps(...objects: Array<Record<string, any> | undefined>): Record<string, any> {
+export function mergeProps(
+  ...objects: Array<Record<string, any> | undefined>
+): Record<string, any> {
   const result: Record<string, any> = {};
 
   for (const obj of objects) {
@@ -29,15 +38,16 @@ export function mergeProps(...objects: Array<Record<string, any> | undefined>): 
     for (const key in obj) {
       const value = obj[key];
 
-      // Handle className merging
-      if (key === "className") {
-        result[key] = [result[key], value].filter(Boolean).join(" ") || undefined;
+      if (key === "className" || key === "class") {
+        result.className = cn(result.className, value);
       }
-      // Handle style merging
       else if (key === "style") {
-        result[key] = {...result[key], ...value};
+        result.style = {...(result.style || {}), ...(value || {})};
       }
-      // Handle event handlers (combine them)
+      else if (key === "ref") {
+        const existing = result.ref;
+        result.ref = existing ? mergeRefs(existing, value) : value;
+      }
       else if (key.startsWith("on") && typeof value === "function") {
         const existing = result[key];
         if (typeof existing === "function") {
@@ -49,7 +59,6 @@ export function mergeProps(...objects: Array<Record<string, any> | undefined>): 
           result[key] = value;
         }
       }
-      // Default: later values override earlier ones
       else {
         result[key] = value;
       }
