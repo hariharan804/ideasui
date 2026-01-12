@@ -3,15 +3,15 @@ import { useEffect, useRef } from 'react';
 /**
  * Custom hook for setting up timeouts
  *
- * @param callback - Function to call after delay
- * @param delay - Delay in milliseconds (null to cancel)
+ * @param {() => void} callback - Function to call after delay
+ * @param {number | null} delay - Delay in milliseconds (null to cancel)
  *
  * @example
  * ```tsx
  * useTimeout(() => setVisible(false), 3000)
  * ```
  */
-export function useTimeout(callback: () => void, delay: number | null) {
+export function useTimeout(callback: () => void, delay: number | null): void {
   const savedCallback = useRef<() => void>(callback);
 
   useEffect(() => {

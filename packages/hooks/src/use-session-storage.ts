@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function useSessionStorage<T>(key: string, initialValue: T) {
+export function useSessionStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
   const [storedValue, setStoredValue] = useState<T>(() => {
     if (typeof window === 'undefined') {
       return initialValue;
@@ -14,7 +14,7 @@ export function useSessionStorage<T>(key: string, initialValue: T) {
     }
   });
 
-  const setValue = (value: T) => {
+  const setValue = (value: T): void => {
     try {
       setStoredValue(value);
       if (typeof window !== 'undefined') {

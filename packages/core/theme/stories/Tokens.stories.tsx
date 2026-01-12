@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+
 import {
   spacing,
   borderRadius,
@@ -82,7 +83,7 @@ export const Colors: Story = {
         <h2 className="mb-4 text-2xl font-bold">Color Tokens</h2>
         <p className="mb-8 text-gray-600">Semantic color palette with OKLCH values</p>
       </div>
-      <ColorPalette title="Light Mode Colors" colors={lightColorTokens} />
+      <ColorPalette colors={lightColorTokens} title="Light Mode Colors" />
     </div>
   ),
 };
@@ -94,7 +95,7 @@ export const DarkColors: Story = {
         <h2 className="mb-4 text-2xl font-bold">Dark Mode Colors</h2>
         <p className="mb-8 text-gray-300">Dark theme color palette with OKLCH values</p>
       </div>
-      <ColorPalette title="Dark Mode Colors" colors={darkColorTokens} />
+      <ColorPalette colors={darkColorTokens} title="Dark Mode Colors" />
     </div>
   ),
 };
@@ -247,7 +248,7 @@ export const AllTokens: Story = {
         <p className="mb-8 text-gray-600">Complete overview of the design system tokens</p>
       </div>
 
-      <ColorPalette title="Colors" colors={lightColorTokens} />
+      <ColorPalette colors={lightColorTokens} title="Colors" />
       <TokenGroup title="Spacing" tokens={systemTokens.spacing} />
       <TokenGroup title="Border Radius" tokens={systemTokens.borderRadius} />
       <TokenGroup title="Font Size" tokens={systemTokens.fontSize} />

@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 /**
  * Custom hook for debouncing a value to prevent excessive updates or API calls
  *
- * @param value - The value to debounce (can be any type)
- * @param delay - Delay in milliseconds before updating the debounced value
- * @returns The debounced value that updates after the specified delay
+ * @param {T} value - The value to debounce (can be any type)
+ * @param {number} delay - Delay in milliseconds before updating the debounced value
+ * @returns {T} The debounced value that updates after the specified delay
  *
  * @default delay 300
  *
@@ -23,7 +23,7 @@ import { useState, useEffect } from 'react';
  * }, [debouncedSearchTerm])
  * ```
  *
- * @usage Perfect for search inputs, form validation, or any scenario where you want to delay updates
+ * Perfect for search inputs, form validation, or any scenario where you want to delay updates
  *
  * @see {@link https://react.dev/reference/react/useState} for useState reference
  * @see {@link https://react.dev/reference/react/useEffect} for useEffect reference

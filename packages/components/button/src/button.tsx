@@ -1,7 +1,8 @@
 'use client';
-import { useMemo, type ElementType, type ReactNode } from 'react';
 import type { ColorVariantProps } from '@ideasui/theme/token';
+import type { ElementType, ReactNode } from 'react';
 
+import { useMemo } from 'react';
 import { button as buttonVariants } from '@ideasui/theme/recipes';
 import { Ripple } from '@ideasui/ripple';
 import { Slot } from '@ideasui/slot';

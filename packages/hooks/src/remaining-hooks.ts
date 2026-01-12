@@ -1,6 +1,8 @@
+import type { DependencyList } from 'react';
+
 import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 
-export function useFocusTrap<T extends HTMLElement>(enabled = true) {
+export function useFocusTrap<T extends HTMLElement>(enabled = true): React.RefObject<T | null> {
   const ref = useRef<T>(null);
 
   useEffect(() => {
@@ -15,7 +17,7 @@ export function useFocusTrap<T extends HTMLElement>(enabled = true) {
     const first = focusable[0] as HTMLElement;
     const last = focusable[focusable.length - 1] as HTMLElement;
 
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key !== 'Tab') {
         return;
       }
@@ -42,23 +44,53 @@ export function useFocusTrap<T extends HTMLElement>(enabled = true) {
   return ref;
 }
 
-export function useFetch<T>(url: string) {
+export function useFetch<T>(url: string): {
+  data: T | null;
+  loading: boolean;
+  error: Error | null;
+} {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    fetch(url)
-      .then((res) => res.json())
-      .then(setData)
-      .catch(setError)
-      .finally(() => setLoading(false));
+    let ignore = false;
+
+    const fetchData = async (): Promise<void> => {
+      try {
+        const response = await fetch(url);
+        const result = await response.json();
+
+        if (!ignore) {
+          setData(result);
+          setLoading(false);
+        }
+      } catch (error_) {
+        if (!ignore) {
+          setError(error_ as Error);
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      ignore = true;
+    };
   }, [url]);
 
   return { data, loading, error };
 }
 
-export function useAsync<T>(asyncFunction: () => Promise<T>, deps: any[] = []) {
+export function useAsync<T>(
+  asyncFunction: () => Promise<T>,
+  deps: DependencyList = [],
+): {
+  data: T | null;
+  loading: boolean;
+  error: Error | null;
+} {
   const [state, setState] = useState<{ data: T | null; loading: boolean; error: Error | null }>({
     data: null,
     loading: true,
@@ -66,10 +98,30 @@ export function useAsync<T>(asyncFunction: () => Promise<T>, deps: any[] = []) {
   });
 
   useEffect(() => {
-    setState({ data: null, loading: true, error: null });
-    asyncFunction()
-      .then((data) => setState({ data, loading: false, error: null }))
-      .catch((error) => setState({ data: null, loading: false, error }));
+    let ignore = false;
+
+    const execute = async (): Promise<void> => {
+      setState({ data: null, loading: true, error: null });
+
+      try {
+        const result = await asyncFunction();
+
+        if (!ignore) {
+          setState({ data: result, loading: false, error: null });
+        }
+      } catch (error_) {
+        if (!ignore) {
+          setState({ data: null, loading: false, error: error_ as Error });
+        }
+      }
+    };
+
+    execute();
+
+    return () => {
+      ignore = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
   return state;
@@ -77,7 +129,11 @@ export function useAsync<T>(asyncFunction: () => Promise<T>, deps: any[] = []) {
 
 export function useThrottle<T>(value: T, limit: number): T {
   const [throttledValue, setThrottledValue] = useState<T>(value);
-  const lastRan = useRef(Date.now());
+  const lastRan = useRef(0);
+
+  useEffect(() => {
+    lastRan.current = Date.now();
+  }, []);
 
   useEffect(() => {
     const handler = setTimeout(
@@ -96,7 +152,7 @@ export function useThrottle<T>(value: T, limit: number): T {
   return throttledValue;
 }
 
-export function useUpdateEffect(effect: () => void, deps: any[]) {
+export function useUpdateEffect(effect: () => void, deps: DependencyList): void {
   const isFirstRender = useRef(true);
 
   useEffect(() => {
@@ -107,6 +163,7 @@ export function useUpdateEffect(effect: () => void, deps: any[]) {
     }
 
     return effect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 }
 

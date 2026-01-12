@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 export interface UseFetchOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   headers?: Record<string, string>;
-  body?: any;
+  body?: unknown;
   enabled?: boolean;
 }
 
@@ -18,16 +18,19 @@ export interface UseFetchReturn<T> {
 /**
  * Custom hook for data fetching with comprehensive features
  *
- * @param url - The URL to fetch
- * @param options - Fetch options and configuration
- * @returns Object with data, loading state, error, and control functions
+ * @param {string} url - The URL to fetch
+ * @param {UseFetchOptions} [options] - Fetch options and configuration
+ * @returns {UseFetchReturn<T>} Object with data, loading state, error, and control functions
  *
  * @example
  * ```tsx
  * const {data, loading, error, refetch} = useFetch<User[]>('/api/users')
  * ```
  */
-export function useFetch<T = any>(url: string, options: UseFetchOptions = {}): UseFetchReturn<T> {
+export function useFetch<T = unknown>(
+  url: string,
+  options: UseFetchOptions = {},
+): UseFetchReturn<T> {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);

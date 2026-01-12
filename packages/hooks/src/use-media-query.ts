@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 /**
  * Custom hook for media query matching
  *
- * @param query - CSS media query string
- * @returns Boolean indicating if query matches
+ * @param {string} query - CSS media query string
+ * @returns {boolean} Boolean indicating if query matches
  *
  * @example
  * ```tsx
@@ -21,9 +21,10 @@ export function useMediaQuery(query: string): boolean {
 
     const media = window.matchMedia(query);
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMatches(media.matches);
 
-    const listener = (event: MediaQueryListEvent) => {
+    const listener = (event: MediaQueryListEvent): void => {
       setMatches(event.matches);
     };
 

@@ -1,10 +1,13 @@
 import type { DynamicIconProps, IconProps } from './types';
+import type { FC, ComponentType } from 'react';
 
-import React, { Suspense, lazy, useMemo } from 'react';
+import { Suspense, lazy, useMemo } from 'react';
+
+const DEFAULT_ICON_SIZE = 24;
 
 // Default fallback icon
-const DefaultFallback: React.FC<IconProps> = ({
-  size = 24,
+const DefaultFallback: FC<IconProps> = ({
+  size = DEFAULT_ICON_SIZE,
   color = 'currentColor',
   className,
   ...props
@@ -28,20 +31,21 @@ const DefaultFallback: React.FC<IconProps> = ({
 );
 
 // Icon cache for performance
-const iconCache = new Map<string, React.ComponentType<IconProps>>();
+const iconCache = new Map<string, ComponentType<IconProps>>();
 
 /**
  * Dynamic icon component that loads icons on demand
  *
- * @param root0
- * @param root0.name
- * @param root0.fallback
+ * @param {DynamicIconProps} root0 - Component props
+ * @param {string} root0.name - Name of the icon to load (kebab-case)
+ * @param {FC<IconProps>} [root0.fallback] - Fallback component to show while loading
+ * @returns {JSX.Element} The rendered icon
  * @example
  * ```tsx
  * <DynamicIcon name="arrow-right" size={24} color="blue" />
  * ```
  */
-export const DynamicIcon: React.FC<DynamicIconProps> = ({
+export const DynamicIcon: FC<DynamicIconProps> = ({
   name,
   fallback: Fallback = DefaultFallback,
   ...iconProps
@@ -49,6 +53,7 @@ export const DynamicIcon: React.FC<DynamicIconProps> = ({
   const IconComponent = useMemo(() => {
     // Check cache first
     if (iconCache.has(name)) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       return iconCache.get(name)!;
     }
 
@@ -56,8 +61,16 @@ export const DynamicIcon: React.FC<DynamicIconProps> = ({
     return lazy(async () => {
       try {
         // Dynamic import with proper error handling
-        const module = await import(`./${name}`);
-        const Component = module[name] || module.default;
+        const module = await import(`./icons/${name}`);
+
+        // Convert kebab-case to PascalCase for export name lookup
+        const exportName = name
+          .split('-')
+          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+          .join('');
+
+        // eslint-disable-next-line security/detect-object-injection
+        const Component = module[exportName] || module.default;
 
         if (!Component) {
           throw new Error(`Icon "${name}" not found in module`);

@@ -1,12 +1,24 @@
 import type { IconProps } from '../types';
 
-import React from 'react';
+import { forwardRef } from 'react';
+
+const ICON_SIZE = 24;
+const ICON_STROKE_WIDTH = 2;
 
 /**
  * Settings icon component
  */
-export const Settings = React.forwardRef<SVGSVGElement, IconProps>(
-  ({ size = 24, color = 'currentColor', strokeWidth = 2, className, ...props }, ref) => (
+export const Settings = forwardRef<SVGSVGElement, IconProps>(
+  (
+    {
+      size = ICON_SIZE,
+      color = 'currentColor',
+      strokeWidth = ICON_STROKE_WIDTH,
+      className,
+      ...props
+    },
+    ref,
+  ) => (
     <svg
       ref={ref}
       className={className}

@@ -3,9 +3,9 @@ import { useState, useCallback } from 'react';
 /**
  * Custom hook for managing localStorage state with automatic serialization and SSR support
  *
- * @param key - The localStorage key to store the value under
- * @param initialValue - Initial value to use if the key doesn't exist in localStorage
- * @returns Tuple containing [current value, setValue function, removeValue function]
+ * @param {string} key - The localStorage key to store the value under
+ * @param {T} initialValue - Initial value to use if the key doesn't exist in localStorage
+ * @returns {[T, (value: T | ((prev: T) => T)) => void, () => void]} Tuple containing [current value, setValue function, removeValue function]
  *
  * @example
  * ```tsx
@@ -22,7 +22,7 @@ import { useState, useCallback } from 'react';
  * removeTheme() // Resets to initialValue
  * ```
  *
- * @usage Ideal for persisting user preferences, form data, or any state that should survive page refreshes
+ * Ideal for persisting user preferences, form data, or any state that should survive page refreshes
  *
  * @see {@link https://react.dev/reference/react/useState} for useState reference
  * @see {@link https://react.dev/reference/react/useCallback} for useCallback reference

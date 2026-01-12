@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { useMemo } from 'react';
 
 export interface UseDateFormatterOptions {
@@ -5,18 +6,25 @@ export interface UseDateFormatterOptions {
   timeZone?: string;
 }
 
+export interface UseDateFormatterReturn {
+  formatDate: (date: Date) => string;
+  formatTime: (date: Date) => string;
+  formatShortDate: (date: Date) => string;
+  formatRelative: (date: Date) => string;
+}
+
 /**
  * Custom hook for date formatting with Intl.DateTimeFormat
  *
- * @param options - Formatting options
- * @returns Object with formatting functions
+ * @param {UseDateFormatterOptions} [options] - Formatting options
+ * @returns {UseDateFormatterReturn} Object with formatting functions
  *
  * @example
  * ```tsx
  * const {formatDate, formatTime, formatRelative} = useDateFormatter({locale: 'en-US'})
  * ```
  */
-export function useDateFormatter(options: UseDateFormatterOptions = {}) {
+export function useDateFormatter(options: UseDateFormatterOptions = {}): UseDateFormatterReturn {
   const { locale = 'en-US', timeZone } = options;
 
   const formatters = useMemo(() => {
@@ -52,11 +60,11 @@ export function useDateFormatter(options: UseDateFormatterOptions = {}) {
     };
   }, [locale, timeZone]);
 
-  const formatDate = (date: Date) => formatters.dateFormatter.format(date);
-  const formatTime = (date: Date) => formatters.timeFormatter.format(date);
-  const formatShortDate = (date: Date) => formatters.shortDateFormatter.format(date);
+  const formatDate = (date: Date): string => formatters.dateFormatter.format(date);
+  const formatTime = (date: Date): string => formatters.timeFormatter.format(date);
+  const formatShortDate = (date: Date): string => formatters.shortDateFormatter.format(date);
 
-  const formatRelative = (date: Date) => {
+  const formatRelative = (date: Date): string => {
     const now = new Date();
     const diffInSeconds = Math.floor((date.getTime() - now.getTime()) / 1000);
 

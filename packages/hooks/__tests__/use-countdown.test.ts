@@ -1,7 +1,19 @@
 import { renderHook, act } from '@testing-library/react';
+
 import { useCountdown } from '../src/use-countdown';
 
 jest.useFakeTimers();
+
+const INITIAL_TIME = 60;
+const SHORT_COUNTDOWN = 3;
+const ONE_SECOND = 1000;
+const TWO_SECONDS = 2000;
+const THREE_SECONDS = 3000;
+const FIVE_SECONDS = 5;
+const REMAINING_TIME_TWO = 2;
+const REMAINING_TIME_THREE = 3;
+const REMAINING_TIME_SEVEN = 7;
+const RESET_TIME = 10;
 
 describe('useCountdown', () => {
   afterEach(() => {
@@ -9,14 +21,15 @@ describe('useCountdown', () => {
   });
 
   it('should initialize with provided time', () => {
-    const { result } = renderHook(() => useCountdown(60));
-    expect(result.current.timeLeft).toBe(60);
+    const { result } = renderHook(() => useCountdown(INITIAL_TIME));
+
+    expect(result.current.timeLeft).toBe(INITIAL_TIME);
     expect(result.current.isRunning).toBe(false);
     expect(result.current.isFinished).toBe(false);
   });
 
   it('should start countdown', () => {
-    const { result } = renderHook(() => useCountdown(3));
+    const { result } = renderHook(() => useCountdown(SHORT_COUNTDOWN));
 
     act(() => {
       result.current.start();
@@ -25,24 +38,24 @@ describe('useCountdown', () => {
     expect(result.current.isRunning).toBe(true);
 
     act(() => {
-      jest.advanceTimersByTime(1000);
+      jest.advanceTimersByTime(ONE_SECOND);
     });
 
-    expect(result.current.timeLeft).toBe(2);
+    expect(result.current.timeLeft).toBe(REMAINING_TIME_TWO);
   });
 
   it('should pause countdown', () => {
-    const { result } = renderHook(() => useCountdown(5));
+    const { result } = renderHook(() => useCountdown(FIVE_SECONDS));
 
     act(() => {
       result.current.start();
     });
 
     act(() => {
-      jest.advanceTimersByTime(2000);
+      jest.advanceTimersByTime(TWO_SECONDS);
     });
 
-    expect(result.current.timeLeft).toBe(3);
+    expect(result.current.timeLeft).toBe(REMAINING_TIME_THREE);
 
     act(() => {
       result.current.pause();
@@ -51,43 +64,43 @@ describe('useCountdown', () => {
     expect(result.current.isRunning).toBe(false);
 
     act(() => {
-      jest.advanceTimersByTime(2000);
+      jest.advanceTimersByTime(TWO_SECONDS);
     });
 
-    expect(result.current.timeLeft).toBe(3); // Should not change
+    expect(result.current.timeLeft).toBe(REMAINING_TIME_THREE); // Should not change
   });
 
   it('should reset countdown', () => {
-    const { result } = renderHook(() => useCountdown(10));
+    const { result } = renderHook(() => useCountdown(RESET_TIME));
 
     act(() => {
       result.current.start();
     });
 
     act(() => {
-      jest.advanceTimersByTime(3000);
+      jest.advanceTimersByTime(THREE_SECONDS);
     });
 
-    expect(result.current.timeLeft).toBe(7);
+    expect(result.current.timeLeft).toBe(REMAINING_TIME_SEVEN);
 
     act(() => {
       result.current.reset();
     });
 
-    expect(result.current.timeLeft).toBe(10);
+    expect(result.current.timeLeft).toBe(RESET_TIME);
     expect(result.current.isRunning).toBe(false);
   });
 
   it('should call onFinish when countdown reaches 0', () => {
     const onFinish = jest.fn();
-    const { result } = renderHook(() => useCountdown(2, onFinish));
+    const { result } = renderHook(() => useCountdown(REMAINING_TIME_TWO, onFinish));
 
     act(() => {
       result.current.start();
     });
 
     act(() => {
-      jest.advanceTimersByTime(2000);
+      jest.advanceTimersByTime(TWO_SECONDS);
     });
 
     expect(result.current.timeLeft).toBe(0);

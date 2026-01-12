@@ -1,27 +1,29 @@
-import * as React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { ReactElement, ReactNode, JSXElementConstructor } from 'react';
+
+import { Children, isValidElement as isValidReactElement, cloneElement } from 'react';
 
 /**
  * Checks if a value is a valid React element
- * @param value
+ * @param {unknown} value - The value to check
+ * @returns {boolean} True if the value is a valid React element
  * @internal
  */
-export function isValidElement(value: any): value is React.ReactElement {
-  return React.isValidElement(value);
+export function isValidElement(value: unknown): value is ReactElement {
+  return isValidReactElement(value);
 }
 
 /**
  * Clones React children and adds props to each child
- * @param children
- * @param props
+ * @param {ReactNode} children - The children to clone
+ * @param {Record<string, any>} props - The props to add to each child
+ * @returns {ReactNode} The cloned children with added props
  * @internal
  */
-export function cloneChildrenWithProps(
-  children: React.ReactNode,
-  props: Record<string, any>,
-): React.ReactNode {
-  return React.Children.map(children, (child) => {
-    if (React.isValidElement(child)) {
-      return React.cloneElement(child, props as any);
+export function cloneChildrenWithProps(children: ReactNode, props: Record<string, any>): ReactNode {
+  return Children.map(children, (child) => {
+    if (isValidReactElement(child)) {
+      return cloneElement(child, props);
     }
 
     return child;
@@ -30,32 +32,37 @@ export function cloneChildrenWithProps(
 
 /**
  * Gets all React children as an array
- * @param children
+ * @param {ReactNode} children - The children to convert
+ * @returns {Array<ReactNode>} An array of React children
  * @internal
  */
-export function getChildrenArray(children: React.ReactNode): React.ReactNode[] {
-  return React.Children.toArray(children);
+export function getChildrenArray(children: ReactNode): ReactNode[] {
+  return Children.toArray(children);
 }
 
 /**
  * Finds child component by display name
- * @param children
- * @param displayName
+ * @param {ReactNode} children - The children to search
+ * @param {string} displayName - The display name to find
+ * @returns {ReactElement | null} The found child or null
  * @internal
  */
 export function findChildByDisplayName(
-  children: React.ReactNode,
+  children: ReactNode,
   displayName: string,
-): React.ReactElement | null {
-  const childArray = React.Children.toArray(children);
+): ReactElement | null {
+  const childArray = Children.toArray(children);
 
   for (const child of childArray) {
-    if (
-      React.isValidElement(child) &&
-      typeof child.type === 'function' &&
-      (child.type as any).displayName === displayName
-    ) {
-      return child;
+    if (isValidReactElement(child)) {
+      const type = child.type;
+
+      if (
+        typeof type === 'function' &&
+        (type as JSXElementConstructor<any> & { displayName?: string }).displayName === displayName
+      ) {
+        return child;
+      }
     }
   }
 
@@ -64,18 +71,20 @@ export function findChildByDisplayName(
 
 /**
  * Checks if component has children
- * @param children
+ * @param {ReactNode} children - The children to check
+ * @returns {boolean} True if the component has children
  * @internal
  */
-export function hasChildren(children: React.ReactNode): boolean {
-  return React.Children.count(children) > 0;
+export function hasChildren(children: ReactNode): boolean {
+  return Children.count(children) > 0;
 }
 
 /**
  * Gets only valid React elements from children
- * @param children
+ * @param {ReactNode} children - The children to filter
+ * @returns {Array<ReactElement>} An array of valid React elements
  * @internal
  */
-export function getValidElements(children: React.ReactNode): React.ReactElement[] {
-  return React.Children.toArray(children).filter(React.isValidElement);
+export function getValidElements(children: ReactNode): ReactElement[] {
+  return Children.toArray(children).filter(isValidReactElement) as ReactElement[];
 }

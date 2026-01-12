@@ -1,4 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
+
 import { useDateRange } from '../src/use-date-range';
 
 describe('useDateRange', () => {
@@ -76,6 +77,7 @@ describe('useDateRange', () => {
     });
 
     const expectedDuration = endDate.getTime() - startDate.getTime();
+
     expect(result.current.duration).toBe(expectedDuration);
   });
 

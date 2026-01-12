@@ -18,8 +18,8 @@ export interface UseDateRangeReturn {
 /**
  * Custom hook for managing date ranges
  *
- * @param initialRange - Initial date range
- * @returns Date range state and controls
+ * @param {DateRange} [initialRange] - Initial date range
+ * @returns {UseDateRangeReturn} Date range state and controls
  *
  * @example
  * ```tsx

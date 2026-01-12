@@ -1,4 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
+
 import { useLocalStorage } from '../src/use-local-storage';
 
 // Mock localStorage

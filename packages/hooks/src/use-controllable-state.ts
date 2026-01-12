@@ -9,11 +9,11 @@ export interface UseControllableStateProps<T> {
 /**
  * Custom hook for managing controllable state (controlled/uncontrolled pattern)
  *
- * @param props - Configuration object
- * @param props.value
- * @param props.defaultValue
- * @param props.onChange
- * @returns Tuple of [value, setValue]
+ * @param {UseControllableStateProps<T>} props - Configuration object
+ * @param {T} [props.value] - Controlled value
+ * @param {T} [props.defaultValue] - Default value for uncontrolled state
+ * @param {(value: T) => void} [props.onChange] - Callback when value changes
+ * @returns {[T, (value: T) => void]} Tuple of [value, setValue]
  *
  * @example
  * ```tsx

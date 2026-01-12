@@ -8,7 +8,7 @@ export interface WindowSize {
 /**
  * Custom hook for tracking window size
  *
- * @returns Object with width and height
+ * @returns {WindowSize} Object with width and height
  *
  * @example
  * ```tsx
@@ -26,7 +26,7 @@ export function useWindowSize(): WindowSize {
       return;
     }
 
-    const handleResize = () => {
+    const handleResize = (): void => {
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight,

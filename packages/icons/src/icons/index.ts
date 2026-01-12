@@ -1,7 +1,7 @@
 // Auto-generated icon re-exports
-export { ArrowRight } from './ArrowRight';
-export { Heart } from './Heart';
-export { Home } from './Home';
-export { Search } from './Search';
-export { Settings } from './Settings';
-export { User } from './User';
+export { ArrowRight } from './arrow-right';
+export { Heart } from './heart';
+export { Home } from './home';
+export { Search } from './search';
+export { Settings } from './settings';
+export { User } from './user';

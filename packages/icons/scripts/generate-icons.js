@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 const fs = require('fs');
 const path = require('path');
@@ -6,14 +8,40 @@ const path = require('path');
 const ASSETS_DIR = path.join(__dirname, '../assets');
 const SRC_DIR = path.join(__dirname, '../src/icons');
 
+const DEFAULT_SIZE = 24;
+const DEFAULT_STROKE_WIDTH = 2;
+
 // Convert kebab-case to PascalCase
+/**
+ * Convert string to PascalCase
+ * @param {string} str - Input string
+ * @returns {string} PascalCase string
+ */
 function toPascalCase(str) {
   return str
     .replace(/[_-](.)/g, (_, char) => char.toUpperCase())
     .replace(/^(.)/, (char) => char.toUpperCase());
 }
 
+// Convert kebab-case to kebab-case (ensure consistency)
+/**
+ * Convert string to kebab-case
+ * @param {string} str - Input string
+ * @returns {string} kebab-case string
+ */
+function toKebabCase(str) {
+  return str
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/[\s_]+/g, '-')
+    .toLowerCase();
+}
+
 // Clean SVG content
+/**
+ * Remove unnecessary attributes from SVG content
+ * @param {string} svgContent - Raw SVG content
+ * @returns {string} Cleaned SVG content
+ */
 function cleanSvg(svgContent) {
   return svgContent
     .replace(/width="[^"]*"/g, '')
@@ -25,6 +53,12 @@ function cleanSvg(svgContent) {
 }
 
 // Generate individual icon component (Lucide style)
+/**
+ * Generate React component code for an icon
+ * @param {string} name - Icon name
+ * @param {string} svgContent - Raw SVG content
+ * @returns {string} Generated component code
+ */
 function generateIconComponent(name, svgContent) {
   const componentName = toPascalCase(name);
 
@@ -34,25 +68,29 @@ function generateIconComponent(name, svgContent) {
     .replace(/<\/svg>$/, '')
     .trim();
 
-  return `import React from 'react';
-import type { IconProps } from '../types';
+  return `import type { IconProps } from '../types';
+
+import { forwardRef } from 'react';
+
+const ICON_SIZE = ${DEFAULT_SIZE};
+const ICON_STROKE_WIDTH = ${DEFAULT_STROKE_WIDTH};
 
 /**
  * ${componentName} icon component
  */
-export const ${componentName} = React.forwardRef<SVGSVGElement, IconProps>(
-  ({ size = 24, color = 'currentColor', strokeWidth = 2, className, ...props }, ref) => (
+export const ${componentName} = forwardRef<SVGSVGElement, IconProps>(
+  ({ size = ICON_SIZE, color = 'currentColor', strokeWidth = ICON_STROKE_WIDTH, className, ...props }, ref) => (
     <svg
       ref={ref}
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
+      className={className}
       fill="none"
+      height={size}
       stroke={color}
-      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={className}
+      strokeWidth={strokeWidth}
+      viewBox="0 0 24 24"
+      width={size}
       {...props}
     >
       ${svgInner}
@@ -65,6 +103,10 @@ ${componentName}.displayName = '${componentName}';
 }
 
 // Process all SVG files
+/**
+ * Main function to generate all icons
+ * @returns {Promise<void>}
+ */
 async function generateIcons() {
   // Create icons directory
   if (!fs.existsSync(SRC_DIR)) {
@@ -72,7 +114,7 @@ async function generateIcons() {
   }
 
   if (!fs.existsSync(ASSETS_DIR)) {
-    console.log('Assets directory not found. Please add SVG files to assets/ directory');
+    console.warn('Assets directory not found. Please add SVG files to assets/ directory');
 
     return;
   }
@@ -85,18 +127,19 @@ async function generateIcons() {
   for (const file of svgFiles) {
     const name = path.basename(file, '.svg');
     const componentName = toPascalCase(name);
+    const fileName = toKebabCase(name); // Use kebab-case for filenames
     const svgPath = path.join(ASSETS_DIR, file);
     const svgContent = fs.readFileSync(svgPath, 'utf8');
 
     try {
       // Generate component
       const component = generateIconComponent(name, svgContent);
-      const componentPath = path.join(SRC_DIR, `${componentName}.tsx`);
+      const componentPath = path.join(SRC_DIR, `${fileName}.tsx`);
 
       fs.writeFileSync(componentPath, component);
-      iconNames.push({ name, componentName });
+      iconNames.push({ name, componentName, fileName });
 
-      console.log(`✅ Generated ${componentName}`);
+      console.log(`✅ Generated ${componentName} (${fileName}.tsx)`);
     } catch (error) {
       console.error(`❌ Error processing ${file}:`, error.message);
     }
@@ -108,19 +151,22 @@ async function generateIcons() {
 // Do not edit manually
 
 ${iconNames
-  .map(({ componentName }) => `export { ${componentName} } from './icons/${componentName}';`)
+  .map(({ componentName, fileName }) => `export { ${componentName} } from './icons/${fileName}';`)
   .join('\n')}
 
 // Re-export types and utilities
 export type { IconProps } from './types';
 export { createIcon } from './createIcon';
+export { DynamicIcon } from './dynamic-icon';
+export { IconSet } from './icon-set';
+export { useIconContext, withIconContext } from './icon-context';
 
 // Icon names for dynamic usage
 export const iconNames = [
 ${iconNames.map(({ name }) => `  '${name}',`).join('\n')}
 ] as const;
 
-export type IconName = typeof iconNames[number];
+export type IconName = (typeof iconNames)[number];
 `;
 
   fs.writeFileSync(path.join(__dirname, '../src/index.ts'), mainIndexContent);
@@ -128,7 +174,7 @@ export type IconName = typeof iconNames[number];
   // Generate icons index file
   const iconsIndexContent = `// Auto-generated icon re-exports
 ${iconNames
-  .map(({ componentName }) => `export { ${componentName} } from './${componentName}';`)
+  .map(({ componentName, fileName }) => `export { ${componentName} } from './${fileName}';`)
   .join('\n')}
 `;
 

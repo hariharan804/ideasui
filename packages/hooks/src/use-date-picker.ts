@@ -17,14 +17,19 @@ export interface UseDatePickerReturn {
 /**
  * Custom hook for date picker functionality
  *
- * @param initialDate - Initial selected date
- * @returns Date picker state and utilities
+ * @param {Date} [initialDate] - Initial selected date
+ * @returns {UseDatePickerReturn} Date picker state and utilities
  *
  * @example
  * ```tsx
  * const {selectedDate, setSelectedDate, isSelected} = useDatePicker()
  * ```
  */
+const SUNDAY = 0;
+const SATURDAY = 6;
+const JANUARY = 0;
+const DECEMBER = 11;
+
 export function useDatePicker(initialDate?: Date): UseDatePickerReturn {
   const [selectedDate, setSelectedDate] = useState<Date | null>(initialDate || null);
   const [currentMonth, setCurrentMonth] = useState(() => new Date().getMonth());
@@ -50,11 +55,10 @@ export function useDatePicker(initialDate?: Date): UseDatePickerReturn {
   const isWeekend = useCallback((date: Date) => {
     const day = date.getDay();
 
-    return day === 0 || day === 6;
+    return day === SUNDAY || day === SATURDAY; // 0 is Sunday, 6 is Saturday
   }, []);
 
   const getMonthDays = useCallback((year: number, month: number) => {
-    const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
     const days: Date[] = [];
 
@@ -66,8 +70,9 @@ export function useDatePicker(initialDate?: Date): UseDatePickerReturn {
   }, []);
 
   const goToNextMonth = useCallback(() => {
-    if (currentMonth === 11) {
-      setCurrentMonth(0);
+    if (currentMonth === DECEMBER) {
+      // 11 is December
+      setCurrentMonth(JANUARY);
       setCurrentYear((prev) => prev + 1);
     } else {
       setCurrentMonth((prev) => prev + 1);
@@ -75,8 +80,9 @@ export function useDatePicker(initialDate?: Date): UseDatePickerReturn {
   }, [currentMonth]);
 
   const goToPrevMonth = useCallback(() => {
-    if (currentMonth === 0) {
-      setCurrentMonth(11);
+    if (currentMonth === JANUARY) {
+      // 0 is January
+      setCurrentMonth(DECEMBER); // 11 is December
       setCurrentYear((prev) => prev - 1);
     } else {
       setCurrentMonth((prev) => prev - 1);

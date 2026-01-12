@@ -11,8 +11,8 @@ export interface UseDisclosureReturn {
 /**
  * Custom hook for managing disclosure state for UI components like modals, dropdowns, and collapsible content
  *
- * @param defaultIsOpen - Initial open state of the disclosure
- * @returns Object containing disclosure state and control functions
+ * @param {boolean} [defaultIsOpen=false] - Initial open state of the disclosure
+ * @returns {UseDisclosureReturn} Object containing disclosure state and control functions
  *
  * @default defaultIsOpen false
  *
@@ -31,7 +31,7 @@ export interface UseDisclosureReturn {
  * </Modal>
  * ```
  *
- * @usage Perfect for modals, dropdowns, accordions, tooltips, and any show/hide UI patterns
+ * Perfect for modals, dropdowns, accordions, tooltips, and any show/hide UI patterns
  *
  * @see {@link https://react.dev/reference/react/useState} for useState reference
  * @see {@link https://react.dev/reference/react/useCallback} for useCallback reference

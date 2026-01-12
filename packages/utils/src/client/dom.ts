@@ -1,6 +1,7 @@
 /**
  * Get element by id with proper typing
- * @param id
+ * @param {string} id - The element ID
+ * @returns {T | null} The element or null
  */
 export function getElementById<T extends HTMLElement = HTMLElement>(id: string): T | null {
   return document.getElementById(id) as T | null;
@@ -8,8 +9,9 @@ export function getElementById<T extends HTMLElement = HTMLElement>(id: string):
 
 /**
  * Check if element contains another element
- * @param parent
- * @param child
+ * @param {Element | null} parent - The parent element
+ * @param {Element | null} child - The child element
+ * @returns {boolean} True if the parent contains the child
  */
 export function contains(parent: Element | null, child: Element | null): boolean {
   if (!parent || !child) {
@@ -25,8 +27,8 @@ export function contains(parent: Element | null, child: Element | null): boolean
 export const focus = {
   /**
    * Focus element and scroll into view
-   * @param element
-   * @param options
+   * @param {HTMLElement | null} element - The element to focus
+   * @param {FocusOptions & ScrollIntoViewOptions} [options] - Options for focus and scroll
    */
   set: (element: HTMLElement | null, options?: FocusOptions & ScrollIntoViewOptions) => {
     if (!element) {
@@ -38,7 +40,8 @@ export const focus = {
 
   /**
    * Get all focusable elements within container
-   * @param container
+   * @param {HTMLElement} container - The container element to search
+   * @returns {Array<HTMLElement>} An array of focusable elements
    */
   getFocusable: (container: HTMLElement): HTMLElement[] => {
     const selector = [
@@ -56,7 +59,8 @@ export const focus = {
 
   /**
    * Get first focusable element
-   * @param container
+   * @param {HTMLElement} container - The container element to search
+   * @returns {HTMLElement | null} The first focusable element or null
    */
   getFirst: (container: HTMLElement): HTMLElement | null => {
     return focus.getFocusable(container)[0] || null;
@@ -64,7 +68,8 @@ export const focus = {
 
   /**
    * Get last focusable element
-   * @param container
+   * @param {HTMLElement} container - The container element to search
+   * @returns {HTMLElement | null} The last focusable element or null
    */
   getLast: (container: HTMLElement): HTMLElement | null => {
     const focusable = focus.getFocusable(container);

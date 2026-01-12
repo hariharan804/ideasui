@@ -3,9 +3,9 @@ import { useEffect, useRef } from 'react';
 /**
  * Custom hook for detecting clicks outside an element
  *
- * @param handler - Function to call when clicking outside
- * @param enabled - Whether the hook is enabled
- * @returns Ref to attach to the element
+ * @param {(event: MouseEvent | TouchEvent) => void} handler - Function to call when clicking outside
+ * @param {boolean} [enabled=true] - Whether the hook is enabled
+ * @returns {React.RefObject<T | null>} Ref to attach to the element
  *
  * @example
  * ```tsx
@@ -16,7 +16,7 @@ import { useEffect, useRef } from 'react';
 export function useClickOutside<T extends HTMLElement>(
   handler: (event: MouseEvent | TouchEvent) => void,
   enabled = true,
-) {
+): React.RefObject<T | null> {
   const ref = useRef<T>(null);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export function useClickOutside<T extends HTMLElement>(
       return;
     }
 
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent): void => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         handler(event);
       }

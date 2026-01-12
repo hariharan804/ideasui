@@ -1,43 +1,55 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 /**
  * Custom hook for debouncing a value with additional controls
  *
- * @param value - The value to debounce
- * @param delay - Delay in milliseconds
- * @returns Object with debounced value and control functions
+ * @param {T} value - The value to debounce
+ * @param {number} delay - Delay in milliseconds
+ * @returns {{debouncedValue: T, isPending: boolean, cancel: () => void, flush: () => void}} Object with debounced value and control functions
  *
  * @example
  * ```tsx
  * const {debouncedValue, isPending, cancel, flush} = useDebouncedValue(searchTerm, 300)
  * ```
  */
-export function useDebouncedValue<T>(value: T, delay: number) {
+export function useDebouncedValue<T>(
+  value: T,
+  delay: number,
+): {
+  debouncedValue: T;
+  isPending: boolean;
+  cancel: () => void;
+  flush: () => void;
+} {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
-  const [isPending, setIsPending] = useState(false);
+  const handlerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    setIsPending(true);
-
-    const handler = setTimeout(() => {
+    handlerRef.current = setTimeout(() => {
       setDebouncedValue(value);
-      setIsPending(false);
     }, delay);
 
     return () => {
-      clearTimeout(handler);
-      setIsPending(false);
+      if (handlerRef.current) {
+        clearTimeout(handlerRef.current);
+      }
     };
   }, [value, delay]);
 
-  const cancel = () => {
-    setIsPending(false);
+  const cancel = (): void => {
+    if (handlerRef.current) {
+      clearTimeout(handlerRef.current);
+    }
   };
 
-  const flush = () => {
+  const flush = (): void => {
+    if (handlerRef.current) {
+      clearTimeout(handlerRef.current);
+    }
     setDebouncedValue(value);
-    setIsPending(false);
   };
+
+  const isPending = value !== debouncedValue;
 
   return {
     debouncedValue,

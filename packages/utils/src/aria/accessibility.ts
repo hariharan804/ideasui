@@ -1,6 +1,9 @@
+const ANNOUNCEMENT_TIMEOUT = 1000;
+
 /**
  * Convert boolean to data attribute value
- * @param condition
+ * @param {boolean | undefined} condition - The condition to evaluate
+ * @returns {string | undefined} 'true' if condition is true, otherwise undefined
  */
 export function toDataAttr(condition: boolean | undefined): string | undefined {
   return condition ? 'true' : undefined;
@@ -8,18 +11,19 @@ export function toDataAttr(condition: boolean | undefined): string | undefined {
 
 /**
  * ARIA form props generator
- * @param options
- * @param options.required
- * @param options.invalid
- * @param options.describedBy
- * @param options.labelledBy
+ * @param {object} options - Generation options
+ * @param {boolean} [options.required] - Whether the field is required
+ * @param {boolean} [options.invalid] - Whether the field is invalid
+ * @param {string} [options.describedBy] - ID of element describing the field
+ * @param {string} [options.labelledBy] - ID of element labelling the field
+ * @returns {Record<string, string | undefined>} ARIA props object
  */
 export function getAriaFormProps(options: {
   required?: boolean;
   invalid?: boolean;
   describedBy?: string;
   labelledBy?: string;
-}) {
+}): Record<string, string | undefined> {
   return {
     'aria-required': options.required ? 'true' : undefined,
     'aria-invalid': options.invalid ? 'true' : undefined,
@@ -30,16 +34,17 @@ export function getAriaFormProps(options: {
 
 /**
  * ARIA disclosure props generator (for dropdowns, modals)
- * @param options
- * @param options.expanded
- * @param options.controls
- * @param options.hasPopup
+ * @param {object} options - Generation options
+ * @param {boolean} options.expanded - Whether component is expanded
+ * @param {string} [options.controls] - ID of controlled element
+ * @param {boolean | string} [options.hasPopup] - Popup type
+ * @returns {Record<string, string | boolean | undefined>} ARIA props object
  */
 export function getAriaDisclosureProps(options: {
   expanded: boolean;
   controls?: string;
   hasPopup?: boolean | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog';
-}) {
+}): Record<string, string | boolean | undefined> {
   return {
     'aria-expanded': options.expanded ? 'true' : 'false',
     'aria-controls': options.controls,
@@ -49,16 +54,17 @@ export function getAriaDisclosureProps(options: {
 
 /**
  * ARIA listbox props generator
- * @param options
- * @param options.multiselectable
- * @param options.orientation
- * @param options.activedescendant
+ * @param {object} options - Generation options
+ * @param {boolean} [options.multiselectable] - Whether multiple selection is allowed
+ * @param {string} [options.orientation] - Listbox orientation
+ * @param {string} [options.activedescendant] - ID of active item
+ * @returns {Record<string, string | undefined>} ARIA props object
  */
 export function getAriaListboxProps(options: {
   multiselectable?: boolean;
   orientation?: 'horizontal' | 'vertical';
   activedescendant?: string;
-}) {
+}): Record<string, string | undefined> {
   return {
     role: 'listbox',
     'aria-multiselectable': options.multiselectable ? 'true' : undefined,
@@ -69,16 +75,17 @@ export function getAriaListboxProps(options: {
 
 /**
  * ARIA dialog props generator
- * @param options
- * @param options.labelledBy
- * @param options.describedBy
- * @param options.modal
+ * @param {object} options - Generation options
+ * @param {string} [options.labelledBy] - ID of element labelling the dialog
+ * @param {string} [options.describedBy] - ID of element describing the dialog
+ * @param {boolean} [options.modal] - Whether dialog is modal
+ * @returns {Record<string, string | undefined>} ARIA props object
  */
 export function getAriaDialogProps(options: {
   labelledBy?: string;
   describedBy?: string;
   modal?: boolean;
-}) {
+}): Record<string, string | undefined> {
   return {
     role: options.modal ? 'dialog' : 'alertdialog',
     'aria-modal': options.modal ? 'true' : undefined,
@@ -89,14 +96,15 @@ export function getAriaDialogProps(options: {
 
 /**
  * ARIA tabs props generator
- * @param options
- * @param options.orientation
- * @param options.activedescendant
+ * @param {object} options - Generation options
+ * @param {string} [options.orientation] - Tabs orientation
+ * @param {string} [options.activedescendant] - ID of active tab
+ * @returns {Record<string, string | undefined>} ARIA props object
  */
 export function getAriaTabsProps(options: {
   orientation?: 'horizontal' | 'vertical';
   activedescendant?: string;
-}) {
+}): Record<string, string | undefined> {
   return {
     role: 'tablist',
     'aria-orientation': options.orientation || 'horizontal',
@@ -110,10 +118,10 @@ export function getAriaTabsProps(options: {
 export const screenReader = {
   /**
    * Announce message to screen readers
-   * @param message
-   * @param priority
+   * @param {string} message - Message to announce
+   * @param {string} [priority='polite'] - Announcement priority
    */
-  announce: (message: string, priority: 'polite' | 'assertive' = 'polite') => {
+  announce: (message: string, priority: 'polite' | 'assertive' = 'polite'): void => {
     const announcement = document.createElement('div');
 
     announcement.setAttribute('aria-live', priority);
@@ -125,14 +133,15 @@ export const screenReader = {
 
     setTimeout(() => {
       document.body.removeChild(announcement);
-    }, 1000);
+    }, ANNOUNCEMENT_TIMEOUT);
   },
 
   /**
    * Create screen reader only text
-   * @param text
+   * @param {string} text - Text content
+   * @returns {HTMLSpanElement} Sr-only element
    */
-  only: (text: string) => {
+  only: (text: string): HTMLSpanElement => {
     const span = document.createElement('span');
 
     span.className = 'sr-only';
@@ -148,9 +157,10 @@ export const screenReader = {
 export const liveRegion = {
   /**
    * Create live region element
-   * @param priority
+   * @param {string} [priority='polite'] - Live region priority
+   * @returns {HTMLDivElement} Live region element
    */
-  create: (priority: 'polite' | 'assertive' = 'polite') => {
+  create: (priority: 'polite' | 'assertive' = 'polite'): HTMLDivElement => {
     const region = document.createElement('div');
 
     region.setAttribute('aria-live', priority);
@@ -162,10 +172,10 @@ export const liveRegion = {
 
   /**
    * Update live region content
-   * @param element
-   * @param message
+   * @param {HTMLElement} element - Region element
+   * @param {string} message - New content
    */
-  update: (element: HTMLElement, message: string) => {
+  update: (element: HTMLElement, message: string): void => {
     element.textContent = message;
   },
 };
@@ -176,7 +186,8 @@ export const liveRegion = {
 export const focusTrap = {
   /**
    * Get focusable elements
-   * @param container
+   * @param {HTMLElement} container - Container to search
+   * @returns {Array<HTMLElement>} Focusable elements
    */
   getFocusable: (container: HTMLElement): HTMLElement[] => {
     const selector = [
@@ -194,14 +205,15 @@ export const focusTrap = {
 
   /**
    * Trap focus within container
-   * @param container
+   * @param {HTMLElement} container - Trap container
+   * @returns {Function} Cleanup function
    */
-  trap: (container: HTMLElement) => {
+  trap: (container: HTMLElement): (() => void) => {
     const focusable = focusTrap.getFocusable(container);
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
 
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key !== 'Tab') {
         return;
       }

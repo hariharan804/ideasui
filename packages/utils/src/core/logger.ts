@@ -4,15 +4,16 @@
  * - Production: Silent mode, no errors thrown
  */
 
+/* eslint-disable no-console */
 const isDev = process.env.NODE_ENV === 'development';
 
 export const logger = {
   /**
    * Log info message (dev only)
-   * @param message
-   * @param {...any} args
+   * @param {string} message - The message to log
+   * @param {...unknown[]} args - Additional arguments to log
    */
-  info: (message: string, ...args: any[]) => {
+  info: (message: string, ...args: unknown[]) => {
     if (isDev) {
       console.log(`[IdeasUI] ${message}`, ...args);
     }
@@ -20,10 +21,10 @@ export const logger = {
 
   /**
    * Log warning message (dev only)
-   * @param message
-   * @param {...any} args
+   * @param {string} message - The warning message
+   * @param {...unknown[]} args - Additional arguments to log
    */
-  warn: (message: string, ...args: any[]) => {
+  warn: (message: string, ...args: unknown[]) => {
     if (isDev) {
       console.warn(`[IdeasUI] ${message}`, ...args);
     }
@@ -31,10 +32,10 @@ export const logger = {
 
   /**
    * Log error message (dev only)
-   * @param message
-   * @param {...any} args
+   * @param {string} message - The error message
+   * @param {...unknown[]} args - Additional arguments to log
    */
-  error: (message: string, ...args: any[]) => {
+  error: (message: string, ...args: unknown[]) => {
     if (isDev) {
       console.error(`[IdeasUI] ${message}`, ...args);
     }
@@ -42,7 +43,7 @@ export const logger = {
 
   /**
    * Throw error in dev, silent in production
-   * @param message
+   * @param {string} message - The error message to throw
    */
   throw: (message: string) => {
     if (isDev) {
@@ -52,8 +53,8 @@ export const logger = {
 
   /**
    * Assert condition - throw in dev, silent in production
-   * @param condition
-   * @param message
+   * @param {boolean} condition - The condition to check
+   * @param {string} message - The error message if assertion fails
    */
   assert: (condition: boolean, message: string) => {
     if (!condition && isDev) {

@@ -3,7 +3,7 @@ import { useState, useCallback, useRef } from 'react';
 /**
  * Custom hook for tracking hover state
  *
- * @returns Tuple of [isHovered, hoverProps]
+ * @returns {[boolean, { ref: React.RefObject<T | null>; onMouseEnter: () => void; onMouseLeave: () => void; }]} Tuple of [isHovered, hoverProps]
  *
  * @example
  * ```tsx

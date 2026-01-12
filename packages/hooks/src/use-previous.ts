@@ -3,8 +3,8 @@ import { useRef, useEffect } from 'react';
 /**
  * Custom hook for tracking previous value
  *
- * @param value - Current value to track
- * @returns Previous value
+ * @param {T} value - Current value to track
+ * @returns {T | undefined} Previous value
  *
  * @example
  * ```tsx
@@ -18,5 +18,6 @@ export function usePrevious<T>(value: T): T | undefined {
     ref.current = value;
   }, [value]);
 
+  // eslint-disable-next-line react-hooks/refs
   return ref.current;
 }

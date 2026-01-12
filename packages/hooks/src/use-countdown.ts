@@ -12,9 +12,9 @@ export interface UseCountdownReturn {
 /**
  * Custom hook for countdown timer
  *
- * @param initialTime - Initial time in seconds
- * @param onFinish - Callback when countdown reaches 0
- * @returns Countdown state and controls
+ * @param {number} initialTime - Initial time in seconds
+ * @param {() => void} [onFinish] - Callback when countdown reaches 0
+ * @returns {UseCountdownReturn} Countdown state and controls
  *
  * @example
  * ```tsx
@@ -37,6 +37,8 @@ export function useCountdown(initialTime: number, onFinish?: () => void): UseCou
       return;
     }
 
+    const INTERVAL_DELAY = 1000;
+
     const interval = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
@@ -48,7 +50,7 @@ export function useCountdown(initialTime: number, onFinish?: () => void): UseCou
 
         return prev - 1;
       });
-    }, 1000);
+    }, INTERVAL_DELAY);
 
     return () => clearInterval(interval);
   }, [isRunning, timeLeft, onFinish]);

@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
+const INTERVAL_DELAY = 10;
+
 export interface UseStopwatchReturn {
   time: number;
   isRunning: boolean;
@@ -13,8 +15,8 @@ export interface UseStopwatchReturn {
 /**
  * Custom hook for stopwatch functionality
  *
- * @param autoStart - Whether to start automatically
- * @returns Stopwatch state and controls
+ * @param {boolean} autoStart - Whether to start automatically
+ * @returns {UseStopwatchReturn} Stopwatch state and controls
  *
  * @example
  * ```tsx
@@ -62,7 +64,7 @@ export function useStopwatch(autoStart = false): UseStopwatchReturn {
 
       elapsedRef.current = elapsed;
       setTime(elapsed);
-    }, 10);
+    }, INTERVAL_DELAY);
 
     return () => clearInterval(interval);
   }, [isRunning]);

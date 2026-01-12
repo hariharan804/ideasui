@@ -11,9 +11,9 @@ export interface UseCounterReturn {
 /**
  * Custom hook for managing counter state with increment, decrement, reset, and set operations
  *
- * @param initialValue - Initial counter value
- * @param step - Step size for increment/decrement operations
- * @returns Counter state and control functions
+ * @param {number} [initialValue=0] - Initial counter value
+ * @param {number} [step=1] - Step size for increment/decrement operations
+ * @returns {UseCounterReturn} Counter state and control functions
  *
  * @default initialValue 0
  * @default step 1

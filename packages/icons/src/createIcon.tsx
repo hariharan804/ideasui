@@ -1,12 +1,17 @@
 import type { IconProps } from './types';
+import type { ForwardRefExoticComponent, RefAttributes } from 'react';
 
-import React from 'react';
+import { createElement, forwardRef } from 'react';
+
+const DEFAULT_ICON_SIZE = 24;
+const DEFAULT_STROKE_WIDTH = 2;
 
 /**
  * Create a custom icon component (Lucide-style)
  *
- * @param displayName
- * @param elements
+ * @param {string} displayName - The display name of the icon
+ * @param {Array<[string, Record<string, unknown>]>} elements - The SVG elements to render
+ * @returns {ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>} The icon component
  * @example
  * ```tsx
  * const CustomIcon = createIcon('CustomIcon', [
@@ -16,10 +21,19 @@ import React from 'react';
  */
 export function createIcon(
   displayName: string,
-  elements: Array<[string, Record<string, any>]>,
-): React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>> {
-  const IconComponent = React.forwardRef<SVGSVGElement, IconProps>(
-    ({ size = 24, color = 'currentColor', strokeWidth = 2, className, ...props }, ref) => (
+  elements: Array<[string, Record<string, unknown>]>,
+): ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>> {
+  const IconComponent = forwardRef<SVGSVGElement, IconProps>(
+    (
+      {
+        size = DEFAULT_ICON_SIZE,
+        color = 'currentColor',
+        strokeWidth = DEFAULT_STROKE_WIDTH,
+        className,
+        ...props
+      },
+      ref,
+    ) => (
       <svg
         ref={ref}
         className={className}
@@ -33,7 +47,8 @@ export function createIcon(
         width={size}
         {...props}
       >
-        {elements.map(([tag, attrs], index) => React.createElement(tag, { key: index, ...attrs }))}
+        {/* eslint-disable-next-line react/no-array-index-key */}
+        {elements.map(([tag, attrs], index) => createElement(tag, { key: index, ...attrs }))}
       </svg>
     ),
   );
@@ -45,15 +60,25 @@ export function createIcon(
 
 /**
  * Create an icon from SVG string
- * @param displayName
- * @param svgContent
+ * @param {string} displayName - The display name of the icon
+ * @param {string} svgContent - The raw SVG string
+ * @returns {ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>} The icon component
  */
 export function createIconFromSvg(
   displayName: string,
   svgContent: string,
-): React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>> {
-  const IconComponent = React.forwardRef<SVGSVGElement, IconProps>(
-    ({ size = 24, color = 'currentColor', strokeWidth = 2, className, ...props }, ref) => {
+): ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>> {
+  const IconComponent = forwardRef<SVGSVGElement, IconProps>(
+    (
+      {
+        size = DEFAULT_ICON_SIZE,
+        color = 'currentColor',
+        strokeWidth = DEFAULT_STROKE_WIDTH,
+        className,
+        ...props
+      },
+      ref,
+    ) => {
       // Extract inner SVG content
       const innerContent = svgContent
         .replace(/<svg[^>]*>/, '')

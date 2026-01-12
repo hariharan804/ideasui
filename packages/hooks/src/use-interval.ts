@@ -3,15 +3,15 @@ import { useEffect, useRef } from 'react';
 /**
  * Custom hook for setting up intervals
  *
- * @param callback - Function to call on each interval
- * @param delay - Delay in milliseconds (null to pause)
+ * @param {() => void} callback - Function to call on each interval
+ * @param {number | null} delay - Delay in milliseconds (null to pause)
  *
  * @example
  * ```tsx
  * useInterval(() => setCount(c => c + 1), 1000)
  * ```
  */
-export function useInterval(callback: () => void, delay: number | null) {
+export function useInterval(callback: () => void, delay: number | null): void {
   const savedCallback = useRef<() => void>(callback);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export function useInterval(callback: () => void, delay: number | null) {
       return;
     }
 
-    const tick = () => {
+    const tick = (): void => {
       if (savedCallback.current) {
         savedCallback.current();
       }

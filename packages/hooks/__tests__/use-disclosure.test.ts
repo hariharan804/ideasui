@@ -1,14 +1,17 @@
 import { renderHook, act } from '@testing-library/react';
+
 import { useDisclosure } from '../src/use-disclosure';
 
 describe('useDisclosure', () => {
   it('should initialize with default closed state', () => {
     const { result } = renderHook(() => useDisclosure());
+
     expect(result.current.isOpen).toBe(false);
   });
 
   it('should initialize with provided state', () => {
     const { result } = renderHook(() => useDisclosure(true));
+
     expect(result.current.isOpen).toBe(true);
   });
 

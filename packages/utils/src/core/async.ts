@@ -1,15 +1,17 @@
 /**
  * Debounce function calls
- * @param func
- * @param wait
+ * @param {Function} func - The function to debounce
+ * @param {number} wait - The wait time in milliseconds
+ * @returns {Function} The debounced function with a cancel method
  */
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number,
 ): T & { cancel: () => void } {
   let timeout: NodeJS.Timeout;
 
-  const debounced = ((...args: Parameters<T>) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const debounced = ((...args: any[]) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => func(...args), wait);
   }) as T & { cancel: () => void };
@@ -21,13 +23,15 @@ export function debounce<T extends (...args: any[]) => any>(
 
 /**
  * Throttle function calls
- * @param func
- * @param limit
+ * @param {Function} func - The function to throttle
+ * @param {number} limit - The throttle limit in milliseconds
+ * @returns {Function} The throttled function
  */
-export function throttle<T extends (...args: any[]) => any>(func: T, limit: number): T {
+export function throttle<T extends (...args: unknown[]) => unknown>(func: T, limit: number): T {
   let inThrottle: boolean;
 
-  return ((...args: Parameters<T>) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return ((...args: any[]) => {
     if (!inThrottle) {
       func(...args);
       inThrottle = true;

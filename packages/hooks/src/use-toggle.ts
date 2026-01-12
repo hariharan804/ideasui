@@ -3,8 +3,8 @@ import { useState, useCallback } from 'react';
 /**
  * Custom hook for managing boolean toggle state with toggle and set operations
  *
- * @param initialValue - Initial boolean value for the toggle state
- * @returns Tuple containing [current value, toggle function, setValue function]
+ * @param {boolean} initialValue - Initial boolean value for the toggle state
+ * @returns {[boolean, () => void, (value: boolean) => void]} Tuple containing [current value, toggle function, setValue function]
  *
  * @default initialValue false
  *
@@ -20,7 +20,7 @@ import { useState, useCallback } from 'react';
  * setVisible(false) // isVisible becomes false
  * ```
  *
- * @usage Ideal for managing modal visibility, dropdown states, or any boolean UI state
+ * Ideal for managing modal visibility, dropdown states, or any boolean UI state
  *
  * @see {@link https://react.dev/reference/react/useState} for useState reference
  * @see {@link https://react.dev/reference/react/useCallback} for useCallback reference
