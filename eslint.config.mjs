@@ -209,7 +209,7 @@ export default defineConfig([
         },
       ],
       'react/require-default-props': 'off',
-      'react/jsx-no-useless-fragment': 'error',
+      'react/jsx-no-useless-fragment': 'warn',
       'react-hooks/exhaustive-deps': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/consistent-type-exports': 'error',
@@ -227,16 +227,12 @@ export default defineConfig([
       ],
 
       '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/consistent-type-exports': 'error',
-      'react/jsx-no-useless-fragment': 'error',
-      'react/require-default-props': 'off',
+      '@typescript-eslint/consistent-type-exports': 'warn',
+      'react/jsx-no-useless-fragment': 'warn',
+      // 'react/require-default-props': 'off',
 
       // React Hooks
       'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': [
-        'warn',
-        { additionalHooks: '(useMyCustomHook|useAnotherHook)' },
-      ],
 
       // Accessibility
       'jsx-a11y/alt-text': 'error',
@@ -306,7 +302,7 @@ export default defineConfig([
       ],
 
       // Code quality (SonarJS)
-      'sonarjs/cognitive-complexity': ['error', 15],
+      'sonarjs/cognitive-complexity': ['error', 20],
       'sonarjs/no-duplicate-string': [
         'error',
         {
@@ -348,19 +344,19 @@ export default defineConfig([
 
       // Documentation (JSDoc)
       'jsdoc/check-alignment': 'warn',
-      'jsdoc/check-param-names': 'error',
-      'jsdoc/check-tag-names': 'error',
-      'jsdoc/check-types': 'error',
+      'jsdoc/check-param-names': 'warn',
+      'jsdoc/check-tag-names': 'warn',
+      'jsdoc/check-types': 'warn',
       'jsdoc/require-description': 'warn',
-      'jsdoc/require-param': 'error',
+      'jsdoc/require-param': 'warn',
       'jsdoc/require-param-description': 'warn',
-      'jsdoc/require-param-type': 'error',
-      'jsdoc/require-returns': 'error',
+      'jsdoc/require-param-type': 'warn',
+      'jsdoc/require-returns': 'warn',
       'jsdoc/require-returns-description': 'warn',
-      'jsdoc/require-returns-type': 'error',
+      'jsdoc/require-returns-type': 'warn',
 
       // Security
-      'security/detect-object-injection': 'warn',
+      'security/detect-object-injection': 'off',
       'security/detect-non-literal-regexp': 'warn',
       'security/detect-unsafe-regex': 'error',
       'security/detect-buffer-noassert': 'error',

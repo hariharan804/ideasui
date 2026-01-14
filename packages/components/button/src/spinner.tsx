@@ -7,7 +7,6 @@ import { spinnerSizes } from '@ideasui/theme/token';
 export const Spinner = ({ size }: { size: SpinnerSizesProps }): JSX.Element => {
   return (
     <svg
-      // eslint-disable-next-line security/detect-object-injection
       className={cn('animate-spin', spinnerSizes[size] || 'h-4 w-4')}
       fill="none"
       viewBox="0 0 24 24"

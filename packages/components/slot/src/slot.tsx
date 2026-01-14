@@ -108,9 +108,8 @@ function mergeProps(
 
   // Process each prop for intelligent merging
   for (const propName of allPropNames) {
-    // eslint-disable-next-line security/detect-object-injection
     const slotPropValue = slotProps[propName];
-    // eslint-disable-next-line security/detect-object-injection
+
     const childPropValue = childProps[propName];
 
     // Skip if neither object has this prop
@@ -122,7 +121,7 @@ function mergeProps(
     if (EVENT_HANDLER_REGEX.test(propName)) {
       if (slotPropValue && childPropValue) {
         // Call child handler first, then slot handler
-        // eslint-disable-next-line security/detect-object-injection
+
         overrideProps[propName] = (...args: unknown[]) => {
           const result = childPropValue(...args);
 
@@ -132,18 +131,16 @@ function mergeProps(
         };
       } else if (slotPropValue) {
         // Only slot handler exists
-        // eslint-disable-next-line security/detect-object-injection
+
         overrideProps[propName] = slotPropValue;
       }
     }
     // Style objects - merge with slot styles taking precedence
     else if (propName === 'style') {
-      // eslint-disable-next-line security/detect-object-injection
       overrideProps[propName] = { ...childPropValue, ...slotPropValue };
     }
     // CSS classes - concatenate with space separator
     else if (propName === 'className') {
-      // eslint-disable-next-line security/detect-object-injection
       overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(' ');
     }
   }

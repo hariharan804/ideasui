@@ -279,7 +279,6 @@ export default function ComponentLibraryLanding(): JSX.Element {
                 </div>
                 <div className="border-border overflow-hidden rounded-xl border bg-neutral-950 p-6">
                   <pre className="text-success-400 font-mono text-sm">
-                    {/* eslint-disable-next-line security/detect-object-injection */}
                     <code>{codeExamples[activeTab].code}</code>
                   </pre>
                 </div>

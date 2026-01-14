@@ -27,7 +27,6 @@ export async function getAvailablePackages(): Promise<Record<string, PackageInfo
       if (pkg.name.startsWith('@ideasui/')) {
         const shortName = pkg.name.replace('@ideasui/', '');
 
-        // eslint-disable-next-line security/detect-object-injection
         packageMap[shortName] = {
           name: pkg.name,
           description: pkg.description || 'IdeasUI component',

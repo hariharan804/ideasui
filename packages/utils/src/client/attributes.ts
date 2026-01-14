@@ -93,7 +93,6 @@ export function toDataAttrs(data: Record<string, unknown>): Record<string, strin
     if (value !== null && value !== undefined) {
       const dataKey = `data-${key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)}`;
 
-      // eslint-disable-next-line security/detect-object-injection
       result[dataKey] = typeof value === 'string' ? value : JSON.stringify(value);
     }
   });

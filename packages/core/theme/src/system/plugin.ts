@@ -50,7 +50,6 @@ function generateSemanticVars(
   prefix: string,
   mode: ThemeMode,
 ): Record<string, string> {
-  // eslint-disable-next-line security/detect-object-injection
   const mapping = SEMANTIC_TOKEN_MAP[mode];
   const result: Record<string, string> = {};
 
@@ -152,19 +151,18 @@ function processShadeColor(
   const { components } = parsed;
   const colorVar = `--${prefix}-${colorName}`;
   const formattedValue = formatColorComponents(components);
-  // eslint-disable-next-line security/detect-object-injection
+
   const alphaValue = components[ALPHA_COMPONENT_INDEX] ?? '<alpha-value>';
 
   // Register CSS variable (per-theme)
-  // eslint-disable-next-line security/detect-object-injection
+
   resolved.utilities[cssSelector][colorVar] = formattedValue;
-  // eslint-disable-next-line security/detect-object-injection
+
   resolved.baseStyles[baseSelector][colorVar] = formattedValue;
 
   // Register Tailwind color only if not already set (first theme wins)
-  // eslint-disable-next-line security/detect-object-injection
+
   if (!resolved.colors[colorName]) {
-    // eslint-disable-next-line security/detect-object-injection
     resolved.colors[colorName] = `oklch(var(${colorVar}) / ${alphaValue})`;
   }
 }
@@ -202,17 +200,14 @@ function processColors(
     const semanticVars = generateSemanticVars(baseName, prefix, mode);
 
     for (const [varName, varValue] of Object.entries(semanticVars)) {
-      // eslint-disable-next-line security/detect-object-injection
       resolved.utilities[cssSelector][varName] = varValue;
-      // eslint-disable-next-line security/detect-object-injection
+
       resolved.baseStyles[baseSelector][varName] = varValue;
 
       // Register Tailwind color only if not already set (first theme wins)
       const tokenName = varName.replace(`--${prefix}-`, '').replace(/-DEFAULT$/, '');
 
-      // eslint-disable-next-line security/detect-object-injection
       if (!resolved.colors[tokenName]) {
-        // eslint-disable-next-line security/detect-object-injection
         resolved.colors[tokenName] = `oklch(var(${varName}) / <alpha-value>)`;
       }
     }
@@ -250,9 +245,8 @@ function processLayout(
       for (const [nestedKey, nestedValue] of Object.entries(value as Record<string, string>)) {
         const nestedVar = `${varName}-${nestedKey}`;
 
-        // eslint-disable-next-line security/detect-object-injection
         resolved.utilities[cssSelector][nestedVar] = nestedValue;
-        // eslint-disable-next-line security/detect-object-injection
+
         resolved.baseStyles[baseSelector][nestedVar] = nestedValue;
       }
     } else {
@@ -262,9 +256,8 @@ function processLayout(
           ? value.toString().replace(/^0\./, '.')
           : String(value);
 
-      // eslint-disable-next-line security/detect-object-injection
       resolved.utilities[cssSelector][varName] = formattedValue;
-      // eslint-disable-next-line security/detect-object-injection
+
       resolved.baseStyles[baseSelector][varName] = formattedValue;
     }
   }
@@ -295,9 +288,9 @@ function resolveConfig(themes: ConfigThemes, defaultTheme: string, prefix: strin
     const mode = getThemeMode(themeName, extend);
 
     // Initialize style objects
-    // eslint-disable-next-line security/detect-object-injection
+
     resolved.baseStyles[baseSelector] = colorScheme ? { 'color-scheme': colorScheme } : {};
-    // eslint-disable-next-line security/detect-object-injection
+
     resolved.utilities[cssSelector] = colorScheme ? { 'color-scheme': colorScheme } : {};
 
     // Register variant

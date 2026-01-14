@@ -31,22 +31,18 @@ function mergePropValue(key: string, value: any, result: Record<string, any>): v
 
     result.ref = existing ? mergeRefs(existing, value) : value;
   } else if (key.startsWith('on') && typeof value === 'function') {
-    // eslint-disable-next-line security/detect-object-injection
     const existing = result[key];
 
     if (typeof existing === 'function') {
-      // eslint-disable-next-line security/detect-object-injection
       result[key] = (...args: any[]) => {
         existing(...args);
 
         value(...args);
       };
     } else {
-      // eslint-disable-next-line security/detect-object-injection
       result[key] = value;
     }
   } else {
-    // eslint-disable-next-line security/detect-object-injection
     result[key] = value;
   }
 }
@@ -73,7 +69,6 @@ export function mergeProps(
 
     for (const key in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        // eslint-disable-next-line security/detect-object-injection
         mergePropValue(key, obj[key], result);
       }
     }

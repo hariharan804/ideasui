@@ -1,4 +1,3 @@
-/* eslint-disable security/detect-object-injection */
 /**
  * Convert CSS value to pixels
  * @param {string | number} value - Value to convert

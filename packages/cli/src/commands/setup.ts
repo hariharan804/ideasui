@@ -70,7 +70,7 @@ export const setupCommand = new Command()
 
       try {
         const packageManager = detectPackageManager();
-        // eslint-disable-next-line security/detect-object-injection
+
         const packages = answers.packages.map((p: string) => availablePackages[p].name);
         const installCmd = buildInstallCommand(packageManager, packages);
 

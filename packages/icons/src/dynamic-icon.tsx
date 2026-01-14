@@ -69,7 +69,6 @@ export const DynamicIcon: FC<DynamicIconProps> = ({
           .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
           .join('');
 
-        // eslint-disable-next-line security/detect-object-injection
         const Component = module[exportName] || module.default;
 
         if (!Component) {

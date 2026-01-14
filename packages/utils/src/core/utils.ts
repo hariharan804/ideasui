@@ -88,7 +88,6 @@ export function omit<T extends Record<string, unknown>, K extends keyof T>(
   const result = { ...obj };
 
   keys.forEach((key) => {
-    // eslint-disable-next-line security/detect-object-injection
     delete result[key];
   });
 
@@ -109,7 +108,6 @@ export function pick<T extends Record<string, unknown>, K extends keyof T>(
 
   keys.forEach((key) => {
     if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      // eslint-disable-next-line security/detect-object-injection
       result[key] = obj[key];
     }
   });

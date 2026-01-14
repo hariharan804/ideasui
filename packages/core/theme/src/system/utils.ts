@@ -92,11 +92,9 @@ export function mapKeys<T>(
   const result: Record<string, T> = {};
 
   Object.keys(obj).forEach((key) => {
-    // eslint-disable-next-line security/detect-object-injection
     const value = obj[key];
     const newKey = fn(value, key);
 
-    // eslint-disable-next-line security/detect-object-injection
     result[newKey] = value;
   });
 
@@ -113,7 +111,6 @@ export function omit<T extends Record<string, unknown>>(obj: T, keys: string[]):
   const result = { ...obj };
 
   keys.forEach((key) => {
-    // eslint-disable-next-line security/detect-object-injection
     delete result[key];
   });
 

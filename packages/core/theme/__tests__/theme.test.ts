@@ -50,6 +50,37 @@ describe('ideasUIPlugin', () => {
       ideasUIPlugin({ themes: null as any });
     }).not.toThrow();
   });
+
+  it('should allow overriding theme tokens', () => {
+    const plugin = ideasUIPlugin({
+      themes: {
+        light: {
+          colors: {
+            primary: {
+              500: '#ff0000',
+            },
+          },
+        },
+      },
+    });
+
+    plugin.handler(mockPluginAPI);
+
+    // Check if the addBase was called with the overridden value
+    const baseCall = mockPluginAPI.addBase.mock.calls.find((call: Record<string, unknown>[]) => {
+      const theme = call[0][":root, .light, [data-theme='light']"] as Record<string, string>;
+
+      return theme && theme['--ideasui-primary-500'] === '0.628 0.2577 29.23';
+    });
+
+    // Ideally we would check for the exact value, but checking it processed the theme is a good start
+    // verifying that custom configuration is passed through
+    expect(baseCall).toBeDefined();
+
+    // Ideally we would check for the exact value, but checking it processed the theme is a good start
+    // verifying that custom configuration is passed through
+    expect(mockPluginAPI.addBase).toHaveBeenCalled();
+  });
 });
 
 describe('Color System', () => {

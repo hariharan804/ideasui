@@ -68,14 +68,12 @@ export default function ColorsPage(): JSX.Element {
               <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-neutral-800 capitalize">
                 <div
                   className="h-4 w-4 rounded-full"
-                  // eslint-disable-next-line security/detect-object-injection
                   style={{ backgroundColor: colors[selectedTheme][category]['500'] }}
                 />
                 {category}
               </h2>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-5 lg:grid-cols-11">
-                {/* eslint-disable-next-line security/detect-object-injection */}
                 {Object.entries(colors[selectedTheme][category]).map(([shade, color]) => {
                   const className = `bg-${category}-${shade}`;
                   const textClassName = `text-${category}-${shade}`;

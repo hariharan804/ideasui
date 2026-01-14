@@ -1,4 +1,3 @@
-/* eslint-disable security/detect-object-injection */
 import type { ClassValue } from 'clsx';
 
 import { clsx } from 'clsx';
