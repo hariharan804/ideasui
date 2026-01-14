@@ -2,7 +2,7 @@
 
 import type { JSX } from 'react';
 
-import { {{pascalCase name}} } from '@/components/{{name}}';
+import { {{pascalCase name}}Preview } from '@/components/{{name}}';
 
 export default function {{pascalCase name}}Page(): JSX.Element {
   return (

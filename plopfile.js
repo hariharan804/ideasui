@@ -41,6 +41,13 @@ module.exports = function (plop) {
         templateFile: 'templates/playground/page.tsx',
         skipIfExists: true,
       },
+      // Create playground component wrapper
+      {
+        type: 'add',
+        path: 'apps/playground/components/{{name}}.tsx',
+        templateFile: 'templates/playground/component.tsx',
+        skipIfExists: true,
+      },
       // Add to component list
       {
         type: 'modify',
