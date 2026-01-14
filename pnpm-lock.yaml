@@ -368,6 +368,37 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  packages/components/input:
+    dependencies:
+      '@ideasui/ripple':
+        specifier: workspace:*
+        version: link:../ripple
+      '@ideasui/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      react-aria:
+        specifier: ^3.37.0
+        version: 3.45.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      tailwind-variants:
+        specifier: ^0.3.1
+        version: 0.3.1(tailwindcss@4.1.18)
+    devDependencies:
+      '@ideasui/theme':
+        specifier: workspace:*
+        version: link:../../core/theme
+      clean-package:
+        specifier: ^2.2.0
+        version: 2.2.0
+      react:
+        specifier: 19.2.3
+        version: 19.2.3
+      react-dom:
+        specifier: 19.2.3
+        version: 19.2.3(react@19.2.3)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/components/ripple:
     dependencies:
       '@ideasui/slot':
@@ -411,34 +442,6 @@ importers:
       react-dom:
         specifier: 19.2.3
         version: 19.2.3(react@19.2.3)
-
-  packages/components/touchable:
-    dependencies:
-      '@ideasui/ripple':
-        specifier: workspace:*
-        version: link:../ripple
-      '@ideasui/slot':
-        specifier: workspace:*
-        version: link:../slot
-      '@ideasui/utils':
-        specifier: workspace:*
-        version: link:../../utils
-    devDependencies:
-      clean-package:
-        specifier: ^2.2.0
-        version: 2.2.0
-      lucide-react:
-        specifier: ^0.556.0
-        version: 0.556.0(react@19.2.3)
-      react:
-        specifier: 19.2.3
-        version: 19.2.3
-      react-dom:
-        specifier: 19.2.3
-        version: 19.2.3(react@19.2.3)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
 
   packages/core/theme:
     dependencies:
@@ -7146,8 +7149,17 @@ packages:
     resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
     engines: {node: '>=20'}
 
+  tailwind-merge@2.5.4:
+    resolution: {integrity: sha512-0q8cfZHMu9nuYP/b5Shb7Y7Sh1B7Nnl5GqNr1U+n2p6+mybvRtayrQ+0042Z5byvTA8ihjlP8Odo8/VnHbZu4Q==}
+
   tailwind-merge@3.4.0:
     resolution: {integrity: sha512-uSaO4gnW+b3Y2aWoWfFpX62vn2sR3skfhbjsEnaBI81WD1wBLlHZe5sWf0AqjksNdYTbGBEd0UasQMT3SNV15g==}
+
+  tailwind-variants@0.3.1:
+    resolution: {integrity: sha512-krn67M3FpPwElg4FsZrOQd0U26o7UDH/QOkK8RNaiCCrr052f6YJPBUfNKnPo/s/xRzNPtv1Mldlxsg8Tb46BQ==}
+    engines: {node: '>=16.x', pnpm: '>=7.x'}
+    peerDependencies:
+      tailwindcss: '*'
 
   tailwind-variants@3.2.2:
     resolution: {integrity: sha512-Mi4kHeMTLvKlM98XPnK+7HoBPmf4gygdFmqQPaDivc3DpYS6aIY6KiG/PgThrGvii5YZJqRsPz0aPyhoFzmZgg==}
@@ -15807,7 +15819,14 @@ snapshots:
 
   tagged-tag@1.0.0: {}
 
+  tailwind-merge@2.5.4: {}
+
   tailwind-merge@3.4.0: {}
+
+  tailwind-variants@0.3.1(tailwindcss@4.1.18):
+    dependencies:
+      tailwind-merge: 2.5.4
+      tailwindcss: 4.1.18
 
   tailwind-variants@3.2.2(tailwind-merge@3.4.0)(tailwindcss@4.1.18):
     dependencies:

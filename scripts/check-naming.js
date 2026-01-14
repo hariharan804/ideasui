@@ -23,7 +23,19 @@ class NamingChecker {
   checkFile(filePath) {
     const fileName = path.basename(filePath);
 
+    // Ignore start with dot or index files
     if (fileName.startsWith('.') || fileName === 'index.ts' || fileName === 'index.tsx') {
+      return;
+    }
+
+    // Ignore specific config files
+    if (
+      fileName.includes('config.') ||
+      fileName === 'jest.d.ts' ||
+      fileName === 'setupTests.ts' ||
+      fileName === 'globals.d.ts' ||
+      fileName === 'env.d.ts'
+    ) {
       return;
     }
 
@@ -33,8 +45,6 @@ class NamingChecker {
       isValid = rules.files.tests.test(fileName);
     } else if (fileName.includes('.stories.')) {
       isValid = rules.files.stories.test(fileName);
-    } else if (fileName.includes('.config.')) {
-      isValid = rules.files.configs.test(fileName);
     } else if (fileName.endsWith('.tsx') || fileName.endsWith('.ts')) {
       isValid = rules.files.components.test(fileName);
     } else {
@@ -53,6 +63,11 @@ class NamingChecker {
       return;
     }
 
+    // Ignore Next.js route groups
+    if (folderName.startsWith('(') && folderName.endsWith(')')) {
+      return;
+    }
+
     if (!rules.folders.test(folderName)) {
       this.errors.push(`❌ Folder: ${folderPath} - should be kebab-case`);
     }
@@ -61,6 +76,11 @@ class NamingChecker {
   checkPackageJson(packagePath) {
     try {
       const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
+
+      // Ignore template package.json names which often contain handlebars
+      if (packageJson.name && packageJson.name.includes('{{')) {
+        return;
+      }
 
       if (packageJson.name && !rules.packageName.test(packageJson.name)) {
         this.errors.push(`❌ Package: ${packagePath} - name should be @org/kebab-case`);
@@ -78,7 +98,15 @@ class NamingChecker {
       const stat = fs.statSync(fullPath);
 
       if (stat.isDirectory()) {
-        if (item !== 'node_modules' && item !== '.git' && item !== 'dist' && item !== '.next') {
+        if (
+          item !== 'node_modules' &&
+          item !== '.git' &&
+          item !== 'dist' &&
+          item !== '.next' &&
+          item !== '.husky' &&
+          item !== '.github' &&
+          item !== 'templates' // Ignore templates directory for naming checks
+        ) {
           this.checkFolder(fullPath);
           this.walkDirectory(fullPath);
         }
