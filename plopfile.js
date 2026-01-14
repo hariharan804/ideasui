@@ -25,7 +25,7 @@ module.exports = function (plop) {
       {
         type: 'add',
         path: 'packages/core/theme/src/recipes/{{name}}.ts',
-        templateFile: 'templates/recipe/{{name}}.ts',
+        templateFile: 'templates/recipe/recipe.ts',
         skipIfExists: true,
       },
       {
@@ -88,7 +88,7 @@ module.exports = function (plop) {
       {
         type: 'add',
         path: 'packages/core/theme/src/recipes/{{name}}.ts',
-        templateFile: 'templates/recipe/{{name}}.ts',
+        templateFile: 'templates/recipe/recipe.ts',
         skipIfExists: true,
       },
     ],
