@@ -6,7 +6,23 @@ module.exports = {
     'packages/hooks/**/*.{ts,tsx}',
     'packages/core/**/*.{ts,tsx}',
     'packages/utils/**/*.{ts,tsx}',
+    '!**/node_modules/**',
+    '!**/dist/**',
+    '!**/__tests__/**',
+    '!**/*.stories.{ts,tsx}',
+    '!**/tsup.config.ts',
+    '!**/jest.config.js',
+    '!**/*.d.ts',
   ],
+  coverageReporters: ['text', 'lcov'],
+  coverageThreshold: {
+    global: {
+      branches: 25,
+      functions: 20,
+      lines: 35,
+      statements: 35,
+    },
+  },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   modulePathIgnorePatterns: ['<rootDir>/examples', '<rootDir>/templates', '<rootDir>/.*/dist'],
   testPathIgnorePatterns: [
