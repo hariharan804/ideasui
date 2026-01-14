@@ -9,7 +9,16 @@ const ICON_STROKE_WIDTH = 2;
  * ArrowRight icon component
  */
 export const ArrowRight = forwardRef<SVGSVGElement, IconProps>(
-  ({ size = ICON_SIZE, color = 'currentColor', strokeWidth = ICON_STROKE_WIDTH, className, ...props }, ref) => (
+  (
+    {
+      size = ICON_SIZE,
+      color = 'currentColor',
+      strokeWidth = ICON_STROKE_WIDTH,
+      className,
+      ...props
+    },
+    ref,
+  ) => (
     <svg
       ref={ref}
       className={className}
@@ -23,10 +32,10 @@ export const ArrowRight = forwardRef<SVGSVGElement, IconProps>(
       width={size}
       {...props}
     >
-      <path d="M5 12h14"/>
-  <path d="m12 5 7 7-7 7"/>
+      <path d="M5 12h14" />
+      <path d="m12 5 7 7-7 7" />
     </svg>
-  )
+  ),
 );
 
 ArrowRight.displayName = 'ArrowRight';

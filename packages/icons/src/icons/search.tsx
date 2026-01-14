@@ -9,7 +9,16 @@ const ICON_STROKE_WIDTH = 2;
  * Search icon component
  */
 export const Search = forwardRef<SVGSVGElement, IconProps>(
-  ({ size = ICON_SIZE, color = 'currentColor', strokeWidth = ICON_STROKE_WIDTH, className, ...props }, ref) => (
+  (
+    {
+      size = ICON_SIZE,
+      color = 'currentColor',
+      strokeWidth = ICON_STROKE_WIDTH,
+      className,
+      ...props
+    },
+    ref,
+  ) => (
     <svg
       ref={ref}
       className={className}
@@ -23,10 +32,10 @@ export const Search = forwardRef<SVGSVGElement, IconProps>(
       width={size}
       {...props}
     >
-      <circle cx="11" cy="11" r="8"/>
-  <path d="m21 21-4.35-4.35"/>
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.35-4.35" />
     </svg>
-  )
+  ),
 );
 
 Search.displayName = 'Search';

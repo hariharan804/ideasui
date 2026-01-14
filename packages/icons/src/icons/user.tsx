@@ -9,7 +9,16 @@ const ICON_STROKE_WIDTH = 2;
  * User icon component
  */
 export const User = forwardRef<SVGSVGElement, IconProps>(
-  ({ size = ICON_SIZE, color = 'currentColor', strokeWidth = ICON_STROKE_WIDTH, className, ...props }, ref) => (
+  (
+    {
+      size = ICON_SIZE,
+      color = 'currentColor',
+      strokeWidth = ICON_STROKE_WIDTH,
+      className,
+      ...props
+    },
+    ref,
+  ) => (
     <svg
       ref={ref}
       className={className}
@@ -23,10 +32,10 @@ export const User = forwardRef<SVGSVGElement, IconProps>(
       width={size}
       {...props}
     >
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-  <circle cx="12" cy="7" r="4"/>
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
     </svg>
-  )
+  ),
 );
 
 User.displayName = 'User';
