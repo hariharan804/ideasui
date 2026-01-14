@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
+const { TextEncoder, TextDecoder } = require('util');
+
 const { toHaveNoViolations } = require('jest-axe');
 
 require('@testing-library/jest-dom');
@@ -30,3 +32,13 @@ Object.defineProperty(window, 'matchMedia', {
 
 // Mock for ResizeObserver
 window.ResizeObserver = ResizeObserverStub;
+
+// Polyfills for TextEncoder, TextDecoder, and TransformStream
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
+
+if (typeof global.TransformStream === 'undefined') {
+  const { TransformStream } = require('node:stream/web');
+
+  global.TransformStream = TransformStream;
+}

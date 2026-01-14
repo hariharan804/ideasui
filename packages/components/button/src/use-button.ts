@@ -2,7 +2,7 @@ import type { Ref } from 'react';
 import type { ButtonProps } from './button';
 import type { RippleEvent, RippleItem } from '@ideasui/ripple';
 
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useImperativeHandle } from 'react';
 import { useButton as useAriaButton, useFocusRing, useHover } from 'react-aria';
 import { useRipple } from '@ideasui/ripple';
 import { toDataAttr } from '@ideasui/utils/aria';
@@ -45,6 +45,7 @@ export interface UseButtonReturn {
 export function useButton(props: UseButtonProps): UseButtonReturn {
   /* eslint-disable @typescript-eslint/no-unused-vars */
   const {
+    ref,
     loading = false,
     disabled = false,
     isLoading = loading,
@@ -64,11 +65,15 @@ export function useButton(props: UseButtonProps): UseButtonReturn {
     value,
     className,
     style,
+    disableRipple,
     ...ariaCompatibleProps
   } = props;
   /* eslint-enable @typescript-eslint/no-unused-vars */
 
   const domRef = useRef<HTMLButtonElement>(null);
+
+  useImperativeHandle(ref, () => domRef.current as HTMLButtonElement);
+
   const isDisabled = isDisabledProp || isLoading;
 
   const { isFocusVisible, isFocused, focusProps } = useFocusRing({
@@ -77,12 +82,15 @@ export function useButton(props: UseButtonProps): UseButtonReturn {
   const { onPress: handleRipple, onClear: onClearRipple, ripples } = useRipple();
   const handlePress = useCallback(
     (e: RippleEvent) => {
-      // if (disableRipple || isDisabled || disableAnimation) return;
-      // domRef.current &&
-      handleRipple(e);
+      if (isDisabled) {
+        return;
+      }
+      if (!disableRipple) {
+        handleRipple(e);
+      }
       onClick && onClick(e as React.MouseEvent<HTMLButtonElement>);
     },
-    [handleRipple, onClick],
+    [handleRipple, onClick, disableRipple, isDisabled],
   );
   // Only pass specific props that React Aria expects
   const ariaProps = {

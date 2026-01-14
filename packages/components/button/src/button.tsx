@@ -134,7 +134,7 @@ export const Button = forwardRef<'button', ButtonProps>(
     });
 
     return (
-      <Slot {...getButtonProps()} className={recipes.base()}>
+      <Slot as={Component} {...getButtonProps()} className={recipes.base()}>
         {isLoading ? <Spinner size={size} /> : null}
         {!isLoading && startContent ? <span className="mr-2 shrink-0">{startContent}</span> : null}
 
