@@ -1,33 +1,34 @@
-"use client";
-import * as React from "react";
-import {{{camelCase name}}} from "@ideasui/theme/recipes";
-import type {VariantProps} from "tailwind-variants";
-import {cn} from "@ideasui/utils";
+import type { VariantProps } from "tailwind-variants";
+import type { JSX } from 'react';
 
-export interface {{pascalCase name}}Props 
-  extends React.HTMLAttributes<HTMLDivElement>, 
-  VariantProps<typeof {{camelCase name}}> {
+import { forwardRef } from "react";
+import { {{camelCase name}} } from "@ideasui/theme/recipes";
+import { cn } from "@ideasui/utils";
+
+export interface {{pascalCase name}}Props
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof {{camelCase name}}> {
   /**
    * Content of the component
    */
   children?: React.ReactNode;
-  
+
   /**
    * Custom classes for different slots
    */
-  customClasses?: {
+  classNames?: {
     base?: string;
   };
 }
 
-export const {{pascalCase name}} = React.forwardRef<HTMLDivElement, {{pascalCase name}}Props>(
-  ({ className, children, customClasses, ...props }, ref) => {
+export const {{pascalCase name}} = forwardRef<HTMLDivElement, {{pascalCase name}}Props>(
+  ({ className, children, classNames, ...props }, ref): JSX.Element => {
     const { base } = {{camelCase name}}(props);
 
     return (
       <div
         ref={ref}
-        className={cn(base(), className, customClasses?.base)}
+        className={cn(base(), className, classNames?.base)}
         {...props}
       >
         {children}

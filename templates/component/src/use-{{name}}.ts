@@ -1,18 +1,23 @@
-import {useCallback, useRef} from "react";
+import { useCallback, useRef } from "react";
 
 export interface Use{{pascalCase name}}Props {
   /**
    * Whether the component is disabled
    */
   disabled?: boolean;
-  
+
   /**
    * Click handler
    */
   onClick?: (event: React.MouseEvent) => void;
 }
 
-export function use{{pascalCase name}}(props: Use{{pascalCase name}}Props = {}) {
+export interface Use{{pascalCase name}}Return {
+  domRef: React.RefObject<HTMLElement | null>;
+  get{{pascalCase name}}Props: () => React.HTMLAttributes<HTMLElement>;
+}
+
+export function use{{pascalCase name}}(props: Use{{pascalCase name}}Props = {}): Use{{pascalCase name}}Return {
   const {
     disabled = false,
     onClick,
@@ -33,7 +38,7 @@ export function use{{pascalCase name}}(props: Use{{pascalCase name}}Props = {}) 
     [disabled, onClick]
   );
 
-  const get{{pascalCase name}}Props = useCallback(() => {
+  const get{{pascalCase name}}Props = useCallback((): React.HTMLAttributes<HTMLElement> => {
     return {
       ref: domRef,
       onClick: handleClick,

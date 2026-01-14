@@ -1,8 +1,7 @@
 'use client'
-import React from 'react'
 import { {{pascalCase name}} } from '@ideasui/{{name}}'
 
-function {{pascalCase name}}Preview() {
+const {{pascalCase name}}Preview = () => {
   return (
     <div className="space-y-8 p-6">
       <div>
