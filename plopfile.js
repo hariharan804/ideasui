@@ -73,28 +73,6 @@ module.exports = function (plop) {
     ],
   });
 
-  // Hook generator
-  plop.setGenerator('hook', {
-    description: 'Create a new React hook package',
-    prompts: [
-      {
-        type: 'input',
-        name: 'name',
-        message: 'Hook name (kebab-case):',
-        validate: (input) => /^[a-z-]+$/.test(input) || 'Use kebab-case (e.g., use-local-storage)',
-      },
-    ],
-    actions: [
-      {
-        type: 'addMany',
-        destination: 'packages/hooks/{{name}}/',
-        base: 'templates/hook/',
-        templateFiles: 'templates/hook/**/*',
-        skipIfExists: true,
-      },
-    ],
-  });
-
   // Recipe only generator
   plop.setGenerator('recipe-only', {
     description: 'Add component recipe to @ideasui/theme only',

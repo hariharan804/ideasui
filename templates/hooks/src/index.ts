@@ -1,1 +1,0 @@
-export { {{camelCase name}}, type {{pascalCase name}}Options, type {{pascalCase name}}Return } from './{{kebabCase name}}';
