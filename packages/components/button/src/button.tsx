@@ -116,8 +116,10 @@ export const Button = forwardRef<'button', ButtonProps>(
       return 'button';
     }, [as]);
 
-    const { getButtonProps, isLoading, domRef, getRippleProps } = useButton({
+    const { getButtonProps, isLoading, getRippleProps } = useButton({
       as: Component,
+      ref,
+      className,
       loading,
       disabled,
       ...props,

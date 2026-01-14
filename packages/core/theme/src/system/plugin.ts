@@ -36,17 +36,21 @@ type ThemeMode = 'light' | 'dark';
 // Helper Functions
 // ─────────────────────────────────────────────────────────────
 
+const ALPHA_COMPONENT_INDEX = 3;
+
 /**
  * Generates semantic CSS vars that reference shade vars
- * @param colorName
- * @param prefix
- * @param mode
+ * @param {string} colorName - The base name of the color
+ * @param {string} prefix - The CSS variable prefix
+ * @param {ThemeMode} mode - The theme mode (light/dark)
+ * @returns {Record<string, string>} The generated semantic variables
  */
 function generateSemanticVars(
   colorName: string,
   prefix: string,
   mode: ThemeMode,
 ): Record<string, string> {
+  // eslint-disable-next-line security/detect-object-injection
   const mapping = SEMANTIC_TOKEN_MAP[mode];
   const result: Record<string, string> = {};
 
@@ -59,10 +63,14 @@ function generateSemanticVars(
 
 /**
  * Creates CSS selectors for a theme
- * @param themeName
- * @param defaultTheme
+ * @param {string} themeName - The name of the theme
+ * @param {string} defaultTheme - The name of the default theme
+ * @returns {{ cssSelector: string; baseSelector: string }} The generated selectors
  */
-function createThemeSelectors(themeName: string, defaultTheme: string) {
+function createThemeSelectors(
+  themeName: string,
+  defaultTheme: string,
+): { cssSelector: string; baseSelector: string } {
   const cssSelector = `.${escapeSelector(themeName)}`;
   const baseSelector =
     themeName === defaultTheme
@@ -74,8 +82,9 @@ function createThemeSelectors(themeName: string, defaultTheme: string) {
 
 /**
  * Determines the color scheme for a theme
- * @param themeName
- * @param extend
+ * @param {string} themeName - The name of the theme
+ * @param {'light' | 'dark'} [extend] - The theme to extend
+ * @returns {string | null} The color scheme
  */
 function getColorScheme(themeName: string, extend?: 'light' | 'dark'): string | null {
   if (themeName === 'light' || themeName === 'dark') {
@@ -87,8 +96,9 @@ function getColorScheme(themeName: string, extend?: 'light' | 'dark'): string | 
 
 /**
  * Determines the mode (light/dark) for a theme
- * @param themeName
- * @param extend
+ * @param {string} themeName - The name of the theme
+ * @param {'light' | 'dark'} [extend] - The theme to extend
+ * @returns {ThemeMode} The theme mode
  */
 function getThemeMode(themeName: string, extend?: 'light' | 'dark'): ThemeMode {
   return themeName === 'dark' || extend === 'dark' ? 'dark' : 'light';
@@ -100,12 +110,73 @@ function getThemeMode(themeName: string, extend?: 'light' | 'dark'): ThemeMode {
 
 /**
  * Processes and registers all colors for a theme
- * @param flatColors
- * @param prefix
- * @param mode
- * @param resolved
- * @param cssSelector
- * @param baseSelector
+ * @param {Record<string, string>} flatColors - The flattened colors object
+ * @param {string} prefix - The CSS variable prefix
+ * @param {ThemeMode} mode - The theme mode
+ * @param {ResolvedConfig} resolved - The mutable resolved config object
+ * @param {string} cssSelector - The CSS selector for utilities
+ * @param {string} baseSelector - The custom property selector
+ */
+/**
+ * Processes a single shade color
+ * @param {string} colorName - Name of the color
+ * @param {string} colorValue - Value of the color
+ * @param {string} prefix - CSS variable prefix
+ * @param {ResolvedConfig} resolved - Mutable resolved config
+ * @param {string} cssSelector - CSS selector
+ * @param {string} baseSelector - Base selector
+ */
+function processShadeColor(
+  colorName: string,
+  colorValue: string,
+  prefix: string,
+  resolved: ResolvedConfig,
+  cssSelector: string,
+  baseSelector: string,
+): void {
+  // Skip non-numeric shades for shade-based colors
+  if (colorName.includes('-')) {
+    const shade = colorName.split('-').pop() || '';
+
+    if (!isNumericShade(shade)) {
+      return;
+    }
+  }
+
+  const parsed = parseColorValue(colorValue);
+
+  if (!parsed) {
+    return;
+  }
+
+  const { components } = parsed;
+  const colorVar = `--${prefix}-${colorName}`;
+  const formattedValue = formatColorComponents(components);
+  // eslint-disable-next-line security/detect-object-injection
+  const alphaValue = components[ALPHA_COMPONENT_INDEX] ?? '<alpha-value>';
+
+  // Register CSS variable (per-theme)
+  // eslint-disable-next-line security/detect-object-injection
+  resolved.utilities[cssSelector][colorVar] = formattedValue;
+  // eslint-disable-next-line security/detect-object-injection
+  resolved.baseStyles[baseSelector][colorVar] = formattedValue;
+
+  // Register Tailwind color only if not already set (first theme wins)
+  // eslint-disable-next-line security/detect-object-injection
+  if (!resolved.colors[colorName]) {
+    // eslint-disable-next-line security/detect-object-injection
+    resolved.colors[colorName] = `oklch(var(${colorVar}) / ${alphaValue})`;
+  }
+}
+
+/**
+ * Processes and registers all colors for a theme
+ * @param {Record<string, string>} flatColors - The flattened colors object
+ * @param {string} prefix - The CSS variable prefix
+ * @param {ThemeMode} mode - The theme mode
+ * @param {ResolvedConfig} resolved - The mutable resolved config object
+ * @param {string} cssSelector - The CSS selector for utilities
+ * @param {string} baseSelector - The custom property selector
  */
 function processColors(
   flatColors: Record<string, string>,
@@ -121,34 +192,7 @@ function processColors(
       continue;
     }
 
-    // Skip non-numeric shades for shade-based colors
-    if (colorName.includes('-')) {
-      const shade = colorName.split('-').pop() || '';
-
-      if (!isNumericShade(shade)) {
-        continue;
-      }
-    }
-
-    const parsed = parseColorValue(colorValue);
-
-    if (!parsed) {
-      continue;
-    }
-
-    const { components } = parsed;
-    const colorVar = `--${prefix}-${colorName}`;
-    const formattedValue = formatColorComponents(components);
-    const alphaValue = components[3] ?? '<alpha-value>';
-
-    // Register CSS variable (per-theme)
-    resolved.utilities[cssSelector][colorVar] = formattedValue;
-    resolved.baseStyles[baseSelector][colorVar] = formattedValue;
-
-    // Register Tailwind color only if not already set (first theme wins)
-    if (!resolved.colors[colorName]) {
-      resolved.colors[colorName] = `oklch(var(${colorVar}) / ${alphaValue})`;
-    }
+    processShadeColor(colorName, colorValue, prefix, resolved, cssSelector, baseSelector);
   }
 
   // Generate semantic tokens
@@ -158,13 +202,17 @@ function processColors(
     const semanticVars = generateSemanticVars(baseName, prefix, mode);
 
     for (const [varName, varValue] of Object.entries(semanticVars)) {
+      // eslint-disable-next-line security/detect-object-injection
       resolved.utilities[cssSelector][varName] = varValue;
+      // eslint-disable-next-line security/detect-object-injection
       resolved.baseStyles[baseSelector][varName] = varValue;
 
       // Register Tailwind color only if not already set (first theme wins)
       const tokenName = varName.replace(`--${prefix}-`, '').replace(/-DEFAULT$/, '');
 
+      // eslint-disable-next-line security/detect-object-injection
       if (!resolved.colors[tokenName]) {
+        // eslint-disable-next-line security/detect-object-injection
         resolved.colors[tokenName] = `oklch(var(${varName}) / <alpha-value>)`;
       }
     }
@@ -177,11 +225,11 @@ function processColors(
 
 /**
  * Processes and registers layout tokens for a theme
- * @param flatLayout
- * @param prefix
- * @param resolved
- * @param cssSelector
- * @param baseSelector
+ * @param {Record<string, unknown>} flatLayout - The flattened layout object
+ * @param {string} prefix - The CSS variable prefix
+ * @param {ResolvedConfig} resolved - The mutable resolved config object
+ * @param {string} cssSelector - The CSS selector for utilities
+ * @param {string} baseSelector - The custom property selector
  */
 function processLayout(
   flatLayout: Record<string, unknown>,
@@ -202,7 +250,9 @@ function processLayout(
       for (const [nestedKey, nestedValue] of Object.entries(value as Record<string, string>)) {
         const nestedVar = `${varName}-${nestedKey}`;
 
+        // eslint-disable-next-line security/detect-object-injection
         resolved.utilities[cssSelector][nestedVar] = nestedValue;
+        // eslint-disable-next-line security/detect-object-injection
         resolved.baseStyles[baseSelector][nestedVar] = nestedValue;
       }
     } else {
@@ -212,7 +262,9 @@ function processLayout(
           ? value.toString().replace(/^0\./, '.')
           : String(value);
 
+      // eslint-disable-next-line security/detect-object-injection
       resolved.utilities[cssSelector][varName] = formattedValue;
+      // eslint-disable-next-line security/detect-object-injection
       resolved.baseStyles[baseSelector][varName] = formattedValue;
     }
   }
@@ -224,9 +276,10 @@ function processLayout(
 
 /**
  * Resolves theme configuration into CSS utilities, base styles, and variants
- * @param themes
- * @param defaultTheme
- * @param prefix
+ * @param {ConfigThemes} themes - The themes configuration
+ * @param {string} defaultTheme - The default theme name
+ * @param {string} prefix - The CSS variable prefix
+ * @returns {ResolvedConfig} The fully resolved configuration
  */
 function resolveConfig(themes: ConfigThemes, defaultTheme: string, prefix: string): ResolvedConfig {
   const resolved: ResolvedConfig = {
@@ -242,7 +295,9 @@ function resolveConfig(themes: ConfigThemes, defaultTheme: string, prefix: strin
     const mode = getThemeMode(themeName, extend);
 
     // Initialize style objects
+    // eslint-disable-next-line security/detect-object-injection
     resolved.baseStyles[baseSelector] = colorScheme ? { 'color-scheme': colorScheme } : {};
+    // eslint-disable-next-line security/detect-object-injection
     resolved.utilities[cssSelector] = colorScheme ? { 'color-scheme': colorScheme } : {};
 
     // Register variant
@@ -271,7 +326,8 @@ function resolveConfig(themes: ConfigThemes, defaultTheme: string, prefix: strin
 
 /**
  * Builds the final theme configuration by merging defaults with user config
- * @param config
+ * @param {ThemeConfig} config - The partial user configuration
+ * @returns {ConfigThemes} The complete themes map
  */
 function buildThemes(config: ThemeConfig): ConfigThemes {
   const themeData = config?.themes || {};
@@ -312,15 +368,17 @@ function buildThemes(config: ThemeConfig): ConfigThemes {
 
 /**
  * Creates the Tailwind theme extension configuration
- * @param colors
- * @param prefix
- * @param disableAnimations
+ * @param {Record<string, string>} colors - The resolved colors map
+ * @param {string} prefix - The CSS variable prefix
+ * @param {boolean} disableAnimations - Whether to disable animations
+ * @returns {Record<string, any>} The Tailwind theme extension object
  */
 function createThemeExtension(
   colors: Record<string, string>,
   prefix: string,
   disableAnimations: boolean,
-) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Record<string, any> {
   return {
     colors,
     spacing,
@@ -350,7 +408,8 @@ function createThemeExtension(
 
 /**
  * IdeasUI Tailwind CSS plugin - generates CSS variables and utilities
- * @param config
+ * @param {ThemeConfig} [config] - The plugin configuration object
+ * @returns {ReturnType<typeof plugin>} The properly configured Tailwind plugin
  */
 export const ideasUIPlugin = (config: ThemeConfig = {}): ReturnType<typeof plugin> => {
   const { defaultTheme = 'light', prefix = DEFAULT_PREFIX, disableAnimations = false } = config;

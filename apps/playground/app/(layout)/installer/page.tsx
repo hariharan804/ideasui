@@ -1,7 +1,10 @@
 'use client';
+import type { JSX } from 'react';
 
 import { useState } from 'react';
 import { Package, Check, AlertCircle, Copy } from 'lucide-react';
+
+const COPY_TIMEOUT = 2000;
 
 const RELEASE_TAGS = {
   latest: { label: 'Latest', description: 'Stable release', color: 'green' },
@@ -20,12 +23,12 @@ const PACKAGES = [
   '@ideasui/hooks',
 ] as const;
 
-export default function InstallerPage() {
+export default function InstallerPage(): JSX.Element {
   const [selectedTag, setSelectedTag] = useState<keyof typeof RELEASE_TAGS>('latest');
   const [selectedPackages, setSelectedPackages] = useState<Set<string>>(new Set(PACKAGES));
   const [copiedCommand, setCopiedCommand] = useState<string | null>(null);
 
-  const generateInstallCommand = (packageManager: 'npm' | 'pnpm' | 'yarn') => {
+  const generateInstallCommand = (packageManager: 'npm' | 'pnpm' | 'yarn'): string => {
     const packages = Array.from(selectedPackages);
     const packagesWithTag = packages.map((pkg) => `${pkg}@${selectedTag}`).join(' ');
 
@@ -39,13 +42,13 @@ export default function InstallerPage() {
     }
   };
 
-  const copyCommand = async (command: string) => {
+  const copyCommand = async (command: string): Promise<void> => {
     await navigator.clipboard.writeText(command);
     setCopiedCommand(command);
-    setTimeout(() => setCopiedCommand(null), 2000);
+    setTimeout(() => setCopiedCommand(null), COPY_TIMEOUT);
   };
 
-  const togglePackage = (pkg: string) => {
+  const togglePackage = (pkg: string): void => {
     const newSelected = new Set(selectedPackages);
 
     if (newSelected.has(pkg)) {
@@ -56,8 +59,8 @@ export default function InstallerPage() {
     setSelectedPackages(newSelected);
   };
 
-  const selectAll = () => setSelectedPackages(new Set(PACKAGES));
-  const selectNone = () => setSelectedPackages(new Set());
+  const selectAll = (): void => setSelectedPackages(new Set(PACKAGES));
+  const selectNone = (): void => setSelectedPackages(new Set());
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
@@ -206,13 +209,13 @@ export default function InstallerPage() {
               <h2 className="mb-4 text-xl font-semibold text-slate-800">Package.json Preview</h2>
               <div className="overflow-x-auto rounded-lg bg-slate-900 p-4 font-mono text-sm text-slate-100">
                 <div className="text-blue-300">{`{`}</div>
-                <div className="ml-2 text-green-300">"dependencies":</div>
+                <div className="ml-2 text-green-300">&quot;dependencies&quot;:</div>
                 <div className="ml-2 text-blue-300">{`{`}</div>
                 {Array.from(selectedPackages).map((pkg, index, arr) => (
                   <div key={pkg} className="ml-4">
-                    <span className="text-yellow-300">"{pkg}"</span>
+                    <span className="text-yellow-300">&quot;{pkg}&quot;</span>
                     <span className="text-slate-300">: </span>
-                    <span className="text-green-300">"{selectedTag}"</span>
+                    <span className="text-green-300">&quot;{selectedTag}&quot;</span>
                     {index < arr.length - 1 && <span className="text-slate-300">,</span>}
                   </div>
                 ))}

@@ -1,9 +1,10 @@
 'use client';
 
-// import { Geist, Geist_Mono } from 'next/font/google'
-import './globals.css';
-import React from 'react';
+import type { JSX } from 'react';
+
 import { ThemeProvider, ThemeScript } from '@ideasui/theme';
+
+import './globals.css';
 // import {ideasUIPlugin} from "@ideasui/theme";
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
@@ -25,7 +26,7 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): JSX.Element {
   // const plugin = ideasUIPlugin();
   // console.debug("🚀 ~ RootLayout ~ plugin:", plugin);
   return (

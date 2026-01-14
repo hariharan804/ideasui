@@ -1,6 +1,6 @@
 import type { ThemeScriptConfig } from '../types';
 
-export const createScript = (cfg: ThemeScriptConfig) => {
+export const createScript = (cfg: ThemeScriptConfig): string => {
   const { storageKey, defaultTheme, themes, mode, systemThemes } = cfg;
 
   // All possible theme class names we might add/remove

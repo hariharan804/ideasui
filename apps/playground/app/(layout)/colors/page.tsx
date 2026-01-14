@@ -1,16 +1,24 @@
 'use client';
+import type { JSX } from 'react';
+
 import { useState } from 'react';
 import { Check, Copy, Palette } from 'lucide-react';
+import Link from 'next/link';
 import { lightColorTokens, darkColorTokens } from '@ideasui/theme';
 
-export default function ColorsPage() {
+const COPY_TIMEOUT = 2000;
+const DEFAULT_BUTTON_CLASS =
+  'border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100';
+const COPIED_BUTTON_CLASS = 'border-green-300 bg-green-100 text-green-700';
+
+export default function ColorsPage(): JSX.Element {
   const [copiedClass, setCopiedClass] = useState<string | null>(null);
   const [selectedTheme, setSelectedTheme] = useState<'light' | 'dark'>('light');
 
-  const copyToClipboard = async (className: string) => {
+  const copyToClipboard = async (className: string): Promise<void> => {
     await navigator.clipboard.writeText(className);
     setCopiedClass(className);
-    setTimeout(() => setCopiedClass(null), 2000);
+    setTimeout(() => setCopiedClass(null), COPY_TIMEOUT);
   };
 
   const colors = {
@@ -60,12 +68,14 @@ export default function ColorsPage() {
               <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold text-neutral-800 capitalize">
                 <div
                   className="h-4 w-4 rounded-full"
+                  // eslint-disable-next-line security/detect-object-injection
                   style={{ backgroundColor: colors[selectedTheme][category]['500'] }}
                 />
                 {category}
               </h2>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-5 lg:grid-cols-11">
+                {/* eslint-disable-next-line security/detect-object-injection */}
                 {Object.entries(colors[selectedTheme][category]).map(([shade, color]) => {
                   const className = `bg-${category}-${shade}`;
                   const textClassName = `text-${category}-${shade}`;
@@ -76,8 +86,17 @@ export default function ColorsPage() {
                       {/* Color Swatch */}
                       <div
                         className="relative aspect-square cursor-pointer overflow-hidden rounded-lg border border-neutral-200 shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md"
-                        style={{ backgroundColor: color }}
-                        onClick={() => copyToClipboard(className)}
+                        role="button"
+                        style={{ backgroundColor: color as string }}
+                        tabIndex={0}
+                        onClick={() => {
+                          void copyToClipboard(className);
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            void copyToClipboard(className);
+                          }
+                        }}
                       >
                         <div className="absolute inset-0 bg-black/0 transition-colors duration-200 group-hover:bg-black/10" />
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-200 group-hover:opacity-100">
@@ -92,18 +111,18 @@ export default function ColorsPage() {
                       {/* Shade Label */}
                       <div className="mt-2 text-center">
                         <div className="text-sm font-medium text-neutral-700">{shade}</div>
-                        <div className="font-mono text-xs text-neutral-500">{color}</div>
+                        <div className="font-mono text-xs text-neutral-500">{color as string}</div>
                       </div>
 
                       {/* Class Options */}
                       <div className="mt-2 space-y-1">
                         <button
                           className={`w-full rounded border px-2 py-1 font-mono text-xs transition-colors ${
-                            copiedClass === className
-                              ? 'border-green-300 bg-green-100 text-green-700'
-                              : 'border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100'
+                            copiedClass === className ? COPIED_BUTTON_CLASS : DEFAULT_BUTTON_CLASS
                           }`}
-                          onClick={() => copyToClipboard(className)}
+                          onClick={() => {
+                            void copyToClipboard(className);
+                          }}
                         >
                           {copiedClass === className ? 'Copied!' : className}
                         </button>
@@ -111,10 +130,12 @@ export default function ColorsPage() {
                         <button
                           className={`w-full rounded border px-2 py-1 font-mono text-xs transition-colors ${
                             copiedClass === textClassName
-                              ? 'border-green-300 bg-green-100 text-green-700'
-                              : 'border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100'
+                              ? COPIED_BUTTON_CLASS
+                              : DEFAULT_BUTTON_CLASS
                           }`}
-                          onClick={() => copyToClipboard(textClassName)}
+                          onClick={() => {
+                            void copyToClipboard(textClassName);
+                          }}
                         >
                           {copiedClass === textClassName ? 'Copied!' : textClassName}
                         </button>
@@ -122,10 +143,12 @@ export default function ColorsPage() {
                         <button
                           className={`w-full rounded border px-2 py-1 font-mono text-xs transition-colors ${
                             copiedClass === borderClassName
-                              ? 'border-green-300 bg-green-100 text-green-700'
-                              : 'border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100'
+                              ? COPIED_BUTTON_CLASS
+                              : DEFAULT_BUTTON_CLASS
                           }`}
-                          onClick={() => copyToClipboard(borderClassName)}
+                          onClick={() => {
+                            void copyToClipboard(borderClassName);
+                          }}
                         >
                           {copiedClass === borderClassName ? 'Copied!' : borderClassName}
                         </button>
@@ -226,12 +249,12 @@ export default function ColorsPage() {
               <div className="space-y-4">
                 <p className="text-neutral-600">
                   Regular text can involve links that are{' '}
-                  <a
+                  <Link
                     className="text-primary-600 hover:text-primary-700 decoration-primary-300 font-medium underline underline-offset-4"
-                    href="#"
+                    href="/"
                   >
                     styled with primary colors
-                  </a>
+                  </Link>
                   .
                 </p>
                 <p className="text-sm text-neutral-500">

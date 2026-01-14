@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { execSync } from 'child_process';
 import { existsSync } from 'fs';
 import { join } from 'path';
@@ -49,6 +50,7 @@ export const addCommand = new Command()
           process.exit(1);
         }
 
+        // eslint-disable-next-line security/detect-object-injection
         return availablePackages[comp].name;
       });
     }

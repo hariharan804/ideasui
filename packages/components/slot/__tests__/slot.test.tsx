@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
-import { Slot } from '../slot';
+
+import { Slot } from '../src/slot';
 
 expect.extend(toHaveNoViolations);
 
@@ -20,7 +21,7 @@ describe('Slot', () => {
 
     it('forwards props correctly', () => {
       render(
-        <Slot as="button" disabled>
+        <Slot disabled as="button">
           Button
         </Slot>,
       );
@@ -29,6 +30,7 @@ describe('Slot', () => {
 
     it('forwards ref correctly', () => {
       const ref = jest.fn();
+
       render(<Slot ref={ref}>Content</Slot>);
       expect(ref).toHaveBeenCalledWith(expect.any(HTMLDivElement));
     });
@@ -41,7 +43,9 @@ describe('Slot', () => {
           <button className="child-class">Button</button>
         </Slot>,
       );
+
       const button = screen.getByRole('button');
+
       expect(button).toHaveClass('slot-class', 'child-class');
     });
 
@@ -67,9 +71,11 @@ describe('Slot', () => {
           <div style={{ color: 'blue', margin: '10px' }}>Content</div>
         </Slot>,
       );
+
       const element = screen.getByText('Content');
+
       expect(element).toHaveStyle({
-        color: 'red', // slot takes precedence
+        color: 'rgb(255, 0, 0)', // slot takes precedence
         fontSize: '16px', // from slot
         margin: '10px', // from child
       });
@@ -77,6 +83,7 @@ describe('Slot', () => {
 
     it('throws error with invalid children in development', () => {
       const originalEnv = process.env.NODE_ENV;
+
       process.env.NODE_ENV = 'development';
 
       expect(() => {
@@ -91,7 +98,8 @@ describe('Slot', () => {
     it('has no accessibility violations', async () => {
       const { container } = render(<Slot as="button">Accessible Button</Slot>);
       const results = await axe(container);
-      // expect(results).toHaveNoViolations();
+
+      expect(results).toHaveNoViolations();
     });
 
     it('maintains semantic meaning', () => {
@@ -103,7 +111,8 @@ describe('Slot', () => {
   describe('TypeScript', () => {
     it('infers correct element props', () => {
       // This test ensures TypeScript compilation works correctly
-      render(<Slot as="input" type="text" placeholder="Test" />);
+
+      render(<Slot as="input" placeholder="Test" type="text" />);
       expect(screen.getByPlaceholderText('Test')).toBeInTheDocument();
     });
   });

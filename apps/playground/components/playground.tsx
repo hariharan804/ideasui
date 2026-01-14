@@ -1,5 +1,6 @@
-'use client';
-import React from 'react';
+import type { JSX } from 'react';
+
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, Grid, List } from 'lucide-react';
 
@@ -28,14 +29,14 @@ const COMPONENT_LIST: ComponentItem[] = [
 
 const categories = Array.from(new Set(COMPONENT_LIST.map((item) => item.category).filter(Boolean)));
 
-function Playground() {
+function Playground(): JSX.Element {
   const router = useRouter();
 
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [selectedCategory, setSelectedCategory] = React.useState<string>('All');
-  const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('grid');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
-  const navigateToComponent = (name: string) => {
+  const navigateToComponent = (name: string): void => {
     router.push(`/playground/${name.toLowerCase()}`);
   };
 
@@ -111,13 +112,20 @@ function Playground() {
                 : 'space-y-4'
             }
           >
-            {filteredComponents.map((item, index) => (
+            {filteredComponents.map((item) => (
               <div
-                key={index}
+                key={item.name}
                 className={`group hover:border-primary-300 cursor-pointer rounded-xl border border-gray-200 bg-white p-6 transition-all duration-200 hover:scale-[1.02] hover:shadow-lg ${
                   viewMode === 'list' ? 'flex items-center gap-6' : ''
                 }`}
+                role="button"
+                tabIndex={0}
                 onClick={() => navigateToComponent(item.name)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    navigateToComponent(item.name);
+                  }
+                }}
               >
                 <div className={`${viewMode === 'list' ? 'flex-1' : ''}`}>
                   <div className="mb-2 flex items-center justify-between">

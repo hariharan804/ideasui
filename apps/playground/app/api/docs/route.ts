@@ -5,7 +5,7 @@ import path from 'path';
 
 import { NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     const file = request.nextUrl.searchParams.get('file');
 
@@ -19,10 +19,7 @@ export async function GET(request: NextRequest) {
     // Security: prevent directory traversal
     const resolvedPath = path.resolve(filePath);
 
-    console.debug('🚀 ~ GET ~ resolvedPath:', resolvedPath);
     const projectRoot = path.resolve(process.cwd());
-
-    console.debug('🚀 ~ GET ~ projectRoot:', projectRoot);
 
     if (!resolvedPath.startsWith(projectRoot)) {
       return NextResponse.json({ error: 'Invalid file path' }, { status: 403 });

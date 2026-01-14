@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import type { ButtonProps } from '../src';
 
-import { Heart, Download, File } from 'lucide-react';
-import { Button, ButtonProps } from '../src';
 import { useState } from 'react';
+import { Heart, Download, File } from 'lucide-react';
+
+import { Button } from '../src';
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -29,6 +31,7 @@ const defaultProps: Partial<ButtonProps> = {
   radius: 'md',
   children: 'Button',
 };
+
 export const Default: Story = {
   args: {
     ...defaultProps,
@@ -50,19 +53,20 @@ export const Loading: Story = {
   },
 };
 
-const StateControlled = (args: ButtonProps) => {
+const StateControlled = (args: ButtonProps): React.JSX.Element => {
   const [pressedCount, setPressedCount] = useState(0);
 
-  const handlePress = (e: any) => {
+  const handlePress = (): void => {
     setPressedCount((prev) => prev + 1);
   };
   const label = pressedCount ? 'Pressed ' + pressedCount : 'Press';
+
   return (
     <div className="flex gap-2">
       <Button {...args} aria-label={label} aria-pressed={pressedCount > 0} onClick={handlePress}>
         {label}
       </Button>
-      <Button variant="outline" disabled={pressedCount === 0} onClick={() => setPressedCount(0)}>
+      <Button disabled={pressedCount === 0} variant="outline" onClick={() => setPressedCount(0)}>
         Reset
       </Button>
     </div>

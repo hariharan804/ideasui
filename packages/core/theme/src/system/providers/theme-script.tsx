@@ -5,10 +5,12 @@ import { memo, useMemo } from 'react';
 import { createScript } from './utils/script';
 import { defaultConfig } from './utils/themes.config';
 
-const validateThemeConfig = (config: ThemeScriptConfig): ThemeScriptConfig => {
-  const isValidString = (str: unknown): str is string =>
-    typeof str === 'string' && /^[\w.:-]+$/.test(str) && str.length < 50;
+const THEME_MAX_LENGTH = 50;
 
+const isValidString = (str: unknown): str is string =>
+  typeof str === 'string' && /^[\w.:-]+$/.test(str) && str.length < THEME_MAX_LENGTH;
+
+const validateThemeConfig = (config: ThemeScriptConfig): ThemeScriptConfig => {
   const validThemes = Array.isArray(config.themes)
     ? config.themes.filter(isValidString)
     : ['light', 'dark'];

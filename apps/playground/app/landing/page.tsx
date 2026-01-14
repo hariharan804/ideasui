@@ -1,5 +1,8 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import type { JSX } from 'react';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import {
   Moon,
   Sun,
@@ -22,20 +25,22 @@ import {
 } from 'lucide-react';
 import { useTheme } from '@ideasui/theme';
 
-export default function ComponentLibraryLanding() {
+const SCROLL_THRESHOLD = 50;
+
+export default function ComponentLibraryLanding(): JSX.Element {
   const { theme, setTheme } = useTheme();
   const [scrollY, setScrollY] = useState(0);
   const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
+    const handleScroll = (): void => setScrollY(window.scrollY);
 
     window.addEventListener('scroll', handleScroll);
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+  const toggleTheme = (): void => setTheme(theme === 'light' ? 'dark' : 'light');
 
   const features = [
     {
@@ -106,7 +111,9 @@ export default function ComponentLibraryLanding() {
         {/* Floating Header */}
         <header
           className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-            scrollY > 50 ? 'bg-background/80 shadow-lg backdrop-blur-lg' : 'bg-transparent'
+            scrollY > SCROLL_THRESHOLD
+              ? 'bg-background/80 shadow-lg backdrop-blur-lg'
+              : 'bg-transparent'
           }`}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -124,30 +131,30 @@ export default function ComponentLibraryLanding() {
               </div>
 
               <nav className="hidden items-center space-x-8 md:flex">
-                <a
+                <Link
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   href="#features"
                 >
                   Features
-                </a>
-                <a
+                </Link>
+                <Link
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   href="#components"
                 >
                   Components
-                </a>
-                <a
+                </Link>
+                <Link
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   href="#docs"
                 >
                   Docs
-                </a>
-                <a
+                </Link>
+                <Link
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   href="#pricing"
                 >
                   Pricing
-                </a>
+                </Link>
                 <button
                   className="bg-muted hover:bg-muted/80 rounded-lg p-2.5 transition-all hover:scale-105"
                   onClick={toggleTheme}
@@ -221,9 +228,9 @@ export default function ComponentLibraryLanding() {
                   { icon: Star, value: '12K+', label: 'GitHub Stars' },
                   { icon: Box, value: '80+', label: 'Components' },
                   { icon: Code, value: '99%', label: 'Type Safe' },
-                ].map((stat, idx) => (
+                ].map((stat) => (
                   <div
-                    key={idx}
+                    key={stat.label}
                     className="bg-card/50 border-border rounded-xl border p-4 backdrop-blur-sm transition-transform hover:scale-105"
                   >
                     <stat.icon className="text-primary mx-auto mb-2 h-6 w-6" />
@@ -258,7 +265,7 @@ export default function ComponentLibraryLanding() {
                 <div className="border-border flex space-x-2 border-b">
                   {codeExamples.map((example, idx) => (
                     <button
-                      key={idx}
+                      key={example.title}
                       className={`border-b-2 px-4 py-2 font-medium transition-colors ${
                         activeTab === idx
                           ? 'border-primary text-primary'
@@ -272,6 +279,7 @@ export default function ComponentLibraryLanding() {
                 </div>
                 <div className="border-border overflow-hidden rounded-xl border bg-neutral-950 p-6">
                   <pre className="text-success-400 font-mono text-sm">
+                    {/* eslint-disable-next-line security/detect-object-injection */}
                     <code>{codeExamples[activeTab].code}</code>
                   </pre>
                 </div>
@@ -328,9 +336,9 @@ export default function ComponentLibraryLanding() {
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {features.map((feature, idx) => (
+              {features.map((feature) => (
                 <div
-                  key={idx}
+                  key={feature.title}
                   className="group bg-card border-border hover:border-primary/50 rounded-2xl border p-8 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 >
                   <div
@@ -453,37 +461,37 @@ export default function ComponentLibraryLanding() {
                   The modern component library for building beautiful React applications.
                 </p>
                 <div className="flex space-x-4">
-                  <a
+                  <Link
                     className="bg-muted hover:bg-primary hover:text-primary-foreground rounded-lg p-2 transition-colors"
-                    href="#"
+                    href="/"
                   >
                     <Github className="h-5 w-5" />
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     className="bg-muted hover:bg-primary hover:text-primary-foreground rounded-lg p-2 transition-colors"
-                    href="#"
+                    href="/"
                   >
                     <Twitter className="h-5 w-5" />
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div>
                 <h4 className="mb-4 font-semibold">Product</h4>
                 <ul className="text-muted-foreground space-y-2">
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
+                    <Link className="hover:text-primary transition-colors" href="/">
                       Components
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
+                    <Link className="hover:text-primary transition-colors" href="/">
                       Templates
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
+                    <Link className="hover:text-primary transition-colors" href="/">
                       Pricing
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -491,19 +499,19 @@ export default function ComponentLibraryLanding() {
                 <h4 className="mb-4 font-semibold">Resources</h4>
                 <ul className="text-muted-foreground space-y-2">
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
+                    <Link className="hover:text-primary transition-colors" href="/">
                       Documentation
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
+                    <Link className="hover:text-primary transition-colors" href="/">
                       Blog
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="hover:text-primary transition-colors" href="#">
+                    <Link className="hover:text-primary transition-colors" href="/">
                       Support
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

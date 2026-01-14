@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
@@ -24,7 +25,9 @@ export const listCommand = new Command()
         console.log(chalk.gray(`  Description: ${info.description}`));
         console.log(chalk.gray(`  Version: ${info.version}\n`));
       } else {
-        console.log(chalk.green(`${key.padEnd(12)}`), chalk.gray(info.description));
+        const padding = 12;
+
+        console.log(chalk.green(`${key.padEnd(padding)}`), chalk.gray(info.description));
       }
     });
 

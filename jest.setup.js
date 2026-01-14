@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 const { toHaveNoViolations } = require('jest-axe');
+
 require('@testing-library/jest-dom');
 
 // Add jest-axe matchers

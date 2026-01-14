@@ -1,6 +1,10 @@
 'use client';
 
-import React from 'react';
+import type { JSX, FC } from 'react';
+
+import { useState, useEffect } from 'react';
+
+const MAX_VISIBLE_KEYWORDS = 3;
 
 interface PackageData {
   [category: string]: Package[];
@@ -58,7 +62,7 @@ interface PackageDocumentationProps {
   className?: string;
 }
 
-const getCategoryIcon = (category: string) => {
+const getCategoryIcon = (category: string): string => {
   const icons = {
     components: '🧩',
     core: '⚙️',
@@ -71,7 +75,7 @@ const getCategoryIcon = (category: string) => {
   return icons[category as keyof typeof icons] || '📦';
 };
 
-const getCategoryDescription = (category: string) => {
+const getCategoryDescription = (category: string): string => {
   const descriptions = {
     components: 'UI components for building interfaces',
     core: 'Core system packages and themes',
@@ -84,7 +88,7 @@ const getCategoryDescription = (category: string) => {
   return descriptions[category as keyof typeof descriptions] || 'Package collection';
 };
 
-const getPackageIcon = (packageName: string) => {
+const getPackageIcon = (packageName: string): string => {
   if (packageName.includes('button')) {
     return '🔘';
   }
@@ -113,7 +117,7 @@ const getPackageIcon = (packageName: string) => {
   return '📋';
 };
 
-const PropCard: React.FC<{ prop: PropItem }> = ({ prop }) => (
+const PropCard: FC<{ prop: PropItem }> = ({ prop }): JSX.Element => (
   <div className="rounded-lg border border-gray-200 bg-white p-4 transition-all hover:shadow-md">
     <div className="mb-2 flex items-start justify-between gap-2">
       <div className="flex items-center gap-2">
@@ -144,7 +148,7 @@ const PropCard: React.FC<{ prop: PropItem }> = ({ prop }) => (
   </div>
 );
 
-const EventCard: React.FC<{ event: EventItem }> = ({ event }) => (
+const EventCard: FC<{ event: EventItem }> = ({ event }): JSX.Element => (
   <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
     <div className="mb-2 flex items-center gap-2">
       <code className="rounded bg-purple-100 px-2 py-1 text-sm font-semibold text-purple-700">
@@ -159,7 +163,7 @@ const EventCard: React.FC<{ event: EventItem }> = ({ event }) => (
   </div>
 );
 
-const TypeCard: React.FC<{ type: TypeItem }> = ({ type }) => (
+const TypeCard: FC<{ type: TypeItem }> = ({ type }): JSX.Element => (
   <div className="rounded-lg border border-green-200 bg-green-50 p-4">
     <div className="mb-2 flex items-center gap-2">
       <code className="rounded bg-green-100 px-2 py-1 text-sm font-semibold text-green-700">
@@ -173,22 +177,26 @@ const TypeCard: React.FC<{ type: TypeItem }> = ({ type }) => (
   </div>
 );
 
-const PackageDocumentation: React.FC<PackageDocumentationProps> = ({ className }) => {
-  const [packageList, setPackageList] = React.useState<PackageData | null>(null);
-  const [loading, setLoading] = React.useState(true);
-  const [selectedPackage, setSelectedPackage] = React.useState<Package | null>(null);
+const PackageDocumentation: FC<PackageDocumentationProps> = ({ className }): JSX.Element => {
+  const [packageList, setPackageList] = useState<PackageData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
 
-  React.useEffect(() => {
-    fetch('/package-list.json')
-      .then((res) => res.json())
-      .then((data) => {
+  useEffect(() => {
+    const loadPackages = async (): Promise<void> => {
+      try {
+        const res = await fetch('/package-list.json');
+        const data = await res.json();
+
         setPackageList(data);
-        setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error('Failed to load package list:', error);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    void loadPackages();
   }, []);
 
   if (loading) {
@@ -253,8 +261,8 @@ const PackageDocumentation: React.FC<PackageDocumentationProps> = ({ className }
                       <div className="mb-6">
                         <h3 className="mb-3 text-lg font-semibold text-gray-900">Import</h3>
                         <div className="space-y-3">
-                          {docs.importInstructions.map((instruction, idx) => (
-                            <div key={idx} className="rounded-lg bg-gray-900 p-4">
+                          {docs.importInstructions.map((instruction) => (
+                            <div key={instruction.code} className="rounded-lg bg-gray-900 p-4">
                               <p className="mb-2 text-sm text-gray-300">
                                 {instruction.description}
                               </p>
@@ -366,7 +374,14 @@ const PackageDocumentation: React.FC<PackageDocumentationProps> = ({ className }
                   <div
                     key={pkg.name}
                     className="group cursor-pointer overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10"
+                    role="button"
+                    tabIndex={0}
                     onClick={() => setSelectedPackage(pkg)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        setSelectedPackage(pkg);
+                      }
+                    }}
                   >
                     {/* Package Header */}
                     <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 p-6">
@@ -385,7 +400,7 @@ const PackageDocumentation: React.FC<PackageDocumentationProps> = ({ className }
                       {/* Keywords */}
                       {pkg.keywords && pkg.keywords.length > 0 ? (
                         <div className="flex flex-wrap gap-2">
-                          {pkg.keywords.slice(0, 3).map((keyword: string) => (
+                          {pkg.keywords.slice(0, MAX_VISIBLE_KEYWORDS).map((keyword: string) => (
                             <span
                               key={keyword}
                               className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700"
@@ -393,9 +408,9 @@ const PackageDocumentation: React.FC<PackageDocumentationProps> = ({ className }
                               {keyword}
                             </span>
                           ))}
-                          {pkg.keywords.length > 3 && (
+                          {pkg.keywords.length > MAX_VISIBLE_KEYWORDS && (
                             <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
-                              +{pkg.keywords.length - 3}
+                              +{pkg.keywords.length - MAX_VISIBLE_KEYWORDS}
                             </span>
                           )}
                         </div>

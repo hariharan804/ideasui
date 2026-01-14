@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 /** Layout token configuration */
 export interface LayoutTokens {
   /** Border radius - small (default: 0.25rem) */
@@ -121,7 +122,7 @@ export interface IdeasUITheme {
   fontSize: Record<string, string | [string, { lineHeight: string }]>;
   boxShadow: Record<string, string>;
   animation: Record<string, string>;
-  keyframes: Record<string, Record<string, any>>;
+  keyframes: Record<string, Record<string, unknown>>;
   transitionDuration: Record<string, string>;
   transitionTimingFunction: Record<string, string>;
 }

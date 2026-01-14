@@ -1,5 +1,6 @@
 import type { Ref } from 'react';
 import type { ButtonProps } from './button';
+import type { RippleEvent } from '@ideasui/ripple';
 
 import { useRef, useCallback } from 'react';
 import { useButton as useAriaButton, useFocusRing, useHover } from 'react-aria';
@@ -26,7 +27,23 @@ export interface UseButtonProps extends Omit<ButtonProps, 'children'> {
   disableRipple?: boolean;
 }
 
-export function useButton(props: UseButtonProps) {
+export interface UseButtonReturn {
+  domRef: React.RefObject<HTMLButtonElement>;
+  isPressed: boolean;
+  isDisabled: boolean;
+  isLoading: boolean;
+  isFocused: boolean;
+  isFocusVisible: boolean;
+  isHovered: boolean;
+  ripples: RippleItem[];
+  getButtonProps: (
+    userProps?: React.HTMLAttributes<HTMLButtonElement>,
+  ) => React.HTMLAttributes<HTMLButtonElement>;
+  getRippleProps: () => { ripples: RippleItem[]; onClear: (key: React.Key) => void };
+}
+
+export function useButton(props: UseButtonProps): UseButtonReturn {
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const {
     loading = false,
     disabled = false,
@@ -49,6 +66,7 @@ export function useButton(props: UseButtonProps) {
     style,
     ...ariaCompatibleProps
   } = props;
+  /* eslint-enable @typescript-eslint/no-unused-vars */
 
   const domRef = useRef<HTMLButtonElement>(null);
   const isDisabled = isDisabledProp || isLoading;
@@ -58,13 +76,13 @@ export function useButton(props: UseButtonProps) {
   });
   const { onPress: handleRipple, onClear: onClearRipple, ripples } = useRipple();
   const handlePress = useCallback(
-    (e: any) => {
+    (e: RippleEvent) => {
       // if (disableRipple || isDisabled || disableAnimation) return;
       // domRef.current &&
       handleRipple(e);
-      onClick && onClick(e);
+      onClick && onClick(e as React.MouseEvent<HTMLButtonElement>);
     },
-    [isDisabled, domRef],
+    [handleRipple, onClick],
   );
   // Only pass specific props that React Aria expects
   const ariaProps = {
@@ -89,7 +107,7 @@ export function useButton(props: UseButtonProps) {
   );
 
   const getButtonProps = useCallback(
-    (props: any = {}) => ({
+    (userProps: React.HTMLAttributes<HTMLButtonElement> = {}) => ({
       'data-disabled': toDataAttr(isDisabled),
       'data-focus': toDataAttr(isFocused),
       'data-pressed': toDataAttr(isPressed),
@@ -104,14 +122,14 @@ export function useButton(props: UseButtonProps) {
           ref: domRef,
           'aria-busy': isLoading,
           'aria-live': isLoading ? 'polite' : undefined,
-          'aria-label': isLoading ? 'Loading' : props['aria-label'],
+          'aria-label': isLoading ? 'Loading' : userProps['aria-label'],
           style: {
             minHeight: '44px',
             minWidth: '44px',
-            ...props.style,
+            ...userProps.style,
           },
         },
-        props,
+        userProps,
       ),
     }),
     [
@@ -124,7 +142,7 @@ export function useButton(props: UseButtonProps) {
       isPressed,
       isFocusVisible,
       isHovered,
-      handleRipple,
+      domRef,
     ],
   );
 
@@ -141,5 +159,3 @@ export function useButton(props: UseButtonProps) {
     getRippleProps,
   };
 }
-
-export type UseButtonReturn = ReturnType<typeof useButton>;

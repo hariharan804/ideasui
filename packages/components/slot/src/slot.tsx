@@ -1,15 +1,27 @@
-import * as React from 'react';
-import { forwardRef } from '@ideasui/utils';
+import type {
+  HTMLAttributes,
+  ElementType,
+  ReactNode,
+  ReactElement,
+  Ref,
+  RefAttributes,
+  ClassAttributes,
+  MutableRefObject,
+  RefCallback,
+} from 'react';
+
+import { cloneElement, createElement, isValidElement, Children, Fragment } from 'react';
+import { forwardRef as polymorphicForwardRef } from '@ideasui/utils';
 
 /**
  * Props for Slot component
  */
-export interface SlotProps extends React.HTMLAttributes<HTMLElement> {
+export interface SlotProps extends HTMLAttributes<HTMLElement> {
   /**
    * Element or component to render as
    * @default "div"
    */
-  as?: React.ElementType;
+  as?: ElementType;
 
   /**
    * Merge props with the first child instead of rendering wrapper
@@ -20,7 +32,7 @@ export interface SlotProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * Content to render inside the slot
    */
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 // ============================================================================
@@ -33,26 +45,29 @@ export interface SlotProps extends React.HTMLAttributes<HTMLElement> {
  * React <=18: accessing element.props.ref throws warning, use element.ref
  * React 19: accessing element.ref throws warning, use element.props.ref
  * This utility detects the warning and uses the correct method
- * @param element
+ * @param {ReactElement} element - The React element to check
+ * @returns {Ref<unknown> | undefined} The ref of the element
  */
-function getElementRef(element: React.ReactElement) {
+function getElementRef(element: ReactElement): Ref<unknown> | undefined {
   // React <=18 in DEV - check if props.ref getter has warning
   let getter = Object.getOwnPropertyDescriptor(element.props, 'ref')?.get;
   let mayWarn = getter && 'isReactWarning' in getter && getter.isReactWarning;
 
   if (mayWarn) {
-    return (element as any).ref;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (element as RefAttributes<unknown> | ClassAttributes<unknown> as any).ref;
   }
 
   // React 19 in DEV - check if element.ref getter has warning
   getter = Object.getOwnPropertyDescriptor(element, 'ref')?.get;
   mayWarn = getter && 'isReactWarning' in getter && getter.isReactWarning;
   if (mayWarn) {
-    return (element.props as { ref?: React.Ref<unknown> }).ref;
+    return (element.props as { ref?: Ref<unknown> }).ref;
   }
 
   // Production mode - try both methods as fallback
-  return (element.props as { ref?: React.Ref<unknown> }).ref ?? (element as any).ref;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (element.props as { ref?: Ref<unknown> }).ref ?? (element as any).ref;
 }
 
 // ============================================================================
@@ -69,10 +84,15 @@ const EVENT_HANDLER_REGEX = /^on[A-Z]/;
  * - Styles: Merge objects (slot styles override child styles)
  * - ClassNames: Concatenate with space separator
  * - Other props: Slot props override child props
- * @param slotProps
- * @param childProps
+ * @param {Record<string, unknown>} slotProps - Props from the Slot component
+ * @param {Record<string, unknown>} childProps - Props from the child element
+ * @returns {Record<string, any>} Merged props object
  */
-function mergeProps(slotProps: Record<string, any>, childProps: Record<string, any>) {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+function mergeProps(
+  slotProps: Record<string, any>,
+  childProps: Record<string, any>,
+): Record<string, any> {
   // Early return if no slot props to merge
   if (!slotProps || Object.keys(slotProps).length === 0) {
     return childProps;
@@ -88,7 +108,9 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
 
   // Process each prop for intelligent merging
   for (const propName of allPropNames) {
+    // eslint-disable-next-line security/detect-object-injection
     const slotPropValue = slotProps[propName];
+    // eslint-disable-next-line security/detect-object-injection
     const childPropValue = childProps[propName];
 
     // Skip if neither object has this prop
@@ -100,6 +122,7 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
     if (EVENT_HANDLER_REGEX.test(propName)) {
       if (slotPropValue && childPropValue) {
         // Call child handler first, then slot handler
+        // eslint-disable-next-line security/detect-object-injection
         overrideProps[propName] = (...args: unknown[]) => {
           const result = childPropValue(...args);
 
@@ -109,15 +132,18 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
         };
       } else if (slotPropValue) {
         // Only slot handler exists
+        // eslint-disable-next-line security/detect-object-injection
         overrideProps[propName] = slotPropValue;
       }
     }
     // Style objects - merge with slot styles taking precedence
     else if (propName === 'style') {
+      // eslint-disable-next-line security/detect-object-injection
       overrideProps[propName] = { ...childPropValue, ...slotPropValue };
     }
     // CSS classes - concatenate with space separator
     else if (propName === 'className') {
+      // eslint-disable-next-line security/detect-object-injection
       overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join(' ');
     }
   }
@@ -125,6 +151,7 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
   // Slot props override child props, except for the special cases handled above
   return { ...slotProps, ...overrideProps };
 }
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 // ============================================================================
 // Ref Composition Utilities
@@ -135,21 +162,22 @@ function mergeProps(slotProps: Record<string, any>, childProps: Record<string, a
  *
  * Handles both function refs and ref objects (useRef, createRef)
  * Safely calls all refs when the element mounts/unmounts
- * @param {...any} refs
+ * @param {Array<Ref<unknown> | undefined>} refs - List of refs to compose
+ * @returns {RefCallback<unknown>} A single ref callback function
  */
-function composeRefs<T>(...refs: (React.Ref<T> | undefined)[]): React.Ref<T> {
-  return React.useCallback((node: T) => {
+function composeRefs<T>(...refs: (Ref<T> | undefined)[]): RefCallback<T> {
+  return (node: T) => {
     refs.forEach((ref) => {
       if (typeof ref === 'function') {
         // Function ref - call directly
         ref(node);
-      } else if (ref != null) {
+      } else if (ref !== null && ref !== undefined) {
         // Ref object - set current property
-        (ref as React.RefObject<T>).current = node;
+        (ref as MutableRefObject<T | null>).current = node;
       }
       // Ignore null/undefined refs
     });
-  }, refs);
+  };
 }
 
 // ============================================================================
@@ -182,37 +210,39 @@ function composeRefs<T>(...refs: (React.Ref<T> | undefined)[]): React.Ref<T> {
  * </Slot>
  * ```
  */
-export const Slot = forwardRef<'div', SlotProps>(
+
+export const Slot = polymorphicForwardRef<'div', SlotProps>(
   ({ as: Component = 'div', asChild, children, ...props }, ref) => {
     // AsChild mode: merge props with first child element
     if (asChild) {
       // Development validation - ensure single React element
       if (process.env.NODE_ENV !== 'production') {
-        if (!React.isValidElement(children)) {
+        if (!isValidElement(children)) {
           throw new Error('Slot: asChild requires a single React element as children');
         }
       }
 
       // Get the single child element
-      const child = React.Children.only(children as React.ReactElement);
+      const child = Children.only(children as ReactElement);
 
       // Extract child's existing ref for composition
       const childRef = getElementRef(child);
 
       // Merge slot props with child props (intelligent merging)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const mergedProps = mergeProps(props, child.props as Record<string, any>);
 
       // Compose refs if both exist, avoiding React.Fragment ref issues
-      if (child.type !== React.Fragment) {
+      if (child.type !== Fragment) {
         mergedProps.ref = ref ? composeRefs(ref, childRef) : childRef;
       }
 
       // Clone child with merged props
-      return React.cloneElement(child, mergedProps);
+      return cloneElement(child, mergedProps);
     }
 
     // Normal mode: render as specified component with props
-    return React.createElement(Component, { ref, ...props }, children);
+    return createElement(Component, { ref, ...props }, children);
   },
 );
 

@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 import path from 'path';
 
-import chalk from 'chalk';
 import inquirer from 'inquirer';
+import chalk from 'chalk';
 import ora from 'ora';
 import fs from 'fs-extra';
 
@@ -10,7 +11,7 @@ interface InitOptions {
   styled?: boolean;
 }
 
-export async function initProject(options: InitOptions) {
+export async function initProject(options: InitOptions): Promise<void> {
   const spinner = ora('Initializing IdeasUI...').start();
 
   try {
@@ -24,6 +25,8 @@ export async function initProject(options: InitOptions) {
     }
 
     // Ask for configuration
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _options = options;
     const answers = await inquirer.prompt([
       {
         type: 'input',
@@ -70,7 +73,7 @@ export async function initProject(options: InitOptions) {
   }
 }
 
-async function createConfigFiles(componentsDir: string) {
+async function createConfigFiles(componentsDir: string): Promise<void> {
   // Create components index
   const indexContent = `// Export your components here
 export * from './ui'
@@ -85,7 +88,7 @@ export * from './ui'
   await fs.writeFile(path.join(componentsDir, 'ui', 'index.ts'), uiIndexContent);
 }
 
-async function installDependencies(packageManager: string) {
+async function installDependencies(packageManager: string): Promise<void> {
   const { spawn } = require('child_process');
 
   const deps = [

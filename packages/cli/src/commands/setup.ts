@@ -1,3 +1,7 @@
+/* eslint-disable no-console */
+
+import type { PackageInfo } from '../utils/registry';
+
 import { execSync } from 'child_process';
 import { existsSync, writeFileSync } from 'fs';
 import { join } from 'path';
@@ -66,6 +70,7 @@ export const setupCommand = new Command()
 
       try {
         const packageManager = detectPackageManager();
+        // eslint-disable-next-line security/detect-object-injection
         const packages = answers.packages.map((p: string) => availablePackages[p].name);
         const installCmd = buildInstallCommand(packageManager, packages);
 
@@ -121,7 +126,7 @@ function buildInstallCommand(pm: string, packages: string[]): string {
   }
 }
 
-function setupTailwindConfig(cwd: string) {
+function setupTailwindConfig(cwd: string): void {
   const configPath = join(cwd, 'tailwind.config.js');
 
   if (existsSync(configPath)) {
@@ -151,8 +156,8 @@ module.exports = {
 function createExampleComponent(
   cwd: string,
   packages: string[],
-  availablePackages: Record<string, any>,
-) {
+  _availablePackages: Record<string, PackageInfo>,
+): void {
   const examplePath = join(cwd, 'example-component.tsx');
 
   if (existsSync(examplePath)) {

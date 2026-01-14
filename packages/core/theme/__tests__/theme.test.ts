@@ -1,9 +1,9 @@
 import { ideasUIPlugin } from '../src/index';
 import { lightColorTokens, darkColorTokens } from '../src/tokens/colors';
 import { lightLayout } from '../src/tokens/layout';
-import type { ThemeConfig } from '../src/system/types';
 
 describe('ideasUIPlugin', () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let mockPluginAPI: any;
 
   beforeEach(() => {
@@ -16,6 +16,7 @@ describe('ideasUIPlugin', () => {
 
   it('should create plugin with default configuration', () => {
     const plugin = ideasUIPlugin();
+
     expect(plugin).toBeDefined();
     expect(typeof plugin.handler).toBe('function');
     expect(plugin.config).toBeDefined();
@@ -23,6 +24,7 @@ describe('ideasUIPlugin', () => {
 
   it('should generate correct CSS variables', () => {
     const plugin = ideasUIPlugin({ prefix: 'test' });
+
     plugin.handler(mockPluginAPI);
 
     expect(mockPluginAPI.addBase).toHaveBeenCalled();
@@ -32,16 +34,19 @@ describe('ideasUIPlugin', () => {
 
   it('should handle disabled animations', () => {
     const plugin = ideasUIPlugin({ disableAnimations: true });
+
     plugin.handler(mockPluginAPI);
 
     const baseCall = mockPluginAPI.addBase.mock.calls.find(
-      (call: any) => call[0]['*,*::before,*::after'],
+      (call: Record<string, unknown>[]) => call[0]['*,*::before,*::after'],
     );
+
     expect(baseCall).toBeDefined();
   });
 
   it('should handle invalid configuration gracefully', () => {
     expect(() => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ideasUIPlugin({ themes: null as any });
     }).not.toThrow();
   });

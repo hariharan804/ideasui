@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import type { ReactElement } from 'react';
+
 import { lightColorTokens, darkColorTokens } from '../src/tokens/colors';
 
 const meta: Meta = {
@@ -11,7 +13,15 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-const ColorSwatch = ({ name, value, shade }: { name: string; value: string; shade: string }) => (
+const ColorSwatch = ({
+  name,
+  value,
+  shade,
+}: {
+  name: string;
+  value: string;
+  shade: string;
+}): ReactElement => (
   <div className="flex items-center gap-3 rounded-lg border p-2">
     <div className="h-12 w-12 rounded-lg border shadow-sm" style={{ backgroundColor: value }} />
     <div>
@@ -29,12 +39,12 @@ const ColorScale = ({
 }: {
   colorName: string;
   colors: Record<string, string>;
-}) => (
+}): ReactElement => (
   <div className="space-y-3">
     <h3 className="text-lg font-semibold capitalize">{colorName}</h3>
     <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
       {Object.entries(colors).map(([shade, value]) => (
-        <ColorSwatch key={shade} name={colorName} value={value} shade={shade} />
+        <ColorSwatch key={shade} name={colorName} shade={shade} value={value} />
       ))}
     </div>
   </div>
@@ -69,7 +79,7 @@ export const DarkColors: Story = {
 };
 
 export const ColorComparison: Story = {
-  render: () => (
+  render: (): ReactElement => (
     <div className="space-y-8">
       <h2 className="text-2xl font-bold">Light vs Dark Comparison</h2>
       {Object.keys(lightColorTokens).map((colorName) => {

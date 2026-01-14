@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import type { UserEvent } from '@testing-library/user-event';
 
-import * as React from 'react';
+import { createRef } from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -21,7 +21,7 @@ describe('Button', () => {
   });
 
   it('ref should be forwarded', () => {
-    const ref = React.createRef<HTMLButtonElement>();
+    const ref = createRef<HTMLButtonElement>();
 
     render(<Button ref={ref} disableRipple />);
     expect(ref.current).not.toBeNull();

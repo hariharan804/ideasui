@@ -16,7 +16,10 @@
   },
   "tailwindCSS.experimental.configFile": {
     "apps/docs/styles/globals.css": "apps/playground/**/*",
-    "packages/storybook/.storybook/style.css": ["packages/core/theme/**/*", "packages/components/**/*"]
+    "packages/storybook/.storybook/style.css": [
+      "packages/core/theme/**/*",
+      "packages/components/**/*"
+    ]
   },
   "tailwindCSS.experimental.classRegex": [
     ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
@@ -34,5 +37,5 @@
     "**/.turbo": true,
     "**/node_modules": false
   },
-  "cSpell.words": ["ideasui"]
+  "cSpell.words": ["ideasui", "oklch"]
 }

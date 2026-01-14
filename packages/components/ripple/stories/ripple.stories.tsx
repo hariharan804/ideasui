@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import type { JSX } from 'react';
+
+import { useRef } from 'react';
 import { useButton } from 'react-aria';
 
 import { Ripple, useRipple } from '../src';
-import { useRef } from 'react';
 
 const meta: Meta<typeof Ripple> = {
   title: 'Components/Ripple',
@@ -17,7 +19,7 @@ export default meta;
 
 type Story = StoryObj<typeof Ripple>;
 
-const CustomRipple = ({ children, className, ...args }: any) => {
+const CustomRipple = ({ children, className, ...args }: JSX.Element): JSX.Element => {
   const domRef = useRef<HTMLButtonElement>(null);
   const { ripples, onClear, onPress } = useRipple();
   const { buttonProps } = useButton({ ...args, onPress }, domRef);
@@ -29,6 +31,7 @@ const CustomRipple = ({ children, className, ...args }: any) => {
     </button>
   );
 };
+
 export const Default: Story = {
   render: (args) => (
     <CustomRipple
@@ -69,36 +72,40 @@ export const CustomColor: Story = {
   },
 };
 
-export const DOMEvents: Story = {
-  render: (args) => {
-    const { ripples, onClear, onPress } = useRipple();
+const DomEventsContent = (args: ComponentProps<typeof Ripple>): JSX.Element => {
+  const { ripples, onClear, onPress } = useRipple();
 
-    return (
-      <button
-        className="relative cursor-pointer overflow-hidden rounded-lg bg-orange-600 px-8 py-4 text-white"
-        onClick={onPress}
-        {...args}
-      >
-        DOM Click Event
-        <Ripple ripples={ripples} onClear={onClear} />
-      </button>
-    );
-  },
+  return (
+    <button
+      className="relative cursor-pointer overflow-hidden rounded-lg bg-orange-600 px-8 py-4 text-white"
+      onClick={onPress}
+      {...args}
+    >
+      DOM Click Event
+      <Ripple ripples={ripples} onClear={onClear} />
+    </button>
+  );
+};
+
+export const DOMEvents: Story = {
+  render: (args) => <DomEventsContent {...args} />,
+};
+
+const MouseDownContent = (args: ComponentProps<typeof Ripple>): JSX.Element => {
+  const { ripples, onClear, onPress } = useRipple();
+
+  return (
+    <button
+      className="relative cursor-pointer overflow-hidden rounded-lg bg-red-600 px-8 py-4 text-white"
+      onMouseDown={onPress}
+      {...args}
+    >
+      Mouse Down Event
+      <Ripple ripples={ripples} onClear={onClear} />
+    </button>
+  );
 };
 
 export const MouseDown: Story = {
-  render: (args) => {
-    const { ripples, onClear, onPress } = useRipple();
-
-    return (
-      <button
-        className="relative cursor-pointer overflow-hidden rounded-lg bg-red-600 px-8 py-4 text-white"
-        onMouseDown={onPress}
-        {...args}
-      >
-        Mouse Down Event
-        <Ripple ripples={ripples} onClear={onClear} />
-      </button>
-    );
-  },
+  render: (args) => <MouseDownContent {...args} />,
 };

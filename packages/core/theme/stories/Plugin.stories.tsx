@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ideasUIPlugin } from '../src/index';
+import type { ReactElement } from 'react';
 
 const meta: Meta = {
   title: 'Theme/Plugin',
@@ -11,7 +11,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-const CodeBlock = ({ title, code }: { title: string; code: string }) => (
+const CodeBlock = ({ title, code }: { title: string; code: string }): ReactElement => (
   <div className="space-y-2">
     <h3 className="text-lg font-semibold">{title}</h3>
     <pre className="overflow-x-auto rounded-lg bg-gray-900 p-4 text-sm text-gray-100">
@@ -31,7 +31,6 @@ export const BasicUsage: Story = {
       </div>
 
       <CodeBlock
-        title="Basic Installation"
         code={`// tailwind.config.js
 import { ideasUIPlugin } from '@ideasui/theme';
 
@@ -40,10 +39,10 @@ export default {
     ideasUIPlugin()
   ]
 }`}
+        title="Basic Installation"
       />
 
       <CodeBlock
-        title="Custom Configuration"
         code={`// tailwind.config.js
 import { ideasUIPlugin } from '@ideasui/theme';
 
@@ -65,10 +64,10 @@ export default {
     })
   ]
 }`}
+        title="Custom Configuration"
       />
 
       <CodeBlock
-        title="Using Theme Classes"
         code={`<!-- Light theme (default) -->
 <div class="bg-primary-500 text-primary-foreground">
   Light theme content
@@ -83,10 +82,10 @@ export default {
 <div class="custom bg-primary-500 text-primary-foreground">
   Custom theme content
 </div>`}
+        title="Using Theme Classes"
       />
 
       <CodeBlock
-        title="CSS Variables"
         code={`/* Generated CSS variables */
 :root {
   --ideasui-color-primary-500: oklch(0.543 0.284 295.7);
@@ -99,6 +98,7 @@ export default {
   --ideasui-color-background: var(--ideasui-color-neutral-950);
   --ideasui-color-foreground: var(--ideasui-color-neutral-50);
 }`}
+        title="CSS Variables"
       />
     </div>
   ),

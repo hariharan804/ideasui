@@ -1,16 +1,17 @@
-import * as React from 'react';
+import type { HTMLAttributes, JSX, PointerEvent, KeyboardEvent } from 'react';
+
 import { cn } from '@ideasui/utils/style';
 import { forwardRef } from '@ideasui/utils/react';
 
 import { Ripple } from './ripple';
 import { useRipple } from './use-ripple';
 
-export interface TouchableProps extends React.HTMLAttributes<HTMLElement> {
+export interface TouchableProps extends HTMLAttributes<HTMLElement> {
   /**
    * Render element type
    * @default "button"
    */
-  as?: keyof React.JSX.IntrinsicElements;
+  as?: keyof JSX.IntrinsicElements;
 
   /**
    * Disable ripple & interactions
@@ -49,21 +50,21 @@ export const Touchable = forwardRef<'button', TouchableProps>(
   ) => {
     const { ripples, onPress, onClear } = useRipple();
 
-    const handlePointerDown = (event: React.PointerEvent<HTMLElement>) => {
+    const handlePointerDown = (event: PointerEvent<HTMLElement>): void => {
       if (!disabled) {
         onPress(event);
       }
       onPointerDown?.(event);
     };
 
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    const handleKeyDown = (event: KeyboardEvent<HTMLElement>): void => {
       if (disabled) {
         return;
       }
 
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
-        onPress(event as any);
+        onPress(event);
       }
 
       onKeyDown?.(event);
@@ -71,7 +72,7 @@ export const Touchable = forwardRef<'button', TouchableProps>(
 
     return (
       <Component
-        ref={ref as any}
+        ref={ref}
         aria-disabled={disabled || undefined}
         className={cn(
           'relative overflow-hidden',

@@ -1,4 +1,6 @@
-'use client';
+import type { JSX } from 'react';
+
+import Link from 'next/link';
 import { ArrowRight, Palette, Package, Wrench, Eye, Code2 } from 'lucide-react';
 
 const navigationItems = [
@@ -32,7 +34,7 @@ const navigationItems = [
   },
 ];
 
-export default function Home() {
+export default function Home(): JSX.Element {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Hero Section */}
@@ -66,7 +68,7 @@ export default function Home() {
             const Icon = item.icon;
 
             return (
-              <a
+              <Link
                 key={item.href}
                 className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
                 href={item.href}
@@ -94,7 +96,7 @@ export default function Home() {
                     className={`absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r ${item.gradient} transition-all duration-300 group-hover:w-full`}
                   />
                 </div>
-              </a>
+              </Link>
             );
           })}
         </div>

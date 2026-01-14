@@ -13,6 +13,39 @@ export const DEFAULT_PREFIX = 'ideasui';
 // Semantic Token Configuration
 // ─────────────────────────────────────────────────────────────
 
+const SRGB_TO_LINEAR_THRESHOLD = 0.04045;
+const SRGB_TO_LINEAR_DIVISOR = 12.92;
+const SRGB_TO_LINEAR_OFFSET = 0.055;
+const SRGB_TO_LINEAR_SCALAR = 1.055;
+const SRGB_TO_LINEAR_POWER = 2.4;
+const RGB_MAX_VALUE = 255;
+
+const L_COEFF_LR = 0.4122214708;
+const L_COEFF_LG = 0.5363325363;
+const L_COEFF_LB = 0.0514459929;
+const M_COEFF_LR = 0.2119034982;
+const M_COEFF_LG = 0.6806995451;
+const M_COEFF_LB = 0.1073969566;
+const S_COEFF_LR = 0.0883024619;
+const S_COEFF_LG = 0.2817188376;
+const S_COEFF_LB = 0.6299787005;
+
+const OKLAB_L_COEFF_L = 0.2104542553;
+const OKLAB_L_COEFF_M = 0.793617785;
+const OKLAB_L_COEFF_S = 0.0040720468;
+const OKLAB_A_COEFF_L = 1.9779984951;
+const OKLAB_A_COEFF_M = 2.428592205;
+const OKLAB_A_COEFF_S = 0.4505937099;
+const OKLAB_B_COEFF_L = 0.0259040371;
+const OKLAB_B_COEFF_M = 0.7827717662;
+const OKLAB_B_COEFF_S = 0.808675766;
+
+const DEGREES_180 = 180;
+const DEGREES_360 = 360;
+
+const PRECISION_4 = 10000;
+const PRECISION_2 = 100;
+
 /**
  * Maps semantic token names to shade numbers.
  * Dark shades are already inverted in colors.ts
@@ -40,14 +73,17 @@ export const SEMANTIC_TOKEN_MAP = {
 
 /**
  * Converts a string to kebab-case
- * @param str
+ * @param {string} str - The string to convert
+ * @returns {string} The kebab-cased string
  */
-export const kebabCase = (str: string) => str.replace(/([\da-z])([A-Z])/g, '$1-$2').toLowerCase();
+export const kebabCase = (str: string): string =>
+  str.replace(/([\da-z])([A-Z])/g, '$1-$2').toLowerCase();
 
 /**
  * Maps values of an object
- * @param obj
- * @param fn
+ * @param {Record<string, T>} obj - The object to map
+ * @param {Function} fn - The mapping function
+ * @returns {Record<string, T>} A new object with mapped keys
  */
 export function mapKeys<T>(
   obj: Record<string, T>,
@@ -56,7 +92,12 @@ export function mapKeys<T>(
   const result: Record<string, T> = {};
 
   Object.keys(obj).forEach((key) => {
-    result[fn(obj[key], key)] = obj[key];
+    // eslint-disable-next-line security/detect-object-injection
+    const value = obj[key];
+    const newKey = fn(value, key);
+
+    // eslint-disable-next-line security/detect-object-injection
+    result[newKey] = value;
   });
 
   return result;
@@ -64,22 +105,27 @@ export function mapKeys<T>(
 
 /**
  * Omits keys from an object
- * @param obj
- * @param keys
+ * @param {T} obj - The object to omit keys from
+ * @param {string[]} keys - The keys to omit
+ * @returns {Partial<T>} A new object with keys omitted
  */
-export function omit<T extends Record<string, any>>(obj: T, keys: string[]) {
+export function omit<T extends Record<string, unknown>>(obj: T, keys: string[]): Partial<T> {
   const result = { ...obj };
 
-  keys.forEach((key) => delete result[key]);
+  keys.forEach((key) => {
+    // eslint-disable-next-line security/detect-object-injection
+    delete result[key];
+  });
 
   return result;
 }
 
 /**
  * Escapes a selector string
- * @param str
+ * @param {string} str - The string to escape
+ * @returns {string} The escaped selector string
  */
-export const escapeSelector = (str: string) => {
+export const escapeSelector = (str: string): string => {
   if (typeof CSS !== 'undefined' && CSS.escape) {
     return CSS.escape(str);
   }
@@ -89,13 +135,14 @@ export const escapeSelector = (str: string) => {
 
 /**
  * Flattens a theme object
- * @param obj
+ * @param {TTarget} obj - The theme object to flatten
+ * @returns {Record<string, unknown>} The flattened theme object
  */
-export const flattenThemeObject = <TTarget>(obj: TTarget) => {
+export const flattenThemeObject = <TTarget>(obj: TTarget): Record<string, unknown> => {
   return flatten(obj, {
     safe: true,
     delimiter: '-',
-  }) as Record<string, any>;
+  }) as Record<string, unknown>;
 };
 
 // ─────────────────────────────────────────────────────────────
@@ -104,23 +151,27 @@ export const flattenThemeObject = <TTarget>(obj: TTarget) => {
 
 /**
  * Converts sRGB to Linear RGB
- * @param c
+ * @param {number} c - The color component value
+ * @returns {number} The linear RGB value
  */
 function srgbToLinear(c: number): number {
-  return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  return c <= SRGB_TO_LINEAR_THRESHOLD
+    ? c / SRGB_TO_LINEAR_DIVISOR
+    : Math.pow((c + SRGB_TO_LINEAR_OFFSET) / SRGB_TO_LINEAR_SCALAR, SRGB_TO_LINEAR_POWER);
 }
 
 /**
  * Converts RGB [0-255] to OKLCH [L: 0-1, C: 0-0.4, H: 0-360]
- * @param r
- * @param g
- * @param b
+ * @param {number} r - The red component
+ * @param {number} g - The green component
+ * @param {number} b - The blue component
+ * @returns {[number, number, number]} The OKLCH color components
  */
 export function rgbToOklch(r: number, g: number, b: number): [number, number, number] {
   // Normalize RGB to 0-1
-  const rn = r / 255;
-  const gn = g / 255;
-  const bn = b / 255;
+  const rn = r / RGB_MAX_VALUE;
+  const gn = g / RGB_MAX_VALUE;
+  const bn = b / RGB_MAX_VALUE;
 
   // Convert to linear RGB
   const lr = srgbToLinear(rn);
@@ -128,34 +179,39 @@ export function rgbToOklch(r: number, g: number, b: number): [number, number, nu
   const lb = srgbToLinear(bn);
 
   // Convert to Oklab via linear transformation
-  const l_ = 0.4122214708 * lr + 0.5363325363 * lg + 0.0514459929 * lb;
-  const m_ = 0.2119034982 * lr + 0.6806995451 * lg + 0.1073969566 * lb;
-  const s_ = 0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb;
+  const lLinear = L_COEFF_LR * lr + L_COEFF_LG * lg + L_COEFF_LB * lb;
+  const mLinear = M_COEFF_LR * lr + M_COEFF_LG * lg + M_COEFF_LB * lb;
+  const sLinear = S_COEFF_LR * lr + S_COEFF_LG * lg + S_COEFF_LB * lb;
 
-  const l = Math.cbrt(l_);
-  const m = Math.cbrt(m_);
-  const s = Math.cbrt(s_);
+  const l = Math.cbrt(lLinear);
+  const m = Math.cbrt(mLinear);
+  const s = Math.cbrt(sLinear);
 
   // Oklab values
-  const L = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
-  const a = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
-  const bOk = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
+  const L = OKLAB_L_COEFF_L * l + OKLAB_L_COEFF_M * m - OKLAB_L_COEFF_S * s;
+  const a = OKLAB_A_COEFF_L * l - OKLAB_A_COEFF_M * m + OKLAB_A_COEFF_S * s;
+  const bOk = OKLAB_B_COEFF_L * l + OKLAB_B_COEFF_M * m - OKLAB_B_COEFF_S * s;
 
   // Convert Oklab to OKLCH
   const C = Math.sqrt(a * a + bOk * bOk);
-  let H = (Math.atan2(bOk, a) * 180) / Math.PI;
+  let H = (Math.atan2(bOk, a) * DEGREES_180) / Math.PI;
 
   if (H < 0) {
-    H += 360;
+    H += DEGREES_360;
   }
 
   // Round to 4 decimal places
-  return [Math.round(L * 10000) / 10000, Math.round(C * 10000) / 10000, Math.round(H * 100) / 100];
+  return [
+    Math.round(L * PRECISION_4) / PRECISION_4,
+    Math.round(C * PRECISION_4) / PRECISION_4,
+    Math.round(H * PRECISION_2) / PRECISION_2,
+  ];
 }
 
 /**
  * Parses a color value and converts to OKLCH format
- * @param colorValue
+ * @param {string} colorValue - The color string to parse
+ * @returns {ParsedColor | null} The parsed color object or null if invalid
  */
 export function parseColorValue(colorValue: string): ParsedColor | null {
   try {
@@ -197,7 +253,8 @@ export function parseColorValue(colorValue: string): ParsedColor | null {
 
 /**
  * Formats oklch color components
- * @param components
+ * @param {(string | number)[]} components - The color components array
+ * @returns {string} The formatted color string
  */
 export function formatColorComponents(components: (string | number)[]): string {
   const [l, c, h] = components;
@@ -207,7 +264,8 @@ export function formatColorComponents(components: (string | number)[]): string {
 
 /**
  * Check if key is a numeric shade (50, 100-900, 950)
- * @param key
+ * @param {string} key - The key to check
+ * @returns {boolean} True if key is a numeric shade
  */
 export const isNumericShade = (key: string): boolean =>
   /^(50|100|200|300|400|500|600|700|800|900|950)$/.test(key);
@@ -218,7 +276,8 @@ export const COLOR_NAME_REGEX =
 
 /**
  * Extracts unique color base names from flattened color object
- * @param flatColors
+ * @param {Record<string, string>} flatColors - The flattened color object
+ * @returns {Set<string>} A Set of unique color base names
  */
 export function extractColorBaseNames(flatColors: Record<string, string>): Set<string> {
   const names = new Set<string>();

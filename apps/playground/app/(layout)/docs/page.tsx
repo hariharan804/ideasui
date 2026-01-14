@@ -1,10 +1,10 @@
 'use client';
+import type { JSX } from 'react';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { FileText, Book, ExternalLink, Search, Loader } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { useCallback } from 'react';
 
 interface DocFile {
   name: string;
@@ -42,7 +42,7 @@ const DOC_FILES: DocFile[] = [
   },
 ];
 
-export default function DocsPage() {
+export default function DocsPage(): JSX.Element {
   const [selectedDoc, setSelectedDoc] = useState<DocFile>(DOC_FILES[0]);
   const [searchTerm, setSearchTerm] = useState('');
   const [docContent, setDocContent] = useState<string>('');
@@ -50,26 +50,29 @@ export default function DocsPage() {
   const [error, setError] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  const getDoc = useCallback(() => {
+  const getDoc = useCallback(async () => {
     setLoading(true);
     setError('');
 
-    fetch(`/api/docs?file=${encodeURIComponent(selectedDoc.path)}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('Failed to load document');
-        }
+    try {
+      const res = await fetch(`/api/docs?file=${encodeURIComponent(selectedDoc.path)}`);
 
-        return res.json();
-      })
-      .then((data) => setDocContent(data.content))
-      .catch((error_) => setError(error_.message))
-      .finally(() => setLoading(false));
+      if (!res.ok) {
+        throw new Error('Failed to load document');
+      }
+
+      const data = await res.json();
+
+      setDocContent(data.content);
+    } catch (error_) {
+      setError(error_ instanceof Error ? error_.message : 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
   }, [selectedDoc.path]);
 
   useEffect(() => {
     if (selectedDoc.path) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       getDoc();
     }
   }, [getDoc, selectedDoc.path]);

@@ -2,7 +2,13 @@ import { useSyncExternalStore, useCallback } from 'react';
 
 import { themeStore } from './utils/store';
 
-export function useTheme() {
+export function useTheme(): {
+  theme: string;
+  resolvedTheme: string;
+  themes: string[];
+  isDark: boolean;
+  setTheme: (next: string) => void;
+} {
   const subscribe = useCallback((cb: () => void) => themeStore.subscribe(cb), []);
   const getSnap = themeStore.get;
 

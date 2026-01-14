@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import type { ReactElement } from 'react';
 
 import {
   spacing,
@@ -38,7 +39,7 @@ const ColorPalette = ({
 }: {
   title: string;
   colors: Record<string, Record<string, string>>;
-}) => (
+}): ReactElement => (
   <div className="space-y-6">
     <h3 className="text-lg font-semibold">{title}</h3>
     {Object.entries(colors).map(([colorName, shades]) => (
@@ -62,7 +63,13 @@ const ColorPalette = ({
   </div>
 );
 
-const TokenGroup = ({ title, tokens }: { title: string; tokens: Record<string, any> }) => (
+const TokenGroup = ({
+  title,
+  tokens,
+}: {
+  title: string;
+  tokens: Record<string, unknown>;
+}): ReactElement => (
   <div className="space-y-4">
     <h3 className="text-lg font-semibold">{title}</h3>
     <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">

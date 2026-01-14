@@ -1,9 +1,9 @@
-'use client';
-import React from 'react';
-import { Button } from '@ideasui/button';
-import { Heart, Download, ArrowRight, Star, Plus } from 'lucide-react';
+import type { JSX } from 'react';
 
-function ButtonPreview() {
+import { Heart, Download, ArrowRight, Star, Plus } from 'lucide-react';
+import { Button } from '@ideasui/button';
+
+function ButtonPreview(): JSX.Element {
   return (
     <div className="space-y-8 p-6">
       <div>

@@ -170,7 +170,7 @@ export default defineConfig([
       '@typescript-eslint/naming-convention': [
         'error',
         { selector: 'variable', format: ['camelCase', 'UPPER_CASE'], leadingUnderscore: 'allow' },
-        { selector: 'function', format: ['camelCase'] },
+        { selector: 'function', format: ['camelCase', 'PascalCase'] },
         { selector: 'variable', filter: { regex: '^[A-Z]', match: true }, format: ['PascalCase'] },
         { selector: 'interface', format: ['PascalCase'] },
         { selector: 'typeAlias', format: ['PascalCase'] },

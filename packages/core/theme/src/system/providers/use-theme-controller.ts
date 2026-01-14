@@ -16,7 +16,7 @@ let initialized = false;
 let refCount = 0;
 let teardowns: Array<() => void> = [];
 
-export function useThemeController(options: UseThemeController = {}) {
+export function useThemeController(options: UseThemeController = {}): null {
   const attrMode = options.attribute === 'data-theme' ? 'attribute' : options.attribute;
 
   const merged: ThemeScriptConfig = {
@@ -45,14 +45,14 @@ export function useThemeController(options: UseThemeController = {}) {
 
       const allClasses = Array.from(new Set([...themes, systemThemes.light, systemThemes.dark]));
 
-      const prefersDark = () =>
+      const prefersDark = (): boolean =>
         typeof window !== 'undefined' &&
         window.matchMedia?.('(prefers-color-scheme: dark)').matches;
 
-      const resolve = (t: string) =>
+      const resolve = (t: string): string =>
         t === 'system' ? (prefersDark() ? systemThemes.dark : systemThemes.light) : t;
 
-      const applyToDOM = (resolved: string) => {
+      const applyToDOM = (resolved: string): void => {
         const el = document.documentElement;
 
         if (mode === 'class') {
@@ -63,9 +63,9 @@ export function useThemeController(options: UseThemeController = {}) {
         }
       };
 
-      const getStored = () => storage.getItem(storageKey);
-      const setStored = (v: string | null) => {
-        if (v == null || v === 'system') {
+      const getStored = (): string | null => storage.getItem(storageKey);
+      const setStored = (v: string | null): void => {
+        if (v === null || v === 'system') {
           storage.removeItem(storageKey);
         } else {
           storage.setItem(storageKey, v);
@@ -80,7 +80,7 @@ export function useThemeController(options: UseThemeController = {}) {
       // Seed storage on first run:
       // - if initial is concrete (not 'system'), store it (so 'dark' persists)
       // - if initial is 'system', keep storage empty by default
-      if (rawStored == null) {
+      if (rawStored === null) {
         if (initial === 'system') {
           // keep empty (or setStored('system') / setStored(initialResolved) if you prefer)
           setStored(null);
@@ -133,7 +133,7 @@ export function useThemeController(options: UseThemeController = {}) {
 
       // follow system only when theme === 'system'
       const mq = window.matchMedia?.('(prefers-color-scheme: dark)');
-      const onSystem = () => {
+      const onSystem = (): void => {
         const snap = themeStore.get();
 
         if (snap.theme === 'system') {
@@ -148,7 +148,7 @@ export function useThemeController(options: UseThemeController = {}) {
       mq?.addEventListener?.('change', onSystem) ?? mq?.addListener?.(onSystem);
 
       // cross-tab sync
-      const onStorage = (e: StorageEvent) => {
+      const onStorage = (e: StorageEvent): void => {
         if (e.key !== storageKey) {
           return;
         }

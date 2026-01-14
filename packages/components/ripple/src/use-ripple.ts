@@ -3,10 +3,22 @@ import type { RippleItem } from './ripple';
 import { useCallback, useState } from 'react';
 import { getUniqueID } from '@ideasui/utils/core';
 
-export function useRipple() {
+export type RippleEvent =
+  | React.MouseEvent<HTMLElement>
+  | React.TouchEvent<HTMLElement>
+  | React.PointerEvent<HTMLElement>
+  | React.KeyboardEvent<HTMLElement>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  | any; // Support for React Aria events which might be looser
+
+export function useRipple(): {
+  ripples: RippleItem[];
+  onPress: (event: RippleEvent) => void;
+  onClear: (key: React.Key) => void;
+} {
   const [ripples, setRipples] = useState<RippleItem[]>([]);
 
-  const onPress = useCallback((event: any) => {
+  const onPress = useCallback((event: RippleEvent) => {
     const trigger = event.currentTarget || event.target;
     const rect = trigger.getBoundingClientRect();
     const size = Math.max(trigger.clientWidth, trigger.clientHeight);

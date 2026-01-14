@@ -1,9 +1,10 @@
 'use client';
-import React from 'react';
+import type { JSX } from 'react';
+
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { ArrowLeft, Moon, Sun, Github, ExternalLink } from 'lucide-react';
 import { useTheme } from '@ideasui/theme';
-import Link from 'next/link';
 
 interface HeaderProps {
   showBackButton?: boolean;
@@ -11,23 +12,19 @@ interface HeaderProps {
   subtitle?: string;
 }
 
-function Header({ showBackButton = false, title, subtitle }: HeaderProps) {
+function Header({ showBackButton = false, title, subtitle }: HeaderProps): JSX.Element {
   const router = useRouter();
-  const { resolvedTheme, setTheme, themes } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
-  const onToggleTheme = () => {
+  const onToggleTheme = (): void => {
     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
   };
 
-  const goBack = () => {
+  const goBack = (): void => {
     router.push('/playground');
   };
 
-  const goToGithub = () => {
-    window.open('https://github.com/your-username/ideasui', '_blank');
-  };
-
-  const goToDocs = () => {
+  const goToDocs = (): void => {
     router.push('/docs');
   };
 
@@ -71,7 +68,7 @@ function Header({ showBackButton = false, title, subtitle }: HeaderProps) {
             {/* GitHub Link */}
             <button
               className="hidden items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 sm:flex"
-              onClick={goToGithub}
+              onClick={() => window.open('https://github.com/ideas2logic-lab/ideasui', '_blank')}
             >
               <Github className="h-4 w-4" />
               GitHub

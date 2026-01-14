@@ -11,6 +11,8 @@ export interface PackageInfo {
 
 /**
  * Fetch available IdeasUI packages from npm registry
+ *
+ * @returns {Promise<Record<string, PackageInfo>>} Map of available packages
  */
 export async function getAvailablePackages(): Promise<Record<string, PackageInfo>> {
   try {
@@ -20,10 +22,12 @@ export async function getAvailablePackages(): Promise<Record<string, PackageInfo
 
     const packageMap: Record<string, PackageInfo> = {};
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     packages.forEach((pkg: any) => {
       if (pkg.name.startsWith('@ideasui/')) {
         const shortName = pkg.name.replace('@ideasui/', '');
 
+        // eslint-disable-next-line security/detect-object-injection
         packageMap[shortName] = {
           name: pkg.name,
           description: pkg.description || 'IdeasUI component',
@@ -34,7 +38,7 @@ export async function getAvailablePackages(): Promise<Record<string, PackageInfo
     });
 
     return packageMap;
-  } catch (error) {
+  } catch {
     console.warn(chalk.yellow('⚠️  Could not fetch packages from registry, using fallback'));
 
     return getFallbackPackages();
@@ -43,6 +47,8 @@ export async function getAvailablePackages(): Promise<Record<string, PackageInfo
 
 /**
  * Fallback package list when registry is unavailable
+ *
+ * @returns {Record<string, PackageInfo>} Map of fallback packages
  */
 function getFallbackPackages(): Record<string, PackageInfo> {
   return {
