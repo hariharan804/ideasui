@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
+import 'jest-axe/extend-expect';
 import userEvent from '@testing-library/user-event';
 
 import { Slot } from '../src/slot';

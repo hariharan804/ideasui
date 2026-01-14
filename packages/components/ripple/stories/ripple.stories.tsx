@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import type { JSX } from 'react';
+import type { JSX, ComponentProps, ReactNode } from 'react';
 
 import { useRef } from 'react';
 import { useButton } from 'react-aria';
@@ -19,7 +19,12 @@ export default meta;
 
 type Story = StoryObj<typeof Ripple>;
 
-const CustomRipple = ({ children, className, ...args }: JSX.Element): JSX.Element => {
+type CustomRippleProps = ComponentProps<typeof Ripple> & {
+  children: ReactNode;
+  className?: string;
+};
+
+const CustomRipple = ({ children, className, ...args }: CustomRippleProps): JSX.Element => {
   const domRef = useRef<HTMLButtonElement>(null);
   const { ripples, onClear, onPress } = useRipple();
   const { buttonProps } = useButton({ ...args, onPress }, domRef);

@@ -1,5 +1,8 @@
 import { defineConfig } from 'tsup';
 // Tsup config
+/**
+ * @param {import("tsup").Options} options
+ */
 export function createSharedConfig({
   entry = 'src/index.ts',
   outDir = 'dist',

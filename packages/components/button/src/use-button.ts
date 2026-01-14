@@ -1,6 +1,6 @@
 import type { Ref } from 'react';
 import type { ButtonProps } from './button';
-import type { RippleEvent } from '@ideasui/ripple';
+import type { RippleEvent, RippleItem } from '@ideasui/ripple';
 
 import { useRef, useCallback } from 'react';
 import { useButton as useAriaButton, useFocusRing, useHover } from 'react-aria';
@@ -28,7 +28,7 @@ export interface UseButtonProps extends Omit<ButtonProps, 'children'> {
 }
 
 export interface UseButtonReturn {
-  domRef: React.RefObject<HTMLButtonElement>;
+  domRef: React.RefObject<HTMLButtonElement | null>;
   isPressed: boolean;
   isDisabled: boolean;
   isLoading: boolean;
@@ -107,31 +107,32 @@ export function useButton(props: UseButtonProps): UseButtonReturn {
   );
 
   const getButtonProps = useCallback(
-    (userProps: React.HTMLAttributes<HTMLButtonElement> = {}) => ({
-      'data-disabled': toDataAttr(isDisabled),
-      'data-focus': toDataAttr(isFocused),
-      'data-pressed': toDataAttr(isPressed),
-      'data-focus-visible': toDataAttr(isFocusVisible),
-      'data-hover': toDataAttr(isHovered),
-      'data-loading': toDataAttr(isLoading),
-      ...mergeProps(
-        ariaButtonProps,
-        focusProps,
-        hoverProps,
-        {
-          ref: domRef,
-          'aria-busy': isLoading,
-          'aria-live': isLoading ? 'polite' : undefined,
-          'aria-label': isLoading ? 'Loading' : userProps['aria-label'],
-          style: {
-            minHeight: '44px',
-            minWidth: '44px',
-            ...userProps.style,
+    (userProps: React.HTMLAttributes<HTMLButtonElement> = {}) =>
+      ({
+        'data-disabled': toDataAttr(isDisabled),
+        'data-focus': toDataAttr(isFocused),
+        'data-pressed': toDataAttr(isPressed),
+        'data-focus-visible': toDataAttr(isFocusVisible),
+        'data-hover': toDataAttr(isHovered),
+        'data-loading': toDataAttr(isLoading),
+        ...mergeProps(
+          ariaButtonProps,
+          focusProps,
+          hoverProps,
+          {
+            ref: domRef,
+            'aria-busy': isLoading,
+            'aria-live': isLoading ? 'polite' : undefined,
+            'aria-label': isLoading ? 'Loading' : userProps['aria-label'],
+            style: {
+              minHeight: '44px',
+              minWidth: '44px',
+              ...userProps.style,
+            },
           },
-        },
-        userProps,
-      ),
-    }),
+          userProps,
+        ),
+      }) as React.HTMLAttributes<HTMLButtonElement>,
     [
       ariaButtonProps,
       focusProps,
