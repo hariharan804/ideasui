@@ -17,6 +17,13 @@ export { IconSet } from './icon-set';
 export { useIconContext, withIconContext } from './icon-context';
 
 // Icon names for dynamic usage
-export const iconNames = ['arrow-right', 'heart', 'home', 'search', 'settings', 'user'] as const;
+export const iconNames = [
+  'arrow-right',
+  'heart',
+  'home',
+  'search',
+  'settings',
+  'user',
+] as const;
 
 export type IconName = (typeof iconNames)[number];
