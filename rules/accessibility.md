@@ -201,13 +201,20 @@ const Modal = ({ isOpen, onClose, children }) => {
 
 ### Automated Testing:
 
+Tools: `@testing-library/jest-dom`, `axe-core`, `jest-axe`
+
+Test Requirements:
+
+- Check role attributes
+- Verify aria-\* props
+- Test Tab navigation
+- Validate Screen-reader labels
+
 ```tsx
 // ✅ Accessibility tests
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { axe } from 'jest-axe';
 
-expect.extend(toHaveNoViolations);
-
-test('Button has no accessibility violations', async () => {
+it('should have no a11y violations', async () => {
   const { container } = render(<Button>Click me</Button>);
   const results = await axe(container);
   expect(results).toHaveNoViolations();

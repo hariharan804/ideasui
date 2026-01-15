@@ -141,7 +141,7 @@ export default defineConfig([
       'no-unused-vars': 'off',
       'no-var': 'error',
       'prefer-const': 'error',
-      'no-magic-numbers': ['warn', { ignore: [-1, 0, 1, 2] }],
+      'no-magic-numbers': ['warn', { ignore: [0, 1, -1, 2, 100] }],
       eqeqeq: ['error', 'always'],
       curly: ['error', 'all'],
       'no-eval': 'error',

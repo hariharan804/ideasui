@@ -71,6 +71,12 @@ Every component package must export:
 - Visual regression tests in Storybook
 - Coverage minimum 80%
 
+### Snapshot Testing
+
+- Use sparingly, only for stable/static UI (e.g., typography, layout)
+- Avoid for interactive, dynamic, or logic-heavy components
+- Do not overuse to prevent noise in PRs
+
 ## 📝 Documentation Standards
 
 - README with usage examples

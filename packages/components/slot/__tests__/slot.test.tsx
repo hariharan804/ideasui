@@ -109,6 +109,37 @@ describe('Slot', () => {
     });
   });
 
+  it('handles slot event handler only', async () => {
+    const slotHandler = jest.fn();
+    const user = userEvent.setup();
+
+    render(
+      <Slot asChild onClick={slotHandler}>
+        <button>Button</button>
+      </Slot>,
+    );
+
+    await user.click(screen.getByRole('button'));
+    expect(slotHandler).toHaveBeenCalledTimes(1);
+  });
+
+  it('merges classNames correctly when one is missing', () => {
+    const { rerender } = render(
+      <Slot asChild className="slot-only">
+        <button>Button</button>
+      </Slot>,
+    );
+
+    expect(screen.getByRole('button')).toHaveClass('slot-only');
+
+    rerender(
+      <Slot asChild>
+        <button className="child-only">Button</button>
+      </Slot>,
+    );
+    expect(screen.getByRole('button')).toHaveClass('child-only');
+  });
+
   describe('TypeScript', () => {
     it('infers correct element props', () => {
       // This test ensures TypeScript compilation works correctly

@@ -4,6 +4,10 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
+    "build:storybook":{
+      "cache": true,
+      "outputs": ["apps/storybook/storybook-static/**"]
+    },
     "dev:build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"]
@@ -17,7 +21,7 @@
       "persistent": true
     },
     "start:next": {
-      "cache": false,
+      "cache": true,
       "persistent": true
     },
     "typecheck": {

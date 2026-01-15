@@ -44,45 +44,6 @@ export function useFocusTrap<T extends HTMLElement>(enabled = true): React.RefOb
   return ref;
 }
 
-export function useFetch<T>(url: string): {
-  data: T | null;
-  loading: boolean;
-  error: Error | null;
-} {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    let ignore = false;
-
-    const fetchData = async (): Promise<void> => {
-      try {
-        const response = await fetch(url);
-        const result = await response.json();
-
-        if (!ignore) {
-          setData(result);
-          setLoading(false);
-        }
-      } catch (error_) {
-        if (!ignore) {
-          setError(error_ as Error);
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      ignore = true;
-    };
-  }, [url]);
-
-  return { data, loading, error };
-}
-
 export function useAsync<T>(
   asyncFunction: () => Promise<T>,
   deps: DependencyList = [],

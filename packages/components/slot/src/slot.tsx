@@ -95,7 +95,7 @@ function mergeProps(
 ): Record<string, any> {
   // Early return if no slot props to merge
   if (!slotProps || Object.keys(slotProps).length === 0) {
-    return childProps;
+    return { ...childProps };
   }
 
   // Start with child props as base
