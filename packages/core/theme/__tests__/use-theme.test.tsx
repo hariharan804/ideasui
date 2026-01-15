@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react';
+
 import { useTheme } from '../src/system/providers/use-theme';
 import { themeStore } from '../src/system/providers/utils/store';
 
@@ -14,6 +15,7 @@ describe('useTheme', () => {
 
   it('should return current theme from store', () => {
     const { result } = renderHook(() => useTheme());
+
     expect(result.current.theme).toBe('dark');
     expect(result.current.resolvedTheme).toBe('dark');
   });

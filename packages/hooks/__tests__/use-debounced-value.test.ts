@@ -1,6 +1,7 @@
 import { renderHook, act } from '@testing-library/react';
 
 import { useDebouncedValue } from '../src/use-debounced-value';
+const DELAY = 500;
 
 describe('useDebouncedValue', () => {
   beforeEach(() => {
@@ -13,19 +14,19 @@ describe('useDebouncedValue', () => {
 
   it('should debounce value', () => {
     const { result, rerender } = renderHook(({ value, delay }) => useDebouncedValue(value, delay), {
-      initialProps: { value: 'initial', delay: 500 },
+      initialProps: { value: 'initial', delay: DELAY },
     });
 
     expect(result.current.debouncedValue).toBe('initial');
     expect(result.current.isPending).toBe(false);
 
-    rerender({ value: 'updated', delay: 500 });
+    rerender({ value: 'updated', delay: DELAY });
 
     expect(result.current.debouncedValue).toBe('initial');
     expect(result.current.isPending).toBe(true);
 
     act(() => {
-      jest.advanceTimersByTime(500);
+      jest.advanceTimersByTime(DELAY);
     });
 
     expect(result.current.debouncedValue).toBe('updated');
@@ -34,14 +35,14 @@ describe('useDebouncedValue', () => {
 
   it('should cancel debounce', () => {
     const { result, rerender } = renderHook(({ value, delay }) => useDebouncedValue(value, delay), {
-      initialProps: { value: 'initial', delay: 500 },
+      initialProps: { value: 'initial', delay: DELAY },
     });
 
-    rerender({ value: 'updated', delay: 500 });
+    rerender({ value: 'updated', delay: DELAY });
 
     act(() => {
       result.current.cancel();
-      jest.advanceTimersByTime(500);
+      jest.advanceTimersByTime(DELAY);
     });
 
     expect(result.current.debouncedValue).toBe('initial');
@@ -49,10 +50,10 @@ describe('useDebouncedValue', () => {
 
   it('should flush debounce', () => {
     const { result, rerender } = renderHook(({ value, delay }) => useDebouncedValue(value, delay), {
-      initialProps: { value: 'initial', delay: 500 },
+      initialProps: { value: 'initial', delay: DELAY },
     });
 
-    rerender({ value: 'updated', delay: 500 });
+    rerender({ value: 'updated', delay: DELAY });
 
     act(() => {
       result.current.flush();

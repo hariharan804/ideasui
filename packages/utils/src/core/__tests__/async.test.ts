@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { debounce, throttle } from '../async';
 
 describe('async', () => {

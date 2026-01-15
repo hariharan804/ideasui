@@ -1,4 +1,5 @@
 import { renderHook, act, fireEvent } from '@testing-library/react';
+
 import { useWindowSize } from '../src/use-window-size';
 
 describe('useWindowSize', () => {

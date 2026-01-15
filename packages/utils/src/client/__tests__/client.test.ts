@@ -15,6 +15,7 @@ describe('client utils', () => {
     describe('getElementById', () => {
       it('should return element by id', () => {
         const div = document.createElement('div');
+
         div.id = 'test-id';
         document.body.appendChild(div);
         expect(getElementById('test-id')).toBe(div);
@@ -30,23 +31,27 @@ describe('client utils', () => {
       it('should return true if parent contains child', () => {
         const parent = document.createElement('div');
         const child = document.createElement('div');
+
         parent.appendChild(child);
         expect(contains(parent, child)).toBe(true);
       });
 
       it('should return true if parent is child', () => {
         const div = document.createElement('div');
+
         expect(contains(div, div)).toBe(true);
       });
 
       it('should return false if parent does not contain child', () => {
         const parent = document.createElement('div');
         const child = document.createElement('div');
+
         expect(contains(parent, child)).toBe(false);
       });
 
       it('should return false if parent or child is null', () => {
         const div = document.createElement('div');
+
         expect(contains(null, div)).toBe(false);
         expect(contains(div, null)).toBe(false);
       });
@@ -75,6 +80,7 @@ describe('client utils', () => {
 
       it('should set focus and scroll', () => {
         const scrollSpy = jest.fn();
+
         button1.scrollIntoView = scrollSpy;
         focus.set(button1);
         expect(document.activeElement).toBe(button1);
@@ -87,7 +93,9 @@ describe('client utils', () => {
 
       it('should get focusable elements', () => {
         const focusable = focus.getFocusable(container);
-        expect(focusable).toHaveLength(3);
+        const EXPECTED_LENGTH = 3;
+
+        expect(focusable).toHaveLength(EXPECTED_LENGTH);
         expect(focusable).toContain(button1);
         expect(focusable).toContain(button2);
         expect(focusable).toContain(input);
@@ -108,6 +116,7 @@ describe('client utils', () => {
       it('should match keys', () => {
         // Correct way to create KeyboardEvent in most environments
         const event = new KeyboardEvent('keydown', { key: 'Enter' });
+
         expect(keyboard.is(event, 'Enter')).toBe(true);
         expect(keyboard.is(event, ['Enter', 'Space'])).toBe(true);
         expect(keyboard.is(event, 'Escape')).toBe(false);
@@ -115,33 +124,43 @@ describe('client utils', () => {
 
       it('should check specific keys', () => {
         const enter = new KeyboardEvent('keydown', { key: 'Enter' });
+
         expect(keyboard.isEnter(enter)).toBe(true);
 
         const space = new KeyboardEvent('keydown', { key: ' ' });
+
         expect(keyboard.isSpace(space)).toBe(true);
 
         const escape = new KeyboardEvent('keydown', { key: 'Escape' });
+
         expect(keyboard.isEscape(escape)).toBe(true);
 
         const up = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+
         expect(keyboard.isArrowUp(up)).toBe(true);
 
         const down = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+
         expect(keyboard.isArrowDown(down)).toBe(true);
 
         const left = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
+
         expect(keyboard.isArrowLeft(left)).toBe(true);
 
         const right = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+
         expect(keyboard.isArrowRight(right)).toBe(true);
 
         const tab = new KeyboardEvent('keydown', { key: 'Tab' });
+
         expect(keyboard.isTab(tab)).toBe(true);
 
         const home = new KeyboardEvent('keydown', { key: 'Home' });
+
         expect(keyboard.isHome(home)).toBe(true);
 
         const end = new KeyboardEvent('keydown', { key: 'End' });
+
         expect(keyboard.isEnd(end)).toBe(true);
       });
     });
@@ -151,7 +170,7 @@ describe('client utils', () => {
         const original = jest.fn();
         const our = jest.fn();
         const composed = composeEventHandlers(original, our);
-        const event = {} as any;
+        const event = {} as Event;
 
         composed(event);
         expect(original).toHaveBeenCalledWith(event);
@@ -164,7 +183,7 @@ describe('client utils', () => {
         });
         const our = jest.fn();
         const composed = composeEventHandlers(original, our);
-        const event = { defaultPrevented: false } as any;
+        const event = { defaultPrevented: false } as unknown as Event;
 
         composed(event);
         expect(original).toHaveBeenCalled();
@@ -177,7 +196,7 @@ describe('client utils', () => {
         });
         const our = jest.fn();
         const composed = composeEventHandlers(original, our, { checkForDefaultPrevented: false });
-        const event = { defaultPrevented: false } as any;
+        const event = { defaultPrevented: false } as unknown as Event;
 
         composed(event);
         expect(original).toHaveBeenCalled();
@@ -273,6 +292,7 @@ describe('client utils', () => {
     describe('toDataAttrs', () => {
       it('should convert object to data attributes', () => {
         const data = { testKey: 'value', other: 123 };
+
         expect(toDataAttrs(data)).toEqual({
           'data-test-key': 'value',
           'data-other': '123',

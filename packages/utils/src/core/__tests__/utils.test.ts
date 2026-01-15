@@ -1,20 +1,24 @@
+/* eslint-disable no-magic-numbers */
 import { getUniqueID, clamp, isNumeric, toNumber, range, omit, pick } from '../utils';
 
 describe('utils', () => {
   describe('getUniqueID', () => {
     it('should generate a unique ID with default prefix', () => {
       const id = getUniqueID();
+
       expect(id).toMatch(/^ideasui\d+-\w{9}$/);
     });
 
     it('should generate a unique ID with custom prefix', () => {
       const id = getUniqueID('custom');
+
       expect(id).toMatch(/^custom\d+-\w{9}$/);
     });
 
     it('should generate unique IDs', () => {
       const id1 = getUniqueID();
       const id2 = getUniqueID();
+
       expect(id1).not.toBe(id2);
     });
   });
@@ -98,12 +102,14 @@ describe('utils', () => {
     it('should omit specified keys', () => {
       const obj = { a: 1, b: 2, c: 3 };
       const result = omit(obj, ['b']);
+
       expect(result).toEqual({ a: 1, c: 3 });
     });
 
     it('should return new object', () => {
       const obj = { a: 1, b: 2 };
       const result = omit(obj, ['b']);
+
       expect(result).not.toBe(obj);
     });
   });
@@ -112,6 +118,7 @@ describe('utils', () => {
     it('should pick specified keys', () => {
       const obj = { a: 1, b: 2, c: 3 };
       const result = pick(obj, ['a', 'c']);
+
       expect(result).toEqual({ a: 1, c: 3 });
     });
 
@@ -119,6 +126,7 @@ describe('utils', () => {
       const obj = { a: 1, b: 2 };
       // @ts-ignore
       const result = pick(obj, ['a', 'c']);
+
       expect(result).toEqual({ a: 1 });
     });
   });

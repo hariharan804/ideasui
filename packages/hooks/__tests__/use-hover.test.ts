@@ -1,4 +1,5 @@
 import { renderHook, act } from '@testing-library/react';
+
 import { useHover } from '../src/use-hover';
 
 describe('useHover', () => {

@@ -1,4 +1,5 @@
 import { renderHook, fireEvent } from '@testing-library/react';
+
 import { useClickOutside } from '../src/use-click-outside';
 
 describe('useClickOutside', () => {
@@ -6,6 +7,7 @@ describe('useClickOutside', () => {
     const handler = jest.fn();
     const { result } = renderHook(() => useClickOutside(handler));
     const element = document.createElement('div');
+
     // Simulate attaching ref
     (result.current as React.MutableRefObject<HTMLDivElement>).current = element;
     document.body.appendChild(element);
@@ -20,6 +22,7 @@ describe('useClickOutside', () => {
     const handler = jest.fn();
     const { result } = renderHook(() => useClickOutside(handler));
     const element = document.createElement('div');
+
     (result.current as React.MutableRefObject<HTMLDivElement>).current = element;
     document.body.appendChild(element);
 
@@ -33,6 +36,7 @@ describe('useClickOutside', () => {
     const handler = jest.fn();
     const { result } = renderHook(() => useClickOutside(handler, false));
     const element = document.createElement('div');
+
     (result.current as React.MutableRefObject<HTMLDivElement>).current = element;
     document.body.appendChild(element);
 

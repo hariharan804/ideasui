@@ -18,9 +18,10 @@ describe('logger', () => {
     it('should log info messages', async () => {
       const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
       const { logger } = await import('../logger');
+      const LOG_MSG = 'ideasui.com';
 
-      logger.info('test info', 123);
-      expect(consoleSpy).toHaveBeenCalledWith('[IdeasUI] test info', 123);
+      logger.info('test info', LOG_MSG);
+      expect(consoleSpy).toHaveBeenCalledWith('[IdeasUI] test info', LOG_MSG);
       consoleSpy.mockRestore();
     });
 
@@ -44,16 +45,19 @@ describe('logger', () => {
 
     it('should throw errors when throw is called', async () => {
       const { logger } = await import('../logger');
+
       expect(() => logger.throw('fail')).toThrow('[IdeasUI] fail');
     });
 
     it('should throw error when assertion fails', async () => {
       const { logger } = await import('../logger');
+
       expect(() => logger.assert(false, 'failed')).toThrow('[IdeasUI] Assertion failed: failed');
     });
 
     it('should not throw when assertion passes', async () => {
       const { logger } = await import('../logger');
+
       expect(() => logger.assert(true, 'pass')).not.toThrow();
     });
   });
@@ -92,11 +96,13 @@ describe('logger', () => {
 
     it('should not throw when throw is called', async () => {
       const { logger } = await import('../logger');
+
       expect(() => logger.throw('fail')).not.toThrow();
     });
 
     it('should not throw when assertion fails', async () => {
       const { logger } = await import('../logger');
+
       expect(() => logger.assert(false, 'failed')).not.toThrow();
     });
   });

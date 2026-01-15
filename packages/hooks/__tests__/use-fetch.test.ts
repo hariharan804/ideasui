@@ -1,4 +1,5 @@
 import { renderHook, act, waitFor } from '@testing-library/react';
+
 import { useFetch } from '../src/use-fetch';
 
 describe('useFetch', () => {
@@ -38,12 +39,14 @@ describe('useFetch', () => {
 
   it('should not fetch if disabled', () => {
     const { result } = renderHook(() => useFetch('url', { enabled: false }));
+
     expect(result.current.loading).toBe(false);
     expect(global.fetch).not.toHaveBeenCalled();
   });
 
   it('should support aborting', async () => {
     const abortSpy = jest.fn();
+
     // @ts-ignore
     global.AbortController = jest.fn(() => ({
       abort: abortSpy,

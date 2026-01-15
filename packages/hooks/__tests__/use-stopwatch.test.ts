@@ -2,6 +2,8 @@ import { renderHook, act } from '@testing-library/react';
 
 import { useStopwatch } from '../src/use-stopwatch';
 
+const TIMER = 1000;
+
 describe('useStopwatch', () => {
   beforeEach(() => {
     jest.useFakeTimers();
@@ -27,10 +29,10 @@ describe('useStopwatch', () => {
     });
 
     act(() => {
-      jest.advanceTimersByTime(1000);
+      jest.advanceTimersByTime(TIMER);
     });
 
-    expect(result.current.time).toBe(1000);
+    expect(result.current.time).toBe(TIMER);
   });
 
   it('should pause', () => {
@@ -41,7 +43,7 @@ describe('useStopwatch', () => {
     });
 
     act(() => {
-      jest.advanceTimersByTime(1000);
+      jest.advanceTimersByTime(TIMER);
     });
 
     act(() => {
@@ -49,13 +51,13 @@ describe('useStopwatch', () => {
     });
 
     expect(result.current.isRunning).toBe(false);
-    expect(result.current.time).toBe(1000);
+    expect(result.current.time).toBe(TIMER);
 
     act(() => {
-      jest.advanceTimersByTime(1000);
+      jest.advanceTimersByTime(TIMER);
     });
 
-    expect(result.current.time).toBe(1000);
+    expect(result.current.time).toBe(TIMER);
   });
 
   it('should reset', () => {
@@ -66,7 +68,7 @@ describe('useStopwatch', () => {
     });
 
     act(() => {
-      jest.advanceTimersByTime(1000);
+      jest.advanceTimersByTime(TIMER);
     });
 
     act(() => {
@@ -86,7 +88,7 @@ describe('useStopwatch', () => {
     });
 
     act(() => {
-      jest.advanceTimersByTime(1000);
+      jest.advanceTimersByTime(TIMER);
     });
 
     act(() => {

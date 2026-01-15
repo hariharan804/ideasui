@@ -52,18 +52,20 @@ describe('useMediaQuery', () => {
   });
 
   it('should update on change', () => {
-    matches.set('(max-width: 600px)', false);
-    const { result } = renderHook(() => useMediaQuery('(max-width: 600px)'));
+    const MOBILE_QUERY = '(max-width: 600px)';
+
+    matches.set(MOBILE_QUERY, false);
+    const { result } = renderHook(() => useMediaQuery(MOBILE_QUERY));
 
     expect(result.current).toBe(false);
 
     act(() => {
-      const listenersSet = listeners.get('(max-width: 600px)');
+      const listenersSet = listeners.get(MOBILE_QUERY);
 
       listenersSet?.forEach((listener) =>
         listener({
           matches: true,
-          media: '(max-width: 600px)',
+          media: MOBILE_QUERY,
         } as MediaQueryListEvent),
       );
     });

@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import {
   flattenThemeObject,
   escapeSelector,
@@ -43,7 +44,7 @@ describe('Theme Utils', () => {
     it('should use CSS.escape if available', () => {
       const originalEscape = global.CSS?.escape;
 
-      global.CSS = { escape: jest.fn((str) => `escaped-${str}`) } as any;
+      global.CSS = { escape: jest.fn((str) => `escaped-${str}`) } as unknown as typeof CSS;
 
       expect(escapeSelector('foo')).toBe('escaped-foo');
 
@@ -85,13 +86,13 @@ describe('Theme Utils', () => {
   describe('rgbToOklch', () => {
     it('should convert rgb to oklch', () => {
       // White
-      const [l, c, h] = rgbToOklch(255, 255, 255);
+      const [l, c] = rgbToOklch(255, 255, 255);
 
       expect(l).toBeCloseTo(1, 1);
       expect(c).toBeLessThan(0.01);
 
       // Black
-      const [l2, c2, h2] = rgbToOklch(0, 0, 0);
+      const [l2] = rgbToOklch(0, 0, 0);
 
       expect(l2).toBeCloseTo(0, 1);
     });

@@ -1,3 +1,5 @@
+import type { JSX } from 'react';
+
 import { renderHook, act, waitFor, render, fireEvent } from '@testing-library/react';
 
 import { useAsync, useFocusTrap, useThrottle, useUpdateEffect } from '../src/remaining-hooks';
@@ -31,7 +33,7 @@ describe('remaining hooks', () => {
 
   describe('useFocusTrap', () => {
     it('should trap focus', () => {
-      const TestComponent = () => {
+      const TestComponent = (): JSX.Element => {
         const ref = useFocusTrap<HTMLDivElement>(true);
 
         return (
@@ -69,7 +71,8 @@ describe('remaining hooks', () => {
     });
 
     it('should throttle value', () => {
-      const { result, rerender } = renderHook(({ value }) => useThrottle(value, 1000), {
+      const DELAY = 1000;
+      const { result, rerender } = renderHook(({ value }) => useThrottle(value, DELAY), {
         initialProps: { value: 'initial' },
       });
 
@@ -79,7 +82,7 @@ describe('remaining hooks', () => {
       expect(result.current).toBe('initial');
 
       act(() => {
-        jest.advanceTimersByTime(1000);
+        jest.advanceTimersByTime(DELAY);
       });
 
       expect(result.current).toBe('updated');

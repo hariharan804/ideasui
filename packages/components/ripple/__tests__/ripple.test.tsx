@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import type { JSX, MouseEvent as ReactMouseEvent } from 'react';
 
 import { render, fireEvent, screen, renderHook, act } from '@testing-library/react';
 
@@ -17,6 +17,14 @@ jest.mock('framer-motion', () => {
 });
 
 // Mock Component to test integration
+const MOCK_CLIENT_DIMENSION = 100;
+const MOCK_BOUNDING_RECT = {
+  left: 0,
+  top: 0,
+  width: MOCK_CLIENT_DIMENSION,
+  height: MOCK_CLIENT_DIMENSION,
+};
+
 const RippleTest = (): JSX.Element => {
   const { ripples, onPress, onClear } = useRipple();
 
@@ -72,8 +80,8 @@ describe('Ripple', () => {
     expect(ripples.length).toBe(2);
   });
   it('clears ripples on animation complete', () => {
-    const { container } = render(<RippleTest />);
-    const button = screen.getByRole('button');
+    const { getByRole } = render(<RippleTest />);
+    const button = getByRole('button');
 
     fireEvent.mouseDown(button, { clientX: 50, clientY: 50 });
 
@@ -120,13 +128,15 @@ describe('useRipple', () => {
     act(() => {
       result.current.onPress({
         currentTarget: {
-          getBoundingClientRect: () => ({ left: 0, top: 0, width: 100, height: 100 }),
-          clientWidth: 100,
-          clientHeight: 100,
+          getBoundingClientRect: () => MOCK_BOUNDING_RECT,
+          clientWidth: MOCK_CLIENT_DIMENSION,
+          clientHeight: MOCK_CLIENT_DIMENSION,
         },
-      });
+      } as unknown as ReactMouseEvent<HTMLElement, MouseEvent>);
     });
-    expect(result.current.ripples).toHaveLength(3);
+    const expectedRipples = 3;
+
+    expect(result.current.ripples).toHaveLength(expectedRipples);
   });
 
   it('removes ripples', () => {
@@ -137,11 +147,11 @@ describe('useRipple', () => {
         x: 10,
         y: 10,
         currentTarget: {
-          getBoundingClientRect: () => ({ left: 0, top: 0, width: 100, height: 100 }),
-          clientWidth: 100,
-          clientHeight: 100,
+          getBoundingClientRect: () => MOCK_BOUNDING_RECT,
+          clientWidth: MOCK_CLIENT_DIMENSION,
+          clientHeight: MOCK_CLIENT_DIMENSION,
         },
-      });
+      } as unknown as ReactMouseEvent<HTMLElement, MouseEvent>);
     });
 
     const key = result.current.ripples[0].key;

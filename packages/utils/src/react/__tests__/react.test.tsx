@@ -1,5 +1,6 @@
+import type { ReactNode, JSX, ReactElement } from 'react';
+
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 
 import {
   isValidElement,
@@ -10,7 +11,10 @@ import {
   getValidElements,
 } from '../children';
 import { forwardRef, createPolymorphicComponent } from '../polymorphic-ref';
+import { mergeRefs } from '..';
+import { composeEventHandlers } from '../../client/events';
 
+/* eslint-disable unicorn/consistent-function-scoping */
 describe('react utils', () => {
   describe('children', () => {
     describe('isValidElement', () => {
@@ -27,9 +31,11 @@ describe('react utils', () => {
 
     describe('cloneChildrenWithProps', () => {
       it('should clone children and add props', () => {
-        const Child = ({ data }: { data?: string }) => <div data-testid="child">{data}</div>;
+        const Child = ({ data }: { data?: string }): JSX.Element => (
+          <div data-testid="child">{data}</div>
+        );
 
-        const TestComponent = ({ children }: { children: React.ReactNode }) => (
+        const TestComponent = ({ children }: { children: ReactNode }): JSX.Element => (
           <>{cloneChildrenWithProps(children, { data: 'test' })}</>
         );
 
@@ -48,7 +54,7 @@ describe('react utils', () => {
       });
 
       it('should ignore non-element children', () => {
-        const TestComponent = ({ children }: { children: React.ReactNode }) => (
+        const TestComponent = ({ children }: { children: ReactNode }): JSX.Element => (
           <>{cloneChildrenWithProps(children, { className: 'test' })}</>
         );
 
@@ -70,7 +76,7 @@ describe('react utils', () => {
     describe('getChildrenArray', () => {
       it('should return array of children', () => {
         let childrenCount = 0;
-        const TestComponent = ({ children }: { children: React.ReactNode }) => {
+        const TestComponent = ({ children }: { children: ReactNode }): null => {
           childrenCount = getChildrenArray(children).length;
 
           return null;
@@ -88,15 +94,15 @@ describe('react utils', () => {
 
     describe('findChildByDisplayName', () => {
       it('should find child by display name', () => {
-        const Target = () => <div>Target</div>;
+        const Target = (): JSX.Element => <div>Target</div>;
 
         Target.displayName = 'TargetComponent';
-        const Other = () => <div>Other</div>;
+        const Other = (): JSX.Element => <div>Other</div>;
 
         Other.displayName = 'OtherComponent';
 
-        let found: any = null;
-        const TestComponent = ({ children }: { children: React.ReactNode }) => {
+        let found: ReactNode = null;
+        const TestComponent = ({ children }: { children: ReactNode }): null => {
           found = findChildByDisplayName(children, 'TargetComponent');
 
           return null;
@@ -110,6 +116,7 @@ describe('react utils', () => {
         );
 
         expect(isValidElement(found)).toBe(true);
+        // @ts-ignore
         expect(found.type.displayName).toBe('TargetComponent');
       });
 
@@ -135,8 +142,8 @@ describe('react utils', () => {
 
     describe('getValidElements', () => {
       it('should return only valid elements', () => {
-        let elements: any[] = [];
-        const TestComponent = ({ children }: { children: React.ReactNode }) => {
+        let elements: ReactElement[] = [];
+        const TestComponent = ({ children }: { children: ReactNode }): null => {
           elements = getValidElements(children);
 
           return null;
@@ -195,6 +202,64 @@ describe('react utils', () => {
         render(<Poly data-testid="poly" />);
         expect(screen.getByTestId('poly')).toBeInTheDocument();
       });
+    });
+  });
+
+  describe('mergeRefs', () => {
+    it('should merge refs', () => {
+      const ref1 = { current: null } as React.MutableRefObject<HTMLDivElement | null>;
+      const ref2 = { current: null } as React.MutableRefObject<HTMLDivElement | null>;
+      const merged = mergeRefs(ref1, ref2);
+
+      const div = document.createElement('div');
+
+      merged(div);
+
+      expect(ref1.current).toBe(div);
+      expect(ref2.current).toBe(div);
+    });
+
+    it('should handle functions', () => {
+      const refSpy = jest.fn();
+      const ref = { current: null } as React.MutableRefObject<HTMLDivElement | null>;
+      const merged = mergeRefs(refSpy, ref);
+
+      const div = document.createElement('div');
+
+      merged(div);
+
+      expect(refSpy).toHaveBeenCalledWith(div);
+      expect(ref.current).toBe(div);
+    });
+  });
+
+  describe('composeEventHandlers', () => {
+    it('should call both handlers', () => {
+      const handler1 = jest.fn();
+      const handler2 = jest.fn();
+      const composed = composeEventHandlers(handler1, handler2);
+
+      composed({ type: 'click' } as React.SyntheticEvent);
+
+      expect(handler1).toHaveBeenCalled();
+      expect(handler2).toHaveBeenCalled();
+    });
+
+    it('should prevent default', () => {
+      const handler1 = jest.fn((e: { preventDefault: () => void }) => e.preventDefault());
+      const handler2 = jest.fn();
+      const composed = composeEventHandlers(handler1, handler2);
+
+      const mockEvent = {
+        preventDefault: () => {
+          mockEvent.defaultPrevented = true;
+        },
+        defaultPrevented: false,
+      };
+
+      composed(mockEvent as unknown as React.SyntheticEvent);
+
+      expect(handler2).not.toHaveBeenCalled();
     });
   });
 });

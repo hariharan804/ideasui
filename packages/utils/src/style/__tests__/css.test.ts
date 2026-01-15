@@ -2,7 +2,6 @@ import {
   toPx,
   toRem,
   parseValue,
-  getCSSVar,
   setCSSVar,
   removeCSSVar,
   setCSSVars,
@@ -16,31 +15,47 @@ import {
 
 describe('css', () => {
   describe('toPx', () => {
-    it('should convert number to px string', () => {
-      expect(toPx(10)).toBe('10px');
+    it('should convert numbers to px', () => {
+      const TEN_PX = 10;
+
+      expect(toPx(TEN_PX)).toBe('10px');
     });
 
-    it('should return string value as is', () => {
-      expect(toPx('10%')).toBe('10%');
+    it('should not convert strings', () => {
+      expect(toPx('100%')).toBe('100%');
     });
   });
 
   describe('toRem', () => {
-    it('should convert pixels to rem', () => {
-      expect(toRem(16)).toBe('1rem');
-      expect(toRem(32)).toBe('2rem');
+    it('should convert px to rem', () => {
+      const SIXTEEN_PX = 16;
+      const THIRTY_TWO_PX = 32;
+
+      expect(toRem(SIXTEEN_PX)).toBe('1rem');
+      expect(toRem(THIRTY_TWO_PX)).toBe('2rem');
     });
 
-    it('should support custom base', () => {
-      expect(toRem(20, 10)).toBe('2rem');
+    it('should handle custom base', () => {
+      const TWENTY_PX = 20;
+      const TEN_BASE = 10;
+
+      expect(toRem(TWENTY_PX, TEN_BASE)).toBe('2rem');
     });
   });
 
   describe('parseValue', () => {
-    it('should parse number from CSS string', () => {
-      expect(parseValue('10px')).toBe(10);
-      expect(parseValue('1.5em')).toBe(1.5);
-      expect(parseValue('-20%')).toBe(-20);
+    it('should parse value and unit', () => {
+      const TEN_PX_STRING = '10px';
+      const ONE_POINT_FIVE_REM = '1.5em';
+      const NEGATIVE_TWENTY_PERCENT = '-20%';
+
+      const VAL_10 = 10;
+      const VAL_1_5 = 1.5;
+      const VAL_NEG_20 = -20;
+
+      expect(parseValue(TEN_PX_STRING)).toBe(VAL_10);
+      expect(parseValue(ONE_POINT_FIVE_REM)).toBe(VAL_1_5);
+      expect(parseValue(NEGATIVE_TWENTY_PERCENT)).toBe(VAL_NEG_20);
     });
   });
 
@@ -93,23 +108,27 @@ describe('css', () => {
     });
 
     it('should get multiple CSS variables', () => {
-      // Mock getComputedStyle for this test since we can't easily rely on variable cascading in JSDOM
-      const originalGetComputedStyle = window.getComputedStyle;
       jest.spyOn(window, 'getComputedStyle').mockImplementation(
-        (elt) =>
+        () =>
           ({
             getPropertyValue: (prop: string) => {
-              if (prop === '--a') return '1px';
-              if (prop === '--b') return '2px';
+              if (prop === '--a') {
+                return '1px';
+              }
+              if (prop === '--b') {
+                return '2px';
+              }
+
               return '';
             },
-          }) as any,
+          }) as CSSStyleDeclaration,
       );
 
       const vars = getCSSVars(['a', 'b'], element);
+
       expect(vars).toEqual({ a: '1px', b: '2px' });
 
-      (window.getComputedStyle as any).mockRestore();
+      (window.getComputedStyle as jest.Mock).mockRestore();
     });
 
     it('should create CSS vars object', () => {
@@ -123,6 +142,7 @@ describe('css', () => {
   describe('toStyleString', () => {
     it('should convert object to style string', () => {
       const styles = { fontSize: 16, color: 'red', zIndex: 1 };
+
       expect(toStyleString(styles)).toBe('font-size: 16px; color: red; z-index: 1px');
     });
   });
@@ -131,6 +151,7 @@ describe('css', () => {
     it('should merge style objects', () => {
       const s1 = { color: 'red' };
       const s2 = { fontSize: 12 };
+
       // @ts-ignore
       expect(mergeStyles(s1, undefined, s2)).toEqual({ color: 'red', fontSize: 12 });
     });
@@ -139,6 +160,7 @@ describe('css', () => {
   describe('isVisible', () => {
     it('should return true for visible element', () => {
       const div = document.createElement('div');
+
       // In JSDOM, default style is empty, so it's visible?
       // We need to check the logic: display != none, visibility != hidden, opacity != 0
       // Default valid.
@@ -147,6 +169,7 @@ describe('css', () => {
 
     it('should return false for hidden element', () => {
       const div = document.createElement('div');
+
       div.style.display = 'none';
       expect(isVisible(div)).toBe(false);
     });
@@ -158,6 +181,7 @@ describe('css', () => {
       // but can verify it returns an object with numbers
       const div = document.createElement('div');
       const dims = getDimensions(div);
+
       expect(dims).toHaveProperty('width');
       expect(dims).toHaveProperty('height');
       expect(dims).toHaveProperty('marginTop');

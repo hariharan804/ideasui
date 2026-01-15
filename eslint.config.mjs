@@ -61,6 +61,7 @@ export default defineConfig([
     '!**/jest.config.js',
     '!**/plopfile.js',
     '!**/tsup.config.ts',
+    '**/storybook-static/**',
   ]),
 
   // Main configuration
