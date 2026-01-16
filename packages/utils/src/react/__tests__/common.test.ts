@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { cn } from '../style/tailwind';
-
-import { mergeProps, mergeRefs } from './common';
+import { cn } from '../../style/tailwind';
+import { mergeProps, mergeRefs } from '../common';
 
 // Mock cn since it's a tailwind utility
-jest.mock('../style/tailwind', () => ({
+jest.mock('../../style/tailwind', () => ({
   cn: jest.fn((...args: any[]) => args.filter(Boolean).join(' ')),
 }));
 

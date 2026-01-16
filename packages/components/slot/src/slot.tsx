@@ -98,8 +98,8 @@ function mergeProps(
     return { ...childProps };
   }
 
-  // Start with child props as base
-  const overrideProps = { ...childProps };
+  // Start with empty object for overrides
+  const overrideProps: Record<string, any> = {};
 
   // Get all unique prop names from both objects
   const childKeys = Object.keys(childProps);
@@ -146,7 +146,7 @@ function mergeProps(
   }
 
   // Slot props override child props, except for the special cases handled above
-  return { ...slotProps, ...overrideProps };
+  return { ...childProps, ...slotProps, ...overrideProps };
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
 

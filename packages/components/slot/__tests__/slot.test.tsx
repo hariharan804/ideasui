@@ -1,11 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { axe } from 'jest-axe';
 import 'jest-axe/extend-expect';
 import userEvent from '@testing-library/user-event';
 
 import { Slot } from '../src/slot';
-
-expect.extend(toHaveNoViolations);
 
 describe('Slot', () => {
   describe('Normal Mode', () => {
@@ -138,6 +136,83 @@ describe('Slot', () => {
       </Slot>,
     );
     expect(screen.getByRole('button')).toHaveClass('child-only');
+  });
+
+  describe('Ref Composition', () => {
+    it('composes function refs', () => {
+      const slotRef = jest.fn();
+      const childRef = jest.fn();
+
+      render(
+        <Slot ref={slotRef} asChild>
+          <button ref={childRef}>Button</button>
+        </Slot>,
+      );
+
+      expect(slotRef).toHaveBeenCalledWith(expect.any(HTMLButtonElement));
+      expect(childRef).toHaveBeenCalledWith(expect.any(HTMLButtonElement));
+    });
+
+    it('composes object refs', () => {
+      const slotRef = { current: null };
+      const childRef = { current: null };
+
+      render(
+        <Slot ref={slotRef} asChild>
+          <button ref={childRef}>Button</button>
+        </Slot>,
+      );
+
+      expect(slotRef.current).toBeInstanceOf(HTMLButtonElement);
+      expect(childRef.current).toBeInstanceOf(HTMLButtonElement);
+    });
+
+    it('handles mixed ref types', () => {
+      const slotRef = jest.fn();
+      const childRef = { current: null };
+
+      render(
+        <Slot ref={slotRef} asChild>
+          <button ref={childRef}>Button</button>
+        </Slot>,
+      );
+
+      expect(slotRef).toHaveBeenCalledWith(expect.any(HTMLButtonElement));
+      expect(childRef.current).toBeInstanceOf(HTMLButtonElement);
+    });
+  });
+
+  describe('Edge Cases', () => {
+    it('handles null/undefined props gracefully', () => {
+      render(
+        <Slot asChild>
+          <button>Button</button>
+        </Slot>,
+      );
+      expect(screen.getByRole('button')).toBeInTheDocument();
+    });
+
+    it('handles properties that are not event handlers, style, or className', () => {
+      render(
+        <Slot asChild data-test-id="slot-id">
+          <button data-existing="child-prop">Button</button>
+        </Slot>,
+      );
+
+      const button = screen.getByRole('button');
+
+      expect(button).toHaveAttribute('data-test-id', 'slot-id');
+      expect(button).toHaveAttribute('data-existing', 'child-prop');
+    });
+
+    it('slot props override child props for standard attributes', () => {
+      render(
+        <Slot asChild id="slot-id">
+          <button id="child-id">Button</button>
+        </Slot>,
+      );
+      expect(screen.getByRole('button')).toHaveAttribute('id', 'slot-id');
+    });
   });
 
   describe('TypeScript', () => {

@@ -16,6 +16,7 @@ module.exports = {
     '!packages/cli/**',
     '!packages/icons/**',
     '!**/index.{ts,tsx}', // Exclude barrel files
+    '!packages/utils/src/test/**',
   ],
   coverageReporters: ['text', 'lcov', 'json-summary'],
   watchPlugins: [
@@ -31,33 +32,33 @@ module.exports = {
       statements: 50,
     },
 
-    // './packages/components/': {
-    //   branches: 75,
-    //   functions: 90,
-    //   lines: 90,
-    //   statements: 90,
-    // },
+    './packages/components/': {
+      branches: 75,
+      functions: 90,
+      lines: 90,
+      statements: 90,
+    },
 
-    // './packages/hooks/': {
-    //   branches: 90,
-    //   functions: 95,
-    //   lines: 95,
-    //   statements: 95,
-    // },
+    './packages/hooks/': {
+      branches: 85,
+      functions: 95,
+      lines: 95,
+      statements: 95,
+    },
 
-    // './packages/core/': {
-    //   branches: 70,
-    //   functions: 75,
-    //   lines: 80,
-    //   statements: 80,
-    // },
+    './packages/core/': {
+      branches: 70,
+      functions: 75,
+      lines: 80,
+      statements: 80,
+    },
 
-    // './packages/utils/': {
-    //   branches: 70,
-    //   functions: 80,
-    //   lines: 80,
-    //   statements: 80,
-    // },
+    './packages/utils/': {
+      branches: 70,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   modulePathIgnorePatterns: ['<rootDir>/examples', '<rootDir>/templates', '<rootDir>/.*/dist'],

@@ -17,3 +17,4 @@ const screenSize = useMediaQuery('(min-width: 768px)')
 - check Git Commit
 - Check Change set log
 - Check rabbit and sonnar implementation
+- theme colors confirmation

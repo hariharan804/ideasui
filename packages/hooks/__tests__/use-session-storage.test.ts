@@ -14,15 +14,27 @@ describe('useSessionStorage', () => {
     expect(result.current[0]).toBe('initial');
   });
 
-  it('should update session storage', () => {
+  it('should handle updates', () => {
     const { result } = renderHook(() => useSessionStorage('key', 'initial'));
 
     act(() => {
-      result.current[1]('new');
+      result.current[1]('updated');
     });
 
-    expect(result.current[0]).toBe('new');
-    expect(sessionStorage.getItem('key')).toBe(JSON.stringify('new'));
+    expect(result.current[0]).toBe('updated');
+    expect(window.sessionStorage.getItem('key')).toBe(JSON.stringify('updated'));
+  });
+
+  it('should handle getItem error', () => {
+    const getItemSpy = jest.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+      throw new Error('Read Error');
+    });
+
+    const { result } = renderHook(() => useSessionStorage('key', 'initial'));
+
+    expect(result.current[0]).toBe('initial');
+
+    getItemSpy.mockRestore();
   });
 
   it('should init from session storage', () => {
@@ -50,6 +62,21 @@ describe('useSessionStorage', () => {
 
     // cleanup
     setItemSpy.mockRestore();
+    setItemSpy.mockRestore();
     warnSpy.mockRestore();
+  });
+
+  it('should be safe for SSR', () => {
+    const originalWindow = global.window;
+
+    // @ts-ignore
+    delete global.window;
+
+    const { result } = renderHook(() => useSessionStorage('key', 'ssr-initial'));
+
+    expect(result.current[0]).toBe('ssr-initial');
+
+    // @ts-ignore
+    global.window = originalWindow;
   });
 });

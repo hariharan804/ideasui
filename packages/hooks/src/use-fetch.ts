@@ -35,6 +35,15 @@ export function useFetch<T = unknown>(
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   const { method = 'GET', headers, body, enabled = true } = options;
 
@@ -76,13 +85,17 @@ export function useFetch<T = unknown>(
 
       const result = await response.json();
 
-      setData(result);
+      if (mountedRef.current) {
+        setData(result);
+      }
     } catch (error_) {
-      if (error_ instanceof Error && error_.name !== 'AbortError') {
+      if (mountedRef.current && error_ instanceof Error && error_.name !== 'AbortError') {
         setError(error_);
       }
     } finally {
-      setLoading(false);
+      if (mountedRef.current) {
+        setLoading(false);
+      }
     }
   }, [url, method, headers, body, enabled]);
 

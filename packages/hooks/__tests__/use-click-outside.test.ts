@@ -45,4 +45,12 @@ describe('useClickOutside', () => {
 
     document.body.removeChild(element);
   });
+  it('should not call handler if ref is not attached', () => {
+    const handler = jest.fn();
+
+    renderHook(() => useClickOutside(handler));
+
+    fireEvent.mouseDown(document.body);
+    expect(handler).not.toHaveBeenCalled();
+  });
 });

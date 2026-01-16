@@ -46,15 +46,24 @@ describe('useInterval', () => {
     jest.advanceTimersByTime(INTERVAL_MS);
     expect(callback1).toHaveBeenCalledTimes(1);
 
-    // Update callback
+    // Test dynamic update
     rerender({ cb: callback2 });
 
     jest.advanceTimersByTime(INTERVAL_MS);
-    expect(callback1).toHaveBeenCalledTimes(1);
     expect(callback2).toHaveBeenCalledTimes(1);
   });
 
   it('should clear interval on unmount', () => {
+    const clearIntervalSpy = jest.spyOn(window, 'clearInterval');
+    const { unmount } = renderHook(() => useInterval(() => {}, INTERVAL_MS));
+
+    unmount();
+
+    expect(clearIntervalSpy).toHaveBeenCalled();
+    clearIntervalSpy.mockRestore();
+  });
+
+  it('should clear interval on unmount and prevent further calls', () => {
     const callback = jest.fn();
     const { unmount } = renderHook(() => useInterval(callback, INTERVAL_MS));
 

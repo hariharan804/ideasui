@@ -60,4 +60,9 @@ describe('useDisclosure', () => {
 
     expect(result.current.isOpen).toBe(true);
   });
+  it('should initialize with explicit false', () => {
+    const { result } = renderHook(() => useDisclosure(false));
+
+    expect(result.current.isOpen).toBe(false);
+  });
 });

@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 
 import { useThemeController } from '../src/system/providers/use-theme-controller';
 import { themeStore } from '../src/system/providers/utils/store';
@@ -74,5 +74,89 @@ describe('useThemeController', () => {
     renderHook(() => useThemeController({ attribute: 'class' }));
 
     expect(document.documentElement.classList.contains('dark')).toBe(true);
+  });
+
+  it('scrolls system theme updates', () => {
+    mockStorage.getItem.mockReturnValue(null); // system
+
+    const matchMediaMock = window.matchMedia as jest.Mock;
+    const listeners: Record<string, Function> = {};
+    let matchesDark = false;
+
+    matchMediaMock.mockImplementation(() => ({
+      matches: matchesDark,
+      addEventListener: jest.fn((event, cb) => {
+        listeners[event] = cb;
+      }),
+      removeEventListener: jest.fn(),
+    }));
+
+    renderHook(() =>
+      useThemeController({
+        systemThemes: { light: 'light', dark: 'dark' },
+        defaultTheme: 'system',
+      }),
+    );
+
+    expect(themeStore.get().resolved).toBe('light');
+
+    // Simulate system change to dark
+    matchesDark = true;
+
+    // Trigger the listener manually if we captured it
+    act(() => {
+      if (listeners['change']) {
+        listeners['change']();
+      }
+    });
+
+    expect(themeStore.get().resolved).toBe('dark');
+  });
+
+  it('syncs across tabs via storage event', () => {
+    renderHook(() => useThemeController({ storageKey: 'theme-key' }));
+
+    // Simulate another tab setting theme to 'light'
+    const event = new StorageEvent('storage', {
+      key: 'theme-key',
+      newValue: 'light',
+    });
+
+    window.dispatchEvent(event);
+
+    expect(themeStore.get().theme).toBe('light');
+  });
+
+  it('cleans up listeners on unmount', () => {
+    const removeEventListener = jest.fn();
+    const removeMediaListener = jest.fn();
+
+    jest.spyOn(window, 'removeEventListener').mockImplementation(removeEventListener);
+    (window.matchMedia as jest.Mock).mockReturnValue({
+      matches: false,
+      addEventListener: jest.fn(),
+      removeEventListener: removeMediaListener,
+    });
+
+    const { unmount } = renderHook(() => useThemeController());
+
+    unmount();
+
+    expect(removeEventListener).toHaveBeenCalledWith('storage', expect.any(Function));
+    expect(removeMediaListener).toHaveBeenCalledWith('change', expect.any(Function));
+  });
+
+  it('resolves system theme correctly on init', () => {
+    mockStorage.getItem.mockReturnValue('system');
+    (window.matchMedia as jest.Mock).mockReturnValue({
+      matches: true, // prefers dark
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+    });
+
+    renderHook(() => useThemeController());
+
+    expect(themeStore.get().theme).toBe('system');
+    expect(themeStore.get().resolved).toBe('dark');
   });
 });

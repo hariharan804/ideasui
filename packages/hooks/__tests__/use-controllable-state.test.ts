@@ -41,4 +41,23 @@ describe('useControllableState', () => {
 
     expect(result.current[0]).toBeUndefined();
   });
+  it('should not update internal state if controlled without onChange', () => {
+    const { result } = renderHook(() => useControllableState({ value: 'controlled' }));
+
+    act(() => {
+      result.current[1]('new');
+    });
+
+    expect(result.current[0]).toBe('controlled');
+  });
+
+  it('should update internal state if uncontrolled without onChange', () => {
+    const { result } = renderHook(() => useControllableState({ defaultValue: 'default' }));
+
+    act(() => {
+      result.current[1]('new');
+    });
+
+    expect(result.current[0]).toBe('new');
+  });
 });

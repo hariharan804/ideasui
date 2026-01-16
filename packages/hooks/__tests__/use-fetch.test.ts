@@ -1,6 +1,7 @@
 import { renderHook, act, waitFor } from '@testing-library/react';
 
 import { useFetch } from '../src/use-fetch';
+const FETCH_URL = 'https://api.example.com/data';
 
 describe('useFetch', () => {
   beforeEach(() => {
@@ -13,7 +14,7 @@ describe('useFetch', () => {
       json: async () => ({ data: 'test' }),
     });
 
-    const { result } = renderHook(() => useFetch('https://api.example.com/data'));
+    const { result } = renderHook(() => useFetch(FETCH_URL));
 
     expect(result.current.loading).toBe(true);
 
@@ -23,13 +24,58 @@ describe('useFetch', () => {
     expect(result.current.error).toBeNull();
   });
 
+  it('should handle POST request with body', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ success: true }),
+    });
+
+    const { result } = renderHook(() =>
+      useFetch(FETCH_URL, {
+        method: 'POST',
+        body: { foo: 'bar' },
+      }),
+    );
+
+    await waitFor(() => {
+      expect(result.current.loading).toBe(false);
+    });
+
+    expect(global.fetch).toHaveBeenCalledWith(
+      FETCH_URL,
+      expect.objectContaining({
+        method: 'POST',
+        body: JSON.stringify({ foo: 'bar' }),
+      }),
+    );
+    expect(result.current.data).toEqual({ success: true });
+  });
+
+  it('should abort previous request on concurrent refetch', async () => {
+    const abortSpy = jest.spyOn(AbortController.prototype, 'abort');
+
+    // Mock fetch to be pending prevents state updates (setData/setError/setLoading)
+    // from happening after the test finishes, avoiding 'act' warnings.
+    (global.fetch as jest.Mock).mockImplementation(() => new Promise(() => {}));
+
+    const { result } = renderHook(() => useFetch(FETCH_URL));
+
+    // Immediately trigger another fetch while first is pending/mounting
+    act(() => {
+      result.current.refetch();
+    });
+
+    expect(abortSpy).toHaveBeenCalled();
+    abortSpy.mockRestore();
+  });
+
   it('should handle errors', async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
       status: 404,
     });
 
-    const { result } = renderHook(() => useFetch('https://api.example.com/error'));
+    const { result } = renderHook(() => useFetch(FETCH_URL + '/error'));
 
     await waitFor(() => expect(result.current.loading).toBe(false));
 

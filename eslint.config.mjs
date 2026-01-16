@@ -346,7 +346,7 @@ export default defineConfig([
       // Documentation (JSDoc)
       'jsdoc/check-alignment': 'warn',
       'jsdoc/check-param-names': 'warn',
-      'jsdoc/check-tag-names': 'warn',
+      'jsdoc/check-tag-names': ['warn', { definedTags: ['jest-environment'] }],
       'jsdoc/check-types': 'warn',
       'jsdoc/require-description': 'warn',
       'jsdoc/require-param': 'warn',

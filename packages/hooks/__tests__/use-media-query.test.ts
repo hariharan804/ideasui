@@ -6,6 +6,7 @@ describe('useMediaQuery', () => {
   let matchMediaMock: jest.Mock;
   const matches = new Map<string, boolean>();
   const listeners = new Map<string, Set<(event: MediaQueryListEvent) => void>>();
+  const CHANGE_EVENT = 'change';
 
   beforeAll(() => {
     matchMediaMock = jest.fn((query: string) => ({
@@ -15,7 +16,7 @@ describe('useMediaQuery', () => {
       addListener: jest.fn(), // Deprecated
       removeListener: jest.fn(), // Deprecated
       addEventListener: jest.fn((type, listener) => {
-        if (type === 'change') {
+        if (type === CHANGE_EVENT) {
           if (!listeners.has(query)) {
             listeners.set(query, new Set());
           }
@@ -23,7 +24,7 @@ describe('useMediaQuery', () => {
         }
       }),
       removeEventListener: jest.fn((type, listener) => {
-        if (type === 'change') {
+        if (type === CHANGE_EVENT) {
           listeners.get(query)?.delete(listener);
         }
       }),
@@ -37,9 +38,11 @@ describe('useMediaQuery', () => {
     listeners.clear();
   });
 
+  const QUERY = '(min-width: 768px)';
+
   it('should return false if no match', () => {
-    matches.set('(min-width: 768px)', false);
-    const { result } = renderHook(() => useMediaQuery('(min-width: 768px)'));
+    matches.set(QUERY, false);
+    const { result } = renderHook(() => useMediaQuery(QUERY));
 
     expect(result.current).toBe(false);
   });
@@ -71,5 +74,26 @@ describe('useMediaQuery', () => {
     });
 
     expect(result.current).toBe(true);
+  });
+  it('should clean up listener on unmount', () => {
+    // Manually create the mock to spy on removeEventListener
+    const removeEventListenerSpy = jest.fn();
+
+    matchMediaMock.mockImplementation((query) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: removeEventListenerSpy,
+      dispatchEvent: jest.fn(),
+    }));
+
+    const { unmount } = renderHook(() => useMediaQuery(QUERY));
+
+    unmount();
+
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('change', expect.any(Function));
   });
 });
