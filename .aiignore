@@ -12,8 +12,8 @@ const screenSize = useMediaQuery('(min-width: 768px)')
 - jest coverage issues fixes - done
 - check chromatic and Visual testing - done
 - Check Change set log - done
+- check Git Commit lint - done
 - check all file and test case 
-- check Git Commit lint
 - check component and theme real time test
 - check CI/CD pipeline
 - theme colors confirmation
