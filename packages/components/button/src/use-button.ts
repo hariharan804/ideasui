@@ -125,6 +125,7 @@ export function useButton(props: UseButtonProps): UseButtonReturn {
         'data-loading': toDataAttr(isLoading),
         ...mergeProps(
           ariaButtonProps,
+          ariaCompatibleProps,
           focusProps,
           hoverProps,
           {
@@ -143,6 +144,7 @@ export function useButton(props: UseButtonProps): UseButtonReturn {
       }) as React.HTMLAttributes<HTMLButtonElement>,
     [
       ariaButtonProps,
+      ariaCompatibleProps,
       focusProps,
       hoverProps,
       isLoading,

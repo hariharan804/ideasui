@@ -19,7 +19,7 @@ export default meta;
 
 type Story = StoryObj<typeof Ripple>;
 
-type CustomRippleProps = ComponentProps<typeof Ripple> & {
+type CustomRippleProps = Omit<ComponentProps<typeof Ripple>, 'ripples' | 'onClear'> & {
   children: ReactNode;
   className?: string;
 };
@@ -41,6 +41,7 @@ export const Default: Story = {
   render: (args) => (
     <CustomRipple
       className="relative cursor-pointer overflow-hidden rounded-md bg-blue-600 px-6 py-3 text-white select-none"
+      data-testid="ripple"
       {...args}
     >
       Click Me
@@ -48,11 +49,27 @@ export const Default: Story = {
   ),
 };
 
+export const Variants: Story = {
+  render: () => (
+    <div className="storybook-ripple-variants flex gap-4">
+      <CustomRipple className="relative cursor-pointer overflow-hidden rounded-md bg-blue-600 px-6 py-3 text-white select-none">
+        Primary
+      </CustomRipple>
+      <CustomRipple className="relative cursor-pointer overflow-hidden rounded-md bg-green-600 px-6 py-3 text-white select-none">
+        Success
+      </CustomRipple>
+      <CustomRipple className="relative cursor-pointer overflow-hidden rounded-md bg-red-600 px-6 py-3 text-white select-none">
+        Danger
+      </CustomRipple>
+    </div>
+  ),
+};
+
 export const Large: Story = {
   render: (args) => {
     return (
       <CustomRipple
-        className="relative cursor-pointer overflow-hidden rounded-lg bg-green-600 px-10 py-5 text-white"
+        className="storybook-ripple-large relative cursor-pointer overflow-hidden rounded-lg bg-green-600 px-10 py-5 text-white"
         {...args}
       >
         Large Button
@@ -68,7 +85,7 @@ export const CustomColor: Story = {
   render: (args) => {
     return (
       <CustomRipple
-        className="relative cursor-pointer overflow-hidden rounded-md bg-purple-600 px-6 py-3 text-white"
+        className="storybook-ripple-custom-color relative cursor-pointer overflow-hidden rounded-md bg-purple-600 px-6 py-3 text-white"
         {...args}
       >
         Custom Ripple

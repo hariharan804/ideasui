@@ -35,6 +35,7 @@ const defaultProps: Partial<ButtonProps> = {
 export const Default: Story = {
   args: {
     ...defaultProps,
+    'data-testid': 'button',
   },
 };
 
@@ -43,6 +44,7 @@ export const WithIcons: Story = {
     ...defaultProps,
     startContent: <File className="h-4 w-4" />,
     endContent: <Download className="h-4 w-4" />,
+    'data-testid': 'button-with-icons',
   },
 };
 
@@ -50,6 +52,7 @@ export const Loading: Story = {
   args: {
     ...defaultProps,
     loading: true,
+    'data-testid': 'button-loading',
   },
 };
 
@@ -82,7 +85,7 @@ export const WithState: Story = {
 
 export const Radius: Story = {
   render: () => (
-    <div className="flex gap-4">
+    <div className="storybook-button-radius flex gap-4">
       <Button radius="none">None</Button>
       <Button radius="sm">Small</Button>
       <Button radius="md">Medium</Button>
@@ -104,7 +107,7 @@ export const FullWidth: Story = {
 
 export const Variants: Story = {
   render: () => (
-    <div className="flex gap-4">
+    <div className="storybook-button-variants flex gap-4">
       <Button variant="solid">Solid</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="ghost">Ghost</Button>
@@ -114,7 +117,7 @@ export const Variants: Story = {
 
 export const Colors: Story = {
   render: () => (
-    <div className="flex flex-wrap gap-4">
+    <div className="storybook-button-colors flex flex-wrap gap-4">
       <Button color="primary">Primary</Button>
       <Button color="secondary">Secondary</Button>
       <Button color="success">Success</Button>
@@ -127,7 +130,7 @@ export const Colors: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <div className="flex items-center gap-4">
+    <div className="storybook-button-sizes flex items-center gap-4">
       <Button size="xs">Extra Small</Button>
       <Button size="sm">Small</Button>
       <Button size="md">Medium</Button>

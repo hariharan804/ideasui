@@ -3,8 +3,8 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './packages',
   testMatch: [
-    '**/packages/components/**/src/__tests__/*.spec.ts',
-    '**/packages/hooks/**/src/__tests__/*.spec.ts',
+    '**/packages/components/**/__tests__/*.spec.ts',
+    '**/packages/hooks/**/__tests__/*.spec.ts',
   ],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
