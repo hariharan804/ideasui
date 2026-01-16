@@ -1,0 +1,104 @@
+name: Accessibility Issue
+description: Report an accessibility (a11y) issue with IdeasUI components
+title: '[A11y]: '
+labels: ['accessibility', 'needs-triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve accessibility! Please describe the accessibility issue below.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Accessibility Category
+      description: What type of accessibility issue is this?
+      options:
+        - Screen Reader
+        - Keyboard Navigation
+        - Focus Management
+        - Color Contrast
+        - Motion/Animation
+        - ARIA Attributes
+        - Semantic HTML
+        - Touch Target Size
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      description: Which component has the accessibility issue?
+      placeholder: e.g., Button, Modal, Dropdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue Description
+      description: Describe the accessibility barrier
+      placeholder: What is the accessibility issue?
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: User Impact
+      description: How does this affect users?
+      placeholder: e.g., Screen reader users cannot navigate the dropdown options
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What is the accessible behavior that should occur?
+      placeholder: Describe the expected accessible behavior...
+    validations:
+      required: true
+
+  - type: input
+    id: assistive-tech
+    attributes:
+      label: Assistive Technology Used
+      description: What assistive technology did you use to find this issue?
+      placeholder: e.g., VoiceOver on macOS, NVDA on Windows, JAWS
+
+  - type: dropdown
+    id: wcag
+    attributes:
+      label: WCAG Guideline (if known)
+      description: Which WCAG guideline does this relate to?
+      options:
+        - 1.1 Text Alternatives
+        - 1.3 Adaptable
+        - 1.4 Distinguishable
+        - 2.1 Keyboard Accessible
+        - 2.4 Navigable
+        - 2.5 Input Modalities
+        - 3.2 Predictable
+        - 3.3 Input Assistance
+        - 4.1 Compatible
+        - Not Sure
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the accessibility issue
+      placeholder: |
+        1. Navigate to the component using...
+        2. Press Tab to...
+        3. Notice that...
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any additional context, screenshots, or audit tool results
+      placeholder: Screenshots, axe-core results, or other helpful information

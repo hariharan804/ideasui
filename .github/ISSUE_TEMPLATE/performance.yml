@@ -1,0 +1,105 @@
+name: Performance Issue
+description: Report a performance problem with IdeasUI components
+title: '[Performance]: '
+labels: ['performance', 'needs-triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a performance issue! Please provide as much detail as possible to help us investigate.
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Performance Issue Type
+      description: What type of performance issue are you experiencing?
+      options:
+        - Slow Rendering
+        - Memory Leak
+        - Bundle Size
+        - Animation Jank
+        - Re-render Issues
+        - Initial Load Time
+        - Runtime Performance
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: component
+    attributes:
+      label: Component (if applicable)
+      description: Which component is causing the performance issue?
+      placeholder: e.g., DataTable, VirtualList, Modal
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue Description
+      description: Describe the performance issue
+      placeholder: What performance problem are you experiencing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Performance
+      description: What performance did you expect?
+      placeholder: e.g., List should render 1000 items smoothly at 60fps
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Performance
+      description: What performance are you seeing?
+      placeholder: e.g., Frame drops to 15fps when scrolling the list
+
+  - type: textarea
+    id: metrics
+    attributes:
+      label: Performance Metrics
+      description: Any metrics you've collected (optional but helpful)
+      placeholder: |
+        - Render time: 500ms
+        - FPS: 15
+        - Memory usage: 200MB
+        - Bundle size increase: 50KB
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the performance issue
+      placeholder: |
+        1. Render a list with 1000 items
+        2. Scroll quickly through the list
+        3. Observe frame drops in DevTools Performance tab
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Your environment details
+      value: |
+        - Device: [e.g. MacBook Pro M1, iPhone 12]
+        - OS: [e.g. macOS 14, iOS 17]
+        - Browser: [e.g. Chrome 120, Safari 17]
+        - IdeasUI Version: [e.g. 0.1.0]
+        - React Version: [e.g. 18.2.0]
+
+  - type: textarea
+    id: profiling
+    attributes:
+      label: Profiling Data
+      description: Attach profiling screenshots or flame graphs if available
+      placeholder: Drag and drop DevTools Performance screenshots or React Profiler data...
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any additional context about the performance issue
+      placeholder: Workarounds you've tried, similar issues, etc.
