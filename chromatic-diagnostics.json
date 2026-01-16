@@ -1044,9 +1044,7 @@
     "fileHashing": true,
     "interactive": true,
     "isLocalBuild": false,
-    "originalArgv": [
-      "--project-token="
-    ],
+    "originalArgv": ["--project-token="],
     "logFile": "chromatic.log",
     "forceRebuild": true,
     "zip": true,
@@ -1061,13 +1059,7 @@
     "private": true,
     "version": "0.1.0",
     "description": "IdeasUI - Modern React component library built with TypeScript and Tailwind CSS",
-    "keywords": [
-      "react",
-      "components",
-      "ui",
-      "design-system",
-      "tailwind"
-    ],
+    "keywords": ["react", "components", "ui", "design-system", "tailwind"],
     "author": "IdeasUI<support@ideasui.com>",
     "homepage": "https://ideasui.com",
     "license": "MIT",

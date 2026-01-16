@@ -18,7 +18,7 @@ Brief description of the changes made.
 - [ ] Icons
 - [ ] Utils
 - [ ] CLI
-- [ ] Component: 
+- [ ] Component:
 
 ## Testing
 
