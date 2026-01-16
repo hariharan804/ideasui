@@ -13,17 +13,12 @@ Brief description of the changes made.
 
 ## Component(s) Affected
 
-- [ ] Button
-- [ ] Box
-- [ ] Ripple
-- [ ] Slot
 - [ ] Theme
-- [ ] Variants
 - [ ] Hooks
 - [ ] Icons
 - [ ] Utils
 - [ ] CLI
-- [ ] Other: ****\_\_\_****
+- [ ] Component: 
 
 ## Testing
 
