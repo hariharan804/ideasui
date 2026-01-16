@@ -32,7 +32,7 @@ jobs:
         run: pnpm run playwright:install
 
       - name: Build Storybook
-        run: pnpm run build:storybook -- --quiet
+        run: pnpm run build:storybook
         env:
           NODE_ENV: production
 
