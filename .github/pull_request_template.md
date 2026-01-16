@@ -16,10 +16,14 @@ Brief description of the changes made.
 - [ ] Button
 - [ ] Box
 - [ ] Ripple
-- [ ] Utils
+- [ ] Slot
+- [ ] Theme
 - [ ] Variants
+- [ ] Hooks
 - [ ] Icons
-- [ ] Other: \***\*\_\_\_\*\***
+- [ ] Utils
+- [ ] CLI
+- [ ] Other: ****\_\_\_****
 
 ## Testing
 

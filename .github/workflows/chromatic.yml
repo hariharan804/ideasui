@@ -1,0 +1,37 @@
+name: Chromatic
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required for Chromatic to detect git history
+
+      - name: Setup environment
+        uses: ./.github/composite-actions/install
+
+      - name: Build Storybook
+        run: pnpm run build:storybook
+        env:
+          NODE_ENV: production
+
+      - name: Run Chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: build:storybook
+          storybookBuildDir: apps/storybook/storybook-static
+          onlyChanged: true # Only test changed components
+          autoAcceptChanges: master # Auto-accept on master branch
+          exitZeroOnChanges: true # Don't fail on visual changes (just report)
+          exitOnceUploaded: true # Speed up CI by exiting after upload

@@ -1,11 +1,20 @@
-# Global owners
+# Global owners - fallback for any unmatched files
 * @ideas2logic-lab/ideasui-maintainers
 
 # Component packages
 /packages/components/ @ideas2logic-lab/ideasui-maintainers
 
-# Core packages
+# Core packages (theme, variants)
 /packages/core/ @ideas2logic-lab/ideasui-maintainers
+
+# Utility packages
+/packages/hooks/ @ideas2logic-lab/ideasui-maintainers
+/packages/icons/ @ideas2logic-lab/ideasui-maintainers
+/packages/utils/ @ideas2logic-lab/ideasui-maintainers
+/packages/cli/ @ideas2logic-lab/ideasui-maintainers
+
+# Applications
+/apps/ @ideas2logic-lab/ideasui-maintainers
 
 # Documentation
 /docs/ @ideas2logic-lab/ideasui-maintainers
@@ -18,3 +27,5 @@
 /package.json @ideas2logic-lab/ideasui-maintainers
 /tsconfig.json @ideas2logic-lab/ideasui-maintainers
 /turbo.json @ideas2logic-lab/ideasui-maintainers
+/eslint.config.mjs @ideas2logic-lab/ideasui-maintainers
+/jest.config.js @ideas2logic-lab/ideasui-maintainers

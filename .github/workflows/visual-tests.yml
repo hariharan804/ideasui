@@ -2,9 +2,9 @@ name: Visual Tests
 
 on:
   pull_request:
-    branches: [main]
+    branches: [master]
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   visual-tests:
@@ -32,7 +32,7 @@ jobs:
         run: pnpm run playwright:install
 
       - name: Build Storybook
-        run: pnpm run build-storybook -- --quiet
+        run: pnpm run build:storybook -- --quiet
         env:
           NODE_ENV: production
 

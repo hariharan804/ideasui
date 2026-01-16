@@ -13,11 +13,15 @@ on:
 
 jobs:
   canary:
-    if: github.event.pull_request.merged == true
+    # Run on merged PRs OR manual workflow dispatch
+    if: |
+      (github.event_name == 'pull_request' && github.event.pull_request.merged == true) ||
+      github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+      id-token: write # Required for npm provenance
     steps:
       - uses: actions/checkout@v4
 
@@ -41,15 +45,66 @@ jobs:
           npx changeset publish --tag canary
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Comment on merged PR
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
           script: |
             const { execSync } = require('child_process');
+            const fs = require('fs');
+            const path = require('path');
 
-            // Get published canary versions
-            const packages = ['button', 'box', 'ripple', 'utils', 'variants', 'icons'];
+            // Dynamically discover all @ideasui packages from the workspace
+            const getPackages = () => {
+              const packages = [];
+              
+              // Check packages/components
+              const componentsDir = './packages/components';
+              if (fs.existsSync(componentsDir)) {
+                fs.readdirSync(componentsDir).forEach(dir => {
+                  const pkgPath = path.join(componentsDir, dir, 'package.json');
+                  if (fs.existsSync(pkgPath)) {
+                    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+                    if (pkg.name?.startsWith('@ideasui/')) {
+                      packages.push(pkg.name.replace('@ideasui/', ''));
+                    }
+                  }
+                });
+              }
+              
+              // Check packages/core
+              const coreDir = './packages/core';
+              if (fs.existsSync(coreDir)) {
+                fs.readdirSync(coreDir).forEach(dir => {
+                  const pkgPath = path.join(coreDir, dir, 'package.json');
+                  if (fs.existsSync(pkgPath)) {
+                    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+                    if (pkg.name?.startsWith('@ideasui/')) {
+                      packages.push(pkg.name.replace('@ideasui/', ''));
+                    }
+                  }
+                });
+              }
+              
+              // Check standalone packages (hooks, icons, utils, cli)
+              ['hooks', 'icons', 'utils', 'cli'].forEach(pkgName => {
+                const pkgPath = `./packages/${pkgName}/package.json`;
+                if (fs.existsSync(pkgPath)) {
+                  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+                  if (pkg.name?.startsWith('@ideasui/')) {
+                    packages.push(pkg.name.replace('@ideasui/', ''));
+                  }
+                }
+              });
+              
+              return packages;
+            };
+
+            const packages = getPackages();
+            console.log('Discovered packages:', packages);
+
             const canaryVersions = packages.map(pkg => {
               try {
                 const version = execSync(`npm view @ideasui/${pkg}@canary version`, { encoding: 'utf8' }).trim();
