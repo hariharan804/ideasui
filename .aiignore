@@ -9,9 +9,9 @@ responsive design
 const { isMobile, isTablet, isDesktop } = useBreakpoint()
 const screenSize = useMediaQuery('(min-width: 768px)')
 
-- jest coverage issues fixes -done
-- check chromatic and Visual testing -done
-- Check Change set log
+- jest coverage issues fixes - done
+- check chromatic and Visual testing - done
+- Check Change set log - done
 - check all file and test case 
 - check component and theme real time test
 - check Git Commit lint

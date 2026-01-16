@@ -1,18 +1,19 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
+  "$schema": "https://unpkg.com/@changesets/config/schema.json",
+
   "changelog": [
     "@changesets/changelog-github",
-    {
-      "repo": "@ideas2logic/ideasui"
-    }
+    { "repo": "@ideas2logic/ideasui" }
   ],
+
   "commit": false,
-  "fixed": [],
-  "linked": [],
   "access": "public",
   "baseBranch": "master",
+
   "updateInternalDependencies": "patch",
-  "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
-    "onlyUpdatePeerDependentsWhenOutOfRange": true
+
+  "snapshot": {
+    "useCalculatedVersion": true,
+    "prereleaseTemplate": "{tag}.{timestamp}"
   }
 }

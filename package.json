@@ -57,11 +57,15 @@
     "clean:test": "jest --clearCache",
     "clean:changelogs": "rimraf ./packages/**/**/CHANGELOG.md && rimraf ./packages/**/CHANGELOG.md",
     "changeset:beta": "changeset pre enter beta",
+    "version:beta": "changeset version",
+    "release:beta": "changeset publish --tag beta",
+    "changeset": "changeset",
     "version": "changeset version",
     "release": "changeset publish",
     "changeset:canary": "changeset pre enter canary",
     "version:canary": "changeset version --snapshot canary",
-    "release:canary": "changeset publish --snapshot --no-git-tag --tag canary"
+    "release:canary": "changeset publish --snapshot --no-git-tag --tag canary",
+    "changeset:exit": "changeset pre exit"
   },
   "config": {
     "commitizen": {
@@ -79,6 +83,7 @@
   ],
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
+    "@changesets/changelog-github": "^0.5.2",
     "@changesets/cli": "^2.29.8",
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
