@@ -56,10 +56,10 @@
     "clean:lock": "rimraf ./pnpm-lock.yaml",
     "clean:test": "jest --clearCache",
     "clean:changelogs": "rimraf ./packages/**/**/CHANGELOG.md && rimraf ./packages/**/CHANGELOG.md",
-    "changeset:canary": "changeset pre enter canary",
     "changeset:beta": "changeset pre enter beta",
     "version": "changeset version",
     "release": "changeset publish",
+    "changeset:canary": "changeset pre enter canary",
     "version:canary": "changeset version --snapshot canary",
     "release:canary": "changeset publish --snapshot --no-git-tag --tag canary"
   },
@@ -79,6 +79,7 @@
   ],
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
+    "@changesets/cli": "^2.29.8",
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
     "@eslint/compat": "^2.0.0",
