@@ -1,6 +1,7 @@
 module.exports = {
   extends: ['@commitlint/config-conventional'],
-  helpUrl: 'https://github.com/@ideas2logic/ideasui/blob/main/CONTRIBUTING.md#commit-convention',
+  helpUrl:
+    'https://github.com/ideas2logic-lab/ideasui/blob/master/CONTRIBUTING.md#commit-convention',
   rules: {
     'type-enum': [
       2,
@@ -25,7 +26,22 @@ module.exports = {
     'scope-enum': [
       1,
       'always',
-      ['components', 'utils', 'hooks', 'icons', 'themes', 'docs', 'config', 'deps', 'release'],
+      [
+        'components',
+        'core',
+        'utils',
+        'hooks',
+        'icons',
+        'cli',
+        'slot',
+        'themes',
+        'docs',
+        'config',
+        'deps',
+        'release',
+        'playground',
+        'storybook',
+      ],
     ],
     'scope-empty': [0],
     'header-max-length': [2, 'always', 100],
