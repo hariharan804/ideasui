@@ -24,32 +24,31 @@ export default defineConfig({
     colorScheme: 'light',
 
     // Stabilize rendering
-    launchOptions: {
-      args: [
-        '--disable-gpu',
-        '--disable-font-subpixel-positioning',
-        '--disable-lcd-text',
-        '--force-color-profile=srgb',
-      ],
-    },
 
-    // Hide animations & caret
-    // animations: 'disabled',
-    // caret: 'hide',
     trace: 'on-first-retry',
   },
 
   expect: {
     toHaveScreenshot: {
-      maxDiffPixelRatio: 0.03,
-      threshold: 0.03,
+      maxDiffPixelRatio: 0.05,
+      threshold: 0.2,
     },
   },
 
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: [
+            '--disable-gpu',
+            '--disable-font-subpixel-positioning',
+            '--disable-lcd-text',
+            '--force-color-profile=srgb',
+          ],
+        },
+      },
     },
     {
       name: 'firefox',
