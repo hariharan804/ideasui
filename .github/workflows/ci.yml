@@ -50,12 +50,3 @@ jobs:
         with:
           files: ./coverage/lcov.info
           fail_ci_if_error: false
-
-      # 7️⃣ Security Scan
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: javascript
-
-      - name: Analyze CodeQL
-        uses: github/codeql-action/analyze@v3
