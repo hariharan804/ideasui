@@ -2,6 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './packages',
+  snapshotPathTemplate: '{testDir}/{testFileDir}/{testFileName}-snapshots/{arg}{ext}',
   testMatch: [
     '**/packages/components/**/__tests__/*.spec.ts',
     '**/packages/hooks/**/__tests__/*.spec.ts',
@@ -14,6 +15,11 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:6006',
     trace: 'on-first-retry',
+  },
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.03, // Allow 3% pixel difference for cross-browser/platform tolerance
+    },
   },
   projects: [
     {
