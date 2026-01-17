@@ -164,3 +164,6 @@ Thumbs.db
 
 # Changesets
 **/.changeset/debug.log
+
+# Exceptions
+!/.github/composite-actions/build/
