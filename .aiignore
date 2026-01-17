@@ -13,7 +13,7 @@ const screenSize = useMediaQuery('(min-width: 768px)')
 - check chromatic and Visual testing - done
 - Check Change set log - done
 - check Git Commit lint - done
-- check CI/CD pipeline
+- check CI/CD pipeline - done
 - check component and theme real time test
 - check all file and test case 
 - theme colors confirmation

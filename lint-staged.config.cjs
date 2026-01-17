@@ -1,34 +1,31 @@
-const { relative } = require('path');
-const escape = require('shell-quote').quote;
-const isWin = process.platform === 'win32';
 const { ESLint } = require('eslint');
 
-const removeIgnoredFiles = async (files) => {
-  const cwd = process.cwd();
+/**
+ * Filter out ESLint-ignored files
+ */
+const filterIgnored = async (files) => {
   const eslint = new ESLint();
-
-  const relativePaths = files.map((file) => relative(cwd, file));
-  const isIgnored = await Promise.all(relativePaths.map((file) => eslint.isPathIgnored(file)));
-
-  return files.filter((_, i) => !isIgnored[i]);
+  const results = await Promise.all(
+    files.map(async (file) => ({
+      file,
+      ignored: await eslint.isPathIgnored(file),
+    })),
+  );
+  return results.filter((r) => !r.ignored).map((r) => r.file);
 };
 
 module.exports = {
-  '**/*.{js,ts,jsx,tsx}': async (files) => {
-    const filesToLint = await removeIgnoredFiles(files);
-
-    return filesToLint.map((filename) => {
-      const file = isWin ? filename : escape([filename]);
-      return `eslint --max-warnings=0 --fix "${file}"`;
-    });
+  // JavaScript/TypeScript - ESLint + Prettier
+  '*.{js,cjs,mjs,ts,tsx,jsx}': async (files) => {
+    const filtered = await filterIgnored(files);
+    if (!filtered.length) return [];
+    const fileList = filtered.join(' ');
+    return [`eslint --max-warnings=0 --fix ${fileList}`, `prettier --write ${fileList}`];
   },
 
-  '**/*.css': async (files) => {
-    const filesToLint = await removeIgnoredFiles(files);
+  // CSS/SCSS - Prettier
+  '*.{css,scss}': 'prettier --write',
 
-    return filesToLint.map((filename) => {
-      const file = isWin ? filename : escape([filename]);
-      return `prettier --write "${file}"`;
-    });
-  },
+  // JSON/YAML/Markdown - Prettier
+  '*.{json,yml,yaml,md}': 'prettier --write',
 };
