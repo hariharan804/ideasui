@@ -27,7 +27,7 @@
     }
   },
   "scripts": {
-    "build": "pnpm generate && tsup src --dts",
+    "build-icons": "pnpm generate && tsup src --dts",
     "dev": "pnpm build:dev --watch",
     "clean": "rimraf dist .turbo",
     "type-check": "tsc --noEmit",

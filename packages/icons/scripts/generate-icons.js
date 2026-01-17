@@ -156,7 +156,7 @@ ${iconNames
 
 // Re-export types and utilities
 export type { IconProps } from './types';
-export { createIcon } from './createIcon';
+export { createIcon } from './create-icon';
 export { DynamicIcon } from './dynamic-icon';
 export { IconSet } from './icon-set';
 export { useIconContext, withIconContext } from './icon-context';
