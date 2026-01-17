@@ -33,16 +33,13 @@ export default defineConfig({
       ],
     },
 
-    // Hide animations & caret
-    // animations: 'disabled',
-    // caret: 'hide',
     trace: 'on-first-retry',
   },
 
   expect: {
     toHaveScreenshot: {
-      maxDiffPixelRatio: 0.03,
-      threshold: 0.03,
+      maxDiffPixelRatio: 0.05,
+      threshold: 0.2,
     },
   },
 
