@@ -24,14 +24,6 @@ export default defineConfig({
     colorScheme: 'light',
 
     // Stabilize rendering
-    launchOptions: {
-      args: [
-        '--disable-gpu',
-        '--disable-font-subpixel-positioning',
-        '--disable-lcd-text',
-        '--force-color-profile=srgb',
-      ],
-    },
 
     trace: 'on-first-retry',
   },
@@ -46,7 +38,17 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: [
+            '--disable-gpu',
+            '--disable-font-subpixel-positioning',
+            '--disable-lcd-text',
+            '--force-color-profile=srgb',
+          ],
+        },
+      },
     },
     {
       name: 'firefox',
