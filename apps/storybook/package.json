@@ -37,6 +37,7 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@fontsource/inter": "^5.2.8",
     "@storybook/addon-a11y": "^10.1.10",
     "@storybook/addon-docs": "^10.1.10",
     "@storybook/addon-links": "^10.1.10",

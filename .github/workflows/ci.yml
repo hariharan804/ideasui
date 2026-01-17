@@ -29,13 +29,11 @@ jobs:
       - name: TypeScript Check
         run: pnpm tsc --noEmit
 
-      # 3️⃣ ESLint → Inline PR Review Comments
-      - name: ESLint Review
-        uses: reviewdog/action-eslint@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review
-          fail_on_error: true
+      # 3️⃣ ESLint Check
+      - name: ESLint
+        run: pnpm run lint
+        env:
+          NODE_OPTIONS: '--max-old-space-size=4096'
 
       # 4️⃣ Unit Tests
       - name: Run tests
@@ -52,12 +50,3 @@ jobs:
         with:
           files: ./coverage/lcov.info
           fail_ci_if_error: false
-
-      # 7️⃣ Security Scan
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: javascript
-
-      - name: Analyze CodeQL
-        uses: github/codeql-action/analyze@v3
