@@ -50,3 +50,16 @@ jobs:
         with:
           files: ./coverage/lcov.info
           fail_ci_if_error: false
+
+      # 7️⃣ CI Success Message
+      - name: Comment PR Success
+        if: success() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '## 🚀 CI Checks Passed\n\nAll automated checks have completed successfully. Ready for review! ✨'
+            })
