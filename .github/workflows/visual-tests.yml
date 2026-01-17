@@ -34,11 +34,6 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm run playwright:install
 
-      - name: Build Storybook
-        run: pnpm run build:storybook
-        env:
-          NODE_ENV: production
-
       - name: Run visual tests
         run: pnpm run test:visual
         env:

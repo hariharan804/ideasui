@@ -23,7 +23,7 @@ jobs:
         uses: ./.github/composite-actions/install
 
       - name: Build Storybook
-        run: pnpm run build:storybook
+        run: pnpm run storybook:build
         env:
           NODE_ENV: production
 
@@ -31,7 +31,7 @@ jobs:
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          buildScriptName: build:storybook
+          buildScriptName: storybook:build
           storybookBuildDir: apps/storybook/storybook-static
           onlyChanged: true # Only test changed components
           autoAcceptChanges: master # Auto-accept on master branch

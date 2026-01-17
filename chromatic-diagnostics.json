@@ -618,14 +618,14 @@
     "inProgressCount": 0,
     "completedAt": 1768551778089
   },
-  "buildCommand": "pnpm run build:storybook --output-dir=/var/folders/hs/tryhhwfx319f33pkkcy4qhd00000gn/T/chromatic--53640-EF8RiTrGePgA",
+  "buildCommand": "pnpm run storybook:build --output-dir=/var/folders/hs/tryhhwfx319f33pkkcy4qhd00000gn/T/chromatic--53640-EF8RiTrGePgA",
   "buildLogFile": "/Users/hariharan/projects/ideasui/build-storybook.log",
   "configuration": {
     "configFile": "chromatic.config.json",
     "projectId": "Project:64cbcde96f99841e8b007d75",
     "debug": true,
     "zip": true,
-    "buildScriptName": "build:storybook"
+    "buildScriptName": "storybook:build"
   },
   "environment": {},
   "exitCode": 1,
@@ -1048,7 +1048,7 @@
     "logFile": "chromatic.log",
     "forceRebuild": true,
     "zip": true,
-    "buildScriptName": "build:storybook",
+    "buildScriptName": "storybook:build",
     "storybookLogFile": "build-storybook.log",
     "branchName": "",
     "configFile": "chromatic.config.json",
@@ -1088,7 +1088,7 @@
       "prepare": "husky",
       "commit": "git add . && cz",
       "storybook": "turbo run dev --filter=@ideasui/storybook",
-      "build:storybook": "turbo run build --filter=@ideasui/storybook^... && turbo run build --filter=@ideasui/storybook --only --",
+      "storybook:build": "turbo run build --filter=@ideasui/storybook^... && turbo run build --filter=@ideasui/storybook --only --",
       "chromatic": "chromatic --project-token=$CHROMATIC_PROJECT_TOKEN",
       "test": "jest",
       "test:watch": "jest --watch",
