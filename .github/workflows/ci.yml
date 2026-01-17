@@ -29,13 +29,9 @@ jobs:
       - name: TypeScript Check
         run: pnpm tsc --noEmit
 
-      # 3️⃣ ESLint → Inline PR Review Comments
-      - name: ESLint Review
-        uses: reviewdog/action-eslint@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          reporter: github-pr-review
-          fail_level: error
+      # 3️⃣ ESLint Check
+      - name: ESLint
+        run: pnpm run lint
         env:
           NODE_OPTIONS: '--max-old-space-size=4096'
 
