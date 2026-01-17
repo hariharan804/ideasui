@@ -1,10 +1,13 @@
 name: SonarQube Analysis
 
+# on:
+#   pull_request:
+#     types: [opened, synchronize, reopened]
+#   push:
+#     branches: [master]
+
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-  push:
-    branches: [master]
+  workflow_dispatch: # Allow manual trigger only
 
 jobs:
   sonarqube:

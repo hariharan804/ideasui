@@ -53,7 +53,15 @@ export default defineConfig({
     },
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: {
+        ...devices['Desktop Firefox'],
+        launchOptions: {
+          firefoxUserPrefs: {
+            'ui.prefersReducedMotion': 1,
+            'gfx.webrender.all': true,
+          },
+        },
+      },
     },
     {
       name: 'webkit',
