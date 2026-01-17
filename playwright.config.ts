@@ -7,20 +7,43 @@ export default defineConfig({
     '**/packages/components/**/__tests__/*.spec.ts',
     '**/packages/hooks/**/__tests__/*.spec.ts',
   ],
+
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
+
   use: {
     baseURL: 'http://localhost:6006',
+
+    viewport: { width: 1280, height: 720 },
+    deviceScaleFactor: 1,
+    colorScheme: 'light',
+
+    // Stabilize rendering
+    launchOptions: {
+      args: [
+        '--disable-gpu',
+        '--disable-font-subpixel-positioning',
+        '--disable-lcd-text',
+        '--force-color-profile=srgb',
+      ],
+    },
+
+    // Hide animations & caret
+    // animations: 'disabled',
+    // caret: 'hide',
     trace: 'on-first-retry',
   },
+
   expect: {
     toHaveScreenshot: {
-      maxDiffPixelRatio: 0.03, // Allow 3% pixel difference for cross-browser/platform tolerance
+      maxDiffPixelRatio: 0.03,
+      threshold: 0.03,
     },
   },
+
   projects: [
     {
       name: 'chromium',
@@ -35,8 +58,9 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
     },
   ],
+
   webServer: {
-    command: 'pnpm run storybook',
+    command: 'pnpm run storybook:serve',
     url: 'http://localhost:6006',
     reuseExistingServer: !process.env.CI,
   },
