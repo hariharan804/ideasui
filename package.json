@@ -38,7 +38,7 @@
     "prepare": "husky",
     "commit": "git add . && cz",
     "storybook": "turbo run dev --filter=@ideasui/storybook",
-    "storybook:build": "turbo run build --filter=@ideasui/storybook^... && turbo run build --filter=@ideasui/storybook --only --",
+    "storybook:build": "turbo run storybook:build --filter=@ideasui/storybook --only --",
     "storybook:serve": "http-server apps/storybook/storybook-static -p 6006 -c-1 --silent",
     "storybook:kill": "lsof -ti:6006 | xargs kill -9 || true",
     "chromatic": "chromatic --project-token=$CHROMATIC_PROJECT_TOKEN",
