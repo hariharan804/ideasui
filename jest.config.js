@@ -69,7 +69,7 @@ module.exports = {
   ],
   moduleNameMapper: {
     '^@ideasui/theme/recipes$': '<rootDir>/packages/core/theme/src/recipes/index.ts',
-    '^@ideasui/theme/token$': '<rootDir>/packages/core/theme/src/tokens/index.ts',
+    '^@ideasui/theme/tokens$': '<rootDir>/packages/core/theme/src/tokens/index.ts',
     '^@ideasui/theme/system$': '<rootDir>/packages/core/theme/src/system/index.ts',
     '^@ideasui/theme/plugin$': '<rootDir>/packages/core/theme/src/system/plugin/index.ts',
     '^@ideasui/theme$': '<rootDir>/packages/core/theme/src/index.ts',

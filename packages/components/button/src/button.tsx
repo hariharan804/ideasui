@@ -1,5 +1,5 @@
 'use client';
-import type { ColorVariantProps } from '@ideasui/theme/token';
+import type { ColorVariantProps } from '@ideasui/theme/tokens';
 import type { ElementType, ReactNode } from 'react';
 
 import { useMemo } from 'react';
