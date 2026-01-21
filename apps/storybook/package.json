@@ -27,7 +27,7 @@
   },
   "scripts": {
     "dev": "pnpm storybook dev -p 6006",
-    "build": "pnpm storybook build",
+    "storybook:build": "pnpm storybook build",
     "start": "pnpm dlx http-server storybook-static"
   },
   "dependencies": {

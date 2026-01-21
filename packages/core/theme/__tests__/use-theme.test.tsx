@@ -57,4 +57,17 @@ describe('useTheme', () => {
 
     expect(result.current.themes).toEqual(['light', 'dark']);
   });
+
+  it('should not update store when setting same theme', () => {
+    const { result } = renderHook(() => useTheme());
+    const setSpy = jest.spyOn(themeStore, 'set');
+
+    // Current theme is 'dark' from beforeEach
+    act(() => {
+      result.current.setTheme('dark'); // Same as current
+    });
+
+    expect(setSpy).not.toHaveBeenCalled();
+    setSpy.mockRestore();
+  });
 });

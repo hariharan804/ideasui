@@ -113,4 +113,25 @@ describe('useLocalStorage', () => {
     getItemSpy.mockRestore();
     warnSpy.mockRestore();
   });
+
+  it('should handle function-based updates', () => {
+    const FIRST_INCREMENT = 1;
+    const SECOND_INCREMENT = 10;
+    const EXPECTED_FINAL_VALUE = 11;
+    const { result } = renderHook(() => useLocalStorage('counter', 0));
+
+    act(() => {
+      result.current[1]((prev) => prev + FIRST_INCREMENT);
+    });
+
+    expect(result.current[0]).toBe(FIRST_INCREMENT);
+    expect(window.localStorage.getItem('counter')).toBe(JSON.stringify(FIRST_INCREMENT));
+
+    act(() => {
+      result.current[1]((prev) => prev + SECOND_INCREMENT);
+    });
+
+    expect(result.current[0]).toBe(EXPECTED_FINAL_VALUE);
+    expect(window.localStorage.getItem('counter')).toBe(JSON.stringify(EXPECTED_FINAL_VALUE));
+  });
 });
