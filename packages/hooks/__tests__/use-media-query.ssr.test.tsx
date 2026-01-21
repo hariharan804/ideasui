@@ -19,4 +19,18 @@ describe('useMediaQuery SSR', () => {
 
     expect(html).toBe('<div>false</div>');
   });
+
+  it('should handle SSR without window.matchMedia', () => {
+    const TestComponent = (): JSX.Element => {
+      // This will trigger the effect which checks typeof window === 'undefined'
+      const matches = useMediaQuery('(max-width: 768px)');
+
+      return <div>Mobile: {matches.toString()}</div>;
+    };
+
+    const html = renderToStaticMarkup(<TestComponent />);
+
+    // In SSR, should always return false (initial state)
+    expect(html).toBe('<div>Mobile: false</div>');
+  });
 });

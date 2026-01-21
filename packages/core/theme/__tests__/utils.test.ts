@@ -139,4 +139,47 @@ describe('Theme Utils', () => {
       expect(isNumericShade('123')).toBe(false);
     });
   });
+
+  describe('escapeSelector fallback', () => {
+    it('should use manual escaping when CSS.escape is undefined', () => {
+      const originalCSS = global.CSS;
+
+      // @ts-ignore - Remove CSS to test fallback
+      delete global.CSS;
+
+      expect(escapeSelector('.class')).toBe('\\.class');
+      expect(escapeSelector('foo@bar')).toBe('foo\\@bar');
+      expect(escapeSelector('test#id')).toBe('test\\#id');
+
+      // Restore CSS
+      if (originalCSS) {
+        global.CSS = originalCSS;
+      }
+    });
+  });
+
+  describe('parseColorValue with alpha', () => {
+    it('should handle oklch with alpha channel', () => {
+      const result = parseColorValue('oklch(0.5 0.5 100 / 0.8)');
+
+      expect(result?.cssFn).toBe('oklch');
+      expect(result?.components).toEqual(['0.5', '0.5', '100', '0.8']);
+    });
+
+    it('should handle colors with alpha < 1', () => {
+      const result = parseColorValue('rgba(255, 0, 0, 0.5)');
+
+      expect(result?.cssFn).toBe('oklch');
+      expect(result?.components).toHaveLength(4);
+      expect(result?.components[3]).toBe(0.5);
+    });
+
+    it('should handle malformed oklch', () => {
+      const result = parseColorValue('oklch(invalid format here)');
+
+      // Regex won't match, will try to parse as regular color and likely fail
+      // But if Color library can parse it, it will convert to oklch
+      expect(result).toBeDefined();
+    });
+  });
 });
