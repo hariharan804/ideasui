@@ -50,16 +50,6 @@ export interface ThemeConfig {
   layout?: Partial<LayoutTokens>;
   /** Disable all animations globally */
   disableAnimations?: boolean;
-  // /** Custom spacing overrides */
-  // spacing?: Record<string, string>;
-  // /** Custom border radius overrides */
-  // borderRadius?: Record<string, string>;
-  // /** Custom font size overrides */
-  // fontSize?: Record<string, string | [string, {lineHeight: string}]>;
-  // /** Custom animation overrides */
-  // animation?: Record<string, string>;
-  // /** Custom keyframes */
-  // keyframes?: Record<string, Record<string, any>>;
 }
 
 export interface ColorScale {

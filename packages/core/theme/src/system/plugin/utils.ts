@@ -1,4 +1,4 @@
-import type { ParsedColor } from './types';
+import type { ParsedColor } from '../types';
 
 import { flatten } from 'flat';
 import Color from 'color';

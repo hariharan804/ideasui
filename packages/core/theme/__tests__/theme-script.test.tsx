@@ -48,14 +48,6 @@ describe('ThemeScript', () => {
     // Should fallback to default ['light', 'dark']
   });
 
-  it('should validate storageKey', () => {
-    const { container } = render(<ThemeScript storageKey="invalid@key!" />);
-    const script = container.querySelector('script');
-
-    expect(script).toBeInTheDocument();
-    // Should fallback to default 'theme'
-  });
-
   it('should validate systemThemes', () => {
     const { container } = render(
       <ThemeScript systemThemes={{ light: 'invalid@light', dark: 'custom-dark' }} />,

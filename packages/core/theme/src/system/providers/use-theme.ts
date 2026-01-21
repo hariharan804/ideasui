@@ -1,31 +1,34 @@
-import { useSyncExternalStore, useCallback } from 'react';
+import type { ThemeState } from './context';
 
-import { themeStore } from './utils/store';
+import { useTheme as useThemeContext } from './context';
 
-export function useTheme(): {
-  theme: string;
+/**
+ * Hook to access and control theme
+ *
+ * @returns {object} Theme state and control functions
+ *
+ * @example
+ * ```tsx
+ * function ThemeToggle() {
+ *   const { theme, setTheme, isDark } = useTheme();
+ *
+ *   return (
+ *     <button onClick={() => setTheme(isDark ? 'light' : 'dark')}>
+ *       Current: {theme}
+ *     </button>
+ *   );
+ * }
+ * ```
+ */
+export function useTheme(): ThemeState & {
   resolvedTheme: string;
-  themes: string[];
   isDark: boolean;
-  setTheme: (next: string) => void;
 } {
-  const subscribe = useCallback((cb: () => void) => themeStore.subscribe(cb), []);
-  const getSnap = themeStore.get;
-
-  const snap = useSyncExternalStore(subscribe, getSnap, getSnap);
-
-  const setTheme = useCallback((next: string) => {
-    // fire only if changed
-    if (next !== themeStore.get().theme) {
-      themeStore.set({ theme: next });
-    }
-  }, []);
+  const context = useThemeContext();
 
   return {
-    theme: snap.theme,
-    resolvedTheme: snap.resolved,
-    themes: snap.themes,
-    isDark: snap.resolved === snap.systemThemes.dark,
-    setTheme,
+    ...context,
+    resolvedTheme: context.resolved,
+    isDark: context.resolved === context.systemThemes.dark,
   };
 }

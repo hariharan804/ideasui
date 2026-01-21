@@ -8,7 +8,7 @@ import {
   rgbToOklch,
   parseColorValue,
   isNumericShade,
-} from '../src/system/utils';
+} from '../src/system/plugin/utils';
 
 // Basic tests for theme utils
 describe('Theme Utils', () => {

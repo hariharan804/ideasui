@@ -1,4 +1,4 @@
-import type { ThemeConfig, ConfigThemes, ResolvedConfig, ConfigTheme } from './types';
+import type { ThemeConfig, ConfigThemes, ResolvedConfig, ConfigTheme } from '../types';
 
 import plugin from 'tailwindcss/plugin';
 import deepMerge from 'deepmerge';
@@ -12,9 +12,9 @@ import {
   spacing,
   transitionDuration,
   transitionTimingFunction,
-} from '../tokens';
-import { lightColorTokens, darkColorTokens } from '../tokens/colors';
-import { darkLayout, lightLayout, lightCommonColors, darkCommonColors } from '../tokens/layout';
+} from '../../tokens';
+import { lightColorTokens, darkColorTokens } from '../../tokens/colors';
+import { darkLayout, lightLayout, lightCommonColors, darkCommonColors } from '../../tokens/layout';
 
 import {
   flattenThemeObject,

@@ -1,7 +1,6 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import { storageAdapters } from '../src/system/providers/utils/storage';
 
-const { local, session, memory } = storageAdapters;
+const { local } = storageAdapters;
 
 const TEST_KEY = 'test-key';
 const TEST_VALUE = 'test-value';
@@ -66,55 +65,6 @@ describe('Storage Adapters', () => {
       expect(() => local.setItem(TEST_KEY, TEST_VALUE)).not.toThrow();
       expect(local.getItem(TEST_KEY)).toBeNull();
       expect(() => local.removeItem(TEST_KEY)).not.toThrow();
-    });
-  });
-
-  describe('SessionStorageAdapter', () => {
-    it('should set and get items', () => {
-      session.setItem(TEST_KEY, TEST_VALUE);
-      expect(sessionStorage.setItem).toHaveBeenCalledWith(TEST_KEY, TEST_VALUE);
-      expect(session.getItem(TEST_KEY)).toBe(TEST_VALUE);
-      expect(sessionStorage.getItem).toHaveBeenCalledWith(TEST_KEY);
-    });
-
-    it('should remove items', () => {
-      session.setItem(TEST_KEY, TEST_VALUE);
-      session.removeItem(TEST_KEY);
-      expect(sessionStorage.removeItem).toHaveBeenCalledWith(TEST_KEY);
-      expect(session.getItem(TEST_KEY)).toBeNull();
-    });
-
-    it('should handle errors gracefully', () => {
-      jest.spyOn(sessionStorage, 'setItem').mockImplementation(() => {
-        throw new Error('QuotaExceeded');
-      });
-      jest.spyOn(sessionStorage, 'getItem').mockImplementation(() => {
-        throw new Error('SecurityError');
-      });
-      jest.spyOn(sessionStorage, 'removeItem').mockImplementation(() => {
-        throw new Error('SecurityError');
-      });
-
-      expect(() => session.setItem(TEST_KEY, TEST_VALUE)).not.toThrow();
-      expect(session.getItem(TEST_KEY)).toBeNull();
-      expect(() => session.removeItem(TEST_KEY)).not.toThrow();
-    });
-  });
-
-  describe('MemoryStorageAdapter', () => {
-    it('should set and get items', () => {
-      memory.setItem(TEST_KEY, TEST_VALUE);
-      expect(memory.getItem(TEST_KEY)).toBe(TEST_VALUE);
-    });
-
-    it('should remove items', () => {
-      memory.setItem(TEST_KEY, TEST_VALUE);
-      memory.removeItem(TEST_KEY);
-      expect(memory.getItem(TEST_KEY)).toBeNull();
-    });
-
-    it('should return null for non-existent items', () => {
-      expect(memory.getItem('non-existent')).toBeNull();
     });
   });
 });

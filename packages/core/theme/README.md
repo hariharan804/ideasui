@@ -12,9 +12,140 @@ pnpm add @ideasui/theme tailwindcss tailwind-variants
 yarn add @ideasui/theme tailwindcss tailwind-variants
 ```
 
-## 🚀 Usage
+## 🚀 Quick Start
 
-### Component Recipes
+### 1. Configure Tailwind CSS
+
+```js
+// tailwind.config.js
+import { ideasUIPlugin } from '@ideasui/theme';
+
+export default {
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  plugins: [ideasUIPlugin()],
+};
+```
+
+### 2. Add ThemeScript (for SSR/SSG)
+
+```tsx
+// app/layout.tsx (Next.js) or index.html
+import { ThemeScript } from '@ideasui/theme';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeScript defaultTheme="system" storageKey="app-theme" />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+### 3. Wrap Your App with ThemeProvider
+
+```tsx
+// app/providers.tsx (or your root component)
+'use client'; // For Next.js App Router
+
+import { ThemeProvider } from '@ideasui/theme';
+
+export function Providers({ children }) {
+  return (
+    <ThemeProvider defaultTheme="system" storageKey="app-theme">
+      {children}
+    </ThemeProvider>
+  );
+}
+```
+
+### 4. Use the Theme
+
+```tsx
+import { useTheme } from '@ideasui/theme';
+
+function ThemeToggle() {
+  const { theme, setTheme, isDark } = useTheme();
+
+  return (
+    <button onClick={() => setTheme(isDark ? 'light' : 'dark')}>
+      {isDark ? '🌙 Dark' : '☀️ Light'}
+    </button>
+  );
+}
+```
+
+## 🎨 Theme Provider API
+
+### ThemeProvider Props
+
+```tsx
+interface ThemeProviderProps {
+  children: React.ReactNode;
+  attribute?: 'class' | 'data-theme'; // Default: 'class'
+  defaultTheme?: string; // Default: 'system'
+  storageKey?: string; // Default: 'theme'
+  themes?: string[]; // Default: ['light', 'dark']
+  systemThemes?: { light: string; dark: string }; // Default: { light: 'light', dark: 'dark' }
+  storage?: 'local' | 'session'; // Default: 'local'
+  mode?: 'class' | 'attribute'; // Default: 'class'
+}
+```
+
+### useTheme Hook
+
+```tsx
+const { theme, setTheme, resolved, themes, isDark } = useTheme();
+
+// theme: Current theme ('light', 'dark', 'system', or custom)
+// setTheme: Function to change the theme
+// resolved: Resolved theme (actual theme applied, never 'system')
+// themes: Available themes
+// isDark: Boolean indicating if current theme is dark
+```
+
+## 🔌 Tailwind Plugin
+
+### Basic Usage
+
+```js
+import { ideasUIPlugin } from '@ideasui/theme';
+
+export default {
+  plugins: [ideasUIPlugin()],
+};
+```
+
+### Custom Configuration
+
+```js
+import { ideasUIPlugin } from '@ideasui/theme';
+
+export default {
+  plugins: [
+    ideasUIPlugin({
+      prefix: 'ideasui',
+      defaultTheme: 'light',
+      themes: {
+        light: {
+          colors: {
+            primary: {
+              50: 'oklch(0.950 0.020 300.0)',
+              // ... custom colors
+            },
+          },
+        },
+      },
+    }),
+  ],
+};
+```
+
+## 📦 Component Recipes
+
+### Using Recipes
 
 ```tsx
 import { button } from '@ideasui/theme/recipes';
@@ -237,18 +368,38 @@ const darkColors: DarkColorTokens = darkColorTokens;
 
 ## 📚 API Reference
 
-### Exports
+### Core Exports
 
 ```tsx
-// Recipes
-export { button } from './recipes';
+// Tailwind Plugin
+import { ideasUIPlugin } from '@ideasui/theme';
 
-// Tokens
-export { colorTokens, darkColorTokens, systemTokens, defaultLayout } from './tokens';
+// Theme System
+import { ThemeProvider, ThemeScript, useTheme } from '@ideasui/theme';
+import type { ThemeProviderProps, ThemeScriptProps, ThemeScriptConfig } from '@ideasui/theme';
+
+// Component Recipes
+import { button } from '@ideasui/theme/recipes';
+
+// Design Tokens
+import { colorTokens, darkColorTokens, systemTokens, defaultLayout } from '@ideasui/theme/tokens';
 
 // Constants
-export { RADIUS_VARIANTS, COLOR_VARIANTS } from './constants';
+import { RADIUS_VARIANTS, COLOR_VARIANTS } from '@ideasui/theme/constants';
+
+// Type Definitions
+import type { ThemeConfig, ColorTokens, LayoutTokens } from '@ideasui/theme';
 ```
+
+### Architecture
+
+The theme system is built on **React Context** for optimal SSR support and testing:
+
+- **ThemeProvider**: Manages theme state using React Context
+- **ThemeScript**: Prevents FOUC (Flash of Unstyled Content) during SSR/SSG
+- **useTheme**: Hook to consume theme state
+- **Storage**: Persists theme preference to localStorage/sessionStorage
+- **System Detection**: Automatically detects system color scheme preference
 
 ## 📄 License
 

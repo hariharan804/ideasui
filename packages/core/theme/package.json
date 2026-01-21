@@ -15,11 +15,11 @@
     "./system": {
       "import": "./src/system/index.ts"
     },
-    "./token": {
+    "./tokens": {
       "import": "./src/tokens/index.ts"
     },
     "./plugin": {
-      "import": "./src/system/plugin.ts"
+      "import": "./src/system/plugin/index.ts"
     }
   },
   "files": [

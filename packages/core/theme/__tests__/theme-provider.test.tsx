@@ -1,34 +1,56 @@
 import { render } from '@testing-library/react';
 
 import { ThemeProvider } from '../src/system/providers/theme-provider';
-import { useThemeController } from '../src/system/providers/use-theme-controller';
-
-// Mock the hook
-jest.mock('../src/system/providers/use-theme-controller', () => ({
-  useThemeController: jest.fn(),
-}));
 
 describe('ThemeProvider', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    window.localStorage.clear();
+    document.documentElement.removeAttribute('data-ideasui-theme');
   });
 
-  it('should render null', () => {
-    const { container } = render(<ThemeProvider />);
+  it('should render children', () => {
+    const { getByText } = render(
+      <ThemeProvider>
+        <div>Test Child</div>
+      </ThemeProvider>,
+    );
 
-    expect(container.firstChild).toBeNull();
+    expect(getByText('Test Child')).toBeInTheDocument();
   });
 
-  it('should call useThemeController with props', () => {
-    const props = {
-      defaultTheme: 'dark',
-      storageKey: 'test-theme',
-      attribute: 'class',
-    };
+  it('should accept theme configuration props', () => {
+    const { container } = render(
+      <ThemeProvider defaultTheme="dark">
+        <div>Content</div>
+      </ThemeProvider>,
+    );
 
-    render(<ThemeProvider {...props} />);
+    expect(container).toBeInTheDocument();
+  });
 
-    expect(useThemeController).toHaveBeenCalledWith(props);
-    expect(useThemeController).toHaveBeenCalledTimes(1);
+  it('should apply theme attribute to document element', () => {
+    // We render with default settings, which should use data-ideasui-theme
+    render(
+      <ThemeProvider defaultTheme="dark">
+        <div>Content</div>
+      </ThemeProvider>,
+    );
+
+    // Verify the attribute is set
+    // Note: In JSDOM, useEffect runs, so this should update the document
+    expect(document.documentElement).toHaveAttribute('data-ideasui-theme', 'dark');
+  });
+
+  it('should support system themes', () => {
+    const { container } = render(
+      <ThemeProvider
+        defaultTheme="system"
+        systemThemes={{ light: 'custom-light', dark: 'custom-dark' }}
+      >
+        <div>Content</div>
+      </ThemeProvider>,
+    );
+
+    expect(container).toBeInTheDocument();
   });
 });

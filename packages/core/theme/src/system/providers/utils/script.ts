@@ -1,25 +1,22 @@
 import type { ThemeScriptConfig } from '../types';
 
-export const createScript = (cfg: ThemeScriptConfig): string => {
-  const { storageKey, defaultTheme, themes, mode, systemThemes } = cfg;
+import { defaultConfig } from './themes.config';
 
-  // All possible theme class names we might add/remove
-  const themeClassList = Array.from(new Set([...themes, systemThemes.light, systemThemes.dark]));
+export const createScript = (cfg: ThemeScriptConfig): string => {
+  const { defaultTheme, themes, systemThemes } = cfg;
 
   // Prebuild literals for injection
-  const KEY = JSON.stringify(storageKey);
+  const KEY = JSON.stringify(defaultConfig.storageKey);
   const THEMES = JSON.stringify(themes);
   const SYS = JSON.stringify(systemThemes);
   const DEF = JSON.stringify(defaultTheme);
-  const MODE = JSON.stringify(mode);
-  const CLS_PATTERN = JSON.stringify(themeClassList.join('|'));
+  const ATTR = '"data-ideasui-theme"';
 
   // Returned IIFE (no optional-call syntax, no nested ${} in JS strings)
   return `(function(){try{
     var d=document,el=d.documentElement;
-    var key=${KEY},themes=${THEMES},sys=${SYS},def=${DEF},mode=${MODE};
+    var key=${KEY},themes=${THEMES},sys=${SYS},def=${DEF},attr=${ATTR};
     var lastTheme='';
-    var classRegex=new RegExp('\\\\b(?:'+${CLS_PATTERN}+')\\\\b','g');
 
     function mm(){try{return typeof window!=='undefined' && typeof window.matchMedia==='function' ? window.matchMedia('(prefers-color-scheme: dark)') : null;}catch(_){return null;}}
     function prefersDark(){var q=mm();try{return !!(q && q.matches);}catch(_){return false;}}
@@ -27,19 +24,11 @@ export const createScript = (cfg: ThemeScriptConfig): string => {
       if(t==='system'){return prefersDark()?sys.dark:sys.light;}
       return themes.indexOf(t)>=0 ? t : def;
     }
-    function stripThemeClasses(){
-      try{el.className = el.className.replace(classRegex,'').replace(/\\s+/g,' ').trim();}catch(_){}
-    }
     function apply(next){
       if(next===lastTheme) return;
       lastTheme=next||'';
-      if(mode==='class'){
-        stripThemeClasses();
-        if(next){ el.classList.add(next); }
-      }else{
-        if(next){ el.setAttribute('data-theme',next); }
-        else{ el.removeAttribute('data-theme'); }
-      }
+      if(next){ el.setAttribute(attr,next); }
+      else{ el.removeAttribute(attr); }
     }
 
     // Initial
@@ -78,14 +67,8 @@ export const createScript = (cfg: ThemeScriptConfig): string => {
     }
   }catch(e){
     try{
-      // Fallback: strip known theme classes and apply default
-      var cleanup=new RegExp('\\\\b(?:'+${CLS_PATTERN}+')\\\\b','g');
-      var cn=document.documentElement.className||'';
-      cn=cn.replace(cleanup,'').replace(/\\s+/g,' ').trim();
-      document.documentElement.className=(cn?cn+' ':'')+${DEF};
-    }catch(_){
-      document.documentElement.className=${DEF};
-    }
+      document.documentElement.setAttribute(${ATTR}, ${DEF});
+    }catch(_){}
     console.warn('Theme init error:',e);
   }})();`;
 };

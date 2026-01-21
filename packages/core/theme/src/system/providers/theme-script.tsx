@@ -19,7 +19,7 @@ const validateThemeConfig = (config: ThemeScriptConfig): ThemeScriptConfig => {
     ...config,
     themes: validThemes.length > 0 ? validThemes : ['light', 'dark'],
     defaultTheme: isValidString(config.defaultTheme) ? config.defaultTheme : 'light',
-    storageKey: isValidString(config.storageKey) ? config.storageKey : 'theme',
+
     systemThemes: {
       light: isValidString(config.systemThemes?.light) ? config.systemThemes.light : 'light',
       dark: isValidString(config.systemThemes?.dark) ? config.systemThemes.dark : 'dark',
