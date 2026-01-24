@@ -12,6 +12,12 @@ import {
   spacing,
   transitionDuration,
   transitionTimingFunction,
+  breakpoints,
+  containerSizes,
+  containerPadding,
+  duration,
+  easing,
+  delay,
 } from '../../tokens';
 import { lightColorTokens, darkColorTokens } from '../../tokens/colors';
 import { darkLayout, lightLayout, lightCommonColors, darkCommonColors } from '../../tokens/layout';
@@ -91,6 +97,37 @@ function getColorScheme(themeName: string, extend?: 'light' | 'dark'): string | 
   }
 
   return extend || null;
+}
+
+/**
+ * Generates CSS custom properties from design tokens
+ * @param {string} prefix - The CSS variable prefix
+ * @returns {Record<string, string>} The generated CSS variables
+ */
+function generateDesignTokenCSSVars(prefix: string): Record<string, string> {
+  const cssVars: Record<string, string> = {};
+
+  // Duration tokens
+  Object.entries(duration).forEach(([key, value]) => {
+    cssVars[`--${prefix}-duration-${kebabCase(key)}`] = value;
+  });
+
+  // Easing tokens
+  Object.entries(easing).forEach(([key, value]) => {
+    cssVars[`--${prefix}-easing-${kebabCase(key)}`] = value;
+  });
+
+  // Delay tokens
+  Object.entries(delay).forEach(([key, value]) => {
+    cssVars[`--${prefix}-delay-${kebabCase(key)}`] = value;
+  });
+
+  // Breakpoint tokens (for JavaScript access)
+  Object.entries(breakpoints).forEach(([key, value]) => {
+    cssVars[`--${prefix}-breakpoint-${key}`] = value;
+  });
+
+  return cssVars;
 }
 
 /**
@@ -375,6 +412,14 @@ function createThemeExtension(
   return {
     colors,
     spacing,
+    // Responsive breakpoints
+    screens: breakpoints,
+    container: {
+      center: true,
+      padding: containerPadding,
+      screens: containerSizes,
+    },
+    // Layout & Sizing
     borderRadius: {
       ...borderRadius,
       small: `var(--${prefix}-radius-small)`,
@@ -388,10 +433,19 @@ function createThemeExtension(
       medium: `var(--${prefix}-box-shadow-medium)`,
       large: `var(--${prefix}-box-shadow-large)`,
     },
+    // Animations
     animation: disableAnimations ? { none: 'none' } : animation,
     keyframes: disableAnimations ? {} : keyframes,
-    transitionDuration,
-    transitionTimingFunction,
+    // Motion tokens
+    transitionDuration: {
+      ...transitionDuration,
+      ...duration,
+    },
+    transitionTimingFunction: {
+      ...transitionTimingFunction,
+      ...easing,
+    },
+    transitionDelay: delay,
   };
 }
 
@@ -412,6 +466,18 @@ export const ideasUIPlugin = (config: ThemeConfig = {}): ReturnType<typeof plugi
 
   return plugin(
     ({ addBase, addUtilities, addVariant }) => {
+      // Add CSS Layers for better cascade control
+      addBase({
+        '@layer base, components, utilities': {},
+      });
+
+      // Generate CSS custom properties from design tokens
+      const designTokenVars = generateDesignTokenCSSVars(prefix);
+
+      addBase({
+        ':root': designTokenVars,
+      });
+
       addBase(resolved.baseStyles);
       addUtilities({ ...resolved.utilities });
 

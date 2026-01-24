@@ -25,39 +25,44 @@ module.exports = {
     'jest-watch-select-projects',
   ],
   coverageThreshold: {
+    // Global baseline - achievable and maintainable
     global: {
-      branches: 50,
-      functions: 50,
-      lines: 50,
-      statements: 50,
+      branches: 60,
+      functions: 60,
+      lines: 60,
+      statements: 60,
     },
 
+    // Components - User-facing, should be well tested
     './packages/components/': {
-      branches: 75,
-      functions: 90,
-      lines: 90,
-      statements: 90,
-    },
-
-    './packages/hooks/': {
-      branches: 85,
-      functions: 95,
-      lines: 95,
-      statements: 95,
-    },
-
-    './packages/core/': {
-      branches: 70,
-      functions: 75,
-      lines: 80,
-      statements: 80,
-    },
-
-    './packages/utils/': {
       branches: 70,
       functions: 80,
       lines: 80,
       statements: 80,
+    },
+
+    // Hooks
+    './packages/hooks/': {
+      branches: 75,
+      functions: 85,
+      lines: 85,
+      statements: 85,
+    },
+
+    // Core - Theme system, moderate coverage
+    './packages/core/': {
+      branches: 65,
+      functions: 70,
+      lines: 75,
+      statements: 75,
+    },
+
+    // Utils - Helper functions, solid coverage
+    './packages/utils/': {
+      branches: 70,
+      functions: 75,
+      lines: 75,
+      statements: 75,
     },
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

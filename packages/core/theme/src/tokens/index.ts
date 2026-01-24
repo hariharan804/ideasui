@@ -15,6 +15,14 @@ import {
   spinnerSizes,
   squareSizes,
 } from './variants';
+import {
+  breakpoints,
+  containerSizes,
+  containerPadding,
+  responsiveSpacing,
+  responsivePatterns,
+} from './breakpoints';
+import { duration, easing, motion, delay, sequences } from './motion';
 
 export {
   spacing,
@@ -35,6 +43,18 @@ export {
   colorsWithVariant,
   lightColorTokens,
   darkColorTokens,
+  // Responsive tokens
+  breakpoints,
+  containerSizes,
+  containerPadding,
+  responsiveSpacing,
+  responsivePatterns,
+  // Motion tokens
+  duration,
+  easing,
+  motion,
+  delay,
+  sequences,
 };
 
 // Types
@@ -54,3 +74,13 @@ export type ColorsWithVariantProps = keyof typeof colorsWithVariant;
 export type ButtonSizesProps = keyof typeof buttonSizes;
 export type SpinnerSizesProps = keyof typeof spinnerSizes;
 export type SquareSizesProps = keyof typeof squareSizes;
+// Responsive types
+export type BreakpointProps = keyof typeof breakpoints;
+export type ContainerSizeProps = keyof typeof containerSizes;
+export type ResponsiveSpacingProps = keyof typeof responsiveSpacing;
+// Motion types
+export type DurationProps = keyof typeof duration;
+export type EasingProps = keyof typeof easing;
+export type MotionProps = keyof typeof motion;
+export type DelayProps = keyof typeof delay;
+export type SequenceProps = keyof typeof sequences;

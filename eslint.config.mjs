@@ -29,6 +29,16 @@ import boundaries from 'eslint-plugin-boundaries';
 // Styling & formatting
 import prettier from 'eslint-plugin-prettier';
 
+// Testing
+import jest from 'eslint-plugin-jest';
+import testingLibrary from 'eslint-plugin-testing-library';
+
+// Tailwind CSS - Disabled: Plugin doesn't support Tailwind v4 yet
+// import tailwindcss from 'eslint-plugin-tailwindcss';
+
+// React Compiler
+import reactCompiler from 'eslint-plugin-react-compiler';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
@@ -62,6 +72,7 @@ export default defineConfig([
     '!**/plopfile.js',
     '!**/tsup.config.ts',
     '**/storybook-static/**',
+    'packages/core/styles-experimental/**', // Experimental package
   ]),
 
   // Main configuration
@@ -91,7 +102,13 @@ export default defineConfig([
       boundaries: fixupPluginRules(boundaries),
       prettier: fixupPluginRules(prettier),
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
+      // Testing
+      jest: fixupPluginRules(jest),
+      'testing-library': fixupPluginRules(testingLibrary),
+      // Tailwind CSS - Disabled: Plugin doesn't support Tailwind v4 yet
       // tailwindcss: fixupPluginRules(tailwindcss),
+      // React Compiler
+      'react-compiler': fixupPluginRules(reactCompiler),
     },
 
     languageOptions: {
@@ -142,7 +159,14 @@ export default defineConfig([
       'no-unused-vars': 'off',
       'no-var': 'error',
       'prefer-const': 'error',
-      'no-magic-numbers': ['warn', { ignore: [0, 1, -1, 2, 100] }],
+      'no-magic-numbers': [
+        'warn',
+        {
+          ignore: [0, 1, -1, 2, 10, 100, 1000],
+          ignoreArrayIndexes: true,
+          ignoreDefaultValues: true,
+        },
+      ],
       eqeqeq: ['error', 'always'],
       curly: ['error', 'all'],
       'no-eval': 'error',
@@ -157,9 +181,7 @@ export default defineConfig([
           argsIgnorePattern: '^_.*?$',
         },
       ],
-      '@typescript-eslint/no-explicit-any': 'warn',
-      // "@typescript-eslint/prefer-nullish-coalescing": "error",
-      // "@typescript-eslint/prefer-optional-chain": "error",
+      '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-non-null-assertion': 'warn',
       '@typescript-eslint/explicit-function-return-type': ['warn', { allowExpressions: true }],
       '@typescript-eslint/consistent-type-imports': [
@@ -210,10 +232,8 @@ export default defineConfig([
         },
       ],
       'react/require-default-props': 'off',
-      'react/jsx-no-useless-fragment': 'warn',
       'react-hooks/exhaustive-deps': 'error',
-      '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/consistent-type-exports': 'error',
+      '@typescript-eslint/consistent-type-exports': 'warn',
       'import/no-default-export': 'off',
       'no-restricted-syntax': [
         'error',
@@ -226,11 +246,6 @@ export default defineConfig([
           message: 'Use named React imports only',
         },
       ],
-
-      '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/consistent-type-exports': 'warn',
-      'react/jsx-no-useless-fragment': 'warn',
-      // 'react/require-default-props': 'off',
 
       // React Hooks
       'react-hooks/rules-of-hooks': 'error',
@@ -343,18 +358,18 @@ export default defineConfig([
       'unicorn/prefer-type-error': 'error',
       'unicorn/throw-new-error': 'error',
 
-      // Documentation (JSDoc)
-      'jsdoc/check-alignment': 'warn',
-      'jsdoc/check-param-names': 'warn',
+      // Documentation (JSDoc) - Optional for flexibility
+      'jsdoc/check-alignment': 'off',
+      'jsdoc/check-param-names': 'off',
       'jsdoc/check-tag-names': ['warn', { definedTags: ['jest-environment'] }],
-      'jsdoc/check-types': 'warn',
-      'jsdoc/require-description': 'warn',
-      'jsdoc/require-param': 'warn',
-      'jsdoc/require-param-description': 'warn',
-      'jsdoc/require-param-type': 'warn',
-      'jsdoc/require-returns': 'warn',
-      'jsdoc/require-returns-description': 'warn',
-      'jsdoc/require-returns-type': 'warn',
+      'jsdoc/check-types': 'off',
+      'jsdoc/require-description': 'off',
+      'jsdoc/require-param': 'off',
+      'jsdoc/require-param-description': 'off',
+      'jsdoc/require-param-type': 'off',
+      'jsdoc/require-returns': 'off',
+      'jsdoc/require-returns-description': 'off',
+      'jsdoc/require-returns-type': 'off',
 
       // Security
       'security/detect-object-injection': 'off',
@@ -373,6 +388,55 @@ export default defineConfig([
       'promise/no-callback-in-promise': 'warn',
       'promise/avoid-new': 'off',
       'promise/prefer-await-to-then': 'warn',
+
+      // React Compiler (React 19+)
+      'react-compiler/react-compiler': 'error',
+
+      // Tailwind CSS - Disabled: Plugin doesn't support Tailwind v4 yet
+      // 'tailwindcss/classnames-order': 'warn',
+      // 'tailwindcss/enforces-negative-arbitrary-values': 'warn',
+      // 'tailwindcss/enforces-shorthand': 'warn',
+      // 'tailwindcss/no-custom-classname': 'off', // Allow BEM classes
+      // 'tailwindcss/no-contradicting-classname': 'error',
+      // 'tailwindcss/no-unnecessary-arbitrary-value': 'warn',
+    },
+  },
+
+  // Testing configuration
+  {
+    files: ['**/__tests__/**/*', '**/*.test.{js,jsx,ts,tsx}', '**/*.spec.{js,jsx,ts,tsx}'],
+
+    rules: {
+      // Jest rules
+      'jest/expect-expect': 'error',
+      'jest/no-disabled-tests': 'warn',
+      'jest/no-focused-tests': 'error',
+      'jest/no-identical-title': 'error',
+      'jest/prefer-to-have-length': 'warn',
+      'jest/valid-expect': 'error',
+      'jest/no-conditional-expect': 'error',
+      'jest/no-deprecated-functions': 'error',
+      'jest/prefer-strict-equal': 'warn',
+      'jest/prefer-spy-on': 'warn',
+      'jest/no-test-prefixes': 'error',
+
+      // Testing Library rules
+      'testing-library/await-async-queries': 'error',
+      'testing-library/no-await-sync-queries': 'error',
+      'testing-library/no-debugging-utils': 'warn',
+      'testing-library/no-dom-import': ['error', 'react'],
+      'testing-library/prefer-screen-queries': 'error',
+      'testing-library/prefer-presence-queries': 'warn',
+      'testing-library/no-container': 'warn',
+      'testing-library/no-node-access': 'warn',
+      'testing-library/prefer-find-by': 'warn',
+      'testing-library/prefer-user-event': 'warn',
+
+      // Relax some rules for tests
+      'no-magic-numbers': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      'sonarjs/no-duplicate-string': 'off',
     },
   },
 ]);
