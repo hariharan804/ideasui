@@ -1,11 +1,14 @@
 import type { PropsWithChildren, ReactElement } from 'react';
-import type { ThemeScriptConfig, StorageAdapter } from './types';
+import type { ThemeScriptConfig } from './types';
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 
 import { ThemeContext } from './context';
 import { defaultConfig } from './utils/themes.config';
 import { storageAdapters } from './utils/storage';
+
+// Module-level constant - safe to use in effects without dependency
+const storage = storageAdapters.local;
 
 export interface ThemeProviderProps extends Partial<ThemeScriptConfig> {
   /** System theme mappings */
@@ -31,7 +34,6 @@ export interface ThemeProviderProps extends Partial<ThemeScriptConfig> {
 export function ThemeProvider({
   children,
   defaultTheme = defaultConfig.defaultTheme,
-
   themes: userThemes,
   systemThemes: userSystemThemes,
 }: PropsWithChildren<ThemeProviderProps>): ReactElement {
@@ -41,8 +43,6 @@ export function ThemeProvider({
     () => Array.from(new Set([...(defaultConfig.themes || []), ...(userThemes || [])])),
     [userThemes],
   );
-
-  const storage: StorageAdapter = storageAdapters.local;
 
   // Helper functions
   const prefersDark = useCallback(
@@ -136,7 +136,7 @@ export function ThemeProvider({
     } else {
       storage.setItem(defaultConfig.storageKey, state.theme);
     }
-  }, [state.theme, storage]);
+  }, [state.theme]);
 
   // Listen to system preference changes
   useEffect(() => {

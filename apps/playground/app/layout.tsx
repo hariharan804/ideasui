@@ -39,8 +39,7 @@ export default function RootLayout({
         <ThemeScript defaultTheme="light" />
       </head>
       <body className="antialiased">
-        <ThemeProvider defaultTheme="light" />
-        {children}
+        <ThemeProvider defaultTheme="light">{children}</ThemeProvider>
       </body>
     </html>
   );
