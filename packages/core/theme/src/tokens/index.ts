@@ -2,7 +2,7 @@ import { animation } from './animation';
 import { borderRadius } from './border-radius';
 import { lightShadow, darkShadow, lightElevation, darkElevation } from './box-shadow';
 import { duration, easing, keyframes, transition } from './motion';
-import { spacing, space } from './spacing';
+import { spacing } from './spacing';
 import {
   primitives,
   semantic,
@@ -21,33 +21,20 @@ import {
   squareSizes,
 } from './variants';
 import { breakpoints } from './breakpoints';
-import {
-  defaultLayout,
-  lightLayout,
-  darkLayout,
-  lightCommonColors,
-  darkCommonColors,
-} from './layout';
+import { defaultLayout, lightLayout, darkLayout, commonColors } from './layout';
 import { accessibility } from './accessibility';
 import { backdrop, blur } from './blur';
 import { border, lightBorder, darkBorder } from './border';
 import { lightInteraction, darkInteraction } from './interaction';
 import { opacity } from './opacity';
-import {
-  lineHeight,
-  textStyles,
-  letterSpacing,
-  fontSize,
-  fontFamily,
-  fontWeight,
-} from './typography';
+import { textStyles, letterSpacing, fontSize, fontFamily, fontWeight } from './typography';
 import { zIndex } from './z-index';
+import { componentColors, componentShadows } from './components';
 
 const interaction = lightInteraction;
 
 export {
   spacing,
-  space,
   borderRadius,
   fontSize,
   fontFamily,
@@ -88,8 +75,7 @@ export {
   defaultLayout,
   lightLayout,
   darkLayout,
-  lightCommonColors,
-  darkCommonColors,
+  commonColors,
   // New tokens
   accessibility,
   backdrop,
@@ -101,10 +87,11 @@ export {
   darkInteraction,
   interaction,
   opacity,
-  lineHeight,
   textStyles,
   letterSpacing,
   zIndex,
+  componentColors,
+  componentShadows,
 };
 
 // Types

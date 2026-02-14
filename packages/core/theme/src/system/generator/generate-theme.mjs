@@ -147,7 +147,7 @@ try {
 
   fs.writeFileSync('src/tokens/colors.ts', tsContent);
   console.log('✅ Color tokens generated successfully!');
-  console.log('📁 Output: src/tokens/colors.ts');
+  console.log('📁 Output: src/tokens/gen-colors.ts');
 } catch (error) {
   console.error('❌ Error generating color tokens:', error.message);
   process.exit(1);

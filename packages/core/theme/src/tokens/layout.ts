@@ -19,12 +19,7 @@ export const darkLayout = {
   ...defaultLayout,
 } as const;
 
-export const lightCommonColors = {
-  white: 'oklch(1.000 0.000 0.0)',
-  black: 'oklch(0.000 0.000 0.0)',
-} as const;
-
-export const darkCommonColors = {
-  white: 'oklch(0.000 0.000 0.0)',
-  black: 'oklch(1.000 0.000 0.0)',
+export const commonColors = {
+  white: '#ffffff',
+  black: '#000000',
 } as const;

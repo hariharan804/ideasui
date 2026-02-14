@@ -32,6 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>): JSX.Element {
   // const plugin = ideasUIPlugin();
+  // console.log("🚀 ~ RootLayout ~ plugin:", plugin)
   // console.table(plugin?.config?.theme);
 
   return (

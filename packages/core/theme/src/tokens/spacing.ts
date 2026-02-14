@@ -23,25 +23,3 @@ export const spacing = {
   24: '6rem', // 96px
   px: '1px',
 } as const;
-
-/* ============================================================
-   2️⃣ SEMANTIC SPACING (COMPONENT USAGE)
-   ============================================================ */
-
-export const space = {
-  // Layout
-  pagePadding: 'var(--ideasui-spacing-6)',
-  sectionGap: 'var(--ideasui-spacing-12)',
-  containerGap: 'var(--ideasui-spacing-8)',
-
-  // Component density
-  tightPadding: 'var(--ideasui-spacing-2)',
-  compactPadding: 'var(--ideasui-spacing-3)',
-  defaultPadding: 'var(--ideasui-spacing-4)',
-  relaxedPadding: 'var(--ideasui-spacing-6)',
-
-  tightGap: 'var(--ideasui-spacing-1)',
-  compactGap: 'var(--ideasui-spacing-2)',
-  defaultGap: 'var(--ideasui-spacing-3)',
-  relaxedGap: 'var(--ideasui-spacing-4)',
-} as const;

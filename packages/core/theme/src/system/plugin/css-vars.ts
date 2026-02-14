@@ -8,7 +8,6 @@ import {
   lightShadow,
   zIndex,
   opacity,
-  lineHeight,
   letterSpacing,
   fontFamily,
   border,
@@ -18,6 +17,7 @@ import {
   interaction,
   accessibility,
 } from '../../tokens';
+import { componentColors, componentShadows } from '../../tokens/components';
 
 import { kebabCase } from './utils';
 
@@ -76,11 +76,6 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
     cssVars[`--${prefix}-opacity-${key}`] = String(value);
   });
 
-  // Line height tokens
-  Object.entries(lineHeight).forEach(([key, value]) => {
-    cssVars[`--${prefix}-line-height-${key}`] = value;
-  });
-
   // Letter spacing tokens
   Object.entries(letterSpacing).forEach(([key, value]) => {
     cssVars[`--${prefix}-tracking-${key}`] = value;
@@ -121,6 +116,24 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
   Object.entries(accessibility).forEach(([key, value]) => {
     cssVars[`--${prefix}-accessibility-${kebabCase(key)}`] = value;
   });
+
+  // Component colors
+  Object.entries(componentColors).forEach(([component, tokens]) => {
+    Object.entries(tokens as Record<string, string>).forEach(([key, value]) => {
+      cssVars[`--${prefix}-${component}-${key}`] = value;
+    });
+  });
+
+  // Component shadows
+  Object.entries(componentShadows).forEach(([component, tokens]) => {
+    Object.entries(tokens as Record<string, string>).forEach(([key, value]) => {
+      cssVars[`--${prefix}-${component}-${key}`] = value;
+    });
+  });
+
+  // Static colors
+  // cssVars[`--${prefix}-white`] = '#ffffff';
+  // cssVars[`--${prefix}-black`] = '#000000';
 
   return cssVars;
 }

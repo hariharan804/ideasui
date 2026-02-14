@@ -31,6 +31,26 @@ export function processShadeColor(
     }
   }
 
+  const colorVar = `--${prefix}-${colorName}`;
+
+  // If the value is a var() reference to another token, preserve the reference
+  // This ensures semantic tokens (e.g. primary-base) derive from palette scale
+  // (e.g. --ideasui-primary-500) rather than duplicating raw OKLCH values
+  const trimmed = colorValue.trim();
+
+  if (trimmed.startsWith('var(')) {
+    // Store the var() reference directly
+    resolved.utilities[cssSelector][colorVar] = trimmed;
+    resolved.baseStyles[baseSelector][colorVar] = trimmed;
+
+    // Register Tailwind color with the new var (alpha still works via the referenced var)
+    if (!resolved.colors[colorName]) {
+      resolved.colors[colorName] = `oklch(var(${colorVar}) / <alpha-value>)`;
+    }
+
+    return;
+  }
+
   const parsed = parseColorValue(colorValue);
 
   if (!parsed) {
@@ -38,7 +58,6 @@ export function processShadeColor(
   }
 
   const { components } = parsed;
-  const colorVar = `--${prefix}-${colorName}`;
   const formattedValue = formatColorComponents(components);
 
   const alphaValue = components[ALPHA_COMPONENT_INDEX] ?? '<alpha-value>';

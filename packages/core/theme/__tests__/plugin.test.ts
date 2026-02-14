@@ -42,7 +42,6 @@ describe('ideasUIPlugin', () => {
     plugin.handler({ addBase, addUtilities, addVariant });
 
     expect(addBase).toHaveBeenCalled();
-    expect(addUtilities).toHaveBeenCalled();
     expect(addVariant).toHaveBeenCalled();
   });
 
@@ -162,7 +161,6 @@ describe('ideasUIPlugin', () => {
 
     // Verify nested values were processed
     expect(addBase).toHaveBeenCalled();
-    expect(addUtilities).toHaveBeenCalled();
   });
 
   it('should skip non-numeric shades', () => {
@@ -272,9 +270,31 @@ describe('ideasUIPlugin', () => {
     expect(generatedVars['--ideasui-z-index-dropdown']).toBeDefined();
     expect(generatedVars['--ideasui-opacity-medium']).toBeDefined();
     expect(generatedVars['--ideasui-font-sans']).toBeDefined();
-    expect(generatedVars['--ideasui-border-thin']).toBeDefined();
+    expect(generatedVars['--ideasui-border-hairline']).toBeDefined();
     expect(generatedVars['--ideasui-blur-md']).toBeDefined();
     expect(generatedVars['--ideasui-duration-sm']).toBeDefined();
     expect(generatedVars['--ideasui-spacing-1']).toBeDefined();
+  });
+
+  it('should generate motion utilities', () => {
+    const plugin = ideasUIPlugin();
+    const addBase = jest.fn();
+    const addUtilities = jest.fn();
+    const addVariant = jest.fn();
+
+    // @ts-ignore
+    plugin.handler({ addBase, addUtilities, addVariant });
+
+    expect(addUtilities).toHaveBeenCalled();
+    const utilities = addUtilities.mock.calls[0][0];
+
+    expect(utilities['.motion-fast']).toBeDefined();
+    expect(utilities['.motion-fast']['transition-duration']).toBe('100ms');
+
+    expect(utilities['.motion-emphasized']).toBeDefined();
+    expect(utilities['.motion-emphasized']['transition-duration']).toBe('500ms');
+    expect(utilities['.motion-emphasized']['transition-timing-function']).toBe(
+      'cubic-bezier(0.2, 0.0, 0, 1.0)',
+    );
   });
 });

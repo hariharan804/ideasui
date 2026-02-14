@@ -19,16 +19,13 @@ import { generateDesignTokenCSSVars } from './css-vars';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ideasUIPlugin: any = plugin.withOptions(
   (config: ThemeConfig = {}) =>
-    ({ addBase, addUtilities, addVariant }) => {
+    ({ addBase, addVariant }) => {
       const { defaultTheme = 'light', prefix = DEFAULT_PREFIX, disableAnimations = false } = config;
 
       const themes = buildThemes(config);
       const resolved = resolveConfig(themes, defaultTheme, prefix);
 
-      // Add CSS Layers for better cascade control
-      addBase({
-        '@layer base, components, utilities': {},
-      });
+      // Note: Layers are handled natively in Tailwind v4 via CSS @layer directive
 
       // Generate CSS custom properties from design tokens
       const designTokenVars = generateDesignTokenCSSVars(prefix);
@@ -38,16 +35,10 @@ export const ideasUIPlugin: any = plugin.withOptions(
       });
 
       addBase(resolved.baseStyles);
-      addUtilities({ ...resolved.utilities });
+      addBase({ ...resolved.utilities });
 
       for (const variant of resolved.variants) {
-        const definitions = Array.isArray(variant.definition)
-          ? variant.definition
-          : [variant.definition];
-
-        for (const definition of definitions) {
-          addVariant(variant.name, definition);
-        }
+        addVariant(variant.name, variant.definition);
       }
 
       if (disableAnimations) {

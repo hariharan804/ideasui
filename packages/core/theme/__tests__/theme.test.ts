@@ -27,7 +27,6 @@ describe('ideasUIPlugin', () => {
     plugin.handler(mockPluginAPI);
 
     expect(mockPluginAPI.addBase).toHaveBeenCalled();
-    expect(mockPluginAPI.addUtilities).toHaveBeenCalled();
     expect(mockPluginAPI.addVariant).toHaveBeenCalled();
   });
 
@@ -88,7 +87,7 @@ describe('ideasUIPlugin', () => {
     const baseCall = mockPluginAPI.addBase.mock.calls.find((call: any) => {
       const theme = call[0][":root, .light, [data-theme='light']"];
 
-      return theme && theme['--ideasui-border-base'] !== undefined;
+      return theme && theme['--ideasui-border-subtle'] !== undefined;
     });
 
     expect(baseCall).toBeDefined();

@@ -124,6 +124,7 @@ export const primitives = {
       600: 'oklch(0.700 0.068 257.4)',
       700: 'oklch(0.790 0.054 257.4)',
       800: 'oklch(0.870 0.038 257.4)',
+      850: 'oklch(0.900 0.030 257.4)',
       900: 'oklch(0.930 0.022 257.4)',
       950: 'oklch(0.970 0.012 257.4)',
     },
@@ -193,37 +194,27 @@ export const primitives = {
 export const semantic = {
   primary: {
     base: 'var(--ideasui-primary-500)',
-    hover: 'var(--ideasui-primary-600)',
-    subtle: 'var(--ideasui-primary-950)',
-    border: 'var(--ideasui-primary-600)',
+    subtle: 'var(--ideasui-primary-100)',
     content: 'var(--ideasui-primary-50)',
   },
   success: {
     base: 'var(--ideasui-success-500)',
-    hover: 'var(--ideasui-success-600)',
-    subtle: 'var(--ideasui-success-950)',
-    border: 'var(--ideasui-success-600)',
+    subtle: 'var(--ideasui-success-100)',
     content: 'var(--ideasui-success-50)',
   },
   danger: {
     base: 'var(--ideasui-danger-500)',
-    hover: 'var(--ideasui-danger-600)',
-    subtle: 'var(--ideasui-danger-950)',
-    border: 'var(--ideasui-danger-600)',
+    subtle: 'var(--ideasui-danger-100)',
     content: 'var(--ideasui-danger-50)',
   },
   info: {
     base: 'var(--ideasui-info-500)',
-    hover: 'var(--ideasui-info-600)',
-    subtle: 'var(--ideasui-info-950)',
-    border: 'var(--ideasui-info-600)',
+    subtle: 'var(--ideasui-info-100)',
     content: 'var(--ideasui-info-50)',
   },
   warning: {
     base: 'var(--ideasui-warning-500)',
-    hover: 'var(--ideasui-warning-600)',
-    subtle: 'var(--ideasui-warning-950)',
-    border: 'var(--ideasui-warning-600)',
+    subtle: 'var(--ideasui-warning-100)',
     content: 'var(--ideasui-warning-50)',
   },
 } as const;
@@ -232,12 +223,28 @@ export const semantic = {
    3️⃣ SURFACE + CONTENT
    ============================================================ */
 
+/**
+ * base      → App background
+ * elevated  → Cards / Containers
+ * muted     → Lower emphasis surface (Inputs / Tertiary)
+ * strong    → Higher contrast surface (Sidebar / Section)
+ * inverse   → Opposite theme surface
+ */
+
 export const lightSurface = {
-  base: 'var(--ideasui-neutral-50)', // app background
-  subtle: 'var(--ideasui-neutral-100)', // cards
-  muted: 'var(--ideasui-neutral-200)', // inputs
-  emphasis: 'var(--ideasui-neutral-300)', // elevated blocks
-  inverse: 'var(--ideasui-neutral-900)', // dark surface
+  base: 'var(--ideasui-neutral-50)', // App background
+  elevated: 'var(--ideasui-neutral-100)', // Cards
+  muted: 'var(--ideasui-neutral-200)', // Inputs / tertiary containers
+  strong: 'var(--ideasui-neutral-300)', // Strong section background
+  inverse: 'var(--ideasui-neutral-900)', // Dark surface
+} as const;
+
+export const darkSurface = {
+  base: 'var(--ideasui-neutral-900)', // App background
+  elevated: 'var(--ideasui-neutral-850)', // Cards
+  muted: 'var(--ideasui-neutral-800)', // Inputs / tertiary containers
+  strong: 'var(--ideasui-neutral-700)', // Strong section background
+  inverse: 'var(--ideasui-neutral-50)', // Light surface
 } as const;
 
 export const lightContent = {
@@ -247,14 +254,6 @@ export const lightContent = {
   muted: 'var(--ideasui-neutral-500)', // placeholders
   disabled: 'var(--ideasui-neutral-400)', // disabled text
   inverse: 'var(--ideasui-neutral-50)', // text on dark surface
-} as const;
-
-export const darkSurface = {
-  base: 'var(--ideasui-neutral-900)', // app background
-  subtle: 'var(--ideasui-neutral-850)', // cards
-  muted: 'var(--ideasui-neutral-800)', // inputs
-  emphasis: 'var(--ideasui-neutral-700)', // elevated blocks
-  inverse: 'var(--ideasui-neutral-50)', // light surface
 } as const;
 
 export const darkContent = {

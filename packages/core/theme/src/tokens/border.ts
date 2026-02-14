@@ -9,19 +9,17 @@ export const border = {
 } as const;
 
 export const lightBorder = {
-  base: 'var(--ideasui-neutral-200)',
+  default: 'var(--ideasui-neutral-200)',
   subtle: 'var(--ideasui-neutral-100)',
-  emphasis: 'var(--ideasui-neutral-300)',
-  error: 'var(--ideasui-danger-500)',
+  strong: 'var(--ideasui-neutral-300)',
   focus: 'var(--ideasui-primary-500)',
-  success: 'var(--ideasui-success-500)',
+  danger: 'var(--ideasui-danger-500)',
 } as const;
 
 export const darkBorder = {
-  base: 'var(--ideasui-neutral-800)',
+  default: 'var(--ideasui-neutral-800)',
   subtle: 'var(--ideasui-neutral-850)',
-  emphasis: 'var(--ideasui-neutral-700)',
-  error: 'var(--ideasui-danger-500)',
+  strong: 'var(--ideasui-neutral-700)',
   focus: 'var(--ideasui-primary-500)',
-  success: 'var(--ideasui-success-500)',
+  danger: 'var(--ideasui-danger-500)',
 } as const;

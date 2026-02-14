@@ -41,16 +41,19 @@ function resolveValue(value, contextVars) {
   if (value.startsWith('var(')) {
     const match = value.match(/var\((--[^)]+)\)/);
     if (match) {
+      // Preserve var() references to internal tokens (semantic → palette aliases)
+      // e.g. var(--ideasui-primary-500) stays as-is so semantic tokens derive from scale
+      if (match[1].startsWith(`--${PREFIX}`)) {
+        return value;
+      }
+
       const refValue = contextVars[match[1]];
       if (refValue) return resolveValue(refValue, contextVars);
     }
   }
 
-  const components = value.trim().split(/\s+/);
-  if (components.length >= 3 && !value.includes('(') && !value.includes(',')) {
-    return `oklch(${value})`;
-  }
-
+  // Do NOT wrap raw OKLCH components in oklch() — they are stored as raw
+  // components so oklch(var(...) / <alpha>) works for alpha modifier support
   return value;
 }
 
@@ -103,10 +106,25 @@ function generateThemeCSS() {
       .map(([k, v]) => `  ${k}: ${v};`)
       .join('\n');
 
+  // Tokens that should NOT be mapped into @theme — they're plain CSS variables only
+  const SKIP_PATTERNS = [
+    '-interaction-',
+    '-accessibility-',
+    '-elevation-',
+    '-backdrop-',
+    '-disabled-opacity',
+    '-hover-opacity',
+    '-focus-ring-',
+    '-divider-weight',
+  ];
+
   // Dynamic @theme block mapping with deduplication
   const themeMappings = new Map();
   Object.keys(lightThemed).forEach((key) => {
-    let category = 'color';
+    // Skip non-mappable tokens from @theme block
+    if (SKIP_PATTERNS.some((p) => key.includes(p))) return;
+
+    let category = null;
     let subName = key.replace('--', '');
 
     if (key.includes('-spacing-')) {
@@ -129,13 +147,57 @@ function generateThemeCSS() {
     } else if (key.includes('-font-size-')) {
       category = 'font-size';
       subName = subName.split('-font-size-')[1];
+    } else if (key.includes('-font-')) {
+      category = 'font';
+      subName = subName.split('-font-')[1];
     } else if (key.includes('-breakpoint-')) {
       category = 'breakpoint';
       subName = subName.split('-breakpoint-')[1];
+    } else if (key.includes('-line-height-')) {
+      category = 'leading';
+      subName = subName.split('-line-height-')[1];
+    } else if (key.includes('-tracking-')) {
+      category = 'tracking';
+      subName = subName.split('-tracking-')[1];
+    } else if (key.includes('-opacity-')) {
+      category = 'opacity';
+      subName = subName.split('-opacity-')[1];
+    } else if (key.includes('-z-index-')) {
+      category = 'z-index';
+      subName = subName.split('-z-index-')[1];
+    } else if (key.includes('-blur-')) {
+      category = 'blur';
+      subName = subName.split('-blur-')[1];
+    } else if (key.includes('-border-')) {
+      // Only match actual border-width tokens, not semantic border-color tokens
+      const borderSuffix = key.split('-border-').pop();
+      const BORDER_WIDTH_SUFFIXES = [
+        'hairline',
+        'thin',
+        'medium',
+        'thick',
+        'heavy',
+        'none',
+        'widthDefault',
+      ];
+      if (BORDER_WIDTH_SUFFIXES.includes(borderSuffix)) {
+        category = 'border-width';
+        subName = borderSuffix;
+      } else {
+        // Semantic border colors (base, subtle, emphasis, error, focus, success)
+        category = 'color';
+        subName = `border-${borderSuffix}`;
+      }
     } else if (key.startsWith(`--${PREFIX}`)) {
-      // Strip prefix for color tokens
+      // Remaining prefixed tokens are color tokens
+      category = 'color';
       subName = subName.replace(`${PREFIX}-`, '');
+    } else {
+      // Non-prefixed aliases
+      category = 'color';
     }
+
+    if (!category) return;
 
     const tailwindKey = `--${category}-${subName}`;
 

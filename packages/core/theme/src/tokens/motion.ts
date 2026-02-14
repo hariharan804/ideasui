@@ -85,6 +85,7 @@ export const easing = {
   standard: 'cubic-bezier(0.4, 0, 0.2, 1)',
   accelerate: 'cubic-bezier(0.4, 0, 1, 1)',
   decelerate: 'cubic-bezier(0, 0, 0.2, 1)',
+  emphasized: 'cubic-bezier(0.2, 0.0, 0, 1.0)',
   linear: 'linear',
   spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
 } as const;
@@ -94,13 +95,13 @@ export const easing = {
    ============================================================ */
 
 export const transition = {
+  instant: '0ms linear',
   fast: `${duration.sm} ${easing.standard}`,
-  normal: `${duration.lg} ${easing.standard}`,
+  standard: `${duration.lg} ${easing.standard}`,
   slow: `${duration.xl} ${easing.standard}`,
+  emphasized: `${duration['2xl']} ${easing.emphasized}`,
 
   enter: `${duration.lg} ${easing.decelerate}`,
   exit: `${duration.md} ${easing.accelerate}`,
-
-  micro: `${duration.xs} ${easing.standard}`,
-  spring: `${duration.lg} ${easing.spring}`,
+  bounce: `${duration.lg} ${easing.spring}`,
 } as const;

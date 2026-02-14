@@ -8,20 +8,17 @@ import {
   fontSize,
   spacing,
   breakpoints,
-  lineHeight,
   letterSpacing,
   primitives,
   semantic,
   lightLayout,
   darkLayout,
-  lightCommonColors,
-  darkCommonColors,
+  commonColors,
   zIndex,
   opacity,
   fontFamily,
   border,
   blur,
-  backdrop,
   lightShadow,
   lightSurface,
   darkSurface,
@@ -32,6 +29,8 @@ import {
   duration,
   easing,
   keyframes,
+  componentColors,
+  componentShadows,
 } from '../../tokens';
 
 import { flattenThemeObject, kebabCase, mapKeys, omit, escapeSelector } from './utils';
@@ -148,12 +147,12 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
     layout: deepMerge({ ...baseLayout, ...lightLayout }, userLightLayout),
     colors: deepMerge(
       {
-        ...primitives.light,
-        ...lightCommonColors,
-        ...semantic,
-        ...lightSurface,
-        ...lightContent,
+        ...deepMerge(primitives.light, semantic),
+        ...commonColors,
+        surface: lightSurface,
+        content: lightContent,
         border: lightBorder,
+        ...componentColors,
       },
       userLightColors,
     ),
@@ -163,12 +162,12 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
     layout: deepMerge({ ...baseLayout, ...darkLayout }, userDarkLayout),
     colors: deepMerge(
       {
-        ...primitives.dark,
-        ...darkCommonColors,
-        ...semantic,
-        ...darkSurface,
-        ...darkContent,
+        ...deepMerge(primitives.dark, semantic),
+        ...commonColors,
+        surface: darkSurface,
+        content: darkContent,
         border: darkBorder,
+        ...componentColors,
       },
       userDarkColors,
     ),
@@ -183,52 +182,39 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
 }
 
 /**
- * Creates the Tailwind theme extension configuration
- * @param {Record<string, string>} colors - The resolved colors map
- * @param {string} prefix - The CSS variable prefix
+ * Creates the Tailwind theme extension configuration.
+ *
+ * Architecture:
+ * - colors: flat CSS variable references (Tailwind v4 requires uniform types, no mixed flat+nested)
+ * - spacing: 4px grid
+ * - typography: fontSize with paired lineHeight
+ * - motion: duration + easing + keyframes + animation presets
+ * - layout: zIndex, opacity, borderWidth, borderRadius
+ *
+ * @param {Record<string, string>} colors - The resolved flat colors map
+ * @param {string} _prefix - The CSS variable prefix (unused, kept for API compat)
  * @param {boolean} disableAnimations - Whether to disable animations
  * @returns {Record<string, any>} The Tailwind theme extension object
  */
 export function createThemeExtension(
   colors: Record<string, string>,
-  prefix: string,
+  _prefix: string,
   disableAnimations: boolean,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Record<string, any> {
   return {
-    colors,
+    // ── Colors (flat CSS variable references — v4 requires uniform types) ──
+    colors: { ...colors, transparent: 'transparent' },
+
+    // ── Spacing (4px grid) ──
     spacing,
-    // Responsive breakpoints
+
+    // ── Responsive ──
     screens: breakpoints,
-    container: {
-      center: true,
-      // padding: containerPadding,
-      // screens: containerSizes,
-    },
-    // Layout & Sizing
-    borderRadius: {
-      ...borderRadius,
-      // small: `var(--${prefix}-radius-small)`,
-      // medium: `var(--${prefix}-radius-medium)`,
-      // large: `var(--${prefix}-radius-large)`,
-    },
-    fontSize,
-    boxShadow: {
-      ...lightShadow,
-      // small: `var(--${prefix}-box-shadow-small)`,
-      // medium: `var(--${prefix}-box-shadow-medium)`,
-      // large: `var(--${prefix}-box-shadow-large)`,
-    },
-    // Animations
-    animation: disableAnimations ? { none: 'none' } : animation,
-    keyframes: disableAnimations ? {} : keyframes,
-    // Motion tokens
-    // Motion tokens
-    transitionDuration: duration,
-    transitionTimingFunction: easing,
-    // transitionDelay: delay,
-    zIndex,
-    opacity,
+    container: { center: true },
+
+    // ── Layout ──
+    borderRadius,
     borderWidth: {
       DEFAULT: border.widthDefault,
       ...Object.fromEntries(
@@ -237,17 +223,26 @@ export function createThemeExtension(
         ),
       ),
     },
-    lineHeight,
+
+    // ── Typography ──
+    fontSize,
     letterSpacing,
     fontFamily,
+
+    // ── Shadows ──
+    boxShadow: { ...lightShadow, ...flattenThemeObject(componentShadows) },
+
+    // ── Motion ──
+    animation: disableAnimations ? { none: 'none' } : animation,
+    keyframes: disableAnimations ? {} : keyframes,
+    transitionDuration: duration,
+    transitionTimingFunction: easing,
+
+    // ── Depth ──
+    zIndex,
+    opacity,
+
+    // ── Blur ──
     blur,
-    backdropBlur: blur,
-    backdropBrightness: {
-      light: backdrop.brightnessLight,
-      dark: backdrop.brightnessDark,
-    },
-    backdropSaturate: {
-      DEFAULT: backdrop.saturate,
-    },
   };
 }

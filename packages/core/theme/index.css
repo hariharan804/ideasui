@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@plugin './dist/system/plugin/index.js';
+/* @plugin './src/system/plugin/index.ts'; */
 
 /* Explicitly define layer order */
 @layer theme, base, components, utilities;
