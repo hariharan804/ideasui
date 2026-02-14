@@ -32,7 +32,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>): JSX.Element {
   // const plugin = ideasUIPlugin();
-  // console.debug("🚀 ~ RootLayout ~ plugin:", plugin);
+  // console.table(plugin?.config?.theme);
+
   return (
     <html suppressHydrationWarning lang="en">
       <head>

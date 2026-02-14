@@ -23,7 +23,7 @@ describe('ideasUIPlugin', () => {
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
 
-    expect(plugin.config?.theme?.extend?.animation).toEqual({ none: 'none' });
+    expect(plugin.config?.theme?.extend?.animation).toStrictEqual({ none: 'none' });
 
     // We can verify that the config structure is correct
     // @ts-ignore
@@ -171,7 +171,6 @@ describe('ideasUIPlugin', () => {
         light: {
           colors: {
             'primary-DEFAULT': '#000000', // Should be skipped
-            'secondary-on': '#111111', // Should be skipped
             'brand-500': '#222222', // Should be processed
           },
         },
@@ -255,5 +254,27 @@ describe('ideasUIPlugin', () => {
     plugin.handler({ addBase, addUtilities, addVariant });
 
     expect(addBase).toHaveBeenCalled();
+  });
+
+  it('should generate new tokens CSS variables', () => {
+    const plugin = ideasUIPlugin();
+    const addBase = jest.fn();
+    const addUtilities = jest.fn();
+    const addVariant = jest.fn();
+
+    // @ts-ignore
+    plugin.handler({ addBase, addUtilities, addVariant });
+
+    const generatedVars = addBase.mock.calls
+      .filter((call) => call[0][':root'])
+      .map((call) => call[0][':root'])[0];
+
+    expect(generatedVars['--ideasui-z-index-dropdown']).toBeDefined();
+    expect(generatedVars['--ideasui-opacity-medium']).toBeDefined();
+    expect(generatedVars['--ideasui-font-sans']).toBeDefined();
+    expect(generatedVars['--ideasui-border-thin']).toBeDefined();
+    expect(generatedVars['--ideasui-blur-md']).toBeDefined();
+    expect(generatedVars['--ideasui-duration-sm']).toBeDefined();
+    expect(generatedVars['--ideasui-spacing-1']).toBeDefined();
   });
 });

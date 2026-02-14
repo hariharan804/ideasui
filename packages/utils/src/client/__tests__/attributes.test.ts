@@ -67,7 +67,7 @@ describe('attributes', () => {
   describe('getDataAttr', () => {
     it('should return parsed data attribute', () => {
       div.setAttribute('data-test', '{"a":1}');
-      expect(getDataAttr(div, 'test')).toEqual({ a: 1 });
+      expect(getDataAttr(div, 'test')).toStrictEqual({ a: 1 });
     });
 
     it('should return raw string if parsing fails', () => {
@@ -96,7 +96,7 @@ describe('attributes', () => {
     it('should convert object to data attributes', () => {
       const data = { testKey: 'value', other: 123 };
 
-      expect(toDataAttrs(data)).toEqual({
+      expect(toDataAttrs(data)).toStrictEqual({
         'data-test-key': 'value',
         'data-other': '123',
       });

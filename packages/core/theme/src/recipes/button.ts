@@ -5,9 +5,23 @@ import { tv } from 'tailwind-variants';
 import { colorVariants } from '../tokens/variants';
 import { borderRadius } from '../tokens';
 
+// BEM base class names
+const BEM_BASE = 'btn';
+const BEM_ICON = 'btn__icon';
+const BEM_LABEL = 'btn__label';
+const BEM_SOLID = 'btn--solid';
+const BEM_OUTLINE = 'btn--outline';
+const BEM_GHOST = 'btn--ghost';
+const BEM_LINK = 'btn--link';
+
+const TRANSPARENT = 'bg-transparent';
+const HOVER_OPACITY = 'hover:bg-opacity-10';
+const ROUNDED_MD = 'rounded-md';
+
 const button = tv({
   slots: {
     base: [
+      BEM_BASE, // BEM base class for debugging
       'inline-flex',
       'items-center',
       'justify-center',
@@ -25,47 +39,47 @@ const button = tv({
       'motion-reduce:transition-none',
       'active:scale-95 motion-reduce:active:scale-100',
     ],
-    icon: ['shrink-0'],
-    label: ['truncate'],
+    icon: [BEM_ICON, 'shrink-0'],
+    label: [BEM_LABEL, 'truncate'],
   },
   variants: {
     variant: {
       solid: {
-        base: 'text-white',
+        base: [BEM_SOLID, 'text-white'],
       },
       outline: {
-        base: 'border-2 bg-transparent hover:bg-opacity-10',
+        base: [BEM_OUTLINE, 'border-2', TRANSPARENT, HOVER_OPACITY],
       },
       ghost: {
-        base: 'bg-transparent hover:bg-opacity-10',
+        base: [BEM_GHOST, TRANSPARENT, HOVER_OPACITY],
       },
       link: {
-        base: 'bg-transparent underline-offset-4 hover:underline',
+        base: [BEM_LINK, TRANSPARENT, 'underline-offset-4', 'hover:underline'],
       },
     },
     size: {
       xs: {
-        base: 'h-8 px-2 text-xs rounded-md',
+        base: ['btn--xs', 'h-8', 'px-2', 'text-xs', ROUNDED_MD],
         icon: 'h-3 w-3',
       },
       sm: {
-        base: 'h-9 px-3 text-sm rounded-md',
+        base: ['btn--sm', 'h-9', 'px-3', 'text-sm', ROUNDED_MD],
         icon: 'h-4 w-4',
       },
       md: {
-        base: 'h-10 px-4 py-2 text-sm rounded-md',
+        base: ['btn--md', 'h-10', 'px-4', 'py-2', 'text-sm', ROUNDED_MD],
         icon: 'h-4 w-4',
       },
       lg: {
-        base: 'h-11 px-8 text-base rounded-lg',
+        base: ['btn--lg', 'h-11', 'px-8', 'text-base', 'rounded-lg'],
         icon: 'h-5 w-5',
       },
       xl: {
-        base: 'h-12 px-10 text-lg rounded-lg',
+        base: ['btn--xl', 'h-12', 'px-10', 'text-lg', 'rounded-lg'],
         icon: 'h-6 w-6',
       },
       icon: {
-        base: 'h-10 w-10 rounded-md',
+        base: ['btn--icon-only', 'h-10', 'w-10', ROUNDED_MD],
         icon: 'h-4 w-4',
       },
     },

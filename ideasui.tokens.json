@@ -1,0 +1,492 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "meta": {
+    "name": "IdeasUI Design Tokens",
+    "version": "2.0.0",
+    "description": "World-class design tokens applying Gestalt principles for web and mobile",
+    "gestaltPrinciples": {
+      "similarity": "Related elements share naming patterns and token prefixes",
+      "proximity": "Spacing scale designed for intentional visual grouping",
+      "commonFate": "Motion tokens ensure coordinated, cohesive animations",
+      "continuity": "Smooth scales guide the eye through progression",
+      "closure": "Border and shadow tokens create implicit boundaries",
+      "figureGround": "Elevation system establishes clear visual hierarchy"
+    }
+  },
+
+  "primitives": {
+    "_description": "LEVEL 1 — Raw design values. Platform-agnostic foundation.",
+
+    "space": {
+      "_gestalt": "PROXIMITY — Deliberate clustering creates visual relationships",
+      "0": "0",
+      "px": "1px",
+      "0.5": "0.125rem",
+      "1": "0.25rem",
+      "1.5": "0.375rem",
+      "2": "0.5rem",
+      "2.5": "0.625rem",
+      "3": "0.75rem",
+      "3.5": "0.875rem",
+      "4": "1rem",
+      "5": "1.25rem",
+      "6": "1.5rem",
+      "7": "1.75rem",
+      "8": "2rem",
+      "9": "2.25rem",
+      "10": "2.5rem",
+      "11": "2.75rem",
+      "12": "3rem",
+      "14": "3.5rem",
+      "16": "4rem",
+      "20": "5rem",
+      "24": "6rem",
+      "28": "7rem",
+      "32": "8rem",
+      "36": "9rem",
+      "40": "10rem",
+      "44": "11rem",
+      "48": "12rem",
+      "52": "13rem",
+      "56": "14rem",
+      "60": "15rem",
+      "64": "16rem",
+      "72": "18rem",
+      "80": "20rem",
+      "96": "24rem"
+    },
+
+    "radius": {
+      "_gestalt": "CLOSURE — Corners define perceived boundaries",
+      "none": "0",
+      "xs": "0.125rem",
+      "sm": "0.25rem",
+      "md": "0.375rem",
+      "lg": "0.5rem",
+      "xl": "0.75rem",
+      "2xl": "1rem",
+      "3xl": "1.5rem",
+      "4xl": "2rem",
+      "full": "9999px"
+    },
+
+    "typography": {
+      "_gestalt": "CONTINUITY — Smooth progression guides reading flow",
+      "fontFamily": {
+        "sans": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+        "serif": "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif",
+        "mono": "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
+      },
+      "fontSize": {
+        "2xs": ["0.625rem", { "lineHeight": "0.875rem" }],
+        "xs": ["0.75rem", { "lineHeight": "1rem" }],
+        "sm": ["0.875rem", { "lineHeight": "1.25rem" }],
+        "base": ["1rem", { "lineHeight": "1.5rem" }],
+        "lg": ["1.125rem", { "lineHeight": "1.75rem" }],
+        "xl": ["1.25rem", { "lineHeight": "1.75rem" }],
+        "2xl": ["1.5rem", { "lineHeight": "2rem" }],
+        "3xl": ["1.875rem", { "lineHeight": "2.25rem" }],
+        "4xl": ["2.25rem", { "lineHeight": "2.5rem" }],
+        "5xl": ["3rem", { "lineHeight": "1" }],
+        "6xl": ["3.75rem", { "lineHeight": "1" }],
+        "7xl": ["4.5rem", { "lineHeight": "1" }],
+        "8xl": ["6rem", { "lineHeight": "1" }],
+        "9xl": ["8rem", { "lineHeight": "1" }]
+      },
+      "fontWeight": {
+        "thin": "100",
+        "extralight": "200",
+        "light": "300",
+        "normal": "400",
+        "medium": "500",
+        "semibold": "600",
+        "bold": "700",
+        "extrabold": "800",
+        "black": "900"
+      },
+      "lineHeight": {
+        "none": "1",
+        "tight": "1.25",
+        "snug": "1.375",
+        "normal": "1.5",
+        "relaxed": "1.625",
+        "loose": "2"
+      },
+      "letterSpacing": {
+        "tighter": "-0.05em",
+        "tight": "-0.025em",
+        "normal": "0",
+        "wide": "0.025em",
+        "wider": "0.05em",
+        "widest": "0.1em"
+      }
+    },
+
+    "duration": {
+      "_gestalt": "COMMON FATE — Consistent timing creates unified motion",
+      "instant": "0ms",
+      "fastest": "50ms",
+      "faster": "100ms",
+      "fast": "150ms",
+      "normal": "200ms",
+      "slow": "300ms",
+      "slower": "400ms",
+      "slowest": "500ms",
+      "deliberate": "700ms",
+      "lazy": "1000ms"
+    },
+
+    "easing": {
+      "_gestalt": "COMMON FATE — Coordinated curves for cohesive animation",
+      "linear": "linear",
+      "easeIn": "cubic-bezier(0.4, 0, 1, 1)",
+      "easeOut": "cubic-bezier(0, 0, 0.2, 1)",
+      "easeInOut": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "spring": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+      "snappy": "cubic-bezier(0.2, 0, 0, 1)",
+      "enter": "cubic-bezier(0, 0, 0.2, 1)",
+      "exit": "cubic-bezier(0.4, 0, 1, 1)",
+      "emphasized": "cubic-bezier(0.2, 0, 0, 1.4)"
+    },
+
+    "opacity": {
+      "_gestalt": "FIGURE/GROUND — Layered transparency for depth",
+      "0": "0",
+      "5": "0.05",
+      "10": "0.1",
+      "15": "0.15",
+      "20": "0.2",
+      "25": "0.25",
+      "30": "0.3",
+      "40": "0.4",
+      "50": "0.5",
+      "60": "0.6",
+      "70": "0.7",
+      "75": "0.75",
+      "80": "0.8",
+      "85": "0.85",
+      "90": "0.9",
+      "95": "0.95",
+      "100": "1"
+    },
+
+    "zIndex": {
+      "_gestalt": "FIGURE/GROUND — Explicit stacking establishes hierarchy",
+      "hide": "-1",
+      "base": "0",
+      "raised": "1",
+      "dropdown": "1000",
+      "sticky": "1100",
+      "fixed": "1200",
+      "overlay": "1300",
+      "modal": "1400",
+      "popover": "1500",
+      "toast": "1600",
+      "tooltip": "1700",
+      "max": "9999"
+    },
+
+    "breakpoint": {
+      "_description": "Responsive breakpoints for web and mobile",
+      "xs": "320px",
+      "sm": "480px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px",
+      "2xl": "1536px",
+      "3xl": "1920px"
+    },
+
+    "shadow": {
+      "_gestalt": "FIGURE/GROUND + CLOSURE — Shadows create depth and boundaries",
+      "_note": "Primitive shadows only. Use elevation-* semantics for components.",
+      "none": "none",
+      "xs": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+      "sm": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+      "md": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+      "lg": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+      "xl": "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
+      "2xl": "0 25px 50px -12px rgb(0 0 0 / 0.25)",
+      "inner": "inset 0 2px 4px 0 rgb(0 0 0 / 0.05)"
+    },
+
+    "borderWidth": {
+      "_gestalt": "CLOSURE — Explicit boundaries define elements",
+      "none": "0",
+      "hairline": "0.5px",
+      "thin": "1px",
+      "default": "1px",
+      "medium": "2px",
+      "thick": "4px",
+      "heavy": "8px"
+    }
+  },
+
+  "semantics": {
+    "_description": "LEVEL 2 — Purpose-driven tokens. Theme-aware and contextual.",
+
+    "elevation": {
+      "_gestalt": "FIGURE/GROUND — Visual hierarchy through perceived depth",
+      "sunken": {
+        "surface": "{theme.elevation.sunken.surface}",
+        "shadow": "{primitives.shadow.inner}"
+      },
+      "base": {
+        "surface": "{theme.elevation.base.surface}",
+        "shadow": "{primitives.shadow.none}"
+      },
+      "raised": {
+        "surface": "{theme.elevation.raised.surface}",
+        "shadow": "{primitives.shadow.sm}"
+      },
+      "floating": {
+        "surface": "{theme.elevation.floating.surface}",
+        "shadow": "{primitives.shadow.md}"
+      },
+      "overlay": {
+        "surface": "{theme.elevation.overlay.surface}",
+        "shadow": "{primitives.shadow.lg}"
+      },
+      "modal": {
+        "surface": "{theme.elevation.modal.surface}",
+        "shadow": "{primitives.shadow.xl}"
+      },
+      "toast": {
+        "surface": "{theme.elevation.toast.surface}",
+        "shadow": "{primitives.shadow.2xl}"
+      }
+    },
+
+    "surface": {
+      "_gestalt": "FIGURE/GROUND — Background layers establish visual planes",
+      "canvas": "{theme.surface.canvas}",
+      "base": "{theme.surface.base}",
+      "subtle": "{theme.surface.subtle}",
+      "muted": "{theme.surface.muted}",
+      "emphasis": "{theme.surface.emphasis}",
+      "inverse": "{theme.surface.inverse}"
+    },
+
+    "content": {
+      "_gestalt": "SIMILARITY — Consistent text hierarchy across contexts",
+      "primary": "{theme.content.primary}",
+      "secondary": "{theme.content.secondary}",
+      "tertiary": "{theme.content.tertiary}",
+      "muted": "{theme.content.muted}",
+      "subtle": "{theme.content.subtle}",
+      "inverse": "{theme.content.inverse}",
+      "disabled": "{theme.content.disabled}",
+      "placeholder": "{theme.content.placeholder}"
+    },
+
+    "intent": {
+      "_gestalt": "SIMILARITY — Grouped intent colors communicate meaning",
+      "neutral": {
+        "base": "{theme.intent.neutral.base}",
+        "emphasis": "{theme.intent.neutral.emphasis}",
+        "subtle": "{theme.intent.neutral.subtle}",
+        "content": "{theme.intent.neutral.content}",
+        "border": "{theme.intent.neutral.border}"
+      },
+      "primary": {
+        "base": "{theme.intent.primary.base}",
+        "emphasis": "{theme.intent.primary.emphasis}",
+        "subtle": "{theme.intent.primary.subtle}",
+        "content": "{theme.intent.primary.content}",
+        "border": "{theme.intent.primary.border}"
+      },
+      "success": {
+        "base": "{theme.intent.success.base}",
+        "emphasis": "{theme.intent.success.emphasis}",
+        "subtle": "{theme.intent.success.subtle}",
+        "content": "{theme.intent.success.content}",
+        "border": "{theme.intent.success.border}"
+      },
+      "warning": {
+        "base": "{theme.intent.warning.base}",
+        "emphasis": "{theme.intent.warning.emphasis}",
+        "subtle": "{theme.intent.warning.subtle}",
+        "content": "{theme.intent.warning.content}",
+        "border": "{theme.intent.warning.border}"
+      },
+      "danger": {
+        "base": "{theme.intent.danger.base}",
+        "emphasis": "{theme.intent.danger.emphasis}",
+        "subtle": "{theme.intent.danger.subtle}",
+        "content": "{theme.intent.danger.content}",
+        "border": "{theme.intent.danger.border}"
+      },
+      "info": {
+        "base": "{theme.intent.info.base}",
+        "emphasis": "{theme.intent.info.emphasis}",
+        "subtle": "{theme.intent.info.subtle}",
+        "content": "{theme.intent.info.content}",
+        "border": "{theme.intent.info.border}"
+      }
+    },
+
+    "border": {
+      "_gestalt": "CLOSURE — Boundaries define element edges",
+      "default": "{theme.border.default}",
+      "muted": "{theme.border.muted}",
+      "subtle": "{theme.border.subtle}",
+      "emphasis": "{theme.border.emphasis}",
+      "focus": "{theme.border.focus}",
+      "error": "{theme.border.error}",
+      "success": "{theme.border.success}",
+      "warning": "{theme.border.warning}"
+    },
+
+    "focus": {
+      "_gestalt": "FIGURE/GROUND — Focus rings establish attention hierarchy",
+      "ring": {
+        "width": "2px",
+        "offset": "2px",
+        "color": "{theme.focus.ring.color}"
+      }
+    },
+
+    "interaction": {
+      "_gestalt": "COMMON FATE — Unified state feedback patterns",
+      "_note": "Tokens describe intent, not CSS behavior. Implementation decides transform/cursor.",
+      "hover": {
+        "overlay": "{theme.interaction.hover.overlay}",
+        "emphasis": 1
+      },
+      "active": {
+        "overlay": "{theme.interaction.active.overlay}",
+        "emphasis": 2
+      },
+      "disabled": {
+        "opacity": "{primitives.opacity.40}",
+        "cursor": "not-allowed"
+      }
+    },
+
+    "motion": {
+      "_gestalt": "COMMON FATE — Coordinated animations feel unified",
+      "micro": {
+        "duration": "{primitives.duration.fastest}",
+        "easing": "{primitives.easing.snappy}"
+      },
+      "fast": {
+        "duration": "{primitives.duration.fast}",
+        "easing": "{primitives.easing.easeOut}"
+      },
+      "normal": {
+        "duration": "{primitives.duration.normal}",
+        "easing": "{primitives.easing.easeInOut}"
+      },
+      "slow": {
+        "duration": "{primitives.duration.slow}",
+        "easing": "{primitives.easing.easeInOut}"
+      },
+      "enter": {
+        "duration": "{primitives.duration.normal}",
+        "easing": "{primitives.easing.enter}"
+      },
+      "exit": {
+        "duration": "{primitives.duration.fast}",
+        "easing": "{primitives.easing.exit}"
+      },
+      "spring": {
+        "duration": "{primitives.duration.slow}",
+        "easing": "{primitives.easing.spring}"
+      }
+    },
+
+    "proximity": {
+      "_gestalt": "PROXIMITY — Contextual spacing for visual grouping",
+      "tight": {
+        "description": "Elements that belong very closely together (e.g., icon + label)",
+        "gap": "{primitives.space.1}",
+        "padding": "{primitives.space.2}"
+      },
+      "compact": {
+        "description": "Dense layouts with minimal spacing",
+        "gap": "{primitives.space.2}",
+        "padding": "{primitives.space.3}"
+      },
+      "default": {
+        "description": "Standard comfortable spacing",
+        "gap": "{primitives.space.3}",
+        "padding": "{primitives.space.4}"
+      },
+      "relaxed": {
+        "description": "More breathing room between elements",
+        "gap": "{primitives.space.4}",
+        "padding": "{primitives.space.6}"
+      },
+      "spacious": {
+        "description": "Maximum visual separation",
+        "gap": "{primitives.space.6}",
+        "padding": "{primitives.space.8}"
+      }
+    },
+
+    "text": {
+      "_gestalt": "CONTINUITY + SIMILARITY — Harmonious type system",
+      "display": {
+        "fontSize": "{primitives.typography.fontSize.6xl}",
+        "fontWeight": "{primitives.typography.fontWeight.bold}",
+        "lineHeight": "{primitives.typography.lineHeight.tight}",
+        "letterSpacing": "{primitives.typography.letterSpacing.tight}"
+      },
+      "headline": {
+        "fontSize": "{primitives.typography.fontSize.4xl}",
+        "fontWeight": "{primitives.typography.fontWeight.bold}",
+        "lineHeight": "{primitives.typography.lineHeight.tight}",
+        "letterSpacing": "{primitives.typography.letterSpacing.tight}"
+      },
+      "title": {
+        "fontSize": "{primitives.typography.fontSize.2xl}",
+        "fontWeight": "{primitives.typography.fontWeight.semibold}",
+        "lineHeight": "{primitives.typography.lineHeight.snug}",
+        "letterSpacing": "{primitives.typography.letterSpacing.normal}"
+      },
+      "subtitle": {
+        "fontSize": "{primitives.typography.fontSize.xl}",
+        "fontWeight": "{primitives.typography.fontWeight.medium}",
+        "lineHeight": "{primitives.typography.lineHeight.snug}",
+        "letterSpacing": "{primitives.typography.letterSpacing.normal}"
+      },
+      "body": {
+        "fontSize": "{primitives.typography.fontSize.base}",
+        "fontWeight": "{primitives.typography.fontWeight.normal}",
+        "lineHeight": "{primitives.typography.lineHeight.normal}",
+        "letterSpacing": "{primitives.typography.letterSpacing.normal}"
+      },
+      "bodySmall": {
+        "fontSize": "{primitives.typography.fontSize.sm}",
+        "fontWeight": "{primitives.typography.fontWeight.normal}",
+        "lineHeight": "{primitives.typography.lineHeight.normal}",
+        "letterSpacing": "{primitives.typography.letterSpacing.normal}"
+      },
+      "label": {
+        "fontSize": "{primitives.typography.fontSize.sm}",
+        "fontWeight": "{primitives.typography.fontWeight.medium}",
+        "lineHeight": "{primitives.typography.lineHeight.normal}",
+        "letterSpacing": "{primitives.typography.letterSpacing.wide}"
+      },
+      "caption": {
+        "fontSize": "{primitives.typography.fontSize.xs}",
+        "fontWeight": "{primitives.typography.fontWeight.normal}",
+        "lineHeight": "{primitives.typography.lineHeight.normal}",
+        "letterSpacing": "{primitives.typography.letterSpacing.normal}"
+      },
+      "overline": {
+        "fontSize": "{primitives.typography.fontSize.xs}",
+        "fontWeight": "{primitives.typography.fontWeight.semibold}",
+        "lineHeight": "{primitives.typography.lineHeight.normal}",
+        "letterSpacing": "{primitives.typography.letterSpacing.widest}",
+        "textTransform": "uppercase"
+      },
+      "code": {
+        "fontFamily": "{primitives.typography.fontFamily.mono}",
+        "fontSize": "{primitives.typography.fontSize.sm}",
+        "fontWeight": "{primitives.typography.fontWeight.normal}",
+        "lineHeight": "{primitives.typography.lineHeight.relaxed}"
+      }
+    }
+  }
+}

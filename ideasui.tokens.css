@@ -1,0 +1,978 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════
+ * IdeasUI Design Tokens - CSS Custom Properties
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 
+ * ⚠️  AUTO-GENERATED FILE — DO NOT EDIT MANUALLY
+ * 
+ * Source of truth: ideasui.tokens.json
+ * Generated: 2026-01-31
+ * Version: 2.0.0
+ * 
+ * To modify tokens, edit the source JSON file and regenerate this CSS.
+ * 
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 
+ * GESTALT PRINCIPLES APPLIED:
+ * ───────────────────────────
+ * • SIMILARITY    → Related elements share naming patterns
+ * • PROXIMITY     → Spacing scale for intentional visual grouping  
+ * • COMMON FATE   → Motion tokens for coordinated animations
+ * • CONTINUITY    → Smooth scales guide the eye
+ * • CLOSURE       → Border and shadow tokens create boundaries
+ * • FIGURE/GROUND → Elevation system for visual hierarchy
+ * 
+ * TOKEN PHILOSOPHY:
+ * ─────────────────
+ * → Tokens describe MEANING, not behavior.
+ * → Code describes BEHAVIOR, not meaning.
+ * 
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
+:root {
+  /* ════════════════════════════════════════════════════════════════════════
+   * PRIMITIVES - Level 1: Raw Design Values
+   * 
+   * These are the foundational values. Components should prefer SEMANTIC
+   * tokens over primitives when possible.
+   * ════════════════════════════════════════════════════════════════════════ */
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * SPACE — Proximity: Deliberate clustering creates relationships
+   * 
+   * 💡 USAGE GUIDANCE:
+   *    • For components, prefer semantic --proximity-* tokens
+   *    • Use raw values only when building new semantics
+   * ──────────────────────────────────────────────────────────────────────── */
+  --space-0: 0;
+  --space-px: 1px;
+  --space-0-5: 0.125rem;
+  --space-1: 0.25rem;
+  --space-1-5: 0.375rem;
+  --space-2: 0.5rem;
+  --space-2-5: 0.625rem;
+  --space-3: 0.75rem;
+  --space-3-5: 0.875rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-9: 2.25rem;
+  --space-10: 2.5rem;
+  --space-11: 2.75rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-28: 7rem;
+  --space-32: 8rem;
+  --space-36: 9rem;
+  --space-40: 10rem;
+  --space-44: 11rem;
+  --space-48: 12rem;
+  --space-52: 13rem;
+  --space-56: 14rem;
+  --space-60: 15rem;
+  --space-64: 16rem;
+  --space-72: 18rem;
+  --space-80: 20rem;
+  --space-96: 24rem;
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * BASE COLORS — Universal primitives
+   * ──────────────────────────────────────────────────────────────────────── */
+  --color-transparent: transparent;
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * RADIUS — Closure: Corners define perceived boundaries
+   * ──────────────────────────────────────────────────────────────────────── */
+  --radius-none: 0;
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+  --radius-full: 9999px;
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * TYPOGRAPHY — Continuity: Smooth progression guides reading flow
+   * 
+   * 💡 USAGE GUIDANCE:
+   *    • For text styling, prefer semantic --text-* tokens
+   *    • Raw sizes are for system-level customization only
+   * ──────────────────────────────────────────────────────────────────────── */
+
+  /* Font Families */
+  --font-sans:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-mono:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+
+  /* Font Sizes (with paired line heights) */
+  --font-size-2xs: 0.625rem;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 3.75rem;
+  --font-size-7xl: 4.5rem;
+  --font-size-8xl: 6rem;
+  --font-size-9xl: 8rem;
+
+  /* Line Heights (paired with font sizes) — Using UNITLESS values for flexibility */
+  --line-height-2xs: 1.4;
+  --line-height-xs: 1.333;
+  --line-height-sm: 1.429;
+  --line-height-base: 1.5;
+  --line-height-lg: 1.556;
+  --line-height-xl: 1.4;
+  --line-height-2xl: 1.333;
+  --line-height-3xl: 1.2;
+  --line-height-4xl: 1.111;
+  --line-height-5xl: 1;
+  --line-height-6xl: 1;
+  --line-height-7xl: 1;
+  --line-height-8xl: 1;
+  --line-height-9xl: 1;
+
+  /* Font Weights */
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+
+  /* Line Height Scale */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * DURATION — Common Fate: Unified motion timing
+   * ──────────────────────────────────────────────────────────────────────── */
+  --duration-instant: 0ms;
+  --duration-fastest: 50ms;
+  --duration-faster: 100ms;
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 400ms;
+  --duration-slowest: 500ms;
+  --duration-deliberate: 700ms;
+  --duration-lazy: 1000ms;
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * EASING — Common Fate: Coordinated curves
+   * 
+   * 💡 Each curve has a specific purpose:
+   *    • spring     → Playful, energetic interactions
+   *    • snappy     → Quick, responsive feedback
+   *    • enter      → Elements appearing (alias of ease-out, semantic intent)
+   *    • exit       → Elements disappearing (alias of ease-in, semantic intent)
+   *    • emphasized → Extra bounce for attention
+   * ──────────────────────────────────────────────────────────────────────── */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0, 0, 0.2, 1); /* Same as ease-out (intentional semantic alias) */
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1); /* Same as ease-in (intentional semantic alias) */
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1.4);
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * OPACITY — Figure/Ground: Layered transparency for depth
+   * ──────────────────────────────────────────────────────────────────────── */
+  --opacity-0: 0;
+  --opacity-5: 0.05;
+  --opacity-10: 0.1;
+  --opacity-15: 0.15;
+  --opacity-20: 0.2;
+  --opacity-25: 0.25;
+  --opacity-30: 0.3;
+  --opacity-40: 0.4;
+  --opacity-50: 0.5;
+  --opacity-60: 0.6;
+  --opacity-70: 0.7;
+  --opacity-75: 0.75;
+  --opacity-80: 0.8;
+  --opacity-85: 0.85;
+  --opacity-90: 0.9;
+  --opacity-95: 0.95;
+  --opacity-100: 1;
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * Z-INDEX — Figure/Ground: Stacking hierarchy
+   * ──────────────────────────────────────────────────────────────────────── */
+  --z-hide: -1;
+  --z-base: 0;
+  --z-raised: 1;
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-fixed: 1200;
+  --z-overlay: 1300;
+  --z-modal: 1400;
+  --z-popover: 1500;
+  --z-toast: 1600;
+  --z-tooltip: 1700;
+  --z-max: 9999;
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * BREAKPOINTS — Responsive scaling
+   * ──────────────────────────────────────────────────────────────────────── */
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  --breakpoint-3xl: 1920px;
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * SHADOWS — Primitives only (use elevation-* for components)
+   * 
+   * ⚠️ Do NOT use shadow-* directly in components.
+   *    Use --elevation-*-shadow semantic tokens instead.
+   * ──────────────────────────────────────────────────────────────────────── */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * BLUR & BACKDROP — For glassmorphism and depth effects
+   * ──────────────────────────────────────────────────────────────────────── */
+  --blur-none: 0;
+  --blur-sm: 4px;
+  --blur-md: 8px;
+  --blur-lg: 12px;
+  --blur-xl: 16px;
+  --blur-2xl: 24px;
+  --blur-3xl: 40px;
+
+  --backdrop-blur-sm: blur(4px);
+  --backdrop-blur-md: blur(8px);
+  --backdrop-blur-lg: blur(12px);
+  --backdrop-blur-xl: blur(16px);
+  --backdrop-saturate: saturate(180%);
+  --backdrop-brightness-light: brightness(1.1);
+  --backdrop-brightness-dark: brightness(0.8);
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * BORDER WIDTH — Closure: Explicit boundaries
+   *
+   * 💡 NOTE: --border-thin and --border-width-default are both 1px.
+   *    --border-width-default is a convenience alias for the common case.
+   * ──────────────────────────────────────────────────────────────────────── */
+  --border-none: 0;
+  --border-hairline: 0.5px;
+  --border-thin: 1px;
+  --border-width-default: 1px;
+  --border-medium: 2px;
+  --border-thick: 4px;
+  --border-heavy: 8px;
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * OVERLAY OPACITY — For consistent hover/active states on any color
+   * 
+   * 💡 Use with color-mix() to create overlays on brand colors:
+   *    background: color-mix(in srgb, var(--brand) var(--overlay-hover), transparent);
+   * ──────────────────────────────────────────────────────────────────────── */
+  /* --overlay-hover: 8%;
+  --overlay-active: 12%;
+  --overlay-selected: 16%;
+  --overlay-focus: 24%; */
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * LOGICAL PROPERTIES — i18n/RTL Ready
+   * 
+   * 💡 Use these instead of left/right for internationalization:
+   *    padding-inline-start: var(--space-inline-4);
+   *    margin-block-end: var(--space-block-2);
+   * ──────────────────────────────────────────────────────────────────────── */
+  --space-inline-1: var(--space-1);
+  --space-inline-2: var(--space-2);
+  --space-inline-3: var(--space-3);
+  --space-inline-4: var(--space-4);
+  --space-inline-6: var(--space-6);
+  --space-inline-8: var(--space-8);
+  --space-block-1: var(--space-1);
+  --space-block-2: var(--space-2);
+  --space-block-3: var(--space-3);
+  --space-block-4: var(--space-4);
+  --space-block-6: var(--space-6);
+  --space-block-8: var(--space-8);
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * HAPTIC / FEEDBACK — Mobile & React Native Ready
+   * 
+   * 💡 These describe intent, not implementation.
+   *    Implementation maps to platform APIs (Vibration, Taptic Engine, etc.)
+   * ──────────────────────────────────────────────────────────────────────── */
+  /* --haptic-light: 10;
+  --haptic-medium: 20;
+  --haptic-heavy: 30;
+  --haptic-success: 1;
+  --haptic-warning: 2;
+  --haptic-error: 3; */
+
+  /* ════════════════════════════════════════════════════════════════════════
+   * SEMANTICS - Level 2: Purpose-Driven Tokens
+   * 
+   * Components should use these tokens, NOT primitives directly.
+   * ════════════════════════════════════════════════════════════════════════ */
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * ELEVATION — Figure/Ground: Visual hierarchy through depth
+   * 
+   * Use these for component layering, NOT shadow-* primitives.
+   * ──────────────────────────────────────────────────────────────────────── */
+  --elevation-sunken-shadow: var(--shadow-inner);
+  --elevation-base-shadow: var(--shadow-none);
+  --elevation-raised-shadow: var(--shadow-sm);
+  --elevation-floating-shadow: var(--shadow-md);
+  --elevation-overlay-shadow: var(--shadow-lg);
+  --elevation-modal-shadow: var(--shadow-xl);
+  --elevation-toast-shadow: var(--shadow-2xl);
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * ACCESSIBILITY — Platform-agnostic constraints
+   * ──────────────────────────────────────────────────────────────────────── */
+  --a11y-min-touch-target: 44px;
+  --a11y-min-click-target: 24px;
+  --a11y-focus-outline-width: 2px;
+  --a11y-focus-outline-offset: 2px;
+  --a11y-reduced-motion-duration: 0ms;
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * FOCUS — Figure/Ground: Attention hierarchy
+   * ──────────────────────────────────────────────────────────────────────── */
+  --focus-ring-width: var(--a11y-focus-outline-width);
+  --focus-ring-offset: var(--a11y-focus-outline-offset);
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * INTERACTION — Feedback intent (NOT behavior)
+   * 
+   * ⚠️ These describe INTENT, not CSS behavior.
+   *    emphasis: 1 = subtle, 2 = strong, 3 = maximum
+   *    Implementation decides actual transform/scale/effect.
+   * ──────────────────────────────────────────────────────────────────────── */
+  --interaction-hover-emphasis: 1;
+  --interaction-active-emphasis: 2;
+  --interaction-disabled-opacity: var(--opacity-40);
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * MOTION — Common Fate: Coordinated animations
+   * ──────────────────────────────────────────────────────────────────────── */
+  --motion-micro-duration: var(--duration-fastest);
+  --motion-micro-easing: var(--ease-snappy);
+  --motion-fast-duration: var(--duration-fast);
+  --motion-fast-easing: var(--ease-out);
+  --motion-normal-duration: var(--duration-normal);
+  --motion-normal-easing: var(--ease-in-out);
+  --motion-slow-duration: var(--duration-slow);
+  --motion-slow-easing: var(--ease-in-out);
+  --motion-enter-duration: var(--duration-normal);
+  --motion-enter-easing: var(--ease-enter);
+  --motion-exit-duration: var(--duration-fast);
+  --motion-exit-easing: var(--ease-exit);
+  --motion-spring-duration: var(--duration-slow);
+  --motion-spring-easing: var(--ease-spring);
+
+  /* Motion Intent Aliases (for specific interactions) */
+  --motion-press-duration: var(--motion-micro-duration);
+  --motion-press-easing: var(--motion-micro-easing);
+  --motion-hover-duration: var(--motion-fast-duration);
+  --motion-hover-easing: var(--motion-fast-easing);
+  --motion-focus-duration: var(--motion-fast-duration);
+  --motion-focus-easing: var(--motion-fast-easing);
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * PROXIMITY — Contextual spacing for visual grouping
+   * 
+   * 💡 Use these for component spacing, NOT raw space-* values.
+   * ──────────────────────────────────────────────────────────────────────── */
+  --proximity-tight-gap: var(--space-1);
+  --proximity-tight-padding: var(--space-2);
+  --proximity-compact-gap: var(--space-2);
+  --proximity-compact-padding: var(--space-3);
+  --proximity-default-gap: var(--space-3);
+  --proximity-default-padding: var(--space-4);
+  --proximity-relaxed-gap: var(--space-4);
+  --proximity-relaxed-padding: var(--space-6);
+  --proximity-spacious-gap: var(--space-6);
+  --proximity-spacious-padding: var(--space-8);
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * TEXT STYLES — Continuity: Harmonious type system
+   * 
+   * 💡 Use these for all text, NOT raw font-size-* values.
+   * ──────────────────────────────────────────────────────────────────────── */
+
+  /* Display — Hero text, marketing headers */
+  --text-display-size: var(--font-size-6xl);
+  --text-display-weight: var(--font-weight-bold);
+  --text-display-leading: var(--leading-tight);
+  --text-display-tracking: var(--tracking-tight);
+
+  /* Headline — Section headers */
+  --text-headline-size: var(--font-size-4xl);
+  --text-headline-weight: var(--font-weight-bold);
+  --text-headline-leading: var(--leading-tight);
+  --text-headline-tracking: var(--tracking-tight);
+
+  /* Title — Card titles, modal headers */
+  --text-title-size: var(--font-size-2xl);
+  --text-title-weight: var(--font-weight-semibold);
+  --text-title-leading: var(--leading-snug);
+  --text-title-tracking: var(--tracking-normal);
+
+  /* Subtitle — Secondary headings */
+  --text-subtitle-size: var(--font-size-xl);
+  --text-subtitle-weight: var(--font-weight-medium);
+  --text-subtitle-leading: var(--leading-snug);
+  --text-subtitle-tracking: var(--tracking-normal);
+
+  /* Body — Primary content text */
+  --text-body-size: var(--font-size-base);
+  --text-body-weight: var(--font-weight-normal);
+  --text-body-leading: var(--leading-normal);
+  --text-body-tracking: var(--tracking-normal);
+
+  /* Body Small — Compact content text */
+  --text-body-sm-size: var(--font-size-sm);
+  --text-body-sm-weight: var(--font-weight-normal);
+  --text-body-sm-leading: var(--leading-normal);
+  --text-body-sm-tracking: var(--tracking-normal);
+
+  /* Label — Form labels, buttons */
+  --text-label-size: var(--font-size-sm);
+  --text-label-weight: var(--font-weight-medium);
+  --text-label-leading: var(--leading-normal);
+  --text-label-tracking: var(--tracking-wide);
+
+  /* Caption — Helper text, timestamps */
+  --text-caption-size: var(--font-size-xs);
+  --text-caption-weight: var(--font-weight-normal);
+  --text-caption-leading: var(--leading-normal);
+  --text-caption-tracking: var(--tracking-normal);
+
+  /* Overline — Category labels, section markers */
+  --text-overline-size: var(--font-size-xs);
+  --text-overline-weight: var(--font-weight-semibold);
+  --text-overline-leading: var(--leading-normal);
+  --text-overline-tracking: var(--tracking-widest);
+  --text-overline-transform: uppercase;
+
+  /* Code — Inline code, technical content */
+  --text-code-font: var(--font-mono);
+  --text-code-size: var(--font-size-sm);
+  --text-code-weight: var(--font-weight-normal);
+  --text-code-leading: var(--leading-relaxed);
+
+  /* ────────────────────────────────────────────────────────────────────────
+   * TRANSITION SHORTHANDS — Convenience utilities
+   * ──────────────────────────────────────────────────────────────────────── */
+  --transition-micro: var(--motion-micro-duration) var(--motion-micro-easing);
+  --transition-fast: var(--motion-fast-duration) var(--motion-fast-easing);
+  --transition-normal: var(--motion-normal-duration) var(--motion-normal-easing);
+  --transition-slow: var(--motion-slow-duration) var(--motion-slow-easing);
+  --transition-enter: var(--motion-enter-duration) var(--motion-enter-easing);
+  --transition-exit: var(--motion-exit-duration) var(--motion-exit-easing);
+  --transition-spring: var(--motion-spring-duration) var(--motion-spring-easing);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * THEME: LIGHT (Default)
+ * 
+ * ⚠️  DO NOT "DEDUPE" COLOR SCALES TO :root!
+ * 
+ * Color palettes are INTENTIONALLY defined inside each theme block.
+ * This enables:
+ *   1. Theme-specific color adjustments (e.g., warmer primary in dark mode)
+ *   2. Independent palette evolution per theme
+ *   3. Complete theme isolation for testing
+ * 
+ * The duplication is BY DESIGN. See DESIGN_TOKEN_RULES.md Rule #10.
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+:root,
+[data-theme='light'] {
+  /* ── Color Palette (Theme-Specific) ───────────────────────────────────── */
+  /* ⚠️ DO NOT MOVE TO :root — See header comment above */
+
+  /* Neutral (Gray) */
+  --neutral-50: #fafafa;
+  --neutral-100: #f5f5f5;
+  --neutral-200: #e5e5e5;
+  --neutral-300: #d4d4d4;
+  --neutral-400: #a3a3a3;
+  --neutral-500: #737373;
+  --neutral-600: #525252;
+  --neutral-700: #404040;
+  --neutral-800: #262626;
+  --neutral-850: #1f1f1f;
+  --neutral-900: #171717;
+  --neutral-950: #0a0a0a;
+
+  /* Primary (Blue) */
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-200: #bfdbfe;
+  --primary-300: #93c5fd;
+  --primary-400: #60a5fa;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-800: #1e40af;
+  --primary-900: #1e3a8a;
+  --primary-950: #172554;
+
+  /* Secondary (Purple) */
+  --secondary-50: #faf5ff;
+  --secondary-100: #f3e8ff;
+  --secondary-200: #e9d5ff;
+  --secondary-300: #d8b4fe;
+  --secondary-400: #c084fc;
+  --secondary-500: #a855f7;
+  --secondary-600: #9333ea;
+  --secondary-700: #7e22ce;
+  --secondary-800: #6b21a8;
+  --secondary-900: #581c87;
+  --secondary-950: #3b0764;
+
+  /* Tertiary (Teal) */
+  --tertiary-50: #f0fdfa;
+  --tertiary-100: #ccfbf1;
+  --tertiary-200: #99f6e4;
+  --tertiary-300: #5eead4;
+  --tertiary-400: #2dd4bf;
+  --tertiary-500: #14b8a6;
+  --tertiary-600: #0d9488;
+  --tertiary-700: #0f766e;
+  --tertiary-800: #115e59;
+  --tertiary-900: #134e4a;
+  --tertiary-950: #042f2e;
+
+  /* Success (Green) */
+  --success-50: #f0fdf4;
+  --success-100: #dcfce7;
+  --success-200: #bbf7d0;
+  --success-300: #86efac;
+  --success-400: #4ade80;
+  --success-500: #22c55e;
+  --success-600: #16a34a;
+  --success-700: #15803d;
+  --success-800: #166534;
+  --success-900: #14532d;
+  --success-950: #052e16;
+
+  /* Warning (Amber) */
+  --warning-50: #fffbeb;
+  --warning-100: #fef3c7;
+  --warning-200: #fde68a;
+  --warning-300: #fcd34d;
+  --warning-400: #fbbf24;
+  --warning-500: #f59e0b;
+  --warning-600: #d97706;
+  --warning-700: #b45309;
+  --warning-800: #92400e;
+  --warning-900: #78350f;
+  --warning-950: #451a03;
+
+  /* Danger (Red) */
+  --danger-50: #fef2f2;
+  --danger-100: #fee2e2;
+  --danger-200: #fecaca;
+  --danger-300: #fca5a5;
+  --danger-400: #f87171;
+  --danger-500: #ef4444;
+  --danger-600: #dc2626;
+  --danger-700: #b91c1c;
+  --danger-800: #991b1b;
+  --danger-900: #7f1d1d;
+  --danger-950: #450a0a;
+
+  /* Info (Cyan) */
+  --info-50: #ecfeff;
+  --info-100: #cffafe;
+  --info-200: #a5f3fc;
+  --info-300: #67e8f9;
+  --info-400: #22d3ee;
+  --info-500: #06b6d4;
+  --info-600: #0891b2;
+  --info-700: #0e7490;
+  --info-800: #155e75;
+  --info-900: #164e63;
+  --info-950: #083344;
+
+  /* Surface Colors — Figure/Ground */
+  --surface-canvas: var(--neutral-100);
+  --surface-base: var(--color-white);
+  --surface-subtle: var(--neutral-50);
+  --surface-muted: var(--neutral-200);
+  --surface-emphasis: var(--neutral-300);
+  --surface-inverse: var(--neutral-900);
+
+  /* Content Colors — Similarity */
+  --content-primary: var(--neutral-900);
+  --content-secondary: var(--neutral-600);
+  --content-tertiary: var(--neutral-500);
+  --content-muted: var(--neutral-400);
+  --content-subtle: var(--neutral-400);
+  --content-inverse: var(--neutral-50);
+  --content-disabled: var(--neutral-400);
+  --content-placeholder: var(--neutral-400);
+
+  /* Border Colors — Closure */
+  --border-color-default: var(--neutral-200);
+  --border-color-muted: var(--neutral-100);
+  --border-color-subtle: var(--neutral-50);
+  --border-color-emphasis: var(--neutral-400);
+  --border-color-focus: var(--primary-500);
+  --border-color-error: var(--danger-500);
+  --border-color-success: var(--success-500);
+  --border-color-warning: var(--warning-500);
+
+  /* Focus Ring */
+  --focus-ring-color: color-mix(in srgb, var(--border-color-focus) 50%, transparent);
+
+  /* Interaction Overlays */
+  --interaction-hover-overlay: rgba(0, 0, 0, 0.04);
+  --interaction-active-overlay: rgba(0, 0, 0, 0.08);
+
+  /* Elevation Surfaces */
+  --elevation-sunken-surface: var(--neutral-100);
+  --elevation-base-surface: var(--color-white);
+  --elevation-raised-surface: var(--color-white);
+  --elevation-floating-surface: var(--color-white);
+  --elevation-overlay-surface: var(--color-white);
+  --elevation-modal-surface: var(--color-white);
+  --elevation-toast-surface: var(--color-white);
+
+  /* ── Semantic Colors (Tailwind v4 Compatible) ─────────────────────────── */
+
+  /* Neutral */
+  --color-neutral-base: var(--neutral-500);
+  --color-neutral-emphasis: var(--neutral-600);
+  --color-neutral-subtle: var(--neutral-100);
+  --color-neutral-content: var(--neutral-900);
+  --color-neutral-border: var(--neutral-200);
+
+  /* Primary */
+  --color-primary-base: var(--primary-500);
+  --color-primary-emphasis: var(--primary-600);
+  --color-primary-subtle: var(--primary-50);
+  --color-primary-content: var(--color-white);
+  --color-primary-border: var(--primary-300);
+
+  /* Success */
+  --color-success-base: var(--success-500);
+  --color-success-emphasis: var(--success-600);
+  --color-success-subtle: var(--success-50);
+  --color-success-content: var(--color-white);
+  --color-success-border: var(--success-300);
+
+  /* Warning */
+  --color-warning-base: var(--warning-500);
+  --color-warning-emphasis: var(--warning-600);
+  --color-warning-subtle: var(--warning-50);
+  --color-warning-content: var(--neutral-900);
+  --color-warning-border: var(--warning-300);
+
+  /* Danger */
+  --color-danger-base: var(--danger-500);
+  --color-danger-emphasis: var(--danger-600);
+  --color-danger-subtle: var(--danger-50);
+  --color-danger-content: var(--color-white);
+  --color-danger-border: var(--danger-300);
+
+  /* Info */
+  --color-info-base: var(--info-500);
+  --color-info-emphasis: var(--info-600);
+  --color-info-subtle: var(--info-50);
+  --color-info-content: var(--color-white);
+  --color-info-border: var(--info-300);
+
+  /* Secondary */
+  --color-secondary-base: var(--secondary-500);
+  --color-secondary-emphasis: var(--secondary-600);
+  --color-secondary-subtle: var(--secondary-50);
+  --color-secondary-content: var(--color-white);
+  --color-secondary-border: var(--secondary-300);
+
+  /* Tertiary */
+  --color-tertiary-base: var(--tertiary-500);
+  --color-tertiary-emphasis: var(--tertiary-600);
+  --color-tertiary-subtle: var(--tertiary-50);
+  --color-tertiary-content: var(--color-white);
+  --color-tertiary-border: var(--tertiary-300);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * THEME: DARK
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+[data-theme='dark'] {
+  /* ── Color Palette (Theme-Specific) ───────────────────────────────────── */
+  /* ⚠️ DO NOT MOVE TO :root — See THEME: LIGHT header comment */
+
+  /* Neutral (Gray) */
+  --neutral-50: #fafafa;
+  --neutral-100: #f5f5f5;
+  --neutral-200: #e5e5e5;
+  --neutral-300: #d4d4d4;
+  --neutral-400: #a3a3a3;
+  --neutral-500: #737373;
+  --neutral-600: #525252;
+  --neutral-700: #404040;
+  --neutral-800: #262626;
+  --neutral-850: #1f1f1f;
+  --neutral-900: #171717;
+  --neutral-950: #0a0a0a;
+
+  /* Primary (Blue) */
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-200: #bfdbfe;
+  --primary-300: #93c5fd;
+  --primary-400: #60a5fa;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-800: #1e40af;
+  --primary-900: #1e3a8a;
+  --primary-950: #172554;
+
+  /* Secondary (Purple) */
+  --secondary-50: #faf5ff;
+  --secondary-100: #f3e8ff;
+  --secondary-200: #e9d5ff;
+  --secondary-300: #d8b4fe;
+  --secondary-400: #c084fc;
+  --secondary-500: #a855f7;
+  --secondary-600: #9333ea;
+  --secondary-700: #7e22ce;
+  --secondary-800: #6b21a8;
+  --secondary-900: #581c87;
+  --secondary-950: #3b0764;
+
+  /* Tertiary (Teal) */
+  --tertiary-50: #f0fdfa;
+  --tertiary-100: #ccfbf1;
+  --tertiary-200: #99f6e4;
+  --tertiary-300: #5eead4;
+  --tertiary-400: #2dd4bf;
+  --tertiary-500: #14b8a6;
+  --tertiary-600: #0d9488;
+  --tertiary-700: #0f766e;
+  --tertiary-800: #115e59;
+  --tertiary-900: #134e4a;
+  --tertiary-950: #042f2e;
+
+  /* Success (Green) */
+  --success-50: #f0fdf4;
+  --success-100: #dcfce7;
+  --success-200: #bbf7d0;
+  --success-300: #86efac;
+  --success-400: #4ade80;
+  --success-500: #22c55e;
+  --success-600: #16a34a;
+  --success-700: #15803d;
+  --success-800: #166534;
+  --success-900: #14532d;
+  --success-950: #052e16;
+
+  /* Warning (Amber) */
+  --warning-50: #fffbeb;
+  --warning-100: #fef3c7;
+  --warning-200: #fde68a;
+  --warning-300: #fcd34d;
+  --warning-400: #fbbf24;
+  --warning-500: #f59e0b;
+  --warning-600: #d97706;
+  --warning-700: #b45309;
+  --warning-800: #92400e;
+  --warning-900: #78350f;
+  --warning-950: #451a03;
+
+  /* Danger (Red) */
+  --danger-50: #fef2f2;
+  --danger-100: #fee2e2;
+  --danger-200: #fecaca;
+  --danger-300: #fca5a5;
+  --danger-400: #f87171;
+  --danger-500: #ef4444;
+  --danger-600: #dc2626;
+  --danger-700: #b91c1c;
+  --danger-800: #991b1b;
+  --danger-900: #7f1d1d;
+  --danger-950: #450a0a;
+
+  /* Info (Cyan) */
+  --info-50: #ecfeff;
+  --info-100: #cffafe;
+  --info-200: #a5f3fc;
+  --info-300: #67e8f9;
+  --info-400: #22d3ee;
+  --info-500: #06b6d4;
+  --info-600: #0891b2;
+  --info-700: #0e7490;
+  --info-800: #155e75;
+  --info-900: #164e63;
+  --info-950: #083344;
+
+  /* Surface Colors */
+  --surface-canvas: var(--neutral-950);
+  --surface-base: var(--neutral-900);
+  --surface-subtle: var(--neutral-850);
+  --surface-muted: var(--neutral-800);
+  --surface-emphasis: var(--neutral-700);
+  --surface-inverse: var(--neutral-100);
+
+  /* Content Colors */
+  --content-primary: var(--neutral-100);
+  --content-secondary: var(--neutral-300);
+  --content-tertiary: var(--neutral-400);
+  --content-muted: var(--neutral-500);
+  --content-subtle: var(--neutral-500);
+  --content-inverse: var(--neutral-900);
+  --content-disabled: var(--neutral-600);
+  --content-placeholder: var(--neutral-500);
+
+  /* Border Colors */
+  --border-color-default: var(--neutral-600);
+  --border-color-muted: var(--neutral-700);
+  --border-color-subtle: var(--neutral-800);
+  --border-color-emphasis: var(--neutral-500);
+  --border-color-focus: var(--primary-400);
+  --border-color-error: var(--danger-400);
+  --border-color-success: var(--success-400);
+  --border-color-warning: var(--warning-400);
+
+  /* Focus Ring */
+  --focus-ring-color: color-mix(in srgb, var(--border-color-focus) 50%, transparent);
+
+  /* Interaction Overlays */
+  --interaction-hover-overlay: rgba(255, 255, 255, 0.06);
+  --interaction-active-overlay: rgba(255, 255, 255, 0.1);
+
+  /* Elevation Surfaces */
+  --elevation-sunken-surface: var(--neutral-950);
+  --elevation-base-surface: var(--neutral-900);
+  --elevation-raised-surface: var(--neutral-800);
+  --elevation-floating-surface: var(--neutral-800);
+  --elevation-overlay-surface: var(--neutral-800);
+  --elevation-modal-surface: var(--neutral-800);
+  --elevation-toast-surface: var(--neutral-800);
+
+  /* ── Semantic Colors (Tailwind v4 Compatible) ─────────────────────────── */
+
+  /* Neutral */
+  --color-neutral-base: var(--neutral-400);
+  --color-neutral-emphasis: var(--neutral-300);
+  --color-neutral-subtle: var(--neutral-800);
+  --color-neutral-content: var(--neutral-100);
+  --color-neutral-border: var(--neutral-600);
+
+  /* Primary */
+  --color-primary-base: var(--primary-400);
+  --color-primary-emphasis: var(--primary-300);
+  --color-primary-subtle: var(--primary-950);
+  --color-primary-content: var(--neutral-900);
+  --color-primary-border: var(--primary-500);
+
+  /* Success */
+  --color-success-base: var(--success-400);
+  --color-success-emphasis: var(--success-300);
+  --color-success-subtle: var(--success-900);
+  --color-success-content: var(--neutral-900);
+  --color-success-border: var(--success-500);
+
+  /* Warning */
+  --color-warning-base: var(--warning-400);
+  --color-warning-emphasis: var(--warning-300);
+  --color-warning-subtle: var(--warning-950);
+  --color-warning-content: var(--neutral-900);
+  --color-warning-border: var(--warning-500);
+
+  /* Danger */
+  --color-danger-base: var(--danger-400);
+  --color-danger-emphasis: var(--danger-300);
+  --color-danger-subtle: var(--danger-950);
+  --color-danger-content: var(--neutral-900);
+  --color-danger-border: var(--danger-500);
+
+  /* Info */
+  --color-info-base: var(--info-400);
+  --color-info-emphasis: var(--info-300);
+  --color-info-subtle: var(--info-900);
+  --color-info-content: var(--neutral-900);
+  --color-info-border: var(--info-500);
+
+  /* Secondary */
+  --color-secondary-base: var(--secondary-400);
+  --color-secondary-emphasis: var(--secondary-300);
+  --color-secondary-subtle: var(--secondary-950);
+  --color-secondary-content: var(--neutral-900);
+  --color-secondary-border: var(--secondary-500);
+
+  /* Tertiary */
+  --color-tertiary-base: var(--tertiary-400);
+  --color-tertiary-emphasis: var(--tertiary-300);
+  --color-tertiary-subtle: var(--tertiary-950);
+  --color-tertiary-content: var(--neutral-900);
+  --color-tertiary-border: var(--tertiary-500);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+ * REDUCED MOTION — Accessibility preference
+ * ══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fastest: var(--a11y-reduced-motion-duration);
+    --duration-faster: var(--a11y-reduced-motion-duration);
+    --duration-fast: var(--a11y-reduced-motion-duration);
+    --duration-normal: var(--a11y-reduced-motion-duration);
+    --duration-slow: var(--a11y-reduced-motion-duration);
+    --duration-slower: var(--a11y-reduced-motion-duration);
+    --duration-slowest: var(--a11y-reduced-motion-duration);
+    --duration-deliberate: var(--a11y-reduced-motion-duration);
+    --duration-lazy: var(--a11y-reduced-motion-duration);
+  }
+}

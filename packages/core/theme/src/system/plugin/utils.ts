@@ -4,12 +4,6 @@ import { flatten } from 'flat';
 import Color from 'color';
 
 // ─────────────────────────────────────────────────────────────
-// Constants
-// ─────────────────────────────────────────────────────────────
-
-export const DEFAULT_PREFIX = 'ideasui';
-
-// ─────────────────────────────────────────────────────────────
 // Semantic Token Configuration
 // ─────────────────────────────────────────────────────────────
 
@@ -45,31 +39,6 @@ const DEGREES_360 = 360;
 
 const PRECISION_4 = 10000;
 const PRECISION_2 = 100;
-
-/**
- * Maps semantic token names to shade numbers.
- * Dark shades are already inverted in colors.ts
- */
-export const SEMANTIC_TOKEN_MAP = {
-  light: {
-    DEFAULT: '500',
-    on: '50',
-    container: '100',
-    onContainer: '900',
-    subtle: '200',
-    muted: '400',
-    active: '700',
-  },
-  dark: {
-    DEFAULT: '500',
-    on: '50',
-    container: '100',
-    onContainer: '900',
-    subtle: '200',
-    muted: '400',
-    active: '300',
-  },
-} as const;
 
 /**
  * Converts a string to kebab-case
@@ -230,6 +199,11 @@ export function parseColorValue(colorValue: string): ParsedColor | null {
       }
     }
 
+    // Handle var() input - pass through directly as a single component
+    if (trimmed.startsWith('var(')) {
+      return { cssFn: 'var', components: [trimmed] };
+    }
+
     // Convert all other formats (hex, rgb, hsl, named) to OKLCH
     const color = Color(trimmed);
     const rgb = color.rgb().array();
@@ -254,9 +228,7 @@ export function parseColorValue(colorValue: string): ParsedColor | null {
  * @returns {string} The formatted color string
  */
 export function formatColorComponents(components: (string | number)[]): string {
-  const [l, c, h] = components;
-
-  return `${l} ${c} ${h}`;
+  return components.filter((c) => c !== undefined).join(' ');
 }
 
 /**
@@ -268,24 +240,4 @@ export const isNumericShade = (key: string): boolean =>
   /^(50|100|200|300|400|500|600|700|800|900|950)$/.test(key);
 
 /** Regex to extract color base name from flattened key */
-export const COLOR_NAME_REGEX =
-  /^([a-z]+)-(50|100|200|300|400|500|600|700|800|900|950|default|on|container|oncontainer|subtle|muted|active)$/i;
-
-/**
- * Extracts unique color base names from flattened color object
- * @param {Record<string, string>} flatColors - The flattened color object
- * @returns {Set<string>} A Set of unique color base names
- */
-export function extractColorBaseNames(flatColors: Record<string, string>): Set<string> {
-  const names = new Set<string>();
-
-  for (const key of Object.keys(flatColors)) {
-    const match = COLOR_NAME_REGEX.exec(key);
-
-    if (match) {
-      names.add(match[1]);
-    }
-  }
-
-  return names;
-}
+export const COLOR_NAME_REGEX = /^([a-z]+)-(50|100|200|300|400|500|600|700|800|900|950)$/i;

@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import { getUniqueID, clamp, isNumeric, toNumber, range, omit, pick } from '../utils';
 
 describe('utils', () => {
@@ -86,15 +85,15 @@ describe('utils', () => {
 
   describe('range', () => {
     it('should create range from 0 to end', () => {
-      expect(range(5)).toEqual([0, 1, 2, 3, 4]);
+      expect(range(5)).toStrictEqual([0, 1, 2, 3, 4]);
     });
 
     it('should create range from start to end', () => {
-      expect(range(2, 5)).toEqual([2, 3, 4]);
+      expect(range(2, 5)).toStrictEqual([2, 3, 4]);
     });
 
     it('should create range with step', () => {
-      expect(range(0, 10, 2)).toEqual([0, 2, 4, 6, 8]);
+      expect(range(0, 10, 2)).toStrictEqual([0, 2, 4, 6, 8]);
     });
   });
 
@@ -103,7 +102,7 @@ describe('utils', () => {
       const obj = { a: 1, b: 2, c: 3 };
       const result = omit(obj, ['b']);
 
-      expect(result).toEqual({ a: 1, c: 3 });
+      expect(result).toStrictEqual({ a: 1, c: 3 });
     });
 
     it('should return new object', () => {
@@ -119,7 +118,7 @@ describe('utils', () => {
       const obj = { a: 1, b: 2, c: 3 };
       const result = pick(obj, ['a', 'c']);
 
-      expect(result).toEqual({ a: 1, c: 3 });
+      expect(result).toStrictEqual({ a: 1, c: 3 });
     });
 
     it('should ignore keys that do not exist', () => {
@@ -127,7 +126,7 @@ describe('utils', () => {
       // @ts-ignore
       const result = pick(obj, ['a', 'c']);
 
-      expect(result).toEqual({ a: 1 });
+      expect(result).toStrictEqual({ a: 1 });
     });
   });
 });

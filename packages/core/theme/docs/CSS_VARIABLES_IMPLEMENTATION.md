@@ -122,6 +122,53 @@ The following CSS custom properties are now automatically generated:
 
 ---
 
+### 📋 Variable Reference
+
+#### Color Palette (Global)
+
+These variables provide direct access to the OKLCH color components of the entire palette.
+
+| Category      | Variables                                     | Example                   |
+| :------------ | :-------------------------------------------- | :------------------------ |
+| **Primary**   | `--ideasui-primary-[50-950]`                  | `--ideasui-primary-500`   |
+| **Secondary** | `--ideasui-secondary-[50-950]`                | `--ideasui-secondary-500` |
+| **Tertiary**  | `--ideasui-tertiary-[50-950]`                 | `--ideasui-tertiary-500`  |
+| **Status**    | `--ideasui-success`, `--ideasui-warning`, ... | `--ideasui-success-500`   |
+| **Neutral**   | `--ideasui-neutral`, `--ideasui-gray`         | `--ideasui-gray-100`      |
+
+#### Spacing & Layout
+
+Standard increments for margins, padding, and layout positioning.
+
+| Category      | Naming Pattern               | Example                   |
+| :------------ | :--------------------------- | :------------------------ |
+| **Spacing**   | `--ideasui-spacing-[key]`    | `--ideasui-spacing-4`     |
+| **Radius**    | `--ideasui-radius-[name]`    | `--ideasui-radius-medium` |
+| **Shadow**    | `--ideasui-shadow-[name]`    | `--ideasui-shadow-large`  |
+| **Font Size** | `--ideasui-font-size-[name]` | `--ideasui-font-size-md`  |
+
+#### Motion
+
+| Category     | Naming Pattern              | Example                     |
+| :----------- | :-------------------------- | :-------------------------- |
+| **Duration** | `--ideasui-duration-[name]` | `--ideasui-duration-normal` |
+| **Easing**   | `--ideasui-easing-[name]`   | `--ideasui-easing-standard` |
+| **Delay**    | `--ideasui-delay-[name]`    | `--ideasui-delay-sm`        |
+
+#### Breakpoints
+
+| Breakpoint | Variable                   | Value    |
+| :--------- | :------------------------- | :------- |
+| **Small**  | `--ideasui-breakpoint-sm`  | `640px`  |
+| **Medium** | `--ideasui-breakpoint-md`  | `768px`  |
+| **Large**  | `--ideasui-breakpoint-lg`  | `1024px` |
+| **XL**     | `--ideasui-breakpoint-xl`  | `1280px` |
+| **2XL**    | `--ideasui-breakpoint-2xl` | `1536px` |
+
+---
+
+### 🎨 Color System Details
+
 ## Usage Examples
 
 ### Approach 1: TypeScript Tokens (Type-Safe)

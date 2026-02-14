@@ -179,6 +179,159 @@ delay.xl; // 300ms
 <div className="animate-fade-in delay-sm">Delayed animation</div>
 ```
 
+### Animation Sequences
+
+Complex multi-step animations:
+
+```typescript
+import { sequences } from '@ideasui/theme/tokens';
+
+sequences.slideAndFade; // Slide + fade combination
+sequences.scaleAndFade; // Scale + fade combination
+sequences.bounceIn; // Entrance with bounce
+```
+
+---
+
+## 🔧 CSS Custom Properties
+
+**New in v1.0:** All design tokens are now also available as CSS custom properties for runtime theming!
+
+### Why CSS Variables?
+
+IdeasUI uses a **hybrid approach** combining TypeScript tokens with CSS variables:
+
+- ✅ **TypeScript Tokens**: Type-safe, autocomplete, compile-time validation
+- ✅ **CSS Variables**: Runtime switching, framework-agnostic, DevTools inspection
+
+  /_ Easing tokens _/
+  --ideasui-easing-linear: linear;
+  --ideasui-easing-in: ease-in;
+  --ideasui-easing-out: ease-out;
+  --ideasui-easing-in-out: ease-in-out;
+  --ideasui-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ideasui-easing-decelerate: cubic-bezier(0, 0, 0.2, 1);
+  --ideasui-easing-accelerate: cubic-bezier(0.4, 0, 1, 1);
+  --ideasui-easing-sharp: cubic-bezier(0.4, 0, 0.6, 1);
+  --ideasui-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ideasui-easing-elastic: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  --ideasui-easing-ios: cubic-bezier(0.36, 0, 0.66, -0.56);
+
+  /_ Delay tokens _/
+  --ideasui-delay-none: 0ms;
+  --ideasui-delay-xs: 50ms;
+  --ideasui-delay-sm: 100ms;
+  --ideasui-delay-md: 150ms;
+  --ideasui-delay-lg: 200ms;
+  --ideasui-delay-xl: 300ms;
+
+  /_ Breakpoint tokens (for JavaScript access) _/
+  --ideasui-breakpoint-sm: 640px;
+  --ideasui-breakpoint-md: 768px;
+  --ideasui-breakpoint-lg: 1024px;
+  --ideasui-breakpoint-xl: 1280px;
+  --ideasui-breakpoint-2xl: 1536px;
+  }
+
+````
+
+### Usage: Hybrid Approach
+
+**Approach 1: TypeScript Tokens (Recommended for React)**
+
+```tsx
+import { duration, easing } from '@ideasui/theme/tokens';
+
+const AnimatedComponent = () => (
+  <div
+    className="transition-all"
+    style={{
+      transitionDuration: duration.normal, // Type-safe! ✅
+      transitionTimingFunction: easing.standard,
+    }}
+  >
+    Content
+  </div>
+);
+````
+
+**Approach 2: CSS Variables (Framework-agnostic)**
+
+```tsx
+const AnimatedComponent = () => (
+  <div
+    className="transition-all"
+    style={{
+      transitionDuration: 'var(--ideasui-duration-normal)',
+      transitionTimingFunction: 'var(--ideasui-easing-standard)',
+    }}
+  >
+    Content
+  </div>
+);
+```
+
+**Approach 3: Pure CSS**
+
+```css
+.my-component {
+  transition-property: all;
+  transition-duration: var(--ideasui-duration-normal);
+  transition-timing-function: var(--ideasui-easing-standard);
+}
+
+.my-component--fast {
+  transition-duration: var(--ideasui-duration-faster);
+}
+```
+
+### Runtime Theme Switching
+
+CSS variables enable dynamic theme changes:
+
+```typescript
+// Change animation speed globally
+document.documentElement.style.setProperty(
+  '--ideasui-duration-normal',
+  '500ms', // Make all animations slower
+);
+
+// Create a "slow motion" mode
+const enableSlowMotion = () => {
+  document.documentElement.style.setProperty('--ideasui-duration-normal', '1s');
+  document.documentElement.style.setProperty('--ideasui-duration-faster', '800ms');
+  document.documentElement.style.setProperty('--ideasui-duration-slow', '1.5s');
+};
+
+// Reset to defaults
+const resetAnimationSpeed = () => {
+  document.documentElement.style.removeProperty('--ideasui-duration-normal');
+  document.documentElement.style.removeProperty('--ideasui-duration-faster');
+  document.documentElement.style.removeProperty('--ideasui-duration-slow');
+};
+```
+
+### When to Use Which Approach
+
+| Scenario                | Use TypeScript Tokens | Use CSS Variables |
+| ----------------------- | --------------------- | ----------------- |
+| **React components**    | ✅ Recommended        | ⚠️ Optional       |
+| **Type safety needed**  | ✅ Yes                | ❌ No             |
+| **Runtime theming**     | ❌ Limited            | ✅ Yes            |
+| **Vanilla CSS/HTML**    | ❌ No                 | ✅ Yes            |
+| **Vue/Svelte/Angular**  | ⚠️ Manual import      | ✅ Automatic      |
+| **DevTools inspection** | ⚠️ Computed only      | ✅ Direct access  |
+| **Framework-agnostic**  | ❌ Requires build     | ✅ Works anywhere |
+
+### Best Practices
+
+1. **Start with TypeScript tokens** - Get type safety and autocomplete
+2. **Use CSS variables for runtime changes** - Theme switchers, user preferences
+3. **Both work together** - You can mix approaches in the same project
+4. **Inspect in DevTools** - CSS variables are visible and editable in browser tools
+
+---
+
 ## 🎯 Usage Examples
 
 ### Responsive Card
@@ -227,7 +380,44 @@ import { motion } from '@ideasui/theme/tokens';
 }
 ```
 
+---
+
+## 🏗️ CSS Architecture
+
+### CSS Layers
+
+IdeasUI uses CSS `@layer` for better cascade control:
+
+```css
+@layer base, components, utilities;
+```
+
+**What this means:**
+
+- **Base layer**: Reset styles, CSS variables, foundational styles
+- **Components layer**: Component-specific styles
+- **Utilities layer**: Tailwind utilities (highest priority)
+
+**Benefits:**
+
+- Predictable specificity
+- No more `!important` battles
+- Easier to override styles
+- Layer order determines cascade, not selector specificity
+
+**Learn more:** [CSS Cascade Layers (MDN)](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer)
+
+---
+
 ## 📚 Best Practices
+
+### Design Tokens
+
+1. **Import from package**: Always import from `@ideasui/theme/tokens`
+2. **Use TypeScript first**: Get autocomplete and type safety
+3. **CSS variables for runtime**: Use when you need dynamic theming
+4. **Don't hardcode values**: Use tokens instead of magic numbers
+5. **Consistent naming**: Follow the token naming conventions
 
 ### Responsive Design
 
@@ -241,15 +431,27 @@ import { motion } from '@ideasui/theme/tokens';
 1. **Use Presets**: Start with `motion` presets for consistency
 2. **Match Context**: Enter animations → `decelerate`, Exit → `accelerate`
 3. **Keep it Fast**: Most animations should be 200-300ms
-4. **Respect Motion Preferences**: Users can disable animations
+4. **Respect Motion Preferences**: Users can disable animations via `prefers-reduced-motion`
 5. **Stagger Thoughtfully**: Use delays for lists, but keep under 100ms per item
 
-### Performance
+###
+
+Performance
 
 1. **Prefer Transform**: Use `transform` and `opacity` for best performance
 2. **Avoid Layout Shifts**: Animate transform/opacity instead of width/height
 3. **Use will-change**: Hint browser for complex animations
 4. **Reduce Motion**: Respect `prefers-reduced-motion`
+5. **CSS Variables overhead**: Minimal - use freely
+
+### Hybrid Approach
+
+1. **TypeScript for new code**: Type safety and DX benefits
+2. **CSS vars for themes**: Enable runtime switching
+3. **Mix and match**: Both approaches work together
+4. **Document your choice**: Be consistent within components
+
+---
 
 ## 🔗 Related Documentation
 

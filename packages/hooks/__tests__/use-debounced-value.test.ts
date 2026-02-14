@@ -155,10 +155,12 @@ describe('useDebouncedValue', () => {
     });
 
     // No pending change
-    act(() => {
-      result.current.cancel();
-    });
-    // Should not throw
+    // No pending change
+    expect(() => {
+      act(() => {
+        result.current.cancel();
+      });
+    }).not.toThrow();
   });
 
   it('should not throw when flushing if no timer pending', () => {
@@ -167,9 +169,12 @@ describe('useDebouncedValue', () => {
     });
 
     // No pending change
-    act(() => {
-      result.current.flush();
-    });
+    // No pending change
+    expect(() => {
+      act(() => {
+        result.current.flush();
+      });
+    }).not.toThrow();
 
     expect(result.current.debouncedValue).toBe('initial');
   });

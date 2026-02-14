@@ -108,6 +108,21 @@ const { theme, setTheme, resolved, themes, isDark } = useTheme();
 
 ## 🔌 Tailwind Plugin
 
+User's tailwind.config.ts
+│
+▼
+index.ts (plugin entry)
+│
+├──► core.ts
+│ ├── buildThemes() → merges default + user tokens
+│ ├── resolveConfig() → generates CSS per theme
+│ │ ├── colors.ts → processes color tokens
+│ │ └── layout.ts → processes layout tokens
+│ └── createThemeExtension() → extends Tailwind config
+│
+└──► css-vars.ts
+└── generateDesignTokenCSSVars() → static tokens → CSS vars on :root
+
 ### Basic Usage
 
 ```js

@@ -1,10 +1,18 @@
 import { tv } from 'tailwind-variants';
 
+// BEM base class names
+const BEM_BASE = '{{kebabCase name}}';
+const BEM_SOLID = '{{kebabCase name}}--solid';
+const BEM_OUTLINE = '{{kebabCase name}}--outline';
+const BEM_GHOST = '{{kebabCase name}}--ghost';
+
 /**
- * {{pascalCase name}} component variants
+ * {{pascalCase name}} component recipe
+ * @see https://www.tailwind-variants.org
  */
-export const {{camelCase name}} = tv({
+export const {{camelCase name}}Recipe = tv({
   base: [
+    BEM_BASE, // BEM base class for debugging
     // Base styles here
     'inline-flex',
     'items-center',
@@ -12,14 +20,14 @@ export const {{camelCase name}} = tv({
   ],
   variants: {
     variant: {
-      solid: '',
-      outline: 'border-2 bg-transparent',
-      ghost: 'bg-transparent',
+      solid: [BEM_SOLID, ''],
+      outline: [BEM_OUTLINE, 'border-2', 'bg-transparent'],
+      ghost: [BEM_GHOST, 'bg-transparent'],
     },
     size: {
-      sm: 'text-sm px-3 py-2',
-      md: 'text-base px-4 py-2',
-      lg: 'text-lg px-6 py-3',
+      sm: ['{{kebabCase name}}--sm', 'text-sm', 'px-3', 'py-2'],
+      md: ['{{kebabCase name}}--md', 'text-base', 'px-4', 'py-2'],
+      lg: ['{{kebabCase name}}--lg', 'text-lg', 'px-6', 'py-3'],
     },
     color: {
       primary: 'bg-primary-500 text-white',

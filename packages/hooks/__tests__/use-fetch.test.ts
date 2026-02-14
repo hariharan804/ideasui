@@ -4,15 +4,19 @@ import { useFetch } from '../src/use-fetch';
 const FETCH_URL = 'https://api.example.com/data';
 
 describe('useFetch', () => {
+  beforeAll(() => {
+    jest.spyOn(global, 'fetch').mockImplementation();
+  });
+
   beforeEach(() => {
-    global.fetch = jest.fn();
+    (global.fetch as jest.Mock).mockClear();
   });
 
   it('should fetch data successfully', async () => {
     (global.fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ data: 'test' }),
-    });
+    } as unknown as Response);
 
     const { result } = renderHook(() => useFetch(FETCH_URL));
 
@@ -20,15 +24,15 @@ describe('useFetch', () => {
 
     await waitFor(() => expect(result.current.loading).toBe(false));
 
-    expect(result.current.data).toEqual({ data: 'test' });
+    expect(result.current.data).toStrictEqual({ data: 'test' });
     expect(result.current.error).toBeNull();
   });
 
   it('should handle POST request with body', async () => {
-    global.fetch = jest.fn().mockResolvedValue({
+    (global.fetch as jest.Mock).mockResolvedValue({
       ok: true,
       json: async () => ({ success: true }),
-    });
+    } as unknown as Response);
 
     const { result } = renderHook(() =>
       useFetch(FETCH_URL, {
@@ -48,7 +52,7 @@ describe('useFetch', () => {
         body: JSON.stringify({ foo: 'bar' }),
       }),
     );
-    expect(result.current.data).toEqual({ success: true });
+    expect(result.current.data).toStrictEqual({ success: true });
   });
 
   it('should abort previous request on concurrent refetch', async () => {
@@ -94,7 +98,7 @@ describe('useFetch', () => {
     const abortSpy = jest.fn();
 
     // @ts-ignore
-    global.AbortController = jest.fn(() => ({
+    jest.spyOn(global, 'AbortController').mockImplementation(() => ({
       abort: abortSpy,
       signal: {},
     }));

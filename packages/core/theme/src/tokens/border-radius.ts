@@ -1,10 +1,12 @@
 export const borderRadius = {
-  none: '0px',
-  sm: '0.125rem', // 2px
-  md: '0.375rem', // 6px
-  lg: '0.5rem', // 8px
-  xl: '0.75rem', // 12px
-  '2xl': '1rem', // 16px
-  '3xl': '1.5rem', // 24px
+  '2xl': '1rem',
+  '3xl': '1.5rem',
+  '4xl': '2rem',
   full: '9999px',
+  lg: '0.5rem',
+  md: '0.375rem',
+  none: '0',
+  sm: '0.25rem',
+  xl: '0.75rem',
+  xs: '0.125rem',
 } as const;

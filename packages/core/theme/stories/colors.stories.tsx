@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 
 import { useState } from 'react';
 
-import { lightColorTokens, darkColorTokens } from '../src/tokens/colors';
+import { primitives } from '../src/tokens/colors';
 
 const meta: Meta = {
   title: 'Theme/Colors',
@@ -108,7 +108,7 @@ export const LightColors: Story = {
         <p className="mt-1 text-sm text-gray-400">Click any swatch to copy the color value</p>
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
-        {Object.entries(lightColorTokens).map(([colorName, shades]) => (
+        {Object.entries(primitives.light).map(([colorName, shades]) => (
           <ColorScale key={colorName} colorName={colorName} colors={shades} />
         ))}
       </div>
@@ -125,7 +125,7 @@ export const DarkColors: Story = {
         <p className="mt-1 text-sm text-gray-500">Click any swatch to copy the color value</p>
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
-        {Object.entries(darkColorTokens).map(([colorName, shades]) => (
+        {Object.entries(primitives.dark).map(([colorName, shades]) => (
           <ColorScale key={colorName} isDark colorName={colorName} colors={shades} />
         ))}
       </div>
@@ -144,9 +144,9 @@ export const ColorComparison: Story = {
           Side-by-side color palette comparison across themes
         </p>
       </div>
-      {Object.keys(lightColorTokens).map((colorName) => {
-        const lightShades = lightColorTokens[colorName as keyof typeof lightColorTokens];
-        const darkShades = darkColorTokens[colorName as keyof typeof darkColorTokens];
+      {Object.keys(primitives.light).map((colorName) => {
+        const lightShades = primitives.light[colorName as keyof typeof primitives.light];
+        const darkShades = primitives.dark[colorName as keyof typeof primitives.dark];
 
         return (
           <div

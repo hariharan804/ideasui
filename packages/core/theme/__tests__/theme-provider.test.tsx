@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { ThemeProvider } from '../src/system/providers/theme-provider';
 
@@ -9,13 +9,13 @@ describe('ThemeProvider', () => {
   });
 
   it('should render children', () => {
-    const { getByText } = render(
+    render(
       <ThemeProvider>
         <div>Test Child</div>
       </ThemeProvider>,
     );
 
-    expect(getByText('Test Child')).toBeInTheDocument();
+    expect(screen.getByText('Test Child')).toBeInTheDocument();
   });
 
   it('should accept theme configuration props', () => {

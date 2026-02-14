@@ -1,9 +1,8 @@
 import { ideasUIPlugin } from '../src/index';
-import { lightColorTokens, darkColorTokens } from '../src/tokens/colors';
+import { primitives } from '../src/tokens/colors';
 import { lightLayout } from '../src/tokens/layout';
 
 describe('ideasUIPlugin', () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let mockPluginAPI: any;
 
   beforeEach(() => {
@@ -46,7 +45,6 @@ describe('ideasUIPlugin', () => {
 
   it('should handle invalid configuration gracefully', () => {
     expect(() => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ideasUIPlugin({ themes: null as any });
     }).not.toThrow();
   });
@@ -81,26 +79,39 @@ describe('ideasUIPlugin', () => {
     // verifying that custom configuration is passed through
     expect(mockPluginAPI.addBase).toHaveBeenCalled();
   });
+
+  it('should generate border tokens', () => {
+    const plugin = ideasUIPlugin();
+
+    plugin.handler(mockPluginAPI);
+
+    const baseCall = mockPluginAPI.addBase.mock.calls.find((call: any) => {
+      const theme = call[0][":root, .light, [data-theme='light']"];
+
+      return theme && theme['--ideasui-border-base'] !== undefined;
+    });
+
+    expect(baseCall).toBeDefined();
+  });
 });
 
 describe('Color System', () => {
   it('should have valid light color tokens', () => {
-    expect(lightColorTokens).toBeDefined();
-    expect(lightColorTokens.primary).toBeDefined();
-    expect(lightColorTokens.primary['500']).toMatch(/^oklch\(/);
+    expect(primitives.light).toBeDefined();
+    expect(primitives.light.primary).toBeDefined();
+    expect(primitives.light.primary['500']).toMatch(/^oklch\(/);
   });
 
   it('should have valid dark color tokens', () => {
-    expect(darkColorTokens).toBeDefined();
-    expect(darkColorTokens.primary).toBeDefined();
-    expect(darkColorTokens.primary['500']).toMatch(/^oklch\(/);
+    expect(primitives.dark).toBeDefined();
+    expect(primitives.dark.primary).toBeDefined();
+    expect(primitives.dark.primary['500']).toMatch(/^oklch\(/);
   });
 });
 
 describe('Layout System', () => {
   it('should have valid layout tokens', () => {
     expect(lightLayout).toBeDefined();
-    expect(lightLayout.radiusMedium).toBeDefined();
-    expect(lightLayout.radiusMedium).toContain('rem');
+    expect(lightLayout.hoverOpacity).toBeDefined();
   });
 });

@@ -43,11 +43,12 @@ export const ThemeScript = memo<ThemeScriptProps>((props) => {
 
   return (
     <script
-      id={id}
-      {...scriptProps}
       dangerouslySetInnerHTML={{ __html: script }}
       suppressHydrationWarning
+      data-testid="theme-script"
+      id={id}
       nonce={nonce}
+      {...scriptProps}
     />
   );
 });

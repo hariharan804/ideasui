@@ -20,6 +20,12 @@
     },
     "./plugin": {
       "import": "./src/system/plugin/index.ts"
+    },
+    "./index.css": {
+      "import": "./dist/index.css"
+    },
+    "./theme.css": {
+      "import": "./dist/theme.css"
     }
   },
   "files": [
@@ -27,7 +33,9 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && pnpm build:theme && pnpm build:css",
+    "build:css": "tailwindcss -i index.css -o dist/index.css --minify",
+    "build:theme": "node scripts/generate-theme-css.mjs",
     "dev": "tsup --watch",
     "generate-theme": "node ./src/system/generator/generate-theme.mjs",
     "lint": "eslint .",
@@ -38,8 +46,10 @@
   },
   "devDependencies": {
     "@ideasui/utils": "workspace:*",
+    "@tailwindcss/cli": "^4.0.0",
     "@types/node": "^20.0.0",
     "chroma-js": "^3.2.0",
+    "tailwindcss": "^4.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
   },

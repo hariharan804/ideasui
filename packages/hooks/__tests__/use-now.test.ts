@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import { renderHook, act } from '@testing-library/react';
 
 import { useNow } from '../src/use-now';
@@ -16,7 +15,7 @@ describe('useNow', () => {
   it('should return current date', () => {
     const { result } = renderHook(() => useNow());
 
-    expect(result.current).toEqual(new Date(2023, 0, 1, 10, 0, 0));
+    expect(result.current).toStrictEqual(new Date(2023, 0, 1, 10, 0, 0));
   });
 
   it('should update periodically', () => {

@@ -7,12 +7,7 @@ export interface LayoutTokens {
   radiusMedium?: string;
   /** Border radius - large (default: 0.75rem) */
   radiusLarge?: string;
-  /** Border width - small (default: 1px) */
-  borderWidthSmall?: string;
-  /** Border width - medium (default: 2px) */
-  borderWidthMedium?: string;
-  /** Border width - large (default: 3px) */
-  borderWidthLarge?: string;
+
   /** Box shadow - small */
   boxShadowSmall?: string;
   /** Box shadow - medium */
@@ -64,6 +59,7 @@ export interface ColorScale {
   800?: string;
   900?: string;
   950?: string;
+  [key: string]: string | undefined;
 }
 
 export interface ColorTokens {
@@ -120,7 +116,7 @@ export interface IdeasUITheme {
 export type ThemeMode = 'light' | 'dark' | 'system';
 
 /** All colors are stored and output as OKLCH */
-export type ColorFn = 'oklch';
+export type ColorFn = 'oklch' | 'var';
 
 export type ConfigTheme = {
   extend?: 'light' | 'dark';

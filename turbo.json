@@ -16,11 +16,11 @@
       "cache": true,
       "persistent": true
     },
-    "dev:next": {
+    "dev:playground": {
       "cache": true,
       "persistent": true
     },
-    "start:next": {
+    "start:playground": {
       "cache": true,
       "persistent": true
     },

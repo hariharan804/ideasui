@@ -4,7 +4,7 @@ import type { JSX } from 'react';
 import { useState } from 'react';
 import { Check, Copy, Palette } from 'lucide-react';
 import Link from 'next/link';
-import { lightColorTokens, darkColorTokens } from '@ideasui/theme';
+import { primitives } from '@ideasui/theme';
 
 const COPY_TIMEOUT = 2000;
 const DEFAULT_BUTTON_CLASS =
@@ -22,11 +22,11 @@ export default function ColorsPage(): JSX.Element {
   };
 
   const colors = {
-    light: lightColorTokens,
-    dark: darkColorTokens,
+    light: primitives.light,
+    dark: primitives.dark,
   };
 
-  const colorCategories = Object.keys(lightColorTokens) as Array<keyof typeof lightColorTokens>;
+  const colorCategories = Object.keys(primitives.light) as Array<keyof typeof primitives.light>;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-50 to-neutral-100 p-6">
@@ -268,33 +268,33 @@ export default function ColorsPage(): JSX.Element {
                 <h3 className="text-lg font-medium text-neutral-700">Background Swatches</h3>
                 <div className="space-y-2">
                   <div className="flex items-center gap-3">
-                    <div className="bg-primary h-8 w-8 rounded" />
+                    <div className="bg-primary-500 h-8 w-8 rounded" />
                     <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-sm">
-                      bg-primary
+                      bg-primary-500
                     </code>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="bg-secondary h-8 w-8 rounded" />
+                    <div className="bg-secondary-500 h-8 w-8 rounded" />
                     <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-sm">
-                      bg-secondary
+                      bg-secondary-500
                     </code>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="bg-success h-8 w-8 rounded" />
+                    <div className="bg-success-500 h-8 w-8 rounded" />
                     <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-sm">
-                      bg-success
+                      bg-success-500
                     </code>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="bg-warning h-8 w-8 rounded" />
+                    <div className="bg-warning-500 h-8 w-8 rounded" />
                     <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-sm">
-                      bg-warning
+                      bg-warning-500
                     </code>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="bg-danger h-8 w-8 rounded" />
+                    <div className="bg-danger-500 h-8 w-8 rounded" />
                     <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-sm">
-                      bg-danger
+                      bg-danger-500
                     </code>
                   </div>
                 </div>
@@ -304,206 +304,37 @@ export default function ColorsPage(): JSX.Element {
                 <h3 className="text-lg font-medium text-neutral-700">Text Swatches</h3>
                 <div className="space-y-2">
                   <div className="flex items-center gap-3">
-                    <span className="text-primary text-lg font-semibold">Sample Text</span>
+                    <span className="text-primary-500 text-lg font-semibold">Sample Text</span>
                     <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-sm">
-                      text-primary
+                      text-primary-500
                     </code>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-secondary text-lg font-semibold">Sample Text</span>
+                    <span className="text-secondary-500 text-lg font-semibold">Sample Text</span>
                     <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-sm">
-                      text-secondary
+                      text-secondary-500
                     </code>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-success text-lg font-semibold">Sample Text</span>
+                    <span className="text-success-500 text-lg font-semibold">Sample Text</span>
                     <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-sm">
-                      text-success
+                      text-success-500
                     </code>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-warning text-lg font-semibold">Sample Text</span>
+                    <span className="text-warning-500 text-lg font-semibold">Sample Text</span>
                     <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-sm">
-                      text-warning
+                      text-warning-500
                     </code>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-danger text-lg font-semibold">Sample Text</span>
+                    <span className="text-danger-500 text-lg font-semibold">Sample Text</span>
                     <code className="rounded bg-neutral-100 px-2 py-1 font-mono text-sm">
-                      text-danger
+                      text-danger-500
                     </code>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* MD3 Semantic Tokens Showcase */}
-        <div className="mt-12 rounded-2xl border bg-white p-8 shadow-sm">
-          <h2 className="mb-2 text-2xl font-semibold text-neutral-800">MD3 Semantic Tokens</h2>
-          <p className="mb-6 text-neutral-600">
-            Material Design 3 style semantic tokens that reference numeric shades via CSS variables.
-            No duplicated color values - tokens automatically adapt to light/dark modes.
-          </p>
-
-          <div className="space-y-10">
-            {/* Semantic Buttons */}
-            <div>
-              <h3 className="mb-4 text-lg font-medium text-neutral-700">
-                Semantic Button Patterns
-              </h3>
-              <div className="bg-common-500 flex flex-wrap gap-4">
-                <button className="bg-primary text-primary-on hover:bg-primary-active rounded-lg px-4 py-2 font-medium transition-colors">
-                  Primary Action
-                </button>
-                <button className="bg-secondary text-secondary-on hover:bg-secondary-active rounded-lg px-4 py-2 font-medium transition-colors">
-                  Secondary
-                </button>
-                <button className="bg-success text-success-on hover:bg-success-active rounded-lg px-4 py-2 font-medium transition-colors">
-                  Success
-                </button>
-                <button className="bg-danger text-danger-on hover:bg-danger-active rounded-lg px-4 py-2 font-medium transition-colors">
-                  Danger
-                </button>
-                <button className="bg-primary-muted text-primary-on cursor-not-allowed rounded-lg px-4 py-2 font-medium opacity-60">
-                  Disabled
-                </button>
-              </div>
-              <div className="mt-3 space-y-1 text-sm text-neutral-500">
-                <code className="block text-xs">
-                  bg-primary text-primary-on hover:bg-primary-active
-                </code>
-                <code className="block text-xs">bg-primary-muted (for disabled state)</code>
-              </div>
-            </div>
-
-            {/* Container Cards */}
-            <div>
-              <h3 className="summar:bg-primary-500 mb-4 text-lg font-medium text-neutral-700">
-                Container Pattern (container + onContainer)
-              </h3>
-              <div className="grid gap-4 md:grid-cols-3">
-                <div className="bg-primary-container text-primary-onContainer rounded-xl p-5">
-                  <h4 className="font-semibold">Primary Container</h4>
-                  <p className="mt-1 text-sm opacity-90">
-                    Uses <code className="text-xs">bg-primary-container</code> with{' '}
-                    <code className="text-xs">text-primary-onContainer</code>
-                  </p>
-                </div>
-                <div className="bg-success-container text-success-onContainer rounded-xl p-5">
-                  <h4 className="font-semibold">Success Container</h4>
-                  <p className="mt-1 text-sm opacity-90">
-                    Perfect for success alerts and notifications
-                  </p>
-                </div>
-                <div className="bg-danger-container text-danger-onContainer rounded-xl p-5">
-                  <h4 className="font-semibold">Danger Container</h4>
-                  <p className="mt-1 text-sm opacity-90">Ideal for error states and warnings</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Subtle Backgrounds */}
-            <div>
-              <h3 className="mb-4 text-lg font-medium text-neutral-700">Subtle Backgrounds</h3>
-              <div className="flex flex-wrap gap-4">
-                <div className="bg-primary-subtle text-primary-onContainer rounded-lg px-4 py-2">
-                  bg-primary-subtle
-                </div>
-                <div className="bg-secondary-subtle text-secondary-onContainer rounded-lg px-4 py-2">
-                  bg-secondary-subtle
-                </div>
-                <div className="bg-info-subtle text-info-onContainer rounded-lg px-4 py-2">
-                  bg-info-subtle
-                </div>
-                <div className="bg-warning-subtle text-warning-onContainer rounded-lg px-4 py-2">
-                  bg-warning-subtle
-                </div>
-              </div>
-            </div>
-
-            {/* Token Reference Table */}
-            <div>
-              <h3 className="mb-4 text-lg font-medium text-neutral-700">
-                Semantic Token Reference
-              </h3>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-neutral-200 text-left">
-                      <th className="pb-3 font-semibold text-neutral-700">Token</th>
-                      <th className="pb-3 font-semibold text-neutral-700">Light Mode</th>
-                      <th className="pb-3 font-semibold text-neutral-700">Dark Mode</th>
-                      <th className="pb-3 font-semibold text-neutral-700">Usage</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-neutral-100">
-                    <tr>
-                      <td className="py-2.5">
-                        <code className="text-purple-600">-DEFAULT</code>
-                      </td>
-                      <td className="py-2.5 text-neutral-600">→ shade 500</td>
-                      <td className="py-2.5 text-neutral-600">→ shade 500</td>
-                      <td className="py-2.5 text-neutral-500">Base color for buttons, links</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2.5">
-                        <code className="text-purple-600">-on</code>
-                      </td>
-                      <td className="py-2.5 text-neutral-600">→ shade 50</td>
-                      <td className="py-2.5 text-neutral-600">→ shade 950</td>
-                      <td className="py-2.5 text-neutral-500">Text on base color</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2.5">
-                        <code className="text-purple-600">-container</code>
-                      </td>
-                      <td className="py-2.5 text-neutral-600">→ shade 100</td>
-                      <td className="py-2.5 text-neutral-600">→ shade 900</td>
-                      <td className="py-2.5 text-neutral-500">Container backgrounds</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2.5">
-                        <code className="text-purple-600">-onContainer</code>
-                      </td>
-                      <td className="py-2.5 text-neutral-600">→ shade 900</td>
-                      <td className="py-2.5 text-neutral-600">→ shade 100</td>
-                      <td className="py-2.5 text-neutral-500">Text on containers</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2.5">
-                        <code className="text-purple-600">-subtle</code>
-                      </td>
-                      <td className="py-2.5 text-neutral-600">→ shade 200</td>
-                      <td className="py-2.5 text-neutral-600">→ shade 800</td>
-                      <td className="py-2.5 text-neutral-500">Subtle backgrounds, hovers</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2.5">
-                        <code className="text-purple-600">-muted</code>
-                      </td>
-                      <td className="py-2.5 text-neutral-600">→ shade 400</td>
-                      <td className="py-2.5 text-neutral-600">→ shade 600</td>
-                      <td className="py-2.5 text-neutral-500">Muted/disabled states</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2.5">
-                        <code className="text-purple-600">-active</code>
-                      </td>
-                      <td className="py-2.5 text-neutral-600">→ shade 700</td>
-                      <td className="py-2.5 text-neutral-600">→ shade 300</td>
-                      <td className="py-2.5 text-neutral-500">Active/pressed states</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <p className="mt-4 text-sm text-neutral-500">
-                All semantic tokens reference shade CSS variables:{' '}
-                <code className="text-xs">
-                  --ideasui-primary-container: var(--ideasui-primary-100)
-                </code>
-              </p>
             </div>
           </div>
         </div>

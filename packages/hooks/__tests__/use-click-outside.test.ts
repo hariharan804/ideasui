@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/prefer-user-event */
 import { renderHook, fireEvent } from '@testing-library/react';
 
 import { useClickOutside } from '../src/use-click-outside';

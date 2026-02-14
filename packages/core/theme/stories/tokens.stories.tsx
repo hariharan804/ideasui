@@ -7,19 +7,20 @@ import {
   spacing,
   borderRadius,
   fontSize,
-  boxShadow,
+  lightShadow,
   animation,
-  transitionDuration,
-  transitionTimingFunction,
+  duration as transitionDuration,
+  easing as transitionTimingFunction,
 } from '../src/tokens';
 import { defaultLayout } from '../src/tokens/layout';
-import { lightColorTokens, darkColorTokens } from '../src/tokens/colors';
+import { border } from '../src/tokens/border';
+import { primitives } from '../src/tokens/colors';
 
 const systemTokens = {
   spacing,
   borderRadius,
   fontSize,
-  boxShadow,
+  boxShadow: lightShadow,
   animation,
   transitionDuration,
   transitionTimingFunction,
@@ -41,10 +42,12 @@ const ColorSwatch = ({
   colorName,
   shade,
   value,
+  isDark = false,
 }: {
   colorName: string;
   shade: string;
   value: string;
+  isDark?: boolean;
 }): ReactElement => {
   const [copied, setCopied] = useState(false);
 
@@ -56,7 +59,11 @@ const ColorSwatch = ({
 
   return (
     <button
-      className="group flex w-full items-center gap-4 rounded-xl border border-gray-100 bg-white p-3 text-left transition-all duration-200 hover:border-gray-200 hover:shadow-md"
+      className={`group flex w-full items-center gap-4 rounded-xl border p-3 text-left transition-all duration-200 ${
+        isDark
+          ? 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10'
+          : 'border-gray-100 bg-white hover:border-gray-200 hover:shadow-md'
+      }`}
       type="button"
       onClick={handleCopy}
     >
@@ -65,15 +72,15 @@ const ColorSwatch = ({
         style={{ backgroundColor: value }}
       />
       <div className="min-w-0 flex-1">
-        <div className="text-sm font-semibold text-gray-900">
+        <div className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
           {colorName}-{shade}
         </div>
         <div className="mt-0.5 font-mono text-xs text-gray-500">{value}</div>
       </div>
       <div
-        className={`shrink-0 rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600 transition-opacity ${
+        className={`shrink-0 rounded-md px-2 py-1 text-xs font-medium transition-opacity ${
           copied ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-        }`}
+        } ${isDark ? 'bg-white/10 text-white' : 'bg-gray-100 text-gray-600'}`}
       >
         {copied ? '✓ Copied' : 'Copy'}
       </div>
@@ -110,7 +117,13 @@ const ColorPalette = ({
           </h4>
           <div className="grid grid-cols-1 gap-2">
             {Object.entries(shades).map(([shade, value]) => (
-              <ColorSwatch key={shade} colorName={colorName} shade={shade} value={value} />
+              <ColorSwatch
+                key={shade}
+                colorName={colorName}
+                isDark={isDark}
+                shade={shade}
+                value={value}
+              />
             ))}
           </div>
         </div>
@@ -164,7 +177,7 @@ export const Colors: Story = {
         <p className="mt-2 text-lg text-gray-600">Semantic color palette with OKLCH values</p>
         <p className="mt-1 text-sm text-gray-400">Click any swatch to copy the color value</p>
       </div>
-      <ColorPalette colors={lightColorTokens} title="Light Mode Colors" />
+      <ColorPalette colors={primitives.light} title="Light Mode Colors" />
     </div>
   ),
 };
@@ -177,7 +190,7 @@ export const DarkColors: Story = {
         <p className="mt-2 text-lg text-gray-400">Dark theme color palette with OKLCH values</p>
         <p className="mt-1 text-sm text-gray-500">Click any swatch to copy the color value</p>
       </div>
-      <ColorPalette isDark colors={darkColorTokens} title="Dark Mode Colors" />
+      <ColorPalette isDark colors={primitives.dark} title="Dark Mode Colors" />
     </div>
   ),
 };
@@ -324,17 +337,17 @@ export const Layout: Story = {
         <TokenGroup
           title="Border Radius"
           tokens={{
-            small: defaultLayout.radiusSmall,
-            medium: defaultLayout.radiusMedium,
-            large: defaultLayout.radiusLarge,
+            small: borderRadius.sm,
+            medium: borderRadius.md,
+            large: borderRadius.lg,
           }}
         />
         <TokenGroup
           title="Border Width"
           tokens={{
-            small: defaultLayout.borderWidthSmall,
-            medium: defaultLayout.borderWidthMedium,
-            large: defaultLayout.borderWidthLarge,
+            small: border.thin,
+            medium: border.medium,
+            large: border.thick,
           }}
         />
         <TokenGroup
