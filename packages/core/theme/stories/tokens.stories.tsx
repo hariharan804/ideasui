@@ -12,8 +12,6 @@ import {
   duration as transitionDuration,
   easing as transitionTimingFunction,
 } from '../src/tokens';
-import { defaultLayout } from '../src/tokens/layout';
-import { border } from '../src/tokens/border';
 import { primitives } from '../src/tokens/colors';
 
 const systemTokens = {
@@ -321,49 +319,6 @@ export const Shadows: Story = {
             </div>
           ))}
         </div>
-      </div>
-    </div>
-  ),
-};
-
-export const Layout: Story = {
-  render: () => (
-    <div className="space-y-8">
-      <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Layout Tokens</h2>
-        <p className="mt-2 text-lg text-gray-600">Layout-specific design tokens</p>
-      </div>
-      <div className="grid gap-6 lg:grid-cols-2">
-        <TokenGroup
-          title="Border Radius"
-          tokens={{
-            small: borderRadius.sm,
-            medium: borderRadius.md,
-            large: borderRadius.lg,
-          }}
-        />
-        <TokenGroup
-          title="Border Width"
-          tokens={{
-            small: border.thin,
-            medium: border.medium,
-            large: border.thick,
-          }}
-        />
-        <TokenGroup
-          title="Opacity"
-          tokens={{
-            hover: defaultLayout.hoverOpacity,
-            disabled: defaultLayout.disabledOpacity,
-          }}
-        />
-        <TokenGroup
-          title="Focus"
-          tokens={{
-            ringWidth: defaultLayout.focusRingWidth,
-            ringOffset: defaultLayout.focusRingOffset,
-          }}
-        />
       </div>
     </div>
   ),
