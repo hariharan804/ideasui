@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react';
 
 import { ThemeProvider } from '../src/system/providers/theme-provider';
+import { defaultConfig } from '../src/system/providers/utils/themes.config';
 
 describe('ThemeProvider', () => {
   beforeEach(() => {
     window.localStorage.clear();
-    document.documentElement.removeAttribute('data-ideasui-theme');
+    document.documentElement.removeAttribute(defaultConfig.attribute);
   });
 
   it('should render children', () => {
@@ -38,7 +39,7 @@ describe('ThemeProvider', () => {
 
     // Verify the attribute is set
     // Note: In JSDOM, useEffect runs, so this should update the document
-    expect(document.documentElement).toHaveAttribute('data-ideasui-theme', 'dark');
+    expect(document.documentElement).toHaveAttribute(defaultConfig.attribute, 'dark');
   });
 
   it('should support system themes', () => {

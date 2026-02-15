@@ -56,14 +56,14 @@ That's it! You now have access to semantic color utilities.
 
 ### Dark Mode Setup
 
-Use the `.dark` class or `data-theme="dark"` attribute:
+Use the `.dark` class or `data-ideasui-theme="dark"` attribute:
 
 ```tsx
 // Class-based
 <html className="dark">
 
 // Attribute-based
-<html data-theme="dark">
+<html data-ideasui-theme="dark">
 ```
 
 ## For Library Maintainers
@@ -81,14 +81,14 @@ Use the `.dark` class or `data-theme="dark"` attribute:
    @import './index.css'; /* Base CSS variables */
 
    :root,
-   [data-theme='light'] {
+   [data-ideasui-theme='light'] {
      --primary: var(--ideasui-primary-500);
      --background: var(--ideasui-white);
      /* ...semantic mappings... */
    }
 
    .dark,
-   [data-theme='dark'] {
+   [data-ideasui-theme='dark'] {
      --primary: var(--ideasui-primary-400);
      --background: var(--ideasui-gray-950);
      /* ...dark variants... */
@@ -109,7 +109,7 @@ To customize the generated mappings, edit `scripts/generate-theme-css.mjs`:
 
 ```javascript
 // Change semantic mappings
-:root, [data-theme="light"] {
+:root, [data-ideasui-theme="light"] {
   --primary: var(--${PREFIX}-blue-600); // Custom shade
   --custom-brand: var(--${PREFIX}-purple-500); // New semantic color
 }
@@ -177,7 +177,7 @@ Make sure you imported `theme.css` **after** `tailwindcss`:
 
 ### Dark mode not switching
 
-Ensure you're using `.dark` class or `data-theme="dark"`:
+Ensure you're using `.dark` class or `data-ideasui-theme="dark"`:
 
 ```tsx
 // ✅ Correct

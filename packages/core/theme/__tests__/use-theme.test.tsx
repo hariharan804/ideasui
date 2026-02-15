@@ -78,6 +78,6 @@ describe('useTheme', () => {
     // Don't use wrapper
     expect(() => {
       renderHook(() => useTheme());
-    }).toThrow('useTheme must be used within ThemeProvider');
+    }).toThrow('useThemeContext must be used within ThemeProvider');
   });
 });

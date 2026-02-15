@@ -1,6 +1,6 @@
 import type { ThemeState } from './context';
 
-import { useTheme as useThemeContext } from './context';
+import { useThemeContext } from './context';
 
 /**
  * Hook to access and control theme

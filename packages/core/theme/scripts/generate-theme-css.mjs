@@ -221,12 +221,12 @@ function generateThemeCSS() {
  */
 
 :root,
-[data-theme="light"] {
+[data-ideasui-theme="light"] {
 ${format(lightThemed)}
 }
 
 .dark,
-[data-theme="dark"] {
+[data-ideasui-theme="dark"] {
 ${format(darkThemed)}
 }
 

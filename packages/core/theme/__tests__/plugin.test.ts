@@ -304,15 +304,15 @@ describe('ideasUIPlugin', () => {
     const calls = addBase.mock.calls;
     const customThemeUtilities = calls.find(
       (call) =>
-        call[0][".custom, [data-theme='custom']"] &&
-        call[0][".custom, [data-theme='custom']"]['--ideasui-spacing-4'],
+        call[0][".custom, [data-ideasui-theme='custom']"] &&
+        call[0][".custom, [data-ideasui-theme='custom']"]['--ideasui-spacing-4'],
     );
 
     expect(customThemeUtilities).toBeDefined();
     if (!customThemeUtilities) {
       throw new Error('Expected customThemeUtilities to be defined');
     }
-    const styles = customThemeUtilities[0][".custom, [data-theme='custom']"];
+    const styles = customThemeUtilities[0][".custom, [data-ideasui-theme='custom']"];
 
     expect(styles['--ideasui-spacing-4']).toBe('20px');
     expect(styles['--ideasui-radius-md']).toBe('8px');
@@ -349,15 +349,15 @@ describe('ideasUIPlugin', () => {
     const calls = addBase.mock.calls;
     const customThemeUtilities = calls.find(
       (call) =>
-        call[0][".custom, [data-theme='custom']"] &&
-        call[0][".custom, [data-theme='custom']"]['--ideasui-surface-100'],
+        call[0][".custom, [data-ideasui-theme='custom']"] &&
+        call[0][".custom, [data-ideasui-theme='custom']"]['--ideasui-surface-100'],
     );
 
     expect(customThemeUtilities).toBeDefined();
     if (!customThemeUtilities) {
       throw new Error('Expected customThemeUtilities to be defined');
     }
-    const styles = customThemeUtilities[0][".custom, [data-theme='custom']"];
+    const styles = customThemeUtilities[0][".custom, [data-ideasui-theme='custom']"];
 
     expect(styles['--ideasui-surface-100']).toBe('#ffffff');
     expect(styles['--ideasui-content-100']).toBe('#000000');
@@ -396,15 +396,15 @@ describe('ideasUIPlugin', () => {
     const calls = addBase.mock.calls;
     const lightThemeUtilities = calls.find(
       (call) =>
-        call[0][":root, .light, [data-theme='light']"] &&
-        call[0][":root, .light, [data-theme='light']"]['--ideasui-surface-global'],
+        call[0][":root, .light, [data-ideasui-theme='light']"] &&
+        call[0][":root, .light, [data-ideasui-theme='light']"]['--ideasui-surface-global'],
     );
 
     expect(lightThemeUtilities).toBeDefined();
     if (!lightThemeUtilities) {
       throw new Error('Expected lightThemeUtilities to be defined');
     }
-    const styles = lightThemeUtilities[0][":root, .light, [data-theme='light']"];
+    const styles = lightThemeUtilities[0][":root, .light, [data-ideasui-theme='light']"];
 
     expect(styles['--ideasui-surface-global']).toBe('#f0f0f0');
     expect(styles['--ideasui-content-global']).toBe('#333333');
@@ -436,15 +436,15 @@ describe('ideasUIPlugin', () => {
     // Check utilities for the color variable
     const themeUtilities = calls.find(
       (call) =>
-        call[0][":root, .light, [data-theme='light']"] &&
-        call[0][":root, .light, [data-theme='light']"]['--ideasui-color-primary-500'],
+        call[0][":root, .light, [data-ideasui-theme='light']"] &&
+        call[0][":root, .light, [data-ideasui-theme='light']"]['--ideasui-color-primary-500'],
     );
 
     expect(themeUtilities).toBeDefined();
     if (!themeUtilities) {
       throw new Error('Expected themeUtilities to be defined');
     }
-    const styles = themeUtilities[0][":root, .light, [data-theme='light']"];
+    const styles = themeUtilities[0][":root, .light, [data-ideasui-theme='light']"];
 
     expect(styles['--ideasui-color-primary-500']).toBeDefined();
   });

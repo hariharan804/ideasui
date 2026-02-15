@@ -39,12 +39,12 @@ export const ThemeContext = createContext<ThemeState | null>(null);
  * ```
  * @returns {ThemeState} Theme context state
  */
-export function useTheme(): ThemeState {
+export function useThemeContext(): ThemeState {
   const context = useContext(ThemeContext);
 
   if (!context) {
     throw new Error(
-      'useTheme must be used within ThemeProvider. ' +
+      'useThemeContext must be used within ThemeProvider. ' +
         'Wrap your app with <ThemeProvider> to use theme functionality.',
     );
   }

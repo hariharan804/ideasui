@@ -7,46 +7,43 @@ import { ThemeContext } from './context';
 import { defaultConfig } from './utils/themes.config';
 import { storageAdapters } from './utils/storage';
 
-// Module-level constant - safe to use in effects without dependency
 const storage = storageAdapters.local;
 
 export interface ThemeProviderProps extends Partial<ThemeScriptConfig> {
-  /** System theme mappings */
   systemThemes?: { light: string; dark: string };
 }
 
-/**
- * Theme provider that manages theme state and applies it to the DOM
- *
- * @param {object} props - ThemeProvider configuration and children
- * @param {ReactNode} props.children - React children to render
- * @param {string} props.defaultTheme - Initial theme to use (default: 'light')
- * @param {string[]} props.themes - List of available theme names
- * @param {object} props.systemThemes - Mapping for system theme preference
- * @returns {ReactElement} Provider component
- * @example
- * ```tsx
- * <ThemeProvider defaultTheme="system">
- *   <App />
- * </ThemeProvider>
- * ```
- */
+const disableTransitions = (): void => {
+  const style = document.createElement('style');
+
+  style.appendChild(document.createTextNode('*{transition:none!important}'));
+  document.head.appendChild(style);
+
+  // Force reflow
+  void window.getComputedStyle(document.body);
+
+  setTimeout(() => {
+    document.head.removeChild(style);
+  }, 1);
+};
+
 export function ThemeProvider({
   children,
   defaultTheme = defaultConfig.defaultTheme,
   themes: userThemes,
   systemThemes: userSystemThemes,
 }: PropsWithChildren<ThemeProviderProps>): ReactElement {
-  // Resolve configuration
   const systemThemes = userSystemThemes ?? defaultConfig.systemThemes;
+
   const themes = useMemo(
     () => Array.from(new Set([...(defaultConfig.themes || []), ...(userThemes || [])])),
     [userThemes],
   );
 
-  // Helper functions
+  // ---------- Helpers ----------
+
   const prefersDark = useCallback(
-    (): boolean =>
+    () =>
       typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)').matches,
     [],
   );
@@ -57,95 +54,81 @@ export function ThemeProvider({
     [prefersDark, systemThemes],
   );
 
-  const applyToDOM = useCallback((resolved: string): void => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    const el = document.documentElement;
-
-    el.setAttribute('data-ideasui-theme', resolved);
-  }, []);
-
-  // Initialize state
-  const [state, setState] = useState(() => {
-    if (typeof window === 'undefined') {
-      // SSR: Use default theme
-      const initial = defaultTheme;
-      const initialResolved = resolve(initial);
-
-      return {
-        theme: initial,
-        resolved: initialResolved,
-        themes,
-        systemThemes,
-      };
-    }
-
-    // Client: Check storage
-    const rawStored = storage.getItem(defaultConfig.storageKey);
-    const initial = rawStored ?? defaultTheme;
-    const initialResolved = resolve(initial);
-
-    // Seed storage on first run
-    if (rawStored === null) {
-      if (initial === 'system') {
-        storage.removeItem(defaultConfig.storageKey);
-      } else {
-        storage.setItem(defaultConfig.storageKey, initial);
-      }
-    }
-
-    return {
-      theme: initial,
-      resolved: initialResolved,
-      themes,
-      systemThemes,
-    };
-  });
-
-  // setTheme function
-  const setTheme = useCallback(
-    (next: string) => {
-      if (next === state.theme) {
+  const applyToDOM = useCallback(
+    (resolved: string): void => {
+      if (typeof window === 'undefined') {
         return;
-      } // No-op if same
+      }
 
-      setState((prev) => ({
-        ...prev,
-        theme: next,
-        resolved: resolve(next),
-      }));
+      const el = document.documentElement;
+
+      disableTransitions();
+
+      el.setAttribute(defaultConfig.attribute, resolved);
+
+      // Native browser UI theming
+      el.style.setProperty('color-scheme', resolved === systemThemes.dark ? 'dark' : 'light');
     },
-    [state.theme, resolve],
+    [systemThemes.dark],
   );
 
-  // Apply theme to DOM whenever resolved changes
-  useEffect(() => {
-    applyToDOM(state.resolved);
-  }, [state.resolved, applyToDOM]);
+  // ---------- Initial State ----------
 
-  // Persist theme to storage
+  const [theme, setThemeState] = useState<string>(() => {
+    if (typeof window === 'undefined') {
+      return defaultTheme;
+    }
+
+    const stored = storage.getItem(defaultConfig.storageKey);
+
+    if (!stored) {
+      return defaultTheme;
+    }
+
+    if (stored === 'system' || themes.includes(stored)) {
+      return stored;
+    }
+
+    return defaultTheme; // invalid value fallback
+  });
+
+  const resolved = useMemo(() => resolve(theme), [theme, resolve]);
+
+  // ---------- Public API ----------
+
+  const setTheme = useCallback((next: string) => {
+    setThemeState((prev) => (prev === next ? prev : next));
+  }, []);
+
+  // ---------- DOM Apply ----------
+
+  useEffect(() => {
+    applyToDOM(resolved);
+  }, [resolved, applyToDOM]);
+
+  // ---------- Storage Persistence ----------
+
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
     }
 
-    if (state.theme === 'system') {
+    if (theme === 'system') {
       storage.removeItem(defaultConfig.storageKey);
     } else {
-      storage.setItem(defaultConfig.storageKey, state.theme);
+      storage.setItem(defaultConfig.storageKey, theme);
     }
-  }, [state.theme]);
+  }, [theme]);
 
-  // Listen to system preference changes
+  // ---------- System Preference Listener ----------
+
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
     }
-    if (state.theme !== 'system') {
+    if (theme !== 'system') {
       return;
-    } // Only when theme is 'system'
+    }
 
     const mq = window.matchMedia?.('(prefers-color-scheme: dark)');
 
@@ -153,22 +136,17 @@ export function ThemeProvider({
       return;
     }
 
-    const onSystem = (): void => {
-      const newResolved = resolve('system');
+    const onChange = (): void => applyToDOM(resolve('system'));
 
-      if (newResolved !== state.resolved) {
-        setState((prev) => ({ ...prev, resolved: newResolved }));
-      }
-    };
-
-    mq.addEventListener?.('change', onSystem) ?? mq.addListener?.(onSystem);
+    mq.addEventListener?.('change', onChange) ?? mq.addListener?.(onChange);
 
     return () => {
-      mq.removeEventListener?.('change', onSystem) ?? mq.removeListener?.(onSystem);
+      mq.removeEventListener?.('change', onChange) ?? mq.removeListener?.(onChange);
     };
-  }, [state.theme, state.resolved, resolve]);
+  }, [theme, resolve, applyToDOM]);
 
-  // Cross-tab synchronization
+  // ---------- Cross-Tab Sync ----------
+
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
@@ -182,36 +160,26 @@ export function ThemeProvider({
       const next = e.newValue ?? 'system';
 
       if (next === 'system' || themes.includes(next)) {
-        const newResolved = resolve(next);
-
-        setState((prev) => {
-          if (prev.theme === next && prev.resolved === newResolved) {
-            return prev; // No change
-          }
-
-          return {
-            ...prev,
-            theme: next,
-            resolved: newResolved,
-          };
-        });
+        setThemeState(next);
       }
     };
 
     window.addEventListener('storage', onStorage);
 
-    return () => {
-      window.removeEventListener('storage', onStorage);
-    };
-  }, [themes, resolve]);
+    return () => window.removeEventListener('storage', onStorage);
+  }, [themes]);
 
-  // Create context value
+  // ---------- Context Value ----------
+
   const value = useMemo(
     () => ({
-      ...state,
+      theme,
+      resolved,
+      themes,
+      systemThemes,
       setTheme,
     }),
-    [state, setTheme],
+    [theme, resolved, themes, systemThemes, setTheme],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

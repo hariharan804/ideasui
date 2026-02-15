@@ -60,8 +60,8 @@ export function createThemeSelectors(
 ): { cssSelector: string; baseSelector: string } {
   const isDefault = themeName === defaultTheme;
   const baseSelector = isDefault
-    ? `:root, .${themeName}, [data-theme='${themeName}']`
-    : `.${escapeSelector(themeName)}, [data-theme='${themeName}']`;
+    ? `:root, .${themeName}, [data-ideasui-theme='${themeName}']`
+    : `.${escapeSelector(themeName)}, [data-ideasui-theme='${themeName}']`;
   const cssSelector = baseSelector;
 
   return { cssSelector, baseSelector };
@@ -114,7 +114,7 @@ export function resolveConfig(
     // Register variant
     resolved.variants.push({
       name: themeName,
-      definition: [`&.${escapeSelector(themeName)}`, `&[data-theme='${themeName}']`],
+      definition: [`&.${escapeSelector(themeName)}`, `&[data-ideasui-theme='${themeName}']`],
     });
 
     // Process colors

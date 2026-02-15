@@ -84,7 +84,7 @@ function ThemeToggle() {
 ```tsx
 interface ThemeProviderProps {
   children: React.ReactNode;
-  attribute?: 'class' | 'data-theme'; // Default: 'class'
+  attribute?: 'class' | 'data-ideasui-theme'; // Default: 'class'
   defaultTheme?: string; // Default: 'system'
   storageKey?: string; // Default: 'theme'
   themes?: string[]; // Default: ['light', 'dark']

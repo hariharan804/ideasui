@@ -64,7 +64,10 @@ describe('ideasUIPlugin', () => {
 
     // Check if the addBase was called with the overridden value
     const baseCall = mockPluginAPI.addBase.mock.calls.find((call: Record<string, unknown>[]) => {
-      const theme = call[0][":root, .light, [data-theme='light']"] as Record<string, string>;
+      const theme = call[0][":root, .light, [data-ideasui-theme='light']"] as Record<
+        string,
+        string
+      >;
 
       return theme && theme['--ideasui-color-primary-500'] === '0.628 0.2577 29.23';
     });
@@ -84,7 +87,7 @@ describe('ideasUIPlugin', () => {
     plugin.handler(mockPluginAPI);
 
     const baseCall = mockPluginAPI.addBase.mock.calls.find((call: any) => {
-      const theme = call[0][":root, .light, [data-theme='light']"];
+      const theme = call[0][":root, .light, [data-ideasui-theme='light']"];
 
       return theme && theme['--ideasui-border-subtle'] !== undefined;
     });

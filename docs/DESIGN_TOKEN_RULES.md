@@ -110,13 +110,13 @@ Before adding a token, answer:
 /* ⚠️ INTENTIONAL DUPLICATION — DO NOT "FIX" */
 
 :root,
-[data-theme='light'] {
+[data-ideasui-theme='light'] {
   --neutral-50: #fafafa;
   --primary-500: #3b82f6;
   /* ... full scale */
 }
 
-[data-theme='dark'] {
+[data-ideasui-theme='dark'] {
   --neutral-50: #fafafa;
   --primary-500: #3b82f6;
   /* ... full scale (can differ per theme) */

@@ -699,7 +699,7 @@
               "props": [
                 {
                   "name": "attribute",
-                  "type": "\"class\" | \"data-theme\"",
+                  "type": "\"class\" | \"data-ideasui-theme\"",
                   "description": "",
                   "optional": true
                 },

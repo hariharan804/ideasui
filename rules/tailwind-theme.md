@@ -92,7 +92,7 @@ setTheme(theme === 'dark' ? 'light' : 'dark');
 }
 
 /* Or use data attribute */
-[data-theme='dark'] .component {
+[data-ideasui-theme='dark'] .component {
 }
 ```
 

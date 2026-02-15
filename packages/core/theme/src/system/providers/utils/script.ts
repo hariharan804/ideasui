@@ -3,71 +3,96 @@ import type { ThemeScriptConfig } from '../types';
 import { defaultConfig } from './themes.config';
 
 export const createScript = (cfg: ThemeScriptConfig): string => {
-  const { defaultTheme, themes, systemThemes } = cfg;
-
-  // Prebuild literals for injection
   const KEY = JSON.stringify(defaultConfig.storageKey);
-  const THEMES = JSON.stringify(themes);
-  const SYS = JSON.stringify(systemThemes);
-  const DEF = JSON.stringify(defaultTheme);
-  const ATTR = '"data-ideasui-theme"';
+  const THEMES = JSON.stringify(cfg.themes);
+  const SYS = JSON.stringify(cfg.systemThemes);
+  const DEF = JSON.stringify(cfg.defaultTheme);
+  const ATTR = JSON.stringify(defaultConfig.attribute);
 
-  // Returned IIFE (no optional-call syntax, no nested ${} in JS strings)
   return `(function(){try{
     var d=document,el=d.documentElement;
     var key=${KEY},themes=${THEMES},sys=${SYS},def=${DEF},attr=${ATTR};
-    var lastTheme='';
+    var last='';
 
-    function mm(){try{return typeof window!=='undefined' && typeof window.matchMedia==='function' ? window.matchMedia('(prefers-color-scheme: dark)') : null;}catch(_){return null;}}
-    function prefersDark(){var q=mm();try{return !!(q && q.matches);}catch(_){return false;}}
+    function mm(){
+      try{
+        return window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+      }catch(e){return null;}
+    }
+
+    function prefersDark(){
+      var q=mm();
+      return !!(q&&q.matches);
+    }
+
     function resolve(t){
-      if(t==='system'){return prefersDark()?sys.dark:sys.light;}
-      return themes.indexOf(t)>=0 ? t : def;
-    }
-    function apply(next){
-      if(next===lastTheme) return;
-      lastTheme=next||'';
-      if(next){ el.setAttribute(attr,next); }
-      else{ el.removeAttribute(attr); }
+      if(t==='system'){
+        return prefersDark()?sys.dark:sys.light;
+      }
+      return themes.indexOf(t)>=0?t:def;
     }
 
-    // Initial
-    var initial;
-    try{
-      var stored = (typeof localStorage!=='undefined' && localStorage.getItem) ? localStorage.getItem(key) : null;
-      initial = stored || def;
-    }catch(_){
-      initial = def;
+    function disableTransitions(){
+      try{
+        var s=d.createElement('style');
+        s.appendChild(d.createTextNode('*{transition:none!important}'));
+        d.head.appendChild(s);
+        window.getComputedStyle(d.body);
+        setTimeout(function(){d.head.removeChild(s)},1);
+      }catch(e){}
     }
+
+    function apply(next){
+      if(next===last) return;
+      last=next||'';
+
+      disableTransitions();
+
+      if(next) el.setAttribute(attr,next);
+      else el.removeAttribute(attr);
+
+      // Native browser UI theming
+      el.style.colorScheme = (next===sys.dark)?'dark':'light';
+    }
+
+    // Initial theme
+    var stored;
+    try{
+      stored=localStorage.getItem(key);
+    }catch(e){stored=null;}
+
+    var initial=stored||def;
     apply(resolve(initial));
 
-    // React to system changes when in "system"
-    var q = mm();
-    function onSys(){
-      try{
-        var s = (typeof localStorage!=='undefined' && localStorage.getItem) ? localStorage.getItem(key) : null;
-        if(!s || s==='system'){ apply(resolve('system')); }
-      }catch(_){}
-    }
+    // System change listener
+    var q=mm();
     if(q){
-      if(q.addEventListener){ q.addEventListener('change', onSys); }
-      else if(q.addListener){ q.addListener(onSys); }
+      var onSys=function(){
+        try{
+          var s=localStorage.getItem(key);
+          if(!s||s==='system') apply(resolve('system'));
+        }catch(e){}
+      };
+
+      if(q.addEventListener) q.addEventListener('change',onSys);
+      else if(q.addListener) q.addListener(onSys);
     }
 
     // Cross-tab sync
-    if(typeof window!=='undefined' && window.addEventListener){
-      window.addEventListener('storage', function(e){
-        try{
-          if(e && e.key===key){
-            var n = e.newValue || 'system';
-            if(n==='system' || themes.indexOf(n)>=0){ apply(resolve(n)); }
+    window.addEventListener('storage',function(e){
+      try{
+        if(e.key===key){
+          var v=e.newValue||'system';
+          if(v==='system'||themes.indexOf(v)>=0){
+            apply(resolve(v));
           }
-        }catch(_){}
-      });
-    }
+        }
+      }catch(err){}
+    });
+
   }catch(e){
     try{
-      document.documentElement.setAttribute(${ATTR}, ${DEF});
+      document.documentElement.setAttribute(${ATTR},${DEF});
     }catch(_){}
     console.warn('Theme init error:',e);
   }})();`;
