@@ -12,7 +12,7 @@ import { ideasUIPlugin } from '../dist/system/plugin/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const OUTPUT_PATH = path.join(__dirname, '..', 'dist', 'theme.css');
+const OUTPUT_PATH = path.join(__dirname, '..', 'dist', 'ideasui-theme.css');
 const BYTES_PER_KB = 1024;
 const PREFIX = 'ideasui';
 

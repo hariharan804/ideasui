@@ -22,9 +22,6 @@
     "./plugin": {
       "import": "./src/system/plugin/index.ts"
     },
-    "./index.css": {
-      "import": "./dist/index.css"
-    },
     "./theme.css": {
       "import": "./dist/theme.css"
     }
@@ -34,8 +31,8 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "tsup && pnpm build:theme && pnpm build:css",
-    "build:css": "tailwindcss -i index.css -o dist/index.css --minify",
+    "build": "tsup && pnpm build:theme",
+    "build:css": "tailwindcss -i theme.css -o dist/tailwind.css --minify",
     "build:theme": "node scripts/generate-theme-css.mjs",
     "dev": "tsup --watch",
     "generate-theme": "node ./src/system/generator/generate-theme.mjs",

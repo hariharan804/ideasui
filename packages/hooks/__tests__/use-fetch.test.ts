@@ -5,6 +5,7 @@ const FETCH_URL = 'https://api.example.com/data';
 
 describe('useFetch', () => {
   beforeAll(() => {
+    // Polyfill fetch
     jest.spyOn(global, 'fetch').mockImplementation();
   });
 
