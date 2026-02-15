@@ -167,7 +167,7 @@
   },
   "engines": {
     "pnpm": ">=8.x",
-    "node": ">=18.x"
+    "node": ">=22.13.0"
   },
   "packageManager": "pnpm@10.26.0"
 }
