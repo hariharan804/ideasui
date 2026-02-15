@@ -10,6 +10,7 @@ import {
   darkSurface,
   lightContent,
   darkContent,
+  commonColors,
 } from './colors';
 import { focus, disabled, focusParams } from './classes';
 import {
@@ -21,7 +22,6 @@ import {
   squareSizes,
 } from './variants';
 import { breakpoints } from './breakpoints';
-import { defaultLayout, lightLayout, darkLayout, commonColors } from './layout';
 import { accessibility } from './accessibility';
 import { backdrop, blur } from './blur';
 import { border, lightBorder, darkBorder } from './border';
@@ -65,16 +65,6 @@ export {
   darkContent,
   // Responsive tokens
   breakpoints,
-
-  // Motion tokens
-
-  // motion,
-  // delay,
-  // sequences,
-  // Layout tokens (Border width, Opacity, etc.)
-  defaultLayout,
-  lightLayout,
-  darkLayout,
   commonColors,
   // New tokens
   accessibility,
@@ -114,6 +104,12 @@ export type BreakpointProps = keyof typeof breakpoints;
 // Motion types
 export type DurationProps = keyof typeof duration;
 export type EasingProps = keyof typeof easing;
-// export type MotionProps = keyof typeof motion;
-// export type DelayProps = keyof typeof delay;
-// export type SequenceProps = keyof typeof sequences;
+export type FontWeightProps = keyof typeof fontWeight;
+export type FontFamilyProps = keyof typeof fontFamily;
+export type LetterSpacingProps = keyof typeof letterSpacing;
+export type ZIndexProps = keyof typeof zIndex;
+export type OpacityProps = keyof typeof opacity;
+export type BlurProps = keyof typeof blur;
+export type BorderWidthProps = keyof typeof border;
+export type SurfaceProps = keyof typeof lightSurface;
+export type ContentProps = keyof typeof lightContent;

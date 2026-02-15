@@ -1,4 +1,11 @@
-import type { ThemeConfig, ConfigThemes, ResolvedConfig, ConfigTheme } from '../types';
+import type {
+  ThemeConfig,
+  ConfigThemes,
+  ResolvedConfig,
+  ConfigTheme,
+  TokenOverrides,
+  SemanticTokenOverrides,
+} from '../types';
 
 import deepMerge from 'deepmerge';
 
@@ -11,15 +18,15 @@ import {
   letterSpacing,
   primitives,
   semantic,
-  lightLayout,
-  darkLayout,
   commonColors,
   zIndex,
   opacity,
   fontFamily,
+  fontWeight,
   border,
   blur,
   lightShadow,
+  lightElevation,
   lightSurface,
   darkSurface,
   lightContent,
@@ -33,9 +40,9 @@ import {
   componentShadows,
 } from '../../tokens';
 
-import { flattenThemeObject, kebabCase, mapKeys, omit, escapeSelector } from './utils';
+import { flattenThemeObject, omit, escapeSelector, kebabCase } from './utils';
 import { processColors } from './colors';
-import { processLayout } from './layout';
+import { generateCSSVarsFromTokenOverrides } from './css-vars';
 
 // ─────────────────────────────────────────────────────────────
 // Core resolution logic
@@ -51,35 +58,34 @@ export function createThemeSelectors(
   themeName: string,
   defaultTheme: string,
 ): { cssSelector: string; baseSelector: string } {
-  const cssSelector = `.${escapeSelector(themeName)}`;
-  const baseSelector =
-    themeName === defaultTheme
-      ? `:root, .${themeName}, [data-theme='${themeName}']`
-      : `.${themeName}, [data-theme='${themeName}']`;
+  const isDefault = themeName === defaultTheme;
+  const baseSelector = isDefault
+    ? `:root, .${themeName}, [data-theme='${themeName}']`
+    : `.${escapeSelector(themeName)}, [data-theme='${themeName}']`;
+  const cssSelector = baseSelector;
 
   return { cssSelector, baseSelector };
 }
 
 /**
  * Determines the color scheme for a theme
- * @param {string} themeName - The name of the theme
- * @param {'light' | 'dark'} [extend] - The theme to extend
- * @returns {string | null} The color scheme
  */
-export function getColorScheme(themeName: string, extend?: 'light' | 'dark'): string | null {
-  if (themeName === 'light' || themeName === 'dark') {
-    return themeName;
+export function getColorScheme(themeName: string, extend?: string): string | undefined {
+  if (extend) {
+    return extend;
+  }
+  if (themeName === 'light') {
+    return 'light';
+  }
+  if (themeName === 'dark') {
+    return 'dark';
   }
 
-  return extend || null;
+  return undefined;
 }
 
 /**
- * Resolves theme configuration into CSS utilities, base styles, and variants
- * @param {ConfigThemes} themes - The themes configuration
- * @param {string} defaultTheme - The default theme name
- * @param {string} prefix - The CSS variable prefix
- * @returns {ResolvedConfig} The fully resolved configuration
+ * Resolves theme configuration into CSS variables, utilities, and base styles
  */
 export function resolveConfig(
   themes: ConfigThemes,
@@ -93,7 +99,9 @@ export function resolveConfig(
     baseStyles: {},
   };
 
-  for (const [themeName, { extend, layout, colors }] of Object.entries(themes)) {
+  for (const [themeName, { extend, colors, designTokens, semanticTokens }] of Object.entries(
+    themes,
+  )) {
     const { cssSelector, baseSelector } = createThemeSelectors(themeName, defaultTheme);
     const colorScheme = getColorScheme(themeName, extend);
 
@@ -114,10 +122,25 @@ export function resolveConfig(
 
     processColors(flatColors, prefix, resolved, cssSelector, baseSelector);
 
-    // Process layout
-    const flatLayout = layout ? mapKeys(layout, (_, key) => kebabCase(key)) : {};
+    // Process token overrides
+    if (designTokens) {
+      const tokenVars = generateCSSVarsFromTokenOverrides(designTokens, prefix);
 
-    processLayout(flatLayout, prefix, resolved, cssSelector, baseSelector);
+      resolved.utilities[cssSelector] = {
+        ...resolved.utilities[cssSelector],
+        ...tokenVars,
+      };
+    }
+
+    // Process semantic token overrides
+    if (semanticTokens) {
+      const semanticVars = generateCSSVarsFromTokenOverrides(semanticTokens, prefix);
+
+      resolved.utilities[cssSelector] = {
+        ...resolved.utilities[cssSelector],
+        ...semanticVars,
+      };
+    }
   }
 
   return resolved;
@@ -130,21 +153,18 @@ export function resolveConfig(
  */
 export function buildThemes(config: ThemeConfig): ConfigThemes {
   const themeData = config?.themes || {};
-  const userLayout = config?.layout || {};
 
   // Extract user overrides
+  const globalSemanticTokens = config?.semanticTokens || {};
   const userLightColors = themeData.light?.colors || {};
+  const userLightTokens = themeData.light?.designTokens || {};
+  const userLightSemantic = themeData.light?.semanticTokens || {};
   const userDarkColors = themeData.dark?.colors || {};
-  const userLightLayout = themeData.light?.layout || {};
-  const userDarkLayout = themeData.dark?.layout || {};
-
-  // Build base layout (global layout merged with mode defaults)
-  const baseLayout =
-    userLayout && typeof userLayout === 'object' ? deepMerge(lightLayout, userLayout) : lightLayout;
+  const userDarkTokens = themeData.dark?.designTokens || {};
+  const userDarkSemantic = themeData.dark?.semanticTokens || {};
 
   // Build theme configs
   const lightTheme: ConfigTheme = {
-    layout: deepMerge({ ...baseLayout, ...lightLayout }, userLightLayout),
     colors: deepMerge(
       {
         ...deepMerge(primitives.light, semantic),
@@ -156,10 +176,21 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
       },
       userLightColors,
     ),
+    designTokens: deepMerge({}, userLightTokens),
+    semanticTokens: deepMerge(
+      deepMerge(
+        {
+          surface: lightSurface,
+          content: lightContent,
+          border: lightBorder,
+        },
+        globalSemanticTokens,
+      ),
+      userLightSemantic,
+    ),
   };
 
   const darkTheme: ConfigTheme = {
-    layout: deepMerge({ ...baseLayout, ...darkLayout }, userDarkLayout),
     colors: deepMerge(
       {
         ...deepMerge(primitives.dark, semantic),
@@ -170,6 +201,18 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
         ...componentColors,
       },
       userDarkColors,
+    ),
+    designTokens: deepMerge({}, userDarkTokens),
+    semanticTokens: deepMerge(
+      deepMerge(
+        {
+          surface: darkSurface,
+          content: darkContent,
+          border: darkBorder,
+        },
+        globalSemanticTokens,
+      ),
+      userDarkSemantic,
     ),
   };
 
@@ -189,32 +232,40 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
  * - spacing: 4px grid
  * - typography: fontSize with paired lineHeight
  * - motion: duration + easing + keyframes + animation presets
- * - layout: zIndex, opacity, borderWidth, borderRadius
- *
+ * - All token families can be overridden via `tokenOverrides`
+ *'
  * @param {Record<string, string>} colors - The resolved flat colors map
  * @param {string} _prefix - The CSS variable prefix (unused, kept for API compat)
  * @param {boolean} disableAnimations - Whether to disable animations
+ * @param {Partial<TokenOverrides>} tokenOverrides - User overrides for any token family
  * @returns {Record<string, any>} The Tailwind theme extension object
  */
 export function createThemeExtension(
   colors: Record<string, string>,
   _prefix: string,
   disableAnimations: boolean,
+  tokenOverrides: Partial<TokenOverrides> = {},
+  semanticTokens: Partial<SemanticTokenOverrides> = {},
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Record<string, any> {
+  const t = tokenOverrides;
+  const s = semanticTokens;
+
   return {
     // ── Colors (flat CSS variable references — v4 requires uniform types) ──
-    colors: { ...colors, transparent: 'transparent' },
+    colors: { ...colors, transparent: 'transparent', ...s.border },
+    surface: s.surface,
+    content: s.content,
 
     // ── Spacing (4px grid) ──
-    spacing,
+    spacing: { ...spacing, ...t.spacing },
 
     // ── Responsive ──
-    screens: breakpoints,
+    screens: { ...breakpoints, ...t.breakpoints },
     container: { center: true },
 
     // ── Layout ──
-    borderRadius,
+    borderRadius: { ...borderRadius, ...t.borderRadius },
     borderWidth: {
       DEFAULT: border.widthDefault,
       ...Object.fromEntries(
@@ -222,27 +273,42 @@ export function createThemeExtension(
           ([key]) => !key.startsWith('color') && !key.startsWith('width'),
         ),
       ),
+      ...t.borderWidth,
     },
 
     // ── Typography ──
-    fontSize,
-    letterSpacing,
-    fontFamily,
+    fontSize: { ...fontSize, ...t.fontSize },
+    fontWeight: { ...fontWeight, ...t.fontWeight },
+    letterSpacing: { ...letterSpacing, ...t.letterSpacing },
+    fontFamily: { ...fontFamily, ...t.fontFamily },
 
     // ── Shadows ──
-    boxShadow: { ...lightShadow, ...flattenThemeObject(componentShadows) },
+    boxShadow: {
+      ...Object.fromEntries(
+        Object.keys(lightShadow).map((key) => [key, `var(--${_prefix}-shadow-${key})`]),
+      ),
+      ...Object.fromEntries(
+        Object.entries(lightElevation).map(([key, _]) => [
+          key,
+          `var(--${_prefix}-elevation-${kebabCase(key)}-shadow)`,
+        ]),
+      ),
+      ...flattenThemeObject(componentShadows),
+      ...t.boxShadow,
+      ...s.elevation,
+    },
 
     // ── Motion ──
-    animation: disableAnimations ? { none: 'none' } : animation,
-    keyframes: disableAnimations ? {} : keyframes,
-    transitionDuration: duration,
-    transitionTimingFunction: easing,
+    animation: disableAnimations ? { none: 'none' } : { ...animation, ...t.animation },
+    keyframes: disableAnimations ? {} : { ...keyframes, ...t.keyframes },
+    transitionDuration: { ...duration, ...t.duration },
+    transitionTimingFunction: { ...easing, ...t.easing },
 
     // ── Depth ──
-    zIndex,
-    opacity,
+    zIndex: { ...zIndex, ...t.zIndex },
+    opacity: { ...opacity, ...t.opacity },
 
     // ── Blur ──
-    blur,
+    blur: { ...blur, ...t.blur },
   };
 }

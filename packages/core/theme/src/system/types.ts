@@ -1,116 +1,125 @@
 /* eslint-disable no-magic-numbers */
-/** Layout token configuration */
-export interface LayoutTokens {
-  /** Border radius - small (default: 0.25rem) */
-  radiusSmall?: string;
-  /** Border radius - medium (default: 0.5rem) */
-  radiusMedium?: string;
-  /** Border radius - large (default: 0.75rem) */
-  radiusLarge?: string;
 
-  /** Box shadow - small */
-  boxShadowSmall?: string;
-  /** Box shadow - medium */
-  boxShadowMedium?: string;
-  /** Box shadow - large */
-  boxShadowLarge?: string;
-  /** Opacity for hover states (default: 0.8) */
-  hoverOpacity?: string;
-  /** Opacity for disabled states (default: 0.5) */
-  disabledOpacity?: string;
-  /** Divider weight (default: 1px) */
-  dividerWeight?: string;
-  /** Focus ring width (default: 2px) */
-  focusRingWidth?: string;
-  /** Focus ring offset (default: 2px) */
-  focusRingOffset?: string;
-  /** Allow additional custom properties */
-  [key: string]: string | number | undefined;
+import type {
+  SpacingProps,
+  BorderRadiusProps,
+  FontSizeProps,
+  LetterSpacingProps,
+  FontFamilyProps,
+  FontWeightProps,
+  BoxShadowProps,
+  ZIndexProps,
+  OpacityProps,
+  BlurProps,
+  BorderWidthProps,
+  SurfaceProps,
+  ContentProps,
+  DurationProps,
+  EasingProps,
+  AnimationProps,
+} from '../tokens';
+
+/** Override any design token family */
+export interface TokenOverrides {
+  /** Spacing scale (4px grid) */
+  readonly spacing?: Record<SpacingProps | (string & {}), string>;
+  /** Border radius tokens */
+  readonly borderRadius?: Record<BorderRadiusProps | (string & {}), string>;
+  /** Border width tokens */
+  readonly borderWidth?: Record<BorderWidthProps | (string & {}), string>;
+  /** Font size tokens (value or [size, { lineHeight }] tuple) */
+  readonly fontSize?: Record<
+    FontSizeProps | (string & {}),
+    string | [string, { lineHeight: string }]
+  >;
+  /** Letter spacing tokens */
+  readonly letterSpacing?: Record<LetterSpacingProps | (string & {}), string>;
+  /** Font family tokens */
+  readonly fontFamily?: Record<FontFamilyProps | (string & {}), string>;
+  /** Font weight tokens */
+  readonly fontWeight?: Record<FontWeightProps | (string & {}), string>;
+  /** Box shadow tokens */
+  readonly boxShadow?: Record<BoxShadowProps | (string & {}), string>;
+  /** Z-index tokens */
+  readonly zIndex?: Record<ZIndexProps | (string & {}), string | number>;
+  /** Opacity tokens */
+  readonly opacity?: Record<OpacityProps | (string & {}), string | number>;
+  /** Blur tokens */
+  readonly blur?: Record<BlurProps | (string & {}), string>;
+  /** Responsive breakpoints */
+  readonly breakpoints?: Record<'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | (string & {}), string>;
+  /** Transition duration tokens */
+  readonly duration?: Record<DurationProps | (string & {}), string>;
+  /** Transition easing tokens */
+  readonly easing?: Record<EasingProps | (string & {}), string>;
+  /** Animation presets */
+  readonly animation?: Record<AnimationProps | (string & {}), string>;
+  /** Keyframe definitions */
+  readonly keyframes?: Record<string, Record<string, Record<string, string>>>;
+}
+
+/** Override semantic token usage */
+export interface SemanticTokenOverrides {
+  /** Surface overrides */
+  readonly surface?: Record<SurfaceProps | (string & {}), string>;
+  /** Content overrides */
+  readonly content?: Record<ContentProps | (string & {}), string>;
+  /** Border color overrides */
+  readonly border?: Record<string, string>;
+  /** Elevation/shadow overrides */
+  readonly elevation?: Record<string, string>;
 }
 
 export interface ThemeConfig {
   /** Theme configurations */
-  themes?: Record<
+  readonly themes?: Record<
     string,
     {
-      colors?: Partial<ColorTokens>;
-      layout?: Partial<LayoutTokens>;
+      readonly colors?: Partial<ColorTokens>;
+      readonly designTokens?: Partial<TokenOverrides>;
+      readonly semanticTokens?: Partial<SemanticTokenOverrides>;
+      readonly components?: Record<string, unknown>;
     }
   >;
   /** Default theme name */
-  defaultTheme?: 'light' | 'dark' | string;
+  readonly defaultTheme?: 'light' | 'dark' | string;
   /** CSS variable prefix */
-  prefix?: string;
-  /** Global layout configuration */
-  layout?: Partial<LayoutTokens>;
+  readonly prefix?: string;
   /** Disable all animations globally */
-  disableAnimations?: boolean;
+  readonly disableAnimations?: boolean;
+  /** Override any design token family */
+  readonly designTokens?: Partial<TokenOverrides>;
+  /** Override semantic tokens globally */
+  readonly semanticTokens?: Partial<SemanticTokenOverrides>;
 }
 
 export interface ColorScale {
-  50?: string;
-  100?: string;
-  200?: string;
-  300?: string;
-  400?: string;
-  500?: string;
-  600?: string;
-  700?: string;
-  800?: string;
-  900?: string;
-  950?: string;
-  [key: string]: string | undefined;
+  readonly 50?: string;
+  readonly 100?: string;
+  readonly 200?: string;
+  readonly 300?: string;
+  readonly 400?: string;
+  readonly 500?: string;
+  readonly 600?: string;
+  readonly 700?: string;
+  readonly 800?: string;
+  readonly 900?: string;
+  readonly 950?: string;
+  readonly [key: string]: string | undefined;
 }
 
 export interface ColorTokens {
-  primary?: ColorScale;
-  secondary?: ColorScale;
-  success?: ColorScale;
-  warning?: ColorScale;
-  danger?: ColorScale;
-  info?: ColorScale;
-  neutral?: ColorScale;
+  readonly primary?: ColorScale;
+  readonly secondary?: ColorScale;
+  readonly success?: ColorScale;
+  readonly warning?: ColorScale;
+  readonly danger?: ColorScale;
+  readonly info?: ColorScale;
+  readonly neutral?: ColorScale;
   /** Common flat colors */
-  white?: string;
-  black?: string;
-  [key: string]: ColorScale | string | undefined;
-}
-
-export interface SemanticColors {
-  background: string;
-  foreground: string;
-  muted: string;
-  'muted-foreground': string;
-  card: string;
-  'card-foreground': string;
-  border: string;
-  input: string;
-  ring: string;
-  primary: string;
-  'primary-foreground': string;
-  secondary: string;
-  'secondary-foreground': string;
-  success: string;
-  'success-foreground': string;
-  warning: string;
-  'warning-foreground': string;
-  danger: string;
-  'danger-foreground': string;
-  info: string;
-  'info-foreground': string;
-}
-
-export interface IdeasUITheme {
-  colors: ColorTokens & { gray: ColorScale };
-  semanticColors: SemanticColors;
-  spacing: Record<string, string>;
-  borderRadius: Record<string, string>;
-  fontSize: Record<string, string | [string, { lineHeight: string }]>;
-  boxShadow: Record<string, string>;
-  animation: Record<string, string>;
-  keyframes: Record<string, Record<string, unknown>>;
-  transitionDuration: Record<string, string>;
-  transitionTimingFunction: Record<string, string>;
+  readonly white?: string;
+  readonly black?: string;
+  readonly [key: string]: ColorScale | string | undefined;
 }
 
 export type ThemeMode = 'light' | 'dark' | 'system';
@@ -119,9 +128,10 @@ export type ThemeMode = 'light' | 'dark' | 'system';
 export type ColorFn = 'oklch' | 'var';
 
 export type ConfigTheme = {
-  extend?: 'light' | 'dark';
-  layout?: Partial<LayoutTokens>;
-  colors?: Partial<ColorTokens>;
+  readonly extend?: 'light' | 'dark';
+  readonly colors?: Partial<ColorTokens>;
+  readonly designTokens?: Partial<TokenOverrides>;
+  readonly semanticTokens?: Partial<SemanticTokenOverrides>;
 };
 
 export type ConfigThemes = Record<string, ConfigTheme>;

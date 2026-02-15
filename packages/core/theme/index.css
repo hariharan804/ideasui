@@ -1,15 +1,1 @@
-@import 'tailwindcss';
-/* @plugin './src/system/plugin/index.ts'; */
-
-/* Explicitly define layer order */
-@layer theme, base, components, utilities;
-
-/* 
-  Initial configuration for the generated CSS bundle.
-  This ensures all design token CSS variables are generated 
-  and base styles are included.
-*/
-@theme {
-  --ideasui-prefix: 'ideasui';
-  --ideasui-default-theme: 'light';
-}
+@plugin './src/system/plugin/index.ts';

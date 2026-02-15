@@ -97,6 +97,34 @@ export const primitives = {
       900: 'oklch(0.220 0.112 70.0)',
       950: 'oklch(0.140 0.082 70.0)',
     },
+
+    secondary: {
+      50: 'oklch(0.970 0.019 175.0)',
+      100: 'oklch(0.930 0.036 175.0)',
+      200: 'oklch(0.870 0.068 175.0)',
+      300: 'oklch(0.790 0.108 175.0)',
+      400: 'oklch(0.700 0.152 175.0)',
+      500: 'oklch(0.590 0.196 175.0)',
+      600: 'oklch(0.500 0.186 175.0)',
+      700: 'oklch(0.420 0.166 175.0)',
+      800: 'oklch(0.320 0.141 175.0)',
+      900: 'oklch(0.220 0.108 175.0)',
+      950: 'oklch(0.140 0.079 175.0)',
+    },
+
+    tertiary: {
+      50: 'oklch(0.970 0.020 330.0)',
+      100: 'oklch(0.930 0.037 330.0)',
+      200: 'oklch(0.870 0.071 330.0)',
+      300: 'oklch(0.790 0.112 330.0)',
+      400: 'oklch(0.700 0.159 330.0)',
+      500: 'oklch(0.590 0.204 330.0)',
+      600: 'oklch(0.500 0.194 330.0)',
+      700: 'oklch(0.420 0.173 330.0)',
+      800: 'oklch(0.320 0.147 330.0)',
+      900: 'oklch(0.220 0.112 330.0)',
+      950: 'oklch(0.140 0.082 330.0)',
+    },
   },
 
   dark: {
@@ -184,6 +212,34 @@ export const primitives = {
       900: 'oklch(0.930 0.060 70.0)',
       950: 'oklch(0.970 0.030 70.0)',
     },
+
+    secondary: {
+      50: 'oklch(0.140 0.079 175.0)',
+      100: 'oklch(0.200 0.098 175.0)',
+      200: 'oklch(0.280 0.121 175.0)',
+      300: 'oklch(0.380 0.147 175.0)',
+      400: 'oklch(0.480 0.173 175.0)',
+      500: 'oklch(0.590 0.196 175.0)',
+      600: 'oklch(0.700 0.166 175.0)',
+      700: 'oklch(0.790 0.133 175.0)',
+      800: 'oklch(0.870 0.094 175.0)',
+      900: 'oklch(0.930 0.055 175.0)',
+      950: 'oklch(0.970 0.030 175.0)',
+    },
+
+    tertiary: {
+      50: 'oklch(0.140 0.082 330.0)',
+      100: 'oklch(0.200 0.102 330.0)',
+      200: 'oklch(0.280 0.126 330.0)',
+      300: 'oklch(0.380 0.153 330.0)',
+      400: 'oklch(0.480 0.180 330.0)',
+      500: 'oklch(0.590 0.204 330.0)',
+      600: 'oklch(0.700 0.173 330.0)',
+      700: 'oklch(0.790 0.139 330.0)',
+      800: 'oklch(0.870 0.098 330.0)',
+      900: 'oklch(0.930 0.057 330.0)',
+      950: 'oklch(0.970 0.031 330.0)',
+    },
   },
 } as const;
 
@@ -216,6 +272,16 @@ export const semantic = {
     base: 'var(--ideasui-warning-500)',
     subtle: 'var(--ideasui-warning-100)',
     content: 'var(--ideasui-warning-50)',
+  },
+  secondary: {
+    base: 'var(--ideasui-secondary-500)',
+    subtle: 'var(--ideasui-secondary-100)',
+    content: 'var(--ideasui-secondary-50)',
+  },
+  tertiary: {
+    base: 'var(--ideasui-tertiary-500)',
+    subtle: 'var(--ideasui-tertiary-100)',
+    content: 'var(--ideasui-tertiary-50)',
   },
 } as const;
 
@@ -263,4 +329,13 @@ export const darkContent = {
   muted: 'var(--ideasui-neutral-500)', // placeholders
   disabled: 'var(--ideasui-neutral-600)', // disabled text
   inverse: 'var(--ideasui-neutral-950)', // text on light surface
+} as const;
+
+/* ============================================================
+   5️⃣ COMMON COLORS
+   ============================================================ */
+
+export const commonColors = {
+  white: '#ffffff',
+  black: '#000000',
 } as const;

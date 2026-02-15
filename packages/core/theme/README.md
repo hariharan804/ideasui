@@ -155,8 +155,17 @@ export default {
       },
     }),
   ],
+  ],
 };
 ```
+
+> **Note:** Use `as const` for best type inference when defining your configuration object:
+>
+> ```ts
+> const config = {
+>   // ... your config
+> } as const;
+> ```
 
 ## 📦 Component Recipes
 

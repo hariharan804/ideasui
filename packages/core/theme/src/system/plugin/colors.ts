@@ -31,7 +31,7 @@ export function processShadeColor(
     }
   }
 
-  const colorVar = `--${prefix}-${colorName}`;
+  const colorVar = `--${prefix}-color-${colorName}`;
 
   // If the value is a var() reference to another token, preserve the reference
   // This ensures semantic tokens (e.g. primary-base) derive from palette scale

@@ -1,7 +1,7 @@
 # IdeasUI Architecture Guide
 
 **Version:** 1.0  
-**Last Updated:** January 24, 2026  
+**Last Updated:** February 15, 2026  
 **Status:** Production Standard  
 **Audience:** Developers, Designers, Contributors
 
@@ -144,7 +144,7 @@ export const duration = {
 // (Handled by Tailwind plugin)
 
 // ❌ BAD: Define tokens in CSS
-// :root { --duration-normal: 200ms; }
+// :root { --ideasui-color-primary-500: #...; }
 ```
 
 #### 2. Hybrid Styling Approach
@@ -334,8 +334,8 @@ export const card = tv({
 **All styles use CSS layers:**
 
 ```css
-/* Automatically handled by Tailwind plugin */
-@layer base, components, utilities;
+/* Automatically handled by ideasUIPlugin */
+/* @plugin "@ideasui/theme/plugin"; */
 
 /* Your custom styles should specify layer */
 @layer components {
@@ -633,19 +633,22 @@ Design tokens are the **atomic units** of the design system. Think of them as de
 └──────────────┬──────────────────────┘
                ↓
 ┌──────────────────────────────────────┐
+│  Design Tokens (Customizable)        │
+│  • Spacing, Radius, Blur, etc.       │
+│  • Colors (as primitives)            │
+└──────────────┬───────────────────────┘
+               ↓
+┌──────────────────────────────────────┐
 │  Semantic Tokens                     │
 │  (Purpose-based)                     │
 │  • primary, secondary, danger        │
 │  • background, foreground            │
-│  • spacing-sm, spacing-md            │
 └──────────────┬───────────────────────┘
                ↓
 ┌──────────────────────────────────────┐
-│  Component Tokens                    │
-│  (Component-specific)                │
-│  • button-background                 │
-│  • card-shadow                       │
-│  • input-border                      │
+│  Generated CSS Variables             │
+│  • --ideasui-color-primary-500     │
+│  • --ideasui-spacing-4               │
 └──────────────────────────────────────┘
 ```
 
@@ -789,7 +792,8 @@ IdeasUI uses **OKLCH** (Lightness, Chroma, Hue) for:
 
 ```css
 /* OKLCH format: oklch(L C H / A) */
---primary: oklch(0.62 0.195 253.83);
+/* OKLCH format: Lo Ch H */
+--ideasui-color-primary-500: 0.62 0.195 253.83;
 /* ↑    ↑    ↑
              L    C    H
           Light Chroma Hue

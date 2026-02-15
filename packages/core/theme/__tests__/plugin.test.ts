@@ -276,8 +276,24 @@ describe('ideasUIPlugin', () => {
     expect(generatedVars['--ideasui-spacing-1']).toBeDefined();
   });
 
-  it('should generate motion utilities', () => {
-    const plugin = ideasUIPlugin();
+  it('should generate scoped CSS variables for per-theme token overrides', () => {
+    const config = {
+      themes: {
+        custom: {
+          extend: 'light',
+          designTokens: {
+            spacing: {
+              '4': '20px',
+            },
+            borderRadius: {
+              md: '8px',
+            },
+          },
+        },
+      },
+    };
+    // @ts-ignore
+    const plugin = ideasUIPlugin(config);
     const addBase = jest.fn();
     const addUtilities = jest.fn();
     const addVariant = jest.fn();
@@ -285,16 +301,151 @@ describe('ideasUIPlugin', () => {
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
 
-    expect(addUtilities).toHaveBeenCalled();
-    const utilities = addUtilities.mock.calls[0][0];
-
-    expect(utilities['.motion-fast']).toBeDefined();
-    expect(utilities['.motion-fast']['transition-duration']).toBe('100ms');
-
-    expect(utilities['.motion-emphasized']).toBeDefined();
-    expect(utilities['.motion-emphasized']['transition-duration']).toBe('500ms');
-    expect(utilities['.motion-emphasized']['transition-timing-function']).toBe(
-      'cubic-bezier(0.2, 0.0, 0, 1.0)',
+    const calls = addBase.mock.calls;
+    const customThemeUtilities = calls.find(
+      (call) =>
+        call[0][".custom, [data-theme='custom']"] &&
+        call[0][".custom, [data-theme='custom']"]['--ideasui-spacing-4'],
     );
+
+    expect(customThemeUtilities).toBeDefined();
+    if (!customThemeUtilities) {
+      throw new Error('Expected customThemeUtilities to be defined');
+    }
+    const styles = customThemeUtilities[0][".custom, [data-theme='custom']"];
+
+    expect(styles['--ideasui-spacing-4']).toBe('20px');
+    expect(styles['--ideasui-radius-md']).toBe('8px');
+  });
+
+  it('should generate scoped CSS variables for semantic token overrides', () => {
+    const config = {
+      themes: {
+        custom: {
+          extend: 'light',
+          semanticTokens: {
+            surface: {
+              '100': '#ffffff',
+            },
+            content: {
+              '100': '#000000',
+            },
+            border: {
+              default: '#e5e7eb',
+            },
+          },
+        },
+      },
+    };
+    // @ts-ignore
+    const plugin = ideasUIPlugin(config);
+    const addBase = jest.fn();
+    const addUtilities = jest.fn();
+    const addVariant = jest.fn();
+
+    // @ts-ignore
+    plugin.handler({ addBase, addUtilities, addVariant });
+
+    const calls = addBase.mock.calls;
+    const customThemeUtilities = calls.find(
+      (call) =>
+        call[0][".custom, [data-theme='custom']"] &&
+        call[0][".custom, [data-theme='custom']"]['--ideasui-surface-100'],
+    );
+
+    expect(customThemeUtilities).toBeDefined();
+    if (!customThemeUtilities) {
+      throw new Error('Expected customThemeUtilities to be defined');
+    }
+    const styles = customThemeUtilities[0][".custom, [data-theme='custom']"];
+
+    expect(styles['--ideasui-surface-100']).toBe('#ffffff');
+    expect(styles['--ideasui-content-100']).toBe('#000000');
+    expect(styles['--ideasui-border-default']).toBe('#e5e7eb');
+  });
+
+  it('should handle global semantic token overrides', () => {
+    const config = {
+      semanticTokens: {
+        surface: {
+          global: '#f0f0f0',
+        },
+        content: {
+          global: '#333333',
+        },
+      },
+      themes: {
+        light: {
+          semanticTokens: {
+            surface: {
+              'theme-specific': '#ffffff',
+            },
+          },
+        },
+      },
+    };
+    // @ts-ignore
+    const plugin = ideasUIPlugin(config);
+    const addBase = jest.fn();
+    const addUtilities = jest.fn();
+    const addVariant = jest.fn();
+
+    // @ts-ignore
+    plugin.handler({ addBase, addUtilities, addVariant });
+
+    const calls = addBase.mock.calls;
+    const lightThemeUtilities = calls.find(
+      (call) =>
+        call[0][":root, .light, [data-theme='light']"] &&
+        call[0][":root, .light, [data-theme='light']"]['--ideasui-surface-global'],
+    );
+
+    expect(lightThemeUtilities).toBeDefined();
+    if (!lightThemeUtilities) {
+      throw new Error('Expected lightThemeUtilities to be defined');
+    }
+    const styles = lightThemeUtilities[0][":root, .light, [data-theme='light']"];
+
+    expect(styles['--ideasui-surface-global']).toBe('#f0f0f0');
+    expect(styles['--ideasui-content-global']).toBe('#333333');
+    expect(styles['--ideasui-surface-theme-specific']).toBe('#ffffff');
+  });
+
+  it('should prefix palette colors with "color-"', () => {
+    const config = {
+      themes: {
+        light: {
+          colors: {
+            primary: {
+              500: '#123456',
+            },
+          },
+        },
+      },
+    };
+    // @ts-ignore
+    const plugin = ideasUIPlugin(config);
+    const addBase = jest.fn();
+    const addUtilities = jest.fn();
+    const addVariant = jest.fn();
+
+    // @ts-ignore
+    plugin.handler({ addBase, addUtilities, addVariant });
+
+    const calls = addBase.mock.calls;
+    // Check utilities for the color variable
+    const themeUtilities = calls.find(
+      (call) =>
+        call[0][":root, .light, [data-theme='light']"] &&
+        call[0][":root, .light, [data-theme='light']"]['--ideasui-color-primary-500'],
+    );
+
+    expect(themeUtilities).toBeDefined();
+    if (!themeUtilities) {
+      throw new Error('Expected themeUtilities to be defined');
+    }
+    const styles = themeUtilities[0][":root, .light, [data-theme='light']"];
+
+    expect(styles['--ideasui-color-primary-500']).toBeDefined();
   });
 });

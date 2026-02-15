@@ -192,6 +192,10 @@ function generateThemeCSS() {
       // Remaining prefixed tokens are color tokens
       category = 'color';
       subName = subName.replace(`${PREFIX}-`, '');
+      // Strip 'color-' if it exists in the variable name to avoid duplication
+      if (subName.startsWith('color-')) {
+        subName = subName.replace('color-', '');
+      }
     } else {
       // Non-prefixed aliases
       category = 'color';

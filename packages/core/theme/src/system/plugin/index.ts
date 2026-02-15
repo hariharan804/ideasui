@@ -4,8 +4,8 @@ import plugin from 'tailwindcss/plugin';
 
 import { DEFAULT_PREFIX } from '../constants';
 
-import { buildThemes, resolveConfig, createThemeExtension } from './core';
-import { generateDesignTokenCSSVars } from './css-vars';
+import { buildThemes, resolveConfig, createThemeExtension, createThemeSelectors } from './core';
+import { generateDesignTokenCSSVars, generateDarkDesignTokenCSSVars } from './css-vars';
 
 // ─────────────────────────────────────────────────────────────
 // Plugin Export
@@ -34,6 +34,14 @@ export const ideasUIPlugin: any = plugin.withOptions(
         ':root': designTokenVars,
       });
 
+      // Generate dark mode overrides
+      const darkTokenVars = generateDarkDesignTokenCSSVars(prefix);
+      const { baseSelector: darkSelector } = createThemeSelectors('dark', defaultTheme);
+
+      addBase({
+        [darkSelector]: darkTokenVars,
+      });
+
       addBase(resolved.baseStyles);
       addBase({ ...resolved.utilities });
 
@@ -52,13 +60,18 @@ export const ideasUIPlugin: any = plugin.withOptions(
       }
     },
   (config: ThemeConfig = {}) => {
-    const { defaultTheme = 'light', prefix = DEFAULT_PREFIX, disableAnimations = false } = config;
+    const {
+      defaultTheme = 'light',
+      prefix = DEFAULT_PREFIX,
+      disableAnimations = false,
+      designTokens,
+    } = config;
     const themes = buildThemes(config);
     const resolved = resolveConfig(themes, defaultTheme, prefix);
 
     return {
       theme: {
-        extend: createThemeExtension(resolved.colors, prefix, disableAnimations),
+        extend: createThemeExtension(resolved.colors, prefix, disableAnimations, designTokens),
       },
     };
   },

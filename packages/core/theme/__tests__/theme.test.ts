@@ -1,6 +1,5 @@
 import { ideasUIPlugin } from '../src/index';
 import { primitives } from '../src/tokens/colors';
-import { lightLayout } from '../src/tokens/layout';
 
 describe('ideasUIPlugin', () => {
   let mockPluginAPI: any;
@@ -67,7 +66,7 @@ describe('ideasUIPlugin', () => {
     const baseCall = mockPluginAPI.addBase.mock.calls.find((call: Record<string, unknown>[]) => {
       const theme = call[0][":root, .light, [data-theme='light']"] as Record<string, string>;
 
-      return theme && theme['--ideasui-primary-500'] === '0.628 0.2577 29.23';
+      return theme && theme['--ideasui-color-primary-500'] === '0.628 0.2577 29.23';
     });
 
     // Ideally we would check for the exact value, but checking it processed the theme is a good start
@@ -105,12 +104,5 @@ describe('Color System', () => {
     expect(primitives.dark).toBeDefined();
     expect(primitives.dark.primary).toBeDefined();
     expect(primitives.dark.primary['500']).toMatch(/^oklch\(/);
-  });
-});
-
-describe('Layout System', () => {
-  it('should have valid layout tokens', () => {
-    expect(lightLayout).toBeDefined();
-    expect(lightLayout.hoverOpacity).toBeDefined();
   });
 });
