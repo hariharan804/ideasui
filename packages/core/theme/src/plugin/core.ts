@@ -38,7 +38,7 @@ import {
   keyframes,
   componentColors,
   componentShadows,
-} from '../../tokens';
+} from '../tokens';
 
 import { flattenThemeObject, omit, escapeSelector, kebabCase } from './utils';
 import { processColors } from './colors';

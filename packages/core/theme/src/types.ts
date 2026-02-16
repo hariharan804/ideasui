@@ -17,7 +17,7 @@ import type {
   DurationProps,
   EasingProps,
   AnimationProps,
-} from '../tokens';
+} from './tokens';
 
 /** Override any design token family */
 export interface TokenOverrides {

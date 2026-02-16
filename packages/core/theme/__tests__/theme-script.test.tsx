@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { ThemeScript } from '../src/system/providers/theme-script';
+import { ThemeScript } from '../src/providers/theme-script';
 
 describe('ThemeScript', () => {
   it('should render script tag', () => {

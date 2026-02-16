@@ -20,8 +20,8 @@ import {
   darkElevation,
   interaction,
   accessibility,
-} from '../../tokens';
-import { componentColors, componentShadows } from '../../tokens/components';
+} from '../tokens';
+import { componentColors, componentShadows } from '../tokens/components';
 
 import { kebabCase } from './utils';
 

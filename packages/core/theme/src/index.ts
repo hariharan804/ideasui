@@ -5,11 +5,11 @@
  */
 
 // IdeasuiTailwind plugin
-export { ideasUIPlugin } from './system/plugin';
+export { ideasUIPlugin } from './plugin';
 
 // Theme providers and hooks
-export { ThemeProvider, ThemeScript, useTheme } from './system/providers';
-export type { ThemeProviderProps, ThemeScriptProps, ThemeScriptConfig } from './system/providers';
+export { ThemeProvider, ThemeScript, useTheme } from './providers';
+export type { ThemeProviderProps, ThemeScriptProps, ThemeScriptConfig } from './providers';
 
 // Design tokens
 export * from './tokens';
@@ -18,4 +18,4 @@ export * from './tokens';
 export * from './recipes';
 
 // Type definitions
-export type * from './system/types';
+export type * from './types';

@@ -1,4 +1,4 @@
-import { ideasUIPlugin } from '../src/system/plugin';
+import { ideasUIPlugin } from '../src/plugin';
 
 describe('ideasUIPlugin', () => {
   it('should return a valid tailwind plugin', () => {

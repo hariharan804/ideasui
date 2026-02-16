@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 
-import { ThemeProvider } from '../src/system/providers/theme-provider';
-import { defaultConfig } from '../src/system/providers/utils/themes.config';
+import { ThemeProvider } from '../src/providers/theme-provider';
+import { defaultConfig } from '../src/providers/utils/themes.config';
 
 describe('ThemeProvider', () => {
   beforeEach(() => {

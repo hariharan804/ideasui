@@ -2,8 +2,8 @@ import type { ReactNode, ReactElement } from 'react';
 
 import { renderHook, act } from '@testing-library/react';
 
-import { ThemeProvider } from '../src/system/providers/theme-provider';
-import { useTheme } from '../src/system/providers/use-theme';
+import { ThemeProvider } from '../src/providers/theme-provider';
+import { useTheme } from '../src/providers/use-theme';
 
 // Helper wrapper component
 function wrapper({ children }: { children: ReactNode }): ReactElement {

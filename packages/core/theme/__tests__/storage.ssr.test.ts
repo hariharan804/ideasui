@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import { storageAdapters } from '../src/system/providers/utils/storage';
+import { storageAdapters } from '../src/providers/utils/storage';
 
 const TEST_KEY = 'key';
 const TEST_VALUE = 'value';

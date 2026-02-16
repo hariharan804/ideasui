@@ -1,4 +1,4 @@
-import { storageAdapters } from '../src/system/providers/utils/storage';
+import { storageAdapters } from '../src/providers/utils/storage';
 
 const { local } = storageAdapters;
 

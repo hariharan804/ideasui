@@ -34,6 +34,7 @@
     "typecheck": "turbo run typecheck",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "quality": "pnpm lint && pnpm typecheck && pnpm format:check",
     "preinstall": "node scripts/check-versions.js && npx only-allow pnpm",
     "prepare": "husky",
     "commit": "git add . && cz",

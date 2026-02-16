@@ -63,10 +63,8 @@ export {
   darkSurface,
   lightContent,
   darkContent,
-  // Responsive tokens
   breakpoints,
   commonColors,
-  // New tokens
   accessibility,
   backdrop,
   blur,
@@ -99,9 +97,7 @@ export type ColorsWithVariantProps = keyof typeof colorsWithVariant;
 export type ButtonSizesProps = keyof typeof buttonSizes;
 export type SpinnerSizesProps = keyof typeof spinnerSizes;
 export type SquareSizesProps = keyof typeof squareSizes;
-// Responsive types
 export type BreakpointProps = keyof typeof breakpoints;
-// Motion types
 export type DurationProps = keyof typeof duration;
 export type EasingProps = keyof typeof easing;
 export type FontWeightProps = keyof typeof fontWeight;
