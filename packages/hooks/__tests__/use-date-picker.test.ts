@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import { renderHook, act } from '@testing-library/react';
 
 import { useDatePicker } from '../src/use-date-picker';
@@ -17,7 +16,7 @@ describe('useDatePicker', () => {
     const date = new Date(2023, 5, 1);
     const { result } = renderHook(() => useDatePicker(date));
 
-    expect(result.current.selectedDate).toEqual(date);
+    expect(result.current.selectedDate).toStrictEqual(date);
   });
 
   it('should return false for isSelected if selectedDate is null', () => {

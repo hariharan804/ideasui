@@ -1,4 +1,4 @@
-import { ideasUIPlugin } from '../src/system/plugin';
+import { ideasUIPlugin } from '../src/plugin';
 
 describe('ideasUIPlugin', () => {
   it('should return a valid tailwind plugin', () => {
@@ -23,7 +23,7 @@ describe('ideasUIPlugin', () => {
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
 
-    expect(plugin.config?.theme?.extend?.animation).toEqual({ none: 'none' });
+    expect(plugin.config?.theme?.extend?.animation).toStrictEqual({ none: 'none' });
 
     // We can verify that the config structure is correct
     // @ts-ignore
@@ -42,7 +42,6 @@ describe('ideasUIPlugin', () => {
     plugin.handler({ addBase, addUtilities, addVariant });
 
     expect(addBase).toHaveBeenCalled();
-    expect(addUtilities).toHaveBeenCalled();
     expect(addVariant).toHaveBeenCalled();
   });
 
@@ -162,7 +161,6 @@ describe('ideasUIPlugin', () => {
 
     // Verify nested values were processed
     expect(addBase).toHaveBeenCalled();
-    expect(addUtilities).toHaveBeenCalled();
   });
 
   it('should skip non-numeric shades', () => {
@@ -171,7 +169,6 @@ describe('ideasUIPlugin', () => {
         light: {
           colors: {
             'primary-DEFAULT': '#000000', // Should be skipped
-            'secondary-on': '#111111', // Should be skipped
             'brand-500': '#222222', // Should be processed
           },
         },
@@ -255,5 +252,200 @@ describe('ideasUIPlugin', () => {
     plugin.handler({ addBase, addUtilities, addVariant });
 
     expect(addBase).toHaveBeenCalled();
+  });
+
+  it('should generate new tokens CSS variables', () => {
+    const plugin = ideasUIPlugin();
+    const addBase = jest.fn();
+    const addUtilities = jest.fn();
+    const addVariant = jest.fn();
+
+    // @ts-ignore
+    plugin.handler({ addBase, addUtilities, addVariant });
+
+    const generatedVars = addBase.mock.calls
+      .filter((call) => call[0][':root'])
+      .map((call) => call[0][':root'])[0];
+
+    expect(generatedVars['--ideasui-z-index-dropdown']).toBeDefined();
+    expect(generatedVars['--ideasui-opacity-medium']).toBeDefined();
+    expect(generatedVars['--ideasui-font-sans']).toBeDefined();
+    expect(generatedVars['--ideasui-border-hairline']).toBeDefined();
+    expect(generatedVars['--ideasui-blur-md']).toBeDefined();
+    expect(generatedVars['--ideasui-duration-sm']).toBeDefined();
+    expect(generatedVars['--ideasui-spacing-1']).toBeDefined();
+  });
+
+  it('should generate scoped CSS variables for per-theme token overrides', () => {
+    const config = {
+      themes: {
+        custom: {
+          extend: 'light',
+          designTokens: {
+            spacing: {
+              '4': '20px',
+            },
+            borderRadius: {
+              md: '8px',
+            },
+          },
+        },
+      },
+    };
+    // @ts-ignore
+    const plugin = ideasUIPlugin(config);
+    const addBase = jest.fn();
+    const addUtilities = jest.fn();
+    const addVariant = jest.fn();
+
+    // @ts-ignore
+    plugin.handler({ addBase, addUtilities, addVariant });
+
+    const calls = addBase.mock.calls;
+    const customThemeUtilities = calls.find(
+      (call) =>
+        call[0][".custom, [data-ideasui-theme='custom']"] &&
+        call[0][".custom, [data-ideasui-theme='custom']"]['--ideasui-spacing-4'],
+    );
+
+    expect(customThemeUtilities).toBeDefined();
+    if (!customThemeUtilities) {
+      throw new Error('Expected customThemeUtilities to be defined');
+    }
+    const styles = customThemeUtilities[0][".custom, [data-ideasui-theme='custom']"];
+
+    expect(styles['--ideasui-spacing-4']).toBe('20px');
+    expect(styles['--ideasui-radius-md']).toBe('8px');
+  });
+
+  it('should generate scoped CSS variables for semantic token overrides', () => {
+    const config = {
+      themes: {
+        custom: {
+          extend: 'light',
+          semanticTokens: {
+            surface: {
+              '100': '#ffffff',
+            },
+            content: {
+              '100': '#000000',
+            },
+            border: {
+              default: '#e5e7eb',
+            },
+          },
+        },
+      },
+    };
+    // @ts-ignore
+    const plugin = ideasUIPlugin(config);
+    const addBase = jest.fn();
+    const addUtilities = jest.fn();
+    const addVariant = jest.fn();
+
+    // @ts-ignore
+    plugin.handler({ addBase, addUtilities, addVariant });
+
+    const calls = addBase.mock.calls;
+    const customThemeUtilities = calls.find(
+      (call) =>
+        call[0][".custom, [data-ideasui-theme='custom']"] &&
+        call[0][".custom, [data-ideasui-theme='custom']"]['--ideasui-surface-100'],
+    );
+
+    expect(customThemeUtilities).toBeDefined();
+    if (!customThemeUtilities) {
+      throw new Error('Expected customThemeUtilities to be defined');
+    }
+    const styles = customThemeUtilities[0][".custom, [data-ideasui-theme='custom']"];
+
+    expect(styles['--ideasui-surface-100']).toBe('#ffffff');
+    expect(styles['--ideasui-content-100']).toBe('#000000');
+    expect(styles['--ideasui-border-default']).toBe('#e5e7eb');
+  });
+
+  it('should handle global semantic token overrides', () => {
+    const config = {
+      semanticTokens: {
+        surface: {
+          global: '#f0f0f0',
+        },
+        content: {
+          global: '#333333',
+        },
+      },
+      themes: {
+        light: {
+          semanticTokens: {
+            surface: {
+              'theme-specific': '#ffffff',
+            },
+          },
+        },
+      },
+    };
+    // @ts-ignore
+    const plugin = ideasUIPlugin(config);
+    const addBase = jest.fn();
+    const addUtilities = jest.fn();
+    const addVariant = jest.fn();
+
+    // @ts-ignore
+    plugin.handler({ addBase, addUtilities, addVariant });
+
+    const calls = addBase.mock.calls;
+    const lightThemeUtilities = calls.find(
+      (call) =>
+        call[0][":root, .light, [data-ideasui-theme='light']"] &&
+        call[0][":root, .light, [data-ideasui-theme='light']"]['--ideasui-surface-global'],
+    );
+
+    expect(lightThemeUtilities).toBeDefined();
+    if (!lightThemeUtilities) {
+      throw new Error('Expected lightThemeUtilities to be defined');
+    }
+    const styles = lightThemeUtilities[0][":root, .light, [data-ideasui-theme='light']"];
+
+    expect(styles['--ideasui-surface-global']).toBe('#f0f0f0');
+    expect(styles['--ideasui-content-global']).toBe('#333333');
+    expect(styles['--ideasui-surface-theme-specific']).toBe('#ffffff');
+  });
+
+  it('should prefix palette colors with "color-"', () => {
+    const config = {
+      themes: {
+        light: {
+          colors: {
+            primary: {
+              500: '#123456',
+            },
+          },
+        },
+      },
+    };
+    // @ts-ignore
+    const plugin = ideasUIPlugin(config);
+    const addBase = jest.fn();
+    const addUtilities = jest.fn();
+    const addVariant = jest.fn();
+
+    // @ts-ignore
+    plugin.handler({ addBase, addUtilities, addVariant });
+
+    const calls = addBase.mock.calls;
+    // Check utilities for the color variable
+    const themeUtilities = calls.find(
+      (call) =>
+        call[0][":root, .light, [data-ideasui-theme='light']"] &&
+        call[0][":root, .light, [data-ideasui-theme='light']"]['--ideasui-color-primary-500'],
+    );
+
+    expect(themeUtilities).toBeDefined();
+    if (!themeUtilities) {
+      throw new Error('Expected themeUtilities to be defined');
+    }
+    const styles = themeUtilities[0][":root, .light, [data-ideasui-theme='light']"];
+
+    expect(styles['--ideasui-color-primary-500']).toBeDefined();
   });
 });

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from '../../style/tailwind';
 import { mergeProps, mergeRefs } from '../common';
 
@@ -67,7 +66,7 @@ describe('mergeProps', () => {
 
     const result = mergeProps(props1, props2);
 
-    expect(result.style).toEqual({ color: 'red', background: 'blue' });
+    expect(result.style).toStrictEqual({ color: 'red', background: 'blue' });
   });
 
   it('should merge nested styles properly', () => {
@@ -75,7 +74,7 @@ describe('mergeProps', () => {
     const props2 = { style: { color: 'blue' } };
     const result = mergeProps(props1, props2);
 
-    expect(result.style).toEqual({ color: 'blue' });
+    expect(result.style).toStrictEqual({ color: 'blue' });
   });
 
   it('should merge ref callbacks', () => {

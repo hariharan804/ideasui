@@ -1,8 +1,8 @@
-import type { SpinnerSizesProps } from '@ideasui/theme/token';
+import type { SpinnerSizesProps } from '@ideasui/theme/tokens';
 import type { JSX } from 'react';
 
 import { cn } from '@ideasui/utils';
-import { spinnerSizes } from '@ideasui/theme/token';
+import { spinnerSizes } from '@ideasui/theme/tokens';
 
 export const Spinner = ({ size }: { size: SpinnerSizesProps }): JSX.Element => {
   return (

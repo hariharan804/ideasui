@@ -34,7 +34,8 @@
     "typecheck": "turbo run typecheck",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "preinstall": "npx only-allow pnpm",
+    "quality": "pnpm lint && pnpm typecheck && pnpm format:check",
+    "preinstall": "node scripts/check-versions.js && npx only-allow pnpm",
     "prepare": "husky",
     "commit": "git add . && cz",
     "storybook": "turbo run dev --filter=@ideasui/storybook",
@@ -119,16 +120,20 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-boundaries": "^5.3.1",
     "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jest": "^29.12.1",
     "eslint-plugin-jsdoc": "^61.5.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-compiler": "19.1.0-rc.2",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.26",
     "eslint-plugin-security": "^3.0.1",
     "eslint-plugin-sonarjs": "^3.0.5",
     "eslint-plugin-storybook": "10.1.4",
+    "eslint-plugin-tailwindcss": "^3.18.2",
+    "eslint-plugin-testing-library": "^7.15.4",
     "eslint-plugin-unicorn": "^62.0.0",
     "eslint-plugin-unused-imports": "^4.3.0",
     "globals": "^16.5.0",
@@ -162,8 +167,8 @@
     }
   },
   "engines": {
-    "pnpm": ">=10.x",
-    "node": ">=22.x"
+    "pnpm": ">=8.x",
+    "node": ">=22.14.0"
   },
   "packageManager": "pnpm@10.26.0"
 }

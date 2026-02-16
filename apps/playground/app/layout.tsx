@@ -32,15 +32,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>): JSX.Element {
   // const plugin = ideasUIPlugin();
-  // console.debug("🚀 ~ RootLayout ~ plugin:", plugin);
+  // console.log("🚀 ~ RootLayout ~ plugin:", plugin)
+  // console.table(plugin?.config?.theme);
+
   return (
     <html suppressHydrationWarning lang="en">
       <head>
         <ThemeScript defaultTheme="light" />
       </head>
       <body className="antialiased">
-        <ThemeProvider defaultTheme="light" />
-        {children}
+        <ThemeProvider defaultTheme="light">{children}</ThemeProvider>
       </body>
     </html>
   );

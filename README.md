@@ -25,6 +25,23 @@ pnpm run dev
 pnpm run build
 ```
 
+## ⚙️ Requirements
+
+- **Node.js**: >= 18.x (LTS)
+- **PNPM**: >= 8.x
+- Automatic version checks run on install with helpful error messages
+
+```bash
+# Check if you have Node.js installed
+node --version
+
+# Check if you have PNPM installed
+pnpm --version
+
+# Install PNPM if needed
+npm install -g pnpm
+```
+
 ## 📦 Usage
 
 ```tsx
@@ -155,3 +172,10 @@ pnpm run create
 - [🧪 Testing Guide](./docs/TESTING_GUIDE.md) - Quality assurance
 - [📦 Packages Guide](./packages/README.md) - Package development guide
 - [📏 Development Rules](./rules/README.md) - Naming conventions, code quality, accessibility
+
+### Developer Workflows
+
+- [➕ Create Component](./.agent/workflows/create-component.md) - How to create a new component
+- [🧪 Testing](./.agent/workflows/testing.md) - How to run tests and maintain test quality
+- [🚀 Release](./.agent/workflows/release.md) - How to release new versions
+- [🔧 Troubleshooting](./.agent/workflows/troubleshooting.md) - Common issues and how to fix them

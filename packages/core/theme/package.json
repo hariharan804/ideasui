@@ -1,6 +1,7 @@
 {
   "name": "@ideasui/theme",
   "version": "0.1.0",
+  "type": "module",
   "description": "Tailwind CSS v4 theme system for IdeasUI",
   "main": "./src/index.ts",
   "exports": {
@@ -15,11 +16,17 @@
     "./system": {
       "import": "./src/system/index.ts"
     },
-    "./token": {
+    "./tokens": {
       "import": "./src/tokens/index.ts"
     },
+    "./providers": {
+      "import": "./src/providers/index.ts"
+    },
     "./plugin": {
-      "import": "./src/system/plugin.ts"
+      "import": "./src/plugin/index.ts"
+    },
+    "./theme.css": {
+      "import": "./dist/theme.css"
     }
   },
   "files": [
@@ -27,19 +34,25 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && pnpm build:theme",
+    "build:css": "tailwindcss -i theme.css -o dist/tailwind.css --minify",
+    "build:theme": "node scripts/generate-theme-css.mjs",
     "dev": "tsup --watch",
-    "generate-theme": "node ./src/system/generator/generate-theme.mjs",
+    "generate-theme": "node ./src/generator/generate-theme.mjs",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   },
   "peerDependencies": {
     "tailwindcss": ">=4"
   },
   "devDependencies": {
     "@ideasui/utils": "workspace:*",
+    "@tailwindcss/cli": "^4.0.0",
     "@types/node": "^20.0.0",
     "chroma-js": "^3.2.0",
+    "tailwindcss": "^4.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
   },
@@ -57,5 +70,17 @@
     "deepmerge": "^4.3.1",
     "flat": "^6.0.1",
     "tailwind-variants": "^3.2.2"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hariharan804/ideasui.git",
+    "directory": "packages/core/theme"
+  },
+  "bugs": {
+    "url": "https://github.com/hariharan804/ideasui/issues"
+  },
+  "homepage": "https://github.com/hariharan804/ideasui#readme"
 }

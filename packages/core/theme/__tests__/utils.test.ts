@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import {
   flattenThemeObject,
   escapeSelector,
@@ -8,7 +7,7 @@ import {
   rgbToOklch,
   parseColorValue,
   isNumericShade,
-} from '../src/system/utils';
+} from '../src/plugin/utils';
 
 // Basic tests for theme utils
 describe('Theme Utils', () => {
@@ -70,7 +69,7 @@ describe('Theme Utils', () => {
       const obj = { a: 1, b: 2 };
       const result = mapKeys(obj, (val, key) => key.toUpperCase());
 
-      expect(result).toEqual({ A: 1, B: 2 });
+      expect(result).toStrictEqual({ A: 1, B: 2 });
     });
   });
 
@@ -79,7 +78,7 @@ describe('Theme Utils', () => {
       const obj = { a: 1, b: 2, c: 3 };
       const result = omit(obj, ['b']);
 
-      expect(result).toEqual({ a: 1, c: 3 });
+      expect(result).toStrictEqual({ a: 1, c: 3 });
     });
   });
 
@@ -122,7 +121,7 @@ describe('Theme Utils', () => {
       const result = parseColorValue('oklch(0.5 0.5 100)');
 
       expect(result?.cssFn).toBe('oklch');
-      expect(result?.components).toEqual(['0.5', '0.5', '100']);
+      expect(result?.components).toStrictEqual(['0.5', '0.5', '100']);
     });
   });
 
@@ -163,7 +162,7 @@ describe('Theme Utils', () => {
       const result = parseColorValue('oklch(0.5 0.5 100 / 0.8)');
 
       expect(result?.cssFn).toBe('oklch');
-      expect(result?.components).toEqual(['0.5', '0.5', '100', '0.8']);
+      expect(result?.components).toStrictEqual(['0.5', '0.5', '100', '0.8']);
     });
 
     it('should handle colors with alpha < 1', () => {

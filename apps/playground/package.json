@@ -3,11 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev:playground": "next dev -p 5000",
+    "dev:playground": "next dev -p 3000",
     "build:playground": "next build",
     "start:playground": "next start",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
     "test:alpha": "clean-package --config clean-package.alpha.json && pnpm install",
     "test:beta": "clean-package --config clean-package.beta.json && pnpm install",
     "test:canary": "clean-package --config clean-package.canary.json && pnpm install",

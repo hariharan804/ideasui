@@ -1,6 +1,7 @@
 import type { JSX, MouseEvent as ReactMouseEvent } from 'react';
 
-import { render, fireEvent, screen, renderHook, act } from '@testing-library/react';
+import { render, screen, renderHook, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { Ripple, useRipple } from '../src';
 
@@ -52,44 +53,39 @@ describe('Ripple', () => {
     expect(screen.getByText('Click me')).toBeInTheDocument();
   });
 
-  it('creates a ripple on mouse down', () => {
+  it('creates a ripple on mouse down', async () => {
+    const user = userEvent.setup();
     const { container } = render(<RippleTest />);
     const button = screen.getByRole('button');
 
-    fireEvent.mouseDown(button, {
-      clientX: 50,
-      clientY: 50,
-    });
+    // userEvent doesn't support easy coordinate passing like fireEvent for ripples usually
+    // but the implementation might rely on it. If we use click, it should work.
+    // However, the test explicitly checked for .ideasui-ripple
+    await user.click(button);
 
     // Check if ripple element is created
     // The Ripple component renders motion span with class "ideasui-ripple"
+    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
     const ripple = container.querySelector('.ideasui-ripple');
 
     expect(ripple).toBeInTheDocument();
   });
 
-  it('renders multiple ripples on multiple clicks', () => {
+  it('renders multiple ripples on multiple clicks', async () => {
+    const user = userEvent.setup();
     const { container } = render(<RippleTest />);
     const button = screen.getByRole('button');
 
-    fireEvent.mouseDown(button, { clientX: 20, clientY: 20 });
-    fireEvent.mouseDown(button, { clientX: 80, clientY: 80 });
+    await user.click(button);
+    await user.click(button);
 
+    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
     const ripples = container.querySelectorAll('.ideasui-ripple');
 
-    expect(ripples.length).toBe(2);
+    expect(ripples).toHaveLength(2);
   });
-  it('clears ripples on animation complete', () => {
-    const { getByRole } = render(<RippleTest />);
-    const button = getByRole('button');
 
-    fireEvent.mouseDown(button, { clientX: 50, clientY: 50 });
-
-    // Simulate onClear being called (the Ripple component usually handles this via animation complete)
-    // We can manually trigger it here if we mock the internal behavior, but let's trust the integration.
-    // Since we mock framer-motion, the animation lifecycle might be skipped.
-    // Let's test useRipple hook directly for more logic coverage.
-  });
+  test.todo('clears ripples on animation complete');
 });
 
 describe('useRipple', () => {

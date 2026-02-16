@@ -1,9 +1,7 @@
 import { ideasUIPlugin } from '../src/index';
-import { lightColorTokens, darkColorTokens } from '../src/tokens/colors';
-import { lightLayout } from '../src/tokens/layout';
+import { primitives } from '../src/tokens/colors';
 
 describe('ideasUIPlugin', () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let mockPluginAPI: any;
 
   beforeEach(() => {
@@ -28,7 +26,6 @@ describe('ideasUIPlugin', () => {
     plugin.handler(mockPluginAPI);
 
     expect(mockPluginAPI.addBase).toHaveBeenCalled();
-    expect(mockPluginAPI.addUtilities).toHaveBeenCalled();
     expect(mockPluginAPI.addVariant).toHaveBeenCalled();
   });
 
@@ -46,7 +43,6 @@ describe('ideasUIPlugin', () => {
 
   it('should handle invalid configuration gracefully', () => {
     expect(() => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ideasUIPlugin({ themes: null as any });
     }).not.toThrow();
   });
@@ -68,9 +64,12 @@ describe('ideasUIPlugin', () => {
 
     // Check if the addBase was called with the overridden value
     const baseCall = mockPluginAPI.addBase.mock.calls.find((call: Record<string, unknown>[]) => {
-      const theme = call[0][":root, .light, [data-theme='light']"] as Record<string, string>;
+      const theme = call[0][":root, .light, [data-ideasui-theme='light']"] as Record<
+        string,
+        string
+      >;
 
-      return theme && theme['--ideasui-primary-500'] === '0.628 0.2577 29.23';
+      return theme && theme['--ideasui-color-primary-500'] === '0.628 0.2577 29.23';
     });
 
     // Ideally we would check for the exact value, but checking it processed the theme is a good start
@@ -81,26 +80,32 @@ describe('ideasUIPlugin', () => {
     // verifying that custom configuration is passed through
     expect(mockPluginAPI.addBase).toHaveBeenCalled();
   });
+
+  it('should generate border tokens', () => {
+    const plugin = ideasUIPlugin();
+
+    plugin.handler(mockPluginAPI);
+
+    const baseCall = mockPluginAPI.addBase.mock.calls.find((call: any) => {
+      const theme = call[0][":root, .light, [data-ideasui-theme='light']"];
+
+      return theme && theme['--ideasui-border-subtle'] !== undefined;
+    });
+
+    expect(baseCall).toBeDefined();
+  });
 });
 
 describe('Color System', () => {
   it('should have valid light color tokens', () => {
-    expect(lightColorTokens).toBeDefined();
-    expect(lightColorTokens.primary).toBeDefined();
-    expect(lightColorTokens.primary['500']).toMatch(/^oklch\(/);
+    expect(primitives.light).toBeDefined();
+    expect(primitives.light.primary).toBeDefined();
+    expect(primitives.light.primary['500']).toMatch(/^oklch\(/);
   });
 
   it('should have valid dark color tokens', () => {
-    expect(darkColorTokens).toBeDefined();
-    expect(darkColorTokens.primary).toBeDefined();
-    expect(darkColorTokens.primary['500']).toMatch(/^oklch\(/);
-  });
-});
-
-describe('Layout System', () => {
-  it('should have valid layout tokens', () => {
-    expect(lightLayout).toBeDefined();
-    expect(lightLayout.radiusMedium).toBeDefined();
-    expect(lightLayout.radiusMedium).toContain('rem');
+    expect(primitives.dark).toBeDefined();
+    expect(primitives.dark.primary).toBeDefined();
+    expect(primitives.dark.primary['500']).toMatch(/^oklch\(/);
   });
 });

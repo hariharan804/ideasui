@@ -1,4 +1,5 @@
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { Touchable } from '../src/touchable';
 
@@ -18,71 +19,88 @@ describe('Touchable', () => {
     jest.clearAllMocks();
   });
 
-  it('triggers ripple on pointer down', () => {
+  it('triggers ripple on pointer down', async () => {
+    const user = userEvent.setup();
+
     render(<Touchable>Click me</Touchable>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
-    fireEvent.pointerDown(button);
+    // Simulate pointer down (press without release)
+    await user.pointer({ keys: '[MouseLeft>]', target: button });
 
     expect(onPressMock).toHaveBeenCalledTimes(1);
   });
 
-  it('calls onPointerDown prop', () => {
+  it('calls onPointerDown prop', async () => {
+    const user = userEvent.setup();
     const onPointerDown = jest.fn();
 
     render(<Touchable onPointerDown={onPointerDown}>Click me</Touchable>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
-    fireEvent.pointerDown(button);
+    await user.pointer({ keys: '[MouseLeft>]', target: button });
 
     expect(onPointerDown).toHaveBeenCalledTimes(1);
     expect(onPressMock).toHaveBeenCalledTimes(1);
   });
 
-  it('does not trigger ripple when disabled', () => {
+  it('does not trigger ripple when disabled', async () => {
+    const user = userEvent.setup();
+
     render(<Touchable disabled>Click me</Touchable>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
-    fireEvent.pointerDown(button);
+    await user.pointer({ keys: '[MouseLeft>]', target: button });
 
     expect(onPressMock).not.toHaveBeenCalled();
   });
 
-  it('triggers ripple on Enter key', () => {
+  it('triggers ripple on Enter key', async () => {
+    const user = userEvent.setup();
+
     render(<Touchable>Click me</Touchable>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
-    fireEvent.keyDown(button, { key: 'Enter' });
+    button.focus();
+    await user.keyboard('{Enter}');
 
     expect(onPressMock).toHaveBeenCalledTimes(1);
   });
 
-  it('triggers ripple on Space key', () => {
+  it('triggers ripple on Space key', async () => {
+    const user = userEvent.setup();
+
     render(<Touchable>Click me</Touchable>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
-    fireEvent.keyDown(button, { key: ' ' });
+    button.focus();
+    await user.keyboard(' ');
 
     expect(onPressMock).toHaveBeenCalledTimes(1);
   });
 
-  it('calls onKeyDown prop', () => {
+  it('calls onKeyDown prop', async () => {
+    const user = userEvent.setup();
     const onKeyDown = jest.fn();
 
     render(<Touchable onKeyDown={onKeyDown}>Click me</Touchable>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
-    fireEvent.keyDown(button, { key: 'Enter' });
+    button.focus();
+    await user.keyboard('{Enter}');
 
     expect(onKeyDown).toHaveBeenCalledTimes(1);
     expect(onPressMock).toHaveBeenCalledTimes(1);
   });
 
-  it('does not trigger ripple on key down when disabled', () => {
+  it('does not trigger ripple on key down when disabled', async () => {
+    const user = userEvent.setup();
+
     render(<Touchable disabled>Click me</Touchable>);
     const button = screen.getByRole('button', { name: 'Click me' });
 
-    fireEvent.keyDown(button, { key: 'Enter' });
+    button.focus();
+    await user.keyboard('{Enter}');
 
     expect(onPressMock).not.toHaveBeenCalled();
   });

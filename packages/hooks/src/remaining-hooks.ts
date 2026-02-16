@@ -82,6 +82,7 @@ export function useAsync<T>(
     return () => {
       ignore = true;
     };
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
@@ -124,6 +125,7 @@ export function useUpdateEffect(effect: () => void, deps: DependencyList): void 
     }
 
     return effect();
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 }

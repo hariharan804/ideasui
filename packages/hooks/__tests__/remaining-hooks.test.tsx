@@ -1,3 +1,6 @@
+/* eslint-disable testing-library/prefer-screen-queries */
+
+/* eslint-disable testing-library/no-node-access */
 import type { JSX } from 'react';
 
 import { renderHook, act, waitFor, render } from '@testing-library/react';
@@ -63,13 +66,14 @@ describe('remaining hooks', () => {
       });
 
       // Should not throw or update state (which would warn)
+      expect(result.current.loading).toBe(true); // Should remain true / unchanged or just verify no error thrown
     });
 
     it('should ignore error if unmounted', async () => {
       const promise = new Promise<string>((_, reject) =>
         setTimeout(() => reject(new Error('fail')), 100),
       );
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
       const { result, unmount } = renderHook(() => useAsync(() => promise));
 
       unmount();
@@ -77,6 +81,8 @@ describe('remaining hooks', () => {
       await act(async () => {
         jest.advanceTimersByTime(100);
       });
+
+      expect(result.current.error).toBeNull();
     });
   });
 

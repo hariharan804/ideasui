@@ -1,73 +1,83 @@
+import type { ReactNode, ReactElement } from 'react';
+
 import { renderHook, act } from '@testing-library/react';
 
-import { useTheme } from '../src/system/providers/use-theme';
-import { themeStore } from '../src/system/providers/utils/store';
+import { ThemeProvider } from '../src/providers/theme-provider';
+import { useTheme } from '../src/providers/use-theme';
+
+// Helper wrapper component
+function wrapper({ children }: { children: ReactNode }): ReactElement {
+  return (
+    <ThemeProvider defaultTheme="dark" themes={['light', 'dark']}>
+      {children}
+    </ThemeProvider>
+  );
+}
 
 describe('useTheme', () => {
-  beforeEach(() => {
-    themeStore.set({
-      theme: 'dark',
-      resolved: 'dark',
-      themes: ['light', 'dark'],
-      systemThemes: { light: 'light', dark: 'dark' },
-    });
-  });
-
-  it('should return current theme from store', () => {
-    const { result } = renderHook(() => useTheme());
+  it('should return current theme from context', () => {
+    const { result } = renderHook(() => useTheme(), { wrapper });
 
     expect(result.current.theme).toBe('dark');
     expect(result.current.resolvedTheme).toBe('dark');
   });
 
   it('should allow setting theme', () => {
-    const { result } = renderHook(() => useTheme());
+    const { result } = renderHook(() => useTheme(), { wrapper });
 
     act(() => {
       result.current.setTheme('light');
     });
 
-    expect(themeStore.get().theme).toBe('light');
+    expect(result.current.theme).toBe('light');
+    expect(result.current.resolvedTheme).toBe('light');
   });
 
   it('should return correct isDark value', () => {
-    act(() => {
-      themeStore.set({
-        theme: 'light',
-        resolved: 'light',
-      });
-    });
+    // Use light theme to start
+    function lightWrapper({ children }: { children: ReactNode }): ReactElement {
+      return (
+        <ThemeProvider defaultTheme="light" themes={['light', 'dark']}>
+          {children}
+        </ThemeProvider>
+      );
+    }
 
-    const { result } = renderHook(() => useTheme());
+    const { result } = renderHook(() => useTheme(), { wrapper: lightWrapper });
 
+    // Initially light
     expect(result.current.isDark).toBe(false);
 
     act(() => {
-      themeStore.set({
-        theme: 'dark',
-        resolved: 'dark',
-      });
+      result.current.setTheme('dark');
     });
 
     expect(result.current.isDark).toBe(true);
   });
 
   it('should return available themes', () => {
-    const { result } = renderHook(() => useTheme());
+    const { result } = renderHook(() => useTheme(), { wrapper });
 
-    expect(result.current.themes).toEqual(['light', 'dark']);
+    expect(result.current.themes).toContain('light');
+    expect(result.current.themes).toContain('dark');
   });
 
-  it('should not update store when setting same theme', () => {
-    const { result } = renderHook(() => useTheme());
-    const setSpy = jest.spyOn(themeStore, 'set');
+  it('should not update when setting same theme', () => {
+    const { result } = renderHook(() => useTheme(), { wrapper });
 
-    // Current theme is 'dark' from beforeEach
+    const initialTheme = result.current.theme;
+
     act(() => {
-      result.current.setTheme('dark'); // Same as current
+      result.current.setTheme(initialTheme); // Same as current
     });
 
-    expect(setSpy).not.toHaveBeenCalled();
-    setSpy.mockRestore();
+    expect(result.current.theme).toBe(initialTheme);
+  });
+
+  it('should throw error when used outside ThemeProvider', () => {
+    // Don't use wrapper
+    expect(() => {
+      renderHook(() => useTheme());
+    }).toThrow('useThemeContext must be used within ThemeProvider');
   });
 });

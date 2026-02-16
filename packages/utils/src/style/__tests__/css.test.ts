@@ -126,13 +126,13 @@ describe('css', () => {
 
       const vars = getCSSVars(['a', 'b'], element);
 
-      expect(vars).toEqual({ a: '1px', b: '2px' });
+      expect(vars).toStrictEqual({ a: '1px', b: '2px' });
 
       (window.getComputedStyle as jest.Mock).mockRestore();
     });
 
     it('should create CSS vars object', () => {
-      expect(createCSSVars({ x: 10, y: '20%' })).toEqual({
+      expect(createCSSVars({ x: 10, y: '20%' })).toStrictEqual({
         '--x': '10px',
         '--y': '20%',
       });
@@ -153,7 +153,7 @@ describe('css', () => {
       const s2 = { fontSize: 12 };
 
       // @ts-ignore
-      expect(mergeStyles(s1, undefined, s2)).toEqual({ color: 'red', fontSize: 12 });
+      expect(mergeStyles(s1, undefined, s2)).toStrictEqual({ color: 'red', fontSize: 12 });
     });
   });
 

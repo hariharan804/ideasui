@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import { renderHook } from '@testing-library/react';
 
 import { useDateFormatter } from '../src/use-date-formatter';

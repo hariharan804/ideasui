@@ -1,0 +1,467 @@
+{
+  "components": {
+    "_description": "LEVEL 3 — Component-specific tokens. Reusable across instances.",
+
+    "button": {
+      "_gestalt": "CLOSURE (borders) + COMMON FATE (motion) + SIMILARITY (variants)",
+      "size": {
+        "xs": {
+          "height": "{primitives.space.7}",
+          "paddingX": "{primitives.space.2}",
+          "paddingY": "{primitives.space.1}",
+          "fontSize": "{primitives.typography.fontSize.xs}",
+          "iconSize": "{primitives.space.3.5}",
+          "gap": "{primitives.space.1}",
+          "radius": "{primitives.radius.sm}"
+        },
+        "sm": {
+          "height": "{primitives.space.8}",
+          "paddingX": "{primitives.space.3}",
+          "paddingY": "{primitives.space.1.5}",
+          "fontSize": "{primitives.typography.fontSize.sm}",
+          "iconSize": "{primitives.space.4}",
+          "gap": "{primitives.space.1.5}",
+          "radius": "{primitives.radius.md}"
+        },
+        "md": {
+          "height": "{primitives.space.10}",
+          "paddingX": "{primitives.space.4}",
+          "paddingY": "{primitives.space.2}",
+          "fontSize": "{primitives.typography.fontSize.sm}",
+          "iconSize": "{primitives.space.5}",
+          "gap": "{primitives.space.2}",
+          "radius": "{primitives.radius.md}"
+        },
+        "lg": {
+          "height": "{primitives.space.12}",
+          "paddingX": "{primitives.space.5}",
+          "paddingY": "{primitives.space.2.5}",
+          "fontSize": "{primitives.typography.fontSize.base}",
+          "iconSize": "{primitives.space.5}",
+          "gap": "{primitives.space.2}",
+          "radius": "{primitives.radius.lg}"
+        },
+        "xl": {
+          "height": "{primitives.space.14}",
+          "paddingX": "{primitives.space.6}",
+          "paddingY": "{primitives.space.3}",
+          "fontSize": "{primitives.typography.fontSize.lg}",
+          "iconSize": "{primitives.space.6}",
+          "gap": "{primitives.space.2.5}",
+          "radius": "{primitives.radius.lg}"
+        }
+      },
+      "motion": {
+        "press": {
+          "duration": "{semantics.motion.micro.duration}",
+          "easing": "{semantics.motion.micro.easing}",
+          "scale": "{semantics.interaction.active.scale}"
+        },
+        "hover": {
+          "duration": "{semantics.motion.fast.duration}",
+          "easing": "{semantics.motion.fast.easing}"
+        }
+      }
+    },
+
+    "card": {
+      "_gestalt": "CLOSURE (boundary) + FIGURE/GROUND (elevation) + PROXIMITY (padding)",
+      "size": {
+        "sm": {
+          "padding": "{primitives.space.4}",
+          "gap": "{primitives.space.3}",
+          "radius": "{primitives.radius.lg}"
+        },
+        "md": {
+          "padding": "{primitives.space.6}",
+          "gap": "{primitives.space.4}",
+          "radius": "{primitives.radius.xl}"
+        },
+        "lg": {
+          "padding": "{primitives.space.8}",
+          "gap": "{primitives.space.5}",
+          "radius": "{primitives.radius.2xl}"
+        }
+      },
+      "elevation": {
+        "flat": "{semantics.elevation.base}",
+        "raised": "{semantics.elevation.raised}",
+        "floating": "{semantics.elevation.floating}"
+      }
+    },
+
+    "input": {
+      "_gestalt": "CLOSURE (borders) + FIGURE/GROUND (focus) + CONTINUITY (transitions)",
+      "size": {
+        "sm": {
+          "height": "{primitives.space.8}",
+          "paddingX": "{primitives.space.2.5}",
+          "paddingY": "{primitives.space.1.5}",
+          "fontSize": "{primitives.typography.fontSize.sm}",
+          "radius": "{primitives.radius.md}"
+        },
+        "md": {
+          "height": "{primitives.space.10}",
+          "paddingX": "{primitives.space.3}",
+          "paddingY": "{primitives.space.2}",
+          "fontSize": "{primitives.typography.fontSize.sm}",
+          "radius": "{primitives.radius.md}"
+        },
+        "lg": {
+          "height": "{primitives.space.12}",
+          "paddingX": "{primitives.space.4}",
+          "paddingY": "{primitives.space.3}",
+          "fontSize": "{primitives.typography.fontSize.base}",
+          "radius": "{primitives.radius.lg}"
+        }
+      },
+      "state": {
+        "default": {
+          "border": "{semantics.border.default}",
+          "background": "{semantics.surface.base}"
+        },
+        "hover": {
+          "border": "{semantics.border.emphasis}"
+        },
+        "focus": {
+          "border": "{semantics.border.focus}",
+          "ring": "{semantics.focus.ring}"
+        },
+        "error": {
+          "border": "{semantics.border.error}"
+        },
+        "disabled": {
+          "opacity": "{semantics.interaction.disabled.opacity}",
+          "cursor": "{semantics.interaction.disabled.cursor}"
+        }
+      },
+      "motion": {
+        "focus": {
+          "duration": "{semantics.motion.fast.duration}",
+          "easing": "{semantics.motion.fast.easing}"
+        }
+      }
+    },
+
+    "modal": {
+      "_gestalt": "FIGURE/GROUND (overlay/elevation) + CLOSURE (container)",
+      "size": {
+        "sm": {
+          "width": "24rem",
+          "padding": "{primitives.space.5}",
+          "radius": "{primitives.radius.xl}"
+        },
+        "md": {
+          "width": "32rem",
+          "padding": "{primitives.space.6}",
+          "radius": "{primitives.radius.2xl}"
+        },
+        "lg": {
+          "width": "40rem",
+          "padding": "{primitives.space.8}",
+          "radius": "{primitives.radius.2xl}"
+        },
+        "xl": {
+          "width": "48rem",
+          "padding": "{primitives.space.8}",
+          "radius": "{primitives.radius.3xl}"
+        },
+        "full": {
+          "width": "100%",
+          "padding": "{primitives.space.6}",
+          "radius": "{primitives.radius.none}"
+        }
+      },
+      "elevation": "{semantics.elevation.modal}",
+      "overlay": {
+        "background": "rgb(0 0 0 / 0.5)",
+        "backdropBlur": "4px"
+      },
+      "motion": {
+        "enter": {
+          "duration": "{semantics.motion.normal.duration}",
+          "easing": "{semantics.motion.enter.easing}"
+        },
+        "exit": {
+          "duration": "{semantics.motion.fast.duration}",
+          "easing": "{semantics.motion.exit.easing}"
+        }
+      }
+    },
+
+    "toast": {
+      "_gestalt": "COMMON FATE (motion) + FIGURE/GROUND (elevation)",
+      "width": {
+        "min": "20rem",
+        "max": "28rem"
+      },
+      "padding": "{primitives.space.4}",
+      "gap": "{primitives.space.3}",
+      "radius": "{primitives.radius.lg}",
+      "elevation": "{semantics.elevation.toast}",
+      "motion": {
+        "enter": {
+          "duration": "{semantics.motion.normal.duration}",
+          "easing": "{semantics.motion.spring.easing}"
+        },
+        "exit": {
+          "duration": "{semantics.motion.fast.duration}",
+          "easing": "{semantics.motion.exit.easing}"
+        }
+      }
+    },
+
+    "avatar": {
+      "_gestalt": "CLOSURE (circular shape) + SIMILARITY (size consistency)",
+      "size": {
+        "xs": {
+          "dimension": "{primitives.space.6}",
+          "fontSize": "{primitives.typography.fontSize.2xs}"
+        },
+        "sm": {
+          "dimension": "{primitives.space.8}",
+          "fontSize": "{primitives.typography.fontSize.xs}"
+        },
+        "md": {
+          "dimension": "{primitives.space.10}",
+          "fontSize": "{primitives.typography.fontSize.sm}"
+        },
+        "lg": {
+          "dimension": "{primitives.space.12}",
+          "fontSize": "{primitives.typography.fontSize.base}"
+        },
+        "xl": {
+          "dimension": "{primitives.space.16}",
+          "fontSize": "{primitives.typography.fontSize.xl}"
+        },
+        "2xl": {
+          "dimension": "{primitives.space.20}",
+          "fontSize": "{primitives.typography.fontSize.2xl}"
+        }
+      },
+      "radius": "{primitives.radius.full}",
+      "border": {
+        "width": "{primitives.borderWidth.thin}",
+        "color": "{semantics.border.subtle}"
+      }
+    },
+
+    "badge": {
+      "_gestalt": "SIMILARITY (consistent styling) + PROXIMITY (compact)",
+      "size": {
+        "sm": {
+          "height": "{primitives.space.5}",
+          "paddingX": "{primitives.space.1.5}",
+          "fontSize": "{primitives.typography.fontSize.2xs}"
+        },
+        "md": {
+          "height": "{primitives.space.6}",
+          "paddingX": "{primitives.space.2}",
+          "fontSize": "{primitives.typography.fontSize.xs}"
+        },
+        "lg": {
+          "height": "{primitives.space.7}",
+          "paddingX": "{primitives.space.2.5}",
+          "fontSize": "{primitives.typography.fontSize.sm}"
+        }
+      },
+      "radius": "{primitives.radius.full}"
+    },
+
+    "tooltip": {
+      "_gestalt": "PROXIMITY (offset) + FIGURE/GROUND (elevation)",
+      "padding": "{primitives.space.2}",
+      "radius": "{primitives.radius.md}",
+      "offset": "8px",
+      "maxWidth": "20rem",
+      "elevation": "{semantics.elevation.floating}",
+      "motion": {
+        "enter": {
+          "duration": "{semantics.motion.fast.duration}",
+          "easing": "{semantics.motion.enter.easing}"
+        },
+        "exit": {
+          "duration": "{semantics.motion.micro.duration}",
+          "easing": "{semantics.motion.exit.easing}"
+        }
+      }
+    },
+
+    "dropdown": {
+      "_gestalt": "FIGURE/GROUND (overlay) + PROXIMITY (item spacing)",
+      "padding": "{primitives.space.1}",
+      "radius": "{primitives.radius.lg}",
+      "elevation": "{semantics.elevation.floating}",
+      "item": {
+        "paddingX": "{primitives.space.3}",
+        "paddingY": "{primitives.space.2}",
+        "gap": "{primitives.space.2}",
+        "radius": "{primitives.radius.md}"
+      },
+      "separator": {
+        "marginY": "{primitives.space.1}",
+        "color": "{semantics.border.subtle}"
+      }
+    },
+
+    "tabs": {
+      "_gestalt": "SIMILARITY (consistent tab styling) + CONTINUITY (indicator motion)",
+      "gap": "{primitives.space.1}",
+      "tab": {
+        "paddingX": "{primitives.space.4}",
+        "paddingY": "{primitives.space.2}",
+        "radius": "{primitives.radius.md}"
+      },
+      "indicator": {
+        "height": "2px",
+        "radius": "{primitives.radius.full}",
+        "motion": {
+          "duration": "{semantics.motion.normal.duration}",
+          "easing": "{semantics.motion.spring.easing}"
+        }
+      }
+    },
+
+    "switch": {
+      "_gestalt": "CLOSURE (track boundary) + COMMON FATE (thumb motion)",
+      "size": {
+        "sm": {
+          "width": "{primitives.space.8}",
+          "height": "{primitives.space.5}",
+          "thumbSize": "{primitives.space.4}"
+        },
+        "md": {
+          "width": "{primitives.space.10}",
+          "height": "{primitives.space.6}",
+          "thumbSize": "{primitives.space.5}"
+        },
+        "lg": {
+          "width": "{primitives.space.12}",
+          "height": "{primitives.space.7}",
+          "thumbSize": "{primitives.space.6}"
+        }
+      },
+      "motion": {
+        "toggle": {
+          "duration": "{semantics.motion.fast.duration}",
+          "easing": "{semantics.motion.spring.easing}"
+        }
+      }
+    }
+  },
+
+  "recipes": {
+    "_description": "LEVEL 4 — Pre-composed patterns. Ready-to-use combinations.",
+
+    "layout": {
+      "_gestalt": "PROXIMITY — Consistent page and container patterns",
+      "container": {
+        "sm": { "maxWidth": "640px", "padding": "{primitives.space.4}" },
+        "md": { "maxWidth": "768px", "padding": "{primitives.space.6}" },
+        "lg": { "maxWidth": "1024px", "padding": "{primitives.space.6}" },
+        "xl": { "maxWidth": "1280px", "padding": "{primitives.space.8}" },
+        "full": { "maxWidth": "100%", "padding": "{primitives.space.4}" }
+      },
+      "section": {
+        "compact": { "paddingY": "{primitives.space.8}" },
+        "default": { "paddingY": "{primitives.space.12}" },
+        "spacious": { "paddingY": "{primitives.space.20}" }
+      },
+      "stack": {
+        "tight": { "gap": "{primitives.space.2}" },
+        "default": { "gap": "{primitives.space.4}" },
+        "relaxed": { "gap": "{primitives.space.6}" }
+      }
+    },
+
+    "form": {
+      "_gestalt": "PROXIMITY + SIMILARITY — Grouped input patterns",
+      "field": {
+        "gap": "{primitives.space.1.5}",
+        "marginBottom": "{primitives.space.4}"
+      },
+      "group": {
+        "gap": "{primitives.space.4}",
+        "marginBottom": "{primitives.space.6}"
+      },
+      "actions": {
+        "gap": "{primitives.space.3}",
+        "marginTop": "{primitives.space.6}"
+      }
+    },
+
+    "list": {
+      "_gestalt": "PROXIMITY + CONTINUITY — Repeated item patterns",
+      "item": {
+        "paddingY": "{primitives.space.3}",
+        "paddingX": "{primitives.space.4}",
+        "gap": "{primitives.space.3}"
+      },
+      "divider": {
+        "color": "{semantics.border.subtle}",
+        "marginX": "{primitives.space.4}"
+      }
+    },
+
+    "header": {
+      "_gestalt": "FIGURE/GROUND — Prominent navigation patterns",
+      "height": "{primitives.space.16}",
+      "paddingX": "{primitives.space.6}",
+      "elevation": "{semantics.elevation.raised}"
+    },
+
+    "footer": {
+      "_gestalt": "CLOSURE — Wrapping page boundary",
+      "paddingY": "{primitives.space.12}",
+      "paddingX": "{primitives.space.6}"
+    },
+
+    "sidebar": {
+      "_gestalt": "FIGURE/GROUND — Side navigation patterns",
+      "width": {
+        "collapsed": "{primitives.space.16}",
+        "expanded": "16rem"
+      },
+      "padding": "{primitives.space.4}",
+      "item": {
+        "paddingX": "{primitives.space.3}",
+        "paddingY": "{primitives.space.2}",
+        "gap": "{primitives.space.3}",
+        "radius": "{primitives.radius.md}"
+      }
+    },
+
+    "skeleton": {
+      "_gestalt": "CONTINUITY — Loading state patterns",
+      "radius": "{primitives.radius.md}",
+      "animation": {
+        "duration": "1.5s",
+        "easing": "{primitives.easing.easeInOut}"
+      },
+      "text": {
+        "height": "{primitives.space.4}",
+        "gap": "{primitives.space.2}"
+      },
+      "avatar": {
+        "size": "{primitives.space.10}",
+        "radius": "{primitives.radius.full}"
+      }
+    },
+
+    "empty": {
+      "_gestalt": "CLOSURE — Empty state container patterns",
+      "padding": "{primitives.space.12}",
+      "iconSize": "{primitives.space.16}",
+      "gap": "{primitives.space.4}",
+      "maxWidth": "24rem"
+    },
+
+    "error": {
+      "_gestalt": "SIMILARITY — Error state patterns",
+      "padding": "{primitives.space.6}",
+      "radius": "{primitives.radius.lg}",
+      "border": "{semantics.border.error}",
+      "background": "{semantics.intent.danger.subtle}"
+    }
+  }
+}

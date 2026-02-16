@@ -1,255 +1,137 @@
 # @ideasui/theme
 
-OKLCH-based theme system for IdeasUI with tailwind-variants recipes, color generation, and design tokens.
+The official design system and theme engine for IdeasUI, built on top of Tailwind CSS v4 and modern CSS features.
 
-## 📦 Installation
+## Features
 
-```bash
-npm install @ideasui/theme tailwindcss tailwind-variants
-# or
-pnpm add @ideasui/theme tailwindcss tailwind-variants
-# or
-yarn add @ideasui/theme tailwindcss tailwind-variants
-```
+- 🎨 **Unified Design System**: Centralized tokens for colors, typography, spacing, and more.
+- 🌗 **Dark Mode First**: Native support for light and dark modes using OKLCH color spaces.
+- 🧩 **Tailwind CSS v4 Plugin**: Seamless integration with Tailwind's utility classes.
+- ⚡ **Zero Runtime Overhead**: Theme tokens are compiled to CSS variables at build time.
+- 🔄 **Type-Safe**: Full TypeScript support for theme configuration and overrides.
 
-## 🚀 Usage
-
-### Component Recipes
-
-```tsx
-import { button } from '@ideasui/theme/recipes';
-import type { VariantProps } from 'tailwind-variants';
-
-// Use recipe in component
-const { base, icon, label } = button({
-  variant: 'solid',
-  color: 'primary',
-  size: 'md',
-});
-
-// With TypeScript
-type ButtonProps = VariantProps<typeof button>;
-```
-
-### Color Tokens
-
-```tsx
-import { colorTokens, darkColorTokens } from '@ideasui/theme/tokens';
-
-// Access color values
-const primaryColor = colorTokens.primary[500]; // 'oklch(0.543 0.284 300.0)'
-const darkPrimary = darkColorTokens.primary[500]; // 'oklch(0.720 0.242 300.0)'
-```
-
-### Design Constants
-
-```tsx
-import { RADIUS_VARIANTS, COLOR_VARIANTS } from '@ideasui/theme/constants';
-
-// Use in custom recipes
-const myComponent = tv({
-  variants: {
-    radius: {
-      none: { base: RADIUS_VARIANTS.none },
-      md: { base: RADIUS_VARIANTS.md },
-    },
-  },
-});
-```
-
-## 🎨 OKLCH Color System
-
-### Color Generation
-
-Generate color tokens with locked hues:
+## Installation
 
 ```bash
-cd packages/core/theme
-node src/system/generator/generate-theme.mjs
+npm install @ideasui/theme
+# or
+pnpm add @ideasui/theme
 ```
 
-### Color Features
+## Setup
 
-- **OKLCH Color Space**: Perceptually uniform colors
-- **Hue Locking**: Consistent hues across all shades (300.0°, 145.4°, 60.0°, etc.)
-- **11 Shades**: 50-950 scale for each semantic color
-- **Dark Mode**: Optimized dark theme variants
-- **Semantic Colors**: Primary, secondary, tertiary, success, warning, danger, info, neutral, gray
+### 1. Configure Tailwind CSS
 
-### Available Colors
+Add the `ideasUIPlugin` to your Tailwind CSS configuration (v4+).
 
-```tsx
-// Light mode colors
-colorTokens.primary[500]; // 'oklch(0.543 0.284 300.0)'
-colorTokens.success[500]; // 'oklch(0.657 0.181 145.4)'
-colorTokens.warning[500]; // 'oklch(0.775 0.161 60.0)'
-colorTokens.danger[500]; // 'oklch(0.610 0.225 28.2)'
-colorTokens.info[500]; // 'oklch(0.674 0.144 243.0)'
-colorTokens.gray[500]; // 'oklch(0.500 0.000 0.0)'
+```ts
+// tailwind.config.ts
+import { ideasUIPlugin } from '@ideasui/theme/plugin'; // Note the import path
 
-// Dark mode colors
-darkColorTokens.primary[500]; // 'oklch(0.720 0.242 300.0)'
-```
-
-## 🎅 Component Recipes
-
-Tailwind-variants recipes for consistent component styling:
-
-### Available Recipes
-
-```tsx
-import {
-  button,
-  // Add other recipes as they're created
-} from '@ideasui/theme/recipes';
-
-// Button recipe with slots
-const { base, icon, label } = button({
-  variant: 'solid', // solid | outline | ghost
-  color: 'primary', // primary | secondary | success | warning | danger | info | neutral | gray
-  size: 'md', // xs | sm | md | lg | xl
-  radius: 'md', // none | sm | md | lg | xl | full
-  isDisabled: false, // boolean
-});
-```
-
-### Creating Custom Recipes
-
-```tsx
-import { tv } from 'tailwind-variants';
-import { RADIUS_VARIANTS, COLOR_VARIANTS } from '@ideasui/theme/constants';
-
-const myComponent = tv({
-  base: 'inline-flex items-center',
-  variants: {
-    color: Object.fromEntries(Object.keys(COLOR_VARIANTS).map((color) => [color, {}])),
-    radius: {
-      none: { base: RADIUS_VARIANTS.none },
-      md: { base: RADIUS_VARIANTS.md },
-    },
-  },
-  compoundVariants: [
-    {
-      variant: 'solid',
-      color: 'primary',
-      class: 'bg-primary-500 text-white hover:bg-primary-600',
-    },
+export default {
+  content: [
+    // ... paths to your components
   ],
+  plugins: [
+    ideasUIPlugin({
+      defaultTheme: 'light',
+      prefix: 'ideasui', // optional, defaults to 'ideasui'
+      themes: {
+        light: {
+          colors: {
+            primary: {
+              500: '#3b82f6', // Override specific tokens
+            },
+          },
+        },
+      },
+    }),
+  ],
+};
+```
+
+### 2. Add Theme Provider
+
+Wrap your application with the `ThemeProvider` to handle theme switching and persistence.
+
+```tsx
+// app/providers.tsx
+import { ThemeProvider } from '@ideasui/theme';
+
+export function Providers({ children }) {
+  return <ThemeProvider defaultTheme="system">{children}</ThemeProvider>;
+}
+```
+
+### 3. Prevent FOUC (Next.js / SSR)
+
+To prevent Flash of Unstyled Content, include the `ThemeScript` in your document head.
+
+```tsx
+// app/layout.tsx
+import { ThemeScript } from '@ideasui/theme';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+## Token Structure
+
+The theme system is built on a tiered architecture:
+
+1.  **Primitives**: Raw color values (OKLCH).
+2.  **Semantic**: Abstracted tokens (e.g., `primary.base`, `surface.elevated`) that map to primitives.
+3.  **Component**: Component-specific tokens.
+
+### Accessing Tokens
+
+You can use standard Tailwind classes or CSS variables:
+
+```tsx
+// Tailwind classes
+<div className="bg-surface-elevated text-content-primary p-4 rounded-lg">
+  <h1 className="text-xl font-bold">Hello World</h1>
+  <button className="bg-primary hover:bg-primary-600 text-white">
+    Click Me
+  </button>
+</div>
+
+// CSS Variables
+.my-custom-element {
+  background-color: var(--ideasui-surface-elevated);
+  color: var(--ideasui-content-primary);
+}
+```
+
+## Customization
+
+You can override any part of the theme via the plugin configuration.
+
+```ts
+ideasUIPlugin({
+  designTokens: {
+    borderRadius: {
+      lg: '1rem', // Override specific token
+    },
+  },
+  themes: {
+    dark: {
+      colors: {
+        // ... custom dark mode colors
+      },
+    },
+  },
 });
 ```
 
-## 📊 Design Tokens
+## License
 
-### System Tokens
-
-```tsx
-import { systemTokens } from '@ideasui/theme/tokens';
-
-// Spacing scale
-systemTokens.spacing.xs; // '0.25rem'
-systemTokens.spacing.sm; // '0.5rem'
-systemTokens.spacing.md; // '1rem'
-
-// Border radius
-systemTokens.borderRadius.sm; // '0.25rem'
-systemTokens.borderRadius.md; // '0.375rem'
-systemTokens.borderRadius.lg; // '0.5rem'
-
-// Typography
-systemTokens.fontSize.sm; // '0.875rem'
-systemTokens.fontSize.base; // '1rem'
-systemTokens.fontSize.lg; // '1.125rem'
-```
-
-### Layout Tokens
-
-```tsx
-import { defaultLayout } from '@ideasui/theme/tokens';
-
-// Layout-specific tokens
-defaultLayout.radiusSmall; // '0.25rem'
-defaultLayout.radiusMedium; // '0.375rem'
-defaultLayout.radiusLarge; // '0.5rem'
-defaultLayout.hoverOpacity; // '0.8'
-defaultLayout.disabledOpacity; // '0.5'
-```
-
-## 🔧 Development
-
-### Color Generation
-
-The theme system includes a color generator that creates OKLCH-based color scales:
-
-```bash
-# Generate new color tokens
-cd packages/core/theme
-node src/system/generator/generate-theme.mjs
-```
-
-### File Structure
-
-```
-packages/core/theme/
-├── src/
-│   ├── constants/          # Shared variant constants
-│   ├── recipes/            # Tailwind-variants recipes
-│   ├── system/             # Color generation system
-│   ├── tokens/             # Design tokens
-│   └── index.ts            # Main exports
-├── stories/                # Storybook stories
-└── package.json
-```
-
-### Adding New Recipes
-
-1. Create recipe file in `src/recipes/`
-2. Use shared constants from `src/constants/variants.ts`
-3. Export from `src/recipes/index.ts`
-4. Add Storybook story in `stories/`
-
-## 📝 TypeScript Support
-
-Full TypeScript support with comprehensive type definitions:
-
-```tsx
-import type { VariantProps } from 'tailwind-variants';
-import { button } from '@ideasui/theme/recipes';
-
-// Component props with recipe variants
-type ButtonProps = VariantProps<typeof button> & {
-  children?: React.ReactNode;
-};
-
-// Color token types
-import type { ColorTokens, DarkColorTokens } from '@ideasui/theme/tokens';
-
-const lightColors: ColorTokens = colorTokens;
-const darkColors: DarkColorTokens = darkColorTokens;
-```
-
-## ♿ Accessibility
-
-- **WCAG 2.1 AA Compliant**: All color combinations meet contrast requirements
-- **OKLCH Color Space**: Perceptually uniform color progression
-- **Hue Consistency**: Locked hues prevent color drift across shades
-- **Dark Mode Optimized**: Proper contrast ratios in both light and dark themes
-- **Semantic Naming**: Intent-based color names for better understanding
-
-## 📚 API Reference
-
-### Exports
-
-```tsx
-// Recipes
-export { button } from './recipes';
-
-// Tokens
-export { colorTokens, darkColorTokens, systemTokens, defaultLayout } from './tokens';
-
-// Constants
-export { RADIUS_VARIANTS, COLOR_VARIANTS } from './constants';
-```
-
-## 📄 License
-
-MIT License - see [LICENSE](../../../LICENSE) file for details.
+MIT

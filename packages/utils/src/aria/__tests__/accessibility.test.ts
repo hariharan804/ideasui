@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import {
   toDataAttr,
   getAriaFormProps,
@@ -37,7 +36,7 @@ describe('accessibility', () => {
           describedBy: 'desc',
           labelledBy: 'label',
         }),
-      ).toEqual({
+      ).toStrictEqual({
         'aria-required': TRUE,
         'aria-invalid': TRUE,
         [ARIA_DESCRIBED_BY]: 'desc',
@@ -46,7 +45,7 @@ describe('accessibility', () => {
     });
 
     it('should handle undefined values', () => {
-      expect(getAriaFormProps({})).toEqual({
+      expect(getAriaFormProps({})).toStrictEqual({
         'aria-required': undefined,
         'aria-invalid': undefined,
         [ARIA_DESCRIBED_BY]: undefined,
@@ -59,7 +58,7 @@ describe('accessibility', () => {
     it('should return correct props', () => {
       expect(
         getAriaDisclosureProps({ expanded: true, controls: 'ctrl', hasPopup: 'menu' }),
-      ).toEqual({
+      ).toStrictEqual({
         'aria-expanded': TRUE,
         'aria-controls': 'ctrl',
         'aria-haspopup': 'menu',
@@ -67,7 +66,7 @@ describe('accessibility', () => {
     });
 
     it('should handle hasPopup boolean', () => {
-      expect(getAriaDisclosureProps({ expanded: false, hasPopup: true })).toEqual({
+      expect(getAriaDisclosureProps({ expanded: false, hasPopup: true })).toStrictEqual({
         'aria-expanded': 'false',
         'aria-controls': undefined,
         'aria-haspopup': TRUE,
@@ -83,7 +82,7 @@ describe('accessibility', () => {
           orientation: HORIZONTAL,
           activedescendant: 'item-1',
         }),
-      ).toEqual({
+      ).toStrictEqual({
         role: 'listbox',
         'aria-multiselectable': TRUE,
         'aria-orientation': HORIZONTAL,
@@ -94,7 +93,7 @@ describe('accessibility', () => {
 
   describe('getAriaDialogProps', () => {
     it('should return modal dialog props', () => {
-      expect(getAriaDialogProps({ modal: true })).toEqual({
+      expect(getAriaDialogProps({ modal: true })).toStrictEqual({
         role: 'dialog',
         'aria-modal': TRUE,
         [ARIA_LABELLED_BY]: undefined,
@@ -103,7 +102,7 @@ describe('accessibility', () => {
     });
 
     it('should return non-modal alertdialog props', () => {
-      expect(getAriaDialogProps({ modal: false })).toEqual({
+      expect(getAriaDialogProps({ modal: false })).toStrictEqual({
         role: 'alertdialog',
         'aria-modal': undefined,
         [ARIA_LABELLED_BY]: undefined,
@@ -114,7 +113,7 @@ describe('accessibility', () => {
 
   describe('getAriaTabsProps', () => {
     it('should return default props', () => {
-      expect(getAriaTabsProps({})).toEqual({
+      expect(getAriaTabsProps({})).toStrictEqual({
         role: 'tablist',
         'aria-orientation': HORIZONTAL,
         'aria-activedescendant': undefined,

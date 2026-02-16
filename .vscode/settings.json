@@ -37,5 +37,7 @@
     "**/.turbo": true,
     "**/node_modules": false
   },
-  "cSpell.words": ["ideasui", "oklch"]
+  "cSpell.words": ["ideasui", "oklch"],
+  "css.validate": false,
+  "scss.validate": false
 }
