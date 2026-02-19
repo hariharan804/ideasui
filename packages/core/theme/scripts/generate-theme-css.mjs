@@ -63,12 +63,17 @@ function resolveValue(value, contextVars) {
 function generateThemeCSS() {
   const baseStyles = extractPluginStyles();
   const rootVars = baseStyles[':root'] || {};
+  // const lightSelector = Object.keys(baseStyles).find((s) => s.includes('light'));
+  // const darkSelector = Object.keys(baseStyles).find((s) => s.includes('dark'));
+  const findSelector = (styles, keywords) =>
+    Object.keys(styles).find((s) => keywords.some((k) => s.includes(k)));
 
-  const lightSelector = Object.keys(baseStyles).find((s) => s.includes('light'));
-  const darkSelector = Object.keys(baseStyles).find((s) => s.includes('dark'));
-
-  const lightSource = { ...rootVars, ...(baseStyles[lightSelector] || {}) };
-  const darkSource = { ...rootVars, ...(baseStyles[darkSelector] || {}) };
+  const lightSelector = findSelector(baseStyles, ['light', 'data-ideasui-theme="light"']);
+  const darkSelector = findSelector(baseStyles, ['dark', 'data-ideasui-theme="dark"']);
+  // const lightSource = { ...rootVars, ...(baseStyles[lightSelector] || {}) };
+  // const darkSource = { ...rootVars, ...(baseStyles[darkSelector] || {}) };
+  const lightSource = { ...rootVars, ...(lightSelector ? baseStyles[lightSelector] : {}) };
+  const darkSource = { ...rootVars, ...(darkSelector ? baseStyles[darkSelector] : {}) };
 
   const buildThemedEntries = (source, baseline = {}) => {
     const entries = {};
@@ -90,7 +95,12 @@ function generateThemeCSS() {
       }
 
       // Include if it's an alias OR if it differs from baseline
-      if (!key.startsWith(`--${PREFIX}`) || resolved !== baseline[key]) {
+      // Also force include -500 color tokens for completeness as requested
+      if (
+        !key.startsWith(`--${PREFIX}`) ||
+        resolved !== baseline[key] ||
+        (key.includes('-color-') && key.endsWith('-500'))
+      ) {
         entries[key] = resolved;
       }
     });
