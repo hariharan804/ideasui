@@ -188,7 +188,7 @@ function generateThemeCSS() {
         'thick',
         'heavy',
         'none',
-        'widthDefault',
+        'default',
       ];
       if (BORDER_WIDTH_SUFFIXES.includes(borderSuffix)) {
         category = 'border-width';

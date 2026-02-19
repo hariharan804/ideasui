@@ -275,7 +275,7 @@ export function createThemeExtension(
       ...t.borderColor,
     },
     borderWidth: {
-      DEFAULT: border.widthDefault,
+      DEFAULT: border.default,
       ...Object.fromEntries(
         Object.entries(border).filter(
           ([key]) => !key.startsWith('color') && !key.startsWith('width'),

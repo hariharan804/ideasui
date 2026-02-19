@@ -2,7 +2,7 @@ export const border = {
   none: '0',
   hairline: '0.5px',
   thin: '1px',
-  widthDefault: '1px',
+  default: '1px',
   medium: '2px',
   thick: '4px',
   heavy: '8px',
