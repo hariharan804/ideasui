@@ -27,6 +27,8 @@ export interface TokenOverrides {
   readonly borderRadius?: Record<BorderRadiusProps | (string & {}), string>;
   /** Border width tokens */
   readonly borderWidth?: Record<BorderWidthProps | (string & {}), string>;
+  /** Border color tokens */
+  readonly borderColor?: Record<string, string>;
   /** Font size tokens (value or [size, { lineHeight }] tuple) */
   readonly fontSize?: Record<
     FontSizeProps | (string & {}),

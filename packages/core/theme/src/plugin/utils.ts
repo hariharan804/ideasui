@@ -185,6 +185,13 @@ export function parseColorValue(colorValue: string): ParsedColor | null {
 
     // Handle oklch input - pass through directly
     if (trimmed.startsWith('oklch(')) {
+      // Handle oklch(var(--variable)) specifically
+      const oklchVarMatch = trimmed.match(/oklch\((var\(--[^)]+\))\)/);
+
+      if (oklchVarMatch) {
+        return { cssFn: 'var', components: [oklchVarMatch[1]] };
+      }
+
       const match = trimmed.match(/oklch\(([^)]+)\)/);
 
       if (match) {

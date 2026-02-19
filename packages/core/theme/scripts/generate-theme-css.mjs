@@ -12,7 +12,7 @@ import { ideasUIPlugin } from '../dist/plugin/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const OUTPUT_PATH = path.join(__dirname, '..', 'dist', 'ideasui-theme.css');
+const OUTPUT_PATH = path.join(__dirname, '..', 'dist', 'theme.css');
 const BYTES_PER_KB = 1024;
 const PREFIX = 'ideasui';
 
@@ -63,12 +63,17 @@ function resolveValue(value, contextVars) {
 function generateThemeCSS() {
   const baseStyles = extractPluginStyles();
   const rootVars = baseStyles[':root'] || {};
+  // const lightSelector = Object.keys(baseStyles).find((s) => s.includes('light'));
+  // const darkSelector = Object.keys(baseStyles).find((s) => s.includes('dark'));
+  const findSelector = (styles, keywords) =>
+    Object.keys(styles).find((s) => keywords.some((k) => s.includes(k)));
 
-  const lightSelector = Object.keys(baseStyles).find((s) => s.includes('light'));
-  const darkSelector = Object.keys(baseStyles).find((s) => s.includes('dark'));
-
-  const lightSource = { ...rootVars, ...(baseStyles[lightSelector] || {}) };
-  const darkSource = { ...rootVars, ...(baseStyles[darkSelector] || {}) };
+  const lightSelector = findSelector(baseStyles, ['light', 'data-ideasui-theme="light"']);
+  const darkSelector = findSelector(baseStyles, ['dark', 'data-ideasui-theme="dark"']);
+  // const lightSource = { ...rootVars, ...(baseStyles[lightSelector] || {}) };
+  // const darkSource = { ...rootVars, ...(baseStyles[darkSelector] || {}) };
+  const lightSource = { ...rootVars, ...(lightSelector ? baseStyles[lightSelector] : {}) };
+  const darkSource = { ...rootVars, ...(darkSelector ? baseStyles[darkSelector] : {}) };
 
   const buildThemedEntries = (source, baseline = {}) => {
     const entries = {};
@@ -90,7 +95,12 @@ function generateThemeCSS() {
       }
 
       // Include if it's an alias OR if it differs from baseline
-      if (!key.startsWith(`--${PREFIX}`) || resolved !== baseline[key]) {
+      // Also force include -500 color tokens for completeness as requested
+      if (
+        !key.startsWith(`--${PREFIX}`) ||
+        resolved !== baseline[key] ||
+        (key.includes('-color-') && key.endsWith('-500'))
+      ) {
         entries[key] = resolved;
       }
     });
@@ -131,13 +141,13 @@ function generateThemeCSS() {
       category = 'spacing';
       subName = subName.split('-spacing-')[1];
     } else if (key.includes('-duration-')) {
-      category = 'transition-duration';
+      category = 'duration';
       subName = subName.split('-duration-')[1];
     } else if (key.includes('-easing-')) {
-      category = 'transition-timing-function';
+      category = 'ease';
       subName = subName.split('-easing-')[1];
     } else if (key.includes('-radius-')) {
-      category = 'border-radius';
+      category = 'radius';
       subName = subName.split('-radius-')[1];
     } else if (key.includes('-shadow-') || key.includes('-box-shadow-')) {
       category = 'shadow';
@@ -145,7 +155,7 @@ function generateThemeCSS() {
         ? subName.split('-box-shadow-')[1]
         : subName.split('-shadow-')[1];
     } else if (key.includes('-font-size-')) {
-      category = 'font-size';
+      category = 'text';
       subName = subName.split('-font-size-')[1];
     } else if (key.includes('-font-')) {
       category = 'font';
@@ -178,7 +188,7 @@ function generateThemeCSS() {
         'thick',
         'heavy',
         'none',
-        'widthDefault',
+        'default',
       ];
       if (BORDER_WIDTH_SUFFIXES.includes(borderSuffix)) {
         category = 'border-width';
@@ -208,7 +218,8 @@ function generateThemeCSS() {
     // Priority: Semantic aliases (shorter names) win over raw prefixed ones
     const isAlias = !key.startsWith(`--${PREFIX}`);
     if (!themeMappings.has(tailwindKey) || isAlias) {
-      themeMappings.set(tailwindKey, `  ${tailwindKey}: var(${key});`);
+      const value = category === 'color' ? `oklch(var(${key}))` : `var(${key})`;
+      themeMappings.set(tailwindKey, `  ${tailwindKey}: ${value};`);
     }
   });
 

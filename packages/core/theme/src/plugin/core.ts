@@ -253,7 +253,7 @@ export function createThemeExtension(
 
   return {
     // ── Colors (flat CSS variable references — v4 requires uniform types) ──
-    colors: { ...colors, transparent: 'transparent', ...s.border },
+    colors: { ...colors, transparent: 'transparent' },
     surface: s.surface,
     content: s.content,
 
@@ -266,8 +266,16 @@ export function createThemeExtension(
 
     // ── Layout ──
     borderRadius: { ...borderRadius, ...t.borderRadius },
+    borderColor: {
+      default: colors['border-default'],
+      subtle: colors['border-subtle'],
+      strong: colors['border-strong'],
+      focus: colors['border-focus'],
+      danger: colors['border-danger'],
+      ...t.borderColor,
+    },
     borderWidth: {
-      DEFAULT: border.widthDefault,
+      DEFAULT: border.default,
       ...Object.fromEntries(
         Object.entries(border).filter(
           ([key]) => !key.startsWith('color') && !key.startsWith('width'),
