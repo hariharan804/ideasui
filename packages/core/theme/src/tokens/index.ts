@@ -82,6 +82,12 @@ export {
   componentShadows,
 };
 
+// Aliases for backward compatibility
+export const lightColorTokens = primitives.light;
+export const darkColorTokens = primitives.dark;
+export const boxShadow = lightShadow;
+export const font = fontFamily;
+
 // Types
 export type ColorVariantProps = keyof typeof colorVariants;
 export type SizeVariantProps = keyof typeof sizeVariants;

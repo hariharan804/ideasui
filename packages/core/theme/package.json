@@ -26,6 +26,7 @@
       "import": "./src/plugin/index.ts"
     },
     "./theme.css": {
+      "style": "./dist/theme.css",
       "import": "./dist/theme.css"
     }
   },
@@ -35,7 +36,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "tsup && pnpm build:theme",
-    "build:css": "tailwindcss -i theme.css -o dist/tailwind.css --minify",
+    "build:css": "tailwindcss -i theme.css -o dist/theme.css --minify",
     "build:theme": "node scripts/generate-theme-css.mjs",
     "dev": "tsup --watch",
     "generate-theme": "node ./src/generator/generate-theme.mjs",

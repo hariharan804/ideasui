@@ -249,39 +249,39 @@ export const primitives = {
 
 export const semantic = {
   primary: {
-    base: 'var(--ideasui-primary-500)',
-    subtle: 'var(--ideasui-primary-100)',
-    content: 'var(--ideasui-primary-50)',
+    base: 'oklch(var(--ideasui-color-primary-500))',
+    subtle: 'oklch(var(--ideasui-color-primary-100))',
+    content: 'oklch(var(--ideasui-color-primary-50))',
   },
   success: {
-    base: 'var(--ideasui-success-500)',
-    subtle: 'var(--ideasui-success-100)',
-    content: 'var(--ideasui-success-50)',
+    base: 'oklch(var(--ideasui-color-success-500))',
+    subtle: 'oklch(var(--ideasui-color-success-100))',
+    content: 'oklch(var(--ideasui-color-success-50))',
   },
   danger: {
-    base: 'var(--ideasui-danger-500)',
-    subtle: 'var(--ideasui-danger-100)',
-    content: 'var(--ideasui-danger-50)',
+    base: 'oklch(var(--ideasui-color-danger-500))',
+    subtle: 'oklch(var(--ideasui-color-danger-100))',
+    content: 'oklch(var(--ideasui-color-danger-50))',
   },
   info: {
-    base: 'var(--ideasui-info-500)',
-    subtle: 'var(--ideasui-info-100)',
-    content: 'var(--ideasui-info-50)',
+    base: 'oklch(var(--ideasui-color-info-500))',
+    subtle: 'oklch(var(--ideasui-color-info-100))',
+    content: 'oklch(var(--ideasui-color-info-50))',
   },
   warning: {
-    base: 'var(--ideasui-warning-500)',
-    subtle: 'var(--ideasui-warning-100)',
-    content: 'var(--ideasui-warning-50)',
+    base: 'oklch(var(--ideasui-color-warning-500))',
+    subtle: 'oklch(var(--ideasui-color-warning-100))',
+    content: 'oklch(var(--ideasui-color-warning-50))',
   },
   secondary: {
-    base: 'var(--ideasui-secondary-500)',
-    subtle: 'var(--ideasui-secondary-100)',
-    content: 'var(--ideasui-secondary-50)',
+    base: 'oklch(var(--ideasui-color-secondary-500))',
+    subtle: 'oklch(var(--ideasui-color-secondary-100))',
+    content: 'oklch(var(--ideasui-color-secondary-50))',
   },
   tertiary: {
-    base: 'var(--ideasui-tertiary-500)',
-    subtle: 'var(--ideasui-tertiary-100)',
-    content: 'var(--ideasui-tertiary-50)',
+    base: 'oklch(var(--ideasui-color-tertiary-500))',
+    subtle: 'oklch(var(--ideasui-color-tertiary-100))',
+    content: 'oklch(var(--ideasui-color-tertiary-50))',
   },
 } as const;
 
@@ -298,37 +298,37 @@ export const semantic = {
  */
 
 export const lightSurface = {
-  base: 'var(--ideasui-neutral-50)', // App background
-  elevated: 'var(--ideasui-neutral-100)', // Cards
-  muted: 'var(--ideasui-neutral-200)', // Inputs / tertiary containers
-  strong: 'var(--ideasui-neutral-300)', // Strong section background
-  inverse: 'var(--ideasui-neutral-900)', // Dark surface
+  base: 'oklch(var(--ideasui-color-neutral-50))', // App background
+  elevated: 'oklch(var(--ideasui-color-neutral-100))', // Cards
+  muted: 'oklch(var(--ideasui-color-neutral-200))', // Inputs / tertiary containers
+  strong: 'oklch(var(--ideasui-color-neutral-300))', // Strong section background
+  inverse: 'oklch(var(--ideasui-color-neutral-900))', // Dark surface
 } as const;
 
 export const darkSurface = {
-  base: 'var(--ideasui-neutral-900)', // App background
-  elevated: 'var(--ideasui-neutral-850)', // Cards
-  muted: 'var(--ideasui-neutral-800)', // Inputs / tertiary containers
-  strong: 'var(--ideasui-neutral-700)', // Strong section background
-  inverse: 'var(--ideasui-neutral-50)', // Light surface
+  base: 'oklch(var(--ideasui-color-neutral-900))', // App background
+  elevated: 'oklch(var(--ideasui-color-neutral-850))', // Cards
+  muted: 'oklch(var(--ideasui-color-neutral-800))', // Inputs / tertiary containers
+  strong: 'oklch(var(--ideasui-color-neutral-700))', // Strong section background
+  inverse: 'oklch(var(--ideasui-color-neutral-50))', // Light surface
 } as const;
 
 export const lightContent = {
-  primary: 'var(--ideasui-neutral-900)', // main text
-  secondary: 'var(--ideasui-neutral-700)', // less important text
-  tertiary: 'var(--ideasui-neutral-600)', // helper text
-  muted: 'var(--ideasui-neutral-500)', // placeholders
-  disabled: 'var(--ideasui-neutral-400)', // disabled text
-  inverse: 'var(--ideasui-neutral-50)', // text on dark surface
+  primary: 'oklch(var(--ideasui-color-neutral-900))', // main text
+  secondary: 'oklch(var(--ideasui-color-neutral-700))', // less important text
+  tertiary: 'oklch(var(--ideasui-color-neutral-600))', // helper text
+  muted: 'oklch(var(--ideasui-color-neutral-500))', // placeholders
+  disabled: 'oklch(var(--ideasui-color-neutral-400))', // disabled text
+  inverse: 'oklch(var(--ideasui-color-neutral-50))', // text on dark surface
 } as const;
 
 export const darkContent = {
-  primary: 'var(--ideasui-neutral-50)', // main text
-  secondary: 'var(--ideasui-neutral-300)', // less important text
-  tertiary: 'var(--ideasui-neutral-400)', // helper text
-  muted: 'var(--ideasui-neutral-500)', // placeholders
-  disabled: 'var(--ideasui-neutral-600)', // disabled text
-  inverse: 'var(--ideasui-neutral-950)', // text on light surface
+  primary: 'oklch(var(--ideasui-color-neutral-50))', // main text
+  secondary: 'oklch(var(--ideasui-color-neutral-300))', // less important text
+  tertiary: 'oklch(var(--ideasui-color-neutral-400))', // helper text
+  muted: 'oklch(var(--ideasui-color-neutral-500))', // placeholders
+  disabled: 'oklch(var(--ideasui-color-neutral-600))', // disabled text
+  inverse: 'oklch(var(--ideasui-color-neutral-950))', // text on light surface
 } as const;
 
 /* ============================================================

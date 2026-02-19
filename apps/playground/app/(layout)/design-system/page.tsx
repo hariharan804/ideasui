@@ -216,7 +216,6 @@ const BORDER_WIDTHS = [
   { name: 'medium', value: '2px' },
   { name: 'thick', value: '4px' },
   { name: 'heavy', value: '8px' },
-  { name: 'heavy', value: '8px' },
 ] as const;
 
 /* ─────────────── magic numbers ─────────────── */
@@ -270,7 +269,7 @@ function CodeChip({
       className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-xs transition-all ${
         copied
           ? 'border-success-300 bg-success-50 text-success-700'
-          : 'border-neutral-200 bg-neutral-50 text-neutral-600 hover:bg-neutral-100'
+          : 'border-default bg-neutral-50 text-neutral-600 hover:bg-neutral-100'
       }`}
       type="button"
       onClick={onCopy}
@@ -306,9 +305,7 @@ function SectionCard({
   className?: string;
 }): JSX.Element {
   return (
-    <div
-      className={`rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm lg:p-8 ${className}`}
-    >
+    <div className={`border-default rounded-2xl border bg-white p-6 shadow-sm lg:p-8 ${className}`}>
       {children}
     </div>
   );
@@ -459,11 +456,11 @@ const CONTENT_TEXT_MAP: Record<string, string> = {
 };
 
 const BORDER_COLOR_MAP: Record<string, string> = {
-  default: 'border-border-default',
-  subtle: 'border-border-subtle',
-  strong: 'border-border-strong',
-  focus: 'border-border-focus',
-  danger: 'border-border-danger',
+  default: 'border-default',
+  subtle: 'border-subtle',
+  strong: 'border-strong',
+  focus: 'border-focus',
+  danger: 'border-danger',
 };
 
 /* ═════════════════════════════════════════════════════════════════════
@@ -594,7 +591,7 @@ export default function DesignSystemPage(): JSX.Element {
                           }}
                         >
                           <div
-                            className={`${bgClass} aspect-square w-full rounded-lg border border-neutral-200/60 shadow-xs transition-all group-hover:scale-110 group-hover:shadow-md`}
+                            className={`${bgClass} border-subtle aspect-square w-full rounded-lg border shadow-xs transition-all group-hover:scale-110 group-hover:shadow-md`}
                           />
                           <span className="text-[10px] font-medium text-neutral-500">{shade}</span>
                         </button>
@@ -625,7 +622,7 @@ export default function DesignSystemPage(): JSX.Element {
                     return (
                       <button
                         key={variant}
-                        className="group flex w-full items-center gap-3 rounded-lg border border-neutral-200/60 p-3 transition-all hover:shadow-md"
+                        className="group border-subtle flex w-full items-center gap-3 rounded-lg border p-3 transition-all hover:shadow-md"
                         type="button"
                         onClick={() => {
                           void copyToClipboard(cls);
@@ -664,9 +661,9 @@ export default function DesignSystemPage(): JSX.Element {
                 const cls = `bg-surface-${token}`;
 
                 return (
-                  <div key={token} className="rounded-xl border border-neutral-200 p-4 text-center">
+                  <div key={token} className="border-default rounded-xl border p-4 text-center">
                     <div
-                      className={`${SURFACE_BG_MAP[token]} mx-auto mb-2 h-16 w-full rounded-lg border border-neutral-100 shadow-xs`}
+                      className={`${SURFACE_BG_MAP[token]} border-subtle mx-auto mb-2 h-16 w-full rounded-lg border shadow-xs`}
                     />
                     <div className="text-xs font-medium text-neutral-700 capitalize">{token}</div>
                     {chip(cls)}
@@ -684,7 +681,7 @@ export default function DesignSystemPage(): JSX.Element {
                 return (
                   <div
                     key={token}
-                    className={`rounded-lg border border-neutral-200 p-4 ${token === 'inverse' ? 'bg-neutral-900' : ''}`}
+                    className={`border-default rounded-lg border p-4 ${token === 'inverse' ? 'bg-neutral-900' : ''}`}
                   >
                     <p className={`${CONTENT_TEXT_MAP[token]} mb-2 text-lg font-semibold`}>
                       The quick brown fox
@@ -700,7 +697,7 @@ export default function DesignSystemPage(): JSX.Element {
             <h3 className="mb-3 text-sm font-semibold text-neutral-700">Border Colors</h3>
             <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
               {BORDER_COLOR_TOKENS.map((token) => {
-                const cls = `border-border-${token}`;
+                const cls = `border-${token}`;
 
                 return (
                   <div
@@ -726,17 +723,17 @@ export default function DesignSystemPage(): JSX.Element {
             {/* font families */}
             <h3 className="mb-3 text-sm font-semibold text-neutral-700">Font Families</h3>
             <div className="mb-8 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-lg border border-neutral-200 p-4">
+              <div className="border-default rounded-lg border p-4">
                 <p className="font-sans text-lg">Inter — Sans Serif</p>
                 <p className="mt-1 font-sans text-sm text-neutral-500">ABCDEFGHIJKLM 0123456789</p>
                 {chip('font-sans')}
               </div>
-              <div className="rounded-lg border border-neutral-200 p-4">
+              <div className="border-default rounded-lg border p-4">
                 <p className="font-serif text-lg">Georgia — Serif</p>
                 <p className="mt-1 font-serif text-sm text-neutral-500">ABCDEFGHIJKLM 0123456789</p>
                 {chip('font-serif')}
               </div>
-              <div className="rounded-lg border border-neutral-200 p-4">
+              <div className="border-default rounded-lg border p-4">
                 <p className="font-mono text-lg">JetBrains Mono</p>
                 <p className="mt-1 font-mono text-sm text-neutral-500">ABCDEFGHIJKLM 0123456789</p>
                 {chip('font-mono')}
@@ -763,7 +760,7 @@ export default function DesignSystemPage(): JSX.Element {
             <h3 className="mb-3 text-sm font-semibold text-neutral-700">Font Weights</h3>
             <div className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {FONT_WEIGHTS.map((fw) => (
-                <div key={fw.name} className="rounded-lg border border-neutral-200 p-4">
+                <div key={fw.name} className="border-default rounded-lg border p-4">
                   <p className={`${fw.class} text-lg text-neutral-800`}>
                     {fw.name} ({fw.weight})
                   </p>
@@ -776,7 +773,7 @@ export default function DesignSystemPage(): JSX.Element {
             <h3 className="mb-3 text-sm font-semibold text-neutral-700">Letter Spacing</h3>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {LETTER_SPACINGS.map((ls) => (
-                <div key={ls.name} className="rounded-lg border border-neutral-200 p-4">
+                <div key={ls.name} className="border-default rounded-lg border p-4">
                   <p className={`${ls.class} text-base font-medium text-neutral-700 uppercase`}>
                     {ls.name}
                   </p>
@@ -797,7 +794,7 @@ export default function DesignSystemPage(): JSX.Element {
               {SPACING_STEPS.map((step) => (
                 <div
                   key={step.key}
-                  className="flex items-center gap-4 rounded-lg border border-neutral-100 px-4 py-2 transition-colors hover:bg-neutral-50"
+                  className="border-subtle flex items-center gap-4 rounded-lg border px-4 py-2 transition-colors hover:bg-neutral-50"
                 >
                   <span className="text-primary-600 w-8 text-right font-mono text-sm font-bold">
                     {step.key}
@@ -852,7 +849,7 @@ export default function DesignSystemPage(): JSX.Element {
               {BORDER_WIDTHS.map((b) => (
                 <div
                   key={b.name}
-                  className="flex items-center gap-3 rounded-lg border border-neutral-200 p-4"
+                  className="border-default flex items-center gap-3 rounded-lg border p-4"
                 >
                   <div
                     className="bg-primary-content h-12 w-12 rounded-md"
@@ -892,7 +889,7 @@ export default function DesignSystemPage(): JSX.Element {
               {ELEVATIONS.map((e, i) => (
                 <div
                   key={e.name}
-                  className="rounded-xl border border-neutral-100 bg-white p-4 text-center"
+                  className="border-subtle rounded-xl border bg-white p-4 text-center"
                   style={{
                     boxShadow:
                       i === 0
@@ -924,7 +921,7 @@ export default function DesignSystemPage(): JSX.Element {
               {ANIMATIONS.map((a) => (
                 <div
                   key={a.name}
-                  className="flex items-center gap-3 rounded-lg border border-neutral-200 p-4"
+                  className="border-default flex items-center gap-3 rounded-lg border p-4"
                 >
                   <div className={`${a.class} bg-primary-500 h-8 w-8 rounded-md`} />
                   <div>
@@ -957,7 +954,7 @@ export default function DesignSystemPage(): JSX.Element {
             <h3 className="mb-3 text-sm font-semibold text-neutral-700">Easing Functions</h3>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {EASINGS.map((e) => (
-                <div key={e.name} className="rounded-lg border border-neutral-200 p-4">
+                <div key={e.name} className="border-default rounded-lg border p-4">
                   <div className="mb-2 text-sm font-medium text-neutral-700 capitalize">
                     {e.name}
                   </div>
@@ -978,7 +975,7 @@ export default function DesignSystemPage(): JSX.Element {
               {OPACITIES.map((o) => (
                 <div
                   key={o.name}
-                  className="flex items-center gap-3 rounded-lg border border-neutral-200 p-4"
+                  className="border-default flex items-center gap-3 rounded-lg border p-4"
                 >
                   <div className="relative h-12 w-12 rounded-md bg-[conic-gradient(#e5e7eb_25%,#f9fafb_25%_50%,#e5e7eb_50%_75%,#f9fafb_75%)] bg-[length:8px_8px]">
                     <div className={`${o.class} bg-primary-500 absolute inset-0 rounded-md`} />
@@ -1052,7 +1049,7 @@ export default function DesignSystemPage(): JSX.Element {
                 return (
                   <div
                     key={z.name}
-                    className="hover:bg-primary-50/40 grid grid-cols-[60px_1fr_80px_auto] items-center gap-4 border-t border-neutral-100 px-4 py-3 transition-colors"
+                    className="hover:bg-primary-50/40 border-subtle grid grid-cols-[60px_1fr_80px_auto] items-center gap-4 border-t px-4 py-3 transition-colors"
                   >
                     <span className="text-primary-600 font-mono text-sm font-bold">{z.value}</span>
                     <span className="text-sm font-medium text-neutral-800 capitalize">

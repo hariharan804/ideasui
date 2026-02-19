@@ -12,7 +12,7 @@ import { ideasUIPlugin } from '../dist/plugin/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const OUTPUT_PATH = path.join(__dirname, '..', 'dist', 'ideasui-theme.css');
+const OUTPUT_PATH = path.join(__dirname, '..', 'dist', 'theme.css');
 const BYTES_PER_KB = 1024;
 const PREFIX = 'ideasui';
 
@@ -131,13 +131,13 @@ function generateThemeCSS() {
       category = 'spacing';
       subName = subName.split('-spacing-')[1];
     } else if (key.includes('-duration-')) {
-      category = 'transition-duration';
+      category = 'duration';
       subName = subName.split('-duration-')[1];
     } else if (key.includes('-easing-')) {
-      category = 'transition-timing-function';
+      category = 'ease';
       subName = subName.split('-easing-')[1];
     } else if (key.includes('-radius-')) {
-      category = 'border-radius';
+      category = 'radius';
       subName = subName.split('-radius-')[1];
     } else if (key.includes('-shadow-') || key.includes('-box-shadow-')) {
       category = 'shadow';
@@ -145,7 +145,7 @@ function generateThemeCSS() {
         ? subName.split('-box-shadow-')[1]
         : subName.split('-shadow-')[1];
     } else if (key.includes('-font-size-')) {
-      category = 'font-size';
+      category = 'text';
       subName = subName.split('-font-size-')[1];
     } else if (key.includes('-font-')) {
       category = 'font';
@@ -208,7 +208,8 @@ function generateThemeCSS() {
     // Priority: Semantic aliases (shorter names) win over raw prefixed ones
     const isAlias = !key.startsWith(`--${PREFIX}`);
     if (!themeMappings.has(tailwindKey) || isAlias) {
-      themeMappings.set(tailwindKey, `  ${tailwindKey}: var(${key});`);
+      const value = category === 'color' ? `oklch(var(${key}))` : `var(${key})`;
+      themeMappings.set(tailwindKey, `  ${tailwindKey}: ${value};`);
     }
   });
 
