@@ -13,6 +13,8 @@ import {
   font,
   blur,
   opacity,
+  animation,
+  zIndex,
 } from '@ideasui/theme';
 import { motion } from 'framer-motion';
 
@@ -227,7 +229,8 @@ export default function TokensPage(): JSX.Element {
         {/* Motion */}
         <section className="space-y-8">
           <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Motion</h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+            {/* Durations */}
             <div className="space-y-4">
               <h3 className="font-medium">Durations</h3>
               <div className="space-y-2">
@@ -266,6 +269,24 @@ export default function TokensPage(): JSX.Element {
             </div>
 
             <div className="space-y-4">
+              <h3 className="font-medium">Animations</h3>
+              <div className="grid gap-4">
+                {Object.keys(animation)
+                  .filter((name) => name !== 'none')
+                  .map((name) => (
+                    <div key={name} className="group space-y-2">
+                      <div className="text-xs">{name}</div>
+                      <div className="flex h-12 items-center justify-center overflow-hidden rounded-md border bg-gray-50 shadow-sm dark:bg-gray-900">
+                        <div
+                          className={`bg-primary-500 h-6 w-6 rounded-md shadow-sm animate-${name}`}
+                        />
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+
+            <div className="space-y-4">
               <h3 className="font-medium">Framer Motion Integration</h3>
               <div className="flex h-48 items-center justify-center rounded-xl border p-6">
                 <motion.div
@@ -276,6 +297,38 @@ export default function TokensPage(): JSX.Element {
               </div>
               <p className="text-xs text-gray-500">Hover and tap the box above</p>
             </div>
+          </div>
+        </section>
+
+        {/* Z-Index */}
+        <section className="space-y-8">
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Z-Index</h2>
+          <div className="relative h-64 w-full max-w-2xl rounded-xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950">
+            {Object.entries(zIndex)
+              // Handle string 'hide' etc., fall back to 0 if NaN for visual sorting purposes
+              .sort((a, b) => (parseInt(String(a[1])) || 0) - (parseInt(String(b[1])) || 0))
+              .filter(([, value]) => String(value) !== '-1')
+              .map(([name, value], index) => {
+                const OFFSET_REM = 1.5;
+                const COLOR_STEPS = 9;
+                const BORDER_OFFSET = 200;
+
+                return (
+                  <div
+                    key={name}
+                    className={`absolute flex h-16 w-3/4 items-center justify-between rounded-lg border px-4 shadow-sm backdrop-blur-md z-${name}`}
+                    style={{
+                      top: `${index * OFFSET_REM + 1}rem`,
+                      left: `${index * OFFSET_REM + 1}rem`,
+                      backgroundColor: `oklch(var(--ideasui-color-primary-${(index % COLOR_STEPS) * 100 + 100}) / 0.9)`,
+                      borderColor: `var(--ideasui-color-primary-${(index % COLOR_STEPS) * 100 + BORDER_OFFSET})`,
+                    }}
+                  >
+                    <span className="text-primary-900 font-medium drop-shadow-sm">z-{name}</span>
+                    <span className="text-primary-800 font-mono text-xs">{value}</span>
+                  </div>
+                );
+              })}
           </div>
         </section>
       </div>

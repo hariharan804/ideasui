@@ -14,7 +14,7 @@ import {
   borderRadius,
   fontSize,
   spacing,
-  breakpoints,
+  // breakpoints,
   letterSpacing,
   primitives,
   semantic,
@@ -177,17 +177,7 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
       userLightColors,
     ),
     designTokens: deepMerge({}, userLightTokens),
-    semanticTokens: deepMerge(
-      deepMerge(
-        {
-          surface: lightSurface,
-          content: lightContent,
-          border: lightBorder,
-        },
-        globalSemanticTokens,
-      ),
-      userLightSemantic,
-    ),
+    semanticTokens: deepMerge(globalSemanticTokens, userLightSemantic),
   };
 
   const darkTheme: ConfigTheme = {
@@ -203,17 +193,7 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
       userDarkColors,
     ),
     designTokens: deepMerge({}, userDarkTokens),
-    semanticTokens: deepMerge(
-      deepMerge(
-        {
-          surface: darkSurface,
-          content: darkContent,
-          border: darkBorder,
-        },
-        globalSemanticTokens,
-      ),
-      userDarkSemantic,
-    ),
+    semanticTokens: deepMerge(globalSemanticTokens, userDarkSemantic),
   };
 
   // Merge with any custom themes
@@ -254,14 +234,12 @@ export function createThemeExtension(
   return {
     // ── Colors (flat CSS variable references — v4 requires uniform types) ──
     colors: { ...colors, transparent: 'transparent' },
-    surface: s.surface,
-    content: s.content,
 
     // ── Spacing (4px grid) ──
     spacing: { ...spacing, ...t.spacing },
 
     // ── Responsive ──
-    screens: { ...breakpoints, ...t.breakpoints },
+    // screens: { ...breakpoints, ...t.breakpoints },
     container: { center: true },
 
     // ── Layout ──
@@ -275,7 +253,7 @@ export function createThemeExtension(
       ...t.borderColor,
     },
     borderWidth: {
-      DEFAULT: border.default,
+      DEFAULT: border.thin,
       ...Object.fromEntries(
         Object.entries(border).filter(
           ([key]) => !key.startsWith('color') && !key.startsWith('width'),

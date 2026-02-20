@@ -23,62 +23,62 @@ export const darkShadow = {
 
 export const lightElevation = {
   base: {
-    surface: 'var(--ideasui-neutral-50)',
+    surface: 'var(--ideasui-color-neutral-50)',
     shadow: lightShadow.none,
   },
   raised: {
-    surface: 'var(--ideasui-neutral-100)',
+    surface: 'var(--ideasui-color-neutral-100)',
     shadow: lightShadow.sm,
   },
   floating: {
-    surface: 'var(--ideasui-neutral-100)',
+    surface: 'var(--ideasui-color-neutral-100)',
     shadow: lightShadow.md,
   },
   overlay: {
-    surface: 'var(--ideasui-neutral-100)',
+    surface: 'var(--ideasui-color-neutral-100)',
     shadow: lightShadow.lg,
   },
   modal: {
-    surface: 'var(--ideasui-neutral-100)',
+    surface: 'var(--ideasui-color-neutral-100)',
     shadow: lightShadow.xl,
   },
   toast: {
-    surface: 'var(--ideasui-neutral-100)',
+    surface: 'var(--ideasui-color-neutral-100)',
     shadow: lightShadow['2xl'],
   },
   sunken: {
-    surface: 'var(--ideasui-neutral-200)',
+    surface: 'var(--ideasui-color-neutral-200)',
     shadow: lightShadow.inner,
   },
 } as const;
 
 export const darkElevation = {
   base: {
-    surface: 'var(--ideasui-neutral-900)',
+    surface: 'var(--ideasui-color-neutral-900)',
     shadow: darkShadow.none,
   },
   raised: {
-    surface: 'var(--ideasui-neutral-850)',
+    surface: 'var(--ideasui-color-neutral-800)',
     shadow: darkShadow.sm,
   },
   floating: {
-    surface: 'var(--ideasui-neutral-850)',
+    surface: 'var(--ideasui-color-neutral-800)',
     shadow: darkShadow.md,
   },
   overlay: {
-    surface: 'var(--ideasui-neutral-850)',
+    surface: 'var(--ideasui-color-neutral-800)',
     shadow: darkShadow.lg,
   },
   modal: {
-    surface: 'var(--ideasui-neutral-850)',
+    surface: 'var(--ideasui-color-neutral-800)',
     shadow: darkShadow.xl,
   },
   toast: {
-    surface: 'var(--ideasui-neutral-850)',
+    surface: 'var(--ideasui-color-neutral-800)',
     shadow: darkShadow['2xl'],
   },
   sunken: {
-    surface: 'var(--ideasui-neutral-950)',
+    surface: 'var(--ideasui-color-neutral-950)',
     shadow: darkShadow.inner,
   },
 } as const;

@@ -3,7 +3,7 @@ import type { TokenOverrides, SemanticTokenOverrides } from '../types';
 import {
   duration,
   easing,
-  breakpoints,
+  // breakpoints,
   spacing,
   fontSize,
   borderRadius,
@@ -19,7 +19,7 @@ import {
   lightElevation,
   darkElevation,
   interaction,
-  accessibility,
+  // accessibility,
 } from '../tokens';
 import { componentColors, componentShadows } from '../tokens/components';
 
@@ -44,9 +44,9 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
   });
 
   // Breakpoint tokens (for JavaScript access)
-  Object.entries(breakpoints).forEach(([key, value]) => {
-    cssVars[`--${prefix}-breakpoint-${key}`] = value;
-  });
+  // Object.entries(breakpoints).forEach(([key, value]) => {
+  //   cssVars[`--${prefix}-breakpoint-${key}`] = value;
+  // });
 
   // Spacing tokens
   Object.entries(spacing).forEach(([key, value]) => {
@@ -117,9 +117,9 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
   });
 
   // Accessibility tokens
-  Object.entries(accessibility).forEach(([key, value]) => {
-    cssVars[`--${prefix}-accessibility-${kebabCase(key)}`] = value;
-  });
+  // Object.entries(accessibility).forEach(([key, value]) => {
+  //   cssVars[`--${prefix}-accessibility-${kebabCase(key)}`] = value;
+  // });
 
   // Component colors
   Object.entries(componentColors).forEach(([component, tokens]) => {
@@ -200,11 +200,11 @@ export function generateCSSVarsFromTokenOverrides(
   }
 
   // Breakpoints
-  if (t.breakpoints) {
-    Object.entries(t.breakpoints).forEach(([key, value]) => {
-      cssVars[`--${prefix}-breakpoint-${key}`] = value;
-    });
-  }
+  // if (t.breakpoints) {
+  //   Object.entries(t.breakpoints).forEach(([key, value]) => {
+  //     cssVars[`--${prefix}-breakpoint-${key}`] = value;
+  //   });
+  // }
 
   // Spacing
   if (t.spacing) {

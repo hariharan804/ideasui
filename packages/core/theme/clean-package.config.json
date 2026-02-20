@@ -30,7 +30,10 @@
         "import": "./dist/plugin/index.js",
         "require": "./dist/plugin/index.cjs"
       },
-      "./theme.css": "./dist/ideasui-theme.css",
+      "./theme.css": {
+        "style": "./dist/theme.css",
+        "import": "./dist/theme.css"
+      },
       "./package.json": "./package.json"
     }
   }

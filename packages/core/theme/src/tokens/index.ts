@@ -21,8 +21,8 @@ import {
   spinnerSizes,
   squareSizes,
 } from './variants';
-import { breakpoints } from './breakpoints';
-import { accessibility } from './accessibility';
+// import { breakpoints } from './breakpoints';
+// import { accessibility } from './accessibility';
 import { backdrop, blur } from './blur';
 import { border, lightBorder, darkBorder } from './border';
 import { lightInteraction, darkInteraction } from './interaction';
@@ -63,9 +63,9 @@ export {
   darkSurface,
   lightContent,
   darkContent,
-  breakpoints,
+  // breakpoints,
   commonColors,
-  accessibility,
+  // accessibility,
   backdrop,
   blur,
   border,
@@ -103,7 +103,7 @@ export type ColorsWithVariantProps = keyof typeof colorsWithVariant;
 export type ButtonSizesProps = keyof typeof buttonSizes;
 export type SpinnerSizesProps = keyof typeof spinnerSizes;
 export type SquareSizesProps = keyof typeof squareSizes;
-export type BreakpointProps = keyof typeof breakpoints;
+// export type BreakpointProps = keyof typeof breakpoints;
 export type DurationProps = keyof typeof duration;
 export type EasingProps = keyof typeof easing;
 export type FontWeightProps = keyof typeof fontWeight;

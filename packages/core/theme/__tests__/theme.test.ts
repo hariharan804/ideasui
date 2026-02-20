@@ -89,7 +89,7 @@ describe('ideasUIPlugin', () => {
     const baseCall = mockPluginAPI.addBase.mock.calls.find((call: any) => {
       const theme = call[0][":root, .light, [data-ideasui-theme='light']"];
 
-      return theme && theme['--ideasui-border-subtle'] !== undefined;
+      return theme && theme['--ideasui-color-border-subtle'] !== undefined;
     });
 
     expect(baseCall).toBeDefined();

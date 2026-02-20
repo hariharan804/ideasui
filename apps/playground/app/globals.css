@@ -1,8 +1,8 @@
 /* Global styles for playground */
 
 @import 'tailwindcss';
-@config '../tailwind.config.ts';
-/* @import '@ideasui/theme/theme.css'; */
+@import '@ideasui/theme/theme.css';
+/* @config '../tailwind.config.ts'; */
 /* 1) Variants must exist before any file that uses them
 @custom-variant dark (&:where(.dark, .dark *)); 
 @config "../tailwind.config.ts";

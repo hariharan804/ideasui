@@ -181,22 +181,15 @@ function generateThemeCSS() {
     } else if (key.includes('-border-')) {
       // Only match actual border-width tokens, not semantic border-color tokens
       const borderSuffix = key.split('-border-').pop();
-      const BORDER_WIDTH_SUFFIXES = [
-        'hairline',
-        'thin',
-        'medium',
-        'thick',
-        'heavy',
-        'none',
-        'default',
-      ];
+      const BORDER_WIDTH_SUFFIXES = ['hairline', 'thin', 'medium', 'thick', 'heavy', 'none'];
       if (BORDER_WIDTH_SUFFIXES.includes(borderSuffix)) {
         category = 'border-width';
         subName = borderSuffix;
       } else {
         // Semantic border colors (base, subtle, emphasis, error, focus, success)
-        category = 'color';
-        subName = `border-${borderSuffix}`;
+        // We skip adding them to @theme as a color because it creates .border-border-subtle
+        // Instead, we will generate explicit @utility classes for them.
+        return;
       }
     } else if (key.startsWith(`--${PREFIX}`)) {
       // Remaining prefixed tokens are color tokens
@@ -225,6 +218,15 @@ function generateThemeCSS() {
 
   const themeBlock = Array.from(themeMappings.values()).sort().join('\n');
 
+  // Explicitly generate @utility classes for semantic borders
+  const borderUtilities = Object.keys(lightThemed)
+    .filter((k) => k.startsWith(`--${PREFIX}-color-border-`))
+    .map((k) => {
+      const name = k.replace(`--${PREFIX}-color-border-`, '');
+      return `@utility border-${name} {\n  border-color: oklch(var(${k}));\n}`;
+    })
+    .join('\n\n');
+
   return `/**
  * IdeasUI Theme CSS
  * Auto-generated from ideasUIPlugin
@@ -245,6 +247,9 @@ ${format(darkThemed)}
 @theme {
 ${themeBlock}
 }
+
+/* Explicit Utilities */
+${borderUtilities}
 `;
 }
 

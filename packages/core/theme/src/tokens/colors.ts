@@ -152,7 +152,6 @@ export const primitives = {
       600: 'oklch(0.700 0.068 257.4)',
       700: 'oklch(0.790 0.054 257.4)',
       800: 'oklch(0.870 0.038 257.4)',
-      850: 'oklch(0.900 0.030 257.4)',
       900: 'oklch(0.930 0.022 257.4)',
       950: 'oklch(0.970 0.012 257.4)',
     },
@@ -307,7 +306,7 @@ export const lightSurface = {
 
 export const darkSurface = {
   base: 'oklch(var(--ideasui-color-neutral-900))', // App background
-  elevated: 'oklch(var(--ideasui-color-neutral-850))', // Cards
+  elevated: 'oklch(var(--ideasui-color-neutral-800))', // Cards
   muted: 'oklch(var(--ideasui-color-neutral-800))', // Inputs / tertiary containers
   strong: 'oklch(var(--ideasui-color-neutral-700))', // Strong section background
   inverse: 'oklch(var(--ideasui-color-neutral-50))', // Light surface

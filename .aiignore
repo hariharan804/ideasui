@@ -18,3 +18,10 @@ const screenSize = useMediaQuery('(min-width: 768px)')
 - theme colors confirmation
 - check component and theme real time test
 - Check rabbit and sonar implementation
+
+theme:
+- animation tokens - Durations, Easing Functions, Keyframes (Motion & Animation)
+- break point tokens
+- shadow tokens
+- z-index showcase changes
+- semantic color tokens check with button component all variants 
