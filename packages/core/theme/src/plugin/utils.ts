@@ -235,7 +235,17 @@ export function parseColorValue(colorValue: string): ParsedColor | null {
  * @returns {string} The formatted color string
  */
 export function formatColorComponents(components: (string | number)[]): string {
-  return components.filter((c) => c !== undefined).join(' ');
+  const validComponents = components.filter((c) => c !== undefined);
+
+  if (
+    validComponents.length === 4 &&
+    validComponents[3] !== '<alpha-value>' &&
+    validComponents[3] !== '/'
+  ) {
+    return `${validComponents[0]} ${validComponents[1]} ${validComponents[2]} / ${validComponents[3]}`;
+  }
+
+  return validComponents.join(' ').replace(/\s+\/\s+/g, ' / ');
 }
 
 /**

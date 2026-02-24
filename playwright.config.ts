@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({

@@ -350,7 +350,7 @@ describe('ideasUIPlugin', () => {
     const customThemeUtilities = calls.find(
       (call) =>
         call[0][".custom, [data-ideasui-theme='custom']"] &&
-        call[0][".custom, [data-ideasui-theme='custom']"]['--ideasui-surface-100'],
+        call[0][".custom, [data-ideasui-theme='custom']"]['--ideasui-color-surface-100'],
     );
 
     expect(customThemeUtilities).toBeDefined();
@@ -359,8 +359,8 @@ describe('ideasUIPlugin', () => {
     }
     const styles = customThemeUtilities[0][".custom, [data-ideasui-theme='custom']"];
 
-    expect(styles['--ideasui-surface-100']).toBe('#ffffff');
-    expect(styles['--ideasui-content-100']).toBe('#000000');
+    expect(styles['--ideasui-color-surface-100']).toBe('#ffffff');
+    expect(styles['--ideasui-color-content-100']).toBe('#000000');
     expect(styles['--ideasui-border-default']).toBe('#e5e7eb');
   });
 
@@ -397,7 +397,7 @@ describe('ideasUIPlugin', () => {
     const lightThemeUtilities = calls.find(
       (call) =>
         call[0][":root, .light, [data-ideasui-theme='light']"] &&
-        call[0][":root, .light, [data-ideasui-theme='light']"]['--ideasui-surface-global'],
+        call[0][":root, .light, [data-ideasui-theme='light']"]['--ideasui-color-surface-global'],
     );
 
     expect(lightThemeUtilities).toBeDefined();
@@ -406,9 +406,9 @@ describe('ideasUIPlugin', () => {
     }
     const styles = lightThemeUtilities[0][":root, .light, [data-ideasui-theme='light']"];
 
-    expect(styles['--ideasui-surface-global']).toBe('#f0f0f0');
-    expect(styles['--ideasui-content-global']).toBe('#333333');
-    expect(styles['--ideasui-surface-theme-specific']).toBe('#ffffff');
+    expect(styles['--ideasui-color-surface-global']).toBe('#f0f0f0');
+    expect(styles['--ideasui-color-content-global']).toBe('#333333');
+    expect(styles['--ideasui-color-surface-theme-specific']).toBe('#ffffff');
   });
 
   it('should prefix palette colors with "color-"', () => {

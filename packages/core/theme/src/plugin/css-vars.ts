@@ -18,7 +18,8 @@ import {
   backdrop,
   lightElevation,
   darkElevation,
-  interaction,
+  lightInteraction,
+  darkInteraction,
   // accessibility,
 } from '../tokens';
 import { componentColors, componentShadows } from '../tokens/components';
@@ -77,7 +78,7 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
 
   // Opacity tokens
   Object.entries(opacity).forEach(([key, value]) => {
-    cssVars[`--${prefix}-opacity-${key}`] = String(value);
+    cssVars[`--${prefix}-opacity-${kebabCase(key)}`] = String(value);
   });
 
   // Letter spacing tokens
@@ -112,7 +113,7 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
   });
 
   // Interaction tokens
-  Object.entries(interaction).forEach(([key, value]) => {
+  Object.entries(lightInteraction).forEach(([key, value]) => {
     cssVars[`--${prefix}-${kebabCase(key)}`] = String(value);
   });
 
@@ -159,6 +160,11 @@ export function generateDarkDesignTokenCSSVars(prefix: string): Record<string, s
   Object.entries(darkElevation).forEach(([key, value]) => {
     cssVars[`--${prefix}-elevation-${kebabCase(key)}-surface`] = value.surface;
     cssVars[`--${prefix}-elevation-${kebabCase(key)}-shadow`] = value.shadow;
+  });
+
+  // Interaction tokens (dark)
+  Object.entries(darkInteraction).forEach(([key, value]) => {
+    cssVars[`--${prefix}-${kebabCase(key)}`] = String(value);
   });
 
   return cssVars;
@@ -246,7 +252,7 @@ export function generateCSSVarsFromTokenOverrides(
   // Opacity
   if (t.opacity) {
     Object.entries(t.opacity).forEach(([key, value]) => {
-      cssVars[`--${prefix}-opacity-${key}`] = String(value);
+      cssVars[`--${prefix}-opacity-${kebabCase(key)}`] = String(value);
     });
   }
 
@@ -282,14 +288,14 @@ export function generateCSSVarsFromTokenOverrides(
   // Surface
   if (t.surface) {
     Object.entries(t.surface).forEach(([key, value]) => {
-      cssVars[`--${prefix}-surface-${key}`] = value;
+      cssVars[`--${prefix}-color-surface-${key}`] = value;
     });
   }
 
   // Content
   if (t.content) {
     Object.entries(t.content).forEach(([key, value]) => {
-      cssVars[`--${prefix}-content-${key}`] = value;
+      cssVars[`--${prefix}-color-content-${key}`] = value;
     });
   }
 

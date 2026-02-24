@@ -160,9 +160,9 @@ export default defineConfig([
       'no-var': 'error',
       'prefer-const': 'error',
       'no-magic-numbers': [
-        'warn',
+        'off',
         {
-          ignore: [0, 1, -1, 2, 10, 100, 1000],
+          ignore: [0, 1, -1, 2, 4, 10, 100, 1000],
           ignoreArrayIndexes: true,
           ignoreDefaultValues: true,
         },

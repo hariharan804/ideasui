@@ -297,19 +297,77 @@ export const semantic = {
  */
 
 export const lightSurface = {
-  base: 'oklch(var(--ideasui-color-neutral-50))', // App background
-  elevated: 'oklch(var(--ideasui-color-neutral-100))', // Cards
-  muted: 'oklch(var(--ideasui-color-neutral-200))', // Inputs / tertiary containers
-  strong: 'oklch(var(--ideasui-color-neutral-300))', // Strong section background
-  inverse: 'oklch(var(--ideasui-color-neutral-900))', // Dark surface
+  // App background
+  base: 'oklch(var(--ideasui-color-neutral-50))',
+
+  // Recessed areas (tables, input wells)
+  sunken: 'oklch(var(--ideasui-color-neutral-100))',
+
+  // Primary containers (cards)
+  elevated: 'oklch(var(--ideasui-color-neutral-100))',
+
+  // Subtle UI surfaces
+  muted: 'oklch(var(--ideasui-color-neutral-200))',
+
+  // Strong sections / sidebars
+  strong: 'oklch(var(--ideasui-color-neutral-300))',
+
+  // Nested container scale
+  'container-low': 'oklch(var(--ideasui-color-neutral-100))',
+  container: 'oklch(var(--ideasui-color-neutral-200))',
+  'container-high': 'oklch(var(--ideasui-color-neutral-300))',
+
+  // Floating layers (dropdowns, popovers)
+  floating: 'oklch(var(--ideasui-color-neutral-50))',
+
+  // Transparent glass backgrounds
+  overlay: 'oklch(var(--ideasui-color-neutral-50))',
+
+  // Dialogs / drawers
+  modal: 'oklch(var(--ideasui-color-neutral-50))',
+
+  // Backdrop dim layer
+  scrim: 'oklch(0 0 0 / 0.45)',
+
+  // Opposite theme surface
+  inverse: 'oklch(var(--ideasui-color-neutral-900))',
 } as const;
 
 export const darkSurface = {
-  base: 'oklch(var(--ideasui-color-neutral-900))', // App background
-  elevated: 'oklch(var(--ideasui-color-neutral-800))', // Cards
-  muted: 'oklch(var(--ideasui-color-neutral-800))', // Inputs / tertiary containers
-  strong: 'oklch(var(--ideasui-color-neutral-700))', // Strong section background
-  inverse: 'oklch(var(--ideasui-color-neutral-50))', // Light surface
+  // App background
+  base: 'oklch(var(--ideasui-color-neutral-900))',
+
+  // Recessed areas (inputs, tables)
+  sunken: 'oklch(var(--ideasui-color-neutral-950))',
+
+  // Cards / main containers
+  elevated: 'oklch(var(--ideasui-color-neutral-800))',
+
+  // Subtle UI surfaces
+  muted: 'oklch(var(--ideasui-color-neutral-800))',
+
+  // Strong sections / sidebars
+  strong: 'oklch(var(--ideasui-color-neutral-700))',
+
+  // Nested container scale
+  'container-low': 'oklch(var(--ideasui-color-neutral-900))',
+  container: 'oklch(var(--ideasui-color-neutral-800))',
+  'container-high': 'oklch(var(--ideasui-color-neutral-700))',
+
+  // Floating layers (dropdowns, popovers)
+  floating: 'oklch(var(--ideasui-color-neutral-800))',
+
+  // Transparent glass backgrounds
+  overlay: 'oklch(var(--ideasui-color-neutral-900))',
+
+  // Dialogs / drawers
+  modal: 'oklch(var(--ideasui-color-neutral-800))',
+
+  // Backdrop dim layer
+  scrim: 'oklch(0 0 0 / 0.65)',
+
+  // Opposite theme surface
+  inverse: 'oklch(var(--ideasui-color-neutral-50))',
 } as const;
 
 export const lightContent = {
@@ -335,6 +393,6 @@ export const darkContent = {
    ============================================================ */
 
 export const commonColors = {
-  white: '#ffffff',
-  black: '#000000',
+  white: 'oklch(1 0 0)',
+  black: 'oklch(0 0 0)',
 } as const;

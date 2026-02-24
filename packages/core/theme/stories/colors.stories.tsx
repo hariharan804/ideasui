@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ReactElement } from 'react';
 

@@ -1,5 +1,3 @@
-/* eslint-disable no-magic-numbers */
-
 import type {
   SpacingProps,
   BorderRadiusProps,

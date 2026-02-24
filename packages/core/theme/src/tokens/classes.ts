@@ -1,16 +1,11 @@
-export const focus = {
-  default: 'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2',
-  primary: 'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2',
-  secondary: 'focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2',
-} as const;
-
 export const disabled = {
   default:
     'ideasui-disabled disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
 } as const;
 
-export const focusParams = {
-  ringColor: 'color-mix(in srgb, var(--ideasui-primary-500) 50%, transparent)',
-  ringOffset: '2px',
-  ringWidth: '2px',
+export const scrollbar = {
+  none: 'scrollbar-none [&::-webkit-scrollbar]:hidden',
+  default:
+    '[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-neutral-200 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-800 [&::-webkit-scrollbar-thumb]:rounded-full',
+  thin: '[&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-neutral-200 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-800 [&::-webkit-scrollbar-thumb]:rounded-full',
 } as const;

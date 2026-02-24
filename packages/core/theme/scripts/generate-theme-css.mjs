@@ -19,17 +19,26 @@ const PREFIX = 'ideasui';
 /**
  * Extract CSS variables from plugin by executing it with mock Tailwind API
  */
-function extractPluginStyles() {
-  const captured = { baseStyles: {} };
+export function extractPluginStyles() {
+  const captured = { baseStyles: {}, utilities: {} };
   const pluginData = ideasUIPlugin({ prefix: PREFIX });
   pluginData.handler({
     addBase: (styles) => {
-      Object.assign(captured.baseStyles, styles);
+      Object.entries(styles).forEach(([selector, rules]) => {
+        if (!captured.baseStyles[selector]) {
+          captured.baseStyles[selector] = {};
+        }
+        Object.assign(captured.baseStyles[selector], rules);
+      });
     },
-    addUtilities: () => {},
+    addUtilities: (utils) => {
+      Object.entries(utils).forEach(([selector, rules]) => {
+        captured.utilities[selector] = rules;
+      });
+    },
     addVariant: () => {},
   });
-  return captured.baseStyles;
+  return captured;
 }
 
 /**
@@ -61,7 +70,9 @@ function resolveValue(value, contextVars) {
  * Main generation function
  */
 function generateThemeCSS() {
-  const baseStyles = extractPluginStyles();
+  const captured = extractPluginStyles();
+  const baseStyles = captured.baseStyles;
+  const rawUtilities = captured.utilities;
   const rootVars = baseStyles[':root'] || {};
   // const lightSelector = Object.keys(baseStyles).find((s) => s.includes('light'));
   // const darkSelector = Object.keys(baseStyles).find((s) => s.includes('dark'));
@@ -211,10 +222,41 @@ function generateThemeCSS() {
     // Priority: Semantic aliases (shorter names) win over raw prefixed ones
     const isAlias = !key.startsWith(`--${PREFIX}`);
     if (!themeMappings.has(tailwindKey) || isAlias) {
-      const value = category === 'color' ? `oklch(var(${key}))` : `var(${key})`;
+      let value = `var(${key})`;
+      if (category === 'color') {
+        const resolvedValue = lightThemed[key];
+
+        // Handle specific overlay formatting from user request natively
+        if (key === `--${PREFIX}-color-active-overlay`) {
+          value = `oklch(var(--${PREFIX}-overlay-color) / var(--${PREFIX}-opacity-active-overlay))`;
+        } else if (key === `--${PREFIX}-color-hover-overlay`) {
+          value = `oklch(var(--${PREFIX}-overlay-color) / var(--${PREFIX}-opacity-hover-overlay))`;
+        } else if (key === `--${PREFIX}-color-surface-muted`) {
+          value = `oklch(var(--${PREFIX}-color-surface-muted) / var(--${PREFIX}-opacity-surface-muted))`;
+        } else if (key === `--${PREFIX}-color-surface-overlay`) {
+          value = `oklch(var(--${PREFIX}-color-surface-overlay) / var(--${PREFIX}-opacity-surface-overlay))`;
+        }
+        // Fallback checks
+        else if (resolvedValue && resolvedValue.includes('var(') && resolvedValue.includes('/')) {
+          value = `var(${key})`;
+        } else {
+          value = `oklch(var(${key}))`;
+        }
+      }
       themeMappings.set(tailwindKey, `  ${tailwindKey}: ${value};`);
     }
   });
+
+  // Manually add the active and hover composite mappings since they
+  // are no longer explicit tokens loopable from `lightThemed`
+  themeMappings.set(
+    '--color-active-overlay',
+    `  --color-active-overlay: oklch(var(--${PREFIX}-overlay-color) / var(--${PREFIX}-opacity-active-overlay));`,
+  );
+  themeMappings.set(
+    '--color-hover-overlay',
+    `  --color-hover-overlay: oklch(var(--${PREFIX}-overlay-color) / var(--${PREFIX}-opacity-hover-overlay));`,
+  );
 
   const themeBlock = Array.from(themeMappings.values()).sort().join('\n');
 
@@ -226,6 +268,22 @@ function generateThemeCSS() {
       return `@utility border-${name} {\n  border-color: oklch(var(${k}));\n}`;
     })
     .join('\n\n');
+
+  // Format explicitly provided classes as Tailwind v4 @utility blocks using @apply
+  const classUtilities = Object.entries(rawUtilities)
+    .map(([selector, rules]) => {
+      // selector is like '.scrollbar-default', remove the dot
+      const name = selector.replace('.', '');
+      const applyRules = Object.keys(rules).filter((k) => k.startsWith('@apply'));
+      if (applyRules.length > 0) {
+        return `@utility ${name} {\n  ${applyRules[0]};\n}`;
+      }
+      return '';
+    })
+    .filter(Boolean)
+    .join('\n\n');
+
+  const combinedUtilities = [borderUtilities, classUtilities].filter(Boolean).join('\n\n');
 
   return `/**
  * IdeasUI Theme CSS
@@ -249,7 +307,7 @@ ${themeBlock}
 }
 
 /* Explicit Utilities */
-${borderUtilities}
+${combinedUtilities}
 `;
 }
 

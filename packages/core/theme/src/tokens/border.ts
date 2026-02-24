@@ -16,8 +16,8 @@ export const lightBorder = {
 } as const;
 
 export const darkBorder = {
-  default: 'var(--ideasui-color-neutral-900)',
-  subtle: 'var(--ideasui-color-neutral-800)',
+  default: 'var(--ideasui-color-neutral-700)',
+  subtle: 'var(--ideasui-color-neutral-600)',
   strong: 'var(--ideasui-color-neutral-500)',
   focus: 'var(--ideasui-color-primary-500)',
   danger: 'var(--ideasui-color-danger-500)',

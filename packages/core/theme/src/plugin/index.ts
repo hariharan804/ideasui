@@ -3,13 +3,31 @@ import type { ThemeConfig } from '../types';
 import plugin from 'tailwindcss/plugin';
 
 import { DEFAULT_PREFIX } from '../constants';
+import { disabled, scrollbar } from '../tokens';
 
 import { buildThemes, resolveConfig, createThemeExtension, createThemeSelectors } from './core';
 import { generateDesignTokenCSSVars, generateDarkDesignTokenCSSVars } from './css-vars';
 
 // ─────────────────────────────────────────────────────────────
-// Plugin Export
+// Utility Class Generators
 // ─────────────────────────────────────────────────────────────
+
+function createClassUtilities(): Record<string, Record<string, string | {}>> {
+  return {
+    '.disabled-state': {
+      [`@apply ${disabled.default}`]: {},
+    },
+    '.scrollbar-none': {
+      [`@apply ${scrollbar.none.replace('scrollbar-none ', '')}`]: {},
+    },
+    '.scrollbar-default': {
+      [`@apply ${scrollbar.default}`]: {},
+    },
+    '.scrollbar-thin': {
+      [`@apply ${scrollbar.thin}`]: {},
+    },
+  };
+}
 
 /**
  * IdeasUI Tailwind CSS plugin - generates CSS variables and utilities
@@ -19,7 +37,7 @@ import { generateDesignTokenCSSVars, generateDarkDesignTokenCSSVars } from './cs
 export const ideasUIPlugin: ReturnType<typeof plugin.withOptions<ThemeConfig>> =
   plugin.withOptions<ThemeConfig>(
     (config: ThemeConfig = {}) =>
-      ({ addBase, addVariant }) => {
+      ({ addBase, addVariant, addUtilities }) => {
         const {
           defaultTheme = 'light',
           prefix = DEFAULT_PREFIX,
@@ -52,6 +70,9 @@ export const ideasUIPlugin: ReturnType<typeof plugin.withOptions<ThemeConfig>> =
         for (const variant of resolved.variants) {
           addVariant(variant.name, variant.definition);
         }
+
+        // Add custom aggregate utility classes
+        addUtilities(createClassUtilities());
 
         if (disableAnimations) {
           addBase({

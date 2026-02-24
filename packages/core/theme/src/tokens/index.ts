@@ -1,3 +1,6 @@
+import type { squareSizes } from './variants';
+
+/* eslint-disable import/order */
 import { animation } from './animation';
 import { borderRadius } from './border-radius';
 import { lightShadow, darkShadow, lightElevation, darkElevation } from './box-shadow';
@@ -12,16 +15,16 @@ import {
   darkContent,
   commonColors,
 } from './colors';
-import { focus, disabled, focusParams } from './classes';
+import { disabled, scrollbar } from './classes';
 import {
   colorVariants,
   sizeVariants,
   buttonSizes,
   colorsWithVariant,
   spinnerSizes,
-  squareSizes,
 } from './variants';
-// import { breakpoints } from './breakpoints';
+/* eslint-enable import/order */
+
 // import { accessibility } from './accessibility';
 import { backdrop, blur } from './blur';
 import { border, lightBorder, darkBorder } from './border';
@@ -52,10 +55,8 @@ export {
   sizeVariants,
   buttonSizes,
   spinnerSizes,
-  squareSizes,
-  focus,
-  focusParams,
   disabled,
+  scrollbar,
   colorsWithVariant,
   primitives,
   semantic,
@@ -97,8 +98,8 @@ export type FontSizeProps = keyof typeof fontSize;
 export type BoxShadowProps = keyof typeof lightShadow;
 export type AnimationProps = keyof typeof animation;
 export type KeyframesProps = keyof typeof keyframes;
-export type FocusProps = keyof typeof focus;
 export type DisabledProps = keyof typeof disabled;
+export type ScrollbarProps = keyof typeof scrollbar;
 export type ColorsWithVariantProps = keyof typeof colorsWithVariant;
 export type ButtonSizesProps = keyof typeof buttonSizes;
 export type SpinnerSizesProps = keyof typeof spinnerSizes;

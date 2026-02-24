@@ -10,5 +10,7 @@ export const opacity = {
   medium: 0.16, // emphasis states
   strong: 0.38, // disabled state (Material standard)
   heavy: 0.6, // strong dimming
+  surfaceMuted: 0.7,
+  surfaceOverlay: 0.9,
   full: 1, // fully visible
 } as const;

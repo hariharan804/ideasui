@@ -106,8 +106,8 @@ You can use standard Tailwind classes or CSS variables:
 
 // CSS Variables
 .my-custom-element {
-  background-color: var(--ideasui-surface-elevated);
-  color: var(--ideasui-content-primary);
+  background-color: var(--ideasui-color-surface-elevated);
+  color: var(--ideasui-color-content-primary);
 }
 ```
 
