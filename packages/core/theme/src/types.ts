@@ -11,6 +11,7 @@ import type {
   BlurProps,
   BorderWidthProps,
   SurfaceProps,
+  OnSurfaceProps,
   ContentProps,
   DurationProps,
   EasingProps,
@@ -62,6 +63,8 @@ export interface TokenOverrides {
 export interface SemanticTokenOverrides {
   /** Surface overrides */
   readonly surface?: Record<SurfaceProps | (string & {}), string>;
+  /** On-surface overrides */
+  readonly onSurface?: Record<OnSurfaceProps | (string & {}), string>;
   /** Content overrides */
   readonly content?: Record<ContentProps | (string & {}), string>;
   /** Border color overrides */

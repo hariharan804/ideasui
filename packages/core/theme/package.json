@@ -1,6 +1,6 @@
 {
   "name": "@hariharan804/theme",
-  "version": "0.1.5",
+  "version": "0.1.10",
   "type": "module",
   "description": "Tailwind CSS v4 theme system for IdeasUI",
   "main": "./src/index.ts",
@@ -42,6 +42,7 @@
     "generate-theme": "node ./src/generator/generate-theme.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "publish:git": "npm publish --access restricted",
     "prepack": "clean-package",
     "postpack": "clean-package restore"
   },

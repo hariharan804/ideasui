@@ -13,6 +13,8 @@ import {
   darkSurface,
   lightContent,
   darkContent,
+  onSurfaceLight,
+  onSurfaceDark,
   commonColors,
 } from './colors';
 import { disabled, scrollbar } from './classes';
@@ -64,6 +66,8 @@ export {
   darkSurface,
   lightContent,
   darkContent,
+  onSurfaceLight,
+  onSurfaceDark,
   // breakpoints,
   commonColors,
   // accessibility,
@@ -115,4 +119,5 @@ export type OpacityProps = keyof typeof opacity;
 export type BlurProps = keyof typeof blur;
 export type BorderWidthProps = keyof typeof border;
 export type SurfaceProps = keyof typeof lightSurface;
+export type OnSurfaceProps = keyof typeof onSurfaceLight;
 export type ContentProps = keyof typeof lightContent;

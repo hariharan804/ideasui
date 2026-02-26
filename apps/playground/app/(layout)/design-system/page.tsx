@@ -19,6 +19,8 @@ import {
   ChevronRight,
 } from 'lucide-react';
 
+import { Button } from './button';
+
 /* ───────────────────────────── constants ─────────────────────────── */
 
 const COPY_TIMEOUT = 1500;
@@ -56,7 +58,7 @@ const SEMANTIC_ROLES = [
   'info',
   'warning',
 ] as const;
-const SEMANTIC_VARIANTS = ['base', 'subtle', 'content'] as const;
+const SEMANTIC_VARIANTS = ['base', 'onBase', 'subtle', 'onSubtle'] as const;
 
 const SURFACE_TOKENS = ['base', 'elevated', 'muted', 'strong', 'inverse'] as const;
 const CONTENT_TOKENS = [
@@ -421,20 +423,47 @@ const COLOR_BG_MAP: Record<string, Record<string, string>> = {
 };
 
 const SEMANTIC_BG_MAP: Record<string, Record<string, string>> = {
-  primary: { base: 'bg-primary-base', subtle: 'bg-primary-subtle', content: 'bg-primary-content' },
-  success: { base: 'bg-success-base', subtle: 'bg-success-subtle', content: 'bg-success-content' },
-  danger: { base: 'bg-danger-base', subtle: 'bg-danger-subtle', content: 'bg-danger-content' },
-  info: { base: 'bg-info-base', subtle: 'bg-info-subtle', content: 'bg-info-content' },
-  warning: { base: 'bg-warning-base', subtle: 'bg-warning-subtle', content: 'bg-warning-content' },
+  primary: {
+    base: 'bg-primary-base',
+    onBase: 'bg-primary-onBase',
+    subtle: 'bg-primary-subtle',
+    onSubtle: 'bg-primary-onSubtle',
+  },
+  success: {
+    base: 'bg-success-base',
+    onBase: 'bg-success-onBase',
+    subtle: 'bg-success-subtle',
+    onSubtle: 'bg-success-onSubtle',
+  },
+  danger: {
+    base: 'bg-danger-base',
+    onBase: 'bg-danger-onBase',
+    subtle: 'bg-danger-subtle',
+    onSubtle: 'bg-danger-onSubtle',
+  },
+  info: {
+    base: 'bg-info-base',
+    onBase: 'bg-info-onBase',
+    subtle: 'bg-info-subtle',
+    onSubtle: 'bg-info-onSubtle',
+  },
+  warning: {
+    base: 'bg-warning-base',
+    onBase: 'bg-warning-onBase',
+    subtle: 'bg-warning-subtle',
+    onSubtle: 'bg-warning-onSubtle',
+  },
   secondary: {
     base: 'bg-secondary-base',
+    onBase: 'bg-secondary-onBase',
     subtle: 'bg-secondary-subtle',
-    content: 'bg-secondary-content',
+    onSubtle: 'bg-secondary-onSubtle',
   },
   tertiary: {
     base: 'bg-tertiary-base',
+    onBase: 'bg-tertiary-onBase',
     subtle: 'bg-tertiary-subtle',
-    content: 'bg-tertiary-content',
+    onSubtle: 'bg-tertiary-onSubtle',
   },
 };
 
@@ -656,17 +685,60 @@ export default function DesignSystemPage(): JSX.Element {
 
             {/* surfaces */}
             <h3 className="mb-3 text-sm font-semibold text-neutral-700">Surfaces</h3>
-            <div className="mb-8 grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
+            <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {SURFACE_TOKENS.map((token) => {
-                const cls = `bg-surface-${token}`;
+                const bgCls = `bg-surface-${token}`;
+                const textCls = `text-on-surface-${token}`;
 
                 return (
-                  <div key={token} className="border-default rounded-xl border p-4 text-center">
-                    <div
-                      className={`${SURFACE_BG_MAP[token]} border-subtle mx-auto mb-2 h-16 w-full rounded-lg border shadow-xs`}
-                    />
-                    <div className="text-xs font-medium text-neutral-700 capitalize">{token}</div>
-                    {chip(cls)}
+                  <div key={token} className="space-y-2">
+                    <h3 className="text-sm font-semibold text-neutral-700 capitalize">{token}</h3>
+
+                    {/* Background */}
+                    <button
+                      className="group border-subtle flex w-full items-center gap-3 rounded-lg border p-3 transition-all hover:shadow-md"
+                      type="button"
+                      onClick={() => {
+                        void copyToClipboard(bgCls);
+                      }}
+                    >
+                      <div
+                        className={`${SURFACE_BG_MAP[token]} border-subtle h-10 w-10 shrink-0 rounded-md border shadow-xs`}
+                      />
+                      <div className="text-left">
+                        <div className="text-xs font-medium text-neutral-700 capitalize">
+                          Background
+                        </div>
+                        <code className="text-[10px] text-neutral-400">{bgCls}</code>
+                      </div>
+                      {copiedClass === bgCls && (
+                        <Check className="text-success-500 ml-auto h-3 w-3" />
+                      )}
+                    </button>
+
+                    {/* Foreground (On-Surface) */}
+                    <button
+                      className="group border-subtle flex w-full items-center gap-3 rounded-lg border p-3 transition-all hover:shadow-md"
+                      type="button"
+                      onClick={() => {
+                        void copyToClipboard(textCls);
+                      }}
+                    >
+                      <div
+                        className={`${SURFACE_BG_MAP[token]} border-subtle flex h-10 w-10 shrink-0 items-center justify-center rounded-md border shadow-xs`}
+                      >
+                        <span className={`${textCls} text-sm font-bold`}>Aa</span>
+                      </div>
+                      <div className="text-left">
+                        <div className="text-xs font-medium text-neutral-700 capitalize">
+                          Foreground
+                        </div>
+                        <code className="text-[10px] text-neutral-400">{textCls}</code>
+                      </div>
+                      {copiedClass === textCls && (
+                        <Check className="text-success-500 ml-auto h-3 w-3" />
+                      )}
+                    </button>
                   </div>
                 );
               })}
@@ -998,6 +1070,73 @@ export default function DesignSystemPage(): JSX.Element {
               title="Z-Index"
             />
 
+            <div
+              className="relative mb-12 flex h-[500px] w-full items-center justify-center overflow-hidden rounded-xl border border-neutral-200 bg-neutral-50"
+              style={{ perspective: '1000px' }}
+            >
+              <h3 className="absolute top-4 left-4 z-0 text-xs font-semibold text-neutral-400">
+                Static Z-Index Stack
+              </h3>
+
+              <div
+                className="relative mt-24 h-48 w-64"
+                style={{
+                  transformStyle: 'preserve-3d',
+                  transform: 'rotateX(55deg) rotateZ(-45deg)',
+                }}
+              >
+                {/* Base layer */}
+                <div
+                  className="z-base absolute inset-0 flex flex-col justify-between rounded-xl border border-neutral-200 bg-white p-4 shadow-sm"
+                  style={{ transform: 'translateZ(0px)' }}
+                >
+                  <div className="text-sm font-medium text-neutral-600">Base Card(z-base)</div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-neutral-400">z-base</span>
+                    <Layers className="h-4 w-4 text-neutral-300" />
+                  </div>
+                </div>
+
+                {/* Overlapping layer 1 */}
+                <div
+                  className="z-raised bg-primary-50 border-primary-200 absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-md"
+                  style={{ transform: 'translateZ(50px)' }}
+                >
+                  <div className="text-primary-700 text-sm font-medium">
+                    Raised Element(z-raised)
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-primary-400 text-xs font-bold">z-raised</span>
+                    <Layers2 className="text-primary-300 h-4 w-4" />
+                  </div>
+                </div>
+
+                {/* Overlapping layer 2 */}
+                <div
+                  className="z-dropdown bg-info-50 border-info-200 absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-lg"
+                  style={{ transform: 'translateZ(100px)' }}
+                >
+                  <div className="text-info-700 text-sm font-medium">Dropdown Menu(z-dropdown)</div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-info-400 text-xs font-bold">z-dropdown</span>
+                    <Circle className="text-info-300 h-4 w-4" />
+                  </div>
+                </div>
+
+                {/* Topmost layer */}
+                <div
+                  className="z-tooltip absolute inset-0 flex flex-col justify-between rounded-xl border border-neutral-700 bg-neutral-800 p-4 shadow-xl"
+                  style={{ transform: 'translateZ(150px)' }}
+                >
+                  <div className="text-sm font-medium text-white">Tooltip(z-tooltip)</div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-neutral-400">z-tooltip</span>
+                    <Eye className="h-4 w-4 text-neutral-400" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Visual stacked tower */}
             <div className="mb-8 flex items-end justify-center gap-1 py-4">
               {Z_INDICES.filter((z) => Number(z.value) >= 0).map((z, i, arr) => {
@@ -1173,37 +1312,29 @@ export default function DesignSystemPage(): JSX.Element {
 
             {/* buttons */}
             <h3 className="mb-3 text-sm font-semibold text-neutral-700">Buttons</h3>
-            <div className="mb-8 flex flex-wrap gap-3">
-              <button
-                className="bg-primary-500 hover:bg-primary-600 active:bg-primary-700 rounded-lg px-4 py-2 text-sm font-medium text-white shadow-sm transition-all"
-                type="button"
-              >
-                Primary
-              </button>
-              <button
-                className="bg-success-500 hover:bg-success-600 rounded-lg px-4 py-2 text-sm font-medium text-white shadow-sm transition-all"
-                type="button"
-              >
-                Success
-              </button>
-              <button
-                className="bg-danger-500 hover:bg-danger-600 rounded-lg px-4 py-2 text-sm font-medium text-white shadow-sm transition-all"
-                type="button"
-              >
-                Danger
-              </button>
-              <button
-                className="border-primary-500 text-primary-600 hover:bg-primary-50 rounded-lg border-2 px-4 py-2 text-sm font-medium transition-all"
-                type="button"
-              >
-                Outline
-              </button>
-              <button
-                className="text-primary-600 hover:bg-primary-50 rounded-lg px-4 py-2 text-sm font-medium transition-all"
-                type="button"
-              >
+            <div className="mb-4 flex flex-wrap gap-3">
+              <span className="w-full text-xs font-medium text-neutral-500">Variants</span>
+              <Button color="primary" variant="solid">
+                Solid
+              </Button>
+              <Button color="primary" variant="faded">
+                Faded
+              </Button>
+              <Button color="primary" variant="bordered">
+                Bordered
+              </Button>
+              <Button color="primary" variant="light">
+                Light
+              </Button>
+              <Button color="primary" variant="flat">
+                Flat
+              </Button>
+              <Button color="primary" variant="ghost">
                 Ghost
-              </button>
+              </Button>
+              <Button color="primary" variant="shadow">
+                Shadow
+              </Button>
             </div>
 
             {/* badges */}

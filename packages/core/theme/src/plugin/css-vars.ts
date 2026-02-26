@@ -292,6 +292,13 @@ export function generateCSSVarsFromTokenOverrides(
     });
   }
 
+  // On Surface
+  if (t.onSurface) {
+    Object.entries(t.onSurface).forEach(([key, value]) => {
+      cssVars[`--${prefix}-color-on-surface-${key}`] = value;
+    });
+  }
+
   // Content
   if (t.content) {
     Object.entries(t.content).forEach(([key, value]) => {

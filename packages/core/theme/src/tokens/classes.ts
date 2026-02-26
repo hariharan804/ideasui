@@ -1,6 +1,5 @@
 export const disabled = {
-  default:
-    'ideasui-disabled disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
+  default: 'disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none',
 } as const;
 
 export const scrollbar = {
