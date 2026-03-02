@@ -18,8 +18,9 @@ const PREFIX = 'ideasui';
 
 /**
  * Extract CSS variables from plugin by executing it with mock Tailwind API
+ * @returns {{ captured: { baseStyles: Record<string, any>, utilities: Record<string, any> }, config: any }}
  */
-export function extractPluginStyles() {
+function extractPluginStyles() {
   const captured = { baseStyles: {}, utilities: {} };
   const pluginData = ideasUIPlugin({ prefix: PREFIX });
   pluginData.handler({
@@ -38,7 +39,7 @@ export function extractPluginStyles() {
     },
     addVariant: () => {},
   });
-  return captured;
+  return { captured, config: pluginData.config };
 }
 
 /**
@@ -70,7 +71,11 @@ function resolveValue(value, contextVars) {
  * Main generation function
  */
 function generateThemeCSS() {
-  const captured = extractPluginStyles();
+  const { captured, config } = extractPluginStyles();
+  const themeExtend = config?.theme?.extend || {};
+  const animation = themeExtend.animation || {};
+  const keyframes = themeExtend.keyframes || {};
+
   const baseStyles = captured.baseStyles;
   const rawUtilities = captured.utilities;
   const rootVars = baseStyles[':root'] || {};
@@ -258,7 +263,33 @@ function generateThemeCSS() {
     `  --color-hover-overlay: oklch(var(--${PREFIX}-overlay-color) / var(--${PREFIX}-opacity-hover-overlay));`,
   );
 
+  // Inject animations
+  Object.entries(animation).forEach(([key, value]) => {
+    if (key !== 'none') {
+      const tailwindKey = `--animate-${key}`;
+      themeMappings.set(tailwindKey, `  ${tailwindKey}: ${value};`);
+    }
+  });
+
   const themeBlock = Array.from(themeMappings.values()).sort().join('\n');
+
+  // Inject keyframes
+  const keyframesBlock = Object.entries(keyframes)
+    .map(([name, frames]) => {
+      const frameLines = Object.entries(frames)
+        .map(([percent, props]) => {
+          const cssProps = Object.entries(props)
+            .map(([k, v]) => {
+              const kebabK = k.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
+              return `${kebabK}: ${v};`;
+            })
+            .join(' ');
+          return `    ${percent} { ${cssProps} }`;
+        })
+        .join('\n');
+      return `  @keyframes ${name} {\n${frameLines}\n  }`;
+    })
+    .join('\n\n');
 
   // Explicitly generate @utility classes for semantic borders
   const borderUtilities = Object.keys(lightThemed)
@@ -304,6 +335,8 @@ ${format(darkThemed)}
 /* Tailwind v4 Theme Mappings */
 @theme {
 ${themeBlock}
+
+${keyframesBlock}
 }
 
 /* Explicit Utilities */

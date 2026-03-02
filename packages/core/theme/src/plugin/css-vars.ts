@@ -3,7 +3,6 @@ import type { TokenOverrides, SemanticTokenOverrides } from '../types';
 import {
   duration,
   easing,
-  // breakpoints,
   spacing,
   fontSize,
   borderRadius,
@@ -43,11 +42,6 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
   Object.entries(easing).forEach(([key, value]) => {
     cssVars[`--${prefix}-easing-${kebabCase(key)}`] = value;
   });
-
-  // Breakpoint tokens (for JavaScript access)
-  // Object.entries(breakpoints).forEach(([key, value]) => {
-  //   cssVars[`--${prefix}-breakpoint-${key}`] = value;
-  // });
 
   // Spacing tokens
   Object.entries(spacing).forEach(([key, value]) => {
@@ -204,13 +198,6 @@ export function generateCSSVarsFromTokenOverrides(
       cssVars[`--${prefix}-easing-${kebabCase(key)}`] = value;
     });
   }
-
-  // Breakpoints
-  // if (t.breakpoints) {
-  //   Object.entries(t.breakpoints).forEach(([key, value]) => {
-  //     cssVars[`--${prefix}-breakpoint-${key}`] = value;
-  //   });
-  // }
 
   // Spacing
   if (t.spacing) {

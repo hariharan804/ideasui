@@ -47,8 +47,6 @@ export interface TokenOverrides {
   readonly opacity?: Record<OpacityProps | (string & {}), string | number>;
   /** Blur tokens */
   readonly blur?: Record<BlurProps | (string & {}), string>;
-  // /** Responsive breakpoints */
-  // readonly breakpoints?: Record<'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | (string & {}), string>;
   /** Transition duration tokens */
   readonly duration?: Record<DurationProps | (string & {}), string>;
   /** Transition easing tokens */

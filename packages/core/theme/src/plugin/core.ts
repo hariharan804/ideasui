@@ -14,7 +14,6 @@ import {
   borderRadius,
   fontSize,
   spacing,
-  // breakpoints,
   letterSpacing,
   primitives,
   semantic,
@@ -243,7 +242,6 @@ export function createThemeExtension(
     spacing: { ...spacing, ...t.spacing },
 
     // ── Responsive ──
-    // screens: { ...breakpoints, ...t.breakpoints },
     container: { center: true },
 
     // ── Layout ──

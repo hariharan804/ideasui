@@ -68,7 +68,6 @@ export {
   darkContent,
   onSurfaceLight,
   onSurfaceDark,
-  // breakpoints,
   commonColors,
   // accessibility,
   backdrop,
@@ -108,7 +107,6 @@ export type ColorsWithVariantProps = keyof typeof colorsWithVariant;
 export type ButtonSizesProps = keyof typeof buttonSizes;
 export type SpinnerSizesProps = keyof typeof spinnerSizes;
 export type SquareSizesProps = keyof typeof squareSizes;
-// export type BreakpointProps = keyof typeof breakpoints;
 export type DurationProps = keyof typeof duration;
 export type EasingProps = keyof typeof easing;
 export type FontWeightProps = keyof typeof fontWeight;

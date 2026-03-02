@@ -342,39 +342,39 @@ export const lightSurface = {
 
 export const darkSurface = {
   // App background
-  base: 'oklch(var(--ideasui-color-neutral-900))',
+  base: 'oklch(var(--ideasui-color-neutral-50))',
 
   // Recessed areas (inputs, tables)
-  sunken: 'oklch(var(--ideasui-color-neutral-950))',
+  sunken: 'oklch(var(--ideasui-color-neutral-100))',
 
   // Cards / main containers
-  elevated: 'oklch(var(--ideasui-color-neutral-800))',
+  elevated: 'oklch(var(--ideasui-color-neutral-100))',
 
   // Subtle UI surfaces
-  muted: 'oklch(var(--ideasui-color-neutral-800))',
+  muted: 'oklch(var(--ideasui-color-neutral-200))',
 
   // Strong sections / sidebars
-  strong: 'oklch(var(--ideasui-color-neutral-700))',
+  strong: 'oklch(var(--ideasui-color-neutral-300))',
 
   // Nested container scale
-  'container-low': 'oklch(var(--ideasui-color-neutral-900))',
-  container: 'oklch(var(--ideasui-color-neutral-800))',
-  'container-high': 'oklch(var(--ideasui-color-neutral-700))',
+  'container-low': 'oklch(var(--ideasui-color-neutral-100))',
+  container: 'oklch(var(--ideasui-color-neutral-200))',
+  'container-high': 'oklch(var(--ideasui-color-neutral-300))',
 
   // Floating layers (dropdowns, popovers)
-  floating: 'oklch(var(--ideasui-color-neutral-800))',
+  floating: 'oklch(var(--ideasui-color-neutral-50))',
 
   // Transparent glass backgrounds
-  overlay: 'oklch(var(--ideasui-color-neutral-900))',
+  overlay: 'oklch(var(--ideasui-color-neutral-50))',
 
   // Dialogs / drawers
-  modal: 'oklch(var(--ideasui-color-neutral-800))',
+  modal: 'oklch(var(--ideasui-color-neutral-50))',
 
   // Backdrop dim layer
   scrim: 'oklch(0 0 0 / 0.65)',
 
   // Opposite theme surface
-  inverse: 'oklch(var(--ideasui-color-neutral-50))',
+  inverse: 'oklch(var(--ideasui-color-neutral-900))',
 } as const;
 
 export const lightContent = {
@@ -387,12 +387,12 @@ export const lightContent = {
 } as const;
 
 export const darkContent = {
-  primary: 'oklch(var(--ideasui-color-neutral-50))', // main text
-  secondary: 'oklch(var(--ideasui-color-neutral-300))', // less important text
-  tertiary: 'oklch(var(--ideasui-color-neutral-400))', // helper text
+  primary: 'oklch(var(--ideasui-color-neutral-900))', // main text
+  secondary: 'oklch(var(--ideasui-color-neutral-700))', // less important text
+  tertiary: 'oklch(var(--ideasui-color-neutral-600))', // helper text
   muted: 'oklch(var(--ideasui-color-neutral-500))', // placeholders
-  disabled: 'oklch(var(--ideasui-color-neutral-600))', // disabled text
-  inverse: 'oklch(var(--ideasui-color-neutral-950))', // text on light surface
+  disabled: 'oklch(var(--ideasui-color-neutral-400))', // disabled text
+  inverse: 'oklch(var(--ideasui-color-neutral-50))', // text on light surface
 } as const;
 
 export const onSurfaceLight = {
@@ -404,11 +404,11 @@ export const onSurfaceLight = {
 } as const;
 
 export const onSurfaceDark = {
-  base: 'oklch(var(--ideasui-color-neutral-50))',
-  elevated: 'oklch(var(--ideasui-color-neutral-50))',
-  muted: 'oklch(var(--ideasui-color-neutral-50))',
-  strong: 'oklch(var(--ideasui-color-neutral-50))',
-  inverse: 'oklch(var(--ideasui-color-neutral-950))',
+  base: 'oklch(var(--ideasui-color-neutral-900))',
+  elevated: 'oklch(var(--ideasui-color-neutral-900))',
+  muted: 'oklch(var(--ideasui-color-neutral-900))',
+  strong: 'oklch(var(--ideasui-color-neutral-900))',
+  inverse: 'oklch(var(--ideasui-color-neutral-50))',
 } as const;
 
 /* ============================================================
