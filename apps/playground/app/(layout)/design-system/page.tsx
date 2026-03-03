@@ -128,16 +128,6 @@ const SHADOWS = [
   { name: 'none', class: 'shadow-none' },
 ] as const;
 
-const ELEVATIONS = [
-  { name: 'Base', desc: 'App background' },
-  { name: 'Raised', desc: 'Cards' },
-  { name: 'Floating', desc: 'Dropdowns' },
-  { name: 'Overlay', desc: 'Overlays' },
-  { name: 'Modal', desc: 'Modal dialogs' },
-  { name: 'Toast', desc: 'Toast notifications' },
-  { name: 'Sunken', desc: 'Inset areas' },
-] as const;
-
 const ANIMATIONS = [
   { name: 'spin', class: 'animate-spin' },
   { name: 'ping', class: 'animate-ping' },
@@ -228,14 +218,6 @@ const BORDER_WIDTHS = [
   { name: 'thick', value: '4px' },
   { name: 'heavy', value: '8px' },
 ] as const;
-
-/* ─────────────── magic numbers ─────────────── */
-
-const SHADOW_Y_MULTIPLIER = 4;
-const SHADOW_BLUR_MULTIPLIER = 8;
-const SHADOW_SPREAD_MULTIPLIER = 2;
-const SHADOW_OPACITY_BASE = 0.05;
-const SHADOW_OPACITY_STEP = 0.03;
 
 const Z_INDEX_HEIGHT_BASE = 40;
 const Z_INDEX_HEIGHT_STEP = 20;
@@ -966,46 +948,23 @@ export default function DesignSystemPage(): JSX.Element {
             </div>
           </SectionCard>
 
-          {/* ═══════ 8 · SHADOWS & ELEVATION ═══════ */}
+          {/* ═══════ 8 · SHADOWS ═══════ */}
           <SectionCard>
-            <SectionHeader
-              description="Box shadows from xs to 2xl, plus semantic elevation levels."
-              id="shadows"
-              title="Shadows & Elevation"
-            />
+            <SectionHeader description="Box shadows from xs to 2xl." id="shadows" title="Shadows" />
 
             <h3 className="text-content-secondary mb-3 text-sm font-semibold">Box Shadows</h3>
-            <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {SHADOWS.map((s) => (
-                <div key={s.name} className="text-center">
-                  <div className={`${s.class} bg-surface-base mx-auto mb-3 h-20 w-20 rounded-xl`} />
-                  <div className="text-content-secondary text-xs font-medium">{s.name}</div>
-                  {chip(s.class)}
-                </div>
-              ))}
-            </div>
-
-            <h3 className="text-content-secondary mb-3 text-sm font-semibold">Elevation Levels</h3>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {ELEVATIONS.map((e, i) => (
-                <div
-                  key={e.name}
-                  className="border-subtle bg-surface-base rounded-xl border p-4 text-center"
-                  style={{
-                    boxShadow:
-                      i === 0
-                        ? 'none'
-                        : `0 ${i * SHADOW_Y_MULTIPLIER}px ${
-                            i * SHADOW_BLUR_MULTIPLIER
-                          }px -${i * SHADOW_SPREAD_MULTIPLIER}px rgb(0 0 0 / ${
-                            SHADOW_OPACITY_BASE + i * SHADOW_OPACITY_STEP
-                          })`,
-                  }}
-                >
-                  <div className="text-content-primary text-sm font-semibold">{e.name}</div>
-                  <div className="text-content-muted text-xs">{e.desc}</div>
-                </div>
-              ))}
+            <div className="mb-8 rounded-xl p-6">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                {SHADOWS.map((s) => (
+                  <div key={s.name} className="text-center">
+                    <div
+                      className={`${s.class} bg-surface-base mx-auto mb-3 h-20 w-20 rounded-xl`}
+                    />
+                    <div className="text-content-secondary text-xs font-medium">{s.name}</div>
+                    {chip(s.class)}
+                  </div>
+                ))}
+              </div>
             </div>
           </SectionCard>
 

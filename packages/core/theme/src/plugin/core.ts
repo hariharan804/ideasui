@@ -25,7 +25,6 @@ import {
   border,
   blur,
   lightShadow,
-  lightElevation,
   lightSurface,
   darkSurface,
   lightContent,
@@ -41,7 +40,7 @@ import {
   componentShadows,
 } from '../tokens';
 
-import { flattenThemeObject, omit, escapeSelector, kebabCase } from './utils';
+import { flattenThemeObject, omit, escapeSelector } from './utils';
 import { processColors } from './colors';
 import { generateCSSVarsFromTokenOverrides } from './css-vars';
 
@@ -274,12 +273,6 @@ export function createThemeExtension(
     boxShadow: {
       ...Object.fromEntries(
         Object.keys(lightShadow).map((key) => [key, `var(--${_prefix}-shadow-${key})`]),
-      ),
-      ...Object.fromEntries(
-        Object.entries(lightElevation).map(([key, _]) => [
-          key,
-          `var(--${_prefix}-elevation-${kebabCase(key)}-shadow)`,
-        ]),
       ),
       ...flattenThemeObject(componentShadows),
       ...t.boxShadow,

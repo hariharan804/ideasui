@@ -15,8 +15,6 @@ import {
   border,
   blur,
   backdrop,
-  lightElevation,
-  darkElevation,
   lightInteraction,
   darkInteraction,
   // accessibility,
@@ -100,12 +98,6 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
     cssVars[`--${prefix}-backdrop-${kebabCase(key)}`] = value;
   });
 
-  // Elevation tokens
-  Object.entries(lightElevation).forEach(([key, value]) => {
-    cssVars[`--${prefix}-elevation-${kebabCase(key)}-surface`] = value.surface;
-    cssVars[`--${prefix}-elevation-${kebabCase(key)}-shadow`] = value.shadow;
-  });
-
   // Interaction tokens
   Object.entries(lightInteraction).forEach(([key, value]) => {
     cssVars[`--${prefix}-${kebabCase(key)}`] = String(value);
@@ -150,18 +142,10 @@ export function generateDarkDesignTokenCSSVars(prefix: string): Record<string, s
     cssVars[`--${prefix}-shadow-${key}`] = value;
   });
 
-  // Elevation tokens (dark)
-  Object.entries(darkElevation).forEach(([key, value]) => {
-    cssVars[`--${prefix}-elevation-${kebabCase(key)}-surface`] = value.surface;
-    cssVars[`--${prefix}-elevation-${kebabCase(key)}-shadow`] = value.shadow;
-  });
-
   // Interaction tokens (dark)
   Object.entries(darkInteraction).forEach(([key, value]) => {
     cssVars[`--${prefix}-${kebabCase(key)}`] = String(value);
   });
-
-  return cssVars;
 
   return cssVars;
 }

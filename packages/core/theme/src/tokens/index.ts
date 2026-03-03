@@ -3,7 +3,7 @@ import type { squareSizes } from './variants';
 /* eslint-disable import/order */
 import { animation } from './animation';
 import { borderRadius } from './border-radius';
-import { lightShadow, darkShadow, lightElevation, darkElevation } from './box-shadow';
+import { lightShadow, darkShadow } from './box-shadow';
 import { duration, easing, keyframes, transition } from './motion';
 import { spacing } from './spacing';
 import {
@@ -47,8 +47,6 @@ export {
   animation,
   lightShadow,
   darkShadow,
-  lightElevation,
-  darkElevation,
   duration,
   easing,
   keyframes,
