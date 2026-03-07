@@ -130,12 +130,13 @@ describe('Theme Utils', () => {
       expect(isNumericShade('50')).toBe(true);
       expect(isNumericShade('500')).toBe(true);
       expect(isNumericShade('950')).toBe(true);
+      expect(isNumericShade('123')).toBe(true);
+      expect(isNumericShade('550')).toBe(true);
     });
 
     it('should return false for non-numeric shades', () => {
       expect(isNumericShade('DEFAULT')).toBe(false);
       expect(isNumericShade('on')).toBe(false);
-      expect(isNumericShade('123')).toBe(false);
     });
   });
 

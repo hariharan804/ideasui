@@ -29,8 +29,6 @@ import {
   darkSurface,
   lightContent,
   darkContent,
-  onSurfaceLight,
-  onSurfaceDark,
   lightBorder,
   darkBorder,
   duration,
@@ -99,9 +97,10 @@ export function resolveConfig(
     baseStyles: {},
   };
 
-  for (const [themeName, { extend, colors, designTokens, semanticTokens }] of Object.entries(
-    themes,
-  )) {
+  for (const [
+    themeName,
+    { extend, colors, designTokens, semanticTokens, components },
+  ] of Object.entries(themes)) {
     const { cssSelector, baseSelector } = createThemeSelectors(themeName, defaultTheme);
     const colorScheme = getColorScheme(themeName, extend);
 
@@ -141,6 +140,28 @@ export function resolveConfig(
         ...semanticVars,
       };
     }
+
+    // Process component overrides
+    if (components) {
+      // Flatten the components object to simple key-value pairs
+      // e.g. { button: { base: { backgroundColor: 'red' } } } -> { 'button-base-backgroundColor': 'red' }
+      const flatComponents = flattenThemeObject(components || {}) as Record<string, string>;
+      const componentVars: Record<string, string> = {};
+
+      Object.entries(flatComponents).forEach(([key, value]) => {
+        if (value !== undefined) {
+          // Convert camelCase CSS properties to kebab-case (e.g., backgroundColor -> background-color)
+          const formattedKey = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+
+          componentVars[`--${prefix}-${formattedKey}`] = value;
+        }
+      });
+
+      resolved.utilities[cssSelector] = {
+        ...resolved.utilities[cssSelector],
+        ...componentVars,
+      };
+    }
   }
 
   return resolved;
@@ -155,13 +176,18 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
   const themeData = config?.themes || {};
 
   // Extract user overrides
+  const globalDesignTokens = config?.designTokens || {};
   const globalSemanticTokens = config?.semanticTokens || {};
+  const globalComponents = config?.components || {};
+
   const userLightColors = themeData.light?.colors || {};
   const userLightTokens = themeData.light?.designTokens || {};
   const userLightSemantic = themeData.light?.semanticTokens || {};
   const userDarkColors = themeData.dark?.colors || {};
   const userDarkTokens = themeData.dark?.designTokens || {};
   const userDarkSemantic = themeData.dark?.semanticTokens || {};
+  const userLightComponents = themeData.light?.components || {};
+  const userDarkComponents = themeData.dark?.components || {};
 
   // Build theme configs
   const lightTheme: ConfigTheme = {
@@ -170,15 +196,15 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
         ...deepMerge(primitives.light, semantic),
         ...commonColors,
         surface: lightSurface,
-        'on-surface': onSurfaceLight,
         content: lightContent,
         border: lightBorder,
         ...componentColors,
       },
       userLightColors,
     ),
-    designTokens: deepMerge({}, userLightTokens),
+    designTokens: deepMerge(globalDesignTokens, userLightTokens),
     semanticTokens: deepMerge(globalSemanticTokens, userLightSemantic),
+    components: deepMerge(globalComponents, userLightComponents),
   };
 
   const darkTheme: ConfigTheme = {
@@ -187,15 +213,15 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
         ...deepMerge(primitives.dark, semantic),
         ...commonColors,
         surface: darkSurface,
-        'on-surface': onSurfaceDark,
         content: darkContent,
         border: darkBorder,
         ...componentColors,
       },
       userDarkColors,
     ),
-    designTokens: deepMerge({}, userDarkTokens),
+    designTokens: deepMerge(globalDesignTokens, userDarkTokens),
     semanticTokens: deepMerge(globalSemanticTokens, userDarkSemantic),
+    components: deepMerge(globalComponents, userDarkComponents),
   };
 
   // Merge with any custom themes
@@ -231,11 +257,32 @@ export function createThemeExtension(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Record<string, any> {
   const t = tokenOverrides;
-  const s = semanticTokens;
 
   return {
     // ── Colors (flat CSS variable references — v4 requires uniform types) ──
-    colors: { ...colors, transparent: 'transparent' },
+    colors: {
+      ...colors,
+      transparent: 'transparent',
+      // Map semantic overrides to their CSS variables
+      ...Object.fromEntries(
+        Object.keys(semanticTokens.surface || {}).map((key) => [
+          `surface-${key}`,
+          `var(--${_prefix}-color-surface-${key})`,
+        ]),
+      ),
+      ...Object.fromEntries(
+        Object.keys(semanticTokens.content || {}).map((key) => [
+          `content-${key}`,
+          `var(--${_prefix}-color-content-${key})`,
+        ]),
+      ),
+      ...Object.fromEntries(
+        Object.keys(semanticTokens.border || {}).map((key) => [
+          `border-${key}`,
+          `var(--${_prefix}-border-${key})`,
+        ]),
+      ),
+    },
 
     // ── Spacing (4px grid) ──
     spacing: { ...spacing, ...t.spacing },
@@ -252,6 +299,12 @@ export function createThemeExtension(
       focus: colors['border-focus'],
       danger: colors['border-danger'],
       ...t.borderColor,
+      ...Object.fromEntries(
+        Object.keys(semanticTokens.border || {}).map((key) => [
+          key,
+          `var(--${_prefix}-border-${key})`,
+        ]),
+      ),
     },
     borderWidth: {
       DEFAULT: border.thin,
@@ -276,7 +329,6 @@ export function createThemeExtension(
       ),
       ...flattenThemeObject(componentShadows),
       ...t.boxShadow,
-      ...s.elevation,
     },
 
     // ── Motion ──

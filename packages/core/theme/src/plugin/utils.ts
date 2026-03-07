@@ -253,8 +253,7 @@ export function formatColorComponents(components: (string | number)[]): string {
  * @param {string} key - The key to check
  * @returns {boolean} True if key is a numeric shade
  */
-export const isNumericShade = (key: string): boolean =>
-  /^(50|100|200|300|400|500|600|700|800|900|950)$/.test(key);
+export const isNumericShade = (key: string): boolean => /^\d+$/.test(key);
 
 /** Regex to extract color base name from flattened key */
-export const COLOR_NAME_REGEX = /^([a-z]+)-(50|100|200|300|400|500|600|700|800|900|950)$/i;
+export const COLOR_NAME_REGEX = /^([a-z]+)-(\d+)$/i;

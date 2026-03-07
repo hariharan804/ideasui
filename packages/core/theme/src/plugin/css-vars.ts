@@ -163,7 +163,9 @@ export function generateDarkDesignTokenCSSVars(prefix: string): Record<string, s
  * @returns {Record<string, string>} The generated CSS variables
  */
 export function generateCSSVarsFromTokenOverrides(
-  tokens: Partial<TokenOverrides & SemanticTokenOverrides>,
+  tokens: Partial<TokenOverrides & SemanticTokenOverrides> & {
+    components?: Record<string, unknown>;
+  },
   prefix: string,
 ): Record<string, string> {
   const cssVars: Record<string, string> = {};
@@ -172,85 +174,130 @@ export function generateCSSVarsFromTokenOverrides(
   // Duration
   if (t.duration) {
     Object.entries(t.duration).forEach(([key, value]) => {
-      cssVars[`--${prefix}-duration-${kebabCase(key)}`] = value;
+      if (value !== undefined) {
+        cssVars[`--${prefix}-duration-${kebabCase(key)}`] = value;
+      }
     });
   }
 
   // Easing
   if (t.easing) {
     Object.entries(t.easing).forEach(([key, value]) => {
-      cssVars[`--${prefix}-easing-${kebabCase(key)}`] = value;
+      if (value !== undefined) {
+        cssVars[`--${prefix}-easing-${kebabCase(key)}`] = value;
+      }
     });
   }
 
   // Spacing
   if (t.spacing) {
     Object.entries(t.spacing).forEach(([key, value]) => {
-      cssVars[`--${prefix}-spacing-${key.replace('.', '_')}`] = value;
+      if (value !== undefined) {
+        cssVars[`--${prefix}-spacing-${key.replace('.', '_')}`] = value;
+      }
     });
   }
 
   // Font size
   if (t.fontSize) {
     Object.entries(t.fontSize).forEach(([key, value]) => {
-      const fontSizeValue = Array.isArray(value) ? value[0] : (value as unknown as string);
+      if (value !== undefined) {
+        const fontSizeValue = Array.isArray(value) ? value[0] : (value as unknown as string);
 
-      cssVars[`--${prefix}-font-size-${key}`] = fontSizeValue;
+        cssVars[`--${prefix}-font-size-${key}`] = fontSizeValue;
+      }
     });
   }
 
   // Border radius
   if (t.borderRadius) {
     Object.entries(t.borderRadius).forEach(([key, value]) => {
-      cssVars[`--${prefix}-radius-${key}`] = value;
+      if (value !== undefined) {
+        cssVars[`--${prefix}-radius-${key}`] = value;
+      }
     });
   }
 
   // Box shadow
   if (t.boxShadow) {
     Object.entries(t.boxShadow).forEach(([key, value]) => {
-      cssVars[`--${prefix}-shadow-${key}`] = value;
+      if (value !== undefined) {
+        cssVars[`--${prefix}-shadow-${key}`] = value;
+      }
     });
   }
 
   // Z-index
   if (t.zIndex) {
     Object.entries(t.zIndex).forEach(([key, value]) => {
-      cssVars[`--${prefix}-z-index-${key}`] = String(value);
+      if (value !== undefined) {
+        cssVars[`--${prefix}-z-index-${key}`] = String(value);
+      }
     });
+  }
+
+  // Components (Nested objects)
+  // e.g. { button: { base: { backgroundColor: 'red' } } } -> --prefix-button-base-background-color: red
+  if (t.components) {
+    const flattenComponents = (obj: Record<string, unknown>, currentPrefix: string): void => {
+      Object.entries(obj).forEach(([key, value]) => {
+        const newPrefix = currentPrefix ? `${currentPrefix}-${key}` : key;
+
+        if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
+          flattenComponents(value as Record<string, unknown>, newPrefix);
+        } else if (typeof value === 'string' || typeof value === 'number') {
+          // Convert camelCase css properties to kebab-case
+          const kebabKey = newPrefix.replace(/([\da-z]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+
+          cssVars[`--${prefix}-${kebabKey}`] = String(value);
+        }
+      });
+    };
+
+    flattenComponents(t.components as Record<string, unknown>, '');
   }
 
   // Opacity
   if (t.opacity) {
     Object.entries(t.opacity).forEach(([key, value]) => {
-      cssVars[`--${prefix}-opacity-${kebabCase(key)}`] = String(value);
+      if (value !== undefined) {
+        cssVars[`--${prefix}-opacity-${kebabCase(key)}`] = String(value);
+      }
     });
   }
 
   // Letter spacing
   if (t.letterSpacing) {
     Object.entries(t.letterSpacing).forEach(([key, value]) => {
-      cssVars[`--${prefix}-tracking-${key}`] = value;
+      if (value !== undefined) {
+        cssVars[`--${prefix}-tracking-${key}`] = value;
+      }
     });
   }
 
   // Font family
   if (t.fontFamily) {
     Object.entries(t.fontFamily).forEach(([key, value]) => {
-      cssVars[`--${prefix}-font-${kebabCase(key)}`] = value;
+      if (value !== undefined) {
+        cssVars[`--${prefix}-font-${kebabCase(key)}`] = value;
+      }
     });
   }
 
   // Border width
   if (t.borderWidth) {
     Object.entries(t.borderWidth).forEach(([key, value]) => {
-      cssVars[`--${prefix}-border-${key}`] = value;
+      if (value !== undefined) {
+        cssVars[`--${prefix}-border-${key}`] = value;
+      }
     });
   }
 
   if (t.blur) {
     Object.entries(t.blur).forEach(([key, value]) => {
-      cssVars[`--${prefix}-blur-${key}`] = value;
+      if (value !== undefined) {
+        cssVars[`--${prefix}-blur-${key}`] = value;
+      }
     });
   }
 
@@ -259,42 +306,27 @@ export function generateCSSVarsFromTokenOverrides(
   // Surface
   if (t.surface) {
     Object.entries(t.surface).forEach(([key, value]) => {
-      cssVars[`--${prefix}-color-surface-${key}`] = value;
-    });
-  }
-
-  // On Surface
-  if (t.onSurface) {
-    Object.entries(t.onSurface).forEach(([key, value]) => {
-      cssVars[`--${prefix}-color-on-surface-${key}`] = value;
+      if (value !== undefined) {
+        cssVars[`--${prefix}-color-surface-${key}`] = value;
+      }
     });
   }
 
   // Content
   if (t.content) {
     Object.entries(t.content).forEach(([key, value]) => {
-      cssVars[`--${prefix}-color-content-${key}`] = value;
+      if (value !== undefined) {
+        cssVars[`--${prefix}-color-content-${key}`] = value;
+      }
     });
   }
 
   // Border (semantic)
   if (t.border) {
     Object.entries(t.border).forEach(([key, value]) => {
-      cssVars[`--${prefix}-border-${key}`] = value;
-    });
-  }
-
-  // Elevation (semantic)
-  if (t.elevation) {
-    Object.entries(t.elevation).forEach(([key, value]) => {
-      // Elevation might be complex, but for now assuming string overrides or simple mapping
-      // If the value is a string, it's likely a shadow definition.
-      // If it ends up being an object like common elevation tokens, we might need deeper handling.
-      // For now, let's treat it as a direct variable override or ignore if it needs special processing not defined yet.
-      // Based on previous code, elevation maps to shadow vars.
-      // But here we are generating vars for the override itself.
-
-      cssVars[`--${prefix}-elevation-${kebabCase(key)}-shadow`] = value;
+      if (value !== undefined) {
+        cssVars[`--${prefix}-border-${key}`] = value;
+      }
     });
   }
 

@@ -11,87 +11,86 @@ import type {
   BlurProps,
   BorderWidthProps,
   SurfaceProps,
-  OnSurfaceProps,
   ContentProps,
   DurationProps,
   EasingProps,
   AnimationProps,
 } from './tokens';
 
+export type ThemeToken<K extends string | number | symbol, V> = Partial<Record<K, V>> &
+  Record<string, V>;
+
 /** Override any design token family */
 export interface TokenOverrides {
   /** Spacing scale (4px grid) */
-  readonly spacing?: Record<SpacingProps | (string & {}), string>;
+  readonly spacing?: ThemeToken<SpacingProps, string>;
   /** Border radius tokens */
-  readonly borderRadius?: Record<BorderRadiusProps | (string & {}), string>;
+  readonly borderRadius?: ThemeToken<BorderRadiusProps, string>;
   /** Border width tokens */
-  readonly borderWidth?: Record<BorderWidthProps | (string & {}), string>;
+  readonly borderWidth?: ThemeToken<BorderWidthProps, string>;
   /** Border color tokens */
-  readonly borderColor?: Record<string, string>;
+  readonly borderColor?: Partial<Record<string, string>>;
   /** Font size tokens (value or [size, { lineHeight }] tuple) */
-  readonly fontSize?: Record<
-    FontSizeProps | (string & {}),
-    string | [string, { lineHeight: string }]
-  >;
+  readonly fontSize?: ThemeToken<FontSizeProps, string | [string, { lineHeight: string }]>;
   /** Letter spacing tokens */
-  readonly letterSpacing?: Record<LetterSpacingProps | (string & {}), string>;
+  readonly letterSpacing?: ThemeToken<LetterSpacingProps, string>;
   /** Font family tokens */
-  readonly fontFamily?: Record<FontFamilyProps | (string & {}), string>;
+  readonly fontFamily?: ThemeToken<FontFamilyProps, string>;
   /** Font weight tokens */
-  readonly fontWeight?: Record<FontWeightProps | (string & {}), string>;
+  readonly fontWeight?: ThemeToken<FontWeightProps, string>;
   /** Box shadow tokens */
-  readonly boxShadow?: Record<BoxShadowProps | (string & {}), string>;
+  readonly boxShadow?: ThemeToken<BoxShadowProps, string>;
   /** Z-index tokens */
-  readonly zIndex?: Record<ZIndexProps | (string & {}), string | number>;
+  readonly zIndex?: ThemeToken<ZIndexProps, string | number>;
   /** Opacity tokens */
-  readonly opacity?: Record<OpacityProps | (string & {}), string | number>;
+  readonly opacity?: ThemeToken<OpacityProps, string | number>;
   /** Blur tokens */
-  readonly blur?: Record<BlurProps | (string & {}), string>;
+  readonly blur?: ThemeToken<BlurProps, string>;
   /** Transition duration tokens */
-  readonly duration?: Record<DurationProps | (string & {}), string>;
+  readonly duration?: ThemeToken<DurationProps, string>;
   /** Transition easing tokens */
-  readonly easing?: Record<EasingProps | (string & {}), string>;
+  readonly easing?: ThemeToken<EasingProps, string>;
   /** Animation presets */
-  readonly animation?: Record<AnimationProps | (string & {}), string>;
+  readonly animation?: ThemeToken<AnimationProps, string>;
   /** Keyframe definitions */
-  readonly keyframes?: Record<string, Record<string, Record<string, string>>>;
+  readonly keyframes?: Partial<Record<string, Record<string, Record<string, string>>>>;
 }
 
 /** Override semantic token usage */
 export interface SemanticTokenOverrides {
-  /** Surface overrides */
-  readonly surface?: Record<SurfaceProps | (string & {}), string>;
-  /** On-surface overrides */
-  readonly onSurface?: Record<OnSurfaceProps | (string & {}), string>;
+  readonly surface?: ThemeToken<SurfaceProps, string>;
   /** Content overrides */
-  readonly content?: Record<ContentProps | (string & {}), string>;
+  readonly content?: ThemeToken<ContentProps, string>;
   /** Border color overrides */
-  readonly border?: Record<string, string>;
-  /** Elevation/shadow overrides */
-  readonly elevation?: Record<string, string>;
+  readonly border?: Partial<Record<string, string>>;
+}
+
+export interface ThemeOptions {
+  readonly colors?: Partial<ColorTokens>;
+  readonly designTokens?: Partial<TokenOverrides>;
+  readonly semanticTokens?: Partial<SemanticTokenOverrides>;
+  readonly components?: Record<string, unknown>;
 }
 
 export interface ThemeConfig {
   /** Theme configurations */
-  readonly themes?: Record<
-    string,
-    {
-      readonly colors?: Partial<ColorTokens>;
-      readonly designTokens?: Partial<TokenOverrides>;
-      readonly semanticTokens?: Partial<SemanticTokenOverrides>;
-      readonly components?: Record<string, unknown>;
-    }
-  >;
+  readonly themes?: {
+    light?: ThemeOptions;
+    dark?: ThemeOptions;
+    [themeName: string]: ThemeOptions | undefined;
+  };
   /** Default theme name */
   readonly defaultTheme?: 'light' | 'dark' | string;
   /** CSS variable prefix */
-  readonly prefix?: string;
+  // readonly prefix?: string;
   /** Disable all animations globally */
   readonly disableAnimations?: boolean;
   /** Override any design token family */
   readonly designTokens?: Partial<TokenOverrides>;
   /** Override semantic tokens globally */
   readonly semanticTokens?: Partial<SemanticTokenOverrides>;
+  /** Global component style overrides */
+  readonly components?: Record<string, unknown>;
 }
 
 export interface ColorScale {
@@ -133,6 +132,7 @@ export type ConfigTheme = {
   readonly colors?: Partial<ColorTokens>;
   readonly designTokens?: Partial<TokenOverrides>;
   readonly semanticTokens?: Partial<SemanticTokenOverrides>;
+  readonly components?: Record<string, unknown>;
 };
 
 export type ConfigThemes = Record<string, ConfigTheme>;

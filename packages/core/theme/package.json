@@ -1,6 +1,6 @@
 {
   "name": "@hariharan804/theme",
-  "version": "0.1.11",
+  "version": "0.1.13",
   "type": "module",
   "description": "Tailwind CSS v4 theme system for IdeasUI",
   "main": "./src/index.ts",
@@ -11,18 +11,23 @@
       "require": "./src/index.ts"
     },
     "./recipes": {
+      "types": "./src/recipes/index.ts",
       "import": "./src/recipes/index.ts"
     },
     "./system": {
+      "types": "./src/system/index.ts",
       "import": "./src/system/index.ts"
     },
     "./tokens": {
+      "types": "./src/tokens/index.ts",
       "import": "./src/tokens/index.ts"
     },
     "./providers": {
+      "types": "./src/providers/index.ts",
       "import": "./src/providers/index.ts"
     },
     "./plugin": {
+      "types": "./src/plugin/index.ts",
       "import": "./src/plugin/index.ts"
     },
     "./theme.css": {

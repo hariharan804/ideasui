@@ -244,6 +244,7 @@ const NAV_SECTIONS = [
   { id: 'zindex', label: 'Z-Index', icon: Layers2 },
   { id: 'blur', label: 'Blur', icon: Wind },
   { id: 'breakpoints', label: 'Breakpoints', icon: Monitor },
+  { id: 'custom', label: 'Custom Tokens (cus)', icon: Palette },
 ] as const;
 
 /* ─────────────── helpers ─────────────── */
@@ -586,6 +587,164 @@ export default function DesignSystemPage(): JSX.Element {
           </div>
 
           {/* ═══════ 1 · COLOR PALETTES ═══════ */}
+          {/* ═══════ CUSTOM TOKENS (cus) ═══════ */}
+          <SectionCard>
+            <SectionHeader
+              description="Custom design tokens defined in the project's Tailwind config."
+              id="custom"
+              title="Custom Tokens (cus)"
+            />
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {/* Spacing & Layout */}
+              <div className="space-y-4">
+                <h3 className="text-content-secondary text-sm font-semibold">Layout & Spacing</h3>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-primary-subtle p-cus border-default inline-block border">
+                      <div className="bg-primary-500 h-4 w-4" />
+                    </div>
+                    <span className="text-content-tertiary text-xs">Padding (3px)</span>
+                    {chip('p-cus')}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="bg-primary-subtle border-default inline-block border">
+                      <div className="bg-primary-500 m-cus h-4 w-4" />
+                    </div>
+                    <span className="text-content-tertiary text-xs">Margin (3px)</span>
+                    {chip('m-cus')}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="rounded-cus bg-primary-500 h-10 w-10" />
+                    <span className="text-content-tertiary text-xs">Radius (5px)</span>
+                    {chip('rounded-cus')}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="border-cus bg-surface-muted h-10 w-10 border" />
+                    <span className="text-content-tertiary text-xs">
+                      Border Color/Width (1px red)
+                    </span>
+                    {chip('border-cus')}
+                  </div>
+                </div>
+              </div>
+
+              {/* Typography & Effects */}
+              <div className="space-y-4">
+                <h3 className="text-content-secondary text-sm font-semibold">
+                  Typography & Effects
+                </h3>
+                <div className="space-y-4">
+                  <div className="space-y-1">
+                    <p className="font-cus text-cus font-cus tracking-cus leading-none">
+                      Custom typography style
+                    </p>
+                    <div className="flex gap-2">
+                      {chip('text-cus')}
+                      {chip('font-cus')}
+                      {chip('tracking-cus')}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="bg-primary-500 shadow-cus h-10 w-10 rounded-md" />
+                    <span className="text-content-tertiary text-xs">Shadow (Red glow)</span>
+                    {chip('shadow-cus')}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="relative h-10 w-10">
+                      <div className="bg-primary-500 absolute inset-0 rounded-md" />
+                      <div className="blur-cus bg-primary-300 absolute inset-0 rounded-md opacity-50" />
+                    </div>
+                    <span className="text-content-tertiary text-xs">Blur (10px)</span>
+                    {chip('blur-cus')}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="opacity-cus bg-primary-500 h-10 w-10 rounded-md" />
+                    <div className="bg-primary-500 h-10 w-10 rounded-md" />
+                    <span className="text-content-tertiary text-xs">Opacity (0.5)</span>
+                    {chip('opacity-cus')}
+                  </div>
+                </div>
+              </div>
+
+              {/* Motion */}
+              <div className="space-y-4">
+                <h3 className="text-content-secondary text-sm font-semibold">Motion</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="animate-cus bg-primary-500 h-10 w-10 rounded-md">
+                      <div className="bg-surface-base h-2 w-full" />
+                    </div>
+                    <span className="text-content-tertiary text-xs">Animation (Custom Spin)</span>
+                    {chip('animate-cus')}
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-content-tertiary block text-xs">
+                      Duration (1s) & Easing (ease-in-out)
+                    </span>
+                    <div className="flex gap-2">
+                      {chip('duration-cus')}
+                      {chip('ease-cus')}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="bg-surface-muted relative h-10 w-10 rounded-md border">
+                      <div className="z-cus bg-primary-500 absolute -top-2 -left-2 h-6 w-6 rounded-full shadow-md" />
+                      <div className="absolute inset-2 z-10 rounded-sm bg-neutral-400" />
+                    </div>
+                    <span className="text-content-tertiary text-xs">Z-Index (100)</span>
+                    {chip('z-cus')}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Semantic Overrides (Custom) — Showcase how overrides apply */}
+            <div className="border-default mt-8 border-t border-dashed pt-8">
+              <h3 className="text-content-secondary mb-4 text-sm font-semibold tracking-wider uppercase">
+                Semantic Overrides (Custom)
+              </h3>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {/* Surface Override */}
+                <div className="space-y-3">
+                  <div className="bg-surface-cus text-surface-on-cus border-border-cus flex h-24 w-full flex-col items-center justify-center rounded-xl border-2 font-bold shadow-lg">
+                    <span className="text-sm">bg-surface-cus</span>
+                    <span className="text-[10px] underline opacity-80">text-surface-on-cus</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {chip('bg-surface-cus')}
+                    {chip('text-surface-on-cus')}
+                  </div>
+                </div>
+
+                {/* Content Override */}
+                <div className="space-y-3">
+                  <div className="bg-surface-base border-default flex h-24 w-full flex-col items-center justify-center rounded-xl border border-dashed">
+                    <span className="text-content-cus text-lg font-black tracking-tight">
+                      content-cus
+                    </span>
+                    <span className="text-content-on-cus text-[10px] font-medium italic">
+                      (on-content-cus)
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {chip('text-content-cus')}
+                    {chip('text-content-on-cus')}
+                  </div>
+                </div>
+
+                {/* Border Override */}
+                <div className="space-y-3">
+                  <div className="bg-surface-muted border-border-cus flex h-24 w-full items-center justify-center rounded-xl border-4 border-double">
+                    <span className="text-content-tertiary text-[10px] font-semibold uppercase">
+                      border-border-cus
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">{chip('border-border-cus')}</div>
+                </div>
+              </div>
+            </div>
+          </SectionCard>
+
           <SectionCard>
             <SectionHeader
               description="8 palettes × 11 shades. OKLCH-based, theme-aware."
@@ -593,6 +752,7 @@ export default function DesignSystemPage(): JSX.Element {
               title="Color Palettes"
             />
             <div className="space-y-8">
+              <div className="p-3" />
               {COLOR_PALETTES.map((palette) => (
                 <div key={palette}>
                   <h3 className="text-content-secondary mb-3 text-sm font-semibold capitalize">
@@ -685,7 +845,7 @@ export default function DesignSystemPage(): JSX.Element {
             <div className="mb-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {SURFACE_TOKENS.map((token) => {
                 const bgCls = `bg-surface-${token}`;
-                const textCls = `text-on-surface-${token}`;
+                const textCls = `text-surface-on-${token}`;
 
                 return (
                   <div key={token} className="space-y-2">

@@ -15,17 +15,17 @@
 export const primitives = {
   light: {
     primary: {
-      50: 'oklch(0.970 0.020 277.1)',
-      100: 'oklch(0.930 0.037 277.1)',
-      200: 'oklch(0.870 0.071 277.1)',
-      300: 'oklch(0.790 0.112 277.1)',
-      400: 'oklch(0.700 0.159 277.1)',
-      500: 'oklch(0.590 0.204 277.1)',
-      600: 'oklch(0.500 0.194 277.1)',
-      700: 'oklch(0.420 0.173 277.1)',
-      800: 'oklch(0.320 0.147 277.1)',
-      900: 'oklch(0.220 0.112 277.1)',
-      950: 'oklch(0.140 0.082 277.1)',
+      50: 'oklch(0.970 0.023 275.7)',
+      100: 'oklch(0.930 0.042 275.7)',
+      200: 'oklch(0.870 0.082 275.7)',
+      300: 'oklch(0.790 0.128 275.7)',
+      400: 'oklch(0.700 0.182 275.7)',
+      500: 'oklch(0.590 0.233 275.7)',
+      600: 'oklch(0.500 0.221 275.7)',
+      700: 'oklch(0.420 0.198 275.7)',
+      800: 'oklch(0.320 0.168 275.7)',
+      900: 'oklch(0.220 0.128 275.7)',
+      950: 'oklch(0.140 0.093 275.7)',
     },
 
     neutral: {
@@ -129,17 +129,17 @@ export const primitives = {
 
   dark: {
     primary: {
-      50: 'oklch(0.140 0.082 277.1)',
-      100: 'oklch(0.200 0.102 277.1)',
-      200: 'oklch(0.280 0.126 277.1)',
-      300: 'oklch(0.380 0.153 277.1)',
-      400: 'oklch(0.480 0.180 277.1)',
-      500: 'oklch(0.590 0.204 277.1)',
-      600: 'oklch(0.700 0.173 277.1)',
-      700: 'oklch(0.790 0.139 277.1)',
-      800: 'oklch(0.870 0.098 277.1)',
-      900: 'oklch(0.930 0.057 277.1)',
-      950: 'oklch(0.970 0.031 277.1)',
+      50: 'oklch(0.140 0.093 275.7)',
+      100: 'oklch(0.200 0.116 275.7)',
+      200: 'oklch(0.280 0.144 275.7)',
+      300: 'oklch(0.380 0.175 275.7)',
+      400: 'oklch(0.480 0.205 275.7)',
+      500: 'oklch(0.590 0.233 275.7)',
+      600: 'oklch(0.700 0.198 275.7)',
+      700: 'oklch(0.790 0.158 275.7)',
+      800: 'oklch(0.870 0.112 275.7)',
+      900: 'oklch(0.930 0.065 275.7)',
+      950: 'oklch(0.970 0.035 275.7)',
     },
 
     neutral: {
@@ -306,18 +306,22 @@ export const semantic = {
 export const lightSurface = {
   // App background
   base: 'oklch(var(--ideasui-color-neutral-50))',
+  'on-base': 'oklch(var(--ideasui-color-neutral-900))',
 
   // Recessed areas (tables, input wells)
   sunken: 'oklch(var(--ideasui-color-neutral-100))',
 
   // Primary containers (cards)
   elevated: 'oklch(var(--ideasui-color-neutral-100))',
+  'on-elevated': 'oklch(var(--ideasui-color-neutral-900))',
 
   // Subtle UI surfaces
   muted: 'oklch(var(--ideasui-color-neutral-200))',
+  'on-muted': 'oklch(var(--ideasui-color-neutral-900))',
 
   // Strong sections / sidebars
   strong: 'oklch(var(--ideasui-color-neutral-300))',
+  'on-strong': 'oklch(var(--ideasui-color-neutral-900))',
 
   // Nested container scale
   'container-low': 'oklch(var(--ideasui-color-neutral-100))',
@@ -338,23 +342,28 @@ export const lightSurface = {
 
   // Opposite theme surface
   inverse: 'oklch(var(--ideasui-color-neutral-900))',
+  'on-inverse': 'oklch(var(--ideasui-color-neutral-50))',
 } as const;
 
 export const darkSurface = {
   // App background
   base: 'oklch(var(--ideasui-color-neutral-50))',
+  'on-base': 'oklch(var(--ideasui-color-neutral-900))',
 
   // Recessed areas (inputs, tables)
   sunken: 'oklch(var(--ideasui-color-neutral-100))',
 
   // Cards / main containers
   elevated: 'oklch(var(--ideasui-color-neutral-100))',
+  'on-elevated': 'oklch(var(--ideasui-color-neutral-900))',
 
   // Subtle UI surfaces
   muted: 'oklch(var(--ideasui-color-neutral-200))',
+  'on-muted': 'oklch(var(--ideasui-color-neutral-900))',
 
   // Strong sections / sidebars
   strong: 'oklch(var(--ideasui-color-neutral-300))',
+  'on-strong': 'oklch(var(--ideasui-color-neutral-900))',
 
   // Nested container scale
   'container-low': 'oklch(var(--ideasui-color-neutral-100))',
@@ -375,6 +384,7 @@ export const darkSurface = {
 
   // Opposite theme surface
   inverse: 'oklch(var(--ideasui-color-neutral-900))',
+  'on-inverse': 'oklch(var(--ideasui-color-neutral-50))',
 } as const;
 
 export const lightContent = {
@@ -395,22 +405,6 @@ export const darkContent = {
   inverse: 'oklch(var(--ideasui-color-neutral-50))', // text on light surface
 } as const;
 
-export const onSurfaceLight = {
-  base: 'oklch(var(--ideasui-color-neutral-900))',
-  elevated: 'oklch(var(--ideasui-color-neutral-900))',
-  muted: 'oklch(var(--ideasui-color-neutral-900))',
-  strong: 'oklch(var(--ideasui-color-neutral-900))',
-  inverse: 'oklch(var(--ideasui-color-neutral-50))',
-} as const;
-
-export const onSurfaceDark = {
-  base: 'oklch(var(--ideasui-color-neutral-900))',
-  elevated: 'oklch(var(--ideasui-color-neutral-900))',
-  muted: 'oklch(var(--ideasui-color-neutral-900))',
-  strong: 'oklch(var(--ideasui-color-neutral-900))',
-  inverse: 'oklch(var(--ideasui-color-neutral-50))',
-} as const;
-
 /* ============================================================
    5️⃣ COMMON COLORS
    ============================================================ */
@@ -419,3 +413,47 @@ export const commonColors = {
   white: 'oklch(1 0 0)',
   black: 'oklch(0 0 0)',
 } as const;
+
+// #3B28CC
+// #072AC8
+// #232ED1
+
+// 50   #EEF0FF
+// 100  #DDE1FF
+// 200  #BBC3FF
+// 300  #8F9CFF
+// 400  #5F6CFF
+// 500  #232ED1  ← primary
+// 600  #1D25B3
+// 700  #171E8C
+// 800  #111664
+// 900  #0A0F3D
+
+// 50  #EEF2FF
+// 100 #E0E7FF
+// 200 #C7D2FE
+// 300 #A5B4FC
+// 400 #818CF8
+// 500 #6366F1
+// 600 #4F46E5
+// 700 #4338CA
+// 800 #3730A3
+// 900 #312E81
+
+// Premium Indigo (Modern SaaS, AI-focused)
+// #3B28CC
+
+// Electric Royal Blue (Vibrant, high energy)
+// #232ED1
+
+// Neutral Blue (Very Safe Choice)
+// #2563EB
+
+// Vivid Blue (Popular in SaaS dashboards)
+//  #3B82F6
+
+// Violet / Purple Tech Brand
+// #7C3AED
+
+// Cyan / Teal (Modern alternative)
+// #06B6D4
