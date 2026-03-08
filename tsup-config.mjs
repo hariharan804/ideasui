@@ -20,7 +20,9 @@ export function createSharedConfig({
     // banner: {js: '"use client";'},
     bundle: true,
     target: 'es2020',
-    format: ['cjs', 'esm'],
+    format: ['esm'], // Drop 'cjs' to instantly cut bundle size in half
+    treeshake: true, // Aggressive dead-code elimination
+    splitting: true, // Share chunks across entrypoints to avoid duplication
     skipNodeModulesBundle: true,
     sourcemap: isWatch,
     minify: !isWatch,

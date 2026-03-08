@@ -1,5 +1,12 @@
 # @ideasui/theme Changelog
 
+## [0.0.2] - 2026-03-08
+
+### Changed
+
+- **Huge Size Reduction**: Completely dropped CommonJS (CJS) support. The package now only ships standard ESM.
+- Enabled aggressive Rollup tree-shaking and chunk-splitting out of the box.
+
 ## [0.0.1] - 2026-03-08
 
 ### Added

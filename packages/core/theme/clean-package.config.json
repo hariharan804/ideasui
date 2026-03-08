@@ -1,34 +1,29 @@
 {
   "remove": ["devDependencies", "scripts"],
   "replace": {
-    "main": "./dist/index.cjs",
+    "main": "./dist/index.js",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
-        "import": "./dist/index.js",
-        "require": "./dist/index.cjs"
+        "import": "./dist/index.js"
       },
       "./recipes": {
         "types": "./dist/recipes/index.d.ts",
-        "import": "./dist/recipes/index.js",
-        "require": "./dist/recipes/index.cjs"
+        "import": "./dist/recipes/index.js"
       },
       "./tokens": {
         "types": "./dist/tokens/index.d.ts",
-        "import": "./dist/tokens/index.js",
-        "require": "./dist/tokens/index.cjs"
+        "import": "./dist/tokens/index.js"
       },
       "./providers": {
         "types": "./dist/providers/index.d.ts",
-        "import": "./dist/providers/index.js",
-        "require": "./dist/providers/index.cjs"
+        "import": "./dist/providers/index.js"
       },
       "./plugin": {
         "types": "./dist/plugin/index.d.ts",
-        "import": "./dist/plugin/index.js",
-        "require": "./dist/plugin/index.cjs"
+        "import": "./dist/plugin/index.js"
       },
       "./theme.css": "./dist/theme.css",
       "./package.json": "./package.json"
