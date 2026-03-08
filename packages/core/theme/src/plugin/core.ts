@@ -145,7 +145,7 @@ export function resolveConfig(
     if (components) {
       // Flatten the components object to simple key-value pairs
       // e.g. { button: { base: { backgroundColor: 'red' } } } -> { 'button-base-backgroundColor': 'red' }
-      const flatComponents = flattenThemeObject(components || {}) as Record<string, string>;
+      const flatComponents = flattenThemeObject(components || {}, 4) as Record<string, string>;
       const componentVars: Record<string, string> = {};
 
       Object.entries(flatComponents).forEach(([key, value]) => {

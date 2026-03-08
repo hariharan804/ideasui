@@ -102,12 +102,17 @@ export const escapeSelector = (str: string): string => {
 /**
  * Flattens a theme object
  * @param {TTarget} obj - The theme object to flatten
+ * @param {number} maxDepth - The maximum flattening depth
  * @returns {Record<string, unknown>} The flattened theme object
  */
-export const flattenThemeObject = <TTarget>(obj: TTarget): Record<string, unknown> => {
+export const flattenThemeObject = <TTarget>(
+  obj: TTarget,
+  maxDepth?: number,
+): Record<string, unknown> => {
   return flatten(obj, {
     safe: true,
     delimiter: '-',
+    maxDepth,
   }) as Record<string, unknown>;
 };
 

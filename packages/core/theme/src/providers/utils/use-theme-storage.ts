@@ -18,24 +18,29 @@ export function useThemeStorage({
   defaultTheme,
   themes,
   storageKey = defaultConfig.storageKey,
-}: UseThemeStorageProps): readonly [string, (next: string) => void] {
-  const [theme, setThemeState] = useState<string>(() => {
-    if (typeof window === 'undefined') {
-      return defaultTheme;
-    }
+}: UseThemeStorageProps): {
+  theme: string;
+  setTheme: (next: string) => void;
+  hasMounted: boolean;
+} {
+  const [theme, setThemeState] = useState<string>(defaultTheme);
+  const [hasMounted, setHasMounted] = useState<boolean>(false);
 
-    const stored = storage.getItem(storageKey);
+  // Set mounted state and initialize from storage on mount
+  useEffect(() => {
+    // avoid calling state synchronously, pushing to the end of event loop prevents hydration mismatches.
+    setTimeout(() => {
+      setHasMounted(true);
 
-    if (!stored) {
-      return defaultTheme;
-    }
+      if (typeof window !== 'undefined') {
+        const stored = storage.getItem(storageKey);
 
-    if (stored === 'system' || themes.includes(stored)) {
-      return stored;
-    }
-
-    return defaultTheme;
-  });
+        if (stored && (stored === 'system' || themes.includes(stored))) {
+          setThemeState(stored);
+        }
+      }
+    }, 0);
+  }, [storageKey, themes]);
 
   const setTheme = useCallback((next: string) => {
     setThemeState((prev) => (prev === next ? prev : next));
@@ -77,5 +82,5 @@ export function useThemeStorage({
     return () => window.removeEventListener('storage', onStorage);
   }, [themes, storageKey]);
 
-  return [theme, setTheme] as const;
+  return { theme, setTheme, hasMounted } as const;
 }

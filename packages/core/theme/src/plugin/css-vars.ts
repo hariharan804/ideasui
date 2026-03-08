@@ -17,7 +17,6 @@ import {
   backdrop,
   lightInteraction,
   darkInteraction,
-  // accessibility,
 } from '../tokens';
 import { componentColors, componentShadows } from '../tokens/components';
 
@@ -239,12 +238,21 @@ export function generateCSSVarsFromTokenOverrides(
   // Components (Nested objects)
   // e.g. { button: { base: { backgroundColor: 'red' } } } -> --prefix-button-base-background-color: red
   if (t.components) {
-    const flattenComponents = (obj: Record<string, unknown>, currentPrefix: string): void => {
+    const flattenComponents = (
+      obj: Record<string, unknown>,
+      currentPrefix: string,
+      depth: number = 0,
+    ): void => {
+      // Prevent infinite recursion or exploding CSS variables by capping the nesting depth.
+      if (depth > 4) {
+        return;
+      }
+
       Object.entries(obj).forEach(([key, value]) => {
         const newPrefix = currentPrefix ? `${currentPrefix}-${key}` : key;
 
         if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
-          flattenComponents(value as Record<string, unknown>, newPrefix);
+          flattenComponents(value as Record<string, unknown>, newPrefix, depth + 1);
         } else if (typeof value === 'string' || typeof value === 'number') {
           // Convert camelCase css properties to kebab-case
           const kebabKey = newPrefix.replace(/([\da-z]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
