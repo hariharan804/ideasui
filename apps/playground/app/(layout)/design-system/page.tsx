@@ -1290,33 +1290,35 @@ export default function DesignSystemPage(): JSX.Element {
             </div>
 
             {/* Visual stacked tower */}
-            <div className="mb-8 flex items-end justify-center gap-1 py-4">
-              {Z_INDICES.filter((z) => Number(z.value) >= 0).map((z, i, arr) => {
-                const height = Z_INDEX_HEIGHT_BASE + i * Z_INDEX_HEIGHT_STEP;
-                const lightness =
-                  Z_INDEX_LIGHTNESS_BASE - (i / arr.length) * Z_INDEX_LIGHTNESS_RANGE;
+            <div className="mb-8 overflow-x-auto py-4">
+              <div className="flex min-w-max items-end justify-center gap-1">
+                {Z_INDICES.filter((z) => Number(z.value) >= 0).map((z, i, arr) => {
+                  const height = Z_INDEX_HEIGHT_BASE + i * Z_INDEX_HEIGHT_STEP;
+                  const lightness =
+                    Z_INDEX_LIGHTNESS_BASE - (i / arr.length) * Z_INDEX_LIGHTNESS_RANGE;
 
-                return (
-                  <div key={z.name} className="group relative flex flex-col items-center">
-                    <div
-                      className="border-primary-200 w-14 rounded-t-md border transition-all group-hover:-translate-y-2 group-hover:shadow-lg sm:w-20"
-                      style={{
-                        height: `${height}px`,
-                        backgroundColor: `oklch(${lightness}% 0.05 277)`,
-                      }}
-                    />
-                    <div className="mt-1 text-center">
-                      <div className="text-primary-700 text-[10px] font-bold">{z.value}</div>
-                      <div className="text-content-tertiary text-[9px] capitalize">{z.name}</div>
+                  return (
+                    <div key={z.name} className="group relative flex flex-col items-center">
+                      <div
+                        className="border-primary-200 w-10 rounded-t-md border transition-all group-hover:-translate-y-2 group-hover:shadow-lg sm:w-14 md:w-20"
+                        style={{
+                          height: `${height}px`,
+                          backgroundColor: `oklch(${lightness}% 0.05 277)`,
+                        }}
+                      />
+                      <div className="mt-1 text-center">
+                        <div className="text-primary-700 text-[10px] font-bold">{z.value}</div>
+                        <div className="text-content-tertiary text-[9px] capitalize">{z.name}</div>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
 
             {/* Full table */}
             <div className="border-subtle overflow-hidden rounded-xl border">
-              <div className="bg-surface-muted text-content-tertiary grid grid-cols-[60px_1fr_80px_auto] items-center gap-4 px-4 py-2 text-xs font-semibold">
+              <div className="bg-surface-muted text-content-tertiary hidden grid-cols-[60px_1fr_80px_auto] items-center gap-4 px-4 py-2 text-xs font-semibold sm:grid">
                 <span>Value</span>
                 <span>Name</span>
                 <span>Use case</span>
@@ -1340,13 +1342,15 @@ export default function DesignSystemPage(): JSX.Element {
                 return (
                   <div
                     key={z.name}
-                    className="hover:bg-primary-50/40 border-subtle grid grid-cols-[60px_1fr_80px_auto] items-center gap-4 border-t px-4 py-3 transition-colors"
+                    className="hover:bg-primary-50/40 border-subtle flex flex-wrap items-center gap-2 border-t px-4 py-3 transition-colors sm:grid sm:grid-cols-[60px_1fr_80px_auto] sm:gap-4"
                   >
                     <span className="text-primary-600 font-mono text-sm font-bold">{z.value}</span>
                     <span className="text-content-primary text-sm font-medium capitalize">
                       {z.name}
                     </span>
-                    <span className="text-content-muted text-xs">{useCases[z.name] ?? ''}</span>
+                    <span className="text-content-muted hidden text-xs sm:block">
+                      {useCases[z.name] ?? ''}
+                    </span>
                     {chip(z.class)}
                   </div>
                 );

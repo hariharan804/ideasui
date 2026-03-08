@@ -29,7 +29,8 @@
     "./plugin": {
       "types": "./src/plugin/index.ts",
       "import": "./src/plugin/index.ts"
-    }
+    },
+    "./theme.css": "./dist/theme.css"
   },
   "files": [
     "dist"
@@ -39,7 +40,6 @@
     "build": "tsup && pnpm build:theme",
     "build:theme": "node scripts/generate-theme-css.mjs",
     "dev": "tsup --watch",
-    "generate-theme": "node ./src/generator/generate-theme.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "prepack": "clean-package",
@@ -73,8 +73,7 @@
     "tailwind-variants": "^3.2.2"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "public"
   },
   "repository": {
     "type": "git",

@@ -15,31 +15,59 @@
 export const primitives = {
   light: {
     primary: {
-      50: 'oklch(0.970 0.023 275.7)',
-      100: 'oklch(0.930 0.042 275.7)',
-      200: 'oklch(0.870 0.082 275.7)',
-      300: 'oklch(0.790 0.128 275.7)',
-      400: 'oklch(0.700 0.182 275.7)',
-      500: 'oklch(0.590 0.233 275.7)',
-      600: 'oklch(0.500 0.221 275.7)',
-      700: 'oklch(0.420 0.198 275.7)',
-      800: 'oklch(0.320 0.168 275.7)',
-      900: 'oklch(0.220 0.128 275.7)',
-      950: 'oklch(0.140 0.093 275.7)',
+      50: 'oklch(0.970 0.022 268.4)',
+      100: 'oklch(0.930 0.040 268.4)',
+      200: 'oklch(0.870 0.077 268.4)',
+      300: 'oklch(0.790 0.121 268.4)',
+      400: 'oklch(0.700 0.174 268.4)',
+      500: 'oklch(0.590 0.220 268.4)',
+      600: 'oklch(0.500 0.209 268.4)',
+      700: 'oklch(0.420 0.187 268.4)',
+      800: 'oklch(0.320 0.158 268.4)',
+      900: 'oklch(0.220 0.121 268.4)',
+      950: 'oklch(0.140 0.088 268.4)',
+    },
+
+    secondary: {
+      50: 'oklch(0.970 0.022 292.7)',
+      100: 'oklch(0.930 0.039 292.7)',
+      200: 'oklch(0.870 0.077 292.7)',
+      300: 'oklch(0.790 0.120 292.7)',
+      400: 'oklch(0.700 0.173 292.7)',
+      500: 'oklch(0.590 0.219 292.7)',
+      600: 'oklch(0.500 0.208 292.7)',
+      700: 'oklch(0.420 0.186 292.7)',
+      800: 'oklch(0.320 0.158 292.7)',
+      900: 'oklch(0.220 0.120 292.7)',
+      950: 'oklch(0.140 0.088 292.7)',
+    },
+
+    tertiary: {
+      50: 'oklch(0.970 0.012 182.5)',
+      100: 'oklch(0.930 0.022 182.5)',
+      200: 'oklch(0.870 0.043 182.5)',
+      300: 'oklch(0.790 0.068 182.5)',
+      400: 'oklch(0.700 0.097 182.5)',
+      500: 'oklch(0.590 0.123 182.5)',
+      600: 'oklch(0.500 0.117 182.5)',
+      700: 'oklch(0.420 0.105 182.5)',
+      800: 'oklch(0.320 0.089 182.5)',
+      900: 'oklch(0.220 0.068 182.5)',
+      950: 'oklch(0.140 0.049 182.5)',
     },
 
     neutral: {
-      50: 'oklch(0.970 0.008 257.4)',
-      100: 'oklch(0.930 0.014 257.4)',
-      200: 'oklch(0.870 0.028 257.4)',
-      300: 'oklch(0.790 0.044 257.4)',
-      400: 'oklch(0.700 0.062 257.4)',
-      500: 'oklch(0.590 0.080 257.4)',
-      600: 'oklch(0.500 0.076 257.4)',
-      700: 'oklch(0.420 0.068 257.4)',
-      800: 'oklch(0.320 0.058 257.4)',
-      900: 'oklch(0.220 0.044 257.4)',
-      950: 'oklch(0.140 0.032 257.4)',
+      50: 'oklch(0.970 0.004 264.0)',
+      100: 'oklch(0.930 0.006 264.0)',
+      200: 'oklch(0.870 0.012 264.0)',
+      300: 'oklch(0.790 0.019 264.0)',
+      400: 'oklch(0.700 0.028 264.0)',
+      500: 'oklch(0.590 0.035 264.0)',
+      600: 'oklch(0.500 0.033 264.0)',
+      700: 'oklch(0.420 0.030 264.0)',
+      800: 'oklch(0.320 0.025 264.0)',
+      900: 'oklch(0.220 0.019 264.0)',
+      950: 'oklch(0.140 0.014 264.0)',
     },
 
     success: {
@@ -47,7 +75,7 @@ export const primitives = {
       100: 'oklch(0.930 0.035 149.6)',
       200: 'oklch(0.870 0.067 149.6)',
       300: 'oklch(0.790 0.106 149.6)',
-      400: 'oklch(0.700 0.150 149.6)',
+      400: 'oklch(0.700 0.152 149.6)',
       500: 'oklch(0.590 0.192 149.6)',
       600: 'oklch(0.500 0.182 149.6)',
       700: 'oklch(0.420 0.163 149.6)',
@@ -57,103 +85,103 @@ export const primitives = {
     },
 
     danger: {
-      50: 'oklch(0.970 0.021 25.3)',
-      100: 'oklch(0.930 0.037 25.3)',
-      200: 'oklch(0.870 0.073 25.3)',
-      300: 'oklch(0.790 0.114 25.3)',
-      400: 'oklch(0.700 0.162 25.3)',
-      500: 'oklch(0.590 0.208 25.3)',
-      600: 'oklch(0.500 0.197 25.3)',
-      700: 'oklch(0.420 0.177 25.3)',
-      800: 'oklch(0.320 0.150 25.3)',
-      900: 'oklch(0.220 0.114 25.3)',
-      950: 'oklch(0.140 0.083 25.3)',
+      50: 'oklch(0.970 0.020 25.3)',
+      100: 'oklch(0.930 0.035 25.3)',
+      200: 'oklch(0.870 0.068 25.3)',
+      300: 'oklch(0.790 0.107 25.3)',
+      400: 'oklch(0.700 0.154 25.3)',
+      500: 'oklch(0.590 0.195 25.3)',
+      600: 'oklch(0.500 0.185 25.3)',
+      700: 'oklch(0.420 0.166 25.3)',
+      800: 'oklch(0.320 0.140 25.3)',
+      900: 'oklch(0.220 0.107 25.3)',
+      950: 'oklch(0.140 0.078 25.3)',
     },
 
     info: {
-      50: 'oklch(0.970 0.020 240.0)',
-      100: 'oklch(0.930 0.037 240.0)',
-      200: 'oklch(0.870 0.071 240.0)',
-      300: 'oklch(0.790 0.112 240.0)',
-      400: 'oklch(0.700 0.159 240.0)',
-      500: 'oklch(0.590 0.204 240.0)',
-      600: 'oklch(0.500 0.194 240.0)',
-      700: 'oklch(0.420 0.173 240.0)',
-      800: 'oklch(0.320 0.147 240.0)',
-      900: 'oklch(0.220 0.112 240.0)',
-      950: 'oklch(0.140 0.082 240.0)',
+      50: 'oklch(0.970 0.019 230.0)',
+      100: 'oklch(0.930 0.034 230.0)',
+      200: 'oklch(0.870 0.066 230.0)',
+      300: 'oklch(0.790 0.103 230.0)',
+      400: 'oklch(0.700 0.149 230.0)',
+      500: 'oklch(0.590 0.188 230.0)',
+      600: 'oklch(0.500 0.179 230.0)',
+      700: 'oklch(0.420 0.160 230.0)',
+      800: 'oklch(0.320 0.135 230.0)',
+      900: 'oklch(0.220 0.103 230.0)',
+      950: 'oklch(0.140 0.075 230.0)',
     },
 
     warning: {
-      50: 'oklch(0.970 0.020 70.0)',
-      100: 'oklch(0.930 0.037 70.0)',
-      200: 'oklch(0.870 0.071 70.0)',
-      300: 'oklch(0.790 0.112 70.0)',
-      400: 'oklch(0.700 0.159 70.0)',
-      500: 'oklch(0.590 0.204 70.0)',
-      600: 'oklch(0.500 0.194 70.0)',
-      700: 'oklch(0.420 0.173 70.0)',
-      800: 'oklch(0.320 0.147 70.0)',
-      900: 'oklch(0.220 0.112 70.0)',
-      950: 'oklch(0.140 0.082 70.0)',
-    },
-
-    secondary: {
-      50: 'oklch(0.970 0.019 175.0)',
-      100: 'oklch(0.930 0.036 175.0)',
-      200: 'oklch(0.870 0.068 175.0)',
-      300: 'oklch(0.790 0.108 175.0)',
-      400: 'oklch(0.700 0.152 175.0)',
-      500: 'oklch(0.590 0.196 175.0)',
-      600: 'oklch(0.500 0.186 175.0)',
-      700: 'oklch(0.420 0.166 175.0)',
-      800: 'oklch(0.320 0.141 175.0)',
-      900: 'oklch(0.220 0.108 175.0)',
-      950: 'oklch(0.140 0.079 175.0)',
-    },
-
-    tertiary: {
-      50: 'oklch(0.970 0.020 330.0)',
-      100: 'oklch(0.930 0.037 330.0)',
-      200: 'oklch(0.870 0.071 330.0)',
-      300: 'oklch(0.790 0.112 330.0)',
-      400: 'oklch(0.700 0.159 330.0)',
-      500: 'oklch(0.590 0.204 330.0)',
-      600: 'oklch(0.500 0.194 330.0)',
-      700: 'oklch(0.420 0.173 330.0)',
-      800: 'oklch(0.320 0.147 330.0)',
-      900: 'oklch(0.220 0.112 330.0)',
-      950: 'oklch(0.140 0.082 330.0)',
+      50: 'oklch(0.970 0.019 70.1)',
+      100: 'oklch(0.930 0.034 70.1)',
+      200: 'oklch(0.870 0.067 70.1)',
+      300: 'oklch(0.790 0.105 70.1)',
+      400: 'oklch(0.700 0.150 70.1)',
+      500: 'oklch(0.590 0.190 70.1)',
+      600: 'oklch(0.500 0.181 70.1)',
+      700: 'oklch(0.420 0.162 70.1)',
+      800: 'oklch(0.320 0.137 70.1)',
+      900: 'oklch(0.220 0.105 70.1)',
+      950: 'oklch(0.140 0.076 70.1)',
     },
   },
 
   dark: {
     primary: {
-      50: 'oklch(0.140 0.093 275.7)',
-      100: 'oklch(0.200 0.116 275.7)',
-      200: 'oklch(0.280 0.144 275.7)',
-      300: 'oklch(0.380 0.175 275.7)',
-      400: 'oklch(0.480 0.205 275.7)',
-      500: 'oklch(0.590 0.233 275.7)',
-      600: 'oklch(0.700 0.198 275.7)',
-      700: 'oklch(0.790 0.158 275.7)',
-      800: 'oklch(0.870 0.112 275.7)',
-      900: 'oklch(0.930 0.065 275.7)',
-      950: 'oklch(0.970 0.035 275.7)',
+      50: 'oklch(0.140 0.088 268.4)',
+      100: 'oklch(0.200 0.110 268.4)',
+      200: 'oklch(0.280 0.136 268.4)',
+      300: 'oklch(0.380 0.165 268.4)',
+      400: 'oklch(0.480 0.194 268.4)',
+      500: 'oklch(0.590 0.220 268.4)',
+      600: 'oklch(0.700 0.187 268.4)',
+      700: 'oklch(0.790 0.150 268.4)',
+      800: 'oklch(0.870 0.106 268.4)',
+      900: 'oklch(0.930 0.062 268.4)',
+      950: 'oklch(0.970 0.033 268.4)',
+    },
+
+    secondary: {
+      50: 'oklch(0.140 0.088 292.7)',
+      100: 'oklch(0.200 0.110 292.7)',
+      200: 'oklch(0.280 0.136 292.7)',
+      300: 'oklch(0.380 0.164 292.7)',
+      400: 'oklch(0.480 0.193 292.7)',
+      500: 'oklch(0.590 0.219 292.7)',
+      600: 'oklch(0.700 0.186 292.7)',
+      700: 'oklch(0.790 0.149 292.7)',
+      800: 'oklch(0.870 0.105 292.7)',
+      900: 'oklch(0.930 0.061 292.7)',
+      950: 'oklch(0.970 0.033 292.7)',
+    },
+
+    tertiary: {
+      50: 'oklch(0.140 0.049 182.5)',
+      100: 'oklch(0.200 0.062 182.5)',
+      200: 'oklch(0.280 0.076 182.5)',
+      300: 'oklch(0.380 0.092 182.5)',
+      400: 'oklch(0.480 0.108 182.5)',
+      500: 'oklch(0.590 0.123 182.5)',
+      600: 'oklch(0.700 0.105 182.5)',
+      700: 'oklch(0.790 0.084 182.5)',
+      800: 'oklch(0.870 0.059 182.5)',
+      900: 'oklch(0.930 0.034 182.5)',
+      950: 'oklch(0.970 0.018 182.5)',
     },
 
     neutral: {
-      50: 'oklch(0.140 0.032 257.4)',
-      100: 'oklch(0.200 0.040 257.4)',
-      200: 'oklch(0.280 0.050 257.4)',
-      300: 'oklch(0.380 0.060 257.4)',
-      400: 'oklch(0.480 0.070 257.4)',
-      500: 'oklch(0.590 0.080 257.4)',
-      600: 'oklch(0.700 0.068 257.4)',
-      700: 'oklch(0.790 0.054 257.4)',
-      800: 'oklch(0.870 0.038 257.4)',
-      900: 'oklch(0.930 0.022 257.4)',
-      950: 'oklch(0.970 0.012 257.4)',
+      50: 'oklch(0.140 0.014 264.0)',
+      100: 'oklch(0.200 0.018 264.0)',
+      200: 'oklch(0.280 0.022 264.0)',
+      300: 'oklch(0.380 0.026 264.0)',
+      400: 'oklch(0.480 0.031 264.0)',
+      500: 'oklch(0.590 0.035 264.0)',
+      600: 'oklch(0.700 0.030 264.0)',
+      700: 'oklch(0.790 0.024 264.0)',
+      800: 'oklch(0.870 0.017 264.0)',
+      900: 'oklch(0.930 0.010 264.0)',
+      950: 'oklch(0.970 0.005 264.0)',
     },
 
     success: {
@@ -171,73 +199,45 @@ export const primitives = {
     },
 
     danger: {
-      50: 'oklch(0.140 0.083 25.3)',
-      100: 'oklch(0.200 0.104 25.3)',
-      200: 'oklch(0.280 0.129 25.3)',
-      300: 'oklch(0.380 0.156 25.3)',
-      400: 'oklch(0.480 0.183 25.3)',
-      500: 'oklch(0.590 0.208 25.3)',
-      600: 'oklch(0.700 0.177 25.3)',
-      700: 'oklch(0.790 0.141 25.3)',
-      800: 'oklch(0.870 0.100 25.3)',
-      900: 'oklch(0.930 0.058 25.3)',
-      950: 'oklch(0.970 0.031 25.3)',
+      50: 'oklch(0.140 0.078 25.3)',
+      100: 'oklch(0.200 0.098 25.3)',
+      200: 'oklch(0.280 0.121 25.3)',
+      300: 'oklch(0.380 0.146 25.3)',
+      400: 'oklch(0.480 0.172 25.3)',
+      500: 'oklch(0.590 0.195 25.3)',
+      600: 'oklch(0.700 0.166 25.3)',
+      700: 'oklch(0.790 0.133 25.3)',
+      800: 'oklch(0.870 0.094 25.3)',
+      900: 'oklch(0.930 0.055 25.3)',
+      950: 'oklch(0.970 0.029 25.3)',
     },
 
     info: {
-      50: 'oklch(0.140 0.080 240.0)',
-      100: 'oklch(0.200 0.100 240.0)',
-      200: 'oklch(0.280 0.120 240.0)',
-      300: 'oklch(0.380 0.150 240.0)',
-      400: 'oklch(0.480 0.180 240.0)',
-      500: 'oklch(0.590 0.204 240.0)',
-      600: 'oklch(0.700 0.170 240.0)',
-      700: 'oklch(0.790 0.140 240.0)',
-      800: 'oklch(0.870 0.100 240.0)',
-      900: 'oklch(0.930 0.060 240.0)',
-      950: 'oklch(0.970 0.030 240.0)',
+      50: 'oklch(0.140 0.075 230.0)',
+      100: 'oklch(0.200 0.094 230.0)',
+      200: 'oklch(0.280 0.117 230.0)',
+      300: 'oklch(0.380 0.141 230.0)',
+      400: 'oklch(0.480 0.165 230.0)',
+      500: 'oklch(0.590 0.188 230.0)',
+      600: 'oklch(0.700 0.160 230.0)',
+      700: 'oklch(0.790 0.128 230.0)',
+      800: 'oklch(0.870 0.090 230.0)',
+      900: 'oklch(0.930 0.053 230.0)',
+      950: 'oklch(0.970 0.028 230.0)',
     },
 
     warning: {
-      50: 'oklch(0.140 0.080 70.0)',
-      100: 'oklch(0.200 0.100 70.0)',
-      200: 'oklch(0.280 0.120 70.0)',
-      300: 'oklch(0.380 0.150 70.0)',
-      400: 'oklch(0.480 0.180 70.0)',
-      500: 'oklch(0.590 0.204 70.0)',
-      600: 'oklch(0.700 0.170 70.0)',
-      700: 'oklch(0.790 0.140 70.0)',
-      800: 'oklch(0.870 0.100 70.0)',
-      900: 'oklch(0.930 0.060 70.0)',
-      950: 'oklch(0.970 0.030 70.0)',
-    },
-
-    secondary: {
-      50: 'oklch(0.140 0.079 175.0)',
-      100: 'oklch(0.200 0.098 175.0)',
-      200: 'oklch(0.280 0.121 175.0)',
-      300: 'oklch(0.380 0.147 175.0)',
-      400: 'oklch(0.480 0.173 175.0)',
-      500: 'oklch(0.590 0.196 175.0)',
-      600: 'oklch(0.700 0.166 175.0)',
-      700: 'oklch(0.790 0.133 175.0)',
-      800: 'oklch(0.870 0.094 175.0)',
-      900: 'oklch(0.930 0.055 175.0)',
-      950: 'oklch(0.970 0.030 175.0)',
-    },
-
-    tertiary: {
-      50: 'oklch(0.140 0.082 330.0)',
-      100: 'oklch(0.200 0.102 330.0)',
-      200: 'oklch(0.280 0.126 330.0)',
-      300: 'oklch(0.380 0.153 330.0)',
-      400: 'oklch(0.480 0.180 330.0)',
-      500: 'oklch(0.590 0.204 330.0)',
-      600: 'oklch(0.700 0.173 330.0)',
-      700: 'oklch(0.790 0.139 330.0)',
-      800: 'oklch(0.870 0.098 330.0)',
-      900: 'oklch(0.930 0.057 330.0)',
-      950: 'oklch(0.970 0.031 330.0)',
+      50: 'oklch(0.140 0.076 70.1)',
+      100: 'oklch(0.200 0.095 70.1)',
+      200: 'oklch(0.280 0.118 70.1)',
+      300: 'oklch(0.380 0.143 70.1)',
+      400: 'oklch(0.480 0.167 70.1)',
+      500: 'oklch(0.590 0.190 70.1)',
+      600: 'oklch(0.700 0.162 70.1)',
+      700: 'oklch(0.790 0.129 70.1)',
+      800: 'oklch(0.870 0.091 70.1)',
+      900: 'oklch(0.930 0.053 70.1)',
+      950: 'oklch(0.970 0.029 70.1)',
     },
   },
 } as const;
@@ -248,46 +248,46 @@ export const primitives = {
 
 export const semantic = {
   primary: {
-    base: 'oklch(var(--ideasui-color-primary-500))',
-    onBase: 'oklch(var(--ideasui-color-primary-50))',
-    subtle: 'oklch(var(--ideasui-color-primary-100))',
-    onSubtle: 'oklch(var(--ideasui-color-primary-700))',
+    base: 'var(--ideasui-color-primary-500)',
+    onBase: 'var(--ideasui-color-primary-50)',
+    subtle: 'var(--ideasui-color-primary-100)',
+    onSubtle: 'var(--ideasui-color-primary-700)',
   },
   success: {
-    base: 'oklch(var(--ideasui-color-success-500))',
-    onBase: 'oklch(var(--ideasui-color-success-50))',
-    subtle: 'oklch(var(--ideasui-color-success-100))',
-    onSubtle: 'oklch(var(--ideasui-color-success-700))',
+    base: 'var(--ideasui-color-success-500)',
+    onBase: 'var(--ideasui-color-success-50)',
+    subtle: 'var(--ideasui-color-success-100)',
+    onSubtle: 'var(--ideasui-color-success-700)',
   },
   danger: {
-    base: 'oklch(var(--ideasui-color-danger-500))',
-    onBase: 'oklch(var(--ideasui-color-danger-50))',
-    subtle: 'oklch(var(--ideasui-color-danger-100))',
-    onSubtle: 'oklch(var(--ideasui-color-danger-700))',
+    base: 'var(--ideasui-color-danger-500)',
+    onBase: 'var(--ideasui-color-danger-50)',
+    subtle: 'var(--ideasui-color-danger-100)',
+    onSubtle: 'var(--ideasui-color-danger-700)',
   },
   info: {
-    base: 'oklch(var(--ideasui-color-info-500))',
-    onBase: 'oklch(var(--ideasui-color-info-50))',
-    subtle: 'oklch(var(--ideasui-color-info-100))',
-    onSubtle: 'oklch(var(--ideasui-color-info-700))',
+    base: 'var(--ideasui-color-info-500)',
+    onBase: 'var(--ideasui-color-info-50)',
+    subtle: 'var(--ideasui-color-info-100)',
+    onSubtle: 'var(--ideasui-color-info-700)',
   },
   warning: {
-    base: 'oklch(var(--ideasui-color-warning-500))',
-    onBase: 'oklch(var(--ideasui-color-warning-50))',
-    subtle: 'oklch(var(--ideasui-color-warning-100))',
-    onSubtle: 'oklch(var(--ideasui-color-warning-700))',
+    base: 'var(--ideasui-color-warning-500)',
+    onBase: 'var(--ideasui-color-warning-50)',
+    subtle: 'var(--ideasui-color-warning-100)',
+    onSubtle: 'var(--ideasui-color-warning-700)',
   },
   secondary: {
-    base: 'oklch(var(--ideasui-color-secondary-500))',
-    onBase: 'oklch(var(--ideasui-color-secondary-50))',
-    subtle: 'oklch(var(--ideasui-color-secondary-100))',
-    onSubtle: 'oklch(var(--ideasui-color-secondary-700))',
+    base: 'var(--ideasui-color-secondary-500)',
+    onBase: 'var(--ideasui-color-secondary-50)',
+    subtle: 'var(--ideasui-color-secondary-100)',
+    onSubtle: 'var(--ideasui-color-secondary-700)',
   },
   tertiary: {
-    base: 'oklch(var(--ideasui-color-tertiary-500))',
-    onBase: 'oklch(var(--ideasui-color-tertiary-50))',
-    subtle: 'oklch(var(--ideasui-color-tertiary-100))',
-    onSubtle: 'oklch(var(--ideasui-color-tertiary-700))',
+    base: 'var(--ideasui-color-tertiary-500)',
+    onBase: 'var(--ideasui-color-tertiary-50)',
+    subtle: 'var(--ideasui-color-tertiary-100)',
+    onSubtle: 'var(--ideasui-color-tertiary-700)',
   },
 } as const;
 
@@ -305,104 +305,104 @@ export const semantic = {
 
 export const lightSurface = {
   // App background
-  base: 'oklch(var(--ideasui-color-neutral-50))',
-  'on-base': 'oklch(var(--ideasui-color-neutral-900))',
+  base: 'var(--ideasui-color-neutral-50)',
+  'on-base': 'var(--ideasui-color-neutral-900)',
 
   // Recessed areas (tables, input wells)
-  sunken: 'oklch(var(--ideasui-color-neutral-100))',
+  sunken: 'var(--ideasui-color-neutral-100)',
 
   // Primary containers (cards)
-  elevated: 'oklch(var(--ideasui-color-neutral-100))',
-  'on-elevated': 'oklch(var(--ideasui-color-neutral-900))',
+  elevated: 'var(--ideasui-color-neutral-100)',
+  'on-elevated': 'var(--ideasui-color-neutral-900)',
 
   // Subtle UI surfaces
-  muted: 'oklch(var(--ideasui-color-neutral-200))',
-  'on-muted': 'oklch(var(--ideasui-color-neutral-900))',
+  muted: 'var(--ideasui-color-neutral-200)',
+  'on-muted': 'var(--ideasui-color-neutral-900)',
 
   // Strong sections / sidebars
-  strong: 'oklch(var(--ideasui-color-neutral-300))',
-  'on-strong': 'oklch(var(--ideasui-color-neutral-900))',
+  strong: 'var(--ideasui-color-neutral-300)',
+  'on-strong': 'var(--ideasui-color-neutral-900)',
 
   // Nested container scale
-  'container-low': 'oklch(var(--ideasui-color-neutral-100))',
-  container: 'oklch(var(--ideasui-color-neutral-200))',
-  'container-high': 'oklch(var(--ideasui-color-neutral-300))',
+  'container-low': 'var(--ideasui-color-neutral-100)',
+  container: 'var(--ideasui-color-neutral-200)',
+  'container-high': 'var(--ideasui-color-neutral-300)',
 
   // Floating layers (dropdowns, popovers)
-  floating: 'oklch(var(--ideasui-color-neutral-50))',
+  floating: 'var(--ideasui-color-neutral-50)',
 
   // Transparent glass backgrounds
-  overlay: 'oklch(var(--ideasui-color-neutral-50))',
+  overlay: 'var(--ideasui-color-neutral-50)',
 
   // Dialogs / drawers
-  modal: 'oklch(var(--ideasui-color-neutral-50))',
+  modal: 'var(--ideasui-color-neutral-50)',
 
   // Backdrop dim layer
   scrim: 'oklch(0 0 0 / 0.45)',
 
   // Opposite theme surface
-  inverse: 'oklch(var(--ideasui-color-neutral-900))',
-  'on-inverse': 'oklch(var(--ideasui-color-neutral-50))',
+  inverse: 'var(--ideasui-color-neutral-900)',
+  'on-inverse': 'var(--ideasui-color-neutral-50)',
 } as const;
 
 export const darkSurface = {
   // App background
-  base: 'oklch(var(--ideasui-color-neutral-50))',
-  'on-base': 'oklch(var(--ideasui-color-neutral-900))',
+  base: 'var(--ideasui-color-neutral-50)',
+  'on-base': 'var(--ideasui-color-neutral-900)',
 
   // Recessed areas (inputs, tables)
-  sunken: 'oklch(var(--ideasui-color-neutral-100))',
+  sunken: 'var(--ideasui-color-neutral-100)',
 
   // Cards / main containers
-  elevated: 'oklch(var(--ideasui-color-neutral-100))',
-  'on-elevated': 'oklch(var(--ideasui-color-neutral-900))',
+  elevated: 'var(--ideasui-color-neutral-100)',
+  'on-elevated': 'var(--ideasui-color-neutral-900)',
 
   // Subtle UI surfaces
-  muted: 'oklch(var(--ideasui-color-neutral-200))',
-  'on-muted': 'oklch(var(--ideasui-color-neutral-900))',
+  muted: 'var(--ideasui-color-neutral-200)',
+  'on-muted': 'var(--ideasui-color-neutral-900)',
 
   // Strong sections / sidebars
-  strong: 'oklch(var(--ideasui-color-neutral-300))',
-  'on-strong': 'oklch(var(--ideasui-color-neutral-900))',
+  strong: 'var(--ideasui-color-neutral-300)',
+  'on-strong': 'var(--ideasui-color-neutral-900)',
 
   // Nested container scale
-  'container-low': 'oklch(var(--ideasui-color-neutral-100))',
-  container: 'oklch(var(--ideasui-color-neutral-200))',
-  'container-high': 'oklch(var(--ideasui-color-neutral-300))',
+  'container-low': 'var(--ideasui-color-neutral-100)',
+  container: 'var(--ideasui-color-neutral-200)',
+  'container-high': 'var(--ideasui-color-neutral-300)',
 
   // Floating layers (dropdowns, popovers)
-  floating: 'oklch(var(--ideasui-color-neutral-50))',
+  floating: 'var(--ideasui-color-neutral-50)',
 
   // Transparent glass backgrounds
-  overlay: 'oklch(var(--ideasui-color-neutral-50))',
+  overlay: 'var(--ideasui-color-neutral-50)',
 
   // Dialogs / drawers
-  modal: 'oklch(var(--ideasui-color-neutral-50))',
+  modal: 'var(--ideasui-color-neutral-50)',
 
   // Backdrop dim layer
   scrim: 'oklch(0 0 0 / 0.65)',
 
   // Opposite theme surface
-  inverse: 'oklch(var(--ideasui-color-neutral-900))',
-  'on-inverse': 'oklch(var(--ideasui-color-neutral-50))',
+  inverse: 'var(--ideasui-color-neutral-900)',
+  'on-inverse': 'var(--ideasui-color-neutral-50)',
 } as const;
 
 export const lightContent = {
-  primary: 'oklch(var(--ideasui-color-neutral-900))', // main text
-  secondary: 'oklch(var(--ideasui-color-neutral-700))', // less important text
-  tertiary: 'oklch(var(--ideasui-color-neutral-600))', // helper text
-  muted: 'oklch(var(--ideasui-color-neutral-500))', // placeholders
-  disabled: 'oklch(var(--ideasui-color-neutral-400))', // disabled text
-  inverse: 'oklch(var(--ideasui-color-neutral-50))', // text on dark surface
+  primary: 'var(--ideasui-color-neutral-900)', // main text
+  secondary: 'var(--ideasui-color-neutral-700)', // less important text
+  tertiary: 'var(--ideasui-color-neutral-600)', // helper text
+  muted: 'var(--ideasui-color-neutral-500)', // placeholders
+  disabled: 'var(--ideasui-color-neutral-400)', // disabled text
+  inverse: 'var(--ideasui-color-neutral-50)', // text on dark surface
 } as const;
 
 export const darkContent = {
-  primary: 'oklch(var(--ideasui-color-neutral-900))', // main text
-  secondary: 'oklch(var(--ideasui-color-neutral-700))', // less important text
-  tertiary: 'oklch(var(--ideasui-color-neutral-600))', // helper text
-  muted: 'oklch(var(--ideasui-color-neutral-500))', // placeholders
-  disabled: 'oklch(var(--ideasui-color-neutral-400))', // disabled text
-  inverse: 'oklch(var(--ideasui-color-neutral-50))', // text on light surface
+  primary: 'var(--ideasui-color-neutral-900)', // main text
+  secondary: 'var(--ideasui-color-neutral-700)', // less important text
+  tertiary: 'var(--ideasui-color-neutral-600)', // helper text
+  muted: 'var(--ideasui-color-neutral-500)', // placeholders
+  disabled: 'var(--ideasui-color-neutral-400)', // disabled text
+  inverse: 'var(--ideasui-color-neutral-50)', // text on light surface
 } as const;
 
 /* ============================================================
