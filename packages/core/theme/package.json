@@ -1,6 +1,6 @@
 {
-  "name": "@hariharan804/theme",
-  "version": "0.1.13",
+  "name": "@ideasui/theme",
+  "version": "0.0.1",
   "type": "module",
   "description": "Tailwind CSS v4 theme system for IdeasUI",
   "main": "./src/index.ts",
@@ -29,10 +29,6 @@
     "./plugin": {
       "types": "./src/plugin/index.ts",
       "import": "./src/plugin/index.ts"
-    },
-    "./theme.css": {
-      "style": "./dist/theme.css",
-      "import": "./dist/theme.css"
     }
   },
   "files": [
@@ -41,13 +37,11 @@
   "sideEffects": false,
   "scripts": {
     "build": "tsup && pnpm build:theme",
-    "build:css": "tailwindcss -i theme.css -o dist/theme.css --minify",
     "build:theme": "node scripts/generate-theme-css.mjs",
     "dev": "tsup --watch",
     "generate-theme": "node ./src/generator/generate-theme.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "publish:git": "npm publish --access restricted",
     "prepack": "clean-package",
     "postpack": "clean-package restore"
   },

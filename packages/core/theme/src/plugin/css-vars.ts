@@ -301,7 +301,32 @@ export function generateCSSVarsFromTokenOverrides(
     });
   }
 
-  // ── Semantic Tokens ──
+  // Font weight
+  if (t.fontWeight) {
+    Object.entries(t.fontWeight).forEach(([key, value]) => {
+      if (value !== undefined) {
+        cssVars[`--${prefix}-font-weight-${key}`] = value;
+      }
+    });
+  }
+
+  // Animation
+  if (t.animation) {
+    Object.entries(t.animation).forEach(([key, value]) => {
+      if (value !== undefined) {
+        cssVars[`--${prefix}-animation-${key}`] = value;
+      }
+    });
+  }
+
+  // Border color overrides
+  if (t.borderColor) {
+    Object.entries(t.borderColor).forEach(([key, value]) => {
+      if (value !== undefined) {
+        cssVars[`--${prefix}-border-${key}`] = value;
+      }
+    });
+  }
 
   // Surface
   if (t.surface) {

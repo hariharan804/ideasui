@@ -21,7 +21,8 @@ describe('ideasUIPlugin', () => {
   });
 
   it('should generate correct CSS variables', () => {
-    const plugin = ideasUIPlugin({ prefix: 'test' });
+    // prefix option is not configurable (hardcoded to DEFAULT_PREFIX)
+    const plugin = ideasUIPlugin();
 
     plugin.handler(mockPluginAPI);
 
