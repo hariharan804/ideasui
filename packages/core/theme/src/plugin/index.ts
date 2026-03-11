@@ -2,12 +2,15 @@ import type { ThemeConfig } from '../types';
 
 import plugin from 'tailwindcss/plugin';
 
-import { DEFAULT_PREFIX } from '../constants';
+/**
+ * Prefix for all CSS variables
+ * @default 'ideasui'
+ */
+export const DEFAULT_PREFIX = 'ideasui';
 import { disabled, scrollbar } from '../tokens';
 
 import { buildThemes, resolveConfig, createThemeExtension, createThemeSelectors } from './core';
 import { generateDesignTokenCSSVars, generateDarkDesignTokenCSSVars } from './css-vars';
-
 // ─────────────────────────────────────────────────────────────
 // Utility Class Generators
 // ─────────────────────────────────────────────────────────────
@@ -90,9 +93,10 @@ export const createIdeasUIPlugin: ReturnType<typeof plugin.withOptions<ThemeConf
         // prefix = DEFAULT_PREFIX,
         disableAnimations = false,
       } = config;
+      const prefix = DEFAULT_PREFIX;
 
       const themes = buildThemes(config);
-      const resolved = resolveConfig(themes, defaultTheme, DEFAULT_PREFIX);
+      const resolved = resolveConfig(themes, defaultTheme, prefix);
 
       const { designTokens: configDesignTokens = {}, semanticTokens: configSemanticTokens = {} } =
         config;
@@ -137,7 +141,7 @@ export const createIdeasUIPlugin: ReturnType<typeof plugin.withOptions<ThemeConf
         theme: {
           extend: createThemeExtension(
             resolved.colors,
-            DEFAULT_PREFIX,
+            prefix,
             disableAnimations,
             aggregatedDesignTokens,
             aggregatedSemanticTokens,

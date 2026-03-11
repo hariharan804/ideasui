@@ -149,8 +149,7 @@
     "styling": {
       "tailwindcss": ">=4",
       "tailwind-variants": ">=3.0.0",
-      "clsx": "^2.0.0",
-      "chroma-js": "^2.4.0"
+      "clsx": "^2.0.0"
     },
     "build": {
       "typescript": "^5.0.0",
