@@ -1,5 +1,5 @@
 ---
-description: How to create a new component
+description: How to create a new component. Refer to [naming conventions](../../rules/naming-conventions.md) and [component development](../../rules/component-development.md).
 ---
 
 # Creating a New Component

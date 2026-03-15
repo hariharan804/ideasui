@@ -171,6 +171,10 @@ export default defineConfig([
       curly: ['error', 'all'],
       'no-eval': 'error',
       'no-implied-eval': 'error',
+      // complexity: ['error', 20],
+      // 'max-lines': ['warn', { max: 300, skipBlankLines: true, skipComments: true }],
+      // 'max-lines-per-function': ['warn', { max: 50, skipBlankLines: true, skipComments: true }],
+      // 'max-params': ['warn', 4],
 
       // TypeScript
       '@typescript-eslint/no-unused-vars': [
@@ -219,7 +223,7 @@ export default defineConfig([
       'react/jsx-key': 'error',
       'react/jsx-no-bind': ['warn', { allowArrowFunctions: true }],
       'react/jsx-no-leaked-render': 'error',
-      'react/no-array-index-key': 'warn',
+      'react/no-array-index-key': 'error',
       'react/jsx-pascal-case': 'error',
       'react/self-closing-comp': 'warn',
       'react/jsx-sort-props': [
@@ -253,9 +257,9 @@ export default defineConfig([
       // Accessibility
       'jsx-a11y/alt-text': 'error',
       'jsx-a11y/anchor-is-valid': 'warn',
-      'jsx-a11y/click-events-have-key-events': 'warn',
-      'jsx-a11y/interactive-supports-focus': 'warn',
-      'jsx-a11y/no-static-element-interactions': 'warn',
+      'jsx-a11y/click-events-have-key-events': 'error',
+      'jsx-a11y/interactive-supports-focus': 'error',
+      'jsx-a11y/no-static-element-interactions': 'error',
 
       // React Refresh
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
@@ -318,7 +322,7 @@ export default defineConfig([
       ],
 
       // Code quality (SonarJS)
-      'sonarjs/cognitive-complexity': ['error', 20],
+      'sonarjs/cognitive-complexity': ['error', 15],
       'sonarjs/no-duplicate-string': [
         'error',
         {

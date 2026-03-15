@@ -4,7 +4,7 @@
 
 ```
 packages/
-├── core/theme/        # @ideasui/theme - Design system & tokens
+├── core/theme/        # @ideasui/theme - Design system & tokens (Enforced via recipes)
 ├── components/        # Styled UI components
 │   ├── button/        # @ideasui/button
 │   ├── ripple/        # @ideasui/ripple
