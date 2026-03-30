@@ -11,10 +11,10 @@ export { ideasUIPlugin } from './plugin';
 export { ThemeProvider, ThemeScript, useTheme } from './providers';
 export type { ThemeProviderProps, ThemeScriptProps, ThemeScriptConfig } from './providers';
 
-// // Design tokens
+// Design tokens
 // export * from './tokens';
 
-// // Component recipes
+// Component recipes
 // export * from './recipes';
 
 // Type definitions

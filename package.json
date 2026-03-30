@@ -36,7 +36,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "quality": "pnpm lint && pnpm typecheck && pnpm format:check",
-    "preinstall": "node scripts/check-versions.js && npx only-allow pnpm",
+    "preinstall": "node scripts/check-versions.js",
     "prepare": "husky",
     "commit": "git add . && cz",
     "storybook": "turbo run dev --filter=@ideasui/storybook",
@@ -69,7 +69,8 @@
     "changeset:canary": "changeset pre enter canary",
     "version:canary": "changeset version --snapshot canary",
     "release:canary": "changeset publish --snapshot --no-git-tag --tag canary",
-    "changeset:exit": "changeset pre exit"
+    "changeset:exit": "changeset pre exit",
+    "generate:figma-variables": "node scripts/figma-variable-converter.js"
   },
   "config": {
     "commitizen": {
@@ -117,6 +118,7 @@
     "clean-package": "^2.2.0",
     "commitizen": "^4.3.1",
     "commitlint-plugin-function-rules": "^4.2.0",
+    "culori": "^4.0.2",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.0.10",
@@ -154,7 +156,7 @@
     "rimraf": "^6.1.2",
     "semantic-release": "^25.0.2",
     "shell-quote": "^1.8.3",
-    "size-limit": "^12.0.0",
+    "size-limit": "^12.0.1",
     "storybook": "^10.1.10",
     "ts-jest": "^29.4.6",
     "tsup": "^8.3.5",
@@ -167,7 +169,10 @@
       "@types/react-dom": "^19.0.0",
       "rimraf": "^6.0.0",
       "test-exclude": "^7.0.0"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   },
   "engines": {
     "pnpm": ">=8.x",

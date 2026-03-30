@@ -1,27 +1,48 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ReactElement } from 'react';
 
-import { useState } from 'react';
-
 import {
   spacing,
   borderRadius,
   fontSize,
+  fontFamily,
+  fontWeight,
+  letterSpacing,
+  textStyles,
   lightShadow,
   animation,
   duration as transitionDuration,
   easing as transitionTimingFunction,
+  keyframes,
+  transition,
+  blur,
+  backdrop,
+  border,
+  lightBorder,
+  darkBorder,
+  opacity,
+  zIndex,
 } from '../src/tokens';
-import { primitives } from '../src/tokens/colors';
 
 const systemTokens = {
   spacing,
   borderRadius,
   fontSize,
+  fontFamily,
+  fontWeight,
+  letterSpacing,
+  textStyles,
   boxShadow: lightShadow,
   animation,
   transitionDuration,
   transitionTimingFunction,
+  keyframes,
+  transition,
+  blur,
+  backdrop,
+  border,
+  opacity,
+  zIndex,
 };
 
 const meta: Meta = {
@@ -33,102 +54,6 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj;
-
-const COPY_FEEDBACK_DELAY = 1500;
-
-const ColorSwatch = ({
-  colorName,
-  shade,
-  value,
-  isDark = false,
-}: {
-  colorName: string;
-  shade: string;
-  value: string;
-  isDark?: boolean;
-}): ReactElement => {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = (): void => {
-    navigator.clipboard.writeText(value);
-    setCopied(true);
-    setTimeout(() => setCopied(false), COPY_FEEDBACK_DELAY);
-  };
-
-  return (
-    <button
-      className={`group flex w-full items-center gap-4 rounded-xl border p-3 text-left transition-all duration-200 ${
-        isDark
-          ? 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10'
-          : 'border-gray-100 bg-white hover:border-gray-200 hover:shadow-md'
-      }`}
-      type="button"
-      onClick={handleCopy}
-    >
-      <div
-        className="h-14 w-14 shrink-0 rounded-xl shadow-sm ring-1 ring-black/5 transition-transform duration-200 group-hover:scale-105"
-        style={{ backgroundColor: value }}
-      />
-      <div className="min-w-0 flex-1">
-        <div className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
-          {colorName}-{shade}
-        </div>
-        <div className="mt-0.5 font-mono text-xs text-gray-500">{value}</div>
-      </div>
-      <div
-        className={`shrink-0 rounded-md px-2 py-1 text-xs font-medium transition-opacity ${
-          copied ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-        } ${isDark ? 'bg-white/10 text-white' : 'bg-gray-100 text-gray-600'}`}
-      >
-        {copied ? '✓ Copied' : 'Copy'}
-      </div>
-    </button>
-  );
-};
-
-const ColorPalette = ({
-  title,
-  colors,
-  isDark = false,
-}: {
-  title: string;
-  colors: Record<string, Record<string, string>>;
-  isDark?: boolean;
-}): ReactElement => (
-  <div
-    className={`overflow-hidden rounded-2xl ${
-      isDark ? 'border border-white/10 bg-white/5' : 'border border-gray-100 bg-gray-50/50'
-    }`}
-  >
-    <div
-      className={`px-5 py-4 ${isDark ? 'border-b border-white/10' : 'border-b border-gray-100'}`}
-    >
-      <h3 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>{title}</h3>
-    </div>
-    <div className="space-y-6 p-5">
-      {Object.entries(colors).map(([colorName, shades]) => (
-        <div key={colorName}>
-          <h4
-            className={`mb-3 text-sm font-semibold tracking-wider uppercase ${isDark ? 'text-gray-400' : 'text-gray-500'}`}
-          >
-            {colorName}
-          </h4>
-          <div className="grid grid-cols-1 gap-2">
-            {Object.entries(shades).map(([shade, value]) => (
-              <ColorSwatch
-                key={shade}
-                colorName={colorName}
-                isDark={isDark}
-                shade={shade}
-                value={value}
-              />
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-);
 
 const TokenCard = ({
   name,
@@ -143,7 +68,7 @@ const TokenCard = ({
     {preview ? <div className="shrink-0">{preview}</div> : null}
     <div className="min-w-0 flex-1">
       <div className="text-sm font-semibold text-gray-900">{name}</div>
-      <div className="mt-0.5 font-mono text-xs text-gray-500">{value}</div>
+      <div className="mt-0.5 font-mono text-xs break-words text-gray-500">{value}</div>
     </div>
   </div>
 );
@@ -151,47 +76,32 @@ const TokenCard = ({
 const TokenGroup = ({
   title,
   tokens,
+  renderPreview,
 }: {
   title: string;
   tokens: Record<string, unknown>;
+  renderPreview?: (value: string, key: string) => ReactElement;
 }): ReactElement => (
   <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
     <div className="border-b border-gray-100 px-5 py-4">
       <h3 className="text-lg font-bold text-gray-900">{title}</h3>
     </div>
     <div className="grid grid-cols-1 gap-2 p-4">
-      {Object.entries(tokens).map(([key, value]) => (
-        <TokenCard key={key} name={key} value={String(value)} />
-      ))}
+      {Object.entries(tokens).map(([key, value]) => {
+        const stringValue = typeof value === 'object' ? JSON.stringify(value) : String(value);
+
+        return (
+          <TokenCard
+            key={key}
+            name={key}
+            preview={renderPreview ? renderPreview(stringValue, key) : undefined}
+            value={stringValue}
+          />
+        );
+      })}
     </div>
   </div>
 );
-
-export const Colors: Story = {
-  render: () => (
-    <div className="space-y-8">
-      <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Color Tokens</h2>
-        <p className="mt-2 text-lg text-gray-600">Semantic color palette with OKLCH values</p>
-        <p className="mt-1 text-sm text-gray-400">Click any swatch to copy the color value</p>
-      </div>
-      <ColorPalette colors={primitives.light} title="Light Mode Colors" />
-    </div>
-  ),
-};
-
-export const DarkColors: Story = {
-  render: () => (
-    <div className="min-h-screen space-y-8 rounded-2xl bg-gray-950 p-8">
-      <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-white">Dark Mode Colors</h2>
-        <p className="mt-2 text-lg text-gray-400">Dark theme color palette with OKLCH values</p>
-        <p className="mt-1 text-sm text-gray-500">Click any swatch to copy the color value</p>
-      </div>
-      <ColorPalette isDark colors={primitives.dark} title="Dark Mode Colors" />
-    </div>
-  ),
-};
 
 export const Spacing: Story = {
   render: () => (
@@ -211,7 +121,7 @@ export const Spacing: Story = {
               className="flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-4"
             >
               <div className="w-16 font-mono text-sm font-semibold text-gray-900">{key}</div>
-              <div className="w-20 text-xs text-gray-500">{value}</div>
+              <div className="w-20 font-mono text-xs text-gray-500">{value}</div>
               <div className="h-4 rounded-full bg-blue-500" style={{ width: value }} />
             </div>
           ))}
@@ -236,11 +146,13 @@ export const BorderRadius: Story = {
           {Object.entries(systemTokens.borderRadius).map(([key, value]) => (
             <div key={key} className="text-center">
               <div
-                className="mx-auto mb-3 h-20 w-20 bg-blue-500 shadow-sm"
+                className="mx-auto mb-3 flex h-20 w-20 items-center justify-center border border-blue-200 bg-blue-50"
                 style={{ borderRadius: value }}
-              />
+              >
+                <div className="h-full w-full bg-blue-500" style={{ borderRadius: value }} />
+              </div>
               <div className="text-sm font-semibold text-gray-900">{key}</div>
-              <div className="mt-0.5 text-xs text-gray-500">{value}</div>
+              <div className="mt-0.5 font-mono text-xs text-gray-500">{value}</div>
             </div>
           ))}
         </div>
@@ -249,47 +161,61 @@ export const BorderRadius: Story = {
   ),
 };
 
-export const Typography: Story = {
+export const Borders: Story = {
   render: () => (
     <div className="space-y-8">
       <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Typography Tokens</h2>
-        <p className="mt-2 text-lg text-gray-600">Font size and line height scale</p>
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Border Tokens</h2>
+        <p className="mt-2 text-lg text-gray-600">Border widths and semantic border colors</p>
       </div>
-      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
-        <div className="border-b border-gray-100 px-5 py-4">
-          <h3 className="text-lg font-bold text-gray-900">Scale</h3>
-        </div>
-        <div className="space-y-3 p-5">
-          {Object.entries(systemTokens.fontSize).map(([key, value]) => {
-            const [fontSizeValue, config] = Array.isArray(value) ? value : [value, {}];
-            const lineHeight =
-              typeof config === 'object' && config?.lineHeight ? config.lineHeight : 'normal';
 
-            return (
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+          <div className="border-b border-gray-100 px-5 py-4">
+            <h3 className="text-lg font-bold text-gray-900">Border Width Scale</h3>
+          </div>
+          <div className="space-y-4 p-5">
+            {Object.entries(systemTokens.border).map(([key, value]) => (
               <div
                 key={key}
                 className="flex items-center gap-6 rounded-xl border border-gray-100 bg-white p-5"
               >
-                <div className="w-16 font-mono text-sm font-semibold text-gray-900">{key}</div>
+                <div className="w-20 font-mono text-sm font-semibold text-gray-900">{key}</div>
                 <div className="flex-1">
                   <div
-                    className="text-gray-900"
-                    style={{
-                      fontSize: String(fontSizeValue),
-                      lineHeight: String(lineHeight),
-                    }}
-                  >
-                    The quick brown fox jumps over the lazy dog
-                  </div>
+                    className="w-full bg-gray-200"
+                    style={{ height: value, backgroundColor: 'var(--ideasui-color-neutral-300)' }}
+                  />
                 </div>
-                <div className="text-right text-xs text-gray-500">
-                  <div>Size: {String(fontSizeValue)}</div>
-                  <div>Line: {String(lineHeight)}</div>
-                </div>
+                <div className="w-16 text-right font-mono text-xs text-gray-500">{value}</div>
               </div>
-            );
-          })}
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <TokenGroup
+            renderPreview={(value) => (
+              <div
+                className="h-8 w-8 rounded bg-white shadow-sm"
+                style={{ border: `2px solid ${value}` }}
+              />
+            )}
+            title="Light Border Colors"
+            tokens={lightBorder}
+          />
+          <div className="dark">
+            <TokenGroup
+              renderPreview={(value) => (
+                <div
+                  className="h-8 w-8 rounded bg-gray-950 shadow-sm"
+                  style={{ border: `2px solid ${value}` }}
+                />
+              )}
+              title="Dark Border Colors"
+              tokens={darkBorder}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -311,15 +237,315 @@ export const Shadows: Story = {
           {Object.entries(systemTokens.boxShadow).map(([key, value]) => (
             <div key={key} className="text-center">
               <div
-                className="mx-auto mb-4 h-24 w-24 rounded-2xl bg-white"
+                className="mx-auto mb-4 h-24 w-24 rounded-2xl border border-gray-100/50 bg-white"
                 style={{ boxShadow: value }}
               />
               <div className="text-sm font-semibold text-gray-900">{key}</div>
-              <div className="mt-1 font-mono text-xs break-all text-gray-500">{value}</div>
+              <div className="mt-1 px-4 font-mono text-xs break-words text-gray-500">{value}</div>
             </div>
           ))}
         </div>
       </div>
+    </div>
+  ),
+};
+
+export const Blur: Story = {
+  render: () => (
+    <div className="space-y-8">
+      <div className="mb-10">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Blur & Backdrop Tokens</h2>
+        <p className="mt-2 text-lg text-gray-600">Blur radius and backdrop filter values</p>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+          <div className="border-b border-gray-100 px-5 py-4">
+            <h3 className="text-lg font-bold text-gray-900">Filter Blur Scale</h3>
+          </div>
+          <div className="p-5">
+            <div className="grid gap-4">
+              {Object.entries(systemTokens.blur).map(([key, value]) => (
+                <div
+                  key={key}
+                  className="relative flex h-24 items-center justify-between overflow-hidden rounded-xl border border-gray-200 bg-white"
+                >
+                  <div className="absolute inset-0 z-0 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 opacity-20" />
+                  <div className="z-10 rounded-r-lg border border-gray-100 bg-white/80 px-6 py-2 shadow-sm backdrop-blur-sm">
+                    <div className="text-sm font-semibold text-gray-900">{key}</div>
+                    <div className="font-mono text-xs text-gray-500">{value}</div>
+                  </div>
+                  <div
+                    className="z-10 mr-6 h-16 w-16 rounded-full bg-blue-600"
+                    style={{ filter: `blur(${value})` }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+          <div className="border-b border-gray-100 px-5 py-4">
+            <h3 className="text-lg font-bold text-gray-900">Backdrop Filters</h3>
+          </div>
+          <div className="p-5">
+            <div className="grid gap-4">
+              {Object.entries(systemTokens.backdrop).map(([key, value]) => (
+                <div
+                  key={key}
+                  className="relative flex h-24 items-center justify-start overflow-hidden rounded-xl border border-gray-200 bg-white"
+                >
+                  {/* Background pattern */}
+                  <div
+                    className="absolute inset-0 z-0"
+                    style={{
+                      backgroundImage:
+                        'radial-gradient(var(--ideasui-color-primary-300) 2px, transparent 2px)',
+                      backgroundSize: '16px 16px',
+                    }}
+                  />
+                  <div className="absolute inset-0 z-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20" />
+
+                  {/* Backdrop element */}
+                  <div
+                    className="relative z-10 ml-6 flex h-[70%] w-[60%] flex-col justify-center rounded-lg border border-white/20 bg-white/40 px-4 font-medium text-gray-800 shadow-sm"
+                    style={{ backdropFilter: value, WebkitBackdropFilter: value }}
+                  >
+                    <div className="text-sm font-semibold">{key}</div>
+                    <div className="font-mono text-xs break-words opacity-70">{value}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+export const Opacity: Story = {
+  render: () => (
+    <div className="space-y-8">
+      <div className="mb-10">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Opacity Tokens</h2>
+        <p className="mt-2 text-lg text-gray-600">Semantic opacity scale for overlays and states</p>
+      </div>
+      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+        <div className="border-b border-gray-100 px-5 py-4">
+          <h3 className="text-lg font-bold text-gray-900">Scale</h3>
+        </div>
+        <div className="grid grid-cols-2 gap-6 p-6 md:grid-cols-4">
+          {Object.entries(systemTokens.opacity).map(([key, value]) => (
+            <div key={key} className="text-center">
+              <div className="mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-xl border border-gray-200 bg-[url('https://transparenttextures.com/patterns/cubes.png')]">
+                <div className="h-full w-full rounded-xl bg-blue-600" style={{ opacity: value }} />
+              </div>
+              <div className="text-sm font-semibold text-gray-900">{key}</div>
+              <div className="mt-0.5 font-mono text-xs text-gray-500">{value}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+export const ZIndex: Story = {
+  render: () => (
+    <div className="space-y-8">
+      <div className="mb-10">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Z-Index System</h2>
+        <p className="mt-2 text-lg text-gray-600">Ordered, predictable layering</p>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+          <div className="border-b border-gray-100 px-5 py-4">
+            <h3 className="text-lg font-bold text-gray-900">Visual Stacking</h3>
+          </div>
+          <div className="relative h-80 p-8">
+            {Object.entries(systemTokens.zIndex)
+              .filter(([key]) => key !== 'hide')
+              .sort((a, b) => (a[1] as number) - (b[1] as number))
+              .map(([key, value], index, array) => {
+                // Ensure array length > 1 before using it in division, otherwise default to 0
+                const leftOffset = array.length > 1 ? (index * 60) / (array.length - 1) : 0;
+                const topOffset = array.length > 1 ? (index * 60) / (array.length - 1) : 0;
+
+                return (
+                  <div
+                    key={key}
+                    className="absolute flex h-24 w-40 cursor-pointer flex-col justify-center rounded-xl border border-white/40 p-4 shadow-lg backdrop-blur-md transition-transform hover:-translate-y-2 hover:scale-105"
+                    style={{
+                      zIndex: value as number,
+                      left: `calc(10% + ${leftOffset}%)`,
+                      top: `calc(10% + ${topOffset}%)`,
+                      backgroundColor: `hsl(${(index * 40) % 360}, 70%, 50%, 0.9)`,
+                      color: 'white',
+                    }}
+                  >
+                    <div className="text-sm font-bold capitalize">{key}</div>
+                    <div className="font-mono text-xs opacity-80">z-index: {value}</div>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+
+        <TokenGroup title="Z-Index Values" tokens={systemTokens.zIndex} />
+      </div>
+    </div>
+  ),
+};
+
+export const Typography: Story = {
+  render: () => (
+    <div className="space-y-8">
+      <div className="mb-10">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Typography System</h2>
+        <p className="mt-2 text-lg text-gray-600">Font sizes, weights, spacing, and styles</p>
+      </div>
+
+      {/* Font Family */}
+      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+        <div className="border-b border-gray-100 px-5 py-4">
+          <h3 className="text-lg font-bold text-gray-900">Font Families</h3>
+        </div>
+        <div className="space-y-4 p-5">
+          {Object.entries(systemTokens.fontFamily).map(([key, value]) => (
+            <div key={key} className="rounded-xl border border-gray-100 bg-white p-5">
+              <div className="mb-2 flex items-center gap-2">
+                <span className="font-mono text-sm font-semibold text-gray-900 capitalize">
+                  {key}
+                </span>
+                <span className="w-64 truncate font-mono text-xs text-gray-400">- {value}</span>
+              </div>
+              <div className="text-2xl text-gray-800" style={{ fontFamily: value }}>
+                The quick brown fox jumps over the lazy dog
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* Font Weights */}
+        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+          <div className="border-b border-gray-100 px-5 py-4">
+            <h3 className="text-lg font-bold text-gray-900">Font Weights</h3>
+          </div>
+          <div className="space-y-2 p-5">
+            {Object.entries(systemTokens.fontWeight).map(([key, value]) => (
+              <div
+                key={key}
+                className="flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-4"
+              >
+                <div className="w-20 font-mono text-sm font-semibold text-gray-900">{key}</div>
+                <div className="w-12 text-right font-mono text-xs text-gray-500">{value}</div>
+                <div
+                  className="flex-1 text-lg text-gray-800"
+                  style={{ fontWeight: value as number }}
+                >
+                  Abc
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Letter Spacing */}
+        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+          <div className="border-b border-gray-100 px-5 py-4">
+            <h3 className="text-lg font-bold text-gray-900">Letter Spacing</h3>
+          </div>
+          <div className="space-y-2 p-5">
+            {Object.entries(systemTokens.letterSpacing).map(([key, value]) => (
+              <div
+                key={key}
+                className="flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-4"
+              >
+                <div className="w-20 font-mono text-sm font-semibold text-gray-900">{key}</div>
+                <div className="w-16 text-right font-mono text-xs text-gray-500">{value}</div>
+                <div className="flex-1 text-lg text-gray-800" style={{ letterSpacing: value }}>
+                  SPACING
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Font Size Scale */}
+      <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+        <div className="border-b border-gray-100 px-5 py-4">
+          <h3 className="text-lg font-bold text-gray-900">Font Size Scale</h3>
+        </div>
+        <div className="space-y-3 p-5">
+          {Object.entries(systemTokens.fontSize).map(([key, value]) => {
+            const [fontSizeValue, config] = Array.isArray(value) ? value : [value, {}];
+            const lineHeight =
+              typeof config === 'object' && config?.lineHeight ? config.lineHeight : 'normal';
+
+            return (
+              <div
+                key={key}
+                className="flex items-center gap-6 rounded-xl border border-gray-100 bg-white p-5 transition-colors hover:border-blue-200"
+              >
+                <div className="w-16 font-mono text-sm font-semibold text-gray-900">{key}</div>
+                <div className="flex h-24 flex-1 items-center overflow-hidden border-l border-gray-100 pl-6">
+                  <div
+                    className="truncate text-gray-900"
+                    style={{
+                      fontSize: String(fontSizeValue),
+                      lineHeight: String(lineHeight),
+                    }}
+                  >
+                    The quick brown fox
+                  </div>
+                </div>
+                <div className="min-w-24 text-right text-xs text-gray-500">
+                  <div className="font-mono">size: {String(fontSizeValue)}</div>
+                  <div className="mt-1 font-mono">line: {String(lineHeight)}</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Role-Based Text Styles */}
+      <TokenGroup
+        renderPreview={(value, key) => (
+          <div className="w-24 font-mono text-sm font-semibold text-gray-900">{key}</div>
+        )}
+        title="Role-Based Text Styles"
+        tokens={systemTokens.textStyles}
+      />
+    </div>
+  ),
+};
+
+export const Motion: Story = {
+  render: () => (
+    <div className="space-y-8">
+      <div className="mb-10">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Motion System</h2>
+        <p className="mt-2 text-lg text-gray-600">Durations, easing, components, and presets</p>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <TokenGroup title="Transition Durations" tokens={systemTokens.transitionDuration} />
+        <TokenGroup title="Easing Curves" tokens={systemTokens.transitionTimingFunction} />
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <TokenGroup title="Transition Presets" tokens={systemTokens.transition} />
+        <TokenGroup title="Animation Classes" tokens={systemTokens.animation} />
+      </div>
+
+      <TokenGroup title="Keyframes" tokens={systemTokens.keyframes} />
     </div>
   ),
 };
@@ -335,11 +561,19 @@ export const AllTokens: Story = {
       <div className="grid gap-6 lg:grid-cols-2">
         <TokenGroup title="Spacing" tokens={systemTokens.spacing} />
         <TokenGroup title="Border Radius" tokens={systemTokens.borderRadius} />
+        <TokenGroup title="Border Widths" tokens={systemTokens.border} />
+        <TokenGroup title="Opacity Options" tokens={systemTokens.opacity} />
+        <TokenGroup title="Z-Index Scale" tokens={systemTokens.zIndex} />
+        <TokenGroup title="Blur Definitions" tokens={systemTokens.blur} />
+        <TokenGroup title="Backdrop Definitions" tokens={systemTokens.backdrop} />
         <TokenGroup title="Font Size" tokens={systemTokens.fontSize} />
+        <TokenGroup title="Font Families" tokens={systemTokens.fontFamily} />
+        <TokenGroup title="Font Weights" tokens={systemTokens.fontWeight} />
         <TokenGroup title="Box Shadow" tokens={systemTokens.boxShadow} />
-        <TokenGroup title="Animation" tokens={systemTokens.animation} />
+        <TokenGroup title="Animation Types" tokens={systemTokens.animation} />
         <TokenGroup title="Transition Duration" tokens={systemTokens.transitionDuration} />
         <TokenGroup title="Transition Timing" tokens={systemTokens.transitionTimingFunction} />
+        <TokenGroup title="Transition Presets" tokens={systemTokens.transition} />
       </div>
     </div>
   ),

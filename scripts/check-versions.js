@@ -106,10 +106,24 @@ function checkPnpmVersion() {
 }
 
 /**
+ * Check if the correct package manager is being used
+ */
+function checkPackageManager() {
+  const userAgent = process.env.npm_config_user_agent || '';
+  if (!userAgent.startsWith('pnpm')) {
+    console.error('\n❌ Please use pnpm to install dependencies in this project.');
+    console.error('   Running "npm install" or "yarn" is not allowed.\n');
+    process.exit(1);
+  }
+}
+
+/**
  * Main check function
  */
 function main() {
   console.log('\n🔍 Checking environment versions...\n');
+
+  checkPackageManager();
 
   checkNodeVersion();
   checkPnpmVersion();
