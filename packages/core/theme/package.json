@@ -41,7 +41,8 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "tailwind-variants": ">=3",
+    "react": ">=18",
+    "react-dom": ">=18",
     "tailwindcss": ">=4"
   },
   "devDependencies": {
@@ -52,7 +53,6 @@
     "postcss": "^8.5.8",
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.1",
-    "tailwind-variants": "^3.2.2",
     "tailwindcss": "^4.0.0",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
@@ -69,7 +69,8 @@
   "dependencies": {
     "color": "^5.0.3",
     "deepmerge": "^4.3.1",
-    "flat": "^6.0.1"
+    "flat": "^6.0.1",
+    "tailwind-variants": "^3.2.2"
   },
   "publishConfig": {
     "access": "public"
