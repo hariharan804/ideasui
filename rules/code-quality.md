@@ -1,21 +1,17 @@
 # Code Quality Rules
 
-## 🎯 Performance Standards
+## 🎯 Performance Standards (Enforced)
 
-### Function Complexity
+These standards are actively enforced via ESLint to ensure code maintainability.
 
-- Max 50 lines per function
-- Max 4 parameters (use objects for more)
-- Max cyclomatic complexity: 10
-- Max nesting depth: 4 levels
-- Cognitive complexity: max 15
+### Metrics:
 
-### File Organization
-
-- Max 300 lines per file
-- Split large files into smaller modules
-- Use barrel exports (index.ts) for clean imports
-- Separate concerns: logic, types, styles, tests
+- **Max 50 lines** per function (`max-lines-per-function`)
+- **Max 300 lines** per file (`max-lines`)
+- **Max 4 parameters** per function (`max-params`)
+- **Max cyclomatic complexity: 10** (`complexity`)
+- **Cognitive complexity: max 15** (`sonarjs/cognitive-complexity`)
+- **Max nesting depth: 4 levels**
 
 ## 🔧 Modern JavaScript/TypeScript
 

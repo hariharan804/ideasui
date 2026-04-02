@@ -26,7 +26,7 @@ export function ThemeProvider({
     [userThemes],
   );
 
-  const [theme, setTheme] = useThemeStorage({
+  const { theme, setTheme, hasMounted } = useThemeStorage({
     defaultTheme,
     themes,
     storageKey: defaultConfig.storageKey,
@@ -60,5 +60,11 @@ export function ThemeProvider({
     [theme, resolved, themes, systemThemes, setTheme],
   );
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  // Suppress hydration warning to allow the HTML attribute to differ initially
+  return (
+    <ThemeContext.Provider value={value}>
+      {/* We only render children once mounted to avoid hydration mismatch if needed */}
+      {hasMounted ? children : <div style={{ visibility: 'hidden' }}>{children}</div>}
+    </ThemeContext.Provider>
+  );
 }

@@ -18,14 +18,15 @@ module.exports = function (plop) {
         type: 'addMany',
         destination: 'packages/components/{{name}}/',
         base: 'templates/component/',
-        templateFiles: 'templates/component/**/*',
+        templateFiles: 'templates/component/**/*.hbs',
         skipIfExists: true,
+        stripExtensions: ['hbs'],
       },
       // Add recipe to theme package
       {
         type: 'add',
         path: 'packages/core/theme/src/recipes/{{name}}.ts',
-        templateFile: 'templates/recipe/recipe.ts',
+        templateFile: 'templates/recipe/recipe.ts.hbs',
         skipIfExists: true,
       },
       {
@@ -38,14 +39,14 @@ module.exports = function (plop) {
       {
         type: 'add',
         path: 'apps/playground/app/(layout)/playground/{{name}}/page.tsx',
-        templateFile: 'templates/playground/page.tsx',
+        templateFile: 'templates/playground/page.tsx.hbs',
         skipIfExists: true,
       },
       // Create playground component wrapper
       {
         type: 'add',
         path: 'apps/playground/components/{{name}}.tsx',
-        templateFile: 'templates/playground/component.tsx',
+        templateFile: 'templates/playground/component.tsx.hbs',
         skipIfExists: true,
       },
       // Add to component list

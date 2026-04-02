@@ -4,7 +4,7 @@ import type { JSX } from 'react';
 import { useState } from 'react';
 import { Check, Copy, Palette } from 'lucide-react';
 import Link from 'next/link';
-import { primitives } from '@ideasui/theme';
+import { primitives } from '@ideasui/theme/tokens';
 
 const COPY_TIMEOUT = 2000;
 const DEFAULT_BUTTON_CLASS =

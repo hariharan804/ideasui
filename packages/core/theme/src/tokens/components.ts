@@ -10,7 +10,7 @@ export const componentColors = {
   //     text: 'var(--ideasui-white)',
   //   },
   //   input: {
-  //     bg: 'var(--ideasui-surface-muted)',
+  //     bg: 'var(--ideasui-color-surface-muted)',
   //     border: 'var(--ideasui-border-subtle)',
   //     'border-focus': 'var(--ideasui-primary-500)',
   //   },

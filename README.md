@@ -6,7 +6,7 @@ IdeasUI is a modern, accessible component library built with TypeScript, Tailwin
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/ideas2logic-lab/ideasui.git
 cd ideasui
 
 # Install dependencies

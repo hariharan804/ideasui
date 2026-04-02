@@ -1,6 +1,9 @@
+import type { squareSizes } from './variants';
+
+/* eslint-disable import/order */
 import { animation } from './animation';
 import { borderRadius } from './border-radius';
-import { lightShadow, darkShadow, lightElevation, darkElevation } from './box-shadow';
+import { lightShadow, darkShadow } from './box-shadow';
 import { duration, easing, keyframes, transition } from './motion';
 import { spacing } from './spacing';
 import {
@@ -12,17 +15,17 @@ import {
   darkContent,
   commonColors,
 } from './colors';
-import { focus, disabled, focusParams } from './classes';
+import { disabled, scrollbar } from './classes';
 import {
   colorVariants,
   sizeVariants,
   buttonSizes,
   colorsWithVariant,
   spinnerSizes,
-  squareSizes,
 } from './variants';
-import { breakpoints } from './breakpoints';
-import { accessibility } from './accessibility';
+/* eslint-enable import/order */
+
+// import { accessibility } from './accessibility';
 import { backdrop, blur } from './blur';
 import { border, lightBorder, darkBorder } from './border';
 import { lightInteraction, darkInteraction } from './interaction';
@@ -42,8 +45,6 @@ export {
   animation,
   lightShadow,
   darkShadow,
-  lightElevation,
-  darkElevation,
   duration,
   easing,
   keyframes,
@@ -52,10 +53,8 @@ export {
   sizeVariants,
   buttonSizes,
   spinnerSizes,
-  squareSizes,
-  focus,
-  focusParams,
   disabled,
+  scrollbar,
   colorsWithVariant,
   primitives,
   semantic,
@@ -63,9 +62,8 @@ export {
   darkSurface,
   lightContent,
   darkContent,
-  breakpoints,
   commonColors,
-  accessibility,
+  // accessibility,
   backdrop,
   blur,
   border,
@@ -97,13 +95,12 @@ export type FontSizeProps = keyof typeof fontSize;
 export type BoxShadowProps = keyof typeof lightShadow;
 export type AnimationProps = keyof typeof animation;
 export type KeyframesProps = keyof typeof keyframes;
-export type FocusProps = keyof typeof focus;
 export type DisabledProps = keyof typeof disabled;
+export type ScrollbarProps = keyof typeof scrollbar;
 export type ColorsWithVariantProps = keyof typeof colorsWithVariant;
 export type ButtonSizesProps = keyof typeof buttonSizes;
 export type SpinnerSizesProps = keyof typeof spinnerSizes;
 export type SquareSizesProps = keyof typeof squareSizes;
-export type BreakpointProps = keyof typeof breakpoints;
 export type DurationProps = keyof typeof duration;
 export type EasingProps = keyof typeof easing;
 export type FontWeightProps = keyof typeof fontWeight;
@@ -114,4 +111,5 @@ export type OpacityProps = keyof typeof opacity;
 export type BlurProps = keyof typeof blur;
 export type BorderWidthProps = keyof typeof border;
 export type SurfaceProps = keyof typeof lightSurface;
+export type OnSurfaceProps = Extract<keyof typeof lightSurface, `on-${string}`>;
 export type ContentProps = keyof typeof lightContent;

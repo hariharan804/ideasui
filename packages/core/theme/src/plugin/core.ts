@@ -14,7 +14,6 @@ import {
   borderRadius,
   fontSize,
   spacing,
-  breakpoints,
   letterSpacing,
   primitives,
   semantic,
@@ -26,7 +25,6 @@ import {
   border,
   blur,
   lightShadow,
-  lightElevation,
   lightSurface,
   darkSurface,
   lightContent,
@@ -40,7 +38,7 @@ import {
   componentShadows,
 } from '../tokens';
 
-import { flattenThemeObject, omit, escapeSelector, kebabCase } from './utils';
+import { flattenThemeObject, omit, escapeSelector } from './utils';
 import { processColors } from './colors';
 import { generateCSSVarsFromTokenOverrides } from './css-vars';
 
@@ -99,9 +97,10 @@ export function resolveConfig(
     baseStyles: {},
   };
 
-  for (const [themeName, { extend, colors, designTokens, semanticTokens }] of Object.entries(
-    themes,
-  )) {
+  for (const [
+    themeName,
+    { extend, colors, designTokens, semanticTokens, components },
+  ] of Object.entries(themes)) {
     const { cssSelector, baseSelector } = createThemeSelectors(themeName, defaultTheme);
     const colorScheme = getColorScheme(themeName, extend);
 
@@ -141,6 +140,28 @@ export function resolveConfig(
         ...semanticVars,
       };
     }
+
+    // Process component overrides
+    if (components) {
+      // Flatten the components object to simple key-value pairs
+      // e.g. { button: { base: { backgroundColor: 'red' } } } -> { 'button-base-backgroundColor': 'red' }
+      const flatComponents = flattenThemeObject(components || {}, 4) as Record<string, string>;
+      const componentVars: Record<string, string> = {};
+
+      Object.entries(flatComponents).forEach(([key, value]) => {
+        if (value !== undefined) {
+          // Convert camelCase CSS properties to kebab-case (e.g., backgroundColor -> background-color)
+          const formattedKey = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+
+          componentVars[`--${prefix}-${formattedKey}`] = value;
+        }
+      });
+
+      resolved.utilities[cssSelector] = {
+        ...resolved.utilities[cssSelector],
+        ...componentVars,
+      };
+    }
   }
 
   return resolved;
@@ -155,13 +176,18 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
   const themeData = config?.themes || {};
 
   // Extract user overrides
+  const globalDesignTokens = config?.designTokens || {};
   const globalSemanticTokens = config?.semanticTokens || {};
+  const globalComponents = config?.components || {};
+
   const userLightColors = themeData.light?.colors || {};
   const userLightTokens = themeData.light?.designTokens || {};
   const userLightSemantic = themeData.light?.semanticTokens || {};
   const userDarkColors = themeData.dark?.colors || {};
   const userDarkTokens = themeData.dark?.designTokens || {};
   const userDarkSemantic = themeData.dark?.semanticTokens || {};
+  const userLightComponents = themeData.light?.components || {};
+  const userDarkComponents = themeData.dark?.components || {};
 
   // Build theme configs
   const lightTheme: ConfigTheme = {
@@ -176,18 +202,9 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
       },
       userLightColors,
     ),
-    designTokens: deepMerge({}, userLightTokens),
-    semanticTokens: deepMerge(
-      deepMerge(
-        {
-          surface: lightSurface,
-          content: lightContent,
-          border: lightBorder,
-        },
-        globalSemanticTokens,
-      ),
-      userLightSemantic,
-    ),
+    designTokens: deepMerge(globalDesignTokens, userLightTokens),
+    semanticTokens: deepMerge(globalSemanticTokens, userLightSemantic),
+    components: deepMerge(globalComponents, userLightComponents),
   };
 
   const darkTheme: ConfigTheme = {
@@ -202,18 +219,9 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
       },
       userDarkColors,
     ),
-    designTokens: deepMerge({}, userDarkTokens),
-    semanticTokens: deepMerge(
-      deepMerge(
-        {
-          surface: darkSurface,
-          content: darkContent,
-          border: darkBorder,
-        },
-        globalSemanticTokens,
-      ),
-      userDarkSemantic,
-    ),
+    designTokens: deepMerge(globalDesignTokens, userDarkTokens),
+    semanticTokens: deepMerge(globalSemanticTokens, userDarkSemantic),
+    components: deepMerge(globalComponents, userDarkComponents),
   };
 
   // Merge with any custom themes
@@ -249,19 +257,37 @@ export function createThemeExtension(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Record<string, any> {
   const t = tokenOverrides;
-  const s = semanticTokens;
 
   return {
     // ── Colors (flat CSS variable references — v4 requires uniform types) ──
-    colors: { ...colors, transparent: 'transparent' },
-    surface: s.surface,
-    content: s.content,
+    colors: {
+      ...colors,
+      transparent: 'transparent',
+      // Map semantic overrides to their CSS variables
+      ...Object.fromEntries(
+        Object.keys(semanticTokens.surface || {}).map((key) => [
+          `surface-${key}`,
+          `var(--${_prefix}-color-surface-${key})`,
+        ]),
+      ),
+      ...Object.fromEntries(
+        Object.keys(semanticTokens.content || {}).map((key) => [
+          `content-${key}`,
+          `var(--${_prefix}-color-content-${key})`,
+        ]),
+      ),
+      ...Object.fromEntries(
+        Object.keys(semanticTokens.border || {}).map((key) => [
+          `border-${key}`,
+          `var(--${_prefix}-border-${key})`,
+        ]),
+      ),
+    },
 
     // ── Spacing (4px grid) ──
     spacing: { ...spacing, ...t.spacing },
 
     // ── Responsive ──
-    screens: { ...breakpoints, ...t.breakpoints },
     container: { center: true },
 
     // ── Layout ──
@@ -273,9 +299,15 @@ export function createThemeExtension(
       focus: colors['border-focus'],
       danger: colors['border-danger'],
       ...t.borderColor,
+      ...Object.fromEntries(
+        Object.keys(semanticTokens.border || {}).map((key) => [
+          key,
+          `var(--${_prefix}-border-${key})`,
+        ]),
+      ),
     },
     borderWidth: {
-      DEFAULT: border.default,
+      DEFAULT: border.thin,
       ...Object.fromEntries(
         Object.entries(border).filter(
           ([key]) => !key.startsWith('color') && !key.startsWith('width'),
@@ -295,15 +327,8 @@ export function createThemeExtension(
       ...Object.fromEntries(
         Object.keys(lightShadow).map((key) => [key, `var(--${_prefix}-shadow-${key})`]),
       ),
-      ...Object.fromEntries(
-        Object.entries(lightElevation).map(([key, _]) => [
-          key,
-          `var(--${_prefix}-elevation-${kebabCase(key)}-shadow)`,
-        ]),
-      ),
       ...flattenThemeObject(componentShadows),
       ...t.boxShadow,
-      ...s.elevation,
     },
 
     // ── Motion ──

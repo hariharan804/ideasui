@@ -10,7 +10,7 @@ const config: StorybookConfig = {
 
   stories: [
     //welcome story
-    // './welcome.mdx',
+    './welcome.mdx',
     '../../../packages/components/*/stories/*.stories.@(js|jsx|ts|tsx|mdx)',
     '../../../packages/core/theme/stories/*.stories.@(js|jsx|ts|tsx|mdx)',
     // "../../../packages/primitives/*/stories/*.stories.@(js|jsx|ts|tsx|mdx)",

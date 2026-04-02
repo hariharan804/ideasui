@@ -18,18 +18,28 @@ const PREFIX = 'ideasui';
 
 /**
  * Extract CSS variables from plugin by executing it with mock Tailwind API
+ * @returns {{ captured: { baseStyles: Record<string, any>, utilities: Record<string, any> }, config: any }}
  */
 function extractPluginStyles() {
-  const captured = { baseStyles: {} };
+  const captured = { baseStyles: {}, utilities: {} };
   const pluginData = ideasUIPlugin({ prefix: PREFIX });
   pluginData.handler({
     addBase: (styles) => {
-      Object.assign(captured.baseStyles, styles);
+      Object.entries(styles).forEach(([selector, rules]) => {
+        if (!captured.baseStyles[selector]) {
+          captured.baseStyles[selector] = {};
+        }
+        Object.assign(captured.baseStyles[selector], rules);
+      });
     },
-    addUtilities: () => {},
+    addUtilities: (utils) => {
+      Object.entries(utils).forEach(([selector, rules]) => {
+        captured.utilities[selector] = rules;
+      });
+    },
     addVariant: () => {},
   });
-  return captured.baseStyles;
+  return { captured, config: pluginData.config };
 }
 
 /**
@@ -61,7 +71,13 @@ function resolveValue(value, contextVars) {
  * Main generation function
  */
 function generateThemeCSS() {
-  const baseStyles = extractPluginStyles();
+  const { captured, config } = extractPluginStyles();
+  const themeExtend = config?.theme?.extend || {};
+  const animation = themeExtend.animation || {};
+  const keyframes = themeExtend.keyframes || {};
+
+  const baseStyles = captured.baseStyles;
+  const rawUtilities = captured.utilities;
   const rootVars = baseStyles[':root'] || {};
   // const lightSelector = Object.keys(baseStyles).find((s) => s.includes('light'));
   // const darkSelector = Object.keys(baseStyles).find((s) => s.includes('dark'));
@@ -181,22 +197,15 @@ function generateThemeCSS() {
     } else if (key.includes('-border-')) {
       // Only match actual border-width tokens, not semantic border-color tokens
       const borderSuffix = key.split('-border-').pop();
-      const BORDER_WIDTH_SUFFIXES = [
-        'hairline',
-        'thin',
-        'medium',
-        'thick',
-        'heavy',
-        'none',
-        'default',
-      ];
+      const BORDER_WIDTH_SUFFIXES = ['hairline', 'thin', 'medium', 'thick', 'heavy', 'none'];
       if (BORDER_WIDTH_SUFFIXES.includes(borderSuffix)) {
         category = 'border-width';
         subName = borderSuffix;
       } else {
         // Semantic border colors (base, subtle, emphasis, error, focus, success)
-        category = 'color';
-        subName = `border-${borderSuffix}`;
+        // We skip adding them to @theme as a color because it creates .border-border-subtle
+        // Instead, we will generate explicit @utility classes for them.
+        return;
       }
     } else if (key.startsWith(`--${PREFIX}`)) {
       // Remaining prefixed tokens are color tokens
@@ -218,12 +227,94 @@ function generateThemeCSS() {
     // Priority: Semantic aliases (shorter names) win over raw prefixed ones
     const isAlias = !key.startsWith(`--${PREFIX}`);
     if (!themeMappings.has(tailwindKey) || isAlias) {
-      const value = category === 'color' ? `oklch(var(${key}))` : `var(${key})`;
+      let value = `var(${key})`;
+      if (category === 'color') {
+        const resolvedValue = lightThemed[key];
+
+        // Handle specific overlay formatting from user request natively
+        if (key === `--${PREFIX}-color-active-overlay`) {
+          value = `oklch(var(--${PREFIX}-overlay-color) / var(--${PREFIX}-opacity-active-overlay))`;
+        } else if (key === `--${PREFIX}-color-hover-overlay`) {
+          value = `oklch(var(--${PREFIX}-overlay-color) / var(--${PREFIX}-opacity-hover-overlay))`;
+        } else if (key === `--${PREFIX}-color-surface-muted`) {
+          value = `oklch(var(--${PREFIX}-color-surface-muted) / var(--${PREFIX}-opacity-surface-muted))`;
+        } else if (key === `--${PREFIX}-color-surface-overlay`) {
+          value = `oklch(var(--${PREFIX}-color-surface-overlay) / var(--${PREFIX}-opacity-surface-overlay))`;
+        }
+        // Fallback checks
+        else if (resolvedValue && resolvedValue.includes('var(') && resolvedValue.includes('/')) {
+          value = `var(${key})`;
+        } else {
+          value = `oklch(var(${key}))`;
+        }
+      }
+      themeMappings.set(tailwindKey, `  ${tailwindKey}: ${value};`);
+    }
+  });
+
+  // Manually add the active and hover composite mappings since they
+  // are no longer explicit tokens loopable from `lightThemed`
+  themeMappings.set(
+    '--color-active-overlay',
+    `  --color-active-overlay: oklch(var(--${PREFIX}-overlay-color) / var(--${PREFIX}-opacity-active-overlay));`,
+  );
+  themeMappings.set(
+    '--color-hover-overlay',
+    `  --color-hover-overlay: oklch(var(--${PREFIX}-overlay-color) / var(--${PREFIX}-opacity-hover-overlay));`,
+  );
+
+  // Inject animations
+  Object.entries(animation).forEach(([key, value]) => {
+    if (key !== 'none') {
+      const tailwindKey = `--animate-${key}`;
       themeMappings.set(tailwindKey, `  ${tailwindKey}: ${value};`);
     }
   });
 
   const themeBlock = Array.from(themeMappings.values()).sort().join('\n');
+
+  // Inject keyframes
+  const keyframesBlock = Object.entries(keyframes)
+    .map(([name, frames]) => {
+      const frameLines = Object.entries(frames)
+        .map(([percent, props]) => {
+          const cssProps = Object.entries(props)
+            .map(([k, v]) => {
+              const kebabK = k.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
+              return `${kebabK}: ${v};`;
+            })
+            .join(' ');
+          return `    ${percent} { ${cssProps} }`;
+        })
+        .join('\n');
+      return `  @keyframes ${name} {\n${frameLines}\n  }`;
+    })
+    .join('\n\n');
+
+  // Explicitly generate @utility classes for semantic borders
+  const borderUtilities = Object.keys(lightThemed)
+    .filter((k) => k.startsWith(`--${PREFIX}-color-border-`))
+    .map((k) => {
+      const name = k.replace(`--${PREFIX}-color-border-`, '');
+      return `@utility border-${name} {\n  border-color: oklch(var(${k}));\n}`;
+    })
+    .join('\n\n');
+
+  // Format explicitly provided classes as Tailwind v4 @utility blocks using @apply
+  const classUtilities = Object.entries(rawUtilities)
+    .map(([selector, rules]) => {
+      // selector is like '.scrollbar-default', remove the dot
+      const name = selector.replace('.', '');
+      const applyRules = Object.keys(rules).filter((k) => k.startsWith('@apply'));
+      if (applyRules.length > 0) {
+        return `@utility ${name} {\n  ${applyRules[0]};\n}`;
+      }
+      return '';
+    })
+    .filter(Boolean)
+    .join('\n\n');
+
+  const combinedUtilities = [borderUtilities, classUtilities].filter(Boolean).join('\n\n');
 
   return `/**
  * IdeasUI Theme CSS
@@ -244,7 +335,12 @@ ${format(darkThemed)}
 /* Tailwind v4 Theme Mappings */
 @theme {
 ${themeBlock}
+
+${keyframesBlock}
 }
+
+/* Explicit Utilities */
+${combinedUtilities}
 `;
 }
 

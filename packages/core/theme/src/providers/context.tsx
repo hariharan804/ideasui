@@ -44,7 +44,7 @@ export function useThemeContext(): ThemeState {
 
   if (!context) {
     throw new Error(
-      'useThemeContext must be used within ThemeProvider. ' +
+      'IdeasUI: useThemeContext must be used within ThemeProvider. ' +
         'Wrap your app with <ThemeProvider> to use theme functionality.',
     );
   }

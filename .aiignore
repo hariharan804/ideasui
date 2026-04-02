@@ -1,20 +1,7 @@
-responsive design
-
-// Breakpoint-based props
-<Button size={{ base: 'sm', md: 'md', lg: 'lg' }} />
-<Grid cols={{ base: 1, md: 2, lg: 3 }} />
-<Text size={{ base: 'sm', md: 'md', lg: 'lg' }} />
-<Heading level={{ base: 3, md: 2, lg: 1 }} />
-
-const { isMobile, isTablet, isDesktop } = useBreakpoint()
-const screenSize = useMediaQuery('(min-width: 768px)')
-
-- jest coverage issues fixes - done
-- check chromatic and Visual testing - done
-- Check Change set log - done
-- check Git Commit lint - done
-- check CI/CD pipeline - done
-- check all file and test case 
-- theme colors confirmation
 - check component and theme real time test
 - Check rabbit and sonar implementation
+
+- git workflow check
+- docs and rule file update current setup
+- unwanded package and code remove
+- playground changes

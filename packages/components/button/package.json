@@ -1,16 +1,13 @@
 {
   "name": "@ideasui/button",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Button component",
   "author": "IdeasUI<support@ideasui.com>",
   "homepage": "https://ideasui.com",
   "license": "MIT",
   "main": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./recipes": "./src/recipes/index.ts",
-    "./system": "./src/system/index.ts",
-    "./tokens": "./src/tokens/index.ts"
+    ".": "./src/index.ts"
   },
   "files": [
     "src"

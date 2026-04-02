@@ -1,10 +1,17 @@
-/* eslint-disable no-magic-numbers */
+/* eslint-disable sonarjs/no-duplicate-string */
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ReactElement } from 'react';
 
 import { useState } from 'react';
 
-import { primitives } from '../src/tokens/colors';
+import {
+  primitives,
+  semantic,
+  lightSurface,
+  darkSurface,
+  lightContent,
+  darkContent,
+} from '../src/tokens/colors';
 
 const meta: Meta = {
   title: 'Theme/Colors',
@@ -15,6 +22,8 @@ const meta: Meta = {
 
 export default meta;
 type Story = StoryObj;
+
+const COPY_FEEDBACK_DELAY = 1500;
 
 const ColorSwatch = ({
   name,
@@ -32,7 +41,7 @@ const ColorSwatch = ({
   const handleCopy = (): void => {
     navigator.clipboard.writeText(value);
     setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    setTimeout(() => setCopied(false), COPY_FEEDBACK_DELAY);
   };
 
   return (
@@ -47,7 +56,7 @@ const ColorSwatch = ({
     >
       <div
         className="h-14 w-14 shrink-0 rounded-xl shadow-sm ring-1 ring-black/5 transition-transform duration-200 group-hover:scale-105"
-        style={{ backgroundColor: value }}
+        style={{ backgroundColor: value.includes('var(') ? `oklch(${value})` : value }}
       />
       <div className="min-w-0 flex-1">
         <div className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -93,6 +102,75 @@ const ColorScale = ({
       {Object.entries(colors).map(([shade, value]) => (
         <ColorSwatch key={shade} isDark={isDark} name={colorName} shade={shade} value={value} />
       ))}
+    </div>
+  </div>
+);
+
+const SemanticTokenCard = ({
+  name,
+  role,
+  value,
+  isDark = false,
+}: {
+  name: string;
+  role: string;
+  value: string;
+  isDark?: boolean;
+}): ReactElement => (
+  <div
+    className={`flex items-center gap-4 rounded-xl border p-4 transition-all duration-200 ${
+      isDark
+        ? 'border-white/10 bg-white/5 hover:border-white/20'
+        : 'border-gray-100 bg-white hover:border-gray-200 hover:shadow-md'
+    }`}
+  >
+    <div
+      className="h-12 w-12 shrink-0 rounded-xl shadow-sm ring-1 ring-black/5"
+      style={{ backgroundColor: value.includes('var(') ? `oklch(${value})` : value }}
+    />
+    <div className="min-w-0 flex-1">
+      <div className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+        {name}.{role}
+      </div>
+      <div className={`mt-0.5 font-mono text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+        {value}
+      </div>
+    </div>
+  </div>
+);
+
+const SurfaceCard = ({
+  name,
+  value,
+  description,
+  isDark = false,
+}: {
+  name: string;
+  value: string;
+  description?: string;
+  isDark?: boolean;
+}): ReactElement => (
+  <div
+    className={`flex items-center gap-4 rounded-xl border p-4 ${
+      isDark ? 'border-white/10 bg-white/5' : 'border-gray-100 bg-white'
+    }`}
+  >
+    <div
+      className="h-12 w-12 shrink-0 rounded-xl ring-1 ring-black/10"
+      style={{ backgroundColor: value.includes('var(') ? `oklch(${value})` : value }}
+    />
+    <div className="min-w-0 flex-1">
+      <div className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+        {name}
+      </div>
+      <div className={`font-mono text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+        {value}
+      </div>
+      {description ? (
+        <div className={`mt-0.5 text-xs ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+          {description}
+        </div>
+      ) : null}
     </div>
   </div>
 );
@@ -166,7 +244,9 @@ export const ColorComparison: Story = {
                     <div
                       key={shade}
                       className="group relative h-12 w-12 cursor-pointer rounded-xl shadow-sm ring-1 ring-black/5 transition-transform hover:scale-110"
-                      style={{ backgroundColor: value }}
+                      style={{
+                        backgroundColor: value.includes('var(') ? `oklch(${value})` : value,
+                      }}
                       title={`${colorName}-${shade}: ${value}`}
                     >
                       <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-medium whitespace-nowrap text-gray-500 opacity-0 transition-opacity group-hover:opacity-100">
@@ -185,7 +265,9 @@ export const ColorComparison: Story = {
                     <div
                       key={shade}
                       className="group relative h-12 w-12 cursor-pointer rounded-xl shadow-sm ring-1 ring-white/10 transition-transform hover:scale-110"
-                      style={{ backgroundColor: value }}
+                      style={{
+                        backgroundColor: value.includes('var(') ? `oklch(${value})` : value,
+                      }}
                       title={`${colorName}-${shade}: ${value}`}
                     >
                       <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-medium whitespace-nowrap text-gray-400 opacity-0 transition-opacity group-hover:opacity-100">
@@ -199,6 +281,144 @@ export const ColorComparison: Story = {
           </div>
         );
       })}
+    </div>
+  ),
+};
+
+export const SemanticColors: Story = {
+  render: (): ReactElement => (
+    <div className="space-y-8">
+      <div className="mb-10">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Semantic Color Tokens</h2>
+        <p className="mt-2 text-lg text-gray-600">
+          Role-based color mappings: base, onBase, subtle, onSubtle
+        </p>
+      </div>
+      <div className="grid gap-6 lg:grid-cols-2">
+        {Object.entries(semantic).map(([colorName, roles]) => (
+          <div
+            key={colorName}
+            className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50"
+          >
+            <div className="border-b border-gray-100 px-5 py-4">
+              <h3 className="text-lg font-bold text-gray-900 capitalize">{colorName}</h3>
+            </div>
+            <div className="grid grid-cols-1 gap-2 p-4">
+              {Object.entries(roles).map(([role, value]) => (
+                <SemanticTokenCard key={role} name={colorName} role={role} value={value} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ),
+};
+
+export const SurfaceTokens: Story = {
+  render: (): ReactElement => (
+    <div className="space-y-10">
+      <div className="mb-10">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Surface Tokens</h2>
+        <p className="mt-2 text-lg text-gray-600">
+          Background surfaces for layouts, containers, and overlays
+        </p>
+      </div>
+      <div className="grid gap-8 lg:grid-cols-2">
+        {/* Light surfaces */}
+        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+          <div className="border-b border-gray-100 px-5 py-4">
+            <h3 className="text-lg font-bold text-gray-900">Light Surfaces</h3>
+          </div>
+          <div className="grid grid-cols-1 gap-2 p-4">
+            {Object.entries(lightSurface).map(([key, value]) => (
+              <SurfaceCard key={key} name={key} value={value} />
+            ))}
+          </div>
+        </div>
+
+        {/* Dark surfaces */}
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-gray-950">
+          <div className="border-b border-white/10 px-5 py-4">
+            <h3 className="text-lg font-bold text-white">Dark Surfaces</h3>
+          </div>
+          <div className="grid grid-cols-1 gap-2 p-4">
+            {Object.entries(darkSurface).map(([key, value]) => (
+              <SurfaceCard key={key} isDark name={key} value={value} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+export const ContentTokens: Story = {
+  render: (): ReactElement => (
+    <div className="space-y-10">
+      <div className="mb-10">
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Content Tokens</h2>
+        <p className="mt-2 text-lg text-gray-600">
+          Text color hierarchy for primary, secondary, muted, and disabled states
+        </p>
+      </div>
+      <div className="grid gap-8 lg:grid-cols-2">
+        {/* Light content */}
+        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+          <div className="border-b border-gray-100 px-5 py-4">
+            <h3 className="text-lg font-bold text-gray-900">Light Content</h3>
+          </div>
+          <div className="space-y-3 p-5">
+            {Object.entries(lightContent).map(([key, value]) => (
+              <div
+                key={key}
+                className="flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-4"
+              >
+                <div className="flex-1">
+                  <div
+                    className="text-lg font-medium"
+                    style={{ color: value.includes('var(') ? `oklch(${value})` : value }}
+                  >
+                    The quick brown fox jumps over the lazy dog
+                  </div>
+                </div>
+                <div className="shrink-0 text-right">
+                  <div className="text-sm font-semibold text-gray-900">{key}</div>
+                  <div className="mt-0.5 font-mono text-xs text-gray-500">{value}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Dark content */}
+        <div className="overflow-hidden rounded-2xl border border-white/10 bg-gray-950">
+          <div className="border-b border-white/10 px-5 py-4">
+            <h3 className="text-lg font-bold text-white">Dark Content</h3>
+          </div>
+          <div className="space-y-3 p-5">
+            {Object.entries(darkContent).map(([key, value]) => (
+              <div
+                key={key}
+                className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4"
+              >
+                <div className="flex-1">
+                  <div
+                    className="text-lg font-medium"
+                    style={{ color: value.includes('var(') ? `oklch(${value})` : value }}
+                  >
+                    The quick brown fox jumps over the lazy dog
+                  </div>
+                </div>
+                <div className="shrink-0 text-right">
+                  <div className="text-sm font-semibold text-white">{key}</div>
+                  <div className="mt-0.5 font-mono text-xs text-gray-400">{value}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   ),
 };

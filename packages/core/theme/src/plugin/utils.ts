@@ -102,12 +102,17 @@ export const escapeSelector = (str: string): string => {
 /**
  * Flattens a theme object
  * @param {TTarget} obj - The theme object to flatten
+ * @param {number} maxDepth - The maximum flattening depth
  * @returns {Record<string, unknown>} The flattened theme object
  */
-export const flattenThemeObject = <TTarget>(obj: TTarget): Record<string, unknown> => {
+export const flattenThemeObject = <TTarget>(
+  obj: TTarget,
+  maxDepth?: number,
+): Record<string, unknown> => {
   return flatten(obj, {
     safe: true,
     delimiter: '-',
+    maxDepth,
   }) as Record<string, unknown>;
 };
 
@@ -235,7 +240,17 @@ export function parseColorValue(colorValue: string): ParsedColor | null {
  * @returns {string} The formatted color string
  */
 export function formatColorComponents(components: (string | number)[]): string {
-  return components.filter((c) => c !== undefined).join(' ');
+  const validComponents = components.filter((c) => c !== undefined);
+
+  if (
+    validComponents.length === 4 &&
+    validComponents[3] !== '<alpha-value>' &&
+    validComponents[3] !== '/'
+  ) {
+    return `${validComponents[0]} ${validComponents[1]} ${validComponents[2]} / ${validComponents[3]}`;
+  }
+
+  return validComponents.join(' ').replace(/\s+\/\s+/g, ' / ');
 }
 
 /**
@@ -243,8 +258,7 @@ export function formatColorComponents(components: (string | number)[]): string {
  * @param {string} key - The key to check
  * @returns {boolean} True if key is a numeric shade
  */
-export const isNumericShade = (key: string): boolean =>
-  /^(50|100|200|300|400|500|600|700|800|900|950)$/.test(key);
+export const isNumericShade = (key: string): boolean => /^\d+$/.test(key);
 
 /** Regex to extract color base name from flattened key */
-export const COLOR_NAME_REGEX = /^([a-z]+)-(50|100|200|300|400|500|600|700|800|900|950)$/i;
+export const COLOR_NAME_REGEX = /^([a-z]+)-(\d+)$/i;

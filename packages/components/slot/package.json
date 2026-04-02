@@ -17,7 +17,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ideas2logic-lab/ideasui.git",
-    "directory": "packages/components/button"
+    "directory": "packages/components/slot"
   },
   "bugs": {
     "url": "https://github.com/ideas2logic-lab/ideasui/issues"
