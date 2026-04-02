@@ -103,6 +103,40 @@ After exiting, the next `pnpm version` will perform a stable release (e.g., `1.0
 
 ---
 
+## 4. Manual Single Package Release (From Root)
+
+If you need to bypass `changesets` to release only one specific package (without cascading version bumps to dependents), you can run everything directly from the monorepo root using pnpm's `--filter` flag.
+
+**Steps:**
+
+1.  **Manually Bump the Version:**
+    Open the targeted `package.json` (e.g., `packages/core/theme/package.json`) and manually update the `"version"` field.
+    _(Note: Running `pnpm version patch` directly usually fails due to strict workspace peer-dependency checks, so typing the new version by hand is much safer.)_
+
+2.  **Build the Package:**
+    Use the `--filter` flag to build only that specific package from the root:
+
+    ```bash
+    pnpm --filter @ideasui/theme build
+    ```
+
+3.  **Publish to NPM:**
+    Publish using `--filter` to run the command inside the specific package context:
+
+    ```bash
+    pnpm --filter @ideasui/theme publish --access public --no-git-checks
+    ```
+
+    _(If you encounter a `404 Not Found` error, ensure you are logged into the correct NPM account via `npm login` and have permissions for `@ideasui`. If you hit a `clean-package` module resolution error, verify your root node_modules are intact by running `pnpm install`)._
+
+4.  **Commit the manual bump:**
+    ```bash
+    git add packages/core/theme/package.json
+    git commit -m "chore: bumped @ideasui/theme version manually"
+    ```
+
+---
+
 ## Command Cheat Sheet
 
 | Task                 | Command                        | Description                                |

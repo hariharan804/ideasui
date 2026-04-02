@@ -1,6 +1,7 @@
 {
   "name": "@ideasui/storybook",
   "version": "0.0.1",
+  "private": true,
   "description": "The IdeasUI all components storybook",
   "keywords": [
     "storybook"
@@ -14,9 +15,6 @@
   "files": [
     "dist"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ideasui/ideasui.git",

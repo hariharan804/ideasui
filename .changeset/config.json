@@ -3,7 +3,7 @@
 
   "changelog": [
     "@changesets/changelog-github",
-    { "repo": "@ideas2logic/ideasui" }
+    { "repo": "ideas2logic-lab/ideasui" }
   ],
 
   "commit": false,
@@ -11,6 +11,10 @@
   "baseBranch": "master",
 
   "updateInternalDependencies": "patch",
+  "ignore": [
+    "@ideasui/storybook",
+    "@ideasui/playground"
+  ],
 
   "snapshot": {
     "useCalculatedVersion": true,
