@@ -86,7 +86,7 @@ pnpm run lint:fix
 pnpm run format
 
 # Type checking
-pnpm run type-check
+pnpm run typecheck
 ```
 
 ## 📦 Individual Package Commands
@@ -130,7 +130,7 @@ pnpm --filter "./packages/components/*" test
 | `--filter "...@ideasui/button"` | Package and its dependencies         |
 | `--filter "@ideasui/button..."` | Package and its dependents           |
 
-## �🔍 Troubleshooting
+## 🔍 Troubleshooting
 
 ### Common Issues
 

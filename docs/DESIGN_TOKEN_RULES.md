@@ -104,36 +104,6 @@ Before adding a token, answer:
 
 ---
 
-### 10. Color scales MUST be duplicated per theme (DO NOT DEDUPE)
-
-```css
-/* ⚠️ INTENTIONAL DUPLICATION — DO NOT "FIX" */
-
-:root,
-[data-ideasui-theme='light'] {
-  --neutral-50: #fafafa;
-  --primary-500: #3b82f6;
-  /* ... full scale */
-}
-
-[data-ideasui-theme='dark'] {
-  --neutral-50: #fafafa;
-  --primary-500: #3b82f6;
-  /* ... full scale (can differ per theme) */
-}
-```
-
-**Why this is NOT duplication:**
-
-1. **Theme isolation** — Each theme owns its palette completely
-2. **Future flexibility** — Dark mode may need adjusted hues (warmer blues, etc.)
-3. **Testing** — Themes can be tested independently
-4. **Specificity** — Theme overrides work correctly
-
-**This is BY DESIGN.** Do not move color scales to `:root`.
-
----
-
 ### 8. Border token naming convention (LOCKED)
 
 | Token Pattern            | Purpose                                                                |
@@ -233,5 +203,35 @@ font-weight: var(--text-label-weight);
 
 > **Tokens describe meaning.**  
 > **Code describes behavior.**
+
+---
+
+### 10. Color scales MUST be duplicated per theme (DO NOT DEDUPE)
+
+```css
+/* ⚠️ INTENTIONAL DUPLICATION — DO NOT "FIX" */
+
+:root,
+[data-ideasui-theme='light'] {
+  --neutral-50: #fafafa;
+  --primary-500: #3b82f6;
+  /* ... full scale */
+}
+
+[data-ideasui-theme='dark'] {
+  --neutral-50: #fafafa;
+  --primary-500: #3b82f6;
+  /* ... full scale (can differ per theme) */
+}
+```
+
+**Why this is NOT duplication:**
+
+1. **Theme isolation** — Each theme owns its palette completely
+2. **Future flexibility** — Dark mode may need adjusted hues (warmer blues, etc.)
+3. **Testing** — Themes can be tested independently
+4. **Specificity** — Theme overrides work correctly
+
+**This is BY DESIGN.** Do not move color scales to `:root`.
 
 Tokens are the _what_. CSS is the _how_.
