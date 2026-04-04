@@ -2,9 +2,9 @@ name: Chromatic
 
 # on:
 #   pull_request:
-#     branches: [master]
+#     branches: [dev]
 #   push:
-#     branches: [master]
+#     branches: [dev]
 on:
   workflow_dispatch: # Allow manual trigger only
 
