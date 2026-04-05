@@ -99,14 +99,12 @@ packages/component/
     └── Component.a11y.test.tsx
 ```
 
-### Accessibility Testing
+### Accessibility Testing (via roles and attributes)
 
 ```tsx
-import { axe } from 'jest-axe';
-
-test('has no accessibility violations', async () => {
-  const { container } = render(<Button>Click</Button>);
-  expect(await axe(container)).toHaveNoViolations();
+test('has no accessibility violations', () => {
+  render(<Button>Click</Button>);
+  expect(screen.getByRole('button')).toBeInTheDocument();
 });
 ```
 

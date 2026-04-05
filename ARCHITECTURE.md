@@ -505,14 +505,6 @@ describe('TextField', () => {
     );
     expect(getByText('Invalid email')).toBeInTheDocument();
   });
-
-  it('has no accessibility violations', async () => {
-    const { container } = render(
-      <TextField label="Name" />
-    );
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
-  });
 });
 ```
 
@@ -581,15 +573,12 @@ export const Sizes: Story = {
 - State management
 - Edge cases
 
-**2. Accessibility Tests**
+**2. Accessibility Tests** (via roles and attributes)
 
 ```typescript
-import { axe } from 'jest-axe';
-
-it('has no a11y violations', async () => {
-  const { container } = render(<Component />);
-  const results = await axe(container);
-  expect(results).toHaveNoViolations();
+it('has the proper role', () => {
+  render(<Component />);
+  expect(screen.getByRole('button')).toBeInTheDocument();
 });
 ```
 

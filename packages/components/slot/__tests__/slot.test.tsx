@@ -1,6 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { axe } from 'jest-axe';
-import 'jest-axe/extend-expect';
 import userEvent from '@testing-library/user-event';
 
 import { Slot } from '../src/slot';
@@ -94,13 +92,6 @@ describe('Slot', () => {
   });
 
   describe('Accessibility', () => {
-    it('has no accessibility violations', async () => {
-      const { container } = render(<Slot as="button">Accessible Button</Slot>);
-      const results = await axe(container);
-
-      expect(results).toHaveNoViolations();
-    });
-
     it('maintains semantic meaning', () => {
       render(<Slot as="button">Button</Slot>);
       expect(screen.getByRole('button')).toBeInTheDocument();

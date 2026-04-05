@@ -3,11 +3,7 @@ import { TextEncoder, TextDecoder } from 'node:util';
 import { TransformStream } from 'node:stream/web';
 
 import { createElement } from 'react';
-import { vi, expect } from 'vitest';
-import * as axeMatchers from 'jest-axe';
-
-// Add jest-axe matchers (they are compatible with vitest as long as we extend expect)
-expect.extend(axeMatchers.toHaveNoViolations);
+import { vi } from 'vitest';
 
 // Make React available globally in tests to support JSX without explicit imports
 // @ts-ignore

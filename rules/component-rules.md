@@ -94,7 +94,6 @@ return <button {...buttonProps} />;
 
 - Render test
 - Props test
-- Accessibility test (jest-axe)
 - Keyboard interaction test
 
 ```tsx
@@ -105,15 +104,10 @@ describe('Button', () => {
   });
 
   it('handles click events', async () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     render(<Button onClick={onClick}>Click</Button>);
     await userEvent.click(screen.getByRole('button'));
     expect(onClick).toHaveBeenCalled();
-  });
-
-  it('has no a11y violations', async () => {
-    const { container } = render(<Button>Click</Button>);
-    expect(await axe(container)).toHaveNoViolations();
   });
 });
 ```

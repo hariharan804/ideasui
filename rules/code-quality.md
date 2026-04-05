@@ -179,7 +179,6 @@ useEffect(() => {
 
 - Minimum 80% code coverage
 - Test all component variants
-- Test accessibility with jest-axe
 - Test user interactions
 - Test error states
 

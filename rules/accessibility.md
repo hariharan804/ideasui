@@ -201,7 +201,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 
 ### Automated Testing:
 
-Tools: `@testing-library/jest-dom`, `axe-core`, `jest-axe`
+Tools: `@testing-library/jest-dom`, `axe-core`, `@axe-core/playwright`
 
 Test Requirements:
 
@@ -211,13 +211,10 @@ Test Requirements:
 - Validate Screen-reader labels
 
 ```tsx
-// ✅ Accessibility tests
-import { axe } from 'jest-axe';
-
-it('should have no a11y violations', async () => {
-  const { container } = render(<Button>Click me</Button>);
-  const results = await axe(container);
-  expect(results).toHaveNoViolations();
+// ✅ Accessibility tests (role and state)
+it('should have the proper role', () => {
+  render(<Button>Click me</Button>);
+  expect(screen.getByRole('button')).toBeInTheDocument();
 });
 ```
 
@@ -239,7 +236,7 @@ it('should have no a11y violations', async () => {
 - [ ] Focus indicators visible
 - [ ] Color contrast meets standards
 - [ ] Screen reader announces correctly
-- [ ] No accessibility violations in tests
+- [ ] Proper roles and states are used
 - [ ] Touch targets are adequate size
 - [ ] Works with zoom up to 200%
 - [ ] Respects reduced motion preferences

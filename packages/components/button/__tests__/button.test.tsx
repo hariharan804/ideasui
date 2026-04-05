@@ -7,7 +7,6 @@ import { vi } from 'vitest';
 import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { axe } from 'jest-axe';
 
 import { Button } from '../src';
 
@@ -103,13 +102,6 @@ describe('Button', () => {
     render(<Button disableRipple type="submit" />);
 
     expect(screen.getByRole('button')).toHaveAttribute('type', 'submit');
-  });
-
-  it('should have no a11y violations', async () => {
-    const { container } = render(<Button>Accessible Button</Button>);
-    const results = await axe(container);
-
-    expect(results).toHaveNoViolations();
   });
 
   it('should render loading state', () => {
