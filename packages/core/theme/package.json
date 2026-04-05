@@ -1,6 +1,6 @@
 {
   "name": "@ideasui/theme",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "description": "Tailwind CSS v4 theme system for IdeasUI",
   "main": "./src/index.ts",
@@ -41,9 +41,9 @@
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "tailwindcss": ">=4"
+    "react": ">=18",
+    "react-dom": ">=18",
+    "tailwindcss": ">=4.0.0"
   },
   "devDependencies": {
     "@ideasui/utils": "workspace:*",
