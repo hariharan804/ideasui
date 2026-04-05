@@ -21,6 +21,14 @@ jobs:
       - name: Setup environment
         uses: ./.github/composite-actions/install
 
+      - name: Turbo Cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
       # 1️⃣ Format Check (Prettier)
       - name: Prettier Check
         run: pnpm run format:check
