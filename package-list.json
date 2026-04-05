@@ -3,7 +3,7 @@
     {
       "name": "@ideasui/button",
       "displayName": "button",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Button component",
       "path": "packages/components/button",
       "keywords": [],
@@ -32,7 +32,7 @@
                 },
                 {
                   "name": "variant",
-                  "type": "\"solid\" | \"outline\" | \"ghost\"",
+                  "type": "'solid' | 'outline' | 'ghost'",
                   "description": "Visual variant of the button",
                   "optional": true,
                   "default": "solid",
@@ -48,7 +48,7 @@
                 },
                 {
                   "name": "size",
-                  "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+                  "type": "'xs' | 'sm' | 'md' | 'lg' | 'xl'",
                   "description": "Size of the button",
                   "optional": true,
                   "default": "md",
@@ -56,7 +56,7 @@
                 },
                 {
                   "name": "radius",
-                  "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"full\"",
+                  "type": "'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'",
                   "description": "Border radius variant",
                   "optional": true,
                   "default": "md",
@@ -178,16 +178,97 @@
                   "isDeprecated": false
                 }
               ]
-            }
-          ],
-          "types": [
+            },
             {
               "name": "UseButtonReturn",
-              "definition": "ReturnType<typeof useButton>"
+              "props": [
+                {
+                  "name": "domRef",
+                  "type": "React.RefObject<HTMLButtonElement | null>",
+                  "description": "",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "isPressed",
+                  "type": "boolean",
+                  "description": "",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "isDisabled",
+                  "type": "boolean",
+                  "description": "",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "isLoading",
+                  "type": "boolean",
+                  "description": "",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "isFocused",
+                  "type": "boolean",
+                  "description": "",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "isFocusVisible",
+                  "type": "boolean",
+                  "description": "",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "isHovered",
+                  "type": "boolean",
+                  "description": "",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "ripples",
+                  "type": "RippleItem[]",
+                  "description": "",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "getButtonProps",
+                  "type": "( userProps?: React.HTMLAttributes<HTMLButtonElement>, ) => React.HTMLAttributes<HTMLButtonElement>",
+                  "description": "",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "getRippleProps",
+                  "type": "() => { ripples: RippleItem[]",
+                  "description": "",
+                  "optional": false,
+                  "isDeprecated": false
+                }
+              ]
             }
           ],
+          "types": [],
           "props": [],
-          "events": [],
+          "events": [
+            {
+              "name": "onProps",
+              "type": "(userProps?: React.HTMLAttributes<HTMLButtonElement>,) => React",
+              "description": "Event handler for props events"
+            },
+            {
+              "name": "onClear",
+              "type": "(key: React.Key) => void",
+              "description": "Event handler for clear events"
+            }
+          ],
           "importInstructions": [
             {
               "method": "global",
@@ -206,7 +287,7 @@
     {
       "name": "@ideasui/ripple",
       "displayName": "ripple",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "description": "Ripple component for IdeasUI",
       "path": "packages/components/ripple",
       "keywords": [],
@@ -227,7 +308,7 @@
               "props": [
                 {
                   "name": "key",
-                  "type": "React.Key",
+                  "type": "Key",
                   "description": "",
                   "optional": false,
                   "isDeprecated": false
@@ -274,21 +355,21 @@
                 },
                 {
                   "name": "style",
-                  "type": "React.CSSProperties",
+                  "type": "CSSProperties",
                   "description": "",
                   "optional": true,
                   "isDeprecated": false
                 },
                 {
                   "name": "motionProps",
-                  "type": "Omit<HTMLMotionProps<\"span\">, \"ref\">",
+                  "type": "Omit<HTMLMotionProps<'span'>, 'ref'>",
                   "description": "",
                   "optional": true,
                   "isDeprecated": false
                 },
                 {
                   "name": "onClear",
-                  "type": "(id: React.Key) => void",
+                  "type": "(id: Key) => void",
                   "description": "",
                   "optional": false,
                   "isDeprecated": false
@@ -301,7 +382,7 @@
           "events": [
             {
               "name": "onClear",
-              "type": "(id: React.Key) => void",
+              "type": "(id: Key) => void",
               "description": "Event handler for clear events"
             }
           ],
@@ -325,7 +406,7 @@
               "props": [
                 {
                   "name": "as",
-                  "type": "keyof React.JSX.IntrinsicElements",
+                  "type": "keyof JSX.IntrinsicElements",
                   "description": "Render element type",
                   "optional": true,
                   "default": "button",
@@ -368,12 +449,27 @@
           "interfaces": [],
           "types": [
             {
+              "name": "RippleEvent",
+              "definition": "| React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement> | React.PointerEvent<HTMLElement> | React.KeyboardEvent<HTMLElement> // eslint-disable-next-line @typescript-eslint/no-explicit-any | any"
+            },
+            {
               "name": "UseRippleReturn",
               "definition": "ReturnType<typeof useRipple>"
             }
           ],
           "props": [],
-          "events": [],
+          "events": [
+            {
+              "name": "onPress",
+              "type": "(event: RippleEvent) => void",
+              "description": "Event handler for press events"
+            },
+            {
+              "name": "onClear",
+              "type": "(key: React.Key) => void",
+              "description": "Event handler for clear events"
+            }
+          ],
           "importInstructions": [
             {
               "method": "global",
@@ -429,7 +525,7 @@
                 },
                 {
                   "name": "children",
-                  "type": "React.ReactNode",
+                  "type": "ReactNode",
                   "description": "Content to render inside the slot",
                   "optional": true,
                   "isDeprecated": false
@@ -460,12 +556,12 @@
     {
       "name": "@ideasui/theme",
       "displayName": "theme",
-      "version": "0.1.0",
+      "version": "0.0.3",
       "description": "Tailwind CSS v4 theme system for IdeasUI",
       "path": "packages/core/theme",
       "keywords": ["tailwindcss", "theme", "design-system", "css", "ui"],
       "hasReadme": true,
-      "componentFiles": [],
+      "componentFiles": ["types.ts"],
       "installCommands": {
         "npm": "npm install @ideasui/theme",
         "pnpm": "pnpm add @ideasui/theme",
@@ -473,7 +569,86 @@
         "bun": "bun add @ideasui/theme"
       },
       "installNote": "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
-      "documentation": {}
+      "documentation": {
+        "types.ts": {
+          "interfaces": [
+            {
+              "name": "TokenOverrides",
+              "props": []
+            },
+            {
+              "name": "SemanticTokenOverrides",
+              "props": []
+            },
+            {
+              "name": "ThemeOptions",
+              "props": []
+            },
+            {
+              "name": "ThemeConfig",
+              "props": [
+                {
+                  "name": "light",
+                  "type": "ThemeOptions",
+                  "description": "",
+                  "optional": true,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "dark",
+                  "type": "ThemeOptions",
+                  "description": "",
+                  "optional": true,
+                  "isDeprecated": false
+                }
+              ]
+            },
+            {
+              "name": "ColorScale",
+              "props": []
+            },
+            {
+              "name": "ColorTokens",
+              "props": []
+            }
+          ],
+          "types": [
+            {
+              "name": "ThemeMode",
+              "definition": "'light' | 'dark' | 'system'"
+            },
+            {
+              "name": "ColorFn",
+              "definition": "'oklch' | 'var'"
+            },
+            {
+              "name": "ConfigTheme",
+              "definition": "{ readonly extend?: 'light' | 'dark'"
+            },
+            {
+              "name": "ConfigThemes",
+              "definition": "Record<string, ConfigTheme>"
+            },
+            {
+              "name": "ResolvedConfig",
+              "definition": "{ variants: { name: string"
+            },
+            {
+              "name": "ParsedColor",
+              "definition": "{ cssFn: ColorFn"
+            }
+          ],
+          "props": [],
+          "events": [],
+          "importInstructions": [
+            {
+              "method": "individual",
+              "code": "import { Types } from \"@ideasui/theme\";",
+              "description": "Import from package"
+            }
+          ]
+        }
+      }
     }
   ],
   "hooks": [],
@@ -497,293 +672,6 @@
       "documentation": {}
     }
   ],
-  "icons": [
-    {
-      "name": "@ideasui/icons",
-      "displayName": "icons",
-      "version": "0.0.0",
-      "description": "Shared icon library",
-      "path": "packages/icons",
-      "keywords": [],
-      "hasReadme": true,
-      "componentFiles": [
-        "Check.tsx",
-        "ChevronDown.tsx",
-        "ChevronUp.tsx",
-        "DynamicIcon.tsx",
-        "Eye.tsx",
-        "EyeOff.tsx",
-        "IconSet.tsx",
-        "Loader.tsx",
-        "Search.tsx",
-        "X.tsx",
-        "createIcon.tsx",
-        "types.ts"
-      ],
-      "installCommands": {
-        "npm": "npm install @ideasui/icons",
-        "pnpm": "pnpm add @ideasui/icons",
-        "yarn": "yarn add @ideasui/icons",
-        "bun": "bun add @ideasui/icons"
-      },
-      "installNote": "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
-      "documentation": {
-        "Check.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { Check } from \"@ideasui/src\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "ChevronDown.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { ChevronDown } from \"@ideasui/src\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "ChevronUp.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { ChevronUp } from \"@ideasui/src\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "DynamicIcon.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { DynamicIcon } from \"@ideasui/src\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "Eye.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { Eye } from \"@ideasui/src\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "EyeOff.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { EyeOff } from \"@ideasui/src\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "IconSet.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { IconSet } from \"@ideasui/src\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "Loader.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { Loader } from \"@ideasui/src\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "Search.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { Search } from \"@ideasui/src\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "X.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { X } from \"@ideasui/src\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "createIcon.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { CreateIcon } from \"@ideasui/src\";",
-              "description": "Import from package"
-            }
-          ]
-        },
-        "types.ts": {
-          "interfaces": [
-            {
-              "name": "IconProps",
-              "props": [
-                {
-                  "name": "size",
-                  "type": "number | string",
-                  "description": "Icon size in pixels",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "color",
-                  "type": "string",
-                  "description": "Icon color (CSS color value)",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "strokeWidth",
-                  "type": "number | string",
-                  "description": "Stroke width",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "className",
-                  "type": "string",
-                  "description": "Additional CSS classes",
-                  "optional": true,
-                  "isDeprecated": false
-                }
-              ]
-            },
-            {
-              "name": "DynamicIconProps",
-              "props": [
-                {
-                  "name": "name",
-                  "type": "string",
-                  "description": "Name of the icon to load dynamically",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "fallback",
-                  "type": "React.FC<IconProps>",
-                  "description": "Fallback component to show while loading or on error",
-                  "optional": true,
-                  "isDeprecated": false
-                }
-              ]
-            },
-            {
-              "name": "IconSetProps",
-              "props": [
-                {
-                  "name": "size",
-                  "type": "number | string",
-                  "description": "Default size for all icons in the set",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "color",
-                  "type": "string",
-                  "description": "Default color for all icons in the set",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "className",
-                  "type": "string",
-                  "description": "Default class name for all icons in the set",
-                  "optional": true,
-                  "isDeprecated": false
-                }
-              ]
-            }
-          ],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "individual",
-              "code": "import { Types } from \"@ideasui/src\";",
-              "description": "Import from package"
-            }
-          ]
-        }
-      }
-    }
-  ],
-  "cli": [
-    {
-      "name": "@ideasui/cli",
-      "displayName": "cli",
-      "version": "0.1.0",
-      "description": "CLI for IdeasUI component library",
-      "path": "packages/cli",
-      "keywords": ["ideasui", "cli", "components", "react", "typescript"],
-      "hasReadme": true,
-      "componentFiles": [],
-      "installCommands": {
-        "npm": "npm install @ideasui/cli",
-        "pnpm": "pnpm add @ideasui/cli",
-        "yarn": "yarn add @ideasui/cli",
-        "bun": "bun add @ideasui/cli"
-      },
-      "installNote": "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
-      "documentation": {}
-    }
-  ]
+  "icons": [],
+  "cli": []
 }

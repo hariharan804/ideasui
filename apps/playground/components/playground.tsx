@@ -18,6 +18,16 @@ const COMPONENT_LIST: ComponentItem[] = [
   // ### APPEND COMPONENT HERE ###
 
   {
+    name: 'FinalTest',
+    category: 'Core',
+  },
+
+  {
+    name: 'TestButton',
+    category: 'Core',
+  },
+
+  {
     name: 'TestComponent',
     category: 'Core',
   },

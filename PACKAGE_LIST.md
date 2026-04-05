@@ -1,6 +1,6 @@
 # IdeasUI Package List
 
-Generated on: 2026-01-11T17:21:35.037Z
+Generated on: 2026-04-05T16:25:59.717Z
 
 ## Components
 
@@ -47,10 +47,10 @@ import { Button } from '@ideasui/button';
 | Prop          | Type                | Description                                       | Optional |
 | ------------- | ------------------- | ------------------------------------------------- | -------- | ---------------------------- | ----- | ------------------ | --------------------- | --- |
 | as            | `ElementType`       | The element or component to render as             | ✓        |
-| variant       | `"solid"            | "outline"                                         | "ghost"` | Visual variant of the button | ✓     |
+| variant       | `'solid'            | 'outline'                                         | 'ghost'` | Visual variant of the button | ✓     |
 | color         | `ColorVariantProps` | Color variant based on semantic intent            | ✓        |
-| size          | `"xs"               | "sm"                                              | "md"     | "lg"                         | "xl"` | Size of the button | ✓                     |
-| radius        | `"none"             | "sm"                                              | "md"     | "lg"                         | "xl"  | "full"`            | Border radius variant | ✓   |
+| size          | `'xs'               | 'sm'                                              | 'md'     | 'lg'                         | 'xl'` | Size of the button | ✓                     |
+| radius        | `'none'             | 'sm'                                              | 'md'     | 'lg'                         | 'xl'  | 'full'`            | Border radius variant | ✓   |
 | fullWidth     | `boolean`           | Whether the button should take full width         | ✓        |
 | loading       | `boolean`           | Whether the button is in loading state            | ✓        |
 | loadingText   | `string`            | Text to show when loading                         | ✓        |
@@ -60,7 +60,7 @@ import { Button } from '@ideasui/button';
 
 #### Package Details
 
-- **Version:** 0.0.0
+- **Version:** 0.1.0
 - **Path:** `packages/components/button`
 - **Files:** button.tsx, spinner.tsx, use-button.ts
 
@@ -106,12 +106,12 @@ import { Ripple } from '@ideasui/ripple';
 
 ##### RippleItem
 
-| Prop | Type        | Description | Optional |
-| ---- | ----------- | ----------- | -------- |
-| key  | `React.Key` |             | ✗        |
-| x    | `number`    |             | ✗        |
-| y    | `number`    |             | ✗        |
-| size | `number`    |             | ✗        |
+| Prop | Type     | Description | Optional |
+| ---- | -------- | ----------- | -------- |
+| key  | `Key`    |             | ✗        |
+| x    | `number` |             | ✗        |
+| y    | `number` |             | ✗        |
+| size | `number` |             | ✗        |
 
 ##### RippleProps
 
@@ -119,19 +119,19 @@ import { Ripple } from '@ideasui/ripple';
 | ----------- | -------------------------------------- | ----------- | -------- |
 | ripples     | `RippleItem[]`                         |             | ✗        |
 | color       | `string`                               |             | ✓        |
-| style       | `React.CSSProperties`                  |             | ✓        |
-| motionProps | `Omit<HTMLMotionProps<"span">, "ref">` |             | ✓        |
-| onClear     | `(id: React.Key) => void`              |             | ✗        |
+| style       | `CSSProperties`                        |             | ✓        |
+| motionProps | `Omit<HTMLMotionProps<'span'>, 'ref'>` |             | ✓        |
+| onClear     | `(id: Key) => void`                    |             | ✗        |
 
 #### Events
 
-| Event   | Type                      |
-| ------- | ------------------------- |
-| onClear | `(id: React.Key) => void` |
+| Event   | Type                |
+| ------- | ------------------- |
+| onClear | `(id: Key) => void` |
 
 #### Package Details
 
-- **Version:** 0.0.0
+- **Version:** 0.1.0
 - **Path:** `packages/components/ripple`
 - **Files:** ripple.tsx, touchable.tsx, use-ripple.ts
 
@@ -177,11 +177,11 @@ import { Slot } from '@ideasui/slot';
 
 ##### SlotProps
 
-| Prop     | Type              | Description                                                   | Optional |
-| -------- | ----------------- | ------------------------------------------------------------- | -------- |
-| as       | `ElementType`     | Element or component to render as                             | ✓        |
-| asChild  | `boolean`         | Merge props with the first child instead of rendering wrapper | ✓        |
-| children | `React.ReactNode` | Content to render inside the slot                             | ✓        |
+| Prop     | Type          | Description                                                   | Optional |
+| -------- | ------------- | ------------------------------------------------------------- | -------- |
+| as       | `ElementType` | Element or component to render as                             | ✓        |
+| asChild  | `boolean`     | Merge props with the first child instead of rendering wrapper | ✓        |
+| children | `ReactNode`   | Content to render inside the slot                             | ✓        |
 
 #### Package Details
 
@@ -216,11 +216,65 @@ bun add @ideasui/theme
 
 > The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.
 
+#### Import
+
+**Import from package**
+
+```tsx
+import { Types } from '@ideasui/theme';
+```
+
+#### API Reference
+
+##### TokenOverrides
+
+##### SemanticTokenOverrides
+
+##### ThemeOptions
+
+##### ThemeConfig
+
+| Prop  | Type           | Description | Optional |
+| ----- | -------------- | ----------- | -------- |
+| light | `ThemeOptions` |             | ✓        |
+| dark  | `ThemeOptions` |             | ✓        |
+
+##### ColorScale
+
+##### ColorTokens
+
+#### Types
+
+```tsx
+type ThemeMode = 'light' | 'dark' | 'system';
+```
+
+```tsx
+type ColorFn = 'oklch' | 'var';
+```
+
+```tsx
+type ConfigTheme = { readonly extend?: 'light' | 'dark'
+```
+
+```tsx
+type ConfigThemes = Record<string, ConfigTheme>;
+```
+
+```tsx
+type ResolvedConfig = { variants: { name: string
+```
+
+```tsx
+type ParsedColor = { cssFn: ColorFn
+```
+
 #### Package Details
 
-- **Version:** 0.1.0
+- **Version:** 0.0.3
 - **Path:** `packages/core/theme`
 - **Keywords:** tailwindcss, theme, design-system, css, ui
+- **Files:** types.ts
 
 ---
 
@@ -252,77 +306,5 @@ bun add @ideasui/utils
 
 - **Version:** 0.0.0
 - **Path:** `packages/utils`
-
----
-
-## Icons
-
-### icons
-
-**Shared icon library**
-
-#### Installation
-
-```bash
-# npm
-npm install @ideasui/icons
-
-# pnpm
-pnpm add @ideasui/icons
-
-# yarn
-yarn add @ideasui/icons
-
-# bun
-bun add @ideasui/icons
-```
-
-> The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.
-
-#### Import
-
-**Import from package**
-
-```tsx
-import { Check } from '@ideasui/src';
-```
-
-#### Package Details
-
-- **Version:** 0.0.0
-- **Path:** `packages/icons`
-- **Files:** Check.tsx, ChevronDown.tsx, ChevronUp.tsx, DynamicIcon.tsx, Eye.tsx, EyeOff.tsx, IconSet.tsx, Loader.tsx, Search.tsx, X.tsx, createIcon.tsx, types.ts
-
----
-
-## Cli
-
-### cli
-
-**CLI for IdeasUI component library**
-
-#### Installation
-
-```bash
-# npm
-npm install @ideasui/cli
-
-# pnpm
-pnpm add @ideasui/cli
-
-# yarn
-yarn add @ideasui/cli
-
-# bun
-bun add @ideasui/cli
-```
-
-> The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.
-
-#### Package Details
-
-- **Version:** 0.1.0
-- **Path:** `packages/cli`
-- **Keywords:** ideasui, cli, components, react, typescript
 
 ---

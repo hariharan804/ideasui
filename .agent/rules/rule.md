@@ -12,7 +12,7 @@ You MUST follow these rules during development. Refer to `/rules` for full detai
 - **Components:** PascalCase (e.g., `Button`)
 - **Variables/Functions:** camelCase (e.g., `buttonVariants`)
 - **Constants:** SCREAMING_SNAKE_CASE (e.g., `MAX_SIZE`)
-- [naming-conventions.md](../../rules/naming-conventions.md)
+- [project-structure.md](../../rules/project-structure.md)
 
 ## 🧩 Component Rules
 
@@ -25,7 +25,7 @@ You MUST follow these rules during development. Refer to `/rules` for full detai
 
 - Use barrel exports (`index.ts`) for all public APIs.
 - Components in `packages/components/` must have a flat structure: `src/[component].tsx`, `src/[component].types.ts`, `src/index.ts`.
-- [package-structure.md](../../rules/package-structure.md)
+- [project-structure.md](../../rules/project-structure.md)
 
 ## 📦 Dependency Rules
 

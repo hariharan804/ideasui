@@ -3,16 +3,21 @@
 const fs = require('fs');
 const path = require('path');
 
+// Kebab-case segment regex
+const kebabPart = '[a-z][a-z0-9]*(-[a-z0-9]+)*';
+// Dot-separated kebab-case segments regex
+const dotSeparatedKebab = `${kebabPart}(\\.${kebabPart})*`;
+
 // Naming convention rules
 const rules = {
   files: {
-    components: /^[a-z][a-z0-9]*(-[a-z0-9]+)*\.(tsx|ts)$/,
-    tests: /^[a-z][a-z0-9]*(-[a-z0-9]+)*\.(test|spec)\.(tsx|ts)$/,
-    stories: /^[a-z][a-z0-9]*(-[a-z0-9]+)*\.stories\.(tsx|ts)$/,
-    configs: /^[a-z][a-z0-9]*(-[a-z0-9]+)*\.config\.(js|ts)$/,
+    components: new RegExp(`^${dotSeparatedKebab}\\.(tsx|ts|js|mjs|cjs|d\\.ts)$`),
+    tests: new RegExp(`^${dotSeparatedKebab}\\.(test|spec)\\.(tsx|ts)$`),
+    stories: new RegExp(`^${dotSeparatedKebab}\\.stories\\.(tsx|ts)$`),
+    configs: new RegExp(`^${dotSeparatedKebab}\\.config\\.(js|ts|mjs|cjs)$`),
   },
-  folders: /^[a-z][a-z0-9]*(-[a-z0-9]+)*$/,
-  packageName: /^@[a-z][a-z0-9]*(-[a-z0-9]+)*\/[a-z][a-z0-9]*(-[a-z0-9]+)*$/,
+  folders: new RegExp(`^${dotSeparatedKebab}$`),
+  packageName: new RegExp(`^@${kebabPart}\\/${kebabPart}$`),
 };
 
 class NamingChecker {
@@ -45,7 +50,16 @@ class NamingChecker {
       isValid = rules.files.tests.test(fileName);
     } else if (fileName.includes('.stories.')) {
       isValid = rules.files.stories.test(fileName);
-    } else if (fileName.endsWith('.tsx') || fileName.endsWith('.ts')) {
+    } else if (fileName.includes('.config.')) {
+      isValid = rules.files.configs.test(fileName);
+    } else if (
+      fileName.endsWith('.tsx') ||
+      fileName.endsWith('.ts') ||
+      fileName.endsWith('.js') ||
+      fileName.endsWith('.mjs') ||
+      fileName.endsWith('.cjs') ||
+      fileName.endsWith('.d.ts')
+    ) {
       isValid = rules.files.components.test(fileName);
     } else {
       return;
@@ -104,6 +118,7 @@ class NamingChecker {
           item !== 'dist' &&
           item !== '.next' &&
           item !== '.husky' &&
+          item !== 'storybook-static' &&
           item !== '.github' &&
           item !== 'templates' // Ignore templates directory for naming checks
         ) {

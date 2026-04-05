@@ -1,119 +1,158 @@
 # IdeasUI Project Rules
 
-## 📦 Package Structure
+## 📦 Monorepo Structure
+
+### Root Organization
 
 ```
 packages/
-├── core/theme/        # @ideasui/theme - Design system & tokens (Enforced via recipes)
-├── components/        # Styled UI components
-│   ├── button/        # @ideasui/button
-│   ├── ripple/        # @ideasui/ripple
-│   ├── slot/          # @ideasui/slot
-│   └── touchable/     # @ideasui/touchable
-├── hooks/             # @ideasui/hooks - React hooks
-├── utils/             # @ideasui/utils - Utilities
-├── icons/             # @ideasui/icons - Icon components
-└── cli/               # @ideasui/cli - CLI tools
+├── components/          # Styled UI components (@ideasui/button)
+├── core/               # Core system packages
+│   └── theme/          # @ideasui/theme - Design system & tokens
+├── hooks/              # @ideasui/hooks - Shared React hooks
+├── utils/              # @ideasui/utils - Utility functions
+├── icons/              # @ideasui/icons - SVG icon components
+└── cli/                # @ideasui/cli - Development CLI tools
+apps/
+├── storybook/          # Storybook documentation & playground
+└── playground/         # Next.js development playground
+```
+
+## 🏗️ Package Architecture
+
+Each package in `packages/` should follow this standard structure:
+
+### Standard Layout
+
+```
+packages/components/button/
+├── src/
+│   ├── button.tsx           # Main component & types (PascalCase)
+│   └── index.ts             # Barrel export (Public API)
+├── __tests__/
+│   └── button.test.tsx      # Unit tests using Vitest & RTL
+├── stories/
+│   └── button.stories.tsx   # Storybook stories
+├── package.json             # Package configuration
+├── README.md               # Individual package documentation
+├── tsconfig.json           # TypeScript configuration
+└── tsup.config.ts          # Build configuration (TSUp)
+```
+
+### Package Config (package.json)
+
+All packages must define `exports`, `main`, `module`, and `types`. Use `workspace:*` for internal dependencies.
+
+```json
+{
+  "name": "@ideasui/button",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "sideEffects": false
+}
+```
+
+## 🧩 Component Implementation Pattern
+
+### Standard Component
+
+Always use `forwardRef`, `displayName`, and `recipes` from `@ideasui/theme`.
+
+```tsx
+import { forwardRef } from 'react';
+import { button } from '@ideasui/theme/recipes';
+import { cn } from '@ideasui/utils';
+import type { ButtonProps } from './button.types';
+
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  const { className, variant, color, ...otherProps } = props;
+  const { base } = button({ variant, color });
+
+  return <button ref={ref} className={cn(base(), className)} {...otherProps} />;
+});
+
+Button.displayName = 'IdeasUI.Button';
+```
+
+### Export Pattern (index.ts)
+
+Every component package must have a barrel export in `index.ts`.
+
+```tsx
+export { Button } from './button';
+export type { ButtonProps } from './button.types';
 ```
 
 ## 🎨 Theme System
 
-### ThemeProvider Usage
+### ThemeProvider Installation
 
 ```tsx
 import { ThemeProvider, ThemeScript } from '@ideasui/theme';
 
-// In layout
-<html>
-  <head>
-    <ThemeScript defaultTheme="light" />
-  </head>
-  <body>
-    <ThemeProvider defaultTheme="light" />
-    {children}
-  </body>
-</html>;
-```
-
-### Recipes (Component Variants)
-
-```tsx
-import { button } from '@ideasui/theme/recipes';
-
-const { base } = button({ variant: 'solid', color: 'primary' });
-```
-
-## 🔧 Component Pattern
-
-### Standard Component Structure
-
-```tsx
-// button/src/button.tsx
-import { button } from '@ideasui/theme/recipes';
-import { cn } from '@ideasui/utils';
-
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'solid' | 'outline' | 'ghost';
-  color?: 'primary' | 'secondary';
+export default function Layout({ children }) {
+  return (
+    <html lang="en">
+      <head>
+        <ThemeScript />
+      </head>
+      <body>
+        <ThemeProvider defaultTheme="light">{children}</ThemeProvider>
+      </body>
+    </html>
+  );
 }
-
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, color, children, ...props }, ref) => {
-    const { base } = button({ variant, color });
-    return (
-      <button ref={ref} className={cn(base(), className)} {...props}>
-        {children}
-      </button>
-    );
-  },
-);
-Button.displayName = 'Button';
-```
-
-### Export Pattern
-
-```tsx
-// button/src/index.ts
-export { Button } from './button';
-export type { ButtonProps } from './button';
 ```
 
 ## 📋 Naming Conventions
 
-| Type             | Convention           | Example                      |
-| ---------------- | -------------------- | ---------------------------- |
-| Package names    | kebab-case           | `@ideasui/button`            |
-| Components       | PascalCase           | `Button`, `ThemeProvider`    |
-| Hooks            | camelCase with "use" | `useTheme`, `useDisclosure`  |
-| Files            | kebab-case           | `use-theme.ts`, `button.tsx` |
-| Types/Interfaces | PascalCase           | `ButtonProps`, `ThemeConfig` |
+### Case Types & Usage
+
+- **kebab-case**: Used for **Package names**, **Folder names**, **File names**, and **CSS classes**.
+  - ✅ `@ideasui/date-picker`, `button-group.tsx`, `packages/input-field/`
+- **camelCase**: Used for **Variables**, **Functions**, **Object properties**, and **Component props**.
+  - ✅ `buttonVariants`, `isDisabled`, `onClick`, `className`
+- **PascalCase**: Used for **React components**, **TypeScript interfaces/types**, and **Classes**.
+  - ✅ `Button`, `InputFieldProps`, `VariantType`
+- **SCREAMING_SNAKE_CASE**: Used for **Constants** and **Environment variables**.
+  - ✅ `MAX_FILE_SIZE`, `API_BASE_URL`
+
+### Quick Reference Table
+
+| Context        | Case                 | Example                 |
+| -------------- | -------------------- | ----------------------- |
+| Package name   | kebab-case           | `@ideasui/input-field`  |
+| Folder name    | kebab-case           | `packages/input-field/` |
+| File name      | kebab-case           | `input-field.tsx`       |
+| Component name | PascalCase           | `InputField`            |
+| Variable name  | camelCase            | `inputValue`            |
+| Function name  | camelCase            | `handleInputChange`     |
+| Interface name | PascalCase           | `InputFieldProps`       |
+| Type name      | PascalCase           | `VariantType`           |
+| Constant       | SCREAMING_SNAKE_CASE | `MAX_LENGTH`            |
 
 ## 🧪 Testing
 
-### Test Files Location
-
-```
-packages/component/
-└── __tests__/
-    ├── Component.test.tsx
-    └── Component.a11y.test.tsx
-```
-
-### Accessibility Testing (via roles and attributes)
-
-```tsx
-test('has no accessibility violations', () => {
-  render(<Button>Click</Button>);
-  expect(screen.getByRole('button')).toBeInTheDocument();
-});
-```
+- **Engine**: Vitest
+- **Library**: `@testing-library/react`
+- **Location**: `__tests__/` directory within each package.
+- **Accessibility**: Use semantic HTML and verify correct ARIA roles/attributes.
 
 ## 🚀 Development Commands
 
 ```bash
-pnpm dev          # Watch mode
-pnpm build        # Build all packages
-pnpm test         # Run tests
-pnpm lint         # Lint code
-pnpm type-check   # TypeScript check
+pnpm dev          # Run all apps in development mode
+pnpm build        # Build all packages and apps
+pnpm test         # Run all tests
+pnpm lint         # Lint all code
+pnpm typecheck    # Run TypeScript compiler checks
 ```

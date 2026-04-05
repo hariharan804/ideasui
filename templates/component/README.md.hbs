@@ -1,24 +1,24 @@
 # @ideasui/{{name}}
 
-{{pascalCase name}} component for user interactions.
+{{pascalCase name}} component for IdeasUI.
 
 ## Installation
 
 ```bash
-npm install @ideasui/{{name}}
+pnpm add @ideasui/{{name}}
 ```
 
 ## Usage
 
 ```tsx
-import { {{pascalCase name}} } from '@ideasui/{{name}}'
+import { {{pascalCase name}} } from '@ideasui/{{name}}';
 
 function App() {
   return (
-    <{{pascalCase name}} variant="outline" size="lg">
+    <{{pascalCase name}} variant="solid" color="primary">
       Click me
     </{{pascalCase name}}>
-  )
+  );
 }
 ```
 
@@ -26,25 +26,14 @@ function App() {
 
 ### {{pascalCase name}}Props
 
-| Prop    | Type                            | Default   | Description                            |
-| ------- | ------------------------------- | --------- | -------------------------------------- |
-| variant | 'solid' \| 'outline' \| 'ghost' | 'solid'   | Visual style variant                   |
-| color   | ColorVariant                    | 'default' | Color variant based on semantic intent |
-| size    | ButtonSize                      | 'md'      | Size of the component                  |
-| radius  | Radius                          | 'md'      | Border radius variant                  |
+| Prop | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| variant | `solid | outline | ghost` | `solid` | Visual style variant |
+| color | `ColorVariant` | `default` | Color variant for semantic intent |
+| size | `xs | sm | md | lg | xl` | `md` | Component size |
+| radius | `Radius` | `md` | Border radius variant |
+| classNames | `object` | - | Custom slot classes |
 
-## Examples
+## Documentation
 
-```tsx
-// Default {{name}}
-<{{pascalCase name}}>Default</{{pascalCase name}}>
-
-// Primary solid {{name}}
-<{{pascalCase name}} color="primary" variant="solid">Primary</{{pascalCase name}}>
-
-// Success outline {{name}}
-<{{pascalCase name}} color="success" variant="outline" size="lg">Success</{{pascalCase name}}>
-
-// Danger ghost {{name}} with full radius
-<{{pascalCase name}} color="danger" variant="ghost" radius="full">Danger</{{pascalCase name}}>
-```
+For more information, please visit our [documentation](https://ideasui.com/docs/components/{{name}}).
