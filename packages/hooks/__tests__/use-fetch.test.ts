@@ -1,3 +1,6 @@
+import type { Mock } from 'vitest';
+
+import { vi } from 'vitest';
 import { renderHook, act, waitFor } from '@testing-library/react';
 
 import { useFetch } from '../src/use-fetch';
@@ -6,16 +9,15 @@ const FETCH_URL = 'https://api.example.com/data';
 describe('useFetch', () => {
   beforeAll(() => {
     // Polyfill fetch because it doesn't exist in the testing environment
-    // eslint-disable-next-line jest/prefer-spy-on
-    global.fetch = jest.fn();
+    global.fetch = vi.fn();
   });
 
   beforeEach(() => {
-    (global.fetch as jest.Mock).mockClear();
+    (global.fetch as Mock).mockClear();
   });
 
   it('should fetch data successfully', async () => {
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
+    (global.fetch as Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ data: 'test' }),
     } as unknown as Response);
@@ -31,17 +33,16 @@ describe('useFetch', () => {
   });
 
   it('should handle POST request with body', async () => {
-    (global.fetch as jest.Mock).mockResolvedValue({
+    (global.fetch as Mock).mockResolvedValue({
       ok: true,
       json: async () => ({ success: true }),
     } as unknown as Response);
 
-    const { result } = renderHook(() =>
-      useFetch(FETCH_URL, {
-        method: 'POST',
-        body: { foo: 'bar' },
-      }),
-    );
+    const options = {
+      method: 'POST' as const,
+      body: { foo: 'bar' },
+    };
+    const { result } = renderHook(() => useFetch(FETCH_URL, options));
 
     await waitFor(() => {
       expect(result.current.loading).toBe(false);
@@ -58,11 +59,11 @@ describe('useFetch', () => {
   });
 
   it('should abort previous request on concurrent refetch', async () => {
-    const abortSpy = jest.spyOn(AbortController.prototype, 'abort');
+    const abortSpy = vi.spyOn(AbortController.prototype, 'abort');
 
     // Mock fetch to be pending prevents state updates (setData/setError/setLoading)
     // from happening after the test finishes, avoiding 'act' warnings.
-    (global.fetch as jest.Mock).mockImplementation(() => new Promise(() => {}));
+    (global.fetch as Mock).mockImplementation(() => new Promise(() => {}));
 
     const { result } = renderHook(() => useFetch(FETCH_URL));
 
@@ -76,7 +77,7 @@ describe('useFetch', () => {
   });
 
   it('should handle errors', async () => {
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
+    (global.fetch as Mock).mockResolvedValueOnce({
       ok: false,
       status: 404,
     });
@@ -97,15 +98,17 @@ describe('useFetch', () => {
   });
 
   it('should support aborting', async () => {
-    const abortSpy = jest.fn();
+    const abortSpy = vi.fn();
 
-    // @ts-ignore
-    jest.spyOn(global, 'AbortController').mockImplementation(() => ({
-      abort: abortSpy,
-      signal: {},
-    }));
+    // Mock AbortController using a class for proper 'new' instantiation in Vitest
+    class MockAbortController {
+      abort = abortSpy;
+      signal = {} as any;
+    }
 
-    (global.fetch as jest.Mock).mockImplementation(() => new Promise(() => {})); // pending
+    vi.stubGlobal('AbortController', MockAbortController);
+
+    (global.fetch as Mock).mockImplementation(() => new Promise(() => {})); // pending
 
     const { result, unmount } = renderHook(() => useFetch('url'));
 
@@ -121,7 +124,7 @@ describe('useFetch', () => {
   it('should not update state if unmounted during fetch', async () => {
     let resolveFetch: ((value: unknown) => void) | undefined;
 
-    (global.fetch as jest.Mock).mockImplementation(
+    (global.fetch as Mock).mockImplementation(
       () =>
         new Promise((resolve) => {
           resolveFetch = resolve;
@@ -149,7 +152,7 @@ describe('useFetch', () => {
   });
 
   it('should ignore non-Error throws', async () => {
-    (global.fetch as jest.Mock).mockImplementation(() => {
+    (global.fetch as Mock).mockImplementation(() => {
       throw 'string error';
     });
 
@@ -163,7 +166,7 @@ describe('useFetch', () => {
     const error = new Error('Aborted');
 
     error.name = 'AbortError';
-    (global.fetch as jest.Mock).mockRejectedValue(error);
+    (global.fetch as Mock).mockRejectedValue(error);
 
     const { result } = renderHook(() => useFetch(FETCH_URL));
 

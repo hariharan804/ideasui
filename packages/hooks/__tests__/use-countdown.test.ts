@@ -2,8 +2,6 @@ import { renderHook, act } from '@testing-library/react';
 
 import { useCountdown } from '../src/use-countdown';
 
-jest.useFakeTimers();
-
 const INITIAL_TIME = 60;
 const SHORT_COUNTDOWN = 3;
 const ONE_SECOND = 1000;
@@ -16,8 +14,12 @@ const REMAINING_TIME_SEVEN = 7;
 const RESET_TIME = 10;
 
 describe('useCountdown', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
   afterEach(() => {
-    jest.clearAllTimers();
+    vi.useRealTimers();
+    vi.clearAllTimers();
   });
 
   it('should initialize with provided time', () => {
@@ -38,7 +40,7 @@ describe('useCountdown', () => {
     expect(result.current.isRunning).toBe(true);
 
     act(() => {
-      jest.advanceTimersByTime(ONE_SECOND);
+      vi.advanceTimersByTime(ONE_SECOND);
     });
 
     expect(result.current.timeLeft).toBe(REMAINING_TIME_TWO);
@@ -52,7 +54,7 @@ describe('useCountdown', () => {
     });
 
     act(() => {
-      jest.advanceTimersByTime(TWO_SECONDS);
+      vi.advanceTimersByTime(TWO_SECONDS);
     });
 
     expect(result.current.timeLeft).toBe(REMAINING_TIME_THREE);
@@ -64,7 +66,7 @@ describe('useCountdown', () => {
     expect(result.current.isRunning).toBe(false);
 
     act(() => {
-      jest.advanceTimersByTime(TWO_SECONDS);
+      vi.advanceTimersByTime(TWO_SECONDS);
     });
 
     expect(result.current.timeLeft).toBe(REMAINING_TIME_THREE); // Should not change
@@ -78,7 +80,7 @@ describe('useCountdown', () => {
     });
 
     act(() => {
-      jest.advanceTimersByTime(THREE_SECONDS);
+      vi.advanceTimersByTime(THREE_SECONDS);
     });
 
     expect(result.current.timeLeft).toBe(REMAINING_TIME_SEVEN);
@@ -92,7 +94,7 @@ describe('useCountdown', () => {
   });
 
   it('should call onFinish when countdown reaches 0', () => {
-    const onFinish = jest.fn();
+    const onFinish = vi.fn();
     const { result } = renderHook(() => useCountdown(REMAINING_TIME_TWO, onFinish));
 
     act(() => {
@@ -100,7 +102,7 @@ describe('useCountdown', () => {
     });
 
     act(() => {
-      jest.advanceTimersByTime(TWO_SECONDS);
+      vi.advanceTimersByTime(TWO_SECONDS);
     });
 
     expect(result.current.timeLeft).toBe(0);

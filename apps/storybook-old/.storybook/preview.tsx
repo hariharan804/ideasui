@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Preview } from '@storybook/react';
+import type { Preview } from '@storybook/react-vite';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
@@ -28,12 +28,14 @@ const parameters: Preview['parameters'] = {
       order: ['Foundations', 'Components'],
     },
   },
+
   controls: {
     matchers: {
       color: /(background|color)$/i,
       date: /Date$/,
     },
   },
+
   docs: {
     theme: {
       base: 'light',
@@ -49,6 +51,13 @@ const parameters: Preview['parameters'] = {
       brandUrl: 'https://ideasui.com',
       brandTarget: '_self',
     },
+  },
+
+  a11y: {
+    // 'todo' - show a11y violations in the test UI only
+    // 'error' - fail CI on a11y violations
+    // 'off' - skip a11y checks entirely
+    test: 'todo',
   },
 };
 

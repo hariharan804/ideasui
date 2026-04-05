@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+@plugin '@ideasui/theme/plugin';
+
+/* 1) Variants must exist before any file that uses them */
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:is(.dark *));
+
+/* 3) Point Tailwind at places where classnames appear */
+@source '../../../packages/**/src/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../../../packages/**/stories/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../../../node_modules/@ideasui/theme/dist/**/*.{js,ts,jsx,tsx}';
+
+/* Custom Storybook Global Styles */
+html,
+body,
+#storybook-root {
+  height: 100%;
+}
+
+body {
+  font-family:
+    Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+[data-reduce-motion='true'] *,
+[data-reduce-motion='true'] *::before,
+[data-reduce-motion='true'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}

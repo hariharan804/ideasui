@@ -6,9 +6,9 @@ describe('ideasUIPlugin', () => {
 
   beforeEach(() => {
     mockPluginAPI = {
-      addBase: jest.fn(),
-      addUtilities: jest.fn(),
-      addVariant: jest.fn(),
+      addBase: vi.fn(),
+      addUtilities: vi.fn(),
+      addVariant: vi.fn(),
     };
   });
 

@@ -30,7 +30,6 @@ import boundaries from 'eslint-plugin-boundaries';
 import prettier from 'eslint-plugin-prettier';
 
 // Testing
-import jest from 'eslint-plugin-jest';
 import testingLibrary from 'eslint-plugin-testing-library';
 
 // Tailwind CSS - Disabled: Plugin doesn't support Tailwind v4 yet
@@ -103,7 +102,6 @@ export default defineConfig([
       prettier: fixupPluginRules(prettier),
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
       // Testing
-      jest: fixupPluginRules(jest),
       'testing-library': fixupPluginRules(testingLibrary),
       // Tailwind CSS - Disabled: Plugin doesn't support Tailwind v4 yet
       // tailwindcss: fixupPluginRules(tailwindcss),
@@ -365,7 +363,7 @@ export default defineConfig([
       // Documentation (JSDoc) - Optional for flexibility
       'jsdoc/check-alignment': 'off',
       'jsdoc/check-param-names': 'off',
-      'jsdoc/check-tag-names': ['warn', { definedTags: ['jest-environment'] }],
+      'jsdoc/check-tag-names': ['warn', { definedTags: ['vitest-environment'] }],
       'jsdoc/check-types': 'off',
       'jsdoc/require-description': 'off',
       'jsdoc/require-param': 'off',
@@ -411,19 +409,6 @@ export default defineConfig([
     files: ['**/__tests__/**/*', '**/*.test.{js,jsx,ts,tsx}', '**/*.spec.{js,jsx,ts,tsx}'],
 
     rules: {
-      // Jest rules
-      'jest/expect-expect': 'error',
-      'jest/no-disabled-tests': 'warn',
-      'jest/no-focused-tests': 'error',
-      'jest/no-identical-title': 'error',
-      'jest/prefer-to-have-length': 'warn',
-      'jest/valid-expect': 'error',
-      'jest/no-conditional-expect': 'error',
-      'jest/no-deprecated-functions': 'error',
-      'jest/prefer-strict-equal': 'warn',
-      'jest/prefer-spy-on': 'warn',
-      'jest/no-test-prefixes': 'error',
-
       // Testing Library rules
       'testing-library/await-async-queries': 'error',
       'testing-library/no-await-sync-queries': 'error',

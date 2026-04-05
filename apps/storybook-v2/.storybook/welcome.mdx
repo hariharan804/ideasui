@@ -1,0 +1,125 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Welcome" />
+
+<div className="w-full max-w-5xl mx-auto py-16 px-6 font-sans space-y-12">
+  {/* Hero Section */}
+  <div className="mb-16 text-center animate-in fade-in slide-in-from-bottom-4 duration-1000">
+    <div className="inline-block p-1 rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 mb-8 shadow-lg shadow-indigo-500/20">
+      <div className="bg-white dark:bg-zinc-950 rounded-full px-6 py-2 text-sm font-semibold tracking-wide text-zinc-900 dark:text-white">
+        ✨ Welcome to IdeasUI
+      </div>
+    </div>
+    <div className='h-8'/>
+    <div className="flex justify-center mb-10">
+      <img src="/logo-ideasui-dark.svg" className="block dark:hidden h-16 w-auto" alt="IdeasUI Logo" />
+      <img src="/logo-ideasui-light.svg" className="hidden dark:block h-16 w-auto" alt="IdeasUI Logo" />
+    </div>
+
+    <div className='h-8'/>
+
+    <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-zinc-900 to-zinc-500 dark:from-white dark:to-zinc-500 mb-8">
+      The Next Generation UI System
+    </h1>
+
+    <div className="text-xl text-zinc-600 w-full dark:text-zinc-400 leading-relaxed mb-8 px-[100px]">
+      A meticulously crafted collection of accessible, high-performance, and beautifully designed components.
+      Optimized for <strong className="text-zinc-900 dark:text-zinc-200 font-semibold">React 19</strong> and <strong className="text-zinc-900 dark:text-zinc-200 font-semibold">Tailwind CSS v4</strong>.
+    </div>
+    <div className='h-8'/>
+
+  </div>
+
+{/* Quick Links */}
+
+  <div className="mb-20 grid grid-cols-1 gap-6 md:grid-cols-2">
+    <a
+      href="https://ideasui.com"
+      target="_blank"
+      className="group relative overflow-hidden rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-500/10 dark:border-zinc-800 dark:bg-zinc-900"
+    >
+      <div className="absolute top-0 right-0 p-6 text-blue-500 opacity-5 transition-opacity group-hover:opacity-10">
+        <svg className="h-32 w-32 transform transition-transform duration-500 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+        </svg>
+      </div>
+      <div className="relative z-10">
+        <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600 transition-transform group-hover:scale-110 dark:bg-blue-900/30 dark:text-blue-400">
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+          </svg>
+        </div>
+        <h3 className="mb-3 text-2xl font-bold text-zinc-900 transition-colors group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">Official Website</h3>
+        <div className="max-w-[85%] leading-relaxed text-zinc-600 dark:text-zinc-400">
+          Explore documentation, design guidelines, and the full ecosystem.
+        </div>
+      </div>
+    </a>
+
+    <a
+      href="https://github.com/ideas2logic-lab/ideasui"
+      target="_blank"
+      className="group relative overflow-hidden rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-purple-500/10 dark:border-zinc-800 dark:bg-zinc-900"
+    >
+      <div className="absolute top-0 right-0 p-6 text-purple-500 opacity-5 transition-opacity group-hover:opacity-10">
+        <svg className="h-32 w-32 transform transition-transform duration-500 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+          <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+        </svg>
+      </div>
+      <div className="relative z-10">
+        <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-purple-100 text-purple-600 transition-transform group-hover:scale-110 dark:bg-purple-900/30 dark:text-purple-400">
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+          </svg>
+        </div>
+        <h3 className="mb-3 text-2xl font-bold text-zinc-900 transition-colors group-hover:text-purple-600 dark:text-white dark:group-hover:text-purple-400">Community Support</h3>
+        <div className="max-w-[85%] leading-relaxed text-zinc-600 dark:text-zinc-400">
+          Join our Discord community or contribute directly on GitHub.
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+{/* Feature Grid */}
+
+  <div className="mt-20">
+    <div className="mb-10 flex items-center gap-4">
+      <div className="h-px flex-grow bg-zinc-200 dark:bg-zinc-800"></div>
+      <h2 className="text-2xl text-sm font-bold tracking-widest text-zinc-900 uppercase dark:text-white">
+        The IdeasUI Advantage
+      </h2>
+      <div className="h-px flex-grow bg-zinc-200 dark:bg-zinc-800"></div>
+    </div>
+
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {[
+        { icon: '⚛️', title: 'React 19', desc: 'Built for the latest React features and concurrent rendering.' },
+        { icon: '⚡', title: 'Tailwind CSS v4', desc: 'Zero-config, high-performance styling engine.' },
+        { icon: '🎨', title: 'OKLCH Theming', desc: 'Perceptually uniform colors for perfect accessibility.' },
+        { icon: '♿', title: 'WCAG 2.1 AA', desc: 'Focus-proof, keyboard-ready, and screen reader friendly.' },
+        { icon: '🚀', title: 'Performance First', desc: 'Zero runtime overhead and optimized bundle sizes.' },
+        { icon: '🧩', title: 'Atomic Design', desc: 'Modular components ready for any scale.' },
+      ].map((feature, i) => (
+        <div key={i} className="group relative overflow-hidden rounded-3xl border border-zinc-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-zinc-200/50 dark:border-zinc-800/80 dark:bg-zinc-950/50 dark:hover:shadow-black/50">
+          <div className="absolute top-0 right-0 -mt-16 -mr-16 h-32 w-32 rounded-full bg-gradient-to-br from-indigo-500/5 to-purple-500/5 blur-2xl transition-transform duration-700 group-hover:scale-150 dark:from-indigo-500/10 dark:to-purple-500/10"></div>
+          <div className="relative z-10">
+            <div className="mb-5 origin-bottom-left transform text-4xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">{feature.icon}</div>
+            <h4 className="mb-2 text-lg font-bold text-zinc-900 dark:text-zinc-100">{feature.title}</h4>
+            <p className="text-sm leading-relaxed font-medium text-zinc-600 dark:text-zinc-400">{feature.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+
+{/* Footer */}
+
+  <div className="text-center pt-8 mt-12 border-t border-zinc-200 dark:border-zinc-800/80">
+    <p className="text-sm font-medium text-zinc-500 flex items-center justify-center gap-2">
+      <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+      Status: <span className="text-zinc-900 dark:text-zinc-300 font-bold">Stable v0.1.0</span>
+    </p>
+  </div>
+</div>

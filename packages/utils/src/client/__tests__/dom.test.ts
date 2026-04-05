@@ -68,7 +68,7 @@ describe('dom', () => {
     });
 
     it('should set focus and scroll', () => {
-      const scrollSpy = jest.fn();
+      const scrollSpy = vi.fn();
 
       button1.scrollIntoView = scrollSpy;
       focus.set(button1);

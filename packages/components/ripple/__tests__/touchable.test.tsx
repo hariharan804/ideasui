@@ -4,19 +4,19 @@ import userEvent from '@testing-library/user-event';
 import { Touchable } from '../src/touchable';
 
 // Mock useRipple to verify calls
-const onPressMock = jest.fn();
+const onPressMock = vi.fn();
 
-jest.mock('../src/use-ripple', () => ({
-  useRipple: jest.fn(() => ({
+vi.mock('../src/use-ripple', () => ({
+  useRipple: vi.fn(() => ({
     ripples: [],
     onPress: onPressMock,
-    onClear: jest.fn(),
+    onClear: vi.fn(),
   })),
 }));
 
 describe('Touchable', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('triggers ripple on pointer down', async () => {
@@ -33,7 +33,7 @@ describe('Touchable', () => {
 
   it('calls onPointerDown prop', async () => {
     const user = userEvent.setup();
-    const onPointerDown = jest.fn();
+    const onPointerDown = vi.fn();
 
     render(<Touchable onPointerDown={onPointerDown}>Click me</Touchable>);
     const button = screen.getByRole('button', { name: 'Click me' });
@@ -81,7 +81,7 @@ describe('Touchable', () => {
 
   it('calls onKeyDown prop', async () => {
     const user = userEvent.setup();
-    const onKeyDown = jest.fn();
+    const onKeyDown = vi.fn();
 
     render(<Touchable onKeyDown={onKeyDown}>Click me</Touchable>);
     const button = screen.getByRole('button', { name: 'Click me' });
@@ -116,8 +116,8 @@ describe('Touchable', () => {
     });
     const spaceEvent = new KeyboardEvent('keydown', { key: ' ', bubbles: true, cancelable: true });
 
-    jest.spyOn(enterEvent, 'preventDefault');
-    jest.spyOn(spaceEvent, 'preventDefault');
+    vi.spyOn(enterEvent, 'preventDefault');
+    vi.spyOn(spaceEvent, 'preventDefault');
 
     fireEvent(button, enterEvent);
     expect(enterEvent.preventDefault).toHaveBeenCalled();

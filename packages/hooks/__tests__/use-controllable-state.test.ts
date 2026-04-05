@@ -15,7 +15,7 @@ describe('useControllableState', () => {
   });
 
   it('should be controlled if value is defined', () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     const { result, rerender } = renderHook(
       ({ value }) => useControllableState({ value, onChange }),
       { initialProps: { value: 'controlled' } },

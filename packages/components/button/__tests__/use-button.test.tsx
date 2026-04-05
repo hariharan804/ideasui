@@ -4,7 +4,7 @@ import { useButton } from '../src/use-button';
 
 describe('useButton', () => {
   it('should return correct props', () => {
-    const { result } = renderHook(() => useButton({ onClick: jest.fn() }));
+    const { result } = renderHook(() => useButton({ onClick: vi.fn() }));
 
     expect(result.current.getButtonProps()['data-disabled']).toBeUndefined();
     expect(result.current.getButtonProps()).toHaveProperty('type', 'button');

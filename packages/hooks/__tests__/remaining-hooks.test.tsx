@@ -3,6 +3,7 @@
 /* eslint-disable testing-library/no-node-access */
 import type { JSX } from 'react';
 
+import { vi } from 'vitest';
 import { renderHook, act, waitFor, render } from '@testing-library/react';
 
 import {
@@ -14,6 +15,9 @@ import {
 } from '../src/remaining-hooks';
 
 describe('remaining hooks', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
   describe('useIsomorphicLayoutEffect', () => {
     it('should be defined', () => {
       expect(useIsomorphicLayoutEffect).toBeDefined();
@@ -21,16 +25,14 @@ describe('remaining hooks', () => {
   });
 
   describe('useAsync', () => {
-    beforeEach(() => {
-      jest.useFakeTimers();
-    });
-
     afterEach(() => {
-      jest.useRealTimers();
+      vi.useRealTimers();
     });
 
     it('should execute async function', async () => {
-      const asyncFn = jest.fn().mockResolvedValue('success');
+      // Don't use fake timers for simple async tests to avoid waitFor timeouts
+      vi.useRealTimers();
+      const asyncFn = vi.fn().mockResolvedValue('success');
       const { result } = renderHook(() => useAsync(asyncFn));
 
       expect(result.current.loading).toBe(true);
@@ -42,8 +44,9 @@ describe('remaining hooks', () => {
     });
 
     it('should handle error', async () => {
+      vi.useRealTimers();
       const error = new Error('fail');
-      const asyncFn = jest.fn().mockRejectedValue(error);
+      const asyncFn = vi.fn().mockRejectedValue(error);
       const { result } = renderHook(() => useAsync(asyncFn));
 
       expect(result.current.loading).toBe(true);
@@ -54,6 +57,7 @@ describe('remaining hooks', () => {
     });
 
     it('should ignore result if unmounted', async () => {
+      vi.useFakeTimers();
       const promise = new Promise<string>((resolve) => setTimeout(() => resolve('data'), 100));
       const { result, unmount } = renderHook(() => useAsync(() => promise));
 
@@ -62,14 +66,15 @@ describe('remaining hooks', () => {
       unmount();
 
       await act(async () => {
-        jest.advanceTimersByTime(100);
+        vi.advanceTimersByTime(100);
       });
 
-      // Should not throw or update state (which would warn)
-      expect(result.current.loading).toBe(true); // Should remain true / unchanged or just verify no error thrown
+      // Should not update state
+      expect(result.current.loading).toBe(true);
     });
 
     it('should ignore error if unmounted', async () => {
+      vi.useFakeTimers();
       const promise = new Promise<string>((_, reject) =>
         setTimeout(() => reject(new Error('fail')), 100),
       );
@@ -79,7 +84,7 @@ describe('remaining hooks', () => {
       unmount();
 
       await act(async () => {
-        jest.advanceTimersByTime(100);
+        vi.advanceTimersByTime(100);
       });
 
       expect(result.current.error).toBeNull();
@@ -113,9 +118,9 @@ describe('remaining hooks', () => {
       // but we can verify our event listener serves preventDefault and attempts focus
 
       const event = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: true, bubbles: true });
-      const preventDefaultSpy = jest.spyOn(event, 'preventDefault');
+      const preventDefaultSpy = vi.spyOn(event, 'preventDefault');
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const lastFocusSpy = jest.spyOn(last, 'focus');
+      const lastFocusSpy = vi.spyOn(last, 'focus');
 
       trap.dispatchEvent(event);
 
@@ -124,7 +129,7 @@ describe('remaining hooks', () => {
       // Tab on last element -> should go to first
       last.focus();
       const event2 = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: false, bubbles: true });
-      const preventDefaultSpy2 = jest.spyOn(event2, 'preventDefault');
+      const preventDefaultSpy2 = vi.spyOn(event2, 'preventDefault');
 
       trap.dispatchEvent(event2);
       expect(preventDefaultSpy2).toHaveBeenCalled();
@@ -138,7 +143,7 @@ describe('remaining hooks', () => {
       first.focus();
 
       const event = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: true, bubbles: true });
-      const preventDefaultSpy = jest.spyOn(event, 'preventDefault');
+      const preventDefaultSpy = vi.spyOn(event, 'preventDefault');
 
       trap.dispatchEvent(event);
       expect(preventDefaultSpy).not.toHaveBeenCalled();
@@ -152,7 +157,7 @@ describe('remaining hooks', () => {
       first.focus();
 
       const event = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
-      const preventDefaultSpy = jest.spyOn(event, 'preventDefault');
+      const preventDefaultSpy = vi.spyOn(event, 'preventDefault');
 
       trap.dispatchEvent(event);
       expect(preventDefaultSpy).not.toHaveBeenCalled();
@@ -173,10 +178,10 @@ describe('remaining hooks', () => {
 
   describe('useThrottle', () => {
     beforeEach(() => {
-      jest.useFakeTimers();
+      vi.useFakeTimers();
     });
     afterEach(() => {
-      jest.useRealTimers();
+      vi.useRealTimers();
     });
 
     it('should throttle value', () => {
@@ -191,7 +196,7 @@ describe('remaining hooks', () => {
       expect(result.current).toBe('initial');
 
       act(() => {
-        jest.advanceTimersByTime(DELAY);
+        vi.advanceTimersByTime(DELAY);
       });
 
       expect(result.current).toBe('updated');
@@ -200,7 +205,7 @@ describe('remaining hooks', () => {
 
   describe('useUpdateEffect', () => {
     it('should run only on updates', () => {
-      const effect = jest.fn();
+      const effect = vi.fn();
       const { rerender } = renderHook(({ dep }) => useUpdateEffect(effect, [dep]), {
         initialProps: { dep: 1 },
       });

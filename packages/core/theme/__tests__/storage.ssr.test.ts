@@ -1,5 +1,5 @@
 /**
- * @jest-environment node
+ * @vitest-environment node
  */
 import { storageAdapters } from '../src/providers/utils/storage';
 

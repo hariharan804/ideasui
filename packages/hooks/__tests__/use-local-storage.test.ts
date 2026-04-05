@@ -8,7 +8,7 @@ import { useLocalStorage } from '../src/use-local-storage';
 
 describe('useLocalStorage', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     // Reset storage to clean state if needed, though jsdom storage persists
     window.localStorage.clear();
   });
@@ -52,10 +52,10 @@ describe('useLocalStorage', () => {
   });
 
   it('should handle localStorage setItem error', () => {
-    const setItemSpy = jest.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
+    const setItemSpy = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
       throw new Error('Write Error');
     });
-    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
     const { result } = renderHook(() => useLocalStorage('key', 'initial'));
 
@@ -75,10 +75,10 @@ describe('useLocalStorage', () => {
 
   it('should handle localStorage removeItem error', () => {
     // @ts-ignore
-    const removeItemSpy = jest.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
+    const removeItemSpy = vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
       throw new Error('Remove Error');
     });
-    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
     const { result } = renderHook(() => useLocalStorage('key', 'initial'));
 
@@ -97,10 +97,10 @@ describe('useLocalStorage', () => {
   });
 
   it('should handle localStorage getItem error', () => {
-    const getItemSpy = jest.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+    const getItemSpy = vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
       throw new Error('Read Error');
     });
-    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
     const { result } = renderHook(() => useLocalStorage('key', 'initial'));
 

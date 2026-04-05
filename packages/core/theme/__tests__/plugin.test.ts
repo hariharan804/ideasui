@@ -1,3 +1,5 @@
+import { vi } from 'vitest';
+
 import { ideasUIPlugin } from '../src/plugin';
 
 describe('ideasUIPlugin', () => {
@@ -34,9 +36,9 @@ describe('ideasUIPlugin', () => {
 
   it('should register base styles and utilities', () => {
     const plugin = ideasUIPlugin();
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -47,9 +49,9 @@ describe('ideasUIPlugin', () => {
 
   it('should handle disableAnimations option', () => {
     const plugin = ideasUIPlugin({ disableAnimations: true });
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -59,6 +61,9 @@ describe('ideasUIPlugin', () => {
     const animationReset = calls.find((call) => call[0]['*,*::before,*::after']);
 
     expect(animationReset).toBeDefined();
+    if (!animationReset) {
+      throw new Error('Expected animationReset to be defined');
+    }
     expect(animationReset[0]['*,*::before,*::after']).toHaveProperty(
       'animationDuration',
       '0.01ms !important',
@@ -79,9 +84,9 @@ describe('ideasUIPlugin', () => {
     };
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -103,9 +108,9 @@ describe('ideasUIPlugin', () => {
     };
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -127,9 +132,9 @@ describe('ideasUIPlugin', () => {
     };
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -152,9 +157,9 @@ describe('ideasUIPlugin', () => {
     };
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -176,9 +181,9 @@ describe('ideasUIPlugin', () => {
     };
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -200,9 +205,9 @@ describe('ideasUIPlugin', () => {
     };
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -223,9 +228,9 @@ describe('ideasUIPlugin', () => {
     };
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -244,9 +249,9 @@ describe('ideasUIPlugin', () => {
     };
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -256,9 +261,9 @@ describe('ideasUIPlugin', () => {
 
   it('should generate new tokens CSS variables', () => {
     const plugin = ideasUIPlugin();
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -294,9 +299,9 @@ describe('ideasUIPlugin', () => {
     };
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -339,9 +344,9 @@ describe('ideasUIPlugin', () => {
     };
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -386,9 +391,9 @@ describe('ideasUIPlugin', () => {
     };
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });
@@ -425,9 +430,9 @@ describe('ideasUIPlugin', () => {
     };
     // @ts-ignore
     const plugin = ideasUIPlugin(config);
-    const addBase = jest.fn();
-    const addUtilities = jest.fn();
-    const addVariant = jest.fn();
+    const addBase = vi.fn();
+    const addUtilities = vi.fn();
+    const addVariant = vi.fn();
 
     // @ts-ignore
     plugin.handler({ addBase, addUtilities, addVariant });

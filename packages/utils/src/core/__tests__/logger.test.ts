@@ -1,8 +1,9 @@
+import { vi } from 'vitest';
 describe('logger', () => {
   const originalEnv = process.env;
 
   beforeEach(() => {
-    jest.resetModules();
+    vi.resetModules();
     process.env = { ...originalEnv };
   });
 
@@ -16,7 +17,7 @@ describe('logger', () => {
     });
 
     it('should log info messages', async () => {
-      const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+      const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
       const { logger } = await import('../logger');
       const LOG_MSG = 'ideasui.com';
 
@@ -26,7 +27,7 @@ describe('logger', () => {
     });
 
     it('should log warn messages', async () => {
-      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
       const { logger } = await import('../logger');
 
       logger.warn('test warn');
@@ -35,7 +36,7 @@ describe('logger', () => {
     });
 
     it('should log error messages', async () => {
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       const { logger } = await import('../logger');
 
       logger.error('test error');
@@ -68,7 +69,7 @@ describe('logger', () => {
     });
 
     it('should not log info messages', async () => {
-      const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+      const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
       const { logger } = await import('../logger');
 
       logger.info('test info');
@@ -77,7 +78,7 @@ describe('logger', () => {
     });
 
     it('should not log warn messages', async () => {
-      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
+      const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
       const { logger } = await import('../logger');
 
       logger.warn('test warn');
@@ -86,7 +87,7 @@ describe('logger', () => {
     });
 
     it('should not log error messages', async () => {
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       const { logger } = await import('../logger');
 
       logger.error('test error');

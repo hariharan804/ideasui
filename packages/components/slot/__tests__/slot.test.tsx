@@ -28,7 +28,7 @@ describe('Slot', () => {
     });
 
     it('forwards ref correctly', () => {
-      const ref = jest.fn();
+      const ref = vi.fn();
 
       render(<Slot ref={ref}>Content</Slot>);
       expect(ref).toHaveBeenCalledWith(expect.any(HTMLDivElement));
@@ -49,8 +49,8 @@ describe('Slot', () => {
     });
 
     it('composes event handlers correctly', async () => {
-      const slotHandler = jest.fn();
-      const childHandler = jest.fn();
+      const slotHandler = vi.fn();
+      const childHandler = vi.fn();
       const user = userEvent.setup();
 
       render(
@@ -108,7 +108,7 @@ describe('Slot', () => {
   });
 
   it('handles slot event handler only', async () => {
-    const slotHandler = jest.fn();
+    const slotHandler = vi.fn();
     const user = userEvent.setup();
 
     render(
@@ -140,8 +140,8 @@ describe('Slot', () => {
 
   describe('Ref Composition', () => {
     it('composes function refs', () => {
-      const slotRef = jest.fn();
-      const childRef = jest.fn();
+      const slotRef = vi.fn();
+      const childRef = vi.fn();
 
       render(
         <Slot ref={slotRef} asChild>
@@ -168,7 +168,7 @@ describe('Slot', () => {
     });
 
     it('handles mixed ref types', () => {
-      const slotRef = jest.fn();
+      const slotRef = vi.fn();
       const childRef = { current: null };
 
       render(

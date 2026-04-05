@@ -54,15 +54,15 @@
     "clean": "rimraf dist .turbo",
     "typecheck": "tsc --noEmit",
     "build:dev": "tsup src",
-    "test": "jest",
+    "test": "vitest run",
     "lint": "eslint src --ext .ts,.tsx --cache",
     "lint:fix": "eslint src --ext .ts,.tsx --fix --cache",
     "prepack": "clean-package",
     "postpack": "clean-package restore"
   },
   "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18"
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -70,8 +70,8 @@
   },
   "devDependencies": {
     "@react-types/shared": "^3.32.1",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "clean-package": "^2.2.0",
     "tsup": "^8.0.0",
     "typescript": "^5.9.3"

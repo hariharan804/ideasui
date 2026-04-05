@@ -5,39 +5,39 @@ const TIMER = 1000;
 
 describe('useTimeout', () => {
   beforeAll(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
   });
 
   afterAll(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should call callback after delay', () => {
-    const callback = jest.fn();
+    const callback = vi.fn();
 
     renderHook(() => useTimeout(callback, TIMER));
 
     expect(callback).not.toHaveBeenCalled();
 
-    jest.advanceTimersByTime(TIMER);
+    vi.advanceTimersByTime(TIMER);
     expect(callback).toHaveBeenCalledTimes(1);
   });
 
   it('should NOT call callback if delay is null', () => {
-    const callback = jest.fn();
+    const callback = vi.fn();
 
     renderHook(() => useTimeout(callback, null));
 
-    jest.advanceTimersByTime(TIMER);
+    vi.advanceTimersByTime(TIMER);
     expect(callback).not.toHaveBeenCalled();
   });
 
   it('should cancel timeout on unmount', () => {
-    const callback = jest.fn();
+    const callback = vi.fn();
     const { unmount } = renderHook(() => useTimeout(callback, TIMER));
 
     unmount();
-    jest.advanceTimersByTime(TIMER);
+    vi.advanceTimersByTime(TIMER);
     expect(callback).not.toHaveBeenCalled();
   });
 });

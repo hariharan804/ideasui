@@ -24,32 +24,39 @@
     "url": "https://github.com/ideasui/ideasui/issues"
   },
   "scripts": {
-    "dev": "pnpm storybook dev -p 6006",
-    "storybook:build": "pnpm storybook build",
+    "dev": "NODE_OPTIONS='--max-old-space-size=8192' lsof -i :6006 -t | xargs kill -9 2>/dev/null || true && pnpm storybook dev -p 6006",
+    "storybook:build": "NODE_OPTIONS='--max-old-space-size=8192' pnpm storybook build",
     "start": "pnpm dlx http-server storybook-static"
   },
   "dependencies": {
     "@ideasui/theme": "workspace:*",
     "framer-motion": "^12.23.26",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@fontsource/inter": "^5.2.8",
-    "@storybook/addon-a11y": "^10.1.10",
-    "@storybook/addon-docs": "^10.1.10",
-    "@storybook/addon-links": "^10.1.10",
-    "@storybook/cli": "^10.1.10",
-    "@storybook/react": "^10.1.10",
-    "@storybook/react-vite": "^10.1.10",
+    "@storybook/addon-a11y": "^10.3.4",
+    "@storybook/addon-docs": "^10.3.4",
+    "@storybook/addon-links": "^10.3.4",
+    "@storybook/addon-vitest": "^10.3.4",
+    "@storybook/cli": "^10.3.4",
+    "@storybook/react": "^10.3.4",
+    "@storybook/react-vite": "^10.3.4",
     "@tailwindcss/postcss": "4.1.17",
     "@tailwindcss/vite": "4.1.17",
     "@vitejs/plugin-react": "^5.1.2",
-    "playwright": "^1.57.0",
+    "@vitest/browser": "^4.1.2",
+    "@vitest/browser-playwright": "^4.1.2",
+    "@vitest/coverage-v8": "^4.1.2",
+    "@vitest/ui": "^4.1.2",
+    "jsdom": "^29.0.1",
+    "playwright": "^1.59.1",
     "remark-gfm": "^4.0.1",
-    "storybook": "^10.1.10",
+    "storybook": "^10.3.4",
     "tailwindcss": "4.1.17",
-    "vite": "^7.3.0"
+    "vite": "^7.3.0",
+    "vitest": "^4.1.2"
   },
   "tsup": {
     "clean": true,

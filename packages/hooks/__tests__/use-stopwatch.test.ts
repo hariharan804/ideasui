@@ -6,12 +6,12 @@ const TIMER = 1000;
 
 describe('useStopwatch', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
-    jest.setSystemTime(0);
+    vi.useFakeTimers();
+    vi.setSystemTime(0);
   });
 
   afterEach(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('should initialize correctly', () => {
@@ -29,7 +29,7 @@ describe('useStopwatch', () => {
     });
 
     act(() => {
-      jest.advanceTimersByTime(TIMER);
+      vi.advanceTimersByTime(TIMER);
     });
 
     expect(result.current.time).toBe(TIMER);
@@ -43,7 +43,7 @@ describe('useStopwatch', () => {
     });
 
     act(() => {
-      jest.advanceTimersByTime(TIMER);
+      vi.advanceTimersByTime(TIMER);
     });
 
     act(() => {
@@ -54,7 +54,7 @@ describe('useStopwatch', () => {
     expect(result.current.time).toBe(TIMER);
 
     act(() => {
-      jest.advanceTimersByTime(TIMER);
+      vi.advanceTimersByTime(TIMER);
     });
 
     expect(result.current.time).toBe(TIMER);
@@ -68,7 +68,7 @@ describe('useStopwatch', () => {
     });
 
     act(() => {
-      jest.advanceTimersByTime(TIMER);
+      vi.advanceTimersByTime(TIMER);
     });
 
     act(() => {
@@ -88,7 +88,7 @@ describe('useStopwatch', () => {
     });
 
     act(() => {
-      jest.advanceTimersByTime(TIMER);
+      vi.advanceTimersByTime(TIMER);
     });
 
     act(() => {

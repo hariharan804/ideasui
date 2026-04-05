@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { JSX, ComponentProps, ReactNode } from 'react';
 
 import { useRef } from 'react';

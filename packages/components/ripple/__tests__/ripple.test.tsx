@@ -6,13 +6,13 @@ import userEvent from '@testing-library/user-event';
 import { Ripple, useRipple } from '../src';
 
 // Mock framer-motion to avoid LazyMotion async warnings
-jest.mock('framer-motion', () => {
-  const actual = jest.requireActual('framer-motion');
+vi.mock('framer-motion', async () => {
+  const actual = await vi.importActual('framer-motion');
 
   return {
     ...actual,
-    LazyMotion: jest.fn().mockImplementation(({ children }) => children),
-    AnimatePresence: jest.fn().mockImplementation(({ children }) => children),
+    LazyMotion: vi.fn().mockImplementation(({ children }) => children),
+    AnimatePresence: vi.fn().mockImplementation(({ children }) => children),
     m: actual.motion,
   };
 });

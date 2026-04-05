@@ -5,7 +5,7 @@ import { useClickOutside } from '../src/use-click-outside';
 
 describe('useClickOutside', () => {
   it('should call handler when clicking outside', () => {
-    const handler = jest.fn();
+    const handler = vi.fn();
     const { result } = renderHook(() => useClickOutside(handler));
     const element = document.createElement('div');
 
@@ -20,7 +20,7 @@ describe('useClickOutside', () => {
   });
 
   it('should not call handler when clicking inside', () => {
-    const handler = jest.fn();
+    const handler = vi.fn();
     const { result } = renderHook(() => useClickOutside(handler));
     const element = document.createElement('div');
 
@@ -34,7 +34,7 @@ describe('useClickOutside', () => {
   });
 
   it('should not call handler when disabled', () => {
-    const handler = jest.fn();
+    const handler = vi.fn();
     const { result } = renderHook(() => useClickOutside(handler, false));
     const element = document.createElement('div');
 
@@ -47,7 +47,7 @@ describe('useClickOutside', () => {
     document.body.removeChild(element);
   });
   it('should not call handler if ref is not attached', () => {
-    const handler = jest.fn();
+    const handler = vi.fn();
 
     renderHook(() => useClickOutside(handler));
 

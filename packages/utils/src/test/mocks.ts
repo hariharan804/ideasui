@@ -34,14 +34,14 @@
 //   const store: Record<string, string> = {};
 
 //   return {
-//     getItem: jest.fn((key: string) => store[key] || null),
-//     setItem: jest.fn((key: string, value: string) => {
+//     getItem: vi.fn((key: string) => store[key] || null),
+//     setItem: vi.fn((key: string, value: string) => {
 //       store[key] = value;
 //     }),
-//     removeItem: jest.fn((key: string) => {
+//     removeItem: vi.fn((key: string) => {
 //       delete store[key];
 //     }),
-//     clear: jest.fn(() => {
+//     clear: vi.fn(() => {
 //       Object.keys(store).forEach((key) => delete store[key]);
 //     }),
 //   };
@@ -61,7 +61,7 @@
 
 // // Fetch mock
 // export const mockFetch = (response: any, ok = true) => {
-//   return jest.fn(() =>
+//   return vi.fn(() =>
 //     Promise.resolve({
 //       ok,
 //       json: () => Promise.resolve(response),
@@ -73,24 +73,24 @@
 
 // // IntersectionObserver mock
 // export const mockIntersectionObserver = () => {
-//   const mockIntersectionObserver = jest.fn();
+//   const mockIntersectionObserver = vi.fn();
 
 //   mockIntersectionObserver.mockReturnValue({
-//     observe: jest.fn(),
-//     unobserve: jest.fn(),
-//     disconnect: jest.fn(),
+//     observe: vi.fn(),
+//     unobserve: vi.fn(),
+//     disconnect: vi.fn(),
 //   });
 //   window.IntersectionObserver = mockIntersectionObserver as any;
 // };
 
 // // ResizeObserver mock
 // export const mockResizeObserver = () => {
-//   const mockResizeObserver = jest.fn();
+//   const mockResizeObserver = vi.fn();
 
 //   mockResizeObserver.mockReturnValue({
-//     observe: jest.fn(),
-//     unobserve: jest.fn(),
-//     disconnect: jest.fn(),
+//     observe: vi.fn(),
+//     unobserve: vi.fn(),
+//     disconnect: vi.fn(),
 //   });
 //   window.ResizeObserver = mockResizeObserver as any;
 // };

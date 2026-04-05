@@ -1,0 +1,54 @@
+<style>
+  /* IDEAS UI branding - High specificity overrides */
+
+  /* 1. Hide default Storybook SVG across all possible containers */
+  [data-testid='brand-logo'] > svg,
+  .sidebar-header a > svg,
+  a[title='Storybook'] > svg {
+    display: none !important;
+  }
+
+  /* 2. Format the branding container to center the IdeasUI logo */
+  [data-testid='brand-logo'],
+  .sidebar-header a[href='./'],
+  a[title='Storybook'] {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: transparent !important;
+    min-height: 48px !important;
+    width: 100% !important;
+    margin-bottom: 8px !important;
+    text-decoration: none !important;
+  }
+
+  /* 3. Style the image rendered via brandImage theme property */
+  [data-testid='brand-logo'] img,
+  .sidebar-header a img,
+  a[title='Storybook'] img {
+    max-height: 32px !important;
+    width: auto !important;
+    max-width: 160px !important;
+    object-fit: contain !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* 4. Force Background synchronization if Manager UI lags */
+  [data-theme='dark'] body,
+  [data-theme='dark'] .sidebar-container,
+  [data-theme='dark'] .sidebar-header,
+  [data-theme='dark'] nav {
+    background-color: #09090b !important; /* HEX_TOKENS.dark.neutral[50] */
+  }
+
+  /* 5. Ensure text contrast in forced dark sidebar */
+  [data-theme='dark'] .sidebar-container * {
+    color: #fafafa !important; /* HEX_TOKENS.dark.neutral[900] / common.white */
+  }
+
+  [data-theme='dark'] .sidebar-container .sidebar-item:hover {
+    background-color: #27272a !important; /* HEX_TOKENS.dark.neutral[200] */
+  }
+</style>

@@ -6,11 +6,11 @@ const DELAY2 = 1000;
 
 describe('useDebouncedValue', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('isPending should return true when value is updating', () => {
@@ -25,7 +25,7 @@ describe('useDebouncedValue', () => {
     expect(result.current.isPending).toBe(true);
 
     act(() => {
-      jest.advanceTimersByTime(DELAY2);
+      vi.advanceTimersByTime(DELAY2);
     });
 
     expect(result.current.isPending).toBe(false);
@@ -81,7 +81,7 @@ describe('useDebouncedValue', () => {
     expect(result.current.isPending).toBe(true);
 
     act(() => {
-      jest.advanceTimersByTime(DELAY);
+      vi.advanceTimersByTime(DELAY);
     });
 
     expect(result.current.debouncedValue).toBe('updated');
@@ -97,7 +97,7 @@ describe('useDebouncedValue', () => {
 
     act(() => {
       result.current.cancel();
-      jest.advanceTimersByTime(DELAY);
+      vi.advanceTimersByTime(DELAY);
     });
 
     expect(result.current.debouncedValue).toBe('initial');
@@ -129,7 +129,7 @@ describe('useDebouncedValue', () => {
       result.current.cancel();
     });
 
-    jest.advanceTimersByTime(DELAY);
+    vi.advanceTimersByTime(DELAY);
 
     expect(result.current.debouncedValue).toBe('initial');
   });
@@ -185,7 +185,7 @@ describe('useDebouncedValue', () => {
       initialProps: { value: 'initial', delay: DELAY },
     });
 
-    const clearTimeoutSpy = jest.spyOn(window, 'clearTimeout');
+    const clearTimeoutSpy = vi.spyOn(window, 'clearTimeout');
 
     unmount();
 

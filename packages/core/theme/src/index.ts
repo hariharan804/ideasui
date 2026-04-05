@@ -5,9 +5,10 @@
  */
 
 // IdeasuiTailwind plugin
-export { ideasUIPlugin } from './plugin';
+export { ideasUIPlugin as default, ideasUIPlugin } from './plugin';
 
 // Theme providers and hooks
+
 export { ThemeProvider, ThemeScript, useTheme } from './providers';
 export type { ThemeProviderProps, ThemeScriptProps, ThemeScriptConfig } from './providers';
 

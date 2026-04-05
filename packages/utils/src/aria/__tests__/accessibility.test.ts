@@ -11,6 +11,9 @@ import {
 } from '../accessibility';
 
 describe('accessibility', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
   const TRUE = 'true';
   const HORIZONTAL = 'horizontal';
   const ARIA_LABELLED_BY = 'aria-labelledby';
@@ -123,11 +126,11 @@ describe('accessibility', () => {
 
   describe('screenReader', () => {
     beforeEach(() => {
-      jest.useFakeTimers();
+      vi.useFakeTimers();
     });
 
     afterEach(() => {
-      jest.useRealTimers();
+      vi.useRealTimers();
     });
 
     it('should announce message', () => {
@@ -140,7 +143,7 @@ describe('accessibility', () => {
 
       const TIME_TO_ADVANCE = 1000;
 
-      jest.advanceTimersByTime(TIME_TO_ADVANCE);
+      vi.advanceTimersByTime(TIME_TO_ADVANCE);
       expect(document.body.contains(announcement)).toBe(false);
     });
 

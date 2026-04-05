@@ -1,5 +1,6 @@
 // .storybook/main.ts
 import type { StorybookConfig } from '@storybook/react-vite';
+import { mergeConfig } from 'vite';
 import remarkGfm from 'remark-gfm';
 
 const config: StorybookConfig = {
@@ -25,7 +26,6 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-a11y',
-
     {
       name: '@storybook/addon-docs',
       options: {
@@ -36,12 +36,21 @@ const config: StorybookConfig = {
         },
       },
     },
+    '@storybook/addon-vitest',
   ],
 
   core: { disableTelemetry: true },
 
   typescript: {
     reactDocgen: false,
+  },
+
+  async viteFinal(config) {
+    return mergeConfig(config, {
+      resolve: {
+        extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
+      },
+    });
   },
 };
 

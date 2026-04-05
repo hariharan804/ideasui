@@ -1,3 +1,7 @@
+import type { Mock } from 'vitest';
+
+import { vi } from 'vitest';
+
 import {
   toPx,
   toRem,
@@ -108,7 +112,7 @@ describe('css', () => {
     });
 
     it('should get multiple CSS variables', () => {
-      jest.spyOn(window, 'getComputedStyle').mockImplementation(
+      vi.spyOn(window, 'getComputedStyle').mockImplementation(
         () =>
           ({
             getPropertyValue: (prop: string) => {
@@ -128,7 +132,7 @@ describe('css', () => {
 
       expect(vars).toStrictEqual({ a: '1px', b: '2px' });
 
-      (window.getComputedStyle as jest.Mock).mockRestore();
+      (window.getComputedStyle as Mock).mockRestore();
     });
 
     it('should create CSS vars object', () => {

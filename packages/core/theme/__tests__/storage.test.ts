@@ -9,14 +9,14 @@ const TEST_VALUE = 'test-value';
 const mockStorage = (storageType: 'localStorage' | 'sessionStorage'): void => {
   const store: Record<string, string> = {};
   const mock = {
-    getItem: jest.fn((key: string): string | null => store[key] || null),
-    setItem: jest.fn((key: string, value: string): void => {
+    getItem: vi.fn((key: string): string | null => store[key] || null),
+    setItem: vi.fn((key: string, value: string): void => {
       store[key] = value;
     }),
-    removeItem: jest.fn((key: string): void => {
+    removeItem: vi.fn((key: string): void => {
       delete store[key];
     }),
-    clear: jest.fn((): void => {
+    clear: vi.fn((): void => {
       for (const key in store) {
         delete store[key];
       }
@@ -31,7 +31,7 @@ const mockStorage = (storageType: 'localStorage' | 'sessionStorage'): void => {
 
 describe('Storage Adapters', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     mockStorage('localStorage');
     mockStorage('sessionStorage');
   });
@@ -52,13 +52,13 @@ describe('Storage Adapters', () => {
     });
 
     it('should handle errors gracefully', () => {
-      jest.spyOn(localStorage, 'setItem').mockImplementation(() => {
+      vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
         throw new Error('QuotaExceeded');
       });
-      jest.spyOn(localStorage, 'getItem').mockImplementation(() => {
+      vi.spyOn(localStorage, 'getItem').mockImplementation(() => {
         throw new Error('SecurityError');
       });
-      jest.spyOn(localStorage, 'removeItem').mockImplementation(() => {
+      vi.spyOn(localStorage, 'removeItem').mockImplementation(() => {
         throw new Error('SecurityError');
       });
 

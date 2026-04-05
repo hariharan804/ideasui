@@ -26,12 +26,12 @@ describe('useDateFormatter', () => {
 
   describe('relative time', () => {
     beforeAll(() => {
-      jest.useFakeTimers();
-      jest.setSystemTime(new Date(2023, 0, 1, 12, 0, 0)); // Set specific time
+      vi.useFakeTimers();
+      vi.setSystemTime(new Date(2023, 0, 1, 12, 0, 0)); // Set specific time
     });
 
     afterAll(() => {
-      jest.useRealTimers();
+      vi.useRealTimers();
     });
 
     it('should format seconds ago', () => {

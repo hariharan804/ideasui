@@ -43,7 +43,7 @@ describe('Theme Utils', () => {
     it('should use CSS.escape if available', () => {
       const originalEscape = global.CSS?.escape;
 
-      global.CSS = { escape: jest.fn((str) => `escaped-${str}`) } as unknown as typeof CSS;
+      global.CSS = { escape: vi.fn((str) => `escaped-${str}`) } as unknown as typeof CSS;
 
       expect(escapeSelector('foo')).toBe('escaped-foo');
 

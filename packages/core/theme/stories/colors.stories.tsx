@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement } from 'react';
 
 import { useState } from 'react';
@@ -11,7 +11,7 @@ import {
   darkSurface,
   lightContent,
   darkContent,
-} from '../src/tokens/colors';
+} from '../src/tokens';
 
 const meta: Meta = {
   title: 'Theme/Colors',

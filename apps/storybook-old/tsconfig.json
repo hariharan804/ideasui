@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "baseUrl": ".",
+    "jsx": "preserve"
+  },
+  "include": [
+    ".storybook/**/*",
+    "vite.config.ts",
+    "../../packages/components/*/stories/*.stories.tsx",
+    "../../packages/core/theme/stories/*.stories.tsx",
+    "vitest.config.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,45 @@
+{
+  "name": "@ideasui/storybook-v2",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "NODE_OPTIONS='--max-old-space-size=8192' lsof -i :6006 -t | xargs kill -9 2>/dev/null || true && storybook dev --host 127.0.0.1 --port 6006 --no-open",
+    "build": "NODE_OPTIONS='--max-old-space-size=8192' storybook build",
+    "start": "storybook start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ideasui/hooks": "workspace:*",
+    "@ideasui/theme": "workspace:*",
+    "@ideasui/utils": "workspace:*",
+    "framer-motion": "^12.23.26",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@ideasui/react": "npm:@heroui/react@^3.0.2",
+    "@storybook/addon-a11y": "^10.3.4",
+    "@storybook/addon-docs": "^10.3.4",
+    "@storybook/addon-links": "^10.3.4",
+    "@storybook/addon-vitest": "^10.3.4",
+    "@storybook/react": "^10.3.4",
+    "@storybook/react-vite": "^10.3.4",
+    "@tailwindcss/postcss": "4.1.17",
+    "@tailwindcss/vite": "4.1.17",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "@vitest/browser": "4.1.2",
+    "@vitest/browser-playwright": "4.1.2",
+    "playwright": "^1.57.0",
+    "react-scan": "^0.5.3",
+    "remark-gfm": "^4.0.1",
+    "storybook": "^10.3.4",
+    "tailwindcss": "4.1.17",
+    "vite": "^7.3.0",
+    "vitest": "4.1.2"
+  }
+}

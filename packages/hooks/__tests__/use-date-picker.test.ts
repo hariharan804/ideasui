@@ -4,12 +4,13 @@ import { useDatePicker } from '../src/use-date-picker';
 
 describe('useDatePicker', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
-    jest.setSystemTime(new Date(2023, 0, 15)); // Default to Jan 15 2023
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date(2023, 0, 15)); // Default to Jan 15 2023
   });
 
   afterEach(() => {
-    jest.clearAllTimers();
+    vi.useRealTimers();
+    vi.clearAllTimers();
   });
 
   it('should initialize with provided date', () => {
@@ -35,7 +36,7 @@ describe('useDatePicker', () => {
 
   it('should go to next month (year rollover)', () => {
     // Mock date to December
-    jest.setSystemTime(new Date(2023, 11, 1)); // Dec 1 2023
+    vi.setSystemTime(new Date(2023, 11, 1)); // Dec 1 2023
 
     const { result } = renderHook(() => useDatePicker(new Date(2023, 11, 1)));
 
@@ -49,7 +50,7 @@ describe('useDatePicker', () => {
 
   it('should go to prev month (year rollover)', () => {
     // Mock date to Jan
-    jest.setSystemTime(new Date(2023, 0, 1)); // Jan 1 2023
+    vi.setSystemTime(new Date(2023, 0, 1)); // Jan 1 2023
 
     const { result } = renderHook(() => useDatePicker(new Date(2023, 0, 1)));
 
@@ -62,7 +63,7 @@ describe('useDatePicker', () => {
   });
 
   it('should go to today', () => {
-    jest.setSystemTime(new Date(2023, 5, 15));
+    vi.setSystemTime(new Date(2023, 5, 15));
 
     const { result } = renderHook(() => useDatePicker(new Date(2020, 0, 1))); // Start far away
 

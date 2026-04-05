@@ -32,7 +32,7 @@ describe('useWindowSize', () => {
   });
 
   it('should clean up listener on unmount', () => {
-    const removeEventListenerSpy = jest.spyOn(window, 'removeEventListener');
+    const removeEventListenerSpy = vi.spyOn(window, 'removeEventListener');
     const { unmount } = renderHook(() => useWindowSize());
 
     unmount();

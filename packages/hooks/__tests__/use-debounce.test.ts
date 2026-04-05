@@ -5,11 +5,13 @@ import { useDebounce } from '../src/use-debounce';
 const DELAY_MS = 500;
 
 // Mock timers
-jest.useFakeTimers();
-
 describe('useDebounce', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
   afterEach(() => {
-    jest.clearAllTimers();
+    vi.useRealTimers();
+    vi.clearAllTimers();
   });
 
   it('should return initial value immediately', () => {
@@ -31,7 +33,7 @@ describe('useDebounce', () => {
 
     // Fast forward time
     act(() => {
-      jest.advanceTimersByTime(DELAY_MS);
+      vi.advanceTimersByTime(DELAY_MS);
     });
 
     expect(result.current).toBe('updated');
@@ -49,7 +51,7 @@ describe('useDebounce', () => {
 
     // Advance time
     act(() => {
-      jest.advanceTimersByTime(DELAY_MS);
+      vi.advanceTimersByTime(DELAY_MS);
     });
 
     expect(result.current).toBe('final');

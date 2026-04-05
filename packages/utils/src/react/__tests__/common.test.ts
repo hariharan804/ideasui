@@ -1,15 +1,19 @@
+import type { Mock } from 'vitest';
+
+import { vi } from 'vitest';
+
 import { cn } from '../../style/tailwind';
 import { mergeProps, mergeRefs } from '../common';
 
 // Mock cn since it's a tailwind utility
-jest.mock('../../style/tailwind', () => ({
-  cn: jest.fn((...args: any[]) => args.filter(Boolean).join(' ')),
+vi.mock('../../style/tailwind', () => ({
+  cn: vi.fn((...args: any[]) => args.filter(Boolean).join(' ')),
 }));
 
 describe('mergeRefs', () => {
   it('should merge function refs', () => {
-    const ref1 = jest.fn();
-    const ref2 = jest.fn();
+    const ref1 = vi.fn();
+    const ref2 = vi.fn();
     const node = {};
 
     const merged = mergeRefs(ref1, ref2);
@@ -34,7 +38,7 @@ describe('mergeRefs', () => {
   });
 
   it('should handle null/undefined refs', () => {
-    const ref1 = jest.fn();
+    const ref1 = vi.fn();
     const node = {};
 
     // @ts-ignore - testing runtime safety
@@ -52,7 +56,7 @@ describe('mergeProps', () => {
     const props2 = { className: 'bar' };
 
     // reset mock to check calls if needed, or just rely on the implementation
-    (cn as unknown as jest.Mock).mockReturnValue('foo bar');
+    (cn as unknown as Mock).mockReturnValue('foo bar');
 
     const result = mergeProps(props1, props2);
 
@@ -78,8 +82,8 @@ describe('mergeProps', () => {
   });
 
   it('should merge ref callbacks', () => {
-    const ref1 = jest.fn();
-    const ref2 = jest.fn();
+    const ref1 = vi.fn();
+    const ref2 = vi.fn();
     const node = {};
 
     const props1 = { ref: ref1 };
@@ -94,8 +98,8 @@ describe('mergeProps', () => {
   });
 
   it('should chain event handlers', () => {
-    const handler1 = jest.fn();
-    const handler2 = jest.fn();
+    const handler1 = vi.fn();
+    const handler2 = vi.fn();
 
     const props1 = { onClick: handler1 };
     const props2 = { onClick: handler2 };

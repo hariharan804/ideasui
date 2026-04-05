@@ -1,6 +1,9 @@
 import '@testing-library/jest-dom';
-import type { UserEvent } from '@testing-library/user-event';
 
+import type { UserEvent } from '@testing-library/user-event';
+import type * as FramerMotion from 'framer-motion';
+
+import { vi } from 'vitest';
 import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -9,13 +12,13 @@ import { axe } from 'jest-axe';
 import { Button } from '../src';
 
 // Mock framer-motion to avoid LazyMotion async warnings
-jest.mock('framer-motion', () => {
-  const actual = jest.requireActual('framer-motion');
+vi.mock('framer-motion', async (importOriginal) => {
+  const actual = (await importOriginal()) as typeof FramerMotion;
 
   return {
     ...actual,
-    LazyMotion: jest.fn().mockImplementation(({ children }) => children),
-    AnimatePresence: jest.fn().mockImplementation(({ children }) => children),
+    LazyMotion: vi.fn().mockImplementation(({ children }) => children),
+    AnimatePresence: vi.fn().mockImplementation(({ children }) => children),
     m: actual.motion,
   };
 });
@@ -41,7 +44,7 @@ describe('Button', () => {
   });
 
   it('should trigger onPress function', async () => {
-    const onPress = jest.fn();
+    const onPress = vi.fn();
 
     render(<Button disableRipple onClick={onPress} />);
 
@@ -53,7 +56,7 @@ describe('Button', () => {
   });
 
   it('should trigger onClick function', async () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
 
     render(<Button disableRipple onClick={onClick} />);
 
@@ -65,7 +68,7 @@ describe('Button', () => {
   });
 
   it('should ignore events when disabled', async () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
 
     render(<Button disableRipple disabled onClick={onClick} />);
 

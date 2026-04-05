@@ -56,8 +56,8 @@ describe('events', () => {
 
   describe('composeEventHandlers', () => {
     it('should call both handlers', () => {
-      const original = jest.fn();
-      const our = jest.fn();
+      const original = vi.fn();
+      const our = vi.fn();
       const composed = composeEventHandlers(original, our);
       const event = {} as Event;
 
@@ -67,10 +67,10 @@ describe('events', () => {
     });
 
     it('should not call our handler if default prevented', () => {
-      const original = jest.fn((e) => {
+      const original = vi.fn((e) => {
         e.defaultPrevented = true;
       });
-      const our = jest.fn();
+      const our = vi.fn();
       const composed = composeEventHandlers(original, our);
       const event = { defaultPrevented: false } as unknown as Event;
 
@@ -80,10 +80,10 @@ describe('events', () => {
     });
 
     it('should call our handler even if prevented when check is false', () => {
-      const original = jest.fn((e) => {
+      const original = vi.fn((e) => {
         e.defaultPrevented = true;
       });
-      const our = jest.fn();
+      const our = vi.fn();
       const composed = composeEventHandlers(original, our, { checkForDefaultPrevented: false });
       const event = { defaultPrevented: false } as unknown as Event;
 

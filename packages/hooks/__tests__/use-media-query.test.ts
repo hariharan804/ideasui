@@ -3,19 +3,19 @@ import { renderHook, act } from '@testing-library/react';
 import { useMediaQuery } from '../src/use-media-query';
 
 describe('useMediaQuery', () => {
-  let matchMediaMock: jest.Mock;
+  let matchMediaMock: vi.Mock;
   const matches = new Map<string, boolean>();
   const listeners = new Map<string, Set<(event: MediaQueryListEvent) => void>>();
   const CHANGE_EVENT = 'change';
 
   beforeAll(() => {
-    matchMediaMock = jest.fn((query: string) => ({
+    matchMediaMock = vi.fn((query: string) => ({
       matches: matches.get(query) || false,
       media: query,
       onchange: null,
-      addListener: jest.fn(), // Deprecated
-      removeListener: jest.fn(), // Deprecated
-      addEventListener: jest.fn((type, listener) => {
+      addListener: vi.fn(), // Deprecated
+      removeListener: vi.fn(), // Deprecated
+      addEventListener: vi.fn((type, listener) => {
         if (type === CHANGE_EVENT) {
           if (!listeners.has(query)) {
             listeners.set(query, new Set());
@@ -23,12 +23,12 @@ describe('useMediaQuery', () => {
           listeners.get(query)?.add(listener);
         }
       }),
-      removeEventListener: jest.fn((type, listener) => {
+      removeEventListener: vi.fn((type, listener) => {
         if (type === CHANGE_EVENT) {
           listeners.get(query)?.delete(listener);
         }
       }),
-      dispatchEvent: jest.fn(),
+      dispatchEvent: vi.fn(),
     }));
     window.matchMedia = matchMediaMock;
   });
@@ -77,17 +77,17 @@ describe('useMediaQuery', () => {
   });
   it('should clean up listener on unmount', () => {
     // Manually create the mock to spy on removeEventListener
-    const removeEventListenerSpy = jest.fn();
+    const removeEventListenerSpy = vi.fn();
 
     matchMediaMock.mockImplementation((query) => ({
       matches: false,
       media: query,
       onchange: null,
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-      addEventListener: jest.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
       removeEventListener: removeEventListenerSpy,
-      dispatchEvent: jest.fn(),
+      dispatchEvent: vi.fn(),
     }));
 
     const { unmount } = renderHook(() => useMediaQuery(QUERY));
