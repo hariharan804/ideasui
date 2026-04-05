@@ -20,16 +20,22 @@ const config: StorybookConfig = {
 
   staticDirs: ['../public'],
   refs: {},
-  addons: ['@storybook/addon-links', '@storybook/addon-a11y', {
-    name: '@storybook/addon-docs',
-    options: {
-      mdxPluginOptions: {
-        mdxCompileOptions: {
-          remarkPlugins: [remarkGfm],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-a11y',
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
         },
       },
     },
-  }, '@storybook/addon-vitest', '@chromatic-com/storybook'],
+    '@storybook/addon-vitest',
+    '@chromatic-com/storybook',
+  ],
 
   core: { disableTelemetry: true },
 

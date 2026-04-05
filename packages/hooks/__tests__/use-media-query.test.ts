@@ -1,9 +1,11 @@
+import type { Mock } from 'vitest';
+
 import { renderHook, act } from '@testing-library/react';
 
 import { useMediaQuery } from '../src/use-media-query';
 
 describe('useMediaQuery', () => {
-  let matchMediaMock: vi.Mock;
+  let matchMediaMock: Mock;
   const matches = new Map<string, boolean>();
   const listeners = new Map<string, Set<(event: MediaQueryListEvent) => void>>();
   const CHANGE_EVENT = 'change';
