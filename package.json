@@ -69,8 +69,7 @@
     "changeset:canary": "changeset pre enter canary",
     "version:canary": "changeset version --snapshot canary",
     "release:canary": "changeset publish --snapshot --no-git-tag --tag canary",
-    "changeset:exit": "changeset pre exit",
-    "generate:figma-variables": "node scripts/figma-variable-converter.js"
+    "changeset:exit": "changeset pre exit"
   },
   "config": {
     "commitizen": {
