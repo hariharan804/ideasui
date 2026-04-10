@@ -4,8 +4,6 @@ import type { ElementType, ReactNode } from 'react';
 
 import { useMemo } from 'react';
 import { button as buttonVariants } from '@ideasui/theme/recipes';
-import { Ripple } from '@ideasui/ripple';
-import { Slot } from '@ideasui/slot';
 import { forwardRef } from '@ideasui/utils';
 
 import { Spinner } from './spinner';
@@ -68,12 +66,6 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
    * Content to show at the end of the button
    */
   endContent?: ReactNode;
-
-  /**
-   * Whether the button should display a ripple effect
-   * @default false
-   */
-  disableRipple?: boolean;
 }
 export const Button = forwardRef<'button', ButtonProps>(
   (
@@ -91,7 +83,6 @@ export const Button = forwardRef<'button', ButtonProps>(
       startContent,
       endContent,
       fullWidth = false,
-      disableRipple = false,
       ...props
     },
     ref,
@@ -116,7 +107,7 @@ export const Button = forwardRef<'button', ButtonProps>(
       return 'button';
     }, [as]);
 
-    const { getButtonProps, isLoading, getRippleProps } = useButton({
+    const { getButtonProps, isLoading } = useButton({
       as: Component,
       ref,
       className,
@@ -134,7 +125,7 @@ export const Button = forwardRef<'button', ButtonProps>(
     });
 
     return (
-      <Slot as={Component} {...getButtonProps()} className={recipes.base()}>
+      <Component {...getButtonProps()} className={recipes.base()}>
         {isLoading ? <Spinner size={size} /> : null}
         {!isLoading && startContent ? <span className="mr-2 shrink-0">{startContent}</span> : null}
 
@@ -143,8 +134,7 @@ export const Button = forwardRef<'button', ButtonProps>(
         </span>
 
         {!isLoading && endContent ? <span className="ml-2 shrink-0">{endContent}</span> : null}
-        {!disableRipple && <Ripple {...getRippleProps()} />}
-      </Slot>
+      </Component>
     );
   },
 );

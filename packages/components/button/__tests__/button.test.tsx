@@ -30,7 +30,7 @@ describe('Button', () => {
   });
 
   it('should render correctly', () => {
-    const wrapper = render(<Button disableRipple />);
+    const wrapper = render(<Button />);
 
     expect(() => wrapper.unmount()).not.toThrow();
   });
@@ -38,14 +38,14 @@ describe('Button', () => {
   it('ref should be forwarded', () => {
     const ref = createRef<HTMLButtonElement>();
 
-    render(<Button ref={ref} disableRipple />);
+    render(<Button ref={ref} />);
     expect(ref.current).not.toBeNull();
   });
 
   it('should trigger onPress function', async () => {
     const onPress = vi.fn();
 
-    render(<Button disableRipple onClick={onPress} />);
+    render(<Button onClick={onPress} />);
 
     const button = screen.getByRole('button');
 
@@ -57,7 +57,7 @@ describe('Button', () => {
   it('should trigger onClick function', async () => {
     const onClick = vi.fn();
 
-    render(<Button disableRipple onClick={onClick} />);
+    render(<Button onClick={onClick} />);
 
     const button = screen.getByRole('button');
 
@@ -69,7 +69,7 @@ describe('Button', () => {
   it('should ignore events when disabled', async () => {
     const onClick = vi.fn();
 
-    render(<Button disableRipple disabled onClick={onClick} />);
+    render(<Button disabled onClick={onClick} />);
 
     const button = screen.getByRole('button');
 
@@ -79,27 +79,19 @@ describe('Button', () => {
   });
 
   it('should renders with start icon', () => {
-    render(
-      <Button disableRipple startContent={<span data-testid="start-icon">Icon</span>}>
-        Button
-      </Button>,
-    );
+    render(<Button startContent={<span data-testid="start-icon">Icon</span>}>Button</Button>);
 
     expect(screen.getByTestId('start-icon')).toBeInTheDocument();
   });
 
   it('should renders with end icon', () => {
-    render(
-      <Button disableRipple endContent={<span data-testid="end-icon">Icon</span>}>
-        Button
-      </Button>,
-    );
+    render(<Button endContent={<span data-testid="end-icon">Icon</span>}>Button</Button>);
 
     expect(screen.getByTestId('end-icon')).toBeInTheDocument();
   });
 
   it('should have the proper type attribute', () => {
-    render(<Button disableRipple type="submit" />);
+    render(<Button type="submit" />);
 
     expect(screen.getByRole('button')).toHaveAttribute('type', 'submit');
   });
@@ -123,8 +115,10 @@ describe('Button', () => {
       </Button>,
     );
 
-    // FIXME: Should be 'A', but receiving 'SPAN' currently. Investigate Slot/Button interaction.
-    expect(['A', 'SPAN']).toContain(screen.getByText('Link Button').tagName);
+    const link = screen.getByRole('link');
+
+    expect(link.tagName).toBe('A');
+    expect(link).toHaveAttribute('href', '#');
   });
 
   it('should render all variants and sizes', () => {
