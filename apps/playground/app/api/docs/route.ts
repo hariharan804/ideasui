@@ -16,12 +16,13 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     // Resolve the file path from project root
     const filePath = path.join(process.cwd(), file);
 
-    // Security: prevent directory traversal
+    // Security: prevent directory traversal outside of the monorepo root
     const resolvedPath = path.resolve(filePath);
 
-    const projectRoot = path.resolve(process.cwd());
+    // Get the root of the monorepo (2 levels up from apps/playground)
+    const monorepoRoot = path.resolve(process.cwd(), '../..');
 
-    if (!resolvedPath.startsWith(projectRoot)) {
+    if (!resolvedPath.startsWith(monorepoRoot)) {
       return NextResponse.json({ error: 'Invalid file path' }, { status: 403 });
     }
 

@@ -13,32 +13,32 @@ interface DocFile {
 }
 
 const DOC_FILES: DocFile[] = [
-  { name: 'README.md', path: 'README.md', description: 'Main project documentation' },
+  { name: 'README.md', path: '../../README.md', description: 'Main project documentation' },
+  { name: 'ARCHITECTURE.md', path: '../../ARCHITECTURE.md', description: 'System Architecture' },
   {
     name: 'CONTRIBUTING.md',
-    path: '../../../../CONTRIBUTING.md',
+    path: '../../CONTRIBUTING.md',
     description: 'Contribution guidelines',
   },
-  // {
-  //   name: "COMPONENT_GUIDELINES.md",
-  //   path: "docs/COMPONENT_GUIDELINES.md",
-  //   description: "Component development standards",
-  // },
   {
-    name: 'NAMING_CONVENTIONS.md',
-    path: '../../docs/NAMING_CONVENTIONS.md',
-    description: 'Naming rules and cases',
+    name: 'DESIGN_TOKEN_RULES.md',
+    path: '../../docs/DESIGN_TOKEN_RULES.md',
+    description: 'CSS variables and theming rules',
   },
   {
-    name: 'TESTING_STRATEGY.md',
-    path: 'docs/TESTING_STRATEGY.md',
+    name: 'COMPONENT_STANDARDS.md',
+    path: '../../docs/COMPONENT_STANDARDS.md',
+    description: 'Component development standards',
+  },
+  {
+    name: 'DEVELOPMENT_SETUP.md',
+    path: '../../docs/DEVELOPMENT_SETUP.md',
+    description: 'Local development guide',
+  },
+  {
+    name: 'TESTING_GUIDE.md',
+    path: '../../docs/TESTING_GUIDE.md',
     description: 'Quality assurance guide',
-  },
-  { name: 'BUILD_DEPLOYMENT.md', path: 'docs/BUILD_DEPLOYMENT.md', description: 'Release process' },
-  {
-    name: 'API_DOCUMENTATION.md',
-    path: 'docs/API_DOCUMENTATION.md',
-    description: 'Component reference',
   },
 ];
 
@@ -232,7 +232,7 @@ export default function DocsPage(): JSX.Element {
 
             {/* Content */}
             {!loading && !error && (
-              <div className="prose prose-sm prose-headings:scroll-mt-24 prose-h1:text-4xl prose-h1:font-extrabold prose-h1:text-content-primary prose-h1:tracking-tight prose-h1:mt-10 prose-h1:mb-6 prose-h2:text-3xl prose-h2:font-bold prose-h2:text-content-primary prose-h2:tracking-tight prose-h2:mt-8 prose-h2:mb-4 prose-h3:text-2xl prose-h3:font-bold prose-h3:text-content-secondary prose-h3:mt-6 prose-h3:mb-3 prose-a:text-info-500 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline prose-code:bg-surface-muted prose-code:text-primary-600 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-semibold prose-pre:bg-surface-inverse prose-pre:text-content-inverse prose-pre:border prose-pre:border-default prose-pre:shadow-inner prose-pre:rounded-xl prose-blockquote:border-l-4 prose-blockquote:border-primary-500 prose-blockquote:bg-surface-sunken prose-blockquote:py-1 prose-blockquote:pl-5 prose-blockquote:text-content-secondary prose-blockquote:font-medium prose-blockquote:italic prose-strong:text-content-primary prose-strong:font-bold prose-li:text-content-secondary prose-p:text-content-secondary prose-p:leading-relaxed prose-table:border-collapse prose-table:w-full prose-table:my-8 prose-th:bg-surface-muted prose-th:border-b-2 prose-th:border-default prose-th:px-5 prose-th:py-3 prose-th:font-semibold prose-th:text-content-primary prose-th:text-left prose-td:border-b prose-td:border-default prose-td:px-5 prose-td:py-4 prose-td:text-content-secondary max-w-none p-8 md:p-12">
+              <div className="prose prose-base prose-headings:scroll-mt-24 prose-h1:text-4xl prose-h1:font-extrabold prose-h1:text-content-primary prose-h1:tracking-tight prose-h1:mt-2 prose-h1:mb-8 prose-h2:text-3xl prose-h2:font-bold prose-h2:text-content-primary prose-h2:tracking-tight prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-border-subtle prose-h2:pb-4 prose-h3:text-2xl prose-h3:font-bold prose-h3:text-content-primary prose-h3:mt-8 prose-h3:mb-4 prose-a:text-primary-600 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline hover:prose-a:text-primary-700 prose-code:bg-primary-500/10 prose-code:text-primary-600 dark:prose-code:text-primary-400 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-lg prose-code:font-mono prose-code:text-[0.9em] prose-code:font-bold prose-code:before:content-none prose-code:after:content-none prose-pre:bg-[#0f172a] prose-pre:text-slate-50 prose-pre:border prose-pre:border-border-subtle prose-pre:rounded-2xl prose-pre:shadow-lg prose-pre:p-6 prose-pre:my-8 prose-blockquote:border-l-4 prose-blockquote:border-primary-500 prose-blockquote:bg-surface-raised prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-content-secondary prose-blockquote:font-medium prose-blockquote:italic prose-blockquote:shadow-sm prose-strong:text-content-primary prose-strong:font-bold prose-ul:list-disc prose-ol:list-decimal prose-li:text-content-secondary prose-li:marker:text-primary-500 prose-p:text-content-secondary prose-p:leading-relaxed prose-p:text-lg prose-table:border-collapse prose-table:w-full prose-table:my-8 prose-table:text-left prose-table:rounded-xl prose-table:overflow-hidden prose-table:shadow-sm prose-table:border prose-table:border-border-subtle prose-thead:bg-surface-raised prose-th:border-b-2 prose-th:border-border-default prose-th:px-6 prose-th:py-4 prose-th:font-bold prose-th:text-content-primary prose-td:border-b prose-td:border-border-subtle prose-td:px-6 prose-td:py-4 prose-td:text-content-secondary prose-tr:transition-colors hover:prose-tr:bg-surface-raised/50 prose-img:rounded-2xl prose-img:border prose-img:border-border-subtle prose-img:shadow-sm max-w-none p-8 transition-colors md:p-12">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{docContent}</ReactMarkdown>
               </div>
             )}

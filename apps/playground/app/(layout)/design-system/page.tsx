@@ -299,9 +299,7 @@ function SectionCard({
   className?: string;
 }): JSX.Element {
   return (
-    <div
-      className={`border-default bg-surface-base rounded-3xl border p-8 shadow-sm transition-all duration-300 hover:shadow-md lg:p-10 ${className}`}
-    >
+    <div className={`bg-surface-base rounded-3xl p-8 shadow-sm lg:p-10 ${className}`}>
       {children}
     </div>
   );
@@ -539,12 +537,18 @@ export default function DesignSystemPage(): JSX.Element {
   /* ───────────────────────── render ───────────────────────── */
 
   return (
-    <div className="text-content-primary min-h-screen transition-colors duration-300 ease-in-out">
-      <div className="animate-in fade-in slide-in-from-bottom-4 mx-auto flex max-w-[1440px] gap-8 px-4 py-8 duration-700 lg:px-8">
+    <div className="text-content-primary bg-surface-base relative min-h-screen transition-colors duration-500">
+      {/* Background Ambience */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden outline-none">
+        <div className="bg-primary-500/10 absolute -top-[10%] left-[20%] h-[600px] w-[600px] animate-pulse rounded-full opacity-50 mix-blend-normal blur-3xl transition-all duration-[4000ms] dark:mix-blend-screen" />
+        <div className="absolute top-[40%] -right-[10%] h-[500px] w-[500px] animate-pulse rounded-full bg-purple-500/10 opacity-40 mix-blend-normal blur-3xl transition-all delay-700 duration-[4000ms] dark:mix-blend-screen" />
+      </div>
+
+      <div className="animate-in fade-in slide-in-from-bottom-4 relative z-10 mx-auto flex max-w-[1440px] gap-8 px-4 py-8 duration-700 lg:px-8">
         {/* ── sticky sidebar nav ── */}
         <aside className="hidden w-56 shrink-0 lg:block">
           <nav className="sticky top-24 space-y-1">
-            <h3 className="text-content-muted mb-4 px-3 text-xs font-semibold tracking-widest uppercase">
+            <h3 className="text-content-secondary mb-4 px-3 text-xs font-bold tracking-widest uppercase">
               Sections
             </h3>
             {NAV_SECTIONS.map((s) => {
@@ -555,7 +559,7 @@ export default function DesignSystemPage(): JSX.Element {
                   key={s.id}
                   className={`flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-left text-sm transition-all duration-200 ${
                     activeSection === s.id
-                      ? 'bg-primary-subtle text-primary-700 border-primary-500/20 border font-bold shadow-sm'
+                      ? 'bg-primary-500/10 text-primary-600 dark:text-primary-400 font-bold'
                       : 'text-content-secondary hover:bg-surface-muted hover:text-content-primary'
                   }`}
                   type="button"
@@ -573,16 +577,16 @@ export default function DesignSystemPage(): JSX.Element {
         {/* ── main content ── */}
         <main className="min-w-0 flex-1 space-y-12">
           {/* page header */}
-          <div className="text-center lg:text-left">
-            <h1 className="from-primary-600 via-primary-500 to-info-500 bg-gradient-to-r bg-clip-text pb-2 text-4xl font-bold text-transparent lg:text-5xl">
+          <div className="animate-slideIn mb-10 text-center lg:text-left">
+            <h1 className="from-primary-500 bg-gradient-to-r via-indigo-500 to-purple-500 bg-clip-text pb-2 text-5xl font-extrabold tracking-tight text-transparent lg:text-6xl">
               Design System
             </h1>
-            <p className="text-content-tertiary mt-3 text-lg">
+            <p className="text-content-secondary mt-4 max-w-2xl text-xl">
               Complete token reference for{' '}
-              <code className="text-primary-600 bg-surface-muted rounded px-1.5 py-0.5 text-sm font-medium">
+              <code className="text-primary-600 bg-primary-500/10 border-primary-500/20 rounded-lg border px-2 py-1 text-sm font-bold shadow-sm">
                 @ideasui/theme
               </code>{' '}
-              — all using Tailwind class names.
+              — styled completely with semantic Tailwind utility classes.
             </p>
           </div>
 
