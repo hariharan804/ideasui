@@ -233,9 +233,6 @@ importers:
       '@ideasui/button':
         specifier: workspace:*
         version: link:../../packages/components/button
-      '@ideasui/ripple':
-        specifier: workspace:*
-        version: link:../../packages/components/ripple
       '@ideasui/theme':
         specifier: workspace:*
         version: link:../../packages/core/theme
@@ -288,9 +285,6 @@ importers:
 
   apps/storybook:
     dependencies:
-      '@ideasui/hooks':
-        specifier: workspace:*
-        version: link:../../packages/hooks
       '@ideasui/theme':
         specifier: workspace:*
         version: link:../../packages/core/theme
@@ -376,12 +370,6 @@ importers:
 
   packages/components/button:
     dependencies:
-      '@ideasui/ripple':
-        specifier: workspace:*
-        version: link:../ripple
-      '@ideasui/slot':
-        specifier: workspace:*
-        version: link:../slot
       '@ideasui/theme':
         specifier: workspace:*
         version: link:../../core/theme
@@ -408,50 +396,6 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/components/ripple:
-    dependencies:
-      '@ideasui/slot':
-        specifier: workspace:*
-        version: link:../slot
-      '@ideasui/theme':
-        specifier: workspace:*
-        version: link:../../core/theme
-      '@ideasui/utils':
-        specifier: workspace:*
-        version: link:../../utils
-      framer-motion:
-        specifier: '>=11.5.6 || >=12'
-        version: 12.38.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-    devDependencies:
-      clean-package:
-        specifier: ^2.2.0
-        version: 2.2.0
-      react:
-        specifier: 19.2.4
-        version: 19.2.4
-      react-aria:
-        specifier: ^3.45.0
-        version: 3.47.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      react-dom:
-        specifier: 19.2.4
-        version: 19.2.4(react@19.2.4)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/components/slot:
-    dependencies:
-      '@ideasui/utils':
-        specifier: workspace:*
-        version: link:../../utils
-    devDependencies:
-      react:
-        specifier: 19.2.4
-        version: 19.2.4
-      react-dom:
-        specifier: 19.2.4
-        version: 19.2.4(react@19.2.4)
-
   packages/core/theme:
     dependencies:
       color:
@@ -464,10 +408,10 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1
       react:
-        specifier: 19.2.4
+        specifier: '>=18'
         version: 19.2.4
       react-dom:
-        specifier: 19.2.4
+        specifier: '>=18'
         version: 19.2.4(react@19.2.4)
       tailwind-variants:
         specifier: ^3.2.2
@@ -497,34 +441,6 @@ importers:
       tailwindcss:
         specifier: ^4.0.0
         version: 4.2.2
-      tsup:
-        specifier: ^8.0.0
-        version: 8.5.1(jiti@2.6.1)(postcss@8.5.8)(typescript@5.9.3)(yaml@2.8.3)
-      typescript:
-        specifier: ^5.0.0
-        version: 5.9.3
-
-  packages/hooks:
-    dependencies:
-      '@ideasui/utils':
-        specifier: workspace:*
-        version: link:../utils
-      react:
-        specifier: 19.2.4
-        version: 19.2.4
-      react-dom:
-        specifier: 19.2.4
-        version: 19.2.4(react@19.2.4)
-    devDependencies:
-      '@testing-library/react':
-        specifier: ^16.3.1
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@types/react':
-        specifier: ^19.0.0
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.0.0
-        version: 19.2.3(@types/react@19.2.14)
       tsup:
         specifier: ^8.0.0
         version: 8.5.1(jiti@2.6.1)(postcss@8.5.8)(typescript@5.9.3)(yaml@2.8.3)

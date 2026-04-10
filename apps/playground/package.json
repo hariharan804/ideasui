@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@ideasui/button": "workspace:*",
-    "@ideasui/ripple": "workspace:*",
     "@ideasui/theme": "workspace:*",
     "@ideasui/utils": "workspace:*",
     "framer-motion": "^12.23.26",

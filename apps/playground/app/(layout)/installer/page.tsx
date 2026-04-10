@@ -15,7 +15,6 @@ const RELEASE_TAGS = {
 
 const PACKAGES = [
   '@ideasui/button',
-  '@ideasui/ripple',
   '@ideasui/theme',
   '@ideasui/box',
   '@ideasui/variants',
