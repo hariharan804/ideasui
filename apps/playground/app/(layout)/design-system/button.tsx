@@ -22,21 +22,21 @@ export function Button({
 
   // We are relying ONLY on these semantic tokens, no hover/active states, no opacities, no raw shades:
   // - bg-{color}-base
-  // - text-{color}-onBase
+  // - text-{color}-on-base
   // - bg-{color}-subtle
-  // - text-{color}-onSubtle
+  // - text-{color}-on-subtle
   // - border-{color}-base
   // - text-{color}-base (which maps to the base color itself)
 
   const variantStyles: Record<ButtonVariant, Record<ButtonColor, string>> = {
     solid: {
-      primary: 'bg-primary-base text-primary-onBase',
-      secondary: 'bg-secondary-base text-secondary-onBase',
-      success: 'bg-success-base text-success-onBase',
-      warning: 'bg-warning-base text-warning-onBase',
-      danger: 'bg-danger-base text-danger-onBase',
-      info: 'bg-info-base text-info-onBase',
-      neutral: 'bg-neutral-base text-neutral-onBase',
+      primary: 'bg-primary-base text-primary-on-base',
+      secondary: 'bg-secondary-base text-secondary-on-base',
+      success: 'bg-success-base text-success-on-base',
+      warning: 'bg-warning-base text-warning-on-base',
+      danger: 'bg-danger-base text-danger-on-base',
+      info: 'bg-info-base text-info-on-base',
+      neutral: 'bg-neutral-base text-neutral-on-base',
     },
     faded: {
       primary: 'bg-surface-elevated text-primary-base border-2 border-primary-subtle',
@@ -66,13 +66,13 @@ export function Button({
       neutral: 'bg-transparent text-neutral-base',
     },
     flat: {
-      primary: 'bg-primary-subtle text-primary-onSubtle',
-      secondary: 'bg-secondary-subtle text-secondary-onSubtle',
-      success: 'bg-success-subtle text-success-onSubtle',
-      warning: 'bg-warning-subtle text-warning-onSubtle',
-      danger: 'bg-danger-subtle text-danger-onSubtle',
-      info: 'bg-info-subtle text-info-onSubtle',
-      neutral: 'bg-neutral-subtle text-neutral-onSubtle',
+      primary: 'bg-primary-subtle text-primary-on-subtle',
+      secondary: 'bg-secondary-subtle text-secondary-on-subtle',
+      success: 'bg-success-subtle text-success-on-subtle',
+      warning: 'bg-warning-subtle text-warning-on-subtle',
+      danger: 'bg-danger-subtle text-danger-on-subtle',
+      info: 'bg-info-subtle text-info-on-subtle',
+      neutral: 'bg-neutral-subtle text-neutral-on-subtle',
     },
     ghost: {
       // Very similar to light but could potentially have hover states. Since requested no hover, it's the same.
@@ -85,13 +85,13 @@ export function Button({
       neutral: 'bg-transparent text-neutral-base',
     },
     shadow: {
-      primary: 'bg-primary-base text-primary-onBase shadow-lg shadow-primary-base',
-      secondary: 'bg-secondary-base text-secondary-onBase shadow-lg shadow-secondary-base',
-      success: 'bg-success-base text-success-onBase shadow-lg shadow-success-base',
-      warning: 'bg-warning-base text-warning-onBase shadow-lg shadow-warning-base',
-      danger: 'bg-danger-base text-danger-onBase shadow-lg shadow-danger-base',
-      info: 'bg-info-base text-info-onBase shadow-lg shadow-info-base',
-      neutral: 'bg-neutral-base text-neutral-onBase shadow-lg shadow-neutral-base',
+      primary: 'bg-primary-base text-primary-on-base shadow-lg shadow-primary-base',
+      secondary: 'bg-secondary-base text-secondary-on-base shadow-lg shadow-secondary-base',
+      success: 'bg-success-base text-success-on-base shadow-lg shadow-success-base',
+      warning: 'bg-warning-base text-warning-on-base shadow-lg shadow-warning-base',
+      danger: 'bg-danger-base text-danger-on-base shadow-lg shadow-danger-base',
+      info: 'bg-info-base text-info-on-base shadow-lg shadow-info-base',
+      neutral: 'bg-neutral-base text-neutral-on-base shadow-lg shadow-neutral-base',
     },
   };
 

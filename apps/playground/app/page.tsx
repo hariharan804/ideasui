@@ -1,125 +1,203 @@
 import type { JSX } from 'react';
 
 import Link from 'next/link';
-import { ArrowRight, Palette, Package, Wrench, Eye, Code2 } from 'lucide-react';
+import { ArrowRight, Palette, Package, Wrench, Eye, Code2, Sparkles, Layers } from 'lucide-react';
 
 const navigationItems = [
   {
     title: 'Colors',
-    description: 'Explore color palettes and copy Tailwind classes',
+    description: 'Explore color palettes and copy semantic tokens',
     href: '/colors',
     icon: Palette,
-    gradient: 'from-purple-500 to-pink-500',
+    gradient: 'from-blue-500 to-indigo-500',
+    shadowPath: 'shadow-blue-500/20',
   },
   {
     title: 'Installer',
     description: 'Dynamic package installer for all release tags',
     href: '/installer',
     icon: Package,
-    gradient: 'from-blue-500 to-cyan-500',
+    gradient: 'from-violet-500 to-purple-500',
+    shadowPath: 'shadow-violet-500/20',
   },
   {
-    title: 'Components',
-    description: 'Interactive component playground',
-    href: '/components',
+    title: 'Playground',
+    description: 'Interactive component playground & documentation',
+    href: '/playground',
     icon: Wrench,
-    gradient: 'from-green-500 to-emerald-500',
+    gradient: 'from-emerald-500 to-teal-500',
+    shadowPath: 'shadow-emerald-500/20',
   },
   {
     title: 'Preview',
-    description: 'Live component previews and demos',
+    description: 'Live component previews and production demos',
     href: '/playground',
     icon: Eye,
-    gradient: 'from-orange-500 to-red-500',
+    gradient: 'from-rose-500 to-pink-500',
+    shadowPath: 'shadow-rose-500/20',
+  },
+  {
+    title: 'Design System',
+    description: 'Guidelines, tokens, and core design principles',
+    href: '/design-system',
+    icon: Layers,
+    gradient: 'from-amber-500 to-orange-500',
+    shadowPath: 'shadow-amber-500/20',
   },
 ];
 
 export default function Home(): JSX.Element {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10" />
-        <div className="relative mx-auto max-w-7xl px-6 py-24 sm:py-32">
-          <div className="text-center">
-            <div className="mb-8 flex items-center justify-center">
-              <div className="rounded-2xl bg-white p-4 shadow-lg">
-                <Code2 className="h-12 w-12 text-blue-600" />
-              </div>
-            </div>
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              <span className="from-primary-600 to-secondary-600 bg-gradient-to-r bg-clip-text text-transparent">
-                IdeasUI
-              </span>{' '}
-              Playground
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
-              Explore components, test different versions, and experiment with our design system.
-              Everything you need to build beautiful interfaces.
-            </p>
-          </div>
-        </div>
+    <div className="bg-surface-base text-content-primary relative min-h-screen overflow-hidden transition-colors duration-500">
+      {/* Dynamic Background Glows */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden outline-none">
+        <div className="bg-primary-500/20 absolute -top-[20%] -left-[10%] h-[500px] w-[500px] animate-pulse rounded-full opacity-50 mix-blend-normal blur-3xl transition-all duration-[3000ms] dark:mix-blend-screen" />
+        <div className="absolute top-[20%] -right-[10%] h-[600px] w-[600px] animate-pulse rounded-full bg-blue-500/20 opacity-40 mix-blend-normal blur-3xl transition-all delay-700 duration-[3000ms] dark:mix-blend-screen" />
+        <div className="absolute -bottom-[20%] left-[20%] h-[700px] w-[700px] animate-pulse rounded-full bg-purple-500/20 opacity-30 mix-blend-normal blur-3xl transition-all delay-1000 duration-[3000ms] dark:mix-blend-screen" />
       </div>
 
-      {/* Navigation Grid */}
-      <div className="mx-auto max-w-7xl px-6 pb-24">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
-          {navigationItems.map((item) => {
-            const Icon = item.icon;
+      <div className="relative z-10">
+        {/* Hero Section */}
+        <section className="relative mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="animate-slideIn mb-8 flex items-center justify-center">
+              <div className="from-primary-500 shadow-primary-500/20 relative inline-flex items-center justify-center rounded-2xl bg-gradient-to-br to-indigo-500 p-[2px] shadow-xl transition-transform duration-300 hover:scale-105">
+                <div className="bg-surface-base rounded-[14px] p-4">
+                  <Code2 className="text-primary-500 h-10 w-10" />
+                </div>
+              </div>
+            </div>
 
-            return (
+            <h1 className="mb-6 text-5xl font-extrabold tracking-tight sm:text-7xl">
+              <span className="text-content-primary">IdeasUI</span>
+              <br />
+              <span className="from-primary-500 bg-gradient-to-r via-indigo-500 to-purple-500 bg-clip-text text-transparent">
+                Playground
+              </span>
+            </h1>
+
+            <p className="text-content-secondary mx-auto mt-6 max-w-2xl text-lg leading-8">
+              A comprehensive environment to explore components, test variables, and experiment with
+              the IdeasUI design system. Beautiful interfaces start here.
+            </p>
+
+            <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
-                key={item.href}
-                className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
-                href={item.href}
+                className="bg-primary-500 shadow-primary-500/30 hover:bg-primary-600 hover:shadow-primary-500/50 focus-visible:outline-primary-500 flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                href="/components"
               >
-                {/* Background Gradient */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 transition-opacity duration-300 group-hover:opacity-5`}
-                />
+                Get Started
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                className="text-content-primary hover:text-primary-500 flex items-center gap-2 text-sm leading-6 font-semibold transition-colors"
+                href="/colors"
+              >
+                View Tokens <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          </div>
+        </section>
 
-                {/* Content */}
-                <div className="relative">
-                  <div className="mb-4 flex items-center justify-between">
-                    <div className={`rounded-xl bg-gradient-to-r ${item.gradient} p-3`}>
+        {/* Navigation Grid */}
+        <section className="mx-auto max-w-7xl px-6 pb-24 lg:px-8">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {navigationItems.map((item, index) => {
+              const Icon = item.icon;
+
+              return (
+                <Link
+                  key={item.href}
+                  className="group border-border-subtle bg-surface-raised/50 hover:border-border-default hover:bg-surface-raised relative flex flex-col justify-between overflow-hidden rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  href={item.href}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  {/* Background Aura */}
+                  <div
+                    className={`absolute -top-12 -right-12 h-32 w-32 rounded-full bg-gradient-to-br ${item.gradient} opacity-10 blur-2xl transition-opacity duration-500 group-hover:opacity-30`}
+                  />
+
+                  {/* Icon & Arrow Header */}
+                  <div className="relative mb-8 flex items-center justify-between">
+                    <div
+                      className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.gradient} shadow-lg ${item.shadowPath} transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}
+                    >
                       <Icon className="h-6 w-6 text-white" />
                     </div>
-                    <ArrowRight className="h-5 w-5 text-gray-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-gray-600" />
+                    <div className="border-border-subtle bg-surface-raised group-hover:bg-content-primary flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 group-hover:border-transparent">
+                      <ArrowRight className="text-content-muted group-hover:text-surface-base h-5 w-5 transition-colors duration-300" />
+                    </div>
                   </div>
 
-                  <h3 className="mb-2 text-xl font-semibold text-gray-900">{item.title}</h3>
+                  {/* Content */}
+                  <div className="relative">
+                    <h3 className="text-content-primary group-hover:from-content-primary group-hover:to-content-secondary mb-3 text-2xl font-bold tracking-tight transition-all group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:text-transparent">
+                      {item.title}
+                    </h3>
+                    <p className="text-content-secondary text-sm leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
 
-                  <p className="leading-relaxed text-gray-600">{item.description}</p>
-
-                  {/* Hover Effect */}
+                  {/* Bottom Line Accent */}
                   <div
-                    className={`absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r ${item.gradient} transition-all duration-300 group-hover:w-full`}
+                    className={`absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r ${item.gradient} transition-all duration-500 group-hover:w-full`}
                   />
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+                </Link>
+              );
+            })}
+          </div>
 
-        {/* Quick Stats */}
-        <div className="mt-16 grid grid-cols-2 gap-8 sm:grid-cols-4">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-gray-900">50+</div>
-            <div className="text-sm text-gray-600">Components</div>
+          {/* Quick Stats / Highlights */}
+          <div className="border-border-subtle bg-surface-raised/30 mt-20 overflow-hidden rounded-3xl border p-8 backdrop-blur-sm lg:p-12">
+            <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+              <div className="flex flex-col items-center justify-center space-y-2 text-center">
+                <div className="mb-1 flex items-center gap-2">
+                  <Sparkles className="text-primary-500 h-4 w-4" />
+                  <div className="text-content-primary text-3xl font-extrabold tracking-tight">
+                    50+
+                  </div>
+                </div>
+                <div className="text-content-secondary text-sm font-medium tracking-widest uppercase">
+                  Components
+                </div>
+              </div>
+              <div className="flex flex-col items-center justify-center space-y-2 text-center">
+                <div className="mb-1 flex items-center gap-2">
+                  <Package className="h-4 w-4 text-violet-500" />
+                  <div className="text-content-primary text-3xl font-extrabold tracking-tight">
+                    4
+                  </div>
+                </div>
+                <div className="text-content-secondary text-sm font-medium tracking-widest uppercase">
+                  Release Tags
+                </div>
+              </div>
+              <div className="flex flex-col items-center justify-center space-y-2 text-center">
+                <div className="mb-1 flex items-center gap-2">
+                  <Code2 className="h-4 w-4 text-emerald-500" />
+                  <div className="text-content-primary text-3xl font-extrabold tracking-tight">
+                    100%
+                  </div>
+                </div>
+                <div className="text-content-secondary text-sm font-medium tracking-widest uppercase">
+                  TypeScript
+                </div>
+              </div>
+              <div className="flex flex-col items-center justify-center space-y-2 text-center">
+                <div className="mb-1 flex items-center gap-2">
+                  <Eye className="h-4 w-4 text-rose-500" />
+                  <div className="text-content-primary text-3xl font-extrabold tracking-tight">
+                    A11Y
+                  </div>
+                </div>
+                <div className="text-content-secondary text-sm font-medium tracking-widest uppercase">
+                  Compliant
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-gray-900">4</div>
-            <div className="text-sm text-gray-600">Release Tags</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-gray-900">100%</div>
-            <div className="text-sm text-gray-600">TypeScript</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-gray-900">A11Y</div>
-            <div className="text-sm text-gray-600">Compliant</div>
-          </div>
-        </div>
+        </section>
       </div>
     </div>
   );

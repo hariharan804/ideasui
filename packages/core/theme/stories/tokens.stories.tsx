@@ -18,8 +18,7 @@ import {
   blur,
   backdrop,
   border,
-  lightBorder,
-  darkBorder,
+  borderColor,
   opacity,
   zIndex,
 } from '../src/tokens';
@@ -201,21 +200,9 @@ export const Borders: Story = {
                 style={{ border: `2px solid ${value}` }}
               />
             )}
-            title="Light Border Colors"
-            tokens={lightBorder}
+            title="Border Colors"
+            tokens={borderColor}
           />
-          <div className="dark">
-            <TokenGroup
-              renderPreview={(value) => (
-                <div
-                  className="h-8 w-8 rounded bg-gray-950 shadow-sm"
-                  style={{ border: `2px solid ${value}` }}
-                />
-              )}
-              title="Dark Border Colors"
-              tokens={darkBorder}
-            />
-          </div>
         </div>
       </div>
     </div>

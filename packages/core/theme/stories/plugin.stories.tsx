@@ -185,7 +185,7 @@ export default ideasUIPlugin({
 
         <CodeBlock
           code={`<!-- Light theme (default) -->
-<div class="bg-primary-500 text-primary-onBase">
+<div class="bg-primary-500 text-primary-on-base">
   Light theme content
 </div>
 
@@ -232,7 +232,7 @@ export const ThemeExamples: Story = {
                   className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-sm"
                   style={{
                     backgroundColor: `var(--ideasui-color-${color}-base)`,
-                    color: `var(--ideasui-color-${color}-onBase)`,
+                    color: `var(--ideasui-color-${color}-on-base)`,
                   }}
                 >
                   Aa
@@ -241,7 +241,7 @@ export const ThemeExamples: Story = {
                   <div className="text-sm font-semibold text-gray-900 capitalize">{color}</div>
                   <div className="mt-0.5 flex gap-2 text-xs text-gray-500">
                     <span className="rounded bg-gray-100 px-1">bg-{color}-base</span>
-                    <span className="rounded bg-gray-100 px-1">text-{color}-onBase</span>
+                    <span className="rounded bg-gray-100 px-1">text-{color}-on-base</span>
                   </div>
                 </div>
               </div>
@@ -265,7 +265,7 @@ export const ThemeExamples: Story = {
                   className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-sm"
                   style={{
                     backgroundColor: `var(--ideasui-color-${color}-base)`,
-                    color: `var(--ideasui-color-${color}-onBase)`,
+                    color: `var(--ideasui-color-${color}-on-base)`,
                   }}
                 >
                   Aa
@@ -274,7 +274,7 @@ export const ThemeExamples: Story = {
                   <div className="text-sm font-semibold text-white capitalize">{color}</div>
                   <div className="mt-0.5 flex gap-2 text-xs text-gray-400">
                     <span className="rounded bg-white/10 px-1">bg-{color}-base</span>
-                    <span className="rounded bg-white/10 px-1">text-{color}-onBase</span>
+                    <span className="rounded bg-white/10 px-1">text-{color}-on-base</span>
                   </div>
                 </div>
               </div>
@@ -316,7 +316,7 @@ export const Features: Story = {
           title="Highly Customizable"
         />
         <FeatureCard
-          description="Ensures legible text against backgrounds automatically via 'onBase' / 'onSurface' mapped contrast pairs"
+          description="Ensures legible text against backgrounds automatically via 'on-base' / 'onSurface' mapped contrast pairs"
           icon="♿"
           title="Accessible Constructs"
         />

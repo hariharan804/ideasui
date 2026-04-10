@@ -6,7 +6,7 @@ export const lightInteraction = {
 } as const;
 
 export const darkInteraction = {
-  overlayColor: '0 0 0',
+  overlayColor: '1 0 0',
   opacityHoverOverlay: 0.06,
   opacityActiveOverlay: 0.1,
   disabledOpacity: 0.4,

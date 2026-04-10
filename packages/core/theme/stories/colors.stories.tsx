@@ -4,14 +4,7 @@ import type { ReactElement } from 'react';
 
 import { useState } from 'react';
 
-import {
-  primitives,
-  semantic,
-  lightSurface,
-  darkSurface,
-  lightContent,
-  darkContent,
-} from '../src/tokens';
+import { primitives, semantic, surface, content } from '../src/tokens';
 
 const meta: Meta = {
   title: 'Theme/Colors',
@@ -291,7 +284,7 @@ export const SemanticColors: Story = {
       <div className="mb-10">
         <h2 className="text-3xl font-bold tracking-tight text-gray-900">Semantic Color Tokens</h2>
         <p className="mt-2 text-lg text-gray-600">
-          Role-based color mappings: base, onBase, subtle, onSubtle
+          Role-based color mappings: base, on-base, subtle, on-subtle
         </p>
       </div>
       <div className="grid gap-6 lg:grid-cols-2">
@@ -325,26 +318,10 @@ export const SurfaceTokens: Story = {
         </p>
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
-        {/* Light surfaces */}
         <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
-          <div className="border-b border-gray-100 px-5 py-4">
-            <h3 className="text-lg font-bold text-gray-900">Light Surfaces</h3>
-          </div>
           <div className="grid grid-cols-1 gap-2 p-4">
-            {Object.entries(lightSurface).map(([key, value]) => (
+            {Object.entries(surface).map(([key, value]) => (
               <SurfaceCard key={key} name={key} value={value} />
-            ))}
-          </div>
-        </div>
-
-        {/* Dark surfaces */}
-        <div className="overflow-hidden rounded-2xl border border-white/10 bg-gray-950">
-          <div className="border-b border-white/10 px-5 py-4">
-            <h3 className="text-lg font-bold text-white">Dark Surfaces</h3>
-          </div>
-          <div className="grid grid-cols-1 gap-2 p-4">
-            {Object.entries(darkSurface).map(([key, value]) => (
-              <SurfaceCard key={key} isDark name={key} value={value} />
             ))}
           </div>
         </div>
@@ -363,13 +340,9 @@ export const ContentTokens: Story = {
         </p>
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
-        {/* Light content */}
         <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
-          <div className="border-b border-gray-100 px-5 py-4">
-            <h3 className="text-lg font-bold text-gray-900">Light Content</h3>
-          </div>
           <div className="space-y-3 p-5">
-            {Object.entries(lightContent).map(([key, value]) => (
+            {Object.entries(content).map(([key, value]) => (
               <div
                 key={key}
                 className="flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-4"
@@ -385,34 +358,6 @@ export const ContentTokens: Story = {
                 <div className="shrink-0 text-right">
                   <div className="text-sm font-semibold text-gray-900">{key}</div>
                   <div className="mt-0.5 font-mono text-xs text-gray-500">{value}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Dark content */}
-        <div className="overflow-hidden rounded-2xl border border-white/10 bg-gray-950">
-          <div className="border-b border-white/10 px-5 py-4">
-            <h3 className="text-lg font-bold text-white">Dark Content</h3>
-          </div>
-          <div className="space-y-3 p-5">
-            {Object.entries(darkContent).map(([key, value]) => (
-              <div
-                key={key}
-                className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4"
-              >
-                <div className="flex-1">
-                  <div
-                    className="text-lg font-medium"
-                    style={{ color: value.includes('var(') ? `oklch(${value})` : value }}
-                  >
-                    The quick brown fox jumps over the lazy dog
-                  </div>
-                </div>
-                <div className="shrink-0 text-right">
-                  <div className="text-sm font-semibold text-white">{key}</div>
-                  <div className="mt-0.5 font-mono text-xs text-gray-400">{value}</div>
                 </div>
               </div>
             ))}

@@ -249,45 +249,45 @@ export const primitives = {
 export const semantic = {
   primary: {
     base: 'var(--ideasui-color-primary-500)',
-    onBase: 'var(--ideasui-color-primary-50)',
+    'on-base': 'var(--ideasui-color-primary-50)',
     subtle: 'var(--ideasui-color-primary-100)',
-    onSubtle: 'var(--ideasui-color-primary-700)',
+    'on-subtle': 'var(--ideasui-color-primary-700)',
   },
   success: {
     base: 'var(--ideasui-color-success-500)',
-    onBase: 'var(--ideasui-color-success-50)',
+    'on-base': 'var(--ideasui-color-success-50)',
     subtle: 'var(--ideasui-color-success-100)',
-    onSubtle: 'var(--ideasui-color-success-700)',
+    'on-subtle': 'var(--ideasui-color-success-700)',
   },
   danger: {
     base: 'var(--ideasui-color-danger-500)',
-    onBase: 'var(--ideasui-color-danger-50)',
+    'on-base': 'var(--ideasui-color-danger-50)',
     subtle: 'var(--ideasui-color-danger-100)',
-    onSubtle: 'var(--ideasui-color-danger-700)',
+    'on-subtle': 'var(--ideasui-color-danger-700)',
   },
   info: {
     base: 'var(--ideasui-color-info-500)',
-    onBase: 'var(--ideasui-color-info-50)',
+    'on-base': 'var(--ideasui-color-info-50)',
     subtle: 'var(--ideasui-color-info-100)',
-    onSubtle: 'var(--ideasui-color-info-700)',
+    'on-subtle': 'var(--ideasui-color-info-700)',
   },
   warning: {
     base: 'var(--ideasui-color-warning-500)',
-    onBase: 'var(--ideasui-color-warning-50)',
+    'on-base': 'var(--ideasui-color-warning-50)',
     subtle: 'var(--ideasui-color-warning-100)',
-    onSubtle: 'var(--ideasui-color-warning-700)',
+    'on-subtle': 'var(--ideasui-color-warning-700)',
   },
   secondary: {
     base: 'var(--ideasui-color-secondary-500)',
-    onBase: 'var(--ideasui-color-secondary-50)',
+    'on-base': 'var(--ideasui-color-secondary-50)',
     subtle: 'var(--ideasui-color-secondary-100)',
-    onSubtle: 'var(--ideasui-color-secondary-700)',
+    'on-subtle': 'var(--ideasui-color-secondary-700)',
   },
   tertiary: {
     base: 'var(--ideasui-color-tertiary-500)',
-    onBase: 'var(--ideasui-color-tertiary-50)',
+    'on-base': 'var(--ideasui-color-tertiary-50)',
     subtle: 'var(--ideasui-color-tertiary-100)',
-    onSubtle: 'var(--ideasui-color-tertiary-700)',
+    'on-subtle': 'var(--ideasui-color-tertiary-700)',
   },
 } as const;
 
@@ -303,7 +303,7 @@ export const semantic = {
  * inverse   → Opposite theme surface
  */
 
-export const lightSurface = {
+export const surface = {
   // App background
   base: 'var(--ideasui-color-neutral-50)',
   'on-base': 'var(--ideasui-color-neutral-900)',
@@ -345,64 +345,13 @@ export const lightSurface = {
   'on-inverse': 'var(--ideasui-color-neutral-50)',
 } as const;
 
-export const darkSurface = {
-  // App background
-  base: 'var(--ideasui-color-neutral-50)',
-  'on-base': 'var(--ideasui-color-neutral-900)',
-
-  // Recessed areas (inputs, tables)
-  sunken: 'var(--ideasui-color-neutral-100)',
-
-  // Cards / main containers
-  elevated: 'var(--ideasui-color-neutral-100)',
-  'on-elevated': 'var(--ideasui-color-neutral-900)',
-
-  // Subtle UI surfaces
-  muted: 'var(--ideasui-color-neutral-200)',
-  'on-muted': 'var(--ideasui-color-neutral-900)',
-
-  // Strong sections / sidebars
-  strong: 'var(--ideasui-color-neutral-300)',
-  'on-strong': 'var(--ideasui-color-neutral-900)',
-
-  // Nested container scale
-  'container-low': 'var(--ideasui-color-neutral-100)',
-  container: 'var(--ideasui-color-neutral-200)',
-  'container-high': 'var(--ideasui-color-neutral-300)',
-
-  // Floating layers (dropdowns, popovers)
-  floating: 'var(--ideasui-color-neutral-50)',
-
-  // Transparent glass backgrounds
-  overlay: 'var(--ideasui-color-neutral-50)',
-
-  // Dialogs / drawers
-  modal: 'var(--ideasui-color-neutral-50)',
-
-  // Backdrop dim layer
-  scrim: 'oklch(0 0 0 / 0.65)',
-
-  // Opposite theme surface
-  inverse: 'var(--ideasui-color-neutral-900)',
-  'on-inverse': 'var(--ideasui-color-neutral-50)',
-} as const;
-
-export const lightContent = {
+export const content = {
   primary: 'var(--ideasui-color-neutral-900)', // main text
   secondary: 'var(--ideasui-color-neutral-700)', // less important text
   tertiary: 'var(--ideasui-color-neutral-600)', // helper text
   muted: 'var(--ideasui-color-neutral-500)', // placeholders
   disabled: 'var(--ideasui-color-neutral-400)', // disabled text
   inverse: 'var(--ideasui-color-neutral-50)', // text on dark surface
-} as const;
-
-export const darkContent = {
-  primary: 'var(--ideasui-color-neutral-900)', // main text
-  secondary: 'var(--ideasui-color-neutral-700)', // less important text
-  tertiary: 'var(--ideasui-color-neutral-600)', // helper text
-  muted: 'var(--ideasui-color-neutral-500)', // placeholders
-  disabled: 'var(--ideasui-color-neutral-400)', // disabled text
-  inverse: 'var(--ideasui-color-neutral-50)', // text on light surface
 } as const;
 
 /* ============================================================
