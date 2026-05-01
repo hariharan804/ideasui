@@ -185,6 +185,9 @@ importers:
       lint-staged:
         specifier: ^16.2.7
         version: 16.4.0
+      lucide-react:
+        specifier: 0.556.0
+        version: 0.556.0(react@19.2.4)
       plop:
         specifier: ^4.0.4
         version: 4.0.5(@types/node@24.12.2)
