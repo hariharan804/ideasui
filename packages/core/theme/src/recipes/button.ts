@@ -49,7 +49,7 @@ const button = tv({
         base: [BEM_SOLID, 'text-surface'],
       },
       outline: {
-        base: [BEM_OUTLINE, 'border-2', TRANSPARENT],
+        base: [BEM_OUTLINE, 'border', TRANSPARENT],
       },
       ghost: {
         base: [BEM_GHOST, TRANSPARENT],
@@ -154,23 +154,10 @@ const button = tv({
     },
   },
   compoundVariants: [
-    // --- Attached Groups Outline Overlap (2px) ---
+    // --- Attached Groups Overlap (1px) ---
     {
       isAttached: true,
-      variant: 'outline',
-      isVertical: false,
-      class: { base: '[&:not(:first-child)]:-ml-[2px]' },
-    },
-    {
-      isAttached: true,
-      variant: 'outline',
-      isVertical: true,
-      class: { base: '[&:not(:first-child)]:-mt-[2px] [&:not(:first-child)]:ml-0' },
-    },
-    // --- Attached Groups Default Overlap (1px) ---
-    {
-      isAttached: true,
-      variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link'],
+      variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link', 'outline'],
       isVertical: false,
       class: {
         base: ['[&:not(:first-child)]:-ml-px'],
@@ -178,7 +165,7 @@ const button = tv({
     },
     {
       isAttached: true,
-      variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link'],
+      variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link', 'outline'],
       isVertical: true,
       class: {
         base: ['[&:not(:first-child)]:-mt-px [&:not(:first-child)]:ml-0'],
