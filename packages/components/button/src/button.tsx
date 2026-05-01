@@ -1,142 +1,284 @@
 'use client';
-import type { ColorVariantProps } from '@ideasui/theme/tokens';
-import type { ElementType, ReactNode } from 'react';
 
-import { useMemo } from 'react';
-import { button as buttonVariants } from '@ideasui/theme/recipes';
-import { forwardRef } from '@ideasui/utils';
+import type {
+  ButtonProps,
+  ButtonComponent,
+  ButtonLabelProps,
+  ButtonIconProps,
+  ButtonSpinnerProps,
+} from './button.types';
+import type { ButtonReturnType } from '@ideasui/theme/recipes';
+import type { ButtonRenderProps } from 'react-aria-components';
+import type { ReactNode, JSX } from 'react';
 
-import { Spinner } from './spinner';
-import { useButton } from './use-button';
+import { Button as ButtonPrimitive } from 'react-aria-components';
+import { cn } from '@ideasui/utils';
+import { createContext, forwardRef, useContext } from 'react';
+import { button } from '@ideasui/theme/recipes';
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /**
-   * The element or component to render as
-   * @default 'button'
-   */
-  as?: ElementType;
+import { useButtonGroupContext } from './button-group-context';
+import { ButtonGroup } from './button-group';
 
-  /**
-   * Visual variant of the button
-   * @default 'solid'
-   */
-  variant?: 'solid' | 'outline' | 'ghost';
+/* -----------------------------------------------------------------------------------------------
+ * Button Context
+ * ---------------------------------------------------------------------------------------------*/
 
-  /**
-   * Color variant based on semantic intent
-   * @default 'primary'
-   */
-  color?: ColorVariantProps;
-
-  /**
-   * Size of the button
-   * @default 'md'
-   */
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
-  /**
-   * Border radius variant
-   * @default 'md'
-   */
-  radius?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-
-  /**
-   * Whether the button should take full width
-   * @default false
-   */
-  fullWidth?: boolean;
-
-  /**
-   * Whether the button is in loading state
-   * @default false
-   */
-  loading?: boolean;
-
-  /**
-   * Text to show when loading
-   */
-  loadingText?: string;
-
-  /**
-   * Content to show at the start of the button
-   */
-  startContent?: ReactNode;
-
-  /**
-   * Content to show at the end of the button
-   */
-  endContent?: ReactNode;
+/**
+ * Internal context for the Button component to share styles with slots.
+ */
+interface ButtonContextValue {
+  styles: ButtonReturnType;
 }
-export const Button = forwardRef<'button', ButtonProps>(
-  (
-    {
-      as,
-      className,
-      variant = 'solid',
-      color = 'primary',
-      size = 'md',
-      radius = 'md',
-      loading = false,
-      loadingText,
-      disabled,
-      children,
-      startContent,
-      endContent,
-      fullWidth = false,
-      ...props
-    },
-    ref,
-  ) => {
-    const Component = useMemo(() => {
-      if (!as) {
-        return 'button';
-      }
 
-      if (typeof as === 'string') {
-        const validElements = ['button', 'a', 'div', 'span', 'input'];
+const ButtonContext = createContext<ButtonContextValue | null>(null);
 
-        return validElements.includes(as) ? as : 'button';
-      }
+/**
+ * Hook to consume the ButtonContext.
+ * @internal
+ * @throws Error if used outside of a Button component.
+ */
+function useButtonContext(): ButtonContextValue {
+  const context = useContext(ButtonContext);
 
-      // For React components, check if it's a valid component
-      if (typeof as === 'function' || (typeof as === 'object' && as !== null)) {
-        return as;
-      }
+  if (!context) {
+    throw new Error('Button sub-components must be rendered within a Button component');
+  }
 
-      // Fallback to button for invalid values
-      return 'button';
-    }, [as]);
+  return context;
+}
 
-    const { getButtonProps, isLoading } = useButton({
-      as: Component,
-      ref,
-      className,
-      loading,
-      disabled,
-      ...props,
-    });
+/* -----------------------------------------------------------------------------------------------
+ * Button Slots
+ * ---------------------------------------------------------------------------------------------*/
 
-    const recipes = buttonVariants({
-      variant,
-      color,
-      size,
-      radius,
-      fullWidth,
-    });
+const ButtonIcon = forwardRef<HTMLElement, ButtonIconProps>(
+  ({ children, className, placement = 'left', ...props }, ref): JSX.Element => {
+    const { styles } = useButtonContext();
+    const { icon } = styles;
 
     return (
-      <Component {...getButtonProps()} className={recipes.base()}>
-        {isLoading ? <Spinner size={size} /> : null}
-        {!isLoading && startContent ? <span className="mr-2 shrink-0">{startContent}</span> : null}
-
-        <span className={isLoading ? 'ml-2' : ''}>
-          {isLoading && loadingText ? loadingText : children}
-        </span>
-
-        {!isLoading && endContent ? <span className="ml-2 shrink-0">{endContent}</span> : null}
-      </Component>
+      <span
+        ref={ref}
+        aria-hidden="true"
+        className={cn(icon(), placement === 'end' ? 'order-last' : 'order-first', className)}
+        data-slot="button-icon"
+        {...props}
+      >
+        {children}
+      </span>
     );
   },
 );
 
-Button.displayName = 'IdeasUI.Button';
+ButtonIcon.displayName = 'IdeasUI.Button.Icon';
+
+const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProps>(
+  ({ className, label = 'Loading', ...props }, ref): JSX.Element => {
+    const { styles } = useButtonContext();
+    const { loader, icon } = styles;
+
+    return (
+      <span
+        ref={ref}
+        className={cn(
+          loader(),
+          icon(),
+          'inline-flex shrink-0 items-center justify-center',
+          className,
+        )}
+        data-slot="button-spinner"
+        role="status"
+        {...props}
+      >
+        <svg
+          className="size-full animate-spin"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2.5"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+        </svg>
+        <span className="sr-only">{label}</span>
+      </span>
+    );
+  },
+);
+
+ButtonSpinner.displayName = 'IdeasUI.Button.Spinner';
+
+const ButtonLabel = forwardRef<HTMLSpanElement, ButtonLabelProps>(
+  ({ children, className, ...props }, ref): JSX.Element => {
+    const { styles } = useButtonContext();
+    const { label } = styles;
+
+    return (
+      <span ref={ref} className={cn(label(), className)} data-slot="button-label" {...props}>
+        {children}
+      </span>
+    );
+  },
+);
+
+ButtonLabel.displayName = 'IdeasUI.Button.Label';
+
+/* -----------------------------------------------------------------------------------------------
+ * Button Render Helpers
+ * ---------------------------------------------------------------------------------------------*/
+
+interface ButtonContentProps {
+  isLoading?: boolean;
+  loadingIndicator?: React.ReactNode;
+  loadingPosition?: 'start' | 'end' | 'center';
+  isIconOnly?: boolean;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
+  children: ButtonProps['children'];
+  renderProps: ButtonRenderProps;
+}
+
+const ButtonContent = ({
+  isLoading,
+  loadingIndicator,
+  loadingPosition = 'start',
+  isIconOnly,
+  startIcon,
+  endIcon,
+  children,
+  renderProps,
+}: ButtonContentProps): ReactNode => {
+  const content = typeof children === 'function' ? children(renderProps) : children;
+  const loader = loadingIndicator || <ButtonSpinner />;
+
+  if (isIconOnly || (isLoading && loadingPosition === 'center')) {
+    return isLoading ? loader : content;
+  }
+
+  const showStartLoader = isLoading && loadingPosition === 'start';
+  const showEndLoader = isLoading && loadingPosition === 'end';
+  const showStartIcon = startIcon && !showStartLoader;
+  const showEndIcon = endIcon && !showEndLoader;
+
+  return (
+    <>
+      {showStartLoader ? <ButtonIcon placement="start">{loader}</ButtonIcon> : null}
+
+      {showStartIcon ? <ButtonIcon placement="start">{startIcon}</ButtonIcon> : null}
+
+      {typeof content === 'string' || typeof content === 'number' ? (
+        <ButtonLabel>{content}</ButtonLabel>
+      ) : (
+        content
+      )}
+
+      {showEndIcon ? <ButtonIcon placement="end">{endIcon}</ButtonIcon> : null}
+
+      {showEndLoader ? <ButtonIcon placement="end">{loader}</ButtonIcon> : null}
+    </>
+  );
+};
+
+/* -----------------------------------------------------------------------------------------------
+ * Button Base
+ * ---------------------------------------------------------------------------------------------*/
+
+const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      variant,
+      size,
+      color,
+      radius,
+      fullWidth,
+      isIconOnly,
+      disableAnimation,
+      className,
+      startIcon,
+      endIcon,
+      isLoading,
+      loadingIndicator,
+      loadingPosition,
+      isDisabled,
+      children,
+      ...props
+    },
+    ref,
+  ): JSX.Element => {
+    const groupContext = useButtonGroupContext();
+
+    const mergedVariant = variant ?? groupContext?.variant;
+    const mergedSize = size ?? groupContext?.size;
+    const mergedColor = color ?? groupContext?.color;
+    const mergedDisabled = (isDisabled ?? groupContext?.isDisabled) || isLoading;
+    const mergedRadius = radius ?? groupContext?.radius;
+    const mergedFullWidth = fullWidth ?? groupContext?.fullWidth;
+    const mergedDisableAnimation = disableAnimation ?? groupContext?.disableAnimation;
+    const isAttached = groupContext?.isAttached;
+    const isVertical = groupContext?.isVertical;
+
+    const styles = button({
+      variant: mergedVariant,
+      size: mergedSize,
+      color: mergedColor,
+      radius: mergedRadius,
+      fullWidth: mergedFullWidth,
+      isIconOnly,
+      isDisabled: mergedDisabled,
+      isLoading,
+      disableAnimation: mergedDisableAnimation,
+      isAttached,
+      isVertical,
+      showDivider: props.showDivider ?? groupContext?.showDivider ?? isAttached,
+    });
+
+    return (
+      <ButtonPrimitive
+        ref={ref}
+        aria-busy={isLoading}
+        className={(renderProps) =>
+          styles.base({
+            className: typeof className === 'function' ? className(renderProps) : className,
+          })
+        }
+        data-attached={isAttached}
+        data-slot="button"
+        data-vertical={isVertical}
+        isDisabled={mergedDisabled}
+        isPending={isLoading}
+        {...props}
+      >
+        {(renderProps) => (
+          <ButtonContext.Provider value={{ styles }}>
+            <ButtonContent
+              endIcon={endIcon}
+              isIconOnly={isIconOnly}
+              isLoading={isLoading}
+              loadingIndicator={loadingIndicator}
+              loadingPosition={loadingPosition}
+              renderProps={renderProps}
+              startIcon={startIcon}
+            >
+              {children}
+            </ButtonContent>
+          </ButtonContext.Provider>
+        )}
+      </ButtonPrimitive>
+    );
+  },
+);
+
+ButtonBase.displayName = 'IdeasUI.Button';
+
+/* -----------------------------------------------------------------------------------------------
+ * Final Export
+ * ---------------------------------------------------------------------------------------------*/
+
+export const Button = ButtonBase as ButtonComponent;
+
+Button.Icon = ButtonIcon;
+Button.Spinner = ButtonSpinner;
+Button.Label = ButtonLabel;
+Button.Group = ButtonGroup;

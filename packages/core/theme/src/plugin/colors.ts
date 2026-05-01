@@ -44,8 +44,10 @@ export function processShadeColor(
     resolved.baseStyles[baseSelector][colorVar] = trimmed;
 
     // Register Tailwind color with the new var (alpha still works via the referenced var)
-    if (!resolved.colors[colorName]) {
-      resolved.colors[colorName] = `oklch(var(${colorVar}) / <alpha-value>)`;
+    const twName = colorName.endsWith('-DEFAULT') ? colorName.replace('-DEFAULT', '') : colorName;
+
+    if (!resolved.colors[twName]) {
+      resolved.colors[twName] = `oklch(var(${colorVar}) / <alpha-value>)`;
     }
 
     return;
@@ -67,8 +69,10 @@ export function processShadeColor(
   resolved.baseStyles[baseSelector][colorVar] = formattedValue;
 
   // Register Tailwind color only if not already set (first theme wins)
-  if (!resolved.colors[colorName]) {
-    resolved.colors[colorName] = `oklch(var(${colorVar}) / ${alphaValue})`;
+  const twName = colorName.endsWith('-DEFAULT') ? colorName.replace('-DEFAULT', '') : colorName;
+
+  if (!resolved.colors[twName]) {
+    resolved.colors[twName] = `oklch(var(${colorVar}) / ${alphaValue})`;
   }
 }
 

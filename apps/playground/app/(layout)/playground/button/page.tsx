@@ -1,12 +1,7 @@
-'use client';
 import type { JSX } from 'react';
 
-import Button from '@/components/button';
+import ButtonPreview from '@/components/button';
 
-export default function ButtonPage(): JSX.Element {
-  return (
-    <div>
-      <Button />
-    </div>
-  );
+export default function ButtonPlayground(): JSX.Element {
+  return <ButtonPreview />;
 }

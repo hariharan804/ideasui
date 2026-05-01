@@ -8,6 +8,7 @@
     "declaration": true,
     "sourceMap": true,
     "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "skipLibCheck": true,
     "strict": true,
     "isolatedModules": true,

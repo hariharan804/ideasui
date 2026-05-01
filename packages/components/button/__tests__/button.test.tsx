@@ -69,7 +69,7 @@ describe('Button', () => {
   it('should ignore events when disabled', async () => {
     const onClick = vi.fn();
 
-    render(<Button disabled onClick={onClick} />);
+    render(<Button isDisabled onClick={onClick} />);
 
     const button = screen.getByRole('button');
 
@@ -79,13 +79,13 @@ describe('Button', () => {
   });
 
   it('should renders with start icon', () => {
-    render(<Button startContent={<span data-testid="start-icon">Icon</span>}>Button</Button>);
+    render(<Button startIcon={<span data-testid="start-icon">Icon</span>}>Button</Button>);
 
     expect(screen.getByTestId('start-icon')).toBeInTheDocument();
   });
 
   it('should renders with end icon', () => {
-    render(<Button endContent={<span data-testid="end-icon">Icon</span>}>Button</Button>);
+    render(<Button endIcon={<span data-testid="end-icon">Icon</span>}>Button</Button>);
 
     expect(screen.getByTestId('end-icon')).toBeInTheDocument();
   });
@@ -97,28 +97,11 @@ describe('Button', () => {
   });
 
   it('should render loading state', () => {
-    render(
-      <Button loading loadingText="Loading...">
-        Button
-      </Button>,
-    );
+    render(<Button isLoading>Button</Button>);
     const button = screen.getByRole('button');
 
     expect(button).toBeDisabled();
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
-  });
-
-  it('should render as different element', () => {
-    render(
-      <Button as="a" href="#">
-        Link Button
-      </Button>,
-    );
-
-    const link = screen.getByRole('link');
-
-    expect(link.tagName).toBe('A');
-    expect(link).toHaveAttribute('href', '#');
+    expect(button).toHaveAttribute('data-pending', 'true');
   });
 
   it('should render all variants and sizes', () => {
@@ -139,16 +122,101 @@ describe('Button', () => {
     });
 
     render(<Button fullWidth>Button</Button>);
-    render(<Button disabled>Button</Button>);
+    render(<Button isDisabled>Button</Button>);
 
     // Verify at least one button is rendered to satisfy expect-expect
     expect(screen.getAllByRole('button').length).toBeGreaterThan(0);
   });
 
-  it('should render spinner when loading without text', () => {
-    const { container } = render(<Button loading>Button</Button>);
+  it('should render spinner when loading', () => {
+    const { container } = render(<Button isLoading>Button</Button>);
 
     // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-    expect(container.querySelector('svg')).toBeInTheDocument(); // Spinner uses svg
+    expect(container.querySelector('svg')).toBeInTheDocument();
+  });
+
+  it('should render custom loading indicator', () => {
+    render(
+      <Button isLoading loadingIndicator={<span data-testid="custom-loader">Loading...</span>}>
+        Button
+      </Button>,
+    );
+    expect(screen.getByTestId('custom-loader')).toBeInTheDocument();
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
+  });
+
+  it('should handle loading positions', () => {
+    const { rerender } = render(
+      <Button isLoading loadingPosition="start" startIcon={<span data-testid="start">S</span>}>
+        Text
+      </Button>,
+    );
+
+    // In start position, startIcon should be hidden to make room for loader
+    expect(screen.queryByTestId('start')).not.toBeInTheDocument();
+    expect(screen.getByText('Text')).toBeInTheDocument();
+
+    rerender(
+      <Button isLoading endIcon={<span data-testid="end">E</span>} loadingPosition="end">
+        Text
+      </Button>,
+    );
+    // In end position, endIcon should be hidden
+    expect(screen.queryByTestId('end')).not.toBeInTheDocument();
+    expect(screen.getByText('Text')).toBeInTheDocument();
+
+    rerender(
+      <Button isLoading loadingPosition="center">
+        Text
+      </Button>,
+    );
+    // In center position, text should be hidden
+    expect(screen.queryByText('Text')).not.toBeInTheDocument();
+  });
+});
+
+describe('ButtonGroup', () => {
+  it('should pass props to children', () => {
+    render(
+      <Button.Group isDisabled color="danger" size="xl">
+        <Button>Button 1</Button>
+        <Button>Button 2</Button>
+      </Button.Group>,
+    );
+
+    const buttons = screen.getAllByRole('button');
+
+    buttons.forEach((button) => {
+      expect(button).toBeDisabled();
+      expect(button).toHaveClass('btn--xl');
+      expect(button).toHaveClass('btn--danger');
+    });
+  });
+
+  it('should render in vertical orientation', () => {
+    const { container } = render(
+      <Button.Group isVertical>
+        <Button>1</Button>
+        <Button>2</Button>
+      </Button.Group>,
+    );
+
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(container.firstChild).toHaveAttribute('data-vertical', 'true');
+  });
+
+  it('should handle isAttached state', () => {
+    render(
+      <Button.Group isAttached>
+        <Button>1</Button>
+        <Button>2</Button>
+      </Button.Group>,
+    );
+
+    const buttons = screen.getAllByRole('button');
+
+    buttons.forEach((button) => {
+      expect(button).toHaveAttribute('data-attached', 'true');
+    });
   });
 });

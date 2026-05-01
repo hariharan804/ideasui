@@ -1,154 +1,304 @@
+'use client';
 import type { JSX } from 'react';
 
-import { Heart, Download, ArrowRight, Star, Plus } from 'lucide-react';
+import { useState } from 'react';
+import { Plus, Trash2, Settings, Search, File, User, ChevronRight } from 'lucide-react';
 import { Button } from '@ideasui/button';
 
-function ButtonPreview(): JSX.Element {
+export default function ButtonPreview(): JSX.Element {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const toggleLoading = (): void => {
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 2000);
+  };
+
   return (
-    <div className="space-y-8 p-6">
-      <div>
-        <h1 className="mb-4 text-3xl font-bold">Button Component</h1>
-        <p className="mb-8 text-gray-600">
-          A versatile button component with multiple variants, sizes, and states.
+    <div className="mx-auto max-w-6xl space-y-12 p-8 pb-24">
+      <header className="space-y-4 text-center">
+        <h1 className="text-5xl font-extrabold tracking-tight">Button Showcase</h1>
+        <p className="text-muted-foreground mx-auto max-w-2xl text-xl">
+          A high-performance button system with native React Aria accessibility, multiple visual
+          variants, and advanced compound component support.
         </p>
-      </div>
+      </header>
 
-      {/* Variants */}
-      <div>
-        <h2 className="mb-4 text-xl font-semibold">Variants</h2>
-        <div className="flex flex-wrap gap-4">
-          <Button variant="solid">Solid</Button>
-          <Button variant="outline">Outline</Button>
-          <Button variant="ghost">Ghost</Button>
+      {/* 1. Basic Stories Mirror */}
+      <section className="space-y-6">
+        <div className="flex items-center justify-between border-b pb-2">
+          <h2 className="text-2xl font-semibold">Basic Stories</h2>
+          <span className="bg-muted rounded px-2 py-1 font-mono text-sm">Default & Loading</span>
         </div>
-      </div>
-
-      {/* Colors */}
-      <div>
-        <h2 className="mb-4 text-xl font-semibold">Colors</h2>
         <div className="flex flex-wrap gap-4">
-          <Button color="primary">Primary</Button>
-          <Button color="secondary">Secondary</Button>
-          <Button color="success">Success</Button>
-          <Button color="warning">Warning</Button>
-          <Button color="danger">Danger</Button>
-          <Button color="info">Info</Button>
+          <Button>Default Button</Button>
+          <Button isLoading>Processing...</Button>
+          <Button isDisabled>Disabled Button</Button>
         </div>
-      </div>
+      </section>
 
-      {/* Sizes */}
-      <div>
-        <h2 className="mb-4 text-xl font-semibold">Sizes</h2>
-        <div className="flex flex-wrap items-center gap-4">
-          <Button size="xs">Extra Small</Button>
-          <Button size="sm">Small</Button>
-          <Button size="md">Medium</Button>
-          <Button size="lg">Large</Button>
-          <Button size="xl">Extra Large</Button>
+      {/* 2. Visual Variants */}
+      <section className="space-y-6">
+        <div className="flex items-center justify-between border-b pb-2">
+          <h2 className="text-2xl font-semibold">Visual Variants</h2>
+          <span className="bg-muted rounded px-2 py-1 font-mono text-sm">{`variant="*"`}</span>
         </div>
-      </div>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="space-y-3">
+            <h3 className="text-muted-foreground text-sm font-medium tracking-wider uppercase">
+              Core Styles
+            </h3>
+            <div className="flex flex-col gap-2">
+              <Button variant="solid">Solid (Default)</Button>
+              <Button variant="outline">Outline</Button>
+              <Button variant="soft">Soft</Button>
+              <Button variant="ghost">Ghost</Button>
+            </div>
+          </div>
+          <div className="space-y-3">
+            <h3 className="text-muted-foreground text-sm font-medium tracking-wider uppercase">
+              Specialized Styles
+            </h3>
+            <div className="flex flex-col gap-2">
+              <Button variant="elevated">Elevated</Button>
+              <Button variant="text">Text</Button>
+              <Button variant="link">Link Style</Button>
+              <Button isIconOnly aria-label="Icon Variant">
+                <Settings className="size-5" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      {/* With Icons */}
-      <div>
-        <h2 className="mb-4 text-xl font-semibold">With Icons</h2>
-        <div className="flex flex-wrap gap-4">
-          <Button startContent={<Heart className="h-4 w-4" />}>Like</Button>
-          <Button endContent={<Download className="h-4 w-4" />}>Download</Button>
-          <Button
-            endContent={<ArrowRight className="h-4 w-4" />}
-            startContent={<Star className="h-4 w-4" />}
-          >
-            Star & Share
+      {/* 3. Semantic Colors (Full Palette) */}
+      <section className="space-y-6">
+        <div className="flex items-center justify-between border-b pb-2">
+          <h2 className="text-2xl font-semibold">Semantic Colors</h2>
+          <span className="bg-muted rounded px-2 py-1 font-mono text-sm">{`color="*"`}</span>
+        </div>
+        <div className="space-y-8">
+          <div className="space-y-4">
+            <h3 className="text-muted-foreground text-sm font-medium tracking-wider uppercase">
+              Solid Palette
+            </h3>
+            <div className="flex flex-wrap gap-4">
+              <Button color="primary">Primary</Button>
+              <Button color="secondary">Secondary</Button>
+              <Button color="tertiary">Tertiary</Button>
+              <Button color="success">Success</Button>
+              <Button color="warning">Warning</Button>
+              <Button color="danger">Danger</Button>
+              <Button color="info">Info</Button>
+              <Button color="neutral">Neutral</Button>
+            </div>
+          </div>
+          <div className="space-y-4">
+            <h3 className="text-muted-foreground text-sm font-medium tracking-wider uppercase">
+              Soft Palette
+            </h3>
+            <div className="flex flex-wrap gap-4">
+              <Button color="primary" variant="soft">
+                Primary
+              </Button>
+              <Button color="secondary" variant="soft">
+                Secondary
+              </Button>
+              <Button color="tertiary" variant="soft">
+                Tertiary
+              </Button>
+              <Button color="success" variant="soft">
+                Success
+              </Button>
+              <Button color="warning" variant="soft">
+                Warning
+              </Button>
+              <Button color="danger" variant="soft">
+                Danger
+              </Button>
+              <Button color="info" variant="soft">
+                Info
+              </Button>
+              <Button color="neutral" variant="soft">
+                Neutral
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Composition Stories */}
+      <section className="space-y-6">
+        <div className="flex items-center justify-between border-b pb-2">
+          <h2 className="text-2xl font-semibold">Composition Patterns</h2>
+          <span className="bg-muted rounded px-2 py-1 font-mono text-sm">
+            Complex Internal Layouts
+          </span>
+        </div>
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
+          <div className="space-y-6">
+            <h3 className="text-lg font-medium">Slot Management</h3>
+            <div className="flex flex-wrap gap-4">
+              <Button>
+                <Button.Icon placement="start">
+                  <File className="size-4" />
+                </Button.Icon>
+                <Button.Label>File Preview</Button.Label>
+              </Button>
+
+              <Button color="secondary" variant="outline">
+                <Button.Icon>
+                  <User className="size-5" />
+                </Button.Icon>
+                <Button.Label>Profile</Button.Label>
+                <Button.Spinner />
+              </Button>
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="text-lg font-medium">Quick Icons</h3>
+            <div className="flex flex-wrap gap-4">
+              <Button startIcon={<Plus className="size-4" />}>Create New</Button>
+              <Button endIcon={<ChevronRight className="size-4" />} variant="outline">
+                Continue
+              </Button>
+              <Button isIconOnly aria-label="Settings" color="primary" radius="full" size="lg">
+                <Settings />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Logic Groups */}
+      <section className="space-y-6">
+        <div className="flex items-center justify-between border-b pb-2">
+          <h2 className="text-2xl font-semibold">Button Groups</h2>
+          <span className="bg-muted rounded px-2 py-1 font-mono text-sm">Button.Group</span>
+        </div>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="space-y-3">
+            <p className="text-muted-foreground text-sm italic">Horizontal (Default)</p>
+            <Button.Group>
+              <Button variant="outline">Undo</Button>
+              <Button variant="outline">Redo</Button>
+            </Button.Group>
+          </div>
+          <div className="space-y-3">
+            <p className="text-muted-foreground text-sm italic">Attached Solid</p>
+            <Button.Group isAttached color="primary">
+              <Button>Copy</Button>
+              <Button>Paste</Button>
+              <Button>Cut</Button>
+            </Button.Group>
+          </div>
+          <div className="space-y-3">
+            <p className="text-muted-foreground text-sm italic">Vertical Attached</p>
+            <Button.Group isAttached isVertical color="secondary" variant="outline">
+              <Button>Profile</Button>
+              <Button>Account</Button>
+              <Button>Settings</Button>
+            </Button.Group>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Layout Mastery & State */}
+      <section className="space-y-12">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between border-b pb-2">
+              <h2 className="text-2xl font-semibold">State Dynamics</h2>
+            </div>
+            <div className="bg-muted/30 space-y-4 rounded-xl p-6">
+              <p className="text-sm">Interactive loading simulation:</p>
+              <Button
+                className="w-40"
+                color="success"
+                isLoading={isLoading}
+                onClick={toggleLoading}
+              >
+                {isLoading ? 'Sending...' : 'Send Message'}
+              </Button>
+              <div className="flex gap-2">
+                <Button isIconOnly isLoading aria-label="Searching">
+                  <Search className="size-5" />
+                </Button>
+                <Button isDisabled color="danger" startIcon={<Trash2 className="size-4" />}>
+                  Forbidden Delete
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div className="flex items-center justify-between border-b pb-2">
+              <h2 className="text-2xl font-semibold">Border Radius</h2>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              <Button radius="none" size="sm">
+                none
+              </Button>
+              <Button radius="sm" size="sm">
+                sm
+              </Button>
+              <Button radius="md" size="sm">
+                md
+              </Button>
+              <Button radius="lg" size="sm">
+                lg
+              </Button>
+              <Button radius="xl" size="sm">
+                xl
+              </Button>
+              <Button radius="full" size="sm">
+                full
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Sizing Matrix */}
+      <section className="space-y-6">
+        <div className="flex items-center justify-between border-b pb-2">
+          <h2 className="text-2xl font-semibold">Sizing Matrix</h2>
+          <span className="bg-muted rounded px-2 py-1 font-mono text-sm">xs → xl</span>
+        </div>
+        <div className="flex flex-wrap items-end gap-4">
+          <Button color="neutral" size="xs">
+            XS
           </Button>
-          <Button size="sm" startContent={<Plus className="h-4 w-4" />}>
-            Add Item
+          <Button color="neutral" size="sm">
+            Small
+          </Button>
+          <Button color="neutral" size="md">
+            Medium
+          </Button>
+          <Button color="neutral" size="lg">
+            Large
+          </Button>
+          <Button color="neutral" size="xl">
+            Extra Large
           </Button>
         </div>
-      </div>
+      </section>
 
-      {/* Loading States */}
-      <div>
-        <h2 className="mb-4 text-xl font-semibold">Loading States</h2>
-        <div className="flex flex-wrap gap-4">
-          <Button loading>Loading</Button>
-          <Button loading loadingText="Saving...">
-            Save
-          </Button>
-          <Button loading variant="outline">
-            Loading Outline
-          </Button>
-          <Button loading size="lg" variant="ghost">
-            Loading Ghost
-          </Button>
+      {/* 8. Utility Layouts */}
+      <section className="space-y-6 pt-12">
+        <div className="flex items-center justify-between border-b pb-2">
+          <h2 className="text-2xl font-semibold">Utility Layouts</h2>
+          <span className="bg-muted rounded px-2 py-1 font-mono text-sm">fullWidth</span>
         </div>
-      </div>
-
-      {/* States */}
-      <div>
-        <h2 className="mb-4 text-xl font-semibold">States</h2>
-        <div className="flex flex-wrap gap-4">
-          <Button>Normal</Button>
-          <Button disabled>Disabled</Button>
-          <Button loading>Loading</Button>
-        </div>
-      </div>
-
-      {/* Border Radius */}
-      <div>
-        <h2 className="mb-4 text-xl font-semibold">Border Radius</h2>
-        <div className="flex flex-wrap gap-4">
-          <Button radius="none">None</Button>
-          <Button radius="sm">Small</Button>
-          <Button radius="md">Medium</Button>
-          <Button radius="lg">Large</Button>
-          <Button radius="xl">Extra Large</Button>
-          <Button radius="full">Full</Button>
-        </div>
-      </div>
-
-      {/* Full Width */}
-      <div>
-        <h2 className="mb-4 text-xl font-semibold">Full Width</h2>
-        <div className="max-w-md space-y-2">
-          <Button fullWidth>Full Width Button</Button>
-          <Button fullWidth variant="outline">
-            Full Width Outline
+        <div className="border-primary/30 mx-auto max-w-md space-y-3 rounded-2xl border border-dashed p-8">
+          <Button fullWidth color="primary" size="lg">
+            Get Started
           </Button>
           <Button fullWidth variant="ghost">
-            Full Width Ghost
+            I already have an account
           </Button>
         </div>
-      </div>
-
-      {/* Combined Examples */}
-      <div>
-        <h2 className="mb-4 text-xl font-semibold">Combined Examples</h2>
-        <div className="flex flex-wrap gap-4">
-          <Button
-            color="primary"
-            radius="lg"
-            size="lg"
-            startContent={<Heart className="h-5 w-5" />}
-            variant="solid"
-          >
-            Primary Large
-          </Button>
-          <Button
-            color="success"
-            endContent={<ArrowRight className="h-4 w-4" />}
-            radius="full"
-            size="md"
-            variant="outline"
-          >
-            Success Outline
-          </Button>
-          <Button color="danger" radius="none" size="sm" variant="ghost">
-            Danger Ghost
-          </Button>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
-
-export default ButtonPreview;

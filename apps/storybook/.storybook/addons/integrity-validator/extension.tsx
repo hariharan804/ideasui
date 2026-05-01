@@ -1,4 +1,4 @@
-import type { Decorator } from '@storybook/react';
+import type { Decorator } from '@storybook/react-vite';
 
 import React, { StrictMode, useMemo } from 'react';
 import { useGlobals } from 'storybook/preview-api';

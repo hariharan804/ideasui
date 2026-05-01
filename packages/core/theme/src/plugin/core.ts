@@ -17,7 +17,6 @@ import {
   letterSpacing,
   primitives,
   semantic,
-  commonColors,
   zIndex,
   opacity,
   fontFamily,
@@ -191,7 +190,6 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
     colors: deepMerge(
       {
         ...deepMerge(primitives.light, semantic),
-        ...commonColors,
         surface,
         content,
         border: borderColor,
@@ -208,7 +206,6 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
     colors: deepMerge(
       {
         ...deepMerge(primitives.dark, semantic),
-        ...commonColors,
         surface,
         content,
         border: borderColor,

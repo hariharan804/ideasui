@@ -1,4 +1,4 @@
-import type { Decorator } from '@storybook/react';
+import type { Decorator } from '@storybook/react-vite';
 
 import React, { useEffect, useMemo } from 'react';
 import { addons, useGlobals } from 'storybook/preview-api';
@@ -51,7 +51,7 @@ export const withTheme: Decorator = (Story, context) => {
   }, [theme]);
 
   return (
-    <div className={theme === 'dark' ? 'dark' : ''} style={{ minHeight: '100vh' }}>
+    <div className={theme === 'dark' ? 'dark' : ''}>
       <Story {...context} />
     </div>
   );

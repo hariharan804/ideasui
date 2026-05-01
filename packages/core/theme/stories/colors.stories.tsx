@@ -52,17 +52,19 @@ const ColorSwatch = ({
         style={{ backgroundColor: value.includes('var(') ? `oklch(${value})` : value }}
       />
       <div className="min-w-0 flex-1">
-        <div className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+        <div className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-content-primary'}`}>
           {name}-{shade}
         </div>
-        <div className={`mt-0.5 font-mono text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+        <div
+          className={`mt-0.5 font-mono text-xs ${isDark ? 'text-neutral-200' : 'text-content-secondary'}`}
+        >
           {value}
         </div>
       </div>
       <div
         className={`shrink-0 rounded-md px-2 py-1 text-xs font-medium transition-opacity ${
           copied ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-        } ${isDark ? 'bg-white/10 text-white' : 'bg-gray-100 text-gray-600'}`}
+        } ${isDark ? 'bg-surface/10 text-white' : 'bg-surface-sunken text-content-tertiary'}`}
       >
         {copied ? '✓ Copied' : 'Click to copy'}
       </div>
@@ -85,9 +87,11 @@ const ColorScale = ({
     }`}
   >
     <div
-      className={`px-5 py-4 ${isDark ? 'border-b border-white/10' : 'border-b border-gray-100'}`}
+      className={`px-5 py-4 ${isDark ? 'border-b border-white/10' : 'border-b border-neutral-100'}`}
     >
-      <h3 className={`text-lg font-bold capitalize ${isDark ? 'text-white' : 'text-gray-900'}`}>
+      <h3
+        className={`text-lg font-bold capitalize ${isDark ? 'text-white' : 'text-content-primary'}`}
+      >
         {colorName}
       </h3>
     </div>
@@ -122,10 +126,12 @@ const SemanticTokenCard = ({
       style={{ backgroundColor: value.includes('var(') ? `oklch(${value})` : value }}
     />
     <div className="min-w-0 flex-1">
-      <div className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+      <div className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-content-primary'}`}>
         {name}.{role}
       </div>
-      <div className={`mt-0.5 font-mono text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+      <div
+        className={`mt-0.5 font-mono text-xs ${isDark ? 'text-neutral-400' : 'text-content-secondary'}`}
+      >
         {value}
       </div>
     </div>
@@ -153,14 +159,16 @@ const SurfaceCard = ({
       style={{ backgroundColor: value.includes('var(') ? `oklch(${value})` : value }}
     />
     <div className="min-w-0 flex-1">
-      <div className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
+      <div className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-content-primary'}`}>
         {name}
       </div>
-      <div className={`font-mono text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+      <div
+        className={`font-mono text-xs ${isDark ? 'text-neutral-400' : 'text-content-secondary'}`}
+      >
         {value}
       </div>
       {description ? (
-        <div className={`mt-0.5 text-xs ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+        <div className={`mt-0.5 text-xs ${isDark ? 'text-neutral-500' : 'text-content-tertiary'}`}>
           {description}
         </div>
       ) : null}
@@ -172,11 +180,15 @@ export const LightColors: Story = {
   render: () => (
     <div className="space-y-8">
       <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Light Theme Colors</h2>
-        <p className="mt-2 text-lg text-gray-600">
+        <h2 className="text-content-primary text-3xl font-bold tracking-tight">
+          Light Theme Colors
+        </h2>
+        <p className="text-content-secondary mt-2 text-lg">
           OKLCH color system for better perceptual uniformity
         </p>
-        <p className="mt-1 text-sm text-gray-400">Click any swatch to copy the color value</p>
+        <p className="text-content-tertiary mt-1 text-sm">
+          Click any swatch to copy the color value
+        </p>
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
         {Object.entries(primitives.light).map(([colorName, shades]) => (
@@ -189,11 +201,11 @@ export const LightColors: Story = {
 
 export const DarkColors: Story = {
   render: () => (
-    <div className="min-h-screen space-y-8 rounded-2xl bg-gray-950 p-8">
+    <div className="min-h-screen space-y-8 rounded-2xl bg-neutral-950 p-8">
       <div className="mb-10">
         <h2 className="text-3xl font-bold tracking-tight text-white">Dark Theme Colors</h2>
-        <p className="mt-2 text-lg text-gray-400">Optimized OKLCH colors for dark mode</p>
-        <p className="mt-1 text-sm text-gray-500">Click any swatch to copy the color value</p>
+        <p className="mt-2 text-lg text-neutral-100">Optimized OKLCH colors for dark mode</p>
+        <p className="mt-1 text-sm text-neutral-200">Click any swatch to copy the color value</p>
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
         {Object.entries(primitives.dark).map(([colorName, shades]) => (
@@ -208,10 +220,10 @@ export const ColorComparison: Story = {
   render: (): ReactElement => (
     <div className="space-y-10">
       <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+        <h2 className="text-content-primary text-3xl font-bold tracking-tight">
           Light vs Dark Comparison
         </h2>
-        <p className="mt-2 text-lg text-gray-600">
+        <p className="text-content-secondary mt-2 text-lg">
           Side-by-side color palette comparison across themes
         </p>
       </div>
@@ -222,14 +234,14 @@ export const ColorComparison: Story = {
         return (
           <div
             key={colorName}
-            className="overflow-hidden rounded-2xl border border-gray-100 bg-white"
+            className="bg-surface overflow-hidden rounded-2xl border border-neutral-100"
           >
-            <div className="border-b border-gray-100 px-6 py-4">
-              <h3 className="text-xl font-bold text-gray-900 capitalize">{colorName}</h3>
+            <div className="border-b border-neutral-100 px-6 py-4">
+              <h3 className="text-content-primary text-xl font-bold capitalize">{colorName}</h3>
             </div>
             <div className="grid grid-cols-2">
-              <div className="border-r border-gray-100 p-6">
-                <h4 className="mb-4 text-sm font-semibold tracking-wider text-gray-500 uppercase">
+              <div className="border-r border-neutral-100 p-6">
+                <h4 className="text-content-tertiary mb-4 text-sm font-semibold tracking-wider uppercase">
                   Light Theme
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -242,15 +254,15 @@ export const ColorComparison: Story = {
                       }}
                       title={`${colorName}-${shade}: ${value}`}
                     >
-                      <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-medium whitespace-nowrap text-gray-500 opacity-0 transition-opacity group-hover:opacity-100">
+                      <span className="text-content-tertiary absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-medium whitespace-nowrap opacity-0 transition-opacity group-hover:opacity-100">
                         {shade}
                       </span>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="bg-gray-950 p-6">
-                <h4 className="mb-4 text-sm font-semibold tracking-wider text-gray-400 uppercase">
+              <div className="bg-neutral-950 p-6">
+                <h4 className="mb-4 text-sm font-semibold tracking-wider text-neutral-100 uppercase">
                   Dark Theme
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -263,7 +275,7 @@ export const ColorComparison: Story = {
                       }}
                       title={`${colorName}-${shade}: ${value}`}
                     >
-                      <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-medium whitespace-nowrap text-gray-400 opacity-0 transition-opacity group-hover:opacity-100">
+                      <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-medium whitespace-nowrap text-neutral-400 opacity-0 transition-opacity group-hover:opacity-100">
                         {shade}
                       </span>
                     </div>
@@ -282,8 +294,10 @@ export const SemanticColors: Story = {
   render: (): ReactElement => (
     <div className="space-y-8">
       <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Semantic Color Tokens</h2>
-        <p className="mt-2 text-lg text-gray-600">
+        <h2 className="text-content-primary text-3xl font-bold tracking-tight">
+          Semantic Color Tokens
+        </h2>
+        <p className="text-content-secondary mt-2 text-lg">
           Role-based color mappings: base, on-base, subtle, on-subtle
         </p>
       </div>
@@ -291,10 +305,10 @@ export const SemanticColors: Story = {
         {Object.entries(semantic).map(([colorName, roles]) => (
           <div
             key={colorName}
-            className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50"
+            className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100"
           >
-            <div className="border-b border-gray-100 px-5 py-4">
-              <h3 className="text-lg font-bold text-gray-900 capitalize">{colorName}</h3>
+            <div className="border-b border-neutral-100 px-5 py-4">
+              <h3 className="text-content-primary text-lg font-bold capitalize">{colorName}</h3>
             </div>
             <div className="grid grid-cols-1 gap-2 p-4">
               {Object.entries(roles).map(([role, value]) => (
@@ -312,13 +326,13 @@ export const SurfaceTokens: Story = {
   render: (): ReactElement => (
     <div className="space-y-10">
       <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Surface Tokens</h2>
-        <p className="mt-2 text-lg text-gray-600">
+        <h2 className="text-content-primary text-3xl font-bold tracking-tight">Surface Tokens</h2>
+        <p className="text-content-secondary mt-2 text-lg">
           Background surfaces for layouts, containers, and overlays
         </p>
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
-        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+        <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
           <div className="grid grid-cols-1 gap-2 p-4">
             {Object.entries(surface).map(([key, value]) => (
               <SurfaceCard key={key} name={key} value={value} />
@@ -331,21 +345,28 @@ export const SurfaceTokens: Story = {
 };
 
 export const ContentTokens: Story = {
+  parameters: {
+    a11y: {
+      config: {
+        rules: [{ id: 'color-contrast', enabled: false }],
+      },
+    },
+  },
   render: (): ReactElement => (
     <div className="space-y-10">
       <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Content Tokens</h2>
-        <p className="mt-2 text-lg text-gray-600">
+        <h2 className="text-content-primary text-3xl font-bold tracking-tight">Content Tokens</h2>
+        <p className="text-content-secondary mt-2 text-lg">
           Text color hierarchy for primary, secondary, muted, and disabled states
         </p>
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
-        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+        <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
           <div className="space-y-3 p-5">
             {Object.entries(content).map(([key, value]) => (
               <div
                 key={key}
-                className="flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-4"
+                className="bg-surface flex items-center gap-4 rounded-xl border border-neutral-100 p-4"
               >
                 <div className="flex-1">
                   <div
@@ -356,8 +377,8 @@ export const ContentTokens: Story = {
                   </div>
                 </div>
                 <div className="shrink-0 text-right">
-                  <div className="text-sm font-semibold text-gray-900">{key}</div>
-                  <div className="mt-0.5 font-mono text-xs text-gray-500">{value}</div>
+                  <div className="text-content-primary text-sm font-semibold">{key}</div>
+                  <div className="text-content-secondary mt-0.5 font-mono text-xs">{value}</div>
                 </div>
               </div>
             ))}

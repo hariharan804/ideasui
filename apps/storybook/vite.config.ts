@@ -5,7 +5,6 @@ import { fileURLToPath } from 'url';
 import fs from 'fs';
 
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -45,7 +44,7 @@ const extensionRepair = (): Plugin => ({
 
 // Storybook v2 Vite Configuration
 export default defineConfig({
-  plugins: [react(), extensionRepair(), tailwindcss()],
+  plugins: [extensionRepair(), tailwindcss()],
 
   resolve: {
     // This allows Storybook's Vite instance to resolve extensionless imports

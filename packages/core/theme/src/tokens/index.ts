@@ -6,7 +6,7 @@ import { borderRadius } from './border-radius';
 import { lightShadow, darkShadow } from './box-shadow';
 import { duration, easing, keyframes, transition } from './motion';
 import { spacing } from './spacing';
-import { primitives, semantic, surface, content, commonColors } from './colors';
+import { primitives, semantic, surface, content } from './colors';
 import { disabled, scrollbar } from './classes';
 import {
   colorVariants,
@@ -52,7 +52,6 @@ export {
   semantic,
   surface,
   content,
-  commonColors,
   backdrop,
   blur,
   border,

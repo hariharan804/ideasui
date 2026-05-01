@@ -1,21 +1,19 @@
 @import 'tailwindcss';
-@plugin '@ideasui/theme/plugin';
+/* @plugin '@ideasui/theme/plugin'; */
+/* @import '@ideasui/theme/theme.css'; */
+@config '../tailwind.config.ts';
 
 /* 1) Variants must exist before any file that uses them */
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant dark (&:is(.dark *));
 
 /* 3) Point Tailwind at places where classnames appear */
-@source '../../../packages/**/src/**/*.{js,ts,jsx,tsx,mdx}';
-@source '../../../packages/**/stories/**/*.{js,ts,jsx,tsx,mdx}';
-@source '../../../node_modules/@ideasui/theme/dist/**/*.{js,ts,jsx,tsx}';
-
-/* Custom Storybook Global Styles */
-html,
-body,
-#storybook-root {
-  height: 100%;
-}
+@source './**/*.{js,ts,jsx,tsx,mdx}';
+@source '../../../packages/components/**/src/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../../../packages/components/**/stories/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../../../packages/core/theme/src/**/*.{js,ts,jsx,tsx,mdx,css}';
+@source '../../../packages/core/theme/recipes/**/*.{js,ts,jsx,tsx,mdx,css}';
+@source '../../../node_modules/@ideasui/theme/dist/**/*.{js,ts,jsx,tsx,css}';
 
 body {
   font-family:
