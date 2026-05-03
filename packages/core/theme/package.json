@@ -2,7 +2,7 @@
   "name": "@ideasui/theme",
   "version": "0.0.4",
   "type": "module",
-  "description": "Tailwind CSS v4 theme system for IdeasUI",
+  "description": "A modern, OKLCH-based theme engine and design system plugin for Tailwind CSS v4, featuring dynamic tokens and high-performance recipes.",
   "main": "./src/index.ts",
   "exports": {
     ".": {
