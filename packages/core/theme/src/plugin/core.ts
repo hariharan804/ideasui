@@ -190,7 +190,7 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
     colors: deepMerge(
       {
         ...deepMerge(primitives.light, semantic),
-        surface,
+        ...surface,
         content,
         border: borderColor,
         ...componentColors,
@@ -206,7 +206,7 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
     colors: deepMerge(
       {
         ...deepMerge(primitives.dark, semantic),
-        surface,
+        ...surface,
         content,
         border: borderColor,
         ...componentColors,
@@ -260,8 +260,8 @@ export function createThemeExtension(
       // Map semantic overrides to their CSS variables
       ...Object.fromEntries(
         Object.keys(semanticTokens.surface || {}).map((key) => [
-          `surface-${key}`,
-          `var(--${_prefix}-color-surface-${key})`,
+          key,
+          `var(--${_prefix}-color-${key})`,
         ]),
       ),
       ...Object.fromEntries(

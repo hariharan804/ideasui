@@ -34,7 +34,7 @@ export function processShadeColor(
   const colorVar = `--${prefix}-color-${colorName}`;
 
   // If the value is a var() reference to another token, preserve the reference
-  // This ensures semantic tokens (e.g. primary-base) derive from palette scale
+  // This ensures semantic tokens (e.g. primary-solid) derive from palette scale
   // (e.g. --ideasui-primary-500) rather than duplicating raw OKLCH values
   const trimmed = colorValue.trim();
 

@@ -41,28 +41,9 @@ export interface ButtonProps
    */
   endIcon?: ReactNode;
   /**
-   * The variant of the button.
-   * @default 'solid'
+   * The shortcut keys to display.
    */
-  variant?: 'solid' | 'outline' | 'ghost' | 'soft' | 'link' | 'text' | 'elevated';
-  /**
-   * The color of the button.
-   * @default 'primary'
-   */
-  color?:
-    | 'primary'
-    | 'secondary'
-    | 'tertiary'
-    | 'neutral'
-    | 'danger'
-    | 'success'
-    | 'warning'
-    | 'info';
-  /**
-   * The size of the button.
-   * @default 'md'
-   */
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  shortcut?: ReactNode;
   /**
    * Whether to show a divider between the buttons in a group.
    * @default true (when isAttached is true)
@@ -121,6 +102,16 @@ export interface ButtonSpinnerProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 /**
+ * Props for the Button.Shortcut component.
+ */
+export interface ButtonShortcutProps extends HTMLAttributes<HTMLSpanElement> {
+  /**
+   * The shortcut keys to display.
+   */
+  children: ReactNode;
+}
+
+/**
  * Type for the Button component with its static compound components.
  */
 export interface ButtonComponent extends ForwardRefExoticComponent<
@@ -134,6 +125,10 @@ export interface ButtonComponent extends ForwardRefExoticComponent<
    * Component to display an icon inside the button.
    */
   Icon: ForwardRefExoticComponent<ButtonIconProps & RefAttributes<HTMLElement>>;
+  /**
+   * Component to display a shortcut indicator inside the button.
+   */
+  Shortcut: ForwardRefExoticComponent<ButtonShortcutProps & RefAttributes<HTMLSpanElement>>;
   /**
    * Component to display a loading spinner inside the button.
    */

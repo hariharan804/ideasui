@@ -6,6 +6,7 @@ import type {
   ButtonLabelProps,
   ButtonIconProps,
   ButtonSpinnerProps,
+  ButtonShortcutProps,
 } from './button.types';
 import type { ButtonReturnType } from '@ideasui/theme/recipes';
 import type { ButtonRenderProps } from 'react-aria-components';
@@ -110,6 +111,21 @@ const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProps>(
 
 ButtonSpinner.displayName = 'IdeasUI.Button.Spinner';
 
+const ButtonShortcut = forwardRef<HTMLSpanElement, ButtonShortcutProps>(
+  ({ children, className, ...props }, ref): JSX.Element => {
+    const { styles } = useButtonContext();
+    const { shortcut } = styles;
+
+    return (
+      <kbd ref={ref} className={cn(shortcut(), className)} data-slot="button-shortcut" {...props}>
+        {children}
+      </kbd>
+    );
+  },
+);
+
+ButtonShortcut.displayName = 'IdeasUI.Button.Shortcut';
+
 const ButtonLabel = forwardRef<HTMLSpanElement, ButtonLabelProps>(
   ({ children, className, ...props }, ref): JSX.Element => {
     const { styles } = useButtonContext();
@@ -136,6 +152,7 @@ interface ButtonContentProps {
   isIconOnly?: boolean;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  shortcut?: React.ReactNode;
   children: ButtonProps['children'];
   renderProps: ButtonRenderProps;
 }
@@ -147,6 +164,7 @@ const ButtonContent = ({
   isIconOnly,
   startIcon,
   endIcon,
+  shortcut,
   children,
   renderProps,
 }: ButtonContentProps): ReactNode => {
@@ -177,6 +195,8 @@ const ButtonContent = ({
       {showEndIcon ? <ButtonIcon placement="end">{endIcon}</ButtonIcon> : null}
 
       {showEndLoader ? <ButtonIcon placement="end">{loader}</ButtonIcon> : null}
+
+      {shortcut ? <ButtonShortcut>{shortcut}</ButtonShortcut> : null}
     </>
   );
 };
@@ -192,6 +212,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(
       size,
       color,
       radius,
+      elevation,
       fullWidth,
       isIconOnly,
       disableAnimation,
@@ -202,6 +223,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(
       loadingIndicator,
       loadingPosition,
       isDisabled,
+      shortcut,
       children,
       ...props
     },
@@ -231,13 +253,19 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(
       disableAnimation: mergedDisableAnimation,
       isAttached,
       isVertical,
+      elevation,
       showDivider: props.showDivider ?? groupContext?.showDivider ?? isAttached,
     });
+
+    // Ensure we have an accessible name when loading or icon-only
+    const ariaLabel = props['aria-label'] || (typeof children === 'string' ? children : undefined);
+    const loadingLabel = typeof loadingIndicator === 'string' ? loadingIndicator : 'Loading';
 
     return (
       <ButtonPrimitive
         ref={ref}
         aria-busy={isLoading}
+        aria-label={isLoading && !ariaLabel ? loadingLabel : ariaLabel}
         className={(renderProps) =>
           styles.base({
             className: typeof className === 'function' ? className(renderProps) : className,
@@ -259,6 +287,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(
               loadingIndicator={loadingIndicator}
               loadingPosition={loadingPosition}
               renderProps={renderProps}
+              shortcut={shortcut}
               startIcon={startIcon}
             >
               {children}
@@ -279,6 +308,7 @@ ButtonBase.displayName = 'IdeasUI.Button';
 export const Button = ButtonBase as ButtonComponent;
 
 Button.Icon = ButtonIcon;
+Button.Shortcut = ButtonShortcut;
 Button.Spinner = ButtonSpinner;
 Button.Label = ButtonLabel;
 Button.Group = ButtonGroup;

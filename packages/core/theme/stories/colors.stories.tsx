@@ -234,7 +234,7 @@ export const ColorComparison: Story = {
         return (
           <div
             key={colorName}
-            className="bg-surface overflow-hidden rounded-2xl border border-neutral-100"
+            className="bg-background overflow-hidden rounded-2xl border border-neutral-100"
           >
             <div className="border-b border-neutral-100 px-6 py-4">
               <h3 className="text-content-primary text-xl font-bold capitalize">{colorName}</h3>
@@ -298,14 +298,14 @@ export const SemanticColors: Story = {
           Semantic Color Tokens
         </h2>
         <p className="text-content-secondary mt-2 text-lg">
-          Role-based color mappings: base, on-base, subtle, on-subtle
+          Role-based color mappings: solid, on-solid, soft, on-soft, subtle, on-subtle
         </p>
       </div>
       <div className="grid gap-6 lg:grid-cols-2">
         {Object.entries(semantic).map(([colorName, roles]) => (
           <div
             key={colorName}
-            className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100"
+            className="bg-surface-muted overflow-hidden rounded-2xl border border-neutral-100"
           >
             <div className="border-b border-neutral-100 px-5 py-4">
               <h3 className="text-content-primary text-lg font-bold capitalize">{colorName}</h3>
@@ -332,7 +332,7 @@ export const SurfaceTokens: Story = {
         </p>
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
-        <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
+        <div className="bg-surface-muted overflow-hidden rounded-2xl border border-neutral-100">
           <div className="grid grid-cols-1 gap-2 p-4">
             {Object.entries(surface).map(([key, value]) => (
               <SurfaceCard key={key} name={key} value={value} />
@@ -361,7 +361,7 @@ export const ContentTokens: Story = {
         </p>
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
-        <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
+        <div className="bg-surface-muted overflow-hidden rounded-2xl border border-neutral-100">
           <div className="space-y-3 p-5">
             {Object.entries(content).map(([key, value]) => (
               <div

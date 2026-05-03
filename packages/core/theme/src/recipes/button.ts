@@ -2,19 +2,21 @@ import type { VariantProps } from 'tailwind-variants';
 
 import { tv } from 'tailwind-variants';
 
-// BEM base class names
-const BEM_BASE = 'btn';
-const BEM_ICON = 'btn__icon';
-const BEM_LABEL = 'btn__label';
-const BEM_LOADER = 'btn__loader';
-const BEM_SOLID = 'btn--solid';
-const BEM_OUTLINE = 'btn--outline';
-const BEM_GHOST = 'btn--ghost';
-const BEM_LINK = 'btn--link';
+import { compoundVariants } from './button.compound';
 
-const TRANSPARENT = 'bg-transparent';
-const ROUNDED_MD = 'rounded-md';
-const ROUNDED_NONE = 'rounded-none';
+// BEM base class names
+export const BEM_BASE = 'btn';
+export const BEM_ICON = 'btn__icon';
+export const BEM_LABEL = 'btn__label';
+export const BEM_LOADER = 'btn__loader';
+export const BEM_SOLID = 'btn--solid';
+export const BEM_OUTLINE = 'btn--outline';
+export const BEM_GHOST = 'btn--ghost';
+export const BEM_LINK = 'btn--link';
+
+export const TRANSPARENT = 'bg-transparent';
+export const ROUNDED_MD = 'rounded-md';
+export const ROUNDED_NONE = 'rounded-none';
 
 const button = tv({
   slots: {
@@ -25,7 +27,7 @@ const button = tv({
       'justify-center',
       'gap-2',
       'font-medium',
-      'text-surface',
+      'text-background',
       'transition-all',
       'duration-200',
       'ease-in-out',
@@ -42,11 +44,12 @@ const button = tv({
     icon: [BEM_ICON, 'shrink-0'],
     label: [BEM_LABEL, 'truncate'],
     loader: [BEM_LOADER, 'shrink-0'],
+    shortcut: ['ml-auto', 'text-sm', 'font-sans', 'tracking-widest'],
   },
   variants: {
     variant: {
       solid: {
-        base: [BEM_SOLID, 'text-surface'],
+        base: [BEM_SOLID, 'text-background'],
       },
       outline: {
         base: [BEM_OUTLINE, 'border', TRANSPARENT],
@@ -64,7 +67,10 @@ const button = tv({
         base: [TRANSPARENT, 'font-normal'],
       },
       elevated: {
-        base: 'btn--elevated bg-surface shadow-md hover:shadow-lg active:shadow-sm',
+        base: 'btn--elevated bg-background !shadow-sm hover:!shadow-md active:!shadow-sm',
+      },
+      glaze: {
+        base: 'btn--glaze backdrop-blur-lg border border-white/20 border-t-white/40 bg-white/10 dark:bg-black/20 dark:border-white/10 shadow-lg text-white transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] hover:bg-white/20 hover:shadow-xl active:scale-95',
       },
     },
     size: {
@@ -98,6 +104,15 @@ const button = tv({
       danger: { base: 'btn--danger' },
       info: { base: 'btn--info' },
       neutral: { base: 'btn--neutral' },
+    },
+    elevation: {
+      none: { base: 'shadow-none' },
+      xs: { base: '!shadow-xs' },
+      sm: { base: '!shadow-sm' },
+      md: { base: '!shadow-md' },
+      lg: { base: '!shadow-lg' },
+      xl: { base: '!shadow-xl' },
+      '2xl': { base: '!shadow-2xl' },
     },
     radius: {
       none: { base: ROUNDED_NONE },
@@ -139,7 +154,7 @@ const button = tv({
     },
     isAttached: {
       true: {
-        base: ROUNDED_NONE,
+        base: '',
       },
     },
     isVertical: {
@@ -153,434 +168,7 @@ const button = tv({
       },
     },
   },
-  compoundVariants: [
-    // --- Attached Groups Overlap (1px) ---
-    {
-      isAttached: true,
-      variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link', 'outline'],
-      isVertical: false,
-      class: {
-        base: ['[&:not(:first-child)]:-ml-px'],
-      },
-    },
-    {
-      isAttached: true,
-      variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link', 'outline'],
-      isVertical: true,
-      class: {
-        base: ['[&:not(:first-child)]:-mt-px [&:not(:first-child)]:ml-0'],
-      },
-    },
-    // --- Show Divider Logic ---
-    {
-      showDivider: true,
-      variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link'],
-      isVertical: false,
-      class: {
-        base: ['[&:not(:first-child)]:border-l-1'],
-      },
-    },
-    {
-      showDivider: true,
-      variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link'],
-      isVertical: true,
-      class: {
-        base: ['[&:not(:first-child)]:border-t-1'],
-      },
-    },
-    // --- Attached Groups ---
-    {
-      isAttached: true,
-      isVertical: false,
-      radius: 'none',
-      class: { base: ROUNDED_NONE },
-    },
-    {
-      isAttached: true,
-      isVertical: false,
-      radius: 'sm',
-      class: { base: 'rounded-none first:rounded-l-sm last:rounded-r-sm' },
-    },
-    {
-      isAttached: true,
-      isVertical: false,
-      radius: 'md',
-      class: { base: 'rounded-none first:rounded-l-md last:rounded-r-md' },
-    },
-    {
-      isAttached: true,
-      isVertical: false,
-      radius: 'lg',
-      class: { base: 'rounded-none first:rounded-l-lg last:rounded-r-lg' },
-    },
-    {
-      isAttached: true,
-      isVertical: false,
-      radius: 'xl',
-      class: { base: 'rounded-none first:rounded-l-xl last:rounded-r-xl' },
-    },
-    {
-      isAttached: true,
-      isVertical: false,
-      radius: 'full',
-      class: { base: 'rounded-none first:rounded-l-full last:rounded-r-full' },
-    },
-    {
-      isAttached: true,
-      isVertical: true,
-      radius: 'none',
-      class: { base: ROUNDED_NONE },
-    },
-    {
-      isAttached: true,
-      isVertical: true,
-      radius: 'sm',
-      class: { base: 'rounded-none first:rounded-t-sm last:rounded-b-sm' },
-    },
-    {
-      isAttached: true,
-      isVertical: true,
-      radius: 'md',
-      class: { base: 'rounded-none first:rounded-t-md last:rounded-b-md' },
-    },
-    {
-      isAttached: true,
-      isVertical: true,
-      radius: 'lg',
-      class: { base: 'rounded-none first:rounded-t-lg last:rounded-b-lg' },
-    },
-    {
-      isAttached: true,
-      isVertical: true,
-      radius: 'xl',
-      class: { base: 'rounded-none first:rounded-t-xl last:rounded-b-xl' },
-    },
-    {
-      isAttached: true,
-      isVertical: true,
-      radius: 'full',
-      class: { base: 'rounded-none first:rounded-t-full last:rounded-b-full' },
-    },
-    // --- Solid Variants ---
-    {
-      variant: 'solid',
-      color: 'primary',
-      class: {
-        base: 'bg-primary-base text-surface hover:brightness-110 active:brightness-90',
-      },
-    },
-    {
-      variant: 'solid',
-      color: 'secondary',
-      class: {
-        base: 'bg-secondary-base text-surface hover:brightness-110 active:brightness-90',
-      },
-    },
-    {
-      variant: 'solid',
-      color: 'tertiary',
-      class: {
-        base: 'bg-tertiary-base text-surface hover:brightness-110 active:brightness-90',
-      },
-    },
-    {
-      variant: 'solid',
-      color: 'success',
-      class: {
-        base: 'bg-success-base text-surface hover:brightness-110 active:brightness-90',
-      },
-    },
-    {
-      variant: 'solid',
-      color: 'warning',
-      class: {
-        base: 'bg-warning-base text-surface hover:brightness-110 active:brightness-90',
-      },
-    },
-    {
-      variant: 'solid',
-      color: 'danger',
-      class: {
-        base: 'bg-danger-base text-surface hover:brightness-110 active:brightness-90',
-      },
-    },
-    {
-      variant: 'solid',
-      color: 'info',
-      class: { base: 'bg-info-base text-surface hover:brightness-110 active:brightness-90' },
-    },
-    {
-      variant: 'solid',
-      color: 'neutral',
-      class: {
-        base: 'bg-neutral-base text-surface hover:brightness-110 active:brightness-90',
-      },
-    },
-    {
-      variant: 'solid',
-      color: 'neutral',
-      class: { base: 'bg-neutral-base text-surface hover:brightness-110 active:brightness-90' },
-    },
-
-    // --- Outline Variants ---
-    {
-      variant: 'outline',
-      color: 'primary',
-      class: { base: 'border-primary-base text-primary-base hover:bg-primary-subtle' },
-    },
-    {
-      variant: 'outline',
-      color: 'secondary',
-      class: { base: 'border-secondary-base text-secondary-base hover:bg-secondary-subtle' },
-    },
-    {
-      variant: 'outline',
-      color: 'tertiary',
-      class: { base: 'border-tertiary-base text-tertiary-base hover:bg-tertiary-subtle' },
-    },
-    {
-      variant: 'outline',
-      color: 'success',
-      class: { base: 'border-success-base text-success-base hover:bg-success-subtle' },
-    },
-    {
-      variant: 'outline',
-      color: 'warning',
-      class: { base: 'border-warning-base text-warning-base hover:bg-warning-subtle' },
-    },
-    {
-      variant: 'outline',
-      color: 'danger',
-      class: { base: 'border-danger-base text-danger-base hover:bg-danger-subtle' },
-    },
-    {
-      variant: 'outline',
-      color: 'info',
-      class: { base: 'border-info-base text-info-base hover:bg-info-subtle' },
-    },
-    {
-      variant: 'outline',
-      color: 'neutral',
-      class: { base: 'border-neutral-base text-neutral-base hover:bg-neutral-subtle' },
-    },
-    {
-      variant: 'outline',
-      color: 'neutral',
-      class: { base: 'border-neutral-base text-neutral-base hover:bg-neutral-subtle' },
-    },
-
-    // --- Soft Variants ---
-    {
-      variant: 'soft',
-      color: 'primary',
-      class: {
-        base: 'bg-primary-subtle text-primary-on-subtle hover:brightness-105 active:brightness-95',
-      },
-    },
-    {
-      variant: 'soft',
-      color: 'secondary',
-      class: {
-        base: 'bg-secondary-subtle text-secondary-on-subtle hover:brightness-105 active:brightness-95',
-      },
-    },
-    {
-      variant: 'soft',
-      color: 'tertiary',
-      class: {
-        base: 'bg-tertiary-subtle text-tertiary-on-subtle hover:brightness-105 active:brightness-95',
-      },
-    },
-    {
-      variant: 'soft',
-      color: 'success',
-      class: {
-        base: 'bg-success-subtle text-success-on-subtle hover:brightness-105 active:brightness-95',
-      },
-    },
-    {
-      variant: 'soft',
-      color: 'warning',
-      class: {
-        base: 'bg-warning-subtle text-warning-on-subtle hover:brightness-105 active:brightness-95',
-      },
-    },
-    {
-      variant: 'soft',
-      color: 'danger',
-      class: {
-        base: 'bg-danger-subtle text-danger-on-subtle hover:brightness-105 active:brightness-95',
-      },
-    },
-    {
-      variant: 'soft',
-      color: 'info',
-      class: {
-        base: 'bg-info-subtle text-info-on-subtle hover:brightness-105 active:brightness-95',
-      },
-    },
-    {
-      variant: 'soft',
-      color: 'neutral',
-      class: {
-        base: 'bg-neutral-subtle text-neutral-on-subtle hover:brightness-105 active:brightness-95',
-      },
-    },
-    {
-      variant: 'soft',
-      color: 'neutral',
-      class: {
-        base: 'bg-neutral-subtle text-neutral-on-subtle hover:brightness-105 active:brightness-95',
-      },
-    },
-
-    // --- Ghost Variants ---
-    {
-      variant: 'ghost',
-      color: 'primary',
-      class: { base: 'text-primary-base hover:bg-primary-subtle' },
-    },
-    {
-      variant: 'ghost',
-      color: 'secondary',
-      class: { base: 'text-secondary-base hover:bg-secondary-subtle' },
-    },
-    {
-      variant: 'ghost',
-      color: 'tertiary',
-      class: { base: 'text-tertiary-base hover:bg-tertiary-subtle' },
-    },
-    {
-      variant: 'ghost',
-      color: 'success',
-      class: { base: 'text-success-base hover:bg-success-subtle' },
-    },
-    {
-      variant: 'ghost',
-      color: 'warning',
-      class: { base: 'text-warning-base hover:bg-warning-subtle' },
-    },
-    {
-      variant: 'ghost',
-      color: 'danger',
-      class: { base: 'text-danger-base hover:bg-danger-subtle' },
-    },
-    { variant: 'ghost', color: 'info', class: { base: 'text-info-base hover:bg-info-subtle' } },
-    {
-      variant: 'ghost',
-      color: 'neutral',
-      class: { base: 'text-neutral-base hover:bg-neutral-subtle' },
-    },
-    {
-      variant: 'ghost',
-      color: 'neutral',
-      class: { base: 'text-neutral-base hover:bg-neutral-subtle' },
-    },
-
-    // --- Link Variants ---
-    {
-      variant: 'link',
-      color: 'primary',
-      class: { base: 'text-primary-base hover:text-primary-on-subtle' },
-    },
-    {
-      variant: 'link',
-      color: 'secondary',
-      class: { base: 'text-secondary-base hover:text-secondary-on-subtle' },
-    },
-    {
-      variant: 'link',
-      color: 'tertiary',
-      class: { base: 'text-tertiary-base hover:text-tertiary-on-subtle' },
-    },
-    {
-      variant: 'link',
-      color: 'success',
-      class: { base: 'text-success-base hover:text-success-on-subtle' },
-    },
-    {
-      variant: 'link',
-      color: 'warning',
-      class: { base: 'text-warning-base hover:text-warning-on-subtle' },
-    },
-    {
-      variant: 'link',
-      color: 'danger',
-      class: { base: 'text-danger-base hover:text-danger-on-subtle' },
-    },
-    { variant: 'link', color: 'info', class: { base: 'text-info-base hover:text-info-on-subtle' } },
-    {
-      variant: 'link',
-      color: 'neutral',
-      class: { base: 'text-neutral-base hover:text-neutral-on-subtle' },
-    },
-    {
-      variant: 'link',
-      color: 'neutral',
-      class: { base: 'text-neutral-base hover:text-neutral-on-subtle' },
-    },
-
-    // --- Text Variants ---
-    {
-      variant: 'text',
-      color: 'primary',
-      class: { base: 'text-primary-base hover:bg-primary-subtle/50' },
-    },
-    {
-      variant: 'text',
-      color: 'secondary',
-      class: { base: 'text-secondary-base hover:bg-secondary-subtle/50' },
-    },
-    {
-      variant: 'text',
-      color: 'tertiary',
-      class: { base: 'text-tertiary-base hover:bg-tertiary-subtle/50' },
-    },
-    {
-      variant: 'text',
-      color: 'success',
-      class: { base: 'text-success-base hover:bg-success-subtle/50' },
-    },
-    {
-      variant: 'text',
-      color: 'warning',
-      class: { base: 'text-warning-base hover:bg-warning-subtle/50' },
-    },
-    {
-      variant: 'text',
-      color: 'danger',
-      class: { base: 'text-danger-base hover:bg-danger-subtle/50' },
-    },
-    { variant: 'text', color: 'info', class: { base: 'text-info-base hover:bg-info-subtle/50' } },
-    {
-      variant: 'text',
-      color: 'neutral',
-      class: { base: 'text-neutral-base hover:bg-neutral-subtle/50' },
-    },
-    {
-      variant: 'text',
-      color: 'neutral',
-      class: { base: 'text-neutral-base hover:bg-neutral-subtle/50' },
-    },
-
-    // --- Elevated Variants ---
-    { variant: 'elevated', color: 'primary', class: { base: 'text-primary-base' } },
-    { variant: 'elevated', color: 'secondary', class: { base: 'text-secondary-base' } },
-    { variant: 'elevated', color: 'tertiary', class: { base: 'text-tertiary-base' } },
-    { variant: 'elevated', color: 'success', class: { base: 'text-success-base' } },
-    { variant: 'elevated', color: 'warning', class: { base: 'text-warning-base' } },
-    { variant: 'elevated', color: 'danger', class: { base: 'text-danger-base' } },
-    { variant: 'elevated', color: 'info', class: { base: 'text-info-base' } },
-    { variant: 'elevated', color: 'neutral', class: { base: 'text-neutral-base' } },
-    { variant: 'elevated', color: 'neutral', class: { base: 'text-neutral-base' } },
-
-    // --- Icon Only Size Overrides ---
-    { isIconOnly: true, size: 'xs', class: { base: 'size-7' } },
-    { isIconOnly: true, size: 'sm', class: { base: 'size-8' } },
-    { isIconOnly: true, size: 'md', class: { base: 'size-10' } },
-    { isIconOnly: true, size: 'lg', class: { base: 'size-12' } },
-    { isIconOnly: true, size: 'xl', class: { base: 'size-14' } },
-  ],
+  compoundVariants: compoundVariants as unknown as Parameters<typeof tv>[0]['compoundVariants'],
   defaultVariants: {
     variant: 'solid',
     size: 'md',

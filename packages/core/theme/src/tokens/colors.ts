@@ -298,17 +298,17 @@ export const primitives = {
     },
 
     tertiary: {
-      50: 'oklch(0.970 0.012 182.5)',
-      100: 'oklch(0.887 0.022 182.5)',
-      200: 'oklch(0.804 0.043 182.5)',
-      300: 'oklch(0.680 0.068 182.5)',
-      400: 'oklch(0.550 0.097 182.5)', // ✓ 4.52:1 vs white
-      500: 'oklch(0.540 0.123 182.5)', // ✓ 4.52:1 vs white
-      600: 'oklch(0.467 0.117 182.5)', // ✓ 6.19:1 vs white
-      700: 'oklch(0.389 0.105 182.5)',
-      800: 'oklch(0.306 0.089 182.5)',
-      900: 'oklch(0.223 0.068 182.5)',
-      950: 'oklch(0.140 0.049 182.5)',
+      50: 'oklch(0.970 0.022 195.0)',
+      100: 'oklch(0.887 0.040 195.0)',
+      200: 'oklch(0.804 0.077 195.0)',
+      300: 'oklch(0.680 0.120 195.0)',
+      400: 'oklch(0.535 0.173 195.0)', // ✓ 4.61:1 vs white
+      500: 'oklch(0.495 0.180 195.0)', // ✓ 5.52:1 vs white
+      600: 'oklch(0.420 0.170 195.0)', // ✓ 7.82:1 vs white
+      700: 'oklch(0.350 0.150 195.0)',
+      800: 'oklch(0.280 0.130 195.0)',
+      900: 'oklch(0.210 0.110 195.0)',
+      950: 'oklch(0.140 0.088 195.0)',
     },
 
     neutral: {
@@ -417,17 +417,17 @@ export const primitives = {
     },
 
     tertiary: {
-      50: 'oklch(0.140 0.012 182.5)',
-      100: 'oklch(0.223 0.022 182.5)',
-      200: 'oklch(0.306 0.043 182.5)',
-      300: 'oklch(0.468 0.068 182.5)',
-      400: 'oklch(0.631 0.097 182.5)', // ✓ 4.51:1 vs dark bg
-      500: 'oklch(0.651 0.123 182.5)', // ✓ 4.50:1 vs dark bg
-      600: 'oklch(0.672 0.117 182.5)', // ✓ 5.34:1 vs dark bg
-      700: 'oklch(0.721 0.105 182.5)',
-      800: 'oklch(0.804 0.089 182.5)',
-      900: 'oklch(0.887 0.068 182.5)',
-      950: 'oklch(0.970 0.049 182.5)',
+      50: 'oklch(0.140 0.022 195.0)',
+      100: 'oklch(0.223 0.040 195.0)',
+      200: 'oklch(0.306 0.077 195.0)',
+      300: 'oklch(0.478 0.121 195.0)',
+      400: 'oklch(0.651 0.174 195.0)', // ✓ 4.52:1 vs dark bg
+      500: 'oklch(0.669 0.220 195.0)', // ✓ 4.50:1 vs dark bg
+      600: 'oklch(0.695 0.209 195.0)', // ✓ 5.00:1 vs dark bg
+      700: 'oklch(0.721 0.187 195.0)',
+      800: 'oklch(0.804 0.158 195.0)',
+      900: 'oklch(0.887 0.120 195.0)',
+      950: 'oklch(0.970 0.088 195.0)',
     },
 
     neutral: {
@@ -512,52 +512,68 @@ export const primitives = {
 
 export const semantic = {
   primary: {
-    base: 'var(--ideasui-color-primary-500)',
-    'on-base': 'var(--ideasui-color-primary-50)',
-    subtle: 'var(--ideasui-color-primary-100)',
-    'on-subtle': 'var(--ideasui-color-primary-700)',
+    solid: 'var(--ideasui-color-primary-500)',
+    'on-solid': 'var(--ideasui-color-primary-50)',
+    subtle: 'var(--ideasui-color-primary-50)',
+    'on-subtle': 'var(--ideasui-color-primary-800)',
+    soft: 'var(--ideasui-color-primary-100)',
+    'on-soft': 'var(--ideasui-color-primary-700)',
   },
   success: {
-    base: 'var(--ideasui-color-success-500)',
-    'on-base': 'var(--ideasui-color-success-50)',
-    subtle: 'var(--ideasui-color-success-100)',
-    'on-subtle': 'var(--ideasui-color-success-700)',
+    solid: 'var(--ideasui-color-success-500)',
+    'on-solid': 'var(--ideasui-color-success-50)',
+    subtle: 'var(--ideasui-color-success-50)',
+    'on-subtle': 'var(--ideasui-color-success-800)',
+    soft: 'var(--ideasui-color-success-100)',
+    'on-soft': 'var(--ideasui-color-success-700)',
   },
   danger: {
-    base: 'var(--ideasui-color-danger-500)',
-    'on-base': 'var(--ideasui-color-danger-50)',
-    subtle: 'var(--ideasui-color-danger-100)',
-    'on-subtle': 'var(--ideasui-color-danger-700)',
+    solid: 'var(--ideasui-color-danger-500)',
+    'on-solid': 'var(--ideasui-color-danger-50)',
+    subtle: 'var(--ideasui-color-danger-50)',
+    'on-subtle': 'var(--ideasui-color-danger-800)',
+    soft: 'var(--ideasui-color-danger-100)',
+    'on-soft': 'var(--ideasui-color-danger-700)',
   },
   info: {
-    base: 'var(--ideasui-color-info-500)',
-    'on-base': 'var(--ideasui-color-info-50)',
-    subtle: 'var(--ideasui-color-info-100)',
-    'on-subtle': 'var(--ideasui-color-info-700)',
+    solid: 'var(--ideasui-color-info-500)',
+    'on-solid': 'var(--ideasui-color-info-50)',
+    subtle: 'var(--ideasui-color-info-50)',
+    'on-subtle': 'var(--ideasui-color-info-800)',
+    soft: 'var(--ideasui-color-info-100)',
+    'on-soft': 'var(--ideasui-color-info-700)',
   },
   warning: {
-    base: 'var(--ideasui-color-warning-500)',
-    'on-base': 'var(--ideasui-color-warning-50)',
-    subtle: 'var(--ideasui-color-warning-100)',
-    'on-subtle': 'var(--ideasui-color-warning-700)',
+    solid: 'var(--ideasui-color-warning-500)',
+    'on-solid': 'var(--ideasui-color-warning-50)',
+    subtle: 'var(--ideasui-color-warning-50)',
+    'on-subtle': 'var(--ideasui-color-warning-800)',
+    soft: 'var(--ideasui-color-warning-100)',
+    'on-soft': 'var(--ideasui-color-warning-700)',
   },
   secondary: {
-    base: 'var(--ideasui-color-secondary-500)',
-    'on-base': 'var(--ideasui-color-secondary-50)',
-    subtle: 'var(--ideasui-color-secondary-100)',
-    'on-subtle': 'var(--ideasui-color-secondary-700)',
+    solid: 'var(--ideasui-color-secondary-500)',
+    'on-solid': 'var(--ideasui-color-secondary-50)',
+    subtle: 'var(--ideasui-color-secondary-50)',
+    'on-subtle': 'var(--ideasui-color-secondary-800)',
+    soft: 'var(--ideasui-color-secondary-100)',
+    'on-soft': 'var(--ideasui-color-secondary-700)',
   },
   tertiary: {
-    base: 'var(--ideasui-color-tertiary-500)',
-    'on-base': 'var(--ideasui-color-tertiary-50)',
-    subtle: 'var(--ideasui-color-tertiary-100)',
-    'on-subtle': 'var(--ideasui-color-tertiary-700)',
+    solid: 'var(--ideasui-color-tertiary-500)',
+    'on-solid': 'var(--ideasui-color-tertiary-50)',
+    subtle: 'var(--ideasui-color-tertiary-50)',
+    'on-subtle': 'var(--ideasui-color-tertiary-800)',
+    soft: 'var(--ideasui-color-tertiary-100)',
+    'on-soft': 'var(--ideasui-color-tertiary-700)',
   },
   neutral: {
-    base: 'var(--ideasui-color-neutral-500)',
-    'on-base': 'var(--ideasui-color-neutral-50)',
-    subtle: 'var(--ideasui-color-neutral-100)',
-    'on-subtle': 'var(--ideasui-color-neutral-700)',
+    solid: 'var(--ideasui-color-neutral-500)',
+    'on-solid': 'var(--ideasui-color-neutral-50)',
+    subtle: 'var(--ideasui-color-neutral-50)',
+    'on-subtle': 'var(--ideasui-color-neutral-800)',
+    soft: 'var(--ideasui-color-neutral-100)',
+    'on-soft': 'var(--ideasui-color-neutral-700)',
   },
 } as const;
 
@@ -566,7 +582,7 @@ export const semantic = {
    ============================================================ */
 
 /**
- * base      → App background
+ * solid     → App background
  * elevated  → Cards / Containers
  * muted     → Lower emphasis surface (Inputs / Tertiary)
  * strong    → Higher contrast surface (Sidebar / Section)
@@ -574,49 +590,42 @@ export const semantic = {
  */
 
 export const surface = {
-  // Theme-aware foundations (Pure White <-> Pure Black flip)
-  DEFAULT: 'var(--ideasui-color-common-pure)',
-  on: 'var(--ideasui-color-common-on-pure)',
-
   // App background
-  base: 'var(--ideasui-color-neutral-50)',
-  'on-base': 'var(--ideasui-color-neutral-900)',
+  background: 'var(--ideasui-color-common-pure)',
+  'on-background': 'var(--ideasui-color-common-on-pure)',
 
-  // Recessed areas (tables, input wells)
-  sunken: 'var(--ideasui-color-neutral-100)',
-
-  // Primary containers (cards)
-  elevated: 'var(--ideasui-color-neutral-100)',
-  'on-elevated': 'var(--ideasui-color-neutral-900)',
+  // Main container / cards
+  surface: 'var(--ideasui-color-neutral-50)',
+  'on-surface': 'var(--ideasui-color-neutral-900)',
 
   // Subtle UI surfaces
-  muted: 'var(--ideasui-color-neutral-200)',
-  'on-muted': 'var(--ideasui-color-neutral-900)',
+  'surface-muted': 'var(--ideasui-color-neutral-100)',
+  'on-surface-muted': 'var(--ideasui-color-neutral-900)',
 
   // Strong sections / sidebars
-  strong: 'var(--ideasui-color-neutral-300)',
-  'on-strong': 'var(--ideasui-color-neutral-900)',
+  'surface-strong': 'var(--ideasui-color-neutral-200)',
+  'on-surface-strong': 'var(--ideasui-color-neutral-900)',
 
   // Nested container scale
-  'container-low': 'var(--ideasui-color-neutral-100)',
-  container: 'var(--ideasui-color-neutral-200)',
-  'container-high': 'var(--ideasui-color-neutral-300)',
+  'surface-container-low': 'var(--ideasui-color-neutral-50)',
+  'surface-container': 'var(--ideasui-color-neutral-100)',
+  'surface-container-high': 'var(--ideasui-color-neutral-200)',
 
   // Floating layers (dropdowns, popovers)
-  floating: 'var(--ideasui-color-neutral-50)',
+  'surface-floating': 'var(--ideasui-color-common-pure)',
 
   // Transparent glass backgrounds
-  overlay: 'var(--ideasui-color-neutral-50)',
+  'surface-overlay': 'var(--ideasui-color-neutral-50)',
 
   // Dialogs / drawers
-  modal: 'var(--ideasui-color-neutral-50)',
+  'surface-modal': 'var(--ideasui-color-common-pure)',
 
   // Backdrop dim layer
   scrim: 'oklch(0 0 0 / 0.45)',
 
   // Opposite theme surface
-  inverse: 'var(--ideasui-color-neutral-900)',
-  'on-inverse': 'var(--ideasui-color-neutral-50)',
+  'surface-inverse': 'var(--ideasui-color-neutral-900)',
+  'on-surface-inverse': 'var(--ideasui-color-neutral-50)',
 } as const;
 
 export const content = {

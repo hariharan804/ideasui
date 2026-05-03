@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { File, User, Plus, Settings, ChevronRight } from 'lucide-react';
+import { File, User, Plus, Settings, ChevronRight, Search } from 'lucide-react';
 
 import { Button } from '../src';
 
@@ -19,7 +19,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'ghost', 'soft', 'link', 'text', 'elevated'],
+      options: ['solid', 'outline', 'ghost', 'soft', 'link', 'text', 'elevated', 'glaze'],
       description: 'The visual style of the button.',
     },
     color: {
@@ -75,6 +75,10 @@ const meta: Meta<typeof Button> = {
       control: 'text',
       description: 'Custom text or element for the loading indicator.',
     },
+    shortcut: {
+      control: 'text',
+      description: 'The shortcut keys to display.',
+    },
   },
   args: {
     variant: 'solid',
@@ -86,6 +90,7 @@ const meta: Meta<typeof Button> = {
     isDisabled: false,
     isIconOnly: false,
     loadingPosition: 'start',
+    elevation: 'none',
     // loadingIndicator: '',
   },
 };
@@ -142,6 +147,9 @@ export const Variants: Story = {
       </Button>
       <Button {...args} variant="link">
         Link
+      </Button>
+      <Button {...args} className={'text-primary'} variant="glaze">
+        Glaze
       </Button>
     </div>
   ),
@@ -319,6 +327,57 @@ export const LoadingStates: Story = {
           Custom Indicator
         </Button>
       </div>
+    </div>
+  ),
+};
+
+export const Glaze: Story = {
+  args: {
+    variant: 'glaze',
+    size: 'lg',
+  },
+  render: (args) => (
+    <div className="relative overflow-hidden rounded-2xl bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center p-20">
+      <div className="absolute inset-0 bg-black/10" />
+      <div className="relative flex flex-wrap justify-center gap-6">
+        <Button {...args}>Default Glaze</Button>
+        <Button {...args} color="primary">
+          Primary Glaze
+        </Button>
+        <Button {...args} color="success">
+          Success Glaze
+        </Button>
+      </div>
+    </div>
+  ),
+};
+
+export const WithShortcut: Story = {
+  render: (args) => (
+    <div className="flex flex-col gap-4">
+      <Button {...args} className="w-64 justify-between" variant="solid">
+        <div className="flex items-center gap-2">
+          <Search className="size-4" />
+          <span>Quick Search</span>
+        </div>
+        <Button.Shortcut>⌘K</Button.Shortcut>
+      </Button>
+
+      <Button {...args} className="w-64 justify-between" color="primary" variant="outline">
+        <div className="flex items-center gap-2">
+          <Plus className="size-4" />
+          <span>New Document</span>
+        </div>
+        <Button.Shortcut>⌘N</Button.Shortcut>
+      </Button>
+
+      <Button {...args} className="w-64 justify-between" variant="soft">
+        <div className="flex items-center gap-2">
+          <Settings className="size-4" />
+          <span>Open Settings</span>
+        </div>
+        <Button.Shortcut>⌘,</Button.Shortcut>
+      </Button>
     </div>
   ),
 };
