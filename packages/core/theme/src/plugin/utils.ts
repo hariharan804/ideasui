@@ -65,6 +65,25 @@ export function omit<T extends Record<string, unknown>>(obj: T, keys: string[]):
 }
 
 /**
+ * Maps keys of an object using a callback function
+ * @param {Record<string, T>} obj - The object to map keys for
+ * @param {(value: T, key: string) => string} callback - The callback function to map keys
+ * @returns {Record<string, T>} A new object with mapped keys
+ */
+export function mapKeys<T>(
+  obj: Record<string, T>,
+  callback: (value: T, key: string) => string,
+): Record<string, T> {
+  const result: Record<string, T> = {};
+
+  Object.entries(obj).forEach(([key, value]) => {
+    result[callback(value, key)] = value;
+  });
+
+  return result;
+}
+
+/**
  * Escapes a selector string
  * @param {string} str - The string to escape
  * @returns {string} The escaped selector string

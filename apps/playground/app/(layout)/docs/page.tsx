@@ -73,7 +73,11 @@ export default function DocsPage(): JSX.Element {
 
   useEffect(() => {
     if (selectedDoc.path) {
-      getDoc();
+      const timer = setTimeout(() => {
+        void getDoc();
+      }, 0);
+
+      return () => clearTimeout(timer);
     }
   }, [getDoc, selectedDoc.path]);
 
