@@ -1,5 +1,11 @@
 # @ideasui/theme Changelog
 
+## 0.0.5-beta.0
+
+### Patch Changes
+
+- Beta version package publishing
+
 ## 0.0.3
 
 ### Patch Changes

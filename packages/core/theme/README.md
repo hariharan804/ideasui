@@ -1,14 +1,17 @@
 # @ideasui/theme
 
-The official design system and theme engine for IdeasUI — built on Tailwind CSS v4 and modern CSS.
+The official design system and theme engine for **IdeasUI** — built on **Tailwind CSS v4** and modern CSS.
+
+[![NPM Version](https://img.shields.io/npm/v/@ideasui/theme.svg)](https://www.npmjs.com/package/@ideasui/theme)
+[![License](https://img.shields.io/npm/l/@ideasui/theme.svg)](https://github.com/hariharan804/ideasui/blob/master/LICENSE)
 
 ## Features
 
-- 🎨 **Unified Design System** — Centralized tokens for colors, typography, spacing, and more
-- 🌗 **Dark Mode First** — Native light/dark support using OKLCH color spaces
-- 🧩 **Tailwind CSS v4 Plugin** — Seamless integration with Tailwind's utility classes
-- ⚡ **Zero Runtime Overhead** — Tokens compiled to CSS variables at build time
-- 🔄 **Type-Safe** — Full TypeScript support for theme configuration and overrides
+- 🎨 **Unified Design System** — Centralized tokens for colors, typography, spacing, and more.
+- 🌗 **Dark Mode First** — Native light/dark support using OKLCH color spaces.
+- ⚡ **Tailwind CSS v4 Plugin** — Seamless integration with Tailwind's utility classes.
+- 🔄 **Zero Runtime Overhead** — Tokens compiled to CSS variables at build time.
+- 🛡️ **Type-Safe** — Full TypeScript support for theme configuration and overrides.
 
 ## Installation
 

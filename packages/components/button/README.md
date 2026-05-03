@@ -1,11 +1,25 @@
 # @ideasui/button
 
-A versatile button component with multiple variants, sizes, and states.
+A high-performance, accessible Button and ButtonGroup component library for React, built with **Tailwind CSS v4** and **React Aria**.
+
+[![NPM Version](https://img.shields.io/npm/v/@ideasui/button.svg)](https://www.npmjs.com/package/@ideasui/button)
+[![License](https://img.shields.io/npm/l/@ideasui/button.svg)](https://github.com/hariharan804/ideasui/blob/master/LICENSE)
+
+## Features
+
+- ⚡ **Tailwind CSS v4** — Built on the latest styling engine for zero-runtime overhead.
+- ♿ **Accessible** — Full keyboard navigation and screen reader support via React Aria.
+- 🌗 **Theme Aware** — Seamlessly integrates with `@ideasui/theme` for Light/Dark modes.
+- 🎨 **Granular Styling** — Overridable internal slots via the `classNames` prop.
+- 📦 **Polymorphic** — Use as a `button`, `a`, or any custom component using `as`.
+- ✨ **Rich States** — Support for loading, disabled, pressed, and hover states with micro-interactions.
 
 ## Installation
 
 ```bash
-npm install @ideasui/button
+npm install @ideasui/button @ideasui/theme
+# or
+pnpm add @ideasui/button @ideasui/theme
 ```
 
 ## Usage
@@ -16,108 +30,70 @@ import { Button } from '@ideasui/button';
 function App() {
   return (
     <Button variant="solid" color="primary" size="md">
-      Click me
+      Get Started
     </Button>
+  );
+}
+```
+
+### Button Group
+
+```tsx
+import { Button, ButtonGroup } from '@ideasui/button';
+
+function ActionMenu() {
+  return (
+    <ButtonGroup variant="outline" color="secondary">
+      <Button>Edit</Button>
+      <Button>Copy</Button>
+      <Button color="danger">Delete</Button>
+    </ButtonGroup>
   );
 }
 ```
 
 ## API Reference
 
-### ButtonProps
+### Button Props
 
-| Prop         | Type                                                                                  | Default   | Description                            |
-| ------------ | ------------------------------------------------------------------------------------- | --------- | -------------------------------------- |
-| variant      | 'solid' \| 'outline' \| 'ghost'                                                       | 'solid'   | Visual style variant                   |
-| color        | 'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'danger' \| 'info' | 'default' | Color variant based on semantic intent |
-| size         | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'                                                  | 'md'      | Size of the button                     |
-| radius       | 'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'                                      | 'md'      | Border radius variant                  |
-| fullWidth    | boolean                                                                               | false     | Whether button should take full width  |
-| loading      | boolean                                                                               | false     | Whether button is in loading state     |
-| loadingText  | string                                                                                | -         | Text to show when loading              |
-| startContent | ReactNode                                                                             | -         | Content to show at start of button     |
-| endContent   | ReactNode                                                                             | -         | Content to show at end of button       |
-| disabled     | boolean                                                                               | false     | Whether button is disabled             |
+| Prop         | Type                                               | Default     | Description                                    |
+| :----------- | :------------------------------------------------- | :---------- | :--------------------------------------------- |
+| `variant`    | `'solid' \| 'outline' \| 'ghost'`                  | `'solid'`   | Visual style variant.                          |
+| `color`      | `SemanticColor`                                    | `'default'` | Semantic color intent (primary, success, etc). |
+| `size`       | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'`             | `'md'`      | The size of the button.                        |
+| `radius`     | `'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'`      | The corner radius.                             |
+| `loading`    | `boolean`                                          | `false`     | Shows a spinner and disables interaction.      |
+| `disabled`   | `boolean`                                          | `false`     | Disables the button.                           |
+| `fullWidth`  | `boolean`                                          | `false`     | Expands to fill the container width.           |
+| `startIcon`  | `ReactNode`                                        | —           | Icon displayed before the label.               |
+| `endIcon`    | `ReactNode`                                        | —           | Icon displayed after the label.                |
+| `shortcut`   | `string`                                           | —           | Keyboard shortcut hint.                        |
+| `classNames` | `ButtonClassNames`                                 | —           | Custom classes for internal slots.             |
 
-## Examples
+### Granular Styling (`classNames`)
 
-### Basic Usage
-
-```tsx
-<Button>Default Button</Button>
-<Button variant="outline">Outline Button</Button>
-<Button variant="ghost">Ghost Button</Button>
-```
-
-### Colors
+The `classNames` prop allows you to override styles for specific internal elements:
 
 ```tsx
-<Button color="primary">Primary</Button>
-<Button color="success">Success</Button>
-<Button color="warning">Warning</Button>
-<Button color="danger">Danger</Button>
-```
-
-### Sizes
-
-```tsx
-<Button size="xs">Extra Small</Button>
-<Button size="sm">Small</Button>
-<Button size="md">Medium</Button>
-<Button size="lg">Large</Button>
-<Button size="xl">Extra Large</Button>
-```
-
-### With Icons
-
-```tsx
-import { Heart, Download } from 'lucide-react'
-
-<Button startContent={<Heart />}>Like</Button>
-<Button endContent={<Download />}>Download</Button>
-```
-
-### Loading State
-
-```tsx
-<Button loading>Loading</Button>
-<Button loading loadingText="Saving...">Save</Button>
-```
-
-### States
-
-```tsx
-<Button disabled>Disabled</Button>
-<Button fullWidth>Full Width</Button>
+<Button
+  classNames={{
+    base: 'px-8 py-4', // The main button container
+    label: 'font-bold', // The text label
+    startIcon: 'text-xl', // The leading icon
+    spinner: 'border-2', // The loading spinner
+  }}
+>
+  Custom Styled
+</Button>
 ```
 
 ## Accessibility
 
-The Button component follows WAI-ARIA guidelines:
+- Built on `useButton` from **React Aria**.
+- Proper `aria-live` regions for loading states.
+- High-contrast focus rings for keyboard navigation.
+- Semantic HTML tags based on the `as` prop.
 
-- Uses semantic `button` element
-- Supports keyboard navigation (Enter/Space)
-- Proper `disabled` and `aria-disabled` attributes
-- Loading state is communicated to screen readers
-- Focus management with visible focus indicators
+## License
 
-## Styling
-
-The component uses Tailwind CSS classes and can be customized via:
-
-- CSS custom properties
-- Tailwind configuration
-- Custom className prop
-- Component variants system
-
-## TypeScript
-
-Full TypeScript support with exported types:
-
-```tsx
-import type { ButtonProps } from '@ideasui/button';
-
-const MyButton: React.FC<ButtonProps> = (props) => {
-  return <Button {...props} />;
-};
-```
+MIT © [IdeasUI](https://ideasui.com)

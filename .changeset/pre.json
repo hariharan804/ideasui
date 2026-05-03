@@ -1,0 +1,15 @@
+{
+  "mode": "exit",
+  "tag": "beta",
+  "initialVersions": {
+    "@ideasui/button": "0.0.1",
+    "@ideasui/react": "0.0.1",
+    "@ideasui/theme": "0.0.4",
+    "@ideasui/utils": "0.0.1",
+    "@ideasui/playground": "0.0.1",
+    "@ideasui/storybook": "0.1.0"
+  },
+  "changesets": [
+    "curly-bats-cross"
+  ]
+}
