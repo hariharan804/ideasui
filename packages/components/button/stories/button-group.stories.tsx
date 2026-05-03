@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import { Save, X, Trash2 } from 'lucide-react';
+
 import { Button } from '../src';
 
 const meta: Meta<typeof Button.Group> = {
@@ -17,7 +19,7 @@ const meta: Meta<typeof Button.Group> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'ghost', 'soft', 'link', 'text', 'elevated'],
+      options: ['solid', 'outline', 'ghost', 'soft', 'link', 'text', 'elevated', 'glaze'],
       description: 'The visual style shared by all buttons in the group.',
     },
     color: {
@@ -87,29 +89,11 @@ export default meta;
 
 type Story = StoryObj<typeof Button.Group>;
 
-export const Horizontal: Story = {
-  args: {
-    variant: 'outline',
-    color: 'warning',
-    radius: 'xl',
-    isAttached: true,
-    isVertical: true,
-  },
-
-  render: (args) => (
-    <Button.Group {...args}>
-      <Button>Action 1</Button>
-      <Button>Action 2</Button>
-      <Button>Action 3</Button>
-    </Button.Group>
-  ),
-};
+/* -----------------------------------------------------------------------------------------------
+ * Basic Stories
+ * ---------------------------------------------------------------------------------------------*/
 
 export const Attached: Story = {
-  args: {
-    isAttached: true,
-    fullWidth: true,
-  },
   render: (args) => (
     <Button.Group {...args}>
       <Button>Action 1</Button>
@@ -119,10 +103,9 @@ export const Attached: Story = {
   ),
 };
 
-export const AttachedOutline: Story = {
+export const Spaced: Story = {
   args: {
-    isAttached: true,
-    variant: 'outline',
+    isAttached: false,
   },
   render: (args) => (
     <Button.Group {...args}>
@@ -136,6 +119,7 @@ export const AttachedOutline: Story = {
 export const Vertical: Story = {
   args: {
     isVertical: true,
+    isAttached: false,
   },
   render: (args) => (
     <Button.Group {...args}>
@@ -160,12 +144,59 @@ export const VerticalAttached: Story = {
   ),
 };
 
-export const MixedStyles: Story = {
+/* -----------------------------------------------------------------------------------------------
+ * Style Variations
+ * ---------------------------------------------------------------------------------------------*/
+
+export const AttachedOutline: Story = {
+  args: {
+    variant: 'outline',
+    color: 'primary',
+  },
   render: (args) => (
     <Button.Group {...args}>
-      <Button variant="solid">Solid</Button>
-      <Button variant="outline">Outline</Button>
-      <Button variant="ghost">Ghost</Button>
+      <Button>Feed</Button>
+      <Button>Messages</Button>
+      <Button>Notifications</Button>
     </Button.Group>
+  ),
+};
+
+export const MixedStyles: Story = {
+  args: {
+    isAttached: true,
+  },
+  render: (args) => (
+    <Button.Group {...args} radius="xl">
+      <Button color="primary" startIcon={<Save className="size-4" />}>
+        Save
+      </Button>
+      <Button startIcon={<X className="size-4" />} variant="outline">
+        Cancel
+      </Button>
+      <Button color="danger" variant="outline">
+        <Trash2 className="size-4" />
+      </Button>
+    </Button.Group>
+  ),
+};
+
+export const GlazeGroup: Story = {
+  args: {
+    variant: 'glaze',
+    color: 'primary',
+    radius: 'full',
+  },
+  render: (args) => (
+    <div className="relative overflow-hidden rounded-2xl bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center p-12">
+      <div className="absolute inset-0 bg-black/10" />
+      <div className="relative">
+        <Button.Group {...args}>
+          <Button>Explore</Button>
+          <Button>Trending</Button>
+          <Button>Popular</Button>
+        </Button.Group>
+      </div>
+    </div>
   ),
 };

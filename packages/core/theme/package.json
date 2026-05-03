@@ -46,8 +46,6 @@
     "tailwindcss": ">=4.0.0"
   },
   "devDependencies": {
-    "@ideasui/utils": "workspace:*",
-    "@tailwindcss/cli": "^4.0.0",
     "@types/node": "^20.0.0",
     "cssnano": "^7.1.3",
     "postcss": "^8.5.8",
@@ -58,11 +56,18 @@
     "typescript": "^5.0.0"
   },
   "keywords": [
+    "ideasui",
     "tailwindcss",
+    "tailwind-v4",
     "theme",
     "design-system",
-    "css",
-    "ui"
+    "design-tokens",
+    "oklch",
+    "theming-system",
+    "react",
+    "ui-kit",
+    "dark-mode",
+    "accessible-colors"
   ],
   "author": "IdeasUI Team",
   "license": "MIT",

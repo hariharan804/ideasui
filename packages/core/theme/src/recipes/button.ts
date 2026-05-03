@@ -41,10 +41,10 @@ const button = tv({
       'motion-reduce:transition-none',
       'active:scale-95 motion-reduce:active:scale-100',
     ],
-    icon: [BEM_ICON, 'shrink-0'],
-    label: [BEM_LABEL, 'truncate'],
-    loader: [BEM_LOADER, 'shrink-0'],
-    shortcut: ['ml-auto', 'text-sm', 'font-sans', 'tracking-widest'],
+    icon: [BEM_ICON, 'shrink-0', 'inline-flex', 'items-center', 'justify-center'],
+    label: [BEM_LABEL, 'truncate', 'inline-flex', 'items-center'],
+    loader: [BEM_LOADER, 'shrink-0', 'inline-flex', 'items-center', 'justify-center'],
+    shortcut: ['ml-auto', 'text-sm', 'font-sans', 'tracking-widest', 'inline-flex', 'items-center'],
   },
   variants: {
     variant: {

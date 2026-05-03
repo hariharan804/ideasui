@@ -76,3 +76,21 @@ export function mergeProps(
 
   return result;
 }
+
+/**
+ * Merges component props with a context object.
+ * Component props take precedence over context values, except for className which is merged.
+ * @param {Record<string, any>} props - The component props
+ * @param {Record<string, any> | null | undefined} context - The context object
+ * @returns {Record<string, any>} The merged props object
+ */
+export function mergePropsWithContext(
+  props: Record<string, any>,
+  context: Record<string, any> | null | undefined,
+): Record<string, any> {
+  if (!context) {
+    return props;
+  }
+
+  return mergeProps(context, props);
+}

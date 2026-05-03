@@ -1,3 +1,7 @@
+import type { ReactNode } from 'react';
+
+import { isValidElement } from 'react';
+
 const ANNOUNCEMENT_TIMEOUT = 1000;
 
 /**
@@ -239,3 +243,51 @@ export const focusTrap = {
     };
   },
 };
+
+/**
+ * Extracts plain text from React children.
+ * Useful for generating accessible names from nested components.
+ * @param {ReactNode} children - React children to process
+ * @returns {string} Extracted text
+ * @internal
+ */
+export function extractTextFromChildren(children: ReactNode): string {
+  if (typeof children === 'string' || typeof children === 'number') {
+    return String(children);
+  }
+
+  if (Array.isArray(children)) {
+    return children.map((child) => extractTextFromChildren(child as ReactNode)).join('');
+  }
+
+  if (isValidElement(children)) {
+    // @ts-expect-error - children.props might not have children in its type definition but it exists at runtime for many components
+    return extractTextFromChildren(children.props.children);
+  }
+
+  return '';
+}
+
+/**
+ * Helper to determine the accessible name for a component.
+ * Priority: aria-label > aria-labelledby > children text.
+ * @param {object} props - Component props
+ * @param {ReactNode} [children] - Component children
+ * @returns {string | undefined} The resolved accessible name
+ */
+export function getAccessibleName(
+  props: { 'aria-label'?: string; 'aria-labelledby'?: string },
+  children?: ReactNode,
+): string | undefined {
+  if (props['aria-label']) {
+    return props['aria-label'];
+  }
+
+  if (props['aria-labelledby']) {
+    return undefined; // Handled by aria-labelledby attribute itself
+  }
+
+  const extractedText = extractTextFromChildren(children).trim();
+
+  return extractedText || undefined;
+}

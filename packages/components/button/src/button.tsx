@@ -13,7 +13,7 @@ import type { ButtonRenderProps } from 'react-aria-components';
 import type { ReactNode, JSX } from 'react';
 
 import { Button as ButtonPrimitive } from 'react-aria-components';
-import { cn } from '@ideasui/utils';
+import { cn, getAccessibleName, mergePropsWithContext } from '@ideasui/utils';
 import { createContext, forwardRef, useContext } from 'react';
 import { button } from '@ideasui/theme/recipes';
 
@@ -205,99 +205,82 @@ const ButtonContent = ({
  * Button Base
  * ---------------------------------------------------------------------------------------------*/
 
-const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      variant,
-      size,
-      color,
-      radius,
-      elevation,
-      fullWidth,
-      isIconOnly,
-      disableAnimation,
-      className,
-      startIcon,
-      endIcon,
-      isLoading,
-      loadingIndicator,
-      loadingPosition,
-      isDisabled,
-      shortcut,
-      children,
-      ...props
-    },
-    ref,
-  ): JSX.Element => {
-    const groupContext = useButtonGroupContext();
+const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>((originalProps, ref): JSX.Element => {
+  const {
+    isLoading,
+    loadingIndicator,
+    loadingPosition,
+    isIconOnly,
+    startIcon,
+    endIcon,
+    shortcut,
+    children,
+    className,
+    ...props
+  } = originalProps;
 
-    const mergedVariant = variant ?? groupContext?.variant;
-    const mergedSize = size ?? groupContext?.size;
-    const mergedColor = color ?? groupContext?.color;
-    const mergedDisabled = (isDisabled ?? groupContext?.isDisabled) || isLoading;
-    const mergedRadius = radius ?? groupContext?.radius;
-    const mergedFullWidth = fullWidth ?? groupContext?.fullWidth;
-    const mergedDisableAnimation = disableAnimation ?? groupContext?.disableAnimation;
-    const isAttached = groupContext?.isAttached;
-    const isVertical = groupContext?.isVertical;
+  const groupContext = useButtonGroupContext();
+  const merged = mergePropsWithContext(originalProps, groupContext);
 
-    const styles = button({
-      variant: mergedVariant,
-      size: mergedSize,
-      color: mergedColor,
-      radius: mergedRadius,
-      fullWidth: mergedFullWidth,
-      isIconOnly,
-      isDisabled: mergedDisabled,
-      isLoading,
-      disableAnimation: mergedDisableAnimation,
-      isAttached,
-      isVertical,
-      elevation,
-      showDivider: props.showDivider ?? groupContext?.showDivider ?? isAttached,
-    });
+  // Specific logic for Button
+  const mergedDisabled = merged.isDisabled || isLoading;
 
-    // Ensure we have an accessible name when loading or icon-only
-    const ariaLabel = props['aria-label'] || (typeof children === 'string' ? children : undefined);
-    const loadingLabel = typeof loadingIndicator === 'string' ? loadingIndicator : 'Loading';
+  const styles = button({
+    variant: merged.variant,
+    size: merged.size,
+    color: merged.color,
+    radius: merged.radius,
+    fullWidth: merged.fullWidth,
+    isIconOnly,
+    isDisabled: mergedDisabled,
+    isLoading,
+    disableAnimation: merged.disableAnimation,
+    isAttached: merged.isAttached,
+    isVertical: merged.isVertical,
+    elevation: merged.elevation,
+    showDivider: merged.showDivider ?? merged.isAttached,
+  });
 
-    return (
-      <ButtonPrimitive
-        ref={ref}
-        aria-busy={isLoading}
-        aria-label={isLoading && !ariaLabel ? loadingLabel : ariaLabel}
-        className={(renderProps) =>
-          styles.base({
-            className: typeof className === 'function' ? className(renderProps) : className,
-          })
-        }
-        data-attached={isAttached}
-        data-slot="button"
-        data-vertical={isVertical}
-        isDisabled={mergedDisabled}
-        isPending={isLoading}
-        {...props}
-      >
-        {(renderProps) => (
-          <ButtonContext.Provider value={{ styles }}>
-            <ButtonContent
-              endIcon={endIcon}
-              isIconOnly={isIconOnly}
-              isLoading={isLoading}
-              loadingIndicator={loadingIndicator}
-              loadingPosition={loadingPosition}
-              renderProps={renderProps}
-              shortcut={shortcut}
-              startIcon={startIcon}
-            >
-              {children}
-            </ButtonContent>
-          </ButtonContext.Provider>
-        )}
-      </ButtonPrimitive>
-    );
-  },
-);
+  // Ensure we have an accessible name when loading or icon-only
+  const ariaLabel = getAccessibleName(merged, typeof children === 'function' ? null : children);
+  const loadingLabel = typeof loadingIndicator === 'string' ? loadingIndicator : 'Loading';
+
+  return (
+    <ButtonPrimitive
+      ref={ref}
+      aria-busy={isLoading}
+      aria-label={isLoading && !ariaLabel ? loadingLabel : ariaLabel}
+      className={(renderProps) =>
+        styles.base({
+          className: typeof className === 'function' ? className(renderProps) : className,
+        })
+      }
+      data-attached={merged.isAttached}
+      data-slot="button"
+      data-vertical={merged.isVertical}
+      isDisabled={mergedDisabled}
+      isPending={isLoading}
+      {...props}
+    >
+      {(renderProps) => (
+        <ButtonContext.Provider value={{ styles }}>
+          <ButtonContent
+            endIcon={endIcon}
+            isIconOnly={isIconOnly}
+            isLoading={isLoading}
+            loadingIndicator={loadingIndicator}
+            loadingPosition={loadingPosition}
+            renderProps={renderProps}
+            shortcut={shortcut}
+            startIcon={startIcon}
+          >
+            {children}
+          </ButtonContent>
+        </ButtonContext.Provider>
+      )}
+    </ButtonPrimitive>
+  );
+});
 
 ButtonBase.displayName = 'IdeasUI.Button';
 
