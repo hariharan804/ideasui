@@ -5,3 +5,4 @@ export { forwardRef, type PolymorphicComponent } from './polymorphic-ref';
 export * from './common';
 export * from './internal';
 export * from './children';
+export { mergePropsWithContext } from './common';

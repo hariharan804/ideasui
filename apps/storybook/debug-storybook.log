@@ -1,0 +1,24 @@
+[18:27:00.658] [INFO] storybook v10.3.5
+[18:27:00.919] [DEBUG] Getting package.json info for /Users/hariharan/projects/ideasui/apps/storybook/package.json...
+[18:27:01.434] [WARN] No story files found for the specified pattern: [34m.storybook/!/**/node_modules/**[39m
+[18:27:01.435] [WARN] No story files found for the specified pattern: [34m.storybook/!/**/.pnpm/**[39m
+[18:27:01.435] [WARN] No story files found for the specified pattern: [34m.storybook/!/**/dist/**[39m
+[18:27:01.435] [WARN] No story files found for the specified pattern: [34m.storybook/!/**/build/**[39m
+[18:27:01.516] [DEBUG] Serving static files from [36mnode_modules/.pnpm/@chromatic-com+storybook@5.1.2_storybook@10.3.5_@testing-library+dom@10.4.1_prettier@3._7c645521f1109bdf94dc1d2ec78cd683/node_modules/@chromatic-com/storybook/assets[39m at [36m/addon-visual-tests-assets[39m
+[18:27:01.516] [DEBUG] Serving static files from [36mapps/storybook/public[39m at [36m/[39m
+[18:27:01.516] [INFO] Starting...
+[18:27:01.579] [DEBUG] Starting preview..
+[18:27:01.644] [ERROR] Failed to build the preview
+[18:27:01.645] [ERROR] Error [ERR_MODULE_NOT_FOUND]: Cannot find module './vite.config' imported from ./.storybook/main.ts
+    at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+    at moduleResolve (node:internal/modules/esm/resolve:864:10)
+    at defaultResolve (node:internal/modules/esm/resolve:990:11)
+    at nextResolve (node:internal/modules/esm/hooks:785:28)
+    at o (file:///Users/hariharan/projects/ideasui/node_modules/.pnpm/@tailwindcss+node@4.1.17/node_modules/@tailwindcss/node/dist/esm-cache.loader.mjs:1:69)
+    at nextResolve (node:internal/modules/esm/hooks:785:28)
+    at AsyncLoaderHooksOnLoaderHookWorker.resolve (node:internal/modules/esm/hooks:269:30)
+    at MessagePort.handleMessage (node:internal/modules/esm/worker:251:24)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:845:20)
+    at MessagePort.<anonymous> (node:internal/per_context/messageport:23:28)
+[18:27:01.646] [WARN] Broken build, fix the error above.
+You may need to refresh the browser.

@@ -9,7 +9,7 @@ describe('css-vars generator', () => {
         spacing: { '1.5': '0.375rem' },
         fontSize: { base: ['1rem', { lineHeight: '1.5' }] },
         borderRadius: { md: '0.375rem' },
-        boxShadow: { sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)' },
+        boxShadow: { sm: '0 2px 4px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04)' },
         zIndex: { 10: 10 },
         components: {
           button: { base: { backgroundColor: 'red', disabledColor: 'gray' } },
@@ -24,7 +24,7 @@ describe('css-vars generator', () => {
         fontWeight: { bold: '700' },
         animation: { spin: 'spin 1s linear infinite' },
         borderColor: { red: 'red' },
-        surface: { 100: '#fff' },
+        surface: { background: '#fff' },
         content: { 100: '#000' },
         border: { 100: '#eee' },
       };
@@ -37,7 +37,9 @@ describe('css-vars generator', () => {
       expect(result['--ui-spacing-1_5']).toBe('0.375rem');
       expect(result['--ui-font-size-base']).toBe('1rem');
       expect(result['--ui-radius-md']).toBe('0.375rem');
-      expect(result['--ui-shadow-sm']).toBe('0 1px 2px 0 rgb(0 0 0 / 0.05)');
+      expect(result['--ui-shadow-sm']).toBe(
+        '0 2px 4px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04)',
+      );
       expect(result['--ui-z-index-10']).toBe('10');
 
       // Components
@@ -52,7 +54,7 @@ describe('css-vars generator', () => {
       expect(result['--ui-font-weight-bold']).toBe('700');
       expect(result['--ui-animation-spin']).toBe('spin 1s linear infinite');
       expect(result['--ui-border-red']).toBe('red');
-      expect(result['--ui-color-surface-100']).toBe('#fff');
+      expect(result['--ui-color-background']).toBe('#fff');
       expect(result['--ui-color-content-100']).toBe('#000');
       expect(result['--ui-border-100']).toBe('#eee');
     });
@@ -74,7 +76,7 @@ describe('css-vars generator', () => {
         fontWeight: { bold: undefined },
         animation: { spin: undefined },
         borderColor: { red: undefined },
-        surface: { 100: undefined },
+        surface: { background: undefined },
         content: { 100: undefined },
         border: { 100: undefined },
       };

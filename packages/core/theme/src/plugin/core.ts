@@ -17,7 +17,6 @@ import {
   letterSpacing,
   primitives,
   semantic,
-  commonColors,
   zIndex,
   opacity,
   fontFamily,
@@ -25,12 +24,9 @@ import {
   border,
   blur,
   lightShadow,
-  lightSurface,
-  darkSurface,
-  lightContent,
-  darkContent,
-  lightBorder,
-  darkBorder,
+  surface,
+  content,
+  borderColor,
   duration,
   easing,
   keyframes,
@@ -194,10 +190,9 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
     colors: deepMerge(
       {
         ...deepMerge(primitives.light, semantic),
-        ...commonColors,
-        surface: lightSurface,
-        content: lightContent,
-        border: lightBorder,
+        ...surface,
+        content,
+        border: borderColor,
         ...componentColors,
       },
       userLightColors,
@@ -211,10 +206,9 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
     colors: deepMerge(
       {
         ...deepMerge(primitives.dark, semantic),
-        ...commonColors,
-        surface: darkSurface,
-        content: darkContent,
-        border: darkBorder,
+        ...surface,
+        content,
+        border: borderColor,
         ...componentColors,
       },
       userDarkColors,
@@ -266,8 +260,8 @@ export function createThemeExtension(
       // Map semantic overrides to their CSS variables
       ...Object.fromEntries(
         Object.keys(semanticTokens.surface || {}).map((key) => [
-          `surface-${key}`,
-          `var(--${_prefix}-color-surface-${key})`,
+          key,
+          `var(--${_prefix}-color-${key})`,
         ]),
       ),
       ...Object.fromEntries(

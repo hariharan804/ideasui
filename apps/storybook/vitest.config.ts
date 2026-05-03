@@ -1,8 +1,9 @@
 import { mergeConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
 
-import viteConfig from './vite.config';
+import viteConfig from './vite.config.ts';
 
 /**
  * Storybook v2 Vitest Configuration
@@ -17,6 +18,7 @@ import viteConfig from './vite.config';
  */
 export default mergeConfig(viteConfig, {
   plugins: [
+    react(),
     storybookTest({
       configDir: '.storybook',
     }),

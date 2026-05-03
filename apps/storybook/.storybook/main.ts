@@ -1,10 +1,12 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import type { StorybookConfig } from '@storybook/react-vite';
 import { mergeConfig } from 'vite';
 import remarkGfm from 'remark-gfm';
 
 const config: StorybookConfig = {
   framework: {
-    name: '@storybook/react-vite',
+    name: getAbsolutePath('@storybook/react-vite'),
     options: {},
   },
 
@@ -21,10 +23,10 @@ const config: StorybookConfig = {
   staticDirs: ['../public'],
   refs: {},
   addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-a11y',
+    getAbsolutePath('@storybook/addon-links'),
+    getAbsolutePath('@storybook/addon-a11y'),
     {
-      name: '@storybook/addon-docs',
+      name: getAbsolutePath('@storybook/addon-docs'),
       options: {
         mdxPluginOptions: {
           mdxCompileOptions: {
@@ -33,8 +35,8 @@ const config: StorybookConfig = {
         },
       },
     },
-    '@storybook/addon-vitest',
-    '@chromatic-com/storybook',
+    getAbsolutePath('@storybook/addon-vitest'),
+    getAbsolutePath('@chromatic-com/storybook'),
   ],
 
   core: { disableTelemetry: true },
@@ -79,12 +81,14 @@ const config: StorybookConfig = {
   },
 
   async viteFinal(config) {
-    return mergeConfig(config, {
-      resolve: {
-        extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
-      },
-    });
+    const { default: viteConfig } = await import('../vite.config.ts');
+
+    return mergeConfig(config, viteConfig);
   },
 };
 
 export default config;
+
+function getAbsolutePath(value: string): any {
+  return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
+}

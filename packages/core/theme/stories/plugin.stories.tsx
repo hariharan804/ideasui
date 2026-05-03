@@ -15,6 +15,15 @@ type Story = StoryObj;
 
 const COPY_FEEDBACK_DELAY = 1500;
 
+const colorClasses: Record<string, { subtle: string; onSubtle: string }> = {
+  primary: { subtle: 'bg-primary-subtle', onSubtle: 'text-primary-on-subtle' },
+  secondary: { subtle: 'bg-secondary-subtle', onSubtle: 'text-secondary-on-subtle' },
+  success: { subtle: 'bg-success-subtle', onSubtle: 'text-success-on-subtle' },
+  danger: { subtle: 'bg-danger-subtle', onSubtle: 'text-danger-on-subtle' },
+  warning: { subtle: 'bg-warning-subtle', onSubtle: 'text-warning-on-subtle' },
+  info: { subtle: 'bg-info-subtle', onSubtle: 'text-info-on-subtle' },
+};
+
 const CodeBlock = ({ title, code }: { title: string; code: string }): ReactElement => {
   const [copied, setCopied] = useState(false);
 
@@ -25,18 +34,18 @@ const CodeBlock = ({ title, code }: { title: string; code: string }): ReactEleme
   };
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-      <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50/50 px-5 py-3">
-        <h3 className="text-sm font-semibold text-gray-900">{title}</h3>
+    <div className="border-surface-border bg-surface-surface overflow-hidden rounded-2xl border shadow-sm">
+      <div className="border-surface-border bg-surface-sunken/40 flex items-center justify-between border-b px-5 py-3">
+        <h3 className="text-content-primary text-sm font-semibold">{title}</h3>
         <button
-          className="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition-all hover:bg-gray-50 hover:text-gray-900"
+          className="border-surface-border bg-surface-surface text-content-secondary hover:bg-surface-sunken hover:text-content-primary rounded-lg border px-3 py-1.5 text-xs font-medium transition-all"
           type="button"
           onClick={handleCopy}
         >
           {copied ? '✓ Copied' : 'Copy'}
         </button>
       </div>
-      <pre className="overflow-x-auto bg-gray-950 p-5 font-mono text-sm leading-relaxed text-gray-100">
+      <pre className="overflow-x-auto bg-neutral-950 p-5 font-mono text-sm leading-relaxed text-neutral-100">
         <code>{code}</code>
       </pre>
     </div>
@@ -52,10 +61,10 @@ const FeatureCard = ({
   title: string;
   description: string;
 }): ReactElement => (
-  <div className="group overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 transition-all duration-200 hover:border-gray-200 hover:shadow-lg">
+  <div className="group border-surface-border bg-surface-surface hover:border-surface-border-strong overflow-hidden rounded-2xl border p-6 transition-all duration-200 hover:shadow-lg">
     <div className="mb-4 text-3xl">{icon}</div>
-    <h3 className="mb-2 text-lg font-bold text-gray-900">{title}</h3>
-    <p className="text-sm leading-relaxed text-gray-500">{description}</p>
+    <h3 className="text-content-primary mb-2 text-lg font-bold">{title}</h3>
+    <p className="text-content-secondary text-sm leading-relaxed">{description}</p>
   </div>
 );
 
@@ -63,8 +72,10 @@ export const SetupOptions: Story = {
   render: () => (
     <div className="space-y-8">
       <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Installation Options</h2>
-        <p className="mt-2 text-lg text-gray-600">
+        <h2 className="text-content-primary text-3xl font-bold tracking-tight">
+          Installation Options
+        </h2>
+        <p className="text-content-secondary mt-2 text-lg">
           Tailwind CSS v4 plugin for IdeasUI theme system with OKLCH colors, fluid typography, and
           design tokens
         </p>
@@ -123,8 +134,10 @@ export const CustomizationAndUsage: Story = {
   render: () => (
     <div className="space-y-8">
       <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Customization & Usage</h2>
-        <p className="mt-2 text-lg text-gray-600">
+        <h2 className="text-content-primary text-3xl font-bold tracking-tight">
+          Customization & Usage
+        </h2>
+        <p className="text-content-secondary mt-2 text-lg">
           Customize design tokens, semantic colors, and apply themes in HTML
         </p>
       </div>
@@ -144,7 +157,7 @@ export default ideasUIPlugin({
       },
       semanticTokens: {
         surface: {
-          base: 'oklch(1 0 0)', // bg-surface-base
+          surface: 'oklch(1 0 0)', // bg-surface
         }
       }
     },
@@ -185,17 +198,17 @@ export default ideasUIPlugin({
 
         <CodeBlock
           code={`<!-- Light theme (default) -->
-<div class="bg-primary-500 text-primary-onBase">
+<div class="bg-primary-500 text-primary-on-surface">
   Light theme content
 </div>
 
 <!-- Built-in Dark theme -->
-<div class="dark bg-surface-base text-content-primary">
+<div class="dark bg-surface text-content-primary">
   Dark theme card
 </div>
 
 <!-- Custom theme mapped to data-attribute -->
-<div data-ideasui-theme="brand-dark" class="bg-surface-elevated text-content-secondary">
+<div data-ideasui-theme="brand-dark" class="bg-surface text-content-secondary">
   Custom theme content
 </div>`}
           title="Applying Themes in HTML"
@@ -209,39 +222,37 @@ export const ThemeExamples: Story = {
   render: () => (
     <div className="space-y-8">
       <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Theme Examples</h2>
-        <p className="mt-2 text-lg text-gray-600">
+        <h2 className="text-content-primary text-3xl font-bold tracking-tight">Theme Examples</h2>
+        <p className="text-content-secondary mt-2 text-lg">
           Visual examples of different theme configurations and semantic utility classes
         </p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Light Theme */}
-        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
-          <div className="border-b border-gray-100 bg-white px-6 py-4">
-            <h3 className="text-lg font-bold text-gray-900">Light Theme</h3>
-            <p className="mt-1 text-sm text-gray-500">Default semantic color mapping</p>
+        <div className="bg-background overflow-hidden rounded-2xl border border-neutral-100">
+          <div className="bg-background border-b border-neutral-100 px-6 py-4">
+            <h3 className="text-content-primary text-lg font-bold">Light Theme</h3>
+            <p className="text-content-tertiary mt-1 text-sm">Default semantic color mapping</p>
           </div>
           <div className="grid grid-cols-1 gap-3 p-5">
-            {['primary', 'secondary', 'success', 'danger', 'warning', 'info'].map((color) => (
+            {Object.keys(colorClasses).map((color) => (
               <div
                 key={color}
-                className="flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-4 transition-all hover:shadow-md"
+                className="bg-surface flex items-center gap-4 rounded-xl border border-neutral-100 p-4 transition-all hover:shadow-md"
               >
                 <div
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-sm"
-                  style={{
-                    backgroundColor: `var(--ideasui-color-${color}-base)`,
-                    color: `var(--ideasui-color-${color}-onBase)`,
-                  }}
+                  className={`${colorClasses[color].subtle} ${colorClasses[color].onSubtle} flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-sm`}
                 >
                   Aa
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm font-semibold text-gray-900 capitalize">{color}</div>
-                  <div className="mt-0.5 flex gap-2 text-xs text-gray-500">
-                    <span className="rounded bg-gray-100 px-1">bg-{color}-base</span>
-                    <span className="rounded bg-gray-100 px-1">text-{color}-onBase</span>
+                  <div className="text-content-primary text-sm font-semibold capitalize">
+                    {color}
+                  </div>
+                  <div className="text-content-tertiary mt-0.5 flex gap-2 text-xs">
+                    <span className="bg-surface-sunken rounded px-1">bg-{color}-solid</span>
+                    <span className="bg-surface-sunken rounded px-1">text-{color}-on-surface</span>
                   </div>
                 </div>
               </div>
@@ -250,31 +261,27 @@ export const ThemeExamples: Story = {
         </div>
 
         {/* Dark Theme */}
-        <div className="dark overflow-hidden rounded-2xl border border-white/10 bg-gray-950">
+        <div className="dark border-surface-border bg-background overflow-hidden rounded-2xl border">
           <div className="border-b border-white/10 px-6 py-4">
             <h3 className="text-lg font-bold text-white">Dark Theme</h3>
-            <p className="mt-1 text-sm text-gray-400">Optimized for dark mode</p>
+            <p className="mt-1 text-sm text-neutral-800">Optimized for dark mode</p>
           </div>
           <div className="grid grid-cols-1 gap-3 p-5">
-            {['primary', 'secondary', 'success', 'danger', 'warning', 'info'].map((color) => (
+            {Object.keys(colorClasses).map((color) => (
               <div
                 key={color}
                 className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:bg-white/10"
               >
                 <div
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-sm"
-                  style={{
-                    backgroundColor: `var(--ideasui-color-${color}-base)`,
-                    color: `var(--ideasui-color-${color}-onBase)`,
-                  }}
+                  className={`${colorClasses[color].subtle} ${colorClasses[color].onSubtle} flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-sm`}
                 >
                   Aa
                 </div>
                 <div className="flex-1">
                   <div className="text-sm font-semibold text-white capitalize">{color}</div>
-                  <div className="mt-0.5 flex gap-2 text-xs text-gray-400">
-                    <span className="rounded bg-white/10 px-1">bg-{color}-base</span>
-                    <span className="rounded bg-white/10 px-1">text-{color}-onBase</span>
+                  <div className="mt-0.5 flex gap-2 text-xs text-neutral-400">
+                    <span className="rounded bg-white/10 px-1">bg-{color}-solid</span>
+                    <span className="rounded bg-white/10 px-1">text-{color}-on-surface</span>
                   </div>
                 </div>
               </div>
@@ -290,8 +297,10 @@ export const Features: Story = {
   render: () => (
     <div className="space-y-8">
       <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900">Plugin Features</h2>
-        <p className="mt-2 text-lg text-gray-600">Key features of the IdeasUI theme system</p>
+        <h2 className="text-content-primary text-3xl font-bold tracking-tight">Plugin Features</h2>
+        <p className="text-content-secondary mt-2 text-lg">
+          Key features of the IdeasUI theme system
+        </p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -316,7 +325,7 @@ export const Features: Story = {
           title="Highly Customizable"
         />
         <FeatureCard
-          description="Ensures legible text against backgrounds automatically via 'onBase' / 'onSurface' mapped contrast pairs"
+          description="Ensures legible text against backgrounds automatically via 'on-surface' / 'on-background' mapped contrast pairs"
           icon="♿"
           title="Accessible Constructs"
         />

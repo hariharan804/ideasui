@@ -14,3 +14,4 @@ export * from './aria';
 
 // React utilities (public only)
 export { forwardRef, type PolymorphicComponent } from './react/polymorphic-ref';
+export { mergePropsWithContext } from './react';

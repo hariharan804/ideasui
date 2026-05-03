@@ -58,7 +58,7 @@ const SEMANTIC_ROLES = [
   'info',
   'warning',
 ] as const;
-const SEMANTIC_VARIANTS = ['base', 'onBase', 'subtle', 'onSubtle'] as const;
+const SEMANTIC_VARIANTS = ['base', 'on-base', 'subtle', 'on-subtle'] as const;
 
 const SURFACE_TOKENS = ['base', 'elevated', 'muted', 'strong', 'inverse'] as const;
 const CONTENT_TOKENS = [
@@ -260,10 +260,10 @@ function CodeChip({
 }): JSX.Element {
   return (
     <button
-      className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-xs transition-all ${
+      className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-[11px] font-semibold transition-all duration-200 ${
         copied
-          ? 'border-success-300 bg-success-50 text-success-700'
-          : 'border-default bg-surface-muted text-content-secondary hover:bg-surface-muted'
+          ? 'border-success-subtle bg-success-subtle text-success-800 scale-95'
+          : 'border-default bg-surface-muted text-content-secondary hover:bg-surface-elevated hover:text-content-primary hover:border-strong hover:shadow-sm'
       }`}
       type="button"
       onClick={onCopy}
@@ -299,9 +299,7 @@ function SectionCard({
   className?: string;
 }): JSX.Element {
   return (
-    <div
-      className={`border-default bg-surface-base rounded-2xl border p-6 shadow-sm lg:p-8 ${className}`}
-    >
+    <div className={`bg-surface-base rounded-3xl p-8 shadow-sm lg:p-10 ${className}`}>
       {children}
     </div>
   );
@@ -419,45 +417,45 @@ const COLOR_BG_MAP: Record<string, Record<string, string>> = {
 const SEMANTIC_BG_MAP: Record<string, Record<string, string>> = {
   primary: {
     base: 'bg-primary-base',
-    onBase: 'bg-primary-onBase',
+    'on-base': 'bg-primary-on-base',
     subtle: 'bg-primary-subtle',
-    onSubtle: 'bg-primary-onSubtle',
+    'on-subtle': 'bg-primary-on-subtle',
   },
   success: {
     base: 'bg-success-base',
-    onBase: 'bg-success-onBase',
+    'on-base': 'bg-success-on-base',
     subtle: 'bg-success-subtle',
-    onSubtle: 'bg-success-onSubtle',
+    'on-subtle': 'bg-success-on-subtle',
   },
   danger: {
     base: 'bg-danger-base',
-    onBase: 'bg-danger-onBase',
+    'on-base': 'bg-danger-on-base',
     subtle: 'bg-danger-subtle',
-    onSubtle: 'bg-danger-onSubtle',
+    'on-subtle': 'bg-danger-on-subtle',
   },
   info: {
     base: 'bg-info-base',
-    onBase: 'bg-info-onBase',
+    'on-base': 'bg-info-on-base',
     subtle: 'bg-info-subtle',
-    onSubtle: 'bg-info-onSubtle',
+    'on-subtle': 'bg-info-on-subtle',
   },
   warning: {
     base: 'bg-warning-base',
-    onBase: 'bg-warning-onBase',
+    'on-base': 'bg-warning-on-base',
     subtle: 'bg-warning-subtle',
-    onSubtle: 'bg-warning-onSubtle',
+    'on-subtle': 'bg-warning-on-subtle',
   },
   secondary: {
     base: 'bg-secondary-base',
-    onBase: 'bg-secondary-onBase',
+    'on-base': 'bg-secondary-on-base',
     subtle: 'bg-secondary-subtle',
-    onSubtle: 'bg-secondary-onSubtle',
+    'on-subtle': 'bg-secondary-on-subtle',
   },
   tertiary: {
     base: 'bg-tertiary-base',
-    onBase: 'bg-tertiary-onBase',
+    'on-base': 'bg-tertiary-on-base',
     subtle: 'bg-tertiary-subtle',
-    onSubtle: 'bg-tertiary-onSubtle',
+    'on-subtle': 'bg-tertiary-on-subtle',
   },
 };
 
@@ -539,12 +537,18 @@ export default function DesignSystemPage(): JSX.Element {
   /* ───────────────────────── render ───────────────────────── */
 
   return (
-    <div className="to-primary-500/5 from-surface-muted via-surface-base min-h-screen bg-gradient-to-br">
-      <div className="mx-auto flex max-w-[1440px] gap-8 px-4 py-8 lg:px-8">
+    <div className="text-content-primary bg-surface-base relative min-h-screen transition-colors duration-500">
+      {/* Background Ambience */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden outline-none">
+        <div className="bg-primary-500/10 absolute -top-[10%] left-[20%] h-[600px] w-[600px] animate-pulse rounded-full opacity-50 mix-blend-normal blur-3xl transition-all duration-[4000ms] dark:mix-blend-screen" />
+        <div className="absolute top-[40%] -right-[10%] h-[500px] w-[500px] animate-pulse rounded-full bg-purple-500/10 opacity-40 mix-blend-normal blur-3xl transition-all delay-700 duration-[4000ms] dark:mix-blend-screen" />
+      </div>
+
+      <div className="animate-in fade-in slide-in-from-bottom-4 relative z-10 mx-auto flex max-w-[1440px] gap-8 px-4 py-8 duration-700 lg:px-8">
         {/* ── sticky sidebar nav ── */}
         <aside className="hidden w-56 shrink-0 lg:block">
           <nav className="sticky top-24 space-y-1">
-            <h3 className="text-content-muted mb-4 px-3 text-xs font-semibold tracking-widest uppercase">
+            <h3 className="text-content-secondary mb-4 px-3 text-xs font-bold tracking-widest uppercase">
               Sections
             </h3>
             {NAV_SECTIONS.map((s) => {
@@ -553,17 +557,17 @@ export default function DesignSystemPage(): JSX.Element {
               return (
                 <button
                   key={s.id}
-                  className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm transition-all ${
+                  className={`flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-left text-sm transition-all duration-200 ${
                     activeSection === s.id
-                      ? 'bg-primary-50 text-primary-700 font-medium'
-                      : 'text-content-tertiary hover:bg-surface-muted hover:text-content-primary'
+                      ? 'bg-primary-500/10 text-primary-600 dark:text-primary-400 font-bold'
+                      : 'text-content-secondary hover:bg-surface-muted hover:text-content-primary'
                   }`}
                   type="button"
                   onClick={() => scrollTo(s.id)}
                 >
-                  <Icon className="h-4 w-4 shrink-0" />
+                  <Icon className="h-4.5 w-4.5 shrink-0" />
                   {s.label}
-                  {activeSection === s.id && <ChevronRight className="ml-auto h-3 w-3" />}
+                  {activeSection === s.id && <ChevronRight className="ml-auto h-4 w-4" />}
                 </button>
               );
             })}
@@ -573,16 +577,16 @@ export default function DesignSystemPage(): JSX.Element {
         {/* ── main content ── */}
         <main className="min-w-0 flex-1 space-y-12">
           {/* page header */}
-          <div className="text-center lg:text-left">
-            <h1 className="from-primary-600 via-primary-500 to-info-500 bg-gradient-to-r bg-clip-text pb-2 text-4xl font-bold text-transparent lg:text-5xl">
+          <div className="animate-slideIn mb-10 text-center lg:text-left">
+            <h1 className="from-primary-500 bg-gradient-to-r via-indigo-500 to-purple-500 bg-clip-text pb-2 text-5xl font-extrabold tracking-tight text-transparent lg:text-6xl">
               Design System
             </h1>
-            <p className="text-content-tertiary mt-3 text-lg">
+            <p className="text-content-secondary mt-4 max-w-2xl text-xl">
               Complete token reference for{' '}
-              <code className="text-primary-600 bg-surface-muted rounded px-1.5 py-0.5 text-sm font-medium">
+              <code className="text-primary-600 bg-primary-500/10 border-primary-500/20 rounded-lg border px-2 py-1 text-sm font-bold shadow-sm">
                 @ideasui/theme
               </code>{' '}
-              — all using Tailwind class names.
+              — styled completely with semantic Tailwind utility classes.
             </p>
           </div>
 
@@ -1498,23 +1502,23 @@ export default function DesignSystemPage(): JSX.Element {
             {/* badges */}
             <h3 className="text-content-secondary mb-3 text-sm font-semibold">Badges</h3>
             <div className="mb-8 flex flex-wrap gap-3">
-              <span className="bg-primary-subtle text-primary-onSubtle border-primary-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+              <span className="bg-primary-subtle text-primary-on-subtle border-primary-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-primary-base h-1.5 w-1.5 rounded-full" />
                 New Feature
               </span>
-              <span className="bg-success-subtle text-success-onSubtle border-success-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+              <span className="bg-success-subtle text-success-on-subtle border-success-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-success-base h-1.5 w-1.5 rounded-full" />
                 Completed
               </span>
-              <span className="bg-warning-subtle text-warning-onSubtle border-warning-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+              <span className="bg-warning-subtle text-warning-on-subtle border-warning-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-warning-base h-1.5 w-1.5 rounded-full" />
                 Pending
               </span>
-              <span className="bg-danger-subtle text-danger-onSubtle border-danger-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+              <span className="bg-danger-subtle text-danger-on-subtle border-danger-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-danger-base h-1.5 w-1.5 rounded-full" />
                 Failed
               </span>
-              <span className="bg-info-subtle text-info-onSubtle border-info-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+              <span className="bg-info-subtle text-info-on-subtle border-info-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-info-base h-1.5 w-1.5 rounded-full" />
                 Info
               </span>
@@ -1526,28 +1530,28 @@ export default function DesignSystemPage(): JSX.Element {
               <div className="group border-primary-base/20 bg-primary-subtle/40 hover:border-primary-base/40 relative overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md">
                 <div className="from-primary-base/10 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative z-10">
-                  <h4 className="text-primary-onSubtle mb-2 font-semibold tracking-tight">
+                  <h4 className="text-primary-on-subtle mb-2 font-semibold tracking-tight">
                     Primary Card
                   </h4>
-                  <p className="text-primary-onSubtle/80 text-sm">Refined glass effect</p>
+                  <p className="text-primary-on-subtle/80 text-sm">Refined glass effect</p>
                 </div>
               </div>
               <div className="group border-success-base/20 bg-success-subtle/40 hover:border-success-base/40 relative overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md">
                 <div className="from-success-base/10 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative z-10">
-                  <h4 className="text-success-onSubtle mb-2 font-semibold tracking-tight">
+                  <h4 className="text-success-on-subtle mb-2 font-semibold tracking-tight">
                     Success Card
                   </h4>
-                  <p className="text-success-onSubtle/80 text-sm">Refined glass effect</p>
+                  <p className="text-success-on-subtle/80 text-sm">Refined glass effect</p>
                 </div>
               </div>
               <div className="group border-danger-base/20 bg-danger-subtle/40 hover:border-danger-base/40 relative overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md">
                 <div className="from-danger-base/10 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative z-10">
-                  <h4 className="text-danger-onSubtle mb-2 font-semibold tracking-tight">
+                  <h4 className="text-danger-on-subtle mb-2 font-semibold tracking-tight">
                     Danger Card
                   </h4>
-                  <p className="text-danger-onSubtle/80 text-sm">Refined glass effect</p>
+                  <p className="text-danger-on-subtle/80 text-sm">Refined glass effect</p>
                 </div>
               </div>
             </div>

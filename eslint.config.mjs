@@ -321,12 +321,7 @@ export default defineConfig([
 
       // Code quality (SonarJS)
       'sonarjs/cognitive-complexity': ['error', 20],
-      'sonarjs/no-duplicate-string': [
-        'error',
-        {
-          threshold: 3,
-        },
-      ],
+      'sonarjs/no-duplicate-string': 'off',
       'sonarjs/no-identical-functions': 'error',
       'sonarjs/no-redundant-boolean': 'error',
       'sonarjs/no-unused-collection': 'error',

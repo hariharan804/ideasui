@@ -1,6 +1,7 @@
 {
   "name": "@ideasui/playground",
   "version": "0.0.1",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev:playground": "next dev -p 3000",
@@ -14,7 +15,6 @@
   },
   "dependencies": {
     "@ideasui/button": "workspace:*",
-    "@ideasui/ripple": "workspace:*",
     "@ideasui/theme": "workspace:*",
     "@ideasui/utils": "workspace:*",
     "framer-motion": "^12.23.26",

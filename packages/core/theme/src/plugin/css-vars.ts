@@ -336,11 +336,11 @@ export function generateCSSVarsFromTokenOverrides(
     });
   }
 
-  // Surface
+  // Surface (Role-based)
   if (t.surface) {
     Object.entries(t.surface).forEach(([key, value]) => {
       if (value !== undefined) {
-        cssVars[`--${prefix}-color-surface-${key}`] = value;
+        cssVars[`--${prefix}-color-${key}`] = value;
       }
     });
   }

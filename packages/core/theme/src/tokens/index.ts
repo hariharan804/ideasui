@@ -6,15 +6,7 @@ import { borderRadius } from './border-radius';
 import { lightShadow, darkShadow } from './box-shadow';
 import { duration, easing, keyframes, transition } from './motion';
 import { spacing } from './spacing';
-import {
-  primitives,
-  semantic,
-  lightSurface,
-  darkSurface,
-  lightContent,
-  darkContent,
-  commonColors,
-} from './colors';
+import { primitives, semantic, surface, content } from './colors';
 import { disabled, scrollbar } from './classes';
 import {
   colorVariants,
@@ -27,7 +19,7 @@ import {
 
 // import { accessibility } from './accessibility';
 import { backdrop, blur } from './blur';
-import { border, lightBorder, darkBorder } from './border';
+import { border, borderColor } from './border';
 import { lightInteraction, darkInteraction } from './interaction';
 import { opacity } from './opacity';
 import { textStyles, letterSpacing, fontSize, fontFamily, fontWeight } from './typography';
@@ -58,17 +50,12 @@ export {
   colorsWithVariant,
   primitives,
   semantic,
-  lightSurface,
-  darkSurface,
-  lightContent,
-  darkContent,
-  commonColors,
-  // accessibility,
+  surface,
+  content,
   backdrop,
   blur,
   border,
-  lightBorder,
-  darkBorder,
+  borderColor,
   lightInteraction,
   darkInteraction,
   interaction,
@@ -110,6 +97,6 @@ export type ZIndexProps = keyof typeof zIndex;
 export type OpacityProps = keyof typeof opacity;
 export type BlurProps = keyof typeof blur;
 export type BorderWidthProps = keyof typeof border;
-export type SurfaceProps = keyof typeof lightSurface;
-export type OnSurfaceProps = Extract<keyof typeof lightSurface, `on-${string}`>;
-export type ContentProps = keyof typeof lightContent;
+export type SurfaceProps = keyof typeof surface;
+export type OnSurfaceProps = Extract<keyof typeof surface, `on-${string}`>;
+export type ContentProps = keyof typeof content;

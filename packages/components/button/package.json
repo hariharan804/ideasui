@@ -1,10 +1,21 @@
 {
   "name": "@ideasui/button",
-  "version": "0.1.0",
-  "description": "Button component",
+  "version": "0.0.1",
+  "description": "A high-performance, accessible Button and ButtonGroup component library for React, built with Tailwind CSS v4 and React Aria.",
   "author": "IdeasUI<support@ideasui.com>",
   "homepage": "https://ideasui.com",
   "license": "MIT",
+  "keywords": [
+    "ideasui",
+    "react",
+    "button",
+    "button-group",
+    "button-component",
+    "accessible-components",
+    "ui-components",
+    "design-system",
+    "tailwindcss"
+  ],
   "main": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts"
@@ -26,7 +37,7 @@
     "url": "https://github.com/ideas2logic-lab/ideasui/issues"
   },
   "scripts": {
-    "build": "tsup src --dts",
+    "build": "tsup --dts",
     "dev": "pnpm build:dev --watch",
     "clean": "rimraf dist .turbo",
     "typecheck": "tsc --noEmit",
@@ -39,15 +50,12 @@
     "react-dom": ">=18"
   },
   "dependencies": {
-    "@ideasui/utils": "workspace:*",
     "@ideasui/theme": "workspace:*",
-    "@ideasui/slot": "workspace:*",
-    "@ideasui/ripple": "workspace:*",
-    "react-aria": "^3.45.0"
+    "@ideasui/utils": "workspace:*",
+    "react-aria-components": "^1.16.0"
   },
   "devDependencies": {
     "clean-package": "^2.2.0",
-    "lucide-react": "^0.556.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "typescript": "^5.9.3"

@@ -7,18 +7,10 @@ export const border = {
   heavy: '8px',
 } as const;
 
-export const lightBorder = {
+export const borderColor = {
   default: 'var(--ideasui-color-neutral-200)',
   subtle: 'var(--ideasui-color-neutral-100)',
   strong: 'var(--ideasui-color-neutral-300)',
-  focus: 'var(--ideasui-color-primary-500)',
-  danger: 'var(--ideasui-color-danger-500)',
-} as const;
-
-export const darkBorder = {
-  default: 'var(--ideasui-color-neutral-700)',
-  subtle: 'var(--ideasui-color-neutral-600)',
-  strong: 'var(--ideasui-color-neutral-500)',
   focus: 'var(--ideasui-color-primary-500)',
   danger: 'var(--ideasui-color-danger-500)',
 } as const;

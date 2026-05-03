@@ -1,152 +1,297 @@
 'use client';
-import type { ColorVariantProps } from '@ideasui/theme/tokens';
-import type { ElementType, ReactNode } from 'react';
 
-import { useMemo } from 'react';
-import { button as buttonVariants } from '@ideasui/theme/recipes';
-import { Ripple } from '@ideasui/ripple';
-import { Slot } from '@ideasui/slot';
-import { forwardRef } from '@ideasui/utils';
+import type {
+  ButtonProps,
+  ButtonComponent,
+  ButtonLabelProps,
+  ButtonIconProps,
+  ButtonSpinnerProps,
+  ButtonShortcutProps,
+} from './button.types';
+import type { ButtonReturnType } from '@ideasui/theme/recipes';
+import type { ButtonRenderProps } from 'react-aria-components';
+import type { ReactNode, JSX } from 'react';
 
-import { Spinner } from './spinner';
-import { useButton } from './use-button';
+import { Button as ButtonPrimitive } from 'react-aria-components';
+import { cn, getAccessibleName, mergePropsWithContext } from '@ideasui/utils';
+import { createContext, forwardRef, useContext } from 'react';
+import { button } from '@ideasui/theme/recipes';
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /**
-   * The element or component to render as
-   * @default 'button'
-   */
-  as?: ElementType;
+import { useButtonGroupContext } from './button-group-context';
+import { ButtonGroup } from './button-group';
 
-  /**
-   * Visual variant of the button
-   * @default 'solid'
-   */
-  variant?: 'solid' | 'outline' | 'ghost';
+/* -----------------------------------------------------------------------------------------------
+ * Button Context
+ * ---------------------------------------------------------------------------------------------*/
 
-  /**
-   * Color variant based on semantic intent
-   * @default 'primary'
-   */
-  color?: ColorVariantProps;
-
-  /**
-   * Size of the button
-   * @default 'md'
-   */
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-
-  /**
-   * Border radius variant
-   * @default 'md'
-   */
-  radius?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
-
-  /**
-   * Whether the button should take full width
-   * @default false
-   */
-  fullWidth?: boolean;
-
-  /**
-   * Whether the button is in loading state
-   * @default false
-   */
-  loading?: boolean;
-
-  /**
-   * Text to show when loading
-   */
-  loadingText?: string;
-
-  /**
-   * Content to show at the start of the button
-   */
-  startContent?: ReactNode;
-
-  /**
-   * Content to show at the end of the button
-   */
-  endContent?: ReactNode;
-
-  /**
-   * Whether the button should display a ripple effect
-   * @default false
-   */
-  disableRipple?: boolean;
+/**
+ * Internal context for the Button component to share styles with slots.
+ */
+interface ButtonContextValue {
+  styles: ButtonReturnType;
 }
-export const Button = forwardRef<'button', ButtonProps>(
-  (
-    {
-      as,
-      className,
-      variant = 'solid',
-      color = 'primary',
-      size = 'md',
-      radius = 'md',
-      loading = false,
-      loadingText,
-      disabled,
-      children,
-      startContent,
-      endContent,
-      fullWidth = false,
-      disableRipple = false,
-      ...props
-    },
-    ref,
-  ) => {
-    const Component = useMemo(() => {
-      if (!as) {
-        return 'button';
-      }
 
-      if (typeof as === 'string') {
-        const validElements = ['button', 'a', 'div', 'span', 'input'];
+const ButtonContext = createContext<ButtonContextValue | null>(null);
 
-        return validElements.includes(as) ? as : 'button';
-      }
+/**
+ * Hook to consume the ButtonContext.
+ * @internal
+ * @throws Error if used outside of a Button component.
+ */
+function useButtonContext(): ButtonContextValue {
+  const context = useContext(ButtonContext);
 
-      // For React components, check if it's a valid component
-      if (typeof as === 'function' || (typeof as === 'object' && as !== null)) {
-        return as;
-      }
+  if (!context) {
+    throw new Error('Button sub-components must be rendered within a Button component');
+  }
 
-      // Fallback to button for invalid values
-      return 'button';
-    }, [as]);
+  return context;
+}
 
-    const { getButtonProps, isLoading, getRippleProps } = useButton({
-      as: Component,
-      ref,
-      className,
-      loading,
-      disabled,
-      ...props,
-    });
+/* -----------------------------------------------------------------------------------------------
+ * Button Slots
+ * ---------------------------------------------------------------------------------------------*/
 
-    const recipes = buttonVariants({
-      variant,
-      color,
-      size,
-      radius,
-      fullWidth,
-    });
+const ButtonIcon = forwardRef<HTMLElement, ButtonIconProps>(
+  ({ children, className, placement = 'left', ...props }, ref): JSX.Element => {
+    const { styles } = useButtonContext();
+    const { icon } = styles;
 
     return (
-      <Slot as={Component} {...getButtonProps()} className={recipes.base()}>
-        {isLoading ? <Spinner size={size} /> : null}
-        {!isLoading && startContent ? <span className="mr-2 shrink-0">{startContent}</span> : null}
-
-        <span className={isLoading ? 'ml-2' : ''}>
-          {isLoading && loadingText ? loadingText : children}
-        </span>
-
-        {!isLoading && endContent ? <span className="ml-2 shrink-0">{endContent}</span> : null}
-        {!disableRipple && <Ripple {...getRippleProps()} />}
-      </Slot>
+      <span
+        ref={ref}
+        aria-hidden="true"
+        className={cn(icon(), placement === 'end' ? 'order-last' : 'order-first', className)}
+        data-slot="button-icon"
+        {...props}
+      >
+        {children}
+      </span>
     );
   },
 );
 
-Button.displayName = 'IdeasUI.Button';
+ButtonIcon.displayName = 'IdeasUI.Button.Icon';
+
+const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProps>(
+  ({ className, label = 'Loading', ...props }, ref): JSX.Element => {
+    const { styles } = useButtonContext();
+    const { loader, icon } = styles;
+
+    return (
+      <span
+        ref={ref}
+        className={cn(
+          loader(),
+          icon(),
+          'inline-flex shrink-0 items-center justify-center',
+          className,
+        )}
+        data-slot="button-spinner"
+        role="status"
+        {...props}
+      >
+        <svg
+          className="size-full animate-spin"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2.5"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+        </svg>
+        <span className="sr-only">{label}</span>
+      </span>
+    );
+  },
+);
+
+ButtonSpinner.displayName = 'IdeasUI.Button.Spinner';
+
+const ButtonShortcut = forwardRef<HTMLSpanElement, ButtonShortcutProps>(
+  ({ children, className, ...props }, ref): JSX.Element => {
+    const { styles } = useButtonContext();
+    const { shortcut } = styles;
+
+    return (
+      <kbd ref={ref} className={cn(shortcut(), className)} data-slot="button-shortcut" {...props}>
+        {children}
+      </kbd>
+    );
+  },
+);
+
+ButtonShortcut.displayName = 'IdeasUI.Button.Shortcut';
+
+const ButtonLabel = forwardRef<HTMLSpanElement, ButtonLabelProps>(
+  ({ children, className, ...props }, ref): JSX.Element => {
+    const { styles } = useButtonContext();
+    const { label } = styles;
+
+    return (
+      <span ref={ref} className={cn(label(), className)} data-slot="button-label" {...props}>
+        {children}
+      </span>
+    );
+  },
+);
+
+ButtonLabel.displayName = 'IdeasUI.Button.Label';
+
+/* -----------------------------------------------------------------------------------------------
+ * Button Render Helpers
+ * ---------------------------------------------------------------------------------------------*/
+
+interface ButtonContentProps {
+  isLoading?: boolean;
+  loadingIndicator?: React.ReactNode;
+  loadingPosition?: 'start' | 'end' | 'center';
+  isIconOnly?: boolean;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
+  shortcut?: React.ReactNode;
+  children: ButtonProps['children'];
+  renderProps: ButtonRenderProps;
+}
+
+const ButtonContent = ({
+  isLoading,
+  loadingIndicator,
+  loadingPosition = 'start',
+  isIconOnly,
+  startIcon,
+  endIcon,
+  shortcut,
+  children,
+  renderProps,
+}: ButtonContentProps): ReactNode => {
+  const content = typeof children === 'function' ? children(renderProps) : children;
+  const loader = loadingIndicator || <ButtonSpinner />;
+
+  if (isIconOnly || (isLoading && loadingPosition === 'center')) {
+    return isLoading ? loader : content;
+  }
+
+  const showStartLoader = isLoading && loadingPosition === 'start';
+  const showEndLoader = isLoading && loadingPosition === 'end';
+  const showStartIcon = startIcon && !showStartLoader;
+  const showEndIcon = endIcon && !showEndLoader;
+
+  return (
+    <>
+      {showStartLoader ? <ButtonIcon placement="start">{loader}</ButtonIcon> : null}
+
+      {showStartIcon ? <ButtonIcon placement="start">{startIcon}</ButtonIcon> : null}
+
+      {typeof content === 'string' || typeof content === 'number' ? (
+        <ButtonLabel>{content}</ButtonLabel>
+      ) : (
+        content
+      )}
+
+      {showEndIcon ? <ButtonIcon placement="end">{endIcon}</ButtonIcon> : null}
+
+      {showEndLoader ? <ButtonIcon placement="end">{loader}</ButtonIcon> : null}
+
+      {shortcut ? <ButtonShortcut>{shortcut}</ButtonShortcut> : null}
+    </>
+  );
+};
+
+/* -----------------------------------------------------------------------------------------------
+ * Button Base
+ * ---------------------------------------------------------------------------------------------*/
+
+const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>((originalProps, ref): JSX.Element => {
+  const {
+    isLoading,
+    loadingIndicator,
+    loadingPosition,
+    isIconOnly,
+    startIcon,
+    endIcon,
+    shortcut,
+    children,
+    className,
+    ...props
+  } = originalProps;
+
+  const groupContext = useButtonGroupContext();
+  const merged = mergePropsWithContext(originalProps, groupContext);
+
+  // Specific logic for Button
+  const mergedDisabled = merged.isDisabled || isLoading;
+
+  const styles = button({
+    variant: merged.variant,
+    size: merged.size,
+    color: merged.color,
+    radius: merged.radius,
+    fullWidth: merged.fullWidth,
+    isIconOnly,
+    isDisabled: mergedDisabled,
+    isLoading,
+    disableAnimation: merged.disableAnimation,
+    isAttached: merged.isAttached,
+    isVertical: merged.isVertical,
+    elevation: merged.elevation,
+    showDivider: merged.showDivider ?? merged.isAttached,
+  });
+
+  // Ensure we have an accessible name when loading or icon-only
+  const ariaLabel = getAccessibleName(merged, typeof children === 'function' ? null : children);
+  const loadingLabel = typeof loadingIndicator === 'string' ? loadingIndicator : 'Loading';
+
+  return (
+    <ButtonPrimitive
+      ref={ref}
+      aria-busy={isLoading}
+      aria-label={isLoading && !ariaLabel ? loadingLabel : ariaLabel}
+      className={(renderProps) =>
+        styles.base({
+          className: typeof className === 'function' ? className(renderProps) : className,
+        })
+      }
+      data-attached={merged.isAttached}
+      data-slot="button"
+      data-vertical={merged.isVertical}
+      isDisabled={mergedDisabled}
+      isPending={isLoading}
+      {...props}
+    >
+      {(renderProps) => (
+        <ButtonContext.Provider value={{ styles }}>
+          <ButtonContent
+            endIcon={endIcon}
+            isIconOnly={isIconOnly}
+            isLoading={isLoading}
+            loadingIndicator={loadingIndicator}
+            loadingPosition={loadingPosition}
+            renderProps={renderProps}
+            shortcut={shortcut}
+            startIcon={startIcon}
+          >
+            {children}
+          </ButtonContent>
+        </ButtonContext.Provider>
+      )}
+    </ButtonPrimitive>
+  );
+});
+
+ButtonBase.displayName = 'IdeasUI.Button';
+
+/* -----------------------------------------------------------------------------------------------
+ * Final Export
+ * ---------------------------------------------------------------------------------------------*/
+
+export const Button = ButtonBase as ButtonComponent;
+
+Button.Icon = ButtonIcon;
+Button.Shortcut = ButtonShortcut;
+Button.Spinner = ButtonSpinner;
+Button.Label = ButtonLabel;
+Button.Group = ButtonGroup;

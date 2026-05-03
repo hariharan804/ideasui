@@ -1,7 +1,9 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@ideasui/button'],
+  // Required to transpile internal workspace packages from TypeScript source
+  // especially when using Turbopack and the App Router.
+  transpilePackages: ['@ideasui/button', '@ideasui/theme', '@ideasui/utils'],
 
   /* config options here */
 };

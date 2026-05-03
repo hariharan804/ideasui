@@ -13,32 +13,32 @@ interface DocFile {
 }
 
 const DOC_FILES: DocFile[] = [
-  { name: 'README.md', path: 'README.md', description: 'Main project documentation' },
+  { name: 'README.md', path: '../../README.md', description: 'Main project documentation' },
+  { name: 'ARCHITECTURE.md', path: '../../ARCHITECTURE.md', description: 'System Architecture' },
   {
     name: 'CONTRIBUTING.md',
-    path: '../../../../CONTRIBUTING.md',
+    path: '../../CONTRIBUTING.md',
     description: 'Contribution guidelines',
   },
-  // {
-  //   name: "COMPONENT_GUIDELINES.md",
-  //   path: "docs/COMPONENT_GUIDELINES.md",
-  //   description: "Component development standards",
-  // },
   {
-    name: 'NAMING_CONVENTIONS.md',
-    path: '../../docs/NAMING_CONVENTIONS.md',
-    description: 'Naming rules and cases',
+    name: 'DESIGN_TOKEN_RULES.md',
+    path: '../../docs/DESIGN_TOKEN_RULES.md',
+    description: 'CSS variables and theming rules',
   },
   {
-    name: 'TESTING_STRATEGY.md',
-    path: 'docs/TESTING_STRATEGY.md',
+    name: 'COMPONENT_STANDARDS.md',
+    path: '../../docs/COMPONENT_STANDARDS.md',
+    description: 'Component development standards',
+  },
+  {
+    name: 'DEVELOPMENT_SETUP.md',
+    path: '../../docs/DEVELOPMENT_SETUP.md',
+    description: 'Local development guide',
+  },
+  {
+    name: 'TESTING_GUIDE.md',
+    path: '../../docs/TESTING_GUIDE.md',
     description: 'Quality assurance guide',
-  },
-  { name: 'BUILD_DEPLOYMENT.md', path: 'docs/BUILD_DEPLOYMENT.md', description: 'Release process' },
-  {
-    name: 'API_DOCUMENTATION.md',
-    path: 'docs/API_DOCUMENTATION.md',
-    description: 'Component reference',
   },
 ];
 
@@ -84,29 +84,31 @@ export default function DocsPage(): JSX.Element {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 p-4 md:p-8 lg:flex-row">
+    <div className="text-content-primary min-h-screen transition-colors duration-300 ease-in-out">
+      <div className="animate-in fade-in slide-in-from-bottom-4 mx-auto flex max-w-7xl flex-col gap-6 p-4 duration-700 md:p-8 lg:flex-row">
         {/* Sidebar */}
         <div className={`${sidebarOpen ? 'block' : 'hidden'} w-full lg:block lg:w-80`}>
-          <div className="sticky top-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg backdrop-blur-sm">
+          <div className="border-default bg-surface-elevated/80 sticky top-6 rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300">
             {/* Header */}
             <div className="mb-6">
               <div className="mb-3 flex items-center gap-3">
-                <div className="rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 p-2">
+                <div className="from-primary-500 to-secondary-500 shadow-primary-500/20 rounded-xl bg-gradient-to-br p-2.5 shadow-md">
                   <FileText className="h-5 w-5 text-white" />
                 </div>
-                <h3 className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-lg font-bold text-transparent">
+                <h3 className="from-primary-600 to-secondary-600 bg-gradient-to-r bg-clip-text text-xl font-bold tracking-tight text-transparent">
                   Documentation
                 </h3>
               </div>
-              <p className="text-xs text-slate-500">Browse project guides</p>
+              <p className="text-content-tertiary text-xs font-semibold tracking-widest uppercase">
+                Browse project guides
+              </p>
             </div>
 
             {/* Search */}
             <div className="relative mb-6">
-              <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-slate-400" />
+              <Search className="text-content-tertiary absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
               <input
-                className="w-full rounded-lg border border-slate-200 py-2 pr-4 pl-10 text-sm transition-all outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500"
+                className="border-default bg-surface-base text-content-primary focus:border-primary-500 focus:ring-primary-500/20 placeholder:text-content-muted w-full rounded-xl border py-2.5 pr-4 pl-10 text-sm font-medium transition-all outline-none focus:ring-2"
                 placeholder="Search docs..."
                 type="text"
                 value={searchTerm}
@@ -115,32 +117,34 @@ export default function DocsPage(): JSX.Element {
             </div>
 
             {/* File List */}
-            <div className="max-h-96 space-y-2 overflow-y-auto">
+            <div className="custom-scrollbar max-h-96 space-y-1.5 overflow-y-auto pr-2">
               {filteredDocs.map((doc) => (
                 <button
                   key={doc.name}
-                  className={`w-full rounded-lg border p-3 text-left transition-all ${
+                  className={`w-full rounded-xl border p-3.5 text-left transition-all duration-200 ${
                     selectedDoc.name === doc.name
-                      ? 'border-blue-300 bg-gradient-to-r from-blue-100 to-purple-100 shadow-sm'
-                      : 'border-transparent hover:border-slate-200 hover:bg-slate-50'
+                      ? 'border-primary-300 bg-primary-subtle shadow-sm'
+                      : 'hover:border-default hover:bg-surface-muted border-transparent'
                   }`}
                   onClick={() => setSelectedDoc(doc)}
                 >
-                  <div className="flex items-start gap-2">
+                  <div className="flex items-start gap-3">
                     <FileText
-                      className={`mt-0.5 h-4 w-4 flex-shrink-0 ${
-                        selectedDoc.name === doc.name ? 'text-blue-600' : 'text-slate-400'
+                      className={`mt-0.5 h-4.5 w-4.5 flex-shrink-0 transition-colors ${
+                        selectedDoc.name === doc.name ? 'text-primary-600' : 'text-content-tertiary'
                       }`}
                     />
                     <div className="min-w-0 flex-1">
                       <div
-                        className={`truncate text-sm font-medium ${
-                          selectedDoc.name === doc.name ? 'text-blue-700' : 'text-slate-700'
+                        className={`truncate text-sm font-bold transition-colors ${
+                          selectedDoc.name === doc.name
+                            ? 'text-primary-700'
+                            : 'text-content-secondary hover:text-content-primary'
                         }`}
                       >
                         {doc.name}
                       </div>
-                      <div className="mt-1 line-clamp-2 text-xs text-slate-500">
+                      <div className="text-content-tertiary mt-1 line-clamp-2 text-xs font-medium">
                         {doc.description}
                       </div>
                     </div>
@@ -148,22 +152,24 @@ export default function DocsPage(): JSX.Element {
                 </button>
               ))}
               {filteredDocs.length === 0 && (
-                <div className="py-4 text-center text-sm text-slate-500">No docs found</div>
+                <div className="text-content-tertiary py-6 text-center text-sm font-medium">
+                  No docs found
+                </div>
               )}
             </div>
 
             {/* External Links */}
-            <div className="mt-6 border-t border-slate-200 pt-6">
-              <h4 className="mb-3 text-xs font-semibold tracking-wide text-slate-700 uppercase">
+            <div className="border-default mt-8 border-t pt-6">
+              <h4 className="text-content-tertiary mb-4 text-xs font-bold tracking-widest uppercase">
                 Resources
               </h4>
               <a
-                className="flex items-center gap-2 text-sm text-slate-600 transition-colors hover:text-blue-600"
-                href="https://github.com"
+                className="text-content-secondary hover:text-primary-500 flex items-center gap-2.5 text-sm font-semibold transition-colors"
+                href="https://github.com/ideas2logic-lab/ideasui"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <ExternalLink className="h-4 w-4" />
+                <ExternalLink className="h-4.5 w-4.5" />
                 GitHub Repository
               </a>
             </div>
@@ -173,21 +179,23 @@ export default function DocsPage(): JSX.Element {
         {/* Main Content */}
         <div className="min-w-0 flex-1">
           {/* Header */}
-          <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-lg">
+          <div className="border-default bg-surface-elevated mb-6 rounded-3xl border p-8 shadow-sm transition-all duration-300">
             <div className="flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 p-2">
-                  <Book className="h-5 w-5 text-white" />
+              <div className="flex items-center gap-4">
+                <div className="from-primary-500 to-secondary-500 shadow-primary-500/20 rounded-xl bg-gradient-to-br p-3 shadow-md">
+                  <Book className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold text-slate-900 md:text-3xl">
+                  <h1 className="text-content-primary text-3xl font-extrabold tracking-tight md:text-4xl">
                     {selectedDoc.name}
                   </h1>
-                  <p className="mt-1 text-sm text-slate-500">{selectedDoc.description}</p>
+                  <p className="text-content-tertiary mt-2 text-sm font-medium">
+                    {selectedDoc.description}
+                  </p>
                 </div>
               </div>
               <button
-                className="rounded-lg bg-blue-50 px-4 py-2 text-sm font-medium text-blue-600 transition-colors hover:bg-blue-100 lg:hidden"
+                className="bg-surface-muted border-default text-content-secondary hover:bg-surface-strong hover:text-content-primary rounded-lg border px-4 py-2 text-sm font-bold transition-colors lg:hidden"
                 onClick={() => setSidebarOpen(!sidebarOpen)}
               >
                 {sidebarOpen ? 'Hide' : 'Show'} Sidebar
@@ -196,25 +204,27 @@ export default function DocsPage(): JSX.Element {
           </div>
 
           {/* Content */}
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
+          <div className="border-default bg-surface-base min-h-[60vh] overflow-hidden rounded-3xl border shadow-sm transition-all duration-300">
             {/* Loading State */}
             {loading ? (
               <div className="flex h-96 items-center justify-center">
                 <div className="text-center">
-                  <Loader className="mx-auto mb-3 h-8 w-8 animate-spin text-blue-500" />
-                  <p className="text-slate-600">Loading documentation...</p>
+                  <Loader className="text-primary-500 mx-auto mb-4 h-8 w-8 animate-spin" />
+                  <p className="text-content-secondary text-sm font-semibold">
+                    Loading documentation...
+                  </p>
                 </div>
               </div>
             ) : null}
 
             {/* Error State */}
             {error && !loading ? (
-              <div className="border-b border-red-200 bg-red-50 p-6">
-                <div className="flex items-start gap-3">
-                  <div className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-red-500" />
+              <div className="border-danger-subtle bg-danger-subtle/30 border-b p-8">
+                <div className="flex items-start gap-4">
+                  <div className="bg-danger-500 shadow-danger-500/40 mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full shadow-sm" />
                   <div>
-                    <h3 className="font-semibold text-red-900">Error loading document</h3>
-                    <p className="mt-1 text-sm text-red-700">{error}</p>
+                    <h3 className="text-danger-700 font-bold">Error loading document</h3>
+                    <p className="text-danger-600 mt-1.5 text-sm font-medium">{error}</p>
                   </div>
                 </div>
               </div>
@@ -222,7 +232,7 @@ export default function DocsPage(): JSX.Element {
 
             {/* Content */}
             {!loading && !error && (
-              <div className="prose prose-sm prose-headings:scroll-mt-20 prose-h1:text-3xl prose-h1:font-bold prose-h1:text-slate-900 prose-h1:mt-8 prose-h1:mb-4 prose-h2:text-2xl prose-h2:font-bold prose-h2:text-slate-800 prose-h2:mt-6 prose-h2:mb-3 prose-h3:text-xl prose-h3:font-semibold prose-h3:text-slate-700 prose-h3:mt-4 prose-h3:mb-2 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-code:bg-slate-100 prose-code:text-red-600 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-pre:bg-slate-900 prose-pre:text-slate-100 prose-pre:border prose-pre:border-slate-700 prose-blockquote:border-l-4 prose-blockquote:border-blue-500 prose-blockquote:bg-blue-50 prose-blockquote:pl-4 prose-blockquote:text-slate-700 prose-strong:text-slate-900 prose-strong:font-semibold prose-li:text-slate-700 prose-table:border-collapse prose-table:w-full prose-th:bg-slate-100 prose-th:border prose-th:border-slate-300 prose-th:px-4 prose-th:py-2 prose-td:border prose-td:border-slate-300 prose-td:px-4 prose-td:py-2 max-w-none p-6 md:p-8">
+              <div className="prose prose-base prose-headings:scroll-mt-24 prose-h1:text-4xl prose-h1:font-extrabold prose-h1:text-content-primary prose-h1:tracking-tight prose-h1:mt-2 prose-h1:mb-8 prose-h2:text-3xl prose-h2:font-bold prose-h2:text-content-primary prose-h2:tracking-tight prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-border-subtle prose-h2:pb-4 prose-h3:text-2xl prose-h3:font-bold prose-h3:text-content-primary prose-h3:mt-8 prose-h3:mb-4 prose-a:text-primary-600 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline hover:prose-a:text-primary-700 prose-code:bg-primary-500/10 prose-code:text-primary-600 dark:prose-code:text-primary-400 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-lg prose-code:font-mono prose-code:text-[0.9em] prose-code:font-bold prose-code:before:content-none prose-code:after:content-none prose-pre:bg-[#0f172a] prose-pre:text-slate-50 prose-pre:border prose-pre:border-border-subtle prose-pre:rounded-2xl prose-pre:shadow-lg prose-pre:p-6 prose-pre:my-8 prose-blockquote:border-l-4 prose-blockquote:border-primary-500 prose-blockquote:bg-surface-raised prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-content-secondary prose-blockquote:font-medium prose-blockquote:italic prose-blockquote:shadow-sm prose-strong:text-content-primary prose-strong:font-bold prose-ul:list-disc prose-ol:list-decimal prose-li:text-content-secondary prose-li:marker:text-primary-500 prose-p:text-content-secondary prose-p:leading-relaxed prose-p:text-lg prose-table:border-collapse prose-table:w-full prose-table:my-8 prose-table:text-left prose-table:rounded-xl prose-table:overflow-hidden prose-table:shadow-sm prose-table:border prose-table:border-border-subtle prose-thead:bg-surface-raised prose-th:border-b-2 prose-th:border-border-default prose-th:px-6 prose-th:py-4 prose-th:font-bold prose-th:text-content-primary prose-td:border-b prose-td:border-border-subtle prose-td:px-6 prose-td:py-4 prose-td:text-content-secondary prose-tr:transition-colors hover:prose-tr:bg-surface-raised/50 prose-img:rounded-2xl prose-img:border prose-img:border-border-subtle prose-img:shadow-sm max-w-none p-8 transition-colors md:p-12">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{docContent}</ReactMarkdown>
               </div>
             )}

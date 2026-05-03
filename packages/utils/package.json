@@ -1,6 +1,6 @@
 {
   "name": "@ideasui/utils",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Shared utilities for IdeasUI",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -34,6 +34,17 @@
   "author": "IdeasUI<support@ideasui.com>",
   "homepage": "https://ideasui.com",
   "license": "MIT",
+  "keywords": [
+    "ideasui",
+    "react",
+    "utils",
+    "helpers",
+    "aria-utils",
+    "accessibility",
+    "clsx",
+    "tailwind-merge",
+    "typescript"
+  ],
   "publishConfig": {
     "access": "public"
   },

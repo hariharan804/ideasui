@@ -1,4 +1,4 @@
-import type { Decorator } from '@storybook/react';
+import type { Decorator } from '@storybook/react-vite';
 
 import React, { useEffect, useMemo } from 'react';
 import { scan } from 'react-scan';

@@ -9,6 +9,7 @@
     ".storybook/**/*",
     "vite.config.ts",
     "vitest.config.ts",
+    "tailwind.config.ts",
     "../../packages/components/*/stories/*.stories.tsx",
     "../../packages/core/theme/stories/*.stories.tsx"
   ],
