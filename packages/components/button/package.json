@@ -1,6 +1,6 @@
 {
   "name": "@ideasui/button",
-  "version": "0.0.2-beta.0",
+  "version": "0.0.2-beta.1",
   "description": "A high-performance, accessible Button and ButtonGroup component library for React, built with Tailwind CSS v4 and React Aria.",
   "author": "IdeasUI<support@ideasui.com>",
   "homepage": "https://ideasui.com",
