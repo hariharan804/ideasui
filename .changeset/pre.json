@@ -1,15 +1,16 @@
 {
-  "mode": "exit",
+  "mode": "pre",
   "tag": "beta",
   "initialVersions": {
-    "@ideasui/button": "0.0.1",
-    "@ideasui/react": "0.0.1",
-    "@ideasui/theme": "0.0.4",
-    "@ideasui/utils": "0.0.1",
     "@ideasui/playground": "0.0.1",
-    "@ideasui/storybook": "0.1.0"
+    "@ideasui/storybook": "0.1.0",
+    "@ideasui/button": "0.0.2-beta.0",
+    "@ideasui/react": "0.0.2-beta.0",
+    "@ideasui/theme": "0.0.5-beta.0",
+    "@ideasui/utils": "0.0.2-beta.0"
   },
   "changesets": [
-    "curly-bats-cross"
+    "curly-bats-cross",
+    "slow-boxes-give"
   ]
 }
