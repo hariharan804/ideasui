@@ -29,6 +29,7 @@ import { ButtonGroup } from './button-group';
  */
 interface ButtonContextValue {
   styles: ButtonReturnType;
+  classNames?: ButtonProps['classNames'];
 }
 
 const ButtonContext = createContext<ButtonContextValue | null>(null);
@@ -53,15 +54,22 @@ function useButtonContext(): ButtonContextValue {
  * ---------------------------------------------------------------------------------------------*/
 
 const ButtonIcon = forwardRef<HTMLElement, ButtonIconProps>(
-  ({ children, className, placement = 'left', ...props }, ref): JSX.Element => {
-    const { styles } = useButtonContext();
+  ({ children, className, placement = 'start', ...props }, ref): JSX.Element => {
+    const { styles, classNames } = useButtonContext();
     const { icon } = styles;
+
+    const slotClass = placement === 'start' ? classNames?.startIcon : classNames?.endIcon;
 
     return (
       <span
         ref={ref}
         aria-hidden="true"
-        className={cn(icon(), placement === 'end' ? 'order-last' : 'order-first', className)}
+        className={cn(
+          icon(),
+          placement === 'end' ? 'order-last' : 'order-first',
+          slotClass,
+          className,
+        )}
         data-slot="button-icon"
         {...props}
       >
@@ -75,7 +83,7 @@ ButtonIcon.displayName = 'IdeasUI.Button.Icon';
 
 const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProps>(
   ({ className, label = 'Loading', ...props }, ref): JSX.Element => {
-    const { styles } = useButtonContext();
+    const { styles, classNames } = useButtonContext();
     const { loader, icon } = styles;
 
     return (
@@ -85,6 +93,7 @@ const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProps>(
           loader(),
           icon(),
           'inline-flex shrink-0 items-center justify-center',
+          classNames?.spinner,
           className,
         )}
         data-slot="button-spinner"
@@ -113,11 +122,16 @@ ButtonSpinner.displayName = 'IdeasUI.Button.Spinner';
 
 const ButtonShortcut = forwardRef<HTMLSpanElement, ButtonShortcutProps>(
   ({ children, className, ...props }, ref): JSX.Element => {
-    const { styles } = useButtonContext();
+    const { styles, classNames } = useButtonContext();
     const { shortcut } = styles;
 
     return (
-      <kbd ref={ref} className={cn(shortcut(), className)} data-slot="button-shortcut" {...props}>
+      <kbd
+        ref={ref}
+        className={cn(shortcut(), classNames?.shortcut, className)}
+        data-slot="button-shortcut"
+        {...props}
+      >
         {children}
       </kbd>
     );
@@ -128,11 +142,16 @@ ButtonShortcut.displayName = 'IdeasUI.Button.Shortcut';
 
 const ButtonLabel = forwardRef<HTMLSpanElement, ButtonLabelProps>(
   ({ children, className, ...props }, ref): JSX.Element => {
-    const { styles } = useButtonContext();
+    const { styles, classNames } = useButtonContext();
     const { label } = styles;
 
     return (
-      <span ref={ref} className={cn(label(), className)} data-slot="button-label" {...props}>
+      <span
+        ref={ref}
+        className={cn(label(), classNames?.label, className)}
+        data-slot="button-label"
+        {...props}
+      >
         {children}
       </span>
     );
@@ -216,6 +235,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>((originalProps, re
     shortcut,
     children,
     className,
+    classNames,
     ...props
   } = originalProps;
 
@@ -252,7 +272,10 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>((originalProps, re
       aria-label={isLoading && !ariaLabel ? loadingLabel : ariaLabel}
       className={(renderProps) =>
         styles.base({
-          className: typeof className === 'function' ? className(renderProps) : className,
+          className: cn(
+            typeof className === 'function' ? className(renderProps) : className,
+            classNames?.base,
+          ),
         })
       }
       data-attached={merged.isAttached}
@@ -263,7 +286,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>((originalProps, re
       {...props}
     >
       {(renderProps) => (
-        <ButtonContext.Provider value={{ styles }}>
+        <ButtonContext.Provider value={{ styles, classNames }}>
           <ButtonContent
             endIcon={endIcon}
             isIconOnly={isIconOnly}

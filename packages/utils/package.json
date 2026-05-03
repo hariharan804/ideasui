@@ -30,7 +30,7 @@
     }
   },
   "sideEffects": false,
-  "clean-package": "../../clean-package.config.json",
+  "clean-package": "./clean-package.config.json",
   "author": "IdeasUI<support@ideasui.com>",
   "homepage": "https://ideasui.com",
   "license": "MIT",

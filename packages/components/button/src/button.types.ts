@@ -4,6 +4,24 @@ import type { ButtonVariantProps } from '@ideasui/theme/recipes';
 import type { ButtonGroupProps } from './button-group';
 
 /**
+ * Granular class names for the Button component slots.
+ */
+export interface ButtonClassNames {
+  /** Class name for the button container. */
+  base?: string;
+  /** Class name for the button label. */
+  label?: string;
+  /** Class name for the start icon container. */
+  startIcon?: string;
+  /** Class name for the end icon container. */
+  endIcon?: string;
+  /** Class name for the loading spinner. */
+  spinner?: string;
+  /** Class name for the shortcut container. */
+  shortcut?: string;
+}
+
+/**
  * Props for the Button component.
  */
 export interface ButtonProps
@@ -49,6 +67,10 @@ export interface ButtonProps
    * @default true (when isAttached is true)
    */
   showDivider?: boolean;
+  /**
+   * Custom class names for individual button slots.
+   */
+  classNames?: ButtonClassNames;
   /**
    * The CSS class name for the button.
    * Can be a string or a function that receives the button render props.
