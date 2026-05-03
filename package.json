@@ -67,7 +67,7 @@
     "release:beta": "changeset publish --tag beta",
     "changeset:canary": "changeset pre enter canary",
     "version:canary": "changeset version --snapshot canary",
-    "release:canary": "changeset publish --snapshot --no-git-tag --tag canary",
+    "release:canary": "changeset publish --tag canary --no-git-tag",
     "changeset:exit": "changeset pre exit",
     "preinstall": "node scripts/check-versions.cjs",
     "prepare": "husky",

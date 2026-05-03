@@ -1,6 +1,9 @@
 # @ideasui/utils
 
-Shared utility functions and helpers for the IdeasUI component library.
+Shared utility functions, accessibility helpers, and performance-optimized tools for the **IdeasUI** ecosystem.
+
+[![NPM Version](https://img.shields.io/npm/v/@ideasui/utils.svg)](https://www.npmjs.com/package/@ideasui/utils)
+[![License](https://img.shields.io/npm/l/@ideasui/utils.svg)](https://github.com/hariharan804/ideasui/blob/master/LICENSE)
 
 ## 📦 Installation
 

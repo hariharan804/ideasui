@@ -1,12 +1,15 @@
 # IdeasUI - Component Library
 
-IdeasUI is a modern, accessible component library built with TypeScript, Tailwind CSS, and comprehensive tooling.
+A high-performance, accessible component library built with **TypeScript**, **Tailwind CSS v4**, and **React Aria**.
+
+[![NPM Version](https://img.shields.io/npm/v/@ideasui/react.svg)](https://www.npmjs.com/package/@ideasui/react)
+[![License](https://img.shields.io/npm/l/@ideasui/react.svg)](https://github.com/hariharan804/ideasui/blob/master/LICENSE)
 
 ## 🚀 Quick Start
 
 ```bash
 # Clone the repository
-git clone https://github.com/ideas2logic-lab/ideasui.git
+git clone https://github.com/hariharan804/ideasui.git
 cd ideasui
 
 # Install dependencies
@@ -14,9 +17,6 @@ pnpm install
 
 # Start Storybook
 pnpm run storybook
-
-# Install Playwright browsers (for visual testing)
-pnpm run playwright:install
 
 # Start development
 pnpm run dev
@@ -28,35 +28,21 @@ pnpm run build
 ## ⚙️ Requirements
 
 - **Node.js**: >= 18.x (LTS)
-- **PNPM**: >= 8.x
-- Automatic version checks run on install with helpful error messages
-
-```bash
-# Check if you have Node.js installed
-node --version
-
-# Check if you have PNPM installed
-pnpm --version
-
-# Install PNPM if needed
-npm install -g pnpm
-```
+- **PNPM**: >= 10.x
+- Automatic version checks run on install with helpful error messages.
 
 ## 📦 Usage
 
 ```tsx
-import { Button } from '@ideasui/button';
-import { Box } from '@ideasui/box';
-import { Ripple } from '@ideasui/ripple';
+import { Button, ThemeProvider } from '@ideasui/react';
 
 function App() {
   return (
-    <Box className="p-6">
+    <ThemeProvider>
       <Button variant="solid" color="primary" size="md">
-        Click me
+        Get Started
       </Button>
-      <Ripple />
-    </Box>
+    </ThemeProvider>
   );
 }
 ```
@@ -67,67 +53,32 @@ function App() {
 ideasui/
 ├── packages/
 │   ├── components/          # UI Components
-│   │   ├── box/            # Flexible container component (@ideasui/box)
-│   │   ├── button/         # Interactive button component (@ideasui/button)
-│   │   └── ripple/         # Material Design ripple effect (@ideasui/ripple)
+│   │   └── button/         # Interactive button component (@ideasui/button)
 │   ├── core/               # Core system packages
-│   │   └── theme/          # Theme system with recipes & tokens (@ideasui/theme)
-│   ├── hooks/              # React hooks (@ideasui/hooks)
-│   ├── utils/              # Shared utilities (@ideasui/utils)
-│   ├── icons/              # Icon library (@ideasui/icons)
-│   └── cli/                # CLI tools (@ideasui/cli)
+│   │   ├── theme/          # Theme system with recipes & tokens (@ideasui/theme)
+│   │   └── react/          # Main React entry point (@ideasui/react)
+│   └── utils/              # Shared utilities (@ideasui/utils)
 ├── apps/
 │   ├── playground/         # Next.js playground app
 │   └── storybook/          # Storybook documentation app
-├── templates/              # Component generation templates
-│   ├── component/          # Component template
-│   ├── hooks/              # Hook template
-│   └── recipe/             # Recipe template
 └── scripts/                # Build and utility scripts
-
 ```
 
 ## 🎨 Theme System
 
-### Color Tokens
-
-- **OKLCH Color Space**: Perceptually uniform colors
-- **Semantic Colors**: Primary, secondary, success, warning, danger, info, neutral, gray
-- **11 Shades**: 50-950 scale for each color
-- **Dark Mode**: Optimized dark theme variants
-
-### Recipes (Tailwind Variants)
-
-```tsx
-import { button } from '@ideasui/theme/recipes';
-
-const { base, icon, label } = button({ variant: 'solid', color: 'primary' });
-```
-
-### Design Tokens
-
-```tsx
-import { colorTokens, darkColorTokens } from '@ideasui/theme/tokens';
-```
+- **OKLCH Color Space**: Perceptually uniform colors for consistent visual weight.
+- **Tailwind CSS v4**: Built-in support for the latest styling engine.
+- **Semantic Tokens**: Role-based color aliases (`surface`, `content`, `border`).
+- **Dark Mode**: Native, flicker-free support with adaptive tokens.
 
 ## 🎯 Features
 
-- ✅ Modern React components with TypeScript
-- ✅ OKLCH color system for better perceptual uniformity
-- ✅ Tailwind Variants (TV) for styling
-- ✅ Comprehensive theme system with recipes
-- ✅ Storybook playground for development
-- ✅ Comprehensive testing (Jest + Playwright)
-- ✅ Visual regression testing
-- ✅ ESLint + Prettier + Husky git hooks
-- ✅ Automated versioning with changesets
-- ✅ Component generation templates
-- ✅ Accessibility compliant (WCAG 2.1 AA)
-- ✅ Dark mode support
-- ✅ Tree-shakeable exports
-- ✅ SSR compatible
-- ✅ Monorepo with Turbo
-- ✅ Material Design ripple effects
+- ✅ **Modern React** — Built with React 19 and TypeScript.
+- ✅ **Performance** — Zero-runtime CSS using Tailwind v4.
+- ✅ **Accessibility** — Built on React Aria for WCAG 2.1 AA compliance.
+- ✅ **Monorepo** — Managed with PNPM Workspaces and Turbo.
+- ✅ **Testing** — Comprehensive unit and visual regression testing.
+- ✅ **Versioning** — Automated releases with Changesets.
 
 ## 🛠️ Development
 
@@ -135,47 +86,26 @@ import { colorTokens, darkColorTokens } from '@ideasui/theme/tokens';
 # Install dependencies
 pnpm install
 
-# Start development (all packages)
-pnpm run dev
-
 # Run Storybook
 pnpm run storybook
 
 # Run unit tests
 pnpm run test
-pnpm run test:watch
-pnpm run test:coverage
-
-# Run visual regression tests
-pnpm run test:visual
-pnpm run test:visual:ui
 
 # Linting and formatting
-pnpm run lint
-pnpm run lint:fix
-pnpm run format
+pnpm run quality
 
 # Build library
 pnpm run build
-
-# Type checking
-pnpm run typecheck
-
-# Generate new components
-pnpm run create
 ```
 
 ## 📚 Documentation
 
-- [🛠️ Development Setup](./docs/DEVELOPMENT_SETUP.md) - Local development guide
-- [📝 Component Standards](./docs/COMPONENT_STANDARDS.md) - Development standards
-- [🧪 Testing Guide](./docs/TESTING_GUIDE.md) - Quality assurance
-- [📦 Packages Guide](./packages/README.md) - Package development guide
-- [📏 Development Rules](./rules/README.md) - Naming conventions, code quality, accessibility
+- [🛠️ Development Setup](./docs/DEVELOPMENT_SETUP.md)
+- [📝 Component Standards](./docs/COMPONENT_STANDARDS.md)
+- [🧪 Testing Guide](./docs/TESTING_GUIDE.md)
+- [📏 Development Rules](./rules/README.md)
 
-### Developer Workflows
+## License
 
-- [➕ Create Component](./.agent/workflows/create-component.md) - How to create a new component
-- [🧪 Testing](./.agent/workflows/testing.md) - How to run tests and maintain test quality
-- [🚀 Release](./.agent/workflows/release.md) - How to release new versions
-- [🔧 Troubleshooting](./.agent/workflows/troubleshooting.md) - Common issues and how to fix them
+MIT © [IdeasUI](https://ideasui.com)

@@ -1,19 +1,34 @@
 # @ideasui/react
 
-The main React entry point for the **IdeasUI** component library. This package provides a single installation point for all high-performance, accessible components built with Tailwind CSS v4 and React Aria.
+The main entry point for the **IdeasUI** component library — a collection of high-performance, accessible UI components built with **Tailwind CSS v4** and **React Aria**.
+
+[![NPM Version](https://img.shields.io/npm/v/@ideasui/react.svg)](https://www.npmjs.com/package/@ideasui/react)
+[![License](https://img.shields.io/npm/l/@ideasui/react.svg)](https://github.com/hariharan804/ideasui/blob/master/LICENSE)
+
+## Why IdeasUI?
+
+IdeasUI is designed for developers who need premium, accessible components with zero runtime overhead. By leveraging Tailwind CSS v4 and React Aria, we provide a foundation that is both extremely fast and natively accessible.
+
+- 🚀 **Performance** — Zero-runtime CSS-in-JS.
+- ♿ **Accessible** — W3C/WAI-ARIA compliant out of the box.
+- 🎨 **Modern Aesthetics** — Premium designs with OKLCH color support.
+- 🌗 **Dark Mode** — Native support with adaptive design tokens.
 
 ## Installation
 
 ```bash
 npm install @ideasui/react
+# or
+pnpm add @ideasui/react
 ```
 
-## Usage
-
-You can import any component directly from `@ideasui/react`:
+## Quick Start
 
 ```tsx
-import { Button, ThemeProvider } from '@ideasui/react';
+import { Button, ThemeProvider, ThemeScript } from '@ideasui/react';
+
+// 1. Add ThemeScript to your head (prevents FOUC)
+// 2. Wrap your app with ThemeProvider
 
 function App() {
   return (
@@ -26,21 +41,13 @@ function App() {
 }
 ```
 
-## Included Packages
+## What's Included?
 
-This package re-exports everything from:
+This package is a monolithic bundle that includes:
 
-- **@ideasui/theme**: Core design system, tokens, and theme providers.
-- **@ideasui/button**: High-performance button and button group components.
-- **@ideasui/utils**: Shared utility functions and accessibility helpers.
-
-## Features
-
-- **🚀 Performance**: Built with zero-runtime CSS-in-JS using Tailwind CSS v4.
-- **♿ Accessibility**: Foundation built on React Aria for WCAG compliance.
-- **🎨 Customization**: Fully themeable via OKLCH color tokens and semantic variables.
-- **🌗 Dark Mode**: Built-in support for multiple color schemes with adaptive tokens.
-- **📦 Monolithic**: Install one package, get the entire library.
+- **@ideasui/theme** — Design tokens and theme engine.
+- **@ideasui/button** — Button and ButtonGroup components.
+- **@ideasui/utils** — Performance and styling utilities.
 
 ## Documentation
 
