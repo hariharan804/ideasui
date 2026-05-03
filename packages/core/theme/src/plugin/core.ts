@@ -235,7 +235,7 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
  * - typography: fontSize with paired lineHeight
  * - motion: duration + easing + keyframes + animation presets
  * - All token families can be overridden via `tokenOverrides`
- *'
+ *
  * @param {Record<string, string>} colors - The resolved flat colors map
  * @param {string} _prefix - The CSS variable prefix (unused, kept for API compat)
  * @param {boolean} disableAnimations - Whether to disable animations

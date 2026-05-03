@@ -1,20 +1,24 @@
 {
-  "name": "@ideasui/button",
+  "name": "@ideasui/react",
   "version": "0.0.1",
-  "description": "A high-performance, accessible Button and ButtonGroup component library for React, built with Tailwind CSS v4 and React Aria.",
+  "description": "The main entry point for the IdeasUI React component library.",
   "author": "IdeasUI<support@ideasui.com>",
   "homepage": "https://ideasui.com",
   "license": "MIT",
   "keywords": [
     "ideasui",
     "react",
-    "button",
-    "button-group",
-    "button-component",
-    "accessible-components",
-    "ui-components",
+    "components",
+    "ui-kit",
     "design-system",
-    "tailwindcss"
+    "ui-component-library",
+    "tailwindcss",
+    "tailwind-v4",
+    "react-aria",
+    "react-aria-components",
+    "oklch",
+    "dark-mode",
+    "accessible-components"
   ],
   "main": "./src/index.ts",
   "exports": {
@@ -31,7 +35,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ideas2logic-lab/ideasui.git",
-    "directory": "packages/components/button"
+    "directory": "packages/core/react"
   },
   "bugs": {
     "url": "https://github.com/ideas2logic-lab/ideasui/issues"
@@ -50,9 +54,9 @@
     "react-dom": ">=18"
   },
   "dependencies": {
+    "@ideasui/button": "workspace:*",
     "@ideasui/theme": "workspace:*",
-    "@ideasui/utils": "workspace:*",
-    "react-aria-components": "^1.16.0"
+    "@ideasui/utils": "workspace:*"
   },
   "devDependencies": {
     "clean-package": "^2.2.0",

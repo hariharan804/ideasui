@@ -49,28 +49,6 @@ export const kebabCase = (str: string): string =>
   str.replace(/([\da-z])([A-Z])/g, '$1-$2').toLowerCase();
 
 /**
- * Maps values of an object
- * @param {Record<string, T>} obj - The object to map
- * @param {Function} fn - The mapping function
- * @returns {Record<string, T>} A new object with mapped keys
- */
-export function mapKeys<T>(
-  obj: Record<string, T>,
-  fn: (value: T, key: string) => string,
-): Record<string, T> {
-  const result: Record<string, T> = {};
-
-  Object.keys(obj).forEach((key) => {
-    const value = obj[key];
-    const newKey = fn(value, key);
-
-    result[newKey] = value;
-  });
-
-  return result;
-}
-
-/**
  * Omits keys from an object
  * @param {T} obj - The object to omit keys from
  * @param {string[]} keys - The keys to omit
@@ -81,6 +59,25 @@ export function omit<T extends Record<string, unknown>>(obj: T, keys: string[]):
 
   keys.forEach((key) => {
     delete result[key];
+  });
+
+  return result;
+}
+
+/**
+ * Maps keys of an object using a callback function
+ * @param {Record<string, T>} obj - The object to map keys for
+ * @param {(value: T, key: string) => string} callback - The callback function to map keys
+ * @returns {Record<string, T>} A new object with mapped keys
+ */
+export function mapKeys<T>(
+  obj: Record<string, T>,
+  callback: (value: T, key: string) => string,
+): Record<string, T> {
+  const result: Record<string, T> = {};
+
+  Object.entries(obj).forEach(([key, value]) => {
+    result[callback(value, key)] = value;
   });
 
   return result;
