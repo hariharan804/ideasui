@@ -20,6 +20,10 @@
       "cache": true,
       "persistent": true
     },
+    "dev:docs": {
+      "cache": true,
+      "persistent": true
+    },
     "start:playground": {
       "cache": true,
       "persistent": true

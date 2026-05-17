@@ -27,6 +27,7 @@
     "dev": "turbo run dev",
     "build": "turbo run build --filter=!@ideasui/storybook",
     "dev:playground": "turbo run dev:playground",
+    "dev:docs": "turbo run dev:docs",
     "build:playground": "turbo run build:playground",
     "start:playground": "turbo run dev:playground",
     "typecheck": "turbo run typecheck",

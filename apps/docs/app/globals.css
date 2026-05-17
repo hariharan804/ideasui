@@ -1,0 +1,147 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/style.css';
+@import 'fumadocs-ui/css/black.css';
+@import 'fumadocs-ui/css/preset.css';
+@import '@ideasui/theme/theme.css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Point Tailwind at places where classnames appear */
+@source '../app/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../components/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../content/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../lib/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../node_modules/@ideasui/**/*.{js,ts,jsx,tsx,mdx,css}';
+
+html.dark {
+  color-scheme: dark;
+}
+
+html:not(.dark) {
+  color-scheme: light;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   ROOT — Base configuration
+   ───────────────────────────────────────────────────────────────────── */
+:root {
+  --font-inter: 'Inter', sans-serif;
+  --header-height: 56px;
+  --sidebar-width: 280px;
+  --toc-width: 268px;
+  --banner-height: 0px;
+  --docs-height: 100dvh;
+  --fd-layout-width: 100%;
+}
+
+@media (max-width: 1280px) {
+  :root {
+    --toc-width: 0px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 240px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --fd-layout-width: 97rem;
+  }
+}
+
+html {
+  @apply bg-background scroll-smooth antialiased transition-colors duration-300;
+  height: 100%;
+}
+
+body {
+  @apply text-content-primary font-sans;
+  min-height: 100%;
+}
+
+/* ─── Layout Fixes ─────────────────────────────────────────────────── */
+
+/* Fix scrolling glitch where header overlaps anchors */
+html {
+  scroll-padding-top: 120px;
+}
+
+/* Landing Page (Home) Specific */
+main:has(.hero-section) {
+  padding-bottom: 0;
+}
+
+/* ─── Modernization Accents ────────────────────────────────────────── */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border) / 0.3;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border) / 0.5;
+}
+
+/* Glassmorphism for Sidebar & Nav */
+#nd-sidebar {
+  background: var(--color-background) / 0.6 !important;
+  backdrop-filter: blur(12px) !important;
+  border-right: 1px solid var(--color-border-subtle) / 0.2 !important;
+}
+
+/* Sidebar Item Enhancements */
+[data-sidebar-placeholder] a,
+[data-sidebar-placeholder] button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-sidebar-placeholder] a:hover,
+[data-sidebar-placeholder] button:hover {
+  transform: translateX(2px);
+}
+
+/* Page content animation */
+article {
+  animation: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* TOC & Active State Smoothness */
+[data-toc-item][data-active='true'] {
+  color: var(--color-primary) !important;
+  font-weight: 500 !important;
+}
+
+[data-toc-item]:hover {
+  color: var(--color-content-primary) !important;
+}
+
+/* Fix for overlapping header in anchors */
+:target {
+  scroll-margin-top: 100px;
+}

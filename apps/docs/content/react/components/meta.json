@@ -1,0 +1,6 @@
+{
+  "title": "Components",
+  "description": "IdeasUI React components",
+  "root": true,
+  "pages": ["index", "---General---", "(buttons)/button"]
+}

@@ -426,4 +426,27 @@ export default defineConfig([
       'sonarjs/no-duplicate-string': 'off',
     },
   },
+
+  // Documentation & Playground configuration
+  {
+    files: ['apps/docs/**/*', 'apps/playground/**/*'],
+    linterOptions: {
+      reportUnusedDisableDirectives: false,
+    },
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      'no-console': 'off',
+      'import/order': 'off',
+      'import/consistent-type-specifier-style': 'off',
+      'unicorn/filename-case': 'off',
+      'promise/prefer-await-to-then': 'off',
+      'jsdoc/check-tag-names': 'off',
+      'react/jsx-no-leaked-render': 'off',
+      curly: 'off',
+      'react-refresh/only-export-components': 'off',
+      'react/jsx-no-bind': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+    },
+  },
 ]);
