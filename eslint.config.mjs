@@ -72,6 +72,9 @@ export default defineConfig([
     '!**/tsup.config.ts',
     '**/storybook-static/**',
     'packages/core/styles-experimental/**', // Experimental package
+    'apps/docs-rnd/**',
+    'apps/docs/.source/**',
+    'apps/docs/next-env.d.ts',
   ]),
 
   // Main configuration

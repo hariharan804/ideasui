@@ -11,5 +11,7 @@ pnpm-lock.yaml
 !.lintstagedrc.cjs
 !jest.config.js
 !plopfile.js
-!tsup.config.ts
+!.tsup.config.ts
 templates/
+apps/docs/.source
+apps/docs/next-env.d.ts
