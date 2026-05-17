@@ -145,7 +145,7 @@ export function LayoutHeaderTabs({
               'group relative -mb-px flex-shrink-0 px-4 py-2 text-sm font-medium transition-all duration-300',
               'rounded-t-xl active:scale-[0.98]',
               isSelected
-                ? 'bg-surface border-base/20 !border-b-none text-primary z-1 border !border-b-transparent'
+                ? 'border-base/20 text-primary !border-b-surface z-1 border !border-b'
                 : 'text-content-secondary hover:bg-surface-muted hover:text-content-primary z-1',
               className,
             )}

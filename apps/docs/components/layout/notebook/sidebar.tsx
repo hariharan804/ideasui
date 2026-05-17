@@ -15,14 +15,14 @@ import { LayoutContext } from './context';
 import { mergeRefs } from '@/lib/docs/merge-refs';
 
 const itemVariants = tv({
-  base: 'text-content-secondary relative flex flex-row items-center gap-2.5 rounded-lg px-3 py-2 text-start transition-all duration-200 [&_svg]:size-4 [&_svg]:shrink-0 my-0.5 mx-2',
+  base: 'text-content-secondary relative flex flex-row items-center gap-2.5 rounded-lg px-3 py-2 text-start transition-colors duration-200 [&_svg]:size-4 [&_svg]:shrink-0 my-0.5',
   variants: {
     highlight: {
       true: '',
     },
     variant: {
-      button: 'hover:bg-surface/50 hover:text-content-primary',
-      link: 'hover:bg-surface/40 hover:text-content-primary data-[active=true]:bg-primary/10 data-[active=true]:text-primary data-[active=true]:font-semibold transition-all duration-200',
+      button: 'hover:bg-surface hover:text-content-primary',
+      link: 'hover:bg-surface hover:text-content-primary data-[active=true]:bg-primary/10 data-[active=true]:text-primary data-[active=true]:font-semibold transition-colors duration-200',
     },
   },
 });
@@ -127,7 +127,7 @@ export function SidebarSeparator({ children, className, style, ...props }: Compo
   return (
     <Base.SidebarSeparator
       className={cn(
-        'text-content-muted mt-8 mb-2 flex items-center gap-2 text-[11px] font-bold tracking-[0.1em] uppercase transition-opacity',
+        'text-content-muted mt-4 mb-2 flex items-center px-2 text-xs font-medium tracking-wider uppercase transition-opacity',
         className,
       )}
       style={{
@@ -136,9 +136,7 @@ export function SidebarSeparator({ children, className, style, ...props }: Compo
       }}
       {...props}
     >
-      <span className="bg-surface-muted h-px flex-1" />
-      <span className="relative flex-none">{children}</span>
-      <span className="bg-surface-muted h-px flex-1" />
+      {children}
     </Base.SidebarSeparator>
   );
 }
@@ -155,7 +153,12 @@ export function SidebarItem({
 
   return (
     <Base.SidebarItem
-      className={cn(itemVariants({ highlight: depth >= 1, variant: 'link' }), className)}
+      className={cn(
+        'text-content-secondary hover:text-content-primary data-[active=true]:text-primary relative flex flex-row items-center gap-2.5 rounded-md px-2 py-1.5 text-sm font-medium transition-colors duration-200',
+        'hover:from-primary/5 data-[active=true]:from-primary/10 hover:bg-gradient-to-r hover:to-transparent data-[active=true]:bg-gradient-to-r data-[active=true]:to-transparent data-[active=true]:font-semibold',
+        '[&_svg]:size-4 [&_svg]:shrink-0',
+        className,
+      )}
       style={{
         paddingInlineStart: getItemOffset(depth),
         ...style,

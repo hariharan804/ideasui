@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 'use client';
 
 import type { ReactNode } from 'react';
@@ -39,13 +38,11 @@ export default function Layout({ children }: { children: ReactNode }) {
           {
             title: 'Getting Started',
             url: '/react/docs',
-            // @ts-expect-error -- icon is not in SidebarTab type but used in our custom LayoutHeaderTabs
             icon: <Rocket className="size-4" />,
           },
           {
             title: 'Components',
             url: '/react/docs/components/button',
-            // @ts-expect-error -- icon is not in SidebarTab type but used in our custom LayoutHeaderTabs
             icon: <Blocks className="size-4" />,
           },
         ],

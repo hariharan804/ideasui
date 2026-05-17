@@ -1,3 +1,5 @@
+'use client';
+
 import type { ThemeState } from './context';
 
 import { useThemeContext } from './context';

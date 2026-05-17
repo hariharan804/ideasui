@@ -1,11 +1,10 @@
 ---
 title: Button
-description: A clickable button component with multiple variants and states
+description: A versatile button component with multiple variants, sizes, and states.
 links:
   rac: Button
-  source: button/button.tsx
-  styles: button.css
-  storybook: Components/Buttons/Button
+  source: button/src/button.tsx
+  storybook: Components/Button
   figma: true
 ---
 
@@ -21,9 +20,19 @@ import { Button } from '@ideasui/react';
 
 ### Variants
 
+IdeasUI buttons support multiple variants including solid, outline, ghost, soft, text, elevated, and a custom glassmorphic `glaze` variant.
+
 <Preview name="button-variants" />
 
+### Colors
+
+Semantic color themes let you quickly adapt the button for different contexts (e.g. primary, success, danger, warning).
+
+<Preview name="button-colors" />
+
 ### With Icons
+
+You can use the `startIcon` or `endIcon` props, or use the `Button.Icon` compound component for ultimate control over placement and styling.
 
 <Preview name="button-with-icons" />
 
@@ -33,13 +42,12 @@ import { Button } from '@ideasui/react';
 
 ### Loading
 
+Control the loading indicator with `isLoading`, `loadingPosition`, and custom `loadingIndicator` elements.
+
 <Preview name="button-loading" />
-
-### Loading State
-
 <Preview name="button-loading-state" />
 
-### Sizes
+### Sizes & Radius
 
 <Preview name="button-sizes" />
 
@@ -51,13 +59,34 @@ import { Button } from '@ideasui/react';
 
 <Preview name="button-disabled" />
 
-### Social Buttons
+### Composition & Compound Components
 
-<Preview name="button-social" />
+The Button component uses compound components for maximum flexibility:
 
-### Custom Render Function
+- `Button.Label` - The text content of the button.
+- `Button.Icon` - For adding icons, with a `placement` prop.
+- `Button.Spinner` - Customizable loading indicator.
+- `Button.Shortcut` - Display keyboard shortcuts.
 
-<Preview name="button-custom-render-function" />
+```tsx
+<Button>
+  <Button.Icon placement="start"><Search /></Button.Icon>
+  <Button.Label>Search</Button.Label>
+  <Button.Shortcut>⌘K</Button.Shortcut>
+</Button>
+```
+
+### Button Group
+
+You can group multiple buttons together using the `Button.Group` component. It automatically shares layout, size, color, and variant across its children, and supports vertical/horizontal stacking.
+
+```tsx
+<Button.Group variant="outline" color="primary" isAttached>
+  <Button>Feed</Button>
+  <Button>Messages</Button>
+  <Button>Notifications</Button>
+</Button.Group>
+```
 
 <Related component="button" />
 
@@ -65,110 +94,60 @@ import { Button } from '@ideasui/react';
 
 ## Styling
 
-### Passing Tailwind CSS classes
-
-```tsx
-import { Button } from '@ideasui/react';
-
-function CustomButton() {
-  return <Button className="bg-purple-500 text-white hover:bg-purple-600">Purple Button</Button>;
-}
-```
-
-### Customizing the component classes
-
-To customize the Button component classes, you can use the `@layer components` directive.
-
-<br />
-[Learn more](https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes).
-
-```css
-@layer components {
-  .button {
-    @apply bg-purple-500 text-white hover:bg-purple-600;
-  }
-
-  .button--icon-only {
-    @apply rounded-lg bg-blue-500;
-  }
-}
-```
-
-IdeasUI follows the [BEM](https://getbem.com/) methodology to ensure component variants and states are reusable and easy to customize.
-
-### Adding custom variants
-
-You can extend IdeasUI components by wrapping them and adding your own custom variants.
-
-<Preview name="button-custom-variants" />
-
-### Adding Ripple Effect
-
-The Button component supports ripple effects through composition, allowing you to nest ripple components as children. This example uses [m3-ripple](https://github.com/saltyaom/m3-ripple).
-
-<Preview name="button-ripple-effect" />
-
 ### CSS Classes
 
-The Button component uses these CSS classes ([View source styles](https://github.com/heroui-inc/heroui/blob/v3/packages/styles/components/button.css)):
+The Button component uses granular class names and the BEM methodology for slots:
 
-#### Base & Size Classes
-
-- `.button` - Base button styles
-- `.button--sm` - Small size variant
-- `.button--md` - Medium size variant
-- `.button--lg` - Large size variant
-
-#### Variant Classes
-
-- `.button--primary`
-- `.button--secondary`
-- `.button--tertiary`
-- `.button--outline`
-- `.button--ghost`
-- `.button--error`
-
-#### Modifier Classes
-
-- `.button--icon-only`
-- `.button--icon-only.button--sm`
-- `.button--icon-only.button--lg`
+- `base` - Base button container
+- `label` - Text label slot
+- `startIcon` - Leading icon slot
+- `endIcon` - Trailing icon slot
+- `spinner` - Loading spinner slot
+- `shortcut` - Keyboard shortcut slot
 
 ### Interactive States
 
 The button supports both CSS pseudo-classes and data attributes for flexibility:
 
 - **Hover**: `:hover` or `[data-hovered="true"]`
-- **Active/Pressed**: `:active` or `[data-pressed="true"]` (includes scale transform)
-- **Focus**: `:focus-visible` or `[data-focus-visible="true"]` (shows focus ring)
-- **Disabled**: `:disabled` or `[aria-disabled="true"]` (reduced opacity, no pointer events)
+- **Active/Pressed**: `:active` or `[data-pressed="true"]`
+- **Focus**: `:focus-visible` or `[data-focus-visible="true"]`
+- **Disabled**: `:disabled` or `[aria-disabled="true"]`
 - **Pending**: `[data-pending]` (no pointer events during loading)
 
 ## API Reference
 
 ### Button Props
 
-| Prop         | Type                                                                        | Default     | Description                                                      |
-| ------------ | --------------------------------------------------------------------------- | ----------- | ---------------------------------------------------------------- |
-| `variant`    | `'primary' \| 'secondary' \| 'tertiary' \| 'outline' \| 'ghost' \| 'error'` | `'primary'` | Visual style variant                                             |
-| `size`       | `'sm' \| 'md' \| 'lg'`                                                      | `'md'`      | Size of the button                                               |
-| `fullWidth`  | `boolean`                                                                   | `false`     | Whether the button should take full width of its container       |
-| `isDisabled` | `boolean`                                                                   | `false`     | Whether the button is disabled                                   |
-| `isPending`  | `boolean`                                                                   | `false`     | Whether the button is in a loading state                         |
-| `isIconOnly` | `boolean`                                                                   | `false`     | Whether the button contains only an icon                         |
-| `onPress`    | `(e: PressEvent) => void`                                                   | -           | Handler called when the button is pressed                        |
-| `children`   | `React.ReactNode \| (values: ButtonRenderProps) => React.ReactNode`         | -           | Button content or render prop                                    |
-| `render`     | `DOMRenderFunction<keyof React.JSX.IntrinsicElements, ButtonRenderProps>`   | -           | Overrides the default DOM element with a custom render function. |
+| Prop | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `variant` | `'solid' \| 'outline' \| 'ghost' \| 'soft' \| 'link' \| 'text' \| 'elevated' \| 'glaze'` | `'solid'` | The visual style variant. |
+| `color` | `'primary' \| 'secondary' \| 'tertiary' \| 'neutral' \| 'danger' \| 'success' \| 'warning' \| 'info'` | `'primary'` | Semantic color theme. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Size of the button. |
+| `radius` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | The border radius. |
+| `isLoading` | `boolean` | `false` | Loading state of the button. |
+| `loadingIndicator`| `ReactNode` | - | Custom loading indicator element. |
+| `loadingPosition`| `'start' \| 'end' \| 'center'` | `'start'` | Where the loading indicator appears. |
+| `isIconOnly` | `boolean` | `false` | Whether the button only contains an icon. |
+| `isDisabled` | `boolean` | `false` | Whether the button is disabled. |
+| `fullWidth` | `boolean` | `false` | Takes the full width of the container. |
+| `disableAnimation`| `boolean` | `false` | Disables press and hover animations. |
+| `shortcut` | `ReactNode` | - | Keyboard shortcut to display. |
+| `classNames` | `ButtonClassNames` | - | Custom class names for internal slots. |
+| `onPress` | `(e: PressEvent) => void` | - | Click/Press handler. |
+| `children` | `ReactNode \| (props: ButtonRenderProps) => ReactNode` | - | Content of the button. |
 
-### ButtonRenderProps
+### Button.Group Props
 
-When using the render prop pattern, these values are provided:
-
-| Prop             | Type      | Description                                    |
-| ---------------- | --------- | ---------------------------------------------- |
-| `isPending`      | `boolean` | Whether the button is in a loading state       |
-| `isPressed`      | `boolean` | Whether the button is currently pressed        |
-| `isHovered`      | `boolean` | Whether the button is hovered                  |
-| `isFocused`      | `boolean` | Whether the button is focused                  |
-| `isFocusVisible` | `boolean` | Whether the button should show focus indicator |
-| `isDisabled`     | `boolean` | Whether the button is disabled                 |
+| Prop | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| `isAttached` | `boolean` | `true` | Joins the buttons without gaps. |
+| `isVertical` | `boolean` | `false` | Stacks the buttons vertically. |
+| `showDivider` | `boolean` | `true` | Shows dividers between attached buttons. |
+| `variant` | `ButtonVariant` | - | Passed down to all child buttons. |
+| `color` | `ButtonColor` | - | Passed down to all child buttons. |
+| `size` | `ButtonSize` | - | Passed down to all child buttons. |
+| `radius` | `ButtonRadius` | - | Passed down to all child buttons. |
+| `isDisabled` | `boolean` | `false` | Disables all child buttons. |
+| `fullWidth` | `boolean` | `false` | Takes the full width of the container. |
+| `disableAnimation`| `boolean` | `false` | Disables animations for all child buttons. |

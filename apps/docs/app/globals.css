@@ -37,6 +37,24 @@ html:not(.dark) {
   --banner-height: 0px;
   --docs-height: 100dvh;
   --fd-layout-width: 100%;
+
+  /* Override Fumadocs Theme Variables at Runtime */
+  --fd-primary: var(--ideasui-color-primary);
+  --color-fd-primary: oklch(var(--ideasui-color-primary));
+
+  --fd-primary-foreground: var(--ideasui-color-on-primary);
+  --color-fd-primary-foreground: oklch(var(--ideasui-color-on-primary));
+
+  --fd-muted: var(--ideasui-color-surface-muted);
+  --color-fd-muted: oklch(
+    var(--ideasui-color-surface-muted) / var(--ideasui-opacity-surface-muted)
+  );
+
+  --fd-muted-foreground: var(--ideasui-color-content-secondary);
+  --color-fd-muted-foreground: oklch(var(--ideasui-color-content-secondary));
+
+  --fd-accent-foreground: var(--ideasui-color-content-primary);
+  --color-fd-accent-foreground: oklch(var(--ideasui-color-content-primary));
 }
 
 @media (max-width: 1280px) {
@@ -110,11 +128,6 @@ main:has(.hero-section) {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-[data-sidebar-placeholder] a:hover,
-[data-sidebar-placeholder] button:hover {
-  transform: translateX(2px);
-}
-
 /* Page content animation */
 article {
   animation: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -131,14 +144,41 @@ article {
   }
 }
 
-/* TOC & Active State Smoothness */
-[data-toc-item][data-active='true'] {
-  color: var(--color-primary) !important;
+/* ─── Force Fumadocs (Clerk TOC) to use IdeasUI OKLCH Colors ─── */
+.text-fd-primary {
+  color: oklch(var(--ideasui-color-primary)) !important;
+}
+
+#nd-toc a[data-active='true'],
+#nd-toc [data-active='true'] {
+  color: oklch(var(--ideasui-color-primary)) !important;
   font-weight: 500 !important;
 }
 
-[data-toc-item]:hover {
-  color: var(--color-content-primary) !important;
+.stroke-fd-primary {
+  stroke: oklch(var(--ideasui-color-primary)) !important;
+}
+
+.fill-fd-primary {
+  fill: oklch(var(--ideasui-color-primary)) !important;
+}
+
+.bg-fd-primary {
+  background-color: oklch(var(--ideasui-color-primary)) !important;
+}
+
+.fill-fd-muted {
+  fill: oklch(var(--ideasui-color-surface-muted) / var(--ideasui-opacity-surface-muted)) !important;
+}
+
+.text-fd-muted-foreground,
+#nd-toc a {
+  color: oklch(var(--ideasui-color-content-secondary)) !important;
+  transition: all 0.3s ease;
+}
+
+#nd-toc a:hover {
+  color: oklch(var(--ideasui-color-content-primary)) !important;
 }
 
 /* Fix for overlapping header in anchors */

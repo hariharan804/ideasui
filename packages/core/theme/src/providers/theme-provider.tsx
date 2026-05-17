@@ -1,3 +1,5 @@
+'use client';
+
 import type { PropsWithChildren, ReactElement } from 'react';
 import type { ThemeScriptConfig } from './types';
 

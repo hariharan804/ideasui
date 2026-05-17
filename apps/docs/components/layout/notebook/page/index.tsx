@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/consistent-function-scoping */
 'use client';
 
 import type { AnchorProviderProps, TOCItemType } from 'fumadocs-core/toc';
@@ -8,7 +7,7 @@ import type { ComponentProps, ReactNode } from 'react';
 
 import { useMemo, isValidElement } from 'react';
 import { TOCProvider, TOCScrollArea } from 'fumadocs-ui/components/toc';
-import { TOCItems, TOCItem } from 'fumadocs-ui/components/toc/default';
+import { TOCItems, TOCItem } from 'fumadocs-ui/components/toc/clerk';
 import { buttonVariants } from 'fumadocs-ui/components/ui/button';
 import { I18nLabel } from 'fumadocs-ui/contexts/i18n';
 import { cn } from '@ideasui/utils';
@@ -75,6 +74,8 @@ function extractText(node: ReactNode): string {
   return '';
 }
 
+const defaultWrapper = (children: ReactNode) => children;
+
 export function DocsPage({
   breadcrumb: { component: breadcrumb, enabled: breadcrumbEnabled = true, ...breadcrumbProps } = {},
   children,
@@ -117,7 +118,7 @@ export function DocsPage({
     tocPopoverOptions.header !== undefined ||
     tocPopoverOptions.footer !== undefined;
 
-  let wrapper = (children: ReactNode) => children;
+  let wrapper = defaultWrapper;
 
   if (tocEnabled || tocPopoverEnabled) {
     wrapper = (children) => (
