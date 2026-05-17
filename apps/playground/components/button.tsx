@@ -50,7 +50,7 @@ export default function ButtonPreview(): JSX.Element {
             <div className="flex flex-col gap-2">
               <Button variant="solid">Solid (Default)</Button>
               <Button variant="outline">Outline</Button>
-              <Button variant="soft">Soft</Button>
+              <Button variant="muted">Soft</Button>
               <Button variant="ghost">Ghost</Button>
             </div>
           </div>
@@ -145,8 +145,8 @@ export default function ButtonPreview(): JSX.Element {
             <Button color="success" size="lg" variant="glaze">
               Success Glaze
             </Button>
-            <Button color="danger" size="lg" variant="glaze">
-              Danger Glaze
+            <Button color="error" size="lg" variant="glaze">
+              Error Glaze
             </Button>
             <Button color="info" size="lg" variant="glaze">
               Info Glaze
@@ -178,7 +178,7 @@ export default function ButtonPreview(): JSX.Element {
             <Button.Shortcut>⌘N</Button.Shortcut>
           </Button>
 
-          <Button fullWidth className="justify-between" variant="soft">
+          <Button fullWidth className="justify-between" variant="muted">
             <div className="flex items-center gap-2">
               <Trash2 className="size-4" />
               <span>Delete</span>
@@ -212,38 +212,38 @@ export default function ButtonPreview(): JSX.Element {
               <Button color="tertiary">Tertiary</Button>
               <Button color="success">Success</Button>
               <Button color="warning">Warning</Button>
-              <Button color="danger">Danger</Button>
+              <Button color="error">Error</Button>
               <Button color="info">Info</Button>
               <Button color="neutral">Neutral</Button>
             </div>
           </div>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-medium tracking-wider uppercase">
-              Soft Palette
+              Muted Palette
             </h3>
             <div className="flex flex-wrap gap-4">
-              <Button color="primary" variant="soft">
+              <Button color="primary" variant="muted">
                 Primary
               </Button>
-              <Button color="secondary" variant="soft">
+              <Button color="secondary" variant="muted">
                 Secondary
               </Button>
-              <Button color="tertiary" variant="soft">
+              <Button color="tertiary" variant="muted">
                 Tertiary
               </Button>
-              <Button color="success" variant="soft">
+              <Button color="success" variant="muted">
                 Success
               </Button>
-              <Button color="warning" variant="soft">
+              <Button color="warning" variant="muted">
                 Warning
               </Button>
-              <Button color="danger" variant="soft">
-                Danger
+              <Button color="error" variant="muted">
+                Error
               </Button>
-              <Button color="info" variant="soft">
+              <Button color="info" variant="muted">
                 Info
               </Button>
-              <Button color="neutral" variant="soft">
+              <Button color="neutral" variant="muted">
                 Neutral
               </Button>
             </div>
@@ -357,7 +357,7 @@ export default function ButtonPreview(): JSX.Element {
                 <Button isIconOnly isLoading aria-label="Searching">
                   <Search className="size-5" />
                 </Button>
-                <Button isDisabled color="danger" startIcon={<Trash2 className="size-4" />}>
+                <Button isDisabled color="error" startIcon={<Trash2 className="size-4" />}>
                   Forbidden Delete
                 </Button>
               </div>

@@ -23,7 +23,7 @@ export interface ThemeScriptProps extends Partial<ThemeScriptConfig> {
   nonce?: string;
   scriptProps?: Omit<
     React.ScriptHTMLAttributes<HTMLScriptElement>,
-    'id' | 'nonce' | 'dangerouslySetInnerHTML' | 'suppressHydrationWarning'
+    'id' | 'nonce' | 'errorouslySetInnerHTML' | 'suppressHydrationWarning'
   >;
   id?: string;
 }

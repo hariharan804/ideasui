@@ -19,7 +19,7 @@ const colorClasses: Record<string, { subtle: string; onSubtle: string }> = {
   primary: { subtle: 'bg-primary-subtle', onSubtle: 'text-primary-on-subtle' },
   secondary: { subtle: 'bg-secondary-subtle', onSubtle: 'text-secondary-on-subtle' },
   success: { subtle: 'bg-success-subtle', onSubtle: 'text-success-on-subtle' },
-  danger: { subtle: 'bg-danger-subtle', onSubtle: 'text-danger-on-subtle' },
+  error: { subtle: 'bg-error-subtle', onSubtle: 'text-error-on-subtle' },
   warning: { subtle: 'bg-warning-subtle', onSubtle: 'text-warning-on-subtle' },
   info: { subtle: 'bg-info-subtle', onSubtle: 'text-info-on-subtle' },
 };

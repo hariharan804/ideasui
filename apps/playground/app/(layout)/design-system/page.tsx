@@ -31,7 +31,7 @@ const COLOR_PALETTES = [
   'tertiary',
   'neutral',
   'success',
-  'danger',
+  'error',
   'info',
   'warning',
 ] as const;
@@ -54,7 +54,7 @@ const SEMANTIC_ROLES = [
   'secondary',
   'tertiary',
   'success',
-  'danger',
+  'error',
   'info',
   'warning',
 ] as const;
@@ -69,7 +69,7 @@ const CONTENT_TOKENS = [
   'disabled',
   'inverse',
 ] as const;
-const BORDER_COLOR_TOKENS = ['default', 'subtle', 'strong', 'focus', 'danger'] as const;
+const BORDER_COLOR_TOKENS = ['default', 'subtle', 'strong', 'focus', 'error'] as const;
 
 const FONT_SIZES = ['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl'] as const;
 const FONT_WEIGHTS = [
@@ -347,18 +347,18 @@ const COLOR_BG_MAP: Record<string, Record<string, string>> = {
     '900': 'bg-success-900',
     '950': 'bg-success-950',
   },
-  danger: {
-    '50': 'bg-danger-50',
-    '100': 'bg-danger-100',
-    '200': 'bg-danger-200',
-    '300': 'bg-danger-300',
-    '400': 'bg-danger-400',
-    '500': 'bg-danger-500',
-    '600': 'bg-danger-600',
-    '700': 'bg-danger-700',
-    '800': 'bg-danger-800',
-    '900': 'bg-danger-900',
-    '950': 'bg-danger-950',
+  error: {
+    '50': 'bg-error-50',
+    '100': 'bg-error-100',
+    '200': 'bg-error-200',
+    '300': 'bg-error-300',
+    '400': 'bg-error-400',
+    '500': 'bg-error-500',
+    '600': 'bg-error-600',
+    '700': 'bg-error-700',
+    '800': 'bg-error-800',
+    '900': 'bg-error-900',
+    '950': 'bg-error-950',
   },
   info: {
     '50': 'bg-info-50',
@@ -427,11 +427,11 @@ const SEMANTIC_BG_MAP: Record<string, Record<string, string>> = {
     subtle: 'bg-success-subtle',
     'on-subtle': 'bg-success-on-subtle',
   },
-  danger: {
-    base: 'bg-danger-base',
-    'on-base': 'bg-danger-on-base',
-    subtle: 'bg-danger-subtle',
-    'on-subtle': 'bg-danger-on-subtle',
+  error: {
+    base: 'bg-error-base',
+    'on-base': 'bg-error-on-base',
+    subtle: 'bg-error-subtle',
+    'on-subtle': 'bg-error-on-subtle',
   },
   info: {
     base: 'bg-info-base',
@@ -481,7 +481,7 @@ const BORDER_COLOR_MAP: Record<string, string> = {
   subtle: 'border-subtle',
   strong: 'border-strong',
   focus: 'border-focus',
-  danger: 'border-danger',
+  error: 'border-error',
 };
 
 /* ═════════════════════════════════════════════════════════════════════
@@ -1514,8 +1514,8 @@ export default function DesignSystemPage(): JSX.Element {
                 <span className="bg-warning-base h-1.5 w-1.5 rounded-full" />
                 Pending
               </span>
-              <span className="bg-danger-subtle text-danger-on-subtle border-danger-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
-                <span className="bg-danger-base h-1.5 w-1.5 rounded-full" />
+              <span className="bg-error-subtle text-error-on-subtle border-error-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+                <span className="bg-error-base h-1.5 w-1.5 rounded-full" />
                 Failed
               </span>
               <span className="bg-info-subtle text-info-on-subtle border-info-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
@@ -1545,13 +1545,13 @@ export default function DesignSystemPage(): JSX.Element {
                   <p className="text-success-on-subtle/80 text-sm">Refined glass effect</p>
                 </div>
               </div>
-              <div className="group border-danger-base/20 bg-danger-subtle/40 hover:border-danger-base/40 relative overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md">
-                <div className="from-danger-base/10 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="group border-error-base/20 bg-error-subtle/40 hover:border-error-base/40 relative overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md">
+                <div className="from-error-base/10 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative z-10">
-                  <h4 className="text-danger-on-subtle mb-2 font-semibold tracking-tight">
-                    Danger Card
+                  <h4 className="text-error-on-subtle mb-2 font-semibold tracking-tight">
+                    Error Card
                   </h4>
-                  <p className="text-danger-on-subtle/80 text-sm">Refined glass effect</p>
+                  <p className="text-error-on-subtle/80 text-sm">Refined glass effect</p>
                 </div>
               </div>
             </div>

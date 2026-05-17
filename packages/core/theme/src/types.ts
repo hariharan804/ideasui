@@ -113,7 +113,7 @@ export interface ColorTokens {
   readonly secondary?: ColorScale;
   readonly success?: ColorScale;
   readonly warning?: ColorScale;
-  readonly danger?: ColorScale;
+  readonly error?: ColorScale;
   readonly info?: ColorScale;
   readonly neutral?: ColorScale;
   /** Common flat colors */

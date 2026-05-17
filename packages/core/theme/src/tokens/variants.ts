@@ -16,7 +16,7 @@ export const colorVariants = {
   tertiary: 'tertiary',
   success: 'success',
   warning: 'warning',
-  danger: 'danger',
+  error: 'error',
   info: 'info',
   neutral: 'neutral',
   gray: 'gray',
@@ -67,10 +67,10 @@ export const colorsWithVariant = {
     outline: 'border-2 border-warning-500 text-warning-500 hover:bg-warning-50',
     ghost: 'text-warning-500 hover:bg-warning-50',
   },
-  danger: {
-    solid: 'bg-danger-500 text-white hover:bg-danger-600',
-    outline: 'border-2 border-danger-500 text-danger-500 hover:bg-danger-50',
-    ghost: 'text-danger-500 hover:bg-danger-50',
+  error: {
+    solid: 'bg-error-500 text-white hover:bg-error-600',
+    outline: 'border-2 border-error-500 text-error-500 hover:bg-error-50',
+    ghost: 'text-error-500 hover:bg-error-50',
   },
   info: {
     solid: 'bg-info-500 text-white hover:bg-info-600',

@@ -19,7 +19,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'ghost', 'soft', 'link', 'text', 'elevated', 'glaze'],
+      options: ['solid', 'outline', 'ghost', 'muted', 'link', 'text', 'elevated', 'glaze'],
       description: 'The visual style of the button.',
     },
     color: {
@@ -29,7 +29,7 @@ const meta: Meta<typeof Button> = {
         'secondary',
         'tertiary',
         'neutral',
-        'danger',
+        'error',
         'success',
         'warning',
         'info',
@@ -136,7 +136,7 @@ export const Variants: Story = {
       <Button {...args} variant="ghost">
         Ghost
       </Button>
-      <Button {...args} variant="soft">
+      <Button {...args} variant="muted">
         Soft
       </Button>
       <Button {...args} variant="elevated">
@@ -174,7 +174,7 @@ export const Colors: Story = {
       <Button {...args} color="warning">
         Warning
       </Button>
-      <Button {...args} color="danger">
+      <Button {...args} color="error">
         Danger
       </Button>
       <Button {...args} color="info">
@@ -260,7 +260,7 @@ export const IconButton: Story = {
       <Button {...args} isIconOnly aria-label="Edit" color="secondary" variant="outline">
         <Plus className="size-5" />
       </Button>
-      <Button {...args} isIconOnly aria-label="Favorite" color="danger" variant="ghost">
+      <Button {...args} isIconOnly aria-label="Favorite" color="error" variant="ghost">
         <User className="size-5" />
       </Button>
     </div>
@@ -371,7 +371,7 @@ export const WithShortcut: Story = {
         <Button.Shortcut>⌘N</Button.Shortcut>
       </Button>
 
-      <Button {...args} className="w-64 justify-between" variant="soft">
+      <Button {...args} className="w-64 justify-between" variant="muted">
         <div className="flex items-center gap-2">
           <Settings className="size-4" />
           <span>Open Settings</span>

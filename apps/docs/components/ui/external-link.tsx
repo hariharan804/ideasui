@@ -1,8 +1,7 @@
-/* eslint-disable no-restricted-syntax */
-import React from 'react';
+import type { ReactNode } from 'react';
 import { ExternalLink as ExternalLinkIcon } from 'lucide-react';
 
-export function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
+export function ExternalLink({ href, children }: { href: string; children: ReactNode }) {
   return (
     <a
       className="text-content-secondary hover:text-content-primary flex items-center gap-1.5 transition-colors"

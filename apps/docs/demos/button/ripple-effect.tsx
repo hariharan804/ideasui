@@ -7,7 +7,7 @@ import 'm3-ripple/ripple.css';
 
 export function RippleEffect() {
   return (
-    <Button variant="secondary">
+    <Button color="secondary">
       <Ripple />
       Click me
     </Button>

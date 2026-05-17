@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/set-state-in-effect, react-compiler/react-compiler */
-/* eslint-disable no-restricted-syntax */
 'use client';
 
 import type { Framework } from '@/hooks/use-current-framework';
 
-import { Globe, Smartphone } from '@gravity-ui/icons';
+import { Globe, Smartphone } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '@ideasui/utils';
@@ -22,6 +19,12 @@ export function FrameworkTabs({ className }: { className?: string }) {
   const [selectedKey, setSelectedKey] = useState<Framework>(() => {
     return currentFramework;
   });
+  const [prevFramework, setPrevFramework] = useState<Framework>(currentFramework);
+
+  if (currentFramework !== prevFramework) {
+    setPrevFramework(currentFramework);
+    setSelectedKey(currentFramework);
+  }
 
   const handleTabChange = useCallback(
     (targetFramework: Framework) => {
@@ -33,7 +36,7 @@ export function FrameworkTabs({ className }: { className?: string }) {
       isNavigatingRef.current = true;
 
       setTimeout(() => {
-        router.push(defaultRoutes[targetFramework] as any);
+        router.push(defaultRoutes[targetFramework]);
       }, 150);
     },
     [currentFramework, router],
@@ -45,13 +48,9 @@ export function FrameworkTabs({ className }: { className?: string }) {
         isNavigatingRef.current = false;
       }
 
-      if (currentFramework !== selectedKey) {
-        setSelectedKey(currentFramework);
-      }
-
       previousPathnameRef.current = pathname;
     }
-  }, [pathname, currentFramework, selectedKey]);
+  }, [pathname]);
 
   return (
     <div

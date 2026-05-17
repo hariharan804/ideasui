@@ -343,7 +343,7 @@ export const primitives = {
       950: 'oklch(0.140 0.077 149.6)',
     },
 
-    danger: {
+    error: {
       50: 'oklch(0.970 0.020 25.3)',
       100: 'oklch(0.887 0.035 25.3)',
       200: 'oklch(0.804 0.068 25.3)',
@@ -462,7 +462,7 @@ export const primitives = {
       950: 'oklch(0.970 0.077 149.6)',
     },
 
-    danger: {
+    error: {
       50: 'oklch(0.140 0.020 25.3)',
       100: 'oklch(0.223 0.035 25.3)',
       200: 'oklch(0.306 0.068 25.3)',
@@ -510,70 +510,62 @@ export const primitives = {
    ============================================================ */
 
 export const semantic = {
-  primary: {
-    solid: 'var(--ideasui-color-primary-500)',
-    'on-solid': 'var(--ideasui-color-primary-50)',
-    subtle: 'var(--ideasui-color-primary-50)',
-    'on-subtle': 'var(--ideasui-color-primary-800)',
-    soft: 'var(--ideasui-color-primary-100)',
-    'on-soft': 'var(--ideasui-color-primary-700)',
-  },
-  success: {
-    solid: 'var(--ideasui-color-success-500)',
-    'on-solid': 'var(--ideasui-color-success-50)',
-    subtle: 'var(--ideasui-color-success-50)',
-    'on-subtle': 'var(--ideasui-color-success-800)',
-    soft: 'var(--ideasui-color-success-100)',
-    'on-soft': 'var(--ideasui-color-success-700)',
-  },
-  danger: {
-    solid: 'var(--ideasui-color-danger-500)',
-    'on-solid': 'var(--ideasui-color-danger-50)',
-    subtle: 'var(--ideasui-color-danger-50)',
-    'on-subtle': 'var(--ideasui-color-danger-800)',
-    soft: 'var(--ideasui-color-danger-100)',
-    'on-soft': 'var(--ideasui-color-danger-700)',
-  },
-  info: {
-    solid: 'var(--ideasui-color-info-500)',
-    'on-solid': 'var(--ideasui-color-info-50)',
-    subtle: 'var(--ideasui-color-info-50)',
-    'on-subtle': 'var(--ideasui-color-info-800)',
-    soft: 'var(--ideasui-color-info-100)',
-    'on-soft': 'var(--ideasui-color-info-700)',
-  },
-  warning: {
-    solid: 'var(--ideasui-color-warning-500)',
-    'on-solid': 'var(--ideasui-color-warning-50)',
-    subtle: 'var(--ideasui-color-warning-50)',
-    'on-subtle': 'var(--ideasui-color-warning-800)',
-    soft: 'var(--ideasui-color-warning-100)',
-    'on-soft': 'var(--ideasui-color-warning-700)',
-  },
-  secondary: {
-    solid: 'var(--ideasui-color-secondary-500)',
-    'on-solid': 'var(--ideasui-color-secondary-50)',
-    subtle: 'var(--ideasui-color-secondary-50)',
-    'on-subtle': 'var(--ideasui-color-secondary-800)',
-    soft: 'var(--ideasui-color-secondary-100)',
-    'on-soft': 'var(--ideasui-color-secondary-700)',
-  },
-  tertiary: {
-    solid: 'var(--ideasui-color-tertiary-500)',
-    'on-solid': 'var(--ideasui-color-tertiary-50)',
-    subtle: 'var(--ideasui-color-tertiary-50)',
-    'on-subtle': 'var(--ideasui-color-tertiary-800)',
-    soft: 'var(--ideasui-color-tertiary-100)',
-    'on-soft': 'var(--ideasui-color-tertiary-700)',
-  },
-  neutral: {
-    solid: 'var(--ideasui-color-neutral-500)',
-    'on-solid': 'var(--ideasui-color-neutral-50)',
-    subtle: 'var(--ideasui-color-neutral-50)',
-    'on-subtle': 'var(--ideasui-color-neutral-800)',
-    soft: 'var(--ideasui-color-neutral-100)',
-    'on-soft': 'var(--ideasui-color-neutral-700)',
-  },
+  // Primary
+  primary: 'var(--ideasui-color-primary-500)',
+  'on-primary': 'var(--ideasui-color-primary-50)',
+  'primary-subtle': 'var(--ideasui-color-primary-50)',
+  'on-primary-subtle': 'var(--ideasui-color-primary-800)',
+  'primary-muted': 'var(--ideasui-color-primary-100)',
+  'on-primary-muted': 'var(--ideasui-color-primary-700)',
+  // Secondary
+  secondary: 'var(--ideasui-color-secondary-500)',
+  'on-secondary': 'var(--ideasui-color-secondary-50)',
+  'secondary-subtle': 'var(--ideasui-color-secondary-50)',
+  'on-secondary-subtle': 'var(--ideasui-color-secondary-800)',
+  'secondary-muted': 'var(--ideasui-color-secondary-100)',
+  'on-secondary-muted': 'var(--ideasui-color-secondary-700)',
+  // Tertiary
+  tertiary: 'var(--ideasui-color-tertiary-500)',
+  'on-tertiary': 'var(--ideasui-color-tertiary-50)',
+  'tertiary-subtle': 'var(--ideasui-color-tertiary-50)',
+  'on-tertiary-subtle': 'var(--ideasui-color-tertiary-800)',
+  'tertiary-muted': 'var(--ideasui-color-tertiary-100)',
+  'on-tertiary-muted': 'var(--ideasui-color-tertiary-700)',
+  // Success
+  success: 'var(--ideasui-color-success-500)',
+  'on-success': 'var(--ideasui-color-success-50)',
+  'success-subtle': 'var(--ideasui-color-success-50)',
+  'on-success-subtle': 'var(--ideasui-color-success-800)',
+  'success-muted': 'var(--ideasui-color-success-100)',
+  'on-success-muted': 'var(--ideasui-color-success-700)',
+  // Warning
+  warning: 'var(--ideasui-color-warning-500)',
+  'on-warning': 'var(--ideasui-color-warning-50)',
+  'warning-subtle': 'var(--ideasui-color-warning-50)',
+  'on-warning-subtle': 'var(--ideasui-color-warning-800)',
+  'warning-muted': 'var(--ideasui-color-warning-100)',
+  'on-warning-muted': 'var(--ideasui-color-warning-700)',
+  // Error
+  error: 'var(--ideasui-color-error-500)',
+  'on-error': 'var(--ideasui-color-error-50)',
+  'error-subtle': 'var(--ideasui-color-error-50)',
+  'on-error-subtle': 'var(--ideasui-color-error-800)',
+  'error-muted': 'var(--ideasui-color-error-100)',
+  'on-error-muted': 'var(--ideasui-color-error-700)',
+  // Info
+  info: 'var(--ideasui-color-info-500)',
+  'on-info': 'var(--ideasui-color-info-50)',
+  'info-subtle': 'var(--ideasui-color-info-50)',
+  'on-info-subtle': 'var(--ideasui-color-info-800)',
+  'info-muted': 'var(--ideasui-color-info-100)',
+  'on-info-muted': 'var(--ideasui-color-info-700)',
+  // Neutral
+  neutral: 'var(--ideasui-color-neutral-500)',
+  'on-neutral': 'var(--ideasui-color-neutral-50)',
+  'neutral-subtle': 'var(--ideasui-color-neutral-50)',
+  'on-neutral-subtle': 'var(--ideasui-color-neutral-800)',
+  'neutral-muted': 'var(--ideasui-color-neutral-100)',
+  'on-neutral-muted': 'var(--ideasui-color-neutral-700)',
 } as const;
 
 /* ============================================================

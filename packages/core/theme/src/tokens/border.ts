@@ -8,9 +8,9 @@ export const border = {
 } as const;
 
 export const borderColor = {
-  default: 'var(--ideasui-color-neutral-200)',
+  base: 'var(--ideasui-color-neutral-200)',
   subtle: 'var(--ideasui-color-neutral-100)',
   strong: 'var(--ideasui-color-neutral-300)',
   focus: 'var(--ideasui-color-primary-500)',
-  danger: 'var(--ideasui-color-danger-500)',
+  error: 'var(--ideasui-color-error-500)',
 } as const;

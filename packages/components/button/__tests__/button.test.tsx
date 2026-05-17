@@ -178,7 +178,7 @@ describe('Button', () => {
 describe('ButtonGroup', () => {
   it('should pass props to children', () => {
     render(
-      <Button.Group isDisabled color="danger" size="xl">
+      <Button.Group isDisabled color="error" size="xl">
         <Button>Button 1</Button>
         <Button>Button 2</Button>
       </Button.Group>,
@@ -189,7 +189,7 @@ describe('ButtonGroup', () => {
     buttons.forEach((button) => {
       expect(button).toBeDisabled();
       expect(button).toHaveClass('btn--xl');
-      expect(button).toHaveClass('btn--danger');
+      expect(button).toHaveClass('btn--error');
     });
   });
 

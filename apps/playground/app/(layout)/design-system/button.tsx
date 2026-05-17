@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes, ReactNode, JSX } from 'react';
 
 type ButtonVariant = 'solid' | 'faded' | 'bordered' | 'light' | 'flat' | 'ghost' | 'shadow';
-type ButtonColor = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral';
+type ButtonColor = 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'neutral';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -34,7 +34,7 @@ export function Button({
       secondary: 'bg-secondary-base text-secondary-on-base',
       success: 'bg-success-base text-success-on-base',
       warning: 'bg-warning-base text-warning-on-base',
-      danger: 'bg-danger-base text-danger-on-base',
+      error: 'bg-error-base text-error-on-base',
       info: 'bg-info-base text-info-on-base',
       neutral: 'bg-neutral-base text-neutral-on-base',
     },
@@ -43,7 +43,7 @@ export function Button({
       secondary: 'bg-surface-elevated text-secondary-base border-2 border-secondary-subtle',
       success: 'bg-surface-elevated text-success-base border-2 border-success-subtle',
       warning: 'bg-surface-elevated text-warning-base border-2 border-warning-subtle',
-      danger: 'bg-surface-elevated text-danger-base border-2 border-danger-subtle',
+      error: 'bg-surface-elevated text-error-base border-2 border-error-subtle',
       info: 'bg-surface-elevated text-info-base border-2 border-info-subtle',
       neutral: 'bg-surface-elevated text-neutral-base border-2 border-neutral-subtle',
     },
@@ -52,7 +52,7 @@ export function Button({
       secondary: 'bg-transparent text-secondary-base border-2 border-secondary-base',
       success: 'bg-transparent text-success-base border-2 border-success-base',
       warning: 'bg-transparent text-warning-base border-2 border-warning-base',
-      danger: 'bg-transparent text-danger-base border-2 border-danger-base',
+      error: 'bg-transparent text-error-base border-2 border-error-base',
       info: 'bg-transparent text-info-base border-2 border-info-base',
       neutral: 'bg-transparent text-neutral-base border-2 border-neutral-base',
     },
@@ -61,7 +61,7 @@ export function Button({
       secondary: 'bg-transparent text-secondary-base',
       success: 'bg-transparent text-success-base',
       warning: 'bg-transparent text-warning-base',
-      danger: 'bg-transparent text-danger-base',
+      error: 'bg-transparent text-error-base',
       info: 'bg-transparent text-info-base',
       neutral: 'bg-transparent text-neutral-base',
     },
@@ -70,7 +70,7 @@ export function Button({
       secondary: 'bg-secondary-subtle text-secondary-on-subtle',
       success: 'bg-success-subtle text-success-on-subtle',
       warning: 'bg-warning-subtle text-warning-on-subtle',
-      danger: 'bg-danger-subtle text-danger-on-subtle',
+      error: 'bg-error-subtle text-error-on-subtle',
       info: 'bg-info-subtle text-info-on-subtle',
       neutral: 'bg-neutral-subtle text-neutral-on-subtle',
     },
@@ -80,7 +80,7 @@ export function Button({
       secondary: 'bg-transparent text-secondary-base',
       success: 'bg-transparent text-success-base',
       warning: 'bg-transparent text-warning-base',
-      danger: 'bg-transparent text-danger-base',
+      error: 'bg-transparent text-error-base',
       info: 'bg-transparent text-info-base',
       neutral: 'bg-transparent text-neutral-base',
     },
@@ -89,7 +89,7 @@ export function Button({
       secondary: 'bg-secondary-base text-secondary-on-base shadow-lg shadow-secondary-base',
       success: 'bg-success-base text-success-on-base shadow-lg shadow-success-base',
       warning: 'bg-warning-base text-warning-on-base shadow-lg shadow-warning-base',
-      danger: 'bg-danger-base text-danger-on-base shadow-lg shadow-danger-base',
+      error: 'bg-error-base text-error-on-base shadow-lg shadow-error-base',
       info: 'bg-info-base text-info-on-base shadow-lg shadow-info-base',
       neutral: 'bg-neutral-base text-neutral-on-base shadow-lg shadow-neutral-base',
     },

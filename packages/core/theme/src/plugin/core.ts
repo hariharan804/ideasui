@@ -5,6 +5,7 @@ import type {
   ConfigTheme,
   TokenOverrides,
   SemanticTokenOverrides,
+  ColorTokens,
 } from '../types';
 
 import deepMerge from 'deepmerge';
@@ -189,14 +190,13 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
   const lightTheme: ConfigTheme = {
     colors: deepMerge(
       {
-        ...deepMerge(primitives.light, semantic),
+        ...flattenThemeObject(primitives.light),
+        ...semantic,
         ...surface,
-        content,
-        border: borderColor,
-        ...componentColors,
+        ...flattenThemeObject({ content, border: borderColor, ...componentColors }),
       },
-      userLightColors,
-    ),
+      flattenThemeObject(userLightColors),
+    ) as Partial<ColorTokens>,
     designTokens: deepMerge(globalDesignTokens, userLightTokens),
     semanticTokens: deepMerge(globalSemanticTokens, userLightSemantic),
     components: deepMerge(globalComponents, userLightComponents),
@@ -205,14 +205,13 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
   const darkTheme: ConfigTheme = {
     colors: deepMerge(
       {
-        ...deepMerge(primitives.dark, semantic),
+        ...flattenThemeObject(primitives.dark),
+        ...semantic,
         ...surface,
-        content,
-        border: borderColor,
-        ...componentColors,
+        ...flattenThemeObject({ content, border: borderColor, ...componentColors }),
       },
-      userDarkColors,
-    ),
+      flattenThemeObject(userDarkColors),
+    ) as Partial<ColorTokens>,
     designTokens: deepMerge(globalDesignTokens, userDarkTokens),
     semanticTokens: deepMerge(globalSemanticTokens, userDarkSemantic),
     components: deepMerge(globalComponents, userDarkComponents),
@@ -291,7 +290,7 @@ export function createThemeExtension(
       subtle: colors['border-subtle'],
       strong: colors['border-strong'],
       focus: colors['border-focus'],
-      danger: colors['border-danger'],
+      error: colors['border-error'],
       ...t.borderColor,
       ...Object.fromEntries(
         Object.keys(semanticTokens.border || {}).map((key) => [

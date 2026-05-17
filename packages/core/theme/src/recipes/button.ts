@@ -57,8 +57,8 @@ const button = tv({
       ghost: {
         base: [BEM_GHOST, TRANSPARENT],
       },
-      soft: {
-        base: 'btn--soft',
+      muted: {
+        base: 'btn--muted',
       },
       link: {
         base: [BEM_LINK, TRANSPARENT, 'underline-offset-4', 'hover:underline', 'font-normal'],
@@ -101,7 +101,7 @@ const button = tv({
       tertiary: { base: 'btn--tertiary' },
       success: { base: 'btn--success' },
       warning: { base: 'btn--warning' },
-      danger: { base: 'btn--danger' },
+      error: { base: 'btn--error' },
       info: { base: 'btn--info' },
       neutral: { base: 'btn--neutral' },
     },

@@ -4,10 +4,10 @@ export function Disabled() {
   return (
     <div className="flex flex-wrap gap-3">
       <Button isDisabled>Primary</Button>
-      <Button isDisabled variant="secondary">
+      <Button isDisabled color="secondary">
         Secondary
       </Button>
-      <Button isDisabled variant="tertiary">
+      <Button isDisabled color="tertiary">
         Tertiary
       </Button>
       <Button isDisabled variant="outline">
@@ -16,7 +16,7 @@ export function Disabled() {
       <Button isDisabled variant="ghost">
         Ghost
       </Button>
-      <Button isDisabled variant="error">
+      <Button isDisabled color="error">
         Danger
       </Button>
     </div>

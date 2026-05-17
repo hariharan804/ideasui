@@ -1,4 +1,4 @@
-import { Plus } from '@gravity-ui/icons';
+import { Plus } from 'lucide-react';
 import { Button } from '@ideasui/react';
 
 export function FullWidth() {

@@ -1,4 +1,4 @@
-import { Envelope, Globe, Plus, TrashBin } from '@gravity-ui/icons';
+import { Mail as Envelope, Globe, Plus, Trash2 as TrashBin } from 'lucide-react';
 import { Button } from '@ideasui/react';
 
 export function WithIcons() {
@@ -8,15 +8,15 @@ export function WithIcons() {
         <Globe />
         Search
       </Button>
-      <Button variant="secondary">
+      <Button color="secondary">
         <Plus />
         Add Member
       </Button>
-      <Button variant="tertiary">
+      <Button color="tertiary">
         <Envelope />
         Email
       </Button>
-      <Button variant="error">
+      <Button color="error">
         <TrashBin />
         Delete
       </Button>

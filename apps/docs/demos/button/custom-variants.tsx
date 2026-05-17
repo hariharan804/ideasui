@@ -1,7 +1,8 @@
 import type { ButtonProps } from '@ideasui/react';
 import type { VariantProps } from 'tailwind-variants';
 
-import { Button, buttonVariants } from '@ideasui/react';
+import { Button } from '@ideasui/react';
+import { button } from '@ideasui/theme/recipes';
 import { tv } from 'tailwind-variants';
 
 const myButtonVariants = tv({
@@ -10,7 +11,7 @@ const myButtonVariants = tv({
     radius: 'full',
     variant: 'primary',
   },
-  extend: buttonVariants,
+  extend: button,
   variants: {
     radius: {
       full: 'rounded-full',
@@ -35,7 +36,7 @@ export type MyButtonProps = Omit<ButtonProps, 'className'> &
   MyButtonVariants & { className?: string };
 
 function CustomButton({ className, radius, variant, ...props }: MyButtonProps) {
-  return <Button className={myButtonVariants({ className, radius, variant })} {...props} />;
+  return <Button className={myButtonVariants({ className, radius, variant }).base()} {...props} />;
 }
 
 export function CustomVariants() {

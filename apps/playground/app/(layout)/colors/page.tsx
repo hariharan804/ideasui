@@ -191,7 +191,7 @@ export default function ColorsPage(): JSX.Element {
                     <button className="bg-success-base hover:bg-success-600 active:bg-success-700 text-success-on-base rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
                       Completed
                     </button>
-                    <button className="bg-danger-subtle hover:bg-danger-200 text-danger-700 border-danger-200 rounded-xl border px-5 py-2.5 text-sm font-semibold transition-all duration-200">
+                    <button className="bg-error-subtle hover:bg-error-200 text-error-700 border-error-200 rounded-xl border px-5 py-2.5 text-sm font-semibold transition-all duration-200">
                       Delete Profile
                     </button>
                   </div>
@@ -218,8 +218,8 @@ export default function ColorsPage(): JSX.Element {
                       <div className="bg-warning-500 h-1.5 w-1.5 rounded-full" />
                       Pending Sync
                     </span>
-                    <span className="bg-danger-subtle text-danger-700 ring-danger-200 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold shadow-sm ring-1">
-                      <div className="bg-danger-500 h-1.5 w-1.5 rounded-full" />
+                    <span className="bg-error-subtle text-error-700 ring-error-200 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold shadow-sm ring-1">
+                      <div className="bg-error-500 h-1.5 w-1.5 rounded-full" />
                       Critical Error
                     </span>
                   </div>
@@ -247,13 +247,13 @@ export default function ColorsPage(): JSX.Element {
                     </p>
                   </div>
 
-                  <div className="border-danger-subtle bg-danger-subtle/30 rounded-2xl border p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-                    <div className="bg-danger-subtle ring-danger-200 mb-4 flex h-10 w-10 items-center justify-center rounded-xl ring-1">
-                      <div className="bg-danger-500 h-4 w-4 rounded-full" />
+                  <div className="border-error-subtle bg-error-subtle/30 rounded-2xl border p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                    <div className="bg-error-subtle ring-error-200 mb-4 flex h-10 w-10 items-center justify-center rounded-xl ring-1">
+                      <div className="bg-error-500 h-4 w-4 rounded-full" />
                     </div>
-                    <h4 className="text-danger-700 mb-2 font-bold">Destructive Zone</h4>
+                    <h4 className="text-error-700 mb-2 font-bold">Destructive Zone</h4>
                     <p className="text-content-secondary text-sm leading-relaxed">
-                      Alert boxes formatted using semantic subtle danger token backgrounds.
+                      Alert boxes formatted using semantic subtle error token backgrounds.
                     </p>
                   </div>
 

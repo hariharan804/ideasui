@@ -1,9 +1,8 @@
-/* eslint-disable no-restricted-syntax */
 'use client';
 
-import { Paperclip } from '@gravity-ui/icons';
+import { Paperclip } from 'lucide-react';
 import { Button } from '@ideasui/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export function LoadingState() {
   const [isLoading, setLoading] = useState(false);

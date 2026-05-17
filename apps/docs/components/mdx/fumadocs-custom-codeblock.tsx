@@ -1,9 +1,6 @@
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable no-restricted-syntax */
 'use client';
-
 import type { CodeBlockProps } from 'fumadocs-ui/components/codeblock';
-import type { ComponentProps, RefObject } from 'react';
+import type { RefObject } from 'react';
 
 import { Button } from '@ideasui/react';
 import { CodeBlock } from 'fumadocs-ui/components/codeblock';
@@ -11,7 +8,7 @@ import { useCopyButton } from 'fumadocs-ui/utils/use-copy-button';
 import { useRef } from 'react';
 import { cn } from '@ideasui/utils';
 
-import { Iconify } from '@/components/mdx/iconify';
+import { Check, Copy } from 'lucide-react';
 
 export function FumadocsCustomCodeblock({
   allowCopy = true,
@@ -24,6 +21,7 @@ export function FumadocsCustomCodeblock({
   return (
     <CodeBlock
       {...props}
+      // eslint-disable-next-line react/no-unstable-nested-components
       Actions={(actionsProps) => (
         <div {...actionsProps} className={cn('z-10 empty:hidden', actionsProps.className)}>
           {!!allowCopy && <CopyButton code={code} containerRef={areaRef} />}
@@ -38,15 +36,13 @@ export function FumadocsCustomCodeblock({
   );
 }
 
-function CopyButton({
-  className,
-  code,
-  containerRef,
-  ...props
-}: ComponentProps<'button'> & {
+interface CopyButtonProps {
+  className?: string;
   code?: string;
   containerRef: RefObject<HTMLElement | null>;
-}) {
+}
+
+function CopyButton({ className, code, containerRef }: CopyButtonProps) {
   const [checked, onClick] = useCopyButton(() => {
     if (code) {
       void navigator.clipboard.writeText(code);
@@ -78,14 +74,9 @@ function CopyButton({
       size="sm"
       type="button"
       variant="muted"
-      onPress={onClick}
-      {...props}
+      onPress={(e) => onClick(e as unknown as React.MouseEvent)}
     >
-      {checked ? (
-        <Iconify className="size-4" icon="check" />
-      ) : (
-        <Iconify className="size-4" icon="copy" />
-      )}
+      {checked ? <Check className="size-4" /> : <Copy className="size-4" />}
     </Button>
   );
 }
