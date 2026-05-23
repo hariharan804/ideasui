@@ -70,6 +70,44 @@ export const demos: Record<string, DemoItem> = {
     component: ButtonDemos.CustomRenderFunction,
     file: 'button/custom-render-function.tsx',
   },
+
+  // Button Group demos
+  'button-group-basic': {
+    component: ButtonDemos.ButtonGroupBasic,
+    file: 'button/button-group-basic.tsx',
+  },
+  'button-group-detached': {
+    component: ButtonDemos.ButtonGroupDetached,
+    file: 'button/button-group-detached.tsx',
+  },
+  'button-group-vertical': {
+    component: ButtonDemos.ButtonGroupVertical,
+    file: 'button/button-group-vertical.tsx',
+  },
+  'button-group-with-icons': {
+    component: ButtonDemos.ButtonGroupWithIcons,
+    file: 'button/button-group-with-icons.tsx',
+  },
+  'button-group-complex': {
+    component: ButtonDemos.ButtonGroupComplex,
+    file: 'button/button-group-complex.tsx',
+  },
+  'button-group-variants': {
+    component: ButtonDemos.ButtonGroupVariants,
+    file: 'button/button-group-variants.tsx',
+  },
+  'button-group-sizes': {
+    component: ButtonDemos.ButtonGroupSizes,
+    file: 'button/button-group-sizes.tsx',
+  },
+  'button-group-full-width': {
+    component: ButtonDemos.ButtonGroupFullWidth,
+    file: 'button/button-group-full-width.tsx',
+  },
+  'button-group-disabled': {
+    component: ButtonDemos.ButtonGroupDisabled,
+    file: 'button/button-group-disabled.tsx',
+  },
 };
 
 export function getDemo(name: string): DemoItem | undefined {
