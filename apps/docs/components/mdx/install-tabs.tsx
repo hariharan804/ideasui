@@ -58,9 +58,9 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
     return (
       <span className="font-mono text-[13px] leading-relaxed select-all">
         <span className="text-primary font-semibold">{pm}</span>{' '}
-        <span className="text-content-secondary font-semibold">{action}</span>{' '}
-        {flag && <span className="text-content-tertiary">{flag} </span>}
-        <span className="text-content-primary font-medium">{activePkg}</span>
+        <span className="text-secondary font-semibold">{action}</span>{' '}
+        {flag && <span className="text-tertiary">{flag} </span>}
+        <span className="text-success font-medium">{activePkg}</span>
       </span>
     );
   };
@@ -112,7 +112,7 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
                 className={cn(
                   'cursor-pointer rounded-full px-2 text-[9.5px] font-semibold transition-all duration-200',
                   installMode === 'component'
-                    ? 'text-content-primary bg-surface border-subtle/5 border font-semibold shadow-xs'
+                    ? 'text-content-primary bg-surface border-subtle/5 shadow-xs'
                     : 'text-content-secondary hover:text-content-primary',
                 )}
                 type="button"
@@ -122,9 +122,9 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
               </button>
               <button
                 className={cn(
-                  'cursor-pointer rounded-full px-2 py-0.5 text-[9.5px] font-semibold transition-all duration-200',
+                  'cursor-pointer rounded-full px-2 text-[9.5px] font-semibold transition-all duration-200',
                   installMode === 'core'
-                    ? 'text-content-primary bg-surface border-subtle/5 border font-semibold shadow-xs'
+                    ? 'text-content-primary bg-surface border-subtle/5 shadow-xs'
                     : 'text-content-secondary hover:text-content-primary',
                 )}
                 type="button"

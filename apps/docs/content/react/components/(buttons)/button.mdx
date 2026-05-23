@@ -126,35 +126,12 @@ The button supports both CSS pseudo-classes and data attributes for flexibility:
 
 ### Button Props
 
-| Prop | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| `variant` | `'solid' \| 'outline' \| 'ghost' \| 'muted' \| 'link' \| 'text' \| 'elevated' \| 'glaze'` | `'solid'` | The visual style variant. |
-| `color` | `'primary' \| 'secondary' \| 'tertiary' \| 'neutral' \| 'error' \| 'success' \| 'warning' \| 'info'` | `'primary'` | Semantic color theme. |
-| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Size of the button. |
-| `radius` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | The border radius. |
-| `isLoading` | `boolean` | `false` | Loading state of the button. |
-| `loadingIndicator`| `ReactNode` | - | Custom loading indicator element. |
-| `loadingPosition`| `'start' \| 'end' \| 'center'` | `'start'` | Where the loading indicator appears. |
-| `isIconOnly` | `boolean` | `false` | Whether the button only contains an icon. |
-| `isDisabled` | `boolean` | `false` | Whether the button is disabled. |
-| `fullWidth` | `boolean` | `false` | Takes the full width of the container. |
-| `disableAnimation`| `boolean` | `false` | Disables press and hover animations. |
-| `shortcut` | `ReactNode` | - | Keyboard shortcut to display. |
-| `classNames` | `ButtonClassNames` | - | Custom class names for internal slots. |
-| `onPress` | `(e: PressEvent) => void` | - | Click/Press handler. |
-| `children` | `ReactNode \| (props: ButtonRenderProps) => ReactNode` | - | Content of the button. |
+import { buttonProps } from './button-props';
+
+<PropsTable data={buttonProps} />
 
 ### Button.Group Props
 
-| Prop | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| `isAttached` | `boolean` | `true` | Joins the buttons without gaps. |
-| `isVertical` | `boolean` | `false` | Stacks the buttons vertically. |
-| `showDivider` | `boolean` | `true` | Shows dividers between attached buttons. |
-| `variant` | `ButtonVariant` | - | Passed down to all child buttons. |
-| `color` | `ButtonColor` | - | Passed down to all child buttons. |
-| `size` | `ButtonSize` | - | Passed down to all child buttons. |
-| `radius` | `ButtonRadius` | - | Passed down to all child buttons. |
-| `isDisabled` | `boolean` | `false` | Disables all child buttons. |
-| `fullWidth` | `boolean` | `false` | Takes the full width of the container. |
-| `disableAnimation`| `boolean` | `false` | Disables animations for all child buttons. |
+import { buttonGroupProps } from './button-props';
+
+<PropsTable data={buttonGroupProps} />

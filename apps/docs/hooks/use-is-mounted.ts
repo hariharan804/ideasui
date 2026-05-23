@@ -1,7 +1,8 @@
 /* eslint-disable unicorn/consistent-function-scoping, sonarjs/prefer-immediate-return */
 import { useSyncExternalStore } from 'react';
 
-const emptySubscribe = () => () => {};
+const noop = () => {};
+const emptySubscribe = () => noop;
 const getSnapshot = () => true;
 const getServerSnapshot = () => false;
 
