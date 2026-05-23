@@ -170,3 +170,5 @@ Thumbs.db
 packages/core/styles-experimental
 apps/docs-rnd
 *.log
+
+.chrome-profile

@@ -4,13 +4,13 @@ import { Button } from '@ideasui/react';
 export function IconOnly() {
   return (
     <div className="flex gap-3">
-      <Button isIconOnly color="tertiary">
+      <Button isIconOnly aria-label="More options" color="tertiary">
         <Ellipsis />
       </Button>
-      <Button isIconOnly color="secondary">
+      <Button isIconOnly aria-label="Settings" color="secondary">
         <Gear />
       </Button>
-      <Button isIconOnly color="error">
+      <Button isIconOnly aria-label="Delete" color="error">
         <TrashBin />
       </Button>
     </div>

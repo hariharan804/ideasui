@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev:docs": "NODE_OPTIONS='--max-old-space-size=8192' next dev",
-    "build:docs": "next build",
+    "dev:docs": "NODE_OPTIONS='--max-old-space-size=8192' next dev --webpack",
+    "build:docs": "next build --webpack",
     "start:docs": "next start",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint"
   },
   "dependencies": {
@@ -28,7 +29,8 @@
     "react-dom": "19.2.4",
     "shiki": "3.20.0",
     "tailwind-merge": "^3.5.0",
-    "tailwind-variants": "^3.2.2"
+    "tailwind-variants": "^3.2.2",
+    "zod": "4.0.0-beta.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -182,13 +182,13 @@ export default function ColorsPage(): JSX.Element {
                 </h3>
                 <div className="border-default bg-surface-elevated rounded-2xl border p-8">
                   <div className="flex flex-wrap gap-4">
-                    <button className="bg-primary-base hover:bg-primary-600 active:bg-primary-700 text-primary-on-base rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                    <button className="bg-primary hover:bg-primary-600 active:bg-primary-700 text-on-primary rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
                       Primary Action
                     </button>
                     <button className="bg-surface-container hover:bg-surface-strong active:bg-surface-sunken text-content-primary border-default rounded-xl border px-5 py-2.5 text-sm font-semibold shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
                       Secondary Action
                     </button>
-                    <button className="bg-success-base hover:bg-success-600 active:bg-success-700 text-success-on-base rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                    <button className="bg-success hover:bg-success-600 active:bg-success-700 text-on-success rounded-xl px-5 py-2.5 text-sm font-semibold shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
                       Completed
                     </button>
                     <button className="bg-error-subtle hover:bg-error-200 text-error-700 border-error-200 rounded-xl border px-5 py-2.5 text-sm font-semibold transition-all duration-200">

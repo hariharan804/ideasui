@@ -21,15 +21,19 @@ const config: Config = {
           globalGap: '2.5rem',
         },
       },
-      semanticTokens: {
-        surface: {
-          globalBase: 'oklch(1 0 0)',
-        },
-      },
+      semanticTokens: {},
       // ─────────────────────────────────────────────────────────────
       // 2. Theme-Specific Overrides
       // ─────────────────────────────────────────────────────────────
       themes: {
+        dark: {
+          colors: {},
+          // components:{
+
+          // }
+          designTokens: {},
+          semanticTokens: {},
+        },
         light: {
           // A. Theme-Specific Colors (Flat & Scales)
           colors: {
@@ -47,12 +51,6 @@ const config: Config = {
               '900': 'oklch(0.13 0.06 125)',
               '950': 'oklch(0.08 0.04 125)',
             },
-            // Flat semantic colors (mapped as flat top-level strings)
-            'on-primary': 'oklch(0.98 0.02 240)',
-            'primary-subtle': 'oklch(0.95 0.03 125)',
-            'on-primary-subtle': 'oklch(0.30 0.15 125)',
-            'primary-muted': 'oklch(0.90 0.05 125)',
-            'on-primary-muted': 'oklch(0.40 0.18 125)',
           },
           // B. Theme-Specific Design Tokens
           designTokens: {
@@ -110,17 +108,7 @@ const config: Config = {
             },
           },
           // C. Theme-Specific Semantic Tokens
-          semanticTokens: {
-            surface: {
-              cus: 'oklch(0.98 0.01 240)',
-            },
-            content: {
-              cus: 'oklch(0.2 0.02 240)',
-            },
-            border: {
-              cus: 'oklch(0.9 0.02 240)',
-            },
-          },
+          semanticTokens: {},
           // D. Component Overrides
           components: {
             button: {

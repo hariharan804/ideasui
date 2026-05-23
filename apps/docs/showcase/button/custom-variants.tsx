@@ -32,11 +32,23 @@ const myButtonVariants = tv({
 });
 
 type MyButtonVariants = VariantProps<typeof myButtonVariants>;
-export type MyButtonProps = Omit<ButtonProps, 'className'> &
+export type MyButtonProps = Omit<ButtonProps, 'className' | 'variant'> &
   MyButtonVariants & { className?: string };
 
-function CustomButton({ className, radius, variant, ...props }: MyButtonProps) {
-  return <Button className={myButtonVariants({ className, radius, variant }).base()} {...props} />;
+function CustomButton({
+  className,
+  radius = 'full',
+  variant = 'primary',
+  ...props
+}: MyButtonProps) {
+  return (
+    <Button
+      className={myButtonVariants({ className, radius, variant }).base()}
+      radius={radius as ButtonProps['radius']}
+      variant={variant as ButtonProps['variant']}
+      {...props}
+    />
+  );
 }
 
 export function CustomVariants() {

@@ -256,24 +256,27 @@ export function createThemeExtension(
     colors: {
       ...colors,
       transparent: 'transparent',
-      // Map semantic overrides to their CSS variables
+      // Map all flat semantic token overrides to their CSS variables so Tailwind detects them
       ...Object.fromEntries(
-        Object.keys(semanticTokens.surface || {}).map((key) => [
-          key,
-          `var(--${_prefix}-color-${key})`,
-        ]),
+        Object.entries(semanticTokens)
+          .filter(([key, value]) => key !== 'components' && typeof value === 'string')
+          .map(([key]) => [key, `var(--${_prefix}-color-${key})`]),
+      ),
+      // Map legacy grouped semantic overrides if any still exist
+      ...Object.fromEntries(
+        Object.keys(
+          ((semanticTokens as Record<string, unknown>).surface as Record<string, unknown>) || {},
+        ).map((key) => [key, `var(--${_prefix}-color-${key})`]),
       ),
       ...Object.fromEntries(
-        Object.keys(semanticTokens.content || {}).map((key) => [
-          `content-${key}`,
-          `var(--${_prefix}-color-content-${key})`,
-        ]),
+        Object.keys(
+          ((semanticTokens as Record<string, unknown>).content as Record<string, unknown>) || {},
+        ).map((key) => [`content-${key}`, `var(--${_prefix}-color-content-${key})`]),
       ),
       ...Object.fromEntries(
-        Object.keys(semanticTokens.border || {}).map((key) => [
-          `border-${key}`,
-          `var(--${_prefix}-border-${key})`,
-        ]),
+        Object.keys(
+          ((semanticTokens as Record<string, unknown>).border as Record<string, unknown>) || {},
+        ).map((key) => [`border-${key}`, `var(--${_prefix}-border-${key})`]),
       ),
     },
 

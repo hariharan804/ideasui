@@ -16,12 +16,12 @@ type Story = StoryObj;
 const COPY_FEEDBACK_DELAY = 1500;
 
 const colorClasses: Record<string, { subtle: string; onSubtle: string }> = {
-  primary: { subtle: 'bg-primary-subtle', onSubtle: 'text-primary-on-subtle' },
-  secondary: { subtle: 'bg-secondary-subtle', onSubtle: 'text-secondary-on-subtle' },
-  success: { subtle: 'bg-success-subtle', onSubtle: 'text-success-on-subtle' },
-  error: { subtle: 'bg-error-subtle', onSubtle: 'text-error-on-subtle' },
-  warning: { subtle: 'bg-warning-subtle', onSubtle: 'text-warning-on-subtle' },
-  info: { subtle: 'bg-info-subtle', onSubtle: 'text-info-on-subtle' },
+  primary: { subtle: 'bg-primary-subtle', onSubtle: 'text-on-primary-subtle' },
+  secondary: { subtle: 'bg-secondary-subtle', onSubtle: 'text-on-secondary-subtle' },
+  success: { subtle: 'bg-success-subtle', onSubtle: 'text-on-success-subtle' },
+  error: { subtle: 'bg-error-subtle', onSubtle: 'text-on-error-subtle' },
+  warning: { subtle: 'bg-warning-subtle', onSubtle: 'text-on-warning-subtle' },
+  info: { subtle: 'bg-info-subtle', onSubtle: 'text-on-info-subtle' },
 };
 
 const CodeBlock = ({ title, code }: { title: string; code: string }): ReactElement => {

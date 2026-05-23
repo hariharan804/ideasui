@@ -87,7 +87,7 @@ export const compoundVariants = [
   {
     variant: 'solid',
     color: 'error',
-    class: { base: 'bg-danger hover:brightness-110' },
+    class: { base: 'bg-error hover:brightness-110' },
   },
   { variant: 'solid', color: 'info', class: { base: 'bg-info hover:brightness-110' } },
   {
@@ -125,7 +125,7 @@ export const compoundVariants = [
   {
     variant: 'outline',
     color: 'error',
-    class: { base: 'border-danger text-danger hover:bg-danger-subtle' },
+    class: { base: 'border-error text-error hover:bg-error-subtle' },
   },
   {
     variant: 'outline',
@@ -178,7 +178,7 @@ export const compoundVariants = [
     variant: 'muted',
     color: 'error',
     class: {
-      base: 'bg-danger-muted text-on-danger-muted hover:brightness-95 active:brightness-105',
+      base: 'bg-error-muted text-on-error-muted hover:brightness-95 active:brightness-105',
     },
   },
   {
@@ -232,7 +232,7 @@ export const compoundVariants = [
   {
     variant: 'ghost',
     color: 'error',
-    class: { base: 'text-danger hover:bg-danger-subtle' },
+    class: { base: 'text-error hover:bg-error-subtle' },
   },
   { variant: 'ghost', color: 'info', class: { base: 'text-info hover:bg-info-subtle' } },
   {
@@ -270,7 +270,7 @@ export const compoundVariants = [
   {
     variant: 'link',
     color: 'error',
-    class: { base: 'text-danger hover:text-on-danger-subtle' },
+    class: { base: 'text-error hover:text-on-error-subtle' },
   },
   {
     variant: 'link',
@@ -284,42 +284,15 @@ export const compoundVariants = [
   },
 
   // --- Text Variants ---
-  {
-    variant: 'text',
-    color: 'primary',
-    class: { base: 'text-primary hover:bg-primary-subtle' },
-  },
-  {
-    variant: 'text',
-    color: 'secondary',
-    class: { base: 'text-secondary hover:bg-secondary-subtle' },
-  },
-  {
-    variant: 'text',
-    color: 'tertiary',
-    class: { base: 'text-tertiary hover:bg-tertiary-subtle' },
-  },
-  {
-    variant: 'text',
-    color: 'success',
-    class: { base: 'text-success hover:bg-success-subtle' },
-  },
-  {
-    variant: 'text',
-    color: 'warning',
-    class: { base: 'text-warning hover:bg-warning-subtle' },
-  },
-  {
-    variant: 'text',
-    color: 'error',
-    class: { base: 'text-danger hover:bg-danger-subtle' },
-  },
-  { variant: 'text', color: 'info', class: { base: 'text-info hover:bg-info-subtle' } },
-  {
-    variant: 'text',
-    color: 'neutral',
-    class: { base: 'text-neutral hover:bg-neutral-subtle' },
-  },
+  // No hover background — only colored text. Differs from ghost which shows hover:bg-{color}-subtle.
+  { variant: 'text', color: 'primary', class: { base: 'text-primary' } },
+  { variant: 'text', color: 'secondary', class: { base: 'text-secondary' } },
+  { variant: 'text', color: 'tertiary', class: { base: 'text-tertiary' } },
+  { variant: 'text', color: 'success', class: { base: 'text-success' } },
+  { variant: 'text', color: 'warning', class: { base: 'text-warning' } },
+  { variant: 'text', color: 'error', class: { base: 'text-error' } },
+  { variant: 'text', color: 'info', class: { base: 'text-info' } },
+  { variant: 'text', color: 'neutral', class: { base: 'text-neutral' } },
 
   // --- Elevated Variants ---
   { variant: 'elevated', color: 'primary', class: { base: 'text-primary' } },
@@ -327,67 +300,53 @@ export const compoundVariants = [
   { variant: 'elevated', color: 'tertiary', class: { base: 'text-tertiary' } },
   { variant: 'elevated', color: 'success', class: { base: 'text-success' } },
   { variant: 'elevated', color: 'warning', class: { base: 'text-warning' } },
-  { variant: 'elevated', color: 'error', class: { base: 'text-danger' } },
+  { variant: 'elevated', color: 'error', class: { base: 'text-error' } },
   { variant: 'elevated', color: 'info', class: { base: 'text-info' } },
   { variant: 'elevated', color: 'neutral', class: { base: 'text-neutral' } },
   { variant: 'elevated', color: 'neutral', class: { base: 'text-neutral' } },
 
   // --- Glaze Variants ---
+  // Glass effect: color-tinted bg/border using opacity, text from theme token.
+  // Base handles: backdrop-blur, shadow, inset highlight, transition.
   {
     variant: 'glaze',
     color: 'primary',
-    class: {
-      base: 'border-primary/20 bg-primary/10 hover:bg-primary/20',
-    },
+    class: { base: 'bg-primary/10 border-primary/25 text-primary hover:bg-primary/20' },
   },
   {
     variant: 'glaze',
     color: 'secondary',
-    class: {
-      base: 'border-secondary/20 bg-secondary/10 hover:bg-secondary/20',
-    },
+    class: { base: 'bg-secondary/10 border-secondary/25 text-secondary hover:bg-secondary/20' },
   },
   {
     variant: 'glaze',
     color: 'tertiary',
-    class: {
-      base: 'border-tertiary/20 bg-tertiary/10 hover:bg-tertiary/20',
-    },
+    class: { base: 'bg-tertiary/10 border-tertiary/25 text-tertiary hover:bg-tertiary/20' },
   },
   {
     variant: 'glaze',
     color: 'success',
-    class: {
-      base: 'border-success/20 bg-success/10 hover:bg-success/20',
-    },
+    class: { base: 'bg-success/10 border-success/25 text-success hover:bg-success/20' },
   },
   {
     variant: 'glaze',
     color: 'warning',
-    class: {
-      base: 'border-warning/20 bg-warning/10 hover:bg-warning/20',
-    },
+    class: { base: 'bg-warning/10 border-warning/25 text-warning hover:bg-warning/20' },
   },
   {
     variant: 'glaze',
     color: 'error',
-    class: {
-      base: 'border-danger/20 bg-danger/10 hover:bg-danger/20',
-    },
+    class: { base: 'bg-error/10 border-error/25 text-error hover:bg-error/20' },
   },
   {
     variant: 'glaze',
     color: 'info',
-    class: {
-      base: 'border-info/20 bg-info/10 hover:bg-info/20',
-    },
+    class: { base: 'bg-info/10 border-info/25 text-info hover:bg-info/20' },
   },
   {
     variant: 'glaze',
     color: 'neutral',
-    class: {
-      base: 'border-neutral/20 bg-neutral/10 hover:bg-neutral/20',
-    },
+    class: { base: 'bg-neutral/10 border-neutral/25 text-neutral hover:bg-neutral/20' },
   },
 
   // --- Icon Only Size Overrides ---

@@ -143,7 +143,7 @@ export function DynamicSearchToggle({
       <div className="ms-auto flex items-center gap-1 transition-opacity">
         {hotKey.map((k) => (
           <kbd
-            key={k.display}
+            key={String(k.display)}
             className="bg-surface text-content-secondary inline-flex h-5 min-w-5 items-center justify-center rounded-md px-2 text-xs font-bold tracking-wider uppercase"
           >
             {k.display === 'Control' ? 'Ctrl' : k.display}

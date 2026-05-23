@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-pascal-case */
-/* eslint-disable no-restricted-syntax */
 import { notFound, redirect } from 'next/navigation';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 
@@ -7,14 +5,68 @@ import { source } from '@/lib/source';
 import { DocsPage, DocsBody, DocsDescription, DocsTitle } from '@/components/layout/notebook/page';
 import { PropsTable } from '@/components/ui/props-table';
 import { DocsBadges } from '@/components/ui/docs-badge';
+import { Code2, BookOpen, Figma } from 'lucide-react';
+import { siteConfig } from '@/config/site';
 
 // IdeasUI MDX Components
 import { Preview } from '@/components/mdx/preview';
 import { Related } from '@/components/mdx/related';
 import { RelatedShowcases } from '@/components/mdx/related-showcases';
-import { FrameworkTabs } from '@/components/mdx/framework-tabs';
 import { Category } from '@/components/mdx/category';
 import { Item } from '@/components/mdx/item';
+import { InstallTabs } from '@/components/mdx/install-tabs';
+import { Pre } from 'fumadocs-ui/components/codeblock';
+import { CodeBlock } from '@/components/mdx/codeblock-client';
+import { cn } from '@ideasui/utils';
+
+const MAX_LINES_FOR_LINE_NUMBERS = 5;
+
+function extractText(node: unknown): string {
+  if (typeof node === 'string') return node;
+
+  if (
+    node !== null &&
+    typeof node === 'object' &&
+    'props' in node &&
+    node.props !== null &&
+    typeof node.props === 'object' &&
+    'children' in node.props
+  ) {
+    const { children } = node.props as { children: unknown };
+
+    if (Array.isArray(children)) {
+      return children.map(extractText).join('');
+    }
+
+    return extractText(children);
+  }
+
+  return '';
+}
+
+function MdxPreBlock({
+  children,
+  ref: _ref,
+  className,
+  ...props
+}: React.ComponentPropsWithRef<'pre'>) {
+  let lineCount = 1;
+  const codeContent = extractText(children);
+
+  lineCount = codeContent.split('\n').length;
+
+  const classes = cn(
+    'mdx-code-inline-block border-none bg-surface-muted/50!',
+    lineCount > MAX_LINES_FOR_LINE_NUMBERS ? 'docs-code-block-line-numbers' : undefined,
+    className,
+  );
+
+  return (
+    <CodeBlock {...props} className={classes}>
+      <Pre>{children}</Pre>
+    </CodeBlock>
+  );
+}
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -29,26 +81,72 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
     notFound();
   }
 
-  const MDX = page.data.body;
+  const pageData = page.data;
+  const MdxContent = pageData.body;
 
   return (
-    <DocsPage className="!pt-8" full={page.data.full} toc={page.data.toc}>
-      <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription>{page.data.description}</DocsDescription>
+    <DocsPage className="!pt-8" full={pageData.full} toc={pageData.toc}>
+      <DocsTitle>{pageData.title}</DocsTitle>
+      <DocsDescription className="mb-1">{pageData.description}</DocsDescription>
       <DocsBadges
-        source={`https://github.com/ideas2logic-lab/ideasui/tree/main/packages/components/${params.slug?.at(-1) ?? ''}`}
+        extra={[
+          ...(pageData.links?.rac
+            ? [
+                {
+                  label: 'React Aria',
+                  href: pageData.links.rac,
+                  icon: <Code2 className="size-3.5" />,
+                  external: true,
+                },
+              ]
+            : []),
+          ...(pageData.links?.storybook
+            ? [
+                {
+                  label: 'Storybook',
+                  href: `http://localhost:6006/?path=/docs/${pageData.links.storybook.toLowerCase().replace('/', '-')}`,
+                  icon: <BookOpen className="size-3.5" />,
+                  external: true,
+                },
+              ]
+            : []),
+          ...(pageData.links?.figma
+            ? [
+                {
+                  label: 'Figma',
+                  href:
+                    typeof pageData.links.figma === 'string'
+                      ? pageData.links.figma
+                      : siteConfig.links.figmaDefault,
+                  icon: <Figma className="size-3.5" />,
+                  external: true,
+                },
+              ]
+            : []),
+        ]}
+        source={
+          pageData.links?.source
+            ? `${siteConfig.links.componentsBase}/${pageData.links.source}`
+            : `${siteConfig.links.componentsBase}/${params.slug?.at(-1) ?? ''}`
+        }
+        styles={
+          pageData.links?.recipe
+            ? `${siteConfig.links.packageBase}/${pageData.links.recipe}`
+            : undefined
+        }
       />
       <DocsBody>
-        <MDX
+        <MdxContent
           components={{
             ...defaultMdxComponents,
             PropsTable,
             Preview,
             Related,
             RelatedShowcases,
-            FrameworkTabs,
             Category,
             Item,
+            InstallTabs,
+            pre: MdxPreBlock,
           }}
         />
       </DocsBody>

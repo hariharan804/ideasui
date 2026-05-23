@@ -70,7 +70,7 @@ const button = tv({
         base: 'btn--elevated bg-background !shadow-sm hover:!shadow-md active:!shadow-sm',
       },
       glaze: {
-        base: 'btn--glaze backdrop-blur-lg border border-white/20 border-t-white/40 bg-white/10 dark:bg-black/20 dark:border-white/10 shadow-lg text-white transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] hover:bg-white/20 hover:shadow-xl active:scale-95',
+        base: 'btn--glaze backdrop-blur-lg border shadow-lg transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] hover:shadow-xl',
       },
     },
     size: {
@@ -131,7 +131,7 @@ const button = tv({
     },
     isLoading: {
       true: {
-        base: 'opacity-80 p-events-none cursor-wait pointer-events-none',
+        base: 'opacity-80 cursor-wait pointer-events-none',
       },
     },
     disableAnimation: {

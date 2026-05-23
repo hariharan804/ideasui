@@ -75,6 +75,7 @@ export default defineConfig([
     'apps/docs-rnd/**',
     'apps/docs/.source/**',
     'apps/docs/next-env.d.ts',
+    '.chrome-profile/**',
   ]),
 
   // Main configuration

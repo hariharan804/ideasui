@@ -1,47 +1,56 @@
-/* eslint-disable prefer-const */
-/* eslint-disable no-restricted-syntax */
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import * as React from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
+
 import { cn } from '@ideasui/utils';
 
 import { Code } from './code';
+import { getDemo } from '@/showcase';
 
-import { getDemo } from '@/demos';
+export interface SourceProps extends ComponentPropsWithoutRef<'div'> {
+  /** The name of the demo to load from the showcase registry */
+  name?: string;
+  /** Direct inline raw code string to display instead of a registry file */
+  code?: string;
+  /** The language of the code block (e.g. tsx, css, html) */
+  language?: string;
+  /** Custom title for the code block */
+  title?: string;
+  /** Whether to show the code title in the header */
+  showCodeTitle?: boolean;
+  /** Whether to show line numbers next to code lines */
+  showLineNumbers?: boolean;
+  /** Whether the code block is collapsible */
+  collapsible?: boolean;
+  /** Whether to render the code block in isolated style mode */
+}
 
 export async function Source({
   className,
+  code: directCode,
   collapsible = true,
   language,
   name,
   showCodeTitle = false,
   showLineNumbers = true,
   title,
-}: React.ComponentProps<'div'> & {
-  name?: string;
-  title?: string;
-  language?: string;
-  showCodeTitle?: boolean;
-  showLineNumbers?: boolean;
-  collapsible?: boolean;
-}) {
-  if (!name) {
-    return null;
-  }
+  ...props
+}: SourceProps) {
+  let code: string | undefined = directCode;
 
-  let src: string | undefined;
-  let code: string | undefined;
+  if (name && !code) {
+    const item = getDemo(name);
+    const src = item?.file;
 
-  const item = getDemo(name);
+    if (src) {
+      try {
+        code = await fs.readFile(path.join(process.cwd(), 'showcase', src), 'utf-8');
+      } catch (error) {
+        console.error(`[Source] Failed to read file for showcase "${name}":`, error);
 
-  src = item?.file;
-
-  if (src) {
-    try {
-      code = await fs.readFile(path.join(process.cwd(), 'demos', src), 'utf-8');
-    } catch (error) {
-      return null;
+        return null;
+      }
     }
   }
 
@@ -52,8 +61,9 @@ export async function Source({
   const lang = language ?? title?.split('.').pop() ?? 'tsx';
 
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn('relative w-full overflow-hidden', className)} {...props}>
       <Code
+        className="m-0 rounded-none border-none shadow-none"
         code={code}
         collapsible={collapsible}
         lang={lang}

@@ -15,7 +15,7 @@ const eslintConfig = defineConfig([
     '.source/**',
   ]),
   {
-    files: ['demos/**/*.tsx', 'demos/**/*.ts', 'components/mdx/**/*.tsx'],
+    files: ['showcase/**/*.tsx', 'showcase/**/*.ts', 'components/mdx/**/*.tsx'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       'react/no-unescaped-entities': 'off',

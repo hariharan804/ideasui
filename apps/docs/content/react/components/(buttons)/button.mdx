@@ -2,16 +2,23 @@
 title: Button
 description: A versatile button component with multiple variants, sizes, and states.
 links:
-  rac: Button
+  rac: https://react-spectrum.adobe.com/react-aria/Button.html
   source: button/src/button.tsx
+  recipe: core/theme/src/recipes/button.ts
   storybook: Components/Button
   figma: true
 ---
+
+## Installation
+
+<InstallTabs pkg="@ideasui/button" />
 
 ## Import
 
 ```tsx
 import { Button } from '@ideasui/react';
+// or from the individual package
+import { Button } from '@ideasui/button';
 ```
 
 ### Usage
@@ -20,13 +27,13 @@ import { Button } from '@ideasui/react';
 
 ### Variants
 
-IdeasUI buttons support multiple variants including solid, outline, ghost, soft, text, elevated, and a custom glassmorphic `glaze` variant.
+IdeasUI buttons support multiple variants including solid, outline, ghost, muted, text, elevated, and a custom glassmorphic `glaze` variant.
 
 <Preview name="button-variants" />
 
 ### Colors
 
-Semantic color themes let you quickly adapt the button for different contexts (e.g. primary, success, danger, warning).
+Semantic color themes let you quickly adapt the button for different contexts (e.g. primary, success, error, warning).
 
 <Preview name="button-colors" />
 
@@ -121,8 +128,8 @@ The button supports both CSS pseudo-classes and data attributes for flexibility:
 
 | Prop | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `variant` | `'solid' \| 'outline' \| 'ghost' \| 'soft' \| 'link' \| 'text' \| 'elevated' \| 'glaze'` | `'solid'` | The visual style variant. |
-| `color` | `'primary' \| 'secondary' \| 'tertiary' \| 'neutral' \| 'danger' \| 'success' \| 'warning' \| 'info'` | `'primary'` | Semantic color theme. |
+| `variant` | `'solid' \| 'outline' \| 'ghost' \| 'muted' \| 'link' \| 'text' \| 'elevated' \| 'glaze'` | `'solid'` | The visual style variant. |
+| `color` | `'primary' \| 'secondary' \| 'tertiary' \| 'neutral' \| 'error' \| 'success' \| 'warning' \| 'info'` | `'primary'` | Semantic color theme. |
 | `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Size of the button. |
 | `radius` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | The border radius. |
 | `isLoading` | `boolean` | `false` | Loading state of the button. |

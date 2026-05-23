@@ -416,46 +416,46 @@ const COLOR_BG_MAP: Record<string, Record<string, string>> = {
 
 const SEMANTIC_BG_MAP: Record<string, Record<string, string>> = {
   primary: {
-    base: 'bg-primary-base',
-    'on-base': 'bg-primary-on-base',
+    base: 'bg-primary',
+    'on-base': 'bg-on-primary',
     subtle: 'bg-primary-subtle',
-    'on-subtle': 'bg-primary-on-subtle',
+    'on-subtle': 'bg-on-primary-subtle',
   },
   success: {
-    base: 'bg-success-base',
-    'on-base': 'bg-success-on-base',
+    base: 'bg-success',
+    'on-base': 'bg-on-success',
     subtle: 'bg-success-subtle',
-    'on-subtle': 'bg-success-on-subtle',
+    'on-subtle': 'bg-on-success-subtle',
   },
   error: {
-    base: 'bg-error-base',
-    'on-base': 'bg-error-on-base',
+    base: 'bg-error',
+    'on-base': 'bg-on-error',
     subtle: 'bg-error-subtle',
-    'on-subtle': 'bg-error-on-subtle',
+    'on-subtle': 'bg-on-error-subtle',
   },
   info: {
-    base: 'bg-info-base',
-    'on-base': 'bg-info-on-base',
+    base: 'bg-info',
+    'on-base': 'bg-on-info',
     subtle: 'bg-info-subtle',
-    'on-subtle': 'bg-info-on-subtle',
+    'on-subtle': 'bg-on-info-subtle',
   },
   warning: {
-    base: 'bg-warning-base',
-    'on-base': 'bg-warning-on-base',
+    base: 'bg-warning',
+    'on-base': 'bg-on-warning',
     subtle: 'bg-warning-subtle',
-    'on-subtle': 'bg-warning-on-subtle',
+    'on-subtle': 'bg-on-warning-subtle',
   },
   secondary: {
-    base: 'bg-secondary-base',
-    'on-base': 'bg-secondary-on-base',
+    base: 'bg-secondary',
+    'on-base': 'bg-on-secondary',
     subtle: 'bg-secondary-subtle',
-    'on-subtle': 'bg-secondary-on-subtle',
+    'on-subtle': 'bg-on-secondary-subtle',
   },
   tertiary: {
-    base: 'bg-tertiary-base',
-    'on-base': 'bg-tertiary-on-base',
+    base: 'bg-tertiary',
+    'on-base': 'bg-on-tertiary',
     subtle: 'bg-tertiary-subtle',
-    'on-subtle': 'bg-tertiary-on-subtle',
+    'on-subtle': 'bg-on-tertiary-subtle',
   },
 };
 
@@ -1502,24 +1502,24 @@ export default function DesignSystemPage(): JSX.Element {
             {/* badges */}
             <h3 className="text-content-secondary mb-3 text-sm font-semibold">Badges</h3>
             <div className="mb-8 flex flex-wrap gap-3">
-              <span className="bg-primary-subtle text-primary-on-subtle border-primary-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
-                <span className="bg-primary-base h-1.5 w-1.5 rounded-full" />
+              <span className="bg-primary-subtle text-on-primary-subtle border-primary/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+                <span className="bg-primary h-1.5 w-1.5 rounded-full" />
                 New Feature
               </span>
-              <span className="bg-success-subtle text-success-on-subtle border-success-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
-                <span className="bg-success-base h-1.5 w-1.5 rounded-full" />
+              <span className="bg-success-subtle text-on-success-subtle border-success/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+                <span className="bg-success h-1.5 w-1.5 rounded-full" />
                 Completed
               </span>
-              <span className="bg-warning-subtle text-warning-on-subtle border-warning-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
-                <span className="bg-warning-base h-1.5 w-1.5 rounded-full" />
+              <span className="bg-warning-subtle text-on-warning-subtle border-warning/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+                <span className="bg-warning h-1.5 w-1.5 rounded-full" />
                 Pending
               </span>
-              <span className="bg-error-subtle text-error-on-subtle border-error-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
-                <span className="bg-error-base h-1.5 w-1.5 rounded-full" />
+              <span className="bg-error-subtle text-on-error-subtle border-error/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+                <span className="bg-error h-1.5 w-1.5 rounded-full" />
                 Failed
               </span>
-              <span className="bg-info-subtle text-info-on-subtle border-info-base/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
-                <span className="bg-info-base h-1.5 w-1.5 rounded-full" />
+              <span className="bg-info-subtle text-on-info-subtle border-info/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+                <span className="bg-info h-1.5 w-1.5 rounded-full" />
                 Info
               </span>
             </div>
@@ -1527,31 +1527,31 @@ export default function DesignSystemPage(): JSX.Element {
             {/* cards */}
             <h3 className="text-content-secondary mb-3 text-sm font-semibold">Cards</h3>
             <div className="grid gap-4 sm:grid-cols-3">
-              <div className="group border-primary-base/20 bg-primary-subtle/40 hover:border-primary-base/40 relative overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md">
-                <div className="from-primary-base/10 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="group border-primary/20 bg-primary-subtle/40 hover:border-primary/40 relative overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md">
+                <div className="from-primary/10 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative z-10">
-                  <h4 className="text-primary-on-subtle mb-2 font-semibold tracking-tight">
+                  <h4 className="text-on-primary-subtle mb-2 font-semibold tracking-tight">
                     Primary Card
                   </h4>
-                  <p className="text-primary-on-subtle/80 text-sm">Refined glass effect</p>
+                  <p className="text-on-primary-subtle/80 text-sm">Refined glass effect</p>
                 </div>
               </div>
-              <div className="group border-success-base/20 bg-success-subtle/40 hover:border-success-base/40 relative overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md">
-                <div className="from-success-base/10 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="group border-success/20 bg-success-subtle/40 hover:border-success/40 relative overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md">
+                <div className="from-success/10 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative z-10">
-                  <h4 className="text-success-on-subtle mb-2 font-semibold tracking-tight">
+                  <h4 className="text-on-success-subtle mb-2 font-semibold tracking-tight">
                     Success Card
                   </h4>
-                  <p className="text-success-on-subtle/80 text-sm">Refined glass effect</p>
+                  <p className="text-on-success-subtle/80 text-sm">Refined glass effect</p>
                 </div>
               </div>
-              <div className="group border-error-base/20 bg-error-subtle/40 hover:border-error-base/40 relative overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md">
-                <div className="from-error-base/10 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="group border-error/20 bg-error-subtle/40 hover:border-error/40 relative overflow-hidden rounded-2xl border p-6 shadow-sm transition-all hover:shadow-md">
+                <div className="from-error/10 absolute inset-0 bg-gradient-to-br to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                 <div className="relative z-10">
-                  <h4 className="text-error-on-subtle mb-2 font-semibold tracking-tight">
+                  <h4 className="text-on-error-subtle mb-2 font-semibold tracking-tight">
                     Error Card
                   </h4>
-                  <p className="text-error-on-subtle/80 text-sm">Refined glass effect</p>
+                  <p className="text-on-error-subtle/80 text-sm">Refined glass effect</p>
                 </div>
               </div>
             </div>

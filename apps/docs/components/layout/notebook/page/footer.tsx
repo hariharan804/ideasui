@@ -62,7 +62,7 @@ function FooterItem({ index, item }: { item: Item; index: 0 | 1 }) {
   return (
     <Link
       className={cn(
-        'hover:text-on-primary hover:bg-primary flex flex-col gap-2 rounded-2xl p-4 text-sm transition-none @max-lg:col-span-full',
+        'hover:text-on-primary! hover:bg-primary-subtle flex flex-col gap-2 rounded-2xl p-4 text-sm transition-none @max-lg:col-span-full',
         index === 1 && 'text-end',
       )}
       href={item.url}

@@ -1,10 +1,11 @@
-/* eslint-disable no-restricted-syntax */
 'use client';
 
-import React from 'react';
+import type { HTMLAttributes, PropsWithChildren, ReactElement } from 'react';
+
+import { Children } from 'react';
 import { cn } from '@ideasui/utils';
 
-interface ComponentPreviewContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ComponentPreviewContainerProps extends HTMLAttributes<HTMLDivElement> {
   align?: 'center' | 'start' | 'end';
   minHeight?: string;
   isBgSolid?: boolean;
@@ -24,8 +25,8 @@ export function ComponentPreviewContainer({
   name,
   style,
   ...props
-}: React.PropsWithChildren<ComponentPreviewContainerProps>) {
-  const [Component, Code] = React.Children.toArray(children) as React.ReactElement[];
+}: PropsWithChildren<ComponentPreviewContainerProps>) {
+  const [Component, Code] = Children.toArray(children) as ReactElement[];
 
   const alignmentClasses = {
     center: 'items-center justify-center',
@@ -35,32 +36,38 @@ export function ComponentPreviewContainer({
 
   return (
     <div
-      className={cn('component-preview-container group relative my-4 w-full', className)}
+      className={cn(
+        'group bg-common-pure relative my-4 w-full overflow-hidden rounded-lg transition-all duration-300',
+        className,
+      )}
       data-name={name}
       style={{ ...style, contain: style?.contain ?? 'content' }}
       {...props}
     >
       {!!description && <p className="text-muted-foreground mb-2 text-sm">{description}</p>}
 
-      {/* Preview Section */}
+      {/* Preview Section (Always Visible) */}
       <div
         className={cn(
-          'preview not-prose border-separator relative min-h-[350px] w-full overflow-hidden rounded-t-xl border-t border-r border-l p-4 sm:p-10',
-          isBgSolid && 'bg-background',
+          'preview not-prose relative flex w-full overflow-hidden p-6 sm:p-10',
           alignmentClasses[align],
-          'flex',
+          !isBgSolid ? 'bg-background' : 'bg-surface-muted/50',
         )}
-        data-name={name}
+        style={{ minHeight: minHeight || '220px' }}
       >
-        <div className="flex w-full items-center justify-center" style={{ minHeight }}>
-          {Component}
-        </div>
+        <div className="flex w-full items-center justify-center">{Component}</div>
       </div>
 
-      {/* Code Section */}
+      {/* Code Section (Always Visible, SEO Optimized) */}
       {!hideCode && !!Code && (
-        <div className="code-section border-separator relative rounded-b-xl border bg-transparent">
-          <div className="code-block-wrapper">{Code}</div>
+        <div className="code-section relative w-full overflow-hidden">
+          <div
+            className={cn(
+              'code-block-wrapper bg-surface-muted/50 [&_pre]:!my-0 [&_pre]:!rounded-none [&_pre]:!border-0',
+            )}
+          >
+            {Code}
+          </div>
         </div>
       )}
     </div>

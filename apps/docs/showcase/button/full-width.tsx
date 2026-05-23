@@ -5,8 +5,7 @@ export function FullWidth() {
   return (
     <div className="w-[400px] space-y-3">
       <Button fullWidth>Primary Button</Button>
-      <Button fullWidth>
-        <Plus />
+      <Button fullWidth startIcon={<Plus />}>
         With Icon
       </Button>
     </div>

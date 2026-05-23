@@ -18,6 +18,10 @@ export const demos: Record<string, DemoItem> = {
     component: ButtonDemos.Variants,
     file: 'button/variants.tsx',
   },
+  'button-colors': {
+    component: ButtonDemos.Colors,
+    file: 'button/colors.tsx',
+  },
   'button-sizes': {
     component: ButtonDemos.Sizes,
     file: 'button/sizes.tsx',

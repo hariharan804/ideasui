@@ -20,7 +20,7 @@ interface DocsBadgesProps {
 }
 
 const BADGE_CLASS =
-  'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all border border-transparent hover:border-default hover:bg-surface-muted text-content-secondary hover:text-content-primary';
+  'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-medium transition-all duration-300 bg-surface-muted/40 text-content-secondary hover:text-content-primary hover:bg-surface-muted/80 hover:scale-[1.03] hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] active:scale-[0.98]';
 
 /** Renders a row of quick-link badges below the page description */
 export function DocsBadges({ source, styles, extra = [] }: DocsBadgesProps) {

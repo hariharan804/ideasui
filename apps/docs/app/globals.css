@@ -11,7 +11,9 @@
 @source '../components/**/*.{js,ts,jsx,tsx,mdx}';
 @source '../content/**/*.{js,ts,jsx,tsx,mdx}';
 @source '../lib/**/*.{js,ts,jsx,tsx,mdx}';
-@source '../node_modules/@ideasui/**/*.{js,ts,jsx,tsx,mdx,css}';
+@source '../showcase/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../../../packages/core/theme/src/recipes/**/*.ts';
+@source '../../../packages/components/*/src/**/*.{js,ts,jsx,tsx}';
 
 html.dark {
   color-scheme: dark;

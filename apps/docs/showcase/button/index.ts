@@ -10,6 +10,7 @@ export { OutlineVariant } from './outline-variant';
 export { Sizes } from './sizes';
 export { Social } from './social';
 export { Variants } from './variants';
+export { Colors } from './colors';
 export { WithIcons } from './with-icons';
 export { RippleEffect } from './ripple-effect';
 export { CustomRenderFunction } from './custom-render-function';

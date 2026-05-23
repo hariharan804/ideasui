@@ -1,17 +1,38 @@
-/* eslint-disable no-restricted-syntax, react-hooks/error-boundaries, react/no-unstable-nested-components */
 import type { CodeBlockProps } from 'fumadocs-ui/components/codeblock';
 
 import { highlight } from 'fumadocs-core/highlight';
 import * as Base from 'fumadocs-ui/components/codeblock';
-import * as React from 'react';
 
 import { CodeBlock as CodeBlockClient } from './codeblock-client';
+
+const EMPTY_CODE_BLOCK = (
+  <Base.Pre>
+    <code />
+  </Base.Pre>
+);
+
+function HighlightPre(props: React.ComponentPropsWithoutRef<typeof Base.Pre>) {
+  return <Base.Pre {...props} />;
+}
+
+async function getHighlighted(code: string, lang: string): Promise<React.ReactNode | null> {
+  try {
+    return await highlight(code, {
+      components: { pre: HighlightPre },
+      lang: lang || 'text',
+      themes: { light: 'github-light', dark: 'github-dark' },
+    });
+  } catch (error) {
+    console.error('Syntax highlighting error:', error);
+
+    return null;
+  }
+}
 
 export async function Code({
   className,
   code,
   collapsible,
-  isIsolated = false,
   lang,
   showLineNumbers,
   title,
@@ -19,51 +40,25 @@ export async function Code({
 }: {
   code: string;
   lang: string;
-  isIsolated?: boolean;
   showLineNumbers?: boolean;
-  title: string | undefined;
+  title?: string;
   collapsible?: boolean;
 } & CodeBlockProps) {
-  let rendered;
-  let renderedPreview;
+  const trimmedCode = code?.trim() || '';
+  let rendered: React.ReactNode = EMPTY_CODE_BLOCK;
 
-  try {
-    const trimmedCode = code?.trim() || '';
+  if (trimmedCode) {
+    const result = await getHighlighted(trimmedCode, lang);
 
-    if (!trimmedCode) {
+    if (result !== null) {
+      rendered = result;
+    } else {
       rendered = (
         <Base.Pre>
-          <code />
+          <code>{code}</code>
         </Base.Pre>
       );
-    } else {
-      const lines = trimmedCode.split('\n');
-
-      if (lines.length > 10) {
-        const previewCode = lines.slice(0, 5).join('\n');
-
-        renderedPreview = await highlight(previewCode, {
-          components: {
-            pre: (props) => <Base.Pre {...props} />,
-          },
-          lang: lang || 'text',
-        });
-      }
-
-      rendered = await highlight(trimmedCode, {
-        components: {
-          pre: (props) => <Base.Pre {...props} />,
-        },
-        lang: lang || 'text',
-      });
     }
-  } catch (error) {
-    console.error('Syntax highlighting error:', error);
-    rendered = (
-      <Base.Pre>
-        <code>{code}</code>
-      </Base.Pre>
-    );
   }
 
   return (
@@ -71,9 +66,7 @@ export async function Code({
       className={className}
       code={code?.trim() || ''}
       collapsible={collapsible}
-      isIsolated={isIsolated}
       lang={lang}
-      preview={renderedPreview}
       showLineNumbers={showLineNumbers}
       title={title}
       {...props}

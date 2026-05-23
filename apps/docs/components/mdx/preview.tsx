@@ -1,13 +1,13 @@
-/* eslint-disable no-restricted-syntax */
-import * as React from 'react';
+import type { HTMLAttributes } from 'react';
+
 import { cn } from '@ideasui/utils';
 
 import { ComponentPreviewContainer } from './component-preview-container';
 import { Source } from './source';
 
-import { getDemo } from '@/demos';
+import { getDemo } from '@/showcase';
 
-interface PreviewProps extends React.HTMLAttributes<HTMLDivElement> {
+interface PreviewProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
   align?: 'center' | 'start' | 'end';
   isBgSolid?: boolean;
