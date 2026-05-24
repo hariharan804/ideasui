@@ -171,8 +171,24 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
     notFound();
   }
 
+  const canonicalUrl = `/react/docs/${params.slug?.join('/') ?? ''}`;
+
   return {
     title: page.data.title,
     description: page.data.description,
+    openGraph: {
+      title: page.data.title,
+      description: page.data.description,
+      type: 'article',
+      url: canonicalUrl,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: page.data.title,
+      description: page.data.description,
+    },
+    alternates: {
+      canonical: canonicalUrl,
+    },
   };
 }

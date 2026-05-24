@@ -229,6 +229,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>((originalProps, re
     isLoading,
     loadingIndicator,
     loadingPosition,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     isIconOnly,
     startIcon,
     endIcon,
@@ -251,7 +252,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>((originalProps, re
     color: merged.color,
     radius: merged.radius,
     fullWidth: merged.fullWidth,
-    isIconOnly,
+    isIconOnly: merged.isIconOnly,
     isDisabled: mergedDisabled,
     isLoading,
     disableAnimation: merged.disableAnimation,
@@ -289,7 +290,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>((originalProps, re
         <ButtonContext.Provider value={{ styles, classNames }}>
           <ButtonContent
             endIcon={endIcon}
-            isIconOnly={isIconOnly}
+            isIconOnly={merged.isIconOnly}
             isLoading={isLoading}
             loadingIndicator={loadingIndicator}
             loadingPosition={loadingPosition}

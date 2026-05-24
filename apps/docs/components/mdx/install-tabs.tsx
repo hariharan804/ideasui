@@ -90,10 +90,10 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
               <button
                 key={pm.id}
                 className={cn(
-                  'cursor-pointer rounded-full px-2.5 text-[10px] font-semibold transition-all duration-300',
+                  'cursor-pointer rounded-full px-3 text-[10px] font-semibold transition-all duration-300',
                   isActive
-                    ? 'text-content-primary bg-surface border-subtle/5 border font-semibold shadow-xs'
-                    : 'text-content-secondary hover:text-content-primary hover:bg-surface-muted/50',
+                    ? 'text-content-primary bg-surface border-subtle/5 font-semibold shadow-xs'
+                    : 'text-content-secondary hover:text-content-primary hover:bg-surface-muted/80',
                 )}
                 type="button"
                 onClick={() => setActiveTab(pm.id)}
@@ -110,7 +110,7 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
             <div className="bg-surface-muted/40 border-subtle/5 flex items-center rounded-full border p-0.5 text-[10px]">
               <button
                 className={cn(
-                  'cursor-pointer rounded-full px-2 text-[9.5px] font-semibold transition-all duration-200',
+                  'cursor-pointer rounded-full px-3 text-[9.5px] font-semibold transition-all duration-200',
                   installMode === 'component'
                     ? 'text-content-primary bg-surface border-subtle/5 shadow-xs'
                     : 'text-content-secondary hover:text-content-primary',
@@ -122,7 +122,7 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
               </button>
               <button
                 className={cn(
-                  'cursor-pointer rounded-full px-2 text-[9.5px] font-semibold transition-all duration-200',
+                  'cursor-pointer rounded-full px-3 text-[9.5px] font-semibold transition-all duration-200',
                   installMode === 'core'
                     ? 'text-content-primary bg-surface border-subtle/5 shadow-xs'
                     : 'text-content-secondary hover:text-content-primary',

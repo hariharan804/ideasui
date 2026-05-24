@@ -10,10 +10,31 @@ import { ThemeScript } from '@ideasui/theme';
 
 const inter = Inter({ subsets: ['latin'] });
 
+import { siteConfig } from '@/config/site';
+
 export const metadata: Metadata = {
-  title: 'IdeasUI — Modern Component Library',
-  description:
-    'A production-ready, accessible component library for React. Powered by Tailwind CSS v4 and React Aria.',
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    template: `%s | ${siteConfig.name}`,
+    default: `${siteConfig.name} — Modern Component Library`,
+  },
+  description: siteConfig.description,
+  openGraph: {
+    title: `${siteConfig.name} — Modern Component Library`,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${siteConfig.name} — Modern Component Library`,
+    description: siteConfig.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

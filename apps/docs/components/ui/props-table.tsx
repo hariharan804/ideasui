@@ -151,7 +151,7 @@ export function PropsTable({ data }: { data: PropDef[] }) {
                     <span className="text-content-tertiary mb-1.5 block text-[9px] font-bold tracking-wider uppercase">
                       Default
                     </span>
-                    <span className="bg-surface-muted/50 text-content-secondary inline-block rounded-md px-2.5 py-1 font-mono text-[10px] leading-none">
+                    <span className="bg-surface-muted/50 text-content-primary inline-block rounded-md px-2.5 py-1 font-mono text-[10px] leading-none">
                       {p.default}
                     </span>
                   </div>
@@ -163,7 +163,7 @@ export function PropsTable({ data }: { data: PropDef[] }) {
                 <span className="text-content-tertiary mb-1 block text-[9px] font-bold tracking-wider uppercase">
                   Type
                 </span>
-                <span className="bg-info/5 text-info inline-block rounded-md px-3 py-1.5 font-mono text-[11px]">
+                <span className="bg-secondary/5 text-secondary inline-block rounded-md px-3 font-mono text-[11px]">
                   {p.type}
                 </span>
               </div>

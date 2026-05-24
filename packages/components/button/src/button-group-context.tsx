@@ -15,6 +15,7 @@ export interface ButtonGroupContextType {
   fullWidth?: boolean;
   disableAnimation?: boolean;
   showDivider?: boolean;
+  isIconOnly?: boolean;
 }
 
 export const ButtonGroupContext = createContext<ButtonGroupContextType | null>(null);

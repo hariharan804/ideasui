@@ -50,6 +50,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
       fullWidth,
       disableAnimation = true,
       showDivider,
+      isIconOnly,
       ...props
     },
     ref,
@@ -65,6 +66,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
       fullWidth,
       disableAnimation,
       showDivider,
+      isIconOnly,
     };
 
     const groupClasses = cn(

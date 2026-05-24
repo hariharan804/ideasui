@@ -1,5 +1,4 @@
-/* eslint-disable unicorn/consistent-function-scoping, react/no-array-index-key, @typescript-eslint/no-explicit-any */
-/* eslint-disable curly */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import type { LinkItemType, MenuItemType } from '@/components/ui/docs/link-item';
@@ -52,6 +51,12 @@ export function NavbarLinkItem({
   );
 }
 
+function isTouchDevice() {
+  return (
+    typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+  );
+}
+
 function NavbarLinkItemMenu({
   className,
   hoverDelay = 50,
@@ -86,12 +91,6 @@ function NavbarLinkItemMenu({
     delaySetOpen(false);
   };
 
-  function isTouchDevice() {
-    return (
-      typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)
-    );
-  }
-
   return (
     <Popover
       open={open}
@@ -120,11 +119,13 @@ function NavbarLinkItemMenu({
       >
         {item.items.map((child, i) => {
           if (child.type === 'custom') {
+            // eslint-disable-next-line react/no-array-index-key
             return <Fragment key={i}>{child.children}</Fragment>;
           }
 
           return (
             <LinkItem
+              // eslint-disable-next-line react/no-array-index-key
               key={i}
               className="hover:bg-surface-muted hover:text-content-primary data-[active=true]:text-primary inline-flex items-center gap-2 rounded-md p-2 transition-colors [&_svg]:size-4"
               item={child}
@@ -255,6 +256,7 @@ export function DocsNavbar({
                   item.type !== 'icon',
               )
               .map((item, i) => (
+                // eslint-disable-next-line react/no-array-index-key
                 <NavbarLinkItem key={`navbar-${i}`} item={item} />
               ))}
           </nav>
@@ -270,6 +272,7 @@ export function DocsNavbar({
                 )
                 .map((item, i) => (
                   <LinkItem
+                    // eslint-disable-next-line react/no-array-index-key
                     key={i}
                     aria-label={item.label}
                     className={cn(
