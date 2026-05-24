@@ -54,7 +54,9 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
 
   // Border radius tokens
   Object.entries(borderRadius).forEach(([key, value]) => {
-    cssVars[`--${prefix}-radius-${key}`] = value;
+    const varName = key === 'DEFAULT' ? `--${prefix}-radius` : `--${prefix}-radius-${key}`;
+
+    cssVars[varName] = value;
   });
 
   // Box shadow tokens
@@ -209,7 +211,9 @@ export function generateCSSVarsFromTokenOverrides(
   if (t.borderRadius) {
     Object.entries(t.borderRadius).forEach(([key, value]) => {
       if (value !== undefined) {
-        cssVars[`--${prefix}-radius-${key}`] = value;
+        const varName = key === 'DEFAULT' ? `--${prefix}-radius` : `--${prefix}-radius-${key}`;
+
+        cssVars[varName] = value;
       }
     });
   }

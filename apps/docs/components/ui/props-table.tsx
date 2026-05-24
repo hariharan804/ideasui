@@ -46,16 +46,14 @@ export function PropsTable({ data }: { data: PropDef[] }) {
 
   // Prevent hydration mismatch by returning a skeleton or nothing until mounted
   if (!mounted) {
-    return (
-      <div className="not-prose bg-surface-muted/10 my-6 h-40 w-full animate-pulse rounded-2xl" />
-    );
+    return <div className="not-prose bg-surface-muted/10 my-6 h-40 w-full animate-pulse rounded" />;
   }
 
   return (
     <div className="not-prose w-full">
       {!isMobile ? (
         /* Desktop View: Borderless, clean typography, soft hovers */
-        <div className="w-full overflow-hidden rounded-xl">
+        <div className="w-full overflow-hidden rounded">
           <div className="w-full overflow-x-auto">
             <table className="w-full border-collapse text-left text-sm">
               <thead>
@@ -97,18 +95,18 @@ export function PropsTable({ data }: { data: PropDef[] }) {
                     </td>
                     <td className="px-6 py-4 align-top">
                       <div className="inline-flex">
-                        <span className="bg-info/5 text-info rounded-md px-2.5 py-1 font-mono text-[11px] leading-none">
+                        <span className="bg-success-subtle/80 text-success rounded px-2.5 py-1 font-mono text-[11px] leading-none">
                           {p.type}
                         </span>
                       </div>
                     </td>
                     <td className="px-6 py-4 align-top">
                       {p.default ? (
-                        <span className="bg-surface-muted/50 text-content-secondary rounded-md px-2.5 py-1 font-mono text-[11px] leading-none">
+                        <span className="bg-info-subtle/80 text-info rounded px-2.5 py-1 font-mono text-[11px] leading-none">
                           {p.default}
                         </span>
                       ) : (
-                        <span className="text-content-tertiary font-mono text-xs">-</span>
+                        <span className="text-content-tertiary px-2.5 font-mono text-xs">-</span>
                       )}
                     </td>
                     <td className="text-content-secondary px-6 py-4 align-top text-[13px] leading-relaxed">
@@ -127,10 +125,10 @@ export function PropsTable({ data }: { data: PropDef[] }) {
             <div
               key={p.name}
               className={cn(
-                'group relative overflow-hidden rounded-xl',
-                'bg-surface-muted/20 dark:bg-white/[0.02]',
+                'group relative overflow-hidden rounded',
+                'bg-surface-muted/50',
                 'p-5 backdrop-blur-sm',
-                'hover:bg-surface-muted/40 transition-all duration-300 dark:hover:bg-white/[0.04]',
+                'hover:bg-surface-muted/40 transition-all duration-300',
               )}
             >
               {/* Top Row: Name & Default */}
@@ -151,7 +149,7 @@ export function PropsTable({ data }: { data: PropDef[] }) {
                     <span className="text-content-tertiary mb-1.5 block text-[9px] font-bold tracking-wider uppercase">
                       Default
                     </span>
-                    <span className="bg-surface-muted/50 text-content-primary inline-block rounded-md px-2.5 py-1 font-mono text-[10px] leading-none">
+                    <span className="bg-info-subtle/80 text-info inline-block rounded px-2.5 py-1 font-mono text-[10px] leading-none">
                       {p.default}
                     </span>
                   </div>
@@ -163,7 +161,7 @@ export function PropsTable({ data }: { data: PropDef[] }) {
                 <span className="text-content-tertiary mb-1 block text-[9px] font-bold tracking-wider uppercase">
                   Type
                 </span>
-                <span className="bg-secondary/5 text-secondary inline-block rounded-md px-3 font-mono text-[11px]">
+                <span className="bg-success-subtle/80 text-success inline-block rounded px-3 font-mono text-[11px]">
                   {p.type}
                 </span>
               </div>

@@ -125,7 +125,7 @@ export function DynamicSearchToggle({
       type="button"
       {...props}
       className={cn(
-        'bg-background text-content-secondary hover:text-content-primary group inline-flex w-full max-w-[320px] items-center gap-2.5 rounded-xl px-2 py-1.5 text-sm shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md',
+        'bg-background text-content-secondary hover:text-content-primary group inline-flex w-full max-w-[320px] items-center gap-2.5 rounded px-2 py-1.5 text-sm shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md',
         props.className,
       )}
       onClick={() => {

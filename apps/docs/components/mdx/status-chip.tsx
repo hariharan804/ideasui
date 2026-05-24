@@ -15,11 +15,7 @@ export function StatusChip({ className, status }: StatusChipProps) {
 
   if (status === 'new') {
     return (
-      <span
-        className={cn(commonClasses, 'bg-pink-400/10 text-pink-500 dark:bg-pink-400/20', className)}
-      >
-        New
-      </span>
+      <span className={cn(commonClasses, 'bg-primary-subtle text-primary', className)}>New</span>
     );
   }
 
@@ -43,27 +39,13 @@ export function StatusChip({ className, status }: StatusChipProps) {
 
   if (status === 'stable') {
     return (
-      <span
-        className={cn(
-          commonClasses,
-          'bg-green-400/10 text-green-600 dark:bg-green-400/20 dark:text-green-400',
-          className,
-        )}
-      >
-        Stable
-      </span>
+      <span className={cn(commonClasses, 'bg-success-subtle text-success', className)}>Stable</span>
     );
   }
 
   if (status === 'planned') {
     return (
-      <span
-        className={cn(
-          commonClasses,
-          'bg-yellow-400/10 text-yellow-600 dark:bg-yellow-400/20 dark:text-yellow-500',
-          className,
-        )}
-      >
+      <span className={cn(commonClasses, 'bg-warning-subtle text-warning', className)}>
         Planned
       </span>
     );

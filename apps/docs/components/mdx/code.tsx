@@ -20,7 +20,7 @@ async function getHighlighted(code: string, lang: string): Promise<React.ReactNo
     return await highlight(code, {
       components: { pre: HighlightPre },
       lang: lang || 'text',
-      themes: { light: 'github-light', dark: 'github-dark' },
+      // themes: { light: 'github-light', dark: 'github-dark' },
     });
   } catch (error) {
     console.error('Syntax highlighting error:', error);

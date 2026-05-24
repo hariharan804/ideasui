@@ -4,7 +4,7 @@ import React from 'react';
 export function Logo({ className }: { className?: string }) {
   return (
     <div className={`flex items-center gap-2.5 ${className}`}>
-      <div className="from-primary to-info flex size-7 items-center justify-center rounded-lg bg-linear-to-br text-sm font-black text-white shadow-sm">
+      <div className="from-primary to-info text-on-primary flex size-7 items-center justify-center rounded bg-linear-to-br text-sm font-black shadow-sm">
         I
       </div>
       <span className="text-content-primary text-base font-bold tracking-tight">IdeasUI</span>

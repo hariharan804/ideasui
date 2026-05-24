@@ -28,7 +28,7 @@ export function GitHubButton({ repo, className }: GitHubButtonProps) {
   return (
     <a
       className={cn(
-        'bg-surface-muted/60 text-content-secondary hover:text-content-primary group inline-flex items-center gap-2 rounded-full px-2.5 py-1.5 text-sm backdrop-blur-md transition-all duration-300',
+        'bg-surface-muted/60 text-content-secondary hover:text-content-primary group inline-flex items-center gap-2 rounded px-2.5 py-1.5 text-sm backdrop-blur-md transition-all duration-300',
         className,
       )}
       href={`https://github.com/${repo}`}
@@ -39,7 +39,7 @@ export function GitHubButton({ repo, className }: GitHubButtonProps) {
       <span className="max-sm:hidden">GitHub</span>
       {stars !== null && (
         <div className="border-base/30 ml-1 flex items-center gap-1 border-l pl-2">
-          <Star className="size-3 fill-yellow-500 text-yellow-500" />
+          <Star className="fill-warning text-warning size-3" />
           <span className="font-mono text-xs font-semibold">
             {stars > 1000 ? `${(stars / 1000).toFixed(1)}k` : stars}
           </span>

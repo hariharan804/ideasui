@@ -162,9 +162,9 @@ function generateThemeCSS() {
     } else if (key.includes('-easing-')) {
       category = 'ease';
       subName = subName.split('-easing-')[1];
-    } else if (key.includes('-radius-')) {
+    } else if (key.includes('-radius-') || key === `--${PREFIX}-radius`) {
       category = 'radius';
-      subName = subName.split('-radius-')[1];
+      subName = key === `--${PREFIX}-radius` ? '' : subName.split('-radius-')[1];
     } else if (key.includes('-shadow-') || key.includes('-box-shadow-')) {
       category = 'shadow';
       subName = subName.includes('-box-shadow-')
@@ -222,7 +222,7 @@ function generateThemeCSS() {
 
     if (!category) return;
 
-    const tailwindKey = `--${category}-${subName}`;
+    const tailwindKey = subName ? `--${category}-${subName}` : `--${category}`;
 
     // Priority: Semantic aliases (shorter names) win over raw prefixed ones
     const isAlias = !key.startsWith(`--${PREFIX}`);

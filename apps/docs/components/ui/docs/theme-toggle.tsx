@@ -33,7 +33,7 @@ export function ThemeToggle({
   const mounted = useIsMounted();
 
   const container = cn(
-    'inline-flex cursor-(--cursor-interactive) items-center rounded-full bg-surface-muted/60 backdrop-blur-md p-1',
+    'inline-flex cursor-(--cursor-interactive) items-center rounded bg-surface-muted/60 backdrop-blur-md p-1',
     className,
   );
 

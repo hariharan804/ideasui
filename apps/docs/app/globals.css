@@ -24,7 +24,7 @@ html:not(.dark) {
 }
 
 @theme inline {
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
@@ -32,6 +32,18 @@ html:not(.dark) {
    ROOT — Base configuration
    ───────────────────────────────────────────────────────────────────── */
 :root {
+  /* ─────────────────────────────────────────────────────────────────────
+     IDEASUI THEME OVERRIDES
+     ─────────────────────────────────────────────────────────────────────
+     You can override any IdeasUI design token by redefining its CSS variable here.
+  */
+  /* --ideasui-color-primary: 0.65 0.25 150.0; */
+  --ideasui-radius: 0px;
+  /* --ideasui-radius-md: 0.5rem; */
+
+  /* ─────────────────────────────────────────────────────────────────────
+     FUMADOCS CONFIGURATION
+     ───────────────────────────────────────────────────────────────────── */
   --font-inter: 'Inter', sans-serif;
   --header-height: 56px;
   --sidebar-width: 280px;
@@ -41,19 +53,56 @@ html:not(.dark) {
   --fd-layout-width: 100%;
 
   /* Override Fumadocs Theme Variables at Runtime */
+
+  /* Backgrounds */
+  --fd-background: var(--ideasui-color-surface);
+  --color-fd-background: oklch(var(--ideasui-color-surface));
+
+  --fd-foreground: var(--ideasui-color-content-primary);
+  --color-fd-foreground: oklch(var(--ideasui-color-content-primary));
+
+  --fd-muted: var(--ideasui-color-surface-muted);
+  --color-fd-muted: oklch(var(--ideasui-color-surface-muted));
+
+  --fd-muted-foreground: var(--ideasui-color-content-secondary);
+  --color-fd-muted-foreground: oklch(var(--ideasui-color-content-secondary));
+
+  --fd-popover: var(--ideasui-color-surface-floating);
+  --color-fd-popover: oklch(var(--ideasui-color-surface-floating));
+
+  --fd-popover-foreground: var(--ideasui-color-content-primary);
+  --color-fd-popover-foreground: oklch(var(--ideasui-color-content-primary));
+
+  --fd-card: var(--ideasui-color-surface-container);
+  --color-fd-card: oklch(var(--ideasui-color-surface-container));
+
+  --fd-card-foreground: var(--ideasui-color-content-primary);
+  --color-fd-card-foreground: oklch(var(--ideasui-color-content-primary));
+
+  /* Borders */
+  --fd-border: var(--ideasui-color-border-subtle);
+  --color-fd-border: oklch(var(--ideasui-color-border-subtle));
+
+  --fd-ring: var(--ideasui-color-border-primary);
+  --color-fd-ring: oklch(var(--ideasui-color-border-primary));
+
+  /* Semantics */
   --fd-primary: var(--ideasui-color-primary);
   --color-fd-primary: oklch(var(--ideasui-color-primary));
 
   --fd-primary-foreground: var(--ideasui-color-on-primary);
   --color-fd-primary-foreground: oklch(var(--ideasui-color-on-primary));
 
-  --fd-muted: var(--ideasui-color-surface-muted);
-  --color-fd-muted: oklch(
-    var(--ideasui-color-surface-muted) / var(--ideasui-opacity-surface-muted)
-  );
+  --fd-secondary: var(--ideasui-color-secondary);
+  --color-fd-secondary: oklch(var(--ideasui-color-secondary));
 
-  --fd-muted-foreground: var(--ideasui-color-content-secondary);
-  --color-fd-muted-foreground: oklch(var(--ideasui-color-content-secondary));
+  --fd-secondary-foreground: var(--ideasui-color-on-secondary);
+  --color-fd-secondary-foreground: oklch(var(--ideasui-color-on-secondary));
+
+  --fd-radius: var(--ideasui-radius);
+
+  --fd-accent: var(--ideasui-color-surface-muted);
+  --color-fd-accent: oklch(var(--ideasui-color-surface-muted));
 
   --fd-accent-foreground: var(--ideasui-color-content-primary);
   --color-fd-accent-foreground: oklch(var(--ideasui-color-content-primary));
@@ -78,7 +127,7 @@ html:not(.dark) {
 }
 
 html {
-  @apply bg-background scroll-smooth antialiased transition-colors duration-300;
+  @apply bg-surface scroll-smooth antialiased transition-colors duration-300;
   height: 100%;
 }
 
@@ -170,7 +219,7 @@ article {
 }
 
 .fill-fd-muted {
-  fill: oklch(var(--ideasui-color-surface-muted) / var(--ideasui-opacity-surface-muted)) !important;
+  fill: oklch(var(--ideasui-color-surface-muted)) !important;
 }
 
 .text-fd-muted-foreground,
