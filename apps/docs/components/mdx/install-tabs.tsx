@@ -82,7 +82,7 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
       {/* Header: Tabs Selectors & Copy Button */}
       <div className="bg-surface-muted/10 flex flex-col gap-3 px-4 py-3 select-none sm:flex-row sm:items-center sm:justify-between">
         {/* Left side: Package Manager Selection */}
-        <div className="bg-surface-muted/40 border-subtle/5 flex items-center gap-1 rounded-full border p-0.5">
+        <div className="bg-surface-muted/40 border-subtle/5 flex items-center gap-1 rounded-3xl border p-0.5">
           {packageManagers.map((pm) => {
             const isActive = activeTab === pm.id;
 
@@ -90,7 +90,7 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
               <button
                 key={pm.id}
                 className={cn(
-                  'cursor-pointer rounded-full px-3 text-[10px] font-semibold transition-all duration-300',
+                  'cursor-pointer rounded-3xl px-3 text-[10px] font-semibold transition-all duration-300',
                   isActive
                     ? 'text-content-primary bg-surface border-subtle/5 font-semibold shadow-xs'
                     : 'text-content-secondary hover:text-content-primary hover:bg-surface-muted/80',
@@ -107,10 +107,10 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
         {/* Right side: Package Mode Selection & Copy Button */}
         <div className="flex items-center gap-3 self-end sm:self-auto">
           {isIndividualComponent && (
-            <div className="bg-surface-muted/40 border-subtle/5 flex items-center rounded-full border p-0.5 text-[10px]">
+            <div className="bg-surface-muted/40 border-subtle/5 flex items-center rounded-3xl border p-0.5 text-[10px]">
               <button
                 className={cn(
-                  'cursor-pointer rounded-full px-3 text-[9.5px] font-semibold transition-all duration-200',
+                  'cursor-pointer rounded-3xl px-3 text-[9.5px] font-semibold transition-all duration-200',
                   installMode === 'component'
                     ? 'text-content-primary bg-surface border-subtle/5 shadow-xs'
                     : 'text-content-secondary hover:text-content-primary',
@@ -122,7 +122,7 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
               </button>
               <button
                 className={cn(
-                  'cursor-pointer rounded-full px-3 text-[9.5px] font-semibold transition-all duration-200',
+                  'cursor-pointer rounded-3xl px-3 text-[9.5px] font-semibold transition-all duration-200',
                   installMode === 'core'
                     ? 'text-content-primary bg-surface border-subtle/5 shadow-xs'
                     : 'text-content-secondary hover:text-content-primary',
@@ -149,7 +149,7 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
               isIconOnly
               aria-label={copied ? 'Copied command' : 'Copy command'}
               className={cn(
-                'text-content-secondary hover:text-content-primary bg-surface-muted/30 hover:bg-surface-muted border-subtle/5 hover:border-subtle/15 size-7 rounded-full border transition-all duration-200 hover:scale-105 active:scale-95',
+                'text-content-secondary hover:text-content-primary bg-surface-muted/30 hover:bg-surface-muted border-subtle/5 hover:border-subtle/15 size-7 rounded-3xl border transition-all duration-200 hover:scale-105 active:scale-95',
                 copied && 'bg-success/10! border-success/30! text-success! hover:text-success!',
               )}
               size="sm"

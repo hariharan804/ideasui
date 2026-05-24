@@ -115,7 +115,7 @@ function FooterCard({
       {/* Direction chip */}
       <span
         className={cn(
-          'relative mb-3 inline-flex items-center gap-1.5 rounded-full px-2.5 py-1',
+          'relative mb-3 inline-flex items-center gap-1.5 rounded-3xl px-2.5 py-1',
           'border bg-transparent',
           // Stable border + text; only color transitions
           'border-border-base/40 text-content-secondary',
@@ -164,12 +164,12 @@ function FooterCard({
       {isPrev ? (
         <span
           aria-hidden
-          className="from-primary/70 via-primary/30 absolute bottom-0 left-0 h-px w-0 rounded-full bg-gradient-to-r to-transparent transition-[width] duration-300 group-hover:w-3/4"
+          className="from-primary/70 via-primary/30 absolute bottom-0 left-0 h-px w-0 rounded-3xl bg-gradient-to-r to-transparent transition-[width] duration-300 group-hover:w-3/4"
         />
       ) : (
         <span
           aria-hidden
-          className="from-primary/70 via-primary/30 absolute right-0 bottom-0 h-px w-0 rounded-full bg-gradient-to-l to-transparent transition-[width] duration-300 group-hover:w-3/4"
+          className="from-primary/70 via-primary/30 absolute right-0 bottom-0 h-px w-0 rounded-3xl bg-gradient-to-l to-transparent transition-[width] duration-300 group-hover:w-3/4"
         />
       )}
     </Link>
@@ -193,7 +193,7 @@ export function PageLastUpdate({
       {...props}
       className={cn('text-content-tertiary flex items-center gap-1.5 text-[11px]', props.className)}
     >
-      <span aria-hidden className="bg-content-tertiary/40 inline-block size-1 rounded-full" />
+      <span aria-hidden className="bg-content-tertiary/40 inline-block size-1 rounded-3xl" />
       {text.lastUpdate}{' '}
       {isMounted ? (
         <span className="text-content-secondary font-medium">

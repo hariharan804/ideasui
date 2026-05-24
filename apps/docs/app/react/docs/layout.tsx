@@ -16,8 +16,8 @@ export default function Layout({ children }: { children: ReactNode }) {
         className: 'relative selection:bg-primary/20 selection:text-primary',
         children: (
           <div className="pointer-events-none absolute inset-0 z-[-1] overflow-hidden">
-            <div className="bg-primary/5 absolute -top-[10%] -left-[10%] h-[40%] w-[40%] rounded-full blur-[120px]" />
-            <div className="bg-secondary/5 absolute top-[20%] -right-[10%] h-[35%] w-[35%] rounded-full blur-[100px]" />
+            <div className="bg-primary/5 absolute -top-[10%] -left-[10%] h-[40%] w-[40%] rounded-3xl blur-[120px]" />
+            <div className="bg-secondary/5 absolute top-[20%] -right-[10%] h-[35%] w-[35%] rounded-3xl blur-[100px]" />
           </div>
         ),
       }}

@@ -38,7 +38,7 @@ html:not(.dark) {
      You can override any IdeasUI design token by redefining its CSS variable here.
   */
   /* --ideasui-color-primary: 0.65 0.25 150.0; */
-  --ideasui-radius: 0px;
+  /* --ideasui-radius: 0px; */
   /* --ideasui-radius-md: 0.5rem; */
 
   /* ─────────────────────────────────────────────────────────────────────
@@ -53,6 +53,28 @@ html:not(.dark) {
   --fd-layout-width: 100%;
 
   /* Override Fumadocs Theme Variables at Runtime */
+
+  /* ── Radius ── map Tailwind defaults → IdeasUI tokens ──────────────── */
+  --radius-xs: var(--ideasui-radius-xs);
+  --radius-sm: var(--ideasui-radius-sm);
+  --radius-md: var(--ideasui-radius-md);
+  --radius-lg: var(--ideasui-radius-lg);
+  --radius-xl: var(--ideasui-radius-xl);
+  --radius-2xl: var(--ideasui-radius-2xl);
+  --radius-3xl: var(--ideasui-radius-3xl);
+  --radius: var(--ideasui-radius);
+
+  /* ── Spacing ── base unit from IdeasUI ─────────────────────────────── */
+  --spacing: var(--ideasui-spacing-1);
+
+  /* ── Typography ── font sizes from IdeasUI ─────────────────────────── */
+  --text-xs: var(--ideasui-font-size-xs);
+  --text-sm: var(--ideasui-font-size-sm);
+  --text-base: var(--ideasui-font-size-base);
+  --text-lg: var(--ideasui-font-size-lg);
+  --text-2xl: var(--ideasui-font-size-2xl);
+  --text-3xl: var(--ideasui-font-size-3xl);
+  --text-full: var(--ideasui-font-size-full);
 
   /* Backgrounds */
   --fd-background: var(--ideasui-color-surface);
@@ -143,6 +165,9 @@ html {
   scroll-padding-top: 120px;
 }
 
+.rounded-full {
+  border-radius: var(--ideasui-radius-full);
+}
 /* Landing Page (Home) Specific */
 main:has(.hero-section) {
   padding-bottom: 0;

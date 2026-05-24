@@ -43,7 +43,7 @@ const meta: Meta<typeof Button> = {
     },
     radius: {
       control: 'select',
-      options: ['none', 'sm', 'md', 'lg', 'xl', 'full'],
+      options: ['none', 'default', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full'],
       description: 'The border radius of the button.',
     },
     isLoading: {
@@ -84,7 +84,7 @@ const meta: Meta<typeof Button> = {
     variant: 'solid',
     color: 'primary',
     size: 'md',
-    radius: 'md',
+    radius: 'default',
     children: 'Button',
     isLoading: false,
     isDisabled: false,
@@ -217,6 +217,9 @@ export const Radius: Story = {
       <Button {...args} radius="none">
         None
       </Button>
+      <Button {...args} radius="default">
+        Default
+      </Button>
       <Button {...args} radius="sm">
         SM
       </Button>
@@ -228,6 +231,12 @@ export const Radius: Story = {
       </Button>
       <Button {...args} radius="xl">
         XL
+      </Button>
+      <Button {...args} radius="2xl">
+        2XL
+      </Button>
+      <Button {...args} radius="3xl">
+        3XL
       </Button>
       <Button {...args} radius="full">
         Full

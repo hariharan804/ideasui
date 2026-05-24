@@ -150,7 +150,7 @@ const parseTokens = (): TokenItem[] => {
   });
   Object.entries(blur).forEach(([key, value]) => {
     items.push({
-      name: key,
+      name: `blur-${key}`,
       value: value as string,
       previewValue: value as string,
       tailwindClass: key === 'DEFAULT' ? 'blur' : `blur-${key}`,
@@ -302,9 +302,9 @@ export function TokenViewer() {
       {/* Grid */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <AnimatePresence mode="popLayout">
-          {filteredTokens.map((token, idx) => (
+          {filteredTokens.map((token) => (
             <motion.div
-              key={`${token.category}-${token.name}`}
+              key={`${token.category}-${token.tailwindClass}-token`}
               layout
               animate={{ opacity: 1, scale: 1 }}
               className="group border-border/60 bg-surface hover:border-primary/40 relative flex cursor-pointer flex-col gap-4 overflow-hidden rounded-2xl border p-4 transition-all hover:-translate-y-0.5 hover:shadow-lg"
@@ -330,7 +330,7 @@ export function TokenViewer() {
                 )}
                 {token.previewType === 'color' && (
                   <div
-                    className="border-border/20 z-10 size-12 rounded-full border shadow-md"
+                    className="border-border/20 z-10 size-12 rounded-3xl border shadow-md"
                     style={{
                       backgroundColor: token.value.startsWith('var(')
                         ? `oklch(${token.value})`
@@ -401,7 +401,7 @@ export function TokenViewer() {
                     <motion.div
                       key="copied"
                       animate={{ opacity: 1, scale: 1 }}
-                      className="bg-success text-on-success rounded-full p-1.5 shadow-sm"
+                      className="bg-success text-on-success rounded-3xl p-1.5 shadow-sm"
                       exit={{ opacity: 0, scale: 0.5 }}
                       initial={{ opacity: 0, scale: 0.5 }}
                     >
@@ -411,7 +411,7 @@ export function TokenViewer() {
                     <motion.div
                       key="copy"
                       animate={{ opacity: 0 }}
-                      className="bg-surface-strong text-content-primary rounded-full p-1.5 opacity-0 shadow-sm transition-opacity group-hover:opacity-100"
+                      className="bg-surface-strong text-content-primary rounded-3xl p-1.5 opacity-0 shadow-sm transition-opacity group-hover:opacity-100"
                       initial={{ opacity: 0 }}
                       whileHover={{ opacity: 1 }}
                     >

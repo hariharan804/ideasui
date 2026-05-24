@@ -372,6 +372,9 @@ export default function ButtonPreview(): JSX.Element {
               <Button radius="none" size="sm">
                 none
               </Button>
+              <Button radius="default" size="sm">
+                default
+              </Button>
               <Button radius="sm" size="sm">
                 sm
               </Button>
@@ -383,6 +386,12 @@ export default function ButtonPreview(): JSX.Element {
               </Button>
               <Button radius="xl" size="sm">
                 xl
+              </Button>
+              <Button radius="2xl" size="sm">
+                2xl
+              </Button>
+              <Button radius="3xl" size="sm">
+                3xl
               </Button>
               <Button radius="full" size="sm">
                 full

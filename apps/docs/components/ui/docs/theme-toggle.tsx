@@ -11,7 +11,7 @@ import { useIsMounted } from '../../../hooks/use-is-mounted';
 import { Airplay, Moon, Sun } from '@/components/ui/docs/icons';
 
 const itemVariants = tv({
-  base: 'text-content-secondary size-6.5 rounded-full p-1.5 transition-all duration-300',
+  base: 'text-content-secondary size-6.5 rounded-3xl p-1.5 transition-all duration-300 cursor-pointer',
   variants: {
     active: {
       false: 'text-content-secondary hover:text-content-primary',
@@ -33,7 +33,7 @@ export function ThemeToggle({
   const mounted = useIsMounted();
 
   const container = cn(
-    'inline-flex cursor-(--cursor-interactive) items-center rounded bg-surface-muted/60 backdrop-blur-md p-1',
+    'inline-flex cursor-(--cursor-interactive) items-center rounded-3xl bg-surface-muted/60 backdrop-blur-md p-1',
     className,
   );
 

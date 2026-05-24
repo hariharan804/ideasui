@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 'use client';
 
 import type { LinkItemType, MenuItemType } from '@/components/ui/docs/link-item';
@@ -118,15 +119,15 @@ function NavbarLinkItemMenu({
         onPointerLeave={onPointerLeave}
       >
         {item.items.map((child, i) => {
+          const keyId = `item-${i}`;
+
           if (child.type === 'custom') {
-            // eslint-disable-next-line react/no-array-index-key
-            return <Fragment key={i}>{child.children}</Fragment>;
+            return <Fragment key={keyId}>{child.children}</Fragment>;
           }
 
           return (
             <LinkItem
-              // eslint-disable-next-line react/no-array-index-key
-              key={i}
+              key={keyId}
               className="hover:bg-surface-muted hover:text-content-primary data-[active=true]:text-primary inline-flex items-center gap-2 rounded-md p-2 transition-colors [&_svg]:size-4"
               item={child}
               onClick={() => {
@@ -255,10 +256,11 @@ export function DocsNavbar({
                 (item): item is Extract<LinkItemType, { type?: 'main' | 'menu' | 'button' }> =>
                   item.type !== 'icon',
               )
-              .map((item, i) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <NavbarLinkItem key={`navbar-${i}`} item={item} />
-              ))}
+              .map((item, i) => {
+                const navKey = `navbar-${i}`;
+
+                return <NavbarLinkItem key={navKey} item={item} />;
+              })}
           </nav>
 
           <div className="flex items-center gap-2">
@@ -270,20 +272,23 @@ export function DocsNavbar({
                   (item): item is Extract<LinkItemType, { type: 'icon' }> =>
                     item.type === 'icon' && !item.url?.includes('github.com'),
                 )
-                .map((item, i) => (
-                  <LinkItem
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={i}
-                    aria-label={item.label}
-                    className={cn(
-                      buttonVariants({ color: 'ghost', size: 'icon-sm' }),
-                      'text-content-secondary hover:bg-surface-muted/60 hover:text-content-primary max-lg:hidden',
-                    )}
-                    item={item}
-                  >
-                    {item.icon}
-                  </LinkItem>
-                ))}
+                .map((item, i) => {
+                  const iconKey = `icon-${i}`;
+
+                  return (
+                    <LinkItem
+                      key={iconKey}
+                      aria-label={item.label}
+                      className={cn(
+                        buttonVariants({ color: 'ghost', size: 'icon-sm' }),
+                        'text-content-secondary hover:bg-surface-muted/60 hover:text-content-primary max-lg:hidden',
+                      )}
+                      item={item}
+                    >
+                      {item.icon}
+                    </LinkItem>
+                  );
+                })}
             </div>
           </div>
 
@@ -323,7 +328,7 @@ export function DocsNavbar({
                     color: 'secondary',
                     size: 'icon-sm',
                   }),
-                  'text-content-secondary hover:bg-surface-muted/60 hover:text-content-primary -me-1.5 rounded-full transition-all duration-300 hover:rotate-180',
+                  'text-content-secondary hover:bg-surface-muted/60 hover:text-content-primary -me-1.5 rounded-3xl transition-all duration-300 hover:rotate-180',
                 )}
               >
                 <SidebarIcon />

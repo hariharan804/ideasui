@@ -116,6 +116,7 @@ const button = tv({
     },
     radius: {
       none: { base: ROUNDED_NONE },
+      default: { base: 'rounded' },
       sm: { base: 'rounded-sm' },
       md: { base: 'rounded-md' },
       lg: { base: 'rounded-lg' },
@@ -149,7 +150,7 @@ const button = tv({
     },
     isIconOnly: {
       true: {
-        base: 'aspect-square p-0 rounded-full',
+        base: 'aspect-square p-0',
       },
     },
     isAttached: {
@@ -173,7 +174,7 @@ const button = tv({
     variant: 'solid',
     size: 'md',
     color: 'primary',
-    radius: 'md',
+    radius: 'default',
     isDisabled: false,
     disableAnimation: false,
   },

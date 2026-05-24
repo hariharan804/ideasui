@@ -11,7 +11,7 @@ interface StatusChipProps {
 
 export function StatusChip({ className, status }: StatusChipProps) {
   const commonClasses =
-    'inline-flex h-5 items-center rounded-full px-1.5 text-[10px] font-semibold transition-all';
+    'inline-flex h-5 items-center rounded-3xl px-1.5 text-[10px] font-semibold transition-all';
 
   if (status === 'new') {
     return (

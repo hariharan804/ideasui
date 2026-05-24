@@ -1,5 +1,3 @@
-/* eslint-disable promise/always-return */
-/* eslint-disable no-restricted-syntax */
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -21,6 +19,8 @@ export function GitHubButton({ repo, className }: GitHubButtonProps) {
         if (typeof data.stargazers_count === 'number') {
           setStars(data.stargazers_count);
         }
+
+        return null;
       })
       .catch((error) => console.error('Failed to fetch GitHub stars', error));
   }, [repo]);
@@ -28,7 +28,7 @@ export function GitHubButton({ repo, className }: GitHubButtonProps) {
   return (
     <a
       className={cn(
-        'bg-surface-muted/60 text-content-secondary hover:text-content-primary group inline-flex items-center gap-2 rounded px-2.5 py-1.5 text-sm backdrop-blur-md transition-all duration-300',
+        'bg-surface-muted/60 text-content-secondary hover:text-content-primary group inline-flex items-center gap-2 rounded-3xl px-2.5 py-1.5 text-sm backdrop-blur-md transition-all duration-300',
         className,
       )}
       href={`https://github.com/${repo}`}
