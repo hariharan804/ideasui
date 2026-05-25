@@ -7,7 +7,7 @@ import { TokenViewer } from '@/components/ui/token-viewer';
 
 ## What are Design Tokens?
 
-IdeasUI is built on a highly structured design token system. Rather than hardcoding colors, spacing, and typography values directly in components, the library maps values to **Tailwind CSS variables and classes**. 
+IdeasUI is built on a highly structured design token system. Rather than hardcoding colors, spacing, and typography values directly in components, the library maps values to **Tailwind CSS variables and classes**.
 
 This allows you to customize the entire look and feel of your app effortlessly.
 
@@ -52,7 +52,7 @@ Content colors define how text, icons, and strokes appear on top of your surface
 
 Semantic colors convey clear meaning, status, or brand identity. They are usually applied to highly interactive elements like Buttons, Badges, or Alerts.
 
-*Every semantic color has variants: e.g., `primary`, `primary-subtle`, `primary-muted`.*
+_Every semantic color has variants: e.g., `primary`, `primary-subtle`, `primary-muted`._
 
 - **`primary` / `secondary` / `tertiary`**: Your brand colors. Use these to guide the user towards primary and secondary actions.
 - **`success`**: Indicates a positive outcome (e.g., "Saved successfully", "Online").
@@ -61,6 +61,7 @@ Semantic colors convey clear meaning, status, or brand identity. They are usuall
 - **`info`**: Indicates neutral, informative highlights (e.g., "New feature available").
 
 **Usage Example:**
+
 - Use `bg-primary text-on-primary` for a solid, high-emphasis button.
 - Use `bg-error-subtle text-error` for a soft, low-emphasis error badge.
 
@@ -68,9 +69,10 @@ Semantic colors convey clear meaning, status, or brand identity. They are usuall
 
 ### 📐 Spacing & Layout
 
-IdeasUI uses a consistent spacing scale that perfectly aligns to an **8px grid** (where `1` unit = `0.25rem` = `4px`). 
+IdeasUI uses a consistent spacing scale that perfectly aligns to an **8px grid** (where `1` unit = `0.25rem` = `4px`).
 
 Maintaining a consistent rhythm is crucial for a professional UI.
+
 - **`gap-2` / `p-2` (8px)**: Tight spacing between highly related sibling elements (e.g., icon and text).
 - **`gap-4` / `p-4` (16px)**: Standard spacing for inner padding of cards or spacing between form fields.
 - **`gap-8` / `mb-8` (32px)**: Large spacing between distinct sections or main layout components.
@@ -90,7 +92,7 @@ Our typography scales automatically handle optimal `font-size` and `line-height`
 
 ### 🔲 Radius (Corners)
 
-Corner radiuses heavily influence the "personality" of your app. 
+Corner radiuses heavily influence the "personality" of your app.
 
 - **`rounded-sm` / `rounded`**: Use for very small interactive elements (checkboxes, tiny tags).
 - **`rounded-md` / `rounded-lg`**: The standard radius. Use for buttons, inputs, and standard UI controls.

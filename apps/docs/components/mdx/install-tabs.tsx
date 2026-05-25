@@ -13,6 +13,34 @@ interface InstallTabsProps {
 
 type PackageManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
 
+interface TabButtonProps {
+  isActive: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+  size?: 'sm' | 'md';
+}
+
+function TabButton({ isActive, onClick, children, size = 'md' }: TabButtonProps) {
+  return (
+    <button
+      className={cn(
+        'group relative -mb-px flex-shrink-0 border border-transparent font-semibold transition-all duration-300',
+        size === 'sm'
+          ? 'rounded-t-lg px-3 py-1.5 text-[11px]'
+          : 'rounded-t-xl px-3.5 py-2.5 text-xs',
+        isActive
+          ? 'border-base/20 text-primary !bg-surface !border-b-surface'
+          : 'text-content-secondary hover:bg-surface-muted/30 hover:text-content-primary',
+        isActive && size === 'md' && 'font-bold',
+      )}
+      type="button"
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+}
+
 export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps) {
   const [activeTab, setActiveTab] = useState<PackageManager>('pnpm');
   const [copied, setCopied] = useState(false);
@@ -75,68 +103,48 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
   return (
     <div
       className={cn(
-        'group/install bg-surface-muted/30 relative my-6 flex w-full flex-col overflow-hidden rounded-2xl transition-all duration-300',
+        'group/install bg-surface-muted/30 border-base relative my-6 flex w-full flex-col overflow-hidden rounded-2xl border transition-all duration-300',
         className,
       )}
     >
       {/* Header: Tabs Selectors & Copy Button */}
-      <div className="bg-surface-muted/10 flex flex-col gap-3 px-4 py-3 select-none sm:flex-row sm:items-center sm:justify-between">
+      <div className="border-base/10 bg-surface-muted/10 flex flex-row items-end justify-between border-b px-4 pt-4 select-none">
         {/* Left side: Package Manager Selection */}
-        <div className="bg-surface-muted/40 border-subtle/5 flex items-center gap-1 rounded-3xl border p-0.5">
-          {packageManagers.map((pm) => {
-            const isActive = activeTab === pm.id;
-
-            return (
-              <button
-                key={pm.id}
-                className={cn(
-                  'cursor-pointer rounded-3xl px-3 text-[10px] font-semibold transition-all duration-300',
-                  isActive
-                    ? 'text-content-primary bg-surface border-subtle/5 font-semibold shadow-xs'
-                    : 'text-content-secondary hover:text-content-primary hover:bg-surface-muted/80',
-                )}
-                type="button"
-                onClick={() => setActiveTab(pm.id)}
-              >
-                {pm.name}
-              </button>
-            );
-          })}
+        <div className="flex flex-row items-center gap-1">
+          {packageManagers.map((pm) => (
+            <TabButton
+              key={pm.id}
+              isActive={activeTab === pm.id}
+              onClick={() => setActiveTab(pm.id)}
+            >
+              {pm.name}
+            </TabButton>
+          ))}
         </div>
 
         {/* Right side: Package Mode Selection & Copy Button */}
-        <div className="flex items-center gap-3 self-end sm:self-auto">
+        <div className="flex flex-row items-center gap-4">
           {isIndividualComponent && (
-            <div className="bg-surface-muted/40 border-subtle/5 flex items-center rounded-3xl border p-0.5 text-[10px]">
-              <button
-                className={cn(
-                  'cursor-pointer rounded-3xl px-3 text-[9.5px] font-semibold transition-all duration-200',
-                  installMode === 'component'
-                    ? 'text-content-primary bg-surface border-subtle/5 shadow-xs'
-                    : 'text-content-secondary hover:text-content-primary',
-                )}
-                type="button"
+            <div className="-mb-px flex flex-row items-center gap-1">
+              <TabButton
+                isActive={installMode === 'component'}
+                size="sm"
                 onClick={() => setInstallMode('component')}
               >
                 Component
-              </button>
-              <button
-                className={cn(
-                  'cursor-pointer rounded-3xl px-3 text-[9.5px] font-semibold transition-all duration-200',
-                  installMode === 'core'
-                    ? 'text-content-primary bg-surface border-subtle/5 shadow-xs'
-                    : 'text-content-secondary hover:text-content-primary',
-                )}
-                type="button"
+              </TabButton>
+              <TabButton
+                isActive={installMode === 'core'}
+                size="sm"
                 onClick={() => setInstallMode('core')}
               >
                 Core Library
-              </button>
+              </TabButton>
             </div>
           )}
 
           {/* Copy Button */}
-          <div className="relative flex items-center gap-1.5">
+          <div className="relative flex items-center gap-2">
             <span
               className={cn(
                 'text-success/90 pointer-events-none translate-x-1 transform font-sans text-[10px] font-semibold tracking-wide opacity-0 transition-all duration-300 select-none',
@@ -164,7 +172,7 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
       </div>
 
       {/* Command Text Body */}
-      <div className="bg-surface-muted/50 flex min-h-[52px] items-center px-5 py-4">
+      <div className="bg-surface flex min-h-[52px] items-center px-5 py-4">
         <Terminal className="text-content-secondary/40 mr-2.5 size-3.5 select-none" />
         {renderCommandText(activeTab)}
       </div>

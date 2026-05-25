@@ -1,5 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 import { source } from '@/lib/source';
 import { DocsPage, DocsBody, DocsDescription, DocsTitle } from '@/components/layout/notebook/page';
@@ -84,6 +86,15 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   const pageData = page.data;
   const MdxContent = pageData.body;
 
+  const filePath = page.absolutePath || path.join(process.cwd(), 'content/react', page.path);
+  let rawMarkdown = '';
+
+  try {
+    rawMarkdown = await fs.readFile(filePath, 'utf-8');
+  } catch (error) {
+    console.error('Failed to read page markdown file:', error);
+  }
+
   return (
     <DocsPage className="!pt-8" full={pageData.full} toc={pageData.toc}>
       <DocsTitle>{pageData.title}</DocsTitle>
@@ -124,6 +135,8 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
               ]
             : []),
         ]}
+        pageTitle={pageData.title}
+        rawMarkdown={rawMarkdown}
         source={
           pageData.links?.source
             ? `${siteConfig.links.componentsBase}/${pageData.links.source}`

@@ -77,12 +77,13 @@ The Button component uses compound components for maximum flexibility:
 
 ```tsx
 <Button>
-  <Button.Icon placement="start"><Search /></Button.Icon>
+  <Button.Icon placement="start">
+    <Search />
+  </Button.Icon>
   <Button.Label>Search</Button.Label>
   <Button.Shortcut>⌘K</Button.Shortcut>
 </Button>
 ```
-
 
 <Related component="button" />
 
@@ -118,5 +119,3 @@ The button supports both CSS pseudo-classes and data attributes for flexibility:
 import { buttonProps } from './button-props';
 
 <PropsTable data={buttonProps} />
-
-

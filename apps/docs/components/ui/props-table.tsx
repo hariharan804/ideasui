@@ -95,7 +95,7 @@ export function PropsTable({ data }: { data: PropDef[] }) {
                     </td>
                     <td className="px-6 py-4 align-top">
                       <div className="inline-flex">
-                        <span className="bg-success-subtle/80 text-success rounded px-2.5 py-1 font-mono text-[11px] leading-none">
+                        <span className="bg-success-subtle/80 text-success rounded px-2.5 py-1 font-mono text-[11px]">
                           {p.type}
                         </span>
                       </div>
