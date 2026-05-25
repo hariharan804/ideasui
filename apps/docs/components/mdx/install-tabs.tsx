@@ -29,8 +29,8 @@ function TabButton({ isActive, onClick, children, size = 'md' }: TabButtonProps)
           ? 'rounded-t-lg px-3 py-1.5 text-[11px]'
           : 'rounded-t-xl px-3.5 py-2.5 text-xs',
         isActive
-          ? 'border-base/20 text-primary !bg-surface !border-b-surface'
-          : 'text-content-secondary hover:bg-surface-muted/30 hover:text-content-primary',
+          ? 'border-base/20 text-primary !bg-surface-container-low !border-b-surface-container-low'
+          : 'text-content-secondary hover:bg-surface-container-high hover:text-content-primary',
         isActive && size === 'md' && 'font-bold',
       )}
       type="button"
@@ -103,12 +103,12 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
   return (
     <div
       className={cn(
-        'group/install bg-surface-muted/30 border-base relative my-6 flex w-full flex-col overflow-hidden rounded-2xl border transition-all duration-300',
+        'group/install bg-surface-container border-base relative my-6 flex w-full flex-col overflow-hidden rounded-2xl border transition-all duration-300',
         className,
       )}
     >
       {/* Header: Tabs Selectors & Copy Button */}
-      <div className="border-base/10 bg-surface-muted/10 flex flex-row items-end justify-between border-b px-4 pt-4 select-none">
+      <div className="border-base/10 bg-surface-container flex flex-row items-end justify-between border-b px-4 pt-4 select-none">
         {/* Left side: Package Manager Selection */}
         <div className="flex flex-row items-center gap-1">
           {packageManagers.map((pm) => (
@@ -144,7 +144,7 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
           )}
 
           {/* Copy Button */}
-          <div className="relative flex items-center gap-2">
+          <div className="relative flex items-center gap-2 pb-2">
             <span
               className={cn(
                 'text-success/90 pointer-events-none translate-x-1 transform font-sans text-[10px] font-semibold tracking-wide opacity-0 transition-all duration-300 select-none',
@@ -157,7 +157,7 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
               isIconOnly
               aria-label={copied ? 'Copied command' : 'Copy command'}
               className={cn(
-                'text-content-secondary hover:text-content-primary bg-surface-muted/30 hover:bg-surface-muted border-subtle/5 hover:border-subtle/15 size-7 rounded-3xl border transition-all duration-200 hover:scale-105 active:scale-95',
+                'text-content-secondary hover:text-content-primary bg-surface-container-high hover:bg-surface-container-low border-subtle/5 hover:border-subtle/15 size-7 rounded-3xl border transition-all duration-200 hover:scale-105 active:scale-95',
                 copied && 'bg-success/10! border-success/30! text-success! hover:text-success!',
               )}
               size="sm"
@@ -172,7 +172,7 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
       </div>
 
       {/* Command Text Body */}
-      <div className="bg-surface flex min-h-[52px] items-center px-5 py-4">
+      <div className="bg-surface-container-low flex min-h-[52px] items-center px-5 py-4">
         <Terminal className="text-content-secondary/40 mr-2.5 size-3.5 select-none" />
         {renderCommandText(activeTab)}
       </div>

@@ -272,8 +272,8 @@ export const primitives = {
       50: 'oklch(0.970 0.022 268.4)',
       100: 'oklch(0.887 0.040 268.4)',
       200: 'oklch(0.804 0.077 268.4)',
-      300: 'oklch(0.691 0.121 268.4)', // re-interpolated — smooths 200→400 gap
-      400: 'oklch(0.576 0.174 268.4)', // ✓ 4.51:1 vs white
+      300: 'oklch(0.721 0.121 268.4)',
+      400: 'oklch(0.638 0.165 268.4)',
       500: 'oklch(0.555 0.220 268.4)', // ✓ 5.05:1 vs white
       600: 'oklch(0.472 0.209 268.4)', // ✓ 7.23:1 vs white
       700: 'oklch(0.389 0.187 268.4)',
@@ -286,8 +286,8 @@ export const primitives = {
       50: 'oklch(0.970 0.022 292.7)',
       100: 'oklch(0.887 0.039 292.7)',
       200: 'oklch(0.804 0.077 292.7)',
-      300: 'oklch(0.695 0.120 292.7)',
-      400: 'oklch(0.584 0.173 292.7)', // ✓ 4.51:1 vs white
+      300: 'oklch(0.721 0.120 292.7)',
+      400: 'oklch(0.638 0.165 292.7)',
       500: 'oklch(0.555 0.219 292.7)', // ✓ 5.25:1 vs white
       600: 'oklch(0.472 0.208 292.7)', // ✓ 7.51:1 vs white
       700: 'oklch(0.389 0.186 292.7)',
@@ -300,28 +300,32 @@ export const primitives = {
       50: 'oklch(0.970 0.022 195.0)',
       100: 'oklch(0.887 0.040 195.0)',
       200: 'oklch(0.804 0.077 195.0)',
-      300: 'oklch(0.680 0.120 195.0)',
-      400: 'oklch(0.535 0.173 195.0)', // ✓ 4.61:1 vs white
-      500: 'oklch(0.495 0.180 195.0)', // ✓ 5.52:1 vs white
-      600: 'oklch(0.420 0.170 195.0)', // ✓ 7.82:1 vs white
-      700: 'oklch(0.350 0.150 195.0)',
-      800: 'oklch(0.280 0.130 195.0)',
-      900: 'oklch(0.210 0.110 195.0)',
+      300: 'oklch(0.721 0.110 195.0)',
+      400: 'oklch(0.638 0.145 195.0)',
+      500: 'oklch(0.555 0.180 195.0)', // ✓ 5.52:1 vs white
+      600: 'oklch(0.472 0.162 195.0)', // ✓ 7.82:1 vs white
+      700: 'oklch(0.389 0.144 195.0)',
+      800: 'oklch(0.306 0.126 195.0)',
+      900: 'oklch(0.223 0.108 195.0)',
       950: 'oklch(0.140 0.088 195.0)',
     },
 
     neutral: {
-      50: 'oklch(0.970 0.002 264.0)',
-      100: 'oklch(0.887 0.003 264.0)',
-      200: 'oklch(0.804 0.005 264.0)',
-      300: 'oklch(0.686 0.008 264.0)',
-      400: 'oklch(0.568 0.011 264.0)', // ✓ 4.50:1 vs white
-      500: 'oklch(0.555 0.014 264.0)', // ✓ 4.75:1 vs white
-      600: 'oklch(0.472 0.013 264.0)', // ✓ 6.77:1 vs white
-      700: 'oklch(0.389 0.012 264.0)',
-      800: 'oklch(0.306 0.010 264.0)',
-      900: 'oklch(0.223 0.008 264.0)',
-      950: 'oklch(0.140 0.006 264.0)',
+      0: 'oklch(1 0 0)',
+
+      50: 'oklch(0.985 0.002 260)',
+      100: 'oklch(0.975 0.002 260)',
+      200: 'oklch(0.955 0.003 260)',
+      300: 'oklch(0.925 0.004 260)',
+
+      400: 'oklch(0.780 0.006 260)',
+      500: 'oklch(0.620 0.008 260)',
+      600: 'oklch(0.500 0.009 260)',
+
+      700: 'oklch(0.390 0.010 260)',
+      800: 'oklch(0.290 0.010 260)',
+      900: 'oklch(0.180 0.008 260)',
+      950: 'oklch(0.120 0.006 260)',
     },
 
     common: {
@@ -333,13 +337,13 @@ export const primitives = {
       50: 'oklch(0.970 0.019 149.6)',
       100: 'oklch(0.887 0.035 149.6)',
       200: 'oklch(0.804 0.067 149.6)',
-      300: 'oklch(0.678 0.106 149.6)',
-      400: 'oklch(0.545 0.152 149.6)', // ✓ 4.51:1 vs white
-      500: 'oklch(0.535 0.192 149.6)', // ✓ 4.52:1 vs white
-      600: 'oklch(0.464 0.182 149.6)', // ✓ 6.16:1 vs white
-      700: 'oklch(0.389 0.163 149.6)',
-      800: 'oklch(0.306 0.138 149.6)',
-      900: 'oklch(0.223 0.106 149.6)',
+      300: 'oklch(0.721 0.106 149.6)',
+      400: 'oklch(0.638 0.150 149.6)',
+      500: 'oklch(0.555 0.192 149.6)', // ✓ 4.52:1 vs white
+      600: 'oklch(0.472 0.169 149.6)', // ✓ 6.16:1 vs white
+      700: 'oklch(0.389 0.146 149.6)',
+      800: 'oklch(0.306 0.123 149.6)',
+      900: 'oklch(0.223 0.100 149.6)',
       950: 'oklch(0.140 0.077 149.6)',
     },
 
@@ -347,8 +351,8 @@ export const primitives = {
       50: 'oklch(0.970 0.020 25.3)',
       100: 'oklch(0.887 0.035 25.3)',
       200: 'oklch(0.804 0.068 25.3)',
-      300: 'oklch(0.695 0.107 25.3)',
-      400: 'oklch(0.586 0.154 25.3)', // ✓ 4.51:1 vs white
+      300: 'oklch(0.721 0.107 25.3)',
+      400: 'oklch(0.638 0.153 25.3)',
       500: 'oklch(0.555 0.195 25.3)', // ✓ 5.25:1 vs white
       600: 'oklch(0.472 0.185 25.3)', // ✓ 7.46:1 vs white
       700: 'oklch(0.389 0.166 25.3)',
@@ -361,13 +365,13 @@ export const primitives = {
       50: 'oklch(0.970 0.019 230.0)',
       100: 'oklch(0.887 0.034 230.0)',
       200: 'oklch(0.804 0.066 230.0)',
-      300: 'oklch(0.677 0.103 230.0)',
-      400: 'oklch(0.545 0.149 230.0)', // ✓ 4.50:1 vs white
-      500: 'oklch(0.535 0.188 230.0)', // ✓ 4.50:1 vs white
-      600: 'oklch(0.464 0.179 230.0)', // ✓ 6.17:1 vs white
-      700: 'oklch(0.389 0.160 230.0)',
-      800: 'oklch(0.306 0.135 230.0)',
-      900: 'oklch(0.223 0.103 230.0)',
+      300: 'oklch(0.721 0.103 230.0)',
+      400: 'oklch(0.638 0.147 230.0)',
+      500: 'oklch(0.555 0.188 230.0)', // ✓ 4.50:1 vs white
+      600: 'oklch(0.472 0.165 230.0)', // ✓ 6.17:1 vs white
+      700: 'oklch(0.389 0.142 230.0)',
+      800: 'oklch(0.306 0.119 230.0)',
+      900: 'oklch(0.223 0.096 230.0)',
       950: 'oklch(0.140 0.075 230.0)',
     },
 
@@ -375,8 +379,8 @@ export const primitives = {
       50: 'oklch(0.970 0.019 70.1)',
       100: 'oklch(0.887 0.034 70.1)',
       200: 'oklch(0.804 0.067 70.1)',
-      300: 'oklch(0.690 0.105 70.1)',
-      400: 'oklch(0.574 0.150 70.1)', // ✓ 4.51:1 vs white
+      300: 'oklch(0.721 0.105 70.1)',
+      400: 'oklch(0.638 0.149 70.1)',
       500: 'oklch(0.555 0.190 70.1)', // ✓ 4.91:1 vs white
       600: 'oklch(0.472 0.181 70.1)', // ✓ 6.99:1 vs white
       700: 'oklch(0.389 0.162 70.1)',
@@ -388,7 +392,7 @@ export const primitives = {
 
   dark: {
     primary: {
-      50: 'oklch(0.160 0.022 268.4)',
+      50: 'oklch(0.140 0.022 268.4)',
       100: 'oklch(0.223 0.040 268.4)',
       200: 'oklch(0.306 0.077 268.4)',
       300: 'oklch(0.389 0.121 268.4)',
@@ -402,7 +406,7 @@ export const primitives = {
     },
 
     secondary: {
-      50: 'oklch(0.160 0.022 292.7)',
+      50: 'oklch(0.140 0.022 292.7)',
       100: 'oklch(0.223 0.039 292.7)',
       200: 'oklch(0.306 0.077 292.7)',
       300: 'oklch(0.389 0.120 292.7)',
@@ -416,31 +420,35 @@ export const primitives = {
     },
 
     tertiary: {
-      50: 'oklch(0.160 0.022 195.0)',
+      50: 'oklch(0.140 0.022 195.0)',
       100: 'oklch(0.223 0.040 195.0)',
       200: 'oklch(0.306 0.077 195.0)',
-      300: 'oklch(0.389 0.121 195.0)',
-      400: 'oklch(0.472 0.174 195.0)',
-      500: 'oklch(0.555 0.220 195.0)',
-      600: 'oklch(0.638 0.209 195.0)',
-      700: 'oklch(0.721 0.187 195.0)',
-      800: 'oklch(0.804 0.158 195.0)',
-      900: 'oklch(0.887 0.120 195.0)',
+      300: 'oklch(0.389 0.110 195.0)',
+      400: 'oklch(0.472 0.145 195.0)',
+      500: 'oklch(0.555 0.180 195.0)',
+      600: 'oklch(0.638 0.162 195.0)',
+      700: 'oklch(0.721 0.144 195.0)',
+      800: 'oklch(0.804 0.126 195.0)',
+      900: 'oklch(0.887 0.108 195.0)',
       950: 'oklch(0.970 0.088 195.0)',
     },
 
     neutral: {
-      50: 'oklch(0.180 0.002 264.0)',
-      100: 'oklch(0.223 0.003 264.0)',
-      200: 'oklch(0.306 0.005 264.0)',
-      300: 'oklch(0.389 0.008 264.0)',
-      400: 'oklch(0.472 0.011 264.0)',
-      500: 'oklch(0.555 0.014 264.0)',
-      600: 'oklch(0.638 0.013 264.0)',
-      700: 'oklch(0.721 0.012 264.0)',
-      800: 'oklch(0.804 0.010 264.0)',
-      900: 'oklch(0.887 0.008 264.0)',
-      950: 'oklch(0.970 0.006 264.0)',
+      0: 'oklch(0 0 0)',
+
+      50: 'oklch(0.120 0.006 260)',
+      100: 'oklch(0.180 0.008 260)',
+      200: 'oklch(0.290 0.010 260)',
+      300: 'oklch(0.390 0.010 260)',
+
+      400: 'oklch(0.500 0.009 260)',
+      500: 'oklch(0.620 0.008 260)',
+      600: 'oklch(0.780 0.006 260)',
+
+      700: 'oklch(0.925 0.004 260)',
+      800: 'oklch(0.955 0.003 260)',
+      900: 'oklch(0.975 0.002 260)',
+      950: 'oklch(0.985 0.002 260)',
     },
 
     common: {
@@ -449,21 +457,21 @@ export const primitives = {
     },
 
     success: {
-      50: 'oklch(0.160 0.019 149.6)',
+      50: 'oklch(0.140 0.019 149.6)',
       100: 'oklch(0.223 0.035 149.6)',
       200: 'oklch(0.306 0.067 149.6)',
       300: 'oklch(0.389 0.106 149.6)',
       400: 'oklch(0.472 0.152 149.6)',
-      500: 'oklch(0.535 0.192 149.6)',
-      600: 'oklch(0.638 0.182 149.6)',
-      700: 'oklch(0.721 0.163 149.6)',
-      800: 'oklch(0.804 0.138 149.6)',
-      900: 'oklch(0.887 0.106 149.6)',
+      500: 'oklch(0.555 0.192 149.6)',
+      600: 'oklch(0.638 0.169 149.6)',
+      700: 'oklch(0.721 0.146 149.6)',
+      800: 'oklch(0.804 0.123 149.6)',
+      900: 'oklch(0.887 0.100 149.6)',
       950: 'oklch(0.970 0.077 149.6)',
     },
 
     error: {
-      50: 'oklch(0.160 0.020 25.3)',
+      50: 'oklch(0.140 0.020 25.3)',
       100: 'oklch(0.223 0.035 25.3)',
       200: 'oklch(0.306 0.068 25.3)',
       300: 'oklch(0.389 0.107 25.3)',
@@ -477,21 +485,21 @@ export const primitives = {
     },
 
     info: {
-      50: 'oklch(0.160 0.019 230.0)',
+      50: 'oklch(0.140 0.019 230.0)',
       100: 'oklch(0.223 0.034 230.0)',
       200: 'oklch(0.306 0.066 230.0)',
       300: 'oklch(0.389 0.103 230.0)',
       400: 'oklch(0.472 0.149 230.0)',
-      500: 'oklch(0.535 0.188 230.0)',
-      600: 'oklch(0.638 0.179 230.0)',
-      700: 'oklch(0.721 0.160 230.0)',
-      800: 'oklch(0.804 0.135 230.0)',
-      900: 'oklch(0.887 0.103 230.0)',
+      500: 'oklch(0.555 0.188 230.0)',
+      600: 'oklch(0.638 0.165 230.0)',
+      700: 'oklch(0.721 0.142 230.0)',
+      800: 'oklch(0.804 0.119 230.0)',
+      900: 'oklch(0.887 0.096 230.0)',
       950: 'oklch(0.970 0.075 230.0)',
     },
 
     warning: {
-      50: 'oklch(0.160 0.019 70.1)',
+      50: 'oklch(0.140 0.019 70.1)',
       100: 'oklch(0.223 0.034 70.1)',
       200: 'oklch(0.306 0.067 70.1)',
       300: 'oklch(0.389 0.105 70.1)',
@@ -582,36 +590,22 @@ export const semantic = {
 
 export const surface = {
   // App background
-  background: 'var(--ideasui-color-common-pure)',
-  'on-background': 'var(--ideasui-color-common-on-pure)',
+  background: 'var(--ideasui-color-neutral-0)',
+  'on-background': 'var(--ideasui-color-neutral-950)',
 
   // Main container / cards
   surface: 'var(--ideasui-color-neutral-50)',
   'on-surface': 'var(--ideasui-color-neutral-900)',
 
-  // Subtle UI surfaces
-  'surface-muted': 'var(--ideasui-color-neutral-100)',
-  'on-surface-muted': 'var(--ideasui-color-neutral-900)',
-
-  // Strong sections / sidebars
-  'surface-strong': 'var(--ideasui-color-neutral-200)',
-  'on-surface-strong': 'var(--ideasui-color-neutral-900)',
-
   // Nested container scale
-  'surface-container-low': 'var(--ideasui-color-neutral-50)',
-  'surface-container': 'var(--ideasui-color-neutral-100)',
-  'surface-container-high': 'var(--ideasui-color-neutral-200)',
-
-  // Floating layers (dropdowns, popovers)
-  'surface-floating': 'var(--ideasui-color-common-pure)',
-
-  // Transparent glass backgrounds
-  'surface-overlay': 'var(--ideasui-color-neutral-50)',
+  'surface-subtle': 'var(--ideasui-color-neutral-100)',
+  'surface-muted': 'var(--ideasui-color-neutral-200)',
+  'surface-strong': 'var(--ideasui-color-neutral-300)',
 
   // Dialogs / drawers
-  'surface-modal': 'var(--ideasui-color-common-pure)',
+  'surface-modal': 'var(--ideasui-color-neutral-0)',
 
-  // Backdrop dim layer
+  // Backdrop dim layer (decorative, no on-* needed)
   scrim: 'oklch(0 0 0 / 0.45)',
 
   // Opposite theme surface

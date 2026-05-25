@@ -28,7 +28,7 @@ export function GitHubButton({ repo, className }: GitHubButtonProps) {
   return (
     <a
       className={cn(
-        'bg-surface-muted/60 text-content-secondary hover:text-content-primary group inline-flex items-center gap-2 rounded-3xl px-2.5 py-1.5 text-sm backdrop-blur-md transition-all duration-300',
+        'bg-surface-subtle text-content-secondary hover:text-content-primary group inline-flex items-center gap-2 rounded-3xl px-2.5 py-1.5 text-sm backdrop-blur-md transition-all duration-300',
         className,
       )}
       href={`https://github.com/${repo}`}

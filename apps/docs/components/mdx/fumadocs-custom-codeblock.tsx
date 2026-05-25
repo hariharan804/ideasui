@@ -46,7 +46,7 @@ export function FumadocsCustomCodeblock({
     <CodeBlock
       className={cn(
         // Base light/dark styles: no border, no shadow, clean rounded corners using IdeasUI tokens
-        'bg-surface-muted/50! border-none! shadow-none! transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]',
+        'bg-surface-subtle! border-none! shadow-none! transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]',
         // Pre styles
         '[&_pre]:bg-transparent!',
         // Code typography

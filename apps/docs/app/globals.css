@@ -89,14 +89,14 @@ html:not(.dark) {
   --fd-muted-foreground: var(--ideasui-color-content-secondary);
   --color-fd-muted-foreground: oklch(var(--ideasui-color-content-secondary));
 
-  --fd-popover: var(--ideasui-color-surface-floating);
-  --color-fd-popover: oklch(var(--ideasui-color-surface-floating));
+  --fd-popover: var(--ideasui-color-surface-modal);
+  --color-fd-popover: oklch(var(--ideasui-color-surface-modal));
 
   --fd-popover-foreground: var(--ideasui-color-content-primary);
   --color-fd-popover-foreground: oklch(var(--ideasui-color-content-primary));
 
-  --fd-card: var(--ideasui-color-surface-container);
-  --color-fd-card: oklch(var(--ideasui-color-surface-container));
+  --fd-card: var(--ideasui-color-surface);
+  --color-fd-card: oklch(var(--ideasui-color-surface));
 
   --fd-card-foreground: var(--ideasui-color-content-primary);
   --color-fd-card-foreground: oklch(var(--ideasui-color-content-primary));

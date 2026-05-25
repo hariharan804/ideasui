@@ -206,7 +206,7 @@ export function TokenViewer() {
   return (
     <div className="mt-8 flex w-full flex-col gap-8">
       {/* Search & Filter Header */}
-      <div className="bg-surface-muted/30 border-border/50 flex flex-col gap-6 rounded-3xl border p-6 shadow-sm backdrop-blur-xl">
+      <div className="bg-surface-subtle border-border/50 flex flex-col gap-6 rounded-3xl border p-6 shadow-sm backdrop-blur-xl">
         {/* Search */}
         <div className="group relative w-full">
           <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center">
@@ -224,7 +224,7 @@ export function TokenViewer() {
         {/* Categories */}
         <div className="flex flex-col gap-3">
           {/* Primary Category Segmented Control */}
-          <div className="bg-surface-muted/50 border-border/50 flex w-fit flex-wrap gap-1 rounded-2xl border p-1">
+          <div className="bg-surface-subtle border-border/50 flex w-fit flex-wrap gap-1 rounded-2xl border p-1">
             {CATEGORIES.map((category) => {
               const isActive = selectedCategory === category;
 
@@ -235,7 +235,7 @@ export function TokenViewer() {
                     'focus-visible:ring-primary relative rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors outline-none focus-visible:ring-2',
                     isActive
                       ? 'text-primary'
-                      : 'text-content-secondary hover:text-content-primary hover:bg-surface-muted/80',
+                      : 'text-content-secondary hover:text-content-primary hover:bg-surface-subtle',
                   )}
                   onClick={() => {
                     setSelectedCategory(category);
@@ -262,7 +262,7 @@ export function TokenViewer() {
             {selectedCategory === 'Colors' && (
               <motion.div
                 animate={{ opacity: 1, height: 'auto', marginTop: 0 }}
-                className="bg-surface-muted/30 border-border/30 flex w-fit flex-wrap gap-1 rounded-2xl border p-1"
+                className="bg-surface-subtle border-border/30 flex w-fit flex-wrap gap-1 rounded-2xl border p-1"
                 exit={{ opacity: 0, height: 0, marginTop: -12 }}
                 initial={{ opacity: 0, height: 0, marginTop: -12 }}
               >
@@ -276,7 +276,7 @@ export function TokenViewer() {
                         'focus-visible:ring-primary relative rounded-xl px-4 py-2 text-sm font-medium transition-colors outline-none focus-visible:ring-2',
                         isActive
                           ? 'text-primary'
-                          : 'text-content-secondary hover:text-content-primary hover:bg-surface-muted/80',
+                          : 'text-content-secondary hover:text-content-primary hover:bg-surface-subtle',
                       )}
                       onClick={() =>
                         setSelectedSubCategory(sub as 'All' | 'Semantic' | 'Surface' | 'Content')
@@ -317,7 +317,7 @@ export function TokenViewer() {
               <div className="from-primary/0 via-primary/0 to-primary/5 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity group-hover:opacity-100" />
 
               {/* Preview Area */}
-              <div className="bg-surface-muted/40 border-border/40 relative flex h-20 w-full items-center justify-center overflow-hidden rounded-xl border">
+              <div className="bg-surface-subtle border-border/40 relative flex h-20 w-full items-center justify-center overflow-hidden rounded-xl border">
                 {token.previewType === 'color' && (
                   <div
                     className="absolute inset-0 opacity-20 blur-xl"
@@ -411,7 +411,7 @@ export function TokenViewer() {
                     <motion.div
                       key="copy"
                       animate={{ opacity: 0 }}
-                      className="bg-surface-strong text-content-primary rounded-3xl p-1.5 opacity-0 shadow-sm transition-opacity group-hover:opacity-100"
+                      className="bg-surface-muted text-content-primary rounded-3xl p-1.5 opacity-0 shadow-sm transition-opacity group-hover:opacity-100"
                       initial={{ opacity: 0 }}
                       whileHover={{ opacity: 1 }}
                     >
@@ -425,7 +425,7 @@ export function TokenViewer() {
         </AnimatePresence>
 
         {filteredTokens.length === 0 && (
-          <div className="border-border/60 bg-surface-muted/20 col-span-full flex flex-col items-center justify-center gap-4 rounded-3xl border-2 border-dashed py-16 text-center">
+          <div className="border-border/60 bg-surface-subtle col-span-full flex flex-col items-center justify-center gap-4 rounded-3xl border-2 border-dashed py-16 text-center">
             <Search className="text-content-muted size-8" />
             <div className="flex flex-col gap-1">
               <span className="text-content-primary text-lg font-semibold">No tokens found</span>

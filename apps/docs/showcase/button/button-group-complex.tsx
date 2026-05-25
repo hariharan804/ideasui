@@ -48,7 +48,7 @@ export default function ButtonGroupComplex() {
               </Button.Icon>
               Fork
             </Button>
-            <Button className="bg-surface-muted/30 text-content-secondary px-3 font-mono text-xs font-bold">
+            <Button className="bg-surface-subtle text-content-secondary px-3 font-mono text-xs font-bold">
               24
             </Button>
           </Button.Group>
@@ -79,7 +79,7 @@ export default function ButtonGroupComplex() {
               </Button.Icon>
               Star
             </Button>
-            <Button className="bg-surface-muted/30 text-content-secondary px-3 font-mono text-xs font-bold">
+            <Button className="bg-surface-subtle text-content-secondary px-3 font-mono text-xs font-bold">
               104
             </Button>
           </Button.Group>

@@ -1,5 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable no-restricted-syntax */
 'use client';
 
 import type { SidebarTabWithProps } from 'fumadocs-ui/components/sidebar/tabs/dropdown';
@@ -140,13 +138,13 @@ export function LayoutHeaderTabs({
 
         return (
           <Link
-            key={`header-${i}`}
+            key={url}
             className={cn(
               'group relative -mb-px flex-shrink-0 px-4 py-2 text-sm font-medium transition-all duration-300',
               'rounded-t-xl active:scale-[0.98]',
               isSelected
                 ? 'border-base/20 text-primary !border-b-surface z-1 border !border-b'
-                : 'text-content-secondary hover:bg-surface-muted hover:text-content-primary z-1',
+                : 'text-content-secondary hover:bg-surface-subtle hover:text-content-primary z-1',
               className,
             )}
             href={url}

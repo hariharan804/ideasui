@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-import * as React from 'react';
 import { cn } from '@ideasui/utils';
 
 export type StatusChipStatus = 'new' | 'new-dot' | 'preview' | 'updated' | 'stable' | 'planned';
@@ -31,7 +29,7 @@ export function StatusChip({ className, status }: StatusChipProps) {
 
   if (status === 'updated') {
     return (
-      <span className={cn(commonClasses, 'bg-surface-muted text-content-tertiary', className)}>
+      <span className={cn(commonClasses, 'bg-surface-subtle text-content-tertiary', className)}>
         Updated
       </span>
     );

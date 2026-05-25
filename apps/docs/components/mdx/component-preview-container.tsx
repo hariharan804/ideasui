@@ -51,7 +51,7 @@ export function ComponentPreviewContainer({
         className={cn(
           'preview not-prose relative flex w-full overflow-hidden p-6 sm:p-10',
           alignmentClasses[align],
-          !isBgSolid ? 'bg-background' : 'bg-surface-muted/50',
+          !isBgSolid ? 'bg-background' : 'bg-surface-subtle',
         )}
         style={{ minHeight: minHeight || '220px' }}
       >
@@ -63,7 +63,7 @@ export function ComponentPreviewContainer({
         <div className="code-section relative w-full overflow-hidden">
           <div
             className={cn(
-              'code-block-wrapper bg-surface-muted/50 [&_pre]:!my-0 [&_pre]:!rounded-none [&_pre]:!border-0',
+              'code-block-wrapper bg-surface-subtle [&_pre]:!my-0 [&_pre]:!rounded-none [&_pre]:!border-0',
             )}
           >
             {Code}

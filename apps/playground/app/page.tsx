@@ -48,7 +48,7 @@ const navigationItems = [
 
 export default function Home(): JSX.Element {
   return (
-    <div className="bg-surface-base text-content-primary relative min-h-screen overflow-hidden transition-colors duration-500">
+    <div className="bg-background text-content-primary relative min-h-screen overflow-hidden transition-colors duration-500">
       {/* Dynamic Background Glows */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden outline-none">
         <div className="bg-primary-500/20 absolute -top-[20%] -left-[10%] h-[500px] w-[500px] animate-pulse rounded-full opacity-50 mix-blend-normal blur-3xl transition-all duration-[3000ms] dark:mix-blend-screen" />
@@ -62,7 +62,7 @@ export default function Home(): JSX.Element {
           <div className="mx-auto max-w-3xl text-center">
             <div className="animate-slideIn mb-8 flex items-center justify-center">
               <div className="from-primary-500 shadow-primary-500/20 relative inline-flex items-center justify-center rounded-2xl bg-gradient-to-br to-indigo-500 p-[2px] shadow-xl transition-transform duration-300 hover:scale-105">
-                <div className="bg-surface-base rounded-[14px] p-4">
+                <div className="bg-surface rounded-[14px] p-4">
                   <Code2 className="text-primary-500 h-10 w-10" />
                 </div>
               </div>
@@ -108,7 +108,7 @@ export default function Home(): JSX.Element {
               return (
                 <Link
                   key={item.href}
-                  className="group border-border-subtle bg-surface-raised/50 hover:border-border-default hover:bg-surface-raised relative flex flex-col justify-between overflow-hidden rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group border-border-subtle bg-surface-subtle hover:border-border-default hover:bg-surface-muted relative flex flex-col justify-between overflow-hidden rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                   href={item.href}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -124,8 +124,8 @@ export default function Home(): JSX.Element {
                     >
                       <Icon className="h-6 w-6 text-white" />
                     </div>
-                    <div className="border-border-subtle bg-surface-raised group-hover:bg-content-primary flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 group-hover:border-transparent">
-                      <ArrowRight className="text-content-muted group-hover:text-surface-base h-5 w-5 transition-colors duration-300" />
+                    <div className="border-border-subtle bg-surface-subtle group-hover:bg-content-primary flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 group-hover:border-transparent">
+                      <ArrowRight className="text-content-muted group-hover:text-surface h-5 w-5 transition-colors duration-300" />
                     </div>
                   </div>
 
@@ -149,7 +149,7 @@ export default function Home(): JSX.Element {
           </div>
 
           {/* Quick Stats / Highlights */}
-          <div className="border-border-subtle bg-surface-raised/30 mt-20 overflow-hidden rounded-3xl border p-8 backdrop-blur-sm lg:p-12">
+          <div className="border-border-subtle bg-surface-subtle mt-20 overflow-hidden rounded-3xl border p-8 backdrop-blur-sm lg:p-12">
             <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
               <div className="flex flex-col items-center justify-center space-y-2 text-center">
                 <div className="mb-1 flex items-center gap-2">

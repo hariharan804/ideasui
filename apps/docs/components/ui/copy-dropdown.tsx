@@ -200,7 +200,7 @@ I have the above context. Please help me with my task or question regarding this
         {toast && (
           <motion.div
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            className="bg-surface-muted/95 text-content-primary fixed right-6 bottom-6 z-50 flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-medium shadow-xl backdrop-blur-md"
+            className="bg-surface-subtle text-content-primary fixed right-6 bottom-6 z-50 flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs font-medium shadow-xl backdrop-blur-md"
             exit={{ opacity: 0, y: 15, scale: 0.95 }}
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
           >
@@ -211,7 +211,7 @@ I have the above context. Please help me with my task or question regarding this
       </AnimatePresence>
 
       {/* Main Split Button Container */}
-      <div className="bg-surface-muted/30 inline-flex items-center rounded-3xl p-0.5 shadow-[0_1px_3px_rgba(0,0,0,0.01)] transition-all duration-300">
+      <div className="bg-surface-subtle inline-flex items-center rounded-3xl p-0.5 shadow-[0_1px_3px_rgba(0,0,0,0.01)] transition-all duration-300">
         {/* Left: Copy Main Button */}
         <button
           aria-label="Copy page as Markdown"
@@ -262,13 +262,13 @@ I have the above context. Please help me with my task or question regarding this
             <div className="flex flex-col gap-0.5">
               {/* Option 1: View as Markdown */}
               <button
-                className="hover:bg-surface-muted/60 group focus-visible:bg-surface-muted/60 flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
+                className="hover:bg-surface-subtle group focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
                 onClick={() => {
                   setActiveModal('markdown');
                   setIsOpen(false);
                 }}
               >
-                <div className="bg-surface-muted/50 text-content-secondary group-hover:bg-primary-subtle/15 group-hover:text-primary mt-0.5 rounded-lg p-1.5 transition-colors">
+                <div className="bg-surface-subtle text-content-secondary group-hover:bg-primary-subtle/15 group-hover:text-primary mt-0.5 rounded-lg p-1.5 transition-colors">
                   <MarkdownIcon className="size-4 transition-transform duration-300 group-hover:scale-105" />
                 </div>
                 <div className="flex flex-col">
@@ -326,10 +326,10 @@ I have the above context. Please help me with my task or question regarding this
 
               {/* Option 4: Open in ChatGPT */}
               <button
-                className="hover:bg-surface-muted/60 group focus-visible:bg-surface-muted/60 flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
+                className="hover:bg-surface-subtle group focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
                 onClick={() => handleOpenInAI('ChatGPT', 'https://chatgpt.com/')}
               >
-                <div className="bg-surface-muted/50 text-content-secondary group-hover:bg-primary-subtle/15 group-hover:text-primary mt-0.5 rounded-lg p-1.5 transition-colors">
+                <div className="bg-surface-subtle text-content-secondary group-hover:bg-primary-subtle/15 group-hover:text-primary mt-0.5 rounded-lg p-1.5 transition-colors">
                   <ChatGPTIcon className="size-4 transition-transform duration-300 group-hover:scale-105" />
                 </div>
                 <div className="flex flex-1 flex-col">
@@ -347,10 +347,10 @@ I have the above context. Please help me with my task or question regarding this
 
               {/* Option 5: Open in Claude */}
               <button
-                className="hover:bg-surface-muted/60 group focus-visible:bg-surface-muted/60 flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
+                className="hover:bg-surface-subtle group focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
                 onClick={() => handleOpenInAI('Claude', 'https://claude.ai/new')}
               >
-                <div className="bg-surface-muted/50 text-content-secondary group-hover:bg-primary-subtle/15 group-hover:text-primary mt-0.5 rounded-lg p-1.5 transition-colors">
+                <div className="bg-surface-subtle text-content-secondary group-hover:bg-primary-subtle/15 group-hover:text-primary mt-0.5 rounded-lg p-1.5 transition-colors">
                   <ClaudeIcon className="size-4 transition-transform duration-300 group-hover:scale-105" />
                 </div>
                 <div className="flex flex-1 flex-col">
@@ -414,7 +414,7 @@ I have the above context. Please help me with my task or question regarding this
                   )}
                 </h3>
                 <button
-                  className="text-content-secondary hover:bg-surface-muted/80 hover:text-content-primary cursor-pointer rounded-lg p-1 transition-colors"
+                  className="text-content-secondary hover:bg-surface-subtle hover:text-content-primary cursor-pointer rounded-lg p-1 transition-colors"
                   onClick={() => setActiveModal(null)}
                 >
                   <X className="size-4" />
@@ -432,7 +432,7 @@ I have the above context. Please help me with my task or question regarding this
                       <Copy className="size-3" />
                       <span>Copy Code</span>
                     </button>
-                    <pre className="bg-surface-muted/50 text-content-secondary max-h-[55vh] overflow-x-auto rounded-xl p-5 font-mono text-[11px] leading-relaxed select-text">
+                    <pre className="bg-surface-subtle text-content-secondary max-h-[55vh] overflow-x-auto rounded-xl p-5 font-mono text-[11px] leading-relaxed select-text">
                       <code>{rawMarkdown}</code>
                     </pre>
                   </div>
@@ -446,13 +446,13 @@ I have the above context. Please help me with my task or question regarding this
                       your editor.
                     </p>
 
-                    <div className="bg-surface-muted/30 space-y-3 rounded-xl p-4">
+                    <div className="bg-surface-subtle space-y-3 rounded-xl p-4">
                       <h4 className="text-content-primary flex items-center gap-1.5 font-semibold">
                         <Terminal className="text-primary size-4" />
                         <span>MCP SSE Endpoint URL</span>
                       </h4>
                       <div className="flex items-center gap-2">
-                        <code className="bg-surface-muted/65 text-content-primary flex-1 rounded-lg px-3 py-2 font-mono text-[11px] select-all">
+                        <code className="bg-surface-subtle text-content-primary flex-1 rounded-lg px-3 py-2 font-mono text-[11px] select-all">
                           {mcpUrl}
                         </code>
                         <button
@@ -472,7 +472,7 @@ I have the above context. Please help me with my task or question regarding this
                       <ol className="list-inside list-decimal space-y-2 pl-1.5">
                         <li>
                           Open Cursor **Settings** (
-                          <kbd className="bg-surface-muted rounded px-1.5 py-0.5 text-[10px]">
+                          <kbd className="bg-surface-subtle rounded px-1.5 py-0.5 text-[10px]">
                             Cmd/Ctrl + ,
                           </kbd>
                           ).
@@ -483,10 +483,10 @@ I have the above context. Please help me with my task or question regarding this
                           Set the fields:
                           <ul className="text-content-tertiary mt-1 list-inside list-disc space-y-1 pl-4">
                             <li>
-                              Name: <code className="bg-surface-muted rounded px-1">IdeasUI</code>
+                              Name: <code className="bg-surface-subtle rounded px-1">IdeasUI</code>
                             </li>
                             <li>
-                              Type: <code className="bg-surface-muted rounded px-1">SSE</code>
+                              Type: <code className="bg-surface-subtle rounded px-1">SSE</code>
                             </li>
                             <li>URL: Paste the copied endpoint URL from above</li>
                           </ul>
@@ -508,14 +508,14 @@ I have the above context. Please help me with my task or question regarding this
                       access to docs and styles.
                     </p>
 
-                    <div className="bg-surface-muted/30 space-y-3 rounded-xl p-4">
+                    <div className="bg-surface-subtle space-y-3 rounded-xl p-4">
                       <h4 className="text-content-primary flex items-center gap-1.5 font-semibold">
                         <MessageSquareCode className="text-primary size-4" />
                         <span>Cline/Roo Code Configuration</span>
                       </h4>
                       <p className="text-content-tertiary text-[11px] leading-snug">
                         Paste the following configuration into your MCP settings file (typically at{' '}
-                        <code className="bg-surface-muted rounded px-1 font-mono select-all">
+                        <code className="bg-surface-subtle rounded px-1 font-mono select-all">
                           ~/Library/Application
                           Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json
                         </code>

@@ -156,7 +156,7 @@ export default function HomePage() {
               <ArrowRight className="size-4" />
             </Link>
             <Link
-              className="border-subtle text-content-primary bg-surface-muted inline-flex items-center gap-2 rounded-xl border px-7 py-3 text-sm font-semibold backdrop-blur-sm transition-all hover:scale-105 active:scale-95"
+              className="border-subtle text-content-primary bg-surface-subtle inline-flex items-center gap-2 rounded-xl border px-7 py-3 text-sm font-semibold backdrop-blur-sm transition-all hover:scale-105 active:scale-95"
               href="https://github.com/ideas2logic-lab/ideasui"
               rel="noopener noreferrer"
               target="_blank"
@@ -174,7 +174,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Stats strip ─────────────────────────────────────────────── */}
-      <section className="border-subtle bg-surface-muted border-y">
+      <section className="border-subtle bg-surface-subtle border-y">
         <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             {STATS.map((stat, i) => (

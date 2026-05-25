@@ -128,7 +128,7 @@ function NavbarLinkItemMenu({
           return (
             <LinkItem
               key={keyId}
-              className="hover:bg-surface-muted hover:text-content-primary data-[active=true]:text-primary inline-flex items-center gap-2 rounded-md p-2 transition-colors [&_svg]:size-4"
+              className="hover:bg-surface-subtle hover:text-content-primary data-[active=true]:text-primary inline-flex items-center gap-2 rounded-md p-2 transition-colors [&_svg]:size-4"
               item={child}
               onClick={() => {
                 if (isTouchDevice()) {
@@ -222,7 +222,7 @@ export function DocsNavbar({
                   color: 'ghost',
                   size: 'icon-sm',
                 }),
-                'text-content-secondary hover:bg-surface-muted/60 hover:text-content-primary transition-all duration-300 hover:scale-105 data-[collapsed=false]:hidden max-md:hidden',
+                'text-content-secondary hover:bg-surface-subtle hover:text-content-primary transition-all duration-300 hover:scale-105 data-[collapsed=false]:hidden max-md:hidden',
               )}
             >
               <SidebarIcon />
@@ -281,7 +281,7 @@ export function DocsNavbar({
                       aria-label={item.label}
                       className={cn(
                         buttonVariants({ color: 'ghost', size: 'icon-sm' }),
-                        'text-content-secondary hover:bg-surface-muted/60 hover:text-content-primary max-lg:hidden',
+                        'text-content-secondary hover:bg-surface-subtle hover:text-content-primary max-lg:hidden',
                       )}
                       item={item}
                     >
@@ -302,7 +302,7 @@ export function DocsNavbar({
               className={cn(
                 buttonVariants({
                   className:
-                    'text-content-secondary hover:bg-surface-muted/60 hover:text-content-primary p-2 transition-all',
+                    'text-content-secondary hover:bg-surface-subtle hover:text-content-primary p-2 transition-all',
                   color: 'ghost',
                   size: 'icon-sm',
                 }),
@@ -328,7 +328,7 @@ export function DocsNavbar({
                     color: 'secondary',
                     size: 'icon-sm',
                   }),
-                  'text-content-secondary hover:bg-surface-muted/60 hover:text-content-primary -me-1.5 rounded-3xl transition-all duration-300 hover:rotate-180',
+                  'text-content-secondary hover:bg-surface-subtle hover:text-content-primary -me-1.5 rounded-3xl transition-all duration-300 hover:rotate-180',
                 )}
               >
                 <SidebarIcon />

@@ -44,9 +44,8 @@ export function PropsTable({ data }: { data: PropDef[] }) {
     );
   }
 
-  // Prevent hydration mismatch by returning a skeleton or nothing until mounted
   if (!mounted) {
-    return <div className="not-prose bg-surface-muted/10 my-6 h-40 w-full animate-pulse rounded" />;
+    return <div className="not-prose bg-surface-subtle my-6 h-40 w-full animate-pulse rounded" />;
   }
 
   return (
@@ -57,7 +56,7 @@ export function PropsTable({ data }: { data: PropDef[] }) {
           <div className="w-full overflow-x-auto">
             <table className="w-full border-collapse text-left text-sm">
               <thead>
-                <tr className="bg-surface-muted/30">
+                <tr className="bg-surface-subtle">
                   <th className="text-content-secondary px-6 py-4 text-[11px] font-bold tracking-wider uppercase">
                     Prop
                   </th>
@@ -76,7 +75,7 @@ export function PropsTable({ data }: { data: PropDef[] }) {
                 {data.map((p) => (
                   <tr
                     key={p.name}
-                    className="hover:bg-surface-muted/20 transition-colors duration-300"
+                    className="hover:bg-surface-subtle transition-colors duration-300"
                   >
                     <td className="px-6 py-4 align-top">
                       <div className="flex items-center gap-1.5">
@@ -126,9 +125,9 @@ export function PropsTable({ data }: { data: PropDef[] }) {
               key={p.name}
               className={cn(
                 'group relative overflow-hidden rounded',
-                'bg-surface-muted/50',
+                'bg-surface-subtle',
                 'p-5 backdrop-blur-sm',
-                'hover:bg-surface-muted/40 transition-all duration-300',
+                'hover:bg-surface-subtle transition-all duration-300',
               )}
             >
               {/* Top Row: Name & Default */}
