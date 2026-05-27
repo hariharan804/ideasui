@@ -17,6 +17,8 @@ import { RelatedShowcases } from '@/components/mdx/related-showcases';
 import { Category } from '@/components/mdx/category';
 import { Item } from '@/components/mdx/item';
 import { InstallTabs } from '@/components/mdx/install-tabs';
+import { APIReferenceViewer } from '@/components/mdx/api-reference-viewer';
+import { QuickNav } from '@/components/mdx/quick-nav';
 import { Pre } from 'fumadocs-ui/components/codeblock';
 import { CodeBlock } from '@/components/mdx/codeblock-client';
 import { cn } from '@ideasui/utils';
@@ -159,6 +161,8 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
             Category,
             Item,
             InstallTabs,
+            APIReferenceViewer,
+            QuickNav,
             pre: MdxPreBlock,
           }}
         />

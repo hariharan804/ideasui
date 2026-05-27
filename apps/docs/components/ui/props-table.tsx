@@ -10,6 +10,7 @@ interface PropDef {
   default?: string;
   description: string;
   required?: boolean;
+  deprecated?: boolean | string;
 }
 
 function subscribeMobile(callback: () => void) {
@@ -79,7 +80,12 @@ export function PropsTable({ data }: { data: PropDef[] }) {
                   >
                     <td className="px-6 py-4 align-top">
                       <div className="flex items-center gap-1.5">
-                        <span className="text-primary font-mono text-[13px] font-semibold tracking-tight">
+                        <span
+                          className={cn(
+                            'font-mono text-[13px] font-semibold tracking-tight',
+                            p.deprecated ? 'text-content-tertiary line-through' : 'text-primary',
+                          )}
+                        >
                           {p.name}
                         </span>
                         {p.required && (
@@ -88,6 +94,11 @@ export function PropsTable({ data }: { data: PropDef[] }) {
                             title="Required"
                           >
                             *
+                          </span>
+                        )}
+                        {p.deprecated && (
+                          <span className="bg-warning-subtle/80 text-warning border-warning/20 scale-90 rounded border px-1.5 py-0.5 text-[9px] font-bold tracking-wider uppercase">
+                            Deprecated
                           </span>
                         )}
                       </div>
@@ -109,6 +120,11 @@ export function PropsTable({ data }: { data: PropDef[] }) {
                       )}
                     </td>
                     <td className="text-content-secondary px-6 py-4 align-top text-[13px] leading-relaxed">
+                      {p.deprecated && typeof p.deprecated === 'string' && (
+                        <div className="text-warning mb-1.5 text-xs font-semibold">
+                          ⚠️ Deprecated: {p.deprecated}
+                        </div>
+                      )}
                       {p.description}
                     </td>
                   </tr>
@@ -133,12 +149,22 @@ export function PropsTable({ data }: { data: PropDef[] }) {
               {/* Top Row: Name & Default */}
               <div className="mb-2 flex items-start justify-between gap-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-primary font-mono text-[15px] font-semibold tracking-tight">
+                  <span
+                    className={cn(
+                      'font-mono text-[15px] font-semibold tracking-tight',
+                      p.deprecated ? 'text-content-tertiary line-through' : 'text-primary',
+                    )}
+                  >
                     {p.name}
                   </span>
                   {p.required && (
                     <span className="text-error text-sm font-bold tracking-widest uppercase">
                       *
+                    </span>
+                  )}
+                  {p.deprecated && (
+                    <span className="bg-warning-subtle/80 text-warning border-warning/20 scale-90 rounded border px-1.5 py-0.5 text-[9px] font-bold tracking-wider uppercase">
+                      Deprecated
                     </span>
                   )}
                 </div>
@@ -167,6 +193,11 @@ export function PropsTable({ data }: { data: PropDef[] }) {
 
               {/* Bottom Row: Description (No border line anymore) */}
               <div>
+                {p.deprecated && typeof p.deprecated === 'string' && (
+                  <div className="text-warning mb-1.5 text-xs font-semibold">
+                    ⚠️ Deprecated: {p.deprecated}
+                  </div>
+                )}
                 <p className="text-content-secondary text-[13px] leading-relaxed">
                   {p.description}
                 </p>

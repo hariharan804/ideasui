@@ -9,6 +9,32 @@ links:
   figma: true
 ---
 
+<QuickNav
+  items={[
+    {
+      title: "Basic Usage",
+      description: "Implementation and common variants.",
+      href: "#basic-usage"
+    },
+    {
+      title: "Composition",
+      description: "Combine Button with icons, groups, and custom elements.",
+      href: "#composition"
+    },
+    {
+      title: "Standalone CSS",
+      description: "Use the component library without Tailwind CSS.",
+      href: "#standalone-css"
+    },
+    {
+      title: "API Reference",
+      description: "Complete Button props, variants, and configuration details.",
+      href: "#api-reference"
+    }
+  ]}
+/>
+
+
 ## Installation
 
 <InstallTabs pkg="@ideasui/button" />
@@ -21,7 +47,7 @@ import { Button } from '@ideasui/react';
 import { Button } from '@ideasui/button';
 ```
 
-### Usage
+## Basic Usage
 
 <Preview name="button-basic" />
 
@@ -66,7 +92,7 @@ Control the loading indicator with `isLoading`, `loadingPosition`, and custom `l
 
 <Preview name="button-disabled" />
 
-### Composition & Compound Components
+## Composition
 
 The Button component uses compound components for maximum flexibility:
 
@@ -89,7 +115,7 @@ The Button component uses compound components for maximum flexibility:
 
 <RelatedShowcases component="Button" />
 
-## Styling
+## Standalone CSS
 
 ### CSS Classes
 
@@ -114,8 +140,4 @@ The button supports both CSS pseudo-classes and data attributes for flexibility:
 
 ## API Reference
 
-### Button Props
-
-import { buttonProps } from './button-props';
-
-<PropsTable data={buttonProps} />
+<APIReferenceViewer componentName="button" />
