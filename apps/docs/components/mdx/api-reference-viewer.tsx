@@ -36,7 +36,7 @@ export function APIReferenceViewer({ componentName }: APIReferenceViewerProps) {
   }));
 
   return (
-    <div className="not-prose my-8 flex w-full flex-col gap-6">
+    <div className="not-prose my-6 flex w-full flex-col gap-4">
       {/* Tab Selectors */}
       {componentDocs.length > 1 && (
         <div className="border-base/10 bg-surface-container flex flex-wrap items-end gap-1 border-b select-none">
@@ -59,12 +59,12 @@ export function APIReferenceViewer({ componentName }: APIReferenceViewerProps) {
       )}
 
       {/* Component Title and Description */}
-      <div className="bg-surface-container-low border-base/10 flex flex-col gap-2 rounded-2xl border p-5">
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h4 className="text-content-primary text-base font-bold tracking-tight">
+      <div className="bg-surface-container-low border-base/10 flex flex-col gap-1.5 rounded-2xl border px-5 py-4">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h4 className="text-content-primary text-sm font-bold tracking-tight">
             {activeDoc.title}
           </h4>
-          <span className="bg-primary/10 text-primary rounded px-2 py-0.5 font-mono text-[11px] font-semibold select-all">
+          <span className="bg-primary/10 text-primary shrink-0 rounded px-2 py-0.5 font-mono text-[11px] font-semibold select-all">
             {activeDoc.component}
           </span>
         </div>

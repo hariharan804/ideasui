@@ -52,34 +52,40 @@ export function PropsTable({ data }: { data: PropDef[] }) {
   return (
     <div className="not-prose w-full">
       {!isMobile ? (
-        /* Desktop View: Borderless, clean typography, soft hovers */
-        <div className="w-full overflow-hidden rounded">
+        /* Desktop View: Clean bordered table with consistent rhythm */
+        <div className="border-base/10 w-full overflow-hidden rounded-2xl border">
           <div className="w-full overflow-x-auto">
             <table className="w-full border-collapse text-left text-sm">
+              <colgroup>
+                <col className="w-[170px]" />
+                <col className="w-[200px]" />
+                <col className="w-[140px]" />
+                <col />
+              </colgroup>
               <thead>
                 <tr className="bg-surface-subtle">
-                  <th className="text-content-secondary px-6 py-4 text-[11px] font-bold tracking-wider uppercase">
+                  <th className="text-content-secondary border-base/10 border-b px-5 py-3 text-[11px] font-bold tracking-wider uppercase">
                     Prop
                   </th>
-                  <th className="text-content-secondary px-6 py-4 text-[11px] font-bold tracking-wider uppercase">
+                  <th className="text-content-secondary border-base/10 border-b px-5 py-3 text-[11px] font-bold tracking-wider uppercase">
                     Type
                   </th>
-                  <th className="text-content-secondary px-6 py-4 text-[11px] font-bold tracking-wider uppercase">
+                  <th className="text-content-secondary border-base/10 border-b px-5 py-3 text-[11px] font-bold tracking-wider uppercase">
                     Default
                   </th>
-                  <th className="text-content-secondary px-6 py-4 text-[11px] font-bold tracking-wider uppercase">
+                  <th className="text-content-secondary border-base/10 border-b px-5 py-3 text-[11px] font-bold tracking-wider uppercase">
                     Description
                   </th>
                 </tr>
               </thead>
-              <tbody className="before:block before:h-2 before:content-['']">
+              <tbody className="divide-base/[0.07] divide-y">
                 {data.map((p) => (
                   <tr
                     key={p.name}
-                    className="hover:bg-surface-subtle transition-colors duration-300"
+                    className="hover:bg-surface-subtle transition-colors duration-200"
                   >
-                    <td className="px-6 py-4 align-top">
-                      <div className="flex items-center gap-1.5">
+                    <td className="px-5 py-3.5 align-top">
+                      <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
                         <span
                           className={cn(
                             'font-mono text-[13px] font-semibold tracking-tight',
@@ -90,36 +96,36 @@ export function PropsTable({ data }: { data: PropDef[] }) {
                         </span>
                         {p.required && (
                           <span
-                            className="text-error mt-0.5 text-xs leading-none font-bold"
+                            className="text-error text-xs leading-none font-bold"
                             title="Required"
                           >
                             *
                           </span>
                         )}
                         {p.deprecated && (
-                          <span className="bg-warning-subtle/80 text-warning border-warning/20 scale-90 rounded border px-1.5 py-0.5 text-[9px] font-bold tracking-wider uppercase">
+                          <span className="bg-warning-subtle/80 text-warning border-warning/20 rounded border px-1.5 py-0.5 text-[9px] font-bold tracking-wider uppercase">
                             Deprecated
                           </span>
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4 align-top">
-                      <div className="inline-flex">
-                        <span className="bg-success-subtle/80 text-success rounded px-2.5 py-1 font-mono text-[11px]">
-                          {p.type}
-                        </span>
-                      </div>
+                    <td className="px-5 py-3.5 align-top">
+                      <span className="bg-success-subtle/80 text-success inline-block max-w-full rounded px-2.5 py-1 font-mono text-[11px] leading-[1.6] break-words whitespace-pre-wrap">
+                        {p.type}
+                      </span>
                     </td>
-                    <td className="px-6 py-4 align-top">
+                    <td className="px-5 py-3.5 align-top">
                       {p.default ? (
-                        <span className="bg-info-subtle/80 text-info rounded px-2.5 py-1 font-mono text-[11px] leading-none">
+                        <span className="bg-info-subtle/80 text-info inline-block max-w-full rounded px-2.5 py-1 font-mono text-[11px] leading-[1.6] break-words whitespace-pre-wrap">
                           {p.default}
                         </span>
                       ) : (
-                        <span className="text-content-tertiary px-2.5 font-mono text-xs">-</span>
+                        <span className="text-content-tertiary block pt-0.5 font-mono text-xs">
+                          —
+                        </span>
                       )}
                     </td>
-                    <td className="text-content-secondary px-6 py-4 align-top text-[13px] leading-relaxed">
+                    <td className="text-content-secondary px-5 py-3.5 align-top text-[13px] leading-relaxed">
                       {p.deprecated && typeof p.deprecated === 'string' && (
                         <div className="text-warning mb-1.5 text-xs font-semibold">
                           ⚠️ Deprecated: {p.deprecated}
