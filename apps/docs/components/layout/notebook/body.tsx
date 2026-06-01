@@ -34,7 +34,7 @@ export function LayoutBody({ children, className, style, ...props }: ComponentPr
           '--sidebar-col': collapsed ? '0px' : 'var(--sidebar-width)',
           gridTemplate:
             navMode === 'top'
-              ? `". header header header ."
+              ? `"header header header header header"
          "sidebar sidebar toc-popover toc-popover ."
          "sidebar sidebar main toc ." 1fr / minmax(0, 1fr) var(--sidebar-col) minmax(0, min(var(--fd-layout-width), ${pageCol})) var(--toc-width) minmax(0, 1fr)`
               : `"sidebar sidebar header header ."

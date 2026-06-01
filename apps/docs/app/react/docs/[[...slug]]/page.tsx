@@ -117,7 +117,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
             ? [
                 {
                   label: 'Storybook',
-                  href: `http://localhost:6006/?path=/docs/${pageData.links.storybook.toLowerCase().replace('/', '-')}`,
+                  href: `${siteConfig.links.storybook}/?path=/docs/${pageData.links.storybook.toLowerCase().replace('/', '-')}`,
                   icon: <BookOpen className="size-3.5" />,
                   external: true,
                 },

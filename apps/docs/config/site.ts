@@ -10,5 +10,6 @@ export const siteConfig = {
     packageBase: 'https://github.com/ideas2logic-lab/ideasui/tree/main/packages',
     componentsBase: 'https://github.com/ideas2logic-lab/ideasui/tree/main/packages/components',
     figmaDefault: 'https://www.figma.com',
+    storybook: 'http://localhost:6006',
   },
 };

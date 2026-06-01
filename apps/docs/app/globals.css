@@ -144,12 +144,12 @@ html:not(.dark) {
 
 @media (min-width: 1280px) {
   :root {
-    --fd-layout-width: 97rem;
+    --fd-layout-width: calc(1440px - var(--sidebar-width) - var(--toc-width));
   }
 }
 
 html {
-  @apply bg-surface scroll-smooth antialiased transition-colors duration-300;
+  @apply bg-background scroll-smooth antialiased transition duration-300;
   height: 100%;
 }
 
