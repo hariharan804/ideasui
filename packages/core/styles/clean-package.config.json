@@ -1,0 +1,18 @@
+{
+  "remove": ["devDependencies", "scripts"],
+  "replace": {
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      },
+      "./styles.css": "./dist/styles.css",
+      "./base.css": "./dist/base.css",
+      "./components/*": "./dist/components/*",
+      "./package.json": "./package.json"
+    }
+  }
+}

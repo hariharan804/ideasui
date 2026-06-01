@@ -1,0 +1,58 @@
+{
+  "name": "@ideasui/styles",
+  "version": "0.0.2-beta.1",
+  "description": "The main entry point for the IdeasUI React component library.",
+  "author": "IdeasUI<support@ideasui.com>",
+  "homepage": "https://ideasui.com",
+  "license": "MIT",
+  "keywords": [
+    "ideasui",
+    "react",
+    "components",
+    "ui-kit"
+  ],
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./dist/styles.css",
+    "./base.css": "./dist/base.css",
+    "./components/*": "./dist/components/*"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "clean-package": "./clean-package.config.json",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ideas2logic-lab/ideasui.git",
+    "directory": "packages/core/styles"
+  },
+  "bugs": {
+    "url": "https://github.com/ideas2logic-lab/ideasui/issues"
+  },
+  "scripts": {
+    "build": "tsup --dts && pnpm build:css",
+    "build:css": "node scripts/build-css.js",
+    "dev": "pnpm build:dev --watch",
+    "clean": "rimraf dist .turbo",
+    "typecheck": "tsc --noEmit",
+    "build:dev": "tsup src && node scripts/build-css.js",
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "clean-package": "^2.2.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "typescript": "^5.9.3"
+  }
+}
