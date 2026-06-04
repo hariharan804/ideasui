@@ -9,7 +9,16 @@
     "ideasui",
     "react",
     "components",
-    "ui-kit"
+    "ui-kit",
+    "theme-system",
+    "design-tokens",
+    "tailwindcss-theme",
+    "dark-mode",
+    "color-system",
+    "utility-classes",
+    "component-styles",
+    "css-in-js",
+    "style-system"
   ],
   "main": "./src/index.ts",
   "exports": {
@@ -35,7 +44,7 @@
     "url": "https://github.com/ideas2logic-lab/ideasui/issues"
   },
   "scripts": {
-    "build": "tsup --dts && pnpm build:css",
+    "build": "tsup --minify --dts && pnpm build:css",
     "build:css": "node scripts/build-css.js",
     "dev": "pnpm build:dev --watch",
     "clean": "rimraf dist .turbo",

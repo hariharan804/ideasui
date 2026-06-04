@@ -12,6 +12,6 @@ pnpm-lock.yaml
 !jest.config.js
 !plopfile.js
 !.tsup.config.ts
-templates/
+plop-templates/
 apps/docs/.source
 apps/docs/next-env.d.ts

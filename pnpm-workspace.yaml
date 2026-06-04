@@ -6,3 +6,4 @@ packages:
   - 'packages/hooks/*'
   - 'packages/**'
   - 'apps/**'
+  - 'templates/nextjs-standalone-css'
