@@ -2,6 +2,8 @@ import type { ReactNode } from 'react';
 
 import { isValidElement } from 'react';
 
+import { focus } from '../client/dom';
+
 const ANNOUNCEMENT_TIMEOUT = 1000;
 
 /**
@@ -194,17 +196,7 @@ export const focusTrap = {
    * @returns {Array<HTMLElement>} Focusable elements
    */
   getFocusable: (container: HTMLElement): HTMLElement[] => {
-    const selector = [
-      'input:not([disabled])',
-      'select:not([disabled])',
-      'textarea:not([disabled])',
-      'button:not([disabled])',
-      'a[href]',
-      '[tabindex]:not([tabindex="-1"])',
-      '[contenteditable="true"]',
-    ].join(',');
-
-    return Array.from(container.querySelectorAll(selector));
+    return focus.getFocusable(container);
   },
 
   /**

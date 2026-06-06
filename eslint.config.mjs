@@ -173,10 +173,10 @@ export default defineConfig([
       curly: ['error', 'all'],
       'no-eval': 'error',
       'no-implied-eval': 'error',
-      // complexity: ['error', 20],
-      // 'max-lines': ['warn', { max: 300, skipBlankLines: true, skipComments: true }],
-      // 'max-lines-per-function': ['warn', { max: 50, skipBlankLines: true, skipComments: true }],
-      // 'max-params': ['warn', 4],
+      complexity: ['error', 25],
+      'max-lines': ['warn', { max: 500, skipBlankLines: true, skipComments: true }],
+      'max-lines-per-function': ['warn', { max: 150, skipBlankLines: true, skipComments: true }],
+      'max-params': ['warn', 6],
 
       // TypeScript
       '@typescript-eslint/no-unused-vars': [
@@ -403,9 +403,15 @@ export default defineConfig([
     },
   },
 
-  // Testing configuration
+  // Testing, Stories & Plop configurations
   {
-    files: ['**/__tests__/**/*', '**/*.test.{js,jsx,ts,tsx}', '**/*.spec.{js,jsx,ts,tsx}'],
+    files: [
+      '**/__tests__/**/*',
+      '**/*.test.{js,jsx,ts,tsx}',
+      '**/*.spec.{js,jsx,ts,tsx}',
+      '**/*.stories.{js,jsx,ts,tsx}',
+      'plopfile.js',
+    ],
 
     rules: {
       // Testing Library rules
@@ -420,11 +426,28 @@ export default defineConfig([
       'testing-library/prefer-find-by': 'warn',
       'testing-library/prefer-user-event': 'warn',
 
-      // Relax some rules for tests
+      // Relax some rules for tests and stories
       'no-magic-numbers': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
       'sonarjs/no-duplicate-string': 'off',
+      'max-lines': 'off',
+      'max-lines-per-function': 'off',
+      'max-params': 'off',
+      complexity: 'off',
+      'sonarjs/cognitive-complexity': 'off',
+    },
+  },
+
+  // Core Theme overrides
+  {
+    files: ['packages/core/theme/**/*'],
+    rules: {
+      'max-lines': 'off',
+      'max-lines-per-function': 'off',
+      'max-params': 'off',
+      complexity: 'off',
+      'sonarjs/cognitive-complexity': 'off',
     },
   },
 
@@ -448,6 +471,11 @@ export default defineConfig([
       'react/jsx-no-bind': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
+      'max-lines': 'off',
+      'max-lines-per-function': 'off',
+      'max-params': 'off',
+      complexity: 'off',
+      'sonarjs/cognitive-complexity': 'off',
     },
   },
 ]);

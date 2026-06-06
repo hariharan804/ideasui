@@ -61,6 +61,11 @@ describe('css', () => {
       expect(parseValue(ONE_POINT_FIVE_REM)).toBe(VAL_1_5);
       expect(parseValue(NEGATIVE_TWENTY_PERCENT)).toBe(VAL_NEG_20);
     });
+
+    it('should fallback to 0 for non-numeric values', () => {
+      expect(parseValue('auto')).toBe(0);
+      expect(parseValue('inherit')).toBe(0);
+    });
   });
 
   describe('CSS Variables', () => {
@@ -147,7 +152,7 @@ describe('css', () => {
     it('should convert object to style string', () => {
       const styles = { fontSize: 16, color: 'red', zIndex: 1 };
 
-      expect(toStyleString(styles)).toBe('font-size: 16px; color: red; z-index: 1px');
+      expect(toStyleString(styles)).toBe('font-size: 16px; color: red; z-index: 1');
     });
   });
 
