@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { execSync } from 'node:child_process';
 
 import { describe, it, expect, beforeAll } from 'vitest';
 
@@ -8,7 +9,15 @@ const distDir = path.join(stylesDir, 'dist');
 
 describe('@ideasui/styles compilation outputs', () => {
   beforeAll(() => {
-    // Ensure styles were compiled
+    // Ensure styles were compiled, build if missing
+    if (!fs.existsSync(distDir)) {
+      try {
+        execSync('pnpm build', { cwd: stylesDir, stdio: 'ignore' });
+      } catch {
+        // Fall back to expectation check
+      }
+    }
+
     expect(fs.existsSync(distDir)).toBe(true);
   });
 

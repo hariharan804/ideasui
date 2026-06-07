@@ -1,3 +1,5 @@
+import { createElement } from 'react';
+
 import {
   toDataAttr,
   getAriaFormProps,
@@ -8,6 +10,8 @@ import {
   screenReader,
   liveRegion,
   focusTrap,
+  extractTextFromChildren,
+  getAccessibleName,
 } from '../accessibility';
 
 describe('accessibility', () => {
@@ -213,6 +217,59 @@ describe('accessibility', () => {
       // For now, let's trust the logic if we cover the lines.
 
       cleanup();
+    });
+  });
+
+  describe('extractTextFromChildren', () => {
+    it('should extract plain string', () => {
+      expect(extractTextFromChildren('Hello')).toBe('Hello');
+    });
+
+    it('should extract array of children', () => {
+      expect(extractTextFromChildren(['Hello ', 'World'])).toBe('Hello World');
+    });
+
+    it('should extract from valid elements', () => {
+      const element = createElement('span', null, 'Nested Content');
+
+      expect(extractTextFromChildren(element)).toBe('Nested Content');
+    });
+
+    it('should terminate recursion if depth exceeds 10', () => {
+      const circularElement: any = {
+        $$typeof: Symbol.for('react.element'),
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {},
+        _owner: null,
+        _store: {},
+      };
+
+      circularElement.props.children = circularElement;
+
+      expect(extractTextFromChildren(circularElement)).toBe('');
+    });
+  });
+
+  describe('getAccessibleName', () => {
+    it('should prioritize aria-label', () => {
+      expect(
+        getAccessibleName(
+          { 'aria-label': 'Label Override', 'aria-labelledby': 'label-id' },
+          'Button Content',
+        ),
+      ).toBe('Label Override');
+    });
+
+    it('should return undefined if aria-labelledby is provided and aria-label is not', () => {
+      expect(
+        getAccessibleName({ 'aria-labelledby': 'label-id' }, 'Button Content'),
+      ).toBeUndefined();
+    });
+
+    it('should extract text from children if no aria labels are provided', () => {
+      expect(getAccessibleName({}, 'Button Content')).toBe('Button Content');
     });
   });
 });

@@ -22,9 +22,9 @@ export interface ButtonClassNames {
 }
 
 /**
- * Props for the Button component.
+ * Base props for the Button component.
  */
-export interface ButtonProps
+interface ButtonBaseProps
   extends
     Omit<ButtonPrimitiveProps, 'className'>,
     Omit<ButtonVariantProps, 'isLoading' | 'isDisabled'> {
@@ -43,13 +43,6 @@ export interface ButtonProps
    * @default 'start'
    */
   loadingPosition?: 'start' | 'end' | 'center';
-  /**
-   * Whether the button should be square and optimized for icons.
-   *
-   * Note: When true, you MUST provide an `aria-label` or `aria-labelledby` for accessibility.
-   * @default false
-   */
-  isIconOnly?: boolean;
   /**
    * Icon to display before the button content.
    */
@@ -81,16 +74,59 @@ export interface ButtonProps
    * Can be a ReactNode or a function that receives the button render props.
    */
   children?: ReactNode | ((props: ButtonRenderProps) => ReactNode);
-  /**
-   * Accessibility label for the button.
-   * Required if the button has no visible label (e.g., `isIconOnly`).
-   */
-  'aria-label'?: string;
-  /**
-   * ID of an element that serves as the accessible label for the button.
-   */
-  'aria-labelledby'?: string;
 }
+
+/**
+ * Props for the Button component.
+ *
+ * Enforces that if `isIconOnly` is true, either `aria-label` or `aria-labelledby` must be provided.
+ */
+export type ButtonProps =
+  | (ButtonBaseProps & {
+      /**
+       * Whether the button should be square and optimized for icons.
+       * @default false
+       */
+      isIconOnly?: false;
+      /**
+       * Accessibility label for the button.
+       */
+      'aria-label'?: string;
+      /**
+       * ID of an element that serves as the accessible label for the button.
+       */
+      'aria-labelledby'?: string;
+    })
+  | (ButtonBaseProps & {
+      /**
+       * Whether the button should be square and optimized for icons.
+       */
+      isIconOnly: true;
+      /**
+       * Accessibility label for the button.
+       * Required if the button has no visible label (e.g., `isIconOnly`).
+       */
+      'aria-label': string;
+      /**
+       * ID of an element that serves as the accessible label for the button.
+       */
+      'aria-labelledby'?: string;
+    })
+  | (ButtonBaseProps & {
+      /**
+       * Whether the button should be square and optimized for icons.
+       */
+      isIconOnly: true;
+      /**
+       * Accessibility label for the button.
+       */
+      'aria-label'?: string;
+      /**
+       * ID of an element that serves as the accessible label for the button.
+       * Required if the button has no visible label (e.g., `isIconOnly`).
+       */
+      'aria-labelledby': string;
+    });
 
 /**
  * Props for the Button.Label component.

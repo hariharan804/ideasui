@@ -240,21 +240,26 @@ export const focusTrap = {
  * Extracts plain text from React children.
  * Useful for generating accessible names from nested components.
  * @param {ReactNode} children - React children to process
+ * @param {number} [depth=0] - Current recursion depth
  * @returns {string} Extracted text
  * @internal
  */
-export function extractTextFromChildren(children: ReactNode): string {
+export function extractTextFromChildren(children: ReactNode, depth = 0): string {
+  if (depth > 10) {
+    return '';
+  }
+
   if (typeof children === 'string' || typeof children === 'number') {
     return String(children);
   }
 
   if (Array.isArray(children)) {
-    return children.map((child) => extractTextFromChildren(child as ReactNode)).join('');
+    return children.map((child) => extractTextFromChildren(child as ReactNode, depth + 1)).join('');
   }
 
   if (isValidElement(children)) {
     // @ts-expect-error - children.props might not have children in its type definition but it exists at runtime for many components
-    return extractTextFromChildren(children.props.children);
+    return extractTextFromChildren(children.props.children, depth + 1);
   }
 
   return '';
