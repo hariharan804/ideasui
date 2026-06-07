@@ -1,7 +1,7 @@
 # IdeasUI Architecture Guide
 
 **Version:** 1.0  
-**Last Updated:** February 15, 2026  
+**Last Updated:** June 7, 2026  
 **Status:** Production Standard  
 **Audience:** Developers, Designers, Contributors
 
@@ -38,6 +38,7 @@ IdeasUI is a modern **React component library** built with:
 - **TypeScript** for type safety
 - **Tailwind CSS v4** for styling
 - **Tailwind Variants** for variant management
+- **React Aria Components** for semantic and accessible UI foundations
 - **OKLCH color space** for perceptual uniformity
 - **Comprehensive design tokens** for consistency
 
@@ -53,22 +54,23 @@ IdeasUI is a modern **React component library** built with:
 │         ↓                                       │
 │  Tailwind Variants + BEM Classes               │
 │         ↓                                       │
-│  React Components                              │
+│  React Components (React Aria-powered)         │
 │                                                 │
-│  = Type Safety + Performance + Flexibility     │
+│  = Type Safety + Performance + Accessibility   │
 └─────────────────────────────────────────────────┘
 ```
 
 ### Key Decisions
 
-| Decision             | Rationale                                         |
-| -------------------- | ------------------------------------------------- |
-| **TypeScript-First** | Type safety, autocomplete, single source of truth |
-| **Tailwind CSS v4**  | Modern utility-first CSS, JIT compilation         |
-| **OKLCH Colors**     | Perceptually uniform, future-proof color space    |
-| **CSS Layers**       | Predictable cascade, better specificity control   |
-| **BEM + Utilities**  | Clean debugging + Tailwind power                  |
-| **React-Focused**    | Optimized for target audience                     |
+| Decision             | Rationale                                          |
+| -------------------- | -------------------------------------------------- |
+| **TypeScript-First** | Type safety, autocomplete, single source of truth  |
+| **Tailwind CSS v4**  | Modern utility-first CSS, native cascading layers  |
+| **React Aria**       | Pre-built accessibility, focus management, WCAG AA |
+| **OKLCH Colors**     | Perceptually uniform, future-proof color space     |
+| **CSS Layers**       | Predictable cascade, better specificity control    |
+| **BEM + Utilities**  | Clean debugging class names + Tailwind power       |
+| **React-Focused**    | Optimized for component framework target audience  |
 
 ---
 
@@ -104,24 +106,26 @@ Select "Component" and follow prompts.
 ```
 ideasui/
 ├── packages/
-│   ├── components/          # React components
-│   │   ├── button/
-│   │   ├── card/
-│   │   └── ...
+│   ├── components/          # Styled React component packages
+│   │   └── button/          # @ideasui/button (Button & ButtonGroup)
 │   ├── core/
-│   │   └── theme/          # Design system (PRIMARY)
-│   │       ├── src/
-│   │       │   ├── tokens/     # Design tokens
-│   │       │   ├── recipes/    # Component styles
-│   │       │   └── system/     # Theme engine
-│   │       └── DESIGN_TOKENS.md
-│   ├── hooks/              # React hooks
-│   ├── utils/              # Utilities
-│   └── icons/              # Icon components
+│   │   ├── theme/           # @ideasui/theme (Design system / plugin)
+│   │   │   └── src/
+│   │   │       ├── tokens/     # Design tokens (colors, spacing, etc.)
+│   │   │       ├── recipes/    # Component recipes (BEM & classes definitions)
+│   │   │       ├── plugin/     # Tailwind plugin to generate variables
+│   │   │       └── providers/  # ThemeProvider, ThemeScript, useTheme
+│   │   ├── styles/          # @ideasui/styles (base & global CSS stylesheets)
+│   │   └── react/           # @ideasui/react (Master library bundle & barrel exports)
+│   ├── utils/               # @ideasui/utils (Shared utilities like cn, styles, and aria)
+│   ├── hooks/               # @ideasui/hooks (Future shared hooks; placeholder workspace)
+│   ├── icons/               # @ideasui/icons (Future SVG icons package; placeholder workspace)
+│   └── cli/                 # @ideasui/cli (Future CLI tools; placeholder workspace)
 ├── apps/
-│   ├── playground/         # Development app
-│   └── storybook/          # Component showcase
-└── docs/                   # Documentation
+│   ├── docs/                # Next.js developer documentation site
+│   ├── playground/          # Next.js development playground
+│   └── storybook/           # Storybook component showcase
+└── docs/                    # Static developer guides and rules (.md files)
 ```
 
 ---
@@ -191,15 +195,17 @@ export const button = tv({
 ```
 packages/components/button/
 ├── src/
-│   ├── button.tsx           # Main component
-│   ├── use-button.ts        # Logic hook
-│   └── index.ts             # Exports
+│   ├── button.tsx           # Main component (PascalCase)
+│   ├── button.types.ts      # Component prop types
+│   ├── button-group.tsx     # Related components (ButtonGroup)
+│   └── index.ts             # Public exports (barrel export)
 ├── __tests__/
-│   └── button.test.tsx      # Tests
+│   └── button.test.tsx      # RTL & Vitest unit tests
 ├── stories/
-│   └── button.stories.tsx   # Storybook
+│   └── button.stories.tsx   # Storybook stories
 ├── package.json
 ├── tsconfig.json
+├── tsup.config.ts           # TSUp compiler configuration
 └── README.md
 ```
 
@@ -208,19 +214,15 @@ packages/components/button/
 ```typescript
 // src/button.tsx
 import * as React from 'react';
+import { Button as ButtonPrimitive } from 'react-aria-components';
 import { button } from '@ideasui/theme/recipes';
+import { cn } from '@ideasui/utils';
+import type { ButtonProps as AriaButtonProps } from 'react-aria-components';
 import type { ButtonVariantProps } from '@ideasui/theme/recipes';
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-          ButtonVariantProps {
+export interface ButtonProps extends AriaButtonProps, ButtonVariantProps {
   /**
-   * Button content
-   */
-  children: React.ReactNode;
-
-  /**
-   * Loading state
+   * Shows a spinner and disables interaction
    */
   isLoading?: boolean;
 }
@@ -234,29 +236,41 @@ export const Button = React.forwardRef<
     variant = 'solid',
     size = 'md',
     color = 'primary',
+    radius = 'default',
     className,
     isLoading,
-    disabled,
+    isDisabled,
     ...rest
   } = props;
 
-  const styles = button({ variant, size, color });
+  const styles = button({
+    variant,
+    size,
+    color,
+    radius,
+    isDisabled: isDisabled || isLoading,
+    isLoading
+  });
 
   return (
-    <button
+    <ButtonPrimitive
       ref={ref}
-      className={styles.base({ className })}
-      disabled={disabled || isLoading}
-      data-loading={isLoading}
+      className={(renderProps) =>
+        styles.base({
+          className: cn(
+            typeof className === 'function' ? className(renderProps) : className
+          ),
+        })
+      }
+      isDisabled={isDisabled || isLoading}
       {...rest}
     >
-      {isLoading && <Spinner className={styles.icon()} />}
-      <span className={styles.label()}>{children}</span>
-    </button>
+      {children}
+    </ButtonPrimitive>
   );
 });
 
-Button.displayName = 'Button';
+Button.displayName = 'IdeasUI.Button';
 ```
 
 ---
@@ -271,10 +285,9 @@ Button.displayName = 'Button';
 import {
   duration,
   easing,
-  motion,
-  breakpoints,
   spacing,
-  colors,
+  primitives,
+  semantic,
 } from '@ideasui/theme/tokens';
 
 // Use in components
@@ -284,6 +297,7 @@ const AnimatedDiv = () => (
     style={{
       transitionDuration: duration.normal,
       transitionTimingFunction: easing.standard,
+      padding: spacing[4],
     }}
   >
     Content
@@ -1160,9 +1174,11 @@ className = 'p-4'; // 1rem = 16px
 ### Documentation
 
 - [Component Standards](./docs/COMPONENT_STANDARDS.md)
-- [Design Tokens](./packages/core/theme/DESIGN_TOKENS.md)
+- [Design Token Rules](./docs/DESIGN_TOKEN_RULES.md)
 - [Testing Guide](./docs/TESTING_GUIDE.md)
-- [Architecture Comparison](./ARCHITECTURE_COMPARISON.md)
+- [Project Structure Rules](./rules/project-structure.md)
+- [Component Development Rules](./rules/component-development.md)
+- [Accessibility Guidelines](./rules/accessibility.md)
 
 ### Workflows
 
@@ -1229,5 +1245,5 @@ pnpm lint:fix
 
 **Version:** 1.0  
 **Maintained By:** IdeasUI Team  
-**Last Updated:** January 24, 2026  
+**Last Updated:** June 7, 2026  
 **License:** MIT
