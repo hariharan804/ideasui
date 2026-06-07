@@ -25,6 +25,7 @@
       "types": "./src/plugin/index.ts",
       "import": "./src/plugin/index.ts"
     },
+    "./dist/theme-config.css": "./dist/theme-config.css",
     "./theme.css": "./dist/theme.css"
   },
   "files": [

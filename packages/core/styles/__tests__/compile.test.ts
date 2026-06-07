@@ -9,6 +9,20 @@ const distDir = path.join(stylesDir, 'dist');
 
 describe('@ideasui/styles compilation outputs', () => {
   beforeAll(() => {
+    const themeDir = path.resolve(stylesDir, '../theme');
+    const themeCssPath = path.join(themeDir, 'dist', 'theme.css');
+
+    // Build theme dynamically if missing
+    if (!fs.existsSync(themeCssPath)) {
+      try {
+        // eslint-disable-next-line no-console
+        console.log('Building theme dynamically for styles compilation test...');
+        execSync('pnpm run build', { cwd: themeDir, stdio: 'inherit' });
+      } catch (error) {
+        console.error('Failed to build theme dynamically during test setup:', error);
+      }
+    }
+
     // Ensure styles were compiled, build if missing
     const baseCssPath = path.join(distDir, 'base.css');
 
