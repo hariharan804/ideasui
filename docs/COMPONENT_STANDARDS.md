@@ -97,6 +97,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 - [ ] Support keyboard navigation
 - [ ] Include focus indicators
 - [ ] Test with screen readers
+- [ ] Enforce accessible names for icon-only triggers (e.g. `isIconOnly` buttons) at compile time using TypeScript type unions (requiring `aria-label` or `aria-labelledby`)
 
 ```tsx
 <button
