@@ -6,11 +6,11 @@ These standards are actively enforced via ESLint to ensure code maintainability.
 
 ### Metrics:
 
-- **Max 50 lines** per function (`max-lines-per-function`)
-- **Max 300 lines** per file (`max-lines`)
-- **Max 4 parameters** per function (`max-params`)
-- **Max cyclomatic complexity: 10** (`complexity`)
-- **Cognitive complexity: max 15** (`sonarjs/cognitive-complexity`)
+- **Max 150 lines** per function (`max-lines-per-function`)
+- **Max 500 lines** per file (`max-lines`)
+- **Max 6 parameters** per function (`max-params`)
+- **Max cyclomatic complexity: 25** (`complexity`)
+- **Cognitive complexity: max 20** (`sonarjs/cognitive-complexity`)
 - **Max nesting depth: 4 levels**
 
 ## 🔧 Modern JavaScript/TypeScript

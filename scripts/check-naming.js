@@ -82,6 +82,11 @@ class NamingChecker {
       return;
     }
 
+    // Ignore Next.js dynamic routing folder name shapes, e.g., [...slug] or [[...slug]]
+    if (folderName.startsWith('[') && folderName.endsWith(']')) {
+      return;
+    }
+
     if (!rules.folders.test(folderName)) {
       this.errors.push(`❌ Folder: ${folderPath} - should be kebab-case`);
     }
@@ -120,7 +125,8 @@ class NamingChecker {
           item !== '.husky' &&
           item !== 'storybook-static' &&
           item !== '.github' &&
-          item !== 'templates' // Ignore templates directory for naming checks
+          item !== '.chrome-profile' &&
+          item !== 'plop-templates'
         ) {
           this.checkFolder(fullPath);
           this.walkDirectory(fullPath);

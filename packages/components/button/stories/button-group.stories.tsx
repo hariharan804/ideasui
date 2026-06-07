@@ -19,7 +19,7 @@ const meta: Meta<typeof Button.Group> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'ghost', 'soft', 'link', 'text', 'elevated', 'glaze'],
+      options: ['solid', 'outline', 'ghost', 'muted', 'link', 'text', 'elevated', 'glaze'],
       description: 'The visual style shared by all buttons in the group.',
     },
     color: {
@@ -29,7 +29,7 @@ const meta: Meta<typeof Button.Group> = {
         'secondary',
         'tertiary',
         'neutral',
-        'danger',
+        'error',
         'success',
         'warning',
         'info',
@@ -174,7 +174,7 @@ export const MixedStyles: Story = {
       <Button startIcon={<X className="size-4" />} variant="outline">
         Cancel
       </Button>
-      <Button color="danger" variant="outline">
+      <Button color="error" variant="outline">
         <Trash2 className="size-4" />
       </Button>
     </Button.Group>

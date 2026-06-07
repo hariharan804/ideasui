@@ -6,4 +6,4 @@ packages:
   - 'packages/hooks/*'
   - 'packages/**'
   - 'apps/**'
-  - '!packages/core/styles-experimental'
+  - 'templates/nextjs-standalone-css'

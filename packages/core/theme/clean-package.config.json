@@ -4,6 +4,7 @@
     "main": "./dist/index.js",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
+    "files": ["dist/**/*.js", "dist/**/*.d.ts", "dist/theme.css"],
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
@@ -25,6 +26,7 @@
         "types": "./dist/plugin/index.d.ts",
         "import": "./dist/plugin/index.js"
       },
+      "./dist/theme-config.css": "./dist/theme-config.css",
       "./theme.css": "./dist/theme.css",
       "./package.json": "./package.json"
     }

@@ -1,0 +1,40 @@
+{
+  "name": "@ideasui/nextjs-standalone-css",
+  "version": "0.1.0",
+  "description": "A Next.js starter boilerplate template pre-configured with IdeasUI standalone CSS.",
+  "keywords": [
+    "ideasui",
+    "nextjs",
+    "standalone-css",
+    "boilerplate",
+    "template",
+    "react"
+  ],
+  "author": "IdeasUI <support@ideasui.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@ideasui/react": "workspace:*",
+    "@ideasui/styles": "workspace:*",
+    "next": "16.2.7",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "sass": "^1.83.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.7",
+    "typescript": "^5"
+  }
+}

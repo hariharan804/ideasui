@@ -25,7 +25,9 @@ export function toRem(value: number, base = DEFAULT_REM_BASE): string {
  * @returns {number} Parsed number
  */
 export function parseValue(value: string): number {
-  return parseFloat(value.replace(/[^\d.-]/g, ''));
+  const parsed = parseFloat(value.replace(/[^\d.-]/g, ''));
+
+  return isNaN(parsed) ? 0 : parsed;
 }
 
 /**
@@ -111,6 +113,52 @@ export function createCSSVars(vars: Record<string, string | number>): Record<str
   return result;
 }
 
+const UNITLESS_PROPERTIES = new Set([
+  'animationIterationCount',
+  'borderImageOutset',
+  'borderImageSlice',
+  'borderImageWidth',
+  'boxFlex',
+  'boxFlexGroup',
+  'boxOrdinalGroup',
+  'columnCount',
+  'columns',
+  'flex',
+  'flexGrow',
+  'flexPositive',
+  'flexShrink',
+  'flexNegative',
+  'flexOrder',
+  'gridArea',
+  'gridRow',
+  'gridRowEnd',
+  'gridRowSpan',
+  'gridRowStart',
+  'gridColumn',
+  'gridColumnEnd',
+  'gridColumnSpan',
+  'gridColumnStart',
+  'fontWeight',
+  'lineClamp',
+  'lineHeight',
+  'opacity',
+  'order',
+  'orphans',
+  'tabSize',
+  'widows',
+  'zIndex',
+  'zoom',
+  // SVG
+  'fillOpacity',
+  'floodOpacity',
+  'stopOpacity',
+  'strokeDasharray',
+  'strokeDashoffset',
+  'strokeMiterlimit',
+  'strokeOpacity',
+  'strokeWidth',
+]);
+
 /**
  * Convert object to CSS style string
  * @param {Record<string, string | number>} styles - Style object
@@ -120,7 +168,8 @@ export function toStyleString(styles: Record<string, string | number>): string {
   return Object.entries(styles)
     .map(([key, value]) => {
       const cssKey = key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
-      const cssValue = typeof value === 'number' ? `${value}px` : value;
+      const isUnitless = UNITLESS_PROPERTIES.has(key);
+      const cssValue = typeof value === 'number' && !isUnitless ? `${value}px` : value;
 
       return `${cssKey}: ${cssValue}`;
     })

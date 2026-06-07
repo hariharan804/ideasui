@@ -1,0 +1,231 @@
+// Starter Boilerplate Page Layout Styles (CSS Modules)
+@use './theme' as *;
+
+.mainContainer {
+  flex: 1;
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  box-sizing: border-box;
+}
+
+.heroSection {
+  max-width: 48rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  h1 {
+    font-size: 2.25rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 1.15;
+    margin: 0;
+
+    @media (min-width: 640px) {
+      font-size: 3.5rem;
+    }
+
+    &.gradientText {
+      background: linear-gradient(to right, $primary, $secondary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      :global(.dark) & {
+        background: linear-gradient(to right, $primary-700, $secondary-700);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+  }
+
+  p {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    margin: 0;
+    color: $content-secondary;
+  }
+}
+
+.dashboardSection {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card {
+  padding: 2rem;
+  border-radius: $radius-lg;
+  border: 1px solid $border-base;
+  background-color: $background;
+  box-shadow: $shadow-sm;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+
+  &:hover {
+    border-color: color-mix(in srgb, $primary 40%, $border-base);
+    box-shadow: $shadow-md;
+  }
+
+  .cardHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+    }
+
+    .badge,
+    .badgeSuccess {
+      align-self: flex-start;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.125rem 0.625rem;
+    }
+
+    .badge {
+      background-color: $primary-subtle;
+      color: $on-primary-muted;
+    }
+
+    .badgeSuccess {
+      background-color: $success-subtle;
+      color: $on-success-muted;
+    }
+  }
+
+  .cardBody {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: $content-secondary;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .cardFooter {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.stepsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+
+    strong {
+      display: block;
+      color: $content-primary;
+      font-size: 0.9375rem;
+      margin-bottom: 0.125rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: $content-secondary;
+
+      code {
+        background-color: color-alpha(on-background, 0.06);
+        padding: 0.125rem 0.375rem;
+        border-radius: 0.25rem;
+        font-family: var(--ideasui-font-mono);
+        font-size: 0.8125rem;
+      }
+    }
+  }
+}
+
+.stepNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background-color: $primary;
+  color: #ffffff;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.tokensDemoGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.tokenItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: color-alpha(on-background, 0.03);
+  font-size: 0.875rem;
+
+  strong {
+    display: block;
+    color: $content-primary;
+  }
+
+  code {
+    font-family: var(--ideasui-font-mono);
+    font-size: 0.75rem;
+    color: $content-muted;
+  }
+}
+
+.tokenColorPrimary,
+.tokenColorSecondary,
+.tokenColorSuccess {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.375rem;
+  flex-shrink: 0;
+}
+
+.tokenColorPrimary {
+  background-color: $primary;
+}
+
+.tokenColorSecondary {
+  background-color: $secondary;
+}
+
+.tokenColorSuccess {
+  background-color: $success;
+}

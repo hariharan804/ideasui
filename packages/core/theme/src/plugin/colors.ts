@@ -38,8 +38,8 @@ export function processShadeColor(
   // (e.g. --ideasui-primary-500) rather than duplicating raw OKLCH values
   const trimmed = colorValue.trim();
 
-  if (trimmed.startsWith('var(')) {
-    // Store the var() reference directly
+  if (trimmed.startsWith('var(') || trimmed.startsWith('oklch(var(')) {
+    // Store the reference directly
     resolved.utilities[cssSelector][colorVar] = trimmed;
     resolved.baseStyles[baseSelector][colorVar] = trimmed;
 
@@ -47,7 +47,11 @@ export function processShadeColor(
     const twName = colorName.endsWith('-DEFAULT') ? colorName.replace('-DEFAULT', '') : colorName;
 
     if (!resolved.colors[twName]) {
-      resolved.colors[twName] = `oklch(var(${colorVar}) / <alpha-value>)`;
+      if (trimmed.startsWith('oklch(var(')) {
+        resolved.colors[twName] = `var(${colorVar})`;
+      } else {
+        resolved.colors[twName] = `oklch(var(${colorVar}) / <alpha-value>)`;
+      }
     }
 
     return;

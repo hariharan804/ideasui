@@ -13,119 +13,225 @@ const config: Config = {
   plugins: [
     ideasUIPlugin({
       defaultTheme: 'light',
-      // designTokens: {
-      //   spacing: {
-      //     cus: '10px',
-      //   },
-      // },
-      // components: {
-      //   button: {
-      //     base: {
-      //       backgroundColor: 'blue',
-      //     },
-      //   },
-      // },
-      // // disableAnimations: true,
-      // semanticTokens: {
-      //   content: {
-      //     cus: 'green',
-      //     'on-cus': 'yellow',
-      //   },
-      // },
-      // themes: {
-      //   light: {
-      //     designTokens: {
-      //       spacing: {
-      //         // cus: '30px',
-      //       },
-      //       boxShadow: {
-      //         cus: '0 0 0 1px red',
-      //       },
-      //       animation: {
-      //         cus: 'spin 1s linear infinite',
-      //       },
-      //       blur: {
-      //         cus: 'blur(10px)',
-      //       },
-      //       borderRadius: {
-      //         cus: '5px',
-      //       },
-      //       borderColor: {
-      //         cus: 'red',
-      //       },
-      //       borderWidth: {
-      //         cus: '1px',
-      //       },
-      //       duration: {
-      //         cus: '1s',
-      //       },
-      //       fontFamily: {
-      //         cus: 'Arial',
-      //       },
-      //       fontSize: {
-      //         cus: '12px',
-      //       },
-      //       fontWeight: {
-      //         cus: 'bold',
-      //       },
-      //       easing: {
-      //         cus: 'ease-in-out',
-      //       },
-      //       keyframes: {
-      //         cus: {
-      //           '0%': {
-      //             transform: 'rotate(0deg)',
-      //           },
-      //           '100%': {
-      //             transform: 'rotate(360deg)',
-      //           },
-      //         },
-      //       },
-      //       opacity: {
-      //         cus: '0.5',
-      //       },
-      //       zIndex: {
-      //         cus: '100',
-      //       },
-      //       letterSpacing: {
-      //         cus: '1px',
-      //       },
-      //     },
-      //     semanticTokens: {
-      //       border: {
-      //         cus: 'red',
-      //       },
-      //       content: {
-      //         // cus: 'red',
-      //         // 'on-cus': 'blue',
-      //       },
-      //       surface: {
-      //         cus: 'red',
-      //         'on-cus': 'blue',
-      //       },
-      //     },
-      //     components: {
-      //       button: {
-      //         base: {
-      //           // backgroundColor: 'red',
-      //         },
-      //       },
-      //     },
-      //     colors: {
-      //       btn: '#228880',
-      //       primary: {
-      //         '500': '#093333',
-      //         '550': '#090444',
-      //       },
-      //     },
-      //   },
-      // },
+      // ─────────────────────────────────────────────────────────────
+      // 1. Global Token Overrides (applies globally across all themes)
+      // ─────────────────────────────────────────────────────────────
+      designTokens: {
+        spacing: {
+          globalGap: '2.5rem',
+        },
+      },
+      semanticTokens: {},
+      // ─────────────────────────────────────────────────────────────
+      // 2. Theme-Specific Overrides
+      // ─────────────────────────────────────────────────────────────
+      themes: {
+        dark: {
+          colors: {},
+          // components:{
+
+          // }
+          designTokens: {},
+          semanticTokens: {},
+        },
+        light: {
+          // A. Theme-Specific Colors (Flat & Scales)
+          colors: {
+            // Core colors are represented as scales (objects matching ColorScale)
+            primary: {
+              '50': 'oklch(0.97 0.01 125)',
+              '100': 'oklch(0.93 0.03 125)',
+              '200': 'oklch(0.87 0.06 125)',
+              '300': 'oklch(0.79 0.10 125)',
+              '400': 'oklch(0.65 0.15 125)',
+              '500': 'oklch(0.42 0.18 125)', // Primary base color
+              '600': 'oklch(0.35 0.16 125)',
+              '700': 'oklch(0.28 0.13 125)',
+              '800': 'oklch(0.20 0.10 125)',
+              '900': 'oklch(0.13 0.06 125)',
+              '950': 'oklch(0.08 0.04 125)',
+            },
+          },
+          // B. Theme-Specific Design Tokens
+          designTokens: {
+            spacing: {
+              cus: '10px',
+            },
+            borderRadius: {
+              cus: '5px',
+            },
+            borderWidth: {
+              cus: '1px',
+            },
+            borderColor: {
+              cus: 'red',
+            },
+            fontSize: {
+              cus: '12px',
+              cusWithLineHeight: ['14px', { lineHeight: '20px' }],
+            },
+            fontWeight: {
+              cus: 'bold',
+            },
+            fontFamily: {
+              cus: 'Arial',
+            },
+            letterSpacing: {
+              cus: '1px',
+            },
+            boxShadow: {
+              cus: '0 0 0 1px red',
+            },
+            zIndex: {
+              cus: '100',
+            },
+            opacity: {
+              cus: '0.5',
+            },
+            blur: {
+              cus: 'blur(10px)',
+            },
+            duration: {
+              cus: '1s',
+            },
+            easing: {
+              cus: 'ease-in-out',
+            },
+            animation: {
+              cus: 'spin 1s linear infinite',
+            },
+            keyframes: {
+              cus: {
+                '0%': { transform: 'rotate(0deg)' },
+                '100%': { transform: 'rotate(360deg)' },
+              },
+            },
+          },
+          // C. Theme-Specific Semantic Tokens
+          semanticTokens: {},
+          // D. Component Overrides
+          components: {
+            button: {
+              base: {
+                backgroundColor: 'var(--ideasui-color-primary-500)',
+              },
+            },
+          },
+        },
+      },
     }),
   ],
 };
 
 export default config;
 
+// designTokens: {
+//   spacing: {
+//     cus: '10px',
+//   },
+// },
+// components: {
+//   button: {
+//     base: {
+//       backgroundColor: 'blue',
+//     },
+//   },
+// },
+// // disableAnimations: true,
+// semanticTokens: {
+//   content: {
+//     cus: 'green',
+//     'on-cus': 'yellow',
+//   },
+// },
+// themes: {
+//   light: {
+//     designTokens: {
+//       spacing: {
+//         // cus: '30px',
+//       },
+//       boxShadow: {
+//         cus: '0 0 0 1px red',
+//       },
+//       animation: {
+//         cus: 'spin 1s linear infinite',
+//       },
+//       blur: {
+//         cus: 'blur(10px)',
+//       },
+//       borderRadius: {
+//         cus: '5px',
+//       },
+//       borderColor: {
+//         cus: 'red',
+//       },
+//       borderWidth: {
+//         cus: '1px',
+//       },
+//       duration: {
+//         cus: '1s',
+//       },
+//       fontFamily: {
+//         cus: 'Arial',
+//       },
+//       fontSize: {
+//         cus: '12px',
+//       },
+//       fontWeight: {
+//         cus: 'bold',
+//       },
+//       easing: {
+//         cus: 'ease-in-out',
+//       },
+//       keyframes: {
+//         cus: {
+//           '0%': {
+//             transform: 'rotate(0deg)',
+//           },
+//           '100%': {
+//             transform: 'rotate(360deg)',
+//           },
+//         },
+//       },
+//       opacity: {
+//         cus: '0.5',
+//       },
+//       zIndex: {
+//         cus: '100',
+//       },
+//       letterSpacing: {
+//         cus: '1px',
+//       },
+//     },
+//     semanticTokens: {
+//       border: {
+//         cus: 'red',
+//       },
+//       content: {
+//         // cus: 'red',
+//         // 'on-cus': 'blue',
+//       },
+//       surface: {
+//         cus: 'red',
+//         'on-cus': 'blue',
+//       },
+//     },
+//     components: {
+//       button: {
+//         base: {
+//           // backgroundColor: 'red',
+//         },
+//       },
+//     },
+//     colors: {
+//       btn: '#228880',
+//       primary: {
+//         '500': '#093333',
+//         '550': '#090444',
+//       },
+//     },
+//   },
+// },
 /* ═══════════════════════════════════════════════════════════════
    Consumer Examples — copy any of these into your own project
    ═══════════════════════════════════════════════════════════════ */

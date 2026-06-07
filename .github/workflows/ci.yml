@@ -43,13 +43,17 @@ jobs:
         env:
           NODE_OPTIONS: '--max-old-space-size=4096'
 
-      # 4️⃣ Unit Tests
-      - name: Run tests
-        uses: ./.github/composite-actions/test
+      # 3.5️⃣ Naming Convention Check
+      - name: Check Naming Conventions
+        run: pnpm run check-naming
 
-      # 5️⃣ Build Packages (publish safety)
+      # 4️⃣ Build Packages (publish safety)
       - name: Build packages
         uses: ./.github/composite-actions/build
+
+      # 5️⃣ Unit Tests
+      - name: Run tests
+        uses: ./.github/composite-actions/test
 
       # 6️⃣ Coverage Upload (non-blocking for PRs)
       - name: Upload coverage

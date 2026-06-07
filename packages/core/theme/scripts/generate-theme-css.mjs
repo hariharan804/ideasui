@@ -162,9 +162,9 @@ function generateThemeCSS() {
     } else if (key.includes('-easing-')) {
       category = 'ease';
       subName = subName.split('-easing-')[1];
-    } else if (key.includes('-radius-')) {
+    } else if (key.includes('-radius-') || key === `--${PREFIX}-radius`) {
       category = 'radius';
-      subName = subName.split('-radius-')[1];
+      subName = key === `--${PREFIX}-radius` ? '' : subName.split('-radius-')[1];
     } else if (key.includes('-shadow-') || key.includes('-box-shadow-')) {
       category = 'shadow';
       subName = subName.includes('-box-shadow-')
@@ -222,7 +222,7 @@ function generateThemeCSS() {
 
     if (!category) return;
 
-    const tailwindKey = `--${category}-${subName}`;
+    const tailwindKey = subName ? `--${category}-${subName}` : `--${category}`;
 
     // Priority: Semantic aliases (shorter names) win over raw prefixed ones
     const isAlias = !key.startsWith(`--${PREFIX}`);
@@ -316,13 +316,8 @@ function generateThemeCSS() {
 
   const combinedUtilities = [borderUtilities, classUtilities].filter(Boolean).join('\n\n');
 
-  return `/**
- * IdeasUI Theme CSS
- * Auto-generated from ideasUIPlugin
- * 100% Data-Driven
- */
-
-:root,
+  return {
+    variables: `:root,
 [data-ideasui-theme="light"] {
 ${format(lightThemed)}
 }
@@ -332,27 +327,44 @@ ${format(lightThemed)}
 ${format(darkThemed)}
 }
 
-/* Tailwind v4 Theme Mappings */
+/* Explicit Utilities */
+${combinedUtilities}
+`,
+    config: `/* Tailwind v4 Theme Mappings */
 @theme {
 ${themeBlock}
 
 ${keyframesBlock}
 }
-
-/* Explicit Utilities */
-${combinedUtilities}
-`;
+`,
+    full: `/**
+ * IdeasUI Theme CSS
+ * Auto-generated from ideasUIPlugin
+ * 100% Data-Driven
+ */
+@import "./theme-variables.css";
+@import "./theme-config.css";
+`,
+  };
 }
 
 function writeThemeCSS() {
   try {
-    const css = generateThemeCSS();
+    const { variables, config, full } = generateThemeCSS();
     const dir = path.dirname(OUTPUT_PATH);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(OUTPUT_PATH, css, 'utf8');
-    console.log(`✅ Generated theme.css (${(css.length / BYTES_PER_KB).toFixed(2)}KB)`);
+
+    fs.writeFileSync(OUTPUT_PATH, full, 'utf8');
+    fs.writeFileSync(path.join(dir, 'theme-variables.css'), variables, 'utf8');
+    fs.writeFileSync(path.join(dir, 'theme-config.css'), config, 'utf8');
+
+    console.log(`✅ Generated theme.css (${(full.length / BYTES_PER_KB).toFixed(2)}KB)`);
+    console.log(
+      `✅ Generated theme-variables.css (${(variables.length / BYTES_PER_KB).toFixed(2)}KB)`,
+    );
+    console.log(`✅ Generated theme-config.css (${(config.length / BYTES_PER_KB).toFixed(2)}KB)`);
   } catch (error) {
-    console.error('❌ Failed to generate theme.css:', error);
+    console.error('❌ Failed to generate theme files:', error);
     process.exit(1);
   }
 }

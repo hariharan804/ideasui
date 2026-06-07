@@ -1,0 +1,153 @@
+@use './theme' as *;
+@import '@ideasui/styles/base.css';
+@import '@ideasui/styles/styles.css';
+
+// Typography variable mapping
+:root {
+  --ideasui-font-sans: var(--font-geist-sans), 'Inter', sans-serif;
+  --ideasui-font-mono: var(--font-geist-mono), monospace;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $background;
+  color: $on-background;
+  font-family: var(--ideasui-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Layout Root Wrapper
+.layout-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// Global Header Styles
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 4rem; // 64px
+  border-bottom: 1px solid color-alpha(on-background, 0.08);
+  background-color: color-alpha(background, 0.8);
+  backdrop-filter: blur(12px);
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+
+  .header-container {
+    max-width: 80rem; // 1280px
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .brand-logo-section {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    .logo-box {
+      display: flex;
+      height: 2.25rem;
+      width: 2.25rem;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.75rem;
+      background-color: $primary;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 12px color-alpha(primary, 0.2);
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.125rem;
+      letter-spacing: -0.025em;
+    }
+
+    .brand-badge {
+      margin-left: 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.125rem 0.5rem;
+      background-color: $primary-subtle;
+      color: $on-primary-muted;
+    }
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+
+      @media (min-width: 640px) {
+        display: flex;
+      }
+
+      .active-link {
+        color: $primary;
+      }
+    }
+
+    .theme-toggle-btn {
+      display: flex;
+      height: 2.5rem;
+      width: 2.5rem;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.75rem;
+      border: 1px solid $border-base;
+      background-color: $background;
+      box-shadow: $shadow-sm;
+      cursor: pointer;
+      color: inherit;
+      transition:
+        background-color 0.2s,
+        border-color 0.2s;
+
+      &:hover {
+        background-color: color-alpha(on-background, 0.04);
+      }
+
+      svg {
+        height: 1.25rem;
+        width: 1.25rem;
+      }
+    }
+  }
+}
+
+// Global Footer Styles
+.app-footer {
+  border-top: 1px solid $border-base;
+  background-color: $background;
+  padding: 2rem 0;
+  text-align: center;
+  font-size: 0.75rem;
+  color: $content-muted;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+
+  .footer-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+}

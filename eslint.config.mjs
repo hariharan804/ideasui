@@ -72,6 +72,10 @@ export default defineConfig([
     '!**/tsup.config.ts',
     '**/storybook-static/**',
     'packages/core/styles-experimental/**', // Experimental package
+    'apps/docs-rnd/**',
+    'apps/docs/.source/**',
+    'apps/docs/next-env.d.ts',
+    '.chrome-profile/**',
   ]),
 
   // Main configuration
@@ -169,10 +173,10 @@ export default defineConfig([
       curly: ['error', 'all'],
       'no-eval': 'error',
       'no-implied-eval': 'error',
-      // complexity: ['error', 20],
-      // 'max-lines': ['warn', { max: 300, skipBlankLines: true, skipComments: true }],
-      // 'max-lines-per-function': ['warn', { max: 50, skipBlankLines: true, skipComments: true }],
-      // 'max-params': ['warn', 4],
+      complexity: ['error', 25],
+      'max-lines': ['warn', { max: 500, skipBlankLines: true, skipComments: true }],
+      'max-lines-per-function': ['warn', { max: 150, skipBlankLines: true, skipComments: true }],
+      'max-params': ['warn', 6],
 
       // TypeScript
       '@typescript-eslint/no-unused-vars': [
@@ -399,9 +403,15 @@ export default defineConfig([
     },
   },
 
-  // Testing configuration
+  // Testing, Stories & Plop configurations
   {
-    files: ['**/__tests__/**/*', '**/*.test.{js,jsx,ts,tsx}', '**/*.spec.{js,jsx,ts,tsx}'],
+    files: [
+      '**/__tests__/**/*',
+      '**/*.test.{js,jsx,ts,tsx}',
+      '**/*.spec.{js,jsx,ts,tsx}',
+      '**/*.stories.{js,jsx,ts,tsx}',
+      'plopfile.js',
+    ],
 
     rules: {
       // Testing Library rules
@@ -416,11 +426,56 @@ export default defineConfig([
       'testing-library/prefer-find-by': 'warn',
       'testing-library/prefer-user-event': 'warn',
 
-      // Relax some rules for tests
+      // Relax some rules for tests and stories
       'no-magic-numbers': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/explicit-function-return-type': 'off',
       'sonarjs/no-duplicate-string': 'off',
+      'max-lines': 'off',
+      'max-lines-per-function': 'off',
+      'max-params': 'off',
+      complexity: 'off',
+      'sonarjs/cognitive-complexity': 'off',
+    },
+  },
+
+  // Core Theme overrides
+  {
+    files: ['packages/core/theme/**/*'],
+    rules: {
+      'max-lines': 'off',
+      'max-lines-per-function': 'off',
+      'max-params': 'off',
+      complexity: 'off',
+      'sonarjs/cognitive-complexity': 'off',
+    },
+  },
+
+  // Documentation & Playground configuration
+  {
+    files: ['apps/docs/**/*', 'apps/playground/**/*'],
+    linterOptions: {
+      reportUnusedDisableDirectives: false,
+    },
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      'no-console': 'off',
+      'import/order': 'off',
+      'import/consistent-type-specifier-style': 'off',
+      'unicorn/filename-case': 'off',
+      'promise/prefer-await-to-then': 'off',
+      'jsdoc/check-tag-names': 'off',
+      'react/jsx-no-leaked-render': 'off',
+      curly: 'off',
+      'react-refresh/only-export-components': 'off',
+      'react/jsx-no-bind': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'max-lines': 'off',
+      'max-lines-per-function': 'off',
+      'max-params': 'off',
+      complexity: 'off',
+      'sonarjs/cognitive-complexity': 'off',
     },
   },
 ]);

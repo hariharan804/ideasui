@@ -1,4 +1,6 @@
-import { useState, useEffect, useCallback } from 'react';
+'use client';
+
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 import { storageAdapters } from './storage';
 import { defaultConfig } from './themes.config';
@@ -26,21 +28,25 @@ export function useThemeStorage({
   const [theme, setThemeState] = useState<string>(defaultTheme);
   const [hasMounted, setHasMounted] = useState<boolean>(false);
 
+  const themesRef = useRef(themes);
+
+  useEffect(() => {
+    themesRef.current = themes;
+  }, [themes]);
+
   // Set mounted state and initialize from storage on mount
   useEffect(() => {
-    // avoid calling state synchronously, pushing to the end of event loop prevents hydration mismatches.
-    setTimeout(() => {
-      setHasMounted(true);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setHasMounted(true);
 
-      if (typeof window !== 'undefined') {
-        const stored = storage.getItem(storageKey);
+    if (typeof window !== 'undefined') {
+      const stored = storage.getItem(storageKey);
 
-        if (stored && (stored === 'system' || themes.includes(stored))) {
-          setThemeState(stored);
-        }
+      if (stored && (stored === 'system' || themesRef.current.includes(stored))) {
+        setThemeState(stored);
       }
-    }, 0);
-  }, [storageKey, themes]);
+    }
+  }, [storageKey]);
 
   const setTheme = useCallback((next: string) => {
     setThemeState((prev) => (prev === next ? prev : next));
@@ -72,7 +78,7 @@ export function useThemeStorage({
 
       const next = e.newValue ?? 'system';
 
-      if (next === 'system' || themes.includes(next)) {
+      if (next === 'system' || themesRef.current.includes(next)) {
         setThemeState(next);
       }
     };
@@ -80,7 +86,7 @@ export function useThemeStorage({
     window.addEventListener('storage', onStorage);
 
     return () => window.removeEventListener('storage', onStorage);
-  }, [themes, storageKey]);
+  }, [storageKey]);
 
   return { theme, setTheme, hasMounted } as const;
 }

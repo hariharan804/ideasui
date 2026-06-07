@@ -107,7 +107,7 @@ describe('Button', () => {
   it('should render all variants and sizes', () => {
     const variants = ['solid', 'outline', 'ghost'] as const;
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
-    const radii = ['none', 'sm', 'md', 'lg', 'xl', 'full'] as const;
+    const radii = ['none', 'default', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full'] as const;
 
     variants.forEach((variant) => {
       render(<Button variant={variant}>Button</Button>);
@@ -178,7 +178,7 @@ describe('Button', () => {
 describe('ButtonGroup', () => {
   it('should pass props to children', () => {
     render(
-      <Button.Group isDisabled color="danger" size="xl">
+      <Button.Group isDisabled color="error" size="xl">
         <Button>Button 1</Button>
         <Button>Button 2</Button>
       </Button.Group>,
@@ -189,7 +189,7 @@ describe('ButtonGroup', () => {
     buttons.forEach((button) => {
       expect(button).toBeDisabled();
       expect(button).toHaveClass('btn--xl');
-      expect(button).toHaveClass('btn--danger');
+      expect(button).toHaveClass('btn--error');
     });
   });
 

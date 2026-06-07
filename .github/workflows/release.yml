@@ -19,11 +19,11 @@ jobs:
       - name: Setup environment
         uses: ./.github/composite-actions/install
 
-      - name: Run tests
-        uses: ./.github/composite-actions/test
-
       - name: Build packages
         uses: ./.github/composite-actions/build
+
+      - name: Run tests
+        uses: ./.github/composite-actions/test
 
       - name: Create Release Pull Request or Publish
         id: changesets

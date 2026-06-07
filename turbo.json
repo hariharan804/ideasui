@@ -20,6 +20,22 @@
       "cache": true,
       "persistent": true
     },
+    "dev:docs": {
+      "cache": true,
+      "persistent": true
+    },
+    "build:docs": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "build:playground": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "start:docs": {
+      "cache": true,
+      "persistent": true
+    },
     "start:playground": {
       "cache": true,
       "persistent": true

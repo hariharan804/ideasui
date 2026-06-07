@@ -57,8 +57,8 @@ const button = tv({
       ghost: {
         base: [BEM_GHOST, TRANSPARENT],
       },
-      soft: {
-        base: 'btn--soft',
+      muted: {
+        base: 'btn--muted',
       },
       link: {
         base: [BEM_LINK, TRANSPARENT, 'underline-offset-4', 'hover:underline', 'font-normal'],
@@ -70,7 +70,7 @@ const button = tv({
         base: 'btn--elevated bg-background !shadow-sm hover:!shadow-md active:!shadow-sm',
       },
       glaze: {
-        base: 'btn--glaze backdrop-blur-lg border border-white/20 border-t-white/40 bg-white/10 dark:bg-black/20 dark:border-white/10 shadow-lg text-white transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)] hover:bg-white/20 hover:shadow-xl active:scale-95',
+        base: 'btn--glaze backdrop-blur-lg border shadow-lg transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] hover:shadow-xl',
       },
     },
     size: {
@@ -101,7 +101,7 @@ const button = tv({
       tertiary: { base: 'btn--tertiary' },
       success: { base: 'btn--success' },
       warning: { base: 'btn--warning' },
-      danger: { base: 'btn--danger' },
+      error: { base: 'btn--error' },
       info: { base: 'btn--info' },
       neutral: { base: 'btn--neutral' },
     },
@@ -116,6 +116,7 @@ const button = tv({
     },
     radius: {
       none: { base: ROUNDED_NONE },
+      default: { base: 'rounded' },
       sm: { base: 'rounded-sm' },
       md: { base: 'rounded-md' },
       lg: { base: 'rounded-lg' },
@@ -131,7 +132,7 @@ const button = tv({
     },
     isLoading: {
       true: {
-        base: 'opacity-80 p-events-none cursor-wait pointer-events-none',
+        base: 'opacity-80 cursor-wait pointer-events-none',
       },
     },
     disableAnimation: {
@@ -149,7 +150,7 @@ const button = tv({
     },
     isIconOnly: {
       true: {
-        base: 'aspect-square p-0 rounded-full',
+        base: 'aspect-square p-0',
       },
     },
     isAttached: {
@@ -173,7 +174,7 @@ const button = tv({
     variant: 'solid',
     size: 'md',
     color: 'primary',
-    radius: 'md',
+    radius: 'default',
     isDisabled: false,
     disableAnimation: false,
   },

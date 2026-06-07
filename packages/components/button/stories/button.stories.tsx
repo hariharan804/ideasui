@@ -19,7 +19,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'ghost', 'soft', 'link', 'text', 'elevated', 'glaze'],
+      options: ['solid', 'outline', 'ghost', 'muted', 'link', 'text', 'elevated', 'glaze'],
       description: 'The visual style of the button.',
     },
     color: {
@@ -29,7 +29,7 @@ const meta: Meta<typeof Button> = {
         'secondary',
         'tertiary',
         'neutral',
-        'danger',
+        'error',
         'success',
         'warning',
         'info',
@@ -43,7 +43,7 @@ const meta: Meta<typeof Button> = {
     },
     radius: {
       control: 'select',
-      options: ['none', 'sm', 'md', 'lg', 'xl', 'full'],
+      options: ['none', 'default', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full'],
       description: 'The border radius of the button.',
     },
     isLoading: {
@@ -84,7 +84,7 @@ const meta: Meta<typeof Button> = {
     variant: 'solid',
     color: 'primary',
     size: 'md',
-    radius: 'md',
+    radius: 'default',
     children: 'Button',
     isLoading: false,
     isDisabled: false,
@@ -136,7 +136,7 @@ export const Variants: Story = {
       <Button {...args} variant="ghost">
         Ghost
       </Button>
-      <Button {...args} variant="soft">
+      <Button {...args} variant="muted">
         Soft
       </Button>
       <Button {...args} variant="elevated">
@@ -174,7 +174,7 @@ export const Colors: Story = {
       <Button {...args} color="warning">
         Warning
       </Button>
-      <Button {...args} color="danger">
+      <Button {...args} color="error">
         Danger
       </Button>
       <Button {...args} color="info">
@@ -217,6 +217,9 @@ export const Radius: Story = {
       <Button {...args} radius="none">
         None
       </Button>
+      <Button {...args} radius="default">
+        Default
+      </Button>
       <Button {...args} radius="sm">
         SM
       </Button>
@@ -228,6 +231,12 @@ export const Radius: Story = {
       </Button>
       <Button {...args} radius="xl">
         XL
+      </Button>
+      <Button {...args} radius="2xl">
+        2XL
+      </Button>
+      <Button {...args} radius="3xl">
+        3XL
       </Button>
       <Button {...args} radius="full">
         Full
@@ -260,7 +269,7 @@ export const IconButton: Story = {
       <Button {...args} isIconOnly aria-label="Edit" color="secondary" variant="outline">
         <Plus className="size-5" />
       </Button>
-      <Button {...args} isIconOnly aria-label="Favorite" color="danger" variant="ghost">
+      <Button {...args} isIconOnly aria-label="Favorite" color="error" variant="ghost">
         <User className="size-5" />
       </Button>
     </div>
@@ -371,7 +380,7 @@ export const WithShortcut: Story = {
         <Button.Shortcut>⌘N</Button.Shortcut>
       </Button>
 
-      <Button {...args} className="w-64 justify-between" variant="soft">
+      <Button {...args} className="w-64 justify-between" variant="muted">
         <div className="flex items-center gap-2">
           <Settings className="size-4" />
           <span>Open Settings</span>

@@ -29,20 +29,20 @@ function Header({ showBackButton = false, title, subtitle }: HeaderProps): JSX.E
   };
 
   return (
-    <header className="border-default bg-surface-elevated/80 sticky top-0 z-50 border-b backdrop-blur-md transition-colors duration-300">
+    <header className="border-default bg-surface sticky top-0 z-50 border-b backdrop-blur-md transition-colors duration-300">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             {showBackButton ? (
               <>
                 <button
-                  className="text-content-secondary hover:bg-surface-muted hover:text-content-primary flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors"
+                  className="text-content-secondary hover:bg-surface-subtle hover:text-content-primary flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors"
                   onClick={goBack}
                 >
                   <ArrowLeft className="h-4 w-4" />
                   Back to Components
                 </button>
-                <div className="bg-surface-strong h-6 w-px" />
+                <div className="bg-surface-muted h-6 w-px" />
               </>
             ) : null}
             <div>
@@ -58,7 +58,7 @@ function Header({ showBackButton = false, title, subtitle }: HeaderProps): JSX.E
           <div className="flex items-center gap-2">
             {/* Documentation Link */}
             <button
-              className="text-content-secondary hover:bg-surface-muted hover:text-content-primary hidden items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors sm:flex"
+              className="text-content-secondary hover:bg-surface-subtle hover:text-content-primary hidden items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors sm:flex"
               onClick={goToDocs}
             >
               <ExternalLink className="h-4 w-4" />
@@ -67,7 +67,7 @@ function Header({ showBackButton = false, title, subtitle }: HeaderProps): JSX.E
 
             {/* GitHub Link */}
             <button
-              className="text-content-secondary hover:bg-surface-muted hover:text-content-primary hidden items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors sm:flex"
+              className="text-content-secondary hover:bg-surface-subtle hover:text-content-primary hidden items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors sm:flex"
               onClick={() => window.open('https://github.com/ideas2logic-lab/ideasui', '_blank')}
             >
               <Github className="h-4 w-4" />
@@ -76,7 +76,7 @@ function Header({ showBackButton = false, title, subtitle }: HeaderProps): JSX.E
 
             {/* Theme Toggle */}
             <button
-              className="bg-surface-muted text-content-secondary hover:bg-surface-strong hover:text-content-primary rounded-lg p-2 transition-colors"
+              className="bg-surface-subtle text-content-secondary hover:bg-surface-muted hover:text-content-primary rounded-lg p-2 transition-colors"
               title={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode`}
               onClick={onToggleTheme}
             >

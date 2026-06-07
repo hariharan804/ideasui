@@ -5,6 +5,7 @@ import type {
   ConfigTheme,
   TokenOverrides,
   SemanticTokenOverrides,
+  ColorTokens,
 } from '../types';
 
 import deepMerge from 'deepmerge';
@@ -34,7 +35,13 @@ import {
   componentShadows,
 } from '../tokens';
 
-import { flattenThemeObject, omit, escapeSelector } from './utils';
+import {
+  flattenThemeObject,
+  omit,
+  escapeSelector,
+  parseColorValue,
+  formatColorComponents,
+} from './utils';
 import { processColors } from './colors';
 import { generateCSSVarsFromTokenOverrides } from './css-vars';
 
@@ -170,6 +177,7 @@ export function resolveConfig(
  */
 export function buildThemes(config: ThemeConfig): ConfigThemes {
   const themeData = config?.themes || {};
+  const autoGenerateScales = config?.autoGenerateScales ?? false;
 
   // Extract user overrides
   const globalDesignTokens = config?.designTokens || {};
@@ -189,14 +197,18 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
   const lightTheme: ConfigTheme = {
     colors: deepMerge(
       {
-        ...deepMerge(primitives.light, semantic),
+        ...flattenThemeObject(primitives.light),
+        ...semantic,
         ...surface,
-        content,
-        border: borderColor,
-        ...componentColors,
+        ...flattenThemeObject({ content, border: borderColor, ...componentColors }),
       },
-      userLightColors,
-    ),
+      autoGenerateScales
+        ? autoGenerateColorScales(
+            flattenThemeObject(userLightColors) as Record<string, string>,
+            false,
+          )
+        : (flattenThemeObject(userLightColors) as Record<string, string>),
+    ) as Partial<ColorTokens>,
     designTokens: deepMerge(globalDesignTokens, userLightTokens),
     semanticTokens: deepMerge(globalSemanticTokens, userLightSemantic),
     components: deepMerge(globalComponents, userLightComponents),
@@ -205,24 +217,48 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
   const darkTheme: ConfigTheme = {
     colors: deepMerge(
       {
-        ...deepMerge(primitives.dark, semantic),
+        ...flattenThemeObject(primitives.dark),
+        ...semantic,
         ...surface,
-        content,
-        border: borderColor,
-        ...componentColors,
+        ...flattenThemeObject({ content, border: borderColor, ...componentColors }),
       },
-      userDarkColors,
-    ),
+      autoGenerateScales
+        ? autoGenerateColorScales(
+            flattenThemeObject(userDarkColors) as Record<string, string>,
+            true,
+          )
+        : (flattenThemeObject(userDarkColors) as Record<string, string>),
+    ) as Partial<ColorTokens>,
     designTokens: deepMerge(globalDesignTokens, userDarkTokens),
     semanticTokens: deepMerge(globalSemanticTokens, userDarkSemantic),
     components: deepMerge(globalComponents, userDarkComponents),
   };
 
   // Merge with any custom themes
+  const customThemes: ConfigThemes = {};
+
+  for (const [themeName, themeConfig] of Object.entries(omit(themeData, ['light', 'dark']))) {
+    if (themeConfig) {
+      const isDark = themeConfig.extend === 'dark' || themeName.includes('dark');
+      let finalColors = themeConfig.colors
+        ? (flattenThemeObject(themeConfig.colors) as Record<string, string>)
+        : undefined;
+
+      if (autoGenerateScales && finalColors) {
+        finalColors = autoGenerateColorScales(finalColors, isDark);
+      }
+
+      customThemes[themeName] = {
+        ...themeConfig,
+        colors: finalColors as unknown as Partial<ColorTokens>,
+      };
+    }
+  }
+
   return {
     light: lightTheme,
     dark: darkTheme,
-    ...(omit(themeData, ['light', 'dark']) as ConfigThemes),
+    ...customThemes,
   };
 }
 
@@ -257,24 +293,27 @@ export function createThemeExtension(
     colors: {
       ...colors,
       transparent: 'transparent',
-      // Map semantic overrides to their CSS variables
+      // Map all flat semantic token overrides to their CSS variables so Tailwind detects them
       ...Object.fromEntries(
-        Object.keys(semanticTokens.surface || {}).map((key) => [
-          key,
-          `var(--${_prefix}-color-${key})`,
-        ]),
+        Object.entries(semanticTokens)
+          .filter(([key, value]) => key !== 'components' && typeof value === 'string')
+          .map(([key]) => [key, `var(--${_prefix}-color-${key})`]),
+      ),
+      // Map legacy grouped semantic overrides if any still exist
+      ...Object.fromEntries(
+        Object.keys(
+          ((semanticTokens as Record<string, unknown>).surface as Record<string, unknown>) || {},
+        ).map((key) => [key, `var(--${_prefix}-color-${key})`]),
       ),
       ...Object.fromEntries(
-        Object.keys(semanticTokens.content || {}).map((key) => [
-          `content-${key}`,
-          `var(--${_prefix}-color-content-${key})`,
-        ]),
+        Object.keys(
+          ((semanticTokens as Record<string, unknown>).content as Record<string, unknown>) || {},
+        ).map((key) => [`content-${key}`, `var(--${_prefix}-color-content-${key})`]),
       ),
       ...Object.fromEntries(
-        Object.keys(semanticTokens.border || {}).map((key) => [
-          `border-${key}`,
-          `var(--${_prefix}-border-${key})`,
-        ]),
+        Object.keys(
+          ((semanticTokens as Record<string, unknown>).border as Record<string, unknown>) || {},
+        ).map((key) => [`border-${key}`, `var(--${_prefix}-border-${key})`]),
       ),
     },
 
@@ -291,7 +330,7 @@ export function createThemeExtension(
       subtle: colors['border-subtle'],
       strong: colors['border-strong'],
       focus: colors['border-focus'],
-      danger: colors['border-danger'],
+      error: colors['border-error'],
       ...t.borderColor,
       ...Object.fromEntries(
         Object.keys(semanticTokens.border || {}).map((key) => [
@@ -338,4 +377,147 @@ export function createThemeExtension(
     // ── Blur ──
     blur: { ...blur, ...t.blur },
   };
+}
+
+const SHADES = [
+  '50',
+  '100',
+  '200',
+  '300',
+  '400',
+  '500',
+  '600',
+  '700',
+  '800',
+  '900',
+  '950',
+] as const;
+const CHROMA_FACTORS = [0.1, 0.18, 0.35, 0.55, 0.75, 1.0, 0.95, 0.85, 0.72, 0.55, 0.4] as const;
+
+/**
+ * Interpolates a single color family's shades based on the parsed anchor color.
+ */
+export function generateColorScale(
+  familyColors: Record<string, string>,
+  isDark: boolean,
+): Record<string, string> {
+  const presentShades = Object.keys(familyColors);
+
+  if (presentShades.length === 0 || presentShades.length === SHADES.length) {
+    return familyColors;
+  }
+
+  // Find closest anchor shade to 500 (index 5)
+  let anchorShade = '500';
+  let minDiff = Infinity;
+
+  presentShades.forEach((shade) => {
+    const idx = SHADES.indexOf(shade as (typeof SHADES)[number]);
+
+    if (idx !== -1) {
+      const diff = Math.abs(idx - 5);
+
+      if (diff < minDiff) {
+        minDiff = diff;
+        anchorShade = shade;
+      }
+    }
+  });
+
+  const anchorValue = familyColors[anchorShade];
+
+  if (!anchorValue) {
+    return familyColors;
+  }
+
+  const parsed = parseColorValue(anchorValue);
+
+  if (!parsed || parsed.cssFn !== 'oklch') {
+    return familyColors;
+  }
+
+  const [lAnchor, cAnchor, hAnchor] = parsed.components as [number, number, number];
+  const anchorIdx = SHADES.indexOf(anchorShade as (typeof SHADES)[number]);
+
+  if (anchorIdx === -1) {
+    return familyColors;
+  }
+
+  const result = { ...familyColors };
+
+  SHADES.forEach((shade, idx) => {
+    if (familyColors[shade]) {
+      return;
+    }
+
+    let lTarget = lAnchor;
+
+    if (isDark) {
+      if (idx < anchorIdx) {
+        lTarget = lAnchor - ((lAnchor - 0.14) * (anchorIdx - idx)) / anchorIdx;
+      } else if (idx > anchorIdx) {
+        lTarget = lAnchor + ((0.97 - lAnchor) * (idx - anchorIdx)) / (10 - anchorIdx);
+      }
+    } else {
+      if (idx < anchorIdx) {
+        lTarget = lAnchor + ((0.97 - lAnchor) * (anchorIdx - idx)) / anchorIdx;
+      } else if (idx > anchorIdx) {
+        lTarget = lAnchor - ((lAnchor - 0.14) * (idx - anchorIdx)) / (10 - anchorIdx);
+      }
+    }
+
+    lTarget = Math.round(lTarget * 10000) / 10000;
+
+    const anchorFactor = CHROMA_FACTORS[anchorIdx];
+    const targetFactor = CHROMA_FACTORS[idx];
+    const cTarget = Math.round(cAnchor * (targetFactor / anchorFactor) * 10000) / 10000;
+
+    const targetComponents: (string | number)[] = [lTarget, cTarget, hAnchor];
+
+    if (parsed.components[3] !== undefined) {
+      targetComponents.push(parsed.components[3]);
+    }
+
+    result[shade] = `oklch(${formatColorComponents(targetComponents)})`;
+  });
+
+  return result;
+}
+
+/**
+ * Automates 11-stop color scale generation for any partially defined scales.
+ */
+export function autoGenerateColorScales(
+  flatUserColors: Record<string, string>,
+  isDark: boolean,
+): Record<string, string> {
+  const result = { ...flatUserColors };
+  const overridesByFamily: Record<string, Record<string, string>> = {};
+
+  for (const [key, val] of Object.entries(flatUserColors)) {
+    const match = key.match(/^([a-z]+)-(\d+)$/i);
+
+    if (match) {
+      const [, family, shade] = match;
+
+      if (!overridesByFamily[family]) {
+        overridesByFamily[family] = {};
+      }
+      overridesByFamily[family][shade] = val;
+    }
+  }
+
+  for (const [family, shades] of Object.entries(overridesByFamily)) {
+    const keys = Object.keys(shades);
+
+    if (keys.length > 0 && keys.length < SHADES.length) {
+      const completeScale = generateColorScale(shades, isDark);
+
+      for (const [shade, val] of Object.entries(completeScale)) {
+        result[`${family}-${shade}`] = val;
+      }
+    }
+  }
+
+  return result;
 }

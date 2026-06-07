@@ -45,6 +45,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({ onKeyDown, ..
 - Add ARIA labels when needed
 - Provide ARIA descriptions for complex interactions
 - Use ARIA live regions for dynamic updates
+- Enforce accessible names for icon-only triggers (e.g. `isIconOnly` components) at compile-time using TypeScript type unions (requiring either `aria-label` or `aria-labelledby`)
 
 ### Examples:
 

@@ -1,0 +1,263 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/style.css';
+@import 'fumadocs-ui/css/black.css';
+@import 'fumadocs-ui/css/preset.css';
+@import '@ideasui/theme/theme.css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Point Tailwind at places where classnames appear */
+@source '../app/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../components/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../content/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../lib/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../showcase/**/*.{js,ts,jsx,tsx,mdx}';
+@source '../../../packages/core/theme/src/recipes/**/*.ts';
+@source '../../../packages/components/*/src/**/*.{js,ts,jsx,tsx}';
+
+html.dark {
+  color-scheme: dark;
+}
+
+html:not(.dark) {
+  color-scheme: light;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   ROOT — Base configuration
+   ───────────────────────────────────────────────────────────────────── */
+:root {
+  /* ─────────────────────────────────────────────────────────────────────
+     IDEASUI THEME OVERRIDES
+     ─────────────────────────────────────────────────────────────────────
+     You can override any IdeasUI design token by redefining its CSS variable here.
+  */
+  /* --ideasui-color-primary: 0.65 0.25 150.0; */
+  /* --ideasui-radius: 0px; */
+  /* --ideasui-radius-md: 0.5rem; */
+
+  /* ─────────────────────────────────────────────────────────────────────
+     FUMADOCS CONFIGURATION
+     ───────────────────────────────────────────────────────────────────── */
+  --font-inter: 'Inter', sans-serif;
+  --header-height: 56px;
+  --sidebar-width: 280px;
+  --toc-width: 268px;
+  --banner-height: 0px;
+  --docs-height: 100dvh;
+  --fd-layout-width: 100%;
+
+  /* Override Fumadocs Theme Variables at Runtime */
+
+  /* ── Radius ── map Tailwind defaults → IdeasUI tokens ──────────────── */
+  --radius-xs: var(--ideasui-radius-xs);
+  --radius-sm: var(--ideasui-radius-sm);
+  --radius-md: var(--ideasui-radius-md);
+  --radius-lg: var(--ideasui-radius-lg);
+  --radius-xl: var(--ideasui-radius-xl);
+  --radius-2xl: var(--ideasui-radius-2xl);
+  --radius-3xl: var(--ideasui-radius-3xl);
+  --radius: var(--ideasui-radius);
+
+  /* ── Spacing ── base unit from IdeasUI ─────────────────────────────── */
+  --spacing: var(--ideasui-spacing-1);
+
+  /* ── Typography ── font sizes from IdeasUI ─────────────────────────── */
+  --text-xs: var(--ideasui-font-size-xs);
+  --text-sm: var(--ideasui-font-size-sm);
+  --text-base: var(--ideasui-font-size-base);
+  --text-lg: var(--ideasui-font-size-lg);
+  --text-2xl: var(--ideasui-font-size-2xl);
+  --text-3xl: var(--ideasui-font-size-3xl);
+  --text-full: var(--ideasui-font-size-full);
+
+  /* Backgrounds */
+  --fd-background: var(--ideasui-color-surface);
+  --color-fd-background: oklch(var(--ideasui-color-surface));
+
+  --fd-foreground: var(--ideasui-color-content-primary);
+  --color-fd-foreground: oklch(var(--ideasui-color-content-primary));
+
+  --fd-muted: var(--ideasui-color-surface-muted);
+  --color-fd-muted: oklch(var(--ideasui-color-surface-muted));
+
+  --fd-muted-foreground: var(--ideasui-color-content-secondary);
+  --color-fd-muted-foreground: oklch(var(--ideasui-color-content-secondary));
+
+  --fd-popover: var(--ideasui-color-surface-modal);
+  --color-fd-popover: oklch(var(--ideasui-color-surface-modal));
+
+  --fd-popover-foreground: var(--ideasui-color-content-primary);
+  --color-fd-popover-foreground: oklch(var(--ideasui-color-content-primary));
+
+  --fd-card: var(--ideasui-color-surface);
+  --color-fd-card: oklch(var(--ideasui-color-surface));
+
+  --fd-card-foreground: var(--ideasui-color-content-primary);
+  --color-fd-card-foreground: oklch(var(--ideasui-color-content-primary));
+
+  /* Borders */
+  --fd-border: var(--ideasui-color-border-subtle);
+  --color-fd-border: oklch(var(--ideasui-color-border-subtle));
+
+  --fd-ring: var(--ideasui-color-border-primary);
+  --color-fd-ring: oklch(var(--ideasui-color-border-primary));
+
+  /* Semantics */
+  --fd-primary: var(--ideasui-color-primary);
+  --color-fd-primary: oklch(var(--ideasui-color-primary));
+
+  --fd-primary-foreground: var(--ideasui-color-on-primary);
+  --color-fd-primary-foreground: oklch(var(--ideasui-color-on-primary));
+
+  --fd-secondary: var(--ideasui-color-secondary);
+  --color-fd-secondary: oklch(var(--ideasui-color-secondary));
+
+  --fd-secondary-foreground: var(--ideasui-color-on-secondary);
+  --color-fd-secondary-foreground: oklch(var(--ideasui-color-on-secondary));
+
+  --fd-radius: var(--ideasui-radius);
+
+  --fd-accent: var(--ideasui-color-surface-muted);
+  --color-fd-accent: oklch(var(--ideasui-color-surface-muted));
+
+  --fd-accent-foreground: var(--ideasui-color-content-primary);
+  --color-fd-accent-foreground: oklch(var(--ideasui-color-content-primary));
+}
+
+@media (max-width: 1280px) {
+  :root {
+    --toc-width: 0px;
+  }
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --sidebar-width: 240px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --fd-layout-width: calc(1440px - var(--sidebar-width) - var(--toc-width));
+  }
+}
+
+html {
+  @apply bg-background scroll-smooth antialiased transition duration-300;
+  height: 100%;
+}
+
+body {
+  @apply text-content-primary font-sans;
+  min-height: 100%;
+}
+
+/* ─── Layout Fixes ─────────────────────────────────────────────────── */
+
+/* Fix scrolling glitch where header overlaps anchors */
+html {
+  scroll-padding-top: 120px;
+}
+
+.rounded-full {
+  border-radius: var(--ideasui-radius-full);
+}
+/* Landing Page (Home) Specific */
+main:has(.hero-section) {
+  padding-bottom: 0;
+}
+
+/* ─── Modernization Accents ────────────────────────────────────────── */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border) / 0.3;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border) / 0.5;
+}
+
+/* Glassmorphism for Sidebar & Nav */
+#nd-sidebar {
+  background: var(--color-background) / 0.6 !important;
+  backdrop-filter: blur(12px) !important;
+  border-right: 1px solid var(--color-border-subtle) / 0.2 !important;
+}
+
+/* Sidebar Item Enhancements */
+[data-sidebar-placeholder] a,
+[data-sidebar-placeholder] button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Page content animation */
+article {
+  animation: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Force Fumadocs (Clerk TOC) to use IdeasUI OKLCH Colors ─── */
+.text-fd-primary {
+  color: oklch(var(--ideasui-color-primary)) !important;
+}
+
+#nd-toc a[data-active='true'],
+#nd-toc [data-active='true'] {
+  color: oklch(var(--ideasui-color-primary)) !important;
+  font-weight: 500 !important;
+}
+
+.stroke-fd-primary {
+  stroke: oklch(var(--ideasui-color-primary)) !important;
+}
+
+.fill-fd-primary {
+  fill: oklch(var(--ideasui-color-primary)) !important;
+}
+
+.bg-fd-primary {
+  background-color: oklch(var(--ideasui-color-primary)) !important;
+}
+
+.fill-fd-muted {
+  fill: oklch(var(--ideasui-color-surface-muted)) !important;
+}
+
+.text-fd-muted-foreground,
+#nd-toc a {
+  color: oklch(var(--ideasui-color-content-secondary)) !important;
+  transition: all 0.3s ease;
+}
+
+#nd-toc a:hover {
+  color: oklch(var(--ideasui-color-content-primary)) !important;
+}
+
+/* Fix for overlapping header in anchors */
+:target {
+  scroll-margin-top: 100px;
+}

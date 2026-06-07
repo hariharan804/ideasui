@@ -223,12 +223,12 @@ export default function DocsPage(): JSX.Element {
 
             {/* Error State */}
             {error && !loading ? (
-              <div className="border-danger-subtle bg-danger-subtle/30 border-b p-8">
+              <div className="border-error-subtle bg-error-subtle/30 border-b p-8">
                 <div className="flex items-start gap-4">
-                  <div className="bg-danger-500 shadow-danger-500/40 mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full shadow-sm" />
+                  <div className="bg-error-500 shadow-error-500/40 mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full shadow-sm" />
                   <div>
-                    <h3 className="text-danger-700 font-bold">Error loading document</h3>
-                    <p className="text-danger-600 mt-1.5 text-sm font-medium">{error}</p>
+                    <h3 className="text-error-700 font-bold">Error loading document</h3>
+                    <p className="text-error-600 mt-1.5 text-sm font-medium">{error}</p>
                   </div>
                 </div>
               </div>

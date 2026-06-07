@@ -1,0 +1,142 @@
+---
+title: Button
+description: A versatile button component with multiple variants, sizes, and states.
+links:
+  rac: https://react-spectrum.adobe.com/react-aria/Button.html
+  source: button/src/button.tsx
+  recipe: core/theme/src/recipes/button.ts
+  storybook: Components/Button
+  figma: true
+---
+
+<QuickNav
+  items={[
+    {
+      title: 'Basic Usage',
+      description: 'Implementation and common variants.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'Composition',
+      description: 'Combine Button with icons, groups, and custom elements.',
+      href: '#composition',
+    },
+    {
+      title: 'Standalone CSS',
+      description: 'Use the component library without Tailwind CSS.',
+      href: '#standalone-css',
+    },
+    {
+      title: 'API Reference',
+      description: 'Complete Button props, variants, and configuration details.',
+      href: '#api-reference',
+    },
+  ]}
+/>
+
+## Installation
+
+<InstallTabs pkg="@ideasui/button" />
+
+## Import
+
+```tsx
+import { Button } from '@ideasui/react';
+// or from the individual package
+import { Button } from '@ideasui/button';
+```
+
+## Basic Usage
+
+<Preview name="button-basic" />
+
+### Variants
+
+IdeasUI buttons support multiple variants including solid, outline, ghost, muted, text, elevated, and a custom glassmorphic `glaze` variant.
+
+<Preview name="button-variants" />
+
+### Colors
+
+Semantic color themes let you quickly adapt the button for different contexts (e.g. primary, success, error, warning).
+
+<Preview name="button-colors" />
+
+### With Icons
+
+You can use the `startIcon` or `endIcon` props, or use the `Button.Icon` compound component for ultimate control over placement and styling.
+
+<Preview name="button-with-icons" />
+
+### Icon Only
+
+<Preview name="button-icon-only" />
+
+### Loading
+
+Control the loading indicator with `isLoading`, `loadingPosition`, and custom `loadingIndicator` elements.
+
+<Preview name="button-loading" />
+<Preview name="button-loading-state" />
+
+### Sizes & Radius
+
+<Preview name="button-sizes" />
+
+### Full Width
+
+<Preview name="button-full-width" />
+
+### Disabled State
+
+<Preview name="button-disabled" />
+
+## Composition
+
+The Button component uses compound components for maximum flexibility:
+
+- `Button.Label` - The text content of the button.
+- `Button.Icon` - For adding icons, with a `placement` prop.
+- `Button.Spinner` - Customizable loading indicator.
+- `Button.Shortcut` - Display keyboard shortcuts.
+
+```tsx
+<Button>
+  <Button.Icon placement="start">
+    <Search />
+  </Button.Icon>
+  <Button.Label>Search</Button.Label>
+  <Button.Shortcut>⌘K</Button.Shortcut>
+</Button>
+```
+
+<Related component="button" />
+
+<RelatedShowcases component="Button" />
+
+## Standalone CSS
+
+### CSS Classes
+
+The Button component uses granular class names and the BEM methodology for slots:
+
+- `base` - Base button container
+- `label` - Text label slot
+- `startIcon` - Leading icon slot
+- `endIcon` - Trailing icon slot
+- `spinner` - Loading spinner slot
+- `shortcut` - Keyboard shortcut slot
+
+### Interactive States
+
+The button supports both CSS pseudo-classes and data attributes for flexibility:
+
+- **Hover**: `:hover` or `[data-hovered="true"]`
+- **Active/Pressed**: `:active` or `[data-pressed="true"]`
+- **Focus**: `:focus-visible` or `[data-focus-visible="true"]`
+- **Disabled**: `:disabled` or `[aria-disabled="true"]`
+- **Pending**: `[data-pending]` (no pointer events during loading)
+
+## API Reference
+
+<APIReferenceViewer componentName="button" />

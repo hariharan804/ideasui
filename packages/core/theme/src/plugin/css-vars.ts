@@ -54,7 +54,9 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
 
   // Border radius tokens
   Object.entries(borderRadius).forEach(([key, value]) => {
-    cssVars[`--${prefix}-radius-${key}`] = value;
+    const varName = key === 'DEFAULT' ? `--${prefix}-radius` : `--${prefix}-radius-${key}`;
+
+    cssVars[varName] = value;
   });
 
   // Box shadow tokens
@@ -150,25 +152,22 @@ export function generateDarkDesignTokenCSSVars(prefix: string): Record<string, s
 }
 
 /**
- * Generates CSS custom properties from token overrides
- * @param {Partial<TokenOverrides>} tokens - The token overrides
- * @param {string} prefix - The CSS variable prefix
- * @returns {Record<string, string>} The generated CSS variables
- */
-/**
- * Generates CSS custom properties from token overrides
- * @param {Partial<TokenOverrides | SemanticTokenOverrides>} tokens - The token overrides
- * @param {string} prefix - The CSS variable prefix
- * @returns {Record<string, string>} The generated CSS variables
+ * Generates CSS custom properties from design token and/or semantic token overrides.
+ * Accepts either a TokenOverrides object, a SemanticTokenOverrides object, or any
+ * combination thereof. Keys are resolved according to their namespace:
+ * - Design tokens (spacing, radius, shadow, etc.) → `--prefix-{token}-{key}`
+ * - Semantic grouped tokens (surface, content, border) → `--prefix-color-{key}` etc.
+ * - Flat semantic strings → `--prefix-color-{key}`
+ *
+ * @param tokens - Token overrides (design, semantic, or mixed)
+ * @param prefix - CSS variable prefix (e.g. `ideasui`)
  */
 export function generateCSSVarsFromTokenOverrides(
-  tokens: Partial<TokenOverrides & SemanticTokenOverrides> & {
-    components?: Record<string, unknown>;
-  },
+  tokens: Partial<TokenOverrides> | SemanticTokenOverrides | Record<string, unknown>,
   prefix: string,
 ): Record<string, string> {
+  const t = tokens as Partial<TokenOverrides & SemanticTokenOverrides>;
   const cssVars: Record<string, string> = {};
-  const t = tokens;
 
   // Duration
   if (t.duration) {
@@ -212,7 +211,9 @@ export function generateCSSVarsFromTokenOverrides(
   if (t.borderRadius) {
     Object.entries(t.borderRadius).forEach(([key, value]) => {
       if (value !== undefined) {
-        cssVars[`--${prefix}-radius-${key}`] = value;
+        const varName = key === 'DEFAULT' ? `--${prefix}-radius` : `--${prefix}-radius-${key}`;
+
+        cssVars[varName] = value;
       }
     });
   }
@@ -220,6 +221,15 @@ export function generateCSSVarsFromTokenOverrides(
   // Box shadow
   if (t.boxShadow) {
     Object.entries(t.boxShadow).forEach(([key, value]) => {
+      if (value !== undefined) {
+        cssVars[`--${prefix}-shadow-${key}`] = value;
+      }
+    });
+  }
+
+  // Shadow — alias for boxShadow (same CSS var pattern)
+  if (t.shadow) {
+    Object.entries(t.shadow).forEach(([key, value]) => {
       if (value !== undefined) {
         cssVars[`--${prefix}-shadow-${key}`] = value;
       }
@@ -262,7 +272,7 @@ export function generateCSSVarsFromTokenOverrides(
       });
     };
 
-    flattenComponents(t.components as Record<string, unknown>, '');
+    flattenComponents(t.components as unknown as Record<string, unknown>, '');
   }
 
   // Opacity
@@ -362,6 +372,15 @@ export function generateCSSVarsFromTokenOverrides(
       }
     });
   }
+
+  // Flat semantic token overrides
+  // Any key whose value is a plain string is emitted as --prefix-color-{key}.
+  // 'components' is the only key with its own nested handler above.
+  Object.entries(t).forEach(([key, value]) => {
+    if (key !== 'components' && typeof value === 'string') {
+      cssVars[`--${prefix}-color-${key}`] = value;
+    }
+  });
 
   return cssVars;
 }

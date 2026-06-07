@@ -168,3 +168,7 @@ Thumbs.db
 # Exceptions
 !/.github/composite-actions/build/
 packages/core/styles-experimental
+apps/docs-rnd
+*.log
+
+.chrome-profile
