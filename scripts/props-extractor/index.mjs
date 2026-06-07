@@ -64,7 +64,7 @@ class PropsExtractor {
       const errors = validateConfig(config);
       if (errors.length > 0) {
         console.error('❌ Invalid config:');
-        errors.forEach(e => console.error(`   - ${e}`));
+        errors.forEach((e) => console.error(`   - ${e}`));
         return null;
       }
       return config;
@@ -108,7 +108,10 @@ class PropsExtractor {
       }
       return props;
     } catch (error) {
-      console.error(`  ❌ Failed to extract "${interfaceName}" from ${path.basename(filePath)}:`, error.message);
+      console.error(
+        `  ❌ Failed to extract "${interfaceName}" from ${path.basename(filePath)}:`,
+        error.message,
+      );
       return [];
     }
   }
@@ -136,8 +139,8 @@ class PropsExtractor {
           .replace(/^\/\*+/, '')
           .replace(/\*\/$/, '')
           .split('\n')
-          .map(line => line.replace(/^\s*\*\s?/, '').trim())
-          .filter(line => line && !line.startsWith('@'));
+          .map((line) => line.replace(/^\s*\*\s?/, '').trim())
+          .filter((line) => line && !line.startsWith('@'));
         if (lines.length) description = lines.join(' ');
         const defaultMatch = text.match(/@default\s+(.+)/);
         if (defaultMatch) defaultValue = defaultMatch[1].trim();
@@ -146,7 +149,9 @@ class PropsExtractor {
           deprecated = true;
           const reason = deprecatedMatch[1].trim();
           if (reason) {
-            description = description ? `${description} (Deprecated: ${reason})` : `Deprecated: ${reason}`;
+            description = description
+              ? `${description} (Deprecated: ${reason})`
+              : `Deprecated: ${reason}`;
           }
         }
       }
@@ -160,38 +165,50 @@ class PropsExtractor {
   // ─── Type Resolution ─────────────────────────────────────────────────────
   resolveType(typeNode, sourceFile) {
     switch (typeNode.kind) {
-      case ts.SyntaxKind.StringKeyword:    return 'string';
-      case ts.SyntaxKind.NumberKeyword:    return 'number';
-      case ts.SyntaxKind.BooleanKeyword:   return 'boolean';
-      case ts.SyntaxKind.VoidKeyword:      return 'void';
-      case ts.SyntaxKind.NullKeyword:      return 'null';
-      case ts.SyntaxKind.UndefinedKeyword: return 'undefined';
-      case ts.SyntaxKind.AnyKeyword:       return 'any';
-      case ts.SyntaxKind.NeverKeyword:     return 'never';
-      case ts.SyntaxKind.UnknownKeyword:   return 'unknown';
-      case ts.SyntaxKind.ObjectKeyword:    return 'object';
+      case ts.SyntaxKind.StringKeyword:
+        return 'string';
+      case ts.SyntaxKind.NumberKeyword:
+        return 'number';
+      case ts.SyntaxKind.BooleanKeyword:
+        return 'boolean';
+      case ts.SyntaxKind.VoidKeyword:
+        return 'void';
+      case ts.SyntaxKind.NullKeyword:
+        return 'null';
+      case ts.SyntaxKind.UndefinedKeyword:
+        return 'undefined';
+      case ts.SyntaxKind.AnyKeyword:
+        return 'any';
+      case ts.SyntaxKind.NeverKeyword:
+        return 'never';
+      case ts.SyntaxKind.UnknownKeyword:
+        return 'unknown';
+      case ts.SyntaxKind.ObjectKeyword:
+        return 'object';
       case ts.SyntaxKind.UnionType:
-        return typeNode.types.map(t => this.resolveType(t, sourceFile)).join(' | ');
+        return typeNode.types.map((t) => this.resolveType(t, sourceFile)).join(' | ');
       case ts.SyntaxKind.IntersectionType:
-        return typeNode.types.map(t => this.resolveType(t, sourceFile)).join(' & ');
+        return typeNode.types.map((t) => this.resolveType(t, sourceFile)).join(' & ');
       case ts.SyntaxKind.ArrayType:
         return `${this.resolveType(typeNode.elementType, sourceFile)}[]`;
       case ts.SyntaxKind.TupleType:
-        return `[${typeNode.elements.map(t => this.resolveType(t, sourceFile)).join(', ')}]`;
+        return `[${typeNode.elements.map((t) => this.resolveType(t, sourceFile)).join(', ')}]`;
       case ts.SyntaxKind.ParenthesizedType:
         return `(${this.resolveType(typeNode.type, sourceFile)})`;
       case ts.SyntaxKind.LiteralType:
-        if (ts.isStringLiteral(typeNode.literal))                        return `"${typeNode.literal.text}"`;
-        if (ts.isNumericLiteral(typeNode.literal))                       return typeNode.literal.text;
-        if (typeNode.literal.kind === ts.SyntaxKind.TrueKeyword)         return 'true';
-        if (typeNode.literal.kind === ts.SyntaxKind.FalseKeyword)        return 'false';
+        if (ts.isStringLiteral(typeNode.literal)) return `"${typeNode.literal.text}"`;
+        if (ts.isNumericLiteral(typeNode.literal)) return typeNode.literal.text;
+        if (typeNode.literal.kind === ts.SyntaxKind.TrueKeyword) return 'true';
+        if (typeNode.literal.kind === ts.SyntaxKind.FalseKeyword) return 'false';
         return typeNode.literal.text;
       case ts.SyntaxKind.TypeReference: {
         const typeName = ts.isQualifiedName(typeNode.typeName)
           ? this.resolveQualifiedName(typeNode.typeName)
           : typeNode.typeName.text;
         if (typeNode.typeArguments?.length) {
-          const args = typeNode.typeArguments.map(a => this.resolveType(a, sourceFile)).join(', ');
+          const args = typeNode.typeArguments
+            .map((a) => this.resolveType(a, sourceFile))
+            .join(', ');
           return `${typeName}<${args}>`;
         }
         return typeName || this.getRawText(typeNode, sourceFile);
@@ -235,11 +252,19 @@ class PropsExtractor {
         console.log(`  • [${resolvedName}] ${ifaceConfig.interfaceName}`);
         if (!fs.existsSync(filePath)) {
           console.warn(`    ⚠️  File not found: ${filePath}`);
-          results[key].interfaces.push({ ...ifaceConfig, resolvedComponentName: resolvedName, props: [] });
+          results[key].interfaces.push({
+            ...ifaceConfig,
+            resolvedComponentName: resolvedName,
+            props: [],
+          });
           continue;
         }
         const props = this.extractInterfaceProps(filePath, ifaceConfig.interfaceName);
-        results[key].interfaces.push({ ...ifaceConfig, resolvedComponentName: resolvedName, props });
+        results[key].interfaces.push({
+          ...ifaceConfig,
+          resolvedComponentName: resolvedName,
+          props,
+        });
       }
     }
     return results;
@@ -250,7 +275,7 @@ class PropsExtractor {
     for (const [key] of Object.entries(config.interfaces)) {
       const result = results[key];
       if (!result) continue;
-      output[key] = result.interfaces.map(iface => ({
+      output[key] = result.interfaces.map((iface) => ({
         componentName: iface.resolvedComponentName,
         title: iface.title,
         component: `<${iface.resolvedComponentName} />`,
@@ -263,10 +288,10 @@ class PropsExtractor {
   writeOutput(outputPath, config, results) {
     const output = this.buildOutput(config, results);
     const componentList = Object.values(config.interfaces)
-      .map(c => ` * - ${c.componentName}: ${c.interfaces.map(i => i.interfaceName).join(', ')}`)
+      .map((c) => ` * - ${c.componentName}: ${c.interfaces.map((i) => i.interfaceName).join(', ')}`)
       .join('\n');
     const docKeys = Object.keys(output)
-      .map(k => `  "${k}": ComponentDoc[];`)
+      .map((k) => `  "${k}": ComponentDoc[];`)
       .join('\n');
     const content = [
       `// Auto-generated props documentation`,
@@ -372,7 +397,7 @@ Config format:
   }
   console.log(`\n  Total: ${totalProps} props across ${componentCount} components\n`);
 }
-cli().catch(error => {
+cli().catch((error) => {
   console.error('❌ Unexpected error:', error.message);
   process.exit(1);
 });
