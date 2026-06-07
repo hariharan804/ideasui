@@ -82,6 +82,69 @@ describe('ideasUIPlugin', () => {
     expect(mockPluginAPI.addBase).toHaveBeenCalled();
   });
 
+  it('should automatically generate the other stops of a color scale when only a partial scale is overridden and autoGenerateScales is true', () => {
+    const plugin = ideasUIPlugin({
+      autoGenerateScales: true,
+      themes: {
+        light: {
+          colors: {
+            primary: {
+              500: '#ff0000', // red color (hue 29.23)
+            },
+          },
+        },
+      },
+    });
+
+    plugin.handler(mockPluginAPI);
+
+    const baseCall = mockPluginAPI.addBase.mock.calls.find((call: Record<string, unknown>[]) => {
+      const theme = call[0][":root, .light, [data-ideasui-theme='light']"] as Record<
+        string,
+        string
+      >;
+
+      return theme && theme['--ideasui-color-primary-600'] !== undefined;
+    });
+
+    expect(baseCall).toBeDefined();
+
+    const lightThemeVars = mockPluginAPI.addBase.mock.calls.find(
+      (call: Record<string, unknown>[]) => call[0][":root, .light, [data-ideasui-theme='light']"],
+    )[0][":root, .light, [data-ideasui-theme='light']"];
+
+    // Check that primary-600 is generated and has the matching red hue (around 29.23)
+    const primary600Value = lightThemeVars['--ideasui-color-primary-600'];
+
+    expect(primary600Value).toContain('29.23'); // Hue is preserved!
+    expect(primary600Value).not.toBe('0.472 0.209 268.4'); // Not default blue!
+  });
+
+  it('should NOT generate the other stops of a color scale when autoGenerateScales is false or omitted', () => {
+    const plugin = ideasUIPlugin({
+      themes: {
+        light: {
+          colors: {
+            primary: {
+              500: '#ff0000',
+            },
+          },
+        },
+      },
+    });
+
+    plugin.handler(mockPluginAPI);
+
+    const lightThemeVars = mockPluginAPI.addBase.mock.calls.find(
+      (call: Record<string, unknown>[]) => call[0][":root, .light, [data-ideasui-theme='light']"],
+    )[0][":root, .light, [data-ideasui-theme='light']"];
+
+    // primary-600 remains default blue
+    const primary600Value = lightThemeVars['--ideasui-color-primary-600'];
+
+    expect(primary600Value).toBe('0.472 0.209 268.4');
+  });
+
   it('should generate border tokens', () => {
     const plugin = ideasUIPlugin();
 

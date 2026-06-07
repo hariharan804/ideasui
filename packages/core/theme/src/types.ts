@@ -215,6 +215,7 @@ export type SemanticTokenOverrides = {
 };
 
 export interface ThemeOptions {
+  readonly extend?: 'light' | 'dark';
   readonly colors?: Partial<ColorTokens>;
   readonly designTokens?: Partial<TokenOverrides>;
   readonly semanticTokens?: Partial<SemanticTokenOverrides>;
@@ -234,6 +235,8 @@ export interface ThemeConfig {
   // readonly prefix?: string;
   /** Disable all animations globally */
   readonly disableAnimations?: boolean;
+  /** Automatically generate 11-stop color scales for partial color scale overrides. Default: false */
+  readonly autoGenerateScales?: boolean;
   /** Override any design token family */
   readonly designTokens?: Partial<TokenOverrides>;
   /** Override semantic tokens globally */

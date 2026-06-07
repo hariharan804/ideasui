@@ -37,7 +37,7 @@ export const createScript = (cfg: ThemeScriptConfig): string => {
         var s=d.createElement('style');
         s.appendChild(d.createTextNode('*{transition:none!important}'));
         d.head.appendChild(s);
-        window.getComputedStyle(d.body);
+        window.getComputedStyle(el);
         setTimeout(function(){d.head.removeChild(s)},1);
       }catch(e){}
     }
