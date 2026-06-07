@@ -13,7 +13,7 @@ export const extractConfig = {
           title: 'Button Props',
           description: 'Primary button component with variants and sizes',
           filePath: '../../packages/components/button/src/button.types.ts',
-          interfaceName: 'ButtonProps',
+          interfaceName: 'ButtonBaseProps',
         },
         {
           name: 'ButtonLabel',

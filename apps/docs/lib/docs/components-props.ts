@@ -26,7 +26,7 @@ export interface PropsDocumentation {
 
 /**
  * Components extracted from TypeScript interfaces:
- * - Button: ButtonProps, ButtonLabelProps, ButtonIconProps, ButtonSpinnerProps, ButtonShortcutProps
+ * - Button: ButtonBaseProps, ButtonLabelProps, ButtonIconProps, ButtonSpinnerProps, ButtonShortcutProps
  * - ButtonGroup: ButtonGroupProps
  */
 export const propsDocumentation: PropsDocumentation = {
@@ -61,15 +61,6 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: "'start'",
           deprecated: false,
           description: 'The position of the loading indicator relative to the button content.',
-        },
-        {
-          name: 'isIconOnly',
-          type: 'boolean',
-          required: false,
-          defaultValue: 'false',
-          deprecated: false,
-          description:
-            'Whether the button should be square and optimized for icons. Note: When true, you MUST provide an `aria-label` or `aria-labelledby` for accessibility.',
         },
         {
           name: 'startIcon',
@@ -128,6 +119,15 @@ export const propsDocumentation: PropsDocumentation = {
           deprecated: false,
           description:
             'The content to display inside the button. Can be a ReactNode or a function that receives the button render props.',
+        },
+        {
+          name: 'isIconOnly',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description:
+            'Whether the button should be square and optimized for icons. Note: When true, you MUST provide an `aria-label` or `aria-labelledby` for accessibility.',
         },
         {
           name: 'aria-label',

@@ -31,8 +31,12 @@ const myButtonVariants = tv({
   },
 });
 
+type DistributiveOmit<T, K extends string | number | symbol> = T extends unknown
+  ? Omit<T, K>
+  : never;
+
 type MyButtonVariants = VariantProps<typeof myButtonVariants>;
-export type MyButtonProps = Omit<ButtonProps, 'className' | 'variant'> &
+export type MyButtonProps = DistributiveOmit<ButtonProps, 'className' | 'variant'> &
   MyButtonVariants & { className?: string };
 
 function CustomButton({

@@ -74,6 +74,22 @@ interface ButtonBaseProps
    * Can be a ReactNode or a function that receives the button render props.
    */
   children?: ReactNode | ((props: ButtonRenderProps) => ReactNode);
+  /**
+   * Whether the button should be square and optimized for icons.
+   *
+   * Note: When true, you MUST provide an `aria-label` or `aria-labelledby` for accessibility.
+   * @default false
+   */
+  isIconOnly?: boolean;
+  /**
+   * Accessibility label for the button.
+   * Required if the button has no visible label (e.g., `isIconOnly`).
+   */
+  'aria-label'?: string;
+  /**
+   * ID of an element that serves as the accessible label for the button.
+   */
+  'aria-labelledby'?: string;
 }
 
 /**

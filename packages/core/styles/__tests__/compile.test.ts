@@ -10,7 +10,9 @@ const distDir = path.join(stylesDir, 'dist');
 describe('@ideasui/styles compilation outputs', () => {
   beforeAll(() => {
     // Ensure styles were compiled, build if missing
-    if (!fs.existsSync(distDir)) {
+    const baseCssPath = path.join(distDir, 'base.css');
+
+    if (!fs.existsSync(distDir) || !fs.existsSync(baseCssPath)) {
       try {
         execSync('pnpm build', { cwd: stylesDir, stdio: 'ignore' });
       } catch {

@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import ts from 'typescript';
+import { execSync } from 'child_process';
 const __filename = fileURLToPath(import.meta.url);
 // ─── Validators ───────────────────────────────────────────────────────────────
 function validateConfig(config) {
@@ -323,6 +324,16 @@ class PropsExtractor {
       `export default propsDocumentation;`,
     ].join('\n');
     fs.writeFileSync(outputPath, content);
+
+    // Format the generated file automatically using prettier
+    try {
+      execSync(`npx prettier --write "${outputPath}"`, { stdio: 'ignore' });
+    } catch (error) {
+      console.warn(
+        '  ⚠️  Failed to automatically format output file using prettier:',
+        error.message,
+      );
+    }
   }
 }
 // ─── CLI ──────────────────────────────────────────────────────────────────────
