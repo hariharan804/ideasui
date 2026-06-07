@@ -14,9 +14,10 @@ describe('@ideasui/styles compilation outputs', () => {
 
     if (!fs.existsSync(distDir) || !fs.existsSync(baseCssPath)) {
       try {
-        execSync('pnpm build', { cwd: stylesDir, stdio: 'ignore' });
-      } catch {
-        // Fall back to expectation check
+        execSync('npx tsup --minify --dts', { cwd: stylesDir, stdio: 'inherit' });
+        execSync('node scripts/build-css.js', { cwd: stylesDir, stdio: 'inherit' });
+      } catch (error) {
+        console.error('Failed to build styles dynamically during test setup:', error);
       }
     }
 

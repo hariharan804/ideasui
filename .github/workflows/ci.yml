@@ -43,6 +43,10 @@ jobs:
         env:
           NODE_OPTIONS: '--max-old-space-size=4096'
 
+      # 3.5️⃣ Naming Convention Check
+      - name: Check Naming Conventions
+        run: pnpm run check-naming
+
       # 4️⃣ Unit Tests
       - name: Run tests
         uses: ./.github/composite-actions/test
