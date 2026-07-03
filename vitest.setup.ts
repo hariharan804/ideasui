@@ -21,10 +21,14 @@ global.TransformStream = TransformStream;
 
 // Mock for ResizeObserver which is not available in JSDOM
 class ResizeObserverStub {
-  observe(): void {}
-  unobserve(): void {}
+  observe(): void {
+    // Stub implementation: JSDOM does not support layout queries or element resize observation.
+  }
+  unobserve(): void {
+    // Stub implementation: JSDOM does not support layout queries or element resize observation.
+  }
   disconnect(): void {
-    /* TODO document why this method 'disconnect' is empty */
+    // Stub implementation: JSDOM does not support layout queries or element resize observation.
   }
 }
 
