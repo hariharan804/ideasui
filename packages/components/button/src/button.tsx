@@ -3,6 +3,7 @@
 import type {
   ButtonProps,
   ButtonComponent,
+  ButtonClassNames,
   ButtonLabelProps,
   ButtonIconProps,
   ButtonSpinnerProps,
@@ -29,7 +30,7 @@ import { ButtonGroup } from './button-group';
  */
 interface ButtonContextValue {
   styles: ButtonReturnType;
-  classNames?: ButtonProps['classNames'];
+  classNames?: ButtonClassNames;
 }
 
 const ButtonContext = createContext<ButtonContextValue | null>(null);

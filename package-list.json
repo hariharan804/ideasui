@@ -259,6 +259,10 @@
               ]
             },
             {
+              "name": "ButtonLabelProps",
+              "props": []
+            },
+            {
               "name": "ButtonIconProps",
               "props": [
                 {
