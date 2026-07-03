@@ -39,7 +39,7 @@ function Header({ showBackButton = false, title, subtitle }: HeaderProps): JSX.E
                   className="text-content-secondary hover:bg-surface-subtle hover:text-content-primary flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors"
                   onClick={goBack}
                 >
-                  <ArrowLeft className="h-4 w-4" />
+                  <ArrowLeft className="size-4" />
                   Back to Components
                 </button>
                 <div className="bg-surface-muted h-6 w-px" />
@@ -61,7 +61,7 @@ function Header({ showBackButton = false, title, subtitle }: HeaderProps): JSX.E
               className="text-content-secondary hover:bg-surface-subtle hover:text-content-primary hidden items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors sm:flex"
               onClick={goToDocs}
             >
-              <ExternalLink className="h-4 w-4" />
+              <ExternalLink className="size-4" />
               Docs
             </button>
 
@@ -70,7 +70,7 @@ function Header({ showBackButton = false, title, subtitle }: HeaderProps): JSX.E
               className="text-content-secondary hover:bg-surface-subtle hover:text-content-primary hidden items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors sm:flex"
               onClick={() => window.open('https://github.com/ideas2logic-lab/ideasui', '_blank')}
             >
-              <Github className="h-4 w-4" />
+              <Github className="size-4" />
               GitHub
             </button>
 
@@ -80,11 +80,7 @@ function Header({ showBackButton = false, title, subtitle }: HeaderProps): JSX.E
               title={`Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode`}
               onClick={onToggleTheme}
             >
-              {resolvedTheme === 'dark' ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
+              {resolvedTheme === 'dark' ? <Sun className="size-5" /> : <Moon className="size-5" />}
             </button>
           </div>
         </div>

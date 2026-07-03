@@ -1,9 +1,13 @@
-import '@testing-library/jest-dom';
 import { TextEncoder, TextDecoder } from 'node:util';
 import { TransformStream } from 'node:stream/web';
 
+import '@testing-library/jest-dom';
+import { expect } from 'vitest';
+import * as matchers from 'vitest-axe/matchers';
 import { createElement } from 'react';
 import { vi } from 'vitest';
+
+expect.extend(matchers);
 
 // Make React available globally in tests to support JSX without explicit imports
 // @ts-ignore

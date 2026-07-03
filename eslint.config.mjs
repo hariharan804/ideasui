@@ -32,8 +32,8 @@ import prettier from 'eslint-plugin-prettier';
 // Testing
 import testingLibrary from 'eslint-plugin-testing-library';
 
-// Tailwind CSS - Disabled: Plugin doesn't support Tailwind v4 yet
-// import tailwindcss from 'eslint-plugin-tailwindcss';
+// Tailwind CSS - Enabled for Tailwind CSS v4
+import tailwindcss from 'eslint-plugin-tailwindcss';
 
 // React Compiler
 import reactCompiler from 'eslint-plugin-react-compiler';
@@ -107,8 +107,8 @@ export default defineConfig([
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
       // Testing
       'testing-library': fixupPluginRules(testingLibrary),
-      // Tailwind CSS - Disabled: Plugin doesn't support Tailwind v4 yet
-      // tailwindcss: fixupPluginRules(tailwindcss),
+      // Tailwind CSS
+      tailwindcss: fixupPluginRules(tailwindcss),
       // React Compiler
       'react-compiler': fixupPluginRules(reactCompiler),
     },
@@ -133,6 +133,11 @@ export default defineConfig([
     settings: {
       react: {
         version: 'detect',
+      },
+      tailwindcss: {
+        callees: ['tv', 'cn', 'clsx', 'tailwindMerge'],
+        cssConfigPath: path.resolve(__dirname, 'packages/core/styles/src/styles.css'),
+        config: '',
       },
       'boundaries/elements': [
         {
@@ -393,13 +398,13 @@ export default defineConfig([
       // React Compiler (React 19+)
       'react-compiler/react-compiler': 'error',
 
-      // Tailwind CSS - Disabled: Plugin doesn't support Tailwind v4 yet
-      // 'tailwindcss/classnames-order': 'warn',
-      // 'tailwindcss/enforces-negative-arbitrary-values': 'warn',
-      // 'tailwindcss/enforces-shorthand': 'warn',
-      // 'tailwindcss/no-custom-classname': 'off', // Allow BEM classes
-      // 'tailwindcss/no-contradicting-classname': 'error',
-      // 'tailwindcss/no-unnecessary-arbitrary-value': 'warn',
+      // Tailwind CSS rules
+      'tailwindcss/classnames-order': 'off',
+      'tailwindcss/enforces-negative-arbitrary-values': 'off',
+      'tailwindcss/enforces-shorthand': 'off',
+      'tailwindcss/no-custom-classname': 'off', // Allow BEM classes
+      'tailwindcss/no-contradicting-classname': 'error',
+      'tailwindcss/no-unnecessary-arbitrary-value': 'off',
     },
   },
 

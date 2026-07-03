@@ -28,10 +28,21 @@ export const waitFor = async (
 export const testId = (id: string): { 'data-testid': string } => ({ 'data-testid': id });
 export const getByTestId = (id: string): string => `[data-testid="${id}"]`;
 
+import type { AxeMatchers } from 'vitest-axe';
+
+import { expect } from 'vitest';
+import { axe } from 'vitest-axe';
+
+declare module 'vitest' {
+  interface Assertion extends AxeMatchers {}
+  interface AsymmetricMatchersContaining extends AxeMatchers {}
+}
+
 // Accessibility helpers
-export const expectAccessible = async (_element: HTMLElement): Promise<void> => {
-  // Add axe-core or similar accessibility testing
-  // expect(element).toBeInTheDocument();
+export const expectAccessible = async (element: HTMLElement): Promise<void> => {
+  const results = await axe(element);
+
+  expect(results).toHaveNoViolations();
 };
 
 // Snapshot helpers

@@ -263,12 +263,12 @@ function CodeChip({
       className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-[11px] font-semibold transition-all duration-200 ${
         copied
           ? 'border-success-subtle bg-success-subtle text-success-800 scale-95'
-          : 'border-default bg-surface-muted text-content-secondary hover:bg-surface-elevated hover:text-content-primary hover:border-strong hover:shadow-sm'
+          : 'border-default hover:bg-surface-elevated hover:border-strong bg-surface-muted text-content-secondary hover:text-content-primary hover:shadow-sm'
       }`}
       type="button"
       onClick={onCopy}
     >
-      {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+      {copied ? <Check className="size-3" /> : <Copy className="size-3" />}
       {copied ? 'Copied!' : text}
     </button>
   );
@@ -537,11 +537,11 @@ export default function DesignSystemPage(): JSX.Element {
   /* ───────────────────────── render ───────────────────────── */
 
   return (
-    <div className="text-content-primary bg-surface-base relative min-h-screen transition-colors duration-500">
+    <div className="bg-surface-base text-content-primary relative min-h-screen transition-colors duration-500">
       {/* Background Ambience */}
       <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden outline-none">
         <div className="bg-primary-500/10 absolute -top-[10%] left-[20%] h-[600px] w-[600px] animate-pulse rounded-full opacity-50 mix-blend-normal blur-3xl transition-all duration-[4000ms] dark:mix-blend-screen" />
-        <div className="absolute top-[40%] -right-[10%] h-[500px] w-[500px] animate-pulse rounded-full bg-purple-500/10 opacity-40 mix-blend-normal blur-3xl transition-all delay-700 duration-[4000ms] dark:mix-blend-screen" />
+        <div className="absolute top-[40%] right-[-10%] size-[500px] animate-pulse rounded-full bg-purple-500/10 opacity-40 mix-blend-normal blur-3xl transition-all delay-700 duration-[4000ms] dark:mix-blend-screen" />
       </div>
 
       <div className="animate-in fade-in slide-in-from-bottom-4 relative z-10 mx-auto flex max-w-[1440px] gap-8 px-4 py-8 duration-700 lg:px-8">
@@ -565,9 +565,9 @@ export default function DesignSystemPage(): JSX.Element {
                   type="button"
                   onClick={() => scrollTo(s.id)}
                 >
-                  <Icon className="h-4.5 w-4.5 shrink-0" />
+                  <Icon className="size-4.5 shrink-0" />
                   {s.label}
-                  {activeSection === s.id && <ChevronRight className="ml-auto h-4 w-4" />}
+                  {activeSection === s.id && <ChevronRight className="ml-auto size-4" />}
                 </button>
               );
             })}
@@ -583,7 +583,7 @@ export default function DesignSystemPage(): JSX.Element {
             </h1>
             <p className="text-content-secondary mt-4 max-w-2xl text-xl">
               Complete token reference for{' '}
-              <code className="text-primary-600 bg-primary-500/10 border-primary-500/20 rounded-lg border px-2 py-1 text-sm font-bold shadow-sm">
+              <code className="border-primary-500/20 bg-primary-500/10 text-primary-600 rounded-lg border px-2 py-1 text-sm font-bold shadow-sm">
                 @ideasui/theme
               </code>{' '}
               — styled completely with semantic Tailwind utility classes.
@@ -604,26 +604,26 @@ export default function DesignSystemPage(): JSX.Element {
                 <h3 className="text-content-secondary text-sm font-semibold">Layout & Spacing</h3>
                 <div className="space-y-2">
                   <div className="flex items-center gap-3">
-                    <div className="bg-primary-subtle p-cus border-default inline-block border">
+                    <div className="p-cus border-default bg-primary-subtle inline-block border">
                       <div className="bg-primary-500 h-4 w-4" />
                     </div>
                     <span className="text-content-tertiary text-xs">Padding (3px)</span>
                     {chip('p-cus')}
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="bg-primary-subtle border-default inline-block border">
-                      <div className="bg-primary-500 m-cus h-4 w-4" />
+                    <div className="border-default bg-primary-subtle inline-block border">
+                      <div className="m-cus bg-primary-500 size-4" />
                     </div>
                     <span className="text-content-tertiary text-xs">Margin (3px)</span>
                     {chip('m-cus')}
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="rounded-cus bg-primary-500 h-10 w-10" />
+                    <div className="rounded-cus bg-primary-500 size-10" />
                     <span className="text-content-tertiary text-xs">Radius (5px)</span>
                     {chip('rounded-cus')}
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="border-cus bg-surface-muted h-10 w-10 border" />
+                    <div className="border-cus bg-surface-muted size-10 border" />
                     <span className="text-content-tertiary text-xs">
                       Border Color/Width (1px red)
                     </span>
@@ -649,12 +649,12 @@ export default function DesignSystemPage(): JSX.Element {
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="bg-primary-500 shadow-cus h-10 w-10 rounded-md" />
+                    <div className="shadow-cus bg-primary-500 size-10 rounded-md" />
                     <span className="text-content-tertiary text-xs">Shadow (Red glow)</span>
                     {chip('shadow-cus')}
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="relative h-10 w-10">
+                    <div className="relative size-10">
                       <div className="bg-primary-500 absolute inset-0 rounded-md" />
                       <div className="blur-cus bg-primary-300 absolute inset-0 rounded-md opacity-50" />
                     </div>
@@ -662,7 +662,7 @@ export default function DesignSystemPage(): JSX.Element {
                     {chip('blur-cus')}
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="opacity-cus bg-primary-500 h-10 w-10 rounded-md" />
+                    <div className="opacity-cus bg-primary-500 size-10 rounded-md" />
                     <div className="bg-primary-500 h-10 w-10 rounded-md" />
                     <span className="text-content-tertiary text-xs">Opacity (0.5)</span>
                     {chip('opacity-cus')}
@@ -675,7 +675,7 @@ export default function DesignSystemPage(): JSX.Element {
                 <h3 className="text-content-secondary text-sm font-semibold">Motion</h3>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <div className="animate-cus bg-primary-500 h-10 w-10 rounded-md">
+                    <div className="animate-cus bg-primary-500 size-10 rounded-md">
                       <div className="bg-surface-base h-2 w-full" />
                     </div>
                     <span className="text-content-tertiary text-xs">Animation (Custom Spin)</span>
@@ -692,7 +692,7 @@ export default function DesignSystemPage(): JSX.Element {
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="bg-surface-muted relative h-10 w-10 rounded-md border">
-                      <div className="z-cus bg-primary-500 absolute -top-2 -left-2 h-6 w-6 rounded-full shadow-md" />
+                      <div className="z-cus bg-primary-500 absolute -top-2 -left-2 size-6 rounded-full shadow-md" />
                       <div className="absolute inset-2 z-10 rounded-sm bg-neutral-400" />
                     </div>
                     <span className="text-content-tertiary text-xs">Z-Index (100)</span>
@@ -738,7 +738,7 @@ export default function DesignSystemPage(): JSX.Element {
 
                 {/* Border Override */}
                 <div className="space-y-3">
-                  <div className="bg-surface-muted border-border-cus flex h-24 w-full items-center justify-center rounded-xl border-4 border-double">
+                  <div className="border-border-cus bg-surface-muted flex h-24 w-full items-center justify-center rounded-xl border-4 border-double">
                     <span className="text-content-tertiary text-[10px] font-semibold uppercase">
                       border-border-cus
                     </span>
@@ -818,7 +818,7 @@ export default function DesignSystemPage(): JSX.Element {
                           void copyToClipboard(cls);
                         }}
                       >
-                        <div className={`${bgClass} h-10 w-10 shrink-0 rounded-md shadow-xs`} />
+                        <div className={`${bgClass} size-10 shrink-0 rounded-md shadow-xs`} />
                         <div className="text-left">
                           <div className="text-content-secondary text-xs font-medium capitalize">
                             {variant}
@@ -866,7 +866,7 @@ export default function DesignSystemPage(): JSX.Element {
                       }}
                     >
                       <div
-                        className={`${SURFACE_BG_MAP[token]} border-subtle h-10 w-10 shrink-0 rounded-md border shadow-xs`}
+                        className={`${SURFACE_BG_MAP[token]} border-subtle size-10 shrink-0 rounded-md border shadow-xs`}
                       />
                       <div className="text-left">
                         <div className="text-content-secondary text-xs font-medium capitalize">
@@ -888,7 +888,7 @@ export default function DesignSystemPage(): JSX.Element {
                       }}
                     >
                       <div
-                        className={`${SURFACE_BG_MAP[token]} border-subtle flex h-10 w-10 shrink-0 items-center justify-center rounded-md border shadow-xs`}
+                        className={`${SURFACE_BG_MAP[token]} border-subtle flex size-10 shrink-0 items-center justify-center rounded-md border shadow-xs`}
                       >
                         <span className={`${textCls} text-sm font-bold`}>Aa</span>
                       </div>
@@ -1074,7 +1074,7 @@ export default function DesignSystemPage(): JSX.Element {
               {BORDER_RADII.map((r) => (
                 <div key={r.name} className="flex flex-col items-center gap-2">
                   <div
-                    className={`${r.class} border-primary-400 bg-primary-100 h-16 w-16 border-2`}
+                    className={`${r.class} border-primary-400 bg-primary-100 size-16 border-2`}
                   />
                   <span className="text-content-tertiary text-[10px] font-medium">{r.name}</span>
                   {chip(r.class)}
@@ -1121,9 +1121,7 @@ export default function DesignSystemPage(): JSX.Element {
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {SHADOWS.map((s) => (
                   <div key={s.name} className="text-center">
-                    <div
-                      className={`${s.class} bg-surface-base mx-auto mb-3 h-20 w-20 rounded-xl`}
-                    />
+                    <div className={`${s.class} bg-surface-base mx-auto mb-3 size-20 rounded-xl`} />
                     <div className="text-content-secondary text-xs font-medium">{s.name}</div>
                     {chip(s.class)}
                   </div>
@@ -1147,7 +1145,7 @@ export default function DesignSystemPage(): JSX.Element {
                   key={a.name}
                   className="border-default flex items-center gap-3 rounded-lg border p-4"
                 >
-                  <div className={`${a.class} bg-primary-500 h-8 w-8 min-w-8 rounded-md`} />
+                  <div className={`${a.class} bg-primary-500 size-8 min-w-8 rounded-md`} />
                   <div>
                     <div className="text-content-secondary text-sm font-medium">{a.name}</div>
                     {chip(a.class)}
@@ -1201,7 +1199,7 @@ export default function DesignSystemPage(): JSX.Element {
                   key={o.name}
                   className="border-default flex items-center gap-3 rounded-lg border p-4"
                 >
-                  <div className="relative h-12 w-12 rounded-md bg-[conic-gradient(#e5e7eb_25%,#f9fafb_25%_50%,#e5e7eb_50%_75%,#f9fafb_75%)] bg-[length:8px_8px]">
+                  <div className="relative size-12 rounded-md bg-[conic-gradient(#e5e7eb_25%,#f9fafb_25%_50%,#e5e7eb_50%_75%,#f9fafb_75%)] bg-[length:8px_8px]">
                     <div className={`${o.class} bg-primary-500 absolute inset-0 rounded-md`} />
                   </div>
                   <div>
@@ -1241,7 +1239,7 @@ export default function DesignSystemPage(): JSX.Element {
               >
                 {/* Base layer */}
                 <div
-                  className="z-base border-subtle bg-surface-base absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-sm"
+                  className="border-subtle bg-surface-base z-base absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-sm"
                   style={{ transform: 'translateZ(0px)' }}
                 >
                   <div className="text-content-secondary text-sm font-medium">
@@ -1255,7 +1253,7 @@ export default function DesignSystemPage(): JSX.Element {
 
                 {/* Overlapping layer 1 */}
                 <div
-                  className="z-raised bg-primary-50 border-primary-200 absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-md"
+                  className="z-raised border-primary-200 bg-primary-50 absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-md"
                   style={{ transform: 'translateZ(50px)' }}
                 >
                   <div className="text-primary-700 text-sm font-medium">
@@ -1269,7 +1267,7 @@ export default function DesignSystemPage(): JSX.Element {
 
                 {/* Overlapping layer 2 */}
                 <div
-                  className="z-dropdown bg-info-50 border-info-200 absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-lg"
+                  className="z-dropdown border-info-200 bg-info-50 absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-lg"
                   style={{ transform: 'translateZ(100px)' }}
                 >
                   <div className="text-info-700 text-sm font-medium">Dropdown Menu(z-dropdown)</div>
@@ -1281,7 +1279,7 @@ export default function DesignSystemPage(): JSX.Element {
 
                 {/* Topmost layer */}
                 <div
-                  className="z-tooltip bg-surface-inverse border-strong absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-xl"
+                  className="border-strong z-tooltip bg-surface-inverse absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-xl"
                   style={{ transform: 'translateZ(150px)' }}
                 >
                   <div className="text-content-inverse text-sm font-medium">Tooltip(z-tooltip)</div>
@@ -1346,7 +1344,7 @@ export default function DesignSystemPage(): JSX.Element {
                 return (
                   <div
                     key={z.name}
-                    className="hover:bg-primary-50/40 border-subtle flex flex-wrap items-center gap-2 border-t px-4 py-3 transition-colors sm:grid sm:grid-cols-[60px_1fr_80px_auto] sm:gap-4"
+                    className="border-subtle hover:bg-primary-50/40 flex flex-wrap items-center gap-2 border-t px-4 py-3 transition-colors sm:grid sm:grid-cols-[60px_1fr_80px_auto] sm:gap-4"
                   >
                     <span className="text-primary-600 font-mono text-sm font-bold">{z.value}</span>
                     <span className="text-content-primary text-sm font-medium capitalize">
@@ -1433,7 +1431,7 @@ export default function DesignSystemPage(): JSX.Element {
                       {chip(`${bp.name}:`)}
                       <span className="text-content-muted text-xs">
                         → e.g.{' '}
-                        <code className="text-primary-600 bg-surface-muted rounded px-1 py-0.5 text-[10px] font-medium">
+                        <code className="bg-surface-muted text-primary-600 rounded px-1 py-0.5 text-[10px] font-medium">
                           {bp.name}:grid-cols-2
                         </code>
                       </span>
@@ -1502,23 +1500,23 @@ export default function DesignSystemPage(): JSX.Element {
             {/* badges */}
             <h3 className="text-content-secondary mb-3 text-sm font-semibold">Badges</h3>
             <div className="mb-8 flex flex-wrap gap-3">
-              <span className="bg-primary-subtle text-on-primary-subtle border-primary/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+              <span className="border-primary/30 bg-primary-subtle text-on-primary-subtle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-primary h-1.5 w-1.5 rounded-full" />
                 New Feature
               </span>
-              <span className="bg-success-subtle text-on-success-subtle border-success/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+              <span className="border-success/30 bg-success-subtle text-on-success-subtle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-success h-1.5 w-1.5 rounded-full" />
                 Completed
               </span>
-              <span className="bg-warning-subtle text-on-warning-subtle border-warning/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+              <span className="border-warning/30 bg-warning-subtle text-on-warning-subtle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-warning h-1.5 w-1.5 rounded-full" />
                 Pending
               </span>
-              <span className="bg-error-subtle text-on-error-subtle border-error/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+              <span className="border-error/30 bg-error-subtle text-on-error-subtle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-error h-1.5 w-1.5 rounded-full" />
                 Failed
               </span>
-              <span className="bg-info-subtle text-on-info-subtle border-info/30 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
+              <span className="border-info/30 bg-info-subtle text-on-info-subtle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-info h-1.5 w-1.5 rounded-full" />
                 Info
               </span>

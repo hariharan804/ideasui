@@ -52,8 +52,8 @@ export default function Home(): JSX.Element {
       {/* Dynamic Background Glows */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden outline-none">
         <div className="bg-primary-500/20 absolute -top-[20%] -left-[10%] h-[500px] w-[500px] animate-pulse rounded-full opacity-50 mix-blend-normal blur-3xl transition-all duration-[3000ms] dark:mix-blend-screen" />
-        <div className="absolute top-[20%] -right-[10%] h-[600px] w-[600px] animate-pulse rounded-full bg-blue-500/20 opacity-40 mix-blend-normal blur-3xl transition-all delay-700 duration-[3000ms] dark:mix-blend-screen" />
-        <div className="absolute -bottom-[20%] left-[20%] h-[700px] w-[700px] animate-pulse rounded-full bg-purple-500/20 opacity-30 mix-blend-normal blur-3xl transition-all delay-1000 duration-[3000ms] dark:mix-blend-screen" />
+        <div className="absolute top-[20%] right-[-10%] size-[600px] animate-pulse rounded-full bg-blue-500/20 opacity-40 mix-blend-normal blur-3xl transition-all delay-700 duration-[3000ms] dark:mix-blend-screen" />
+        <div className="absolute bottom-[-20%] left-[20%] size-[700px] animate-pulse rounded-full bg-purple-500/20 opacity-30 mix-blend-normal blur-3xl transition-all delay-1000 duration-[3000ms] dark:mix-blend-screen" />
       </div>
 
       <div className="relative z-10">
@@ -83,11 +83,11 @@ export default function Home(): JSX.Element {
 
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
-                className="bg-primary-500 shadow-primary-500/30 hover:bg-primary-600 hover:shadow-primary-500/50 focus-visible:outline-primary-500 flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                className="bg-primary-500 shadow-primary-500/30 hover:bg-primary-600 hover:shadow-primary-500/50 focus-visible:outline-primary-500 flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2"
                 href="/components"
               >
                 Get Started
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="size-4" />
               </Link>
               <Link
                 className="text-content-primary hover:text-primary-500 flex items-center gap-2 text-sm leading-6 font-semibold transition-colors"
@@ -108,23 +108,23 @@ export default function Home(): JSX.Element {
               return (
                 <Link
                   key={item.href}
-                  className="group border-border-subtle bg-surface-subtle hover:border-border-default hover:bg-surface-muted relative flex flex-col justify-between overflow-hidden rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group border-border-subtle hover:border-border-default bg-surface-subtle hover:bg-surface-muted relative flex flex-col justify-between overflow-hidden rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                   href={item.href}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Background Aura */}
                   <div
-                    className={`absolute -top-12 -right-12 h-32 w-32 rounded-full bg-gradient-to-br ${item.gradient} opacity-10 blur-2xl transition-opacity duration-500 group-hover:opacity-30`}
+                    className={`absolute -top-12 -right-12 size-32 rounded-full bg-gradient-to-br ${item.gradient} opacity-10 blur-2xl transition-opacity duration-500 group-hover:opacity-30`}
                   />
 
                   {/* Icon & Arrow Header */}
                   <div className="relative mb-8 flex items-center justify-between">
                     <div
-                      className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.gradient} shadow-lg ${item.shadowPath} transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}
+                      className={`flex size-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.gradient} shadow-lg ${item.shadowPath} transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}
                     >
-                      <Icon className="h-6 w-6 text-white" />
+                      <Icon className="size-6 text-white" />
                     </div>
-                    <div className="border-border-subtle bg-surface-subtle group-hover:bg-content-primary flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 group-hover:border-transparent">
+                    <div className="border-border-subtle bg-surface-subtle group-hover:bg-content-primary flex size-10 items-center justify-center rounded-full border transition-all duration-300 group-hover:border-transparent">
                       <ArrowRight className="text-content-muted group-hover:text-surface h-5 w-5 transition-colors duration-300" />
                     </div>
                   </div>
@@ -164,7 +164,7 @@ export default function Home(): JSX.Element {
               </div>
               <div className="flex flex-col items-center justify-center space-y-2 text-center">
                 <div className="mb-1 flex items-center gap-2">
-                  <Package className="h-4 w-4 text-violet-500" />
+                  <Package className="size-4 text-violet-500" />
                   <div className="text-content-primary text-3xl font-extrabold tracking-tight">
                     4
                   </div>
@@ -175,7 +175,7 @@ export default function Home(): JSX.Element {
               </div>
               <div className="flex flex-col items-center justify-center space-y-2 text-center">
                 <div className="mb-1 flex items-center gap-2">
-                  <Code2 className="h-4 w-4 text-emerald-500" />
+                  <Code2 className="size-4 text-emerald-500" />
                   <div className="text-content-primary text-3xl font-extrabold tracking-tight">
                     100%
                   </div>
@@ -186,7 +186,7 @@ export default function Home(): JSX.Element {
               </div>
               <div className="flex flex-col items-center justify-center space-y-2 text-center">
                 <div className="mb-1 flex items-center gap-2">
-                  <Eye className="h-4 w-4 text-rose-500" />
+                  <Eye className="size-4 text-rose-500" />
                   <div className="text-content-primary text-3xl font-extrabold tracking-tight">
                     A11Y
                   </div>

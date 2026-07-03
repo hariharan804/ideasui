@@ -92,10 +92,10 @@ export default function HomePage() {
           {/* Primary glow */}
           <div className="absolute -top-40 left-1/2 h-[600px] w-[800px] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse,var(--color-primary)/0.35_0%,transparent_70%)] opacity-30" />
           {/* Info glow right */}
-          <div className="absolute top-10 right-0 h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle,var(--color-info)/0.3_0%,transparent_70%)] opacity-25" />
+          <div className="absolute top-10 right-0 size-[500px] rounded-full bg-[radial-gradient(circle,var(--color-info)/0.3_0%,transparent_70%)] opacity-25" />
           {/* Dot grid */}
           <svg
-            className="absolute inset-0 h-full w-full opacity-[0.04]"
+            className="absolute inset-0 size-full opacity-[0.04]"
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
@@ -156,7 +156,7 @@ export default function HomePage() {
               <ArrowRight className="size-4" />
             </Link>
             <Link
-              className="border-subtle text-content-primary bg-surface-subtle inline-flex items-center gap-2 rounded-xl border px-7 py-3 text-sm font-semibold backdrop-blur-sm transition-all hover:scale-105 active:scale-95"
+              className="border-subtle bg-surface-subtle text-content-primary inline-flex items-center gap-2 rounded-xl border px-7 py-3 text-sm font-semibold backdrop-blur-sm transition-all hover:scale-105 active:scale-95"
               href="https://github.com/ideas2logic-lab/ideasui"
               rel="noopener noreferrer"
               target="_blank"

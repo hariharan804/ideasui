@@ -204,7 +204,7 @@ export const Borders: Story = {
           <TokenGroup
             renderPreview={(value) => (
               <div
-                className="bg-surface-DEFAULT h-8 w-8 rounded shadow-sm"
+                className="bg-surface-DEFAULT size-8 rounded shadow-sm"
                 style={{ border: `2px solid ${value}` }}
               />
             )}
@@ -234,7 +234,7 @@ export const Shadows: Story = {
           {Object.entries(systemTokens.boxShadow).map(([key, value]) => (
             <div key={key} className="text-center">
               <div
-                className="bg-surface-DEFAULT mx-auto mb-4 h-24 w-24 rounded-2xl border border-neutral-100/50"
+                className="bg-surface-DEFAULT mx-auto mb-4 size-24 rounded-2xl border border-neutral-100/50"
                 style={{ boxShadow: value }}
               />
               <div className="text-content-primary text-sm font-semibold">{key}</div>
@@ -279,7 +279,7 @@ export const Blur: Story = {
                     <div className="text-content-tertiary font-mono text-xs">{value}</div>
                   </div>
                   <div
-                    className="z-10 mr-6 h-16 w-16 rounded-full bg-blue-600"
+                    className="z-10 mr-6 size-16 rounded-full bg-blue-600"
                     style={{ filter: `blur(${value})` }}
                   />
                 </div>
@@ -346,8 +346,8 @@ export const Opacity: Story = {
         <div className="grid grid-cols-2 gap-6 p-6 md:grid-cols-4">
           {Object.entries(systemTokens.opacity).map(([key, value]) => (
             <div key={key} className="text-center">
-              <div className="mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-xl border border-neutral-200 bg-[url('https://transparenttextures.com/patterns/cubes.png')]">
-                <div className="h-full w-full rounded-xl bg-blue-600" style={{ opacity: value }} />
+              <div className="mx-auto mb-3 flex size-20 items-center justify-center rounded-xl border border-neutral-200 bg-[url('https://transparenttextures.com/patterns/cubes.png')]">
+                <div className="size-full rounded-xl bg-blue-600" style={{ opacity: value }} />
               </div>
               <div className="text-content-primary text-sm font-semibold">{key}</div>
               <div className="text-content-tertiary mt-0.5 font-mono text-xs">{value}</div>

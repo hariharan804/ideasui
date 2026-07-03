@@ -38,7 +38,7 @@ const CodeBlock = ({ title, code }: { title: string; code: string }): ReactEleme
       <div className="border-surface-border bg-surface-sunken/40 flex items-center justify-between border-b px-5 py-3">
         <h3 className="text-content-primary text-sm font-semibold">{title}</h3>
         <button
-          className="border-surface-border bg-surface-surface text-content-secondary hover:bg-surface-sunken hover:text-content-primary rounded-lg border px-3 py-1.5 text-xs font-medium transition-all"
+          className="border-surface-border bg-surface-surface hover:bg-surface-sunken text-content-secondary hover:text-content-primary rounded-lg border px-3 py-1.5 text-xs font-medium transition-all"
           type="button"
           onClick={handleCopy}
         >
@@ -242,7 +242,7 @@ export const ThemeExamples: Story = {
                 className="bg-surface flex items-center gap-4 rounded-xl border border-neutral-100 p-4 transition-all hover:shadow-md"
               >
                 <div
-                  className={`${colorClasses[color].subtle} ${colorClasses[color].onSubtle} flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-sm`}
+                  className={`${colorClasses[color].subtle} ${colorClasses[color].onSubtle} flex size-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-sm`}
                 >
                   Aa
                 </div>
@@ -273,7 +273,7 @@ export const ThemeExamples: Story = {
                 className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:bg-white/10"
               >
                 <div
-                  className={`${colorClasses[color].subtle} ${colorClasses[color].onSubtle} flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-sm`}
+                  className={`${colorClasses[color].subtle} ${colorClasses[color].onSubtle} flex size-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-sm`}
                 >
                   Aa
                 </div>

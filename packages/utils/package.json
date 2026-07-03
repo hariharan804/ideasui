@@ -11,21 +11,27 @@
       "require": "./src/index.ts"
     },
     "./core": {
+      "types": "./src/core/index.ts",
       "import": "./src/core/index.ts"
     },
     "./react": {
+      "types": "./src/react/index.ts",
       "import": "./src/react/index.ts"
     },
     "./client": {
+      "types": "./src/client/index.ts",
       "import": "./src/client/index.ts"
     },
     "./aria": {
+      "types": "./src/aria/index.ts",
       "import": "./src/aria/index.ts"
     },
     "./test": {
+      "types": "./src/test/index.ts",
       "import": "./src/test/index.ts"
     },
     "./style": {
+      "types": "./src/style/index.ts",
       "import": "./src/style/index.ts"
     }
   },
@@ -81,10 +87,11 @@
   },
   "devDependencies": {
     "@react-types/shared": "^3.32.1",
+    "clean-package": "^2.2.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "clean-package": "^2.2.0",
     "tsup": "^8.0.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest-axe": "^0.1.0"
   }
 }

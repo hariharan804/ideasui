@@ -95,18 +95,18 @@ function Playground(): JSX.Element {
               {/* View Mode Toggle */}
               <div className="border-border-subtle bg-surface-subtle flex items-center rounded-2xl border p-1.5 shadow-sm">
                 <button
-                  className={`rounded-xl p-2.5 transition-colors ${viewMode === 'grid' ? 'bg-primary-500 text-white shadow-md' : 'text-content-muted hover:text-content-primary hover:bg-surface'}`}
+                  className={`rounded-xl p-2.5 transition-colors ${viewMode === 'grid' ? 'bg-primary-500 text-white shadow-md' : 'text-content-muted hover:bg-surface hover:text-content-primary'}`}
                   title="Grid View"
                   onClick={() => setViewMode('grid')}
                 >
-                  <Grid className="h-5 w-5" />
+                  <Grid className="size-5" />
                 </button>
                 <button
-                  className={`rounded-xl p-2.5 transition-colors ${viewMode === 'list' ? 'bg-primary-500 text-white shadow-md' : 'text-content-muted hover:text-content-primary hover:bg-surface'}`}
+                  className={`rounded-xl p-2.5 transition-colors ${viewMode === 'list' ? 'bg-primary-500 text-white shadow-md' : 'text-content-muted hover:bg-surface hover:text-content-primary'}`}
                   title="List View"
                   onClick={() => setViewMode('list')}
                 >
-                  <List className="h-5 w-5" />
+                  <List className="size-5" />
                 </button>
               </div>
             </div>
@@ -136,7 +136,7 @@ function Playground(): JSX.Element {
               {filteredComponents.map((item, index) => (
                 <div
                   key={item.name}
-                  className={`group border-border-default bg-surface-subtle animate-slideIn hover:border-primary-500 hover:bg-surface-muted hover:shadow-primary-500/20 cursor-pointer overflow-hidden rounded-2xl border p-6 shadow-md backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-8 ${
+                  className={`group border-border-default animate-slideIn bg-surface-subtle hover:border-primary-500 hover:bg-surface-muted hover:shadow-primary-500/20 cursor-pointer overflow-hidden rounded-2xl border p-6 shadow-md backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-8 ${
                     viewMode === 'list' ? 'flex items-center gap-6' : 'flex h-full flex-col'
                   }`}
                   role="button"
@@ -159,7 +159,7 @@ function Playground(): JSX.Element {
                         {item.name}
                       </h3>
                       {item.category ? (
-                        <span className="bg-primary-500/10 border-primary-500/20 text-primary-600 dark:text-primary-400 rounded-full border px-3 py-1 text-xs font-bold tracking-wider uppercase">
+                        <span className="border-primary-500/20 bg-primary-500/10 text-primary-600 dark:text-primary-400 rounded-full border px-3 py-1 text-xs font-bold tracking-wider uppercase">
                           {item.category}
                         </span>
                       ) : null}

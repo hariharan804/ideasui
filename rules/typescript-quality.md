@@ -4,13 +4,13 @@
 
 ### Strict Mode
 
-All packages use strict TypeScript. While `noImplicitAny` is set to `false` for incremental adoption in legacy modules, all new code MUST avoid `any` and use strict typing:
+All packages use strict TypeScript, enforcing type safety and preventing the use of implicit `any` types:
 
 ```json
 {
   "compilerOptions": {
     "strict": true,
-    "noImplicitAny": false
+    "noImplicitAny": true
   }
 }
 ```

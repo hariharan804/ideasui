@@ -36,7 +36,7 @@ export function QuickNav({ items, title = 'In This Section', className, ...props
               className="group hover:bg-surface-container-high -mx-1.5 flex items-center gap-3 rounded-xl px-2 py-1.5 transition-colors"
               href={item.href}
             >
-              <span className="border-base/10 bg-surface-container text-primary group-hover:bg-primary group-hover:text-background flex h-5 w-5 shrink-0 items-center justify-center rounded-md border font-mono text-[10px] font-semibold transition-all group-hover:border-transparent">
+              <span className="border-base/10 bg-surface-container text-primary group-hover:bg-primary group-hover:text-background flex size-5 shrink-0 items-center justify-center rounded-md border font-mono text-[10px] font-semibold transition-all group-hover:border-transparent">
                 {numberStr}
               </span>
               <div className="flex min-w-0 flex-1 items-baseline gap-2">

@@ -16,7 +16,7 @@ export function APIReferenceViewer({ componentName }: APIReferenceViewerProps) {
 
   if (!componentDocs || componentDocs.length === 0) {
     return (
-      <div className="border-error/20 bg-error/5 text-error not-prose my-4 rounded-md border p-4">
+      <div className="not-prose border-error/20 bg-error/5 text-error my-4 rounded-md border p-4">
         <p className="text-sm">
           API Reference documentation for component &quot;{componentName}&quot; not found.
         </p>
@@ -46,8 +46,8 @@ export function APIReferenceViewer({ componentName }: APIReferenceViewerProps) {
               className={cn(
                 'group relative -mb-px flex-shrink-0 cursor-pointer rounded-t-xl border border-transparent px-4 py-2.5 text-xs font-semibold transition-all duration-300',
                 index === activeTab
-                  ? 'border-base/20 text-primary !bg-surface-container-low !border-b-surface-container-low font-bold shadow-sm'
-                  : 'text-content-secondary hover:bg-surface-container-high hover:text-content-primary',
+                  ? 'border-base/20 !bg-surface-container-low !border-b-surface-container-low text-primary font-bold shadow-sm'
+                  : 'hover:bg-surface-container-high text-content-secondary hover:text-content-primary',
               )}
               type="button"
               onClick={() => setActiveTab(index)}

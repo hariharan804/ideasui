@@ -30,9 +30,27 @@ const packagesDir = path.join(root, 'packages');
 // Array to store packages that expose public APIs
 const apiPackages = [];
 
-// Iterate through all packages in the packages directory
-for (const pkgName of fs.readdirSync(packagesDir)) {
-  const pkgPath = path.join(packagesDir, pkgName);
+// Build a list of package directories to scan (handles categorized packages e.g., components/* and core/*)
+const packagePaths = [];
+
+for (const item of fs.readdirSync(packagesDir)) {
+  const itemPath = path.join(packagesDir, item);
+  if (!fs.existsSync(itemPath) || !fs.statSync(itemPath).isDirectory()) continue;
+
+  if (item === 'components' || item === 'core') {
+    for (const subItem of fs.readdirSync(itemPath)) {
+      const subItemPath = path.join(itemPath, subItem);
+      if (fs.statSync(subItemPath).isDirectory()) {
+        packagePaths.push(subItemPath);
+      }
+    }
+  } else {
+    packagePaths.push(itemPath);
+  }
+}
+
+// Iterate through all candidate package directories
+for (const pkgPath of packagePaths) {
   const pkgJsonPath = path.join(pkgPath, 'package.json');
 
   // Skip if package.json doesn't exist

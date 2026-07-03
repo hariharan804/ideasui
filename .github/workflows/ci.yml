@@ -51,6 +51,10 @@ jobs:
       - name: Build packages
         uses: ./.github/composite-actions/build
 
+      # 4.5️⃣ Size Limit Checks
+      - name: Run size limit check
+        run: pnpm run size
+
       # 5️⃣ Unit Tests
       - name: Run tests
         uses: ./.github/composite-actions/test

@@ -8,7 +8,7 @@ export function Logo({ className }: { className?: string }) {
         I
       </div>
       <span className="text-content-primary text-base font-bold tracking-tight">IdeasUI</span>
-      <span className="bg-primary/12 text-primary border-primary/28 hidden items-center rounded border px-1.5 py-0.5 text-[10px] font-bold tracking-wide sm:inline-flex">
+      <span className="border-primary/28 bg-primary/12 text-primary hidden items-center rounded border px-1.5 py-0.5 text-[10px] font-bold tracking-wide sm:inline-flex">
         v1.0
       </span>
     </div>

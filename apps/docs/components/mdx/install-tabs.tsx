@@ -29,8 +29,8 @@ function TabButton({ isActive, onClick, children, size = 'md' }: TabButtonProps)
           ? 'rounded-t-lg px-3 py-1.5 text-[11px]'
           : 'rounded-t-xl px-3.5 py-2.5 text-xs',
         isActive
-          ? 'border-base/20 text-primary !bg-surface-container-low !border-b-surface-container-low'
-          : 'text-content-secondary hover:bg-surface-container-high hover:text-content-primary',
+          ? 'border-base/20 !bg-surface-container-low !border-b-surface-container-low text-primary'
+          : 'hover:bg-surface-container-high text-content-secondary hover:text-content-primary',
         isActive && size === 'md' && 'font-bold',
       )}
       type="button"
@@ -157,8 +157,8 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
               isIconOnly
               aria-label={copied ? 'Copied command' : 'Copy command'}
               className={cn(
-                'text-content-secondary hover:text-content-primary bg-surface-container-high hover:bg-surface-container-low border-subtle/5 hover:border-subtle/15 size-7 rounded-3xl border transition-all duration-200 hover:scale-105 active:scale-95',
-                copied && 'bg-success/10! border-success/30! text-success! hover:text-success!',
+                'bg-surface-container-high hover:bg-surface-container-low border-subtle/5 hover:border-subtle/15 text-content-secondary hover:text-content-primary size-7 rounded-3xl border transition-all duration-200 hover:scale-105 active:scale-95',
+                copied && 'border-success/30! bg-success/10! text-success! hover:text-success!',
               )}
               size="sm"
               type="button"

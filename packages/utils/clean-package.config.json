@@ -9,5 +9,41 @@
     "config",
     "commitlint",
     "packageManager"
-  ]
+  ],
+  "replace": {
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      },
+      "./core": {
+        "types": "./dist/core/index.d.ts",
+        "import": "./dist/core/index.js"
+      },
+      "./react": {
+        "types": "./dist/react/index.d.ts",
+        "import": "./dist/react/index.js"
+      },
+      "./client": {
+        "types": "./dist/client/index.d.ts",
+        "import": "./dist/client/index.js"
+      },
+      "./aria": {
+        "types": "./dist/aria/index.d.ts",
+        "import": "./dist/aria/index.js"
+      },
+      "./test": {
+        "types": "./dist/test/index.d.ts",
+        "import": "./dist/test/index.js"
+      },
+      "./style": {
+        "types": "./dist/style/index.d.ts",
+        "import": "./dist/style/index.js"
+      },
+      "./package.json": "./package.json"
+    }
+  }
 }

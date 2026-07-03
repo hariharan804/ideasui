@@ -291,10 +291,10 @@ export const CompoundUsage: Story = {
 export const CustomComposition: Story = {
   render: (args) => (
     <div className="flex flex-wrap gap-6">
-      <Button {...args} startIcon={<Plus className="h-4 w-4" />}>
+      <Button {...args} startIcon={<Plus className="size-4" />}>
         Create New
       </Button>
-      <Button {...args} endIcon={<ChevronRight className="h-4 w-4" />}>
+      <Button {...args} endIcon={<ChevronRight className="size-4" />}>
         Continue
       </Button>
       <Button {...args} isIconOnly aria-label="Settings" color="primary" size="md">

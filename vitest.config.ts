@@ -44,7 +44,6 @@ export default defineConfig({
       reporter: ['text', 'lcov', 'json-summary'],
       include: [
         'packages/components/**/*.{ts,tsx}',
-        'packages/hooks/**/*.{ts,tsx}',
         'packages/core/**/*.{ts,tsx}',
         'packages/utils/**/*.{ts,tsx}',
       ],
@@ -66,12 +65,6 @@ export default defineConfig({
           functions: 80,
           lines: 80,
           statements: 80,
-        },
-        './packages/hooks/': {
-          branches: 75,
-          functions: 85,
-          lines: 85,
-          statements: 85,
         },
         './packages/core/': {
           branches: 65,

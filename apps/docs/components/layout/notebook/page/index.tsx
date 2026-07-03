@@ -9,7 +9,7 @@ import { useMemo, isValidElement } from 'react';
 import { TOCProvider, TOCScrollArea } from 'fumadocs-ui/components/toc';
 import { TOCItems, TOCItem } from 'fumadocs-ui/components/toc/clerk';
 import { buttonVariants } from 'fumadocs-ui/components/ui/button';
-import { I18nLabel } from 'fumadocs-ui/contexts/i18n';
+import { useTranslations } from '@fuma-translate/react';
 import { cn } from '@ideasui/utils';
 
 import { PageBreadcrumb } from './breadcrumb';
@@ -90,6 +90,7 @@ export function DocsPage({
   } = {},
   toc = [],
 }: DocsPageProps) {
+  const t = useTranslations({ note: 'table of contents' });
   const currentToc = useMemo(() => {
     const rawToc = Array.isArray(toc) ? toc : [];
 
@@ -174,7 +175,7 @@ export function DocsPage({
               id="toc-title"
             >
               <Text className="size-4" />
-              <I18nLabel label="toc" />
+              {t('On this page')}
             </h3>
             <TOCScrollArea>
               {currentToc.length > 0 && TOCItems ? (
@@ -193,6 +194,8 @@ export function DocsPage({
 }
 
 export function EditOnGitHub(props: ComponentProps<'a'>) {
+  const t = useTranslations({ note: 'page actions' });
+
   return (
     <a
       rel="noreferrer noopener"
@@ -210,7 +213,7 @@ export function EditOnGitHub(props: ComponentProps<'a'>) {
       {props.children ?? (
         <>
           <Edit className="size-3.5" />
-          <I18nLabel label="editOnGithub" />
+          {t('Edit on GitHub')}
         </>
       )}
     </a>

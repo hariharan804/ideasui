@@ -11,7 +11,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from 'fumadocs-ui/components/ui/collapsible';
-import { useI18n } from 'fumadocs-ui/contexts/i18n';
+import { useTranslations } from '@fuma-translate/react';
 import { useTreePath } from 'fumadocs-ui/contexts/tree';
 import { cn } from '@ideasui/utils';
 
@@ -79,7 +79,7 @@ export function PageTOCPopover({ children, className, ...rest }: ComponentProps<
 }
 
 export function PageTOCPopoverTrigger({ className, ...props }: ComponentProps<'button'>) {
-  const { text } = useI18n();
+  const t = useTranslations({ note: 'table of contents' });
   const context = use(TocPopoverContext);
   const items = useTOCItems();
   const active = useActiveAnchor();
@@ -121,7 +121,7 @@ export function PageTOCPopoverTrigger({ className, ...props }: ComponentProps<'b
             showItem && 'pointer-events-none -translate-y-full opacity-0',
           )}
         >
-          {path?.name ?? text.toc}
+          {path?.name ?? t('On this page')}
         </span>
         <span
           className={cn(

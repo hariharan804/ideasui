@@ -58,7 +58,7 @@ function DefaultHeader({
 }: ComponentProps<'div'> & { banner?: ReactNode }) {
   return (
     <div
-      className={cn('flex flex-col gap-3 px-4 py-4 !pt-6 pb-2 empty:hidden md:px-6', className)}
+      className={cn('flex flex-col gap-3 p-4 !pt-6 pb-2 empty:hidden md:px-6', className)}
       {...props}
     >
       {children}
@@ -80,7 +80,7 @@ function DefaultFooter({
   return (
     <div
       className={cn(
-        'text-content-secondary border-base/40 hidden flex-row items-center border-t px-4 py-4 pt-2 md:px-6',
+        'border-base/40 text-content-secondary hidden flex-row items-center border-t p-4 pt-2 md:px-6',
         iconLinks.length > 0 && 'max-lg:flex',
         className,
       )}

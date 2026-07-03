@@ -20,7 +20,7 @@ export function Item({ className, component, openInNewTab = false, status, ...pr
   return (
     <Link
       className={cn(
-        'group border-separator bg-surface hover:bg-surface-hover relative flex flex-col gap-2 rounded-xl border p-4 transition-all hover:shadow-md',
+        'group border-separator hover:bg-surface-hover bg-surface relative flex flex-col gap-2 rounded-xl border p-4 transition-all hover:shadow-md',
         className,
       )}
       href={href}

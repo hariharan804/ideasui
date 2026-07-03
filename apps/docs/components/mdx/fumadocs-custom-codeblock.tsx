@@ -54,7 +54,7 @@ export function FumadocsCustomCodeblock({
         // Selection colors matching IdeasUI primary
         '[&_::selection]:bg-primary/25! [&_::selection]:text-inherit!',
         // Custom scrollbar
-        '[&_.fd-scroll-container::-webkit-scrollbar-thumb]:bg-border/40 [&_.fd-scroll-container::-webkit-scrollbar-thumb:hover]:bg-border/60 [&_.fd-scroll-container]:[scrollbar-width:thin] [&_.fd-scroll-container::-webkit-scrollbar]:h-[5px] [&_.fd-scroll-container::-webkit-scrollbar]:w-[5px] [&_.fd-scroll-container::-webkit-scrollbar-thumb]:rounded-[10px] [&_.fd-scroll-container::-webkit-scrollbar-track]:bg-transparent',
+        '[&_.fd-scroll-container::-webkit-scrollbar-thumb]:bg-border/40 [&_.fd-scroll-container::-webkit-scrollbar-thumb:hover]:bg-border/60 [&_.fd-scroll-container]:[scrollbar-width:thin] [&_.fd-scroll-container::-webkit-scrollbar]:size-[5px] [&_.fd-scroll-container::-webkit-scrollbar-thumb]:rounded-[10px] [&_.fd-scroll-container::-webkit-scrollbar-track]:bg-transparent',
         // Copy buttons transition/interaction
         '[&_button]:transition-all! [&_button]:duration-200! [&_button]:ease-[cubic-bezier(0.4,0,0.2,1)]! [&_button:active]:scale-95! [&_button:hover]:scale-105!',
         className,

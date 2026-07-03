@@ -15,14 +15,14 @@ import { LayoutContext } from './context';
 import { mergeRefs } from '@/lib/docs/merge-refs';
 
 const itemVariants = tv({
-  base: 'text-content-secondary relative flex flex-row items-center gap-2.5 rounded-lg px-3 py-2 text-start transition-colors duration-200 [&_svg]:size-4 [&_svg]:shrink-0 my-0.5',
+  base: 'relative my-0.5 flex flex-row items-center gap-2.5 rounded-lg px-3 py-2 text-start text-content-secondary transition-colors duration-200 [&_svg]:size-4 [&_svg]:shrink-0',
   variants: {
     highlight: {
       true: '',
     },
     variant: {
       button: 'hover:bg-surface hover:text-content-primary',
-      link: 'hover:bg-surface hover:text-content-primary data-[active=true]:bg-primary/10 data-[active=true]:text-primary data-[active=true]:font-semibold transition-colors duration-200',
+      link: 'transition-colors duration-200 hover:bg-surface hover:text-content-primary data-[active=true]:bg-primary/10 data-[active=true]:font-semibold data-[active=true]:text-primary',
     },
   },
 });
@@ -67,9 +67,9 @@ export function SidebarContent({
             ref={mergeRefs(ref, refProp, asideRef)}
             className={cn(
               'absolute inset-y-0 start-0 flex w-full flex-col items-end text-sm duration-250 *:w-(--sidebar-width)',
-              navMode === 'auto' && 'bg-surface border-subtle/40 border-e',
+              navMode === 'auto' && 'border-subtle/40 bg-surface border-e',
               collapsed && [
-                'bg-surface border-subtle/40 inset-y-2 w-(--sidebar-width) rounded-xl border transition-transform',
+                'border-subtle/40 bg-surface inset-y-2 w-(--sidebar-width) rounded-xl border transition-transform',
                 hovered
                   ? 'translate-x-2 shadow-lg rtl:-translate-x-2'
                   : '-translate-x-(--sidebar-width) rtl:translate-x-full',
@@ -110,7 +110,7 @@ export function SidebarDrawer({
       <Base.SidebarDrawerOverlay className="data-[state=open]:animate-fd-fade-in data-[state=closed]:animate-fd-fade-out fixed inset-0 z-60 backdrop-blur-xs" />
       <Base.SidebarDrawerContent
         className={cn(
-          'bg-surface/90 data-[state=open]:animate-fd-sidebar-in data-[state=closed]:animate-fd-sidebar-out fixed inset-y-0 end-0 z-60 flex w-[85%] max-w-[320px] flex-col text-[0.9375rem] shadow-lg backdrop-blur-md',
+          'data-[state=open]:animate-fd-sidebar-in data-[state=closed]:animate-fd-sidebar-out bg-surface/90 fixed inset-y-0 end-0 z-60 flex w-[85%] max-w-[320px] flex-col text-[0.9375rem] shadow-lg backdrop-blur-md',
           className,
         )}
         {...props}
