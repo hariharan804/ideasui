@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           fetch-depth: 0 # Full history for better analysis
 
@@ -27,7 +27,7 @@ jobs:
         run: pnpm run test:coverage
 
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6
+        uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602 # v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
@@ -43,7 +43,7 @@ jobs:
             -Dsonar.typescript.tsconfigPaths=tsconfig.json
 
       - name: SonarQube Quality Gate
-        uses: SonarSource/sonarqube-quality-gate-action@v1
+        uses: SonarSource/sonarqube-quality-gate-action@d304d050d930b02a896b0f85935344f023928496 # v1
         timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

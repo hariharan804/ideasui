@@ -98,7 +98,6 @@ const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProps>(
           className,
         )}
         data-slot="button-spinner"
-        role="status"
         {...props}
       >
         <svg
