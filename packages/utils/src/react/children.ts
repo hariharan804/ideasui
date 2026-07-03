@@ -23,10 +23,10 @@ export function isValidElement(value: unknown): value is ReactElement {
 export function cloneChildrenWithProps(children: ReactNode, props: Record<string, any>): ReactNode {
   return Children.map(children, (child) => {
     if (isValidReactElement(child)) {
-      return cloneElement(child, props);
+      return cloneElement(child, props) as any;
     }
 
-    return child;
+    return child as any;
   });
 }
 

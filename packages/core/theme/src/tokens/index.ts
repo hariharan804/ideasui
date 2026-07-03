@@ -3,10 +3,10 @@ import type { squareSizes } from './variants';
 /* eslint-disable import/order */
 import { animation } from './animation';
 import { borderRadius } from './border-radius';
-import { lightShadow, darkShadow } from './box-shadow';
-import { duration, easing, keyframes, transition } from './motion';
+import { lightShadow } from './box-shadow';
+import { duration, easing, keyframes } from './motion';
 import { spacing } from './spacing';
-import { primitives, semantic, surface, content } from './colors';
+import { primitives, surface, content } from './colors';
 import { disabled, scrollbar } from './classes';
 import {
   colorVariants,
@@ -15,16 +15,13 @@ import {
   colorsWithVariant,
   spinnerSizes,
 } from './variants';
-/* eslint-enable import/order */
 
-// import { accessibility } from './accessibility';
-import { backdrop, blur } from './blur';
-import { border, borderColor } from './border';
-import { lightInteraction, darkInteraction } from './interaction';
+import { blur } from './blur';
+import { border } from './border';
+import { lightInteraction } from './interaction';
 import { opacity } from './opacity';
-import { textStyles, letterSpacing, fontSize, fontFamily, fontWeight } from './typography';
+import { letterSpacing, fontSize, fontFamily, fontWeight } from './typography';
 import { zIndex } from './z-index';
-import { componentColors, componentShadows } from './components';
 
 const interaction = lightInteraction;
 
@@ -36,11 +33,9 @@ export {
   fontWeight,
   animation,
   lightShadow,
-  darkShadow,
   duration,
   easing,
   keyframes,
-  transition,
   colorVariants,
   sizeVariants,
   buttonSizes,
@@ -49,29 +44,20 @@ export {
   scrollbar,
   colorsWithVariant,
   primitives,
-  semantic,
   surface,
   content,
-  backdrop,
   blur,
   border,
-  borderColor,
   lightInteraction,
-  darkInteraction,
   interaction,
   opacity,
-  textStyles,
   letterSpacing,
   zIndex,
-  componentColors,
-  componentShadows,
 };
 
 // Aliases for backward compatibility
 export const lightColorTokens = primitives.light;
 export const darkColorTokens = primitives.dark;
-export const boxShadow = lightShadow;
-export const font = fontFamily;
 
 // Types
 export type ColorVariantProps = keyof typeof colorVariants;
@@ -100,3 +86,14 @@ export type BorderWidthProps = keyof typeof border;
 export type SurfaceProps = keyof typeof surface;
 export type OnSurfaceProps = Extract<keyof typeof surface, `on-${string}`>;
 export type ContentProps = keyof typeof content;
+
+export { darkInteraction } from './interaction';
+
+export { darkShadow, lightShadow as boxShadow } from './box-shadow';
+
+export { transition } from './motion';
+export { semantic } from './colors';
+export { backdrop } from './blur';
+export { borderColor } from './border';
+export { textStyles, fontFamily as font } from './typography';
+export { componentColors, componentShadows } from './components';

@@ -1,28 +1,33 @@
 {
   "name": "@ideasui/react",
   "version": "0.0.2-beta.1",
-  "description": "The main entry point for the IdeasUI React component library.",
+  "description": "IdeasUI is a premium, accessible React component library built with Tailwind CSS v4, React Aria, and OKLCH design tokens. Fully customizable, high-performance, and dark-mode ready.",
   "author": "IdeasUI<support@ideasui.com>",
   "homepage": "https://ideasui.com",
   "license": "MIT",
   "keywords": [
-    "ideasui",
     "react",
     "components",
-    "ui-kit",
     "design-system",
-    "ui-component-library",
+    "ui-kit",
     "tailwindcss",
     "tailwind-v4",
     "react-aria",
-    "react-aria-components",
     "oklch",
+    "accessible-ui",
+    "wcag",
     "dark-mode",
-    "accessible-components"
+    "ideasui",
+    "premium-ui",
+    "headless-ui"
   ],
   "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    }
   },
   "files": [
     "src"

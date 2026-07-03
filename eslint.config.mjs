@@ -32,8 +32,8 @@ import prettier from 'eslint-plugin-prettier';
 // Testing
 import testingLibrary from 'eslint-plugin-testing-library';
 
-// Tailwind CSS - Disabled: Plugin doesn't support Tailwind v4 yet
-// import tailwindcss from 'eslint-plugin-tailwindcss';
+// Tailwind CSS - Enabled for Tailwind CSS v4
+import tailwindcss from 'eslint-plugin-tailwindcss';
 
 // React Compiler
 import reactCompiler from 'eslint-plugin-react-compiler';
@@ -78,6 +78,9 @@ export default defineConfig([
     '.chrome-profile/**',
   ]),
 
+  // SonarJS Recommended Rules
+  sonarjs.configs.recommended,
+
   // Main configuration
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
@@ -97,7 +100,6 @@ export default defineConfig([
       'react-refresh': fixupPluginRules(reactRefresh),
       import: fixupPluginRules(_import),
       'unused-imports': unusedImports,
-      sonarjs: fixupPluginRules(sonarjs),
       unicorn: fixupPluginRules(unicorn),
       jsdoc: fixupPluginRules(jsdoc),
       security: fixupPluginRules(security),
@@ -107,8 +109,8 @@ export default defineConfig([
       '@typescript-eslint': fixupPluginRules(typescriptEslint),
       // Testing
       'testing-library': fixupPluginRules(testingLibrary),
-      // Tailwind CSS - Disabled: Plugin doesn't support Tailwind v4 yet
-      // tailwindcss: fixupPluginRules(tailwindcss),
+      // Tailwind CSS
+      tailwindcss: fixupPluginRules(tailwindcss),
       // React Compiler
       'react-compiler': fixupPluginRules(reactCompiler),
     },
@@ -134,22 +136,32 @@ export default defineConfig([
       react: {
         version: 'detect',
       },
+      tailwindcss: {
+        callees: ['tv', 'cn', 'clsx', 'tailwindMerge'],
+        cssConfigPath: path.resolve(__dirname, 'packages/core/styles/src/styles.css'),
+        config: '',
+      },
       'boundaries/elements': [
         {
           type: 'components',
-          pattern: 'packages/components/**',
-        },
-        {
-          type: 'hooks',
-          pattern: 'packages/hooks/**',
+          pattern: 'packages/components/:name/**/*',
+          capture: ['name'],
         },
         {
           type: 'utils',
-          pattern: 'packages/utils/**',
+          pattern: 'packages/utils/**/*',
         },
         {
           type: 'theme',
-          pattern: 'packages/core/theme/**',
+          pattern: 'packages/core/theme/**/*',
+        },
+        {
+          type: 'styles',
+          pattern: 'packages/core/styles/**/*',
+        },
+        {
+          type: 'react',
+          pattern: 'packages/core/react/**/*',
         },
       ],
       'boundaries/ignore': ['**/*.test.*', '**/*.spec.*', '**/*.stories.*'],
@@ -274,11 +286,7 @@ export default defineConfig([
           rules: [
             {
               from: 'components',
-              allow: ['hooks', 'utils', 'theme'],
-            },
-            {
-              from: 'hooks',
-              allow: ['utils'],
+              allow: ['utils', 'theme', 'styles'],
             },
             {
               from: 'utils',
@@ -288,11 +296,21 @@ export default defineConfig([
               from: 'theme',
               allow: ['utils'],
             },
+            {
+              from: 'styles',
+              allow: [],
+            },
+            {
+              from: 'react',
+              allow: ['components', 'theme', 'utils', 'styles'],
+            },
           ],
         },
       ],
 
       // Import management
+      'import/no-cycle': ['error', { maxDepth: Infinity }],
+      'import/no-self-import': 'error',
       'unused-imports/no-unused-vars': 'off',
       'unused-imports/no-unused-imports': 'warn',
       'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
@@ -331,6 +349,7 @@ export default defineConfig([
       'sonarjs/no-unused-collection': 'error',
       'sonarjs/prefer-immediate-return': 'error',
       'sonarjs/prefer-single-boolean-return': 'error',
+      'sonarjs/different-types-comparison': 'off',
 
       // Modern JavaScript (Unicorn)
       'unicorn/better-regex': 'error',
@@ -393,13 +412,13 @@ export default defineConfig([
       // React Compiler (React 19+)
       'react-compiler/react-compiler': 'error',
 
-      // Tailwind CSS - Disabled: Plugin doesn't support Tailwind v4 yet
-      // 'tailwindcss/classnames-order': 'warn',
-      // 'tailwindcss/enforces-negative-arbitrary-values': 'warn',
-      // 'tailwindcss/enforces-shorthand': 'warn',
-      // 'tailwindcss/no-custom-classname': 'off', // Allow BEM classes
-      // 'tailwindcss/no-contradicting-classname': 'error',
-      // 'tailwindcss/no-unnecessary-arbitrary-value': 'warn',
+      // Tailwind CSS rules
+      'tailwindcss/classnames-order': 'off',
+      'tailwindcss/enforces-negative-arbitrary-values': 'off',
+      'tailwindcss/enforces-shorthand': 'off',
+      'tailwindcss/no-custom-classname': 'off', // Allow BEM classes
+      'tailwindcss/no-contradicting-classname': 'error',
+      'tailwindcss/no-unnecessary-arbitrary-value': 'off',
     },
   },
 
@@ -436,6 +455,8 @@ export default defineConfig([
       'max-params': 'off',
       complexity: 'off',
       'sonarjs/cognitive-complexity': 'off',
+      'sonarjs/prefer-read-only-props': 'off',
+      'sonarjs/deprecation': 'off',
     },
   },
 
@@ -476,6 +497,8 @@ export default defineConfig([
       'max-params': 'off',
       complexity: 'off',
       'sonarjs/cognitive-complexity': 'off',
+      'sonarjs/prefer-read-only-props': 'off',
+      'sonarjs/no-nested-conditional': 'warn',
     },
   },
 ]);

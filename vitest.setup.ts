@@ -1,9 +1,12 @@
-import '@testing-library/jest-dom';
 import { TextEncoder, TextDecoder } from 'node:util';
 import { TransformStream } from 'node:stream/web';
 
+import '@testing-library/jest-dom';
+import { vi, expect } from 'vitest';
+import * as matchers from 'vitest-axe/matchers';
 import { createElement } from 'react';
-import { vi } from 'vitest';
+
+expect.extend(matchers);
 
 // Make React available globally in tests to support JSX without explicit imports
 // @ts-ignore
@@ -18,9 +21,15 @@ global.TransformStream = TransformStream;
 
 // Mock for ResizeObserver which is not available in JSDOM
 class ResizeObserverStub {
-  observe(): void {}
-  unobserve(): void {}
-  disconnect(): void {}
+  observe(): void {
+    // Stub implementation: JSDOM does not support layout queries or element resize observation.
+  }
+  unobserve(): void {
+    // Stub implementation: JSDOM does not support layout queries or element resize observation.
+  }
+  disconnect(): void {
+    // Stub implementation: JSDOM does not support layout queries or element resize observation.
+  }
 }
 
 // Mock for window.matchMedia

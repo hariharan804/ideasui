@@ -7,6 +7,7 @@ import { vi } from 'vitest';
 import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { expectAccessible } from '@ideasui/utils/test';
 
 import { Button } from '../src';
 
@@ -33,6 +34,13 @@ describe('Button', () => {
     const wrapper = render(<Button />);
 
     expect(() => wrapper.unmount()).not.toThrow();
+  });
+
+  it('should not have accessibility violations', async () => {
+    const { container } = render(<Button>Click me</Button>);
+
+    await expectAccessible(container);
+    expect(container).toBeInTheDocument();
   });
 
   it('ref should be forwarded', () => {

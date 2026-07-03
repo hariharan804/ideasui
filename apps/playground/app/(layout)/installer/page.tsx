@@ -13,6 +13,13 @@ const RELEASE_TAGS = {
   alpha: { label: 'Alpha', description: 'Alpha releases', color: 'purple' },
 } as const;
 
+const TAG_COLORS: Record<string, string> = {
+  green: 'bg-success-500',
+  yellow: 'bg-warning-500',
+  blue: 'bg-info-500',
+  purple: 'bg-secondary-500',
+};
+
 const PACKAGES = [
   '@ideasui/button',
   '@ideasui/theme',
@@ -68,7 +75,7 @@ export default function InstallerPage(): JSX.Element {
         <div className="mb-10 text-center">
           <div className="mb-4 flex items-center justify-center gap-3">
             <div className="from-primary-500 to-secondary-500 shadow-primary-500/20 relative rounded-2xl bg-gradient-to-tr p-3 shadow-lg">
-              <Package className="h-8 w-8 text-white" />
+              <Package className="size-8 text-white" />
             </div>
             <h1 className="from-primary-600 to-secondary-600 bg-gradient-to-r bg-clip-text text-4xl font-extrabold tracking-tight text-transparent">
               Package Installer
@@ -96,14 +103,8 @@ export default function InstallerPage(): JSX.Element {
                 >
                   <div className="mb-2 flex items-center gap-2">
                     <div
-                      className={`h-3 w-3 rounded-full shadow-sm ${
-                        info.color === 'green'
-                          ? 'bg-success-500'
-                          : info.color === 'yellow'
-                            ? 'bg-warning-500'
-                            : info.color === 'blue'
-                              ? 'bg-info-500'
-                              : 'bg-secondary-500'
+                      className={`size-3 rounded-full shadow-sm ${
+                        TAG_COLORS[info.color] || 'bg-secondary-500'
                       }`}
                     />
                     <span className="text-content-primary font-bold">{info.label}</span>
@@ -111,7 +112,7 @@ export default function InstallerPage(): JSX.Element {
                   <p className="text-content-tertiary text-xs leading-relaxed">
                     {info.description}
                   </p>
-                  <code className="bg-surface-sunken text-content-secondary border-default mt-3 block rounded-md border px-2 py-1 font-mono text-xs font-medium">
+                  <code className="bg-surface-sunken border-default text-content-secondary mt-3 block rounded-md border px-2 py-1 font-mono text-xs font-medium">
                     @{tag}
                   </code>
                 </button>
@@ -125,7 +126,7 @@ export default function InstallerPage(): JSX.Element {
               <h2 className="text-content-primary text-xl font-bold">Packages</h2>
               <div className="flex gap-2">
                 <button
-                  className="bg-surface-muted border-default text-content-primary hover:bg-surface-strong hover:text-content-inverse rounded-lg border px-4 py-1.5 text-xs font-bold transition-colors"
+                  className="border-default bg-surface-muted text-content-primary hover:bg-surface-strong hover:text-content-inverse rounded-lg border px-4 py-1.5 text-xs font-bold transition-colors"
                   onClick={selectAll}
                 >
                   Select All
@@ -151,7 +152,7 @@ export default function InstallerPage(): JSX.Element {
                 >
                   <input
                     checked={selectedPackages.has(pkg)}
-                    className="border-default text-primary-600 focus:ring-primary-500 focus:ring-offset-surface-base h-5 w-5 rounded transition-colors"
+                    className="border-default focus:ring-offset-surface-base text-primary-600 focus:ring-primary-500 size-5 rounded transition-colors"
                     type="checkbox"
                     onChange={() => togglePackage(pkg)}
                   />
@@ -169,7 +170,7 @@ export default function InstallerPage(): JSX.Element {
 
             {selectedPackages.size === 0 ? (
               <div className="border-warning-subtle bg-warning-subtle/30 text-warning-700 flex items-center gap-3 rounded-xl border p-5 shadow-sm">
-                <AlertCircle className="h-5 w-5" />
+                <AlertCircle className="size-5" />
                 <span className="text-sm font-medium">
                   Please select at least one package to install before proceeding.
                 </span>
@@ -186,17 +187,17 @@ export default function InstallerPage(): JSX.Element {
                           {pm} CLI
                         </span>
                         <button
-                          className="text-primary-500 hover:text-primary-600 hover:bg-primary-subtle flex items-center gap-1.5 rounded-lg px-2 py-1 text-xs font-bold transition-colors"
+                          className="text-primary-500 hover:bg-primary-subtle hover:text-primary-600 flex items-center gap-1.5 rounded-lg px-2 py-1 text-xs font-bold transition-colors"
                           onClick={() => copyCommand(command)}
                         >
                           {copiedCommand === command ? (
                             <>
-                              <Check className="h-3.5 w-3.5" />
+                              <Check className="size-3.5" />
                               COPIED
                             </>
                           ) : (
                             <>
-                              <Copy className="h-3.5 w-3.5" />
+                              <Copy className="size-3.5" />
                               COPY
                             </>
                           )}

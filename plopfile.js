@@ -56,6 +56,20 @@ module.exports = function (plop) {
         pattern: /(### append component here ###)/gi,
         template: "$1\n\n  {\n    name: '{{pascalCase name}}',\n    category: 'Core',\n  },",
       },
+      // Add dependency to @ideasui/react package.json
+      {
+        type: 'modify',
+        path: 'packages/core/react/package.json',
+        pattern: /("dependencies":\s*{)/g,
+        template: '$1\n    "@ideasui/{{name}}": "workspace:*",',
+      },
+      // Add export to @ideasui/react entrypoint
+      {
+        type: 'modify',
+        path: 'packages/core/react/src/index.ts',
+        pattern: /(export \* from '@ideasui\/button';)/g,
+        template: "$1\nexport * from '@ideasui/{{name}}';",
+      },
     ],
   });
 

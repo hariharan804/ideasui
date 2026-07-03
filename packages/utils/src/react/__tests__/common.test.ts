@@ -61,7 +61,6 @@ describe('mergeProps', () => {
     const result = mergeProps(props1, props2);
 
     expect(result.className).toBe('foo bar');
-    // expect(cn).toHaveBeenCalledWith('foo', 'bar'); // cn is called iteratively
   });
 
   it('should merge style objects', () => {

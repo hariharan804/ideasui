@@ -921,12 +921,13 @@ Desktop:  Spacious (lg:padding: 2rem)
 #### Design for Breakpoints
 
 **Component Sizes:**
-| Component | Mobile | Tablet (md) | Desktop (lg) |
-|-----------|--------|-------------|--------------|
-| Button | h-9 (36px) | h-10 (40px) | h-10 (40px) |
-| Input | h-10 (40px) | h-10 (40px) | h-10 (40px) |
-| Card Padding | 1rem | 1.5rem | 2rem |
-| Container | Full width | 768px max | 1280px max |
+
+| Component    | Mobile      | Tablet (md) | Desktop (lg) |
+| ------------ | ----------- | ----------- | ------------ |
+| Button       | h-9 (36px)  | h-10 (40px) | h-10 (40px)  |
+| Input        | h-10 (40px) | h-10 (40px) | h-10 (40px)  |
+| Card Padding | 1rem        | 1.5rem      | 2rem         |
+| Container    | Full width  | 768px max   | 1280px max   |
 
 ---
 

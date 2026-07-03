@@ -6,8 +6,8 @@ import { useMemo, useSyncExternalStore } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { usePathname } from 'fumadocs-core/framework';
 import Link from 'fumadocs-core/link';
-import { useI18n } from 'fumadocs-ui/contexts/i18n';
 import { useFooterItems } from 'fumadocs-ui/utils/use-footer-items';
+import { useTranslations } from '@fuma-translate/react';
 import { cn } from '@ideasui/utils';
 
 import { isActive } from '@/lib/docs/urls';
@@ -76,8 +76,8 @@ function FooterCard({
   item: Item;
   className?: string;
 }) {
-  const { text } = useI18n();
-  const label = isPrev ? text.previousPage : text.nextPage;
+  const t = useTranslations({ note: 'pagination' });
+  const label = isPrev ? t('Previous Page') : t('Next Page');
 
   return (
     <Link
@@ -86,7 +86,7 @@ function FooterCard({
         'group relative flex flex-col overflow-hidden rounded-2xl',
         isPrev ? 'items-start' : 'items-end',
         // Padding
-        'px-5 py-5',
+        'p-5',
         // Transition — only safe CSS properties
         'transition-[border-color,box-shadow,transform] duration-200 ease-out',
         // Hover
@@ -185,7 +185,7 @@ export function PageLastUpdate({
   date: value,
   ...props
 }: Omit<ComponentProps<'p'>, 'children'> & { date: Date }) {
-  const { text } = useI18n();
+  const t = useTranslations({ note: 'page footer' });
   const isMounted = useSyncExternalStore(emptySubscribe, getSnapshot, getServerSnapshot);
 
   return (
@@ -194,7 +194,7 @@ export function PageLastUpdate({
       className={cn('text-content-tertiary flex items-center gap-1.5 text-[11px]', props.className)}
     >
       <span aria-hidden className="bg-content-tertiary/40 inline-block size-1 rounded-3xl" />
-      {text.lastUpdate}{' '}
+      {t('Last updated on')}{' '}
       {isMounted ? (
         <span className="text-content-secondary font-medium">
           {value.toLocaleDateString(undefined, {

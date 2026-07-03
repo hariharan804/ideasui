@@ -220,7 +220,7 @@ I have the above context. Please help me with my task or question regarding this
         >
           {copied ? (
             <>
-              <Check className="text-success animate-in fade-in zoom-in size-3.5 duration-200" />
+              <Check className="animate-in fade-in zoom-in text-success size-3.5 duration-200" />
               <span className="text-success font-semibold">Copied!</span>
             </>
           ) : (
@@ -262,7 +262,7 @@ I have the above context. Please help me with my task or question regarding this
             <div className="flex flex-col gap-0.5">
               {/* Option 1: View as Markdown */}
               <button
-                className="hover:bg-surface-subtle group focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
+                className="group hover:bg-surface-subtle focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
                 onClick={() => {
                   setActiveModal('markdown');
                   setIsOpen(false);
@@ -326,7 +326,7 @@ I have the above context. Please help me with my task or question regarding this
 
               {/* Option 4: Open in ChatGPT */}
               <button
-                className="hover:bg-surface-subtle group focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
+                className="group hover:bg-surface-subtle focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
                 onClick={() => handleOpenInAI('ChatGPT', 'https://chatgpt.com/')}
               >
                 <div className="bg-surface-subtle text-content-secondary group-hover:bg-primary-subtle/15 group-hover:text-primary mt-0.5 rounded-lg p-1.5 transition-colors">
@@ -347,7 +347,7 @@ I have the above context. Please help me with my task or question regarding this
 
               {/* Option 5: Open in Claude */}
               <button
-                className="hover:bg-surface-subtle group focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
+                className="group hover:bg-surface-subtle focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
                 onClick={() => handleOpenInAI('Claude', 'https://claude.ai/new')}
               >
                 <div className="bg-surface-subtle text-content-secondary group-hover:bg-primary-subtle/15 group-hover:text-primary mt-0.5 rounded-lg p-1.5 transition-colors">
@@ -426,7 +426,7 @@ I have the above context. Please help me with my task or question regarding this
                 {activeModal === 'markdown' && (
                   <div className="relative">
                     <button
-                      className="bg-surface/85 hover:bg-surface text-content-secondary hover:text-content-primary absolute top-3 right-3 z-10 inline-flex cursor-pointer items-center gap-1 rounded-lg px-2.5 py-1.5 text-[10px] font-semibold shadow-sm transition-all duration-200 active:scale-95"
+                      className="bg-surface/85 text-content-secondary hover:bg-surface hover:text-content-primary absolute top-3 right-3 z-10 inline-flex cursor-pointer items-center gap-1 rounded-lg px-2.5 py-1.5 text-[10px] font-semibold shadow-sm transition-all duration-200 active:scale-95"
                       onClick={() => copyToClipboard(rawMarkdown, 'Markdown content')}
                     >
                       <Copy className="size-3" />
@@ -524,7 +524,7 @@ I have the above context. Please help me with my task or question regarding this
 
                       <div className="relative">
                         <button
-                          className="bg-surface/85 hover:bg-surface text-content-secondary hover:text-content-primary absolute top-3 right-3 z-10 inline-flex cursor-pointer items-center gap-1 rounded-lg px-2.5 py-1.5 text-[10px] font-semibold shadow-sm transition-all duration-200 active:scale-95"
+                          className="bg-surface/85 text-content-secondary hover:bg-surface hover:text-content-primary absolute top-3 right-3 z-10 inline-flex cursor-pointer items-center gap-1 rounded-lg px-2.5 py-1.5 text-[10px] font-semibold shadow-sm transition-all duration-200 active:scale-95"
                           onClick={() => {
                             const configStr = JSON.stringify(
                               {

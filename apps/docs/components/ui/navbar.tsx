@@ -4,7 +4,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Github, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
+import { Github } from './docs/icons';
 
 import { Logo } from './logo';
 

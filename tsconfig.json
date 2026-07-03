@@ -3,7 +3,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "types": ["node", "vitest/globals", "@testing-library/jest-dom"],
+    "types": ["node", "vitest/globals", "@testing-library/jest-dom", "vitest-axe"],
     "lib": ["dom", "esnext"],
     "declaration": true,
     "sourceMap": true,
@@ -20,7 +20,7 @@
     "checkJs": false,
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noEmit": true
   },
   "include": [

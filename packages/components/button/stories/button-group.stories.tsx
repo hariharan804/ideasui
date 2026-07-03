@@ -4,6 +4,8 @@ import { Save, X, Trash2 } from 'lucide-react';
 
 import { Button } from '../src';
 
+import { variantOptions, colorOptions, sizeOptions, groupRadiusOptions } from './common';
+
 const meta: Meta<typeof Button.Group> = {
   title: 'Components/ButtonGroup',
   component: Button.Group,
@@ -19,31 +21,22 @@ const meta: Meta<typeof Button.Group> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'ghost', 'muted', 'link', 'text', 'elevated', 'glaze'],
+      options: variantOptions,
       description: 'The visual style shared by all buttons in the group.',
     },
     color: {
       control: 'select',
-      options: [
-        'primary',
-        'secondary',
-        'tertiary',
-        'neutral',
-        'error',
-        'success',
-        'warning',
-        'info',
-      ],
+      options: colorOptions,
       description: 'The semantic color theme shared by all buttons in the group.',
     },
     size: {
       control: 'select',
-      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      options: sizeOptions,
       description: 'The size shared by all buttons in the group.',
     },
     radius: {
       control: 'select',
-      options: ['none', 'sm', 'md', 'lg', 'xl', 'full'],
+      options: groupRadiusOptions,
       description: 'The border radius shared by all buttons in the group.',
     },
     isAttached: {

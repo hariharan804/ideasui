@@ -24,8 +24,11 @@
       "cache": true,
       "persistent": true
     },
+    "extract:props": {
+      "outputs": ["apps/docs/lib/docs/components-props.ts"]
+    },
     "build:docs": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "extract:props"],
       "outputs": [".next/**", "!.next/cache/**"]
     },
     "build:playground": {

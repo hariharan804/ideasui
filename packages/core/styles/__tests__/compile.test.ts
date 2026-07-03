@@ -17,6 +17,7 @@ describe('@ideasui/styles compilation outputs', () => {
       try {
         // eslint-disable-next-line no-console
         console.log('Building theme dynamically for styles compilation test...');
+        // eslint-disable-next-line sonarjs/no-os-command-from-path
         execSync('pnpm run build', { cwd: themeDir, stdio: 'inherit' });
       } catch (error) {
         console.error('Failed to build theme dynamically during test setup:', error);
@@ -28,7 +29,9 @@ describe('@ideasui/styles compilation outputs', () => {
 
     if (!fs.existsSync(distDir) || !fs.existsSync(baseCssPath)) {
       try {
+        // eslint-disable-next-line sonarjs/no-os-command-from-path
         execSync('npx tsup --minify --dts', { cwd: stylesDir, stdio: 'inherit' });
+        // eslint-disable-next-line sonarjs/no-os-command-from-path
         execSync('node scripts/build-css.js', { cwd: stylesDir, stdio: 'inherit' });
       } catch (error) {
         console.error('Failed to build styles dynamically during test setup:', error);
@@ -47,14 +50,14 @@ describe('@ideasui/styles compilation outputs', () => {
 
     // Should have our prepended header
     expect(css.startsWith('/*! IdeasUI CSS - base.css')).toBe(true);
-    expect(css.includes('/* Compiled by */')).toBe(true);
-    expect(css.includes('/*! tailwindcss')).toBe(true);
+    expect(css).toContain('/* Compiled by */');
+    expect(css).toContain('/*! tailwindcss');
 
     // Should include raw variables
-    expect(css.includes('--ideasui-backdrop-blur-lg')).toBe(true);
+    expect(css).toContain('--ideasui-backdrop-blur-lg');
 
     // Should include Tailwind Preflight resets
-    expect(css.includes('box-sizing:border-box')).toBe(true);
+    expect(css).toContain('box-sizing:border-box');
   });
 
   it('should compile and output styles.css without duplicating variables and resets', () => {
@@ -68,14 +71,14 @@ describe('@ideasui/styles compilation outputs', () => {
     expect(css.startsWith('/*! IdeasUI CSS - styles.css')).toBe(true);
 
     // Should NOT include raw variables block
-    expect(css.includes('--ideasui-backdrop-blur-lg:blur(')).toBe(false);
+    expect(css).not.toContain('--ideasui-backdrop-blur-lg:blur(');
 
     // Should NOT include Preflight resets
-    expect(css.includes('box-sizing:border-box')).toBe(false);
+    expect(css).not.toContain('box-sizing:border-box');
 
     // Should include Tailwind theme mappings and utility classes
-    expect(css.includes('--color-primary')).toBe(true);
-    expect(css.includes('.flex')).toBe(true);
+    expect(css).toContain('--color-primary');
+    expect(css).toContain('.flex');
   });
 
   it('should compile and output components/button.css without duplicating variables and resets', () => {
@@ -89,13 +92,13 @@ describe('@ideasui/styles compilation outputs', () => {
     expect(css.startsWith('/*! IdeasUI CSS - button.css')).toBe(true);
 
     // Should NOT include raw variables block
-    expect(css.includes('--ideasui-backdrop-blur-lg:blur(')).toBe(false);
+    expect(css).not.toContain('--ideasui-backdrop-blur-lg:blur(');
 
     // Should NOT include Preflight resets
-    expect(css.includes('box-sizing:border-box')).toBe(false);
+    expect(css).not.toContain('box-sizing:border-box');
 
     // Should compile button component utilities
-    expect(css.includes('.btn')).toBe(true);
+    expect(css).toContain('.btn');
   });
 
   it('should export the version entry points', () => {
@@ -107,6 +110,6 @@ describe('@ideasui/styles compilation outputs', () => {
 
     const mjsContent = fs.readFileSync(mjsPath, 'utf8');
 
-    expect(mjsContent.includes('@ideasui/styles')).toBe(true);
+    expect(mjsContent).toContain('@ideasui/styles');
   });
 });

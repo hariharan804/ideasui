@@ -3,6 +3,7 @@
 import type {
   ButtonProps,
   ButtonComponent,
+  ButtonClassNames,
   ButtonLabelProps,
   ButtonIconProps,
   ButtonSpinnerProps,
@@ -29,7 +30,7 @@ import { ButtonGroup } from './button-group';
  */
 interface ButtonContextValue {
   styles: ButtonReturnType;
-  classNames?: ButtonProps['classNames'];
+  classNames?: ButtonClassNames;
 }
 
 const ButtonContext = createContext<ButtonContextValue | null>(null);
@@ -97,7 +98,6 @@ const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProps>(
           className,
         )}
         data-slot="button-spinner"
-        role="status"
         {...props}
       >
         <svg
@@ -186,6 +186,7 @@ const ButtonContent = ({
   shortcut,
   children,
   renderProps,
+  // eslint-disable-next-line sonarjs/function-return-type
 }: ButtonContentProps): ReactNode => {
   const content = typeof children === 'function' ? children(renderProps) : children;
   const loader = loadingIndicator || <ButtonSpinner />;

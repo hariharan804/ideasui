@@ -70,7 +70,8 @@ const button = tv({
         base: 'btn--elevated bg-background !shadow-sm hover:!shadow-md active:!shadow-sm',
       },
       glaze: {
-        base: 'btn--glaze backdrop-blur-lg border shadow-lg transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] hover:shadow-xl',
+        // eslint-disable-next-line tailwindcss/no-contradicting-classname
+        base: 'btn--glaze border shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] shadow-lg backdrop-blur-lg transition-all duration-300 hover:shadow-xl',
       },
     },
     size: {
@@ -127,12 +128,12 @@ const button = tv({
     },
     isDisabled: {
       true: {
-        base: 'opacity-50 cursor-not-allowed pointer-events-none',
+        base: 'pointer-events-none cursor-not-allowed opacity-50',
       },
     },
     isLoading: {
       true: {
-        base: 'opacity-80 cursor-wait pointer-events-none',
+        base: 'pointer-events-none cursor-wait opacity-80',
       },
     },
     disableAnimation: {

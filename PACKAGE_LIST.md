@@ -1,12 +1,12 @@
 # IdeasUI Package List
 
-Generated on: 2026-04-05T16:25:59.717Z
+Generated on: 2026-07-03T17:42:08.078Z
 
 ## Components
 
 ### button
 
-**Button component**
+**Accessible, high-performance Button and ButtonGroup components for React. Built with Tailwind CSS v4, React Aria, and OKLCH color palettes.**
 
 #### Installation
 
@@ -31,172 +31,107 @@ bun add @ideasui/button
 **Import from the main package (recommended)**
 
 ```tsx
-import { Button } from '@ideasui/react';
+import { ButtonGroupContext } from '@ideasui/react';
 ```
 
 **Import from individual package**
 
 ```tsx
-import { Button } from '@ideasui/button';
+import { ButtonGroupContext } from '@ideasui/button';
 ```
 
 #### API Reference
 
-##### ButtonProps
+##### ButtonGroupContextType
 
-| Prop          | Type                | Description                                       | Optional |
-| ------------- | ------------------- | ------------------------------------------------- | -------- | ---------------------------- | ----- | ------------------ | --------------------- | --- |
-| as            | `ElementType`       | The element or component to render as             | ✓        |
-| variant       | `'solid'            | 'outline'                                         | 'ghost'` | Visual variant of the button | ✓     |
-| color         | `ColorVariantProps` | Color variant based on semantic intent            | ✓        |
-| size          | `'xs'               | 'sm'                                              | 'md'     | 'lg'                         | 'xl'` | Size of the button | ✓                     |
-| radius        | `'none'             | 'sm'                                              | 'md'     | 'lg'                         | 'xl'  | 'full'`            | Border radius variant | ✓   |
-| fullWidth     | `boolean`           | Whether the button should take full width         | ✓        |
-| loading       | `boolean`           | Whether the button is in loading state            | ✓        |
-| loadingText   | `string`            | Text to show when loading                         | ✓        |
-| startContent  | `ReactNode`         | Content to show at the start of the button        | ✓        |
-| endContent    | `ReactNode`         | Content to show at the end of the button          | ✓        |
-| disableRipple | `boolean`           | Whether the button should display a ripple effect | ✓        |
+| Prop             | Type                     | Description | Optional |
+| ---------------- | ------------------------ | ----------- | -------- |
+| size             | `ButtonProps['size']`    |             | ✓        |
+| color            | `ButtonProps['color']`   |             | ✓        |
+| variant          | `ButtonProps['variant']` |             | ✓        |
+| isDisabled       | `boolean`                |             | ✓        |
+| isAttached       | `boolean`                |             | ✓        |
+| isVertical       | `boolean`                |             | ✓        |
+| radius           | `ButtonProps['radius']`  |             | ✓        |
+| fullWidth        | `boolean`                |             | ✓        |
+| disableAnimation | `boolean`                |             | ✓        |
+| showDivider      | `boolean`                |             | ✓        |
+| isIconOnly       | `boolean`                |             | ✓        |
 
 #### Package Details
 
-- **Version:** 0.1.0
+- **Version:** 0.0.2-beta.1
 - **Path:** `packages/components/button`
-- **Files:** button.tsx, spinner.tsx, use-button.ts
-
----
-
-### ripple
-
-**Ripple component for IdeasUI**
-
-#### Installation
-
-```bash
-# npm
-npm install @ideasui/ripple
-
-# pnpm
-pnpm add @ideasui/ripple
-
-# yarn
-yarn add @ideasui/ripple
-
-# bun
-bun add @ideasui/ripple
-```
-
-> The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.
-
-#### Import
-
-**Import from the main package (recommended)**
-
-```tsx
-import { Ripple } from '@ideasui/react';
-```
-
-**Import from individual package**
-
-```tsx
-import { Ripple } from '@ideasui/ripple';
-```
-
-#### API Reference
-
-##### RippleItem
-
-| Prop | Type     | Description | Optional |
-| ---- | -------- | ----------- | -------- |
-| key  | `Key`    |             | ✗        |
-| x    | `number` |             | ✗        |
-| y    | `number` |             | ✗        |
-| size | `number` |             | ✗        |
-
-##### RippleProps
-
-| Prop        | Type                                   | Description | Optional |
-| ----------- | -------------------------------------- | ----------- | -------- |
-| ripples     | `RippleItem[]`                         |             | ✗        |
-| color       | `string`                               |             | ✓        |
-| style       | `CSSProperties`                        |             | ✓        |
-| motionProps | `Omit<HTMLMotionProps<'span'>, 'ref'>` |             | ✓        |
-| onClear     | `(id: Key) => void`                    |             | ✗        |
-
-#### Events
-
-| Event   | Type                |
-| ------- | ------------------- |
-| onClear | `(id: Key) => void` |
-
-#### Package Details
-
-- **Version:** 0.1.0
-- **Path:** `packages/components/ripple`
-- **Files:** ripple.tsx, touchable.tsx, use-ripple.ts
-
----
-
-### slot
-
-**Universal polymorphic container component with 'as' prop support**
-
-#### Installation
-
-```bash
-# npm
-npm install @ideasui/slot
-
-# pnpm
-pnpm add @ideasui/slot
-
-# yarn
-yarn add @ideasui/slot
-
-# bun
-bun add @ideasui/slot
-```
-
-> The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.
-
-#### Import
-
-**Import from the main package (recommended)**
-
-```tsx
-import { Slot } from '@ideasui/react';
-```
-
-**Import from individual package**
-
-```tsx
-import { Slot } from '@ideasui/slot';
-```
-
-#### API Reference
-
-##### SlotProps
-
-| Prop     | Type          | Description                                                   | Optional |
-| -------- | ------------- | ------------------------------------------------------------- | -------- |
-| as       | `ElementType` | Element or component to render as                             | ✓        |
-| asChild  | `boolean`     | Merge props with the first child instead of rendering wrapper | ✓        |
-| children | `ReactNode`   | Content to render inside the slot                             | ✓        |
-
-#### Package Details
-
-- **Version:** 0.1.0
-- **Path:** `packages/components/slot`
-- **Keywords:** react, component, polymorphic, slot, as-prop, typescript
-- **Files:** slot.tsx
+- **Keywords:** react, button, button-group, react-aria, tailwindcss, tailwind-v4, accessible-ui, wcag, ideasui, components, design-system, headless-ui
+- **Files:** button-group-context.tsx, button-group.tsx, button.tsx, button.types.ts
 
 ---
 
 ## Core
 
+### react
+
+**IdeasUI is a premium, accessible React component library built with Tailwind CSS v4, React Aria, and OKLCH design tokens. Fully customizable, high-performance, and dark-mode ready.**
+
+#### Installation
+
+```bash
+# npm
+npm install @ideasui/react
+
+# pnpm
+pnpm add @ideasui/react
+
+# yarn
+yarn add @ideasui/react
+
+# bun
+bun add @ideasui/react
+```
+
+> The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.
+
+#### Package Details
+
+- **Version:** 0.0.2-beta.1
+- **Path:** `packages/core/react`
+- **Keywords:** react, components, design-system, ui-kit, tailwindcss, tailwind-v4, react-aria, oklch, accessible-ui, wcag, dark-mode, ideasui, premium-ui, headless-ui
+
+---
+
+### styles
+
+**The global CSS styles, custom utilities, and Tailwind CSS v4 design engine configurations for the IdeasUI design system.**
+
+#### Installation
+
+```bash
+# npm
+npm install @ideasui/styles
+
+# pnpm
+pnpm add @ideasui/styles
+
+# yarn
+yarn add @ideasui/styles
+
+# bun
+bun add @ideasui/styles
+```
+
+> The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.
+
+#### Package Details
+
+- **Version:** 0.0.2-beta.1
+- **Path:** `packages/core/styles`
+- **Keywords:** tailwindcss, tailwind-v4, css, styles, design-system, ideasui, theme, oklch, utility-classes, dark-mode, design-tokens, component-styles
+
+---
+
 ### theme
 
-**Tailwind CSS v4 theme system for IdeasUI**
+**A modern, OKLCH-based theme engine and design system plugin for Tailwind CSS v4. Features dynamic theme providers, style recipes, and custom theme storage managers.**
 
 #### Installation
 
@@ -228,8 +163,6 @@ import { Types } from '@ideasui/theme';
 
 ##### TokenOverrides
 
-##### SemanticTokenOverrides
-
 ##### ThemeOptions
 
 ##### ThemeConfig
@@ -244,6 +177,22 @@ import { Types } from '@ideasui/theme';
 ##### ColorTokens
 
 #### Types
+
+```tsx
+type SurfaceTokenOverrides = ThemeToken<SurfaceProps, string>;
+```
+
+```tsx
+type ContentTokenOverrides = ThemeToken<ContentProps, string>;
+```
+
+```tsx
+type BorderTokenOverrides = Partial<Record<string, string>>;
+```
+
+```tsx
+type SemanticTokenOverrides = { // ── Intent: Primary ────────────────────────────────────────── primary?: string
+```
 
 ```tsx
 type ThemeMode = 'light' | 'dark' | 'system';
@@ -271,9 +220,9 @@ type ParsedColor = { cssFn: ColorFn
 
 #### Package Details
 
-- **Version:** 0.0.3
+- **Version:** 0.0.5-beta.1
 - **Path:** `packages/core/theme`
-- **Keywords:** tailwindcss, theme, design-system, css, ui
+- **Keywords:** tailwindcss-plugin, tailwind-v4, theme-engine, oklch, design-tokens, theme-provider, dark-mode, ideasui, recipes, tailwind-variants, react-theme
 - **Files:** types.ts
 
 ---
@@ -282,7 +231,7 @@ type ParsedColor = { cssFn: ColorFn
 
 ### utils
 
-**Shared utilities for IdeasUI**
+**Shared TypeScript/React utilities and core helper functions for the IdeasUI component library, covering DOM, styles, and ARIA testing frameworks.**
 
 #### Installation
 
@@ -304,7 +253,8 @@ bun add @ideasui/utils
 
 #### Package Details
 
-- **Version:** 0.0.0
+- **Version:** 0.0.2-beta.1
 - **Path:** `packages/utils`
+- **Keywords:** typescript-utils, react-utilities, dom-utils, aria-testing, vitest-axe, tailwindcss-helpers, ideasui, monorepo-helpers
 
 ---

@@ -29,9 +29,11 @@ export function useSystemTheme(): 'light' | 'dark' {
       setTheme(e.matches ? 'dark' : 'light');
     };
 
+    // eslint-disable-next-line sonarjs/deprecation
     mq.addEventListener?.('change', onChange) ?? mq.addListener?.(onChange);
 
     return () => {
+      // eslint-disable-next-line sonarjs/deprecation
       mq.removeEventListener?.('change', onChange) ?? mq.removeListener?.(onChange);
     };
   }, []);

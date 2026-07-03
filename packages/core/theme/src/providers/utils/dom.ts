@@ -10,6 +10,7 @@ export const disableTransitions = (): void => {
   document.head.appendChild(style);
 
   // Force reflow
+  // eslint-disable-next-line sonarjs/void-use
   void window.getComputedStyle(document.body);
 
   setTimeout(() => {

@@ -47,7 +47,7 @@ const ColorSwatch = ({
       onClick={handleCopy}
     >
       <div
-        className="h-14 w-14 shrink-0 rounded-xl shadow-sm ring-1 ring-black/5 transition-transform duration-200 group-hover:scale-105"
+        className="size-14 shrink-0 rounded-xl shadow-sm ring-1 ring-black/5 transition-transform duration-200 group-hover:scale-105"
         style={{ backgroundColor: value.includes('var(') ? `oklch(${value})` : value }}
       />
       <div className="min-w-0 flex-1">
@@ -121,7 +121,7 @@ const SemanticTokenCard = ({
     }`}
   >
     <div
-      className="h-12 w-12 shrink-0 rounded-xl shadow-sm ring-1 ring-black/5"
+      className="size-12 shrink-0 rounded-xl shadow-sm ring-1 ring-black/5"
       style={{ backgroundColor: value.includes('var(') ? `oklch(${value})` : value }}
     />
     <div className="min-w-0 flex-1">
@@ -154,7 +154,7 @@ const SurfaceCard = ({
     }`}
   >
     <div
-      className="h-12 w-12 shrink-0 rounded-xl ring-1 ring-black/10"
+      className="size-12 shrink-0 rounded-xl ring-1 ring-black/10"
       style={{ backgroundColor: value.includes('var(') ? `oklch(${value})` : value }}
     />
     <div className="min-w-0 flex-1">
@@ -247,7 +247,7 @@ export const ColorComparison: Story = {
                   {Object.entries(lightShades).map(([shade, value]) => (
                     <div
                       key={shade}
-                      className="group relative h-12 w-12 cursor-pointer rounded-xl shadow-sm ring-1 ring-black/5 transition-transform hover:scale-110"
+                      className="group relative size-12 cursor-pointer rounded-xl shadow-sm ring-1 ring-black/5 transition-transform hover:scale-110"
                       style={{
                         backgroundColor: value.includes('var(') ? `oklch(${value})` : value,
                       }}
@@ -268,7 +268,7 @@ export const ColorComparison: Story = {
                   {Object.entries(darkShades).map(([shade, value]) => (
                     <div
                       key={shade}
-                      className="group relative h-12 w-12 cursor-pointer rounded-xl shadow-sm ring-1 ring-white/10 transition-transform hover:scale-110"
+                      className="group relative size-12 cursor-pointer rounded-xl shadow-sm ring-1 ring-white/10 transition-transform hover:scale-110"
                       style={{
                         backgroundColor: value.includes('var(') ? `oklch(${value})` : value,
                       }}

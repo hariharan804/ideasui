@@ -64,16 +64,16 @@ export function PropsTable({ data }: { data: PropDef[] }) {
               </colgroup>
               <thead>
                 <tr className="bg-surface-subtle">
-                  <th className="text-content-secondary border-base/10 border-b px-5 py-3 text-[11px] font-bold tracking-wider uppercase">
+                  <th className="border-base/10 text-content-secondary border-b px-5 py-3 text-[11px] font-bold tracking-wider uppercase">
                     Prop
                   </th>
-                  <th className="text-content-secondary border-base/10 border-b px-5 py-3 text-[11px] font-bold tracking-wider uppercase">
+                  <th className="border-base/10 text-content-secondary border-b px-5 py-3 text-[11px] font-bold tracking-wider uppercase">
                     Type
                   </th>
-                  <th className="text-content-secondary border-base/10 border-b px-5 py-3 text-[11px] font-bold tracking-wider uppercase">
+                  <th className="border-base/10 text-content-secondary border-b px-5 py-3 text-[11px] font-bold tracking-wider uppercase">
                     Default
                   </th>
-                  <th className="text-content-secondary border-base/10 border-b px-5 py-3 text-[11px] font-bold tracking-wider uppercase">
+                  <th className="border-base/10 text-content-secondary border-b px-5 py-3 text-[11px] font-bold tracking-wider uppercase">
                     Description
                   </th>
                 </tr>
@@ -103,7 +103,7 @@ export function PropsTable({ data }: { data: PropDef[] }) {
                           </span>
                         )}
                         {p.deprecated && (
-                          <span className="bg-warning-subtle/80 text-warning border-warning/20 rounded border px-1.5 py-0.5 text-[9px] font-bold tracking-wider uppercase">
+                          <span className="border-warning/20 bg-warning-subtle/80 text-warning rounded border px-1.5 py-0.5 text-[9px] font-bold tracking-wider uppercase">
                             Deprecated
                           </span>
                         )}
@@ -169,7 +169,7 @@ export function PropsTable({ data }: { data: PropDef[] }) {
                     </span>
                   )}
                   {p.deprecated && (
-                    <span className="bg-warning-subtle/80 text-warning border-warning/20 scale-90 rounded border px-1.5 py-0.5 text-[9px] font-bold tracking-wider uppercase">
+                    <span className="border-warning/20 bg-warning-subtle/80 text-warning scale-90 rounded border px-1.5 py-0.5 text-[9px] font-bold tracking-wider uppercase">
                       Deprecated
                     </span>
                   )}

@@ -5,10 +5,10 @@ runs:
   using: composite
   steps:
     - name: Setup pnpm
-      uses: pnpm/action-setup@v4
+      uses: pnpm/action-setup@a8198c4bff370c8506180b035930dea56dbd5288 # v5
 
     - name: Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
       with:
         node-version-file: '.nvmrc'
         registry-url: 'https://registry.npmjs.org'

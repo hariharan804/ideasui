@@ -3,12 +3,30 @@
     {
       "name": "@ideasui/button",
       "displayName": "button",
-      "version": "0.1.0",
-      "description": "Button component",
+      "version": "0.0.2-beta.1",
+      "description": "Accessible, high-performance Button and ButtonGroup components for React. Built with Tailwind CSS v4, React Aria, and OKLCH color palettes.",
       "path": "packages/components/button",
-      "keywords": [],
+      "keywords": [
+        "react",
+        "button",
+        "button-group",
+        "react-aria",
+        "tailwindcss",
+        "tailwind-v4",
+        "accessible-ui",
+        "wcag",
+        "ideasui",
+        "components",
+        "design-system",
+        "headless-ui"
+      ],
       "hasReadme": true,
-      "componentFiles": ["button.tsx", "spinner.tsx", "use-button.ts"],
+      "componentFiles": [
+        "button-group-context.tsx",
+        "button-group.tsx",
+        "button.tsx",
+        "button.types.ts"
+      ],
       "installCommands": {
         "npm": "npm install @ideasui/button",
         "pnpm": "pnpm add @ideasui/button",
@@ -17,99 +35,164 @@
       },
       "installNote": "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
       "documentation": {
-        "button.tsx": {
+        "button-group-context.tsx": {
           "interfaces": [
             {
-              "name": "ButtonProps",
+              "name": "ButtonGroupContextType",
               "props": [
                 {
-                  "name": "as",
-                  "type": "ElementType",
-                  "description": "The element or component to render as",
+                  "name": "size",
+                  "type": "ButtonProps['size']",
+                  "description": "",
                   "optional": true,
-                  "default": "button",
-                  "isDeprecated": false
-                },
-                {
-                  "name": "variant",
-                  "type": "'solid' | 'outline' | 'ghost'",
-                  "description": "Visual variant of the button",
-                  "optional": true,
-                  "default": "solid",
                   "isDeprecated": false
                 },
                 {
                   "name": "color",
-                  "type": "ColorVariantProps",
-                  "description": "Color variant based on semantic intent",
+                  "type": "ButtonProps['color']",
+                  "description": "",
                   "optional": true,
-                  "default": "primary",
                   "isDeprecated": false
                 },
                 {
-                  "name": "size",
-                  "type": "'xs' | 'sm' | 'md' | 'lg' | 'xl'",
-                  "description": "Size of the button",
+                  "name": "variant",
+                  "type": "ButtonProps['variant']",
+                  "description": "",
                   "optional": true,
-                  "default": "md",
+                  "isDeprecated": false
+                },
+                {
+                  "name": "isDisabled",
+                  "type": "boolean",
+                  "description": "",
+                  "optional": true,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "isAttached",
+                  "type": "boolean",
+                  "description": "",
+                  "optional": true,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "isVertical",
+                  "type": "boolean",
+                  "description": "",
+                  "optional": true,
                   "isDeprecated": false
                 },
                 {
                   "name": "radius",
-                  "type": "'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'",
-                  "description": "Border radius variant",
+                  "type": "ButtonProps['radius']",
+                  "description": "",
                   "optional": true,
-                  "default": "md",
                   "isDeprecated": false
                 },
                 {
                   "name": "fullWidth",
                   "type": "boolean",
-                  "description": "Whether the button should take full width",
+                  "description": "",
                   "optional": true,
-                  "default": "false",
                   "isDeprecated": false
                 },
                 {
-                  "name": "loading",
+                  "name": "disableAnimation",
                   "type": "boolean",
-                  "description": "Whether the button is in loading state",
-                  "optional": true,
-                  "default": "false",
-                  "isDeprecated": false
-                },
-                {
-                  "name": "loadingText",
-                  "type": "string",
-                  "description": "Text to show when loading",
+                  "description": "",
                   "optional": true,
                   "isDeprecated": false
                 },
                 {
-                  "name": "startContent",
-                  "type": "ReactNode",
-                  "description": "Content to show at the start of the button",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "endContent",
-                  "type": "ReactNode",
-                  "description": "Content to show at the end of the button",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "disableRipple",
+                  "name": "showDivider",
                   "type": "boolean",
-                  "description": "Whether the button should display a ripple effect",
+                  "description": "",
                   "optional": true,
-                  "default": "false",
+                  "isDeprecated": false
+                },
+                {
+                  "name": "isIconOnly",
+                  "type": "boolean",
+                  "description": "",
+                  "optional": true,
                   "isDeprecated": false
                 }
               ]
             }
           ],
+          "types": [],
+          "props": [],
+          "events": [],
+          "importInstructions": [
+            {
+              "method": "global",
+              "code": "import { ButtonGroupContext } from \"@ideasui/react\";",
+              "description": "Import from the main package (recommended)"
+            },
+            {
+              "method": "individual",
+              "code": "import { ButtonGroupContext } from \"@ideasui/button\";",
+              "description": "Import from individual package"
+            }
+          ]
+        },
+        "button-group.tsx": {
+          "interfaces": [
+            {
+              "name": "ButtonGroupProps",
+              "props": [
+                {
+                  "name": "isVertical",
+                  "type": "boolean",
+                  "description": "Whether the buttons in the group should be vertical.",
+                  "optional": true,
+                  "default": "false",
+                  "isDeprecated": false
+                },
+                {
+                  "name": "isAttached",
+                  "type": "boolean",
+                  "description": "Whether the buttons in the group should be joined together without gaps.",
+                  "optional": true,
+                  "default": "true",
+                  "isDeprecated": false
+                },
+                {
+                  "name": "showDivider",
+                  "type": "boolean",
+                  "description": "Whether to show a divider between the buttons in the group.",
+                  "optional": true,
+                  "default": "true (when isAttached is true)",
+                  "isDeprecated": false
+                },
+                {
+                  "name": "children",
+                  "type": "ReactNode",
+                  "description": "The content of the button group.",
+                  "optional": false,
+                  "isDeprecated": false
+                }
+              ]
+            }
+          ],
+          "types": [],
+          "props": [],
+          "events": [],
+          "importInstructions": [
+            {
+              "method": "global",
+              "code": "import { ButtonGroup } from \"@ideasui/react\";",
+              "description": "Import from the main package (recommended)"
+            },
+            {
+              "method": "individual",
+              "code": "import { ButtonGroup } from \"@ideasui/button\";",
+              "description": "Import from individual package"
+            }
+          ]
+        },
+        "button.tsx": {
+          "interfaces": [],
           "types": [],
           "props": [],
           "events": [],
@@ -126,425 +209,162 @@
             }
           ]
         },
-        "spinner.tsx": {
-          "interfaces": [],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "global",
-              "code": "import { Spinner } from \"@ideasui/react\";",
-              "description": "Import from the main package (recommended)"
-            },
-            {
-              "method": "individual",
-              "code": "import { Spinner } from \"@ideasui/button\";",
-              "description": "Import from individual package"
-            }
-          ]
-        },
-        "use-button.ts": {
+        "button.types.ts": {
           "interfaces": [
             {
-              "name": "UseButtonProps",
+              "name": "ButtonClassNames",
               "props": [
                 {
-                  "name": "ref",
-                  "type": "Ref<HTMLButtonElement>",
-                  "description": "Ref to the DOM node",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "isLoading",
-                  "type": "boolean",
-                  "description": "Whether the button should display a loading spinner",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "isDisabled",
-                  "type": "boolean",
-                  "description": "Whether the button is disabled",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "disableRipple",
-                  "type": "boolean",
-                  "description": "Whether to disable the ripple effect",
-                  "optional": true,
-                  "isDeprecated": false
-                }
-              ]
-            },
-            {
-              "name": "UseButtonReturn",
-              "props": [
-                {
-                  "name": "domRef",
-                  "type": "React.RefObject<HTMLButtonElement | null>",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "isPressed",
-                  "type": "boolean",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "isDisabled",
-                  "type": "boolean",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "isLoading",
-                  "type": "boolean",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "isFocused",
-                  "type": "boolean",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "isFocusVisible",
-                  "type": "boolean",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "isHovered",
-                  "type": "boolean",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "ripples",
-                  "type": "RippleItem[]",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "getButtonProps",
-                  "type": "( userProps?: React.HTMLAttributes<HTMLButtonElement>, ) => React.HTMLAttributes<HTMLButtonElement>",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "getRippleProps",
-                  "type": "() => { ripples: RippleItem[]",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                }
-              ]
-            }
-          ],
-          "types": [],
-          "props": [],
-          "events": [
-            {
-              "name": "onProps",
-              "type": "(userProps?: React.HTMLAttributes<HTMLButtonElement>,) => React",
-              "description": "Event handler for props events"
-            },
-            {
-              "name": "onClear",
-              "type": "(key: React.Key) => void",
-              "description": "Event handler for clear events"
-            }
-          ],
-          "importInstructions": [
-            {
-              "method": "global",
-              "code": "import { UseButton } from \"@ideasui/react\";",
-              "description": "Import from the main package (recommended)"
-            },
-            {
-              "method": "individual",
-              "code": "import { UseButton } from \"@ideasui/button\";",
-              "description": "Import from individual package"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "@ideasui/ripple",
-      "displayName": "ripple",
-      "version": "0.1.0",
-      "description": "Ripple component for IdeasUI",
-      "path": "packages/components/ripple",
-      "keywords": [],
-      "hasReadme": true,
-      "componentFiles": ["ripple.tsx", "touchable.tsx", "use-ripple.ts"],
-      "installCommands": {
-        "npm": "npm install @ideasui/ripple",
-        "pnpm": "pnpm add @ideasui/ripple",
-        "yarn": "yarn add @ideasui/ripple",
-        "bun": "bun add @ideasui/ripple"
-      },
-      "installNote": "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
-      "documentation": {
-        "ripple.tsx": {
-          "interfaces": [
-            {
-              "name": "RippleItem",
-              "props": [
-                {
-                  "name": "key",
-                  "type": "Key",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "x",
-                  "type": "number",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "y",
-                  "type": "number",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "size",
-                  "type": "number",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                }
-              ]
-            },
-            {
-              "name": "RippleProps",
-              "props": [
-                {
-                  "name": "ripples",
-                  "type": "RippleItem[]",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "color",
+                  "name": "base",
                   "type": "string",
-                  "description": "",
+                  "description": "Class name for the button container.",
                   "optional": true,
                   "isDeprecated": false
                 },
                 {
-                  "name": "style",
-                  "type": "CSSProperties",
-                  "description": "",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "motionProps",
-                  "type": "Omit<HTMLMotionProps<'span'>, 'ref'>",
-                  "description": "",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "onClear",
-                  "type": "(id: Key) => void",
-                  "description": "",
-                  "optional": false,
-                  "isDeprecated": false
-                }
-              ]
-            }
-          ],
-          "types": [],
-          "props": [],
-          "events": [
-            {
-              "name": "onClear",
-              "type": "(id: Key) => void",
-              "description": "Event handler for clear events"
-            }
-          ],
-          "importInstructions": [
-            {
-              "method": "global",
-              "code": "import { Ripple } from \"@ideasui/react\";",
-              "description": "Import from the main package (recommended)"
-            },
-            {
-              "method": "individual",
-              "code": "import { Ripple } from \"@ideasui/ripple\";",
-              "description": "Import from individual package"
-            }
-          ]
-        },
-        "touchable.tsx": {
-          "interfaces": [
-            {
-              "name": "TouchableProps",
-              "props": [
-                {
-                  "name": "as",
-                  "type": "keyof JSX.IntrinsicElements",
-                  "description": "Render element type",
-                  "optional": true,
-                  "default": "button",
-                  "isDeprecated": false
-                },
-                {
-                  "name": "disabled",
-                  "type": "boolean",
-                  "description": "Disable ripple & interactions",
-                  "optional": true,
-                  "isDeprecated": false
-                },
-                {
-                  "name": "rippleColor",
+                  "name": "label",
                   "type": "string",
-                  "description": "Ripple color",
+                  "description": "Class name for the button label.",
+                  "optional": true,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "startIcon",
+                  "type": "string",
+                  "description": "Class name for the start icon container.",
+                  "optional": true,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "endIcon",
+                  "type": "string",
+                  "description": "Class name for the end icon container.",
+                  "optional": true,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "spinner",
+                  "type": "string",
+                  "description": "Class name for the loading spinner.",
+                  "optional": true,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "shortcut",
+                  "type": "string",
+                  "description": "Class name for the shortcut container.",
                   "optional": true,
                   "isDeprecated": false
                 }
               ]
-            }
-          ],
-          "types": [],
-          "props": [],
-          "events": [],
-          "importInstructions": [
-            {
-              "method": "global",
-              "code": "import { Touchable } from \"@ideasui/react\";",
-              "description": "Import from the main package (recommended)"
             },
             {
-              "method": "individual",
-              "code": "import { Touchable } from \"@ideasui/ripple\";",
-              "description": "Import from individual package"
-            }
-          ]
-        },
-        "use-ripple.ts": {
-          "interfaces": [],
-          "types": [
-            {
-              "name": "RippleEvent",
-              "definition": "| React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement> | React.PointerEvent<HTMLElement> | React.KeyboardEvent<HTMLElement> // eslint-disable-next-line @typescript-eslint/no-explicit-any | any"
+              "name": "ButtonLabelProps",
+              "props": []
             },
             {
-              "name": "UseRippleReturn",
-              "definition": "ReturnType<typeof useRipple>"
-            }
-          ],
-          "props": [],
-          "events": [
-            {
-              "name": "onPress",
-              "type": "(event: RippleEvent) => void",
-              "description": "Event handler for press events"
-            },
-            {
-              "name": "onClear",
-              "type": "(key: React.Key) => void",
-              "description": "Event handler for clear events"
-            }
-          ],
-          "importInstructions": [
-            {
-              "method": "global",
-              "code": "import { UseRipple } from \"@ideasui/react\";",
-              "description": "Import from the main package (recommended)"
-            },
-            {
-              "method": "individual",
-              "code": "import { UseRipple } from \"@ideasui/ripple\";",
-              "description": "Import from individual package"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "@ideasui/slot",
-      "displayName": "slot",
-      "version": "0.1.0",
-      "description": "Universal polymorphic container component with 'as' prop support",
-      "path": "packages/components/slot",
-      "keywords": ["react", "component", "polymorphic", "slot", "as-prop", "typescript"],
-      "hasReadme": true,
-      "componentFiles": ["slot.tsx"],
-      "installCommands": {
-        "npm": "npm install @ideasui/slot",
-        "pnpm": "pnpm add @ideasui/slot",
-        "yarn": "yarn add @ideasui/slot",
-        "bun": "bun add @ideasui/slot"
-      },
-      "installNote": "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
-      "documentation": {
-        "slot.tsx": {
-          "interfaces": [
-            {
-              "name": "SlotProps",
+              "name": "ButtonIconProps",
               "props": [
-                {
-                  "name": "as",
-                  "type": "ElementType",
-                  "description": "Element or component to render as",
-                  "optional": true,
-                  "default": "div",
-                  "isDeprecated": false
-                },
-                {
-                  "name": "asChild",
-                  "type": "boolean",
-                  "description": "Merge props with the first child instead of rendering wrapper",
-                  "optional": true,
-                  "default": "false",
-                  "isDeprecated": false
-                },
                 {
                   "name": "children",
                   "type": "ReactNode",
-                  "description": "Content to render inside the slot",
+                  "description": "The icon content.",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "placement",
+                  "type": "'start' | 'end'",
+                  "description": "The placement of the icon relative to the label.",
                   "optional": true,
+                  "default": "start",
+                  "isDeprecated": false
+                }
+              ]
+            },
+            {
+              "name": "ButtonSpinnerProps",
+              "props": [
+                {
+                  "name": "label",
+                  "type": "string",
+                  "description": "Accessibility label for the spinner.",
+                  "optional": true,
+                  "default": "Loading",
+                  "isDeprecated": false
+                }
+              ]
+            },
+            {
+              "name": "ButtonShortcutProps",
+              "props": [
+                {
+                  "name": "children",
+                  "type": "ReactNode",
+                  "description": "The shortcut keys to display.",
+                  "optional": false,
+                  "isDeprecated": false
+                }
+              ]
+            },
+            {
+              "name": "ButtonComponent",
+              "props": [
+                {
+                  "name": "Label",
+                  "type": "ForwardRefExoticComponent<ButtonLabelProps & RefAttributes<HTMLSpanElement>>",
+                  "description": "Component to display the button label.",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "Icon",
+                  "type": "ForwardRefExoticComponent<ButtonIconProps & RefAttributes<HTMLElement>>",
+                  "description": "Component to display an icon inside the button.",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "Shortcut",
+                  "type": "ForwardRefExoticComponent<ButtonShortcutProps & RefAttributes<HTMLSpanElement>>",
+                  "description": "Component to display a shortcut indicator inside the button.",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "Spinner",
+                  "type": "ForwardRefExoticComponent<ButtonSpinnerProps & RefAttributes<HTMLSpanElement>>",
+                  "description": "Component to display a loading spinner inside the button.",
+                  "optional": false,
+                  "isDeprecated": false
+                },
+                {
+                  "name": "Group",
+                  "type": "ForwardRefExoticComponent<ButtonGroupProps & RefAttributes<HTMLDivElement>>",
+                  "description": "Component to group multiple buttons together.",
+                  "optional": false,
                   "isDeprecated": false
                 }
               ]
             }
           ],
-          "types": [],
+          "types": [
+            {
+              "name": "ButtonProps",
+              "definition": "| (ButtonBaseProps & { /** * Whether the button should be square and optimized for icons. * @default false */ isIconOnly?: false"
+            }
+          ],
           "props": [],
           "events": [],
           "importInstructions": [
             {
               "method": "global",
-              "code": "import { Slot } from \"@ideasui/react\";",
+              "code": "import { Button.types } from \"@ideasui/react\";",
               "description": "Import from the main package (recommended)"
             },
             {
               "method": "individual",
-              "code": "import { Slot } from \"@ideasui/slot\";",
+              "code": "import { Button.types } from \"@ideasui/button\";",
               "description": "Import from individual package"
             }
           ]
@@ -554,12 +374,88 @@
   ],
   "core": [
     {
+      "name": "@ideasui/react",
+      "displayName": "react",
+      "version": "0.0.2-beta.1",
+      "description": "IdeasUI is a premium, accessible React component library built with Tailwind CSS v4, React Aria, and OKLCH design tokens. Fully customizable, high-performance, and dark-mode ready.",
+      "path": "packages/core/react",
+      "keywords": [
+        "react",
+        "components",
+        "design-system",
+        "ui-kit",
+        "tailwindcss",
+        "tailwind-v4",
+        "react-aria",
+        "oklch",
+        "accessible-ui",
+        "wcag",
+        "dark-mode",
+        "ideasui",
+        "premium-ui",
+        "headless-ui"
+      ],
+      "hasReadme": true,
+      "componentFiles": [],
+      "installCommands": {
+        "npm": "npm install @ideasui/react",
+        "pnpm": "pnpm add @ideasui/react",
+        "yarn": "yarn add @ideasui/react",
+        "bun": "bun add @ideasui/react"
+      },
+      "installNote": "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
+      "documentation": {}
+    },
+    {
+      "name": "@ideasui/styles",
+      "displayName": "styles",
+      "version": "0.0.2-beta.1",
+      "description": "The global CSS styles, custom utilities, and Tailwind CSS v4 design engine configurations for the IdeasUI design system.",
+      "path": "packages/core/styles",
+      "keywords": [
+        "tailwindcss",
+        "tailwind-v4",
+        "css",
+        "styles",
+        "design-system",
+        "ideasui",
+        "theme",
+        "oklch",
+        "utility-classes",
+        "dark-mode",
+        "design-tokens",
+        "component-styles"
+      ],
+      "hasReadme": true,
+      "componentFiles": [],
+      "installCommands": {
+        "npm": "npm install @ideasui/styles",
+        "pnpm": "pnpm add @ideasui/styles",
+        "yarn": "yarn add @ideasui/styles",
+        "bun": "bun add @ideasui/styles"
+      },
+      "installNote": "The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.",
+      "documentation": {}
+    },
+    {
       "name": "@ideasui/theme",
       "displayName": "theme",
-      "version": "0.0.3",
-      "description": "Tailwind CSS v4 theme system for IdeasUI",
+      "version": "0.0.5-beta.1",
+      "description": "A modern, OKLCH-based theme engine and design system plugin for Tailwind CSS v4. Features dynamic theme providers, style recipes, and custom theme storage managers.",
       "path": "packages/core/theme",
-      "keywords": ["tailwindcss", "theme", "design-system", "css", "ui"],
+      "keywords": [
+        "tailwindcss-plugin",
+        "tailwind-v4",
+        "theme-engine",
+        "oklch",
+        "design-tokens",
+        "theme-provider",
+        "dark-mode",
+        "ideasui",
+        "recipes",
+        "tailwind-variants",
+        "react-theme"
+      ],
       "hasReadme": true,
       "componentFiles": ["types.ts"],
       "installCommands": {
@@ -574,10 +470,6 @@
           "interfaces": [
             {
               "name": "TokenOverrides",
-              "props": []
-            },
-            {
-              "name": "SemanticTokenOverrides",
               "props": []
             },
             {
@@ -613,6 +505,22 @@
             }
           ],
           "types": [
+            {
+              "name": "SurfaceTokenOverrides",
+              "definition": "ThemeToken<SurfaceProps, string>"
+            },
+            {
+              "name": "ContentTokenOverrides",
+              "definition": "ThemeToken<ContentProps, string>"
+            },
+            {
+              "name": "BorderTokenOverrides",
+              "definition": "Partial<Record<string, string>>"
+            },
+            {
+              "name": "SemanticTokenOverrides",
+              "definition": "{ // ── Intent: Primary ────────────────────────────────────────── primary?: string"
+            },
             {
               "name": "ThemeMode",
               "definition": "'light' | 'dark' | 'system'"
@@ -656,10 +564,19 @@
     {
       "name": "@ideasui/utils",
       "displayName": "utils",
-      "version": "0.0.0",
-      "description": "Shared utilities for IdeasUI",
+      "version": "0.0.2-beta.1",
+      "description": "Shared TypeScript/React utilities and core helper functions for the IdeasUI component library, covering DOM, styles, and ARIA testing frameworks.",
       "path": "packages/utils",
-      "keywords": [],
+      "keywords": [
+        "typescript-utils",
+        "react-utilities",
+        "dom-utils",
+        "aria-testing",
+        "vitest-axe",
+        "tailwindcss-helpers",
+        "ideasui",
+        "monorepo-helpers"
+      ],
       "hasReadme": true,
       "componentFiles": [],
       "installCommands": {

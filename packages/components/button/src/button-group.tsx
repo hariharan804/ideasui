@@ -69,10 +69,16 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
       isIconOnly,
     };
 
+    let gapClass = 'isolate';
+
+    if (!isAttached) {
+      gapClass = isVertical ? 'gap-y-2' : 'gap-x-2';
+    }
+
     const groupClasses = cn(
       fullWidth ? 'flex' : 'inline-flex',
       isVertical ? 'flex-col' : 'flex-row',
-      isAttached ? 'isolate' : isVertical ? 'gap-y-2' : 'gap-x-2',
+      gapClass,
       fullWidth && 'w-full',
       className,
     );

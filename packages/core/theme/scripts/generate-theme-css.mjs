@@ -16,6 +16,8 @@ const OUTPUT_PATH = path.join(__dirname, '..', 'dist', 'theme.css');
 const BYTES_PER_KB = 1024;
 const PREFIX = 'ideasui';
 
+const camelToKebab = (str) => str.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
+
 /**
  * Extract CSS variables from plugin by executing it with mock Tailwind API
  * @returns {{ captured: { baseStyles: Record<string, any>, utilities: Record<string, any> }, config: any }}
@@ -100,12 +102,13 @@ function generateThemeCSS() {
       if (!resolved) return;
 
       // Handle aliases for semantic tokens
-      if (key.startsWith(`--${PREFIX}-`)) {
+      const searchStr = `--${PREFIX}-`;
+      if (key.startsWith(searchStr)) {
         if (key.endsWith('-DEFAULT')) {
-          const alias = `--${key.replace(`--${PREFIX}-`, '').replace('-DEFAULT', '')}`;
+          const alias = `--${key.replace(searchStr, '').replace('-DEFAULT', '')}`;
           entries[alias] = resolved;
         } else if (key.endsWith('-on')) {
-          const alias = `--${key.replace(`--${PREFIX}-`, '').replace('-on', '')}-foreground`;
+          const alias = `--${key.replace(searchStr, '').replace('-on', '')}-foreground`;
           entries[alias] = resolved;
         }
       }
@@ -280,7 +283,7 @@ function generateThemeCSS() {
         .map(([percent, props]) => {
           const cssProps = Object.entries(props)
             .map(([k, v]) => {
-              const kebabK = k.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
+              const kebabK = camelToKebab(k);
               return `${kebabK}: ${v};`;
             })
             .join(' ');

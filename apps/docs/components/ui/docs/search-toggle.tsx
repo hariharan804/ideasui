@@ -5,7 +5,7 @@ import type { ComponentProps } from 'react';
 
 import { useEffect, useMemo, useRef } from 'react';
 import { buttonVariants } from 'fumadocs-ui/components/ui/button';
-import { useI18n } from 'fumadocs-ui/contexts/i18n';
+import { useTranslations } from '@fuma-translate/react';
 import { useSearchContext } from 'fumadocs-ui/contexts/search';
 import { cn } from '@ideasui/utils';
 
@@ -55,20 +55,20 @@ export function DynamicSearchToggle({
   hideIfDisabled?: boolean;
 }) {
   const { enabled, hotKey, setOpenSearch } = useSearchContext();
-  const { text } = useI18n();
+  const t = useTranslations({ note: 'search trigger' });
   const textRef = useRef<HTMLSpanElement>(null);
   const cursorRef = useRef<HTMLSpanElement>(null);
 
   const placeholders = useMemo(
     () => [
-      text.search,
+      t('Search'),
       'Search components',
       'Search buttons',
       'Search tables',
       'Search hooks',
       'Search themes',
     ],
-    [text.search],
+    [t],
   );
 
   useEffect(() => {
@@ -125,7 +125,7 @@ export function DynamicSearchToggle({
       type="button"
       {...props}
       className={cn(
-        'bg-background text-content-secondary hover:text-content-primary group inline-flex w-full max-w-[320px] items-center gap-2.5 rounded px-2 py-1.5 text-sm shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md',
+        'group bg-background text-content-secondary hover:text-content-primary inline-flex w-full max-w-[320px] items-center gap-2.5 rounded px-2 py-1.5 text-sm shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md',
         props.className,
       )}
       onClick={() => {

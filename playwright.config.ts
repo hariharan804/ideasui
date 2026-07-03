@@ -3,10 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './packages',
   snapshotPathTemplate: '{testDir}/{testFileDir}/{testFileName}-snapshots/{arg}-{projectName}{ext}',
-  testMatch: [
-    '**/packages/components/**/__tests__/*.spec.ts',
-    '**/packages/hooks/**/__tests__/*.spec.ts',
-  ],
+  testMatch: ['**/packages/components/**/__tests__/*.spec.ts'],
 
   fullyParallel: true,
   forbidOnly: !!process.env.CI,

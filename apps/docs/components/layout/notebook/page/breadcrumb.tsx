@@ -39,7 +39,7 @@ export function PageBreadcrumb({
       className={cn('text-content-secondary flex items-center gap-1.5 text-sm', props.className)}
     >
       {items.map((item, i) => {
-        const className = cn('truncate', i === items.length - 1 && 'text-primary font-medium');
+        const className = cn('truncate', i === items.length - 1 && 'font-medium text-primary');
 
         return (
           <Fragment key={i}>

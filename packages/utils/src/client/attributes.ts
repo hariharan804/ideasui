@@ -32,6 +32,7 @@ export function setAttrs(element: Element, attrs: Record<string, string | null |
  * @param {string} [value=''] - The value to set if condition is true
  */
 export function toggleAttr(element: Element, name: string, condition: boolean, value = ''): void {
+  // eslint-disable-next-line sonarjs/no-selector-parameter
   if (condition) {
     element.setAttribute(name, value);
   } else {
@@ -91,7 +92,7 @@ export function toDataAttrs(data: Record<string, unknown>): Record<string, strin
 
   Object.entries(data).forEach(([key, value]) => {
     if (value !== null && value !== undefined) {
-      const dataKey = `data-${key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`)}`;
+      const dataKey = `data-${key.replace(/[A-Z]/g, (match) => '-' + match.toLowerCase())}`;
 
       result[dataKey] = typeof value === 'string' ? value : JSON.stringify(value);
     }

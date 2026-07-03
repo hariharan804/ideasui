@@ -148,7 +148,7 @@ export function resolveConfig(
     if (components) {
       // Flatten the components object to simple key-value pairs
       // e.g. { button: { base: { backgroundColor: 'red' } } } -> { 'button-base-backgroundColor': 'red' }
-      const flatComponents = flattenThemeObject(components || {}, 4) as Record<string, string>;
+      const flatComponents = flattenThemeObject(components, 4) as Record<string, string>;
       const componentVars: Record<string, string> = {};
 
       Object.entries(flatComponents).forEach(([key, value]) => {
@@ -495,7 +495,7 @@ export function autoGenerateColorScales(
   const overridesByFamily: Record<string, Record<string, string>> = {};
 
   for (const [key, val] of Object.entries(flatUserColors)) {
-    const match = key.match(/^([a-z]+)-(\d+)$/i);
+    const match = /^([a-z]+)-(\d+)$/i.exec(key);
 
     if (match) {
       const [, family, shade] = match;

@@ -206,14 +206,14 @@ export function TokenViewer() {
   return (
     <div className="mt-8 flex w-full flex-col gap-8">
       {/* Search & Filter Header */}
-      <div className="bg-surface-subtle border-border/50 flex flex-col gap-6 rounded-3xl border p-6 shadow-sm backdrop-blur-xl">
+      <div className="border-border/50 bg-surface-subtle flex flex-col gap-6 rounded-3xl border p-6 shadow-sm backdrop-blur-xl">
         {/* Search */}
         <div className="group relative w-full">
           <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center">
             <Search className="text-content-muted group-focus-within:text-primary size-5 transition-colors" />
           </div>
           <input
-            className="bg-surface focus:bg-surface focus:border-primary/30 focus:ring-primary/10 text-content-primary placeholder:text-content-muted h-14 w-full rounded-2xl border-2 border-transparent pr-4 pl-12 text-base shadow-sm transition-all outline-none focus:ring-4"
+            className="bg-surface text-content-primary placeholder:text-content-muted focus:border-primary/30 focus:bg-surface focus:ring-primary/10 h-14 w-full rounded-2xl border-2 border-transparent pr-4 pl-12 text-base shadow-sm transition-all outline-none focus:ring-4"
             placeholder="Search tokens or utilities (e.g., 'primary', 'p-4')..."
             type="text"
             value={search}
@@ -224,7 +224,7 @@ export function TokenViewer() {
         {/* Categories */}
         <div className="flex flex-col gap-3">
           {/* Primary Category Segmented Control */}
-          <div className="bg-surface-subtle border-border/50 flex w-fit flex-wrap gap-1 rounded-2xl border p-1">
+          <div className="border-border/50 bg-surface-subtle flex w-fit flex-wrap gap-1 rounded-2xl border p-1">
             {CATEGORIES.map((category) => {
               const isActive = selectedCategory === category;
 
@@ -235,7 +235,7 @@ export function TokenViewer() {
                     'focus-visible:ring-primary relative rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors outline-none focus-visible:ring-2',
                     isActive
                       ? 'text-primary'
-                      : 'text-content-secondary hover:text-content-primary hover:bg-surface-subtle',
+                      : 'text-content-secondary hover:bg-surface-subtle hover:text-content-primary',
                   )}
                   onClick={() => {
                     setSelectedCategory(category);
@@ -246,7 +246,7 @@ export function TokenViewer() {
                 >
                   {isActive && (
                     <motion.div
-                      className="bg-surface border-border/40 absolute inset-0 rounded-xl border shadow-sm"
+                      className="border-border/40 bg-surface absolute inset-0 rounded-xl border shadow-sm"
                       layoutId="activeCategory"
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                     />
@@ -262,7 +262,7 @@ export function TokenViewer() {
             {selectedCategory === 'Colors' && (
               <motion.div
                 animate={{ opacity: 1, height: 'auto', marginTop: 0 }}
-                className="bg-surface-subtle border-border/30 flex w-fit flex-wrap gap-1 rounded-2xl border p-1"
+                className="border-border/30 bg-surface-subtle flex w-fit flex-wrap gap-1 rounded-2xl border p-1"
                 exit={{ opacity: 0, height: 0, marginTop: -12 }}
                 initial={{ opacity: 0, height: 0, marginTop: -12 }}
               >
@@ -276,7 +276,7 @@ export function TokenViewer() {
                         'focus-visible:ring-primary relative rounded-xl px-4 py-2 text-sm font-medium transition-colors outline-none focus-visible:ring-2',
                         isActive
                           ? 'text-primary'
-                          : 'text-content-secondary hover:text-content-primary hover:bg-surface-subtle',
+                          : 'text-content-secondary hover:bg-surface-subtle hover:text-content-primary',
                       )}
                       onClick={() =>
                         setSelectedSubCategory(sub as 'All' | 'Semantic' | 'Surface' | 'Content')
@@ -284,7 +284,7 @@ export function TokenViewer() {
                     >
                       {isActive && (
                         <motion.div
-                          className="bg-surface border-border/40 absolute inset-0 rounded-xl border shadow-sm"
+                          className="border-border/40 bg-surface absolute inset-0 rounded-xl border shadow-sm"
                           layoutId="activeSubCategory"
                           transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                         />
@@ -317,7 +317,7 @@ export function TokenViewer() {
               <div className="from-primary/0 via-primary/0 to-primary/5 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity group-hover:opacity-100" />
 
               {/* Preview Area */}
-              <div className="bg-surface-subtle border-border/40 relative flex h-20 w-full items-center justify-center overflow-hidden rounded-xl border">
+              <div className="border-border/40 bg-surface-subtle relative flex h-20 w-full items-center justify-center overflow-hidden rounded-xl border">
                 {token.previewType === 'color' && (
                   <div
                     className="absolute inset-0 opacity-20 blur-xl"
@@ -341,7 +341,7 @@ export function TokenViewer() {
                 {token.previewType === 'spacing' && (
                   <div className="flex items-center justify-center">
                     <div
-                      className="bg-primary/40 border-primary/60 rounded-sm border"
+                      className="border-primary/60 bg-primary/40 rounded-sm border"
                       style={{
                         width: token.previewValue || token.value,
                         height: token.previewValue || token.value,
@@ -351,13 +351,13 @@ export function TokenViewer() {
                 )}
                 {token.previewType === 'radius' && (
                   <div
-                    className="bg-primary/20 border-primary/40 size-12 border-2"
+                    className="border-primary/40 bg-primary/20 size-12 border-2"
                     style={{ borderRadius: token.previewValue || token.value }}
                   />
                 )}
                 {token.previewType === 'shadow' && (
                   <div
-                    className="bg-surface border-border/30 size-10 rounded-xl border"
+                    className="border-border/30 bg-surface size-10 rounded-xl border"
                     style={{ boxShadow: token.previewValue || token.value }}
                   />
                 )}
@@ -386,7 +386,7 @@ export function TokenViewer() {
 
               {/* Token Details */}
               <div className="z-10 flex flex-col gap-1">
-                <span className="text-primary bg-primary/10 text-primary w-fit truncate rounded-md px-2 py-1 font-mono text-xs font-bold">
+                <span className="bg-primary/10 text-primary text-primary w-fit truncate rounded-md px-2 py-1 font-mono text-xs font-bold">
                   {token.tailwindClass.split(' / ')[0]}
                 </span>
                 <span className="text-content-tertiary mt-1 truncate font-mono text-xs">

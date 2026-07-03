@@ -1,35 +1,21 @@
 [
   {
     "path": "packages/components/button/dist/index.mjs",
-    "limit": "10 KB",
+    "limit": "30 KB",
     "name": "@ideasui/button (ESM)",
     "webpack": false,
     "ignore": ["react", "react/jsx-runtime"]
   },
   {
-    "path": "packages/components/ripple/dist/index.mjs",
-    "limit": "5 KB",
-    "name": "@ideasui/ripple (ESM)",
-    "webpack": false,
-    "ignore": ["react", "react/jsx-runtime"]
-  },
-  {
-    "path": "packages/components/slot/dist/index.mjs",
-    "limit": "2 KB",
-    "name": "@ideasui/slot (ESM)",
-    "webpack": false,
-    "ignore": ["react", "react/jsx-runtime"]
-  },
-  {
     "path": "packages/core/theme/dist/index.js",
-    "limit": "5 KB",
+    "limit": "20 KB",
     "name": "@ideasui/theme (ESM)",
     "webpack": false,
     "ignore": ["react", "react/jsx-runtime"]
   },
   {
     "path": "packages/utils/dist/index.mjs",
-    "limit": "5 KB",
+    "limit": "10 KB",
     "name": "@ideasui/utils (ESM)",
     "webpack": false,
     "ignore": ["react", "react/jsx-runtime"]

@@ -7,9 +7,15 @@ const ID_SUFFIX_LENGTH = 9;
  * @returns {string} The unique ID
  */
 export function getUniqueID(prefix: string = 'ideasui'): string {
-  return `${prefix}${Date.now()}-${Math.random()
+  const randomArray = new Uint32Array(1);
+
+  globalThis.crypto.getRandomValues(randomArray);
+  const randomStr = randomArray[0]
     .toString(RANDOM_STRING_BASE)
-    .substr(2, ID_SUFFIX_LENGTH)}`;
+    .slice(0, ID_SUFFIX_LENGTH)
+    .padEnd(ID_SUFFIX_LENGTH, '0');
+
+  return `${prefix}${Date.now()}-${randomStr}`;
 }
 
 /**

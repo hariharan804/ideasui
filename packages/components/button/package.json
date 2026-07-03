@@ -1,24 +1,31 @@
 {
   "name": "@ideasui/button",
   "version": "0.0.2-beta.1",
-  "description": "A high-performance, accessible Button and ButtonGroup component library for React, built with Tailwind CSS v4 and React Aria.",
+  "description": "Accessible, high-performance Button and ButtonGroup components for React. Built with Tailwind CSS v4, React Aria, and OKLCH color palettes.",
   "author": "IdeasUI<support@ideasui.com>",
   "homepage": "https://ideasui.com",
   "license": "MIT",
   "keywords": [
-    "ideasui",
     "react",
     "button",
     "button-group",
-    "button-component",
-    "accessible-components",
-    "ui-components",
+    "react-aria",
+    "tailwindcss",
+    "tailwind-v4",
+    "accessible-ui",
+    "wcag",
+    "ideasui",
+    "components",
     "design-system",
-    "tailwindcss"
+    "headless-ui"
   ],
   "main": "./src/index.ts",
+  "types": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    }
   },
   "files": [
     "src"

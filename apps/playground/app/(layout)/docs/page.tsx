@@ -97,7 +97,7 @@ export default function DocsPage(): JSX.Element {
             <div className="mb-6">
               <div className="mb-3 flex items-center gap-3">
                 <div className="from-primary-500 to-secondary-500 shadow-primary-500/20 rounded-xl bg-gradient-to-br p-2.5 shadow-md">
-                  <FileText className="h-5 w-5 text-white" />
+                  <FileText className="size-5 text-white" />
                 </div>
                 <h3 className="from-primary-600 to-secondary-600 bg-gradient-to-r bg-clip-text text-xl font-bold tracking-tight text-transparent">
                   Documentation
@@ -112,7 +112,7 @@ export default function DocsPage(): JSX.Element {
             <div className="relative mb-6">
               <Search className="text-content-tertiary absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
               <input
-                className="border-default bg-surface-base text-content-primary focus:border-primary-500 focus:ring-primary-500/20 placeholder:text-content-muted w-full rounded-xl border py-2.5 pr-4 pl-10 text-sm font-medium transition-all outline-none focus:ring-2"
+                className="border-default bg-surface-base text-content-primary placeholder:text-content-muted focus:border-primary-500 focus:ring-primary-500/20 w-full rounded-xl border py-2.5 pr-4 pl-10 text-sm font-medium transition-all outline-none focus:ring-2"
                 placeholder="Search docs..."
                 type="text"
                 value={searchTerm}
@@ -134,7 +134,7 @@ export default function DocsPage(): JSX.Element {
                 >
                   <div className="flex items-start gap-3">
                     <FileText
-                      className={`mt-0.5 h-4.5 w-4.5 flex-shrink-0 transition-colors ${
+                      className={`mt-0.5 size-4.5 flex-shrink-0 transition-colors ${
                         selectedDoc.name === doc.name ? 'text-primary-600' : 'text-content-tertiary'
                       }`}
                     />
@@ -173,7 +173,7 @@ export default function DocsPage(): JSX.Element {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <ExternalLink className="h-4.5 w-4.5" />
+                <ExternalLink className="size-4.5" />
                 GitHub Repository
               </a>
             </div>
@@ -187,7 +187,7 @@ export default function DocsPage(): JSX.Element {
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div className="from-primary-500 to-secondary-500 shadow-primary-500/20 rounded-xl bg-gradient-to-br p-3 shadow-md">
-                  <Book className="h-6 w-6 text-white" />
+                  <Book className="size-6 text-white" />
                 </div>
                 <div>
                   <h1 className="text-content-primary text-3xl font-extrabold tracking-tight md:text-4xl">
@@ -199,7 +199,7 @@ export default function DocsPage(): JSX.Element {
                 </div>
               </div>
               <button
-                className="bg-surface-muted border-default text-content-secondary hover:bg-surface-strong hover:text-content-primary rounded-lg border px-4 py-2 text-sm font-bold transition-colors lg:hidden"
+                className="border-default bg-surface-muted text-content-secondary hover:bg-surface-strong hover:text-content-primary rounded-lg border px-4 py-2 text-sm font-bold transition-colors lg:hidden"
                 onClick={() => setSidebarOpen(!sidebarOpen)}
               >
                 {sidebarOpen ? 'Hide' : 'Show'} Sidebar
@@ -242,26 +242,6 @@ export default function DocsPage(): JSX.Element {
             )}
 
             {/* Footer */}
-            {/* {!loading && !error && (
-              <div className="border-t border-slate-200 bg-slate-50 px-6 py-4 md:px-8">
-                <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-slate-600">
-                  <div>
-                    Found an issue?{" "}
-                    <a href="#" className="font-medium text-blue-600 hover:underline">
-                      Edit on GitHub
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <button className="font-medium text-blue-600 transition-colors hover:text-blue-700">
-                      Share
-                    </button>
-                    <button className="font-medium text-blue-600 transition-colors hover:text-blue-700">
-                      Print
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )} */}
           </div>
         </div>
       </div>

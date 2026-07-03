@@ -125,7 +125,7 @@ export function LayoutHeaderTabs({
   return (
     <div
       className={cn(
-        'flex flex-row items-center gap-2 [-ms-overflow-style:none] [scrollbar-width:none] max-md:overflow-x-auto max-md:overflow-y-hidden [&::-webkit-scrollbar]:hidden',
+        'flex [scrollbar-width:none] flex-row items-center gap-2 [-ms-overflow-style:none] max-md:overflow-x-auto max-md:overflow-y-hidden [&::-webkit-scrollbar]:hidden',
         className,
       )}
       {...props}
@@ -143,7 +143,7 @@ export function LayoutHeaderTabs({
               'group relative -mb-px flex-shrink-0 px-4 py-2 text-sm font-medium transition-all duration-300',
               'rounded-t-xl active:scale-[0.98]',
               isSelected
-                ? 'border-base/20 text-primary !border-b-surface z-1 border !border-b'
+                ? 'border-base/20 !border-b-surface text-primary z-1 border !border-b'
                 : 'text-content-secondary hover:bg-surface-subtle hover:text-content-primary z-1',
               className,
             )}

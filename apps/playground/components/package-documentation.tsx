@@ -203,7 +203,7 @@ const PackageDocumentation: FC<PackageDocumentationProps> = ({ className }): JSX
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600" />
+          <div className="mx-auto mb-4 size-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600" />
           <p className="text-gray-600">Loading documentation...</p>
         </div>
       </div>
@@ -226,13 +226,13 @@ const PackageDocumentation: FC<PackageDocumentationProps> = ({ className }): JSX
       <div className={`min-h-screen bg-gray-50 ${className || ''}`}>
         {/* Header */}
         <div className="sticky top-0 z-10 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
-          <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
+          <div className="mx-auto max-w-7xl p-4 sm:px-6">
             <div className="flex items-center gap-4">
               <button
                 className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                 onClick={() => setSelectedPackage(null)}
               >
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     d="M15 19l-7-7 7-7"
                     strokeLinecap="round"
@@ -337,7 +337,7 @@ const PackageDocumentation: FC<PackageDocumentationProps> = ({ className }): JSX
         <div className="absolute inset-0 bg-black/10" />
         <div className="relative mx-auto max-w-4xl text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm text-white backdrop-blur-sm">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
+            <span className="size-2 animate-pulse rounded-full bg-green-400" />
             Latest Documentation
           </div>
           <h1 className="mb-4 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-5xl font-bold text-transparent">
@@ -359,7 +359,7 @@ const PackageDocumentation: FC<PackageDocumentationProps> = ({ className }): JSX
             <section key={category} className="mb-16">
               {/* Category Header */}
               <div className="mb-8 flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-xl text-white shadow-lg">
+                <div className="flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-xl text-white shadow-lg">
                   {getCategoryIcon(category)}
                 </div>
                 <div>
@@ -388,7 +388,7 @@ const PackageDocumentation: FC<PackageDocumentationProps> = ({ className }): JSX
                       <div className="absolute top-4 right-4 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-gray-600 backdrop-blur-sm">
                         v{pkg.version}
                       </div>
-                      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-xl text-white shadow-lg">
+                      <div className="mb-3 flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-xl text-white shadow-lg">
                         {getPackageIcon(pkg.name)}
                       </div>
                       <h3 className="mb-2 text-xl font-bold text-gray-900">{pkg.displayName}</h3>
@@ -424,7 +424,7 @@ const PackageDocumentation: FC<PackageDocumentationProps> = ({ className }): JSX
                         <span className="flex items-center gap-1">
                           Click to explore
                           <svg
-                            className="h-4 w-4"
+                            className="size-4"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
