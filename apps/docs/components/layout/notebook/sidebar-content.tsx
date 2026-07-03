@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, react/no-array-index-key */
 'use client';
 
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
@@ -46,6 +45,7 @@ export interface SidebarContentProps {
   };
   tabs: SidebarTabWithProps[];
   tabMode: string;
+  // eslint-disable-next-line sonarjs/deprecation
   i18n: BaseLayoutProps['i18n'];
   themeSwitch: BaseLayoutProps['themeSwitch'];
 }
@@ -108,27 +108,33 @@ export function SidebarContent({
       links.filter((item): item is Extract<LinkItemType, { type: 'icon' }> => item.type === 'icon'),
     [links],
   );
-
+  const linkItems = useMemo(() => {
+    return links
+      .filter((item) => item.type !== 'icon')
+      .map((item, i) => ({
+        item,
+        key:
+          item.type === 'custom'
+            ? `custom-${i}`
+            : item.url || (item as Record<string, unknown>).text || `link-${i}`,
+      }));
+  }, [links]);
   const Header = typeof banner === 'function' ? banner : DefaultHeader;
   const Footer = typeof footer === 'function' ? footer : DefaultFooter;
 
   // Normalize nav.title
 
-  const titleNode = (
-    typeof nav.title === 'function' ? nav.title({} as ComponentProps<'a'>) : nav.title
-  ) as any;
+  const titleNode = typeof nav.title === 'function' ? nav.title({}) : nav.title;
 
   const viewport = (
     <SidebarViewport>
-      {links
-        .filter((item) => item.type !== 'icon')
-        .map((item, i, arr) => (
-          <SidebarLinkItem
-            key={i}
-            className={cn('lg:hidden', i === arr.length - 1 && 'mb-4')}
-            item={item}
-          />
-        ))}
+      {linkItems.map(({ item, key }, i, arr) => (
+        <SidebarLinkItem
+          key={key}
+          className={cn('lg:hidden', i === arr.length - 1 && 'mb-4')}
+          item={item}
+        />
+      ))}
 
       <SidebarPageTree {...components} />
     </SidebarViewport>
@@ -136,6 +142,8 @@ export function SidebarContent({
 
   const themeSwitchEnabled = themeSwitch?.enabled !== false;
   const themeSwitchMode = themeSwitch?.mode ?? 'light-dark-system';
+  // eslint-disable-next-line sonarjs/deprecation
+  const themeToggle = themeSwitch?.component ?? <ThemeToggle mode={themeSwitchMode} />;
 
   return (
     <>
@@ -186,9 +194,9 @@ export function SidebarContent({
         </Header>
         {viewport}
         <Footer footer={typeof footer === 'function' ? undefined : footer} iconLinks={iconLinks}>
-          {iconLinks.map((item, i) => (
+          {iconLinks.map((item) => (
             <LinkItem
-              key={i}
+              key={item.url}
               aria-label={item.label}
               className={cn(
                 buttonVariants({
@@ -231,7 +239,7 @@ export function SidebarContent({
         >
           {iconLinks.map((item, i) => (
             <LinkItem
-              key={i}
+              key={item.url}
               aria-label={item.label}
               className={cn(
                 buttonVariants({
@@ -251,9 +259,7 @@ export function SidebarContent({
               <Languages className="text-content-secondary size-4.5" />
             </LanguageToggle>
           )}
-          {themeSwitchEnabled
-            ? (themeSwitch?.component ?? <ThemeToggle mode={themeSwitchMode} />)
-            : null}
+          {themeSwitchEnabled ? themeToggle : null}
         </Footer>
       </SidebarDrawer>
     </>

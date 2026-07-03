@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Github, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
+import { Github } from './icons';
 import { cn } from '@ideasui/utils';
 
 interface GitHubButtonProps {

@@ -78,6 +78,9 @@ export default defineConfig([
     '.chrome-profile/**',
   ]),
 
+  // SonarJS Recommended Rules
+  sonarjs.configs.recommended,
+
   // Main configuration
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
@@ -97,7 +100,6 @@ export default defineConfig([
       'react-refresh': fixupPluginRules(reactRefresh),
       import: fixupPluginRules(_import),
       'unused-imports': unusedImports,
-      sonarjs: fixupPluginRules(sonarjs),
       unicorn: fixupPluginRules(unicorn),
       jsdoc: fixupPluginRules(jsdoc),
       security: fixupPluginRules(security),
@@ -347,6 +349,7 @@ export default defineConfig([
       'sonarjs/no-unused-collection': 'error',
       'sonarjs/prefer-immediate-return': 'error',
       'sonarjs/prefer-single-boolean-return': 'error',
+      'sonarjs/different-types-comparison': 'off',
 
       // Modern JavaScript (Unicorn)
       'unicorn/better-regex': 'error',
@@ -452,6 +455,8 @@ export default defineConfig([
       'max-params': 'off',
       complexity: 'off',
       'sonarjs/cognitive-complexity': 'off',
+      'sonarjs/prefer-read-only-props': 'off',
+      'sonarjs/deprecation': 'off',
     },
   },
 
@@ -492,6 +497,8 @@ export default defineConfig([
       'max-params': 'off',
       complexity: 'off',
       'sonarjs/cognitive-complexity': 'off',
+      'sonarjs/prefer-read-only-props': 'off',
+      'sonarjs/no-nested-conditional': 'warn',
     },
   },
 ]);

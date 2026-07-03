@@ -76,6 +76,7 @@ function extractText(node: ReactNode): string {
 
 const defaultWrapper = (children: ReactNode) => children;
 
+// eslint-disable-next-line sonarjs/function-return-type
 export function DocsPage({
   breadcrumb: { component: breadcrumb, enabled: breadcrumbEnabled = true, ...breadcrumbProps } = {},
   children,

@@ -7,7 +7,8 @@ import { source } from '@/lib/source';
 import { DocsPage, DocsBody, DocsDescription, DocsTitle } from '@/components/layout/notebook/page';
 import { PropsTable } from '@/components/ui/props-table';
 import { DocsBadges } from '@/components/ui/docs-badge';
-import { Code2, BookOpen, Figma } from 'lucide-react';
+import { Code2, BookOpen } from 'lucide-react';
+import { Figma } from '@/components/ui/docs/icons';
 import { siteConfig } from '@/config/site';
 
 // IdeasUI MDX Components

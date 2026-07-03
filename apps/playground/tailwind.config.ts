@@ -1,7 +1,6 @@
 import type { Config } from 'tailwindcss';
 
 import { ideasUIPlugin } from '@ideasui/theme/plugin';
-// import { ColorFn } from '@ideasui/theme';
 
 const config: Config = {
   content: [

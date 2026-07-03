@@ -361,6 +361,65 @@ function extractUsageExamples(content) {
 }
 
 /**
+ * Process a package directory to extract metadata and documentation
+ */
+function processPackage(pkgPath, category, displayName) {
+  const packageJsonPath = path.join(pkgPath, 'package.json');
+  if (!fs.existsSync(packageJsonPath)) return null;
+
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+  const readmePath = path.join(pkgPath, 'README.md');
+  const srcPath = path.join(pkgPath, 'src');
+
+  // Get component files and extract docs
+  const componentFiles = [];
+  const documentation = {};
+
+  if (fs.existsSync(srcPath)) {
+    const files = fs
+      .readdirSync(srcPath)
+      .filter((file) => file.endsWith('.tsx') || file.endsWith('.ts'))
+      .filter(
+        (file) => !file.includes('.test.') && !file.includes('.stories.') && file !== 'index.ts',
+      );
+
+    files.forEach((file) => {
+      componentFiles.push(file);
+      const filePath = path.join(srcPath, file);
+      const docs = extractComponentDocs(filePath);
+      if (docs) {
+        documentation[file] = docs;
+      }
+    });
+  }
+
+  // Generate installation commands
+  const installCommands = {
+    npm: `npm install ${packageJson.name}`,
+    pnpm: `pnpm add ${packageJson.name}`,
+    yarn: `yarn add ${packageJson.name}`,
+    bun: `bun add ${packageJson.name}`,
+  };
+
+  const relativePath = path.relative(path.join(__dirname, '..'), pkgPath).replace(/\\/g, '/');
+
+  return {
+    name: packageJson.name,
+    displayName,
+    version: packageJson.version,
+    description: packageJson.description || '',
+    path: relativePath,
+    keywords: packageJson.keywords || [],
+    hasReadme: fs.existsSync(readmePath),
+    componentFiles,
+    installCommands,
+    installNote:
+      'The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.',
+    documentation,
+  };
+}
+
+/**
  * Generate package list for docs repository
  */
 function generatePackageList() {
@@ -389,59 +448,8 @@ function generatePackageList() {
         .readdirSync(categoryPath, { withFileTypes: true })
         .filter((dirent) => dirent.isDirectory())
         .map((dirent) => {
-          const packageJsonPath = path.join(categoryPath, dirent.name, 'package.json');
-          if (fs.existsSync(packageJsonPath)) {
-            const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-            const readmePath = path.join(categoryPath, dirent.name, 'README.md');
-            const srcPath = path.join(categoryPath, dirent.name, 'src');
-
-            // Get component files and extract docs
-            const componentFiles = [];
-            const documentation = {};
-
-            if (fs.existsSync(srcPath)) {
-              const files = fs
-                .readdirSync(srcPath)
-                .filter((file) => file.endsWith('.tsx') || file.endsWith('.ts'))
-                .filter(
-                  (file) =>
-                    !file.includes('.test.') && !file.includes('.stories.') && file !== 'index.ts',
-                );
-
-              files.forEach((file) => {
-                componentFiles.push(file);
-                const filePath = path.join(srcPath, file);
-                const docs = extractComponentDocs(filePath);
-                if (docs) {
-                  documentation[file] = docs;
-                }
-              });
-            }
-
-            // Generate installation commands
-            const installCommands = {
-              npm: `npm install ${packageJson.name}`,
-              pnpm: `pnpm add ${packageJson.name}`,
-              yarn: `yarn add ${packageJson.name}`,
-              bun: `bun add ${packageJson.name}`,
-            };
-
-            return {
-              name: packageJson.name,
-              displayName: dirent.name,
-              version: packageJson.version,
-              description: packageJson.description || '',
-              path: `packages/${category}/${dirent.name}`,
-              keywords: packageJson.keywords || [],
-              hasReadme: fs.existsSync(readmePath),
-              componentFiles,
-              installCommands,
-              installNote:
-                'The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.',
-              documentation,
-            };
-          }
-          return null;
+          const pkgPath = path.join(categoryPath, dirent.name);
+          return processPackage(pkgPath, category, dirent.name);
         })
         .filter(Boolean);
 
@@ -450,114 +458,18 @@ function generatePackageList() {
       // Single package directories (utils, icons, cli, core subdirs)
       const packageJsonPath = path.join(categoryPath, 'package.json');
       if (fs.existsSync(packageJsonPath)) {
-        const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-        const readmePath = path.join(categoryPath, 'README.md');
-        const srcPath = path.join(categoryPath, 'src');
-
-        // Get component files and extract docs
-        const componentFiles = [];
-        const documentation = {};
-
-        if (fs.existsSync(srcPath)) {
-          const files = fs
-            .readdirSync(srcPath)
-            .filter((file) => file.endsWith('.tsx') || file.endsWith('.ts'))
-            .filter(
-              (file) =>
-                !file.includes('.test.') && !file.includes('.stories.') && file !== 'index.ts',
-            );
-
-          files.forEach((file) => {
-            componentFiles.push(file);
-            const filePath = path.join(srcPath, file);
-            const docs = extractComponentDocs(filePath);
-            if (docs) {
-              documentation[file] = docs;
-            }
-          });
+        const pkgData = processPackage(categoryPath, category, category);
+        if (pkgData) {
+          output[category].push(pkgData);
         }
-
-        const installCommands = {
-          npm: `npm install ${packageJson.name}`,
-          pnpm: `pnpm add ${packageJson.name}`,
-          yarn: `yarn add ${packageJson.name}`,
-          bun: `bun add ${packageJson.name}`,
-        };
-
-        output[category].push({
-          name: packageJson.name,
-          displayName: category,
-          version: packageJson.version,
-          description: packageJson.description || '',
-          path: `packages/${category}`,
-          keywords: packageJson.keywords || [],
-          hasReadme: fs.existsSync(readmePath),
-          componentFiles,
-          installCommands,
-          installNote:
-            'The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.',
-          documentation,
-        });
       } else {
         // Check for subdirectories (like core/variants, core/theme-controller)
         const subDirs = fs
           .readdirSync(categoryPath, { withFileTypes: true })
           .filter((dirent) => dirent.isDirectory())
           .map((dirent) => {
-            const subPackageJsonPath = path.join(categoryPath, dirent.name, 'package.json');
-            if (fs.existsSync(subPackageJsonPath)) {
-              const packageJson = JSON.parse(fs.readFileSync(subPackageJsonPath, 'utf8'));
-              const readmePath = path.join(categoryPath, dirent.name, 'README.md');
-              const srcPath = path.join(categoryPath, dirent.name, 'src');
-
-              // Get component files and extract docs
-              const componentFiles = [];
-              const documentation = {};
-
-              if (fs.existsSync(srcPath)) {
-                const files = fs
-                  .readdirSync(srcPath)
-                  .filter((file) => file.endsWith('.tsx') || file.endsWith('.ts'))
-                  .filter(
-                    (file) =>
-                      !file.includes('.test.') &&
-                      !file.includes('.stories.') &&
-                      file !== 'index.ts',
-                  );
-
-                files.forEach((file) => {
-                  componentFiles.push(file);
-                  const filePath = path.join(srcPath, file);
-                  const docs = extractComponentDocs(filePath);
-                  if (docs) {
-                    documentation[file] = docs;
-                  }
-                });
-              }
-
-              const installCommands = {
-                npm: `npm install ${packageJson.name}`,
-                pnpm: `pnpm add ${packageJson.name}`,
-                yarn: `yarn add ${packageJson.name}`,
-                bun: `bun add ${packageJson.name}`,
-              };
-
-              return {
-                name: packageJson.name,
-                displayName: dirent.name,
-                version: packageJson.version,
-                description: packageJson.description || '',
-                path: `packages/${category}/${dirent.name}`,
-                keywords: packageJson.keywords || [],
-                hasReadme: fs.existsSync(readmePath),
-                componentFiles,
-                installCommands,
-                installNote:
-                  'The above command is for individual installation only. You may skip this step if @ideasui/react is already installed globally.',
-                documentation,
-              };
-            }
-            return null;
+            const pkgPath = path.join(categoryPath, dirent.name);
+            return processPackage(pkgPath, category, dirent.name);
           })
           .filter(Boolean);
 
@@ -634,12 +546,12 @@ function generateMarkdown(packageList) {
         // Props/API
         if (docs.interfaces && docs.interfaces.length > 0) {
           markdown += `#### API Reference\n\n`;
-          docs.interfaces.forEach((interface) => {
-            markdown += `##### ${interface.name}\n\n`;
-            if (interface.props && interface.props.length > 0) {
+          docs.interfaces.forEach((iface) => {
+            markdown += `##### ${iface.name}\n\n`;
+            if (iface.props && iface.props.length > 0) {
               markdown += `| Prop | Type | Description | Optional |\n`;
               markdown += `|------|------|-------------|----------|\n`;
-              interface.props.forEach((prop) => {
+              iface.props.forEach((prop) => {
                 markdown += `| ${prop.name} | \`${prop.type}\` | ${prop.description} | ${prop.optional ? '✓' : '✗'} |\n`;
               });
               markdown += `\n`;

@@ -81,7 +81,11 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
   // Styled rendering of command parts using IdeasUI semantic tokens
   const renderCommandText = (pm: PackageManager) => {
     const action = pm === 'npm' ? 'i' : 'add';
-    const flag = isDev ? (pm === 'bun' ? '-d' : '-D') : '';
+    let flag = '';
+
+    if (isDev) {
+      flag = pm === 'bun' ? '-d' : '-D';
+    }
 
     return (
       <span className="font-mono text-[13px] leading-relaxed select-all">

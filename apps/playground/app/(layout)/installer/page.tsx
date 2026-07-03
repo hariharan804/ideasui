@@ -13,6 +13,13 @@ const RELEASE_TAGS = {
   alpha: { label: 'Alpha', description: 'Alpha releases', color: 'purple' },
 } as const;
 
+const TAG_COLORS: Record<string, string> = {
+  green: 'bg-success-500',
+  yellow: 'bg-warning-500',
+  blue: 'bg-info-500',
+  purple: 'bg-secondary-500',
+};
+
 const PACKAGES = [
   '@ideasui/button',
   '@ideasui/theme',
@@ -97,13 +104,7 @@ export default function InstallerPage(): JSX.Element {
                   <div className="mb-2 flex items-center gap-2">
                     <div
                       className={`size-3 rounded-full shadow-sm ${
-                        info.color === 'green'
-                          ? 'bg-success-500'
-                          : info.color === 'yellow'
-                            ? 'bg-warning-500'
-                            : info.color === 'blue'
-                              ? 'bg-info-500'
-                              : 'bg-secondary-500'
+                        TAG_COLORS[info.color] || 'bg-secondary-500'
                       }`}
                     />
                     <span className="text-content-primary font-bold">{info.label}</span>

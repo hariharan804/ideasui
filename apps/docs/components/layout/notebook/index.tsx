@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/consistent-destructuring */
 'use client';
 
 import type { LinkItemType } from '@/components/ui/docs/link-item';
@@ -52,6 +51,7 @@ interface SidebarOptions
 
 export function DocsLayout(props: DocsLayoutProps) {
   const {
+    // eslint-disable-next-line sonarjs/deprecation
     i18n = false,
     nav = {},
     sidebar: {
@@ -64,6 +64,8 @@ export function DocsLayout(props: DocsLayoutProps) {
     tabMode = 'sidebar',
     themeSwitch = {},
     tree,
+    containerProps,
+    children,
   } = props;
 
   const links = resolveLinkItems(props);
@@ -89,7 +91,7 @@ export function DocsLayout(props: DocsLayoutProps) {
         tabMode={tabMode}
       >
         <Sidebar defaultOpenLevel={defaultOpenLevel} prefetch={prefetch}>
-          <LayoutBody {...props.containerProps}>
+          <LayoutBody {...containerProps}>
             <SidebarContent
               i18n={i18n}
               links={links}
@@ -100,7 +102,7 @@ export function DocsLayout(props: DocsLayoutProps) {
               themeSwitch={themeSwitch}
             />
             <DocsNavbar {...props} headerTabsProps={headerTabsProps} links={links} tabs={tabs} />
-            {props.children}
+            {children}
           </LayoutBody>
         </Sidebar>
       </LayoutContextProvider>

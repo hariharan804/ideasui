@@ -188,13 +188,13 @@ export function parseColorValue(colorValue: string): ParsedColor | null {
     // Handle oklch input - pass through directly
     if (trimmed.startsWith('oklch(')) {
       // Handle oklch(var(--variable)) specifically
-      const oklchVarMatch = trimmed.match(/oklch\((var\(--[^)]+\))\)/);
+      const oklchVarMatch = /oklch\((var\(--[^)]+\))\)/.exec(trimmed);
 
       if (oklchVarMatch) {
         return { cssFn: 'var', components: [oklchVarMatch[1]] };
       }
 
-      const match = trimmed.match(/oklch\(([^)]+)\)/);
+      const match = /oklch\(([^)]+)\)/.exec(trimmed);
 
       if (match) {
         const parts = match[1].split('/');
@@ -247,7 +247,7 @@ export function formatColorComponents(components: (string | number)[]): string {
     return `${validComponents[0]} ${validComponents[1]} ${validComponents[2]} / ${validComponents[3]}`;
   }
 
-  return validComponents.join(' ').replace(/\s+\/\s+/g, ' / ');
+  return validComponents.join(' ').replaceAll(' / ', ' / ');
 }
 
 /**

@@ -17,6 +17,7 @@ describe('@ideasui/styles compilation outputs', () => {
       try {
         // eslint-disable-next-line no-console
         console.log('Building theme dynamically for styles compilation test...');
+        // eslint-disable-next-line sonarjs/no-os-command-from-path
         execSync('pnpm run build', { cwd: themeDir, stdio: 'inherit' });
       } catch (error) {
         console.error('Failed to build theme dynamically during test setup:', error);
@@ -28,7 +29,9 @@ describe('@ideasui/styles compilation outputs', () => {
 
     if (!fs.existsSync(distDir) || !fs.existsSync(baseCssPath)) {
       try {
+        // eslint-disable-next-line sonarjs/no-os-command-from-path
         execSync('npx tsup --minify --dts', { cwd: stylesDir, stdio: 'inherit' });
+        // eslint-disable-next-line sonarjs/no-os-command-from-path
         execSync('node scripts/build-css.js', { cwd: stylesDir, stdio: 'inherit' });
       } catch (error) {
         console.error('Failed to build styles dynamically during test setup:', error);

@@ -1,12 +1,12 @@
 # IdeasUI Package List
 
-Generated on: 2026-07-02T17:21:21.128Z
+Generated on: 2026-07-03T16:25:56.297Z
 
 ## Components
 
 ### button
 
-**A high-performance, accessible Button and ButtonGroup component library for React, built with Tailwind CSS v4 and React Aria.**
+**Accessible, high-performance Button and ButtonGroup components for React. Built with Tailwind CSS v4, React Aria, and OKLCH color palettes.**
 
 #### Installation
 
@@ -62,7 +62,7 @@ import { ButtonGroupContext } from '@ideasui/button';
 
 - **Version:** 0.0.2-beta.1
 - **Path:** `packages/components/button`
-- **Keywords:** ideasui, react, button, button-group, button-component, accessible-components, ui-components, design-system, tailwindcss
+- **Keywords:** react, button, button-group, react-aria, tailwindcss, tailwind-v4, accessible-ui, wcag, ideasui, components, design-system, headless-ui
 - **Files:** button-group-context.tsx, button-group.tsx, button.tsx, button.types.ts
 
 ---
@@ -71,7 +71,7 @@ import { ButtonGroupContext } from '@ideasui/button';
 
 ### react
 
-**The main entry point for the IdeasUI React component library.**
+**IdeasUI is a premium, accessible React component library built with Tailwind CSS v4, React Aria, and OKLCH design tokens. Fully customizable, high-performance, and dark-mode ready.**
 
 #### Installation
 
@@ -95,13 +95,13 @@ bun add @ideasui/react
 
 - **Version:** 0.0.2-beta.1
 - **Path:** `packages/core/react`
-- **Keywords:** ideasui, react, components, ui-kit, design-system, ui-component-library, tailwindcss, tailwind-v4, react-aria, react-aria-components, oklch, dark-mode, accessible-components
+- **Keywords:** react, components, design-system, ui-kit, tailwindcss, tailwind-v4, react-aria, oklch, accessible-ui, wcag, dark-mode, ideasui, premium-ui, headless-ui
 
 ---
 
 ### styles
 
-**The standalone CSS styles and Tailwind CSS v4 engine for the IdeasUI design system.**
+**The global CSS styles, custom utilities, and Tailwind CSS v4 design engine configurations for the IdeasUI design system.**
 
 #### Installation
 
@@ -125,13 +125,13 @@ bun add @ideasui/styles
 
 - **Version:** 0.0.2-beta.1
 - **Path:** `packages/core/styles`
-- **Keywords:** ideasui, react, components, ui-kit, theme-system, design-tokens, tailwindcss-theme, dark-mode, color-system, utility-classes, component-styles, css-in-js, style-system
+- **Keywords:** tailwindcss, tailwind-v4, css, styles, design-system, ideasui, theme, oklch, utility-classes, dark-mode, design-tokens, component-styles
 
 ---
 
 ### theme
 
-**A modern, OKLCH-based theme engine and design system plugin for Tailwind CSS v4, featuring dynamic tokens and high-performance recipes.**
+**A modern, OKLCH-based theme engine and design system plugin for Tailwind CSS v4. Features dynamic theme providers, style recipes, and custom theme storage managers.**
 
 #### Installation
 
@@ -222,7 +222,7 @@ type ParsedColor = { cssFn: ColorFn
 
 - **Version:** 0.0.5-beta.1
 - **Path:** `packages/core/theme`
-- **Keywords:** ideasui, tailwindcss, tailwind-v4, theme, design-system, design-tokens, oklch, theming-system, react, ui-kit, dark-mode, accessible-colors
+- **Keywords:** tailwindcss-plugin, tailwind-v4, theme-engine, oklch, design-tokens, theme-provider, dark-mode, ideasui, recipes, tailwind-variants, react-theme
 - **Files:** types.ts
 
 ---
@@ -231,7 +231,7 @@ type ParsedColor = { cssFn: ColorFn
 
 ### utils
 
-**Shared utilities for IdeasUI**
+**Shared TypeScript/React utilities and core helper functions for the IdeasUI component library, covering DOM, styles, and ARIA testing frameworks.**
 
 #### Installation
 
@@ -255,6 +255,6 @@ bun add @ideasui/utils
 
 - **Version:** 0.0.2-beta.1
 - **Path:** `packages/utils`
-- **Keywords:** ideasui, react, utils, helpers, aria-utils, accessibility, clsx, tailwind-merge, typescript
+- **Keywords:** typescript-utils, react-utilities, dom-utils, aria-testing, vitest-axe, tailwindcss-helpers, ideasui, monorepo-helpers
 
 ---

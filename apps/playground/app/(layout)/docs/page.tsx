@@ -242,26 +242,6 @@ export default function DocsPage(): JSX.Element {
             )}
 
             {/* Footer */}
-            {/* {!loading && !error && (
-              <div className="border-t border-slate-200 bg-slate-50 px-6 py-4 md:px-8">
-                <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-slate-600">
-                  <div>
-                    Found an issue?{" "}
-                    <a href="#" className="font-medium text-blue-600 hover:underline">
-                      Edit on GitHub
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <button className="font-medium text-blue-600 transition-colors hover:text-blue-700">
-                      Share
-                    </button>
-                    <button className="font-medium text-blue-600 transition-colors hover:text-blue-700">
-                      Print
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )} */}
           </div>
         </div>
       </div>

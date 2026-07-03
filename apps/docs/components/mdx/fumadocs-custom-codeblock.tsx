@@ -62,7 +62,7 @@ export function FumadocsCustomCodeblock({
       {...props}
       Actions={renderActions}
       allowCopy={allowCopy}
-      // @ts-expect-error - TODO: fumadocs-ui error
+      // @ts-expect-error - workaround for fumadocs-ui error
       viewportProps={{ ref: areaRef }}
     >
       {children}

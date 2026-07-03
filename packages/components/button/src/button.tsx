@@ -186,6 +186,7 @@ const ButtonContent = ({
   shortcut,
   children,
   renderProps,
+  // eslint-disable-next-line sonarjs/function-return-type
 }: ButtonContentProps): ReactNode => {
   const content = typeof children === 'function' ? children(renderProps) : children;
   const loader = loadingIndicator || <ButtonSpinner />;

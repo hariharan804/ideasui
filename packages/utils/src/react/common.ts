@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/deprecation */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { RefObject, LegacyRef, RefCallback, MutableRefObject } from 'react';
 
@@ -25,7 +26,7 @@ function mergePropValue(key: string, value: any, result: Record<string, any>): v
   if (key === 'className' || key === 'class') {
     result.className = cn(result.className, value as string);
   } else if (key === 'style') {
-    result.style = { ...(result.style || {}), ...(value || {}) };
+    result.style = { ...result.style, ...value };
   } else if (key === 'ref') {
     const existing = result.ref;
 

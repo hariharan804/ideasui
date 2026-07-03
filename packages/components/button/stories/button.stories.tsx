@@ -4,6 +4,8 @@ import { File, User, Plus, Settings, ChevronRight, Search } from 'lucide-react';
 
 import { Button } from '../src';
 
+import { variantOptions, colorOptions, sizeOptions, radiusOptions } from './common';
+
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
@@ -19,31 +21,22 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'ghost', 'muted', 'link', 'text', 'elevated', 'glaze'],
+      options: variantOptions,
       description: 'The visual style of the button.',
     },
     color: {
       control: 'select',
-      options: [
-        'primary',
-        'secondary',
-        'tertiary',
-        'neutral',
-        'error',
-        'success',
-        'warning',
-        'info',
-      ],
+      options: colorOptions,
       description: 'The semantic color theme.',
     },
     size: {
       control: 'select',
-      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      options: sizeOptions,
       description: 'The size of the button.',
     },
     radius: {
       control: 'select',
-      options: ['none', 'default', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full'],
+      options: radiusOptions,
       description: 'The border radius of the button.',
     },
     isLoading: {

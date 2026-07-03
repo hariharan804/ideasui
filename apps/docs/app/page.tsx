@@ -4,7 +4,6 @@ import type { MotionProps } from 'framer-motion';
 
 import { motion } from 'framer-motion';
 import {
-  Github,
   Zap,
   Palette,
   Accessibility,
@@ -14,6 +13,7 @@ import {
   Check,
   Code2,
 } from 'lucide-react';
+import { Github } from '@/components/ui/docs/icons';
 import Link from 'next/link';
 import { useState } from 'react';
 
