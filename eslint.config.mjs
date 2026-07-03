@@ -142,19 +142,24 @@ export default defineConfig([
       'boundaries/elements': [
         {
           type: 'components',
-          pattern: 'packages/components/**',
-        },
-        {
-          type: 'hooks',
-          pattern: 'packages/hooks/**',
+          pattern: 'packages/components/:name/**/*',
+          capture: ['name'],
         },
         {
           type: 'utils',
-          pattern: 'packages/utils/**',
+          pattern: 'packages/utils/**/*',
         },
         {
           type: 'theme',
-          pattern: 'packages/core/theme/**',
+          pattern: 'packages/core/theme/**/*',
+        },
+        {
+          type: 'styles',
+          pattern: 'packages/core/styles/**/*',
+        },
+        {
+          type: 'react',
+          pattern: 'packages/core/react/**/*',
         },
       ],
       'boundaries/ignore': ['**/*.test.*', '**/*.spec.*', '**/*.stories.*'],
@@ -279,11 +284,7 @@ export default defineConfig([
           rules: [
             {
               from: 'components',
-              allow: ['hooks', 'utils', 'theme'],
-            },
-            {
-              from: 'hooks',
-              allow: ['utils'],
+              allow: ['utils', 'theme', 'styles'],
             },
             {
               from: 'utils',
@@ -293,11 +294,21 @@ export default defineConfig([
               from: 'theme',
               allow: ['utils'],
             },
+            {
+              from: 'styles',
+              allow: [],
+            },
+            {
+              from: 'react',
+              allow: ['components', 'theme', 'utils', 'styles'],
+            },
           ],
         },
       ],
 
       // Import management
+      'import/no-cycle': ['error', { maxDepth: Infinity }],
+      'import/no-self-import': 'error',
       'unused-imports/no-unused-vars': 'off',
       'unused-imports/no-unused-imports': 'warn',
       'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],

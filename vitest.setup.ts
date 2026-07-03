@@ -2,10 +2,9 @@ import { TextEncoder, TextDecoder } from 'node:util';
 import { TransformStream } from 'node:stream/web';
 
 import '@testing-library/jest-dom';
-import { expect } from 'vitest';
+import { vi, expect } from 'vitest';
 import * as matchers from 'vitest-axe/matchers';
 import { createElement } from 'react';
-import { vi } from 'vitest';
 
 expect.extend(matchers);
 
@@ -24,7 +23,9 @@ global.TransformStream = TransformStream;
 class ResizeObserverStub {
   observe(): void {}
   unobserve(): void {}
-  disconnect(): void {}
+  disconnect(): void {
+    /* TODO document why this method 'disconnect' is empty */
+  }
 }
 
 // Mock for window.matchMedia

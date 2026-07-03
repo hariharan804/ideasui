@@ -1,7 +1,20 @@
 {
   "name": "@ideasui/utils",
   "version": "0.0.2-beta.1",
-  "description": "Shared utilities for IdeasUI",
+  "description": "Shared TypeScript/React utilities and core helper functions for the IdeasUI component library, covering DOM, styles, and ARIA testing frameworks.",
+  "author": "IdeasUI <support@ideasui.com>",
+  "homepage": "https://ideasui.com",
+  "license": "MIT",
+  "keywords": [
+    "typescript-utils",
+    "react-utilities",
+    "dom-utils",
+    "aria-testing",
+    "vitest-axe",
+    "tailwindcss-helpers",
+    "ideasui",
+    "monorepo-helpers"
+  ],
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "exports": {
@@ -37,20 +50,6 @@
   },
   "sideEffects": false,
   "clean-package": "./clean-package.config.json",
-  "author": "IdeasUI<support@ideasui.com>",
-  "homepage": "https://ideasui.com",
-  "license": "MIT",
-  "keywords": [
-    "ideasui",
-    "react",
-    "utils",
-    "helpers",
-    "aria-utils",
-    "accessibility",
-    "clsx",
-    "tailwind-merge",
-    "typescript"
-  ],
   "publishConfig": {
     "access": "public"
   },

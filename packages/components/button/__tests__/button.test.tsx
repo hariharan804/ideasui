@@ -40,6 +40,7 @@ describe('Button', () => {
     const { container } = render(<Button>Click me</Button>);
 
     await expectAccessible(container);
+    expect(container).toBeInTheDocument();
   });
 
   it('ref should be forwarded', () => {
