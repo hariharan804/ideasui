@@ -42,21 +42,21 @@
               "props": [
                 {
                   "name": "size",
-                  "type": "ButtonProps['size']",
+                  "type": "ButtonProperties['size']",
                   "description": "",
                   "optional": true,
                   "isDeprecated": false
                 },
                 {
                   "name": "color",
-                  "type": "ButtonProps['color']",
+                  "type": "ButtonProperties['color']",
                   "description": "",
                   "optional": true,
                   "isDeprecated": false
                 },
                 {
                   "name": "variant",
-                  "type": "ButtonProps['variant']",
+                  "type": "ButtonProperties['variant']",
                   "description": "",
                   "optional": true,
                   "isDeprecated": false
@@ -84,7 +84,7 @@
                 },
                 {
                   "name": "radius",
-                  "type": "ButtonProps['radius']",
+                  "type": "ButtonProperties['radius']",
                   "description": "",
                   "optional": true,
                   "isDeprecated": false
@@ -139,7 +139,7 @@
         "button-group.tsx": {
           "interfaces": [
             {
-              "name": "ButtonGroupProps",
+              "name": "ButtonGroupProperties",
               "props": [
                 {
                   "name": "isVertical",
@@ -259,11 +259,11 @@
               ]
             },
             {
-              "name": "ButtonLabelProps",
+              "name": "ButtonLabelProperties",
               "props": []
             },
             {
-              "name": "ButtonIconProps",
+              "name": "ButtonIconProperties",
               "props": [
                 {
                   "name": "children",
@@ -283,7 +283,7 @@
               ]
             },
             {
-              "name": "ButtonSpinnerProps",
+              "name": "ButtonSpinnerProperties",
               "props": [
                 {
                   "name": "label",
@@ -296,7 +296,7 @@
               ]
             },
             {
-              "name": "ButtonShortcutProps",
+              "name": "ButtonShortcutProperties",
               "props": [
                 {
                   "name": "children",
@@ -312,35 +312,35 @@
               "props": [
                 {
                   "name": "Label",
-                  "type": "ForwardRefExoticComponent<ButtonLabelProps & RefAttributes<HTMLSpanElement>>",
+                  "type": "ForwardRefExoticComponent<ButtonLabelProperties & RefAttributes<HTMLSpanElement>>",
                   "description": "Component to display the button label.",
                   "optional": false,
                   "isDeprecated": false
                 },
                 {
                   "name": "Icon",
-                  "type": "ForwardRefExoticComponent<ButtonIconProps & RefAttributes<HTMLElement>>",
+                  "type": "ForwardRefExoticComponent<ButtonIconProperties & RefAttributes<HTMLElement>>",
                   "description": "Component to display an icon inside the button.",
                   "optional": false,
                   "isDeprecated": false
                 },
                 {
                   "name": "Shortcut",
-                  "type": "ForwardRefExoticComponent<ButtonShortcutProps & RefAttributes<HTMLSpanElement>>",
+                  "type": "ForwardRefExoticComponent<ButtonShortcutProperties & RefAttributes<HTMLSpanElement>>",
                   "description": "Component to display a shortcut indicator inside the button.",
                   "optional": false,
                   "isDeprecated": false
                 },
                 {
                   "name": "Spinner",
-                  "type": "ForwardRefExoticComponent<ButtonSpinnerProps & RefAttributes<HTMLSpanElement>>",
+                  "type": "ForwardRefExoticComponent<ButtonSpinnerProperties & RefAttributes<HTMLSpanElement>>",
                   "description": "Component to display a loading spinner inside the button.",
                   "optional": false,
                   "isDeprecated": false
                 },
                 {
                   "name": "Group",
-                  "type": "ForwardRefExoticComponent<ButtonGroupProps & RefAttributes<HTMLDivElement>>",
+                  "type": "ForwardRefExoticComponent<ButtonGroupProperties & RefAttributes<HTMLDivElement>>",
                   "description": "Component to group multiple buttons together.",
                   "optional": false,
                   "isDeprecated": false
@@ -348,12 +348,7 @@
               ]
             }
           ],
-          "types": [
-            {
-              "name": "ButtonProps",
-              "definition": "| (ButtonBaseProps & { /** * Whether the button should be square and optimized for icons. * @default false */ isIconOnly?: false"
-            }
-          ],
+          "types": [],
           "props": [],
           "events": [],
           "importInstructions": [
@@ -507,19 +502,15 @@
           "types": [
             {
               "name": "SurfaceTokenOverrides",
-              "definition": "ThemeToken<SurfaceProps, string>"
+              "definition": "ThemeToken<SurfaceProperties, string>"
             },
             {
               "name": "ContentTokenOverrides",
-              "definition": "ThemeToken<ContentProps, string>"
+              "definition": "ThemeToken<ContentProperties, string>"
             },
             {
               "name": "BorderTokenOverrides",
               "definition": "Partial<Record<string, string>>"
-            },
-            {
-              "name": "SemanticTokenOverrides",
-              "definition": "{ // ── Intent: Primary ────────────────────────────────────────── primary?: string"
             },
             {
               "name": "ThemeMode",
@@ -530,20 +521,8 @@
               "definition": "'oklch' | 'var'"
             },
             {
-              "name": "ConfigTheme",
-              "definition": "{ readonly extend?: 'light' | 'dark'"
-            },
-            {
               "name": "ConfigThemes",
               "definition": "Record<string, ConfigTheme>"
-            },
-            {
-              "name": "ResolvedConfig",
-              "definition": "{ variants: { name: string"
-            },
-            {
-              "name": "ParsedColor",
-              "definition": "{ cssFn: ColorFn"
             }
           ],
           "props": [],

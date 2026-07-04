@@ -35,16 +35,19 @@ export default function InstallerPage(): JSX.Element {
   const [copiedCommand, setCopiedCommand] = useState<string | null>(null);
 
   const generateInstallCommand = (packageManager: 'npm' | 'pnpm' | 'yarn'): string => {
-    const packages = Array.from(selectedPackages);
-    const packagesWithTag = packages.map((pkg) => `${pkg}@${selectedTag}`).join(' ');
+    const packages = [...selectedPackages];
+    const packagesWithTag = packages.map((package_) => `${package_}@${selectedTag}`).join(' ');
 
     switch (packageManager) {
-      case 'npm':
+      case 'npm': {
         return `npm install ${packagesWithTag}`;
-      case 'pnpm':
+      }
+      case 'pnpm': {
         return `pnpm add ${packagesWithTag}`;
-      case 'yarn':
+      }
+      case 'yarn': {
         return `yarn add ${packagesWithTag}`;
+      }
     }
   };
 
@@ -54,13 +57,13 @@ export default function InstallerPage(): JSX.Element {
     setTimeout(() => setCopiedCommand(null), COPY_TIMEOUT);
   };
 
-  const togglePackage = (pkg: string): void => {
+  const togglePackage = (package_: string): void => {
     const newSelected = new Set(selectedPackages);
 
-    if (newSelected.has(pkg)) {
-      newSelected.delete(pkg);
+    if (newSelected.has(package_)) {
+      newSelected.delete(package_);
     } else {
-      newSelected.add(pkg);
+      newSelected.add(package_);
     }
     setSelectedPackages(newSelected);
   };
@@ -141,23 +144,23 @@ export default function InstallerPage(): JSX.Element {
             </div>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              {PACKAGES.map((pkg) => (
+              {PACKAGES.map((package_) => (
                 <label
-                  key={pkg}
+                  key={package_}
                   className={`flex cursor-pointer items-center gap-3 rounded-xl border p-4 transition-all duration-200 hover:-translate-y-0.5 ${
-                    selectedPackages.has(pkg)
+                    selectedPackages.has(package_)
                       ? 'border-primary-400 bg-primary-subtle ring-primary-500/50 shadow-sm ring-1'
                       : 'border-default bg-surface-base hover:border-strong hover:shadow-sm'
                   }`}
                 >
                   <input
-                    checked={selectedPackages.has(pkg)}
+                    checked={selectedPackages.has(package_)}
                     className="border-default focus:ring-offset-surface-base text-primary-600 focus:ring-primary-500 size-5 rounded transition-colors"
                     type="checkbox"
-                    onChange={() => togglePackage(pkg)}
+                    onChange={() => togglePackage(package_)}
                   />
                   <code className="text-content-primary font-mono text-sm font-semibold">
-                    {pkg}
+                    {package_}
                   </code>
                 </label>
               ))}
@@ -223,12 +226,12 @@ export default function InstallerPage(): JSX.Element {
                 <div className="text-info-400">{`{`}</div>
                 <div className="text-success-400 ml-4">&quot;dependencies&quot;:</div>
                 <div className="text-info-400 ml-4">{`{`}</div>
-                {Array.from(selectedPackages).map((pkg, index, arr) => (
-                  <div key={pkg} className="ml-8">
-                    <span className="text-warning-300">&quot;{pkg}&quot;</span>
+                {[...selectedPackages].map((package_, index, array) => (
+                  <div key={package_} className="ml-8">
+                    <span className="text-warning-300">&quot;{package_}&quot;</span>
                     <span className="text-content-inverse">: </span>
                     <span className="text-success-300">&quot;{selectedTag}&quot;</span>
-                    {index < arr.length - 1 && <span className="text-content-inverse">,</span>}
+                    {index < array.length - 1 && <span className="text-content-inverse">,</span>}
                   </div>
                 ))}
                 <div className="text-info-400 ml-4">{`}`}</div>

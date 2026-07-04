@@ -121,7 +121,7 @@ describe('useThemeStorage', () => {
         newValue: 'dark',
       });
 
-      window.dispatchEvent(event);
+      globalThis.dispatchEvent(event);
     });
 
     expect(result.current.theme).toBe('dark');
@@ -147,7 +147,7 @@ describe('useThemeStorage', () => {
         newValue: null,
       });
 
-      window.dispatchEvent(event);
+      globalThis.dispatchEvent(event);
     });
 
     expect(result.current.theme).toBe('system');
@@ -173,7 +173,7 @@ describe('useThemeStorage', () => {
         newValue: 'dark',
       });
 
-      window.dispatchEvent(event);
+      globalThis.dispatchEvent(event);
     });
 
     expect(result.current.theme).toBe('light'); // Unchanged
@@ -199,7 +199,7 @@ describe('useThemeStorage', () => {
         newValue: 'invalid-theme',
       });
 
-      window.dispatchEvent(event);
+      globalThis.dispatchEvent(event);
     });
 
     expect(result.current.theme).toBe('light'); // Unchanged
@@ -238,12 +238,12 @@ describe('useThemeStorage', () => {
       await Promise.resolve();
     });
 
-    const prevTheme = result.current.theme;
+    const previousTheme = result.current.theme;
 
     act(() => {
       result.current.setTheme('light');
     });
 
-    expect(result.current.theme).toBe(prevTheme);
+    expect(result.current.theme).toBe(previousTheme);
   });
 });

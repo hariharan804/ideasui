@@ -96,15 +96,15 @@ export type LinkItemType =
 export function LinkItem({
   item,
   ref,
-  ...props
+  ...properties
 }: Omit<ComponentProps<'a'>, 'href'> & { item: WithHref }) {
   const pathname = usePathname();
   const activeType = item.active ?? 'url';
   const active = activeType !== 'none' && isActive(item.url, pathname, activeType === 'nested-url');
 
   return (
-    <Link ref={ref} external={item.external} href={item.url} {...props} data-active={active}>
-      {props.children}
+    <Link ref={ref} external={item.external} href={item.url} {...properties} data-active={active}>
+      {properties.children}
     </Link>
   );
 }

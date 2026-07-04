@@ -19,7 +19,7 @@ export interface StorageAdapter {
   removeItem(key: string): void;
 }
 
-export interface ThemeScriptProps extends Partial<ThemeScriptConfig> {
+export interface ThemeScriptProperties extends Partial<ThemeScriptConfig> {
   nonce?: string;
   scriptProps?: Omit<
     React.ScriptHTMLAttributes<HTMLScriptElement>,

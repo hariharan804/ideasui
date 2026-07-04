@@ -14,27 +14,27 @@ import { isActive } from '@/lib/docs/urls';
 
 type Item = { name: ReactNode; description?: ReactNode; url: string };
 
-export interface FooterProps extends ComponentProps<'div'> {
+export interface FooterProperties extends ComponentProps<'div'> {
   items?: {
     previous?: Item;
     next?: Item;
   };
 }
 
-export function PageFooter({ items, ...props }: FooterProps) {
+export function PageFooter({ items, ...properties }: FooterProperties) {
   const footerList = useFooterItems();
   const pathname = usePathname();
 
   const { next, previous } = useMemo(() => {
     if (items) return items;
 
-    const idx = footerList.findIndex((item) => isActive(item.url, pathname, false));
+    const index = footerList.findIndex((item) => isActive(item.url, pathname, false));
 
-    if (idx === -1) return {};
+    if (index === -1) return {};
 
     return {
-      next: footerList[idx + 1],
-      previous: footerList[idx - 1],
+      next: footerList[index + 1],
+      previous: footerList[index - 1],
     };
   }, [footerList, items, pathname]);
 
@@ -43,7 +43,7 @@ export function PageFooter({ items, ...props }: FooterProps) {
   const hasBoth = !!previous && !!next;
 
   return (
-    <div {...props} className={cn('mt-16 w-full', props.className)}>
+    <div {...properties} className={cn('mt-16 w-full', properties.className)}>
       {/* Section label */}
       <div className="mb-4 flex items-center gap-3">
         <span className="text-content-tertiary text-[10px] font-semibold tracking-widest uppercase">
@@ -57,7 +57,7 @@ export function PageFooter({ items, ...props }: FooterProps) {
         {previous ? <FooterCard isPrev item={previous} /> : null}
         {next ? (
           <FooterCard
-            className={!hasBoth ? 'sm:ml-auto sm:w-full sm:max-w-sm' : ''}
+            className={hasBoth ? '' : 'sm:ml-auto sm:w-full sm:max-w-sm'}
             isPrev={false}
             item={next}
           />
@@ -183,15 +183,18 @@ const getServerSnapshot = () => false;
 
 export function PageLastUpdate({
   date: value,
-  ...props
+  ...properties
 }: Omit<ComponentProps<'p'>, 'children'> & { date: Date }) {
   const t = useTranslations({ note: 'page footer' });
   const isMounted = useSyncExternalStore(emptySubscribe, getSnapshot, getServerSnapshot);
 
   return (
     <p
-      {...props}
-      className={cn('text-content-tertiary flex items-center gap-1.5 text-[11px]', props.className)}
+      {...properties}
+      className={cn(
+        'text-content-tertiary flex items-center gap-1.5 text-[11px]',
+        properties.className,
+      )}
     >
       <span aria-hidden className="bg-content-tertiary/40 inline-block size-1 rounded-3xl" />
       {t('Last updated on')}{' '}

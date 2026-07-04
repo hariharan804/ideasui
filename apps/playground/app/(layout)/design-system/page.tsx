@@ -491,7 +491,7 @@ const BORDER_COLOR_MAP: Record<string, string> = {
 export default function DesignSystemPage(): JSX.Element {
   const [copiedClass, setCopiedClass] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState('colors');
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
+  const sectionReferences = useRef<Record<string, HTMLElement | null>>({});
 
   const copyToClipboard = async (text: string): Promise<void> => {
     await navigator.clipboard.writeText(text);
@@ -513,11 +513,11 @@ export default function DesignSystemPage(): JSX.Element {
     );
 
     for (const section of NAV_SECTIONS) {
-      const el = document.getElementById(section.id);
+      const element = document.getElementById(section.id);
 
-      if (el) {
-        sectionRefs.current[section.id] = el;
-        observer.observe(el);
+      if (element) {
+        sectionReferences.current[section.id] = element;
+        observer.observe(element);
       }
     }
 
@@ -1164,7 +1164,7 @@ export default function DesignSystemPage(): JSX.Element {
                   <div className="bg-surface-muted relative h-3 w-full max-w-xs overflow-hidden rounded-full">
                     <div
                       className="bg-primary-400 absolute inset-y-0 left-0 rounded-full"
-                      style={{ width: `${(parseInt(d.ms) / 1000) * 100}%` }}
+                      style={{ width: `${(Number.parseInt(d.ms) / 1000) * 100}%` }}
                     />
                   </div>
                   <span className="text-content-tertiary text-xs">{d.ms}</span>
@@ -1294,10 +1294,10 @@ export default function DesignSystemPage(): JSX.Element {
             {/* Visual stacked tower */}
             <div className="mb-8 overflow-x-auto py-4">
               <div className="flex min-w-max items-end justify-center gap-1">
-                {Z_INDICES.filter((z) => Number(z.value) >= 0).map((z, i, arr) => {
-                  const height = Z_INDEX_HEIGHT_BASE + i * Z_INDEX_HEIGHT_STEP;
+                {Z_INDICES.filter((z) => Number(z.value) >= 0).map((z, index, array) => {
+                  const height = Z_INDEX_HEIGHT_BASE + index * Z_INDEX_HEIGHT_STEP;
                   const lightness =
-                    Z_INDEX_LIGHTNESS_BASE - (i / arr.length) * Z_INDEX_LIGHTNESS_RANGE;
+                    Z_INDEX_LIGHTNESS_BASE - (index / array.length) * Z_INDEX_LIGHTNESS_RANGE;
 
                   return (
                     <div key={z.name} className="group relative flex flex-col items-center">
@@ -1395,9 +1395,9 @@ export default function DesignSystemPage(): JSX.Element {
             {/* Visual device-width comparison */}
             <div className="mb-8 space-y-3">
               {BREAKPOINTS.map((bp) => {
-                const pxVal = parseInt(bp.value);
+                const pxValue = Number.parseInt(bp.value);
                 const maxPx = 1536;
-                const barPct = Math.min((pxVal / maxPx) * 100, 100);
+                const barPct = Math.min((pxValue / maxPx) * 100, 100);
                 const deviceIcons: Record<string, string> = {
                   xs: '📱',
                   sm: '📱',
@@ -1447,12 +1447,12 @@ export default function DesignSystemPage(): JSX.Element {
             </h3>
             <div className="border-primary-300 bg-primary-50/30 rounded-xl border border-dashed p-4">
               <div className="xs:grid-cols-2 grid grid-cols-1 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-                {Array.from({ length: 6 }, (_, i) => (
+                {Array.from({ length: 6 }, (_, index) => (
                   <div
-                    key={i}
+                    key={index}
                     className="bg-primary-200 text-primary-800 flex h-14 items-center justify-center rounded-lg text-xs font-semibold"
                   >
-                    Item {i + 1}
+                    Item {index + 1}
                   </div>
                 ))}
               </div>

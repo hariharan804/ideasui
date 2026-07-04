@@ -177,12 +177,12 @@ export default function HomePage() {
       <section className="border-subtle bg-surface-subtle border-y">
         <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            {STATS.map((stat, i) => (
+            {STATS.map((stat, index) => (
               <motion.div
                 key={stat.label}
                 className="text-center"
                 initial={{ opacity: 0, y: 10 }}
-                transition={{ delay: i * 0.06 }}
+                transition={{ delay: index * 0.06 }}
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, y: 0 }}
               >
@@ -229,12 +229,12 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-            {FEATURES.map((f, i) => (
+            {FEATURES.map((f, index) => (
               <motion.div
                 key={f.title}
                 className="feature-card group relative cursor-default overflow-hidden rounded-2xl border p-7 transition-all duration-300 hover:-translate-y-1"
                 initial={{ opacity: 0, y: 20 }}
-                transition={{ delay: i * 0.08 }}
+                transition={{ delay: index * 0.08 }}
                 viewport={{ once: true }}
                 whileInView={{ opacity: 1, y: 0 }}
               >

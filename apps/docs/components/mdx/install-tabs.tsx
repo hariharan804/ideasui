@@ -5,7 +5,7 @@ import { cn } from '@ideasui/utils';
 import { Button } from '@ideasui/react';
 import { Check, Copy, Terminal } from 'lucide-react';
 
-interface InstallTabsProps {
+interface InstallTabsProperties {
   pkg: string;
   isDev?: boolean;
   className?: string;
@@ -13,14 +13,14 @@ interface InstallTabsProps {
 
 type PackageManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
 
-interface TabButtonProps {
+interface TabButtonProperties {
   isActive: boolean;
   onClick: () => void;
   children: React.ReactNode;
   size?: 'sm' | 'md';
 }
 
-function TabButton({ isActive, onClick, children, size = 'md' }: TabButtonProps) {
+function TabButton({ isActive, onClick, children, size = 'md' }: TabButtonProperties) {
   return (
     <button
       className={cn(
@@ -41,7 +41,11 @@ function TabButton({ isActive, onClick, children, size = 'md' }: TabButtonProps)
   );
 }
 
-export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps) {
+export function InstallTabs({
+  pkg,
+  isDev: isDevelopment = false,
+  className,
+}: InstallTabsProperties) {
   const [activeTab, setActiveTab] = useState<PackageManager>('pnpm');
   const [copied, setCopied] = useState(false);
   const [installMode, setInstallMode] = useState<'component' | 'core'>('core');
@@ -49,20 +53,23 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
   const isIndividualComponent =
     pkg.startsWith('@ideasui/') && pkg !== '@ideasui/react' && pkg !== '@ideasui/theme';
 
-  const activePkg = installMode === 'component' ? pkg : '@ideasui/react';
+  const activePackage = installMode === 'component' ? pkg : '@ideasui/react';
 
   // Command mappings
   const getCommand = (pm: PackageManager) => {
     switch (pm) {
-      case 'npm':
-        return `npm i ${isDev ? '-D ' : ''}${activePkg}`;
-      case 'yarn':
-        return `yarn add ${isDev ? '-D ' : ''}${activePkg}`;
-      case 'bun':
-        return `bun add ${isDev ? '-d ' : ''}${activePkg}`;
-      case 'pnpm':
-      default:
-        return `pnpm add ${isDev ? '-D ' : ''}${activePkg}`;
+      case 'npm': {
+        return `npm i ${isDevelopment ? '-D ' : ''}${activePackage}`;
+      }
+      case 'yarn': {
+        return `yarn add ${isDevelopment ? '-D ' : ''}${activePackage}`;
+      }
+      case 'bun': {
+        return `bun add ${isDevelopment ? '-d ' : ''}${activePackage}`;
+      }
+      default: {
+        return `pnpm add ${isDevelopment ? '-D ' : ''}${activePackage}`;
+      }
     }
   };
 
@@ -83,7 +90,7 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
     const action = pm === 'npm' ? 'i' : 'add';
     let flag = '';
 
-    if (isDev) {
+    if (isDevelopment) {
       flag = pm === 'bun' ? '-d' : '-D';
     }
 
@@ -92,7 +99,7 @@ export function InstallTabs({ pkg, isDev = false, className }: InstallTabsProps)
         <span className="text-primary font-semibold">{pm}</span>{' '}
         <span className="text-secondary font-semibold">{action}</span>{' '}
         {flag && <span className="text-tertiary">{flag} </span>}
-        <span className="text-success font-medium">{activePkg}</span>
+        <span className="text-success font-medium">{activePackage}</span>
       </span>
     );
   };

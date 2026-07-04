@@ -109,12 +109,12 @@ describe('ideasUIPlugin', () => {
 
     expect(baseCall).toBeDefined();
 
-    const lightThemeVars = mockPluginAPI.addBase.mock.calls.find(
+    const lightThemeVariables = mockPluginAPI.addBase.mock.calls.find(
       (call: Record<string, unknown>[]) => call[0][":root, .light, [data-ideasui-theme='light']"],
     )[0][":root, .light, [data-ideasui-theme='light']"];
 
     // Check that primary-600 is generated and has the matching red hue (around 29.23)
-    const primary600Value = lightThemeVars['--ideasui-color-primary-600'];
+    const primary600Value = lightThemeVariables['--ideasui-color-primary-600'];
 
     expect(primary600Value).toContain('29.23'); // Hue is preserved!
     expect(primary600Value).not.toBe('0.472 0.209 268.4'); // Not default blue!
@@ -135,12 +135,12 @@ describe('ideasUIPlugin', () => {
 
     plugin.handler(mockPluginAPI);
 
-    const lightThemeVars = mockPluginAPI.addBase.mock.calls.find(
+    const lightThemeVariables = mockPluginAPI.addBase.mock.calls.find(
       (call: Record<string, unknown>[]) => call[0][":root, .light, [data-ideasui-theme='light']"],
     )[0][":root, .light, [data-ideasui-theme='light']"];
 
     // primary-600 remains default blue
-    const primary600Value = lightThemeVars['--ideasui-color-primary-600'];
+    const primary600Value = lightThemeVariables['--ideasui-color-primary-600'];
 
     expect(primary600Value).toBe('0.472 0.209 268.4');
   });

@@ -1,14 +1,14 @@
 import { vi } from 'vitest';
 describe('logger', () => {
-  const originalEnv = process.env;
+  const originalEnvironment = process.env;
 
   beforeEach(() => {
     vi.resetModules();
-    process.env = { ...originalEnv };
+    process.env = { ...originalEnvironment };
   });
 
   afterAll(() => {
-    process.env = originalEnv;
+    process.env = originalEnvironment;
   });
 
   describe('development', () => {

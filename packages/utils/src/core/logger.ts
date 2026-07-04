@@ -5,7 +5,7 @@
  */
 
 /* eslint-disable no-console */
-const isDev = process.env.NODE_ENV === 'development';
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 export const logger = {
   /**
@@ -13,9 +13,9 @@ export const logger = {
    * @param {string} message - The message to log
    * @param {...unknown[]} args - Additional arguments to log
    */
-  info: (message: string, ...args: unknown[]) => {
-    if (isDev) {
-      console.log(`[IdeasUI] ${message}`, ...args);
+  info: (message: string, ...arguments_: unknown[]) => {
+    if (isDevelopment) {
+      console.log(`[IdeasUI] ${message}`, ...arguments_);
     }
   },
 
@@ -24,9 +24,9 @@ export const logger = {
    * @param {string} message - The warning message
    * @param {...unknown[]} args - Additional arguments to log
    */
-  warn: (message: string, ...args: unknown[]) => {
-    if (isDev) {
-      console.warn(`[IdeasUI] ${message}`, ...args);
+  warn: (message: string, ...arguments_: unknown[]) => {
+    if (isDevelopment) {
+      console.warn(`[IdeasUI] ${message}`, ...arguments_);
     }
   },
 
@@ -35,9 +35,9 @@ export const logger = {
    * @param {string} message - The error message
    * @param {...unknown[]} args - Additional arguments to log
    */
-  error: (message: string, ...args: unknown[]) => {
-    if (isDev) {
-      console.error(`[IdeasUI] ${message}`, ...args);
+  error: (message: string, ...arguments_: unknown[]) => {
+    if (isDevelopment) {
+      console.error(`[IdeasUI] ${message}`, ...arguments_);
     }
   },
 
@@ -46,7 +46,7 @@ export const logger = {
    * @param {string} message - The error message to throw
    */
   throw: (message: string) => {
-    if (isDev) {
+    if (isDevelopment) {
       throw new Error(`[IdeasUI] ${message}`);
     }
   },
@@ -57,7 +57,7 @@ export const logger = {
    * @param {string} message - The error message if assertion fails
    */
   assert: (condition: boolean, message: string) => {
-    if (!condition && isDev) {
+    if (!condition && isDevelopment) {
       throw new Error(`[IdeasUI] Assertion failed: ${message}`);
     }
   },

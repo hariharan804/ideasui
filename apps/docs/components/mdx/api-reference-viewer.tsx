@@ -5,11 +5,11 @@ import { cn } from '@ideasui/utils';
 import { propsDocumentation } from '@/lib/docs/components-props';
 import { PropsTable } from '@/components/ui/props-table';
 
-interface APIReferenceViewerProps {
+interface APIReferenceViewerProperties {
   componentName: keyof typeof propsDocumentation;
 }
 
-export function APIReferenceViewer({ componentName }: APIReferenceViewerProps) {
+export function APIReferenceViewer({ componentName }: APIReferenceViewerProperties) {
   const componentDocs = propsDocumentation[componentName];
 
   const [activeTab, setActiveTab] = useState(0);
@@ -24,9 +24,9 @@ export function APIReferenceViewer({ componentName }: APIReferenceViewerProps) {
     );
   }
 
-  const activeDoc = componentDocs[activeTab] || componentDocs[0];
+  const activeDocument = componentDocs[activeTab] || componentDocs[0];
 
-  const mappedProps = activeDoc.props.map((p) => ({
+  const mappedProperties = activeDocument.props.map((p) => ({
     name: p.name,
     type: p.type,
     default: p.defaultValue ?? undefined,
@@ -40,9 +40,9 @@ export function APIReferenceViewer({ componentName }: APIReferenceViewerProps) {
       {/* Tab Selectors */}
       {componentDocs.length > 1 && (
         <div className="border-base/10 bg-surface-container flex flex-wrap items-end gap-1 border-b select-none">
-          {componentDocs.map((doc, index) => (
+          {componentDocs.map((document_, index) => (
             <button
-              key={doc.componentName}
+              key={document_.componentName}
               className={cn(
                 'group relative -mb-px flex-shrink-0 cursor-pointer rounded-t-xl border border-transparent px-4 py-2.5 text-xs font-semibold transition-all duration-300',
                 index === activeTab
@@ -52,7 +52,7 @@ export function APIReferenceViewer({ componentName }: APIReferenceViewerProps) {
               type="button"
               onClick={() => setActiveTab(index)}
             >
-              {doc.componentName}
+              {document_.componentName}
             </button>
           ))}
         </div>
@@ -62,23 +62,23 @@ export function APIReferenceViewer({ componentName }: APIReferenceViewerProps) {
       <div className="bg-surface-container-low border-base/10 flex flex-col gap-1.5 rounded-2xl border px-5 py-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h4 className="text-content-primary text-sm font-bold tracking-tight">
-            {activeDoc.title}
+            {activeDocument.title}
           </h4>
           <span className="bg-primary/10 text-primary shrink-0 rounded px-2 py-0.5 font-mono text-[11px] font-semibold select-all">
-            {activeDoc.component}
+            {activeDocument.component}
           </span>
         </div>
-        {activeDoc.description && (
+        {activeDocument.description && (
           <p className="text-content-secondary text-[13px] leading-relaxed">
-            {activeDoc.description}
+            {activeDocument.description}
           </p>
         )}
       </div>
 
       {/* Props Table or Empty Fallback */}
       <div className="w-full">
-        {mappedProps.length > 0 ? (
-          <PropsTable data={mappedProps} />
+        {mappedProperties.length > 0 ? (
+          <PropsTable data={mappedProperties} />
         ) : (
           <div className="border-base/10 bg-surface-container-low/30 text-content-secondary rounded-2xl border p-8 text-center text-[13px] leading-relaxed">
             This component does not define any custom props. It accepts all standard HTML

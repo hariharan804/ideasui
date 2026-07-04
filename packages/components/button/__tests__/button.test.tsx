@@ -44,10 +44,10 @@ describe('Button', () => {
   });
 
   it('ref should be forwarded', () => {
-    const ref = createRef<HTMLButtonElement>();
+    const reference = createRef<HTMLButtonElement>();
 
-    render(<Button ref={ref} />);
-    expect(ref.current).not.toBeNull();
+    render(<Button ref={reference} />);
+    expect(reference.current).not.toBeNull();
   });
 
   it('should trigger onPress function', async () => {
@@ -117,17 +117,17 @@ describe('Button', () => {
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
     const radii = ['none', 'default', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full'] as const;
 
-    variants.forEach((variant) => {
+    for (const variant of variants) {
       render(<Button variant={variant}>Button</Button>);
-    });
+    }
 
-    sizes.forEach((size) => {
+    for (const size of sizes) {
       render(<Button size={size}>Button</Button>);
-    });
+    }
 
-    radii.forEach((radius) => {
+    for (const radius of radii) {
       render(<Button radius={radius}>Button</Button>);
-    });
+    }
 
     render(<Button fullWidth>Button</Button>);
     render(<Button isDisabled>Button</Button>);
@@ -194,11 +194,11 @@ describe('ButtonGroup', () => {
 
     const buttons = screen.getAllByRole('button');
 
-    buttons.forEach((button) => {
+    for (const button of buttons) {
       expect(button).toBeDisabled();
       expect(button).toHaveClass('btn--xl');
       expect(button).toHaveClass('btn--error');
-    });
+    }
   });
 
   it('should render in vertical orientation', () => {
@@ -223,8 +223,8 @@ describe('ButtonGroup', () => {
 
     const buttons = screen.getAllByRole('button');
 
-    buttons.forEach((button) => {
+    for (const button of buttons) {
       expect(button).toHaveAttribute('data-attached', 'true');
-    });
+    }
   });
 });

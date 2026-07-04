@@ -11,7 +11,7 @@ import { useSystemTheme } from './utils/use-system-theme';
 import { useThemeStorage } from './utils/use-theme-storage';
 import { defaultConfig } from './utils/themes.config';
 
-export interface ThemeProviderProps extends Partial<ThemeScriptConfig> {
+export interface ThemeProviderProperties extends Partial<ThemeScriptConfig> {
   systemThemes?: { light: string; dark: string };
 }
 
@@ -20,11 +20,11 @@ export function ThemeProvider({
   defaultTheme = defaultConfig.defaultTheme,
   themes: userThemes,
   systemThemes: userSystemThemes,
-}: PropsWithChildren<ThemeProviderProps>): ReactElement {
+}: PropsWithChildren<ThemeProviderProperties>): ReactElement {
   const systemThemes = userSystemThemes ?? defaultConfig.systemThemes;
 
   const themes = useMemo(
-    () => Array.from(new Set([...(defaultConfig.themes || []), ...(userThemes || [])])),
+    () => [...new Set([...(defaultConfig.themes || []), ...(userThemes || [])])],
     [userThemes],
   );
 

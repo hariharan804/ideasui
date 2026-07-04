@@ -1,7 +1,10 @@
-import type { ButtonProps as ButtonPrimitiveProps, ButtonRenderProps } from 'react-aria-components';
+import type {
+  ButtonProps as ButtonPrimitiveProperties,
+  ButtonRenderProps,
+} from 'react-aria-components';
 import type { ForwardRefExoticComponent, HTMLAttributes, ReactNode, RefAttributes } from 'react';
 import type { ButtonVariantProps } from '@ideasui/theme/recipes';
-import type { ButtonGroupProps } from './button-group';
+import type { ButtonGroupProperties } from './button-group';
 
 /**
  * Granular class names for the Button component slots.
@@ -24,9 +27,9 @@ export interface ButtonClassNames {
 /**
  * Base props for the Button component.
  */
-interface ButtonBaseProps
+interface ButtonBaseProperties
   extends
-    Omit<ButtonPrimitiveProps, 'className'>,
+    Omit<ButtonPrimitiveProperties, 'className'>,
     Omit<ButtonVariantProps, 'isLoading' | 'isDisabled'> {
   /**
    * Whether the button is in a loading state.
@@ -68,12 +71,12 @@ interface ButtonBaseProps
    * The CSS class name for the button.
    * Can be a string or a function that receives the button render props.
    */
-  className?: string | ((props: ButtonRenderProps) => string);
+  className?: string | ((properties: ButtonRenderProps) => string);
   /**
    * The content to display inside the button.
    * Can be a ReactNode or a function that receives the button render props.
    */
-  children?: ReactNode | ((props: ButtonRenderProps) => ReactNode);
+  children?: ReactNode | ((properties: ButtonRenderProps) => ReactNode);
   /**
    * Whether the button should be square and optimized for icons.
    *
@@ -98,7 +101,7 @@ interface ButtonBaseProps
  * Enforces that if `isIconOnly` is true, either `aria-label` or `aria-labelledby` must be provided.
  */
 export type ButtonProps =
-  | (ButtonBaseProps & {
+  | (ButtonBaseProperties & {
       /**
        * Whether the button should be square and optimized for icons.
        * @default false
@@ -113,7 +116,7 @@ export type ButtonProps =
        */
       'aria-labelledby'?: string;
     })
-  | (ButtonBaseProps & {
+  | (ButtonBaseProperties & {
       /**
        * Whether the button should be square and optimized for icons.
        */
@@ -128,7 +131,7 @@ export type ButtonProps =
        */
       'aria-labelledby'?: string;
     })
-  | (ButtonBaseProps & {
+  | (ButtonBaseProperties & {
       /**
        * Whether the button should be square and optimized for icons.
        */
@@ -147,12 +150,12 @@ export type ButtonProps =
 /**
  * Props for the Button.Label component.
  */
-export interface ButtonLabelProps extends HTMLAttributes<HTMLSpanElement> {}
+export interface ButtonLabelProperties extends HTMLAttributes<HTMLSpanElement> {}
 
 /**
  * Props for the Button.Icon component.
  */
-export interface ButtonIconProps extends HTMLAttributes<HTMLElement> {
+export interface ButtonIconProperties extends HTMLAttributes<HTMLElement> {
   /**
    * The icon content.
    */
@@ -167,7 +170,7 @@ export interface ButtonIconProps extends HTMLAttributes<HTMLElement> {
 /**
  * Props for the Button.Spinner component.
  */
-export interface ButtonSpinnerProps extends HTMLAttributes<HTMLSpanElement> {
+export interface ButtonSpinnerProperties extends HTMLAttributes<HTMLSpanElement> {
   /**
    * Accessibility label for the spinner.
    * @default 'Loading'
@@ -178,7 +181,7 @@ export interface ButtonSpinnerProps extends HTMLAttributes<HTMLSpanElement> {
 /**
  * Props for the Button.Shortcut component.
  */
-export interface ButtonShortcutProps extends HTMLAttributes<HTMLSpanElement> {
+export interface ButtonShortcutProperties extends HTMLAttributes<HTMLSpanElement> {
   /**
    * The shortcut keys to display.
    */
@@ -194,21 +197,21 @@ export interface ButtonComponent extends ForwardRefExoticComponent<
   /**
    * Component to display the button label.
    */
-  Label: ForwardRefExoticComponent<ButtonLabelProps & RefAttributes<HTMLSpanElement>>;
+  Label: ForwardRefExoticComponent<ButtonLabelProperties & RefAttributes<HTMLSpanElement>>;
   /**
    * Component to display an icon inside the button.
    */
-  Icon: ForwardRefExoticComponent<ButtonIconProps & RefAttributes<HTMLElement>>;
+  Icon: ForwardRefExoticComponent<ButtonIconProperties & RefAttributes<HTMLElement>>;
   /**
    * Component to display a shortcut indicator inside the button.
    */
-  Shortcut: ForwardRefExoticComponent<ButtonShortcutProps & RefAttributes<HTMLSpanElement>>;
+  Shortcut: ForwardRefExoticComponent<ButtonShortcutProperties & RefAttributes<HTMLSpanElement>>;
   /**
    * Component to display a loading spinner inside the button.
    */
-  Spinner: ForwardRefExoticComponent<ButtonSpinnerProps & RefAttributes<HTMLSpanElement>>;
+  Spinner: ForwardRefExoticComponent<ButtonSpinnerProperties & RefAttributes<HTMLSpanElement>>;
   /**
    * Component to group multiple buttons together.
    */
-  Group: ForwardRefExoticComponent<ButtonGroupProps & RefAttributes<HTMLDivElement>>;
+  Group: ForwardRefExoticComponent<ButtonGroupProperties & RefAttributes<HTMLDivElement>>;
 }

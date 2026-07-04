@@ -7,7 +7,7 @@ import type { ComponentProps } from 'react';
 
 import { createElement, forwardRef } from 'react';
 
-const defaultAttributes: LucideProps = {
+const defaultAttributes: LucideProperties = {
   fill: 'none',
   height: 24,
   stroke: 'currentColor',
@@ -22,18 +22,25 @@ const defaultAttributes: LucideProps = {
 type SVGElementType =
   'circle' | 'ellipse' | 'g' | 'line' | 'path' | 'polygon' | 'polyline' | 'rect';
 
-export interface LucideProps extends ComponentProps<'svg'> {
+export interface LucideProperties extends ComponentProps<'svg'> {
   size?: string | number;
 }
 
 export type IconNode = [elementName: SVGElementType, attrs: Record<string, string>][];
 
 const createLucideIcon = (iconName: string, iconNode: IconNode) => {
-  const Component = forwardRef<SVGSVGElement, LucideProps>(
-    ({ children, color = 'currentColor', size = 24, ...props }, ref) => {
+  const Component = forwardRef<SVGSVGElement, LucideProperties>(
+    ({ children, color = 'currentColor', size = 24, ...properties }, reference) => {
       return (
-        <svg ref={ref} {...defaultAttributes} height={size} stroke={color} width={size} {...props}>
-          {iconNode.map(([tag, attr]) => createElement(tag, attr))}
+        <svg
+          ref={reference}
+          {...defaultAttributes}
+          height={size}
+          stroke={color}
+          width={size}
+          {...properties}
+        >
+          {iconNode.map(([tag, attribute]) => createElement(tag, attribute))}
           {children}
         </svg>
       );

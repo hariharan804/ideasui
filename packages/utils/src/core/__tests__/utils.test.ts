@@ -54,10 +54,11 @@ describe('utils', () => {
     it('should return false for non-numeric values', () => {
       expect(isNumeric('abc')).toBe(false);
       expect(isNumeric(null)).toBe(false);
+      // eslint-disable-next-line unicorn/no-useless-undefined
       expect(isNumeric(undefined)).toBe(false);
       expect(isNumeric({})).toBe(false);
       expect(isNumeric([])).toBe(false);
-      expect(isNumeric(NaN)).toBe(false);
+      expect(isNumeric(Number.NaN)).toBe(false);
       expect(isNumeric(Infinity)).toBe(false);
     });
 
@@ -99,32 +100,32 @@ describe('utils', () => {
 
   describe('omit', () => {
     it('should omit specified keys', () => {
-      const obj = { a: 1, b: 2, c: 3 };
-      const result = omit(obj, ['b']);
+      const object = { a: 1, b: 2, c: 3 };
+      const result = omit(object, ['b']);
 
       expect(result).toStrictEqual({ a: 1, c: 3 });
     });
 
     it('should return new object', () => {
-      const obj = { a: 1, b: 2 };
-      const result = omit(obj, ['b']);
+      const object = { a: 1, b: 2 };
+      const result = omit(object, ['b']);
 
-      expect(result).not.toBe(obj);
+      expect(result).not.toBe(object);
     });
   });
 
   describe('pick', () => {
     it('should pick specified keys', () => {
-      const obj = { a: 1, b: 2, c: 3 };
-      const result = pick(obj, ['a', 'c']);
+      const object = { a: 1, b: 2, c: 3 };
+      const result = pick(object, ['a', 'c']);
 
       expect(result).toStrictEqual({ a: 1, c: 3 });
     });
 
     it('should ignore keys that do not exist', () => {
-      const obj = { a: 1, b: 2 };
+      const object = { a: 1, b: 2 };
       // @ts-ignore
-      const result = pick(obj, ['a', 'c']);
+      const result = pick(object, ['a', 'c']);
 
       expect(result).toStrictEqual({ a: 1 });
     });

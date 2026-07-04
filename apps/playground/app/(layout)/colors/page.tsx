@@ -67,7 +67,7 @@ export default function ColorsPage(): JSX.Element {
                 </h2>
 
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-5 lg:grid-cols-11">
-                  {Object.entries(colors[selectedTheme][category]).map(([shade, color], i) => {
+                  {Object.entries(colors[selectedTheme][category]).map(([shade, color], index) => {
                     const className = `bg-${category}-${shade}`;
                     const textClassName = `text-${category}-${shade}`;
                     const borderClassName = `border-${category}-${shade}`;
@@ -76,7 +76,7 @@ export default function ColorsPage(): JSX.Element {
                       <div
                         key={shade}
                         className="group/swatch animate-in fade-in zoom-in duration-500"
-                        style={{ animationDelay: `${i * 30}ms` }}
+                        style={{ animationDelay: `${index * 30}ms` }}
                       >
                         {/* Color Swatch */}
                         <div

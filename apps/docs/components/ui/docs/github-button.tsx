@@ -5,12 +5,12 @@ import { Star } from 'lucide-react';
 import { Github } from './icons';
 import { cn } from '@ideasui/utils';
 
-interface GitHubButtonProps {
+interface GitHubButtonProperties {
   repo: string;
   className?: string;
 }
 
-export function GitHubButton({ repo, className }: GitHubButtonProps) {
+export function GitHubButton({ repo, className }: GitHubButtonProperties) {
   const [stars, setStars] = useState<number | null>(null);
 
   useEffect(() => {

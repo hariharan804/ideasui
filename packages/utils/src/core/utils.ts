@@ -10,12 +10,12 @@ export function getUniqueID(prefix: string = 'ideasui'): string {
   const randomArray = new Uint32Array(1);
 
   globalThis.crypto.getRandomValues(randomArray);
-  const randomStr = randomArray[0]
+  const randomString = randomArray[0]
     .toString(RANDOM_STRING_BASE)
     .slice(0, ID_SUFFIX_LENGTH)
     .padEnd(ID_SUFFIX_LENGTH, '0');
 
-  return `${prefix}${Date.now()}-${randomStr}`;
+  return `${prefix}${Date.now()}-${randomString}`;
 }
 
 /**
@@ -40,7 +40,7 @@ export function isNumeric(value: unknown): value is number {
   }
 
   if (typeof value === 'string' && value.trim() !== '') {
-    return !isNaN(parseFloat(value)) && isFinite(Number(value));
+    return !isNaN(Number.parseFloat(value)) && isFinite(Number(value));
   }
 
   return false;
@@ -74,8 +74,8 @@ export function range(start: number, end?: number, step = 1): number[] {
 
   const result: number[] = [];
 
-  for (let i = rangeStart; i < rangeEnd; i += step) {
-    result.push(i);
+  for (let index = rangeStart; index < rangeEnd; index += step) {
+    result.push(index);
   }
 
   return result;
@@ -88,14 +88,14 @@ export function range(start: number, end?: number, step = 1): number[] {
  * @returns {Omit<T, K>} The object without the omitted keys
  */
 export function omit<T extends Record<string, unknown>, K extends keyof T>(
-  obj: T,
+  object: T,
   keys: K[],
 ): Omit<T, K> {
-  const result = { ...obj };
+  const result = { ...object };
 
-  keys.forEach((key) => {
+  for (const key of keys) {
     delete result[key];
-  });
+  }
 
   return result as Omit<T, K>;
 }
@@ -107,16 +107,16 @@ export function omit<T extends Record<string, unknown>, K extends keyof T>(
  * @returns {Pick<T, K>} The object with only the picked keys
  */
 export function pick<T extends Record<string, unknown>, K extends keyof T>(
-  obj: T,
+  object: T,
   keys: K[],
 ): Pick<T, K> {
   const result = {} as Pick<T, K>;
 
-  keys.forEach((key) => {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      result[key] = obj[key];
+  for (const key of keys) {
+    if (Object.prototype.hasOwnProperty.call(object, key)) {
+      result[key] = object[key];
     }
-  });
+  }
 
   return result;
 }

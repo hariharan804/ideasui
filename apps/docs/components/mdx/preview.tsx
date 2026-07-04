@@ -7,7 +7,7 @@ import { Source } from './source';
 
 import { getDemo } from '@/showcase';
 
-interface PreviewProps extends HTMLAttributes<HTMLDivElement> {
+interface PreviewProperties extends HTMLAttributes<HTMLDivElement> {
   name: string;
   align?: 'center' | 'start' | 'end';
   isBgSolid?: boolean;
@@ -24,8 +24,8 @@ export function Preview({
   isBgSolid = false,
   minHeight,
   name,
-  ...props
-}: PreviewProps) {
+  ...properties
+}: PreviewProperties) {
   const demo = getDemo(name);
 
   if (!demo) {
@@ -52,7 +52,7 @@ export function Preview({
       isBgSolid={isBgSolid}
       minHeight={minHeight}
       name={name}
-      {...props}
+      {...properties}
     >
       <Component />
       {!hideCode && !!demo.file && <Source language="tsx" name={name} title={name} />}

@@ -37,7 +37,7 @@ const componentRelationships: Record<string, string[]> = {
  * Get information about a specific component
  */
 export function getComponentInfo(componentName: string): ComponentInfo | undefined {
-  const normalizedName = componentName.toLowerCase().replace(/[\s_-]/g, '');
+  const normalizedName = componentName.toLowerCase().replaceAll(/[\s_-]/g, '');
 
   return componentsMap[normalizedName];
 }
@@ -46,7 +46,7 @@ export function getComponentInfo(componentName: string): ComponentInfo | undefin
  * Get related components for a specific component
  */
 export function getRelatedComponents(componentName: string): ComponentInfo[] {
-  const normalizedName = componentName.toLowerCase().replace(/[\s_-]/g, '');
+  const normalizedName = componentName.toLowerCase().replaceAll(/[\s_-]/g, '');
   const relationships = componentRelationships[normalizedName] || [];
 
   return relationships

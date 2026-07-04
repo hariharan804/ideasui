@@ -25,7 +25,7 @@ const full = [['light', Sun] as const, ['dark', Moon] as const, ['system', Airpl
 export function ThemeToggle({
   className,
   mode = 'light-dark',
-  ...props
+  ...properties
 }: ComponentProps<'div'> & {
   mode?: 'light-dark' | 'light-dark-system';
 }) {
@@ -67,7 +67,7 @@ export function ThemeToggle({
   const value = mounted ? theme : null;
 
   return (
-    <div className={container} data-theme-toggle="" {...props}>
+    <div className={container} data-theme-toggle="" {...properties}>
       {full.map(([key, Icon]) => (
         <button
           key={key}

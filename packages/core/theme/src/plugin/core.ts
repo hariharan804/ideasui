@@ -43,7 +43,7 @@ import {
   formatColorComponents,
 } from './utils';
 import { processColors } from './colors';
-import { generateCSSVarsFromTokenOverrides } from './css-vars';
+import { generateCSSVarsFromTokenOverrides as generateCSVariablesFromTokenOverrides } from './css-vars';
 
 // ─────────────────────────────────────────────────────────────
 // Core resolution logic
@@ -85,6 +85,59 @@ export function getColorScheme(themeName: string, extend?: string): string | und
   return undefined;
 }
 
+function processTokenAndSemanticOverrides(
+  designTokens: TokenOverrides | undefined,
+  semanticTokens: SemanticTokenOverrides | undefined,
+  prefix: string,
+  cssSelector: string,
+  resolved: ResolvedConfig,
+): void {
+  if (designTokens) {
+    const tokenVariables = generateCSVariablesFromTokenOverrides(designTokens, prefix);
+
+    resolved.utilities[cssSelector] = {
+      ...resolved.utilities[cssSelector],
+      ...tokenVariables,
+    };
+  }
+
+  if (semanticTokens) {
+    const semanticVariables = generateCSVariablesFromTokenOverrides(semanticTokens, prefix);
+
+    resolved.utilities[cssSelector] = {
+      ...resolved.utilities[cssSelector],
+      ...semanticVariables,
+    };
+  }
+}
+
+function processComponentOverrides(
+  components: unknown,
+  prefix: string,
+  cssSelector: string,
+  resolved: ResolvedConfig,
+): void {
+  if (!components) {
+    return;
+  }
+
+  const flatComponents = flattenThemeObject(components, 4) as Record<string, string>;
+  const componentVariables: Record<string, string> = {};
+
+  for (const [key, value] of Object.entries(flatComponents)) {
+    if (value !== undefined) {
+      const formattedKey = key.replaceAll(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+
+      componentVariables[`--${prefix}-${formattedKey}`] = value;
+    }
+  }
+
+  resolved.utilities[cssSelector] = {
+    ...resolved.utilities[cssSelector],
+    ...componentVariables,
+  };
+}
+
 /**
  * Resolves theme configuration into CSS variables, utilities, and base styles
  */
@@ -124,47 +177,11 @@ export function resolveConfig(
 
     processColors(flatColors, prefix, resolved, cssSelector, baseSelector);
 
-    // Process token overrides
-    if (designTokens) {
-      const tokenVars = generateCSSVarsFromTokenOverrides(designTokens, prefix);
-
-      resolved.utilities[cssSelector] = {
-        ...resolved.utilities[cssSelector],
-        ...tokenVars,
-      };
-    }
-
-    // Process semantic token overrides
-    if (semanticTokens) {
-      const semanticVars = generateCSSVarsFromTokenOverrides(semanticTokens, prefix);
-
-      resolved.utilities[cssSelector] = {
-        ...resolved.utilities[cssSelector],
-        ...semanticVars,
-      };
-    }
+    // Process token and semantic overrides
+    processTokenAndSemanticOverrides(designTokens, semanticTokens, prefix, cssSelector, resolved);
 
     // Process component overrides
-    if (components) {
-      // Flatten the components object to simple key-value pairs
-      // e.g. { button: { base: { backgroundColor: 'red' } } } -> { 'button-base-backgroundColor': 'red' }
-      const flatComponents = flattenThemeObject(components, 4) as Record<string, string>;
-      const componentVars: Record<string, string> = {};
-
-      Object.entries(flatComponents).forEach(([key, value]) => {
-        if (value !== undefined) {
-          // Convert camelCase CSS properties to kebab-case (e.g., backgroundColor -> background-color)
-          const formattedKey = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-
-          componentVars[`--${prefix}-${formattedKey}`] = value;
-        }
-      });
-
-      resolved.utilities[cssSelector] = {
-        ...resolved.utilities[cssSelector],
-        ...componentVars,
-      };
-    }
+    processComponentOverrides(components, prefix, cssSelector, resolved);
   }
 
   return resolved;
@@ -392,7 +409,52 @@ const SHADES = [
   '900',
   '950',
 ] as const;
-const CHROMA_FACTORS = [0.1, 0.18, 0.35, 0.55, 0.75, 1.0, 0.95, 0.85, 0.72, 0.55, 0.4] as const;
+const CHROMA_FACTORS = [0.1, 0.18, 0.35, 0.55, 0.75, 1, 0.95, 0.85, 0.72, 0.55, 0.4] as const;
+
+function findAnchorShade(presentShades: string[]): string {
+  let anchorShade = '500';
+  let minDiff = Infinity;
+
+  for (const shade of presentShades) {
+    const index = SHADES.indexOf(shade as (typeof SHADES)[number]);
+
+    if (index !== -1) {
+      const diff = Math.abs(index - 5);
+
+      if (diff < minDiff) {
+        minDiff = diff;
+        anchorShade = shade;
+      }
+    }
+  }
+
+  return anchorShade;
+}
+
+function interpolateLightness(
+  isDark: boolean,
+  index: number,
+  anchorIndex: number,
+  lAnchor: number,
+): number {
+  if (isDark) {
+    if (index < anchorIndex) {
+      return lAnchor - ((lAnchor - 0.14) * (anchorIndex - index)) / anchorIndex;
+    }
+    if (index > anchorIndex) {
+      return lAnchor + ((0.97 - lAnchor) * (index - anchorIndex)) / (10 - anchorIndex);
+    }
+  } else {
+    if (index < anchorIndex) {
+      return lAnchor + ((0.97 - lAnchor) * (anchorIndex - index)) / anchorIndex;
+    }
+    if (index > anchorIndex) {
+      return lAnchor - ((lAnchor - 0.14) * (index - anchorIndex)) / (10 - anchorIndex);
+    }
+  }
+
+  return lAnchor;
+}
 
 /**
  * Interpolates a single color family's shades based on the parsed anchor color.
@@ -408,22 +470,7 @@ export function generateColorScale(
   }
 
   // Find closest anchor shade to 500 (index 5)
-  let anchorShade = '500';
-  let minDiff = Infinity;
-
-  presentShades.forEach((shade) => {
-    const idx = SHADES.indexOf(shade as (typeof SHADES)[number]);
-
-    if (idx !== -1) {
-      const diff = Math.abs(idx - 5);
-
-      if (diff < minDiff) {
-        minDiff = diff;
-        anchorShade = shade;
-      }
-    }
-  });
-
+  const anchorShade = findAnchorShade(presentShades);
   const anchorValue = familyColors[anchorShade];
 
   if (!anchorValue) {
@@ -437,40 +484,26 @@ export function generateColorScale(
   }
 
   const [lAnchor, cAnchor, hAnchor] = parsed.components as [number, number, number];
-  const anchorIdx = SHADES.indexOf(anchorShade as (typeof SHADES)[number]);
+  const anchorIndex = SHADES.indexOf(anchorShade as (typeof SHADES)[number]);
 
-  if (anchorIdx === -1) {
+  if (anchorIndex === -1) {
     return familyColors;
   }
 
   const result = { ...familyColors };
 
-  SHADES.forEach((shade, idx) => {
+  for (const [index, shade] of SHADES.entries()) {
     if (familyColors[shade]) {
-      return;
+      continue;
     }
 
-    let lTarget = lAnchor;
+    let lTarget = interpolateLightness(isDark, index, anchorIndex, lAnchor);
 
-    if (isDark) {
-      if (idx < anchorIdx) {
-        lTarget = lAnchor - ((lAnchor - 0.14) * (anchorIdx - idx)) / anchorIdx;
-      } else if (idx > anchorIdx) {
-        lTarget = lAnchor + ((0.97 - lAnchor) * (idx - anchorIdx)) / (10 - anchorIdx);
-      }
-    } else {
-      if (idx < anchorIdx) {
-        lTarget = lAnchor + ((0.97 - lAnchor) * (anchorIdx - idx)) / anchorIdx;
-      } else if (idx > anchorIdx) {
-        lTarget = lAnchor - ((lAnchor - 0.14) * (idx - anchorIdx)) / (10 - anchorIdx);
-      }
-    }
+    lTarget = Math.round(lTarget * 10_000) / 10_000;
 
-    lTarget = Math.round(lTarget * 10000) / 10000;
-
-    const anchorFactor = CHROMA_FACTORS[anchorIdx];
-    const targetFactor = CHROMA_FACTORS[idx];
-    const cTarget = Math.round(cAnchor * (targetFactor / anchorFactor) * 10000) / 10000;
+    const anchorFactor = CHROMA_FACTORS[anchorIndex];
+    const targetFactor = CHROMA_FACTORS[index];
+    const cTarget = Math.round(cAnchor * (targetFactor / anchorFactor) * 10_000) / 10_000;
 
     const targetComponents: (string | number)[] = [lTarget, cTarget, hAnchor];
 
@@ -479,7 +512,7 @@ export function generateColorScale(
     }
 
     result[shade] = `oklch(${formatColorComponents(targetComponents)})`;
-  });
+  }
 
   return result;
 }
@@ -494,7 +527,7 @@ export function autoGenerateColorScales(
   const result = { ...flatUserColors };
   const overridesByFamily: Record<string, Record<string, string>> = {};
 
-  for (const [key, val] of Object.entries(flatUserColors)) {
+  for (const [key, value] of Object.entries(flatUserColors)) {
     const match = /^([a-z]+)-(\d+)$/i.exec(key);
 
     if (match) {
@@ -503,7 +536,7 @@ export function autoGenerateColorScales(
       if (!overridesByFamily[family]) {
         overridesByFamily[family] = {};
       }
-      overridesByFamily[family][shade] = val;
+      overridesByFamily[family][shade] = value;
     }
   }
 
@@ -513,8 +546,8 @@ export function autoGenerateColorScales(
     if (keys.length > 0 && keys.length < SHADES.length) {
       const completeScale = generateColorScale(shades, isDark);
 
-      for (const [shade, val] of Object.entries(completeScale)) {
-        result[`${family}-${shade}`] = val;
+      for (const [shade, value] of Object.entries(completeScale)) {
+        result[`${family}-${shade}`] = value;
       }
     }
   }

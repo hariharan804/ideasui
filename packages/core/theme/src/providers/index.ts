@@ -4,7 +4,7 @@
  */
 
 export { ThemeProvider } from './theme-provider';
-export type { ThemeProviderProps } from './theme-provider';
+export type { ThemeProviderProperties as ThemeProviderProps } from './theme-provider';
 export { useTheme } from './use-theme';
 export { ThemeScript } from './theme-script';
-export type { ThemeScriptProps, ThemeScriptConfig } from './types';
+export type { ThemeScriptProperties as ThemeScriptProps, ThemeScriptConfig } from './types';

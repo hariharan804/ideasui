@@ -6,7 +6,7 @@ import type { GetSidebarTabsOptions } from 'fumadocs-ui/components/sidebar/tabs'
 import type { SidebarTabWithProps } from 'fumadocs-ui/components/sidebar/tabs/dropdown';
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import type { HTMLAttributes, ReactNode, FC, ComponentProps } from 'react';
-import type { LayoutHeaderTabsProps } from './header';
+import type { LayoutHeaderTabsProps as LayoutHeaderTabsProperties } from './header';
 
 import { useMemo } from 'react';
 import { getSidebarTabs } from 'fumadocs-ui/components/sidebar/tabs';
@@ -43,13 +43,13 @@ interface SidebarOptions
     Pick<ComponentProps<typeof Sidebar>, 'defaultOpenLevel' | 'prefetch'> {
   components?: Record<string, FC>;
   tabs?: SidebarTabWithProps[] | GetSidebarTabsOptions | false;
-  headerTabsProps?: LayoutHeaderTabsProps;
+  headerTabsProps?: LayoutHeaderTabsProperties;
   banner?: ReactNode | FC<ComponentProps<'div'>>;
   footer?: ReactNode | FC<ComponentProps<'div'>>;
   collapsible?: boolean;
 }
 
-export function DocsLayout(props: DocsLayoutProps) {
+export function DocsLayout(properties: DocsLayoutProps) {
   const {
     // eslint-disable-next-line sonarjs/deprecation
     i18n = false,
@@ -59,16 +59,16 @@ export function DocsLayout(props: DocsLayoutProps) {
       headerTabsProps,
       prefetch,
       tabs: tabOptions,
-      ...sidebarProps
+      ...sidebarProperties
     } = {},
     tabMode = 'sidebar',
     themeSwitch = {},
     tree,
     containerProps,
     children,
-  } = props;
+  } = properties;
 
-  const links = resolveLinkItems(props);
+  const links = resolveLinkItems(properties);
   const tabs = useMemo(() => {
     if (Array.isArray(tabOptions)) {
       return tabOptions;
@@ -96,12 +96,17 @@ export function DocsLayout(props: DocsLayoutProps) {
               i18n={i18n}
               links={links}
               nav={nav}
-              sidebarProps={sidebarProps}
+              sidebarProps={sidebarProperties}
               tabMode={tabMode}
               tabs={tabs}
               themeSwitch={themeSwitch}
             />
-            <DocsNavbar {...props} headerTabsProps={headerTabsProps} links={links} tabs={tabs} />
+            <DocsNavbar
+              {...properties}
+              headerTabsProps={headerTabsProps}
+              links={links}
+              tabs={tabs}
+            />
             {children}
           </LayoutBody>
         </Sidebar>

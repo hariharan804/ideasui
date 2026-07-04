@@ -6,15 +6,15 @@ import { defaultConfig } from './themes.config';
 export const disableTransitions = (): void => {
   const style = document.createElement('style');
 
-  style.appendChild(document.createTextNode('*{transition:none!important}'));
-  document.head.appendChild(style);
+  style.append(document.createTextNode('*{transition:none!important}'));
+  document.head.append(style);
 
   // Force reflow
   // eslint-disable-next-line sonarjs/void-use
-  void window.getComputedStyle(document.body);
+  void globalThis.getComputedStyle(document.body);
 
   setTimeout(() => {
-    document.head.removeChild(style);
+    style.remove();
   }, 1);
 };
 
@@ -22,18 +22,18 @@ export const disableTransitions = (): void => {
  * Applies the resolved theme to the DOM
  */
 export const applyThemeToDOM = (resolved: string, darkThemeName: string): void => {
-  if (typeof window === 'undefined') {
+  if (globalThis.window === undefined) {
     return;
   }
 
-  const el = document.documentElement;
+  const element = document.documentElement;
 
   disableTransitions();
 
-  el.setAttribute(defaultConfig.attribute, resolved);
+  element.setAttribute(defaultConfig.attribute, resolved);
 
   // Native browser UI theming
   const colorScheme = resolved === darkThemeName ? 'dark' : 'light';
 
-  el.style.setProperty('color-scheme', colorScheme);
+  element.style.setProperty('color-scheme', colorScheme);
 };

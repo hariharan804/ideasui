@@ -18,7 +18,7 @@ module.exports = {
   // JavaScript/TypeScript - ESLint + Prettier
   '*.{js,cjs,mjs,ts,tsx,jsx}': async (files) => {
     const filtered = await filterIgnored(files);
-    if (!filtered.length) return [];
+    if (filtered.length === 0) return [];
     const fileList = filtered.join(' ');
     return [`eslint --max-warnings=0 --fix ${fileList}`, `prettier --write ${fileList}`];
   },

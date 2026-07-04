@@ -6,12 +6,12 @@ import { Item } from './item';
 
 import { getRelatedComponents } from '@/components-registry';
 
-interface RelatedProps {
+interface RelatedProperties {
   component: string;
   className?: string;
 }
 
-export function Related({ className, component }: RelatedProps) {
+export function Related({ className, component }: RelatedProperties) {
   const relatedComponents = getRelatedComponents(component)?.slice(0, 3);
 
   if (!relatedComponents || relatedComponents.length === 0) {

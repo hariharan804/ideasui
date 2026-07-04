@@ -12,7 +12,7 @@ import { ButtonGroupContext } from './button-group-context';
  * ButtonGroup Component
  * ---------------------------------------------------------------------------------------------*/
 
-export interface ButtonGroupProps
+export interface ButtonGroupProperties
   extends Omit<HTMLAttributes<HTMLDivElement>, 'color'>, ButtonGroupContextType {
   /**
    * Whether the buttons in the group should be vertical.
@@ -35,7 +35,7 @@ export interface ButtonGroupProps
   children: ReactNode;
 }
 
-export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
+export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProperties>(
   (
     {
       children,
@@ -51,9 +51,9 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
       disableAnimation = true,
       showDivider,
       isIconOnly,
-      ...props
+      ...properties
     },
-    ref,
+    reference,
   ): JSX.Element => {
     const contextValue = {
       size,
@@ -86,14 +86,14 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
     return (
       <ButtonGroupContext.Provider value={contextValue}>
         <div
-          ref={ref}
+          ref={reference}
           className={groupClasses}
           data-attached={isAttached}
           data-full-width={fullWidth}
           data-slot="button-group"
           data-vertical={isVertical}
           role="group"
-          {...props}
+          {...properties}
         >
           {children}
         </div>

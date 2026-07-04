@@ -1,17 +1,17 @@
 'use client';
 
-import type { ButtonProps } from './button.types';
+import type { ButtonProps as ButtonProperties } from './button.types';
 
 import { createContext, useContext } from 'react';
 
 export interface ButtonGroupContextType {
-  size?: ButtonProps['size'];
-  color?: ButtonProps['color'];
-  variant?: ButtonProps['variant'];
+  size?: ButtonProperties['size'];
+  color?: ButtonProperties['color'];
+  variant?: ButtonProperties['variant'];
   isDisabled?: boolean;
   isAttached?: boolean;
   isVertical?: boolean;
-  radius?: ButtonProps['radius'];
+  radius?: ButtonProperties['radius'];
   fullWidth?: boolean;
   disableAnimation?: boolean;
   showDivider?: boolean;

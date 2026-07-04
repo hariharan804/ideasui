@@ -3,107 +3,107 @@ import type { Mock } from 'vitest';
 import { vi } from 'vitest';
 
 import { cn } from '../../style/tailwind';
-import { mergeProps, mergeRefs } from '../common';
+import { mergeProps as mergeProperties, mergeRefs as mergeReferences } from '../common';
 
 // Mock cn since it's a tailwind utility
 vi.mock('../../style/tailwind', () => ({
-  cn: vi.fn((...args: any[]) => args.filter(Boolean).join(' ')),
+  cn: vi.fn((...arguments_: any[]) => arguments_.filter(Boolean).join(' ')),
 }));
 
 describe('mergeRefs', () => {
   it('should merge function refs', () => {
-    const ref1 = vi.fn();
-    const ref2 = vi.fn();
+    const reference1 = vi.fn();
+    const reference2 = vi.fn();
     const node = {};
 
-    const merged = mergeRefs(ref1, ref2);
+    const merged = mergeReferences(reference1, reference2);
 
     merged(node);
 
-    expect(ref1).toHaveBeenCalledWith(node);
-    expect(ref2).toHaveBeenCalledWith(node);
+    expect(reference1).toHaveBeenCalledWith(node);
+    expect(reference2).toHaveBeenCalledWith(node);
   });
 
   it('should merge object refs', () => {
-    const ref1 = { current: null };
-    const ref2 = { current: null };
+    const reference1 = { current: null };
+    const reference2 = { current: null };
     const node = {};
 
-    const merged = mergeRefs<any>(ref1, ref2);
+    const merged = mergeReferences<any>(reference1, reference2);
 
     merged(node);
 
-    expect(ref1.current).toBe(node);
-    expect(ref2.current).toBe(node);
+    expect(reference1.current).toBe(node);
+    expect(reference2.current).toBe(node);
   });
 
   it('should handle null/undefined refs', () => {
-    const ref1 = vi.fn();
+    const reference1 = vi.fn();
     const node = {};
 
     // @ts-ignore - testing runtime safety
-    const merged = mergeRefs(ref1, null, undefined);
+    const merged = mergeReferences(reference1, null);
 
     merged(node);
 
-    expect(ref1).toHaveBeenCalledWith(node);
+    expect(reference1).toHaveBeenCalledWith(node);
   });
 });
 
 describe('mergeProps', () => {
   it('should merge className using cn', () => {
-    const props1 = { className: 'foo' };
-    const props2 = { className: 'bar' };
+    const properties1 = { className: 'foo' };
+    const properties2 = { className: 'bar' };
 
     // reset mock to check calls if needed, or just rely on the implementation
     (cn as unknown as Mock).mockReturnValue('foo bar');
 
-    const result = mergeProps(props1, props2);
+    const result = mergeProperties(properties1, properties2);
 
     expect(result.className).toBe('foo bar');
   });
 
   it('should merge style objects', () => {
-    const props1 = { style: { color: 'red' } };
-    const props2 = { style: { background: 'blue' } };
+    const properties1 = { style: { color: 'red' } };
+    const properties2 = { style: { background: 'blue' } };
 
-    const result = mergeProps(props1, props2);
+    const result = mergeProperties(properties1, properties2);
 
     expect(result.style).toStrictEqual({ color: 'red', background: 'blue' });
   });
 
   it('should merge nested styles properly', () => {
-    const props1 = { style: { color: 'red' } };
-    const props2 = { style: { color: 'blue' } };
-    const result = mergeProps(props1, props2);
+    const properties1 = { style: { color: 'red' } };
+    const properties2 = { style: { color: 'blue' } };
+    const result = mergeProperties(properties1, properties2);
 
     expect(result.style).toStrictEqual({ color: 'blue' });
   });
 
   it('should merge ref callbacks', () => {
-    const ref1 = vi.fn();
-    const ref2 = vi.fn();
+    const reference1 = vi.fn();
+    const reference2 = vi.fn();
     const node = {};
 
-    const props1 = { ref: ref1 };
-    const props2 = { ref: ref2 };
+    const properties1 = { ref: reference1 };
+    const properties2 = { ref: reference2 };
 
-    const result = mergeProps(props1, props2);
+    const result = mergeProperties(properties1, properties2);
 
     result.ref(node);
 
-    expect(ref1).toHaveBeenCalledWith(node);
-    expect(ref2).toHaveBeenCalledWith(node);
+    expect(reference1).toHaveBeenCalledWith(node);
+    expect(reference2).toHaveBeenCalledWith(node);
   });
 
   it('should chain event handlers', () => {
     const handler1 = vi.fn();
     const handler2 = vi.fn();
 
-    const props1 = { onClick: handler1 };
-    const props2 = { onClick: handler2 };
+    const properties1 = { onClick: handler1 };
+    const properties2 = { onClick: handler2 };
 
-    const result = mergeProps(props1, props2);
+    const result = mergeProperties(properties1, properties2);
 
     result.onClick('event');
 
@@ -112,18 +112,18 @@ describe('mergeProps', () => {
   });
 
   it('should override normal props', () => {
-    const props1 = { id: 'foo', 'data-test': '1' };
-    const props2 = { id: 'bar' };
+    const properties1 = { id: 'foo', 'data-test': '1' };
+    const properties2 = { id: 'bar' };
 
-    const result = mergeProps(props1, props2);
+    const result = mergeProperties(properties1, properties2);
 
     expect(result.id).toBe('bar');
     expect(result['data-test']).toBe('1');
   });
 
   it('should handle undefined/null input objects', () => {
-    const props1 = { id: 'foo' };
-    const result = mergeProps(props1, undefined, undefined);
+    const properties1 = { id: 'foo' };
+    const result = mergeProperties(properties1);
 
     expect(result.id).toBe('foo');
   });

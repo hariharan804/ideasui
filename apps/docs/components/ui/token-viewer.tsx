@@ -29,11 +29,8 @@ interface TokenItem {
   previewType: 'color' | 'text' | 'spacing' | 'shadow' | 'radius' | 'none';
 }
 
-const parseTokens = (): TokenItem[] => {
-  const items: TokenItem[] = [];
-
-  // Colors (Semantic, Surface, Content)
-  Object.entries(semantic).forEach(([key, value]) => {
+const parseColors = (items: TokenItem[]): void => {
+  for (const [key, value] of Object.entries(semantic)) {
     items.push({
       name: key,
       value: value as string,
@@ -43,8 +40,8 @@ const parseTokens = (): TokenItem[] => {
       subCategory: 'Semantic',
       previewType: 'color',
     });
-  });
-  Object.entries(surface).forEach(([key, value]) => {
+  }
+  for (const [key, value] of Object.entries(surface)) {
     items.push({
       name: key,
       value: value as string,
@@ -54,8 +51,8 @@ const parseTokens = (): TokenItem[] => {
       subCategory: 'Surface',
       previewType: 'color',
     });
-  });
-  Object.entries(content).forEach(([key, value]) => {
+  }
+  for (const [key, value] of Object.entries(content)) {
     items.push({
       name: `content-${key}`,
       value: value as string,
@@ -65,10 +62,11 @@ const parseTokens = (): TokenItem[] => {
       subCategory: 'Content',
       previewType: 'color',
     });
-  });
+  }
+};
 
-  // Spacing
-  Object.entries(spacing).forEach(([key, value]) => {
+const parseSpacing = (items: TokenItem[]): void => {
+  for (const [key, value] of Object.entries(spacing)) {
     items.push({
       name: key,
       value: value as string,
@@ -77,20 +75,20 @@ const parseTokens = (): TokenItem[] => {
       category: 'Spacing',
       previewType: 'spacing',
     });
-  });
+  }
+};
 
-  // Typography
-  Object.entries(fontSize).forEach(([key, value]) => {
+const parseTypography = (items: TokenItem[]): void => {
+  for (const [key, value] of Object.entries(fontSize)) {
     let displayValue = String(value);
     let previewSize = String(value);
 
     if (Array.isArray(value)) {
       previewSize = String(value[0]);
-      if (typeof value[1] === 'object' && value[1] !== null && 'lineHeight' in value[1]) {
-        displayValue = `${value[0]} / ${value[1].lineHeight}`;
-      } else {
-        displayValue = String(value[0]);
-      }
+      displayValue =
+        typeof value[1] === 'object' && value[1] !== null && 'lineHeight' in value[1]
+          ? `${value[0]} / ${value[1].lineHeight}`
+          : String(value[0]);
     }
 
     items.push({
@@ -101,8 +99,8 @@ const parseTokens = (): TokenItem[] => {
       category: 'Typography',
       previewType: 'text',
     });
-  });
-  Object.entries(fontWeight).forEach(([key, value]) => {
+  }
+  for (const [key, value] of Object.entries(fontWeight)) {
     items.push({
       name: key,
       value: String(value),
@@ -111,10 +109,11 @@ const parseTokens = (): TokenItem[] => {
       category: 'Typography',
       previewType: 'text',
     });
-  });
+  }
+};
 
-  // Radius
-  Object.entries(borderRadius).forEach(([key, value]) => {
+const parseRadiusAndShadows = (items: TokenItem[]): void => {
+  for (const [key, value] of Object.entries(borderRadius)) {
     items.push({
       name: key,
       value: value as string,
@@ -123,10 +122,8 @@ const parseTokens = (): TokenItem[] => {
       category: 'Radius',
       previewType: 'radius',
     });
-  });
-
-  // Shadows
-  Object.entries(lightShadow).forEach(([key, value]) => {
+  }
+  for (const [key, value] of Object.entries(lightShadow)) {
     items.push({
       name: key,
       value: value as string,
@@ -135,10 +132,11 @@ const parseTokens = (): TokenItem[] => {
       category: 'Shadows',
       previewType: 'shadow',
     });
-  });
+  }
+};
 
-  // Effects
-  Object.entries(opacity).forEach(([key, value]) => {
+const parseEffects = (items: TokenItem[]): void => {
+  for (const [key, value] of Object.entries(opacity)) {
     items.push({
       name: key,
       value: String(value),
@@ -147,8 +145,8 @@ const parseTokens = (): TokenItem[] => {
       category: 'Effects',
       previewType: 'none',
     });
-  });
-  Object.entries(blur).forEach(([key, value]) => {
+  }
+  for (const [key, value] of Object.entries(blur)) {
     items.push({
       name: `blur-${key}`,
       value: value as string,
@@ -157,7 +155,17 @@ const parseTokens = (): TokenItem[] => {
       category: 'Effects',
       previewType: 'none',
     });
-  });
+  }
+};
+
+const parseTokens = (): TokenItem[] => {
+  const items: TokenItem[] = [];
+
+  parseColors(items);
+  parseSpacing(items);
+  parseTypography(items);
+  parseRadiusAndShadows(items);
+  parseEffects(items);
 
   return items;
 };

@@ -5,7 +5,7 @@ import type { HTMLAttributes, PropsWithChildren, ReactElement } from 'react';
 import { Children } from 'react';
 import { cn } from '@ideasui/utils';
 
-interface ComponentPreviewContainerProps extends HTMLAttributes<HTMLDivElement> {
+interface ComponentPreviewContainerProperties extends HTMLAttributes<HTMLDivElement> {
   align?: 'center' | 'start' | 'end';
   minHeight?: string;
   isBgSolid?: boolean;
@@ -24,8 +24,8 @@ export function ComponentPreviewContainer({
   minHeight,
   name,
   style,
-  ...props
-}: PropsWithChildren<ComponentPreviewContainerProps>) {
+  ...properties
+}: PropsWithChildren<ComponentPreviewContainerProperties>) {
   const [Component, Code] = Children.toArray(children) as ReactElement[];
 
   const alignmentClasses = {
@@ -42,7 +42,7 @@ export function ComponentPreviewContainer({
       )}
       data-name={name}
       style={{ ...style, contain: style?.contain ?? 'content' }}
-      {...props}
+      {...properties}
     >
       {!!description && <p className="text-muted-foreground mb-2 text-sm">{description}</p>}
 
@@ -51,7 +51,7 @@ export function ComponentPreviewContainer({
         className={cn(
           'preview not-prose relative flex w-full overflow-hidden p-6 sm:p-10',
           alignmentClasses[align],
-          !isBgSolid ? 'bg-background' : 'bg-surface-subtle',
+          isBgSolid ? 'bg-surface-subtle' : 'bg-background',
         )}
         style={{ minHeight: minHeight || '220px' }}
       >

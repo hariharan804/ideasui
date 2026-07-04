@@ -11,7 +11,7 @@ import { cn } from '@ideasui/utils';
 
 import { Search } from '@/components/ui/docs/icons';
 
-interface SearchToggleProps extends Omit<ComponentProps<'button'>, 'color'>, ButtonProps {
+interface SearchToggleProperties extends Omit<ComponentProps<'button'>, 'color'>, ButtonProps {
   hideIfDisabled?: boolean;
 }
 
@@ -19,8 +19,8 @@ export function SearchToggle({
   color = 'ghost',
   hideIfDisabled,
   size = 'icon-sm',
-  ...props
-}: SearchToggleProps) {
+  ...properties
+}: SearchToggleProperties) {
   const { enabled, setOpenSearch } = useSearchContext();
 
   if (hideIfDisabled && !enabled) {
@@ -35,7 +35,7 @@ export function SearchToggle({
           color,
           size,
         }),
-        props.className,
+        properties.className,
       )}
       data-search=""
       type="button"
@@ -50,14 +50,14 @@ export function SearchToggle({
 
 export function DynamicSearchToggle({
   hideIfDisabled,
-  ...props
+  ...properties
 }: ComponentProps<'button'> & {
   hideIfDisabled?: boolean;
 }) {
   const { enabled, hotKey, setOpenSearch } = useSearchContext();
   const t = useTranslations({ note: 'search trigger' });
-  const textRef = useRef<HTMLSpanElement>(null);
-  const cursorRef = useRef<HTMLSpanElement>(null);
+  const textReference = useRef<HTMLSpanElement>(null);
+  const cursorReference = useRef<HTMLSpanElement>(null);
 
   const placeholders = useMemo(
     () => [
@@ -82,19 +82,19 @@ export function DynamicSearchToggle({
       const currentPhrase = placeholders[placeholderIndex];
 
       if (isDeleting) {
-        displayText = currentPhrase.substring(0, displayText.length - 1);
+        displayText = currentPhrase.slice(0, Math.max(0, displayText.length - 1));
         typingSpeed = 50;
       } else {
-        displayText = currentPhrase.substring(0, displayText.length + 1);
+        displayText = currentPhrase.slice(0, Math.max(0, displayText.length + 1));
         typingSpeed = 100;
       }
 
-      if (textRef.current) {
-        textRef.current.textContent = displayText;
+      if (textReference.current) {
+        textReference.current.textContent = displayText;
       }
 
-      if (cursorRef.current) {
-        cursorRef.current.style.display = displayText ? 'inline-block' : 'none';
+      if (cursorReference.current) {
+        cursorReference.current.style.display = displayText ? 'inline-block' : 'none';
       }
 
       if (!isDeleting && displayText === currentPhrase) {
@@ -123,10 +123,10 @@ export function DynamicSearchToggle({
     <button
       data-search-full=""
       type="button"
-      {...props}
+      {...properties}
       className={cn(
         'group bg-background text-content-secondary hover:text-content-primary inline-flex w-full max-w-[320px] items-center gap-2.5 rounded px-2 py-1.5 text-sm shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md',
-        props.className,
+        properties.className,
       )}
       onClick={() => {
         setOpenSearch(true);
@@ -134,9 +134,9 @@ export function DynamicSearchToggle({
     >
       <Search className="size-4 opacity-70 transition-opacity duration-300 group-hover:scale-110 group-hover:opacity-100" />
       <span className="text-content-secondary/70 relative font-medium transition-all duration-300">
-        <span ref={textRef} />
+        <span ref={textReference} />
         <span
-          ref={cursorRef}
+          ref={cursorReference}
           className="bg-content-tertiary absolute top-[2px] ml-0.5 inline-block h-[14px] w-0.5 animate-pulse rounded-xs"
         />
       </span>

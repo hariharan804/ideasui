@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/numeric-separators-style */
 import type { ParsedColor } from '../types';
 
 import { flatten } from 'flat';
@@ -7,7 +8,7 @@ import Color from 'color';
 // Semantic Token Configuration
 // ─────────────────────────────────────────────────────────────
 
-const SRGB_TO_LINEAR_THRESHOLD = 0.04045;
+const SRGB_TO_LINEAR_THRESHOLD = 0.040_45;
 const SRGB_TO_LINEAR_DIVISOR = 12.92;
 const SRGB_TO_LINEAR_OFFSET = 0.055;
 const SRGB_TO_LINEAR_SCALAR = 1.055;
@@ -17,27 +18,30 @@ const RGB_MAX_VALUE = 255;
 const L_COEFF_LR = 0.4122214708;
 const L_COEFF_LG = 0.5363325363;
 const L_COEFF_LB = 0.0514459929;
+
 const M_COEFF_LR = 0.2119034982;
 const M_COEFF_LG = 0.6806995451;
 const M_COEFF_LB = 0.1073969566;
+
 const S_COEFF_LR = 0.0883024619;
 const S_COEFF_LG = 0.2817188376;
 const S_COEFF_LB = 0.6299787005;
 
 const OKLAB_L_COEFF_L = 0.2104542553;
 const OKLAB_L_COEFF_M = 0.793617785;
-const OKLAB_L_COEFF_S = 0.0040720468;
+const OKLAB_L_COEFF_S = -0.0040720468;
+
 const OKLAB_A_COEFF_L = 1.9779984951;
-const OKLAB_A_COEFF_M = 2.428592205;
+const OKLAB_A_COEFF_M = -2.428592205;
 const OKLAB_A_COEFF_S = 0.4505937099;
+
 const OKLAB_B_COEFF_L = 0.0259040371;
 const OKLAB_B_COEFF_M = 0.7827717662;
-const OKLAB_B_COEFF_S = 0.808675766;
-
+const OKLAB_B_COEFF_S = -0.808675766;
 const DEGREES_180 = 180;
 const DEGREES_360 = 360;
 
-const PRECISION_4 = 10000;
+const PRECISION_4 = 10_000;
 const PRECISION_2 = 100;
 
 /**
@@ -45,8 +49,8 @@ const PRECISION_2 = 100;
  * @param {string} str - The string to convert
  * @returns {string} The kebab-cased string
  */
-export const kebabCase = (str: string): string =>
-  str.replace(/([\da-z])([A-Z])/g, '$1-$2').toLowerCase();
+export const kebabCase = (string_: string): string =>
+  string_.replaceAll(/([\da-z])([A-Z])/g, '$1-$2').toLowerCase();
 
 /**
  * Omits keys from an object
@@ -54,12 +58,12 @@ export const kebabCase = (str: string): string =>
  * @param {string[]} keys - The keys to omit
  * @returns {Partial<T>} A new object with keys omitted
  */
-export function omit<T extends Record<string, unknown>>(obj: T, keys: string[]): Partial<T> {
-  const result = { ...obj };
+export function omit<T extends Record<string, unknown>>(object: T, keys: string[]): Partial<T> {
+  const result = { ...object };
 
-  keys.forEach((key) => {
+  for (const key of keys) {
     delete result[key];
-  });
+  }
 
   return result;
 }
@@ -71,14 +75,14 @@ export function omit<T extends Record<string, unknown>>(obj: T, keys: string[]):
  * @returns {Record<string, T>} A new object with mapped keys
  */
 export function mapKeys<T>(
-  obj: Record<string, T>,
+  object: Record<string, T>,
   callback: (value: T, key: string) => string,
 ): Record<string, T> {
   const result: Record<string, T> = {};
 
-  Object.entries(obj).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(object)) {
     result[callback(value, key)] = value;
-  });
+  }
 
   return result;
 }
@@ -88,12 +92,12 @@ export function mapKeys<T>(
  * @param {string} str - The string to escape
  * @returns {string} The escaped selector string
  */
-export const escapeSelector = (str: string): string => {
+export const escapeSelector = (string_: string): string => {
   if (typeof CSS !== 'undefined' && CSS.escape) {
-    return CSS.escape(str);
+    return CSS.escape(string_);
   }
 
-  return str.replace(/([^\w-])/g, '\\$1');
+  return string_.replaceAll(/([^\w-])/g, String.raw`\$1`);
 };
 
 /**
@@ -103,10 +107,10 @@ export const escapeSelector = (str: string): string => {
  * @returns {Record<string, unknown>} The flattened theme object
  */
 export const flattenThemeObject = <TTarget>(
-  obj: TTarget,
+  object: TTarget,
   maxDepth?: number,
 ): Record<string, unknown> => {
-  return flatten(obj, {
+  return flatten(object, {
     safe: true,
     delimiter: '-',
     maxDepth,
@@ -161,7 +165,7 @@ export function rgbToOklch(r: number, g: number, b: number): [number, number, nu
   const bOk = OKLAB_B_COEFF_L * l + OKLAB_B_COEFF_M * m - OKLAB_B_COEFF_S * s;
 
   // Convert Oklab to OKLCH
-  const C = Math.sqrt(a * a + bOk * bOk);
+  const C = Math.hypot(a, bOk);
   let H = (Math.atan2(bOk, a) * DEGREES_180) / Math.PI;
 
   if (H < 0) {
@@ -188,10 +192,10 @@ export function parseColorValue(colorValue: string): ParsedColor | null {
     // Handle oklch input - pass through directly
     if (trimmed.startsWith('oklch(')) {
       // Handle oklch(var(--variable)) specifically
-      const oklchVarMatch = /oklch\((var\(--[^)]+\))\)/.exec(trimmed);
+      const oklchVariableMatch = /oklch\((var\(--[^)]+\))\)/.exec(trimmed);
 
-      if (oklchVarMatch) {
-        return { cssFn: 'var', components: [oklchVarMatch[1]] };
+      if (oklchVariableMatch) {
+        return { cssFn: 'var', components: [oklchVariableMatch[1]] };
       }
 
       const match = /oklch\(([^)]+)\)/.exec(trimmed);

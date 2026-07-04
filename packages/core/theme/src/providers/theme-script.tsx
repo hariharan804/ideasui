@@ -1,4 +1,4 @@
-import type { ThemeScriptConfig, ThemeScriptProps } from './types';
+import type { ThemeScriptConfig, ThemeScriptProperties } from './types';
 
 import { memo, useMemo } from 'react';
 
@@ -7,11 +7,11 @@ import { defaultConfig } from './utils/themes.config';
 
 const THEME_MAX_LENGTH = 50;
 
-const isValidString = (str: unknown): str is string =>
-  typeof str === 'string' &&
-  /^[\w.:-]+$/.test(str) &&
-  str.length > 0 &&
-  str.length < THEME_MAX_LENGTH;
+const isValidString = (string_: unknown): string_ is string =>
+  typeof string_ === 'string' &&
+  /^[\w.:-]+$/.test(string_) &&
+  string_.length > 0 &&
+  string_.length < THEME_MAX_LENGTH;
 
 const validateThemeConfig = (config: ThemeScriptConfig): ThemeScriptConfig => {
   const validThemes = Array.isArray(config.themes)
@@ -31,18 +31,18 @@ const validateThemeConfig = (config: ThemeScriptConfig): ThemeScriptConfig => {
   };
 };
 
-export const ThemeScript = memo<ThemeScriptProps>((props) => {
-  const { nonce, scriptProps, id = 'ideasui-theme-script', ...themeProps } = props;
+export const ThemeScript = memo<ThemeScriptProperties>((properties) => {
+  const { nonce, scriptProps, id = 'ideasui-theme-script', ...themeProperties } = properties;
 
   const script = useMemo(() => {
     const merged: ThemeScriptConfig = {
       ...defaultConfig,
-      ...themeProps,
-      themes: Array.from(new Set([...(defaultConfig.themes || []), ...(themeProps.themes || [])])),
+      ...themeProperties,
+      themes: [...new Set([...(defaultConfig.themes || []), ...(themeProperties.themes || [])])],
     };
 
     return createScript(validateThemeConfig(merged));
-  }, [themeProps]);
+  }, [themeProperties]);
 
   return (
     <script

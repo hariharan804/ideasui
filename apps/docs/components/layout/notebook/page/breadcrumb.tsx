@@ -17,7 +17,7 @@ export function PageBreadcrumb({
   includePage,
   includeRoot,
   includeSeparator,
-  ...props
+  ...properties
 }: BreadcrumbProps) {
   const path = useTreePath();
   const { root } = useTreeContext();
@@ -35,15 +35,18 @@ export function PageBreadcrumb({
 
   return (
     <div
-      {...props}
-      className={cn('text-content-secondary flex items-center gap-1.5 text-sm', props.className)}
+      {...properties}
+      className={cn(
+        'text-content-secondary flex items-center gap-1.5 text-sm',
+        properties.className,
+      )}
     >
-      {items.map((item, i) => {
-        const className = cn('truncate', i === items.length - 1 && 'font-medium text-primary');
+      {items.map((item, index) => {
+        const className = cn('truncate', index === items.length - 1 && 'font-medium text-primary');
 
         return (
-          <Fragment key={i}>
-            {i !== 0 && <ChevronRight className="size-3.5 shrink-0" />}
+          <Fragment key={index}>
+            {index !== 0 && <ChevronRight className="size-3.5 shrink-0" />}
             {item.url ? (
               <Link
                 className={cn(className, 'transition-opacity hover:opacity-80')}

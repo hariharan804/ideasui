@@ -1,12 +1,12 @@
 import { createElement } from 'react';
 
 import {
-  toDataAttr,
-  getAriaFormProps,
-  getAriaDisclosureProps,
-  getAriaListboxProps,
-  getAriaDialogProps,
-  getAriaTabsProps,
+  toDataAttr as toDataAttribute,
+  getAriaFormProps as getAriaFormProperties,
+  getAriaDisclosureProps as getAriaDisclosureProperties,
+  getAriaListboxProps as getAriaListboxProperties,
+  getAriaDialogProps as getAriaDialogProperties,
+  getAriaTabsProps as getAriaTabsProperties,
   screenReader,
   liveRegion,
   focusTrap,
@@ -25,19 +25,20 @@ describe('accessibility', () => {
 
   describe('toDataAttr', () => {
     it('should return "true" if condition is true', () => {
-      expect(toDataAttr(true)).toBe(TRUE);
+      expect(toDataAttribute(true)).toBe(TRUE);
     });
 
     it('should return undefined if condition is false or undefined', () => {
-      expect(toDataAttr(false)).toBeUndefined();
-      expect(toDataAttr(undefined)).toBeUndefined();
+      expect(toDataAttribute(false)).toBeUndefined();
+      // eslint-disable-next-line unicorn/no-useless-undefined
+      expect(toDataAttribute(undefined)).toBeUndefined();
     });
   });
 
   describe('getAriaFormProps', () => {
     it('should return correct props', () => {
       expect(
-        getAriaFormProps({
+        getAriaFormProperties({
           required: true,
           invalid: true,
           describedBy: 'desc',
@@ -52,7 +53,7 @@ describe('accessibility', () => {
     });
 
     it('should handle undefined values', () => {
-      expect(getAriaFormProps({})).toStrictEqual({
+      expect(getAriaFormProperties({})).toStrictEqual({
         'aria-required': undefined,
         'aria-invalid': undefined,
         [ARIA_DESCRIBED_BY]: undefined,
@@ -64,7 +65,7 @@ describe('accessibility', () => {
   describe('getAriaDisclosureProps', () => {
     it('should return correct props', () => {
       expect(
-        getAriaDisclosureProps({ expanded: true, controls: 'ctrl', hasPopup: 'menu' }),
+        getAriaDisclosureProperties({ expanded: true, controls: 'ctrl', hasPopup: 'menu' }),
       ).toStrictEqual({
         'aria-expanded': TRUE,
         'aria-controls': 'ctrl',
@@ -73,7 +74,7 @@ describe('accessibility', () => {
     });
 
     it('should handle hasPopup boolean', () => {
-      expect(getAriaDisclosureProps({ expanded: false, hasPopup: true })).toStrictEqual({
+      expect(getAriaDisclosureProperties({ expanded: false, hasPopup: true })).toStrictEqual({
         'aria-expanded': 'false',
         'aria-controls': undefined,
         'aria-haspopup': TRUE,
@@ -84,7 +85,7 @@ describe('accessibility', () => {
   describe('getAriaListboxProps', () => {
     it('should return correct props', () => {
       expect(
-        getAriaListboxProps({
+        getAriaListboxProperties({
           multiselectable: true,
           orientation: HORIZONTAL,
           activedescendant: 'item-1',
@@ -100,7 +101,7 @@ describe('accessibility', () => {
 
   describe('getAriaDialogProps', () => {
     it('should return modal dialog props', () => {
-      expect(getAriaDialogProps({ modal: true })).toStrictEqual({
+      expect(getAriaDialogProperties({ modal: true })).toStrictEqual({
         role: 'dialog',
         'aria-modal': TRUE,
         [ARIA_LABELLED_BY]: undefined,
@@ -109,7 +110,7 @@ describe('accessibility', () => {
     });
 
     it('should return non-modal alertdialog props', () => {
-      expect(getAriaDialogProps({ modal: false })).toStrictEqual({
+      expect(getAriaDialogProperties({ modal: false })).toStrictEqual({
         role: 'alertdialog',
         'aria-modal': undefined,
         [ARIA_LABELLED_BY]: undefined,
@@ -120,7 +121,7 @@ describe('accessibility', () => {
 
   describe('getAriaTabsProps', () => {
     it('should return default props', () => {
-      expect(getAriaTabsProps({})).toStrictEqual({
+      expect(getAriaTabsProperties({})).toStrictEqual({
         role: 'tablist',
         'aria-orientation': HORIZONTAL,
         'aria-activedescendant': undefined,
@@ -184,13 +185,13 @@ describe('accessibility', () => {
       container = document.createElement('div');
       button1 = document.createElement('button');
       button2 = document.createElement('button');
-      container.appendChild(button1);
-      container.appendChild(button2);
-      document.body.appendChild(container);
+      container.append(button1);
+      container.append(button2);
+      document.body.append(container);
     });
 
     afterEach(() => {
-      document.body.removeChild(container);
+      container.remove();
     });
 
     it('should get focusable elements', () => {

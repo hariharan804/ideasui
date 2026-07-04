@@ -101,7 +101,7 @@ export const Default: Story = {
     disableAnimation: false,
     isLoading: false,
   },
-  render: (args) => <Button data-testid="button" {...args} />,
+  render: (arguments_) => <Button data-testid="button" {...arguments_} />,
 };
 
 export const Loading: Story = {
@@ -109,7 +109,7 @@ export const Loading: Story = {
     isLoading: true,
     children: 'Processing...',
   },
-  render: (args) => <Button data-testid="button-loading" {...args} />,
+  render: (arguments_) => <Button data-testid="button-loading" {...arguments_} />,
 };
 
 /* -----------------------------------------------------------------------------------------------
@@ -118,30 +118,30 @@ export const Loading: Story = {
 
 export const Variants: Story = {
   parameters: { controls: { disable: true } },
-  render: (args) => (
+  render: (arguments_) => (
     <div className="storybook-button-variants flex flex-wrap gap-4">
-      <Button {...args} variant="solid">
+      <Button {...arguments_} variant="solid">
         Solid
       </Button>
-      <Button {...args} variant="outline">
+      <Button {...arguments_} variant="outline">
         Outline
       </Button>
-      <Button {...args} variant="ghost">
+      <Button {...arguments_} variant="ghost">
         Ghost
       </Button>
-      <Button {...args} variant="muted">
+      <Button {...arguments_} variant="muted">
         Soft
       </Button>
-      <Button {...args} variant="elevated">
+      <Button {...arguments_} variant="elevated">
         Elevated
       </Button>
-      <Button {...args} variant="text">
+      <Button {...arguments_} variant="text">
         Text
       </Button>
-      <Button {...args} variant="link">
+      <Button {...arguments_} variant="link">
         Link
       </Button>
-      <Button {...args} className={'text-primary'} variant="glaze">
+      <Button {...arguments_} className={'text-primary'} variant="glaze">
         Glaze
       </Button>
     </div>
@@ -150,30 +150,30 @@ export const Variants: Story = {
 
 export const Colors: Story = {
   parameters: { controls: { disable: true } },
-  render: (args) => (
+  render: (arguments_) => (
     <div className="storybook-button-colors grid grid-cols-3 gap-4">
-      <Button {...args} color="primary">
+      <Button {...arguments_} color="primary">
         Primary
       </Button>
-      <Button {...args} color="secondary">
+      <Button {...arguments_} color="secondary">
         Secondary
       </Button>
-      <Button {...args} color="tertiary">
+      <Button {...arguments_} color="tertiary">
         Tertiary
       </Button>
-      <Button {...args} color="success">
+      <Button {...arguments_} color="success">
         Success
       </Button>
-      <Button {...args} color="warning">
+      <Button {...arguments_} color="warning">
         Warning
       </Button>
-      <Button {...args} color="error">
+      <Button {...arguments_} color="error">
         Danger
       </Button>
-      <Button {...args} color="info">
+      <Button {...arguments_} color="info">
         Info
       </Button>
-      <Button {...args} color="neutral">
+      <Button {...arguments_} color="neutral">
         Neutral
       </Button>
     </div>
@@ -182,21 +182,21 @@ export const Colors: Story = {
 
 export const Sizes: Story = {
   parameters: { controls: { disable: true } },
-  render: (args) => (
+  render: (arguments_) => (
     <div className="storybook-button-sizes flex items-center gap-4">
-      <Button {...args} size="xs">
+      <Button {...arguments_} size="xs">
         XS
       </Button>
-      <Button {...args} size="sm">
+      <Button {...arguments_} size="sm">
         Small
       </Button>
-      <Button {...args} size="md">
+      <Button {...arguments_} size="md">
         Medium
       </Button>
-      <Button {...args} size="lg">
+      <Button {...arguments_} size="lg">
         Large
       </Button>
-      <Button {...args} size="xl">
+      <Button {...arguments_} size="xl">
         XL
       </Button>
     </div>
@@ -205,33 +205,33 @@ export const Sizes: Story = {
 
 export const Radius: Story = {
   parameters: { controls: { disable: true } },
-  render: (args) => (
+  render: (arguments_) => (
     <div className="storybook-button-radius flex flex-wrap gap-4">
-      <Button {...args} radius="none">
+      <Button {...arguments_} radius="none">
         None
       </Button>
-      <Button {...args} radius="default">
+      <Button {...arguments_} radius="default">
         Default
       </Button>
-      <Button {...args} radius="sm">
+      <Button {...arguments_} radius="sm">
         SM
       </Button>
-      <Button {...args} radius="md">
+      <Button {...arguments_} radius="md">
         MD
       </Button>
-      <Button {...args} radius="lg">
+      <Button {...arguments_} radius="lg">
         LG
       </Button>
-      <Button {...args} radius="xl">
+      <Button {...arguments_} radius="xl">
         XL
       </Button>
-      <Button {...args} radius="2xl">
+      <Button {...arguments_} radius="2xl">
         2XL
       </Button>
-      <Button {...args} radius="3xl">
+      <Button {...arguments_} radius="3xl">
         3XL
       </Button>
-      <Button {...args} radius="full">
+      <Button {...arguments_} radius="full">
         Full
       </Button>
     </div>
@@ -243,8 +243,8 @@ export const Radius: Story = {
  * ---------------------------------------------------------------------------------------------*/
 
 export const WithIcons: Story = {
-  render: (args) => (
-    <Button data-testid="button-with-icons" {...args}>
+  render: (arguments_) => (
+    <Button data-testid="button-with-icons" {...arguments_}>
       <Button.Icon placement="start">
         <File className="size-4" />
       </Button.Icon>
@@ -254,15 +254,15 @@ export const WithIcons: Story = {
 };
 
 export const IconButton: Story = {
-  render: (args) => (
+  render: (arguments_) => (
     <div className="flex flex-wrap items-center gap-4">
-      <Button {...args} isIconOnly aria-label="Settings">
+      <Button {...arguments_} isIconOnly aria-label="Settings">
         <Settings className="size-5" />
       </Button>
-      <Button {...args} isIconOnly aria-label="Edit" color="secondary" variant="outline">
+      <Button {...arguments_} isIconOnly aria-label="Edit" color="secondary" variant="outline">
         <Plus className="size-5" />
       </Button>
-      <Button {...args} isIconOnly aria-label="Favorite" color="error" variant="ghost">
+      <Button {...arguments_} isIconOnly aria-label="Favorite" color="error" variant="ghost">
         <User className="size-5" />
       </Button>
     </div>
@@ -270,8 +270,8 @@ export const IconButton: Story = {
 };
 
 export const CompoundUsage: Story = {
-  render: (args) => (
-    <Button {...args}>
+  render: (arguments_) => (
+    <Button {...arguments_}>
       <Button.Icon>
         <User className="size-5" />
       </Button.Icon>
@@ -282,15 +282,15 @@ export const CompoundUsage: Story = {
 };
 
 export const CustomComposition: Story = {
-  render: (args) => (
+  render: (arguments_) => (
     <div className="flex flex-wrap gap-6">
-      <Button {...args} startIcon={<Plus className="size-4" />}>
+      <Button {...arguments_} startIcon={<Plus className="size-4" />}>
         Create New
       </Button>
-      <Button {...args} endIcon={<ChevronRight className="size-4" />}>
+      <Button {...arguments_} endIcon={<ChevronRight className="size-4" />}>
         Continue
       </Button>
-      <Button {...args} isIconOnly aria-label="Settings" color="primary" size="md">
+      <Button {...arguments_} isIconOnly aria-label="Settings" color="primary" size="md">
         <Settings className="size-5" />
       </Button>
     </div>
@@ -338,15 +338,15 @@ export const Glaze: Story = {
     variant: 'glaze',
     size: 'lg',
   },
-  render: (args) => (
+  render: (arguments_) => (
     <div className="relative overflow-hidden rounded-2xl bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center p-20">
       <div className="absolute inset-0 bg-black/10" />
       <div className="relative flex flex-wrap justify-center gap-6">
-        <Button {...args}>Default Glaze</Button>
-        <Button {...args} color="primary">
+        <Button {...arguments_}>Default Glaze</Button>
+        <Button {...arguments_} color="primary">
           Primary Glaze
         </Button>
-        <Button {...args} color="success">
+        <Button {...arguments_} color="success">
           Success Glaze
         </Button>
       </div>
@@ -355,9 +355,9 @@ export const Glaze: Story = {
 };
 
 export const WithShortcut: Story = {
-  render: (args) => (
+  render: (arguments_) => (
     <div className="flex flex-col gap-4">
-      <Button {...args} className="w-64 justify-between" variant="solid">
+      <Button {...arguments_} className="w-64 justify-between" variant="solid">
         <div className="flex items-center gap-2">
           <Search className="size-4" />
           <span>Quick Search</span>
@@ -365,7 +365,7 @@ export const WithShortcut: Story = {
         <Button.Shortcut>⌘K</Button.Shortcut>
       </Button>
 
-      <Button {...args} className="w-64 justify-between" color="primary" variant="outline">
+      <Button {...arguments_} className="w-64 justify-between" color="primary" variant="outline">
         <div className="flex items-center gap-2">
           <Plus className="size-4" />
           <span>New Document</span>
@@ -373,7 +373,7 @@ export const WithShortcut: Story = {
         <Button.Shortcut>⌘N</Button.Shortcut>
       </Button>
 
-      <Button {...args} className="w-64 justify-between" variant="muted">
+      <Button {...arguments_} className="w-64 justify-between" variant="muted">
         <div className="flex items-center gap-2">
           <Settings className="size-4" />
           <span>Open Settings</span>

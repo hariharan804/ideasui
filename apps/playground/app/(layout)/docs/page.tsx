@@ -6,13 +6,13 @@ import { FileText, Book, ExternalLink, Search, Loader } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-interface DocFile {
+interface DocumentFile {
   name: string;
   path: string;
   description: string;
 }
 
-const DOC_FILES: DocFile[] = [
+const DOC_FILES: DocumentFile[] = [
   { name: 'README.md', path: '../../README.md', description: 'Main project documentation' },
   { name: 'ARCHITECTURE.md', path: '../../ARCHITECTURE.md', description: 'System Architecture' },
   {
@@ -43,19 +43,19 @@ const DOC_FILES: DocFile[] = [
 ];
 
 export default function DocsPage(): JSX.Element {
-  const [selectedDoc, setSelectedDoc] = useState<DocFile>(DOC_FILES[0]);
+  const [selectedDocument, setSelectedDocument] = useState<DocumentFile>(DOC_FILES[0]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [docContent, setDocContent] = useState<string>('');
+  const [documentContent, setDocumentContent] = useState<string>('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  const getDoc = useCallback(async () => {
+  const getDocument = useCallback(async () => {
     setLoading(true);
     setError('');
 
     try {
-      const res = await fetch(`/api/docs?file=${encodeURIComponent(selectedDoc.path)}`);
+      const res = await fetch(`/api/docs?file=${encodeURIComponent(selectedDocument.path)}`);
 
       if (!res.ok) {
         throw new Error('Failed to load document');
@@ -63,28 +63,28 @@ export default function DocsPage(): JSX.Element {
 
       const data = await res.json();
 
-      setDocContent(data.content);
+      setDocumentContent(data.content);
     } catch (error_) {
       setError(error_ instanceof Error ? error_.message : 'An error occurred');
     } finally {
       setLoading(false);
     }
-  }, [selectedDoc.path]);
+  }, [selectedDocument.path]);
 
   useEffect(() => {
-    if (selectedDoc.path) {
+    if (selectedDocument.path) {
       const timer = setTimeout(() => {
-        void getDoc();
+        void getDocument();
       }, 0);
 
       return () => clearTimeout(timer);
     }
-  }, [getDoc, selectedDoc.path]);
+  }, [getDocument, selectedDocument.path]);
 
   const filteredDocs = DOC_FILES.filter(
-    (doc) =>
-      doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      doc.description.toLowerCase().includes(searchTerm.toLowerCase()),
+    (document_) =>
+      document_.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      document_.description.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   return (
@@ -122,34 +122,36 @@ export default function DocsPage(): JSX.Element {
 
             {/* File List */}
             <div className="custom-scrollbar max-h-96 space-y-1.5 overflow-y-auto pr-2">
-              {filteredDocs.map((doc) => (
+              {filteredDocs.map((document_) => (
                 <button
-                  key={doc.name}
+                  key={document_.name}
                   className={`w-full rounded-xl border p-3.5 text-left transition-all duration-200 ${
-                    selectedDoc.name === doc.name
+                    selectedDocument.name === document_.name
                       ? 'border-primary-300 bg-primary-subtle shadow-sm'
                       : 'hover:border-default hover:bg-surface-muted border-transparent'
                   }`}
-                  onClick={() => setSelectedDoc(doc)}
+                  onClick={() => setSelectedDocument(document_)}
                 >
                   <div className="flex items-start gap-3">
                     <FileText
                       className={`mt-0.5 size-4.5 flex-shrink-0 transition-colors ${
-                        selectedDoc.name === doc.name ? 'text-primary-600' : 'text-content-tertiary'
+                        selectedDocument.name === document_.name
+                          ? 'text-primary-600'
+                          : 'text-content-tertiary'
                       }`}
                     />
                     <div className="min-w-0 flex-1">
                       <div
                         className={`truncate text-sm font-bold transition-colors ${
-                          selectedDoc.name === doc.name
+                          selectedDocument.name === document_.name
                             ? 'text-primary-700'
                             : 'text-content-secondary hover:text-content-primary'
                         }`}
                       >
-                        {doc.name}
+                        {document_.name}
                       </div>
                       <div className="text-content-tertiary mt-1 line-clamp-2 text-xs font-medium">
-                        {doc.description}
+                        {document_.description}
                       </div>
                     </div>
                   </div>
@@ -191,10 +193,10 @@ export default function DocsPage(): JSX.Element {
                 </div>
                 <div>
                   <h1 className="text-content-primary text-3xl font-extrabold tracking-tight md:text-4xl">
-                    {selectedDoc.name}
+                    {selectedDocument.name}
                   </h1>
                   <p className="text-content-tertiary mt-2 text-sm font-medium">
-                    {selectedDoc.description}
+                    {selectedDocument.description}
                   </p>
                 </div>
               </div>
@@ -237,7 +239,7 @@ export default function DocsPage(): JSX.Element {
             {/* Content */}
             {!loading && !error && (
               <div className="prose prose-base prose-headings:scroll-mt-24 prose-h1:text-4xl prose-h1:font-extrabold prose-h1:text-content-primary prose-h1:tracking-tight prose-h1:mt-2 prose-h1:mb-8 prose-h2:text-3xl prose-h2:font-bold prose-h2:text-content-primary prose-h2:tracking-tight prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-border-subtle prose-h2:pb-4 prose-h3:text-2xl prose-h3:font-bold prose-h3:text-content-primary prose-h3:mt-8 prose-h3:mb-4 prose-a:text-primary-600 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline hover:prose-a:text-primary-700 prose-code:bg-primary-500/10 prose-code:text-primary-600 dark:prose-code:text-primary-400 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-lg prose-code:font-mono prose-code:text-[0.9em] prose-code:font-bold prose-code:before:content-none prose-code:after:content-none prose-pre:bg-[#0f172a] prose-pre:text-slate-50 prose-pre:border prose-pre:border-border-subtle prose-pre:rounded-2xl prose-pre:shadow-lg prose-pre:p-6 prose-pre:my-8 prose-blockquote:border-l-4 prose-blockquote:border-primary-500 prose-blockquote:bg-surface-raised prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-content-secondary prose-blockquote:font-medium prose-blockquote:italic prose-blockquote:shadow-sm prose-strong:text-content-primary prose-strong:font-bold prose-ul:list-disc prose-ol:list-decimal prose-li:text-content-secondary prose-li:marker:text-primary-500 prose-p:text-content-secondary prose-p:leading-relaxed prose-p:text-lg prose-table:border-collapse prose-table:w-full prose-table:my-8 prose-table:text-left prose-table:rounded-xl prose-table:overflow-hidden prose-table:shadow-sm prose-table:border prose-table:border-border-subtle prose-thead:bg-surface-raised prose-th:border-b-2 prose-th:border-border-default prose-th:px-6 prose-th:py-4 prose-th:font-bold prose-th:text-content-primary prose-td:border-b prose-td:border-border-subtle prose-td:px-6 prose-td:py-4 prose-td:text-content-secondary prose-tr:transition-colors hover:prose-tr:bg-surface-raised/50 prose-img:rounded-2xl prose-img:border prose-img:border-border-subtle prose-img:shadow-sm max-w-none p-8 transition-colors md:p-12">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{docContent}</ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{documentContent}</ReactMarkdown>
               </div>
             )}
 

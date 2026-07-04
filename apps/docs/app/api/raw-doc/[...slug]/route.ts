@@ -3,8 +3,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { source } from '@/lib/source';
 
-export async function GET(request: Request, props: { params: Promise<{ slug: string[] }> }) {
-  const { slug } = await props.params;
+export async function GET(request: Request, properties: { params: Promise<{ slug: string[] }> }) {
+  const { slug } = await properties.params;
 
   if (!slug || slug.length === 0) {
     return new NextResponse('Not Found', { status: 404 });
@@ -26,7 +26,7 @@ export async function GET(request: Request, props: { params: Promise<{ slug: str
   const filePath = page.absolutePath || path.join(process.cwd(), 'content/react', page.path);
 
   try {
-    const rawMarkdown = await fs.readFile(filePath, 'utf-8');
+    const rawMarkdown = await fs.readFile(filePath, 'utf8');
 
     return new NextResponse(rawMarkdown, {
       headers: {

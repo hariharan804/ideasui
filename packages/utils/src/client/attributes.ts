@@ -14,14 +14,17 @@ export function getAttr(element: Element, name: string, fallback?: string): stri
  * @param {Element} element - The element to set attributes on
  * @param {Record<string, string | null | undefined>} attrs - The attributes to set
  */
-export function setAttrs(element: Element, attrs: Record<string, string | null | undefined>): void {
-  Object.entries(attrs).forEach(([key, value]) => {
+export function setAttrs(
+  element: Element,
+  attributes: Record<string, string | null | undefined>,
+): void {
+  for (const [key, value] of Object.entries(attributes)) {
     if (value === null || value === undefined) {
       element.removeAttribute(key);
     } else {
       element.setAttribute(key, value);
     }
-  });
+  }
 }
 
 /**
@@ -90,13 +93,13 @@ export function setDataAttr(element: Element, name: string, value: unknown): voi
 export function toDataAttrs(data: Record<string, unknown>): Record<string, string> {
   const result: Record<string, string> = {};
 
-  Object.entries(data).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(data)) {
     if (value !== null && value !== undefined) {
-      const dataKey = `data-${key.replace(/[A-Z]/g, (match) => '-' + match.toLowerCase())}`;
+      const dataKey = `data-${key.replaceAll(/[A-Z]/g, (match) => '-' + match.toLowerCase())}`;
 
       result[dataKey] = typeof value === 'string' ? value : JSON.stringify(value);
     }
-  });
+  }
 
   return result;
 }

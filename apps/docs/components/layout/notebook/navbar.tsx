@@ -6,7 +6,7 @@ import type { LinkItemType, MenuItemType } from '@/components/ui/docs/link-item'
 import type { SidebarTabWithProps } from 'fumadocs-ui/components/sidebar/tabs/dropdown';
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import type { ComponentProps, HTMLAttributes, PointerEvent, ReactNode, FC } from 'react';
-import type { LayoutHeaderTabsProps } from './header';
+import type { LayoutHeaderTabsProps as LayoutHeaderTabsProperties } from './header';
 
 import { useState, useRef, Fragment } from 'react';
 import { ChevronDown } from 'lucide-react';
@@ -28,14 +28,14 @@ import { LinkItem } from '@/components/ui/docs/link-item';
 export function NavbarLinkItem({
   className,
   item,
-  ...props
+  ...properties
 }: { item: LinkItemType } & HTMLAttributes<HTMLElement>) {
   if (item.type === 'custom') {
     return item.children;
   }
 
   if (item.type === 'menu') {
-    return <NavbarLinkItemMenu className={className} item={item} {...props} />;
+    return <NavbarLinkItemMenu className={className} item={item} {...properties} />;
   }
 
   return (
@@ -45,7 +45,7 @@ export function NavbarLinkItem({
         className,
       )}
       item={item}
-      {...props}
+      {...properties}
     >
       {item.text}
     </LinkItem>
@@ -54,7 +54,8 @@ export function NavbarLinkItem({
 
 function isTouchDevice() {
   return (
-    typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+    globalThis.window !== undefined &&
+    ('ontouchstart' in globalThis || navigator.maxTouchPoints > 0)
   );
 }
 
@@ -62,22 +63,22 @@ function NavbarLinkItemMenu({
   className,
   hoverDelay = 50,
   item,
-  ...props
+  ...properties
 }: { item: MenuItemType; hoverDelay?: number } & HTMLAttributes<HTMLElement>) {
   const [open, setOpen] = useState(false);
-  const timeoutRef = useRef<number>(null);
+  const timeoutReference = useRef<number>(null);
   const freezeUntil = useRef<number>(null);
 
   const delaySetOpen = (value: boolean) => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = null;
+    if (timeoutReference.current) {
+      clearTimeout(timeoutReference.current);
+      timeoutReference.current = null;
     }
 
-    timeoutRef.current = window.setTimeout(() => {
+    timeoutReference.current = globalThis.setTimeout(() => {
       setOpen(value);
       freezeUntil.current = Date.now() + 300;
-    }, hoverDelay);
+    }, hoverDelay) as unknown as number;
   };
   const onPointerEnter = (e: PointerEvent) => {
     if (e.pointerType === 'touch') {
@@ -108,7 +109,7 @@ function NavbarLinkItemMenu({
         )}
         onPointerEnter={onPointerEnter}
         onPointerLeave={onPointerLeave}
-        {...props}
+        {...properties}
       >
         {item.url ? <LinkItem item={item as { url: string }}>{item.text}</LinkItem> : item.text}
         <ChevronDown className="size-3" />
@@ -118,8 +119,8 @@ function NavbarLinkItemMenu({
         onPointerEnter={onPointerEnter}
         onPointerLeave={onPointerLeave}
       >
-        {item.items.map((child, i) => {
-          const keyId = `item-${i}`;
+        {item.items.map((child, index) => {
+          const keyId = `item-${index}`;
 
           if (child.type === 'custom') {
             return <Fragment key={keyId}>{child.children}</Fragment>;
@@ -147,7 +148,7 @@ function NavbarLinkItemMenu({
 }
 
 export interface DocsNavbarProps {
-  headerTabsProps?: LayoutHeaderTabsProps;
+  headerTabsProps?: LayoutHeaderTabsProperties;
   i18n?: BaseLayoutProps['i18n'];
   links: LinkItemType[];
   nav?: {
@@ -256,8 +257,8 @@ export function DocsNavbar({
                 (item): item is Extract<LinkItemType, { type?: 'main' | 'menu' | 'button' }> =>
                   item.type !== 'icon',
               )
-              .map((item, i) => {
-                const navKey = `navbar-${i}`;
+              .map((item, index) => {
+                const navKey = `navbar-${index}`;
 
                 return <NavbarLinkItem key={navKey} item={item} />;
               })}
@@ -272,8 +273,8 @@ export function DocsNavbar({
                   (item): item is Extract<LinkItemType, { type: 'icon' }> =>
                     item.type === 'icon' && !item.url?.includes('github.com'),
                 )
-                .map((item, i) => {
-                  const iconKey = `icon-${i}`;
+                .map((item, index) => {
+                  const iconKey = `icon-${index}`;
 
                   return (
                     <LinkItem

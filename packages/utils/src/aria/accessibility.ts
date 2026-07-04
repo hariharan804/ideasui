@@ -135,10 +135,10 @@ export const screenReader = {
     announcement.className = 'sr-only';
     announcement.textContent = message;
 
-    document.body.appendChild(announcement);
+    document.body.append(announcement);
 
     setTimeout(() => {
-      document.body.removeChild(announcement);
+      announcement.remove();
     }, ANNOUNCEMENT_TIMEOUT);
   },
 
@@ -207,7 +207,7 @@ export const focusTrap = {
   trap: (container: HTMLElement): (() => void) => {
     const focusable = focusTrap.getFocusable(container);
     const first = focusable[0];
-    const last = focusable[focusable.length - 1];
+    const last = focusable.at(-1);
 
     const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key !== 'Tab') {
@@ -273,14 +273,14 @@ export function extractTextFromChildren(children: ReactNode, depth = 0): string 
  * @returns {string | undefined} The resolved accessible name
  */
 export function getAccessibleName(
-  props: { 'aria-label'?: string; 'aria-labelledby'?: string },
+  properties: { 'aria-label'?: string; 'aria-labelledby'?: string },
   children?: ReactNode,
 ): string | undefined {
-  if (props['aria-label']) {
-    return props['aria-label'];
+  if (properties['aria-label']) {
+    return properties['aria-label'];
   }
 
-  if (props['aria-labelledby']) {
+  if (properties['aria-labelledby']) {
     return undefined; // Handled by aria-labelledby attribute itself
   }
 
