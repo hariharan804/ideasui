@@ -153,7 +153,7 @@ export function Category(properties: Readonly<CategoryProperties>) {
   }
 
   const components = group.components
-    .map(getComponentWithStatus)
+    .map((element) => getComponentWithStatus(element))
     .filter((item): item is ComponentWithStatus => item !== null);
 
   if (components.length === 0) {

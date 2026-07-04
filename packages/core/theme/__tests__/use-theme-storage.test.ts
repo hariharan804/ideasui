@@ -71,7 +71,7 @@ describe('useThemeStorage', () => {
     });
 
     act(() => {
-      result.current.setTheme('dark');
+      result.current.setThemeProp('dark');
     });
 
     expect(setItemSpy).toHaveBeenCalledWith('theme', 'dark');
@@ -94,7 +94,7 @@ describe('useThemeStorage', () => {
     });
 
     act(() => {
-      result.current.setTheme('system');
+      result.current.setThemeProp('system');
     });
 
     expect(removeItemSpy).toHaveBeenCalledWith('theme');
@@ -241,7 +241,7 @@ describe('useThemeStorage', () => {
     const previousTheme = result.current.theme;
 
     act(() => {
-      result.current.setTheme('light');
+      result.current.setThemeProp('light');
     });
 
     expect(result.current.theme).toBe(previousTheme);

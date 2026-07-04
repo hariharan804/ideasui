@@ -9,6 +9,7 @@
     "formulahendry.auto-close-tag",
     "formulahendry.auto-rename-tag",
     "esbenp.prettier-vscode",
-    "unifiedjs.vscode-mdx"
+    "unifiedjs.vscode-mdx",
+    "SonarSource.sonarlint-vscode"
   ]
 }

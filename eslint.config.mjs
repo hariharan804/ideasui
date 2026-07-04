@@ -532,6 +532,10 @@ export default defineConfig([
       'sonarjs/cognitive-complexity': 'off',
       'sonarjs/prefer-read-only-props': 'warn',
       'sonarjs/no-nested-conditional': 'warn',
+      'unicorn/prefer-number-properties': 'warn',
+      'unicorn/prefer-node-protocol': 'warn',
+      'unicorn/no-array-callback-reference': 'warn',
+      'unicorn/no-console-spaces': 'warn',
     },
   },
 ]);

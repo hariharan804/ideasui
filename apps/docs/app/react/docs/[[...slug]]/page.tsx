@@ -37,10 +37,10 @@ function extractText(node: unknown): string {
     typeof node.props === 'object' &&
     'children' in node.props
   ) {
-    const { children } = node.props as { children: unknown };
+    const { children } = node.props;
 
     if (Array.isArray(children)) {
-      return children.map(extractText).join('');
+      return children.map((element) => extractText(element)).join('');
     }
 
     return extractText(children);
