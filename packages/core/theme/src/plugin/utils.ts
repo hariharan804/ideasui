@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/numeric-separators-style */
 import type { ParsedColor } from '../types';
 
 import { flatten } from 'flat';
@@ -14,26 +15,29 @@ const SRGB_TO_LINEAR_SCALAR = 1.055;
 const SRGB_TO_LINEAR_POWER = 2.4;
 const RGB_MAX_VALUE = 255;
 
-const L_COEFF_LR = 0.412_221_470_8;
-const L_COEFF_LG = 0.536_332_536_3;
-const L_COEFF_LB = 0.051_445_992_9;
-const M_COEFF_LR = 0.211_903_498_2;
-const M_COEFF_LG = 0.680_699_545_1;
-const M_COEFF_LB = 0.107_396_956_6;
-const S_COEFF_LR = 0.088_302_461_9;
-const S_COEFF_LG = 0.281_718_837_6;
-const S_COEFF_LB = 0.629_978_700_5;
+const L_COEFF_LR = 0.4122214708;
+const L_COEFF_LG = 0.5363325363;
+const L_COEFF_LB = 0.0514459929;
 
-const OKLAB_L_COEFF_L = 0.210_454_255_3;
-const OKLAB_L_COEFF_M = 0.793_617_785;
-const OKLAB_L_COEFF_S = 0.004_072_046_8;
-const OKLAB_A_COEFF_L = 1.977_998_495_1;
-const OKLAB_A_COEFF_M = 2.428_592_205;
-const OKLAB_A_COEFF_S = 0.450_593_709_9;
-const OKLAB_B_COEFF_L = 0.025_904_037_1;
-const OKLAB_B_COEFF_M = 0.782_771_766_2;
-const OKLAB_B_COEFF_S = 0.808_675_766;
+const M_COEFF_LR = 0.2119034982;
+const M_COEFF_LG = 0.6806995451;
+const M_COEFF_LB = 0.1073969566;
 
+const S_COEFF_LR = 0.0883024619;
+const S_COEFF_LG = 0.2817188376;
+const S_COEFF_LB = 0.6299787005;
+
+const OKLAB_L_COEFF_L = 0.2104542553;
+const OKLAB_L_COEFF_M = 0.793617785;
+const OKLAB_L_COEFF_S = -0.0040720468;
+
+const OKLAB_A_COEFF_L = 1.9779984951;
+const OKLAB_A_COEFF_M = -2.428592205;
+const OKLAB_A_COEFF_S = 0.4505937099;
+
+const OKLAB_B_COEFF_L = 0.0259040371;
+const OKLAB_B_COEFF_M = 0.7827717662;
+const OKLAB_B_COEFF_S = -0.808675766;
 const DEGREES_180 = 180;
 const DEGREES_360 = 360;
 
