@@ -5,6 +5,8 @@
  * This provides helpful error messages instead of cryptic failures
  */
 
+import { execFileSync } from 'node:child_process';
+
 const MIN_NODE_VERSION = '18.0.0';
 const MIN_PNPM_VERSION = '8.0.0';
 const RECOMMENDED_NODE_VERSION = '22.12.0'; // Node 22 LTS (Jod) - Maintenance LTS until April 2027
@@ -75,11 +77,12 @@ function checkNodeVersion() {
  */
 function checkPnpmVersion() {
   try {
-    const pnpmVersion = execFileSync(
-      process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm',
-      ['--version'],
-      { encoding: 'utf8' },
-    ).trim();
+    const executable = process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm';
+
+    const pnpmVersion = execFileSync(executable, ['--version'], {
+      encoding: 'utf8',
+      shell: false,
+    }).trim();
 
     const isValid = isVersionValid(pnpmVersion, MIN_PNPM_VERSION);
 
