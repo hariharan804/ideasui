@@ -23,7 +23,7 @@ const COMPONENT_LIST: ComponentItem[] = [
   },
 ];
 
-const categories = Array.from(new Set(COMPONENT_LIST.map((item) => item.category).filter(Boolean)));
+const categories = [...new Set(COMPONENT_LIST.map((item) => item.category).filter(Boolean))];
 
 function Playground(): JSX.Element {
   const router = useRouter();

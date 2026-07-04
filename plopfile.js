@@ -118,11 +118,11 @@ module.exports = function (plop) {
 
   // Helpers
   plop.setHelper('pascalCase', (text) => {
-    return text.replace(/(^\w|-\w)/g, (match) => match.replace('-', '').toUpperCase());
+    return text.replaceAll(/(^\w|-\w)/g, (match) => match.replace('-', '').toUpperCase());
   });
 
   plop.setHelper('camelCase', (text) => {
-    const pascal = text.replace(/(^\w|-\w)/g, (match) => match.replace('-', '').toUpperCase());
+    const pascal = text.replaceAll(/(^\w|-\w)/g, (match) => match.replace('-', '').toUpperCase());
 
     return pascal.charAt(0).toLowerCase() + pascal.slice(1);
   });

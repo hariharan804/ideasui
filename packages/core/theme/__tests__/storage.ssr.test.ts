@@ -11,7 +11,7 @@ describe('Storage Adapters (SSR)', () => {
 
   describe('LocalStorageAdapter', () => {
     it('should be safe to call in SSR environment (window is undefined)', () => {
-      expect(typeof window).toBe('undefined');
+      expect(typeof globalThis.window).toBe('undefined');
 
       expect(() => local.setItem(TEST_KEY, TEST_VALUE)).not.toThrow();
       expect(local.getItem(TEST_KEY)).toBeNull();

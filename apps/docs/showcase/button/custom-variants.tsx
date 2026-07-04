@@ -43,14 +43,14 @@ function CustomButton({
   className,
   radius = 'full',
   variant = 'primary',
-  ...props
+  ...properties
 }: MyButtonProps) {
   return (
     <Button
       className={myButtonVariants({ className, radius, variant }).base()}
       radius={radius as ButtonProps['radius']}
       variant={variant as ButtonProps['variant']}
-      {...props}
+      {...properties}
     />
   );
 }

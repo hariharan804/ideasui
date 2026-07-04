@@ -1,59 +1,30 @@
-import type { squareSizes } from './variants';
-
-/* eslint-disable import/order */
-import { animation } from './animation';
-import { borderRadius } from './border-radius';
-import { lightShadow } from './box-shadow';
-import { duration, easing, keyframes } from './motion';
-import { spacing } from './spacing';
-import { primitives, surface, content } from './colors';
-import { disabled, scrollbar } from './classes';
-import {
-  colorVariants,
+import type { animation } from './animation';
+import type { blur } from './blur';
+import type { border } from './border';
+import type { borderRadius } from './border-radius';
+import type { lightShadow } from './box-shadow';
+import type { disabled, scrollbar } from './classes';
+import type { content, surface } from './colors';
+import type { easing, keyframes, duration } from './motion';
+import type { opacity } from './opacity';
+import type { spacing } from './spacing';
+import type { fontFamily, fontWeight, fontSize, letterSpacing } from './typography';
+import type {
+  squareSizes,
+  colorsWithVariant,
   sizeVariants,
   buttonSizes,
-  colorsWithVariant,
   spinnerSizes,
+  colorVariants,
 } from './variants';
+import type { zIndex } from './z-index';
 
-import { blur } from './blur';
-import { border } from './border';
+import { primitives } from './colors';
 import { lightInteraction } from './interaction';
-import { opacity } from './opacity';
-import { letterSpacing, fontSize, fontFamily, fontWeight } from './typography';
-import { zIndex } from './z-index';
 
 const interaction = lightInteraction;
 
-export {
-  spacing,
-  borderRadius,
-  fontSize,
-  fontFamily,
-  fontWeight,
-  animation,
-  lightShadow,
-  duration,
-  easing,
-  keyframes,
-  colorVariants,
-  sizeVariants,
-  buttonSizes,
-  spinnerSizes,
-  disabled,
-  scrollbar,
-  colorsWithVariant,
-  primitives,
-  surface,
-  content,
-  blur,
-  border,
-  lightInteraction,
-  interaction,
-  opacity,
-  letterSpacing,
-  zIndex,
-};
+export { interaction };
 
 // Aliases for backward compatibility
 export const lightColorTokens = primitives.light;
@@ -87,13 +58,38 @@ export type SurfaceProps = keyof typeof surface;
 export type OnSurfaceProps = Extract<keyof typeof surface, `on-${string}`>;
 export type ContentProps = keyof typeof content;
 
-export { darkInteraction } from './interaction';
+export { darkInteraction, lightInteraction } from './interaction';
 
-export { darkShadow, lightShadow as boxShadow } from './box-shadow';
+export { darkShadow, lightShadow as boxShadow, lightShadow } from './box-shadow';
 
-export { transition } from './motion';
-export { semantic } from './colors';
-export { backdrop } from './blur';
-export { borderColor } from './border';
-export { textStyles, fontFamily as font } from './typography';
+export { transition, duration, easing, keyframes } from './motion';
+export { semantic, primitives, surface, content } from './colors';
+export { backdrop, blur } from './blur';
+export { borderColor, border } from './border';
+export {
+  textStyles,
+  fontFamily as font,
+  fontSize,
+  fontFamily,
+  fontWeight,
+  letterSpacing,
+} from './typography';
 export { componentColors, componentShadows } from './components';
+
+export { spacing } from './spacing';
+
+export { borderRadius } from './border-radius';
+
+export { animation } from './animation';
+
+export {
+  colorVariants,
+  buttonSizes,
+  sizeVariants,
+  spinnerSizes,
+  colorsWithVariant,
+} from './variants';
+export { scrollbar, disabled } from './classes';
+
+export { opacity } from './opacity';
+export { zIndex } from './z-index';

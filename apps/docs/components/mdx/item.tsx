@@ -8,13 +8,19 @@ import { cn } from '@ideasui/utils';
 
 import { StatusChip } from './status-chip';
 
-interface ItemProps extends React.HTMLAttributes<HTMLAnchorElement> {
+interface ItemProperties extends React.HTMLAttributes<HTMLAnchorElement> {
   component: ComponentInfo;
   status?: StatusChipStatus;
   openInNewTab?: boolean;
 }
 
-export function Item({ className, component, openInNewTab = false, status, ...props }: ItemProps) {
+export function Item({
+  className,
+  component,
+  openInNewTab = false,
+  status,
+  ...properties
+}: ItemProperties) {
   const { description, href, title } = component;
 
   return (
@@ -25,7 +31,7 @@ export function Item({ className, component, openInNewTab = false, status, ...pr
       )}
       href={href}
       target={openInNewTab ? '_blank' : undefined}
-      {...props}
+      {...properties}
     >
       <div className="flex items-center justify-between">
         <h3 className="font-semibold">{title}</h3>

@@ -5,10 +5,10 @@ import { renderHook } from '@testing-library/react';
 import { Wrapper } from './wrapper';
 
 // Custom hook testing utilities
-export function renderHookWithProviders<Result, Props>(
-  hook: (props: Props) => Result,
-  options?: RenderHookOptions<Props>,
-): ReturnType<typeof renderHook<Result, Props>> {
+export function renderHookWithProviders<Result, Properties>(
+  hook: (properties: Properties) => Result,
+  options?: RenderHookOptions<Properties>,
+): ReturnType<typeof renderHook<Result, Properties>> {
   // Add your providers here
   return renderHook(hook, { wrapper: Wrapper, ...options });
 }

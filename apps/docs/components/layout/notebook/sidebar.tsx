@@ -42,17 +42,17 @@ export const {
 export function SidebarContent({
   children,
   className,
-  ref: refProp,
-  ...props
+  ref: referenceProperty,
+  ...properties
 }: ComponentProps<'aside'>) {
   const context = useContext(LayoutContext);
   const navMode = context?.navMode ?? 'auto';
 
-  const ref = useRef<HTMLElement>(null);
+  const reference = useRef<HTMLElement>(null);
 
   return (
     <Base.SidebarContent>
-      {({ collapsed, hovered, ref: asideRef, ...rest }) => (
+      {({ collapsed, hovered, ref: asideReference, ...rest }) => (
         <div
           className={cn(
             'pointer-events-none sticky z-20 [grid-area:sidebar] *:pointer-events-auto max-md:hidden',
@@ -64,7 +64,7 @@ export function SidebarContent({
         >
           {!!collapsed && <div className="absolute inset-y-0 start-0 w-4" {...rest} />}
           <aside
-            ref={mergeRefs(ref, refProp, asideRef)}
+            ref={mergeRefs(reference, referenceProperty, asideReference)}
             className={cn(
               'absolute inset-y-0 start-0 flex w-full flex-col items-end text-sm duration-250 *:w-(--sidebar-width)',
               navMode === 'auto' && 'border-subtle/40 bg-surface border-e',
@@ -74,15 +74,15 @@ export function SidebarContent({
                   ? 'translate-x-2 shadow-lg rtl:-translate-x-2'
                   : '-translate-x-(--sidebar-width) rtl:translate-x-full',
               ],
-              ref.current &&
-                (ref.current.getAttribute('data-collapsed') === 'true') !== collapsed &&
+              reference.current &&
+                (reference.current.dataset.collapsed === 'true') !== collapsed &&
                 'transition-[width,inset-block,translate,background-color]',
               className,
             )}
             data-collapsed={collapsed}
             data-hovered={!!collapsed && hovered}
             id="nd-sidebar"
-            {...props}
+            {...properties}
             {...rest}
           >
             {children}
@@ -96,7 +96,7 @@ export function SidebarContent({
 export function SidebarDrawer({
   children,
   className,
-  ...props
+  ...properties
 }: ComponentProps<typeof Base.SidebarDrawerContent>) {
   const pathname = usePathname();
   const { setOpen } = Base.useSidebar();
@@ -113,7 +113,7 @@ export function SidebarDrawer({
           'data-[state=open]:animate-fd-sidebar-in data-[state=closed]:animate-fd-sidebar-out bg-surface/90 fixed inset-y-0 end-0 z-60 flex w-[85%] max-w-[320px] flex-col text-[0.9375rem] shadow-lg backdrop-blur-md',
           className,
         )}
-        {...props}
+        {...properties}
       >
         {children}
       </Base.SidebarDrawerContent>
@@ -121,7 +121,12 @@ export function SidebarDrawer({
   );
 }
 
-export function SidebarSeparator({ children, className, style, ...props }: ComponentProps<'p'>) {
+export function SidebarSeparator({
+  children,
+  className,
+  style,
+  ...properties
+}: ComponentProps<'p'>) {
   const depth = Base.useFolderDepth();
 
   return (
@@ -134,7 +139,7 @@ export function SidebarSeparator({ children, className, style, ...props }: Compo
         paddingInlineStart: getItemOffset(depth),
         ...style,
       }}
-      {...props}
+      {...properties}
     >
       {children}
     </Base.SidebarSeparator>
@@ -146,7 +151,7 @@ export function SidebarItem({
   className,
   style,
   onClick,
-  ...props
+  ...properties
 }: ComponentProps<typeof Base.SidebarItem>) {
   const depth = Base.useFolderDepth();
   const { setOpen } = Base.useSidebar();
@@ -167,7 +172,7 @@ export function SidebarItem({
         setOpen(false);
         onClick?.(e);
       }}
-      {...props}
+      {...properties}
     >
       {children}
     </Base.SidebarItem>
@@ -177,7 +182,7 @@ export function SidebarItem({
 export function SidebarFolderTrigger({
   className,
   style,
-  ...props
+  ...properties
 }: ComponentProps<typeof Base.SidebarFolderTrigger>) {
   const { collapsible, depth } = Base.useFolder()!;
 
@@ -191,9 +196,9 @@ export function SidebarFolderTrigger({
         paddingInlineStart: getItemOffset(depth - 1),
         ...style,
       }}
-      {...props}
+      {...properties}
     >
-      {props.children}
+      {properties.children}
     </Base.SidebarFolderTrigger>
   );
 }
@@ -202,7 +207,7 @@ export function SidebarFolderLink({
   className,
   style,
   onClick,
-  ...props
+  ...properties
 }: ComponentProps<typeof Base.SidebarFolderLink>) {
   const depth = Base.useFolderDepth();
   const { setOpen } = Base.useSidebar();
@@ -218,9 +223,9 @@ export function SidebarFolderLink({
         setOpen(false);
         onClick?.(e);
       }}
-      {...props}
+      {...properties}
     >
-      {props.children}
+      {properties.children}
     </Base.SidebarFolderLink>
   );
 }
@@ -228,7 +233,7 @@ export function SidebarFolderLink({
 export function SidebarFolderContent({
   children,
   className,
-  ...props
+  ...properties
 }: ComponentProps<typeof Base.SidebarFolderContent>) {
   const depth = Base.useFolderDepth();
 
@@ -241,7 +246,7 @@ export function SidebarFolderContent({
         }),
         className,
       )}
-      {...props}
+      {...properties}
     >
       {children}
     </Base.SidebarFolderContent>

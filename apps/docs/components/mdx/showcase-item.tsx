@@ -3,7 +3,7 @@
 
 import type { ReactNode } from 'react';
 
-interface ShowcaseItemProps extends React.ComponentProps<'div'> {
+interface ShowcaseItemProperties extends React.ComponentProps<'div'> {
   item: any;
   href: string;
   children?: ReactNode;
@@ -18,7 +18,7 @@ export function ShowcaseItem({
   isMinimal = false,
   isSelected = false,
   item,
-  ...props
-}: ShowcaseItemProps) {
+  ...properties
+}: ShowcaseItemProperties) {
   return null;
 }

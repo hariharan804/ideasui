@@ -1,13 +1,13 @@
 'use client';
 
 import type {
-  ButtonProps,
+  ButtonProps as ButtonProperties,
   ButtonComponent,
   ButtonClassNames,
-  ButtonLabelProps,
-  ButtonIconProps,
-  ButtonSpinnerProps,
-  ButtonShortcutProps,
+  ButtonLabelProps as ButtonLabelProperties,
+  ButtonIconProps as ButtonIconProperties,
+  ButtonSpinnerProps as ButtonSpinnerProperties,
+  ButtonShortcutProps as ButtonShortcutProperties,
 } from './button.types';
 import type { ButtonReturnType } from '@ideasui/theme/recipes';
 import type { ButtonRenderProps } from 'react-aria-components';
@@ -54,8 +54,8 @@ function useButtonContext(): ButtonContextValue {
  * Button Slots
  * ---------------------------------------------------------------------------------------------*/
 
-const ButtonIcon = forwardRef<HTMLElement, ButtonIconProps>(
-  ({ children, className, placement = 'start', ...props }, ref): JSX.Element => {
+const ButtonIcon = forwardRef<HTMLElement, ButtonIconProperties>(
+  ({ children, className, placement = 'start', ...properties }, reference): JSX.Element => {
     const { styles, classNames } = useButtonContext();
     const { icon } = styles;
 
@@ -63,7 +63,7 @@ const ButtonIcon = forwardRef<HTMLElement, ButtonIconProps>(
 
     return (
       <span
-        ref={ref}
+        ref={reference}
         aria-hidden="true"
         className={cn(
           icon(),
@@ -72,7 +72,7 @@ const ButtonIcon = forwardRef<HTMLElement, ButtonIconProps>(
           className,
         )}
         data-slot="button-icon"
-        {...props}
+        {...properties}
       >
         {children}
       </span>
@@ -82,14 +82,14 @@ const ButtonIcon = forwardRef<HTMLElement, ButtonIconProps>(
 
 ButtonIcon.displayName = 'IdeasUI.Button.Icon';
 
-const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProps>(
-  ({ className, label = 'Loading', ...props }, ref): JSX.Element => {
+const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProperties>(
+  ({ className, label = 'Loading', ...properties }, reference): JSX.Element => {
     const { styles, classNames } = useButtonContext();
     const { loader, icon } = styles;
 
     return (
       <span
-        ref={ref}
+        ref={reference}
         className={cn(
           loader(),
           icon(),
@@ -98,7 +98,7 @@ const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProps>(
           className,
         )}
         data-slot="button-spinner"
-        {...props}
+        {...properties}
       >
         <svg
           className="size-full animate-spin"
@@ -120,17 +120,17 @@ const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProps>(
 
 ButtonSpinner.displayName = 'IdeasUI.Button.Spinner';
 
-const ButtonShortcut = forwardRef<HTMLSpanElement, ButtonShortcutProps>(
-  ({ children, className, ...props }, ref): JSX.Element => {
+const ButtonShortcut = forwardRef<HTMLSpanElement, ButtonShortcutProperties>(
+  ({ children, className, ...properties }, reference): JSX.Element => {
     const { styles, classNames } = useButtonContext();
     const { shortcut } = styles;
 
     return (
       <kbd
-        ref={ref}
+        ref={reference}
         className={cn(shortcut(), classNames?.shortcut, className)}
         data-slot="button-shortcut"
-        {...props}
+        {...properties}
       >
         {children}
       </kbd>
@@ -140,17 +140,17 @@ const ButtonShortcut = forwardRef<HTMLSpanElement, ButtonShortcutProps>(
 
 ButtonShortcut.displayName = 'IdeasUI.Button.Shortcut';
 
-const ButtonLabel = forwardRef<HTMLSpanElement, ButtonLabelProps>(
-  ({ children, className, ...props }, ref): JSX.Element => {
+const ButtonLabel = forwardRef<HTMLSpanElement, ButtonLabelProperties>(
+  ({ children, className, ...properties }, reference): JSX.Element => {
     const { styles, classNames } = useButtonContext();
     const { label } = styles;
 
     return (
       <span
-        ref={ref}
+        ref={reference}
         className={cn(label(), classNames?.label, className)}
         data-slot="button-label"
-        {...props}
+        {...properties}
       >
         {children}
       </span>
@@ -164,7 +164,7 @@ ButtonLabel.displayName = 'IdeasUI.Button.Label';
  * Button Render Helpers
  * ---------------------------------------------------------------------------------------------*/
 
-interface ButtonContentProps {
+interface ButtonContentProperties {
   isLoading?: boolean;
   loadingIndicator?: React.ReactNode;
   loadingPosition?: 'start' | 'end' | 'center';
@@ -172,7 +172,7 @@ interface ButtonContentProps {
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
   shortcut?: React.ReactNode;
-  children: ButtonProps['children'];
+  children: ButtonProperties['children'];
   renderProps: ButtonRenderProps;
 }
 
@@ -187,7 +187,7 @@ const ButtonContent = ({
   children,
   renderProps,
   // eslint-disable-next-line sonarjs/function-return-type
-}: ButtonContentProps): ReactNode => {
+}: ButtonContentProperties): ReactNode => {
   const content = typeof children === 'function' ? children(renderProps) : children;
   const loader = loadingIndicator || <ButtonSpinner />;
 
@@ -225,87 +225,89 @@ const ButtonContent = ({
  * Button Base
  * ---------------------------------------------------------------------------------------------*/
 
-const ButtonBase = forwardRef<HTMLButtonElement, ButtonProps>((originalProps, ref): JSX.Element => {
-  const {
-    isLoading,
-    loadingIndicator,
-    loadingPosition,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    isIconOnly,
-    startIcon,
-    endIcon,
-    shortcut,
-    children,
-    className,
-    classNames,
-    ...props
-  } = originalProps;
+const ButtonBase = forwardRef<HTMLButtonElement, ButtonProperties>(
+  (originalProperties, reference): JSX.Element => {
+    const {
+      isLoading,
+      loadingIndicator,
+      loadingPosition,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      isIconOnly,
+      startIcon,
+      endIcon,
+      shortcut,
+      children,
+      className,
+      classNames,
+      ...properties
+    } = originalProperties;
 
-  const groupContext = useButtonGroupContext();
-  const merged = mergePropsWithContext(originalProps, groupContext);
+    const groupContext = useButtonGroupContext();
+    const merged = mergePropsWithContext(originalProperties, groupContext);
 
-  // Specific logic for Button
-  const mergedDisabled = merged.isDisabled || isLoading;
+    // Specific logic for Button
+    const mergedDisabled = merged.isDisabled || isLoading;
 
-  const styles = button({
-    variant: merged.variant,
-    size: merged.size,
-    color: merged.color,
-    radius: merged.radius,
-    fullWidth: merged.fullWidth,
-    isIconOnly: merged.isIconOnly,
-    isDisabled: mergedDisabled,
-    isLoading,
-    disableAnimation: merged.disableAnimation,
-    isAttached: merged.isAttached,
-    isVertical: merged.isVertical,
-    elevation: merged.elevation,
-    showDivider: merged.showDivider ?? merged.isAttached,
-  });
+    const styles = button({
+      variant: merged.variant,
+      size: merged.size,
+      color: merged.color,
+      radius: merged.radius,
+      fullWidth: merged.fullWidth,
+      isIconOnly: merged.isIconOnly,
+      isDisabled: mergedDisabled,
+      isLoading,
+      disableAnimation: merged.disableAnimation,
+      isAttached: merged.isAttached,
+      isVertical: merged.isVertical,
+      elevation: merged.elevation,
+      showDivider: merged.showDivider ?? merged.isAttached,
+    });
 
-  // Ensure we have an accessible name when loading or icon-only
-  const ariaLabel = getAccessibleName(merged, typeof children === 'function' ? null : children);
-  const loadingLabel = typeof loadingIndicator === 'string' ? loadingIndicator : 'Loading';
+    // Ensure we have an accessible name when loading or icon-only
+    const ariaLabel = getAccessibleName(merged, typeof children === 'function' ? null : children);
+    const loadingLabel = typeof loadingIndicator === 'string' ? loadingIndicator : 'Loading';
 
-  return (
-    <ButtonPrimitive
-      ref={ref}
-      aria-busy={isLoading}
-      aria-label={isLoading && !ariaLabel ? loadingLabel : ariaLabel}
-      className={(renderProps) =>
-        styles.base({
-          className: cn(
-            typeof className === 'function' ? className(renderProps) : className,
-            classNames?.base,
-          ),
-        })
-      }
-      data-attached={merged.isAttached}
-      data-slot="button"
-      data-vertical={merged.isVertical}
-      isDisabled={mergedDisabled}
-      isPending={isLoading}
-      {...props}
-    >
-      {(renderProps) => (
-        <ButtonContext.Provider value={{ styles, classNames }}>
-          <ButtonContent
-            endIcon={endIcon}
-            isIconOnly={merged.isIconOnly}
-            isLoading={isLoading}
-            loadingIndicator={loadingIndicator}
-            loadingPosition={loadingPosition}
-            renderProps={renderProps}
-            shortcut={shortcut}
-            startIcon={startIcon}
-          >
-            {children}
-          </ButtonContent>
-        </ButtonContext.Provider>
-      )}
-    </ButtonPrimitive>
-  );
-});
+    return (
+      <ButtonPrimitive
+        ref={reference}
+        aria-busy={isLoading}
+        aria-label={isLoading && !ariaLabel ? loadingLabel : ariaLabel}
+        className={(renderProperties) =>
+          styles.base({
+            className: cn(
+              typeof className === 'function' ? className(renderProperties) : className,
+              classNames?.base,
+            ),
+          })
+        }
+        data-attached={merged.isAttached}
+        data-slot="button"
+        data-vertical={merged.isVertical}
+        isDisabled={mergedDisabled}
+        isPending={isLoading}
+        {...properties}
+      >
+        {(renderProperties) => (
+          <ButtonContext.Provider value={{ styles, classNames }}>
+            <ButtonContent
+              endIcon={endIcon}
+              isIconOnly={merged.isIconOnly}
+              isLoading={isLoading}
+              loadingIndicator={loadingIndicator}
+              loadingPosition={loadingPosition}
+              renderProps={renderProperties}
+              shortcut={shortcut}
+              startIcon={startIcon}
+            >
+              {children}
+            </ButtonContent>
+          </ButtonContext.Provider>
+        )}
+      </ButtonPrimitive>
+    );
+  },
+);
 
 ButtonBase.displayName = 'IdeasUI.Button';
 

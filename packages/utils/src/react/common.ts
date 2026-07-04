@@ -10,41 +10,54 @@ import { cn } from '../style/tailwind';
  * @returns {RefCallback<T>} A ref callback that updates all passed refs
  * @internal - Use mergeRefs from main utils instead
  */
-export function mergeRefs<T>(...refs: Array<RefObject<T> | LegacyRef<T>>): RefCallback<T> {
+export function mergeRefs<T>(...references: Array<RefObject<T> | LegacyRef<T>>): RefCallback<T> {
   return (node: T) => {
-    refs.forEach((ref) => {
-      if (typeof ref === 'function') {
-        ref(node);
-      } else if (ref !== null && ref !== undefined) {
-        (ref as MutableRefObject<T | null>).current = node;
+    for (const reference of references) {
+      if (typeof reference === 'function') {
+        reference(node);
+      } else if (reference !== null && reference !== undefined) {
+        (reference as MutableRefObject<T | null>).current = node;
       }
-    });
+    }
   };
 }
 
-function mergePropValue(key: string, value: any, result: Record<string, any>): void {
-  if (key === 'className' || key === 'class') {
-    result.className = cn(result.className, value as string);
-  } else if (key === 'style') {
-    result.style = { ...result.style, ...value };
-  } else if (key === 'ref') {
-    const existing = result.ref;
+function mergePropertyValue(key: string, value: any, result: Record<string, any>): void {
+  switch (key) {
+    case 'className':
+    case 'class': {
+      result.className = cn(result.className, value as string);
 
-    result.ref = existing ? mergeRefs(existing, value) : value;
-  } else if (key.startsWith('on') && typeof value === 'function') {
-    const existing = result[key];
-
-    if (typeof existing === 'function') {
-      result[key] = (...args: any[]) => {
-        existing(...args);
-
-        value(...args);
-      };
-    } else {
-      result[key] = value;
+      break;
     }
-  } else {
-    result[key] = value;
+    case 'style': {
+      result.style = { ...result.style, ...value };
+
+      break;
+    }
+    case 'ref': {
+      const existing = result.ref;
+
+      result.ref = existing ? mergeRefs(existing, value) : value;
+
+      break;
+    }
+    default: {
+      if (key.startsWith('on') && typeof value === 'function') {
+        const existing = result[key];
+
+        result[key] =
+          typeof existing === 'function'
+            ? (...arguments_: any[]) => {
+                existing(...arguments_);
+
+                value(...arguments_);
+              }
+            : value;
+      } else {
+        result[key] = value;
+      }
+    }
   }
 }
 
@@ -63,14 +76,14 @@ export function mergeProps(
 ): Record<string, any> {
   const result: Record<string, any> = {};
 
-  for (const obj of objects) {
-    if (!obj) {
+  for (const object of objects) {
+    if (!object) {
       continue;
     }
 
-    for (const key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        mergePropValue(key, obj[key], result);
+    for (const key in object) {
+      if (Object.prototype.hasOwnProperty.call(object, key)) {
+        mergePropertyValue(key, object[key], result);
       }
     }
   }
@@ -86,12 +99,12 @@ export function mergeProps(
  * @returns {Record<string, any>} The merged props object
  */
 export function mergePropsWithContext(
-  props: Record<string, any>,
+  properties: Record<string, any>,
   context: Record<string, any> | null | undefined,
 ): Record<string, any> {
   if (!context) {
-    return props;
+    return properties;
   }
 
-  return mergeProps(context, props);
+  return mergeProps(context, properties);
 }

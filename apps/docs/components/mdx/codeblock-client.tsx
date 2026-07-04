@@ -16,7 +16,7 @@ export function CodeBlock({
   collapsible,
   showLineNumbers,
   title,
-  ...props
+  ...properties
 }: {
   lang?: string;
   code?: string;
@@ -41,7 +41,7 @@ export function CodeBlock({
         )}
         code={code}
         title={title}
-        {...props}
+        {...properties}
       >
         {children}
       </BaseCodeBlock>
@@ -74,7 +74,7 @@ export function CodeBlock({
           )}
           code={code}
           title={title}
-          {...props}
+          {...properties}
         >
           {children}
         </BaseCodeBlock>

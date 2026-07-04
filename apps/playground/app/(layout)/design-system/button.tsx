@@ -3,7 +3,7 @@ import type { ButtonHTMLAttributes, ReactNode, JSX } from 'react';
 type ButtonVariant = 'solid' | 'faded' | 'bordered' | 'light' | 'flat' | 'ghost' | 'shadow';
 type ButtonColor = 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'neutral';
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProperties extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   color?: ButtonColor;
   children: ReactNode;
@@ -14,8 +14,8 @@ export function Button({
   color = 'primary',
   children,
   className = '',
-  ...props
-}: ButtonProps): JSX.Element {
+  ...properties
+}: ButtonProperties): JSX.Element {
   // Base classes for all buttons
   const baseClasses =
     'inline-flex items-center justify-center rounded-md px-4 h-10 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none';
@@ -98,7 +98,7 @@ export function Button({
   const finalClassName = `${baseClasses} ${currentVariantStyles} ${className}`.trim();
 
   return (
-    <button className={finalClassName} {...props}>
+    <button className={finalClassName} {...properties}>
       {children}
     </button>
   );

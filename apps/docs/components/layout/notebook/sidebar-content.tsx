@@ -26,7 +26,7 @@ import { LanguageToggle } from '@/components/ui/docs/language-toggle';
 import { ThemeToggle } from '@/components/ui/docs/theme-toggle';
 import { LinkItem } from '@/components/ui/docs/link-item';
 
-export interface SidebarContentProps {
+export interface SidebarContentProperties {
   sidebarProps: {
     banner?: ReactNode | FC<ComponentProps<'div'>>;
     footer?: ReactNode | FC<ComponentProps<'div'>>;
@@ -54,12 +54,12 @@ function DefaultHeader({
   className,
   banner,
   children,
-  ...props
+  ...properties
 }: ComponentProps<'div'> & { banner?: ReactNode }) {
   return (
     <div
       className={cn('flex flex-col gap-3 p-4 !pt-6 pb-2 empty:hidden md:px-6', className)}
-      {...props}
+      {...properties}
     >
       {children}
       {banner}
@@ -72,7 +72,7 @@ function DefaultFooter({
   footer,
   iconLinks,
   children,
-  ...props
+  ...properties
 }: ComponentProps<'div'> & {
   footer?: ReactNode;
   iconLinks: Extract<LinkItemType, { type: 'icon' }>[];
@@ -84,7 +84,7 @@ function DefaultFooter({
         iconLinks.length > 0 && 'max-lg:flex',
         className,
       )}
-      {...props}
+      {...properties}
     >
       {children}
       {footer}
@@ -100,7 +100,7 @@ export function SidebarContent({
   tabMode,
   i18n,
   themeSwitch,
-}: SidebarContentProps) {
+}: SidebarContentProperties) {
   const { banner, collapsible = true, components, footer, ...rest } = sidebarProps;
   const navMode = nav.mode ?? 'auto';
   const iconLinks = useMemo(
@@ -111,12 +111,12 @@ export function SidebarContent({
   const linkItems = useMemo(() => {
     return links
       .filter((item) => item.type !== 'icon')
-      .map((item, i) => ({
+      .map((item, index) => ({
         item,
         key:
           item.type === 'custom'
-            ? `custom-${i}`
-            : item.url || (item as Record<string, unknown>).text || `link-${i}`,
+            ? `custom-${index}`
+            : item.url || (item as Record<string, unknown>).text || `link-${index}`,
       }));
   }, [links]);
   const Header = typeof banner === 'function' ? banner : DefaultHeader;
@@ -128,10 +128,10 @@ export function SidebarContent({
 
   const viewport = (
     <SidebarViewport>
-      {linkItems.map(({ item, key }, i, arr) => (
+      {linkItems.map(({ item, key }, index, array) => (
         <SidebarLinkItem
           key={key}
-          className={cn('lg:hidden', i === arr.length - 1 && 'mb-4')}
+          className={cn('lg:hidden', index === array.length - 1 && 'mb-4')}
           item={item}
         />
       ))}
@@ -237,7 +237,7 @@ export function SidebarContent({
           footer={typeof footer === 'function' ? undefined : footer}
           iconLinks={iconLinks}
         >
-          {iconLinks.map((item, i) => (
+          {iconLinks.map((item, index) => (
             <LinkItem
               key={item.url}
               aria-label={item.label}
@@ -247,7 +247,7 @@ export function SidebarContent({
                   size: 'icon-sm',
                 }),
                 'text-content-secondary lg:hidden',
-                i === iconLinks.length - 1 && 'me-auto',
+                index === iconLinks.length - 1 && 'me-auto',
               )}
               item={item}
             >

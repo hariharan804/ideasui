@@ -1,11 +1,11 @@
 import {
-  getAttr,
-  setAttrs,
-  toggleAttr,
-  hasAttr,
-  getDataAttr,
-  setDataAttr,
-  toDataAttrs,
+  getAttr as getAttribute,
+  setAttrs as setAttributes,
+  toggleAttr as toggleAttribute,
+  hasAttr as hasAttribute,
+  getDataAttr as getDataAttribute,
+  setDataAttr as setDataAttribute,
+  toDataAttrs as toDataAttributes,
 } from '../attributes';
 
 describe('attributes', () => {
@@ -18,41 +18,41 @@ describe('attributes', () => {
   describe('getAttr', () => {
     it('should return attribute value', () => {
       div.setAttribute('id', 'test');
-      expect(getAttr(div, 'id')).toBe('test');
+      expect(getAttribute(div, 'id')).toBe('test');
     });
 
     it('should return fallback', () => {
-      expect(getAttr(div, 'id', 'fallback')).toBe('fallback');
+      expect(getAttribute(div, 'id', 'fallback')).toBe('fallback');
     });
 
     it('should return null', () => {
-      expect(getAttr(div, 'id')).toBeNull();
+      expect(getAttribute(div, 'id')).toBeNull();
     });
   });
 
   describe('setAttrs', () => {
     it('should set attributes', () => {
-      setAttrs(div, { id: 'test', class: 'demo' });
+      setAttributes(div, { id: 'test', class: 'demo' });
       expect(div.getAttribute('id')).toBe('test');
       expect(div.getAttribute('class')).toBe('demo');
     });
 
     it('should remove attributes if null/undefined', () => {
       div.setAttribute('id', 'test');
-      setAttrs(div, { id: null });
+      setAttributes(div, { id: null });
       expect(div.hasAttribute('id')).toBe(false);
     });
   });
 
   describe('toggleAttr', () => {
     it('should add attribute if true', () => {
-      toggleAttr(div, 'disabled', true, 'true');
+      toggleAttribute(div, 'disabled', true, 'true');
       expect(div.getAttribute('disabled')).toBe('true');
     });
 
     it('should remove attribute if false', () => {
       div.setAttribute('disabled', 'true');
-      toggleAttr(div, 'disabled', false);
+      toggleAttribute(div, 'disabled', false);
       expect(div.hasAttribute('disabled')).toBe(false);
     });
   });
@@ -60,35 +60,35 @@ describe('attributes', () => {
   describe('hasAttr', () => {
     it('should return true if attribute exists', () => {
       div.setAttribute('id', 'test');
-      expect(hasAttr(div, 'id')).toBe(true);
+      expect(hasAttribute(div, 'id')).toBe(true);
     });
   });
 
   describe('getDataAttr', () => {
     it('should return parsed data attribute', () => {
-      div.setAttribute('data-test', '{"a":1}');
-      expect(getDataAttr(div, 'test')).toStrictEqual({ a: 1 });
+      div.dataset.test = '{"a":1}';
+      expect(getDataAttribute(div, 'test')).toStrictEqual({ a: 1 });
     });
 
     it('should return raw string if parsing fails', () => {
-      div.setAttribute('data-test', 'invalid json');
-      expect(getDataAttr(div, 'test')).toBe('invalid json');
+      div.dataset.test = 'invalid json';
+      expect(getDataAttribute(div, 'test')).toBe('invalid json');
     });
 
     it('should return null if missing', () => {
-      expect(getDataAttr(div, 'test')).toBeNull();
+      expect(getDataAttribute(div, 'test')).toBeNull();
     });
   });
 
   describe('setDataAttr', () => {
     it('should set data attribute', () => {
-      setDataAttr(div, 'test', { a: 1 });
-      expect(div.getAttribute('data-test')).toBe('{"a":1}');
+      setDataAttribute(div, 'test', { a: 1 });
+      expect(div.dataset.test).toBe('{"a":1}');
     });
 
     it('should set data attribute string', () => {
-      setDataAttr(div, 'test', 'value');
-      expect(div.getAttribute('data-test')).toBe('value');
+      setDataAttribute(div, 'test', 'value');
+      expect(div.dataset.test).toBe('value');
     });
   });
 
@@ -96,7 +96,7 @@ describe('attributes', () => {
     it('should convert object to data attributes', () => {
       const data = { testKey: 'value', other: 123 };
 
-      expect(toDataAttrs(data)).toStrictEqual({
+      expect(toDataAttributes(data)).toStrictEqual({
         'data-test-key': 'value',
         'data-other': '123',
       });

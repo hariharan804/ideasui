@@ -4,16 +4,16 @@
  * @param {number} wait - The wait time in milliseconds
  * @returns {Function} The debounced function with a cancel method
  */
-export function debounce<T extends (...args: unknown[]) => unknown>(
-  func: T,
+export function debounce<T extends (...arguments_: unknown[]) => unknown>(
+  function_: T,
   wait: number,
 ): T & { cancel: () => void } {
   let timeout: NodeJS.Timeout;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const debounced = ((...args: any[]) => {
+  const debounced = ((...arguments_: any[]) => {
     clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
+    timeout = setTimeout(() => function_(...arguments_), wait);
   }) as T & { cancel: () => void };
 
   debounced.cancel = () => clearTimeout(timeout);
@@ -27,13 +27,16 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
  * @param {number} limit - The throttle limit in milliseconds
  * @returns {Function} The throttled function
  */
-export function throttle<T extends (...args: unknown[]) => unknown>(func: T, limit: number): T {
+export function throttle<T extends (...arguments_: unknown[]) => unknown>(
+  function_: T,
+  limit: number,
+): T {
   let inThrottle: boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return ((...args: any[]) => {
+  return ((...arguments_: any[]) => {
     if (!inThrottle) {
-      func(...args);
+      function_(...arguments_);
       inThrottle = true;
       setTimeout(() => (inThrottle = false), limit);
     }

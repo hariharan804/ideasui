@@ -2,12 +2,12 @@ import { cn } from '@ideasui/utils';
 
 export type StatusChipStatus = 'new' | 'new-dot' | 'preview' | 'updated' | 'stable' | 'planned';
 
-interface StatusChipProps {
+interface StatusChipProperties {
   status: StatusChipStatus;
   className?: string;
 }
 
-export function StatusChip({ className, status }: StatusChipProps) {
+export function StatusChip({ className, status }: StatusChipProperties) {
   const commonClasses =
     'inline-flex h-5 items-center rounded-3xl px-1.5 text-[10px] font-semibold transition-all';
 

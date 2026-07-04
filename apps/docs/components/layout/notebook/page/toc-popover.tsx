@@ -23,7 +23,7 @@ const TocPopoverContext = createContext<{
 } | null>(null);
 
 export function PageTOCPopover({ children, className, ...rest }: ComponentProps<'div'>) {
-  const ref = useRef<HTMLElement>(null);
+  const reference = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
   const context = use(LayoutContext);
   const isNavTransparent = context?.isNavTransparent ?? true;
@@ -32,15 +32,15 @@ export function PageTOCPopover({ children, className, ...rest }: ComponentProps<
     if (!open) {
       return;
     }
-    if (ref.current && !ref.current.contains(e.target as HTMLElement)) {
+    if (reference.current && !reference.current.contains(e.target as HTMLElement)) {
       setOpen(false);
     }
   });
 
   useEffect(() => {
-    window.addEventListener('click', onClick);
+    globalThis.addEventListener('click', onClick);
 
-    return () => window.removeEventListener('click', onClick);
+    return () => globalThis.removeEventListener('click', onClick);
   }, []); // onClick is stable from useEffectEvent
 
   return (
@@ -64,7 +64,7 @@ export function PageTOCPopover({ children, className, ...rest }: ComponentProps<
         {...rest}
       >
         <header
-          ref={ref}
+          ref={reference}
           className={cn(
             'border-b backdrop-blur-sm transition-colors',
             (!isNavTransparent || open) && 'bg-surface/80',
@@ -78,7 +78,7 @@ export function PageTOCPopover({ children, className, ...rest }: ComponentProps<
   );
 }
 
-export function PageTOCPopoverTrigger({ className, ...props }: ComponentProps<'button'>) {
+export function PageTOCPopoverTrigger({ className, ...properties }: ComponentProps<'button'>) {
   const t = useTranslations({ note: 'table of contents' });
   const context = use(TocPopoverContext);
   const items = useTOCItems();
@@ -106,7 +106,7 @@ export function PageTOCPopoverTrigger({ className, ...props }: ComponentProps<'b
         className,
       )}
       data-toc-popover-trigger=""
-      {...props}
+      {...properties}
     >
       <ProgressCircle
         className={cn('shrink-0', open && 'text-primary')}
@@ -137,19 +137,19 @@ export function PageTOCPopoverTrigger({ className, ...props }: ComponentProps<'b
   );
 }
 
-export function PageTOCPopoverContent(props: ComponentProps<'div'>) {
+export function PageTOCPopoverContent(properties: ComponentProps<'div'>) {
   return (
     <CollapsibleContent
       data-toc-popover-content=""
-      {...props}
-      className={cn('flex max-h-[50vh] flex-col px-4 md:px-6', props.className)}
+      {...properties}
+      className={cn('flex max-h-[50vh] flex-col px-4 md:px-6', properties.className)}
     >
-      {props.children}
+      {properties.children}
     </CollapsibleContent>
   );
 }
 
-interface ProgressCircleProps extends SVGAttributes<SVGSVGElement> {
+interface ProgressCircleProperties extends SVGAttributes<SVGSVGElement> {
   max?: number;
   min?: number;
   size?: number;
@@ -163,13 +163,13 @@ function ProgressCircle({
   size = 24,
   strokeWidth = 2,
   value,
-  ...restSvgProps
-}: ProgressCircleProps) {
+  ...restSvgProperties
+}: ProgressCircleProperties) {
   const normalizedValue = Math.min(Math.max(value, min), max);
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const progress = (normalizedValue / max) * circumference;
-  const circleProps = {
+  const circleProperties = {
     cx: size / 2,
     cy: size / 2,
     fill: 'none',
@@ -184,11 +184,11 @@ function ProgressCircle({
       aria-valuenow={normalizedValue}
       role="progressbar"
       viewBox={`0 0 ${size} ${size}`}
-      {...restSvgProps}
+      {...restSvgProperties}
     >
-      <circle {...circleProps} className="stroke-current/25" />
+      <circle {...circleProperties} className="stroke-current/25" />
       <circle
-        {...circleProps}
+        {...circleProperties}
         className="transition-all"
         stroke="currentColor"
         strokeDasharray={circumference}

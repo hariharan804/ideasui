@@ -36,22 +36,24 @@ describe('Theme Utils', () => {
 
   describe('escapeSelector', () => {
     it('should escape special characters', () => {
-      expect(escapeSelector('.class')).toBe('\\.class');
-      expect(escapeSelector('foo@bar')).toBe('foo\\@bar');
+      expect(escapeSelector('.class')).toBe(String.raw`\.class`);
+      expect(escapeSelector('foo@bar')).toBe(String.raw`foo\@bar`);
     });
 
     it('should use CSS.escape if available', () => {
-      const originalEscape = global.CSS?.escape;
+      const originalEscape = globalThis.CSS?.escape;
 
-      global.CSS = { escape: vi.fn((str) => `escaped-${str}`) } as unknown as typeof CSS;
+      globalThis.CSS = {
+        escape: vi.fn((string_) => `escaped-${string_}`),
+      } as unknown as typeof CSS;
 
       expect(escapeSelector('foo')).toBe('escaped-foo');
 
       if (originalEscape) {
-        global.CSS.escape = originalEscape;
+        globalThis.CSS.escape = originalEscape;
       } else {
         // @ts-ignore
-        delete global.CSS;
+        delete globalThis.CSS;
       }
     });
   });
@@ -66,8 +68,8 @@ describe('Theme Utils', () => {
 
   describe('mapKeys', () => {
     it('should map object keys', () => {
-      const obj = { a: 1, b: 2 };
-      const result = mapKeys(obj, (val, key) => key.toUpperCase());
+      const object = { a: 1, b: 2 };
+      const result = mapKeys(object, (value, key) => key.toUpperCase());
 
       expect(result).toStrictEqual({ A: 1, B: 2 });
     });
@@ -75,8 +77,8 @@ describe('Theme Utils', () => {
 
   describe('omit', () => {
     it('should omit specified keys', () => {
-      const obj = { a: 1, b: 2, c: 3 };
-      const result = omit(obj, ['b']);
+      const object = { a: 1, b: 2, c: 3 };
+      const result = omit(object, ['b']);
 
       expect(result).toStrictEqual({ a: 1, c: 3 });
     });
@@ -142,18 +144,18 @@ describe('Theme Utils', () => {
 
   describe('escapeSelector fallback', () => {
     it('should use manual escaping when CSS.escape is undefined', () => {
-      const originalCSS = global.CSS;
+      const originalCSS = globalThis.CSS;
 
       // @ts-ignore - Remove CSS to test fallback
-      delete global.CSS;
+      delete globalThis.CSS;
 
-      expect(escapeSelector('.class')).toBe('\\.class');
-      expect(escapeSelector('foo@bar')).toBe('foo\\@bar');
-      expect(escapeSelector('test#id')).toBe('test\\#id');
+      expect(escapeSelector('.class')).toBe(String.raw`\.class`);
+      expect(escapeSelector('foo@bar')).toBe(String.raw`foo\@bar`);
+      expect(escapeSelector('test#id')).toBe(String.raw`test\#id`);
 
       // Restore CSS
       if (originalCSS) {
-        global.CSS = originalCSS;
+        globalThis.CSS = originalCSS;
       }
     });
   });

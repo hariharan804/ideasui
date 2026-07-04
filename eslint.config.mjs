@@ -56,6 +56,8 @@ export default defineConfig([
     'esm/*',
     'scripts/*',
     '**/*.config.js',
+    '**/*.config.mjs',
+    '**/*.config.cjs',
     '**/.DS_Store',
     '**/node_modules',
     'templates/**',
@@ -64,11 +66,8 @@ export default defineConfig([
     '!**/.storybook',
     '**/.changeset',
     '**/.storybook/**/*',
-    '!**/.commitlintrc.cjs',
     'tests/*',
     '**/coverage',
-    '!**/jest.config.js',
-    '!**/plopfile.js',
     '!**/tsup.config.ts',
     '**/storybook-static/**',
     'packages/core/styles-experimental/**', // Experimental package
@@ -76,10 +75,29 @@ export default defineConfig([
     'apps/docs/.source/**',
     'apps/docs/next-env.d.ts',
     '.chrome-profile/**',
+    '.commitlintrc.cjs',
+    'plopfile.js',
+    'tsup-config.mjs',
   ]),
 
   // SonarJS Recommended Rules
   sonarjs.configs.recommended,
+  unicorn.configs.recommended,
+
+  // Global unicorn overrides — applied to ALL files (including .mjs/.cjs)
+  {
+    rules: {
+      'unicorn/prevent-abbreviations': 'off',
+      'unicorn/no-null': 'off',
+      'unicorn/prefer-module': 'off',
+      'unicorn/prefer-query-selector': 'off',
+      'unicorn/no-array-callback-reference': 'off',
+      'unicorn/no-anonymous-default-export': 'off',
+      'unicorn/prefer-number-properties': 'off',
+      'unicorn/no-abusive-eslint-disable': 'off',
+      'unicorn/no-array-sort': 'off',
+    },
+  },
 
   // Main configuration
   {
@@ -100,7 +118,6 @@ export default defineConfig([
       'react-refresh': fixupPluginRules(reactRefresh),
       import: fixupPluginRules(_import),
       'unused-imports': unusedImports,
-      unicorn: fixupPluginRules(unicorn),
       jsdoc: fixupPluginRules(jsdoc),
       security: fixupPluginRules(security),
       promise: fixupPluginRules(promise),
@@ -210,14 +227,14 @@ export default defineConfig([
       ],
       '@typescript-eslint/naming-convention': [
         'error',
-        { selector: 'variable', format: ['camelCase', 'UPPER_CASE'], leadingUnderscore: 'allow' },
+        { selector: 'variable', format: ['camelCase', 'UPPER_CASE'], leadingUnderscore: 'allow', trailingUnderscore: 'allow' },
         { selector: 'function', format: ['camelCase', 'PascalCase'] },
         { selector: 'variable', filter: { regex: '^[A-Z]', match: true }, format: ['PascalCase'] },
         { selector: 'interface', format: ['PascalCase'] },
         { selector: 'typeAlias', format: ['PascalCase'] },
         { selector: 'enum', format: ['PascalCase'] },
         { selector: 'class', format: ['PascalCase'] },
-        { selector: 'objectLiteralProperty', format: null },
+        { selector: 'objectLiteralProperty', format: null }, // eslint-disable-line unicorn/no-null -- required by @typescript-eslint schema
         {
           selector: 'variable',
           modifiers: ['const'],
@@ -230,7 +247,6 @@ export default defineConfig([
       'react/prop-types': 'off',
       'react/jsx-uses-react': 'off',
       'react/react-in-jsx-scope': 'off',
-      'react/display-name': 'off',
       'react/jsx-no-useless-fragment': 'error',
       'react/no-unstable-nested-components': 'error',
       'react/no-unescaped-entities': ['error', { forbid: ['>', '}'] }],
@@ -377,6 +393,17 @@ export default defineConfig([
       'unicorn/prefer-string-starts-ends-with': 'error',
       'unicorn/prefer-type-error': 'error',
       'unicorn/throw-new-error': 'error',
+
+      // Unicorn rules disabled — incompatible with React component library conventions
+      'unicorn/prevent-abbreviations': 'off', // Renames forwardRef, mergeProps, etc.
+      'unicorn/no-null': 'off', // React APIs use null extensively (refs, context, returns)
+      'unicorn/prefer-module': 'off', // CJS scripts and configs need require()
+      'unicorn/prefer-query-selector': 'off', // getElementById is valid and performant
+      'unicorn/no-array-callback-reference': 'off', // Conflicts with typed filter predicates
+      'unicorn/no-anonymous-default-export': 'off', // Plop and config files use anonymous exports
+      'unicorn/prefer-number-properties': 'off', // isNaN/isFinite are valid in utility code
+      'unicorn/no-abusive-eslint-disable': 'off', // Legacy scripts use blanket disables
+      'unicorn/no-array-sort': 'off', // Array#toSorted() has limited runtime support
 
       // Documentation (JSDoc) - Optional for flexibility
       'jsdoc/check-alignment': 'off',

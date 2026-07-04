@@ -12,7 +12,7 @@ import { cn } from '@ideasui/utils';
 
 import { LayoutContext } from './context';
 
-export function LayoutHeader(props: ComponentProps<'header'>) {
+export function LayoutHeader(properties: ComponentProps<'header'>) {
   const { open } = useSidebar();
   const context = useContext(LayoutContext);
   const isNavTransparent = context?.isNavTransparent ?? !open;
@@ -20,14 +20,14 @@ export function LayoutHeader(props: ComponentProps<'header'>) {
   return (
     <header
       data-transparent={isNavTransparent}
-      {...props}
+      {...properties}
       className={cn(
         'sticky top-0 z-50 flex w-full flex-col border-b transition-all duration-300',
         isNavTransparent ? 'bg-transparent' : 'border-base/40 backdrop-blur-md',
-        props.className,
+        properties.className,
       )}
     >
-      {props.children}
+      {properties.children}
     </header>
   );
 }
@@ -74,12 +74,12 @@ export function filterTabsByPathname(
 export function FilteredSidebarTabsDropdown({
   filterByPathname = false,
   options,
-  ...props
+  ...properties
 }: ComponentProps<typeof SidebarTabsDropdown> & { filterByPathname?: boolean }) {
   const pathname = usePathname();
   const filteredOptions = useMemo(() => {
     if (!options) {
-      return undefined;
+      return;
     }
     if (!filterByPathname) {
       return options;
@@ -92,7 +92,7 @@ export function FilteredSidebarTabsDropdown({
     return null;
   }
 
-  return <SidebarTabsDropdown {...props} options={filteredOptions} />;
+  return <SidebarTabsDropdown {...properties} options={filteredOptions} />;
 }
 
 export function LayoutHeaderTabs({
@@ -100,12 +100,12 @@ export function LayoutHeaderTabs({
   className,
   filterByPathname = false,
   options,
-  ...props
+  ...properties
 }: LayoutHeaderTabsProps) {
   const pathname = usePathname();
   const filteredOptions = useMemo(() => {
     if (!options) {
-      return undefined;
+      return;
     }
     if (!filterByPathname) {
       return options;
@@ -114,7 +114,7 @@ export function LayoutHeaderTabs({
     return filterTabsByPathname(options, pathname);
   }, [options, pathname, filterByPathname]);
 
-  const selectedIdx = useMemo(() => {
+  const selectedIndex = useMemo(() => {
     if (!filteredOptions || !pathname) {
       return -1;
     }
@@ -128,13 +128,13 @@ export function LayoutHeaderTabs({
         'flex [scrollbar-width:none] flex-row items-center gap-2 [-ms-overflow-style:none] max-md:overflow-x-auto max-md:overflow-y-hidden [&::-webkit-scrollbar]:hidden',
         className,
       )}
-      {...props}
+      {...properties}
     >
-      {filteredOptions?.map((option, i) => {
+      {filteredOptions?.map((option, index) => {
         const { props: { className, ...rest } = {}, title, url } = option;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const icon = (option as any).icon;
-        const isSelected = selectedIdx === i;
+        const isSelected = selectedIndex === index;
 
         return (
           <Link

@@ -6,11 +6,11 @@ import {
   toPx,
   toRem,
   parseValue,
-  setCSSVar,
-  removeCSSVar,
-  setCSSVars,
-  getCSSVars,
-  createCSSVars,
+  setCSSVar as setCSVariable,
+  removeCSSVar as removeCSVariable,
+  setCSSVars as setCSVariables,
+  getCSSVars as getCSVariables,
+  createCSSVars as createCSVariables,
   toStyleString,
   mergeStyles,
   isVisible,
@@ -73,15 +73,15 @@ describe('css', () => {
 
     beforeEach(() => {
       element = document.createElement('div');
-      document.body.appendChild(element);
+      document.body.append(element);
     });
 
     afterEach(() => {
-      document.body.removeChild(element);
+      element.remove();
     });
 
     it('should set and get CSS variable', () => {
-      setCSSVar('color', 'red', element);
+      setCSVariable('color', 'red', element);
       expect(element.style.getPropertyValue('--color')).toBe('red');
 
       // JSDOM getComputedStyle might not work perfectly with custom properties set via style map in all versions,
@@ -94,37 +94,37 @@ describe('css', () => {
     });
 
     it('should handle number values', () => {
-      setCSSVar('width', 100, element);
+      setCSVariable('width', 100, element);
       expect(element.style.getPropertyValue('--width')).toBe('100px');
     });
 
     it('should set on document element if no element provided', () => {
-      setCSSVar('global', 'test');
+      setCSVariable('global', 'test');
       expect(document.documentElement.style.getPropertyValue('--global')).toBe('test');
-      removeCSSVar('global');
+      removeCSVariable('global');
     });
 
     it('should remove CSS variable', () => {
-      setCSSVar('test', 'value', element);
-      removeCSSVar('test', element);
+      setCSVariable('test', 'value', element);
+      removeCSVariable('test', element);
       expect(element.style.getPropertyValue('--test')).toBe('');
     });
 
     it('should set multiple CSS variables', () => {
-      setCSSVars({ a: 1, b: '2px' }, element);
+      setCSVariables({ a: 1, b: '2px' }, element);
       expect(element.style.getPropertyValue('--a')).toBe('1px');
       expect(element.style.getPropertyValue('--b')).toBe('2px');
     });
 
     it('should get multiple CSS variables', () => {
-      vi.spyOn(window, 'getComputedStyle').mockImplementation(
+      vi.spyOn(globalThis, 'getComputedStyle').mockImplementation(
         () =>
           ({
-            getPropertyValue: (prop: string) => {
-              if (prop === '--a') {
+            getPropertyValue: (property: string) => {
+              if (property === '--a') {
                 return '1px';
               }
-              if (prop === '--b') {
+              if (property === '--b') {
                 return '2px';
               }
 
@@ -133,15 +133,15 @@ describe('css', () => {
           }) as CSSStyleDeclaration,
       );
 
-      const vars = getCSSVars(['a', 'b'], element);
+      const variables = getCSVariables(['a', 'b'], element);
 
-      expect(vars).toStrictEqual({ a: '1px', b: '2px' });
+      expect(variables).toStrictEqual({ a: '1px', b: '2px' });
 
-      (window.getComputedStyle as Mock).mockRestore();
+      (globalThis.getComputedStyle as Mock).mockRestore();
     });
 
     it('should create CSS vars object', () => {
-      expect(createCSSVars({ x: 10, y: '20%' })).toStrictEqual({
+      expect(createCSVariables({ x: 10, y: '20%' })).toStrictEqual({
         '--x': '10px',
         '--y': '20%',
       });

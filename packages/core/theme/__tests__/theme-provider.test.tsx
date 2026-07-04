@@ -5,7 +5,7 @@ import { defaultConfig } from '../src/providers/utils/themes.config';
 
 describe('ThemeProvider', () => {
   beforeEach(() => {
-    window.localStorage.clear();
+    globalThis.localStorage.clear();
     document.documentElement.removeAttribute(defaultConfig.attribute);
   });
 

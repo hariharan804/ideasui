@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import {
   isValidElement,
-  cloneChildrenWithProps,
+  cloneChildrenWithProps as cloneChildrenWithProperties,
   getChildrenArray,
   findChildByDisplayName,
   hasChildren,
@@ -32,7 +32,7 @@ describe('children', () => {
       );
 
       const TestComponent = ({ children }: { children: ReactNode }): JSX.Element => (
-        <>{cloneChildrenWithProps(children, { data: 'test' })}</>
+        <>{cloneChildrenWithProperties(children, { data: 'test' })}</>
       );
 
       render(
@@ -51,7 +51,7 @@ describe('children', () => {
 
     it('should ignore non-element children', () => {
       const TestComponent = ({ children }: { children: ReactNode }): JSX.Element => (
-        <>{cloneChildrenWithProps(children, { className: 'test' })}</>
+        <>{cloneChildrenWithProperties(children, { className: 'test' })}</>
       );
 
       render(

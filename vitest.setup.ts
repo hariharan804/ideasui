@@ -10,14 +10,14 @@ expect.extend(matchers);
 
 // Make React available globally in tests to support JSX without explicit imports
 // @ts-ignore
-global.React = { createElement };
+globalThis.React = { createElement };
 
 // Polyfills for TextEncoder, TextDecoder, and TransformStream
-global.TextEncoder = TextEncoder;
+globalThis.TextEncoder = TextEncoder;
 // @ts-ignore
-global.TextDecoder = TextDecoder;
+globalThis.TextDecoder = TextDecoder;
 // @ts-ignore
-global.TransformStream = TransformStream;
+globalThis.TransformStream = TransformStream;
 
 // Mock for ResizeObserver which is not available in JSDOM
 class ResizeObserverStub {
@@ -33,8 +33,8 @@ class ResizeObserverStub {
 }
 
 // Mock for window.matchMedia
-if (typeof window !== 'undefined') {
-  Object.defineProperty(window, 'matchMedia', {
+if (globalThis.window !== undefined) {
+  Object.defineProperty(globalThis, 'matchMedia', {
     writable: true,
     value: vi.fn().mockImplementation((query) => ({
       matches: false,
@@ -50,12 +50,12 @@ if (typeof window !== 'undefined') {
 
   // Mock for ResizeObserver
   // @ts-ignore
-  window.ResizeObserver = ResizeObserverStub;
+  globalThis.ResizeObserver = ResizeObserverStub;
 }
 
 // Mock IntersectionObserver
 // @ts-ignore
-global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+globalThis.IntersectionObserver = vi.fn().mockImplementation(() => ({
   observe: vi.fn(),
   unobserve: vi.fn(),
   disconnect: vi.fn(),
@@ -72,17 +72,17 @@ vi.mock('framer-motion', async () => {
     m: new Proxy(
       {},
       {
-        get: (_target, prop) => {
+        get: (_target, property) => {
           return ({
             children,
-            ...props
+            ...properties
           }: {
             children?: React.ReactNode;
             [key: string]: unknown;
           }) => {
-            const Component = prop as string;
+            const Component = property as string;
 
-            return createElement(Component, props, children);
+            return createElement(Component, properties, children);
           };
         },
       },

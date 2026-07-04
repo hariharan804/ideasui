@@ -28,81 +28,81 @@ import { kebabCase } from './utils';
  * @returns {Record<string, string>} The generated CSS variables
  */
 export function generateDesignTokenCSSVars(prefix: string): Record<string, string> {
-  const cssVars: Record<string, string> = {};
+  const cssVariables: Record<string, string> = {};
 
   // Duration tokens
-  Object.entries(duration).forEach(([key, value]) => {
-    cssVars[`--${prefix}-duration-${kebabCase(key)}`] = value;
-  });
+  for (const [key, value] of Object.entries(duration)) {
+    cssVariables[`--${prefix}-duration-${kebabCase(key)}`] = value;
+  }
 
   // Easing tokens
-  Object.entries(easing).forEach(([key, value]) => {
-    cssVars[`--${prefix}-easing-${kebabCase(key)}`] = value;
-  });
+  for (const [key, value] of Object.entries(easing)) {
+    cssVariables[`--${prefix}-easing-${kebabCase(key)}`] = value;
+  }
 
   // Spacing tokens
-  Object.entries(spacing).forEach(([key, value]) => {
-    cssVars[`--${prefix}-spacing-${key.replace('.', '_')}`] = value;
-  });
+  for (const [key, value] of Object.entries(spacing)) {
+    cssVariables[`--${prefix}-spacing-${key.replace('.', '_')}`] = value;
+  }
 
   // Font size tokens
-  Object.entries(fontSize).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(fontSize)) {
     const fontSizeValue = Array.isArray(value) ? value[0] : (value as unknown as string);
 
-    cssVars[`--${prefix}-font-size-${key}`] = fontSizeValue;
-  });
+    cssVariables[`--${prefix}-font-size-${key}`] = fontSizeValue;
+  }
 
   // Border radius tokens
-  Object.entries(borderRadius).forEach(([key, value]) => {
-    const varName = key === 'DEFAULT' ? `--${prefix}-radius` : `--${prefix}-radius-${key}`;
+  for (const [key, value] of Object.entries(borderRadius)) {
+    const variableName = key === 'DEFAULT' ? `--${prefix}-radius` : `--${prefix}-radius-${key}`;
 
-    cssVars[varName] = value;
-  });
+    cssVariables[variableName] = value;
+  }
 
   // Box shadow tokens
-  Object.entries(lightShadow).forEach(([key, value]) => {
-    cssVars[`--${prefix}-shadow-${key}`] = value;
-  });
+  for (const [key, value] of Object.entries(lightShadow)) {
+    cssVariables[`--${prefix}-shadow-${key}`] = value;
+  }
 
   // Z-index tokens
-  Object.entries(zIndex).forEach(([key, value]) => {
-    cssVars[`--${prefix}-z-index-${key}`] = String(value);
-  });
+  for (const [key, value] of Object.entries(zIndex)) {
+    cssVariables[`--${prefix}-z-index-${key}`] = String(value);
+  }
 
   // Opacity tokens
-  Object.entries(opacity).forEach(([key, value]) => {
-    cssVars[`--${prefix}-opacity-${kebabCase(key)}`] = String(value);
-  });
+  for (const [key, value] of Object.entries(opacity)) {
+    cssVariables[`--${prefix}-opacity-${kebabCase(key)}`] = String(value);
+  }
 
   // Letter spacing tokens
-  Object.entries(letterSpacing).forEach(([key, value]) => {
-    cssVars[`--${prefix}-tracking-${key}`] = value;
-  });
+  for (const [key, value] of Object.entries(letterSpacing)) {
+    cssVariables[`--${prefix}-tracking-${key}`] = value;
+  }
 
   // Font family tokens
-  Object.entries(fontFamily).forEach(([key, value]) => {
-    cssVars[`--${prefix}-font-${kebabCase(key)}`] = value;
-  });
+  for (const [key, value] of Object.entries(fontFamily)) {
+    cssVariables[`--${prefix}-font-${kebabCase(key)}`] = value;
+  }
 
   // Border width tokens (from border tokens)
-  Object.entries(border).forEach(([key, value]) => {
-    cssVars[`--${prefix}-border-${key}`] = value;
-  });
+  for (const [key, value] of Object.entries(border)) {
+    cssVariables[`--${prefix}-border-${key}`] = value;
+  }
 
   // Blur tokens
-  Object.entries(blur).forEach(([key, value]) => {
-    cssVars[`--${prefix}-blur-${key}`] = value;
-  });
+  for (const [key, value] of Object.entries(blur)) {
+    cssVariables[`--${prefix}-blur-${key}`] = value;
+  }
 
   // Backdrop tokens
-  Object.entries(backdrop).forEach(([key, value]) => {
-    cssVars[`--${prefix}-backdrop-${kebabCase(key)}`] = value;
-  });
+  for (const [key, value] of Object.entries(backdrop)) {
+    cssVariables[`--${prefix}-backdrop-${kebabCase(key)}`] = value;
+  }
 
   // Interaction tokens
-  Object.entries(lightInteraction).forEach(([key, value]) => {
-    cssVars[`--${prefix}-${kebabCase(key)}`] = String(value);
-  });
+  for (const [key, value] of Object.entries(lightInteraction)) {
+    cssVariables[`--${prefix}-${kebabCase(key)}`] = String(value);
+  }
 
   // Accessibility tokens
   // Object.entries(accessibility).forEach(([key, value]) => {
@@ -110,24 +110,24 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
   // });
 
   // Component colors
-  Object.entries(componentColors).forEach(([component, tokens]) => {
-    Object.entries(tokens as Record<string, string>).forEach(([key, value]) => {
-      cssVars[`--${prefix}-${component}-${key}`] = value;
-    });
-  });
+  for (const [component, tokens] of Object.entries(componentColors)) {
+    for (const [key, value] of Object.entries(tokens as Record<string, string>)) {
+      cssVariables[`--${prefix}-${component}-${key}`] = value;
+    }
+  }
 
   // Component shadows
-  Object.entries(componentShadows).forEach(([component, tokens]) => {
-    Object.entries(tokens as Record<string, string>).forEach(([key, value]) => {
-      cssVars[`--${prefix}-${component}-${key}`] = value;
-    });
-  });
+  for (const [component, tokens] of Object.entries(componentShadows)) {
+    for (const [key, value] of Object.entries(tokens as Record<string, string>)) {
+      cssVariables[`--${prefix}-${component}-${key}`] = value;
+    }
+  }
 
   // Static colors
   // cssVars[`--${prefix}-white`] = '#ffffff';
   // cssVars[`--${prefix}-black`] = '#000000';
 
-  return cssVars;
+  return cssVariables;
 }
 
 /**
@@ -136,19 +136,19 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
  * @returns {Record<string, string>} The generated CSS variables for dark mode
  */
 export function generateDarkDesignTokenCSSVars(prefix: string): Record<string, string> {
-  const cssVars: Record<string, string> = {};
+  const cssVariables: Record<string, string> = {};
 
   // Box shadow tokens (dark)
-  Object.entries(darkShadow).forEach(([key, value]) => {
-    cssVars[`--${prefix}-shadow-${key}`] = value;
-  });
+  for (const [key, value] of Object.entries(darkShadow)) {
+    cssVariables[`--${prefix}-shadow-${key}`] = value;
+  }
 
   // Interaction tokens (dark)
-  Object.entries(darkInteraction).forEach(([key, value]) => {
-    cssVars[`--${prefix}-${kebabCase(key)}`] = String(value);
-  });
+  for (const [key, value] of Object.entries(darkInteraction)) {
+    cssVariables[`--${prefix}-${kebabCase(key)}`] = String(value);
+  }
 
-  return cssVars;
+  return cssVariables;
 }
 
 /**
@@ -167,89 +167,89 @@ export function generateCSSVarsFromTokenOverrides(
   prefix: string,
 ): Record<string, string> {
   const t = tokens as Partial<TokenOverrides & SemanticTokenOverrides>;
-  const cssVars: Record<string, string> = {};
+  const cssVariables: Record<string, string> = {};
 
   // Duration
   if (t.duration) {
-    Object.entries(t.duration).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.duration)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-duration-${kebabCase(key)}`] = value;
+        cssVariables[`--${prefix}-duration-${kebabCase(key)}`] = value;
       }
-    });
+    }
   }
 
   // Easing
   if (t.easing) {
-    Object.entries(t.easing).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.easing)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-easing-${kebabCase(key)}`] = value;
+        cssVariables[`--${prefix}-easing-${kebabCase(key)}`] = value;
       }
-    });
+    }
   }
 
   // Spacing
   if (t.spacing) {
-    Object.entries(t.spacing).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.spacing)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-spacing-${key.replace('.', '_')}`] = value;
+        cssVariables[`--${prefix}-spacing-${key.replace('.', '_')}`] = value;
       }
-    });
+    }
   }
 
   // Font size
   if (t.fontSize) {
-    Object.entries(t.fontSize).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.fontSize)) {
       if (value !== undefined) {
         const fontSizeValue = Array.isArray(value) ? value[0] : (value as unknown as string);
 
-        cssVars[`--${prefix}-font-size-${key}`] = fontSizeValue;
+        cssVariables[`--${prefix}-font-size-${key}`] = fontSizeValue;
       }
-    });
+    }
   }
 
   // Border radius
   if (t.borderRadius) {
-    Object.entries(t.borderRadius).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.borderRadius)) {
       if (value !== undefined) {
-        const varName = key === 'DEFAULT' ? `--${prefix}-radius` : `--${prefix}-radius-${key}`;
+        const variableName = key === 'DEFAULT' ? `--${prefix}-radius` : `--${prefix}-radius-${key}`;
 
-        cssVars[varName] = value;
+        cssVariables[variableName] = value;
       }
-    });
+    }
   }
 
   // Box shadow
   if (t.boxShadow) {
-    Object.entries(t.boxShadow).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.boxShadow)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-shadow-${key}`] = value;
+        cssVariables[`--${prefix}-shadow-${key}`] = value;
       }
-    });
+    }
   }
 
   // Shadow — alias for boxShadow (same CSS var pattern)
   if (t.shadow) {
-    Object.entries(t.shadow).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.shadow)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-shadow-${key}`] = value;
+        cssVariables[`--${prefix}-shadow-${key}`] = value;
       }
-    });
+    }
   }
 
   // Z-index
   if (t.zIndex) {
-    Object.entries(t.zIndex).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.zIndex)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-z-index-${key}`] = String(value);
+        cssVariables[`--${prefix}-z-index-${key}`] = String(value);
       }
-    });
+    }
   }
 
   // Components (Nested objects)
   // e.g. { button: { base: { backgroundColor: 'red' } } } -> --prefix-button-base-background-color: red
   if (t.components) {
     const flattenComponents = (
-      obj: Record<string, unknown>,
+      object: Record<string, unknown>,
       currentPrefix: string,
       depth: number = 0,
     ): void => {
@@ -258,18 +258,20 @@ export function generateCSSVarsFromTokenOverrides(
         return;
       }
 
-      Object.entries(obj).forEach(([key, value]) => {
+      for (const [key, value] of Object.entries(object)) {
         const newPrefix = currentPrefix ? `${currentPrefix}-${key}` : key;
 
         if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
           flattenComponents(value as Record<string, unknown>, newPrefix, depth + 1);
         } else if (typeof value === 'string' || typeof value === 'number') {
           // Convert camelCase css properties to kebab-case
-          const kebabKey = newPrefix.replace(/([\da-z]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+          const kebabKey = newPrefix
+            .replaceAll(/([\da-z]|(?=[A-Z]))([A-Z])/g, '$1-$2')
+            .toLowerCase();
 
-          cssVars[`--${prefix}-${kebabKey}`] = String(value);
+          cssVariables[`--${prefix}-${kebabKey}`] = String(value);
         }
-      });
+      }
     };
 
     flattenComponents(t.components as unknown as Record<string, unknown>, '');
@@ -277,110 +279,110 @@ export function generateCSSVarsFromTokenOverrides(
 
   // Opacity
   if (t.opacity) {
-    Object.entries(t.opacity).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.opacity)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-opacity-${kebabCase(key)}`] = String(value);
+        cssVariables[`--${prefix}-opacity-${kebabCase(key)}`] = String(value);
       }
-    });
+    }
   }
 
   // Letter spacing
   if (t.letterSpacing) {
-    Object.entries(t.letterSpacing).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.letterSpacing)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-tracking-${key}`] = value;
+        cssVariables[`--${prefix}-tracking-${key}`] = value;
       }
-    });
+    }
   }
 
   // Font family
   if (t.fontFamily) {
-    Object.entries(t.fontFamily).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.fontFamily)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-font-${kebabCase(key)}`] = value;
+        cssVariables[`--${prefix}-font-${kebabCase(key)}`] = value;
       }
-    });
+    }
   }
 
   // Border width
   if (t.borderWidth) {
-    Object.entries(t.borderWidth).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.borderWidth)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-border-${key}`] = value;
+        cssVariables[`--${prefix}-border-${key}`] = value;
       }
-    });
+    }
   }
 
   if (t.blur) {
-    Object.entries(t.blur).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.blur)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-blur-${key}`] = value;
+        cssVariables[`--${prefix}-blur-${key}`] = value;
       }
-    });
+    }
   }
 
   // Font weight
   if (t.fontWeight) {
-    Object.entries(t.fontWeight).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.fontWeight)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-font-weight-${key}`] = value;
+        cssVariables[`--${prefix}-font-weight-${key}`] = value;
       }
-    });
+    }
   }
 
   // Animation
   if (t.animation) {
-    Object.entries(t.animation).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.animation)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-animation-${key}`] = value;
+        cssVariables[`--${prefix}-animation-${key}`] = value;
       }
-    });
+    }
   }
 
   // Border color overrides
   if (t.borderColor) {
-    Object.entries(t.borderColor).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.borderColor)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-border-${key}`] = value;
+        cssVariables[`--${prefix}-border-${key}`] = value;
       }
-    });
+    }
   }
 
   // Surface (Role-based)
   if (t.surface) {
-    Object.entries(t.surface).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.surface)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-color-${key}`] = value;
+        cssVariables[`--${prefix}-color-${key}`] = value;
       }
-    });
+    }
   }
 
   // Content
   if (t.content) {
-    Object.entries(t.content).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.content)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-color-content-${key}`] = value;
+        cssVariables[`--${prefix}-color-content-${key}`] = value;
       }
-    });
+    }
   }
 
   // Border (semantic)
   if (t.border) {
-    Object.entries(t.border).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(t.border)) {
       if (value !== undefined) {
-        cssVars[`--${prefix}-border-${key}`] = value;
+        cssVariables[`--${prefix}-border-${key}`] = value;
       }
-    });
+    }
   }
 
   // Flat semantic token overrides
   // Any key whose value is a plain string is emitted as --prefix-color-{key}.
   // 'components' is the only key with its own nested handler above.
-  Object.entries(t).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(t)) {
     if (key !== 'components' && typeof value === 'string') {
-      cssVars[`--${prefix}-color-${key}`] = value;
+      cssVariables[`--${prefix}-color-${key}`] = value;
     }
-  });
+  }
 
-  return cssVars;
+  return cssVariables;
 }

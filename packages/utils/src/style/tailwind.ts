@@ -21,20 +21,20 @@ export function cn(...inputs: ClassValue[]): string {
 export function cva(
   base: string,
   variants: Record<string, Record<string, string>>,
-): (props: Record<string, string | undefined> & { className?: ClassValue }) => string {
-  return (props: Record<string, string | undefined> & { className?: ClassValue }): string => {
+): (properties: Record<string, string | undefined> & { className?: ClassValue }) => string {
+  return (properties: Record<string, string | undefined> & { className?: ClassValue }): string => {
     const classes = [base];
 
-    Object.entries(variants).forEach(([key, values]) => {
-      const value = props[key];
+    for (const [key, values] of Object.entries(variants)) {
+      const value = properties[key];
 
       if (value && values[value]) {
         classes.push(values[value]);
       }
-    });
+    }
 
-    if (props.className) {
-      classes.push(cn(props.className));
+    if (properties.className) {
+      classes.push(cn(properties.className));
     }
 
     return cn(classes);

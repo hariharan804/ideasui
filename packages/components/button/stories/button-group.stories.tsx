@@ -87,8 +87,8 @@ type Story = StoryObj<typeof Button.Group>;
  * ---------------------------------------------------------------------------------------------*/
 
 export const Attached: Story = {
-  render: (args) => (
-    <Button.Group {...args}>
+  render: (arguments_) => (
+    <Button.Group {...arguments_}>
       <Button>Action 1</Button>
       <Button>Action 2</Button>
       <Button>Action 3</Button>
@@ -100,8 +100,8 @@ export const Spaced: Story = {
   args: {
     isAttached: false,
   },
-  render: (args) => (
-    <Button.Group {...args}>
+  render: (arguments_) => (
+    <Button.Group {...arguments_}>
       <Button>Action 1</Button>
       <Button>Action 2</Button>
       <Button>Action 3</Button>
@@ -114,8 +114,8 @@ export const Vertical: Story = {
     isVertical: true,
     isAttached: false,
   },
-  render: (args) => (
-    <Button.Group {...args}>
+  render: (arguments_) => (
+    <Button.Group {...arguments_}>
       <Button>Action 1</Button>
       <Button>Action 2</Button>
       <Button>Action 3</Button>
@@ -128,8 +128,8 @@ export const VerticalAttached: Story = {
     isVertical: true,
     isAttached: true,
   },
-  render: (args) => (
-    <Button.Group {...args}>
+  render: (arguments_) => (
+    <Button.Group {...arguments_}>
       <Button>Action 1</Button>
       <Button>Action 2</Button>
       <Button>Action 3</Button>
@@ -146,8 +146,8 @@ export const AttachedOutline: Story = {
     variant: 'outline',
     color: 'primary',
   },
-  render: (args) => (
-    <Button.Group {...args}>
+  render: (arguments_) => (
+    <Button.Group {...arguments_}>
       <Button>Feed</Button>
       <Button>Messages</Button>
       <Button>Notifications</Button>
@@ -159,8 +159,8 @@ export const MixedStyles: Story = {
   args: {
     isAttached: true,
   },
-  render: (args) => (
-    <Button.Group {...args} radius="xl">
+  render: (arguments_) => (
+    <Button.Group {...arguments_} radius="xl">
       <Button color="primary" startIcon={<Save className="size-4" />}>
         Save
       </Button>
@@ -180,11 +180,11 @@ export const GlazeGroup: Story = {
     color: 'primary',
     radius: 'full',
   },
-  render: (args) => (
+  render: (arguments_) => (
     <div className="relative overflow-hidden rounded-2xl bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center p-12">
       <div className="absolute inset-0 bg-black/10" />
       <div className="relative">
-        <Button.Group {...args}>
+        <Button.Group {...arguments_}>
           <Button>Explore</Button>
           <Button>Trending</Button>
           <Button>Popular</Button>

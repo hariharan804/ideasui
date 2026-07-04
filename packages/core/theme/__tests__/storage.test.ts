@@ -23,7 +23,7 @@ const mockStorage = (storageType: 'localStorage' | 'sessionStorage'): void => {
     }),
   };
 
-  Object.defineProperty(window, storageType, {
+  Object.defineProperty(globalThis, storageType, {
     value: mock,
     writable: true,
   });

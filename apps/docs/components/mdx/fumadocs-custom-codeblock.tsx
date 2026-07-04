@@ -10,14 +10,20 @@ import { cn } from '@ideasui/utils';
 
 import { Check, Copy } from 'lucide-react';
 
-interface ActionsPanelProps extends HTMLAttributes<HTMLDivElement> {
+interface ActionsPanelProperties extends HTMLAttributes<HTMLDivElement> {
   allowCopy: boolean;
   code?: string;
   containerRef: RefObject<HTMLElement | null>;
 }
 
 /** Stable component for the CodeBlock actions slot — defined outside the parent to avoid react/no-unstable-nested-components. */
-function ActionsPanel({ allowCopy, className, code, containerRef, ...rest }: ActionsPanelProps) {
+function ActionsPanel({
+  allowCopy,
+  className,
+  code,
+  containerRef,
+  ...rest
+}: ActionsPanelProperties) {
   return (
     <div {...rest} className={cn('z-10 empty:hidden', className)}>
       {!!allowCopy && <CopyButton code={code} containerRef={containerRef} />}
@@ -30,16 +36,21 @@ export function FumadocsCustomCodeblock({
   children,
   code,
   className,
-  ...props
+  ...properties
 }: { children: React.ReactNode; code?: string } & CodeBlockProps) {
-  const areaRef = useRef<HTMLDivElement>(null);
+  const areaReference = useRef<HTMLDivElement>(null);
 
   // Memoized render prop — must be declared outside JSX to satisfy react/no-unstable-nested-components
   const renderActions = useCallback(
-    (actionsProps: HTMLAttributes<HTMLDivElement>) => (
-      <ActionsPanel {...actionsProps} allowCopy={allowCopy} code={code} containerRef={areaRef} />
+    (actionsProperties: HTMLAttributes<HTMLDivElement>) => (
+      <ActionsPanel
+        {...actionsProperties}
+        allowCopy={allowCopy}
+        code={code}
+        containerRef={areaReference}
+      />
     ),
-    [allowCopy, code, areaRef],
+    [allowCopy, code, areaReference],
   );
 
   return (
@@ -59,24 +70,24 @@ export function FumadocsCustomCodeblock({
         '[&_button]:transition-all! [&_button]:duration-200! [&_button]:ease-[cubic-bezier(0.4,0,0.2,1)]! [&_button:active]:scale-95! [&_button:hover]:scale-105!',
         className,
       )}
-      {...props}
+      {...properties}
       Actions={renderActions}
       allowCopy={allowCopy}
       // @ts-expect-error - workaround for fumadocs-ui error
-      viewportProps={{ ref: areaRef }}
+      viewportProps={{ ref: areaReference }}
     >
       {children}
     </CodeBlock>
   );
 }
 
-interface CopyButtonProps {
+interface CopyButtonProperties {
   className?: string;
   code?: string;
   containerRef: RefObject<HTMLElement | null>;
 }
 
-function CopyButton({ className, code, containerRef }: CopyButtonProps) {
+function CopyButton({ className, code, containerRef }: CopyButtonProperties) {
   const [checked, onClick] = useCopyButton(() => {
     if (code) {
       void navigator.clipboard.writeText(code);
@@ -92,9 +103,9 @@ function CopyButton({ className, code, containerRef }: CopyButtonProps) {
 
     const clone = pre.cloneNode(true) as HTMLElement;
 
-    clone.querySelectorAll('.nd-copy-ignore').forEach((node) => {
+    for (const node of clone.querySelectorAll('.nd-copy-ignore')) {
       node.replaceWith('\n');
-    });
+    }
 
     void navigator.clipboard.writeText(clone.textContent ?? '');
   });

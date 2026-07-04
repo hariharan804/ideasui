@@ -1,6 +1,6 @@
 # IdeasUI Package List
 
-Generated on: 2026-07-03T17:42:08.078Z
+Generated on: 2026-07-04T02:35:14.498Z
 
 ## Components
 
@@ -44,19 +44,19 @@ import { ButtonGroupContext } from '@ideasui/button';
 
 ##### ButtonGroupContextType
 
-| Prop             | Type                     | Description | Optional |
-| ---------------- | ------------------------ | ----------- | -------- |
-| size             | `ButtonProps['size']`    |             | ✓        |
-| color            | `ButtonProps['color']`   |             | ✓        |
-| variant          | `ButtonProps['variant']` |             | ✓        |
-| isDisabled       | `boolean`                |             | ✓        |
-| isAttached       | `boolean`                |             | ✓        |
-| isVertical       | `boolean`                |             | ✓        |
-| radius           | `ButtonProps['radius']`  |             | ✓        |
-| fullWidth        | `boolean`                |             | ✓        |
-| disableAnimation | `boolean`                |             | ✓        |
-| showDivider      | `boolean`                |             | ✓        |
-| isIconOnly       | `boolean`                |             | ✓        |
+| Prop             | Type                          | Description | Optional |
+| ---------------- | ----------------------------- | ----------- | -------- |
+| size             | `ButtonProperties['size']`    |             | ✓        |
+| color            | `ButtonProperties['color']`   |             | ✓        |
+| variant          | `ButtonProperties['variant']` |             | ✓        |
+| isDisabled       | `boolean`                     |             | ✓        |
+| isAttached       | `boolean`                     |             | ✓        |
+| isVertical       | `boolean`                     |             | ✓        |
+| radius           | `ButtonProperties['radius']`  |             | ✓        |
+| fullWidth        | `boolean`                     |             | ✓        |
+| disableAnimation | `boolean`                     |             | ✓        |
+| showDivider      | `boolean`                     |             | ✓        |
+| isIconOnly       | `boolean`                     |             | ✓        |
 
 #### Package Details
 
@@ -179,19 +179,15 @@ import { Types } from '@ideasui/theme';
 #### Types
 
 ```tsx
-type SurfaceTokenOverrides = ThemeToken<SurfaceProps, string>;
+type SurfaceTokenOverrides = ThemeToken<SurfaceProperties, string>;
 ```
 
 ```tsx
-type ContentTokenOverrides = ThemeToken<ContentProps, string>;
+type ContentTokenOverrides = ThemeToken<ContentProperties, string>;
 ```
 
 ```tsx
 type BorderTokenOverrides = Partial<Record<string, string>>;
-```
-
-```tsx
-type SemanticTokenOverrides = { // ── Intent: Primary ────────────────────────────────────────── primary?: string
 ```
 
 ```tsx
@@ -203,19 +199,7 @@ type ColorFn = 'oklch' | 'var';
 ```
 
 ```tsx
-type ConfigTheme = { readonly extend?: 'light' | 'dark'
-```
-
-```tsx
 type ConfigThemes = Record<string, ConfigTheme>;
-```
-
-```tsx
-type ResolvedConfig = { variants: { name: string
-```
-
-```tsx
-type ParsedColor = { cssFn: ColorFn
 ```
 
 #### Package Details

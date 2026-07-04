@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server';
 
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import { NextResponse } from 'next/server';
 
@@ -31,7 +31,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json({ error: 'File not found' }, { status: 404 });
     }
 
-    const content = fs.readFileSync(resolvedPath, 'utf-8');
+    const content = fs.readFileSync(resolvedPath, 'utf8');
 
     return NextResponse.json({ content });
   } catch (error) {

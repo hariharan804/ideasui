@@ -111,14 +111,14 @@ const COMPONENT_GROUPS = [
   },
 ] as const;
 
-const componentStatusIcons = ['preview', 'new', 'updated', 'new-dot'];
+const componentStatusIcons = new Set(['preview', 'new', 'updated', 'new-dot']);
 
 interface ComponentWithStatus {
   component: NonNullable<ReturnType<typeof getComponentInfo>>;
   status?: StatusChipStatus;
 }
 
-interface CategoryProps {
+interface CategoryProperties {
   category: string;
 }
 
@@ -134,7 +134,7 @@ function getComponentWithStatus(name: string): ComponentWithStatus | null {
   const icon = page?.data.icon;
 
   const status: StatusChipStatus | undefined =
-    icon && componentStatusIcons.includes(icon)
+    icon && componentStatusIcons.has(icon)
       ? (icon as StatusChipStatus)
       : (componentInfo.status as StatusChipStatus);
 
@@ -144,7 +144,7 @@ function getComponentWithStatus(name: string): ComponentWithStatus | null {
   };
 }
 
-export function Category({ category }: CategoryProps) {
+export function Category({ category }: CategoryProperties) {
   const group = COMPONENT_GROUPS.find((group) => group.category === category);
 
   if (!group) {

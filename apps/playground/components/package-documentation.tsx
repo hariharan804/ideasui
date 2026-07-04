@@ -35,10 +35,10 @@ interface ImportInstruction {
 
 interface InterfaceItem {
   name: string;
-  props?: PropItem[];
+  props?: PropertyItem[];
 }
 
-interface PropItem {
+interface PropertyItem {
   name: string;
   type: string;
   description: string;
@@ -58,7 +58,7 @@ interface EventItem {
   description?: string;
 }
 
-interface PackageDocumentationProps {
+interface PackageDocumentationProperties {
   className?: string;
 }
 
@@ -117,7 +117,7 @@ const getPackageIcon = (packageName: string): string => {
   return '📋';
 };
 
-const PropCard: FC<{ prop: PropItem }> = ({ prop }): JSX.Element => (
+const PropCard: FC<{ prop: PropertyItem }> = ({ prop }): JSX.Element => (
   <div className="rounded-lg border border-gray-200 bg-white p-4 transition-all hover:shadow-md">
     <div className="mb-2 flex items-start justify-between gap-2">
       <div className="flex items-center gap-2">
@@ -177,7 +177,7 @@ const TypeCard: FC<{ type: TypeItem }> = ({ type }): JSX.Element => (
   </div>
 );
 
-const PackageDocumentation: FC<PackageDocumentationProps> = ({ className }): JSX.Element => {
+const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className }): JSX.Element => {
   const [packageList, setPackageList] = useState<PackageData | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
@@ -275,7 +275,8 @@ const PackageDocumentation: FC<PackageDocumentationProps> = ({ className }): JSX
                   </div>
 
                   {/* Props */}
-                  {docs.interfaces && docs.interfaces.some((i) => i.props && i.props.length > 0) ? (
+                  {docs.interfaces &&
+                  docs.interfaces.some((index) => index.props && index.props.length > 0) ? (
                     <div className="mb-8">
                       <h3 className="mb-4 text-xl font-bold text-gray-900">Props</h3>
                       {docs.interfaces.map(
@@ -287,8 +288,8 @@ const PackageDocumentation: FC<PackageDocumentationProps> = ({ className }): JSX
                                 {interfaceItem.name}
                               </h4>
                               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                                {interfaceItem.props.map((prop) => (
-                                  <PropCard key={prop.name} prop={prop} />
+                                {interfaceItem.props.map((property) => (
+                                  <PropCard key={property.name} prop={property} />
                                 ))}
                               </div>
                             </div>
@@ -370,47 +371,51 @@ const PackageDocumentation: FC<PackageDocumentationProps> = ({ className }): JSX
 
               {/* Package Grid */}
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {(packages as Package[]).map((pkg) => (
+                {(packages as Package[]).map((package_) => (
                   <div
-                    key={pkg.name}
+                    key={package_.name}
                     className="group cursor-pointer overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10"
                     role="button"
                     tabIndex={0}
-                    onClick={() => setSelectedPackage(pkg)}
+                    onClick={() => setSelectedPackage(package_)}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
-                        setSelectedPackage(pkg);
+                        setSelectedPackage(package_);
                       }
                     }}
                   >
                     {/* Package Header */}
                     <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 p-6">
                       <div className="absolute top-4 right-4 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-gray-600 backdrop-blur-sm">
-                        v{pkg.version}
+                        v{package_.version}
                       </div>
                       <div className="mb-3 flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-xl text-white shadow-lg">
-                        {getPackageIcon(pkg.name)}
+                        {getPackageIcon(package_.name)}
                       </div>
-                      <h3 className="mb-2 text-xl font-bold text-gray-900">{pkg.displayName}</h3>
-                      <p className="line-clamp-2 text-sm text-gray-600">{pkg.description}</p>
+                      <h3 className="mb-2 text-xl font-bold text-gray-900">
+                        {package_.displayName}
+                      </h3>
+                      <p className="line-clamp-2 text-sm text-gray-600">{package_.description}</p>
                     </div>
 
                     {/* Package Content */}
                     <div className="space-y-4 p-6">
                       {/* Keywords */}
-                      {pkg.keywords && pkg.keywords.length > 0 ? (
+                      {package_.keywords && package_.keywords.length > 0 ? (
                         <div className="flex flex-wrap gap-2">
-                          {pkg.keywords.slice(0, MAX_VISIBLE_KEYWORDS).map((keyword: string) => (
-                            <span
-                              key={keyword}
-                              className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700"
-                            >
-                              {keyword}
-                            </span>
-                          ))}
-                          {pkg.keywords.length > MAX_VISIBLE_KEYWORDS && (
+                          {package_.keywords
+                            .slice(0, MAX_VISIBLE_KEYWORDS)
+                            .map((keyword: string) => (
+                              <span
+                                key={keyword}
+                                className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700"
+                              >
+                                {keyword}
+                              </span>
+                            ))}
+                          {package_.keywords.length > MAX_VISIBLE_KEYWORDS && (
                             <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
-                              +{pkg.keywords.length - MAX_VISIBLE_KEYWORDS}
+                              +{package_.keywords.length - MAX_VISIBLE_KEYWORDS}
                             </span>
                           )}
                         </div>
@@ -419,7 +424,8 @@ const PackageDocumentation: FC<PackageDocumentationProps> = ({ className }): JSX
                       {/* Quick Stats */}
                       <div className="flex items-center justify-between text-sm text-gray-500">
                         <span>
-                          {pkg.documentation ? Object.keys(pkg.documentation).length : 0} files
+                          {package_.documentation ? Object.keys(package_.documentation).length : 0}{' '}
+                          files
                         </span>
                         <span className="flex items-center gap-1">
                           Click to explore

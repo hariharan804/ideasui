@@ -31,7 +31,7 @@ export function processShadeColor(
     }
   }
 
-  const colorVar = `--${prefix}-color-${colorName}`;
+  const colorVariable = `--${prefix}-color-${colorName}`;
 
   // If the value is a var() reference to another token, preserve the reference
   // This ensures semantic tokens (e.g. primary-solid) derive from palette scale
@@ -40,18 +40,16 @@ export function processShadeColor(
 
   if (trimmed.startsWith('var(') || trimmed.startsWith('oklch(var(')) {
     // Store the reference directly
-    resolved.utilities[cssSelector][colorVar] = trimmed;
-    resolved.baseStyles[baseSelector][colorVar] = trimmed;
+    resolved.utilities[cssSelector][colorVariable] = trimmed;
+    resolved.baseStyles[baseSelector][colorVariable] = trimmed;
 
     // Register Tailwind color with the new var (alpha still works via the referenced var)
     const twName = colorName.endsWith('-DEFAULT') ? colorName.replace('-DEFAULT', '') : colorName;
 
     if (!resolved.colors[twName]) {
-      if (trimmed.startsWith('oklch(var(')) {
-        resolved.colors[twName] = `var(${colorVar})`;
-      } else {
-        resolved.colors[twName] = `oklch(var(${colorVar}) / <alpha-value>)`;
-      }
+      resolved.colors[twName] = trimmed.startsWith('oklch(var(')
+        ? `var(${colorVariable})`
+        : `oklch(var(${colorVariable}) / <alpha-value>)`;
     }
 
     return;
@@ -69,14 +67,14 @@ export function processShadeColor(
   const alphaValue = components[ALPHA_COMPONENT_INDEX] ?? '<alpha-value>';
 
   // Register CSS variable (per-theme)
-  resolved.utilities[cssSelector][colorVar] = formattedValue;
-  resolved.baseStyles[baseSelector][colorVar] = formattedValue;
+  resolved.utilities[cssSelector][colorVariable] = formattedValue;
+  resolved.baseStyles[baseSelector][colorVariable] = formattedValue;
 
   // Register Tailwind color only if not already set (first theme wins)
   const twName = colorName.endsWith('-DEFAULT') ? colorName.replace('-DEFAULT', '') : colorName;
 
   if (!resolved.colors[twName]) {
-    resolved.colors[twName] = `oklch(var(${colorVar}) / ${alphaValue})`;
+    resolved.colors[twName] = `oklch(var(${colorVariable}) / ${alphaValue})`;
   }
 }
 

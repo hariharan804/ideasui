@@ -6,9 +6,9 @@ describe('dom', () => {
       const div = document.createElement('div');
 
       div.id = 'test-id';
-      document.body.appendChild(div);
+      document.body.append(div);
       expect(getElementById('test-id')).toBe(div);
-      document.body.removeChild(div);
+      div.remove();
     });
 
     it('should return null if not found', () => {
@@ -21,7 +21,7 @@ describe('dom', () => {
       const parent = document.createElement('div');
       const child = document.createElement('div');
 
-      parent.appendChild(child);
+      parent.append(child);
       expect(contains(parent, child)).toBe(true);
     });
 
@@ -57,14 +57,14 @@ describe('dom', () => {
       button1 = document.createElement('button');
       button2 = document.createElement('button');
       input = document.createElement('input');
-      container.appendChild(button1);
-      container.appendChild(input);
-      container.appendChild(button2);
-      document.body.appendChild(container);
+      container.append(button1);
+      container.append(input);
+      container.append(button2);
+      document.body.append(container);
     });
 
     afterEach(() => {
-      document.body.removeChild(container);
+      container.remove();
     });
 
     it('should set focus and scroll', () => {

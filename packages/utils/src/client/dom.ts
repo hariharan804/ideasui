@@ -54,7 +54,7 @@ export const focus = {
       '[contenteditable="true"]',
     ].join(',');
 
-    return Array.from(container.querySelectorAll(selector));
+    return [...container.querySelectorAll(selector)];
   },
 
   /**
@@ -74,6 +74,6 @@ export const focus = {
   getLast: (container: HTMLElement): HTMLElement | null => {
     const focusable = focus.getFocusable(container);
 
-    return focusable[focusable.length - 1] || null;
+    return focusable.at(-1) || null;
   },
 };

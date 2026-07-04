@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react';
 
-import { forwardRef, createPolymorphicComponent } from '../polymorphic-ref';
+import { forwardRef as forwardReference, createPolymorphicComponent } from '../polymorphic-ref';
 
 describe('polymorphic-ref', () => {
   describe('forwardRef', () => {
     it('should create a polymorphic component', () => {
-      const Poly = forwardRef<'div', { test?: string }>(
-        ({ as: Comp = 'div', test, ...props }, ref) => (
-          <Comp ref={ref} data-test={test} {...props} />
+      const Poly = forwardReference<'div', { test?: string }>(
+        ({ as: Comp = 'div', test, ...properties }, reference) => (
+          <Comp ref={reference} data-test={test} {...properties} />
         ),
       );
 
@@ -31,7 +31,9 @@ describe('polymorphic-ref', () => {
   describe('createPolymorphicComponent', () => {
     it('should create component with display name', () => {
       const Poly = createPolymorphicComponent<'div'>(
-        ({ as: Comp = 'div', ...props }, ref) => <Comp ref={ref} {...props} />,
+        ({ as: Comp = 'div', ...properties }, reference) => (
+          <Comp ref={reference} {...properties} />
+        ),
         'TestPoly',
       );
 
@@ -41,9 +43,11 @@ describe('polymorphic-ref', () => {
     });
 
     it('should create component without display name', () => {
-      const Poly = createPolymorphicComponent<'div'>(({ as: Comp = 'div', ...props }, ref) => (
-        <Comp ref={ref} {...props} />
-      ));
+      const Poly = createPolymorphicComponent<'div'>(
+        ({ as: Comp = 'div', ...properties }, reference) => (
+          <Comp ref={reference} {...properties} />
+        ),
+      );
 
       expect(Poly.displayName).toBeUndefined();
       render(<Poly data-testid="poly-no-name" />);

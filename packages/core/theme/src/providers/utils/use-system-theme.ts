@@ -7,19 +7,19 @@ import { useState, useEffect } from 'react';
  */
 export function useSystemTheme(): 'light' | 'dark' {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window === 'undefined') {
+    if (globalThis.window === undefined) {
       return 'light';
     }
 
-    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return globalThis.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
   useEffect(() => {
-    if (typeof window === 'undefined') {
+    if (globalThis.window === undefined) {
       return;
     }
 
-    const mq = window.matchMedia?.('(prefers-color-scheme: dark)');
+    const mq = globalThis.matchMedia?.('(prefers-color-scheme: dark)');
 
     if (!mq) {
       return;

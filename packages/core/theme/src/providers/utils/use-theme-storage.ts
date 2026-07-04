@@ -7,7 +7,7 @@ import { defaultConfig } from './themes.config';
 
 const storage = storageAdapters.local;
 
-interface UseThemeStorageProps {
+interface UseThemeStorageProperties {
   defaultTheme: string;
   themes: string[];
   storageKey?: string;
@@ -20,7 +20,7 @@ export function useThemeStorage({
   defaultTheme,
   themes,
   storageKey = defaultConfig.storageKey,
-}: UseThemeStorageProps): {
+}: UseThemeStorageProperties): {
   theme: string;
   setTheme: (next: string) => void;
   hasMounted: boolean;
@@ -28,10 +28,10 @@ export function useThemeStorage({
   const [theme, setThemeState] = useState<string>(defaultTheme);
   const [hasMounted, setHasMounted] = useState<boolean>(false);
 
-  const themesRef = useRef(themes);
+  const themesReference = useRef(themes);
 
   useEffect(() => {
-    themesRef.current = themes;
+    themesReference.current = themes;
   }, [themes]);
 
   // Set mounted state and initialize from storage on mount
@@ -39,22 +39,22 @@ export function useThemeStorage({
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setHasMounted(true);
 
-    if (typeof window !== 'undefined') {
+    if (globalThis.window !== undefined) {
       const stored = storage.getItem(storageKey);
 
-      if (stored && (stored === 'system' || themesRef.current.includes(stored))) {
+      if (stored && (stored === 'system' || themesReference.current.includes(stored))) {
         setThemeState(stored);
       }
     }
   }, [storageKey]);
 
   const setTheme = useCallback((next: string) => {
-    setThemeState((prev) => (prev === next ? prev : next));
+    setThemeState((previous) => (previous === next ? previous : next));
   }, []);
 
   // Storage Persistence
   useEffect(() => {
-    if (typeof window === 'undefined') {
+    if (globalThis.window === undefined) {
       return;
     }
 
@@ -67,7 +67,7 @@ export function useThemeStorage({
 
   // Cross-Tab Sync
   useEffect(() => {
-    if (typeof window === 'undefined') {
+    if (globalThis.window === undefined) {
       return;
     }
 
@@ -78,14 +78,14 @@ export function useThemeStorage({
 
       const next = e.newValue ?? 'system';
 
-      if (next === 'system' || themesRef.current.includes(next)) {
+      if (next === 'system' || themesReference.current.includes(next)) {
         setThemeState(next);
       }
     };
 
-    window.addEventListener('storage', onStorage);
+    globalThis.addEventListener('storage', onStorage);
 
-    return () => window.removeEventListener('storage', onStorage);
+    return () => globalThis.removeEventListener('storage', onStorage);
   }, [storageKey]);
 
   return { theme, setTheme, hasMounted } as const;

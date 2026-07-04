@@ -1,20 +1,20 @@
 import type {
-  SpacingProps,
-  BorderRadiusProps,
-  FontSizeProps,
-  LetterSpacingProps,
-  FontFamilyProps,
-  FontWeightProps,
-  BoxShadowProps,
-  ZIndexProps,
-  OpacityProps,
-  BlurProps,
-  BorderWidthProps,
-  SurfaceProps,
-  ContentProps,
-  DurationProps,
-  EasingProps,
-  AnimationProps,
+  SpacingProps as SpacingProperties,
+  BorderRadiusProps as BorderRadiusProperties,
+  FontSizeProps as FontSizeProperties,
+  LetterSpacingProps as LetterSpacingProperties,
+  FontFamilyProps as FontFamilyProperties,
+  FontWeightProps as FontWeightProperties,
+  BoxShadowProps as BoxShadowProperties,
+  ZIndexProps as ZIndexProperties,
+  OpacityProps as OpacityProperties,
+  BlurProps as BlurProperties,
+  BorderWidthProps as BorderWidthProperties,
+  SurfaceProps as SurfaceProperties,
+  ContentProps as ContentProperties,
+  DurationProps as DurationProperties,
+  EasingProps as EasingProperties,
+  AnimationProps as AnimationProperties,
 } from './tokens';
 
 export type ThemeToken<K extends string | number | symbol, V> = Partial<Record<K, V>> &
@@ -23,40 +23,40 @@ export type ThemeToken<K extends string | number | symbol, V> = Partial<Record<K
 /** Override any design token family */
 export interface TokenOverrides {
   /** Spacing scale (4px grid) */
-  readonly spacing?: ThemeToken<SpacingProps, string>;
+  readonly spacing?: ThemeToken<SpacingProperties, string>;
   /** Border radius tokens */
-  readonly borderRadius?: ThemeToken<BorderRadiusProps, string>;
+  readonly borderRadius?: ThemeToken<BorderRadiusProperties, string>;
   /** Border width tokens */
-  readonly borderWidth?: ThemeToken<BorderWidthProps, string>;
+  readonly borderWidth?: ThemeToken<BorderWidthProperties, string>;
   /** Border color tokens */
   readonly borderColor?: Partial<Record<string, string>>;
   /** Font size tokens (value or [size, { lineHeight }] tuple) */
-  readonly fontSize?: ThemeToken<FontSizeProps, string | [string, { lineHeight: string }]>;
+  readonly fontSize?: ThemeToken<FontSizeProperties, string | [string, { lineHeight: string }]>;
   /** Letter spacing tokens */
-  readonly letterSpacing?: ThemeToken<LetterSpacingProps, string>;
+  readonly letterSpacing?: ThemeToken<LetterSpacingProperties, string>;
   /** Font family tokens */
-  readonly fontFamily?: ThemeToken<FontFamilyProps, string>;
+  readonly fontFamily?: ThemeToken<FontFamilyProperties, string>;
   /** Font weight tokens */
-  readonly fontWeight?: ThemeToken<FontWeightProps, string>;
+  readonly fontWeight?: ThemeToken<FontWeightProperties, string>;
   /** Box shadow tokens */
-  readonly boxShadow?: ThemeToken<BoxShadowProps, string>;
+  readonly boxShadow?: ThemeToken<BoxShadowProperties, string>;
   /**
    * Shadow tokens — alias for `boxShadow`.
    * @example shadow: { sm: '0 2px 4px rgb(0 0 0 / 0.06)' }
    */
-  readonly shadow?: ThemeToken<BoxShadowProps, string>;
+  readonly shadow?: ThemeToken<BoxShadowProperties, string>;
   /** Z-index tokens */
-  readonly zIndex?: ThemeToken<ZIndexProps, string | number>;
+  readonly zIndex?: ThemeToken<ZIndexProperties, string | number>;
   /** Opacity tokens */
-  readonly opacity?: ThemeToken<OpacityProps, string | number>;
+  readonly opacity?: ThemeToken<OpacityProperties, string | number>;
   /** Blur tokens */
-  readonly blur?: ThemeToken<BlurProps, string>;
+  readonly blur?: ThemeToken<BlurProperties, string>;
   /** Transition duration tokens */
-  readonly duration?: ThemeToken<DurationProps, string>;
+  readonly duration?: ThemeToken<DurationProperties, string>;
   /** Transition easing tokens */
-  readonly easing?: ThemeToken<EasingProps, string>;
+  readonly easing?: ThemeToken<EasingProperties, string>;
   /** Animation presets */
-  readonly animation?: ThemeToken<AnimationProps, string>;
+  readonly animation?: ThemeToken<AnimationProperties, string>;
   /** Keyframe definitions */
   readonly keyframes?: Partial<Record<string, Record<string, Record<string, string>>>>;
 }
@@ -65,13 +65,13 @@ export interface TokenOverrides {
  * Grouped semantic surface token overrides.
  * Keys are emitted as `--ideasui-color-{key}`.
  */
-export type SurfaceTokenOverrides = ThemeToken<SurfaceProps, string>;
+export type SurfaceTokenOverrides = ThemeToken<SurfaceProperties, string>;
 
 /**
  * Grouped semantic content token overrides.
  * Keys are emitted as `--ideasui-color-content-{key}`.
  */
-export type ContentTokenOverrides = ThemeToken<ContentProps, string>;
+export type ContentTokenOverrides = ThemeToken<ContentProperties, string>;
 
 /**
  * Grouped semantic border token overrides.

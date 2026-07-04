@@ -1,8 +1,8 @@
 'use client';
 
 import type { AnchorProviderProps, TOCItemType } from 'fumadocs-core/toc';
-import type { BreadcrumbProps } from './breadcrumb';
-import type { FooterProps } from './footer';
+import type { BreadcrumbProps as BreadcrumbProperties } from './breadcrumb';
+import type { FooterProps as FooterProperties } from './footer';
 import type { ComponentProps, ReactNode } from 'react';
 
 import { useMemo, isValidElement } from 'react';
@@ -13,17 +13,17 @@ import { useTranslations } from '@fuma-translate/react';
 import { cn } from '@ideasui/utils';
 
 import { PageBreadcrumb } from './breadcrumb';
-import { PageFooter, PageLastUpdate } from './footer';
+import { PageFooter } from './footer';
 import { PageTOCPopover, PageTOCPopoverContent, PageTOCPopoverTrigger } from './toc-popover';
 
 import { Edit, Text } from '@/components/ui/docs/icons';
 
-interface BreadcrumbOptions extends BreadcrumbProps {
+interface BreadcrumbOptions extends BreadcrumbProperties {
   enabled: boolean;
   component: ReactNode;
 }
 
-interface FooterOptions extends FooterProps {
+interface FooterOptions extends FooterProperties {
   enabled: boolean;
   component: ReactNode;
 }
@@ -78,7 +78,11 @@ const defaultWrapper = (children: ReactNode) => children;
 
 // eslint-disable-next-line sonarjs/function-return-type
 export function DocsPage({
-  breadcrumb: { component: breadcrumb, enabled: breadcrumbEnabled = true, ...breadcrumbProps } = {},
+  breadcrumb: {
+    component: breadcrumb,
+    enabled: breadcrumbEnabled = true,
+    ...breadcrumbProperties
+  } = {},
   children,
   className,
   footer = {},
@@ -160,7 +164,7 @@ export function DocsPage({
         data-full={full}
         id="nd-page"
       >
-        {!!breadcrumbEnabled && (breadcrumb ?? <PageBreadcrumb {...breadcrumbProps} />)}
+        {!!breadcrumbEnabled && (breadcrumb ?? <PageBreadcrumb {...breadcrumbProperties} />)}
         {children}
         {footer.enabled !== false && (footer.component ?? <PageFooter items={footer.items} />)}
       </article>
@@ -194,24 +198,24 @@ export function DocsPage({
   );
 }
 
-export function EditOnGitHub(props: ComponentProps<'a'>) {
+export function EditOnGitHub(properties: ComponentProps<'a'>) {
   const t = useTranslations({ note: 'page actions' });
 
   return (
     <a
       rel="noreferrer noopener"
       target="_blank"
-      {...props}
+      {...properties}
       className={cn(
         buttonVariants({
           className: 'not-prose gap-1.5',
           color: 'secondary',
           size: 'sm',
         }),
-        props.className,
+        properties.className,
       )}
     >
-      {props.children ?? (
+      {properties.children ?? (
         <>
           <Edit className="size-3.5" />
           {t('Edit on GitHub')}
@@ -221,32 +225,34 @@ export function EditOnGitHub(props: ComponentProps<'a'>) {
   );
 }
 
-export function DocsBody({ children, className, ...props }: ComponentProps<'div'>) {
+export function DocsBody({ children, className, ...properties }: ComponentProps<'div'>) {
   return (
-    <div {...props} className={cn('prose flex-1', className)}>
+    <div {...properties} className={cn('prose flex-1', className)}>
       {children}
     </div>
   );
 }
 
-export function DocsDescription({ children, className, ...props }: ComponentProps<'p'>) {
+export function DocsDescription({ children, className, ...properties }: ComponentProps<'p'>) {
   if (children === undefined) {
     return null;
   }
 
   return (
-    <p {...props} className={cn('text-content-secondary mb-8 text-lg', className)}>
+    <p {...properties} className={cn('text-content-secondary mb-8 text-lg', className)}>
       {children}
     </p>
   );
 }
 
-export function DocsTitle({ children, className, ...props }: ComponentProps<'h1'>) {
+export function DocsTitle({ children, className, ...properties }: ComponentProps<'h1'>) {
   return (
-    <h1 {...props} className={cn('text-[1.75em] font-semibold', className)}>
+    <h1 {...properties} className={cn('text-[1.75em] font-semibold', className)}>
       {children}
     </h1>
   );
 }
 
-export { PageLastUpdate, PageBreadcrumb };
+export { PageBreadcrumb } from './breadcrumb';
+
+export { PageLastUpdate } from './footer';

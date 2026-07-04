@@ -10,7 +10,10 @@ export const DEFAULT_PREFIX = 'ideasui';
 import { disabled, scrollbar } from '../tokens';
 
 import { buildThemes, resolveConfig, createThemeExtension, createThemeSelectors } from './core';
-import { generateDesignTokenCSSVars, generateDarkDesignTokenCSSVars } from './css-vars';
+import {
+  generateDesignTokenCSSVars as generateDesignTokenCSVariables,
+  generateDarkDesignTokenCSSVars as generateDarkDesignTokenCSVariables,
+} from './css-vars';
 // ─────────────────────────────────────────────────────────────
 // Utility Class Generators
 // ─────────────────────────────────────────────────────────────
@@ -53,18 +56,18 @@ export const createIdeasUIPlugin: ReturnType<typeof plugin.withOptions<ThemeConf
         // Note: Layers are handled natively in Tailwind v4 via CSS @layer directive
 
         // Generate CSS custom properties from design tokens
-        const designTokenVars = generateDesignTokenCSSVars(prefix);
+        const designTokenVariables = generateDesignTokenCSVariables(prefix);
 
         addBase({
-          ':root': designTokenVars,
+          ':root': designTokenVariables,
         });
 
         // Generate dark mode overrides
-        const darkTokenVars = generateDarkDesignTokenCSSVars(prefix);
+        const darkTokenVariables = generateDarkDesignTokenCSVariables(prefix);
         const { baseSelector: darkSelector } = createThemeSelectors('dark', defaultTheme);
 
         addBase({
-          [darkSelector]: darkTokenVars,
+          [darkSelector]: darkTokenVariables,
         });
 
         addBase(resolved.baseStyles);
@@ -106,7 +109,7 @@ export const createIdeasUIPlugin: ReturnType<typeof plugin.withOptions<ThemeConf
       let aggregatedDesignTokens = configDesignTokens;
       let aggregatedSemanticTokens = configSemanticTokens;
 
-      Object.values(config.themes || {}).forEach((theme) => {
+      for (const theme of Object.values(config.themes || {})) {
         if (theme?.designTokens) {
           aggregatedDesignTokens = {
             ...aggregatedDesignTokens,
@@ -114,7 +117,7 @@ export const createIdeasUIPlugin: ReturnType<typeof plugin.withOptions<ThemeConf
               Object.entries(theme.designTokens).map(([key, value]) => [
                 key,
                 {
-                  ...(aggregatedDesignTokens[key as keyof typeof aggregatedDesignTokens] || {}),
+                  ...aggregatedDesignTokens[key as keyof typeof aggregatedDesignTokens],
                   ...value,
                 },
               ]),
@@ -124,15 +127,15 @@ export const createIdeasUIPlugin: ReturnType<typeof plugin.withOptions<ThemeConf
         if (theme?.semanticTokens) {
           const merged: typeof aggregatedSemanticTokens = { ...aggregatedSemanticTokens };
 
-          Object.entries(theme.semanticTokens).forEach(([key, value]) => {
+          for (const [key, value] of Object.entries(theme.semanticTokens)) {
             if (typeof value === 'string') {
               merged[key as keyof typeof merged] = value;
             }
-          });
+          }
 
           aggregatedSemanticTokens = merged;
         }
-      });
+      }
 
       return {
         theme: {

@@ -25,7 +25,7 @@ export function toRem(value: number, base = DEFAULT_REM_BASE): string {
  * @returns {number} Parsed number
  */
 export function parseValue(value: string): number {
-  const parsed = parseFloat(value.replace(/[^\d.-]/g, ''));
+  const parsed = Number.parseFloat(value.replaceAll(/[^\d.-]/g, ''));
 
   return isNaN(parsed) ? 0 : parsed;
 }
@@ -38,9 +38,9 @@ export function parseValue(value: string): number {
  */
 export function getCSSVar(name: string, element?: Element): string {
   const target = element || document.documentElement;
-  const varName = name.startsWith('--') ? name : `--${name}`;
+  const variableName = name.startsWith('--') ? name : `--${name}`;
 
-  return getComputedStyle(target).getPropertyValue(varName).trim();
+  return getComputedStyle(target).getPropertyValue(variableName).trim();
 }
 
 /**
@@ -51,10 +51,10 @@ export function getCSSVar(name: string, element?: Element): string {
  */
 export function setCSSVar(name: string, value: string | number, element?: Element): void {
   const target = element || document.documentElement;
-  const varName = name.startsWith('--') ? name : `--${name}`;
-  const varValue = typeof value === 'number' ? `${value}px` : value;
+  const variableName = name.startsWith('--') ? name : `--${name}`;
+  const variableValue = typeof value === 'number' ? `${value}px` : value;
 
-  (target as HTMLElement).style.setProperty(varName, varValue);
+  (target as HTMLElement).style.setProperty(variableName, variableValue);
 }
 
 /**
@@ -64,9 +64,9 @@ export function setCSSVar(name: string, value: string | number, element?: Elemen
  */
 export function removeCSSVar(name: string, element?: Element): void {
   const target = element || document.documentElement;
-  const varName = name.startsWith('--') ? name : `--${name}`;
+  const variableName = name.startsWith('--') ? name : `--${name}`;
 
-  (target as HTMLElement).style.removeProperty(varName);
+  (target as HTMLElement).style.removeProperty(variableName);
 }
 
 /**
@@ -74,10 +74,10 @@ export function removeCSSVar(name: string, element?: Element): void {
  * @param {Record<string, string | number>} vars - Object of variables
  * @param {Element} [element] - Target element
  */
-export function setCSSVars(vars: Record<string, string | number>, element?: Element): void {
-  Object.entries(vars).forEach(([name, value]) => {
+export function setCSSVars(variables: Record<string, string | number>, element?: Element): void {
+  for (const [name, value] of Object.entries(variables)) {
     setCSSVar(name, value, element);
-  });
+  }
 }
 
 /**
@@ -89,9 +89,9 @@ export function setCSSVars(vars: Record<string, string | number>, element?: Elem
 export function getCSSVars(names: string[], element?: Element): Record<string, string> {
   const result: Record<string, string> = {};
 
-  names.forEach((name) => {
+  for (const name of names) {
     result[name] = getCSSVar(name, element);
-  });
+  }
 
   return result;
 }
@@ -101,14 +101,14 @@ export function getCSSVars(names: string[], element?: Element): Record<string, s
  * @param {Record<string, string | number>} vars - Input variables
  * @returns {Record<string, string>} formatted CSS variables
  */
-export function createCSSVars(vars: Record<string, string | number>): Record<string, string> {
+export function createCSSVars(variables: Record<string, string | number>): Record<string, string> {
   const result: Record<string, string> = {};
 
-  Object.entries(vars).forEach(([key, value]) => {
-    const cssVar = key.startsWith('--') ? key : `--${key}`;
+  for (const [key, value] of Object.entries(variables)) {
+    const cssVariable = key.startsWith('--') ? key : `--${key}`;
 
-    result[cssVar] = typeof value === 'number' ? `${value}px` : value;
-  });
+    result[cssVariable] = typeof value === 'number' ? `${value}px` : value;
+  }
 
   return result;
 }
@@ -167,7 +167,7 @@ const UNITLESS_PROPERTIES = new Set([
 export function toStyleString(styles: Record<string, string | number>): string {
   return Object.entries(styles)
     .map(([key, value]) => {
-      const cssKey = key.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
+      const cssKey = key.replaceAll(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
       const isUnitless = UNITLESS_PROPERTIES.has(key);
       const cssValue = typeof value === 'number' && !isUnitless ? `${value}px` : value;
 

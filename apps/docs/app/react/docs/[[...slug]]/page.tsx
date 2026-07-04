@@ -51,9 +51,9 @@ function extractText(node: unknown): string {
 
 function MdxPreBlock({
   children,
-  ref: _ref,
+  ref: _reference,
   className,
-  ...props
+  ...properties
 }: React.ComponentPropsWithRef<'pre'>) {
   let lineCount = 1;
   const codeContent = extractText(children);
@@ -67,20 +67,20 @@ function MdxPreBlock({
   );
 
   return (
-    <CodeBlock {...props} className={classes}>
+    <CodeBlock {...properties} className={classes}>
       <Pre>{children}</Pre>
     </CodeBlock>
   );
 }
 
-export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
-  const params = await props.params;
+export default async function Page(properties: { params: Promise<{ slug?: string[] }> }) {
+  const parameters = await properties.params;
 
-  if (!params.slug || params.slug.length === 0) {
+  if (!parameters.slug || parameters.slug.length === 0) {
     redirect('/react/docs/getting-started');
   }
 
-  const page = source.getPage(params.slug);
+  const page = source.getPage(parameters.slug);
 
   if (!page) {
     notFound();
@@ -93,7 +93,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   let rawMarkdown = '';
 
   try {
-    rawMarkdown = await fs.readFile(filePath, 'utf-8');
+    rawMarkdown = await fs.readFile(filePath, 'utf8');
   } catch (error) {
     console.error('Failed to read page markdown file:', error);
   }
@@ -143,7 +143,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
         source={
           pageData.links?.source
             ? `${siteConfig.links.componentsBase}/${pageData.links.source}`
-            : `${siteConfig.links.componentsBase}/${params.slug?.at(-1) ?? ''}`
+            : `${siteConfig.links.componentsBase}/${parameters.slug?.at(-1) ?? ''}`
         }
         styles={
           pageData.links?.recipe
@@ -176,12 +176,12 @@ export async function generateStaticParams() {
   return source.generateParams();
 }
 
-export async function generateMetadata(props: { params: Promise<{ slug?: string[] }> }) {
-  const params = await props.params;
-  const page = source.getPage(params.slug);
+export async function generateMetadata(properties: { params: Promise<{ slug?: string[] }> }) {
+  const parameters = await properties.params;
+  const page = source.getPage(parameters.slug);
 
   if (!page) {
-    if (!params.slug || params.slug.length === 0) {
+    if (!parameters.slug || parameters.slug.length === 0) {
       return {
         title: 'Documentation',
       };
@@ -189,7 +189,7 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
     notFound();
   }
 
-  const canonicalUrl = `/react/docs/${params.slug?.join('/') ?? ''}`;
+  const canonicalUrl = `/react/docs/${parameters.slug?.join('/') ?? ''}`;
 
   return {
     title: page.data.title,

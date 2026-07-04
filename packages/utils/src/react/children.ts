@@ -20,10 +20,13 @@ export function isValidElement(value: unknown): value is ReactElement {
  * @returns {ReactNode} The cloned children with added props
  * @internal
  */
-export function cloneChildrenWithProps(children: ReactNode, props: Record<string, any>): ReactNode {
+export function cloneChildrenWithProps(
+  children: ReactNode,
+  properties: Record<string, any>,
+): ReactNode {
   return Children.map(children, (child) => {
     if (isValidReactElement(child)) {
-      return cloneElement(child, props) as any;
+      return cloneElement(child, properties) as any;
     }
 
     return child as any;

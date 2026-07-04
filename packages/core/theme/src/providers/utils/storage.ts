@@ -5,7 +5,7 @@ class LocalStorageAdapter implements StorageAdapter {
   getItem(key: string): string | null {
     try {
       // SSR safety check
-      return typeof window !== 'undefined' ? localStorage.getItem(key) : null;
+      return globalThis.window === undefined ? null : localStorage.getItem(key);
     } catch {
       // Handle quota exceeded, privacy mode, etc.
       return null;
@@ -14,7 +14,7 @@ class LocalStorageAdapter implements StorageAdapter {
 
   setItem(key: string, value: string): void {
     try {
-      if (typeof window !== 'undefined') {
+      if (globalThis.window !== undefined) {
         localStorage.setItem(key, value);
       }
     } catch {
@@ -24,7 +24,7 @@ class LocalStorageAdapter implements StorageAdapter {
 
   removeItem(key: string): void {
     try {
-      if (typeof window !== 'undefined') {
+      if (globalThis.window !== undefined) {
         localStorage.removeItem(key);
       }
     } catch {

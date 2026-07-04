@@ -8,7 +8,7 @@ import { cn } from '@ideasui/utils';
 
 import { LayoutContext } from './context';
 
-export function LayoutBody({ children, className, style, ...props }: ComponentProps<'div'>) {
+export function LayoutBody({ children, className, style, ...properties }: ComponentProps<'div'>) {
   const context = useContext(LayoutContext);
   const navMode = context?.navMode ?? 'auto';
   const tabMode = context?.tabMode ?? 'sidebar';
@@ -43,7 +43,7 @@ export function LayoutBody({ children, className, style, ...props }: ComponentPr
           ...style,
         } as object
       }
-      {...props}
+      {...properties}
     >
       {children}
     </div>

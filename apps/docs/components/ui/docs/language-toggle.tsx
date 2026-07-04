@@ -10,7 +10,7 @@ import { cn } from '@ideasui/utils';
 
 export type LanguageSelectProps = ComponentProps<'button'>;
 
-export function LanguageToggle(props: LanguageSelectProps): React.ReactElement {
+export function LanguageToggle(properties: LanguageSelectProps): React.ReactElement {
   const context = useI18n();
   const t = useTranslations({ note: 'language switcher' });
 
@@ -22,16 +22,16 @@ export function LanguageToggle(props: LanguageSelectProps): React.ReactElement {
     <Popover>
       <PopoverTrigger
         aria-label={t('Choose a language', { note: 'aria-label' })}
-        {...props}
+        {...properties}
         className={cn(
           buttonVariants({
             className: 'gap-1.5 p-1.5',
             color: 'ghost',
           }),
-          props.className,
+          properties.className,
         )}
       >
-        {props.children}
+        {properties.children}
       </PopoverTrigger>
       <PopoverContent className="flex flex-col overflow-x-hidden p-0">
         <p className="text-content-secondary mb-1 p-2 text-xs font-medium">
@@ -59,9 +59,9 @@ export function LanguageToggle(props: LanguageSelectProps): React.ReactElement {
   );
 }
 
-export function LanguageToggleText(props: ComponentProps<'span'>) {
+export function LanguageToggleText(properties: ComponentProps<'span'>) {
   const context = useI18n();
   const text = context.locales?.find((item) => item.locale === context.locale)?.name;
 
-  return <span {...props}>{text}</span>;
+  return <span {...properties}>{text}</span>;
 }

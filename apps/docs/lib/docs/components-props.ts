@@ -2,7 +2,7 @@
 // Extracted from actual TypeScript interfaces
 // DO NOT EDIT MANUALLY
 
-export interface PropInfo {
+export interface PropertyInfo {
   name: string;
   type: string;
   required: boolean;
@@ -11,17 +11,17 @@ export interface PropInfo {
   description: string;
 }
 
-export interface ComponentDoc {
+export interface ComponentDocument {
   componentName: string;
   title: string;
   component: string;
   description: string;
-  props: PropInfo[];
+  props: PropertyInfo[];
 }
 
-export interface PropsDocumentation {
-  button: ComponentDoc[];
-  buttonGroup: ComponentDoc[];
+export interface PropertiesDocumentation {
+  button: ComponentDocument[];
+  buttonGroup: ComponentDocument[];
 }
 
 /**
@@ -29,7 +29,7 @@ export interface PropsDocumentation {
  * - Button: ButtonBaseProps, ButtonLabelProps, ButtonIconProps, ButtonSpinnerProps, ButtonShortcutProps
  * - ButtonGroup: ButtonGroupProps
  */
-export const propsDocumentation: PropsDocumentation = {
+export const propsDocumentation: PropertiesDocumentation = {
   button: [
     {
       componentName: 'Button',

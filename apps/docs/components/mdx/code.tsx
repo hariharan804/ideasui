@@ -11,8 +11,8 @@ const EMPTY_CODE_BLOCK = (
   </Base.Pre>
 );
 
-function HighlightPre(props: React.ComponentPropsWithoutRef<typeof Base.Pre>) {
-  return <Base.Pre {...props} />;
+function HighlightPre(properties: React.ComponentPropsWithoutRef<typeof Base.Pre>) {
+  return <Base.Pre {...properties} />;
 }
 
 async function getHighlighted(code: string, lang: string): Promise<React.ReactNode | null> {
@@ -36,7 +36,7 @@ export async function Code({
   lang,
   showLineNumbers,
   title,
-  ...props
+  ...properties
 }: {
   code: string;
   lang: string;
@@ -50,15 +50,14 @@ export async function Code({
   if (trimmedCode) {
     const result = await getHighlighted(trimmedCode, lang);
 
-    if (result !== null) {
-      rendered = result;
-    } else {
-      rendered = (
+    rendered =
+      result === null ? (
         <Base.Pre>
           <code>{code}</code>
         </Base.Pre>
+      ) : (
+        result
       );
-    }
   }
 
   return (
@@ -69,7 +68,7 @@ export async function Code({
       lang={lang}
       showLineNumbers={showLineNumbers}
       title={title}
-      {...props}
+      {...properties}
     >
       {rendered}
     </CodeBlockClient>

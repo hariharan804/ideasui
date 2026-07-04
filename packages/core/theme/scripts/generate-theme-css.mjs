@@ -5,9 +5,9 @@
  * 100% Data-Driven by the plugin output.
  */
 
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-import path from 'path';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 import { ideasUIPlugin } from '../dist/plugin/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -16,7 +16,8 @@ const OUTPUT_PATH = path.join(__dirname, '..', 'dist', 'theme.css');
 const BYTES_PER_KB = 1024;
 const PREFIX = 'ideasui';
 
-const camelToKebab = (str) => str.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
+const camelToKebab = (string_) =>
+  string_.replaceAll(/[A-Z]/g, (match) => `-${match.toLowerCase()}`);
 
 /**
  * Extract CSS variables from plugin by executing it with mock Tailwind API
@@ -27,17 +28,17 @@ function extractPluginStyles() {
   const pluginData = ideasUIPlugin({ prefix: PREFIX });
   pluginData.handler({
     addBase: (styles) => {
-      Object.entries(styles).forEach(([selector, rules]) => {
+      for (const [selector, rules] of Object.entries(styles)) {
         if (!captured.baseStyles[selector]) {
           captured.baseStyles[selector] = {};
         }
         Object.assign(captured.baseStyles[selector], rules);
-      });
+      }
     },
-    addUtilities: (utils) => {
-      Object.entries(utils).forEach(([selector, rules]) => {
+    addUtilities: (utilities) => {
+      for (const [selector, rules] of Object.entries(utilities)) {
         captured.utilities[selector] = rules;
-      });
+      }
     },
     addVariant: () => {},
   });
@@ -47,7 +48,7 @@ function extractPluginStyles() {
 /**
  * Helper to resolve values from variables or raw components
  */
-function resolveValue(value, contextVars) {
+function resolveValue(value, contextVariables) {
   if (typeof value !== 'string') return value;
 
   if (value.startsWith('var(')) {
@@ -59,8 +60,8 @@ function resolveValue(value, contextVars) {
         return value;
       }
 
-      const refValue = contextVars[match[1]];
-      if (refValue) return resolveValue(refValue, contextVars);
+      const referenceValue = contextVariables[match[1]];
+      if (referenceValue) return resolveValue(referenceValue, contextVariables);
     }
   }
 
@@ -80,7 +81,7 @@ function generateThemeCSS() {
 
   const baseStyles = captured.baseStyles;
   const rawUtilities = captured.utilities;
-  const rootVars = baseStyles[':root'] || {};
+  const rootVariables = baseStyles[':root'] || {};
   // const lightSelector = Object.keys(baseStyles).find((s) => s.includes('light'));
   // const darkSelector = Object.keys(baseStyles).find((s) => s.includes('dark'));
   const findSelector = (styles, keywords) =>
@@ -90,25 +91,25 @@ function generateThemeCSS() {
   const darkSelector = findSelector(baseStyles, ['dark', 'data-ideasui-theme="dark"']);
   // const lightSource = { ...rootVars, ...(baseStyles[lightSelector] || {}) };
   // const darkSource = { ...rootVars, ...(baseStyles[darkSelector] || {}) };
-  const lightSource = { ...rootVars, ...(lightSelector ? baseStyles[lightSelector] : {}) };
-  const darkSource = { ...rootVars, ...(darkSelector ? baseStyles[darkSelector] : {}) };
+  const lightSource = { ...rootVariables, ...(lightSelector ? baseStyles[lightSelector] : {}) };
+  const darkSource = { ...rootVariables, ...(darkSelector ? baseStyles[darkSelector] : {}) };
 
   const buildThemedEntries = (source, baseline = {}) => {
     const entries = {};
-    Object.entries(source).forEach(([key, value]) => {
-      if (!key.startsWith('--')) return;
+    for (const [key, value] of Object.entries(source)) {
+      if (!key.startsWith('--')) continue;
 
       const resolved = resolveValue(value, source);
-      if (!resolved) return;
+      if (!resolved) continue;
 
       // Handle aliases for semantic tokens
-      const searchStr = `--${PREFIX}-`;
-      if (key.startsWith(searchStr)) {
+      const searchString = `--${PREFIX}-`;
+      if (key.startsWith(searchString)) {
         if (key.endsWith('-DEFAULT')) {
-          const alias = `--${key.replace(searchStr, '').replace('-DEFAULT', '')}`;
+          const alias = `--${key.replace(searchString, '').replace('-DEFAULT', '')}`;
           entries[alias] = resolved;
         } else if (key.endsWith('-on')) {
-          const alias = `--${key.replace(searchStr, '').replace('-on', '')}-foreground`;
+          const alias = `--${key.replace(searchString, '').replace('-on', '')}-foreground`;
           entries[alias] = resolved;
         }
       }
@@ -122,15 +123,15 @@ function generateThemeCSS() {
       ) {
         entries[key] = resolved;
       }
-    });
+    }
     return entries;
   };
 
   const lightThemed = buildThemedEntries(lightSource);
   const darkThemed = buildThemedEntries(darkSource, lightSource);
 
-  const format = (vars) =>
-    Object.entries(vars)
+  const format = (variables) =>
+    Object.entries(variables)
       .sort()
       .map(([k, v]) => `  ${k}: ${v};`)
       .join('\n');
@@ -149,9 +150,9 @@ function generateThemeCSS() {
 
   // Dynamic @theme block mapping with deduplication
   const themeMappings = new Map();
-  Object.keys(lightThemed).forEach((key) => {
+  for (const key of Object.keys(lightThemed)) {
     // Skip non-mappable tokens from @theme block
-    if (SKIP_PATTERNS.some((p) => key.includes(p))) return;
+    if (SKIP_PATTERNS.some((p) => key.includes(p))) continue;
 
     let category = null;
     let subName = key.replace('--', '');
@@ -208,7 +209,7 @@ function generateThemeCSS() {
         // Semantic border colors (base, subtle, emphasis, error, focus, success)
         // We skip adding them to @theme as a color because it creates .border-border-subtle
         // Instead, we will generate explicit @utility classes for them.
-        return;
+        continue;
       }
     } else if (key.startsWith(`--${PREFIX}`)) {
       // Remaining prefixed tokens are color tokens
@@ -223,7 +224,7 @@ function generateThemeCSS() {
       category = 'color';
     }
 
-    if (!category) return;
+    if (!category) continue;
 
     const tailwindKey = subName ? `--${category}-${subName}` : `--${category}`;
 
@@ -235,25 +236,38 @@ function generateThemeCSS() {
         const resolvedValue = lightThemed[key];
 
         // Handle specific overlay formatting from user request natively
-        if (key === `--${PREFIX}-color-active-overlay`) {
-          value = `oklch(var(--${PREFIX}-overlay-color) / var(--${PREFIX}-opacity-active-overlay))`;
-        } else if (key === `--${PREFIX}-color-hover-overlay`) {
-          value = `oklch(var(--${PREFIX}-overlay-color) / var(--${PREFIX}-opacity-hover-overlay))`;
-        } else if (key === `--${PREFIX}-color-surface-muted`) {
-          value = `oklch(var(--${PREFIX}-color-surface-muted) / var(--${PREFIX}-opacity-surface-muted))`;
-        } else if (key === `--${PREFIX}-color-surface-overlay`) {
-          value = `oklch(var(--${PREFIX}-color-surface-overlay) / var(--${PREFIX}-opacity-surface-overlay))`;
-        }
-        // Fallback checks
-        else if (resolvedValue && resolvedValue.includes('var(') && resolvedValue.includes('/')) {
-          value = `var(${key})`;
-        } else {
-          value = `oklch(var(${key}))`;
+        switch (key) {
+          case `--${PREFIX}-color-active-overlay`: {
+            value = `oklch(var(--${PREFIX}-overlay-color) / var(--${PREFIX}-opacity-active-overlay))`;
+
+            break;
+          }
+          case `--${PREFIX}-color-hover-overlay`: {
+            value = `oklch(var(--${PREFIX}-overlay-color) / var(--${PREFIX}-opacity-hover-overlay))`;
+
+            break;
+          }
+          case `--${PREFIX}-color-surface-muted`: {
+            value = `oklch(var(--${PREFIX}-color-surface-muted) / var(--${PREFIX}-opacity-surface-muted))`;
+
+            break;
+          }
+          case `--${PREFIX}-color-surface-overlay`: {
+            value = `oklch(var(--${PREFIX}-color-surface-overlay) / var(--${PREFIX}-opacity-surface-overlay))`;
+
+            break;
+          }
+          default: {
+            value =
+              resolvedValue && resolvedValue.includes('var(') && resolvedValue.includes('/')
+                ? `var(${key})`
+                : `oklch(var(${key}))`;
+          }
         }
       }
       themeMappings.set(tailwindKey, `  ${tailwindKey}: ${value};`);
     }
-  });
+  }
 
   // Manually add the active and hover composite mappings since they
   // are no longer explicit tokens loopable from `lightThemed`
@@ -267,27 +281,27 @@ function generateThemeCSS() {
   );
 
   // Inject animations
-  Object.entries(animation).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(animation)) {
     if (key !== 'none') {
       const tailwindKey = `--animate-${key}`;
       themeMappings.set(tailwindKey, `  ${tailwindKey}: ${value};`);
     }
-  });
+  }
 
-  const themeBlock = Array.from(themeMappings.values()).sort().join('\n');
+  const themeBlock = [...themeMappings.values()].sort().join('\n');
 
   // Inject keyframes
   const keyframesBlock = Object.entries(keyframes)
     .map(([name, frames]) => {
       const frameLines = Object.entries(frames)
-        .map(([percent, props]) => {
-          const cssProps = Object.entries(props)
+        .map(([percent, properties]) => {
+          const cssProperties = Object.entries(properties)
             .map(([k, v]) => {
               const kebabK = camelToKebab(k);
               return `${kebabK}: ${v};`;
             })
             .join(' ');
-          return `    ${percent} { ${cssProps} }`;
+          return `    ${percent} { ${cssProperties} }`;
         })
         .join('\n');
       return `  @keyframes ${name} {\n${frameLines}\n  }`;

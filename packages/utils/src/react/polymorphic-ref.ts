@@ -7,7 +7,7 @@ import type {
   RefAttributes,
 } from 'react';
 
-import { forwardRef as reactForwardRef } from 'react';
+import { forwardRef as reactForwardReference } from 'react';
 
 // ... (existing code)
 
@@ -34,8 +34,6 @@ export type ExtractRef<T> =
 // Core Types for React 19 Polymorphic Components
 // ============================================================================
 
-export type { ElementType };
-
 /**
  * Polymorphic props that merge custom props with element props
  * Excludes React 19 incompatible props like formAction
@@ -55,10 +53,12 @@ export type PolymorphicRef<T extends ElementType> = ComponentPropsWithRef<T>['re
  */
 export type PolymorphicComponent<
   DefaultElement extends ElementType = 'div',
-  Props extends object = {},
-> = ForwardRefExoticComponent<PolymorphicProps<DefaultElement, Props> & RefAttributes<unknown>> & {
+  Properties extends object = {},
+> = ForwardRefExoticComponent<
+  PolymorphicProps<DefaultElement, Properties> & RefAttributes<unknown>
+> & {
   <AsElement extends ElementType = DefaultElement>(
-    props: PolymorphicProps<AsElement, Props> & {
+    properties: PolymorphicProps<AsElement, Properties> & {
       ref?: PolymorphicRef<AsElement>;
     },
   ): ReactElement | null;
@@ -94,16 +94,16 @@ export type PolymorphicComponent<
  * <Button as={Link} to="/route" />              // renders as router Link
  * ```
  */
-export function forwardRef<DefaultElement extends ElementType, Props extends object = {}>(
+export function forwardRef<DefaultElement extends ElementType, Properties extends object = {}>(
   render: (
-    props: PolymorphicProps<DefaultElement, Props>,
-    ref: PolymorphicRef<DefaultElement>,
+    properties: PolymorphicProps<DefaultElement, Properties>,
+    reference: PolymorphicRef<DefaultElement>,
   ) => ReactElement | null,
-): PolymorphicComponent<DefaultElement, Props> {
-  return reactForwardRef(
+): PolymorphicComponent<DefaultElement, Properties> {
+  return reactForwardReference(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (props: any, ref: any) => render(props, ref),
-  ) as unknown as PolymorphicComponent<DefaultElement, Props>;
+    (properties: any, reference: any) => render(properties, reference),
+  ) as unknown as PolymorphicComponent<DefaultElement, Properties>;
 }
 
 /**
@@ -114,15 +114,15 @@ export function forwardRef<DefaultElement extends ElementType, Props extends obj
  */
 export function createPolymorphicComponent<
   DefaultElement extends ElementType,
-  Props extends object = {},
+  Properties extends object = {},
 >(
   render: (
-    props: PolymorphicProps<DefaultElement, Props>,
-    ref: PolymorphicRef<DefaultElement>,
+    properties: PolymorphicProps<DefaultElement, Properties>,
+    reference: PolymorphicRef<DefaultElement>,
   ) => ReactElement | null,
   displayName?: string,
-): PolymorphicComponent<DefaultElement, Props> {
-  const Component = forwardRef<DefaultElement, Props>(render);
+): PolymorphicComponent<DefaultElement, Properties> {
+  const Component = forwardRef<DefaultElement, Properties>(render);
 
   if (displayName) {
     Component.displayName = displayName;
@@ -130,3 +130,5 @@ export function createPolymorphicComponent<
 
   return Component;
 }
+
+export { type ElementType } from 'react';
