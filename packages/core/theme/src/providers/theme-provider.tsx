@@ -28,11 +28,7 @@ export function ThemeProvider({
     [userThemes],
   );
 
-  const {
-    theme,
-    setThemeProp: setTheme,
-    hasMounted,
-  } = useThemeStorage({
+  const { theme, setTheme, hasMounted } = useThemeStorage({
     defaultTheme,
     themes,
     storageKey: defaultConfig.storageKey,
