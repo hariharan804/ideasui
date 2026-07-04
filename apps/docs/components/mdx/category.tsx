@@ -144,7 +144,8 @@ function getComponentWithStatus(name: string): ComponentWithStatus | null {
   };
 }
 
-export function Category({ category }: CategoryProperties) {
+export function Category(properties: Readonly<CategoryProperties>) {
+  const { category } = properties;
   const group = COMPONENT_GROUPS.find((group) => group.category === category);
 
   if (!group) {

@@ -26,7 +26,7 @@ export function processShadeColor(
     const shade = colorName.split('-').pop() || '';
 
     // Only enforce numeric shade validation if the shade identifier looks like a number
-    if (!isNaN(Number(shade)) && !isNumericShade(shade)) {
+    if (!Number.isNaN(Number(shade)) && !isNumericShade(shade)) {
       return;
     }
   }

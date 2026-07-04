@@ -15,8 +15,8 @@ import {
 import { cn } from '@ideasui/utils';
 
 interface CopyDropdownProperties {
-  rawMarkdown: string;
-  pageTitle: string;
+  readonly rawMarkdown: string;
+  readonly pageTitle: string;
 }
 
 // Brand SVG Icons
@@ -471,16 +471,12 @@ I have the above context. Please help me with my task or question regarding this
                       </h4>
                       <ol className="list-inside list-decimal space-y-2 pl-1.5">
                         <li>
-                          Open Cursor **Settings** (
-                          <kbd className="bg-surface-subtle rounded px-1.5 py-0.5 text-[10px]">
-                            Cmd/Ctrl + ,
-                          </kbd>
-                          ).
+                          Open Cursor <strong>Settings</strong> ( <kbd>Cmd/Ctrl + ,</kbd> ).
                         </li>
                         <li>Navigate to **Features** in the sidebar, then scroll to **MCP**.</li>
                         <li>Click **+ Add New MCP Server**.</li>
                         <li>
-                          Set the fields:
+                          <span>Set the fields:</span>
                           <ul className="text-content-tertiary mt-1 list-inside list-disc space-y-1 pl-4">
                             <li>
                               Name: <code className="bg-surface-subtle rounded px-1">IdeasUI</code>
@@ -514,12 +510,15 @@ I have the above context. Please help me with my task or question regarding this
                         <span>Cline/Roo Code Configuration</span>
                       </h4>
                       <p className="text-content-tertiary text-[11px] leading-snug">
-                        Paste the following configuration into your MCP settings file (typically at{' '}
+                        <span>
+                          Paste the following configuration into your MCP settings file (typically
+                          at{' '}
+                        </span>
                         <code className="bg-surface-subtle rounded px-1 font-mono select-all">
                           ~/Library/Application
                           Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json
                         </code>
-                        ):
+                        <span>):</span>
                       </p>
 
                       <div className="relative">

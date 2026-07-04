@@ -6,8 +6,8 @@ import { Github } from './icons';
 import { cn } from '@ideasui/utils';
 
 interface GitHubButtonProperties {
-  repo: string;
-  className?: string;
+  readonly repo: string;
+  readonly className?: string;
 }
 
 export function GitHubButton({ repo, className }: GitHubButtonProperties) {

@@ -261,6 +261,7 @@ export default defineConfig([
       'react/no-array-index-key': 'error',
       'react/jsx-pascal-case': 'error',
       'react/self-closing-comp': 'warn',
+      'react/jsx-child-element-spacing': 'error',
       'react/jsx-sort-props': [
         'warn',
         {
@@ -487,7 +488,7 @@ export default defineConfig([
       'max-params': 'off',
       complexity: 'off',
       'sonarjs/cognitive-complexity': 'off',
-      'sonarjs/prefer-read-only-props': 'off',
+      'sonarjs/prefer-read-only-props': 'warn',
       'sonarjs/deprecation': 'off',
     },
   },
@@ -529,7 +530,7 @@ export default defineConfig([
       'max-params': 'off',
       complexity: 'off',
       'sonarjs/cognitive-complexity': 'off',
-      'sonarjs/prefer-read-only-props': 'off',
+      'sonarjs/prefer-read-only-props': 'warn',
       'sonarjs/no-nested-conditional': 'warn',
     },
   },

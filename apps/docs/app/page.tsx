@@ -119,7 +119,7 @@ export default function HomePage() {
           <motion.div {...fadeUp(0)} className="mb-7 inline-flex">
             <span className="border-primary/30 bg-primary/10 text-primary inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold">
               <span className="bg-primary size-1.5 animate-pulse rounded-full" />
-              Now in canary — v1.0
+              <span>Now in canary — v1.0</span>
             </span>
           </motion.div>
 

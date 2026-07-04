@@ -73,7 +73,7 @@ function MdxPreBlock({
   );
 }
 
-export default async function Page(properties: { params: Promise<{ slug?: string[] }> }) {
+export default async function Page(properties: Readonly<{ params: Promise<{ slug?: string[] }> }>) {
   const parameters = await properties.params;
 
   if (!parameters.slug || parameters.slug.length === 0) {

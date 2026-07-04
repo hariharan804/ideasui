@@ -8,8 +8,8 @@ interface QuickNavItem {
 }
 
 interface QuickNavProperties extends HTMLAttributes<HTMLDivElement> {
-  title?: string;
-  items: QuickNavItem[];
+  readonly title?: string;
+  readonly items: QuickNavItem[];
 }
 
 export function QuickNav({
@@ -17,7 +17,7 @@ export function QuickNav({
   title = 'In This Section',
   className,
   ...properties
-}: QuickNavProperties) {
+}: Readonly<QuickNavProperties>) {
   if (!items || items.length === 0) return null;
 
   return (

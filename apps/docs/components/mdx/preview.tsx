@@ -16,16 +16,17 @@ interface PreviewProperties extends HTMLAttributes<HTMLDivElement> {
   minHeight?: string;
 }
 
-export function Preview({
-  align = 'center',
-  className,
-  description,
-  hideCode = false,
-  isBgSolid = false,
-  minHeight,
-  name,
-  ...properties
-}: PreviewProperties) {
+export function Preview(properties: Readonly<PreviewProperties>) {
+  const {
+    align = 'center',
+    className,
+    description,
+    hideCode = false,
+    isBgSolid = false,
+    minHeight,
+    name,
+    ...restProperties
+  } = properties;
   const demo = getDemo(name);
 
   if (!demo) {
@@ -52,7 +53,7 @@ export function Preview({
       isBgSolid={isBgSolid}
       minHeight={minHeight}
       name={name}
-      {...properties}
+      {...restProperties}
     >
       <Component />
       {!hideCode && !!demo.file && <Source language="tsx" name={name} title={name} />}

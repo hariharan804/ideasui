@@ -339,7 +339,7 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
         <div className="relative mx-auto max-w-4xl text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm text-white backdrop-blur-sm">
             <span className="size-2 animate-pulse rounded-full bg-green-400" />
-            Latest Documentation
+            <span>Latest Documentation</span>
           </div>
           <h1 className="mb-4 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-5xl font-bold text-transparent">
             IdeasUI Documentation

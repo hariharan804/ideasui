@@ -27,7 +27,7 @@ export function toRem(value: number, base = DEFAULT_REM_BASE): string {
 export function parseValue(value: string): number {
   const parsed = Number.parseFloat(value.replaceAll(/[^\d.-]/g, ''));
 
-  return isNaN(parsed) ? 0 : parsed;
+  return Number.isNaN(parsed) ? 0 : parsed;
 }
 
 /**

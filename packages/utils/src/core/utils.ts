@@ -36,11 +36,11 @@ export function clamp(value: number, min: number, max: number): number {
  */
 export function isNumeric(value: unknown): value is number {
   if (typeof value === 'number') {
-    return !isNaN(value) && isFinite(value);
+    return !Number.isNaN(value) && Number.isFinite(value);
   }
 
   if (typeof value === 'string' && value.trim() !== '') {
-    return !isNaN(Number.parseFloat(value)) && isFinite(Number(value));
+    return !Number.isNaN(Number.parseFloat(value)) && Number.isFinite(Number(value));
   }
 
   return false;
@@ -97,7 +97,7 @@ export function omit<T extends Record<string, unknown>, K extends keyof T>(
     delete result[key];
   }
 
-  return result as Omit<T, K>;
+  return result;
 }
 
 /**
@@ -113,7 +113,7 @@ export function pick<T extends Record<string, unknown>, K extends keyof T>(
   const result = {} as Pick<T, K>;
 
   for (const key of keys) {
-    if (Object.prototype.hasOwnProperty.call(object, key)) {
+    if (Object.hasOwn(object, key)) {
       result[key] = object[key];
     }
   }

@@ -12,6 +12,7 @@ import { Check, Copy } from 'lucide-react';
 
 interface ActionsPanelProperties extends HTMLAttributes<HTMLDivElement> {
   readonly allowCopy: boolean;
+  readonly className?: string;
   readonly code?: string;
   readonly containerRef: RefObject<HTMLElement | null>;
 }
@@ -23,7 +24,7 @@ function ActionsPanel({
   code,
   containerRef,
   ...rest
-}: ActionsPanelProperties) {
+}: Readonly<ActionsPanelProperties>) {
   return (
     <div {...rest} className={cn('z-10 empty:hidden', className)}>
       {!!allowCopy && <CopyButton code={code} containerRef={containerRef} />}

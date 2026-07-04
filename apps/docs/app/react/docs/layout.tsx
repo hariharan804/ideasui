@@ -6,7 +6,7 @@ import { DocsLayout } from '@/components/layout/notebook';
 import { reactPageTree } from '@/lib/source';
 import { baseOptions } from '@/components/layout/layout.config';
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default function Layout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <DocsLayout
       tabMode="navbar"

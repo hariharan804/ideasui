@@ -166,7 +166,7 @@ function Playground(): JSX.Element {
                     </div>
 
                     <div className="border-border-subtle bg-surface text-content-primary group-hover:bg-primary-500 flex items-center gap-2 self-start rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300 group-hover:border-transparent group-hover:text-white group-hover:shadow-md">
-                      View Component
+                      <span>View Component</span>
                       <span className="transition-transform duration-300 group-hover:translate-x-1">
                         →
                       </span>

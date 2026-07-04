@@ -1,7 +1,10 @@
-/* eslint-disable no-restricted-syntax */
-import React from 'react';
+import type { HTMLAttributes } from 'react';
 
-export function Logo({ className }: { className?: string }) {
+interface LogoProperties extends HTMLAttributes<HTMLDivElement> {
+  readonly className?: string;
+}
+
+export function Logo({ className }: Readonly<LogoProperties>) {
   return (
     <div className={`flex items-center gap-2.5 ${className}`}>
       <div className="from-primary to-info text-on-primary flex size-7 items-center justify-center rounded bg-linear-to-br text-sm font-black shadow-sm">

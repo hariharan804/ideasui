@@ -4,9 +4,9 @@ type ButtonVariant = 'solid' | 'faded' | 'bordered' | 'light' | 'flat' | 'ghost'
 type ButtonColor = 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'neutral';
 
 export interface ButtonProperties extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant;
-  color?: ButtonColor;
-  children: ReactNode;
+  readonly variant?: ButtonVariant;
+  readonly color?: ButtonColor;
+  readonly children: ReactNode;
 }
 
 export function Button({
@@ -15,7 +15,7 @@ export function Button({
   children,
   className = '',
   ...properties
-}: ButtonProperties): JSX.Element {
+}: Readonly<ButtonProperties>): JSX.Element {
   // Base classes for all buttons
   const baseClasses =
     'inline-flex items-center justify-center rounded-md px-4 h-10 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none';

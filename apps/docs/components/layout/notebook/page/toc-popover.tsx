@@ -164,7 +164,7 @@ function ProgressCircle({
   strokeWidth = 2,
   value,
   ...restSvgProperties
-}: ProgressCircleProperties) {
+}: Readonly<ProgressCircleProperties>) {
   const normalizedValue = Math.min(Math.max(value, min), max);
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;

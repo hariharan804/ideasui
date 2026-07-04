@@ -254,9 +254,9 @@ function CodeChip({
   copied,
   onCopy,
 }: {
-  text: string;
-  copied: boolean;
-  onCopy: () => void;
+  readonly text: string;
+  readonly copied: boolean;
+  readonly onCopy: () => void;
 }): JSX.Element {
   return (
     <button
@@ -279,9 +279,9 @@ function SectionHeader({
   title,
   description,
 }: {
-  id: string;
-  title: string;
-  description: string;
+  readonly id: string;
+  readonly title: string;
+  readonly description: string;
 }): JSX.Element {
   return (
     <div className="mb-6" id={id}>
@@ -295,8 +295,8 @@ function SectionCard({
   children,
   className = '',
 }: {
-  children: React.ReactNode;
-  className?: string;
+  readonly children: React.ReactNode;
+  readonly className?: string;
 }): JSX.Element {
   return (
     <div className={`bg-surface-base rounded-3xl p-8 shadow-sm lg:p-10 ${className}`}>
@@ -1502,23 +1502,23 @@ export default function DesignSystemPage(): JSX.Element {
             <div className="mb-8 flex flex-wrap gap-3">
               <span className="border-primary/30 bg-primary-subtle text-on-primary-subtle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-primary h-1.5 w-1.5 rounded-full" />
-                New Feature
+                <span>New Feature</span>
               </span>
               <span className="border-success/30 bg-success-subtle text-on-success-subtle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-success h-1.5 w-1.5 rounded-full" />
-                Completed
+                <span>Completed</span>
               </span>
               <span className="border-warning/30 bg-warning-subtle text-on-warning-subtle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-warning h-1.5 w-1.5 rounded-full" />
-                Pending
+                <span>Pending</span>
               </span>
               <span className="border-error/30 bg-error-subtle text-on-error-subtle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-error h-1.5 w-1.5 rounded-full" />
-                Failed
+                <span>Failed</span>
               </span>
               <span className="border-info/30 bg-info-subtle text-on-info-subtle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
                 <span className="bg-info h-1.5 w-1.5 rounded-full" />
-                Info
+                <span>Info</span>
               </span>
             </div>
 

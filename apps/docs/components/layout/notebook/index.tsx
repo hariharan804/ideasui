@@ -49,7 +49,7 @@ interface SidebarOptions
   collapsible?: boolean;
 }
 
-export function DocsLayout(properties: DocsLayoutProps) {
+export function DocsLayout(properties: Readonly<DocsLayoutProps>) {
   const {
     // eslint-disable-next-line sonarjs/deprecation
     i18n = false,

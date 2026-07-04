@@ -29,7 +29,7 @@ function getServerMobileSnapshot() {
   return false;
 }
 
-export function PropsTable({ data }: { data: PropDef[] }) {
+export function PropsTable({ data }: Readonly<{ readonly data: PropDef[] }>) {
   const isMobile = useSyncExternalStore(
     subscribeMobile,
     getMobileSnapshot,

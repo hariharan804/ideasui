@@ -11,7 +11,7 @@ const EMPTY_CODE_BLOCK = (
   </Base.Pre>
 );
 
-function HighlightPre(properties: React.ComponentPropsWithoutRef<typeof Base.Pre>) {
+function HighlightPre(properties: Readonly<React.ComponentPropsWithoutRef<typeof Base.Pre>>) {
   return <Base.Pre {...properties} />;
 }
 
