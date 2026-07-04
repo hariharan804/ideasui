@@ -78,7 +78,7 @@ function NavbarLinkItemMenu({
     timeoutReference.current = globalThis.setTimeout(() => {
       setOpen(value);
       freezeUntil.current = Date.now() + 300;
-    }, hoverDelay);
+    }, hoverDelay) as unknown as number;
   };
   const onPointerEnter = (e: PointerEvent) => {
     if (e.pointerType === 'touch') {

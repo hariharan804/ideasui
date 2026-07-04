@@ -30,7 +30,8 @@ describe('accessibility', () => {
 
     it('should return undefined if condition is false or undefined', () => {
       expect(toDataAttribute(false)).toBeUndefined();
-      expect(toDataAttribute()).toBeUndefined();
+      // eslint-disable-next-line unicorn/no-useless-undefined
+      expect(toDataAttribute(undefined)).toBeUndefined();
     });
   });
 

@@ -1,4 +1,4 @@
-import type { ThemeScriptConfig, ThemeScriptProps as ThemeScriptProperties } from './types';
+import type { ThemeScriptConfig, ThemeScriptProperties } from './types';
 
 import { memo, useMemo } from 'react';
 

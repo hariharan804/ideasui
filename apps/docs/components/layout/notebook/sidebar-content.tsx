@@ -113,10 +113,7 @@ export function SidebarContent({
       .filter((item) => item.type !== 'icon')
       .map((item, index) => ({
         item,
-        key:
-          item.type === 'custom'
-            ? `custom-${index}`
-            : item.url || (item as Record<string, unknown>).text || `link-${index}`,
+        key: item.type === 'custom' ? `custom-${index}` : item.url || item.text || `link-${index}`,
       }));
   }, [links]);
   const Header = typeof banner === 'function' ? banner : DefaultHeader;
@@ -124,13 +121,13 @@ export function SidebarContent({
 
   // Normalize nav.title
 
-  const titleNode = typeof nav.title === 'function' ? nav.title({}) : nav.title;
+  const titleNode = (typeof nav.title === 'function' ? nav.title({}) : nav.title) as ReactNode;
 
   const viewport = (
     <SidebarViewport>
       {linkItems.map(({ item, key }, index, array) => (
         <SidebarLinkItem
-          key={key}
+          key={key as string}
           className={cn('lg:hidden', index === array.length - 1 && 'mb-4')}
           item={item}
         />

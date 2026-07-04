@@ -54,9 +54,9 @@ export const focus = {
       '[contenteditable="true"]',
     ].join(',');
 
-    return [...container.querySelectorAll(selector)];
+    // eslint-disable-next-line unicorn/prefer-spread
+    return Array.from(container.querySelectorAll<HTMLElement>(selector));
   },
-
   /**
    * Get first focusable element
    * @param {HTMLElement} container - The container element to search

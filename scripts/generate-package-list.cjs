@@ -51,7 +51,7 @@ function extractComponentDocs(filePath) {
 
 function extractInterfaces(content) {
   // Find "export interface Name" then locate its opening brace linearly
-  const headerRegex = /export interface (\w+)[^{]*\{/g;
+  const headerRegex = /export interface (\w+)[^{]*?\{/g;
   const interfaces = [];
   let match;
 
@@ -69,7 +69,7 @@ function extractInterfaces(content) {
 
 function extractTypes(content) {
   // [^;\n]+ avoids cross-line backtracking
-  const typeRegex = /export type (\w+)\s*=\s*([^;\n]+);/g;
+  const typeRegex = /export type (\w+)\s*=\s*([^;\n]*?);/g;
   const types = [];
   let match;
 
@@ -81,7 +81,7 @@ function extractTypes(content) {
 }
 
 function extractConstants(content) {
-  const constantRegex = /export const (\w+)\s*=\s*([^;\n]+);/g;
+  const constantRegex = /export const (\w+)\s*=\s*([^;\n]*?);/g;
   const constants = [];
   let match;
 
@@ -116,7 +116,7 @@ function extractFunctions(content) {
 /** Resolve event-handler or ElementType shorthands for a prop type */
 function resolvePropType(propName, rawType) {
   if (propName.startsWith('on') && rawType.includes('=>')) {
-    const m = rawType.match(/\(([^)]*)\)\s*=>\s*(\w+)/);
+    const m = rawType.match(/\(([^)]*?)\)\s*=>\s*(\w+)/);
     if (m) return `(${m[1]}) => ${m[2]}`;
   }
   if (propName === 'as' && rawType.includes('ElementType')) {
@@ -144,7 +144,7 @@ function parseJsDocComment(comment) {
 
 function extractPropsFromInterface(interfaceBody) {
   // JSDoc-annotated props (non-greedy [\s\S]*? avoids backtracking)
-  const propRegex = /\/\*\*([\s\S]*?)\*\/\s*(\w+)\??\s*:\s*([^;\n]+);/g;
+  const propRegex = /\/\*\*([\s\S]*?)\*\/\s*(\w+)\??\s*:\s*([^;\n]*?);/g;
   const props = [];
   let match;
 
@@ -164,7 +164,7 @@ function extractPropsFromInterface(interfaceBody) {
   }
 
   // Simple props without JSDoc
-  const simplePropRegex = /^\s*(\w+)\??\s*:\s*([^;\n]+);/gm;
+  const simplePropRegex = /^\s*(\w+)\??\s*:\s*([^;\n]*?);/gm;
   let simpleMatch;
 
   while ((simpleMatch = simplePropRegex.exec(interfaceBody)) !== null) {

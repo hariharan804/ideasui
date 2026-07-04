@@ -54,7 +54,8 @@ describe('utils', () => {
     it('should return false for non-numeric values', () => {
       expect(isNumeric('abc')).toBe(false);
       expect(isNumeric(null)).toBe(false);
-      expect(isNumeric()).toBe(false);
+      // eslint-disable-next-line unicorn/no-useless-undefined
+      expect(isNumeric(undefined)).toBe(false);
       expect(isNumeric({})).toBe(false);
       expect(isNumeric([])).toBe(false);
       expect(isNumeric(Number.NaN)).toBe(false);

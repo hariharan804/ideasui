@@ -11,9 +11,9 @@ import { cn } from '@ideasui/utils';
 import { Check, Copy } from 'lucide-react';
 
 interface ActionsPanelProperties extends HTMLAttributes<HTMLDivElement> {
-  allowCopy: boolean;
-  code?: string;
-  containerRef: RefObject<HTMLElement | null>;
+  readonly allowCopy: boolean;
+  readonly code?: string;
+  readonly containerRef: RefObject<HTMLElement | null>;
 }
 
 /** Stable component for the CodeBlock actions slot — defined outside the parent to avoid react/no-unstable-nested-components. */
@@ -82,9 +82,9 @@ export function FumadocsCustomCodeblock({
 }
 
 interface CopyButtonProperties {
-  className?: string;
-  code?: string;
-  containerRef: RefObject<HTMLElement | null>;
+  readonly className?: string;
+  readonly code?: string;
+  readonly containerRef: RefObject<HTMLElement | null>;
 }
 
 function CopyButton({ className, code, containerRef }: CopyButtonProperties) {

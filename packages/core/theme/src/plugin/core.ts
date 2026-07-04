@@ -85,6 +85,59 @@ export function getColorScheme(themeName: string, extend?: string): string | und
   return undefined;
 }
 
+function processTokenAndSemanticOverrides(
+  designTokens: TokenOverrides | undefined,
+  semanticTokens: SemanticTokenOverrides | undefined,
+  prefix: string,
+  cssSelector: string,
+  resolved: ResolvedConfig,
+): void {
+  if (designTokens) {
+    const tokenVariables = generateCSVariablesFromTokenOverrides(designTokens, prefix);
+
+    resolved.utilities[cssSelector] = {
+      ...resolved.utilities[cssSelector],
+      ...tokenVariables,
+    };
+  }
+
+  if (semanticTokens) {
+    const semanticVariables = generateCSVariablesFromTokenOverrides(semanticTokens, prefix);
+
+    resolved.utilities[cssSelector] = {
+      ...resolved.utilities[cssSelector],
+      ...semanticVariables,
+    };
+  }
+}
+
+function processComponentOverrides(
+  components: unknown,
+  prefix: string,
+  cssSelector: string,
+  resolved: ResolvedConfig,
+): void {
+  if (!components) {
+    return;
+  }
+
+  const flatComponents = flattenThemeObject(components, 4) as Record<string, string>;
+  const componentVariables: Record<string, string> = {};
+
+  for (const [key, value] of Object.entries(flatComponents)) {
+    if (value !== undefined) {
+      const formattedKey = key.replaceAll(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+
+      componentVariables[`--${prefix}-${formattedKey}`] = value;
+    }
+  }
+
+  resolved.utilities[cssSelector] = {
+    ...resolved.utilities[cssSelector],
+    ...componentVariables,
+  };
+}
+
 /**
  * Resolves theme configuration into CSS variables, utilities, and base styles
  */
@@ -124,47 +177,11 @@ export function resolveConfig(
 
     processColors(flatColors, prefix, resolved, cssSelector, baseSelector);
 
-    // Process token overrides
-    if (designTokens) {
-      const tokenVariables = generateCSVariablesFromTokenOverrides(designTokens, prefix);
-
-      resolved.utilities[cssSelector] = {
-        ...resolved.utilities[cssSelector],
-        ...tokenVariables,
-      };
-    }
-
-    // Process semantic token overrides
-    if (semanticTokens) {
-      const semanticVariables = generateCSVariablesFromTokenOverrides(semanticTokens, prefix);
-
-      resolved.utilities[cssSelector] = {
-        ...resolved.utilities[cssSelector],
-        ...semanticVariables,
-      };
-    }
+    // Process token and semantic overrides
+    processTokenAndSemanticOverrides(designTokens, semanticTokens, prefix, cssSelector, resolved);
 
     // Process component overrides
-    if (components) {
-      // Flatten the components object to simple key-value pairs
-      // e.g. { button: { base: { backgroundColor: 'red' } } } -> { 'button-base-backgroundColor': 'red' }
-      const flatComponents = flattenThemeObject(components, 4) as Record<string, string>;
-      const componentVariables: Record<string, string> = {};
-
-      for (const [key, value] of Object.entries(flatComponents)) {
-        if (value !== undefined) {
-          // Convert camelCase CSS properties to kebab-case (e.g., backgroundColor -> background-color)
-          const formattedKey = key.replaceAll(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-
-          componentVariables[`--${prefix}-${formattedKey}`] = value;
-        }
-      }
-
-      resolved.utilities[cssSelector] = {
-        ...resolved.utilities[cssSelector],
-        ...componentVariables,
-      };
-    }
+    processComponentOverrides(components, prefix, cssSelector, resolved);
   }
 
   return resolved;
@@ -394,20 +411,7 @@ const SHADES = [
 ] as const;
 const CHROMA_FACTORS = [0.1, 0.18, 0.35, 0.55, 0.75, 1, 0.95, 0.85, 0.72, 0.55, 0.4] as const;
 
-/**
- * Interpolates a single color family's shades based on the parsed anchor color.
- */
-export function generateColorScale(
-  familyColors: Record<string, string>,
-  isDark: boolean,
-): Record<string, string> {
-  const presentShades = Object.keys(familyColors);
-
-  if (presentShades.length === 0 || presentShades.length === SHADES.length) {
-    return familyColors;
-  }
-
-  // Find closest anchor shade to 500 (index 5)
+function findAnchorShade(presentShades: string[]): string {
   let anchorShade = '500';
   let minDiff = Infinity;
 
@@ -424,6 +428,49 @@ export function generateColorScale(
     }
   }
 
+  return anchorShade;
+}
+
+function interpolateLightness(
+  isDark: boolean,
+  index: number,
+  anchorIndex: number,
+  lAnchor: number,
+): number {
+  if (isDark) {
+    if (index < anchorIndex) {
+      return lAnchor - ((lAnchor - 0.14) * (anchorIndex - index)) / anchorIndex;
+    }
+    if (index > anchorIndex) {
+      return lAnchor + ((0.97 - lAnchor) * (index - anchorIndex)) / (10 - anchorIndex);
+    }
+  } else {
+    if (index < anchorIndex) {
+      return lAnchor + ((0.97 - lAnchor) * (anchorIndex - index)) / anchorIndex;
+    }
+    if (index > anchorIndex) {
+      return lAnchor - ((lAnchor - 0.14) * (index - anchorIndex)) / (10 - anchorIndex);
+    }
+  }
+
+  return lAnchor;
+}
+
+/**
+ * Interpolates a single color family's shades based on the parsed anchor color.
+ */
+export function generateColorScale(
+  familyColors: Record<string, string>,
+  isDark: boolean,
+): Record<string, string> {
+  const presentShades = Object.keys(familyColors);
+
+  if (presentShades.length === 0 || presentShades.length === SHADES.length) {
+    return familyColors;
+  }
+
+  // Find closest anchor shade to 500 (index 5)
+  const anchorShade = findAnchorShade(presentShades);
   const anchorValue = familyColors[anchorShade];
 
   if (!anchorValue) {
@@ -450,21 +497,7 @@ export function generateColorScale(
       continue;
     }
 
-    let lTarget = lAnchor;
-
-    if (isDark) {
-      if (index < anchorIndex) {
-        lTarget = lAnchor - ((lAnchor - 0.14) * (anchorIndex - index)) / anchorIndex;
-      } else if (index > anchorIndex) {
-        lTarget = lAnchor + ((0.97 - lAnchor) * (index - anchorIndex)) / (10 - anchorIndex);
-      }
-    } else {
-      if (index < anchorIndex) {
-        lTarget = lAnchor + ((0.97 - lAnchor) * (anchorIndex - index)) / anchorIndex;
-      } else if (index > anchorIndex) {
-        lTarget = lAnchor - ((lAnchor - 0.14) * (index - anchorIndex)) / (10 - anchorIndex);
-      }
-    }
+    let lTarget = interpolateLightness(isDark, index, anchorIndex, lAnchor);
 
     lTarget = Math.round(lTarget * 10_000) / 10_000;
 

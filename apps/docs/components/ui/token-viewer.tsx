@@ -29,10 +29,7 @@ interface TokenItem {
   previewType: 'color' | 'text' | 'spacing' | 'shadow' | 'radius' | 'none';
 }
 
-const parseTokens = (): TokenItem[] => {
-  const items: TokenItem[] = [];
-
-  // Colors (Semantic, Surface, Content)
+const parseColors = (items: TokenItem[]): void => {
   for (const [key, value] of Object.entries(semantic)) {
     items.push({
       name: key,
@@ -66,8 +63,9 @@ const parseTokens = (): TokenItem[] => {
       previewType: 'color',
     });
   }
+};
 
-  // Spacing
+const parseSpacing = (items: TokenItem[]): void => {
   for (const [key, value] of Object.entries(spacing)) {
     items.push({
       name: key,
@@ -78,8 +76,9 @@ const parseTokens = (): TokenItem[] => {
       previewType: 'spacing',
     });
   }
+};
 
-  // Typography
+const parseTypography = (items: TokenItem[]): void => {
   for (const [key, value] of Object.entries(fontSize)) {
     let displayValue = String(value);
     let previewSize = String(value);
@@ -111,8 +110,9 @@ const parseTokens = (): TokenItem[] => {
       previewType: 'text',
     });
   }
+};
 
-  // Radius
+const parseRadiusAndShadows = (items: TokenItem[]): void => {
   for (const [key, value] of Object.entries(borderRadius)) {
     items.push({
       name: key,
@@ -123,8 +123,6 @@ const parseTokens = (): TokenItem[] => {
       previewType: 'radius',
     });
   }
-
-  // Shadows
   for (const [key, value] of Object.entries(lightShadow)) {
     items.push({
       name: key,
@@ -135,8 +133,9 @@ const parseTokens = (): TokenItem[] => {
       previewType: 'shadow',
     });
   }
+};
 
-  // Effects
+const parseEffects = (items: TokenItem[]): void => {
   for (const [key, value] of Object.entries(opacity)) {
     items.push({
       name: key,
@@ -157,6 +156,16 @@ const parseTokens = (): TokenItem[] => {
       previewType: 'none',
     });
   }
+};
+
+const parseTokens = (): TokenItem[] => {
+  const items: TokenItem[] = [];
+
+  parseColors(items);
+  parseSpacing(items);
+  parseTypography(items);
+  parseRadiusAndShadows(items);
+  parseEffects(items);
 
   return items;
 };

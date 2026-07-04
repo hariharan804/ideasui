@@ -2,7 +2,7 @@
 
 import type { AnchorProviderProps, TOCItemType } from 'fumadocs-core/toc';
 import type { BreadcrumbProps as BreadcrumbProperties } from './breadcrumb';
-import type { FooterProps as FooterProperties } from './footer';
+import type { FooterProperties } from './footer';
 import type { ComponentProps, ReactNode } from 'react';
 
 import { useMemo, isValidElement } from 'react';

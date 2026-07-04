@@ -22,12 +22,7 @@ import { componentColors, componentShadows } from '../tokens/components';
 
 import { kebabCase } from './utils';
 
-/**
- * Generates CSS custom properties from design tokens
- * @param {string} prefix - The CSS variable prefix
- * @returns {Record<string, string>} The generated CSS variables
- */
-export function generateDesignTokenCSSVars(prefix: string): Record<string, string> {
+function getBaseCSSVars(prefix: string): Record<string, string> {
   const cssVariables: Record<string, string> = {};
 
   // Duration tokens
@@ -63,6 +58,12 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
   for (const [key, value] of Object.entries(lightShadow)) {
     cssVariables[`--${prefix}-shadow-${key}`] = value;
   }
+
+  return cssVariables;
+}
+
+function getTypographyAndEffectCSSVars(prefix: string): Record<string, string> {
+  const cssVariables: Record<string, string> = {};
 
   // Z-index tokens
   for (const [key, value] of Object.entries(zIndex)) {
@@ -104,10 +105,11 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
     cssVariables[`--${prefix}-${kebabCase(key)}`] = String(value);
   }
 
-  // Accessibility tokens
-  // Object.entries(accessibility).forEach(([key, value]) => {
-  //   cssVars[`--${prefix}-accessibility-${kebabCase(key)}`] = value;
-  // });
+  return cssVariables;
+}
+
+function getComponentCSSVars(prefix: string): Record<string, string> {
+  const cssVariables: Record<string, string> = {};
 
   // Component colors
   for (const [component, tokens] of Object.entries(componentColors)) {
@@ -123,11 +125,20 @@ export function generateDesignTokenCSSVars(prefix: string): Record<string, strin
     }
   }
 
-  // Static colors
-  // cssVars[`--${prefix}-white`] = '#ffffff';
-  // cssVars[`--${prefix}-black`] = '#000000';
-
   return cssVariables;
+}
+
+/**
+ * Generates CSS custom properties from design tokens
+ * @param {string} prefix - The CSS variable prefix
+ * @returns {Record<string, string>} The generated CSS variables
+ */
+export function generateDesignTokenCSSVars(prefix: string): Record<string, string> {
+  return {
+    ...getBaseCSSVars(prefix),
+    ...getTypographyAndEffectCSSVars(prefix),
+    ...getComponentCSSVars(prefix),
+  };
 }
 
 /**

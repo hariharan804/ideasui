@@ -4,7 +4,7 @@ import type {
 } from 'react-aria-components';
 import type { ForwardRefExoticComponent, HTMLAttributes, ReactNode, RefAttributes } from 'react';
 import type { ButtonVariantProps } from '@ideasui/theme/recipes';
-import type { ButtonGroupProps as ButtonGroupProperties } from './button-group';
+import type { ButtonGroupProperties } from './button-group';
 
 /**
  * Granular class names for the Button component slots.

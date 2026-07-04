@@ -4,10 +4,10 @@ import type {
   ButtonProps as ButtonProperties,
   ButtonComponent,
   ButtonClassNames,
-  ButtonLabelProps as ButtonLabelProperties,
-  ButtonIconProps as ButtonIconProperties,
-  ButtonSpinnerProps as ButtonSpinnerProperties,
-  ButtonShortcutProps as ButtonShortcutProperties,
+  ButtonLabelProperties,
+  ButtonIconProperties,
+  ButtonSpinnerProperties,
+  ButtonShortcutProperties,
 } from './button.types';
 import type { ButtonReturnType } from '@ideasui/theme/recipes';
 import type { ButtonRenderProps } from 'react-aria-components';
