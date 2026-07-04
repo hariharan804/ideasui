@@ -3,7 +3,11 @@ import type { ReactNode, JSX } from 'react';
 
 import Header from '../../components/header';
 
-export default function PlaygroundLayout({ children }: { children: ReactNode }): JSX.Element {
+export default function PlaygroundLayout({
+  children,
+}: {
+  readonly children: ReactNode;
+}): JSX.Element {
   return (
     <div className="bg-surface-sunken min-h-screen">
       <Header />

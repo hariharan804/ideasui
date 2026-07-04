@@ -230,7 +230,7 @@ export interface ThemeConfig {
     [themeName: string]: ThemeOptions | undefined;
   };
   /** Default theme name */
-  readonly defaultTheme?: 'light' | 'dark' | string;
+  readonly defaultTheme?: 'light' | 'dark' | (string & {});
   /** CSS variable prefix */
   // readonly prefix?: string;
   /** Disable all animations globally */

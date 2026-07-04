@@ -183,7 +183,7 @@ export function SidebarFolderTrigger({
   className,
   style,
   ...properties
-}: ComponentProps<typeof Base.SidebarFolderTrigger>) {
+}: Readonly<ComponentProps<typeof Base.SidebarFolderTrigger>>) {
   const { collapsible, depth } = Base.useFolder()!;
 
   return (
@@ -234,7 +234,7 @@ export function SidebarFolderContent({
   children,
   className,
   ...properties
-}: ComponentProps<typeof Base.SidebarFolderContent>) {
+}: Readonly<ComponentProps<typeof Base.SidebarFolderContent>>) {
   const depth = Base.useFolderDepth();
 
   return (

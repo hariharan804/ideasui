@@ -9,7 +9,7 @@ interface APIReferenceViewerProperties {
   componentName: keyof typeof propsDocumentation;
 }
 
-export function APIReferenceViewer({ componentName }: APIReferenceViewerProperties) {
+export function APIReferenceViewer({ componentName }: Readonly<APIReferenceViewerProperties>) {
   const componentDocs = propsDocumentation[componentName];
 
   const [activeTab, setActiveTab] = useState(0);

@@ -185,7 +185,7 @@ export function DocsNavbar({
   tabMode = 'sidebar',
   tabs,
   themeSwitch = {},
-}: DocsNavbarProps) {
+}: Readonly<DocsNavbarProps>) {
   const navMode = nav.mode ?? 'auto';
   const showLayoutTabs = tabMode === 'navbar' && tabs.length > 0;
 

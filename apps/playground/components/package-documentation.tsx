@@ -275,8 +275,7 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
                   </div>
 
                   {/* Props */}
-                  {docs.interfaces &&
-                  docs.interfaces.some((index) => index.props && index.props.length > 0) ? (
+                  {docs.interfaces?.some((index) => index.props && index.props.length > 0) ? (
                     <div className="mb-8">
                       <h3 className="mb-4 text-xl font-bold text-gray-900">Props</h3>
                       {docs.interfaces.map(
@@ -339,7 +338,7 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
         <div className="relative mx-auto max-w-4xl text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm text-white backdrop-blur-sm">
             <span className="size-2 animate-pulse rounded-full bg-green-400" />
-            Latest Documentation
+            <span>Latest Documentation</span>
           </div>
           <h1 className="mb-4 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-5xl font-bold text-transparent">
             IdeasUI Documentation
@@ -371,11 +370,10 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
 
               {/* Package Grid */}
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {(packages as Package[]).map((package_) => (
-                  <div
+                {packages.map((package_) => (
+                  <button
                     key={package_.name}
                     className="group cursor-pointer overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10"
-                    role="button"
                     tabIndex={0}
                     onClick={() => setSelectedPackage(package_)}
                     onKeyDown={(e) => {
@@ -445,7 +443,7 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
             </section>

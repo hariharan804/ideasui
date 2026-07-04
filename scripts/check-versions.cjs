@@ -74,12 +74,12 @@ function checkNodeVersion() {
  * Check PNPM version
  */
 function checkPnpmVersion() {
-  const { execSync } = require('node:child_process');
-
   try {
-    const pnpmVersion = execSync('pnpm --version', {
+    const executable = process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm';
+
+    const pnpmVersion = execFileSync(executable, ['--version'], {
       encoding: 'utf8',
-      stdio: ['pipe', 'pipe', 'pipe'],
+      shell: false,
     }).trim();
 
     const isValid = isVersionValid(pnpmVersion, MIN_PNPM_VERSION);

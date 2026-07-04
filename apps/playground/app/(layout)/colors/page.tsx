@@ -79,9 +79,8 @@ export default function ColorsPage(): JSX.Element {
                         style={{ animationDelay: `${index * 30}ms` }}
                       >
                         {/* Color Swatch */}
-                        <div
+                        <button
                           className="ring-default focus:bg-surface-sunken hover:ring-primary-500 focus:ring-primary-500 relative aspect-square cursor-pointer overflow-hidden rounded-2xl shadow-sm ring-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-md focus:ring-2 focus:ring-offset-2 focus:outline-none"
-                          role="button"
                           style={{ backgroundColor: color as string }}
                           tabIndex={0}
                           onClick={() => {
@@ -105,7 +104,7 @@ export default function ColorsPage(): JSX.Element {
                               </div>
                             )}
                           </div>
-                        </div>
+                        </button>
 
                         {/* Shade Label */}
                         <div className="mt-3 text-center">

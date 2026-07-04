@@ -1,7 +1,13 @@
 import type { ReactNode } from 'react';
 import { ExternalLink as ExternalLinkIcon } from 'lucide-react';
 
-export function ExternalLink({ href, children }: { href: string; children: ReactNode }) {
+export function ExternalLink({
+  href,
+  children,
+}: {
+  readonly href: string;
+  readonly children: ReactNode;
+}) {
   return (
     <a
       className="text-content-secondary hover:text-content-primary flex items-center gap-1.5 transition-colors"

@@ -3,7 +3,7 @@
 import type { HTMLAttributes, ReactNode, JSX } from 'react';
 import type { ButtonGroupContextType } from './button-group-context';
 
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { cn } from '@ideasui/utils';
 
 import { ButtonGroupContext } from './button-group-context';
@@ -55,19 +55,34 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProperties>(
     },
     reference,
   ): JSX.Element => {
-    const contextValue = {
-      size,
-      color,
-      variant,
-      isDisabled,
-      isAttached,
-      isVertical,
-      radius,
-      fullWidth,
-      disableAnimation,
-      showDivider,
-      isIconOnly,
-    };
+    const contextValue = useMemo(
+      () => ({
+        size,
+        color,
+        variant,
+        isDisabled,
+        isAttached,
+        isVertical,
+        radius,
+        fullWidth,
+        disableAnimation,
+        showDivider,
+        isIconOnly,
+      }),
+      [
+        size,
+        color,
+        variant,
+        isDisabled,
+        isAttached,
+        isVertical,
+        radius,
+        fullWidth,
+        disableAnimation,
+        showDivider,
+        isIconOnly,
+      ],
+    );
 
     let gapClass = 'isolate';
 
@@ -92,7 +107,6 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProperties>(
           data-full-width={fullWidth}
           data-slot="button-group"
           data-vertical={isVertical}
-          role="group"
           {...properties}
         >
           {children}

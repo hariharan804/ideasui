@@ -20,7 +20,7 @@ interface TabButtonProperties {
   size?: 'sm' | 'md';
 }
 
-function TabButton({ isActive, onClick, children, size = 'md' }: TabButtonProperties) {
+function TabButton({ isActive, onClick, children, size = 'md' }: Readonly<TabButtonProperties>) {
   return (
     <button
       className={cn(
@@ -45,7 +45,7 @@ export function InstallTabs({
   pkg,
   isDev: isDevelopment = false,
   className,
-}: InstallTabsProperties) {
+}: Readonly<InstallTabsProperties>) {
   const [activeTab, setActiveTab] = useState<PackageManager>('pnpm');
   const [copied, setCopied] = useState(false);
   const [installMode, setInstallMode] = useState<'component' | 'core'>('core');

@@ -7,8 +7,8 @@ import { Item } from './item';
 import { getRelatedComponents } from '@/components-registry';
 
 interface RelatedProperties {
-  component: string;
-  className?: string;
+  readonly component: string;
+  readonly className?: string;
 }
 
 export function Related({ className, component }: RelatedProperties) {

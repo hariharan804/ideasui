@@ -19,7 +19,7 @@ function ThemeSync() {
   return null;
 }
 
-export function ThemeBridge({ children }: { children: ReactNode }) {
+export function ThemeBridge({ children }: { readonly children: ReactNode }) {
   return (
     <ThemeProvider defaultTheme="light">
       <ThemeSync />

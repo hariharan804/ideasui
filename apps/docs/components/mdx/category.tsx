@@ -144,7 +144,8 @@ function getComponentWithStatus(name: string): ComponentWithStatus | null {
   };
 }
 
-export function Category({ category }: CategoryProperties) {
+export function Category(properties: Readonly<CategoryProperties>) {
+  const { category } = properties;
   const group = COMPONENT_GROUPS.find((group) => group.category === category);
 
   if (!group) {
@@ -152,7 +153,7 @@ export function Category({ category }: CategoryProperties) {
   }
 
   const components = group.components
-    .map(getComponentWithStatus)
+    .map((element) => getComponentWithStatus(element))
     .filter((item): item is ComponentWithStatus => item !== null);
 
   if (components.length === 0) {

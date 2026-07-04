@@ -25,7 +25,7 @@ export function useThemeStorage({
   setTheme: (next: string) => void;
   hasMounted: boolean;
 } {
-  const [theme, setThemeState] = useState<string>(defaultTheme);
+  const [themeState, setThemeState] = useState<string>(defaultTheme);
   const [hasMounted, setHasMounted] = useState<boolean>(false);
 
   const themesReference = useRef(themes);
@@ -58,12 +58,12 @@ export function useThemeStorage({
       return;
     }
 
-    if (theme === 'system') {
+    if (themeState === 'system') {
       storage.removeItem(storageKey);
     } else {
-      storage.setItem(storageKey, theme);
+      storage.setItem(storageKey, themeState);
     }
-  }, [theme, storageKey]);
+  }, [themeState, storageKey]);
 
   // Cross-Tab Sync
   useEffect(() => {
@@ -88,5 +88,5 @@ export function useThemeStorage({
     return () => globalThis.removeEventListener('storage', onStorage);
   }, [storageKey]);
 
-  return { theme, setTheme, hasMounted } as const;
+  return { theme: themeState, setTheme, hasMounted } as const;
 }

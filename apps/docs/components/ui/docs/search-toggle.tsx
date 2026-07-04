@@ -12,7 +12,7 @@ import { cn } from '@ideasui/utils';
 import { Search } from '@/components/ui/docs/icons';
 
 interface SearchToggleProperties extends Omit<ComponentProps<'button'>, 'color'>, ButtonProps {
-  hideIfDisabled?: boolean;
+  readonly hideIfDisabled?: boolean;
 }
 
 export function SearchToggle({
@@ -20,7 +20,7 @@ export function SearchToggle({
   hideIfDisabled,
   size = 'icon-sm',
   ...properties
-}: SearchToggleProperties) {
+}: Readonly<SearchToggleProperties>) {
   const { enabled, setOpenSearch } = useSearchContext();
 
   if (hideIfDisabled && !enabled) {

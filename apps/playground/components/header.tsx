@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ArrowLeft, Moon, Sun, ExternalLink } from 'lucide-react';
 import { useTheme } from '@ideasui/theme';
 
-function GithubIcon(properties: React.SVGProps<SVGSVGElement>): JSX.Element {
+function GithubIcon(properties: Readonly<React.SVGProps<SVGSVGElement>>): JSX.Element {
   return (
     <svg
       fill="none"
@@ -27,12 +27,16 @@ function GithubIcon(properties: React.SVGProps<SVGSVGElement>): JSX.Element {
 }
 
 interface HeaderProperties {
-  showBackButton?: boolean;
-  title?: string;
-  subtitle?: string;
+  readonly showBackButton?: boolean;
+  readonly title?: string;
+  readonly subtitle?: string;
 }
 
-function Header({ showBackButton = false, title, subtitle }: HeaderProperties): JSX.Element {
+function Header({
+  showBackButton = false,
+  title,
+  subtitle,
+}: Readonly<HeaderProperties>): JSX.Element {
   const router = useRouter();
   const { resolvedTheme, setTheme } = useTheme();
 

@@ -21,7 +21,7 @@ export interface FooterProperties extends ComponentProps<'div'> {
   };
 }
 
-export function PageFooter({ items, ...properties }: FooterProperties) {
+export function PageFooter({ items, ...properties }: Readonly<FooterProperties>) {
   const footerList = useFooterItems();
   const pathname = usePathname();
 
@@ -71,11 +71,11 @@ function FooterCard({
   isPrev,
   item,
   className,
-}: {
+}: Readonly<{
   isPrev: boolean;
   item: Item;
   className?: string;
-}) {
+}>) {
   const t = useTranslations({ note: 'pagination' });
   const label = isPrev ? t('Previous Page') : t('Next Page');
 

@@ -37,9 +37,6 @@ html:not(.dark) {
      ─────────────────────────────────────────────────────────────────────
      You can override any IdeasUI design token by redefining its CSS variable here.
   */
-  /* --ideasui-color-primary: 0.65 0.25 150.0; */
-  /* --ideasui-radius: 0px; */
-  /* --ideasui-radius-md: 0.5rem; */
 
   /* ─────────────────────────────────────────────────────────────────────
      FUMADOCS CONFIGURATION
@@ -151,6 +148,7 @@ html:not(.dark) {
 html {
   @apply bg-background scroll-smooth antialiased transition duration-300;
   height: 100%;
+  scroll-padding-top: 120px;
 }
 
 body {
@@ -161,10 +159,6 @@ body {
 /* ─── Layout Fixes ─────────────────────────────────────────────────── */
 
 /* Fix scrolling glitch where header overlaps anchors */
-html {
-  scroll-padding-top: 120px;
-}
-
 .rounded-full {
   border-radius: var(--ideasui-radius-full);
 }

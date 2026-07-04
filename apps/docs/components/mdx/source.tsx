@@ -35,8 +35,8 @@ export async function Source({
   showCodeTitle = false,
   showLineNumbers = true,
   title,
-  ...properties
-}: SourceProperties) {
+  ...restProperties
+}: Readonly<SourceProperties>) {
   let code: string | undefined = directCode;
 
   if (name && !code) {
@@ -61,7 +61,7 @@ export async function Source({
   const lang = language ?? title?.split('.').pop() ?? 'tsx';
 
   return (
-    <div className={cn('relative w-full overflow-hidden', className)} {...properties}>
+    <div className={cn('relative w-full overflow-hidden', className)} {...restProperties}>
       <Code
         className="m-0 rounded-none border-none shadow-none"
         code={code}

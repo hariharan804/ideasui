@@ -134,12 +134,11 @@ function Playground(): JSX.Element {
               }
             >
               {filteredComponents.map((item, index) => (
-                <div
+                <button
                   key={item.name}
                   className={`group border-border-default animate-slideIn bg-surface-subtle hover:border-primary-500 hover:bg-surface-muted hover:shadow-primary-500/20 cursor-pointer overflow-hidden rounded-2xl border p-6 shadow-md backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-8 ${
                     viewMode === 'list' ? 'flex items-center gap-6' : 'flex h-full flex-col'
                   }`}
-                  role="button"
                   style={{ animationDelay: `${index * 50}ms` }}
                   tabIndex={0}
                   onClick={() => navigateToComponent(item.name)}
@@ -166,13 +165,13 @@ function Playground(): JSX.Element {
                     </div>
 
                     <div className="border-border-subtle bg-surface text-content-primary group-hover:bg-primary-500 flex items-center gap-2 self-start rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300 group-hover:border-transparent group-hover:text-white group-hover:shadow-md">
-                      View Component
+                      <span>View Component</span>
                       <span className="transition-transform duration-300 group-hover:translate-x-1">
                         →
                       </span>
                     </div>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           )}

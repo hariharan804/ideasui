@@ -264,6 +264,9 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProperties>(
       showDivider: merged.showDivider ?? merged.isAttached,
     });
 
+    // Context value - React Compiler will optimize this automatically
+    const contextValue = { styles, classNames };
+
     // Ensure we have an accessible name when loading or icon-only
     const ariaLabel = getAccessibleName(merged, typeof children === 'function' ? null : children);
     const loadingLabel = typeof loadingIndicator === 'string' ? loadingIndicator : 'Loading';
@@ -289,7 +292,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProperties>(
         {...properties}
       >
         {(renderProperties) => (
-          <ButtonContext.Provider value={{ styles, classNames }}>
+          <ButtonContext.Provider value={contextValue}>
             <ButtonContent
               endIcon={endIcon}
               isIconOnly={merged.isIconOnly}

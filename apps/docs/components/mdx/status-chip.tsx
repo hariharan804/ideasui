@@ -3,8 +3,8 @@ import { cn } from '@ideasui/utils';
 export type StatusChipStatus = 'new' | 'new-dot' | 'preview' | 'updated' | 'stable' | 'planned';
 
 interface StatusChipProperties {
-  status: StatusChipStatus;
-  className?: string;
+  readonly status: StatusChipStatus;
+  readonly className?: string;
 }
 
 export function StatusChip({ className, status }: StatusChipProperties) {

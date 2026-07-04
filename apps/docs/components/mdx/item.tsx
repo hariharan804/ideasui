@@ -20,7 +20,7 @@ export function Item({
   openInNewTab = false,
   status,
   ...properties
-}: ItemProperties) {
+}: Readonly<ItemProperties>) {
   const { description, href, title } = component;
 
   return (

@@ -100,7 +100,7 @@ export function SidebarContent({
   tabMode,
   i18n,
   themeSwitch,
-}: SidebarContentProperties) {
+}: Readonly<SidebarContentProperties>) {
   const { banner, collapsible = true, components, footer, ...rest } = sidebarProps;
   const navMode = nav.mode ?? 'auto';
   const iconLinks = useMemo(

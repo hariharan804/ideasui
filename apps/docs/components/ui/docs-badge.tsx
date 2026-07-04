@@ -13,15 +13,15 @@ interface DocsBadge {
 
 interface DocsBadgesProps {
   /** GitHub source URL */
-  source?: string;
+  readonly source?: string;
   /** Styles source URL */
-  styles?: string;
+  readonly styles?: string;
   /** Additional badges */
-  extra?: DocsBadge[];
+  readonly extra?: DocsBadge[];
   /** Raw page markdown content */
-  rawMarkdown?: string;
+  readonly rawMarkdown?: string;
   /** Page title */
-  pageTitle?: string;
+  readonly pageTitle?: string;
 }
 
 const BADGE_CLASS =
