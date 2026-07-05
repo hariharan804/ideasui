@@ -160,9 +160,9 @@ export function rgbToOklch(r: number, g: number, b: number): [number, number, nu
   const s = Math.cbrt(sLinear);
 
   // Oklab values
-  const L = OKLAB_L_COEFF_L * l + OKLAB_L_COEFF_M * m - OKLAB_L_COEFF_S * s;
-  const a = OKLAB_A_COEFF_L * l - OKLAB_A_COEFF_M * m + OKLAB_A_COEFF_S * s;
-  const bOk = OKLAB_B_COEFF_L * l + OKLAB_B_COEFF_M * m - OKLAB_B_COEFF_S * s;
+  const L = OKLAB_L_COEFF_L * l + OKLAB_L_COEFF_M * m + OKLAB_L_COEFF_S * s;
+  const a = OKLAB_A_COEFF_L * l + OKLAB_A_COEFF_M * m + OKLAB_A_COEFF_S * s;
+  const bOk = OKLAB_B_COEFF_L * l + OKLAB_B_COEFF_M * m + OKLAB_B_COEFF_S * s;
 
   // Convert Oklab to OKLCH
   const C = Math.hypot(a, bOk);

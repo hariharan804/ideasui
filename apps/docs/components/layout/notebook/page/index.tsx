@@ -60,7 +60,7 @@ function extractText(node: ReactNode): string {
     return String(node);
   }
   if (Array.isArray(node)) {
-    return node.map(extractText).join('');
+    return node.map((it) => extractText(it)).join('');
   }
   if (
     isValidElement(node) &&
