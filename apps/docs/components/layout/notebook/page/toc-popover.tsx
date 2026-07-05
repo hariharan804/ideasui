@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentProps, SVGAttributes } from 'react';
+import type { ComponentProps } from 'react';
 
 import { createContext, use, useMemo, useState, useRef, useEffect, useEffectEvent } from 'react';
 import { ChevronDown } from 'lucide-react';
@@ -149,7 +149,7 @@ export function PageTOCPopoverContent(properties: ComponentProps<'div'>) {
   );
 }
 
-interface ProgressCircleProperties extends SVGAttributes<SVGSVGElement> {
+interface ProgressCircleProperties extends ComponentProps<'span'> {
   max?: number;
   min?: number;
   size?: number;
@@ -163,7 +163,8 @@ function ProgressCircle({
   size = 24,
   strokeWidth = 2,
   value,
-  ...restSvgProperties
+  className,
+  ...restProperties
 }: Readonly<ProgressCircleProperties>) {
   const normalizedValue = Math.min(Math.max(value, min), max);
   const radius = (size - strokeWidth) / 2;
@@ -178,24 +179,38 @@ function ProgressCircle({
   };
 
   return (
-    <svg
-      aria-valuemax={max}
-      aria-valuemin={min}
-      aria-valuenow={normalizedValue}
-      role="progressbar"
-      viewBox={`0 0 ${size} ${size}`}
-      {...restSvgProperties}
+    <span
+      className={cn('relative inline-flex items-center justify-center select-none', className)}
+      style={{ width: size, height: size }}
+      {...restProperties}
     >
-      <circle {...circleProperties} className="stroke-current/25" />
-      <circle
-        {...circleProperties}
-        className="transition-all"
-        stroke="currentColor"
-        strokeDasharray={circumference}
-        strokeDashoffset={circumference - progress}
-        strokeLinecap="round"
-        transform={`rotate(-90 ${size / 2} ${size / 2})`}
+      <progress
+        max={max}
+        style={{
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
+          padding: '0',
+          margin: '-1px',
+          overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)',
+          whiteSpace: 'nowrap',
+          border: '0',
+        }}
+        value={normalizedValue}
       />
-    </svg>
+      <svg aria-hidden="true" height={size} viewBox={`0 0 ${size} ${size}`} width={size}>
+        <circle {...circleProperties} className="stroke-current/25" />
+        <circle
+          {...circleProperties}
+          className="transition-all"
+          stroke="currentColor"
+          strokeDasharray={circumference}
+          strokeDashoffset={circumference - progress}
+          strokeLinecap="round"
+          transform={`rotate(-90 ${size / 2} ${size / 2})`}
+        />
+      </svg>
+    </span>
   );
 }

@@ -479,7 +479,7 @@ export function generateColorScale(
 
   const parsed = parseColorValue(anchorValue);
 
-  if (!parsed || parsed.cssFn !== 'oklch') {
+  if (parsed?.cssFn !== 'oklch') {
     return familyColors;
   }
 

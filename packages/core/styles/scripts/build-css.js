@@ -1,7 +1,7 @@
-/* eslint-disable */
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+/* eslint-disable no-console, @typescript-eslint/explicit-function-return-type, sonarjs/os-command, sonarjs/no-ignored-exceptions, unicorn/no-process-exit, unicorn/no-array-for-each, @typescript-eslint/no-unused-vars, unicorn/prefer-optional-catch-binding */
+const fs = require('node:fs');
+const path = require('node:path');
+const { execSync } = require('node:child_process');
 
 const rootDir = path.resolve(__dirname, '../../../..');
 const componentsDir = path.join(rootDir, 'packages/components');
@@ -35,6 +35,7 @@ function compile(inputPath, outputPath, minify = true) {
     ...process.env,
     PATH: `${localBin}${path.delimiter}${rootBin}${path.delimiter}${process.env.PATH}`,
   };
+
   try {
     execSync(cmd, { cwd: rootDir, env, stdio: 'inherit' });
 
@@ -42,6 +43,7 @@ function compile(inputPath, outputPath, minify = true) {
     const filename = path.basename(outputPath);
     const header = `/*! IdeasUI CSS - ${filename} v${pkg.version} | MIT License | https://ideasui.com */\n /* Compiled by */`;
     const content = fs.readFileSync(outputPath, 'utf8');
+
     fs.writeFileSync(outputPath, header + content, 'utf8');
   } catch (error) {
     console.error(`❌ Failed to compile ${inputPath} -> ${outputPath}`);
@@ -60,6 +62,7 @@ compile(path.join(srcDir, 'styles.css'), path.join(distDir, 'styles.css'));
 // 3. Compile Component-wise CSS
 const components = fs.readdirSync(componentsDir).filter((file) => {
   const fullPath = path.join(componentsDir, file);
+
   return fs.statSync(fullPath).isDirectory() && fs.existsSync(path.join(fullPath, 'package.json'));
 });
 
@@ -80,9 +83,11 @@ components.forEach((component) => {
 `;
 
   const standardInputPath = path.join(tempDir, `${component}.css`);
+
   fs.writeFileSync(standardInputPath, standardContent, 'utf8');
 
   const standardOutputPath = path.join(distDir, 'components', `${component}.css`);
+
   compile(standardInputPath, standardOutputPath);
 });
 

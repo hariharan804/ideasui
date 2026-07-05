@@ -1,4 +1,4 @@
-module.exports = function (plop) {
+module.exports = function plopConfig(plop) {
   const COMPONENT_NAME_MESSAGE = 'Component name (kebab-case):';
 
   // Full component generator (component + recipe)

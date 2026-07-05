@@ -97,6 +97,31 @@ describe('Theme Utils', () => {
 
       expect(l2).toBeCloseTo(0, 1);
     });
+
+    it('should produce correct hue for pure red', () => {
+      const [l, c, h] = rgbToOklch(255, 0, 0);
+
+      expect(l).toBeCloseTo(0.628, 1);
+      expect(c).toBeGreaterThan(0.2);
+      expect(h).toBeCloseTo(29.23, 0);
+    });
+
+    it('should produce correct hue for pure green', () => {
+      const [l, , h] = rgbToOklch(0, 128, 0);
+
+      expect(l).toBeGreaterThan(0.4);
+      expect(h).toBeGreaterThan(130);
+      expect(h).toBeLessThan(160);
+    });
+
+    it('should produce correct hue for pure blue', () => {
+      const [l, c, h] = rgbToOklch(0, 0, 255);
+
+      expect(l).toBeGreaterThan(0.4);
+      expect(c).toBeGreaterThan(0.2);
+      expect(h).toBeGreaterThan(250);
+      expect(h).toBeLessThan(275);
+    });
   });
 
   describe('parseColorValue', () => {
@@ -124,6 +149,20 @@ describe('Theme Utils', () => {
 
       expect(result?.cssFn).toBe('oklch');
       expect(result?.components).toStrictEqual(['0.5', '0.5', '100']);
+    });
+
+    it('should pass through oklch wrapping a var() reference', () => {
+      const result = parseColorValue('oklch(var(--my-color))');
+
+      expect(result?.cssFn).toBe('var');
+      expect(result?.components).toStrictEqual(['var(--my-color)']);
+    });
+
+    it('should pass through bare var() references', () => {
+      const result = parseColorValue('var(--ideasui-color-primary-500)');
+
+      expect(result?.cssFn).toBe('var');
+      expect(result?.components).toStrictEqual(['var(--ideasui-color-primary-500)']);
     });
   });
 

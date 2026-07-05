@@ -1,23 +1,23 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 // Kebab-case segment regex
 const kebabPart = '[a-z][a-z0-9]*(-[a-z0-9]+)*';
 // Dot-separated kebab-case segments regex
-const dotSeparatedKebab = `${kebabPart}(\\.${kebabPart})*`;
+const dotSeparatedKebab = String.raw`${kebabPart}(\.${kebabPart})*`;
 
 // Naming convention rules
 const rules = {
   files: {
-    components: new RegExp(`^${dotSeparatedKebab}\\.(tsx|ts|js|mjs|cjs|d\\.ts)$`),
-    tests: new RegExp(`^${dotSeparatedKebab}\\.(test|spec)\\.(tsx|ts)$`),
-    stories: new RegExp(`^${dotSeparatedKebab}\\.stories\\.(tsx|ts)$`),
-    configs: new RegExp(`^${dotSeparatedKebab}\\.config\\.(js|ts|mjs|cjs)$`),
+    components: new RegExp(String.raw`^${dotSeparatedKebab}\.(tsx|ts|js|mjs|cjs|d\.ts)$`),
+    tests: new RegExp(String.raw`^${dotSeparatedKebab}\.(test|spec)\.(tsx|ts)$`),
+    stories: new RegExp(String.raw`^${dotSeparatedKebab}\.stories\.(tsx|ts)$`),
+    configs: new RegExp(String.raw`^${dotSeparatedKebab}\.config\.(js|ts|mjs|cjs)$`),
   },
   folders: new RegExp(`^${dotSeparatedKebab}$`),
-  packageName: new RegExp(`^@${kebabPart}\\/${kebabPart}$`),
+  packageName: new RegExp(`^@${kebabPart}/${kebabPart}$`),
 };
 
 class NamingChecker {
@@ -97,15 +97,16 @@ class NamingChecker {
       const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
 
       // Ignore template package.json names which often contain handlebars
-      if (packageJson.name && packageJson.name.includes('{{')) {
+      if (packageJson?.name?.includes('{{')) {
         return;
       }
 
-      if (packageJson.name && !rules.packageName.test(packageJson.name)) {
+      if (packageJson?.name && !rules.packageName.test(packageJson.name)) {
         this.errors.push(`❌ Package: ${packagePath} - name should be @org/kebab-case`);
       }
     } catch (error) {
-      // Skip invalid package.json files
+      // Skip invalid package.json files but log a warning to console
+      console.warn(`Skipping invalid package.json at ${packagePath}: ${error.message}`);
     }
   }
 

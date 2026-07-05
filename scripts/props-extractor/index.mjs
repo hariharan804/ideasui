@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import ts from 'typescript';
-import { execSync } from 'child_process';
+import { execSync } from 'node:child_process';
 const __filename = fileURLToPath(import.meta.url);
 // ─── Validators ───────────────────────────────────────────────────────────────
 function validateConfig(config) {
@@ -136,23 +136,15 @@ class PropsExtractor {
     for (const comment of leadingComments) {
       const text = fullText.substring(comment.pos, comment.end);
       if (comment.kind === ts.SyntaxKind.MultiLineCommentTrivia) {
-        const lines = text
-          .replace(/^\/\*+/, '')
-          .replace(/\*\/$/, '')
-          .split('\n')
-          .map((line) => line.replace(/^\s*\*\s?/, '').trim())
-          .filter((line) => line && !line.startsWith('@'));
-        if (lines.length) description = lines.join(' ');
-        const defaultMatch = text.match(/@default\s+(.+)/);
-        if (defaultMatch) defaultValue = defaultMatch[1].trim();
-        const deprecatedMatch = text.match(/@deprecated\s*(.*)/);
-        if (deprecatedMatch) {
+        const parsed = this.parseMultiLineComment(text);
+        if (parsed.description) description = parsed.description;
+        if (parsed.defaultValue) defaultValue = parsed.defaultValue;
+        if (parsed.deprecated) {
           deprecated = true;
-          const reason = deprecatedMatch[1].trim();
-          if (reason) {
+          if (parsed.reason) {
             description = description
-              ? `${description} (Deprecated: ${reason})`
-              : `Deprecated: ${reason}`;
+              ? `${description} (Deprecated: ${parsed.reason})`
+              : `Deprecated: ${parsed.reason}`;
           }
         }
       }
@@ -162,6 +154,32 @@ class PropsExtractor {
       }
     }
     return { description, defaultValue, deprecated };
+  }
+
+  parseMultiLineComment(text) {
+    let description = '';
+    let defaultValue = null;
+    let deprecated = false;
+    let reason = '';
+
+    const lines = text
+      .replace(/^\/\*+/, '')
+      .replace(/\*\/$/, '')
+      .split('\n')
+      .map((line) => line.replace(/^\s*\*\s?/, '').trim())
+      .filter((line) => line && !line.startsWith('@'));
+    if (lines.length) description = lines.join(' ');
+
+    const defaultMatch = text.match(/@default\s+(.+)/);
+    if (defaultMatch) defaultValue = defaultMatch[1].trim();
+
+    const deprecatedMatch = text.match(/@deprecated\s*(.*)/);
+    if (deprecatedMatch) {
+      deprecated = true;
+      reason = deprecatedMatch[1].trim();
+    }
+
+    return { description, defaultValue, deprecated, reason };
   }
   // ─── Type Resolution ─────────────────────────────────────────────────────
   resolveType(typeNode, sourceFile) {
@@ -408,8 +426,10 @@ Config format:
   }
   console.log(`\n  Total: ${totalProps} props across ${componentCount} components\n`);
 }
-cli().catch((error) => {
+try {
+  await cli();
+} catch (error) {
   console.error('❌ Unexpected error:', error.message);
   process.exit(1);
-});
+}
 export { PropsExtractor, validateConfig };

@@ -14,7 +14,7 @@ export function renderWithProviders(
   options?: Omit<RenderOptions, 'wrapper'> & CustomRenderOptions,
 ): RenderResult {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, sonarjs/no-unused-vars
-  const { initialState: _initialState, ...renderOptions } = options || {};
+  const { initialState: _initialState, ...renderOptions } = options ?? {};
 
   return render(ui, {
     wrapper: Wrapper,
