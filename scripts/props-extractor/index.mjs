@@ -126,34 +126,62 @@ class PropsExtractor {
     return { name, type, required, defaultValue, deprecated, description };
   }
   // ─── JSDoc Extraction ────────────────────────────────────────────────────
-  extractJSDoc(member, sourceFile) {
-    let description = '';
-    let defaultValue = null;
-    let deprecated = false;
-    const fullText = sourceFile.getFullText();
-    const leadingComments = ts.getLeadingCommentRanges(fullText, member.getFullStart());
-    if (!leadingComments?.length) return { description, defaultValue, deprecated };
-    for (const comment of leadingComments) {
-      const text = fullText.substring(comment.pos, comment.end);
-      if (comment.kind === ts.SyntaxKind.MultiLineCommentTrivia) {
-        const parsed = this.parseMultiLineComment(text);
-        if (parsed.description) description = parsed.description;
-        if (parsed.defaultValue) defaultValue = parsed.defaultValue;
-        if (parsed.deprecated) {
-          deprecated = true;
-          if (parsed.reason) {
-            description = description
-              ? `${description} (Deprecated: ${parsed.reason})`
-              : `Deprecated: ${parsed.reason}`;
-          }
-        }
-      }
-      if (comment.kind === ts.SyntaxKind.SingleLineCommentTrivia) {
-        const line = text.replace(/^\/\/\s?/, '').trim();
-        if (line && !line.startsWith('@')) description = line;
+  processMultiLineComment(text, state) {
+    const parsed = this.parseMultiLineComment(text);
+
+    if (parsed.description) {
+      state.description = parsed.description;
+    }
+
+    if (parsed.defaultValue) {
+      state.defaultValue = parsed.defaultValue;
+    }
+
+    if (parsed.deprecated) {
+      state.deprecated = true;
+
+      if (parsed.reason) {
+        state.description = state.description
+          ? `${state.description} (Deprecated: ${parsed.reason})`
+          : `Deprecated: ${parsed.reason}`;
       }
     }
-    return { description, defaultValue, deprecated };
+  }
+
+  processSingleLineComment(text, state) {
+    const line = text.replace(/^\/\/\s?/, '').trim();
+
+    if (line && !line.startsWith('@')) {
+      state.description = line;
+    }
+  }
+
+  extractJSDoc(member, sourceFile) {
+    const state = {
+      description: '',
+      defaultValue: null,
+      deprecated: false,
+    };
+    const fullText = sourceFile.getFullText();
+    const leadingComments = ts.getLeadingCommentRanges(fullText, member.getFullStart());
+
+    if (!leadingComments?.length) {
+      return state;
+    }
+
+    for (const comment of leadingComments) {
+      const text = fullText.slice(comment.pos, comment.end);
+
+      if (comment.kind === ts.SyntaxKind.MultiLineCommentTrivia) {
+        this.processMultiLineComment(text, state);
+      }
+
+      if (comment.kind === ts.SyntaxKind.SingleLineCommentTrivia) {
+        this.processSingleLineComment(text, state);
+      }
+    }
+
+    return state;
   }
 
   parseMultiLineComment(text) {
