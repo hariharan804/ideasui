@@ -181,6 +181,25 @@ describe('Button', () => {
     // In center position, text should be hidden
     expect(screen.queryByText('Text')).not.toBeInTheDocument();
   });
+
+  it('throws error when sub-components are rendered outside of Button', () => {
+    // Suppress console.error output during deliberate throw
+    const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    expect(() => render(<Button.Shortcut>⌘K</Button.Shortcut>)).toThrow(
+      'Button sub-components must be rendered within a Button component',
+    );
+    spy.mockRestore();
+  });
+
+  it('renders shortcut correctly', () => {
+    render(
+      <Button>
+        Button <Button.Shortcut data-slot="button-shortcut">⌘K</Button.Shortcut>
+      </Button>,
+    );
+    expect(screen.getByText('⌘K')).toBeInTheDocument();
+  });
 });
 
 describe('ButtonGroup', () => {
@@ -226,5 +245,27 @@ describe('ButtonGroup', () => {
     for (const button of buttons) {
       expect(button).toHaveAttribute('data-attached', 'true');
     }
+  });
+
+  it('handles gap classes when not attached', () => {
+    const { container, rerender } = render(
+      <Button.Group isAttached={false}>
+        <Button>1</Button>
+        <Button>2</Button>
+      </Button.Group>,
+    );
+
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(container.firstChild).toHaveClass('gap-x-2');
+
+    rerender(
+      <Button.Group isVertical isAttached={false}>
+        <Button>1</Button>
+        <Button>2</Button>
+      </Button.Group>,
+    );
+
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(container.firstChild).toHaveClass('gap-y-2');
   });
 });

@@ -4,7 +4,6 @@
     "scripts",
     "devDependencies",
     "eslintConfig",
-    "jest",
     "lint-staged",
     "config",
     "commitlint",

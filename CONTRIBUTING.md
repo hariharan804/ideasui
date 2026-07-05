@@ -147,7 +147,7 @@ Our development environment includes:
 
 ### Testing
 
-- **Jest**: Unit testing framework
+- **Vitest**: Unit testing framework
 - **@testing-library/react**: React component testing
 - **Playwright**: Visual regression testing
 - **Storybook**: Component documentation and testing

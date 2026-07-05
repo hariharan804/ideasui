@@ -68,14 +68,14 @@ Check `eslint-plugin-boundaries` rules in `eslint.config.mjs`:
 ### Tests Failing Locally
 
 ```bash
-# Clear Jest cache
-pnpm clean:test
+# Clear Vitest cache
+pnpm vitest --clearCache
 
 # Run tests again
 pnpm test
 
 # If specific test fails, run in isolation
-pnpm test -- path/to/test.tsx
+pnpm test packages/components/button/__tests__/button.test.tsx
 ```
 
 ### Coverage Thresholds Not Met
@@ -87,7 +87,7 @@ pnpm test:coverage
 open coverage/lcov-report/index.html
 ```
 
-Write tests for uncovered code or adjust thresholds in `jest.config.js`.
+Write tests for uncovered code or adjust thresholds in `vitest.config.ts`.
 
 ### Visual Tests Failing
 
@@ -177,7 +177,7 @@ pnpm storybook:kill
 
 ### Module Resolution Errors
 
-Check `tsconfig.json` paths and `jest.config.js` moduleNameMapper are in sync.
+Check `tsconfig.json` paths and `vitest.config.ts` alias resolution are in sync.
 
 ## Git Issues
 
@@ -215,11 +215,13 @@ pnpm build --filter=@ideasui/your-package
 
 ### Import Errors in Tests
 
-Update `jest.config.js` moduleNameMapper:
+Update `vitest.config.ts` alias:
 
-```javascript
-moduleNameMapper: {
-  '^@ideasui/package$': '<rootDir>/packages/path/to/package/src/index.ts',
+```typescript
+resolve: {
+  alias: {
+    '@ideasui/package': path.resolve(__dirname, './packages/path/to/package/src/index.ts'),
+  }
 }
 ```
 
@@ -307,8 +309,8 @@ corepack prepare pnpm@10.26.0 --activate
 # Run with debug output
 DEBUG=* pnpm build
 
-# Jest verbose mode
-pnpm test --verbose
+# Vitest verbose mode
+pnpm test -- --reporter=verbose
 
 # Check Turbo execution
 turbo build --verbose

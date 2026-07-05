@@ -31,12 +31,9 @@ pnpm run storybook
 ```
 ideasui/
 ├── packages/
-│   ├── components/          # UI Components (button, ripple, slot, touchable)
-│   ├── core/               # Core packages (theme)
-│   ├── hooks/              # React hooks
-│   ├── utils/              # Shared utilities
-│   ├── icons/              # Icon library
-│   └── cli/                # CLI tools
+│   ├── components/          # UI Components (e.g. button)
+│   ├── core/               # Core packages (theme, react, styles)
+│   └── utils/              # Shared utilities
 ├── apps/
 │   ├── playground/         # Next.js playground
 │   └── storybook/          # Storybook documentation
@@ -50,7 +47,7 @@ ideasui/
 - **Monorepo**: Turbo + pnpm workspaces
 - **Components**: React + TypeScript
 - **Styling**: Tailwind CSS + tailwind-variants
-- **Testing**: Jest + Playwright
+- **Testing**: Vitest + Playwright
 - **Documentation**: Storybook
 - **Build**: tsup
 - **Linting**: ESLint + Prettier + Husky
@@ -138,9 +135,9 @@ pnpm --filter "./packages/components/*" test
    - Run `pnpm run playwright:install` to install browsers
    - Required for visual regression tests
 
-2. **Jest tests failing**
+2. **Vitest tests failing**
    - Ensure `@testing-library/jest-dom` is properly configured
-   - Check test setup in `scripts/setup-test.ts`
+   - Check test setup in `vitest.setup.ts`
 
 3. **Component imports not working**
    - Verify package builds with `pnpm run build`

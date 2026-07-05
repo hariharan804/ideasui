@@ -12,5 +12,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial component library setup
 - TypeScript support
 - Storybook playground
-- Testing framework (Jest + Playwright)
+- Testing framework (Vitest + Playwright)
 - Development tooling (ESLint, Prettier, Husky)

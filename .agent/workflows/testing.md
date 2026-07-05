@@ -40,7 +40,7 @@ pnpm test
 pnpm test:watch
 
 # Specific package
-pnpm test packages/hooks
+pnpm test packages/core/theme
 ```
 
 ### Writing Unit Tests
@@ -50,7 +50,7 @@ Follow these patterns:
 1. **Component Tests** - Test rendering, props, and interactions
 2. **Hook Tests** - Test state changes and side effects
 3. **Utility Tests** - Test pure functions and edge cases
-4. **Accessibility Tests** - Use jest-axe for a11y validation
+4. **Accessibility Tests** - Use vitest-axe for a11y validation
 
 ### Test Coverage Thresholds
 
@@ -106,10 +106,10 @@ test('ComponentName visual regression', async ({ page }) => {
 
 ## Accessibility Testing
 
-### Using jest-axe
+### Using vitest-axe
 
 ```typescript
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { axe, toHaveNoViolations } from 'vitest-axe';
 
 expect.extend(toHaveNoViolations);
 
@@ -128,14 +128,14 @@ it('should have no accessibility violations', async () => {
 
 ## Debugging Failed Tests
 
-### Jest Tests
+### Vitest Tests
 
 ```bash
 # Run specific test file
-pnpm test use-button.test.tsx
+pnpm test button.test.tsx
 
 # Run in debug mode
-node --inspect-brk node_modules/.bin/jest --runInBand
+node --inspect-brk node_modules/vitest/vitest.mjs run
 
 # Update snapshots
 pnpm test -u
@@ -210,7 +210,7 @@ Check `.github/workflows/ci.yml` for details.
 ### Tests are flaky
 
 - Add proper `waitFor` assertions
-- Mock timers with `jest.useFakeTimers()`
+- Mock timers with `vi.useFakeTimers()`
 - Ensure tests are isolated
 
 ### Coverage not meeting thresholds

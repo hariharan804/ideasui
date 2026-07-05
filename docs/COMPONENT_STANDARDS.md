@@ -122,6 +122,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 - [ ] Test accessibility
 
 ```tsx
+import { vi } from 'vitest';
+
 describe('Button', () => {
   it('should render correctly', () => {
     const wrapper = render(<Button>Click me</Button>);
@@ -129,7 +131,7 @@ describe('Button', () => {
   });
 
   it('should handle click events', async () => {
-    const onClick = jest.fn();
+    const onClick = vi.fn();
     const { getByRole } = render(<Button onClick={onClick}>Click me</Button>);
 
     await user.click(getByRole('button'));
@@ -225,14 +227,13 @@ packages/components/button/
   "main": "./src/index.ts",
   "sideEffects": false,
   "scripts": {
-    "build": "tsup src --dts",
+    "build": "tsup --dts",
     "dev": "pnpm build:dev --watch",
     "clean": "rimraf dist .turbo",
     "typecheck": "tsc --noEmit",
     "build:dev": "tsup src",
-    "test": "jest",
-    "lint": "eslint src --ext .ts,.tsx --cache",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix --cache"
+    "prepack": "clean-package",
+    "postpack": "clean-package restore"
   }
 }
 ```
