@@ -20,8 +20,8 @@
  * - Must expose TypeScript types (types field or exports.types)
  */
 
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 // Get the root directory and packages directory
 const root = process.cwd();

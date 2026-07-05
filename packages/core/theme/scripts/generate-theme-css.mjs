@@ -52,7 +52,7 @@ function resolveValue(value, contextVariables) {
   if (typeof value !== 'string') return value;
 
   if (value.startsWith('var(')) {
-    const match = value.match(/var\((--[^)]+)\)/);
+    const match = /var\((--[^)]+)\)/.exec(value);
     if (match) {
       // Preserve var() references to internal tokens (semantic → palette aliases)
       // e.g. var(--ideasui-primary-500) stays as-is so semantic tokens derive from scale
@@ -76,21 +76,33 @@ function resolveValue(value, contextVariables) {
 function classifyToken(key) {
   let subName = key.replace('--', '');
 
-  if (key.includes('-spacing-')) {
-    return { category: 'spacing', subName: subName.split('-spacing-')[1] };
+  const simpleRules = [
+    { pattern: '-spacing-', category: 'spacing', split: '-spacing-' },
+    { pattern: '-duration-', category: 'duration', split: '-duration-' },
+    { pattern: '-easing-', category: 'ease', split: '-easing-' },
+    { pattern: '-font-size-', category: 'text', split: '-font-size-' },
+    { pattern: '-font-', category: 'font', split: '-font-' },
+    { pattern: '-breakpoint-', category: 'breakpoint', split: '-breakpoint-' },
+    { pattern: '-line-height-', category: 'leading', split: '-line-height-' },
+    { pattern: '-tracking-', category: 'tracking', split: '-tracking-' },
+    { pattern: '-opacity-', category: 'opacity', split: '-opacity-' },
+    { pattern: '-z-index-', category: 'z-index', split: '-z-index-' },
+    { pattern: '-blur-', category: 'blur', split: '-blur-' },
+  ];
+
+  for (const rule of simpleRules) {
+    if (key.includes(rule.pattern)) {
+      return { category: rule.category, subName: subName.split(rule.split)[1] };
+    }
   }
-  if (key.includes('-duration-')) {
-    return { category: 'duration', subName: subName.split('-duration-')[1] };
-  }
-  if (key.includes('-easing-')) {
-    return { category: 'ease', subName: subName.split('-easing-')[1] };
-  }
+
   if (key.includes('-radius-') || key === `--${PREFIX}-radius`) {
     return {
       category: 'radius',
       subName: key === `--${PREFIX}-radius` ? '' : subName.split('-radius-')[1],
     };
   }
+
   if (key.includes('-shadow-') || key.includes('-box-shadow-')) {
     return {
       category: 'shadow',
@@ -99,30 +111,7 @@ function classifyToken(key) {
         : subName.split('-shadow-')[1],
     };
   }
-  if (key.includes('-font-size-')) {
-    return { category: 'text', subName: subName.split('-font-size-')[1] };
-  }
-  if (key.includes('-font-')) {
-    return { category: 'font', subName: subName.split('-font-')[1] };
-  }
-  if (key.includes('-breakpoint-')) {
-    return { category: 'breakpoint', subName: subName.split('-breakpoint-')[1] };
-  }
-  if (key.includes('-line-height-')) {
-    return { category: 'leading', subName: subName.split('-line-height-')[1] };
-  }
-  if (key.includes('-tracking-')) {
-    return { category: 'tracking', subName: subName.split('-tracking-')[1] };
-  }
-  if (key.includes('-opacity-')) {
-    return { category: 'opacity', subName: subName.split('-opacity-')[1] };
-  }
-  if (key.includes('-z-index-')) {
-    return { category: 'z-index', subName: subName.split('-z-index-')[1] };
-  }
-  if (key.includes('-blur-')) {
-    return { category: 'blur', subName: subName.split('-blur-')[1] };
-  }
+
   if (key.includes('-border-')) {
     const borderSuffix = key.split('-border-').pop();
     const BORDER_WIDTH_SUFFIXES = ['hairline', 'thin', 'medium', 'thick', 'heavy', 'none'];
@@ -131,13 +120,14 @@ function classifyToken(key) {
     }
     return { category: null, subName };
   }
+
   if (key.startsWith(`--${PREFIX}`)) {
     subName = subName.replace(`${PREFIX}-`, '');
     if (subName.startsWith('color-')) {
       subName = subName.replace('color-', '');
     }
-    return { category: 'color', subName };
   }
+
   return { category: 'color', subName };
 }
 

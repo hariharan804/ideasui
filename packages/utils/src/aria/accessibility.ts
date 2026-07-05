@@ -219,11 +219,9 @@ export const focusTrap = {
           event.preventDefault();
           last?.focus();
         }
-      } else {
-        if (document.activeElement === last) {
-          event.preventDefault();
-          first?.focus();
-        }
+      } else if (document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
       }
     };
 

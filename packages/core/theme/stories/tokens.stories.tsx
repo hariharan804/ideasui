@@ -87,7 +87,15 @@ const TokenGroup = ({
     </div>
     <div className="grid grid-cols-1 gap-2 p-4">
       {Object.entries(tokens).map(([key, value]) => {
-        const stringValue = typeof value === 'object' ? JSON.stringify(value) : String(value);
+        let stringValue = '';
+
+        if (typeof value === 'string') {
+          stringValue = value;
+        } else if (typeof value === 'number' || typeof value === 'boolean') {
+          stringValue = String(value);
+        } else if (value && typeof value === 'object') {
+          stringValue = JSON.stringify(value);
+        }
 
         return (
           <TokenCard
@@ -515,9 +523,15 @@ export const Typography: Story = {
         </div>
         <div className="space-y-3 p-5">
           {Object.entries(systemTokens.fontSize).map(([key, value]) => {
-            const [fontSizeValue, config] = Array.isArray(value) ? value : [value, {}];
+            const [rawFontSizeValue, config] = Array.isArray(value) ? value : [value, {}];
+            const fontSizeValue = typeof rawFontSizeValue === 'string' ? rawFontSizeValue : '';
             const lineHeight =
-              typeof config === 'object' && config?.lineHeight ? config.lineHeight : 'normal';
+              typeof config === 'object' &&
+              config &&
+              'lineHeight' in config &&
+              typeof config.lineHeight === 'string'
+                ? config.lineHeight
+                : 'normal';
 
             return (
               <div
@@ -531,16 +545,16 @@ export const Typography: Story = {
                   <div
                     className="text-content-primary truncate"
                     style={{
-                      fontSize: String(fontSizeValue),
-                      lineHeight: String(lineHeight),
+                      fontSize: fontSizeValue,
+                      lineHeight: lineHeight,
                     }}
                   >
                     The quick brown fox
                   </div>
                 </div>
                 <div className="text-content-tertiary min-w-24 text-right text-xs">
-                  <div className="font-mono">size: {String(fontSizeValue)}</div>
-                  <div className="mt-1 font-mono">line: {String(lineHeight)}</div>
+                  <div className="font-mono">size: {fontSizeValue}</div>
+                  <div className="mt-1 font-mono">line: {lineHeight}</div>
                 </div>
               </div>
             );

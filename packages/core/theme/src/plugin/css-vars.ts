@@ -173,14 +173,11 @@ export function generateDarkDesignTokenCSSVars(prefix: string): Record<string, s
  * @param tokens - Token overrides (design, semantic, or mixed)
  * @param prefix - CSS variable prefix (e.g. `ideasui`)
  */
-export function generateCSSVarsFromTokenOverrides(
-  tokens: Partial<TokenOverrides> | SemanticTokenOverrides | Record<string, unknown>,
+function processBasicTokens(
+  t: Partial<TokenOverrides & SemanticTokenOverrides>,
   prefix: string,
-): Record<string, string> {
-  const t = tokens as Partial<TokenOverrides & SemanticTokenOverrides>;
-  const cssVariables: Record<string, string> = {};
-
-  // Duration
+  cssVariables: Record<string, string>,
+): void {
   if (t.duration) {
     for (const [key, value] of Object.entries(t.duration)) {
       if (value !== undefined) {
@@ -188,8 +185,6 @@ export function generateCSSVarsFromTokenOverrides(
       }
     }
   }
-
-  // Easing
   if (t.easing) {
     for (const [key, value] of Object.entries(t.easing)) {
       if (value !== undefined) {
@@ -197,8 +192,6 @@ export function generateCSSVarsFromTokenOverrides(
       }
     }
   }
-
-  // Spacing
   if (t.spacing) {
     for (const [key, value] of Object.entries(t.spacing)) {
       if (value !== undefined) {
@@ -206,8 +199,6 @@ export function generateCSSVarsFromTokenOverrides(
       }
     }
   }
-
-  // Font size
   if (t.fontSize) {
     for (const [key, value] of Object.entries(t.fontSize)) {
       if (value !== undefined) {
@@ -217,8 +208,6 @@ export function generateCSSVarsFromTokenOverrides(
       }
     }
   }
-
-  // Border radius
   if (t.borderRadius) {
     for (const [key, value] of Object.entries(t.borderRadius)) {
       if (value !== undefined) {
@@ -228,8 +217,13 @@ export function generateCSSVarsFromTokenOverrides(
       }
     }
   }
+}
 
-  // Box shadow
+function processLayoutAndShadowTokens(
+  t: Partial<TokenOverrides & SemanticTokenOverrides>,
+  prefix: string,
+  cssVariables: Record<string, string>,
+): void {
   if (t.boxShadow) {
     for (const [key, value] of Object.entries(t.boxShadow)) {
       if (value !== undefined) {
@@ -237,8 +231,6 @@ export function generateCSSVarsFromTokenOverrides(
       }
     }
   }
-
-  // Shadow — alias for boxShadow (same CSS var pattern)
   if (t.shadow) {
     for (const [key, value] of Object.entries(t.shadow)) {
       if (value !== undefined) {
@@ -246,8 +238,6 @@ export function generateCSSVarsFromTokenOverrides(
       }
     }
   }
-
-  // Z-index
   if (t.zIndex) {
     for (const [key, value] of Object.entries(t.zIndex)) {
       if (value !== undefined) {
@@ -255,6 +245,118 @@ export function generateCSSVarsFromTokenOverrides(
       }
     }
   }
+  if (t.opacity) {
+    for (const [key, value] of Object.entries(t.opacity)) {
+      if (value !== undefined) {
+        cssVariables[`--${prefix}-opacity-${kebabCase(key)}`] = String(value);
+      }
+    }
+  }
+  if (t.blur) {
+    for (const [key, value] of Object.entries(t.blur)) {
+      if (value !== undefined) {
+        cssVariables[`--${prefix}-blur-${key}`] = value;
+      }
+    }
+  }
+}
+
+function processTypographyTokens(
+  t: Partial<TokenOverrides & SemanticTokenOverrides>,
+  prefix: string,
+  cssVariables: Record<string, string>,
+): void {
+  if (t.letterSpacing) {
+    for (const [key, value] of Object.entries(t.letterSpacing)) {
+      if (value !== undefined) {
+        cssVariables[`--${prefix}-tracking-${key}`] = value;
+      }
+    }
+  }
+  if (t.fontFamily) {
+    for (const [key, value] of Object.entries(t.fontFamily)) {
+      if (value !== undefined) {
+        cssVariables[`--${prefix}-font-${kebabCase(key)}`] = value;
+      }
+    }
+  }
+  if (t.fontWeight) {
+    for (const [key, value] of Object.entries(t.fontWeight)) {
+      if (value !== undefined) {
+        cssVariables[`--${prefix}-font-weight-${key}`] = value;
+      }
+    }
+  }
+}
+
+function processBorderAndAnimationTokens(
+  t: Partial<TokenOverrides & SemanticTokenOverrides>,
+  prefix: string,
+  cssVariables: Record<string, string>,
+): void {
+  if (t.borderWidth) {
+    for (const [key, value] of Object.entries(t.borderWidth)) {
+      if (value !== undefined) {
+        cssVariables[`--${prefix}-border-${key}`] = value;
+      }
+    }
+  }
+  if (t.animation) {
+    for (const [key, value] of Object.entries(t.animation)) {
+      if (value !== undefined) {
+        cssVariables[`--${prefix}-animation-${key}`] = value;
+      }
+    }
+  }
+  if (t.borderColor) {
+    for (const [key, value] of Object.entries(t.borderColor)) {
+      if (value !== undefined) {
+        cssVariables[`--${prefix}-border-${key}`] = value;
+      }
+    }
+  }
+}
+
+function processSemanticRoleTokens(
+  t: Partial<TokenOverrides & SemanticTokenOverrides>,
+  prefix: string,
+  cssVariables: Record<string, string>,
+): void {
+  if (t.surface) {
+    for (const [key, value] of Object.entries(t.surface)) {
+      if (value !== undefined) {
+        cssVariables[`--${prefix}-color-${key}`] = value;
+      }
+    }
+  }
+  if (t.content) {
+    for (const [key, value] of Object.entries(t.content)) {
+      if (value !== undefined) {
+        cssVariables[`--${prefix}-color-content-${key}`] = value;
+      }
+    }
+  }
+  if (t.border) {
+    for (const [key, value] of Object.entries(t.border)) {
+      if (value !== undefined) {
+        cssVariables[`--${prefix}-border-${key}`] = value;
+      }
+    }
+  }
+}
+
+export function generateCSSVarsFromTokenOverrides(
+  tokens: Partial<TokenOverrides> | SemanticTokenOverrides | Record<string, unknown>,
+  prefix: string,
+): Record<string, string> {
+  const t = tokens as Partial<TokenOverrides & SemanticTokenOverrides>;
+  const cssVariables: Record<string, string> = {};
+
+  processBasicTokens(t, prefix, cssVariables);
+  processLayoutAndShadowTokens(t, prefix, cssVariables);
+  processTypographyTokens(t, prefix, cssVariables);
+  processBorderAndAnimationTokens(t, prefix, cssVariables);
+  processSemanticRoleTokens(t, prefix, cssVariables);
 
   // Components (Nested objects)
   // e.g. { button: { base: { backgroundColor: 'red' } } } -> --prefix-button-base-background-color: red
@@ -286,104 +388,6 @@ export function generateCSSVarsFromTokenOverrides(
     };
 
     flattenComponents(t.components as unknown as Record<string, unknown>, '');
-  }
-
-  // Opacity
-  if (t.opacity) {
-    for (const [key, value] of Object.entries(t.opacity)) {
-      if (value !== undefined) {
-        cssVariables[`--${prefix}-opacity-${kebabCase(key)}`] = String(value);
-      }
-    }
-  }
-
-  // Letter spacing
-  if (t.letterSpacing) {
-    for (const [key, value] of Object.entries(t.letterSpacing)) {
-      if (value !== undefined) {
-        cssVariables[`--${prefix}-tracking-${key}`] = value;
-      }
-    }
-  }
-
-  // Font family
-  if (t.fontFamily) {
-    for (const [key, value] of Object.entries(t.fontFamily)) {
-      if (value !== undefined) {
-        cssVariables[`--${prefix}-font-${kebabCase(key)}`] = value;
-      }
-    }
-  }
-
-  // Border width
-  if (t.borderWidth) {
-    for (const [key, value] of Object.entries(t.borderWidth)) {
-      if (value !== undefined) {
-        cssVariables[`--${prefix}-border-${key}`] = value;
-      }
-    }
-  }
-
-  if (t.blur) {
-    for (const [key, value] of Object.entries(t.blur)) {
-      if (value !== undefined) {
-        cssVariables[`--${prefix}-blur-${key}`] = value;
-      }
-    }
-  }
-
-  // Font weight
-  if (t.fontWeight) {
-    for (const [key, value] of Object.entries(t.fontWeight)) {
-      if (value !== undefined) {
-        cssVariables[`--${prefix}-font-weight-${key}`] = value;
-      }
-    }
-  }
-
-  // Animation
-  if (t.animation) {
-    for (const [key, value] of Object.entries(t.animation)) {
-      if (value !== undefined) {
-        cssVariables[`--${prefix}-animation-${key}`] = value;
-      }
-    }
-  }
-
-  // Border color overrides
-  if (t.borderColor) {
-    for (const [key, value] of Object.entries(t.borderColor)) {
-      if (value !== undefined) {
-        cssVariables[`--${prefix}-border-${key}`] = value;
-      }
-    }
-  }
-
-  // Surface (Role-based)
-  if (t.surface) {
-    for (const [key, value] of Object.entries(t.surface)) {
-      if (value !== undefined) {
-        cssVariables[`--${prefix}-color-${key}`] = value;
-      }
-    }
-  }
-
-  // Content
-  if (t.content) {
-    for (const [key, value] of Object.entries(t.content)) {
-      if (value !== undefined) {
-        cssVariables[`--${prefix}-color-content-${key}`] = value;
-      }
-    }
-  }
-
-  // Border (semantic)
-  if (t.border) {
-    for (const [key, value] of Object.entries(t.border)) {
-      if (value !== undefined) {
-        cssVariables[`--${prefix}-border-${key}`] = value;
-      }
-    }
   }
 
   // Flat semantic token overrides
