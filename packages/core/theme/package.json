@@ -3,7 +3,7 @@
   "version": "0.0.5-beta.1",
   "type": "module",
   "description": "A modern, OKLCH-based theme engine and design system plugin for Tailwind CSS v4. Features dynamic theme providers, style recipes, and custom theme storage managers.",
-  "author": "IdeasUI <support@ideasui.com>",
+  "author": "IdeasUI <ideas2logic@gmail.com>",
   "homepage": "https://ideasui.com",
   "license": "MIT",
   "keywords": [

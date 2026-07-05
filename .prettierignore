@@ -9,7 +9,6 @@ pnpm-lock.yaml
 !.storybook
 !.commitlintrc.cjs
 !.lintstagedrc.cjs
-!jest.config.js
 !plopfile.js
 !.tsup.config.ts
 plop-templates/

@@ -2,7 +2,7 @@
   "name": "@ideasui/utils",
   "version": "0.0.2-beta.1",
   "description": "Shared TypeScript/React utilities and core helper functions for the IdeasUI component library, covering DOM, styles, and ARIA testing frameworks.",
-  "author": "IdeasUI <support@ideasui.com>",
+  "author": "IdeasUI <ideas2logic@gmail.com>",
   "homepage": "https://ideasui.com",
   "license": "MIT",
   "keywords": [

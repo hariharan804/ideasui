@@ -10,7 +10,7 @@
     "typescript": "Full TypeScript support",
     "treeshaking": "Tree-shakeable exports",
     "ssr": "Server-side rendering compatible",
-    "testing": "Jest + Playwright + jest-axe"
+    "testing": "Vitest + Playwright + vitest-axe"
   },
   "whyShouldUseThis": {
     "modernColorSystem": "OKLCH provides perceptually uniform colors across light/dark themes",
@@ -44,24 +44,8 @@
           "features": ["color-generation", "hue-locking", "dark-mode"]
         }
       },
-      "hooks": {
-        "type": "react-hooks",
-        "framework": "react",
-        "bundler": "tsup",
-        "typescript": true
-      },
       "utils": {
         "type": "utilities",
-        "bundler": "tsup",
-        "typescript": true
-      },
-      "icons": {
-        "type": "icon-library",
-        "bundler": "tsup",
-        "typescript": true
-      },
-      "cli": {
-        "type": "cli-tool",
         "bundler": "tsup",
         "typescript": true
       }
@@ -130,7 +114,7 @@
     "development": {
       "playground": "next.js",
       "storybook": "storybook",
-      "testing": "jest + playwright",
+      "testing": "vitest + playwright",
       "linting": "eslint",
       "formatting": "prettier"
     },
@@ -157,10 +141,10 @@
       "turbo": "^2.0.0"
     },
     "testing": {
-      "jest": "^29.0.0",
-      "@testing-library/react": "^14.0.0",
-      "playwright": "^1.40.0",
-      "jest-axe": "^8.0.0"
+      "vitest": "^4.1.2",
+      "@testing-library/react": "^16.3.1",
+      "playwright": "^1.57.0",
+      "vitest-axe": "^0.1.0"
     }
   },
   "scripts": {
@@ -178,11 +162,9 @@
     "packages": [
       "packages/components/*",
       "packages/core/*",
-      "packages/hooks",
       "packages/utils",
-      "packages/icons",
-      "packages/cli",
-      "apps/*"
+      "apps/*",
+      "templates/nextjs-standalone-css"
     ],
     "packageManager": "pnpm"
   },

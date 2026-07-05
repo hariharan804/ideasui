@@ -13,7 +13,7 @@ export const extractConfig = {
           title: 'Button Props',
           description: 'Primary button component with variants and sizes',
           filePath: '../../packages/components/button/src/button.types.ts',
-          interfaceName: 'ButtonBaseProps',
+          interfaceName: 'ButtonBaseProperties',
         },
         {
           name: 'ButtonLabel',
@@ -21,7 +21,7 @@ export const extractConfig = {
           title: 'Button Label Props',
           description: 'Label component inside the button',
           filePath: '../../packages/components/button/src/button.types.ts',
-          interfaceName: 'ButtonLabelProps',
+          interfaceName: 'ButtonLabelProperties',
         },
         {
           name: 'ButtonIcon',
@@ -29,7 +29,7 @@ export const extractConfig = {
           title: 'Button Icon Props',
           description: 'Icon component inside the button',
           filePath: '../../packages/components/button/src/button.types.ts',
-          interfaceName: 'ButtonIconProps',
+          interfaceName: 'ButtonIconProperties',
         },
         {
           name: 'ButtonSpinner',
@@ -37,7 +37,7 @@ export const extractConfig = {
           title: 'Button Spinner Props',
           description: 'Spinner component inside the button',
           filePath: '../../packages/components/button/src/button.types.ts',
-          interfaceName: 'ButtonSpinnerProps',
+          interfaceName: 'ButtonSpinnerProperties',
         },
         {
           name: 'ButtonShortcut',
@@ -45,7 +45,7 @@ export const extractConfig = {
           title: 'Button Shortcut Props',
           description: 'Shortcut component inside the button',
           filePath: '../../packages/components/button/src/button.types.ts',
-          interfaceName: 'ButtonShortcutProps',
+          interfaceName: 'ButtonShortcutProperties',
         },
       ],
     },
@@ -58,7 +58,7 @@ export const extractConfig = {
           title: 'Button Group Props',
           description: 'Group component for layout of multiple buttons',
           filePath: '../../packages/components/button/src/button-group.tsx',
-          interfaceName: 'ButtonGroupProps',
+          interfaceName: 'ButtonGroupProperties',
         },
       ],
     },

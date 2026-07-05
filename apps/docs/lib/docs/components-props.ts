@@ -2,7 +2,7 @@
 // Extracted from actual TypeScript interfaces
 // DO NOT EDIT MANUALLY
 
-export interface PropertyInfo {
+export interface PropInfo {
   name: string;
   type: string;
   required: boolean;
@@ -11,25 +11,25 @@ export interface PropertyInfo {
   description: string;
 }
 
-export interface ComponentDocument {
+export interface ComponentDoc {
   componentName: string;
   title: string;
   component: string;
   description: string;
-  props: PropertyInfo[];
+  props: PropInfo[];
 }
 
-export interface PropertiesDocumentation {
-  button: ComponentDocument[];
-  buttonGroup: ComponentDocument[];
+export interface PropsDocumentation {
+  button: ComponentDoc[];
+  buttonGroup: ComponentDoc[];
 }
 
 /**
  * Components extracted from TypeScript interfaces:
- * - Button: ButtonBaseProps, ButtonLabelProps, ButtonIconProps, ButtonSpinnerProps, ButtonShortcutProps
- * - ButtonGroup: ButtonGroupProps
+ * - Button: ButtonBaseProperties, ButtonLabelProperties, ButtonIconProperties, ButtonSpinnerProperties, ButtonShortcutProperties
+ * - ButtonGroup: ButtonGroupProperties
  */
-export const propsDocumentation: PropertiesDocumentation = {
+export const propsDocumentation: PropsDocumentation = {
   button: [
     {
       componentName: 'Button',
@@ -104,7 +104,7 @@ export const propsDocumentation: PropertiesDocumentation = {
         },
         {
           name: 'className',
-          type: 'string | ((props: ButtonRenderProps) => string)',
+          type: 'string | ((properties: ButtonRenderProps) => string)',
           required: false,
           defaultValue: null,
           deprecated: false,
@@ -113,7 +113,7 @@ export const propsDocumentation: PropertiesDocumentation = {
         },
         {
           name: 'children',
-          type: 'ReactNode | ((props: ButtonRenderProps) => ReactNode)',
+          type: 'ReactNode | ((properties: ButtonRenderProps) => ReactNode)',
           required: false,
           defaultValue: null,
           deprecated: false,

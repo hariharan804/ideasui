@@ -24,20 +24,20 @@ pnpm run test:visual:ui
 pnpm run playwright:install
 ```
 
-## 🧪 Unit Testing with Jest
+## 🧪 Unit Testing with Vitest
 
 ### Writing Component Tests
 
-Create test files in `src/__tests__/` folder:
+Create test files in `__tests__/` folder:
 
 ```typescript
-// packages/components/button/src/__tests__/button.test.tsx
+// packages/components/button/__tests__/button.test.tsx
 import "@testing-library/jest-dom";
 import type {UserEvent} from "@testing-library/user-event";
-import * as React from "react";
+import {vi} from "vitest";
 import {render} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import {Button} from "../button";
+import {Button} from "../src";
 
 describe("Button", () => {
   let user: UserEvent;
@@ -47,13 +47,13 @@ describe("Button", () => {
   });
 
   it("should render correctly", () => {
-    const wrapper = render(<Button disableRipple />);
+    const wrapper = render(<Button />);
     expect(() => wrapper.unmount()).not.toThrow();
   });
 
   it("should trigger onClick function", async () => {
-    const onClick = jest.fn();
-    const {getByRole} = render(<Button disableRipple onClick={onClick} />);
+    const onClick = vi.fn();
+    const {getByRole} = render(<Button onClick={onClick} />);
 
     await user.click(getByRole("button"));
     expect(onClick).toHaveBeenCalled();
@@ -77,7 +77,7 @@ it("applies variant classes correctly", () => {
 
 ```typescript
 it("handles click events", async () => {
-  const handleClick = jest.fn();
+  const handleClick = vi.fn();
   render(<Button onClick={handleClick}>Click me</Button>);
 
   await user.click(screen.getByRole("button"));
@@ -125,36 +125,41 @@ test('Button variants visual regression', async ({ page }) => {
 
 ## 🔧 Common Testing Issues & Fixes
 
-### Jest Issues
+### Vitest Issues
 
 #### Issue: "Cannot find name 'describe'"
 
-```bash
-# Fix: Add @types/jest or configure Jest globals
-pnpm add -D @types/jest
+Ensure the types are correctly loaded in `tsconfig.json` (under `compilerOptions.types`), or import them explicitly:
+
+```typescript
+import { describe, it, expect, beforeEach } from 'vitest';
 ```
 
 #### Issue: "matchMedia is not a function"
 
+Already handled globally in `vitest.setup.ts`:
+
 ```typescript
-// Fix: Already handled in scripts/setup-test.ts
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: jest.fn().mockImplementation(() => ({
+  value: vi.fn().mockImplementation(() => ({
     matches: false,
-    addListener: jest.fn(),
-    removeListener: jest.fn(),
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
   })),
 });
 ```
 
 #### Issue: Tests timeout
 
-```javascript
-// Fix: Increase timeout in jest.config.js
-module.exports = {
-  testTimeout: 35000, // 35 seconds
-};
+Increase the timeout configuration in `vitest.config.ts`:
+
+```typescript
+export default defineConfig({
+  test: {
+    testTimeout: 35000,
+  },
+});
 ```
 
 ### Playwright Issues
@@ -170,7 +175,7 @@ pnpm run playwright:install
 
 ```bash
 # Fix: Check testMatch pattern in playwright.config.ts
-testMatch: ["**/packages/components/**/src/__tests__/*.spec.ts"]
+testMatch: ["**/packages/components/**/*.spec.ts"]
 ```
 
 #### Issue: Screenshots don't match
@@ -204,24 +209,24 @@ pnpm run test:visual
 ### Test File Structure:
 
 ```
-packages/components/button/src/__tests__/
+packages/components/button/__tests__/
 ├── button.test.tsx          # Unit tests
 └── button.spec.ts           # Visual tests
 ```
 
 ## 🚨 Debugging Tests
 
-### Debug Jest Tests
+### Debug Vitest Tests
 
 ```bash
 # Run specific test file
-pnpm run test button.test.tsx
+pnpm run test packages/components/button/__tests__/button.test.tsx
 
-# Run tests in debug mode
-pnpm run test --verbose
+# Run tests in watch mode
+pnpm run test:watch
 
-# Run single test
-pnpm run test --testNamePattern="should render correctly"
+# Run single test by name
+pnpm run test -t "should render correctly"
 ```
 
 ### Debug Playwright Tests
@@ -247,7 +252,7 @@ pnpm run test:coverage
 pnpm run test:watch
 
 # Lint test files
-pnpm run lint src/__tests__/
+pnpm run lint packages/components/button/__tests__/
 ```
 
 ## 📊 Test Coverage
@@ -264,12 +269,12 @@ open coverage/lcov-report/index.html
 
 ### Coverage Thresholds
 
-Current thresholds in `jest.config.js`:
+Current thresholds in `vitest.config.ts`:
 
-- Statements: 80%
-- Branches: 80%
-- Functions: 80%
-- Lines: 80%
+- Statements: 75% - 80% (varies by package)
+- Branches: 65% - 70%
+- Functions: 70% - 80%
+- Lines: 75% - 80%
 
 ## 🎯 Testing Best Practices
 

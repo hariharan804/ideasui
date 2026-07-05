@@ -499,7 +499,7 @@ TextField.displayName = 'TextField';
 ```typescript
 // __tests__/text-field.test.tsx
 import { render } from '@testing-library/react';
-import { axe } from 'jest-axe';
+import { axe } from 'vitest-axe';
 import { TextField } from '../src';
 
 describe('TextField', () => {

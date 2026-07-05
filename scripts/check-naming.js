@@ -36,7 +36,6 @@ class NamingChecker {
     // Ignore specific config files
     if (
       fileName.includes('config.') ||
-      fileName === 'jest.d.ts' ||
       fileName === 'setupTests.ts' ||
       fileName === 'globals.d.ts' ||
       fileName === 'env.d.ts'

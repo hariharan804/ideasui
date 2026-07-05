@@ -191,7 +191,7 @@ Update the component's README.md with:
 - [ ] Uses theme recipes for styling
 - [ ] Supports all required variants (variant, size, color, radius)
 - [ ] Has comprehensive unit tests (>80% coverage)
-- [ ] Passes accessibility tests (jest-axe)
+- [ ] Passes accessibility tests (vitest-axe)
 - [ ] Has Storybook stories
 - [ ] Documentation is complete
 - [ ] CI/CD passes

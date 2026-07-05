@@ -2,7 +2,7 @@
   "name": "@ideasui/button",
   "version": "0.0.2-beta.1",
   "description": "Accessible, high-performance Button and ButtonGroup components for React. Built with Tailwind CSS v4, React Aria, and OKLCH color palettes.",
-  "author": "IdeasUI<support@ideasui.com>",
+  "author": "IdeasUI<ideas2logic@gmail.com>",
   "homepage": "https://ideasui.com",
   "license": "MIT",
   "keywords": [

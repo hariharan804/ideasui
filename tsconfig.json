@@ -28,7 +28,6 @@
     "playwright.config.ts",
     "plopfile.js",
     "eslint.config.mjs",
-    "prettier.config.js",
     "vitest.config.ts",
     "vitest.setup.ts"
   ],
