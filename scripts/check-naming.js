@@ -16,8 +16,8 @@ const rules = {
     stories: new RegExp(String.raw`^${dotSeparatedKebab}\.stories\.(tsx|ts)$`),
     configs: new RegExp(String.raw`^${dotSeparatedKebab}\.config\.(js|ts|mjs|cjs)$`),
   },
-  folders: new RegExp(String.raw`^${dotSeparatedKebab}$`),
-  packageName: new RegExp(String.raw`^@${kebabPart}/${kebabPart}$`),
+  folders: new RegExp(`^${dotSeparatedKebab}$`),
+  packageName: new RegExp(`^@${kebabPart}/${kebabPart}$`),
 };
 
 class NamingChecker {
