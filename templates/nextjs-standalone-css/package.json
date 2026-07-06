@@ -16,10 +16,10 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "dev:standalone-css": "next dev",
+    "build:standalone-css": "next build",
+    "start:standalone-css": "next start",
+    "lint:standalone-css": "eslint"
   },
   "dependencies": {
     "@ideasui/react": "workspace:*",
