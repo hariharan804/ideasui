@@ -28,7 +28,7 @@ console.log('🚀 Starting CSS compilation...');
 // Helper to compile CSS using tailwindcss CLI
 function compile(inputPath, outputPath, minify = true) {
   const minifyFlag = minify ? '--minify' : '';
-  const cmd = `npx @tailwindcss/cli -i "${inputPath}" -o "${outputPath}" ${minifyFlag}`;
+  const cmd = `tailwindcss -i "${inputPath}" -o "${outputPath}" ${minifyFlag}`;
   const rootBin = path.resolve(__dirname, '../../../../node_modules/.bin');
   const localBin = path.resolve(__dirname, '../node_modules/.bin');
   const env = {

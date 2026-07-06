@@ -290,35 +290,72 @@ export const ColorComparison: Story = {
 };
 
 export const SemanticColors: Story = {
-  render: (): ReactElement => (
-    <div className="space-y-8">
-      <div className="mb-10">
-        <h2 className="text-content-primary text-3xl font-bold tracking-tight">
-          Semantic Color Tokens
-        </h2>
-        <p className="text-content-secondary mt-2 text-lg">
-          Role-based color mappings: solid, on-solid, soft, on-soft, subtle, on-subtle
-        </p>
-      </div>
-      <div className="grid gap-6 lg:grid-cols-2">
-        {Object.entries(semantic).map(([colorName, roles]) => (
-          <div
-            key={colorName}
-            className="bg-surface-muted overflow-hidden rounded-2xl border border-neutral-100"
-          >
-            <div className="border-b border-neutral-100 px-5 py-4">
-              <h3 className="text-content-primary text-lg font-bold capitalize">{colorName}</h3>
+  render: (): ReactElement => {
+    const groups = [
+      'primary',
+      'secondary',
+      'tertiary',
+      'success',
+      'warning',
+      'error',
+      'info',
+      'neutral',
+    ];
+
+    const groupedSemantic: Record<string, Record<string, string>> = {};
+
+    for (const group of groups) {
+      groupedSemantic[group] = {};
+    }
+
+    for (const [key, value] of Object.entries(semantic)) {
+      const group = groups.find((g) => key.includes(g));
+
+      if (group) {
+        let role: string;
+
+        if (key === group) {
+          role = 'solid';
+        } else if (key === `on-${group}`) {
+          role = 'on-solid';
+        } else {
+          role = key.replace(`${group}-`, '').replace(`on-${group}-`, 'on-');
+        }
+
+        groupedSemantic[group][role] = value;
+      }
+    }
+
+    return (
+      <div className="space-y-8">
+        <div className="mb-10">
+          <h2 className="text-content-primary text-3xl font-bold tracking-tight">
+            Semantic Color Tokens
+          </h2>
+          <p className="text-content-secondary mt-2 text-lg">
+            Role-based color mappings: solid, on-solid, soft, on-soft, subtle, on-subtle
+          </p>
+        </div>
+        <div className="grid gap-6 lg:grid-cols-2">
+          {Object.entries(groupedSemantic).map(([groupName, roles]) => (
+            <div
+              key={groupName}
+              className="bg-surface-muted overflow-hidden rounded-2xl border border-neutral-100"
+            >
+              <div className="border-b border-neutral-100 px-5 py-4">
+                <h3 className="text-content-primary text-lg font-bold capitalize">{groupName}</h3>
+              </div>
+              <div className="grid grid-cols-1 gap-2 p-4">
+                {Object.entries(roles).map(([role, value]) => (
+                  <SemanticTokenCard key={role} name={groupName} role={role} value={value} />
+                ))}
+              </div>
             </div>
-            <div className="grid grid-cols-1 gap-2 p-4">
-              {Object.entries(roles).map(([role, value]) => (
-                <SemanticTokenCard key={role} name={colorName} role={role} value={value} />
-              ))}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-  ),
+    );
+  },
 };
 
 export const SurfaceTokens: Story = {

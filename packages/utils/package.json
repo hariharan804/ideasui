@@ -70,9 +70,6 @@
     "clean": "rimraf dist .turbo",
     "typecheck": "tsc --noEmit",
     "build:dev": "tsup src",
-    "test": "vitest run",
-    "lint": "eslint src --ext .ts,.tsx --cache",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix --cache",
     "prepack": "clean-package",
     "postpack": "clean-package restore"
   },

@@ -1,17 +1,9 @@
 import type { JSX } from 'react';
 
 import Link from 'next/link';
-import { ArrowRight, Palette, Package, Wrench, Eye, Code2, Sparkles, Layers } from 'lucide-react';
+import { ArrowRight, Package, Wrench, Eye, Code2, Sparkles, Layers } from 'lucide-react';
 
 const navigationItems = [
-  {
-    title: 'Colors',
-    description: 'Explore color palettes and copy semantic tokens',
-    href: '/colors',
-    icon: Palette,
-    gradient: 'from-blue-500 to-indigo-500',
-    shadowPath: 'shadow-blue-500/20',
-  },
   {
     title: 'Installer',
     description: 'Dynamic package installer for all release tags',
@@ -27,14 +19,6 @@ const navigationItems = [
     icon: Wrench,
     gradient: 'from-emerald-500 to-teal-500',
     shadowPath: 'shadow-emerald-500/20',
-  },
-  {
-    title: 'Preview',
-    description: 'Live component previews and production demos',
-    href: '/playground',
-    icon: Eye,
-    gradient: 'from-rose-500 to-pink-500',
-    shadowPath: 'shadow-rose-500/20',
   },
   {
     title: 'Design System',
@@ -84,14 +68,14 @@ export default function Home(): JSX.Element {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 className="bg-primary-500 shadow-primary-500/30 hover:bg-primary-600 hover:shadow-primary-500/50 focus-visible:outline-primary-500 flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2"
-                href="/components"
+                href="/playground"
               >
                 Get Started
                 <ArrowRight className="size-4" />
               </Link>
               <Link
                 className="text-content-primary hover:text-primary-500 flex items-center gap-2 text-sm leading-6 font-semibold transition-colors"
-                href="/colors"
+                href="/design-system"
               >
                 View Tokens <span aria-hidden="true">→</span>
               </Link>
