@@ -2,11 +2,11 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**", "storybook-static/**"]
     },
-    "storybook:build": {
+    "start": {
       "cache": true,
-      "outputs": ["apps/storybook/storybook-static/**"]
+      "persistent": true
     },
     "dev:build": {
       "dependsOn": ["^build"],
