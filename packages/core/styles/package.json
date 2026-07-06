@@ -52,7 +52,7 @@
     "dev": "pnpm build:dev --watch",
     "clean": "rimraf dist .turbo",
     "typecheck": "tsc --noEmit",
-    "build:dev": "tsup src && node scripts/build-css.js",
+    "build:dev": "tsup && node scripts/build-css.js",
     "prepack": "clean-package",
     "postpack": "clean-package restore"
   },

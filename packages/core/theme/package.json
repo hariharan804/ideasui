@@ -51,7 +51,7 @@
   "scripts": {
     "build": "tsup && pnpm build:theme",
     "build:theme": "node scripts/generate-theme-css.mjs && postcss dist/theme.css -o dist/theme.css && postcss dist/theme-variables.css -o dist/theme-variables.css && postcss dist/theme-config.css -o dist/theme-config.css",
-    "dev": "tsup --watch",
+    "dev": "tsup --watch --onSuccess \"pnpm build:theme\"",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "prepack": "clean-package",
