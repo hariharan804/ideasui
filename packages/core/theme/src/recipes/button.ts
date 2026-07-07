@@ -13,6 +13,9 @@ export const BEM_SOLID = 'btn--solid';
 export const BEM_OUTLINE = 'btn--outline';
 export const BEM_GHOST = 'btn--ghost';
 export const BEM_LINK = 'btn--link';
+export const BEM_SOFT = 'btn--soft';
+export const BEM_TEXT = 'btn--text';
+export const BEM_ELEVATED = 'btn--elevated';
 
 export const TRANSPARENT = 'bg-transparent';
 export const ROUNDED_MD = 'rounded-md';
@@ -27,7 +30,7 @@ const button = tv({
       'justify-center',
       'gap-2',
       'font-medium',
-      'text-background',
+      'cursor-pointer',
       'transition-all',
       'duration-200',
       'ease-in-out',
@@ -57,17 +60,17 @@ const button = tv({
       ghost: {
         base: [BEM_GHOST, TRANSPARENT],
       },
-      muted: {
-        base: 'btn--muted',
+      soft: {
+        base: BEM_SOFT,
       },
       link: {
         base: [BEM_LINK, TRANSPARENT, 'underline-offset-4', 'hover:underline', 'font-normal'],
       },
       text: {
-        base: [TRANSPARENT, 'font-normal'],
+        base: [BEM_TEXT, TRANSPARENT, 'font-normal'],
       },
       elevated: {
-        base: 'btn--elevated bg-background !shadow-sm hover:!shadow-md active:!shadow-sm',
+        base: [BEM_ELEVATED, 'bg-background', 'border', 'border-transparent'],
       },
     },
     size: {
@@ -103,23 +106,20 @@ const button = tv({
       neutral: { base: 'btn--neutral' },
     },
     elevation: {
-      none: { base: 'shadow-none' },
-      xs: { base: '!shadow-xs' },
-      sm: { base: '!shadow-sm' },
-      md: { base: '!shadow-md' },
-      lg: { base: '!shadow-lg' },
-      xl: { base: '!shadow-xl' },
-      '2xl': { base: '!shadow-2xl' },
+      none: { base: '' },
+      xs: { base: '' },
+      sm: { base: '' },
+      md: { base: '' },
+      lg: { base: '' },
+      xl: { base: '' },
+      '2xl': { base: '' },
     },
     radius: {
       none: { base: ROUNDED_NONE },
-      default: { base: 'rounded' },
       sm: { base: 'rounded-sm' },
-      md: { base: 'rounded-md' },
+      md: { base: ROUNDED_MD },
       lg: { base: 'rounded-lg' },
       xl: { base: 'rounded-xl' },
-      '2xl': { base: 'rounded-2xl' },
-      '3xl': { base: 'rounded-3xl' },
       full: { base: 'rounded-full' },
     },
     isDisabled: {
@@ -171,7 +171,8 @@ const button = tv({
     variant: 'solid',
     size: 'md',
     color: 'primary',
-    radius: 'default',
+    radius: 'md',
+    elevation: 'sm',
     isDisabled: false,
     disableAnimation: false,
   },

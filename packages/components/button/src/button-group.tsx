@@ -46,7 +46,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProperties>(
       isDisabled,
       isAttached = true,
       isVertical = false,
-      radius = 'default',
+      radius = 'md',
       fullWidth,
       disableAnimation = true,
       showDivider,

@@ -77,13 +77,12 @@ const meta: Meta<typeof Button> = {
     variant: 'solid',
     color: 'primary',
     size: 'md',
-    radius: 'default',
+    radius: 'md',
     children: 'Button',
     isLoading: false,
     isDisabled: false,
     isIconOnly: false,
     loadingPosition: 'start',
-    elevation: 'none',
     // loadingIndicator: '',
   },
 };
@@ -129,7 +128,7 @@ export const Variants: Story = {
       <Button {...arguments_} variant="ghost">
         Ghost
       </Button>
-      <Button {...arguments_} variant="muted">
+      <Button {...arguments_} variant="soft">
         Soft
       </Button>
       <Button {...arguments_} variant="elevated">
@@ -207,9 +206,6 @@ export const Radius: Story = {
       <Button {...arguments_} radius="none">
         None
       </Button>
-      <Button {...arguments_} radius="default">
-        Default
-      </Button>
       <Button {...arguments_} radius="sm">
         SM
       </Button>
@@ -221,12 +217,6 @@ export const Radius: Story = {
       </Button>
       <Button {...arguments_} radius="xl">
         XL
-      </Button>
-      <Button {...arguments_} radius="2xl">
-        2XL
-      </Button>
-      <Button {...arguments_} radius="3xl">
-        3XL
       </Button>
       <Button {...arguments_} radius="full">
         Full
@@ -349,7 +339,7 @@ export const WithShortcut: Story = {
         <Button.Shortcut>⌘N</Button.Shortcut>
       </Button>
 
-      <Button {...arguments_} className="w-64 justify-between" variant="muted">
+      <Button {...arguments_} className="w-64 justify-between" variant="soft">
         <div className="flex items-center gap-2">
           <Settings className="size-4" />
           <span>Open Settings</span>

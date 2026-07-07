@@ -3,7 +3,7 @@ import type { blur } from './blur';
 import type { border } from './border';
 import type { borderRadius } from './border-radius';
 import type { lightShadow } from './box-shadow';
-import type { disabled, scrollbar } from './classes';
+import type { disabled, scrollbar, interactions, subtleInteractions } from './classes';
 import type { content, surface } from './colors';
 import type { easing, keyframes, duration } from './motion';
 import type { opacity } from './opacity';
@@ -41,6 +41,8 @@ export type AnimationProps = keyof typeof animation;
 export type KeyframesProps = keyof typeof keyframes;
 export type DisabledProps = keyof typeof disabled;
 export type ScrollbarProps = keyof typeof scrollbar;
+export type InteractionsProps = keyof typeof interactions;
+export type SubtleInteractionsProps = keyof typeof subtleInteractions;
 export type ColorsWithVariantProps = keyof typeof colorsWithVariant;
 export type ButtonSizesProps = keyof typeof buttonSizes;
 export type SpinnerSizesProps = keyof typeof spinnerSizes;
@@ -89,7 +91,7 @@ export {
   spinnerSizes,
   colorsWithVariant,
 } from './variants';
-export { scrollbar, disabled } from './classes';
+export { scrollbar, disabled, interactions, subtleInteractions } from './classes';
 
 export { opacity } from './opacity';
 export { zIndex } from './z-index';

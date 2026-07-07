@@ -25,10 +25,10 @@ export default function ButtonGroupVariants() {
         </Button.Group>
       </div>
 
-      {/* Muted Variant (IdeasUI Specific) */}
+      {/* Soft Variant (IdeasUI Specific) */}
       <div className="flex flex-col gap-2">
-        <p className="text-content-tertiary text-sm font-medium">Muted</p>
-        <Button.Group color="primary" variant="muted">
+        <p className="text-content-tertiary text-sm font-medium">Soft</p>
+        <Button.Group color="primary" variant="soft">
           <Button>First</Button>
           <Button>Second</Button>
           <Button>Third</Button>

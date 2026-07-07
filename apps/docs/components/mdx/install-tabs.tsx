@@ -173,7 +173,7 @@ export function InstallTabs({
               )}
               size="sm"
               type="button"
-              variant="muted"
+              variant="soft"
               onPress={handleCopy}
             >
               {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}

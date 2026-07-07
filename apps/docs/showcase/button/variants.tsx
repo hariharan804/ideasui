@@ -6,7 +6,7 @@ export function Variants() {
       <Button variant="solid">Solid</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="ghost">Ghost</Button>
-      <Button variant="muted">Muted</Button>
+      <Button variant="soft">Soft</Button>
       <Button variant="link">Link</Button>
       <Button variant="text">Text</Button>
       <Button variant="elevated">Elevated</Button>

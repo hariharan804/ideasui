@@ -2,7 +2,7 @@ export const variantOptions = [
   'solid',
   'outline',
   'ghost',
-  'muted',
+  'soft',
   'link',
   'text',
   'elevated',
@@ -21,16 +21,6 @@ export const colorOptions = [
 
 export const sizeOptions = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
-export const radiusOptions = [
-  'none',
-  'default',
-  'sm',
-  'md',
-  'lg',
-  'xl',
-  '2xl',
-  '3xl',
-  'full',
-] as const;
+export const radiusOptions = ['none', 'sm', 'md', 'lg', 'xl', 'full'] as const;
 
 export const groupRadiusOptions = ['none', 'sm', 'md', 'lg', 'xl', 'full'] as const;

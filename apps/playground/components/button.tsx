@@ -50,7 +50,7 @@ export default function ButtonPreview(): JSX.Element {
             <div className="flex flex-col gap-2">
               <Button variant="solid">Solid (Default)</Button>
               <Button variant="outline">Outline</Button>
-              <Button variant="muted">Soft</Button>
+              <Button variant="soft">Soft</Button>
               <Button variant="ghost">Ghost</Button>
             </div>
           </div>
@@ -114,7 +114,7 @@ export default function ButtonPreview(): JSX.Element {
             <code className="text-muted-foreground text-xs">{'elevation="2xl"'}</code>
           </div>
           <div className="surface border-border flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
-            <Button elevation="none" variant="ghost">
+            <Button elevation="none" variant="elevated">
               None
             </Button>
             <code className="text-muted-foreground text-xs">{'elevation="none"'}</code>
@@ -149,7 +149,7 @@ export default function ButtonPreview(): JSX.Element {
             <Button.Shortcut>⌘N</Button.Shortcut>
           </Button>
 
-          <Button fullWidth className="justify-between" variant="muted">
+          <Button fullWidth className="justify-between" variant="soft">
             <div className="flex items-center gap-2">
               <Trash2 className="size-4" />
               <span>Delete</span>
@@ -182,31 +182,31 @@ export default function ButtonPreview(): JSX.Element {
           </div>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-medium tracking-wider uppercase">
-              Muted Palette
+              Soft Palette
             </h3>
             <div className="flex flex-wrap gap-4">
-              <Button color="primary" variant="muted">
+              <Button color="primary" variant="soft">
                 Primary
               </Button>
-              <Button color="secondary" variant="muted">
+              <Button color="secondary" variant="soft">
                 Secondary
               </Button>
-              <Button color="tertiary" variant="muted">
+              <Button color="tertiary" variant="soft">
                 Tertiary
               </Button>
-              <Button color="success" variant="muted">
+              <Button color="success" variant="soft">
                 Success
               </Button>
-              <Button color="warning" variant="muted">
+              <Button color="warning" variant="soft">
                 Warning
               </Button>
-              <Button color="error" variant="muted">
+              <Button color="error" variant="soft">
                 Error
               </Button>
-              <Button color="info" variant="muted">
+              <Button color="info" variant="soft">
                 Info
               </Button>
-              <Button color="neutral" variant="muted">
+              <Button color="neutral" variant="soft">
                 Neutral
               </Button>
             </div>
@@ -335,9 +335,6 @@ export default function ButtonPreview(): JSX.Element {
               <Button radius="none" size="sm">
                 none
               </Button>
-              <Button radius="default" size="sm">
-                default
-              </Button>
               <Button radius="sm" size="sm">
                 sm
               </Button>
@@ -349,12 +346,6 @@ export default function ButtonPreview(): JSX.Element {
               </Button>
               <Button radius="xl" size="sm">
                 xl
-              </Button>
-              <Button radius="2xl" size="sm">
-                2xl
-              </Button>
-              <Button radius="3xl" size="sm">
-                3xl
               </Button>
               <Button radius="full" size="sm">
                 full
