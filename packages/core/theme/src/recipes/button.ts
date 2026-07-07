@@ -69,10 +69,6 @@ const button = tv({
       elevated: {
         base: 'btn--elevated bg-background !shadow-sm hover:!shadow-md active:!shadow-sm',
       },
-      glaze: {
-        // eslint-disable-next-line tailwindcss/no-contradicting-classname
-        base: 'btn--glaze border shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] shadow-lg backdrop-blur-lg transition-all duration-300 hover:shadow-xl',
-      },
     },
     size: {
       xs: {

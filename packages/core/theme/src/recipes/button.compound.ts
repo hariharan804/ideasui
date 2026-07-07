@@ -9,7 +9,7 @@ export const compoundVariants = [
   // --- Attached Groups Overlap (1px) ---
   {
     isAttached: true,
-    variant: ['solid', 'muted', 'ghost', 'elevated', 'text', 'link', 'outline', 'glaze'],
+    variant: ['solid', 'muted', 'ghost', 'elevated', 'text', 'link', 'outline'],
     isVertical: false,
     class: {
       base: ['[&:not(:first-child)]:-ml-px'],
@@ -17,7 +17,7 @@ export const compoundVariants = [
   },
   {
     isAttached: true,
-    variant: ['solid', 'muted', 'ghost', 'elevated', 'text', 'link', 'outline', 'glaze'],
+    variant: ['solid', 'muted', 'ghost', 'elevated', 'text', 'link', 'outline'],
     isVertical: true,
     class: {
       base: ['[&:not(:first-child)]:-mt-px [&:not(:first-child)]:ml-0'],
@@ -26,7 +26,7 @@ export const compoundVariants = [
   // --- Show Divider Logic ---
   {
     showDivider: true,
-    variant: ['solid', 'muted', 'ghost', 'elevated', 'text', 'link', 'glaze'],
+    variant: ['solid', 'muted', 'ghost', 'elevated', 'text', 'link'],
     isVertical: false,
     class: {
       base: ['[&:not(:first-child)]:border-l-1'],
@@ -34,7 +34,7 @@ export const compoundVariants = [
   },
   {
     showDivider: true,
-    variant: ['solid', 'muted', 'ghost', 'elevated', 'text', 'link', 'glaze'],
+    variant: ['solid', 'muted', 'ghost', 'elevated', 'text', 'link'],
     isVertical: true,
     class: {
       base: ['[&:not(:first-child)]:border-t-1'],
@@ -304,50 +304,6 @@ export const compoundVariants = [
   { variant: 'elevated', color: 'info', class: { base: 'text-info' } },
   { variant: 'elevated', color: 'neutral', class: { base: 'text-neutral' } },
   { variant: 'elevated', color: 'neutral', class: { base: 'text-neutral' } },
-
-  // --- Glaze Variants ---
-  // Glass effect: color-tinted bg/border using opacity, text from theme token.
-  // Base handles: backdrop-blur, shadow, inset highlight, transition.
-  {
-    variant: 'glaze',
-    color: 'primary',
-    class: { base: 'bg-primary/10 border-primary/25 text-primary hover:bg-primary/20' },
-  },
-  {
-    variant: 'glaze',
-    color: 'secondary',
-    class: { base: 'bg-secondary/10 border-secondary/25 text-secondary hover:bg-secondary/20' },
-  },
-  {
-    variant: 'glaze',
-    color: 'tertiary',
-    class: { base: 'bg-tertiary/10 border-tertiary/25 text-tertiary hover:bg-tertiary/20' },
-  },
-  {
-    variant: 'glaze',
-    color: 'success',
-    class: { base: 'bg-success/10 border-success/25 text-success hover:bg-success/20' },
-  },
-  {
-    variant: 'glaze',
-    color: 'warning',
-    class: { base: 'bg-warning/10 border-warning/25 text-warning hover:bg-warning/20' },
-  },
-  {
-    variant: 'glaze',
-    color: 'error',
-    class: { base: 'bg-error/10 border-error/25 text-error hover:bg-error/20' },
-  },
-  {
-    variant: 'glaze',
-    color: 'info',
-    class: { base: 'bg-info/10 border-info/25 text-info hover:bg-info/20' },
-  },
-  {
-    variant: 'glaze',
-    color: 'neutral',
-    class: { base: 'bg-neutral/10 border-neutral/25 text-neutral hover:bg-neutral/20' },
-  },
 
   // --- Icon Only Size Overrides ---
   { isIconOnly: true, size: 'xs', class: { base: 'size-7' } },

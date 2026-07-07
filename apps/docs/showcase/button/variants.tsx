@@ -10,7 +10,6 @@ export function Variants() {
       <Button variant="link">Link</Button>
       <Button variant="text">Text</Button>
       <Button variant="elevated">Elevated</Button>
-      <Button variant="glaze">Glaze</Button>
     </div>
   );
 }

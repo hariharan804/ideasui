@@ -141,9 +141,6 @@ export const Variants: Story = {
       <Button {...arguments_} variant="link">
         Link
       </Button>
-      <Button {...arguments_} className={'text-primary'} variant="glaze">
-        Glaze
-      </Button>
     </div>
   ),
 };
@@ -327,27 +324,6 @@ export const LoadingStates: Story = {
           variant="outline"
         >
           Custom Indicator
-        </Button>
-      </div>
-    </div>
-  ),
-};
-
-export const Glaze: Story = {
-  args: {
-    variant: 'glaze',
-    size: 'lg',
-  },
-  render: (arguments_) => (
-    <div className="relative overflow-hidden rounded-2xl bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center p-20">
-      <div className="absolute inset-0 bg-black/10" />
-      <div className="relative flex flex-wrap justify-center gap-6">
-        <Button {...arguments_}>Default Glaze</Button>
-        <Button {...arguments_} color="primary">
-          Primary Glaze
-        </Button>
-        <Button {...arguments_} color="success">
-          Success Glaze
         </Button>
       </div>
     </div>

@@ -173,23 +173,3 @@ export const MixedStyles: Story = {
     </Button.Group>
   ),
 };
-
-export const GlazeGroup: Story = {
-  args: {
-    variant: 'glaze',
-    color: 'primary',
-    radius: 'full',
-  },
-  render: (arguments_) => (
-    <div className="relative overflow-hidden rounded-2xl bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center p-12">
-      <div className="absolute inset-0 bg-black/10" />
-      <div className="relative">
-        <Button.Group {...arguments_}>
-          <Button>Explore</Button>
-          <Button>Trending</Button>
-          <Button>Popular</Button>
-        </Button.Group>
-      </div>
-    </div>
-  ),
-};
