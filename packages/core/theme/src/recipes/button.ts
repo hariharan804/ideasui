@@ -16,6 +16,7 @@ export const BEM_LINK = 'btn--link';
 export const BEM_SOFT = 'btn--soft';
 export const BEM_TEXT = 'btn--text';
 export const BEM_ELEVATED = 'btn--elevated';
+export const BEM_SURFACE = 'btn--surface';
 
 export const TRANSPARENT = 'bg-transparent';
 export const ROUNDED_MD = 'rounded-md';
@@ -47,7 +48,7 @@ const button = tv({
     icon: [BEM_ICON, 'shrink-0', 'inline-flex', 'items-center', 'justify-center'],
     label: [BEM_LABEL, 'truncate', 'inline-flex', 'items-center'],
     loader: [BEM_LOADER, 'shrink-0', 'inline-flex', 'items-center', 'justify-center'],
-    shortcut: ['ml-auto', 'text-sm', 'font-sans', 'tracking-widest', 'inline-flex', 'items-center'],
+    shortcut: ['ms-auto', 'text-sm', 'font-sans', 'tracking-widest', 'inline-flex', 'items-center'],
   },
   variants: {
     variant: {
@@ -71,6 +72,9 @@ const button = tv({
       },
       elevated: {
         base: [BEM_ELEVATED, 'bg-background', 'border', 'border-transparent'],
+      },
+      surface: {
+        base: [BEM_SURFACE, 'bg-neutral-muted'],
       },
     },
     size: {
@@ -106,13 +110,13 @@ const button = tv({
       neutral: { base: 'btn--neutral' },
     },
     elevation: {
-      none: { base: '' },
-      xs: { base: '' },
-      sm: { base: '' },
-      md: { base: '' },
-      lg: { base: '' },
-      xl: { base: '' },
-      '2xl': { base: '' },
+      none: '',
+      xs: '',
+      sm: '',
+      md: '',
+      lg: '',
+      xl: '',
+      '2xl': '',
     },
     radius: {
       none: { base: ROUNDED_NONE },
@@ -160,9 +164,18 @@ const button = tv({
         base: 'flex-col',
       },
     },
-    showDivider: {
-      true: {
+    divider: {
+      none: {},
+      full: {
         base: '[&:not(.btn--outline):not(:first-child)]:border-solid [&:not(.btn--outline):not(:first-child)]:border-current/20',
+      },
+      middle: {
+        base: [
+          '[&:not(:first-child)]:relative',
+          '[&:not(:first-child)]:before:content-[""]',
+          '[&:not(:first-child)]:before:absolute',
+          '[&:not(:first-child)]:before:bg-current/20',
+        ],
       },
     },
   },

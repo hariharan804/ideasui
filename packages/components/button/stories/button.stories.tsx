@@ -122,6 +122,9 @@ export const Variants: Story = {
       <Button {...arguments_} variant="solid">
         Solid
       </Button>
+      <Button {...arguments_} variant="surface">
+        Surface
+      </Button>
       <Button {...arguments_} variant="outline">
         Outline
       </Button>

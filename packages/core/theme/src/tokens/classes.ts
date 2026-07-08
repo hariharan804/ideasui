@@ -10,11 +10,11 @@ export const scrollbar = {
 } as const;
 
 export const interactions = {
-  hover: 'hover:brightness-95',
-  active: 'active:brightness-90',
+  hover: 'hover:brightness-92',
+  active: 'active:brightness-87',
 } as const;
 
 export const subtleInteractions = {
-  hover: 'hover:brightness-98',
-  active: 'active:brightness-96',
+  hover: 'hover:brightness-95',
+  active: 'active:brightness-92',
 } as const;

@@ -104,8 +104,8 @@
                   "isDeprecated": false
                 },
                 {
-                  "name": "showDivider",
-                  "type": "boolean",
+                  "name": "divider",
+                  "type": "\"full\" | \"middle\" | \"none\"",
                   "description": "",
                   "optional": true,
                   "isDeprecated": false
@@ -158,11 +158,11 @@
                   "isDeprecated": false
                 },
                 {
-                  "name": "showDivider",
-                  "type": "boolean",
+                  "name": "divider",
+                  "type": "\"full\" | \"middle\" | \"none\"",
                   "description": "Whether to show a divider between the buttons in the group.",
                   "optional": true,
-                  "default": "true (when isAttached is true)",
+                  "default": "\"full\" (when isAttached is true)",
                   "isDeprecated": false
                 },
                 {

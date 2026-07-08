@@ -25,10 +25,10 @@ export interface ButtonGroupProperties
    */
   isAttached?: boolean;
   /**
-   * Whether to show a divider between the buttons in the group.
-   * @default true (when isAttached is true)
+   * The type of divider to display between the buttons in the group.
+   * @default 'full' (when isAttached is true)
    */
-  showDivider?: boolean;
+  divider?: 'full' | 'middle' | 'none';
   /**
    * The content of the button group.
    */
@@ -48,8 +48,8 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProperties>(
       isVertical = false,
       radius = 'md',
       fullWidth,
-      disableAnimation = true,
-      showDivider,
+      disableAnimation = false,
+      divider = 'full',
       isIconOnly,
       ...properties
     },
@@ -66,7 +66,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProperties>(
         radius,
         fullWidth,
         disableAnimation,
-        showDivider,
+        divider,
         isIconOnly,
       }),
       [
@@ -79,7 +79,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProperties>(
         radius,
         fullWidth,
         disableAnimation,
-        showDivider,
+        divider,
         isIconOnly,
       ],
     );

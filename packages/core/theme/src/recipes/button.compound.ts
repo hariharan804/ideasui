@@ -11,35 +11,80 @@ export const compoundVariants = [
   // --- Attached Groups Overlap (1px) ---
   {
     isAttached: true,
-    variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link', 'outline'],
+    variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link', 'outline', 'surface'],
     isVertical: false,
     class: {
-      base: ['[&:not(:first-child)]:-ml-px'],
+      base: ['[&:not(:first-child)]:-ms-px'],
     },
   },
   {
     isAttached: true,
-    variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link', 'outline'],
+    variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link', 'outline', 'surface'],
     isVertical: true,
     class: {
-      base: ['[&:not(:first-child)]:-mt-px [&:not(:first-child)]:ml-0'],
+      base: ['[&:not(:first-child)]:-mt-px [&:not(:first-child)]:ms-0'],
     },
   },
   // --- Show Divider Logic ---
   {
-    showDivider: true,
-    variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link'],
+    divider: 'full',
+    variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link', 'surface'],
     isVertical: false,
     class: {
-      base: ['[&:not(:first-child)]:border-l-1'],
+      base: ['[&:not(:first-child)]:border-s-1'],
     },
   },
   {
-    showDivider: true,
-    variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link'],
+    divider: 'full',
+    variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link', 'surface'],
     isVertical: true,
     class: {
       base: ['[&:not(:first-child)]:border-t-1'],
+    },
+  },
+  {
+    divider: 'middle',
+    variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link', 'surface', 'outline'],
+    isVertical: false,
+    class: {
+      base: [
+        '[&:not(:first-child)]:before:start-0',
+        '[&:not(:first-child)]:before:top-[25%]',
+        '[&:not(:first-child)]:before:bottom-[25%]',
+        '[&:not(:first-child)]:before:w-px',
+      ],
+    },
+  },
+  {
+    divider: 'middle',
+    variant: ['solid', 'soft', 'ghost', 'elevated', 'text', 'link', 'surface', 'outline'],
+    isVertical: true,
+    class: {
+      base: [
+        '[&:not(:first-child)]:before:top-0',
+        '[&:not(:first-child)]:before:start-[25%]',
+        '[&:not(:first-child)]:before:end-[25%]',
+        '[&:not(:first-child)]:before:h-px',
+      ],
+    },
+  },
+  // --- Clear inner borders for outline and elevated groups when divider is middle or none ---
+  {
+    isAttached: true,
+    variant: ['outline', 'elevated'],
+    divider: ['middle', 'none'],
+    isVertical: false,
+    class: {
+      base: ['[&:not(:first-child)]:border-s-0', '[&:not(:last-child)]:border-e-0'],
+    },
+  },
+  {
+    isAttached: true,
+    variant: ['outline', 'elevated'],
+    divider: ['middle', 'none'],
+    isVertical: true,
+    class: {
+      base: ['[&:not(:first-child)]:border-t-0', '[&:not(:last-child)]:border-b-0'],
     },
   },
   // --- Attached Groups ---
@@ -48,7 +93,7 @@ export const compoundVariants = [
     isVertical: false,
     class: {
       base: [
-        'first:rounded-r-none last:rounded-l-none [:not(:first-child):not(:last-child)]:rounded-none',
+        'first:rounded-e-none last:rounded-s-none [:not(:first-child):not(:last-child)]:rounded-none',
       ],
     },
   },
@@ -59,6 +104,12 @@ export const compoundVariants = [
       base: [
         'first:rounded-b-none last:rounded-t-none [:not(:first-child):not(:last-child)]:rounded-none',
       ],
+    },
+  },
+  {
+    isAttached: true,
+    class: {
+      base: 'active:scale-100',
     },
   },
 
@@ -204,6 +255,48 @@ export const compoundVariants = [
     class: {
       base: `bg-neutral-muted text-on-neutral-muted ${subtleInteractions.hover} ${subtleInteractions.active}`,
     },
+  },
+
+  // --- Surface Variants ---
+  {
+    variant: 'surface',
+    color: 'primary',
+    class: { base: `text-primary ${subtleInteractions.hover} ${subtleInteractions.active}` },
+  },
+  {
+    variant: 'surface',
+    color: 'secondary',
+    class: { base: `text-secondary ${subtleInteractions.hover} ${subtleInteractions.active}` },
+  },
+  {
+    variant: 'surface',
+    color: 'tertiary',
+    class: { base: `text-tertiary ${subtleInteractions.hover} ${subtleInteractions.active}` },
+  },
+  {
+    variant: 'surface',
+    color: 'success',
+    class: { base: `text-success ${subtleInteractions.hover} ${subtleInteractions.active}` },
+  },
+  {
+    variant: 'surface',
+    color: 'warning',
+    class: { base: `text-warning ${subtleInteractions.hover} ${subtleInteractions.active}` },
+  },
+  {
+    variant: 'surface',
+    color: 'error',
+    class: { base: `text-error ${subtleInteractions.hover} ${subtleInteractions.active}` },
+  },
+  {
+    variant: 'surface',
+    color: 'info',
+    class: { base: `text-info ${subtleInteractions.hover} ${subtleInteractions.active}` },
+  },
+  {
+    variant: 'surface',
+    color: 'neutral',
+    class: { base: `text-neutral ${subtleInteractions.hover} ${subtleInteractions.active}` },
   },
 
   // --- Ghost Variants ---

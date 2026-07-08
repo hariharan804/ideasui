@@ -14,7 +14,7 @@ export interface ButtonGroupContextType {
   radius?: ButtonProperties['radius'];
   fullWidth?: boolean;
   disableAnimation?: boolean;
-  showDivider?: boolean;
+  divider?: ButtonProperties['divider'];
   isIconOnly?: boolean;
 }
 

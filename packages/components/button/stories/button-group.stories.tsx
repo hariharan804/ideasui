@@ -59,9 +59,10 @@ const meta: Meta<typeof Button.Group> = {
       control: 'boolean',
       description: 'Whether all buttons in the group should have animations disabled.',
     },
-    showDivider: {
-      control: 'boolean',
-      description: 'Whether to show a divider between the buttons.',
+    divider: {
+      control: 'select',
+      options: ['full', 'middle', 'none'],
+      description: 'The type of divider to display between the buttons.',
     },
   },
   args: {
@@ -73,8 +74,8 @@ const meta: Meta<typeof Button.Group> = {
     isVertical: false,
     isDisabled: false,
     fullWidth: false,
-    disableAnimation: true,
-    showDivider: true,
+    disableAnimation: false,
+    divider: 'full',
   },
 };
 
@@ -171,5 +172,46 @@ export const MixedStyles: Story = {
         <Trash2 className="size-4" />
       </Button>
     </Button.Group>
+  ),
+};
+
+/* -----------------------------------------------------------------------------------------------
+ * Divider Variations
+ * ---------------------------------------------------------------------------------------------*/
+
+export const Dividers: Story = {
+  args: {
+    divider: 'middle',
+  },
+
+  render: (arguments_) => (
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
+        <span className="text-muted text-sm font-medium">Full Divider (default)</span>
+        <Button.Group {...arguments_} divider="full">
+          <Button>Action 1</Button>
+          <Button>Action 2</Button>
+          <Button>Action 3</Button>
+        </Button.Group>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <span className="text-muted text-sm font-medium">Middle Inset Divider</span>
+        <Button.Group {...arguments_} divider="middle">
+          <Button>Action 1</Button>
+          <Button>Action 2</Button>
+          <Button>Action 3</Button>
+        </Button.Group>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <span className="text-muted text-sm font-medium">No Divider</span>
+        <Button.Group {...arguments_} divider="none">
+          <Button>Action 1</Button>
+          <Button>Action 2</Button>
+          <Button>Action 3</Button>
+        </Button.Group>
+      </div>
+    </div>
   ),
 };

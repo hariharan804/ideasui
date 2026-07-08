@@ -18,7 +18,7 @@ export default function ButtonGroupDisabled() {
             </Button.Icon>
             Undo
           </Button>
-          <Button>
+          <Button color="primary">
             <Button.Icon placement="start">
               <Redo className="size-4" />
             </Button.Icon>

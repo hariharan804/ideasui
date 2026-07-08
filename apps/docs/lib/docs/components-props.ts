@@ -87,12 +87,12 @@ export const propsDocumentation: PropsDocumentation = {
           description: 'The shortcut keys to display.',
         },
         {
-          name: 'showDivider',
-          type: 'boolean',
+          name: 'divider',
+          type: '"full" | "middle" | "none"',
           required: false,
-          defaultValue: 'true (when isAttached is true)',
+          defaultValue: "'full' (when isAttached is true)",
           deprecated: false,
-          description: 'Whether to show a divider between the buttons in a group.',
+          description: 'The type of divider to display between the buttons in a group.',
         },
         {
           name: 'classNames',
@@ -236,12 +236,12 @@ export const propsDocumentation: PropsDocumentation = {
           description: 'Whether the buttons in the group should be joined together without gaps.',
         },
         {
-          name: 'showDivider',
-          type: 'boolean',
+          name: 'divider',
+          type: '"full" | "middle" | "none"',
           required: false,
-          defaultValue: 'true (when isAttached is true)',
+          defaultValue: "'full' (when isAttached is true)",
           deprecated: false,
-          description: 'Whether to show a divider between the buttons in the group.',
+          description: 'The type of divider to display between the buttons in the group.',
         },
         {
           name: 'children',

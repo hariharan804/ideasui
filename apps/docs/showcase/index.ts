@@ -108,6 +108,10 @@ export const demos: Record<string, DemoItem> = {
     component: ButtonDemos.ButtonGroupDisabled,
     file: 'button/button-group-disabled.tsx',
   },
+  'button-group-dividers': {
+    component: ButtonDemos.ButtonGroupDividers,
+    file: 'button/button-group-dividers.tsx',
+  },
 };
 
 export function getDemo(name: string): DemoItem | undefined {

@@ -261,7 +261,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProperties>(
       isAttached: merged.isAttached,
       isVertical: merged.isVertical,
       elevation: merged.elevation,
-      showDivider: merged.showDivider ?? merged.isAttached,
+      divider: merged.divider || (merged.isAttached ? 'full' : 'none'),
     });
 
     // Context value - React Compiler will optimize this automatically

@@ -6,6 +6,7 @@ export const variantOptions = [
   'link',
   'text',
   'elevated',
+  'surface',
 ] as const;
 
 export const colorOptions = [
