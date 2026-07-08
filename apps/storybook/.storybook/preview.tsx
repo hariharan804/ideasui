@@ -1,4 +1,13 @@
-import React from 'react';
+import { scan } from 'react-scan';
+
+if (typeof window !== 'undefined') {
+  scan({
+    enabled: true,
+    showToolbar: true,
+    log: false,
+  });
+}
+
 import type { Preview } from '@storybook/react-vite';
 import '@fontsource/inter/400.css';
 import '@fontsource/inter/500.css';

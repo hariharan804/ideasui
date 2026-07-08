@@ -1,2 +1,5 @@
 .vercel
 storybook-static
+*.log
+.turbo
+node_modules

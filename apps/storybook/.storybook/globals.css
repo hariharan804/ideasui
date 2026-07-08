@@ -16,6 +16,8 @@
 @source '../../../node_modules/@ideasui/theme/dist/**/*.{js,ts,jsx,tsx,css}';
 
 body {
+  background-color: oklch(var(--ideasui-color-background, 1 0 0)) !important;
+  color: oklch(var(--ideasui-color-content-primary, 0.18 0.008 260)) !important;
   font-family:
     Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
@@ -24,8 +26,222 @@ body {
 [data-reduce-motion='true'] *,
 [data-reduce-motion='true'] *::before,
 [data-reduce-motion='true'] *::after {
-  animation-duration: 0.01ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 0.01ms !important;
+  animation: none !important;
+  transition: none !important;
   scroll-behavior: auto !important;
+}
+
+[data-reduce-motion='true'] *:active {
+  transform: none !important;
+  scale: none !important;
+}
+
+.sbdocs-wrapper {
+  background-color: oklch(var(--ideasui-color-background)) !important;
+  color: oklch(var(--ideasui-color-content-primary)) !important;
+}
+.sbdocs-title {
+  color: oklch(var(--ideasui-color-content-primary)) !important;
+}
+
+.sbdocs-content p {
+  color: oklch(var(--ideasui-color-content-secondary)) !important;
+}
+
+.sb-anchor h3,
+.sb-anchor h2,
+.sb-anchor h1 {
+  color: oklch(var(--ideasui-color-content-secondary)) !important;
+}
+
+.sb-anchor p,
+.sb-anchor li {
+  color: oklch(var(--ideasui-color-content-secondary)) !important;
+}
+
+.sbdocs-preview {
+  border-color: oklch(var(--ideasui-color-border-strong)) !important;
+  box-shadow: none !important;
+}
+.docs-story,
+[role='toolbar'] {
+  background-color: oklch(var(--ideasui-color-surface, 1)) !important;
+  box-shadow: oklch(var(--ideasui-color-border-base)) 0px -1px 0px 0px inset !important;
+}
+
+/* Storybook Docblock ArgsTable Styling using Ideas UI tokens */
+.docblock-argstable {
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  border: none !important;
+  border-radius: var(--ideasui-radius-lg) !important;
+  overflow: hidden !important;
+  background-color: oklch(var(--ideasui-color-surface)) !important;
+  margin: var(--ideasui-spacing-6) 0 !important;
+}
+
+.docblock-argstable-head th {
+  background-color: oklch(var(--ideasui-color-surface-subtle)) !important;
+  color: oklch(var(--ideasui-color-content-secondary)) !important;
+  font-family: var(--ideasui-font-sans) !important;
+  font-size: var(--ideasui-font-size-xs) !important;
+  font-weight: var(--ideasui-font-weight-semibold) !important;
+  text-transform: uppercase !important;
+  letter-spacing: var(--ideasui-tracking-wider) !important;
+  padding: var(--ideasui-spacing-3) var(--ideasui-spacing-4) !important;
+  border-bottom: none !important;
+  text-align: left !important;
+}
+
+.docblock-argstable-body tr {
+  transition: background-color var(--ideasui-duration-normal) var(--ideasui-easing-standard) !important;
+}
+
+.docblock-argstable-body tr:hover {
+  background-color: oklch(var(--ideasui-color-surface-subtle) / 0.5) !important;
+}
+
+.docblock-argstable-body td {
+  padding: var(--ideasui-spacing-4) !important;
+  border: none !important;
+  vertical-align: top !important;
+  font-size: var(--ideasui-font-size-sm) !important;
+  color: oklch(var(--ideasui-color-content-primary)) !important;
+  background: transparent !important;
+}
+
+/* Last row doesn't need bottom border */
+.docblock-argstable-body tr:last-child td {
+  border-bottom: none !important;
+}
+
+/* Prop Name Column */
+.docblock-argstable-body td:first-child span,
+.docblock-argstable-body td:first-child {
+  font-weight: var(--ideasui-font-weight-semibold) !important;
+  color: oklch(var(--ideasui-color-primary-500)) !important;
+  font-family: var(--ideasui-font-sans) !important;
+}
+
+/* Prop Type badge styling */
+.docblock-argstable-body td:nth-child(2) div:nth-child(2) span,
+.docblock-argstable-body td:nth-child(2) div + div span {
+  font-family: var(--ideasui-font-mono) !important;
+  font-size: var(--ideasui-font-size-2xs) !important;
+  background-color: oklch(var(--ideasui-color-surface-subtle)) !important;
+  color: oklch(var(--ideasui-color-content-secondary)) !important;
+  border: var(--ideasui-border-thin) solid oklch(var(--ideasui-color-border-subtle)) !important;
+  padding: var(--ideasui-spacing-1) var(--ideasui-spacing-2) !important;
+  border-radius: var(--ideasui-radius-sm) !important;
+  display: inline-block !important;
+  margin-top: var(--ideasui-spacing-2) !important;
+}
+
+/* Default Value Column */
+.docblock-argstable-body td:nth-child(3) span,
+.docblock-argstable-body td:nth-child(3) {
+  font-family: var(--ideasui-font-mono) !important;
+  font-size: var(--ideasui-font-size-xs) !important;
+  color: oklch(var(--ideasui-color-content-tertiary)) !important;
+}
+
+/* Controls Column styling (Inputs, Selects, Buttons) */
+.docblock-argstable-body td:nth-child(4) {
+  min-width: 200px !important;
+}
+
+/* Custom Select Control styling */
+.docblock-argstable-body td:nth-child(4) select,
+.docblock-argstable select {
+  appearance: none !important;
+  background-color: oklch(var(--ideasui-color-surface)) !important;
+  border: var(--ideasui-border-thin) solid oklch(var(--ideasui-color-border-base)) !important;
+  border-radius: var(--ideasui-radius-md) !important;
+  color: oklch(var(--ideasui-color-content-primary)) !important;
+  font-family: var(--ideasui-font-sans) !important;
+  font-size: var(--ideasui-font-size-sm) !important;
+  font-weight: var(--ideasui-font-weight-medium) !important;
+  padding: var(--ideasui-spacing-2) var(--ideasui-spacing-8) var(--ideasui-spacing-2)
+    var(--ideasui-spacing-3) !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  transition: all var(--ideasui-duration-fast) var(--ideasui-easing-standard) !important;
+  background-image: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.854 4.896a.5.5 0 10-.708.708l3.5 3.5a.5.5 0 00.708 0l3.5-3.5a.5.5 0 00-.708-.708L7 8.043 3.854 4.896z' fill='currentColor'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right var(--ideasui-spacing-2) center !important;
+}
+
+.docblock-argstable-body td:nth-child(4) select:hover,
+.docblock-argstable select:hover {
+  border-color: oklch(var(--ideasui-color-border-strong)) !important;
+  background-color: oklch(var(--ideasui-color-surface-subtle)) !important;
+}
+
+.docblock-argstable-body td:nth-child(4) select:focus,
+.docblock-argstable select:focus {
+  outline: none !important;
+  border-color: oklch(var(--ideasui-color-border-focus)) !important;
+}
+
+/* Custom Textarea / Input Control styling */
+.docblock-argstable-body td:nth-child(4) textarea,
+.docblock-argstable textarea {
+  background-color: oklch(var(--ideasui-color-surface)) !important;
+  border: var(--ideasui-border-thin) solid oklch(var(--ideasui-color-border-base)) !important;
+  border-radius: var(--ideasui-radius-md) !important;
+  color: oklch(var(--ideasui-color-content-primary)) !important;
+  font-family: var(--ideasui-font-sans) !important;
+  font-size: var(--ideasui-font-size-sm) !important;
+  padding: var(--ideasui-spacing-2) var(--ideasui-spacing-3) !important;
+  width: 100% !important;
+  min-height: 38px !important;
+  resize: vertical !important;
+  transition: all var(--ideasui-duration-fast) var(--ideasui-easing-standard) !important;
+}
+
+.docblock-argstable-body td:nth-child(4) textarea:hover,
+.docblock-argstable textarea:hover {
+  border-color: oklch(var(--ideasui-color-border-strong)) !important;
+}
+
+.docblock-argstable-body td:nth-child(4) textarea:focus,
+.docblock-argstable textarea:focus {
+  outline: none !important;
+  border-color: oklch(var(--ideasui-color-border-focus)) !important;
+}
+
+/* Custom Switch / Toggle Control styling */
+.docblock-argstable-body td:nth-child(4) label,
+.docblock-argstable label[role='switch'] {
+  display: inline-flex !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  user-select: none !important;
+}
+
+/* Custom Button Control styling */
+.docblock-argstable-body td:nth-child(4) button,
+.docblock-argstable button {
+  background-color: oklch(var(--ideasui-color-surface)) !important;
+  border: var(--ideasui-border-thin) solid oklch(var(--ideasui-color-border-base)) !important;
+  border-radius: var(--ideasui-radius-md) !important;
+  color: oklch(var(--ideasui-color-content-primary)) !important;
+  font-family: var(--ideasui-font-sans) !important;
+  font-size: var(--ideasui-font-size-sm) !important;
+  font-weight: var(--ideasui-font-weight-medium) !important;
+  padding: var(--ideasui-spacing-2) var(--ideasui-spacing-4) !important;
+  cursor: pointer !important;
+  transition: all var(--ideasui-duration-fast) var(--ideasui-easing-standard) !important;
+}
+
+.docblock-argstable-body td:nth-child(4) button:hover,
+.docblock-argstable button:hover {
+  border-color: oklch(var(--ideasui-color-border-strong)) !important;
+  background-color: oklch(var(--ideasui-color-surface-subtle)) !important;
+}
+
+.docblock-argstable-body td:nth-child(4) button:active,
+.docblock-argstable button:active {
+  background-color: oklch(var(--ideasui-color-surface-muted)) !important;
 }

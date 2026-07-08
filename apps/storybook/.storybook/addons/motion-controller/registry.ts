@@ -16,12 +16,12 @@ export interface ReduceMotionOption {
 export const REDUCE_MOTION_OPTIONS: ReduceMotionOption[] = [
   {
     value: 'false',
-    title: 'Motion On',
+    title: 'Animation Enabled',
     icon: 'play',
   },
   {
     value: 'true',
-    title: 'Motion Reduced',
+    title: 'Animation Disabled',
     icon: 'stop',
   },
 ];

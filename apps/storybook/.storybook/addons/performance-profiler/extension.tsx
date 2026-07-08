@@ -1,7 +1,7 @@
 import type { Decorator } from '@storybook/react-vite';
 
 import React, { useEffect, useMemo } from 'react';
-import { scan } from 'react-scan';
+import { setOptions } from 'react-scan';
 import { useGlobals } from 'storybook/preview-api';
 
 import { REACT_SCAN_GLOBAL_TYPE_ID } from './registry';
@@ -19,8 +19,9 @@ export const withReactScan: Decorator = (Story) => {
   );
 
   useEffect(() => {
-    scan({
+    setOptions({
       enabled: isEnabled,
+      showToolbar: isEnabled,
     });
   }, [isEnabled]);
 
