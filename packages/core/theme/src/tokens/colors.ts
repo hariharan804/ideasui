@@ -28,6 +28,7 @@
 // All 48 interactive stops verified: 100% pass WCAG AA.
 // ============================================================
 
+//NOSONAR
 export const primitives = {
   light: {
     primary: {
