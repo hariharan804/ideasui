@@ -129,7 +129,12 @@ export const Spacing: Story = {
             >
               <div className="text-content-primary w-16 font-mono text-sm font-semibold">{key}</div>
               <div className="text-content-tertiary w-20 font-mono text-xs">{value}</div>
-              <div className="bg-primary-500 h-4 rounded-full" style={{ width: value }} />
+              <div className="min-w-0 flex-1">
+                <div
+                  className="bg-primary-500 h-4 max-w-full rounded-full"
+                  style={{ width: value }}
+                />
+              </div>
             </div>
           ))}
         </div>
@@ -385,14 +390,14 @@ export const ZIndex: Story = {
               .filter(([key]) => key !== 'hide')
               .sort((a, b) => (a[1] as number) - (b[1] as number))
               .map(([key, value], index, array) => {
-                const leftOffset = array.length > 1 ? (index * 60) / (array.length - 1) : 0;
-                const topOffset = array.length > 1 ? (index * 60) / (array.length - 1) : 0;
+                const leftOffset = array.length > 1 ? (index * 40) / (array.length - 1) : 0;
+                const topOffset = array.length > 1 ? (index * 40) / (array.length - 1) : 0;
 
                 return (
                   <div
                     key={key}
                     aria-hidden="true"
-                    className="absolute flex h-24 w-40 cursor-pointer flex-col justify-center rounded-xl border border-white/40 p-4 shadow-lg backdrop-blur-md transition-transform hover:-translate-y-12 hover:scale-105"
+                    className="absolute flex h-20 w-28 cursor-pointer flex-col justify-center rounded-xl border border-white/40 p-2 shadow-lg backdrop-blur-md transition-transform hover:-translate-y-12 hover:scale-105 sm:h-24 sm:w-40 sm:p-4"
                     style={{
                       zIndex: value as number,
                       left: `calc(10% + ${leftOffset}%)`,
@@ -536,12 +541,12 @@ export const Typography: Story = {
             return (
               <div
                 key={key}
-                className="bg-surface-DEFAULT hover:border-primary-200 flex items-center gap-6 rounded-xl border border-neutral-200 p-5 transition-colors"
+                className="bg-surface-DEFAULT hover:border-primary-200 flex flex-col items-start gap-4 rounded-xl border border-neutral-200 p-5 transition-colors sm:flex-row sm:items-center sm:gap-6"
               >
                 <div className="text-content-primary w-16 font-mono text-sm font-semibold">
                   {key}
                 </div>
-                <div className="flex h-24 flex-1 items-center overflow-hidden border-l border-neutral-100 pl-6">
+                <div className="flex h-20 w-full flex-1 items-center overflow-hidden border-t border-neutral-100 pt-4 sm:h-24 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-6">
                   <div
                     className="text-content-primary truncate"
                     style={{
@@ -552,7 +557,7 @@ export const Typography: Story = {
                     The quick brown fox
                   </div>
                 </div>
-                <div className="text-content-tertiary min-w-24 text-right text-xs">
+                <div className="text-content-tertiary w-full border-t border-neutral-100 pt-2 text-left text-xs sm:w-auto sm:min-w-24 sm:border-t-0 sm:pt-0 sm:text-right">
                   <div className="font-mono">size: {fontSizeValue}</div>
                   <div className="mt-1 font-mono">line: {lineHeight}</div>
                 </div>

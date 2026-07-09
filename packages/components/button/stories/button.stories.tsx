@@ -150,7 +150,7 @@ export const Variants: Story = {
 export const Colors: Story = {
   parameters: { controls: { disable: true } },
   render: (arguments_) => (
-    <div className="storybook-button-colors grid grid-cols-3 gap-4">
+    <div className="storybook-button-colors grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
       <Button {...arguments_} color="primary">
         Primary
       </Button>
@@ -182,7 +182,7 @@ export const Colors: Story = {
 export const Sizes: Story = {
   parameters: { controls: { disable: true } },
   render: (arguments_) => (
-    <div className="storybook-button-sizes flex items-center gap-4">
+    <div className="storybook-button-sizes flex flex-wrap items-center gap-4">
       <Button {...arguments_} size="xs">
         XS
       </Button>

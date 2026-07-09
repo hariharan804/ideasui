@@ -7,7 +7,7 @@
 
 import { interactions, subtleInteractions } from '../tokens';
 
-export const compoundVariants = [
+const attachedAndDividerVariants = [
   // --- Attached Groups Overlap (1px) ---
   {
     isAttached: true,
@@ -112,330 +112,147 @@ export const compoundVariants = [
       base: 'active:scale-100',
     },
   },
+] as const;
 
-  // --- Variant / Color Mappings ---
+// Static string literals mapped by color so the Tailwind CSS compiler can scan and extract them
+const colorClasses = {
+  primary: {
+    solid: 'bg-primary',
+    outline: 'border-primary text-primary hover:bg-primary-subtle',
+    soft: 'bg-primary-muted text-on-primary-muted',
+    surface: 'text-primary',
+    ghost: 'text-primary hover:bg-primary-subtle',
+    link: 'text-primary hover:opacity-80',
+    text: 'text-primary hover:bg-primary-subtle',
+    elevated: 'text-primary border-primary/10 hover:bg-primary-subtle',
+  },
+  secondary: {
+    solid: 'bg-secondary',
+    outline: 'border-secondary text-secondary hover:bg-secondary-subtle',
+    soft: 'bg-secondary-muted text-on-secondary-muted',
+    surface: 'text-secondary',
+    ghost: 'text-secondary hover:bg-secondary-subtle',
+    link: 'text-secondary hover:opacity-80',
+    text: 'text-secondary hover:bg-secondary-subtle',
+    elevated: 'text-secondary border-secondary/10 hover:bg-secondary-subtle',
+  },
+  tertiary: {
+    solid: 'bg-tertiary',
+    outline: 'border-tertiary text-tertiary hover:bg-tertiary-subtle',
+    soft: 'bg-tertiary-muted text-on-tertiary-muted',
+    surface: 'text-tertiary',
+    ghost: 'text-tertiary hover:bg-tertiary-subtle',
+    link: 'text-tertiary hover:opacity-80',
+    text: 'text-tertiary hover:bg-tertiary-subtle',
+    elevated: 'text-tertiary border-tertiary/10 hover:bg-tertiary-subtle',
+  },
+  success: {
+    solid: 'bg-success',
+    outline: 'border-success text-success hover:bg-success-subtle',
+    soft: 'bg-success-muted text-on-success-muted',
+    surface: 'text-success',
+    ghost: 'text-success hover:bg-success-subtle',
+    link: 'text-success hover:opacity-80',
+    text: 'text-success hover:bg-success-subtle',
+    elevated: 'text-success border-success/10 hover:bg-success-subtle',
+  },
+  warning: {
+    solid: 'bg-warning',
+    outline: 'border-warning text-warning hover:bg-warning-subtle',
+    soft: 'bg-warning-muted text-on-warning-muted',
+    surface: 'text-warning',
+    ghost: 'text-warning hover:bg-warning-subtle',
+    link: 'text-warning hover:opacity-80',
+    text: 'text-warning hover:bg-warning-subtle',
+    elevated: 'text-warning border-warning/10 hover:bg-warning-subtle',
+  },
+  error: {
+    solid: 'bg-error',
+    outline: 'border-error text-error hover:bg-error-subtle',
+    soft: 'bg-error-muted text-on-error-muted',
+    surface: 'text-error',
+    ghost: 'text-error hover:bg-error-subtle',
+    link: 'text-error hover:opacity-80',
+    text: 'text-error hover:bg-error-subtle',
+    elevated: 'text-error border-error/10 hover:bg-error-subtle',
+  },
+  info: {
+    solid: 'bg-info',
+    outline: 'border-info text-info hover:bg-info-subtle',
+    soft: 'bg-info-muted text-on-info-muted',
+    surface: 'text-info',
+    ghost: 'text-info hover:bg-info-subtle',
+    link: 'text-info hover:opacity-80',
+    text: 'text-info hover:bg-info-subtle',
+    elevated: 'text-info border-info/10 hover:bg-info-subtle',
+  },
+  neutral: {
+    solid: 'bg-neutral',
+    outline: 'border-neutral text-neutral hover:bg-neutral-subtle',
+    soft: 'bg-neutral-muted text-on-neutral-muted',
+    surface: 'text-neutral',
+    ghost: 'text-neutral hover:bg-neutral-subtle',
+    link: 'text-neutral hover:opacity-80',
+    text: 'text-neutral hover:bg-neutral-subtle',
+    elevated: 'text-neutral border-neutral/10 hover:bg-neutral-subtle',
+  },
+} as const;
 
-  // --- Solid Variants ---
-  {
-    variant: 'solid',
-    color: 'primary',
-    class: { base: `bg-primary ${interactions.hover} ${interactions.active}` },
-  },
-  {
-    variant: 'solid',
-    color: 'secondary',
-    class: { base: `bg-secondary ${interactions.hover} ${interactions.active}` },
-  },
-  {
-    variant: 'solid',
-    color: 'tertiary',
-    class: { base: `bg-tertiary ${interactions.hover} ${interactions.active}` },
-  },
-  {
-    variant: 'solid',
-    color: 'success',
-    class: { base: `bg-success ${interactions.hover} ${interactions.active}` },
-  },
-  {
-    variant: 'solid',
-    color: 'warning',
-    class: { base: `bg-warning ${interactions.hover} ${interactions.active}` },
-  },
-  {
-    variant: 'solid',
-    color: 'error',
-    class: { base: `bg-error ${interactions.hover} ${interactions.active}` },
-  },
-  {
-    variant: 'solid',
-    color: 'info',
-    class: { base: `bg-info ${interactions.hover} ${interactions.active}` },
-  },
-  {
-    variant: 'solid',
-    color: 'neutral',
-    class: { base: `bg-neutral ${interactions.hover} ${interactions.active}` },
-  },
+type ColorKey = keyof typeof colorClasses;
+const colors = Object.keys(colorClasses) as ColorKey[];
 
-  // --- Outline Variants ---
-  {
-    variant: 'outline',
-    color: 'primary',
-    class: { base: 'border-primary text-primary hover:bg-primary-subtle' },
-  },
-  {
-    variant: 'outline',
-    color: 'secondary',
-    class: { base: 'border-secondary text-secondary hover:bg-secondary-subtle' },
-  },
-  {
-    variant: 'outline',
-    color: 'tertiary',
-    class: { base: 'border-tertiary text-tertiary hover:bg-tertiary-subtle' },
-  },
-  {
-    variant: 'outline',
-    color: 'success',
-    class: { base: 'border-success text-success hover:bg-success-subtle' },
-  },
-  {
-    variant: 'outline',
-    color: 'warning',
-    class: { base: 'border-warning text-warning hover:bg-warning-subtle' },
-  },
-  {
-    variant: 'outline',
-    color: 'error',
-    class: { base: 'border-error text-error hover:bg-error-subtle' },
-  },
-  {
-    variant: 'outline',
-    color: 'info',
-    class: { base: 'border-info text-info hover:bg-info-subtle' },
-  },
-  {
-    variant: 'outline',
-    color: 'neutral',
-    class: { base: 'border-neutral text-neutral hover:bg-neutral-subtle' },
-  },
+const colorMappedVariants = colors.flatMap((color) => {
+  const classes = colorClasses[color];
 
-  // --- Soft Variants ---
-  {
-    variant: 'soft',
-    color: 'primary',
-    class: {
-      base: `bg-primary-muted text-on-primary-muted ${subtleInteractions.hover} ${subtleInteractions.active}`,
+  return [
+    {
+      variant: 'solid',
+      color,
+      class: { base: `${classes.solid} ${interactions.hover} ${interactions.active}` },
     },
-  },
-  {
-    variant: 'soft',
-    color: 'secondary',
-    class: {
-      base: `bg-secondary-muted text-on-secondary-muted ${subtleInteractions.hover} ${subtleInteractions.active}`,
+    {
+      variant: 'outline',
+      color,
+      class: { base: classes.outline },
     },
-  },
-  {
-    variant: 'soft',
-    color: 'tertiary',
-    class: {
-      base: `bg-tertiary-muted text-on-tertiary-muted ${subtleInteractions.hover} ${subtleInteractions.active}`,
+    {
+      variant: 'soft',
+      color,
+      class: {
+        base: `${classes.soft} ${subtleInteractions.hover} ${subtleInteractions.active}`,
+      },
     },
-  },
-  {
-    variant: 'soft',
-    color: 'success',
-    class: {
-      base: `bg-success-muted text-on-success-muted ${subtleInteractions.hover} ${subtleInteractions.active}`,
+    {
+      variant: 'surface',
+      color,
+      class: {
+        base: `${classes.surface} ${subtleInteractions.hover} ${subtleInteractions.active}`,
+      },
     },
-  },
-  {
-    variant: 'soft',
-    color: 'warning',
-    class: {
-      base: `bg-warning-muted text-on-warning-muted ${subtleInteractions.hover} ${subtleInteractions.active}`,
+    {
+      variant: 'ghost',
+      color,
+      class: { base: classes.ghost },
     },
-  },
-  {
-    variant: 'soft',
-    color: 'error',
-    class: {
-      base: `bg-error-muted text-on-error-muted ${subtleInteractions.hover} ${subtleInteractions.active}`,
+    {
+      variant: 'link',
+      color,
+      class: { base: classes.link },
     },
-  },
-  {
-    variant: 'soft',
-    color: 'info',
-    class: {
-      base: `bg-info-muted text-on-info-muted ${subtleInteractions.hover} ${subtleInteractions.active}`,
+    {
+      variant: 'text',
+      color,
+      class: { base: classes.text },
     },
-  },
-  {
-    variant: 'soft',
-    color: 'neutral',
-    class: {
-      base: `bg-neutral-muted text-on-neutral-muted ${subtleInteractions.hover} ${subtleInteractions.active}`,
+    {
+      variant: 'elevated',
+      color,
+      class: { base: classes.elevated },
     },
-  },
+  ];
+});
 
-  // --- Surface Variants ---
-  {
-    variant: 'surface',
-    color: 'primary',
-    class: { base: `text-primary ${subtleInteractions.hover} ${subtleInteractions.active}` },
-  },
-  {
-    variant: 'surface',
-    color: 'secondary',
-    class: { base: `text-secondary ${subtleInteractions.hover} ${subtleInteractions.active}` },
-  },
-  {
-    variant: 'surface',
-    color: 'tertiary',
-    class: { base: `text-tertiary ${subtleInteractions.hover} ${subtleInteractions.active}` },
-  },
-  {
-    variant: 'surface',
-    color: 'success',
-    class: { base: `text-success ${subtleInteractions.hover} ${subtleInteractions.active}` },
-  },
-  {
-    variant: 'surface',
-    color: 'warning',
-    class: { base: `text-warning ${subtleInteractions.hover} ${subtleInteractions.active}` },
-  },
-  {
-    variant: 'surface',
-    color: 'error',
-    class: { base: `text-error ${subtleInteractions.hover} ${subtleInteractions.active}` },
-  },
-  {
-    variant: 'surface',
-    color: 'info',
-    class: { base: `text-info ${subtleInteractions.hover} ${subtleInteractions.active}` },
-  },
-  {
-    variant: 'surface',
-    color: 'neutral',
-    class: { base: `text-neutral ${subtleInteractions.hover} ${subtleInteractions.active}` },
-  },
-
-  // --- Ghost Variants ---
-  {
-    variant: 'ghost',
-    color: 'primary',
-    class: { base: 'text-primary hover:bg-primary-subtle' },
-  },
-  {
-    variant: 'ghost',
-    color: 'secondary',
-    class: { base: 'text-secondary hover:bg-secondary-subtle' },
-  },
-  {
-    variant: 'ghost',
-    color: 'tertiary',
-    class: { base: 'text-tertiary hover:bg-tertiary-subtle' },
-  },
-  {
-    variant: 'ghost',
-    color: 'success',
-    class: { base: 'text-success hover:bg-success-subtle' },
-  },
-  {
-    variant: 'ghost',
-    color: 'warning',
-    class: { base: 'text-warning hover:bg-warning-subtle' },
-  },
-  {
-    variant: 'ghost',
-    color: 'error',
-    class: { base: 'text-error hover:bg-error-subtle' },
-  },
-  { variant: 'ghost', color: 'info', class: { base: 'text-info hover:bg-info-subtle' } },
-  {
-    variant: 'ghost',
-    color: 'neutral',
-    class: { base: 'text-neutral hover:bg-neutral-subtle' },
-  },
-
-  // --- Link Variants ---
-  {
-    variant: 'link',
-    color: 'primary',
-    class: { base: 'text-primary hover:opacity-80' },
-  },
-  {
-    variant: 'link',
-    color: 'secondary',
-    class: { base: 'text-secondary hover:opacity-80' },
-  },
-  {
-    variant: 'link',
-    color: 'tertiary',
-    class: { base: 'text-tertiary hover:opacity-80' },
-  },
-  {
-    variant: 'link',
-    color: 'success',
-    class: { base: 'text-success hover:opacity-80' },
-  },
-  {
-    variant: 'link',
-    color: 'warning',
-    class: { base: 'text-warning hover:opacity-80' },
-  },
-  {
-    variant: 'link',
-    color: 'error',
-    class: { base: 'text-error hover:opacity-80' },
-  },
-  {
-    variant: 'link',
-    color: 'info',
-    class: { base: 'text-info hover:opacity-80' },
-  },
-  {
-    variant: 'link',
-    color: 'neutral',
-    class: { base: 'text-neutral hover:opacity-80' },
-  },
-
-  // --- Text Variants ---
-  // Soft hover background — only colored text on normal state.
-  { variant: 'text', color: 'primary', class: { base: 'text-primary hover:bg-primary-subtle' } },
-  {
-    variant: 'text',
-    color: 'secondary',
-    class: { base: 'text-secondary hover:bg-secondary-subtle' },
-  },
-  { variant: 'text', color: 'tertiary', class: { base: 'text-tertiary hover:bg-tertiary-subtle' } },
-  { variant: 'text', color: 'success', class: { base: 'text-success hover:bg-success-subtle' } },
-  { variant: 'text', color: 'warning', class: { base: 'text-warning hover:bg-warning-subtle' } },
-  { variant: 'text', color: 'error', class: { base: 'text-error hover:bg-error-subtle' } },
-  { variant: 'text', color: 'info', class: { base: 'text-info hover:bg-info-subtle' } },
-  { variant: 'text', color: 'neutral', class: { base: 'text-neutral hover:bg-neutral-subtle' } },
-
-  // --- Elevated Variants ---
-  {
-    variant: 'elevated',
-    color: 'primary',
-    class: { base: 'text-primary border-primary/10 hover:bg-primary-subtle' },
-  },
-  {
-    variant: 'elevated',
-    color: 'secondary',
-    class: { base: 'text-secondary border-secondary/10 hover:bg-secondary-subtle' },
-  },
-  {
-    variant: 'elevated',
-    color: 'tertiary',
-    class: { base: 'text-tertiary border-tertiary/10 hover:bg-tertiary-subtle' },
-  },
-  {
-    variant: 'elevated',
-    color: 'success',
-    class: { base: 'text-success border-success/10 hover:bg-success-subtle' },
-  },
-  {
-    variant: 'elevated',
-    color: 'warning',
-    class: { base: 'text-warning border-warning/10 hover:bg-warning-subtle' },
-  },
-  {
-    variant: 'elevated',
-    color: 'error',
-    class: { base: 'text-error border-error/10 hover:bg-error-subtle' },
-  },
-  {
-    variant: 'elevated',
-    color: 'info',
-    class: { base: 'text-info border-info/10 hover:bg-info-subtle' },
-  },
-  {
-    variant: 'elevated',
-    color: 'neutral',
-    class: { base: 'text-neutral border-neutral/10 hover:bg-neutral-subtle' },
-  },
-
+const shadowAndSizeVariants = [
   // --- Elevated Variant Shadows ---
   { variant: 'elevated', elevation: 'none', class: { base: 'shadow-none' } },
   {
@@ -476,3 +293,9 @@ export const compoundVariants = [
   { isIconOnly: true, size: 'lg', class: { base: 'size-12' } },
   { isIconOnly: true, size: 'xl', class: { base: 'size-14' } },
 ] as const;
+
+export const compoundVariants = [
+  ...attachedAndDividerVariants,
+  ...colorMappedVariants,
+  ...shadowAndSizeVariants,
+];
