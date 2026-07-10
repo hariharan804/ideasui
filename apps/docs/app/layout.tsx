@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 
 import { ThemeBridge } from '@/components/ui/theme-bridge';
+import { Navbar } from '@/components/ui/navbar';
 
 import './globals.css';
 import { ThemeScript } from '@ideasui/theme';
@@ -45,7 +46,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <RootProvider>
-          <ThemeBridge>{children}</ThemeBridge>
+          <ThemeBridge>
+            <Navbar />
+            {children}
+          </ThemeBridge>
         </RootProvider>
       </body>
     </html>

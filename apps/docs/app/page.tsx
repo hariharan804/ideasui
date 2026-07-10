@@ -3,16 +3,7 @@
 import type { MotionProps } from 'framer-motion';
 
 import { motion } from 'framer-motion';
-import {
-  Zap,
-  Palette,
-  Accessibility,
-  ArrowRight,
-  Terminal,
-  Copy,
-  Check,
-  Code2,
-} from 'lucide-react';
+import { Palette, Accessibility, ArrowRight, Terminal, Copy, Check, Code2 } from 'lucide-react';
 import { Github } from '@/components/ui/docs/icons';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -20,36 +11,36 @@ import { useState } from 'react';
 /* ─── Feature data ──────────────────────────────────────────────────── */
 const FEATURES = [
   {
-    icon: <Zap className="size-5" />,
-    title: 'High Performance',
-    desc: 'Zero runtime CSS with Tailwind v4. Tree-shakeable React components with sub-millisecond renders.',
-    iconClass: 'bg-info/12 text-info',
+    icon: <Copy className="size-5" />,
+    title: 'Copy & Paste',
+    desc: 'Just copy the code of the components you need into your project. No bloated npm packages.',
+    iconClass: 'bg-primary/12 text-primary',
   },
   {
     icon: <Palette className="size-5" />,
-    title: 'Deep Theming',
-    desc: 'OKLCH-based token system with dark mode, custom palettes, and semantic color scales out of the box.',
+    title: 'Dark Mode Built-in',
+    desc: 'Built-in dark mode support for every component. Optimized color hierarchy tailored for developers.',
     iconClass: 'bg-primary/12 text-primary',
   },
   {
     icon: <Accessibility className="size-5" />,
     title: 'Accessible by Default',
-    desc: 'Built on React Aria — every component meets WCAG 2.1 AA with full keyboard and screen-reader support.',
-    iconClass: 'bg-success/12 text-success',
+    desc: 'WAI-ARIA compliant out of the box. Fully supports keyboard navigation and screen readers.',
+    iconClass: 'bg-primary/12 text-primary',
   },
 ];
 
 const STATS = [
-  { label: 'Components', value: '30+' },
-  { label: 'Accessibility', value: 'WCAG AA' },
-  { label: 'Bundle Impact', value: '~0kb' },
-  { label: 'TypeScript', value: '100%' },
+  { label: 'Components', value: '50+' },
+  { label: 'Open Source', value: '100%' },
+  { label: 'Runtime Dependencies', value: '0' },
+  { label: 'Customization', value: '∞' },
 ];
 
 /* ─── Install Snippet ───────────────────────────────────────────────── */
 function InstallSnippet() {
   const [copied, setCopied] = useState(false);
-  const cmd = 'npm install @ideasui/react @ideasui/theme';
+  const cmd = 'npx ideasui init';
 
   function copy() {
     navigator.clipboard.writeText(cmd);
@@ -58,7 +49,7 @@ function InstallSnippet() {
   }
 
   return (
-    <div className="install-snippet mx-auto mt-10 flex max-w-lg items-center justify-between gap-4 rounded-xl border px-5 py-3.5 backdrop-blur-sm">
+    <div className="install-snippet border-subtle bg-surface-subtle/50 mx-auto mt-10 flex max-w-lg items-center justify-between gap-4 rounded-xl border px-5 py-3.5 backdrop-blur-sm">
       <div className="flex min-w-0 items-center gap-3">
         <Terminal className="text-content-secondary size-4 shrink-0" />
         <code className="text-content-primary truncate font-mono text-sm">{cmd}</code>
@@ -68,7 +59,7 @@ function InstallSnippet() {
         className="text-content-secondary hover:text-content-primary shrink-0 rounded-md p-1.5 transition-colors"
         onClick={copy}
       >
-        {copied ? <Check className="text-success size-4" /> : <Copy className="size-4" />}
+        {copied ? <Check className="text-primary size-4" /> : <Copy className="size-4" />}
       </button>
     </div>
   );
@@ -89,13 +80,13 @@ export default function HomePage() {
       <section className="relative overflow-hidden pt-36 pb-24 lg:pt-44 lg:pb-32">
         {/* Background decorations */}
         <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-          {/* Primary glow */}
-          <div className="absolute -top-40 left-1/2 h-[600px] w-[800px] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse,var(--color-primary)/0.35_0%,transparent_70%)] opacity-30" />
-          {/* Info glow right */}
-          <div className="absolute top-10 right-0 size-[500px] rounded-full bg-[radial-gradient(circle,var(--color-info)/0.3_0%,transparent_70%)] opacity-25" />
+          {/* Subtle gradient glow */}
+          <div className="from-primary/10 absolute inset-x-0 top-0 h-[600px] bg-gradient-to-b via-transparent to-transparent opacity-60" />
+          {/* Accent glow right */}
+          <div className="absolute top-10 right-0 size-[500px] rounded-full bg-[radial-gradient(circle,var(--color-primary)/0.15_0%,transparent_70%)] opacity-25" />
           {/* Dot grid */}
           <svg
-            className="absolute inset-0 size-full opacity-[0.04]"
+            className="absolute inset-0 size-full opacity-[0.03]"
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
@@ -119,7 +110,7 @@ export default function HomePage() {
           <motion.div {...fadeUp(0)} className="mb-7 inline-flex">
             <span className="border-primary/30 bg-primary/10 text-primary inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold">
               <span className="bg-primary size-1.5 animate-pulse rounded-full" />
-              <span>Now in canary — v1.0</span>
+              <span>v1.0 — Now Available</span>
             </span>
           </motion.div>
 
@@ -128,9 +119,10 @@ export default function HomePage() {
             {...fadeUp(0.06)}
             className="text-content-primary text-5xl leading-[1.08] font-extrabold tracking-tight md:text-6xl lg:text-7xl"
           >
-            Build beautiful{' '}
+            Build beautiful UIs
+            <br />
             <span className="from-primary to-info bg-linear-to-br bg-clip-text text-transparent">
-              apps fast
+              with copy-paste components
             </span>
           </motion.h1>
 
@@ -139,8 +131,7 @@ export default function HomePage() {
             {...fadeUp(0.12)}
             className="text-content-secondary mx-auto mt-6 max-w-2xl text-base leading-relaxed md:text-lg"
           >
-            A modern, accessible component library for React — powered by Tailwind CSS v4 and React
-            Aria. Production-ready from day one.
+            Accessible, customizable, open-source React components built with Tailwind CSS.
           </motion.p>
 
           {/* CTAs */}
@@ -156,7 +147,7 @@ export default function HomePage() {
               <ArrowRight className="size-4" />
             </Link>
             <Link
-              className="border-subtle bg-surface-subtle text-content-primary inline-flex items-center gap-2 rounded-xl border px-7 py-3 text-sm font-semibold backdrop-blur-sm transition-all hover:scale-105 active:scale-95"
+              className="border-subtle bg-surface-subtle/50 text-content-secondary hover:bg-surface-muted/30 hover:text-content-primary inline-flex items-center gap-2 rounded-xl border px-7 py-3 text-sm font-semibold backdrop-blur-sm transition-all hover:scale-105 active:scale-95"
               href="https://github.com/ideas2logic-lab/ideasui"
               rel="noopener noreferrer"
               target="_blank"
@@ -174,7 +165,7 @@ export default function HomePage() {
       </section>
 
       {/* ── Stats strip ─────────────────────────────────────────────── */}
-      <section className="border-subtle bg-surface-subtle border-y">
+      <section className="border-subtle bg-surface-subtle/40 border-y">
         <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             {STATS.map((stat, index) => (
@@ -187,7 +178,7 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
               >
                 <div className="text-content-primary text-2xl font-bold">{stat.value}</div>
-                <div className="text-content-secondary mt-1 text-xs font-semibold tracking-widest uppercase">
+                <div className="text-content-tertiary mt-1 text-xs font-semibold tracking-widest uppercase">
                   {stat.label}
                 </div>
               </motion.div>
@@ -232,7 +223,7 @@ export default function HomePage() {
             {FEATURES.map((f, index) => (
               <motion.div
                 key={f.title}
-                className="feature-card group relative cursor-default overflow-hidden rounded-2xl border p-7 transition-all duration-300 hover:-translate-y-1"
+                className="feature-card group border-subtle bg-surface-subtle/20 hover:border-primary/20 hover:bg-surface-subtle/40 relative cursor-default overflow-hidden rounded-2xl border p-7 transition-all duration-300 hover:-translate-y-1"
                 initial={{ opacity: 0, y: 20 }}
                 transition={{ delay: index * 0.08 }}
                 viewport={{ once: true }}
@@ -256,14 +247,14 @@ export default function HomePage() {
       <section className="py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="border-primary/25 bg-primary/5 relative overflow-hidden rounded-3xl border p-10 text-center md:p-14"
+            className="border-primary/20 bg-primary/5 relative overflow-hidden rounded-3xl border p-10 text-center md:p-14"
             initial={{ opacity: 0, scale: 0.97 }}
             viewport={{ once: true }}
             whileInView={{ opacity: 1, scale: 1 }}
           >
-            <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_0%,var(--color-primary)/0.15,transparent_70%)]" />
-            <div className="absolute inset-0 -z-10 bg-[linear-gradient(var(--color-border)/0.5_1px,transparent_1px),linear-gradient(90deg,var(--color-border)/0.5_1px,transparent_1px)] bg-[length:40px_40px] opacity-[0.04]" />
-            <div className="border-primary/25 bg-primary/10 text-primary mx-auto mb-6 flex size-14 items-center justify-center rounded-2xl border">
+            <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_0%,var(--color-primary)/0.1,transparent_70%)]" />
+            <div className="absolute inset-0 -z-10 bg-[linear-gradient(var(--color-border)/0.5_1px,transparent_1px),linear-gradient(90deg,var(--color-border)/0.5_1px,transparent_1px)] bg-[length:40px_40px] opacity-[0.02]" />
+            <div className="border-primary/20 bg-primary/10 text-primary mx-auto mb-6 flex size-14 items-center justify-center rounded-2xl border">
               <Code2 className="size-7" />
             </div>
             <h2 className="text-content-primary mb-3 text-3xl font-bold">Start building today</h2>
@@ -292,16 +283,16 @@ export default function HomePage() {
               </div>
               <span className="text-content-primary font-bold">IdeasUI</span>
             </div>
-            <p className="text-content-secondary text-xs">© 2026 IdeasUI. MIT License.</p>
+            <p className="text-content-tertiary text-xs">© 2026 IdeasUI. MIT License.</p>
             <div className="flex items-center gap-5">
               <Link
-                className="text-content-secondary text-xs transition-colors hover:opacity-80"
+                className="text-content-secondary hover:text-content-primary text-xs transition-colors"
                 href="/react/docs"
               >
                 Docs
               </Link>
               <Link
-                className="text-content-secondary text-xs transition-colors hover:opacity-80"
+                className="text-content-secondary hover:text-content-primary text-xs transition-colors"
                 href="https://github.com/ideas2logic-lab/ideasui"
                 rel="noopener noreferrer"
                 target="_blank"
