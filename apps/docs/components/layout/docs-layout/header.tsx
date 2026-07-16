@@ -125,7 +125,7 @@ export function LayoutHeaderTabs({
   return (
     <div
       className={cn(
-        'flex [scrollbar-width:none] flex-row items-center gap-2 [-ms-overflow-style:none] max-md:overflow-x-auto max-md:overflow-y-hidden [&::-webkit-scrollbar]:hidden',
+        'flex [scrollbar-width:none] flex-row items-center gap-1.5 [-ms-overflow-style:none] max-md:overflow-x-auto max-md:overflow-y-hidden [&::-webkit-scrollbar]:hidden',
         className,
       )}
       {...properties}
@@ -140,18 +140,29 @@ export function LayoutHeaderTabs({
           <Link
             key={url}
             className={cn(
-              'group relative -mb-px flex-shrink-0 px-4 py-2 text-sm font-medium transition-all duration-300',
-              'rounded-t-xl active:scale-[0.98]',
+              'group relative flex-shrink-0 px-3 py-1.5 text-sm font-medium transition-all duration-300',
+              'rounded-full active:scale-[0.98]',
               isSelected
-                ? 'border-base/20 !border-b-surface text-primary z-1 border !border-b'
-                : 'text-content-secondary hover:bg-surface-subtle hover:text-content-primary z-1',
+                ? 'text-primary'
+                : 'text-content-secondary hover:bg-surface-subtle hover:text-content-primary',
               className,
             )}
             href={url}
             {...rest}
           >
             <span className="relative z-10 flex items-center gap-2">
-              {icon ? <span className="size-4 opacity-70">{icon}</span> : null}
+              {icon ? (
+                <span
+                  className={cn(
+                    'size-4 transition-colors',
+                    isSelected
+                      ? 'text-primary'
+                      : 'text-content-secondary group-hover:text-content-primary',
+                  )}
+                >
+                  {icon}
+                </span>
+              ) : null}
               {title}
             </span>
           </Link>

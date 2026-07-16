@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Code2, Paintbrush } from 'lucide-react';
-import { CopyDropdown } from '@/components/ui/copy-dropdown';
+import { CopyDropdown } from '@/components/docs-ui/copy-dropdown';
 
 interface DocsBadge {
   label: string;
@@ -72,7 +72,7 @@ export function DocsBadges({
           </Link>
         ))}
       </div>
-      {rawMarkdown && <CopyDropdown pageTitle={pageTitle || ''} rawMarkdown={rawMarkdown} />}
+      {rawMarkdown && <CopyDropdown pageTitle={pageTitle ?? ''} rawMarkdown={rawMarkdown} />}
     </div>
   );
 }

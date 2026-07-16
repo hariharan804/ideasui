@@ -16,7 +16,7 @@ import { PageBreadcrumb } from './breadcrumb';
 import { PageFooter } from './footer';
 import { PageTOCPopover, PageTOCPopoverContent, PageTOCPopoverTrigger } from './toc-popover';
 
-import { Edit, Text } from '@/components/ui/docs/icons';
+import { Edit, Text } from '@/components/docs-ui/icons';
 
 interface BreadcrumbOptions extends BreadcrumbProperties {
   enabled: boolean;
@@ -106,7 +106,7 @@ export function DocsPage({
       )
       .map((item) => {
         const title = item.title;
-        const cleanTitle = extractText(title) || 'Untitled';
+        const cleanTitle = extractText(title) ?? 'Untitled';
 
         return {
           ...item,

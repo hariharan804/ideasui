@@ -99,24 +99,32 @@ export function SidebarDrawer({
   ...properties
 }: ComponentProps<typeof Base.SidebarDrawerContent>) {
   const pathname = usePathname();
-  const { setOpen } = Base.useSidebar();
+  const { open, setOpen } = Base.useSidebar();
+  const isMounted = useRef(false);
 
   useEffect(() => {
-    setOpen(false);
+    if (isMounted.current) {
+      setOpen(false);
+    } else {
+      isMounted.current = true;
+    }
   }, [pathname, setOpen]);
 
   return (
     <>
-      <Base.SidebarDrawerOverlay className="data-[state=open]:animate-fd-fade-in data-[state=closed]:animate-fd-fade-out fixed inset-0 z-60 backdrop-blur-xs" />
-      <Base.SidebarDrawerContent
-        className={cn(
-          'data-[state=open]:animate-fd-sidebar-in data-[state=closed]:animate-fd-sidebar-out bg-surface/90 fixed inset-y-0 end-0 z-60 flex w-[85%] max-w-[320px] flex-col text-[0.9375rem] shadow-lg backdrop-blur-md',
-          className,
-        )}
-        {...properties}
-      >
-        {children}
-      </Base.SidebarDrawerContent>
+      <Base.SidebarDrawerOverlay className="data-[state=open]:animate-fd-fade-in data-[state=closed]:animate-fade-out fixed inset-0 z-60 backdrop-blur-xs" />
+      {open && (
+        <Base.SidebarDrawerContent
+          className={cn(
+            'data-[state=open]:animate-fd-sidebar-in data-[state=closed]:animate-fade-out bg-surface/90 fixed inset-y-0 end-0 z-60 flex w-[85%] max-w-[320px] flex-col text-[0.9375rem] shadow-lg backdrop-blur-md',
+            className,
+          )}
+          id="nd-sidebar-mobile"
+          {...properties}
+        >
+          {children}
+        </Base.SidebarDrawerContent>
+      )}
     </>
   );
 }
@@ -235,19 +243,8 @@ export function SidebarFolderContent({
   className,
   ...properties
 }: Readonly<ComponentProps<typeof Base.SidebarFolderContent>>) {
-  const depth = Base.useFolderDepth();
-
   return (
-    <Base.SidebarFolderContent
-      className={cn(
-        itemVariants({
-          class: 'relative',
-          highlight: depth === 1,
-        }),
-        className,
-      )}
-      {...properties}
-    >
+    <Base.SidebarFolderContent className={cn('flex flex-col gap-0.5', className)} {...properties}>
       {children}
     </Base.SidebarFolderContent>
   );

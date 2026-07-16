@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 
 import { ThemeBridge } from '@/components/ui/theme-bridge';
-import { Navbar } from '@/components/ui/navbar';
+import { Navbar } from '@/components/site-nav/navbar';
 
 import './globals.css';
 import { ThemeScript } from '@ideasui/theme';

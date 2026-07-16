@@ -37,7 +37,7 @@ export function GitHubButton({ repo, className }: GitHubButtonProperties) {
       target="_blank"
     >
       <Github className="size-4" />
-      <span className="max-sm:hidden">GitHub</span>
+      <span className="max-md:hidden">GitHub</span>
       {stars !== null && (
         <div className="border-base/30 ml-1 flex items-center gap-1 border-l pl-2">
           <Star className="fill-warning text-warning size-3" />

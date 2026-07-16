@@ -53,7 +53,7 @@ export function ComponentPreviewContainer({
           alignmentClasses[align],
           isBgSolid ? 'bg-surface-subtle' : 'bg-background',
         )}
-        style={{ minHeight: minHeight || '220px' }}
+        style={{ minHeight: minHeight ?? '220px' }}
       >
         <div className="flex w-full items-center justify-center">{Component}</div>
       </div>

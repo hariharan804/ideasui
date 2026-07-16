@@ -24,7 +24,7 @@ export function APIReferenceViewer({ componentName }: Readonly<APIReferenceViewe
     );
   }
 
-  const activeDocument = componentDocs[activeTab] || componentDocs[0];
+  const activeDocument = componentDocs[activeTab] ?? componentDocs[0];
 
   const mappedProperties = activeDocument.props.map((p) => ({
     name: p.name,

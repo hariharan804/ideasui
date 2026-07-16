@@ -205,10 +205,14 @@ export function TokenViewer() {
     });
   }, [allTokens, search, selectedCategory, selectedSubCategory]);
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(text);
-    setTimeout(() => setCopied(null), 2000);
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(text);
+      setTimeout(() => setCopied(null), 2000);
+    } catch (error) {
+      console.error('Failed to copy:', error);
+    }
   };
 
   return (
@@ -351,8 +355,8 @@ export function TokenViewer() {
                     <div
                       className="border-primary/60 bg-primary/40 rounded-sm border"
                       style={{
-                        width: token.previewValue || token.value,
-                        height: token.previewValue || token.value,
+                        width: token.previewValue ?? token.value,
+                        height: token.previewValue ?? token.value,
                       }}
                     />
                   </div>
@@ -360,19 +364,19 @@ export function TokenViewer() {
                 {token.previewType === 'radius' && (
                   <div
                     className="border-primary/40 bg-primary/20 size-12 border-2"
-                    style={{ borderRadius: token.previewValue || token.value }}
+                    style={{ borderRadius: token.previewValue ?? token.value }}
                   />
                 )}
                 {token.previewType === 'shadow' && (
                   <div
                     className="border-border/30 bg-surface size-10 rounded-xl border"
-                    style={{ boxShadow: token.previewValue || token.value }}
+                    style={{ boxShadow: token.previewValue ?? token.value }}
                   />
                 )}
                 {token.previewType === 'text' && token.tailwindClass.startsWith('text-') && (
                   <span
                     className="text-content-primary truncate px-4 font-medium tracking-tight"
-                    style={{ fontSize: token.previewValue || token.value }}
+                    style={{ fontSize: token.previewValue ?? token.value }}
                   >
                     Aa
                   </span>
@@ -380,7 +384,7 @@ export function TokenViewer() {
                 {token.previewType === 'text' && token.tailwindClass.startsWith('font-') && (
                   <span
                     className="text-content-primary text-2xl tracking-tight"
-                    style={{ fontWeight: token.previewValue || token.value }}
+                    style={{ fontWeight: token.previewValue ?? token.value }}
                   >
                     Aa
                   </span>

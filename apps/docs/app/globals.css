@@ -187,9 +187,28 @@ main:has(.hero-section) {
 
 /* Glassmorphism for Sidebar & Nav */
 #nd-sidebar {
-  background: var(--color-background) / 0.6 !important;
+  background: oklch(var(--ideasui-color-background) / 0.6) !important;
   backdrop-filter: blur(12px) !important;
-  border-right: 1px solid var(--color-border-subtle) / 0.2 !important;
+  border-right: 1px solid oklch(var(--ideasui-color-border-subtle) / 0.2) !important;
+}
+
+/* Sidebar Tabs Dropdown UI Override */
+.sidebar-tabs-dropdown {
+  background-color: oklch(var(--ideasui-color-surface-muted) / 0.8) !important;
+  color: oklch(var(--ideasui-color-content-primary)) !important;
+  border: 1px solid oklch(var(--ideasui-color-border-subtle) / 0.3) !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.sidebar-tabs-dropdown:hover {
+  background-color: oklch(var(--ideasui-color-surface-muted)) !important;
+  color: oklch(var(--ideasui-color-primary)) !important;
+  border-color: oklch(var(--ideasui-color-border-primary) / 0.4) !important;
+}
+
+.sidebar-tabs-dropdown svg {
+  color: oklch(var(--ideasui-color-content-secondary)) !important;
 }
 
 /* Sidebar Item Enhancements */
@@ -254,4 +273,11 @@ article {
 /* Fix for overlapping header in anchors */
 :target {
   scroll-margin-top: 100px;
+}
+
+/* Ensure Radix dropdowns, menus, and popovers render above the mobile drawer (z-60) and allow pointer interactions */
+[data-radix-portal],
+[data-radix-popper-content-wrapper] {
+  z-index: 100 !important;
+  pointer-events: auto !important;
 }

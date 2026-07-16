@@ -3,7 +3,7 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import type { SidebarTabWithProps } from 'fumadocs-ui/components/sidebar/tabs/dropdown';
 import type { ReactNode, ComponentProps, FC } from 'react';
-import type { LinkItemType } from '@/components/ui/docs/link-item';
+import type { LinkItemType } from '@/components/docs-ui/link-item';
 
 import { useMemo } from 'react';
 import { buttonVariants } from 'fumadocs-ui/components/ui/button';
@@ -21,10 +21,10 @@ import {
 } from './sidebar';
 import { FilteredSidebarTabsDropdown } from './header';
 
-import { Sidebar as SidebarIcon, X, Languages } from '@/components/ui/docs/icons';
-import { LanguageToggle } from '@/components/ui/docs/language-toggle';
-import { ThemeToggle } from '@/components/ui/docs/theme-toggle';
-import { LinkItem } from '@/components/ui/docs/link-item';
+import { Sidebar as SidebarIcon, X, Languages } from '@/components/docs-ui/icons';
+import { LanguageToggle } from '@/components/docs-ui/language-toggle';
+import { ThemeToggle } from '@/components/docs-ui/theme-toggle';
+import { LinkItem } from '@/components/docs-ui/link-item';
 
 export interface SidebarContentProperties {
   sidebarProps: {
@@ -184,7 +184,7 @@ export function SidebarContent({
           {nav.children}
           {tabs.length > 0 && (
             <FilteredSidebarTabsDropdown
-              className={cn(tabMode === 'navbar' && 'lg:hidden')}
+              className={cn('sidebar-tabs-dropdown', tabMode === 'navbar' && 'lg:hidden')}
               options={tabs}
             />
           )}
@@ -211,18 +211,22 @@ export function SidebarContent({
       </SidebarPrimitiveContent>
       <SidebarDrawer {...rest}>
         <Header banner={typeof banner === 'function' ? undefined : banner}>
-          <SidebarTrigger
-            className={cn(
-              buttonVariants({
-                className: 'text-content-secondary ms-auto',
-                color: 'ghost',
-                size: 'icon-sm',
-              }),
-            )}
-          >
-            <X />
-          </SidebarTrigger>
-          {/* Tabs are hidden on mobile view as requested */}
+          <div className="flex items-center justify-between">
+            <SidebarTrigger
+              className={cn(
+                buttonVariants({
+                  className: 'text-content-secondary ms-auto',
+                  color: 'ghost',
+                  size: 'icon-sm',
+                }),
+              )}
+            >
+              <X />
+            </SidebarTrigger>
+          </div>
+          {tabs.length > 0 && (
+            <FilteredSidebarTabsDropdown className="sidebar-tabs-dropdown mt-2" options={tabs} />
+          )}
         </Header>
         {viewport}
         <Footer

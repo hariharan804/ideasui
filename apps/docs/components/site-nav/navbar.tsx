@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { Github } from './docs/icons';
-import { Logo } from './logo';
+import { Github } from '@/components/docs-ui/icons';
+import { Logo } from '@/components/ui/logo';
 import { useEffect, useState } from 'react';
 
 export function Navbar() {

@@ -9,7 +9,7 @@ import { useTranslations } from '@fuma-translate/react';
 import { useSearchContext } from 'fumadocs-ui/contexts/search';
 import { cn } from '@ideasui/utils';
 
-import { Search } from '@/components/ui/docs/icons';
+import { Search } from '@/components/docs-ui/icons';
 
 interface SearchToggleProperties extends Omit<ComponentProps<'button'>, 'color'>, ButtonProps {
   readonly hideIfDisabled?: boolean;

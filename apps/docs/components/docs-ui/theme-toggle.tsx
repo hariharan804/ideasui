@@ -6,9 +6,9 @@ import { useTheme } from 'next-themes';
 import { tv } from 'tailwind-variants';
 import { cn } from '@ideasui/utils';
 
-import { useIsMounted } from '../../../hooks/use-is-mounted';
+import { useIsMounted } from '@/hooks/use-is-mounted';
 
-import { Airplay, Moon, Sun } from '@/components/ui/docs/icons';
+import { Airplay, Moon, Sun } from '@/components/docs-ui/icons';
 
 const itemVariants = tv({
   base: 'size-6.5 cursor-pointer rounded-3xl p-1.5 text-content-secondary transition-all duration-300',

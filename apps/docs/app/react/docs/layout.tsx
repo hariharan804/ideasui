@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 import { Rocket, Blocks, History } from 'lucide-react';
 
-import { DocsLayout } from '@/components/layout/notebook';
+import { DocsLayout } from '@/components/layout/docs-layout';
 import { reactPageTree } from '@/lib/source';
 import { baseOptions } from '@/components/layout/layout.config';
 
