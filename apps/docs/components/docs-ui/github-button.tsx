@@ -1,17 +1,29 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Star } from 'lucide-react';
 import { Github } from './icons';
 import { cn } from '@ideasui/utils';
 
 interface GitHubButtonProperties {
-  readonly repo: string;
+  readonly repo?: string;
+  readonly starCount?: number;
   readonly className?: string;
 }
 
-export function GitHubButton({ repo, className }: GitHubButtonProperties) {
-  const [stars, setStars] = useState<number | null>(null);
+function formatStars(count: number): string {
+  if (count >= 1000) {
+    return `${(count / 1000).toFixed(1)}k`;
+  }
+
+  return count.toString();
+}
+
+export function GitHubButton({
+  repo = 'hariharan804/ideasui',
+  starCount = 5200,
+  className,
+}: GitHubButtonProperties) {
+  const [stars, setStars] = useState<number>(starCount);
 
   useEffect(() => {
     fetch(`https://api.github.com/repos/${repo}`)
@@ -23,29 +35,27 @@ export function GitHubButton({ repo, className }: GitHubButtonProperties) {
 
         return null;
       })
-      .catch((error) => console.error('Failed to fetch GitHub stars', error));
+      .catch(() => {
+        // Fallback to initial starCount if fetch fails
+      });
   }, [repo]);
 
   return (
     <a
+      aria-label="GitHub Repository"
       className={cn(
-        'group bg-surface-subtle text-content-secondary hover:text-content-primary inline-flex items-center gap-2 rounded-3xl px-2.5 py-1.5 text-sm backdrop-blur-md transition-all duration-300',
+        'group inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-medium',
+        'bg-surface-muted border-subtle/50 text-content-secondary',
+        'hover:bg-surface-subtle hover:text-content-primary',
+        'shadow-xs backdrop-blur-md transition-all active:scale-95',
         className,
       )}
       href={`https://github.com/${repo}`}
       rel="noopener noreferrer"
       target="_blank"
     >
-      <Github className="size-4" />
-      <span className="max-md:hidden">GitHub</span>
-      {stars !== null && (
-        <div className="border-base/30 ml-1 flex items-center gap-1 border-l pl-2">
-          <Star className="fill-warning text-warning size-3" />
-          <span className="font-mono text-xs font-semibold">
-            {stars > 1000 ? `${(stars / 1000).toFixed(1)}k` : stars}
-          </span>
-        </div>
-      )}
+      <Github className="size-3.5 shrink-0 transition-transform duration-200 group-hover:scale-110" />
+      <span className="font-semibold tracking-tight">{formatStars(stars)}</span>
     </a>
   );
 }

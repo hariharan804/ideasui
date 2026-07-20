@@ -74,6 +74,7 @@ export function filterTabsByPathname(
 export function FilteredSidebarTabsDropdown({
   filterByPathname = false,
   options,
+  className,
   ...properties
 }: ComponentProps<typeof SidebarTabsDropdown> & { filterByPathname?: boolean }) {
   const pathname = usePathname();
@@ -81,18 +82,54 @@ export function FilteredSidebarTabsDropdown({
     if (!options) {
       return;
     }
-    if (!filterByPathname) {
-      return options;
-    }
+    const baseOptions = filterByPathname ? filterTabsByPathname(options, pathname) : options;
+    const selected = pathname
+      ? baseOptions.findLast((item) => isTabActive(item, pathname))
+      : undefined;
 
-    return filterTabsByPathname(options, pathname);
+    return baseOptions.map((option) => {
+      const isActive = selected ? option.url === selected.url : false;
+
+      return {
+        ...option,
+        icon: option.icon ? (
+          <span
+            className={cn(
+              'flex size-full items-center justify-center transition-colors [&_svg]:size-4',
+              isActive ? 'text-primary' : 'text-content-secondary',
+            )}
+          >
+            {option.icon}
+          </span>
+        ) : undefined,
+        props: {
+          ...option.props,
+          className: cn(
+            option.props?.className,
+            isActive
+              ? 'bg-primary/10 text-primary font-semibold'
+              : 'text-content-secondary hover:bg-surface-subtle hover:text-content-primary',
+          ),
+        },
+      };
+    });
   }, [options, pathname, filterByPathname]);
 
   if (!filteredOptions || filteredOptions.length === 0) {
     return null;
   }
 
-  return <SidebarTabsDropdown {...properties} options={filteredOptions} />;
+  return (
+    <SidebarTabsDropdown
+      {...properties}
+      className={cn(
+        '[&>div:first-child]:my-auto [&>div:first-child]:flex [&>div:first-child]:size-5 [&>div:first-child]:items-center [&>div:first-child]:justify-center',
+        'border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 font-medium',
+        className,
+      )}
+      options={filteredOptions}
+    />
+  );
 }
 
 export function LayoutHeaderTabs({

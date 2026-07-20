@@ -9,7 +9,7 @@ import type { ComponentProps, HTMLAttributes, PointerEvent, ReactNode, FC } from
 import type { LayoutHeaderTabsProps as LayoutHeaderTabsProperties } from './header';
 
 import { useState, useRef, Fragment } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Palette } from 'lucide-react';
 import Link from 'fumadocs-core/link';
 import { buttonVariants } from 'fumadocs-ui/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from 'fumadocs-ui/components/ui/popover';
@@ -306,33 +306,34 @@ export function DocsNavbar({
               })}
           </nav>
 
-          <div className="ml-2 flex items-center gap-1 rounded-full bg-black/5 px-1 py-1 max-md:hidden dark:bg-white/5">
+          <div className="ml-2 flex items-center gap-2 max-md:hidden">
+            {/* 1. Theme Customizer Pill */}
+            <button
+              aria-label="Customize Theme"
+              className="bg-surface-muted border-subtle/50 text-content-secondary hover:bg-surface-subtle hover:text-content-primary flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-medium shadow-xs backdrop-blur-md transition-all active:scale-95"
+            >
+              <Palette className="size-4" />
+              <span>Theme</span>
+            </button>
+
+            {/* 2. GitHub Star Count Pill */}
+            <GitHubButton repo="hariharan804/ideasui" />
+
+            {/* 3. Language Toggle Circle */}
+            {!!i18n && (
+              <LanguageToggle>
+                <div className="bg-surface-muted border-subtle/50 text-content-secondary hover:bg-surface-subtle hover:text-content-primary flex size-9 items-center justify-center rounded-full border shadow-xs backdrop-blur-md transition-all active:scale-95">
+                  <Languages className="size-4" />
+                </div>
+              </LanguageToggle>
+            )}
+
+            {/* 4. Theme Mode Toggle Pill */}
             {themeSwitchEnabled ? (
-              <div className="[&_button]:text-content-secondary [&_button:hover]:text-content-primary flex items-center justify-center transition-colors [&_button]:h-7 [&_button]:w-7 [&_button]:rounded-full [&_button]:border-none [&_button]:bg-transparent [&_button:hover]:bg-black/5 dark:[&_button:hover]:bg-white/10 [&_svg]:size-4">
+              <div className="bg-surface-muted border-subtle/50 flex items-center rounded-full border p-1 shadow-xs backdrop-blur-md">
                 {themeSwitch?.component ?? <ThemeToggle mode={themeSwitchMode} />}
               </div>
             ) : null}
-            <a
-              className="text-content-secondary hover:text-content-primary flex items-center gap-1.5 rounded-full px-3 py-1.5 transition-colors hover:bg-black/5 dark:hover:bg-white/10"
-              href="https://github.com/hariharan804/ideasui"
-              rel="noreferrer"
-              target="_blank"
-            >
-              <svg
-                fill="none"
-                height="14"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                width="14"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-              </svg>
-              <span className="text-xs font-semibold">5.2k</span>
-            </a>
           </div>
 
           {/* Mobile Controls */}
@@ -340,7 +341,7 @@ export function DocsNavbar({
             {searchToggle.enabled !== false &&
               (searchToggle.components?.sm ?? <SearchToggle hideIfDisabled className="p-2" />)}
 
-            <GitHubButton className="bg-transparent px-2" repo="hariharan804/ideasui" />
+            <GitHubButton repo="hariharan804/ideasui" />
 
             <SidebarTrigger
               className={cn(
@@ -354,14 +355,6 @@ export function DocsNavbar({
             >
               <SidebarIcon />
             </SidebarTrigger>
-          </div>
-
-          <div className="flex items-center gap-1 max-md:hidden">
-            {!!i18n && (
-              <LanguageToggle>
-                <Languages className="text-content-secondary size-4.5" />
-              </LanguageToggle>
-            )}
             {!!sidebarCollapsible && navMode === 'top' && (
               <SidebarCollapseTrigger
                 className={cn(

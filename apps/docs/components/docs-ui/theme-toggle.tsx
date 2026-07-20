@@ -3,22 +3,11 @@
 import type { ComponentProps } from 'react';
 
 import { useTheme } from 'next-themes';
-import { tv } from 'tailwind-variants';
 import { cn } from '@ideasui/utils';
 
 import { useIsMounted } from '@/hooks/use-is-mounted';
 
 import { Airplay, Moon, Sun } from '@/components/docs-ui/icons';
-
-const itemVariants = tv({
-  base: 'size-6.5 cursor-pointer rounded-3xl p-1.5 text-content-secondary transition-all duration-300',
-  variants: {
-    active: {
-      false: 'text-content-secondary hover:text-content-primary',
-      true: 'bg-primary/10 text-primary shadow-[0_0_8px] shadow-primary/10',
-    },
-  },
-});
 
 const full = [['light', Sun] as const, ['dark', Moon] as const, ['system', Airplay] as const];
 
@@ -31,53 +20,35 @@ export function ThemeToggle({
 }) {
   const { resolvedTheme, setTheme, theme } = useTheme();
   const mounted = useIsMounted();
-
-  const container = cn(
-    'inline-flex cursor-(--cursor-interactive) items-center rounded-3xl bg-surface-subtle p-1 backdrop-blur-md',
-    className,
-  );
-
-  if (mode === 'light-dark') {
-    const value = mounted ? resolvedTheme : null;
-
-    return (
-      <button
-        aria-label="Toggle Theme"
-        className={container}
-        data-theme-toggle=""
-        onClick={() => setTheme(value === 'light' ? 'dark' : 'light')}
-      >
-        {full.map(([key, Icon]) => {
-          if (key === 'system') {
-            return;
-          }
-
-          return (
-            <Icon
-              key={key}
-              className={cn(itemVariants({ active: value === key }))}
-              fill="currentColor"
-            />
-          );
-        })}
-      </button>
-    );
-  }
-
-  const value = mounted ? theme : null;
+  const icons = mode === 'light-dark' ? full.filter(([key]) => key !== 'system') : full;
+  const activeTheme = mode === 'light-dark' ? resolvedTheme : theme;
+  const value = mounted ? activeTheme : null;
 
   return (
-    <div className={container} data-theme-toggle="" {...properties}>
-      {full.map(([key, Icon]) => (
-        <button
-          key={key}
-          aria-label={key}
-          className={cn(itemVariants({ active: value === key }))}
-          onClick={() => setTheme(key)}
-        >
-          <Icon className="size-full" fill="currentColor" />
-        </button>
-      ))}
+    <div
+      className={cn('flex items-center gap-0.5', className)}
+      data-theme-toggle=""
+      {...properties}
+    >
+      {icons.map(([key, Icon]) => {
+        const isActive = value === key;
+
+        return (
+          <button
+            key={key}
+            aria-label={`Switch to ${key} theme`}
+            className={cn(
+              'flex size-7 cursor-pointer items-center justify-center rounded-full p-1.5 transition-all duration-200',
+              isActive
+                ? 'bg-white/90 text-neutral-800 shadow-sm ring-1 ring-black/[0.06] dark:bg-neutral-600 dark:text-white dark:ring-white/10'
+                : 'text-neutral-500 hover:bg-black/[0.06] hover:text-neutral-800 dark:text-neutral-400 dark:hover:bg-white/[0.08] dark:hover:text-white',
+            )}
+            onClick={() => setTheme(key)}
+          >
+            <Icon className="size-full" fill="currentColor" />
+          </button>
+        );
+      })}
     </div>
   );
 }
