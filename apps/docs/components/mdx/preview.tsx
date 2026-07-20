@@ -33,11 +33,11 @@ export function Preview(properties: Readonly<PreviewProperties>) {
     return (
       <div
         className={cn(
-          'border-error/20 bg-error/5 text-error my-4 rounded-md border p-4',
+          'border-error/20 bg-error/5 text-error my-4 rounded-2xl border p-4 text-sm font-medium',
           className,
         )}
       >
-        <p className="text-sm">Component demo &quot;{name}&quot; not found.</p>
+        <p>Component demo &quot;{name}&quot; not found.</p>
       </div>
     );
   }

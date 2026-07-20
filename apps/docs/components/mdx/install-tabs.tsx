@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { cn } from '@ideasui/utils';
-import { Button } from '@ideasui/react';
 import { Check, Copy, Terminal } from 'lucide-react';
+import { usePackageManager, type PackageManager } from '@/hooks/use-package-manager';
 
 interface InstallTabsProperties {
   pkg: string;
@@ -11,42 +11,12 @@ interface InstallTabsProperties {
   className?: string;
 }
 
-type PackageManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
-
-interface TabButtonProperties {
-  isActive: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-  size?: 'sm' | 'md';
-}
-
-function TabButton({ isActive, onClick, children, size = 'md' }: Readonly<TabButtonProperties>) {
-  return (
-    <button
-      className={cn(
-        'group relative -mb-px flex-shrink-0 border border-transparent font-semibold transition-all duration-300',
-        size === 'sm'
-          ? 'rounded-t-lg px-3 py-1.5 text-[11px]'
-          : 'rounded-t-xl px-3.5 py-2.5 text-xs',
-        isActive
-          ? 'border-base/20 !bg-surface-container-low !border-b-surface-container-low text-primary'
-          : 'hover:bg-surface-container-high text-content-secondary hover:text-content-primary',
-        isActive && size === 'md' && 'font-bold',
-      )}
-      type="button"
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-}
-
 export function InstallTabs({
   pkg,
   isDev: isDevelopment = false,
   className,
 }: Readonly<InstallTabsProperties>) {
-  const [activeTab, setActiveTab] = useState<PackageManager>('pnpm');
+  const [activeTab, setActiveTab] = usePackageManager();
   const [copied, setCopied] = useState(false);
   const [installMode, setInstallMode] = useState<'component' | 'core'>('core');
 
@@ -85,7 +55,6 @@ export function InstallTabs({
     }
   };
 
-  // Styled rendering of command parts using IdeasUI semantic tokens
   const renderCommandText = (pm: PackageManager) => {
     const action = pm === 'npm' ? 'i' : 'add';
     let flag = '';
@@ -95,11 +64,11 @@ export function InstallTabs({
     }
 
     return (
-      <span className="font-mono text-[13px] leading-relaxed select-all">
+      <span className="font-mono text-xs leading-relaxed select-all sm:text-[13px]">
         <span className="text-primary font-semibold">{pm}</span>{' '}
-        <span className="text-secondary font-semibold">{action}</span>{' '}
-        {flag && <span className="text-tertiary">{flag} </span>}
-        <span className="text-success font-medium">{activePackage}</span>
+        <span className="text-content-secondary font-medium">{action}</span>{' '}
+        {flag && <span className="text-content-tertiary">{flag} </span>}
+        <span className="text-content-primary font-medium">{activePackage}</span>
       </span>
     );
   };
@@ -114,78 +83,87 @@ export function InstallTabs({
   return (
     <div
       className={cn(
-        'group/install bg-surface-container border-base relative my-6 flex w-full flex-col overflow-hidden rounded-2xl border transition-all duration-300',
+        'not-prose bg-surface-subtle border-subtle/30 my-5 flex w-full flex-col overflow-hidden rounded-2xl border transition-all duration-200',
         className,
       )}
     >
-      {/* Header: Tabs Selectors & Copy Button */}
-      <div className="border-base/10 bg-surface-container flex flex-row items-end justify-between border-b px-4 pt-4 select-none">
-        {/* Left side: Package Manager Selection */}
-        <div className="flex flex-row items-center gap-1">
-          {packageManagers.map((pm) => (
-            <TabButton
-              key={pm.id}
-              isActive={activeTab === pm.id}
-              onClick={() => setActiveTab(pm.id)}
-            >
-              {pm.name}
-            </TabButton>
-          ))}
+      {/* Header: Package Manager Selector & Mode Toggle */}
+      <div className="border-subtle/20 flex flex-wrap items-center justify-between gap-2 border-b px-3.5 py-2.5 select-none">
+        {/* Left: Package Managers (Segmented Pill) */}
+        <div className="bg-surface-muted/60 flex max-w-full [scrollbar-width:none] items-center gap-0.5 overflow-x-auto rounded-xl p-1 select-none [&::-webkit-scrollbar]:hidden">
+          {packageManagers.map((pm) => {
+            const isActive = activeTab === pm.id;
+
+            return (
+              <button
+                key={pm.id}
+                className={cn(
+                  'relative shrink-0 cursor-pointer rounded-lg px-2.5 py-1 text-xs font-medium whitespace-nowrap transition-all duration-200',
+                  isActive
+                    ? 'bg-surface text-content-primary font-semibold shadow-xs'
+                    : 'text-content-tertiary hover:text-content-primary',
+                )}
+                type="button"
+                onClick={() => setActiveTab(pm.id)}
+              >
+                {pm.name}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Right side: Package Mode Selection & Copy Button */}
-        <div className="flex flex-row items-center gap-4">
-          {isIndividualComponent && (
-            <div className="-mb-px flex flex-row items-center gap-1">
-              <TabButton
-                isActive={installMode === 'component'}
-                size="sm"
-                onClick={() => setInstallMode('component')}
-              >
-                Component
-              </TabButton>
-              <TabButton
-                isActive={installMode === 'core'}
-                size="sm"
-                onClick={() => setInstallMode('core')}
-              >
-                Core Library
-              </TabButton>
-            </div>
-          )}
-
-          {/* Copy Button */}
-          <div className="relative flex items-center gap-2 pb-2">
-            <span
+        {/* Right: Component vs Core Mode Selector */}
+        {isIndividualComponent && (
+          <div className="bg-surface-muted/60 flex max-w-full [scrollbar-width:none] items-center gap-0.5 overflow-x-auto rounded-xl p-1 select-none [&::-webkit-scrollbar]:hidden">
+            <button
               className={cn(
-                'text-success/90 pointer-events-none translate-x-1 transform font-sans text-[10px] font-semibold tracking-wide opacity-0 transition-all duration-300 select-none',
-                copied && 'translate-x-0 opacity-100',
+                'shrink-0 cursor-pointer rounded-lg px-2.5 py-1 text-[11px] font-medium whitespace-nowrap transition-all duration-200',
+                installMode === 'component'
+                  ? 'bg-surface text-content-primary font-semibold shadow-xs'
+                  : 'text-content-tertiary hover:text-content-primary',
               )}
-            >
-              Copied!
-            </span>
-            <Button
-              isIconOnly
-              aria-label={copied ? 'Copied command' : 'Copy command'}
-              className={cn(
-                'bg-surface-container-high hover:bg-surface-container-low border-subtle/5 hover:border-subtle/15 text-content-secondary hover:text-content-primary size-7 rounded-3xl border transition-all duration-200 hover:scale-105 active:scale-95',
-                copied && 'border-success/30! bg-success/10! text-success! hover:text-success!',
-              )}
-              size="sm"
               type="button"
-              variant="soft"
-              onPress={handleCopy}
+              onClick={() => setInstallMode('component')}
             >
-              {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
-            </Button>
+              Component
+            </button>
+            <button
+              className={cn(
+                'shrink-0 cursor-pointer rounded-lg px-2.5 py-1 text-[11px] font-medium whitespace-nowrap transition-all duration-200',
+                installMode === 'core'
+                  ? 'bg-surface text-content-primary font-semibold shadow-xs'
+                  : 'text-content-tertiary hover:text-content-primary',
+              )}
+              type="button"
+              onClick={() => setInstallMode('core')}
+            >
+              Core Library
+            </button>
           </div>
-        </div>
+        )}
       </div>
 
-      {/* Command Text Body */}
-      <div className="bg-surface-container-low flex min-h-[52px] items-center px-5 py-4">
-        <Terminal className="text-content-secondary/40 mr-2.5 size-3.5 select-none" />
-        {renderCommandText(activeTab)}
+      {/* Command Output Row + Copy Action */}
+      <div className="flex items-center justify-between gap-3 px-4 py-3.5">
+        <div className="flex min-w-0 flex-1 items-center gap-3">
+          <Terminal className="text-content-tertiary size-4 shrink-0" />
+          {renderCommandText(activeTab)}
+        </div>
+
+        {/* Copy Button */}
+        <button
+          aria-label={copied ? 'Copied command' : 'Copy command'}
+          className={cn(
+            'flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-lg transition-all duration-200',
+            copied
+              ? 'bg-success/15 text-success'
+              : 'text-content-tertiary hover:bg-surface-muted hover:text-content-primary active:scale-95',
+          )}
+          type="button"
+          onClick={handleCopy}
+        >
+          {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
+        </button>
       </div>
     </div>
   );

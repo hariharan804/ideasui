@@ -73,9 +73,16 @@ html:not(.dark) {
   --text-3xl: var(--ideasui-font-size-3xl);
   --text-full: var(--ideasui-font-size-full);
 
+  /* ── Master Docs Background Color ────────────────────────────────────
+     Change this single variable to update the background color across the entire docs site!
+  */
+  --docs-bg-color: oklch(var(--ideasui-color-surface));
+
   /* Backgrounds */
-  --fd-background: var(--ideasui-color-surface);
-  --color-fd-background: oklch(var(--ideasui-color-surface));
+  --fd-background: var(--docs-bg-color);
+  --color-fd-background: var(--docs-bg-color);
+  --fd-card: var(--docs-bg-color);
+  --color-fd-card: var(--docs-bg-color);
 
   --fd-foreground: var(--ideasui-color-content-primary);
   --color-fd-foreground: oklch(var(--ideasui-color-content-primary));
@@ -185,11 +192,20 @@ main:has(.hero-section) {
   background: var(--color-border) / 0.5;
 }
 
-/* Glassmorphism for Sidebar & Nav */
+html,
+body,
+#nd-sidebar,
+#nd-sidebar-mobile {
+  background-color: var(--docs-bg-color) !important;
+}
+
+/* Sidebar & Scroll Area Surface Background */
 #nd-sidebar {
-  background: oklch(var(--ideasui-color-background) / 0.6) !important;
-  backdrop-filter: blur(12px) !important;
   border-right: 1px solid oklch(var(--ideasui-color-border-subtle) / 0.2) !important;
+}
+
+[data-radix-scroll-area-viewport] {
+  background-color: transparent !important;
 }
 
 /* Sidebar Tabs Dropdown UI Override */

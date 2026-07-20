@@ -82,96 +82,35 @@ function FooterCard({
   return (
     <Link
       className={cn(
-        // Layout
-        'group relative flex flex-col overflow-hidden rounded-2xl',
-        isPrev ? 'items-start' : 'items-end',
-        // Padding
-        'p-5',
-        // Transition — only safe CSS properties
-        'transition-[border-color,box-shadow,transform] duration-200 ease-out',
-        // Hover
-        'hover:border-primary/40',
-        // Active
-        'active:translate-y-0',
+        'group bg-surface-muted/40 hover:bg-surface-muted/80 relative flex items-center gap-3.5 rounded-2xl p-4 transition-all duration-200 active:scale-[0.99]',
+        !isPrev && 'flex-row-reverse text-right',
         className,
       )}
       href={item.url}
     >
-      {/*
-        Glow: always rendered, opacity transitions — no layout change.
-        Separate elements for left/right so no class switching happens.
-      */}
-      <span
-        aria-hidden
-        className={cn(
-          'pointer-events-none absolute inset-0 rounded-2xl',
-          'opacity-0 transition-opacity duration-300 group-hover:opacity-100',
-          isPrev
-            ? 'bg-[radial-gradient(180px_circle_at_0%_50%,theme(colors.primary.DEFAULT/10%),transparent)]'
-            : 'bg-[radial-gradient(180px_circle_at_100%_50%,theme(colors.primary.DEFAULT/10%),transparent)]',
-        )}
-      />
-
-      {/* Direction chip */}
-      <span
-        className={cn(
-          'relative mb-3 inline-flex items-center gap-1.5 rounded-3xl px-2.5 py-1',
-          'border bg-transparent',
-          // Stable border + text; only color transitions
-          'border-border-base/40 text-content-secondary',
-          'transition-[border-color,color,background-color] duration-200',
-          'group-hover:border-primary/30 group-hover:bg-primary/8 group-hover:text-primary',
-          'text-[10px] font-semibold tracking-widest uppercase',
-          !isPrev && 'flex-row-reverse',
-        )}
-      >
+      {/* Soft Arrow Circle */}
+      <div className="bg-surface-muted/80 text-content-tertiary group-hover:bg-primary/10 group-hover:text-primary flex size-9 shrink-0 items-center justify-center rounded-full transition-colors duration-200">
         {isPrev ? (
-          <ArrowLeft className="size-2.5 transition-transform duration-200 group-hover:-translate-x-0.5" />
+          <ArrowLeft className="size-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
         ) : (
-          <ArrowRight className="size-2.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+          <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
         )}
-        {label}
-      </span>
+      </div>
 
-      {/* Title */}
-      <span
-        className={cn(
-          'relative line-clamp-2 text-[0.9rem] leading-snug font-semibold',
-          'text-content-primary group-hover:text-primary transition-colors duration-200',
-          !isPrev && 'text-right',
-        )}
-      >
-        {item.name}
-      </span>
-
-      {/* Description */}
-      {item.description !== undefined && (
-        <span
-          className={cn(
-            'text-content-secondary relative mt-1.5 line-clamp-1 text-xs leading-relaxed',
-            !isPrev && 'text-right',
-          )}
-        >
-          {item.description}
+      {/* Content Column */}
+      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="text-content-tertiary group-hover:text-primary text-[10px] font-medium tracking-wider uppercase transition-colors">
+          {label}
         </span>
-      )}
-
-      {/*
-        Bottom accent line:
-        - Always present, width animates 0 → 75%
-        - Separate left/right gradients rendered conditionally (no class toggle)
-      */}
-      {isPrev ? (
-        <span
-          aria-hidden
-          className="from-primary/70 via-primary/30 absolute bottom-0 left-0 h-px w-0 rounded-3xl bg-gradient-to-r to-transparent transition-[width] duration-300 group-hover:w-3/4"
-        />
-      ) : (
-        <span
-          aria-hidden
-          className="from-primary/70 via-primary/30 absolute right-0 bottom-0 h-px w-0 rounded-3xl bg-gradient-to-l to-transparent transition-[width] duration-300 group-hover:w-3/4"
-        />
-      )}
+        <span className="text-content-primary group-hover:text-primary line-clamp-1 text-xs font-semibold transition-colors sm:text-sm">
+          {item.name}
+        </span>
+        {item.description !== undefined && (
+          <span className="text-content-tertiary line-clamp-1 text-[11px] leading-relaxed">
+            {item.description}
+          </span>
+        )}
+      </div>
     </Link>
   );
 }

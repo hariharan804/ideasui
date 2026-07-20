@@ -177,11 +177,8 @@ export function LayoutHeaderTabs({
           <Link
             key={url}
             className={cn(
-              'group relative flex-shrink-0 px-3 py-1.5 text-sm font-medium transition-all duration-300',
-              'rounded-full active:scale-[0.98]',
-              isSelected
-                ? 'text-primary'
-                : 'text-content-secondary hover:bg-surface-subtle hover:text-content-primary',
+              'group relative flex-shrink-0 px-3 py-1.5 text-sm font-medium transition-colors duration-200',
+              isSelected ? 'text-primary' : 'text-content-tertiary hover:text-content-primary',
               className,
             )}
             href={url}
@@ -191,10 +188,10 @@ export function LayoutHeaderTabs({
               {icon ? (
                 <span
                   className={cn(
-                    'size-4 transition-colors',
+                    'size-4 transition-colors duration-200',
                     isSelected
                       ? 'text-primary'
-                      : 'text-content-secondary group-hover:text-content-primary',
+                      : 'text-content-tertiary group-hover:text-content-primary',
                   )}
                 >
                   {icon}

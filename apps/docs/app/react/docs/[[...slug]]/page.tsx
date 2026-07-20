@@ -6,7 +6,7 @@ import path from 'node:path';
 import { source } from '@/lib/source';
 import { DocsPage, DocsBody } from '@/components/layout/docs-layout/page';
 import { PropsTable } from '@/components/ui/props-table';
-import { Code2, BookOpen, Paintbrush } from 'lucide-react';
+import { Code2, BookOpen, Paintbrush, Sparkles } from 'lucide-react';
 import { Figma } from '@/components/docs-ui/icons';
 import { siteConfig } from '@/config/site';
 import { CopyDropdown } from '@/components/docs-ui/copy-dropdown';
@@ -29,21 +29,17 @@ const MAX_LINES_FOR_LINE_NUMBERS = 5;
 function extractText(node: unknown): string {
   if (typeof node === 'string') return node;
 
+  if (Array.isArray(node)) {
+    return node.map((child) => extractText(child)).join('');
+  }
+
   if (
-    node !== null &&
+    node &&
     typeof node === 'object' &&
     'props' in node &&
-    node.props !== null &&
-    typeof node.props === 'object' &&
-    'children' in node.props
+    (node as { props?: { children?: unknown } }).props?.children
   ) {
-    const { children } = node.props;
-
-    if (Array.isArray(children)) {
-      return children.map((element) => extractText(element)).join('');
-    }
-
-    return extractText(children);
+    return extractText((node as { props: { children: unknown } }).props.children);
   }
 
   return '';
@@ -100,132 +96,105 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
   return (
     <DocsPage className="!pt-8" full={pageData.full} toc={pageData.toc}>
-      <div className="border-subtle relative mb-8 border-b pb-8">
-        {/* ── Decorative Background (self-clipped) ──────────────────────────── */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-t-xl">
-          {/* Dot grid */}
-          <div className="absolute inset-0 -mx-4 bg-[radial-gradient(#88888818_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_50%,transparent_100%)] [background-size:20px_20px] sm:-mx-6 lg:-mx-8" />
-          {/* Primary glow */}
-          <div className="bg-primary/20 absolute -top-16 -left-8 size-56 rounded-full blur-3xl dark:opacity-50" />
-          {/* Secondary accent glow */}
-          <div className="bg-secondary/15 absolute -top-8 right-0 size-48 rounded-full blur-3xl" />
-          {/* Bottom fade */}
-          <div className="from-background absolute right-0 bottom-0 left-0 h-16 bg-gradient-to-t to-transparent" />
+      {/* ── Executive Hero Header Card ────────────────────────────────────── */}
+      <div className="bg-surface-subtle/25 relative mb-8 rounded-3xl p-6 backdrop-blur-sm sm:p-8">
+        {/* Decorative ambient background mesh */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
+          <div className="absolute inset-0 bg-[radial-gradient(oklch(var(--ideasui-color-content-tertiary)/0.15)_1px,transparent_1px)] [background-size:24px_24px]" />
+          <div className="bg-primary/10 absolute -top-20 -left-10 size-64 rounded-full blur-3xl dark:opacity-40" />
+          <div className="bg-secondary/10 absolute -top-10 -right-10 size-56 rounded-full blur-3xl" />
+          <div className="bg-primary/10 absolute -right-10 -bottom-20 size-64 rounded-full blur-3xl dark:opacity-40" />
         </div>
 
-        {/* ── Breadcrumb ────────────────────────────────────────────────────── */}
-        <div className="relative mb-4 flex flex-wrap items-center gap-2">
-          <span className="text-primary bg-primary/10 border-primary/25 inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[9px] font-bold tracking-widest uppercase">
-            <span className="bg-primary size-1.5 rounded-full" />
-            {parameters.slug?.includes('components') ? 'Component' : 'Guide'}
-          </span>
-          <span className="text-content-subtle font-mono text-[11px]">
-            {parameters.slug ? parameters.slug.join(' › ') : ''}
-          </span>
-        </div>
-
-        {/* ── Title ─────────────────────────────────────────────────────────── */}
-        <h1 className="text-content-primary relative text-3xl font-black tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]">
+        {/* ── Title ────────────────────────────────────────────────────────── */}
+        <h1 className="text-content-primary relative text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
           {pageData.title}
         </h1>
 
-        {/* ── Description ───────────────────────────────────────────────────── */}
-        <p className="text-content-secondary relative mt-3 mb-7 max-w-2xl text-base leading-relaxed sm:text-[17px]">
-          {pageData.description}
-        </p>
+        {/* ── Description ──────────────────────────────────────────────────── */}
+        {pageData.description && (
+          <p className="text-content-secondary relative mt-3 max-w-2xl text-base leading-relaxed font-normal sm:text-lg">
+            {pageData.description}
+          </p>
+        )}
 
-        {/* ── Interactive Resource Cards ────────────────────────────────────── */}
-        <div
-          className="relative mt-8 grid gap-3"
-          style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))' }}
-        >
+        {/* ── Interactive Resource Cards ───────────────────────────────────── */}
+        <div className="relative mt-6 flex flex-wrap items-center gap-2.5">
           {pageData.links?.source && (
             <a
-              className="border-subtle bg-surface-subtle/50 hover:bg-surface-subtle hover:border-primary/40 group flex items-center gap-3 rounded-2xl border p-2.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-sm"
+              className="group bg-surface/80 hover:bg-surface hover:border-primary/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
               href={`${siteConfig.links.componentsBase}/${pageData.links.source}`}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <div className="bg-primary/10 text-primary group-hover:bg-primary/20 flex size-8 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110">
-                <Code2 className="size-4" />
+              <div className="bg-primary/10 text-primary group-hover:bg-primary/20 flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
+                <Code2 className="size-3.5" />
               </div>
               <div className="flex min-w-0 flex-col">
-                <span className="text-content-primary truncate text-[11px] font-bold tracking-tight">
-                  Source
-                </span>
-                <span className="text-content-tertiary truncate text-[9px] font-medium">
-                  View on GitHub
-                </span>
+                <span className="text-content-primary truncate text-xs font-semibold">Source</span>
+                <span className="text-content-tertiary truncate text-[10px]">View on GitHub</span>
               </div>
             </a>
           )}
 
           {pageData.links?.recipe && (
             <a
-              className="border-subtle bg-surface-subtle/50 hover:bg-surface-subtle hover:border-info/40 group flex items-center gap-3 rounded-2xl border p-2.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-sm"
+              className="group border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-sky-500/40 hover:shadow-xs active:scale-[0.98]"
               href={`${siteConfig.links.packageBase}/${pageData.links.recipe}`}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <div className="bg-info/10 text-info group-hover:bg-info/20 flex size-8 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110">
-                <Paintbrush className="size-4" />
+              <div className="flex size-7 shrink-0 items-center justify-center rounded-xl bg-sky-500/10 text-sky-500 transition-transform duration-200 group-hover:scale-105 group-hover:bg-sky-500/20">
+                <Paintbrush className="size-3.5" />
               </div>
               <div className="flex min-w-0 flex-col">
-                <span className="text-content-primary truncate text-[11px] font-bold tracking-tight">
-                  Recipe
-                </span>
-                <span className="text-content-tertiary truncate text-[9px] font-medium">
-                  Theme Styles
-                </span>
+                <span className="text-content-primary truncate text-xs font-semibold">Recipe</span>
+                <span className="text-content-tertiary truncate text-[10px]">Theme Styles</span>
               </div>
             </a>
           )}
 
           {pageData.links?.rac && (
             <a
-              className="border-subtle bg-surface-subtle/50 hover:bg-surface-subtle hover:border-success/40 group flex items-center gap-3 rounded-2xl border p-2.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-sm"
+              className="group border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-emerald-500/40 hover:shadow-xs active:scale-[0.98]"
               href={pageData.links.rac}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <div className="bg-success/10 text-success group-hover:bg-success/20 flex size-8 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110">
-                <Code2 className="size-4" />
+              <div className="flex size-7 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500 transition-transform duration-200 group-hover:scale-105 group-hover:bg-emerald-500/20">
+                <Code2 className="size-3.5" />
               </div>
               <div className="flex min-w-0 flex-col">
-                <span className="text-content-primary truncate text-[11px] font-bold tracking-tight">
+                <span className="text-content-primary truncate text-xs font-semibold">
                   React Aria
                 </span>
-                <span className="text-content-tertiary truncate text-[9px] font-medium">
-                  A11y Spec
-                </span>
+                <span className="text-content-tertiary truncate text-[10px]">A11y Spec</span>
               </div>
             </a>
           )}
 
           {pageData.links?.storybook && (
             <a
-              className="border-subtle bg-surface-subtle/50 hover:bg-surface-subtle hover:border-warning/40 group flex items-center gap-3 rounded-2xl border p-2.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-sm"
+              className="group border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-amber-500/40 hover:shadow-xs active:scale-[0.98]"
               href={`${siteConfig.links.storybook}/?path=/docs/${pageData.links.storybook.toLowerCase().replace('/', '-')}`}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <div className="bg-warning/10 text-warning group-hover:bg-warning/20 flex size-8 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110">
-                <BookOpen className="size-4" />
+              <div className="flex size-7 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-500 transition-transform duration-200 group-hover:scale-105 group-hover:bg-amber-500/20">
+                <BookOpen className="size-3.5" />
               </div>
               <div className="flex min-w-0 flex-col">
-                <span className="text-content-primary truncate text-[11px] font-bold tracking-tight">
+                <span className="text-content-primary truncate text-xs font-semibold">
                   Storybook
                 </span>
-                <span className="text-content-tertiary truncate text-[9px] font-medium">
-                  Playground
-                </span>
+                <span className="text-content-tertiary truncate text-[10px]">Playground</span>
               </div>
             </a>
           )}
 
           {pageData.links?.figma && (
             <a
-              className="border-subtle bg-surface-subtle/50 hover:bg-surface-subtle group flex items-center gap-3 rounded-2xl border p-2.5 transition-all duration-300 hover:-translate-y-1 hover:border-pink-500/40 hover:shadow-sm"
+              className="group border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-pink-500/40 hover:shadow-xs active:scale-[0.98]"
               href={
                 typeof pageData.links.figma === 'string'
                   ? pageData.links.figma
@@ -234,16 +203,14 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
               rel="noopener noreferrer"
               target="_blank"
             >
-              <div className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-pink-500/10 text-pink-500 transition-transform duration-300 group-hover:scale-110 group-hover:bg-pink-500/20">
-                <Figma className="size-4" />
+              <div className="flex size-7 shrink-0 items-center justify-center rounded-xl bg-pink-500/10 text-pink-500 transition-transform duration-200 group-hover:scale-105 group-hover:bg-pink-500/20">
+                <Figma className="size-3.5" />
               </div>
               <div className="flex min-w-0 flex-col">
-                <span className="text-content-primary truncate text-[11px] font-bold tracking-tight">
+                <span className="text-content-primary truncate text-xs font-semibold">
                   Figma UI
                 </span>
-                <span className="text-content-tertiary truncate text-[9px] font-medium">
-                  Design Assets
-                </span>
+                <span className="text-content-tertiary truncate text-[10px]">Design Assets</span>
               </div>
             </a>
           )}
@@ -251,10 +218,13 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
         {/* ── Copy Markdown Row ─────────────────────────────────────────────── */}
         {rawMarkdown && (
-          <div className="border-subtle/50 relative mt-6 flex items-center justify-between border-t pt-4">
-            <span className="text-content-subtle text-[11px]">
-              Copy as Markdown to use with AI assistants
-            </span>
+          <div className="relative mt-6 flex flex-wrap items-center justify-between gap-3 pt-2">
+            <div className="text-content-tertiary flex items-center gap-2 text-xs font-medium">
+              <span className="bg-primary/10 text-primary flex size-5 items-center justify-center rounded-full">
+                <Sparkles className="size-3" />
+              </span>
+              <span>Copy as Markdown for AI assistants</span>
+            </div>
             <CopyDropdown pageTitle={pageData.title ?? ''} rawMarkdown={rawMarkdown} />
           </div>
         )}

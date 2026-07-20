@@ -15,14 +15,14 @@ import { LayoutContext } from './context';
 import { mergeRefs } from '@/lib/docs/merge-refs';
 
 const itemVariants = tv({
-  base: 'relative my-0.5 flex flex-row items-center gap-2.5 rounded-lg px-3 py-2 text-start text-content-secondary transition-colors duration-200 [&_svg]:size-4 [&_svg]:shrink-0',
+  base: 'relative my-0.5 flex flex-row items-center gap-2 rounded-md px-2.5 py-1.5 text-start text-sm text-content-secondary transition-colors duration-150 [&_svg]:size-4 [&_svg]:shrink-0',
   variants: {
     highlight: {
       true: '',
     },
     variant: {
-      button: 'hover:bg-surface hover:text-content-primary',
-      link: 'transition-colors duration-200 hover:bg-surface hover:text-content-primary data-[active=true]:bg-primary/10 data-[active=true]:font-semibold data-[active=true]:text-primary',
+      button: 'hover:bg-surface-subtle hover:text-content-primary',
+      link: 'hover:bg-surface-subtle hover:text-content-primary data-[active=true]:bg-primary/10 data-[active=true]:font-semibold data-[active=true]:text-primary',
     },
   },
 });
@@ -66,8 +66,8 @@ export function SidebarContent({
           <aside
             ref={mergeRefs(reference, referenceProperty, asideReference)}
             className={cn(
-              'absolute inset-y-0 start-0 flex w-full flex-col items-end text-sm duration-250 *:w-(--sidebar-width)',
-              navMode === 'auto' && 'border-subtle/40 bg-surface border-e',
+              'bg-surface absolute inset-y-0 start-0 flex w-full flex-col items-end text-sm duration-250 *:w-(--sidebar-width)',
+              navMode === 'auto' && 'border-subtle/40 border-e',
               collapsed && [
                 'border-subtle/40 bg-surface inset-y-2 w-(--sidebar-width) rounded-xl border transition-transform',
                 hovered
@@ -116,7 +116,7 @@ export function SidebarDrawer({
       {open && (
         <Base.SidebarDrawerContent
           className={cn(
-            'data-[state=open]:animate-fd-sidebar-in data-[state=closed]:animate-fade-out bg-surface/90 fixed inset-y-0 end-0 z-60 flex w-[85%] max-w-[320px] flex-col text-[0.9375rem] shadow-lg backdrop-blur-md',
+            'data-[state=open]:animate-fd-sidebar-in data-[state=closed]:animate-fade-out bg-surface fixed inset-y-0 end-0 z-60 flex w-[85%] max-w-[320px] flex-col text-[0.9375rem] shadow-lg backdrop-blur-md',
             className,
           )}
           id="nd-sidebar-mobile"
@@ -140,7 +140,7 @@ export function SidebarSeparator({
   return (
     <Base.SidebarSeparator
       className={cn(
-        'text-content-muted mt-4 mb-2 flex items-center px-2 text-xs font-medium tracking-wider uppercase transition-opacity',
+        'text-content-tertiary mt-4 mb-1.5 flex items-center px-2.5 text-[11px] font-semibold tracking-wider uppercase transition-opacity',
         className,
       )}
       style={{
@@ -167,7 +167,7 @@ export function SidebarItem({
   return (
     <Base.SidebarItem
       className={cn(
-        'text-content-secondary hover:text-content-primary data-[active=true]:text-primary relative flex flex-row items-center gap-2.5 rounded-md px-2 py-1.5 text-sm font-medium transition-colors duration-200',
+        'text-content-secondary hover:text-content-primary data-[active=true]:text-primary relative mt-0.5 flex flex-row items-center gap-2.5 rounded-md px-2 py-1.5 text-sm font-medium transition-colors duration-200',
         'hover:from-primary/5 data-[active=true]:from-primary/10 hover:bg-gradient-to-r hover:to-transparent data-[active=true]:bg-gradient-to-r data-[active=true]:to-transparent data-[active=true]:font-semibold',
         '[&_svg]:size-4 [&_svg]:shrink-0',
         className,

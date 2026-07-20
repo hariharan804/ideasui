@@ -24,7 +24,7 @@ export function CopyDropdownMenu({
       {isOpen && (
         <motion.div
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          className="bg-surface/90 absolute top-full right-0 z-40 mt-2 w-72 rounded-2xl p-1.5 shadow-[0_12px_38px_rgba(0,0,0,0.08)] backdrop-blur-xl"
+          className="bg-surface/95 absolute top-full right-0 z-[999] mt-2 w-72 rounded-2xl p-1.5 shadow-xl backdrop-blur-xl"
           exit={{ opacity: 0, y: 6, scale: 0.95 }}
           initial={{ opacity: 0, y: 8, scale: 0.95 }}
           transition={{ duration: 0.15, ease: 'easeOut' }}

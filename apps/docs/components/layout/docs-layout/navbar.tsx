@@ -148,6 +148,44 @@ function NavbarLinkItemMenu({
   );
 }
 
+/**
+ * Shared pill/circle container used for navbar action buttons (Theme, Language, etc.).
+ * Provides a consistent frosted-glass appearance across all icon controls.
+ */
+function NavbarPill({ children, className, ...properties }: ComponentProps<'div'>) {
+  return (
+    <div
+      className={cn(
+        'bg-surface-muted text-content-tertiary',
+        'flex h-8 items-center justify-center rounded-full px-2.5 backdrop-blur-md transition-all active:scale-95',
+        'hover:bg-surface-subtle hover:text-content-primary',
+        className,
+      )}
+      {...properties}
+    >
+      {children}
+    </div>
+  );
+}
+
+/** Pill variant that renders as a semantic `<button>` element. */
+function NavbarPillButton({ children, className, ...properties }: ComponentProps<'button'>) {
+  return (
+    <button
+      className={cn(
+        'bg-surface-muted text-content-tertiary',
+        'flex h-8 cursor-pointer items-center gap-1.5 rounded-full px-3.5 backdrop-blur-md transition-all active:scale-95',
+        'hover:bg-surface-subtle hover:text-content-primary',
+        className,
+      )}
+      type="button"
+      {...properties}
+    >
+      {children}
+    </button>
+  );
+}
+
 export interface DocsNavbarProps {
   headerTabsProps?: LayoutHeaderTabsProperties;
   i18n?: BaseLayoutProps['i18n'];
@@ -214,7 +252,7 @@ export function DocsNavbar({
     >
       <div
         className={cn(
-          'relative z-50 mx-auto flex h-14 w-full max-w-[95%] min-w-10 items-center gap-6 border-2 pr-2 pl-4 shadow-sm transition-all duration-300 sm:py-2 md:pl-6',
+          'relative z-50 mx-auto flex h-14 w-full max-w-[95%] min-w-10 items-center gap-6 border-2 pr-2 pl-4 shadow-sm backdrop-blur-md transition-all duration-300 sm:py-2 md:pl-6',
           isTop ? 'rounded-none border-transparent bg-transparent shadow-none' : 'rounded-full',
         )}
         data-header-body=""
@@ -308,13 +346,10 @@ export function DocsNavbar({
 
           <div className="ml-2 flex items-center gap-2 max-md:hidden">
             {/* 1. Theme Customizer Pill */}
-            <button
-              aria-label="Customize Theme"
-              className="bg-surface-muted border-subtle/50 text-content-secondary hover:bg-surface-subtle hover:text-content-primary flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-medium shadow-xs backdrop-blur-md transition-all active:scale-95"
-            >
+            <NavbarPillButton aria-label="Customize Theme" className="text-xs font-medium">
               <Palette className="size-4" />
               <span>Theme</span>
-            </button>
+            </NavbarPillButton>
 
             {/* 2. GitHub Star Count Pill */}
             <GitHubButton repo="hariharan804/ideasui" />
@@ -322,22 +357,22 @@ export function DocsNavbar({
             {/* 3. Language Toggle Circle */}
             {!!i18n && (
               <LanguageToggle>
-                <div className="bg-surface-muted border-subtle/50 text-content-secondary hover:bg-surface-subtle hover:text-content-primary flex size-9 items-center justify-center rounded-full border shadow-xs backdrop-blur-md transition-all active:scale-95">
+                <NavbarPill>
                   <Languages className="size-4" />
-                </div>
+                </NavbarPill>
               </LanguageToggle>
             )}
 
             {/* 4. Theme Mode Toggle Pill */}
             {themeSwitchEnabled ? (
-              <div className="bg-surface-muted border-subtle/50 flex items-center rounded-full border p-1 shadow-xs backdrop-blur-md">
+              <NavbarPill className="px-1">
                 {themeSwitch?.component ?? <ThemeToggle mode={themeSwitchMode} />}
-              </div>
+              </NavbarPill>
             ) : null}
           </div>
 
           {/* Mobile Controls */}
-          <div className="flex items-center gap-1 md:hidden">
+          <div className="flex items-center gap-1.5 md:hidden">
             {searchToggle.enabled !== false &&
               (searchToggle.components?.sm ?? <SearchToggle hideIfDisabled className="p-2" />)}
 

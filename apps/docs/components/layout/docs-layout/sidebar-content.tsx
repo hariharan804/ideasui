@@ -21,6 +21,8 @@ import {
 } from './sidebar';
 import { FilteredSidebarTabsDropdown } from './header';
 
+import { Palette } from 'lucide-react';
+
 import { Sidebar as SidebarIcon, X, Languages } from '@/components/docs-ui/icons';
 import { LanguageToggle } from '@/components/docs-ui/language-toggle';
 import { ThemeToggle } from '@/components/docs-ui/theme-toggle';
@@ -89,6 +91,41 @@ function DefaultFooter({
       {children}
       {footer}
     </div>
+  );
+}
+
+/**
+ * Renders the list of icon-type navigation links.
+ * @param variant - 'sidebar' adds lg:hidden; 'drawer' adds me-auto on last item.
+ */
+function IconLinkList({
+  iconLinks,
+  variant,
+}: Readonly<{
+  iconLinks: Extract<LinkItemType, { type: 'icon' }>[];
+  variant: 'sidebar' | 'drawer';
+}>) {
+  return (
+    <>
+      {iconLinks.map((item, index) => (
+        <LinkItem
+          key={item.url}
+          aria-label={item.label}
+          className={cn(
+            buttonVariants({
+              color: 'ghost',
+              size: 'icon-sm',
+            }),
+            'text-content-secondary',
+            variant === 'sidebar' && 'lg:hidden',
+            variant === 'drawer' && index === iconLinks.length - 1 && 'me-auto',
+          )}
+          item={item}
+        >
+          {item.icon}
+        </LinkItem>
+      ))}
+    </>
   );
 }
 
@@ -191,22 +228,14 @@ export function SidebarContent({
         </Header>
         {viewport}
         <Footer footer={typeof footer === 'function' ? undefined : footer} iconLinks={iconLinks}>
-          {iconLinks.map((item) => (
-            <LinkItem
-              key={item.url}
-              aria-label={item.label}
-              className={cn(
-                buttonVariants({
-                  className: 'lg:hidden',
-                  color: 'ghost',
-                  size: 'icon-sm',
-                }),
-              )}
-              item={item}
-            >
-              {item.icon}
-            </LinkItem>
-          ))}
+          <div className="flex w-full items-center justify-between gap-2">
+            <IconLinkList iconLinks={iconLinks} variant="sidebar" />
+            {themeSwitchEnabled ? (
+              <div className="bg-surface-muted text-content-tertiary flex h-8 items-center rounded-full px-1 shadow-xs backdrop-blur-md">
+                {themeToggle}
+              </div>
+            ) : null}
+          </div>
         </Footer>
       </SidebarPrimitiveContent>
       <SidebarDrawer {...rest}>
@@ -230,37 +259,37 @@ export function SidebarContent({
         </Header>
         {viewport}
         <Footer
-          className={cn(
-            'hidden flex-row items-center justify-end',
-            (!!i18n || themeSwitchEnabled) && 'flex',
-            iconLinks.length > 0 && 'max-lg:flex',
-          )}
+          className="border-subtle/20 flex flex-col gap-3 border-t p-4"
           footer={typeof footer === 'function' ? undefined : footer}
           iconLinks={iconLinks}
         >
-          {iconLinks.map((item, index) => (
-            <LinkItem
-              key={item.url}
-              aria-label={item.label}
-              className={cn(
-                buttonVariants({
-                  color: 'ghost',
-                  size: 'icon-sm',
-                }),
-                'text-content-secondary lg:hidden',
-                index === iconLinks.length - 1 && 'me-auto',
-              )}
-              item={item}
+          <div className="flex w-full items-center justify-between gap-2">
+            <button
+              aria-label="Customize Theme"
+              className="bg-surface-muted text-content-tertiary hover:text-content-primary flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-medium shadow-xs backdrop-blur-md transition-all active:scale-95"
+              type="button"
             >
-              {item.icon}
-            </LinkItem>
-          ))}
-          {!!i18n && (
-            <LanguageToggle>
-              <Languages className="text-content-secondary size-4.5" />
-            </LanguageToggle>
+              <Palette className="size-4" />
+              <span>Customize Theme</span>
+            </button>
+            {themeSwitchEnabled ? (
+              <div className="bg-surface-muted text-content-tertiary flex h-8 items-center rounded-full px-1 shadow-xs backdrop-blur-md">
+                {themeToggle}
+              </div>
+            ) : null}
+          </div>
+          {(iconLinks.length > 0 || !!i18n) && (
+            <div className="border-subtle/10 flex w-full items-center justify-between gap-2 border-t pt-1">
+              <IconLinkList iconLinks={iconLinks} variant="drawer" />
+              {!!i18n && (
+                <LanguageToggle>
+                  <div className="bg-surface-muted text-content-tertiary flex h-8 items-center rounded-full px-2.5 shadow-xs backdrop-blur-md">
+                    <Languages className="size-4" />
+                  </div>
+                </LanguageToggle>
+              )}
+            </div>
           )}
-          {themeSwitchEnabled ? themeToggle : null}
         </Footer>
       </SidebarDrawer>
     </>

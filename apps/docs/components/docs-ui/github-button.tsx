@@ -44,8 +44,8 @@ export function GitHubButton({
     <a
       aria-label="GitHub Repository"
       className={cn(
-        'group inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-xs font-medium',
-        'bg-surface-muted border-subtle/50 text-content-secondary',
+        'group inline-flex h-8 items-center gap-1.5 rounded-full px-3.5 text-xs font-medium',
+        'bg-surface-muted text-content-tertiary',
         'hover:bg-surface-subtle hover:text-content-primary',
         'shadow-xs backdrop-blur-md transition-all active:scale-95',
         className,
