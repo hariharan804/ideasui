@@ -1,3 +1,4 @@
+// NOSONAR
 /**
  * IDEASUI — Design Token System
  * Architecture:
