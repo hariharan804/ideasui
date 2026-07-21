@@ -115,7 +115,7 @@ describe('Button', () => {
   it('should render all variants and sizes', () => {
     const variants = ['solid', 'outline', 'ghost'] as const;
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
-    const radii = ['none', 'default', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', 'full'] as const;
+    const radii = ['none', 'sm', 'md', 'lg', 'xl', 'full'] as const;
 
     for (const variant of variants) {
       render(<Button variant={variant}>Button</Button>);

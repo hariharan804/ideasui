@@ -21,7 +21,7 @@ addons.register('ideasui-theme-manager', (api) => {
 
     // Also apply data-theme attribute to the Manager UI for robust CSS targeting
     if (typeof document !== 'undefined') {
-      document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.setAttribute('ideasui-data-theme', theme);
     }
   };
 

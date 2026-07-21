@@ -1,6 +1,6 @@
 import { Button } from '@ideasui/react';
 import { Apple } from 'lucide-react';
-import { Chrome, Github } from '@/components/ui/docs/icons';
+import { Chrome, Github } from '@/components/docs-ui/icons';
 
 export function Social() {
   return (

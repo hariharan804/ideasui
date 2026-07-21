@@ -9,7 +9,7 @@ import { useTranslations } from '@fuma-translate/react';
 import { useSearchContext } from 'fumadocs-ui/contexts/search';
 import { cn } from '@ideasui/utils';
 
-import { Search } from '@/components/ui/docs/icons';
+import { Search } from '@/components/docs-ui/icons';
 
 interface SearchToggleProperties extends Omit<ComponentProps<'button'>, 'color'>, ButtonProps {
   readonly hideIfDisabled?: boolean;
@@ -125,26 +125,26 @@ export function DynamicSearchToggle({
       type="button"
       {...properties}
       className={cn(
-        'group bg-background text-content-secondary hover:text-content-primary inline-flex w-full max-w-[320px] items-center gap-2.5 rounded px-2 py-1.5 text-sm shadow-sm backdrop-blur-md transition-all duration-300 hover:shadow-md',
+        'group bg-background dark:bg-surface-subtle text-content-secondary hover:text-content-primary inline-flex h-8 w-full max-w-[320px] items-center gap-2 rounded-full px-3 text-xs font-medium shadow-xs backdrop-blur-md transition-all duration-200 select-none hover:scale-105 sm:text-sm',
         properties.className,
       )}
       onClick={() => {
         setOpenSearch(true);
       }}
     >
-      <Search className="size-4 opacity-70 transition-opacity duration-300 group-hover:scale-110 group-hover:opacity-100" />
-      <span className="text-content-secondary/70 relative font-medium transition-all duration-300">
-        <span ref={textReference} />
+      <Search className="text-content-tertiary group-hover:text-content-primary size-4 shrink-0 transition-transform duration-200 group-hover:scale-105" />
+      <span className="text-content-tertiary relative flex min-w-0 flex-1 items-center overflow-hidden whitespace-nowrap">
+        <span ref={textReference} className="truncate whitespace-nowrap" />
         <span
           ref={cursorReference}
-          className="bg-content-tertiary absolute top-[2px] ml-0.5 inline-block h-[14px] w-0.5 animate-pulse rounded-xs"
+          className="bg-content-tertiary ml-0.5 inline-block h-3.5 w-0.5 shrink-0 animate-pulse rounded-xs"
         />
       </span>
-      <div className="ms-auto flex items-center gap-1 transition-opacity">
+      <div className="ms-auto flex shrink-0 items-center gap-1 transition-opacity">
         {hotKey.map((k) => (
           <kbd
             key={String(k.display)}
-            className="bg-surface text-content-secondary inline-flex h-5 min-w-5 items-center justify-center rounded-md px-2 text-xs font-bold tracking-wider uppercase"
+            className="bg-surface text-content-tertiary inline-flex h-5 min-w-5 items-center justify-center rounded-md px-1.5 font-mono text-[10px] font-semibold tracking-wider uppercase shadow-2xs"
           >
             {k.display === 'Control' ? 'Ctrl' : k.display}
           </kbd>

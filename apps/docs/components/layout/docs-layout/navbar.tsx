@@ -2,28 +2,29 @@
 
 'use client';
 
-import type { LinkItemType, MenuItemType } from '@/components/ui/docs/link-item';
+import type { LinkItemType, MenuItemType } from '@/components/docs-ui/link-item';
 import type { SidebarTabWithProps } from 'fumadocs-ui/components/sidebar/tabs/dropdown';
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import type { ComponentProps, HTMLAttributes, PointerEvent, ReactNode, FC } from 'react';
 import type { LayoutHeaderTabsProps as LayoutHeaderTabsProperties } from './header';
 
 import { useState, useRef, Fragment } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Palette } from 'lucide-react';
 import Link from 'fumadocs-core/link';
 import { buttonVariants } from 'fumadocs-ui/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from 'fumadocs-ui/components/ui/popover';
+import { useIsScrollTop } from 'fumadocs-ui/utils/use-is-scroll-top';
 import { cn } from '@ideasui/utils';
 
 import { SidebarCollapseTrigger, SidebarTrigger } from './sidebar';
 import { LayoutHeader, LayoutHeaderTabs } from './header';
 
-import { Sidebar as SidebarIcon, Languages } from '@/components/ui/docs/icons';
-import { DynamicSearchToggle, SearchToggle } from '@/components/ui/docs/search-toggle';
-import { GitHubButton } from '@/components/ui/docs/github-button';
-import { ThemeToggle } from '@/components/ui/docs/theme-toggle';
-import { LanguageToggle } from '@/components/ui/docs/language-toggle';
-import { LinkItem } from '@/components/ui/docs/link-item';
+import { Sidebar as SidebarIcon, Languages } from '@/components/docs-ui/icons';
+import { DynamicSearchToggle, SearchToggle } from '@/components/docs-ui/search-toggle';
+import { GitHubButton } from '@/components/docs-ui/github-button';
+import { ThemeToggle } from '@/components/docs-ui/theme-toggle';
+import { LanguageToggle } from '@/components/docs-ui/language-toggle';
+import { LinkItem } from '@/components/docs-ui/link-item';
 
 export function NavbarLinkItem({
   className,
@@ -147,6 +148,44 @@ function NavbarLinkItemMenu({
   );
 }
 
+/**
+ * Shared pill/circle container used for navbar action buttons (Theme, Language, etc.).
+ * Provides a consistent frosted-glass appearance across all icon controls.
+ */
+function NavbarPill({ children, className, ...properties }: ComponentProps<'div'>) {
+  return (
+    <div
+      className={cn(
+        'bg-surface-muted text-content-tertiary',
+        'flex h-8 items-center justify-center rounded-full px-2.5 backdrop-blur-md transition-all active:scale-95',
+        'hover:bg-surface-subtle hover:text-content-primary',
+        className,
+      )}
+      {...properties}
+    >
+      {children}
+    </div>
+  );
+}
+
+/** Pill variant that renders as a semantic `<button>` element. */
+function NavbarPillButton({ children, className, ...properties }: ComponentProps<'button'>) {
+  return (
+    <button
+      className={cn(
+        'bg-surface-muted text-content-tertiary',
+        'flex h-8 cursor-pointer items-center gap-1.5 rounded-full px-3.5 backdrop-blur-md transition-all active:scale-95',
+        'hover:bg-surface-subtle hover:text-content-primary',
+        className,
+      )}
+      type="button"
+      {...properties}
+    >
+      {children}
+    </button>
+  );
+}
+
 export interface DocsNavbarProps {
   headerTabsProps?: LayoutHeaderTabsProperties;
   i18n?: BaseLayoutProps['i18n'];
@@ -188,6 +227,7 @@ export function DocsNavbar({
 }: Readonly<DocsNavbarProps>) {
   const navMode = nav.mode ?? 'auto';
   const showLayoutTabs = tabMode === 'navbar' && tabs.length > 0;
+  const isTop = useIsScrollTop({ enabled: true }) ?? true;
 
   // Normalize nav.title
 
@@ -200,17 +240,31 @@ export function DocsNavbar({
 
   return (
     <LayoutHeader
-      className={cn('top-(--row-1) [grid-area:header]', showLayoutTabs ? 'h-auto pb-0' : '')}
+      className={cn(
+        'top-(--row-1) border-none bg-transparent pt-4 backdrop-blur-none [grid-area:header]',
+        showLayoutTabs ? 'h-auto pb-0' : '',
+      )}
       id="nd-subnav"
+      style={{
+        backdropFilter: 'none',
+        WebkitBackdropFilter: 'none',
+      }}
     >
       <div
-        className="mx-auto flex h-14 w-full max-w-[1440px] items-center px-4 md:px-6"
+        className={cn(
+          'relative z-50 mx-auto flex h-14 w-full max-w-[95%] min-w-10 items-center gap-6 border-2 pr-2 pl-4 shadow-sm backdrop-blur-md transition-all duration-300 sm:py-2 md:pl-6',
+          isTop ? 'rounded-none border-transparent bg-transparent shadow-none' : 'rounded-full',
+        )}
         data-header-body=""
+        style={{
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+        }}
       >
-        {/* Left Section */}
+        {/* Left Section: Logo & Tabs */}
         <div
           className={cn(
-            'flex flex-1 items-center gap-2',
+            'flex items-center gap-4',
             navMode === 'top' && 'flex-1',
             navMode === 'auto' && 'max-md:flex has-data-[collapsed=true]:md:flex',
             navMode === 'auto' && 'hidden md:items-center',
@@ -237,21 +291,47 @@ export function DocsNavbar({
             {titleNode}
             {nav.titleSuffix}
           </Link>
+
+          {/* Vertical Separator */}
+          <div className="bg-border mx-2 block h-4 w-px max-md:hidden" />
+
+          {/* React / Native Toggle */}
+          {/* NOSONAR */}
+          {/* <div className="flex items-center rounded-full bg-black/5 p-1 text-xs font-semibold max-md:hidden dark:bg-white/5">
+            <div className="bg-primary rounded-full px-3 py-1 text-white shadow-sm">REACT</div>
+            <div className="text-content-secondary hover:text-content-primary cursor-pointer rounded-full px-3 py-1 transition-colors hover:bg-black/5 dark:hover:bg-white/10">
+              NATIVE
+            </div>
+          </div> */}
         </div>
 
-        {/* Center Section: Search */}
-        <div className="flex flex-1 justify-center px-4">
-          {searchToggle.enabled !== false &&
-            (searchToggle.components?.lg ? (
-              <div className="max-md:hidden">{searchToggle.components.lg}</div>
-            ) : (
-              <DynamicSearchToggle hideIfDisabled className="max-md:hidden" />
-            ))}
-        </div>
+        {/* Center Section: Tabs (Perfectly Centered on Desktop) */}
+        {!!showLayoutTabs && (
+          <div className="flex items-center justify-center px-4 max-lg:hidden">
+            <LayoutHeaderTabs
+              className={cn(headerTabsProps?.className)}
+              data-header-tabs=""
+              {...headerTabsProps}
+              options={tabs}
+            />
+          </div>
+        )}
 
-        {/* Right Section */}
-        <div className="flex flex-1 items-center justify-end gap-3 md:gap-6">
-          <nav className="flex items-center gap-5 empty:hidden max-lg:hidden">
+        {/* Center / Right Section: Search & Icons */}
+        <div className="flex flex-1 items-center justify-end">
+          <div className="mr-4 flex items-center justify-end">
+            {searchToggle.enabled !== false &&
+              (searchToggle.components?.lg ? (
+                <div className="max-md:hidden">{searchToggle.components.lg}</div>
+              ) : (
+                <>
+                  <DynamicSearchToggle hideIfDisabled className="w-64 max-xl:hidden" />
+                  <SearchToggle hideIfDisabled className="p-2 max-md:hidden xl:hidden" />
+                </>
+              ))}
+          </div>
+
+          <nav className="flex items-center gap-4 empty:hidden max-lg:hidden">
             {links
               .filter(
                 (item): item is Extract<LinkItemType, { type?: 'main' | 'menu' | 'button' }> =>
@@ -264,40 +344,39 @@ export function DocsNavbar({
               })}
           </nav>
 
-          <div className="flex items-center gap-2">
-            <GitHubButton className="max-lg:hidden" repo="hariharan804/ideasui" />
+          <div className="ml-2 flex items-center gap-2 max-md:hidden">
+            {/* 1. Theme Customizer Pill */}
+            <NavbarPillButton aria-label="Customize Theme" className="text-xs font-medium">
+              <Palette className="size-4" />
+              <span>Theme</span>
+            </NavbarPillButton>
 
-            <div className="flex items-center gap-1.5">
-              {links
-                .filter(
-                  (item): item is Extract<LinkItemType, { type: 'icon' }> =>
-                    item.type === 'icon' && !item.url?.includes('github.com'),
-                )
-                .map((item, index) => {
-                  const iconKey = `icon-${index}`;
+            {/* 2. GitHub Star Count Pill */}
+            <GitHubButton repo="hariharan804/ideasui" />
 
-                  return (
-                    <LinkItem
-                      key={iconKey}
-                      aria-label={item.label}
-                      className={cn(
-                        buttonVariants({ color: 'ghost', size: 'icon-sm' }),
-                        'text-content-secondary hover:bg-surface-subtle hover:text-content-primary max-lg:hidden',
-                      )}
-                      item={item}
-                    >
-                      {item.icon}
-                    </LinkItem>
-                  );
-                })}
-            </div>
+            {/* 3. Language Toggle Circle */}
+            {!!i18n && (
+              <LanguageToggle>
+                <NavbarPill>
+                  <Languages className="size-4" />
+                </NavbarPill>
+              </LanguageToggle>
+            )}
+
+            {/* 4. Theme Mode Toggle Pill */}
+            {themeSwitchEnabled ? (
+              <NavbarPill className="px-1">
+                {themeSwitch?.component ?? <ThemeToggle mode={themeSwitchMode} />}
+              </NavbarPill>
+            ) : null}
           </div>
 
-          <div className="flex items-center gap-1 md:hidden">
+          {/* Mobile Controls */}
+          <div className="flex items-center gap-1.5 md:hidden">
             {searchToggle.enabled !== false &&
               (searchToggle.components?.sm ?? <SearchToggle hideIfDisabled className="p-2" />)}
 
-            <GitHubButton className="bg-transparent px-2" repo="hariharan804/ideasui" />
+            <GitHubButton repo="hariharan804/ideasui" />
 
             <SidebarTrigger
               className={cn(
@@ -311,17 +390,6 @@ export function DocsNavbar({
             >
               <SidebarIcon />
             </SidebarTrigger>
-          </div>
-
-          <div className="flex items-center gap-1 max-md:hidden">
-            {!!i18n && (
-              <LanguageToggle>
-                <Languages className="text-content-secondary size-4.5" />
-              </LanguageToggle>
-            )}
-            {themeSwitchEnabled
-              ? (themeSwitch?.component ?? <ThemeToggle mode={themeSwitchMode} />)
-              : null}
             {!!sidebarCollapsible && navMode === 'top' && (
               <SidebarCollapseTrigger
                 className={cn(
@@ -338,16 +406,6 @@ export function DocsNavbar({
           </div>
         </div>
       </div>
-      {!!showLayoutTabs && (
-        <div className="mx-auto w-full max-w-[1440px] px-4 md:px-6">
-          <LayoutHeaderTabs
-            className={cn(headerTabsProps?.className)}
-            data-header-tabs=""
-            {...headerTabsProps}
-            options={tabs}
-          />
-        </div>
-      )}
     </LayoutHeader>
   );
 }

@@ -77,13 +77,12 @@ const meta: Meta<typeof Button> = {
     variant: 'solid',
     color: 'primary',
     size: 'md',
-    radius: 'default',
+    radius: 'md',
     children: 'Button',
     isLoading: false,
     isDisabled: false,
     isIconOnly: false,
     loadingPosition: 'start',
-    elevation: 'none',
     // loadingIndicator: '',
   },
 };
@@ -123,13 +122,16 @@ export const Variants: Story = {
       <Button {...arguments_} variant="solid">
         Solid
       </Button>
+      <Button {...arguments_} variant="surface">
+        Surface
+      </Button>
       <Button {...arguments_} variant="outline">
         Outline
       </Button>
       <Button {...arguments_} variant="ghost">
         Ghost
       </Button>
-      <Button {...arguments_} variant="muted">
+      <Button {...arguments_} variant="soft">
         Soft
       </Button>
       <Button {...arguments_} variant="elevated">
@@ -141,9 +143,6 @@ export const Variants: Story = {
       <Button {...arguments_} variant="link">
         Link
       </Button>
-      <Button {...arguments_} className={'text-primary'} variant="glaze">
-        Glaze
-      </Button>
     </div>
   ),
 };
@@ -151,7 +150,7 @@ export const Variants: Story = {
 export const Colors: Story = {
   parameters: { controls: { disable: true } },
   render: (arguments_) => (
-    <div className="storybook-button-colors grid grid-cols-3 gap-4">
+    <div className="storybook-button-colors grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
       <Button {...arguments_} color="primary">
         Primary
       </Button>
@@ -183,7 +182,7 @@ export const Colors: Story = {
 export const Sizes: Story = {
   parameters: { controls: { disable: true } },
   render: (arguments_) => (
-    <div className="storybook-button-sizes flex items-center gap-4">
+    <div className="storybook-button-sizes flex flex-wrap items-center gap-4">
       <Button {...arguments_} size="xs">
         XS
       </Button>
@@ -210,9 +209,6 @@ export const Radius: Story = {
       <Button {...arguments_} radius="none">
         None
       </Button>
-      <Button {...arguments_} radius="default">
-        Default
-      </Button>
       <Button {...arguments_} radius="sm">
         SM
       </Button>
@@ -224,12 +220,6 @@ export const Radius: Story = {
       </Button>
       <Button {...arguments_} radius="xl">
         XL
-      </Button>
-      <Button {...arguments_} radius="2xl">
-        2XL
-      </Button>
-      <Button {...arguments_} radius="3xl">
-        3XL
       </Button>
       <Button {...arguments_} radius="full">
         Full
@@ -333,27 +323,6 @@ export const LoadingStates: Story = {
   ),
 };
 
-export const Glaze: Story = {
-  args: {
-    variant: 'glaze',
-    size: 'lg',
-  },
-  render: (arguments_) => (
-    <div className="relative overflow-hidden rounded-2xl bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center p-20">
-      <div className="absolute inset-0 bg-black/10" />
-      <div className="relative flex flex-wrap justify-center gap-6">
-        <Button {...arguments_}>Default Glaze</Button>
-        <Button {...arguments_} color="primary">
-          Primary Glaze
-        </Button>
-        <Button {...arguments_} color="success">
-          Success Glaze
-        </Button>
-      </div>
-    </div>
-  ),
-};
-
 export const WithShortcut: Story = {
   render: (arguments_) => (
     <div className="flex flex-col gap-4">
@@ -373,7 +342,7 @@ export const WithShortcut: Story = {
         <Button.Shortcut>⌘N</Button.Shortcut>
       </Button>
 
-      <Button {...arguments_} className="w-64 justify-between" variant="muted">
+      <Button {...arguments_} className="w-64 justify-between" variant="soft">
         <div className="flex items-center gap-2">
           <Settings className="size-4" />
           <span>Open Settings</span>

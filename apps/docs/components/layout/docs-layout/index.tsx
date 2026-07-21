@@ -1,6 +1,6 @@
 'use client';
 
-import type { LinkItemType } from '@/components/ui/docs/link-item';
+import type { LinkItemType } from '@/components/docs-ui/link-item';
 import type * as PageTree from 'fumadocs-core/page-tree';
 import type { GetSidebarTabsOptions } from 'fumadocs-ui/components/sidebar/tabs';
 import type { SidebarTabWithProps } from 'fumadocs-ui/components/sidebar/tabs/dropdown';

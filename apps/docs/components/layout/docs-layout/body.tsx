@@ -11,11 +11,9 @@ import { LayoutContext } from './context';
 export function LayoutBody({ children, className, style, ...properties }: ComponentProps<'div'>) {
   const context = useContext(LayoutContext);
   const navMode = context?.navMode ?? 'auto';
-  const tabMode = context?.tabMode ?? 'sidebar';
   const { collapsed } = useSidebar();
 
-  const isNavbarTab = tabMode === 'navbar';
-  const headerHeight = isNavbarTab ? 'calc(var(--header-height) + 38px)' : 'var(--header-height)';
+  const headerHeight = 'var(--header-height)';
   const pageCol = 'calc(100vw - var(--sidebar-col) - var(--toc-width))';
 
   return (
@@ -29,7 +27,7 @@ export function LayoutBody({ children, className, style, ...properties }: Compon
       style={
         {
           '--row-1': 'var(--banner-height, 0px)',
-          '--row-2': `calc(var(--row-1) + ${headerHeight})`,
+          '--row-2': `calc(var(--row-1) + ${headerHeight} + 16px)`,
           '--row-3': 'calc(var(--row-2) + var(--toc-popover-height, 0px))',
           '--sidebar-col': collapsed ? '0px' : 'var(--sidebar-width)',
           gridTemplate:

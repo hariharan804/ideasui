@@ -25,3 +25,4 @@ export { default as ButtonGroupVariants } from './button-group-variants';
 export { default as ButtonGroupSizes } from './button-group-sizes';
 export { default as ButtonGroupFullWidth } from './button-group-full-width';
 export { default as ButtonGroupDisabled } from './button-group-disabled';
+export { default as ButtonGroupDividers } from './button-group-dividers';

@@ -13,6 +13,10 @@ export const BEM_SOLID = 'btn--solid';
 export const BEM_OUTLINE = 'btn--outline';
 export const BEM_GHOST = 'btn--ghost';
 export const BEM_LINK = 'btn--link';
+export const BEM_SOFT = 'btn--soft';
+export const BEM_TEXT = 'btn--text';
+export const BEM_ELEVATED = 'btn--elevated';
+export const BEM_SURFACE = 'btn--surface';
 
 export const TRANSPARENT = 'bg-transparent';
 export const ROUNDED_MD = 'rounded-md';
@@ -27,7 +31,7 @@ const button = tv({
       'justify-center',
       'gap-2',
       'font-medium',
-      'text-background',
+      'cursor-pointer',
       'transition-all',
       'duration-200',
       'ease-in-out',
@@ -44,7 +48,7 @@ const button = tv({
     icon: [BEM_ICON, 'shrink-0', 'inline-flex', 'items-center', 'justify-center'],
     label: [BEM_LABEL, 'truncate', 'inline-flex', 'items-center'],
     loader: [BEM_LOADER, 'shrink-0', 'inline-flex', 'items-center', 'justify-center'],
-    shortcut: ['ml-auto', 'text-sm', 'font-sans', 'tracking-widest', 'inline-flex', 'items-center'],
+    shortcut: ['ms-auto', 'text-sm', 'font-sans', 'tracking-widest', 'inline-flex', 'items-center'],
   },
   variants: {
     variant: {
@@ -57,21 +61,20 @@ const button = tv({
       ghost: {
         base: [BEM_GHOST, TRANSPARENT],
       },
-      muted: {
-        base: 'btn--muted',
+      soft: {
+        base: BEM_SOFT,
       },
       link: {
         base: [BEM_LINK, TRANSPARENT, 'underline-offset-4', 'hover:underline', 'font-normal'],
       },
       text: {
-        base: [TRANSPARENT, 'font-normal'],
+        base: [BEM_TEXT, TRANSPARENT, 'font-normal'],
       },
       elevated: {
-        base: 'btn--elevated bg-background !shadow-sm hover:!shadow-md active:!shadow-sm',
+        base: [BEM_ELEVATED, 'bg-background', 'border', 'border-transparent'],
       },
-      glaze: {
-        // eslint-disable-next-line tailwindcss/no-contradicting-classname
-        base: 'btn--glaze border shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] shadow-lg backdrop-blur-lg transition-all duration-300 hover:shadow-xl',
+      surface: {
+        base: [BEM_SURFACE, 'bg-neutral-muted'],
       },
     },
     size: {
@@ -107,23 +110,20 @@ const button = tv({
       neutral: { base: 'btn--neutral' },
     },
     elevation: {
-      none: { base: 'shadow-none' },
-      xs: { base: '!shadow-xs' },
-      sm: { base: '!shadow-sm' },
-      md: { base: '!shadow-md' },
-      lg: { base: '!shadow-lg' },
-      xl: { base: '!shadow-xl' },
-      '2xl': { base: '!shadow-2xl' },
+      none: '',
+      xs: '',
+      sm: '',
+      md: '',
+      lg: '',
+      xl: '',
+      '2xl': '',
     },
     radius: {
       none: { base: ROUNDED_NONE },
-      default: { base: 'rounded' },
       sm: { base: 'rounded-sm' },
-      md: { base: 'rounded-md' },
+      md: { base: ROUNDED_MD },
       lg: { base: 'rounded-lg' },
       xl: { base: 'rounded-xl' },
-      '2xl': { base: 'rounded-2xl' },
-      '3xl': { base: 'rounded-3xl' },
       full: { base: 'rounded-full' },
     },
     isDisabled: {
@@ -164,9 +164,18 @@ const button = tv({
         base: 'flex-col',
       },
     },
-    showDivider: {
-      true: {
+    divider: {
+      none: {},
+      full: {
         base: '[&:not(.btn--outline):not(:first-child)]:border-solid [&:not(.btn--outline):not(:first-child)]:border-current/20',
+      },
+      middle: {
+        base: [
+          '[&:not(:first-child)]:relative',
+          '[&:not(:first-child)]:before:content-[""]',
+          '[&:not(:first-child)]:before:absolute',
+          '[&:not(:first-child)]:before:bg-current/20',
+        ],
       },
     },
   },
@@ -175,7 +184,8 @@ const button = tv({
     variant: 'solid',
     size: 'md',
     color: 'primary',
-    radius: 'default',
+    radius: 'md',
+    elevation: 'sm',
     isDisabled: false,
     disableAnimation: false,
   },

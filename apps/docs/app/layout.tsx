@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 
 import { ThemeBridge } from '@/components/ui/theme-bridge';
+import { Navbar } from '@/components/site-nav/navbar';
 
 import './globals.css';
 import { ThemeScript } from '@ideasui/theme';
@@ -42,10 +43,24 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html suppressHydrationWarning className={inter.className} lang="en">
       <head>
         <ThemeScript defaultTheme="light" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(function(registrations) {
+    for (let registration of registrations) {
+      registration.unregister();
+    }
+  });
+}`,
+          }}
+        />
       </head>
       <body>
         <RootProvider>
-          <ThemeBridge>{children}</ThemeBridge>
+          <ThemeBridge>
+            <Navbar />
+            {children}
+          </ThemeBridge>
         </RootProvider>
       </body>
     </html>

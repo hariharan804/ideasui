@@ -16,15 +16,13 @@ export function APIReferenceViewer({ componentName }: Readonly<APIReferenceViewe
 
   if (!componentDocs || componentDocs.length === 0) {
     return (
-      <div className="not-prose border-error/20 bg-error/5 text-error my-4 rounded-md border p-4">
-        <p className="text-sm">
-          API Reference documentation for component &quot;{componentName}&quot; not found.
-        </p>
+      <div className="not-prose border-error/20 bg-error/5 text-error my-4 rounded-2xl border p-4 text-sm font-medium">
+        <p>API Reference documentation for component &quot;{componentName}&quot; not found.</p>
       </div>
     );
   }
 
-  const activeDocument = componentDocs[activeTab] || componentDocs[0];
+  const activeDocument = componentDocs[activeTab] ?? componentDocs[0];
 
   const mappedProperties = activeDocument.props.map((p) => ({
     name: p.name,
@@ -37,17 +35,17 @@ export function APIReferenceViewer({ componentName }: Readonly<APIReferenceViewe
 
   return (
     <div className="not-prose my-6 flex w-full flex-col gap-4">
-      {/* Tab Selectors */}
+      {/* Segmented Tab Selectors */}
       {componentDocs.length > 1 && (
-        <div className="border-base/10 bg-surface-container flex flex-wrap items-end gap-1 border-b select-none">
+        <div className="bg-surface-muted/60 flex max-w-fit min-w-auto [scrollbar-width:none] items-center gap-1 overflow-x-auto rounded-xl p-1 select-none [&::-webkit-scrollbar]:hidden">
           {componentDocs.map((document_, index) => (
             <button
               key={document_.componentName}
               className={cn(
-                'group relative -mb-px flex-shrink-0 cursor-pointer rounded-t-xl border border-transparent px-4 py-2.5 text-xs font-semibold transition-all duration-300',
+                'shrink-0 cursor-pointer rounded-lg px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-all duration-200',
                 index === activeTab
-                  ? 'border-base/20 !bg-surface-container-low !border-b-surface-container-low text-primary font-bold shadow-sm'
-                  : 'hover:bg-surface-container-high text-content-secondary hover:text-content-primary',
+                  ? 'bg-surface text-content-primary font-semibold shadow-xs'
+                  : 'text-content-tertiary hover:text-content-primary',
               )}
               type="button"
               onClick={() => setActiveTab(index)}
@@ -58,18 +56,18 @@ export function APIReferenceViewer({ componentName }: Readonly<APIReferenceViewe
         </div>
       )}
 
-      {/* Component Title and Description */}
-      <div className="bg-surface-container-low border-base/10 flex flex-col gap-1.5 rounded-2xl border px-5 py-4">
+      {/* Component Title and Description Header Card */}
+      <div className="bg-surface-subtle flex flex-col gap-1.5 rounded-2xl p-5 backdrop-blur-sm">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h4 className="text-content-primary text-sm font-bold tracking-tight">
+          <h4 className="text-content-primary text-sm font-bold tracking-tight sm:text-base">
             {activeDocument.title}
           </h4>
-          <span className="bg-primary/10 text-primary shrink-0 rounded px-2 py-0.5 font-mono text-[11px] font-semibold select-all">
+          <span className="bg-primary/10 text-primary shrink-0 rounded-lg px-2.5 py-0.5 font-mono text-[11px] font-semibold select-all">
             {activeDocument.component}
           </span>
         </div>
         {activeDocument.description && (
-          <p className="text-content-secondary text-[13px] leading-relaxed">
+          <p className="text-content-secondary sm:text-13px text-xs leading-relaxed">
             {activeDocument.description}
           </p>
         )}
@@ -80,7 +78,7 @@ export function APIReferenceViewer({ componentName }: Readonly<APIReferenceViewe
         {mappedProperties.length > 0 ? (
           <PropsTable data={mappedProperties} />
         ) : (
-          <div className="border-base/10 bg-surface-container-low/30 text-content-secondary rounded-2xl border p-8 text-center text-[13px] leading-relaxed">
+          <div className="border-subtle/30 bg-surface-subtle/20 text-content-tertiary rounded-2xl border p-8 text-center text-xs leading-relaxed">
             This component does not define any custom props. It accepts all standard HTML
             attributes.
           </div>

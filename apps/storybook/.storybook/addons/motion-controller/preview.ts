@@ -8,8 +8,8 @@ export { REDUCE_MOTION_GLOBAL_TYPE_ID };
 
 export const reduceMotionGlobalType = {
   [REDUCE_MOTION_GLOBAL_TYPE_ID]: {
-    name: 'Reduce Motion',
-    description: 'Reduce motion for components',
+    name: 'Animations',
+    description: 'Enable or disable transitions and animations',
     defaultValue: DEFAULT_REDUCE_MOTION,
     toolbar: {
       icon: 'play',

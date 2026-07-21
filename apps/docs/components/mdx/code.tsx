@@ -19,7 +19,7 @@ async function getHighlighted(code: string, lang: string): Promise<React.ReactNo
   try {
     return await highlight(code, {
       components: { pre: HighlightPre },
-      lang: lang || 'text',
+      lang: lang ?? 'text',
       // themes: { light: 'github-light', dark: 'github-dark' },
     });
   } catch (error) {
@@ -44,7 +44,7 @@ export async function Code({
   title?: string;
   collapsible?: boolean;
 } & CodeBlockProps) {
-  const trimmedCode = code?.trim() || '';
+  const trimmedCode = code?.trim() ?? '';
   let rendered: React.ReactNode = EMPTY_CODE_BLOCK;
 
   if (trimmedCode) {
@@ -63,7 +63,7 @@ export async function Code({
   return (
     <CodeBlockClient
       className={className}
-      code={code?.trim() || ''}
+      code={code?.trim() ?? ''}
       collapsible={collapsible}
       lang={lang}
       showLineNumbers={showLineNumbers}

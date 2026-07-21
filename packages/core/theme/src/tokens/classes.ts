@@ -8,3 +8,13 @@ export const scrollbar = {
     '[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-neutral-200 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-800 [&::-webkit-scrollbar-thumb]:rounded-full',
   thin: '[&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-neutral-200 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-800 [&::-webkit-scrollbar-thumb]:rounded-full',
 } as const;
+
+export const interactions = {
+  hover: 'hover:brightness-92',
+  active: 'active:brightness-87',
+} as const;
+
+export const subtleInteractions = {
+  hover: 'hover:brightness-95',
+  active: 'active:brightness-92',
+} as const;

@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 
-import { Rocket, Blocks } from 'lucide-react';
+import { Rocket, Blocks, History } from 'lucide-react';
 
-import { DocsLayout } from '@/components/layout/notebook';
+import { DocsLayout } from '@/components/layout/docs-layout';
 import { reactPageTree } from '@/lib/source';
 import { baseOptions } from '@/components/layout/layout.config';
 
@@ -41,6 +41,11 @@ export default function Layout({ children }: Readonly<{ children: ReactNode }>) 
             title: 'Components',
             url: '/react/docs/components/button',
             icon: <Blocks className="size-4" />,
+          },
+          {
+            title: 'Changelog',
+            url: '/react/docs/changelog',
+            icon: <History className="size-4" />,
           },
         ],
       }}

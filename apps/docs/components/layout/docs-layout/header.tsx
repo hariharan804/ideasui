@@ -74,6 +74,7 @@ export function filterTabsByPathname(
 export function FilteredSidebarTabsDropdown({
   filterByPathname = false,
   options,
+  className,
   ...properties
 }: ComponentProps<typeof SidebarTabsDropdown> & { filterByPathname?: boolean }) {
   const pathname = usePathname();
@@ -81,18 +82,54 @@ export function FilteredSidebarTabsDropdown({
     if (!options) {
       return;
     }
-    if (!filterByPathname) {
-      return options;
-    }
+    const baseOptions = filterByPathname ? filterTabsByPathname(options, pathname) : options;
+    const selected = pathname
+      ? baseOptions.findLast((item) => isTabActive(item, pathname))
+      : undefined;
 
-    return filterTabsByPathname(options, pathname);
+    return baseOptions.map((option) => {
+      const isActive = selected ? option.url === selected.url : false;
+
+      return {
+        ...option,
+        icon: option.icon ? (
+          <span
+            className={cn(
+              'flex size-full items-center justify-center transition-colors [&_svg]:size-4',
+              isActive ? 'text-primary' : 'text-content-secondary',
+            )}
+          >
+            {option.icon}
+          </span>
+        ) : undefined,
+        props: {
+          ...option.props,
+          className: cn(
+            option.props?.className,
+            isActive
+              ? 'bg-primary/10 text-primary font-semibold'
+              : 'text-content-secondary hover:bg-surface-subtle hover:text-content-primary',
+          ),
+        },
+      };
+    });
   }, [options, pathname, filterByPathname]);
 
   if (!filteredOptions || filteredOptions.length === 0) {
     return null;
   }
 
-  return <SidebarTabsDropdown {...properties} options={filteredOptions} />;
+  return (
+    <SidebarTabsDropdown
+      {...properties}
+      className={cn(
+        '[&>div:first-child]:my-auto [&>div:first-child]:flex [&>div:first-child]:size-5 [&>div:first-child]:items-center [&>div:first-child]:justify-center',
+        'border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 font-medium',
+        className,
+      )}
+      options={filteredOptions}
+    />
+  );
 }
 
 export function LayoutHeaderTabs({
@@ -125,7 +162,7 @@ export function LayoutHeaderTabs({
   return (
     <div
       className={cn(
-        'flex [scrollbar-width:none] flex-row items-center gap-2 [-ms-overflow-style:none] max-md:overflow-x-auto max-md:overflow-y-hidden [&::-webkit-scrollbar]:hidden',
+        'flex [scrollbar-width:none] flex-row items-center gap-1.5 [-ms-overflow-style:none] max-md:overflow-x-auto max-md:overflow-y-hidden [&::-webkit-scrollbar]:hidden',
         className,
       )}
       {...properties}
@@ -140,18 +177,26 @@ export function LayoutHeaderTabs({
           <Link
             key={url}
             className={cn(
-              'group relative -mb-px flex-shrink-0 px-4 py-2 text-sm font-medium transition-all duration-300',
-              'rounded-t-xl active:scale-[0.98]',
-              isSelected
-                ? 'border-base/20 !border-b-surface text-primary z-1 border !border-b'
-                : 'text-content-secondary hover:bg-surface-subtle hover:text-content-primary z-1',
+              'group relative flex-shrink-0 px-3 py-1.5 text-sm font-medium transition-colors duration-200',
+              isSelected ? 'text-primary' : 'text-content-tertiary hover:text-content-primary',
               className,
             )}
             href={url}
             {...rest}
           >
             <span className="relative z-10 flex items-center gap-2">
-              {icon ? <span className="size-4 opacity-70">{icon}</span> : null}
+              {icon ? (
+                <span
+                  className={cn(
+                    'size-4 transition-colors duration-200',
+                    isSelected
+                      ? 'text-primary'
+                      : 'text-content-tertiary group-hover:text-content-primary',
+                  )}
+                >
+                  {icon}
+                </span>
+              ) : null}
               {title}
             </span>
           </Link>

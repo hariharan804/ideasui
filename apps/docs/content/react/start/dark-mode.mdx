@@ -1,0 +1,170 @@
+---
+title: Dark Mode
+description: Add seamless light, dark, and system theme switching to your IdeasUI application.
+---
+
+IdeasUI dark mode is **CSS-driven** and powered by OKLCH color spaces. Components read semantic design variables directly from the root element (`<html>`).
+
+Adding the `.dark` class or `data-ideasui-theme="dark"` attribute to `<html>` applies the dark theme instantly across all components.
+
+```html
+<html class="dark" data-ideasui-theme="dark">
+  <body class="bg-background text-content-primary">
+    <!-- Application content -->
+  </body>
+</html>
+```
+
+---
+
+## Next.js with @ideasui/theme
+
+To handle theme persistence, system preference synchronization, and prevent **FOUC** (Flash of Unstyled Content) during SSR, use `ThemeProvider` and `ThemeScript` from `@ideasui/theme`.
+
+### 1. Add Providers & ThemeScript
+
+Create a client provider wrapper and include `ThemeScript` in your root HTML head:
+
+```tsx
+// app/providers.tsx
+'use client';
+
+import { ThemeProvider } from '@ideasui/theme';
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <ThemeProvider defaultTheme="system" enableSystem>
+      {children}
+    </ThemeProvider>
+  );
+}
+```
+
+```tsx
+// app/layout.tsx
+import { ThemeScript } from '@ideasui/theme';
+import { Providers } from './providers';
+import './globals.css';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeScript defaultTheme="system" />
+      </head>
+      <body className="bg-background text-content-primary">
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  );
+}
+```
+
+---
+
+### 2. Building a Theme Switcher Component
+
+Use `useTheme` from `@ideasui/theme` to create a theme switcher control:
+
+```tsx
+// components/theme-switcher.tsx
+'use client';
+
+import { Button, ButtonGroup } from '@ideasui/react';
+import { useTheme } from '@ideasui/theme';
+import { useEffect, useState } from 'react';
+
+export function ThemeSwitcher() {
+  const [mounted, setMounted] = useState(false);
+  const { theme, resolvedTheme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  return (
+    <ButtonGroup size="sm">
+      <Button
+        color={theme === 'light' ? 'primary' : 'secondary'}
+        variant={theme === 'light' ? 'solid' : 'outline'}
+        onPress={() => setTheme('light')}
+      >
+        Light
+      </Button>
+      <Button
+        color={theme === 'dark' ? 'primary' : 'secondary'}
+        variant={theme === 'dark' ? 'solid' : 'outline'}
+        onPress={() => setTheme('dark')}
+      >
+        Dark
+      </Button>
+      <Button
+        color={theme === 'system' ? 'primary' : 'secondary'}
+        variant={theme === 'system' ? 'solid' : 'outline'}
+        onPress={() => setTheme('system')}
+      >
+        System ({resolvedTheme})
+      </Button>
+    </ButtonGroup>
+  );
+}
+```
+
+---
+
+## Integration with `next-themes`
+
+If your project already uses `next-themes`, configure it with `attribute="class"`:
+
+```tsx
+// app/providers.tsx
+'use client';
+
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  return (
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      {children}
+    </NextThemesProvider>
+  );
+}
+```
+
+---
+
+## Theme-Aware Utilities & Tokens
+
+By using semantic tokens (like `bg-background`, `bg-surface`, `text-content-primary`), your application automatically responds to theme changes without writing custom CSS overrides:
+
+```tsx
+// Automatically adapts to dark and light mode
+<main className="bg-background text-content-primary min-h-screen">
+  <div className="bg-surface border-subtle/50 text-content-primary rounded-2xl border p-6 shadow-sm">
+    Theme-aware container content
+  </div>
+</main>
+```
+
+For one-off adjustments specific to dark mode, use Tailwind's `dark:` modifier:
+
+```tsx
+<div className="bg-surface text-content-primary dark:border-primary/30 border p-4">
+  Specific dark mode accent border
+</div>
+```
+
+---
+
+## Next Steps
+
+- Explore **[Theming](/react/docs/start/theming)** to customize OKLCH color palettes.
+- Explore **[Design Tokens](/react/docs/start/tokens)** to discover available theme variables.
+- Browse **[Styling](/react/docs/start/styling)** for custom variant techniques.

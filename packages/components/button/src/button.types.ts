@@ -59,10 +59,10 @@ interface ButtonBaseProperties
    */
   shortcut?: ReactNode;
   /**
-   * Whether to show a divider between the buttons in a group.
-   * @default true (when isAttached is true)
+   * The type of divider to display between the buttons in a group.
+   * @default 'full' (when isAttached is true)
    */
-  showDivider?: boolean;
+  divider?: 'full' | 'middle' | 'none';
   /**
    * Custom class names for individual button slots.
    */

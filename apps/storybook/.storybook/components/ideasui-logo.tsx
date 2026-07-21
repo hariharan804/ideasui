@@ -27,8 +27,8 @@ export function IdeasUILogo({ className, height, size = 26, width }: IdeasUILogo
       <path
         d="M12 30V40M20.6603 35L12 40L3.33975 35"
         stroke="#6366F1"
-        stroke-width="2"
-        stroke-linecap="round"
+        strokeWidth="2"
+        strokeLinecap="round"
       />
       <circle cx="12" cy="12.5" r="2.5" fill="currentColor" />
       <rect x="10.5" y="17" width="3" height="8" rx="1.5" fill="currentColor" />
@@ -39,32 +39,32 @@ export function IdeasUILogo({ className, height, size = 26, width }: IdeasUILogo
           d="M18.5 -18V0M18.5 -9C18.5 -4 14.5 0 9.5 0C4.5 0 0.5 -4 0.5 -9C0.5 -14 4.5 -18 9.5 -18"
           transform="translate(8, 0)"
           stroke="currentColor"
-          stroke-width="3"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M15 -9H0.5C0.5 -14 4.5 -18 9.5 -18C14.5 -18 18.5 -14 18.5 -9C18.5 -4 14.5 0 9.5 0C4.5 0 0.5 -4 0.5 -9"
           transform="translate(30, 0)"
           stroke="currentColor"
-          stroke-width="3"
-          stroke-linecap="round"
+          strokeWidth="3"
+          strokeLinecap="round"
           fill="none"
         />
         <path
           d="M18.5 -9V0M0.5 -9C0.5 -4 4.5 0 9.5 0C14.5 0 18.5 -4 18.5 -9C18.5 -14 14.5 -18 9.5 -18C4.5 -18 0.5 -14 0.5 -9"
           transform="translate(52, 0)"
           stroke="currentColor"
-          stroke-width="3"
-          stroke-linecap="round"
+          strokeWidth="3"
+          strokeLinecap="round"
           fill="none"
         />
         <path
           d="M18 -18C18 -18 2 -18 2 -13C2 -9 18 -9 18 -5C18 0 2 0 2 0"
           transform="translate(74, 0)"
           stroke="currentColor"
-          stroke-width="3"
-          stroke-linecap="round"
+          strokeWidth="3"
+          strokeLinecap="round"
           fill="none"
         />
 
@@ -72,8 +72,8 @@ export function IdeasUILogo({ className, height, size = 26, width }: IdeasUILogo
           d="M2 -18V-7C2 -2 6 -2 10 -2C14 -2 18 -2 18 -7V-18"
           transform="translate(100, 0)"
           stroke="#6366F1"
-          stroke-width="3.5"
-          stroke-linecap="round"
+          strokeWidth="3.5"
+          strokeLinecap="round"
           fill="none"
         />
         <rect

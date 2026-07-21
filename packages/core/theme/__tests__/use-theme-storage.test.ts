@@ -101,7 +101,32 @@ describe('useThemeStorage', () => {
     expect(result.current.theme).toBe('system');
   });
 
-  it('syncs across tabs via storage event', async () => {
+  it.each([
+    {
+      name: 'syncs across tabs via storage event',
+      key: 'theme',
+      newValue: 'dark',
+      expected: 'dark',
+    },
+    {
+      name: 'syncs across tabs and handles system fallback',
+      key: 'theme',
+      newValue: null,
+      expected: 'system',
+    },
+    {
+      name: 'ignores storage events for different keys',
+      key: 'otherKey',
+      newValue: 'dark',
+      expected: 'light',
+    },
+    {
+      name: 'ignores invalid themes from storage event',
+      key: 'theme',
+      newValue: 'invalid-theme',
+      expected: 'light',
+    },
+  ])('$name', async ({ key, newValue, expected }) => {
     const { result } = renderHook(() =>
       useThemeStorage({
         defaultTheme: 'light',
@@ -117,92 +142,14 @@ describe('useThemeStorage', () => {
 
     act(() => {
       const event = new StorageEvent('storage', {
-        key: 'theme',
-        newValue: 'dark',
+        key,
+        newValue,
       });
 
       globalThis.dispatchEvent(event);
     });
 
-    expect(result.current.theme).toBe('dark');
-  });
-
-  it('syncs across tabs and handles system fallback', async () => {
-    const { result } = renderHook(() =>
-      useThemeStorage({
-        defaultTheme: 'light',
-        themes: ['light', 'dark', 'system'],
-        storageKey: 'theme',
-      }),
-    );
-
-    await act(async () => {
-      vi.runAllTimers();
-      await Promise.resolve();
-    });
-
-    act(() => {
-      const event = new StorageEvent('storage', {
-        key: 'theme',
-        newValue: null,
-      });
-
-      globalThis.dispatchEvent(event);
-    });
-
-    expect(result.current.theme).toBe('system');
-  });
-
-  it('ignores storage events for different keys', async () => {
-    const { result } = renderHook(() =>
-      useThemeStorage({
-        defaultTheme: 'light',
-        themes: ['light', 'dark', 'system'],
-        storageKey: 'theme',
-      }),
-    );
-
-    await act(async () => {
-      vi.runAllTimers();
-      await Promise.resolve();
-    });
-
-    act(() => {
-      const event = new StorageEvent('storage', {
-        key: 'otherKey',
-        newValue: 'dark',
-      });
-
-      globalThis.dispatchEvent(event);
-    });
-
-    expect(result.current.theme).toBe('light'); // Unchanged
-  });
-
-  it('ignores invalid themes from storage event', async () => {
-    const { result } = renderHook(() =>
-      useThemeStorage({
-        defaultTheme: 'light',
-        themes: ['light', 'dark', 'system'],
-        storageKey: 'theme',
-      }),
-    );
-
-    await act(async () => {
-      vi.runAllTimers();
-      await Promise.resolve();
-    });
-
-    act(() => {
-      const event = new StorageEvent('storage', {
-        key: 'theme',
-        newValue: 'invalid-theme',
-      });
-
-      globalThis.dispatchEvent(event);
-    });
-
-    expect(result.current.theme).toBe('light'); // Unchanged
+    expect(result.current.theme).toBe(expected);
   });
 
   it('handles potential storage access issues cleanly', async () => {

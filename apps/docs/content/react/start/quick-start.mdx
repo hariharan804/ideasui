@@ -1,0 +1,57 @@
+---
+title: Quick Start
+description: Learn how to install and setup IdeasUI in your React, Next.js, or Vite application.
+---
+
+Follow this guide to install IdeasUI, configure the theme stylesheet, and start using components in your project.
+
+---
+
+## Installation
+
+Install the main React package and theme engine using your package manager:
+
+<InstallTabs pkg="@ideasui/react" />
+
+Or install standalone component packages if you prefer minimal bundle footprints:
+
+<InstallTabs pkg="@ideasui/button" />
+
+---
+
+## Configuration
+
+Import the theme stylesheet in your global CSS file or application entrypoint:
+
+```css
+/* app/globals.css or src/index.css */
+@import 'tailwindcss';
+@import '@ideasui/theme/theme.css';
+```
+
+Or import directly in your React root file:
+
+```tsx
+import '@ideasui/theme/theme.css';
+```
+
+---
+
+## Usage Example
+
+Import components from `@ideasui/react` and place them in your application:
+
+```tsx
+import { Button, ButtonGroup } from '@ideasui/react';
+
+export default function App() {
+  return (
+    <div className="bg-surface flex min-h-screen items-center justify-center p-8">
+      <ButtonGroup>
+        <Button color="primary">Save Changes</Button>
+        <Button variant="outline">Cancel</Button>
+      </ButtonGroup>
+    </div>
+  );
+}
+```

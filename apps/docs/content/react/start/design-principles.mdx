@@ -1,0 +1,111 @@
+---
+title: Design Principles
+description: Core architectural principles guiding IdeasUI design, accessibility, and monorepo engineering.
+---
+
+IdeasUI follows core architectural principles designed to prioritize accessibility, visual excellence, composition, and developer experience.
+
+---
+
+## Core Principles
+
+### 1. Semantic Intent Over Visual Description
+
+Props and variants communicate **purpose and hierarchy** rather than hardcoded visual styles.
+
+```tsx
+import { Button } from '@ideasui/react';
+
+// ✅ Semantic props communicate intent clearly
+<Button color="primary">Save Changes</Button>
+<Button variant="outline">Edit Details</Button>
+<Button color="danger" variant="subtle">Delete Account</Button>
+```
+
+| Variant / Color             | Purpose                             | Usage Guideline                |
+| --------------------------- | ----------------------------------- | ------------------------------ |
+| **`primary`**               | Main action to advance workflow     | Primary action per view        |
+| **`secondary` / `outline`** | Alternative actions                 | Multiple allowed per section   |
+| **`subtle` / `ghost`**      | Low-emphasis or dismissive actions  | Inline or tertiary controls    |
+| **`danger` / `error`**      | Destructive or irreversible actions | Used with confirmation prompts |
+
+---
+
+### 2. Accessibility as Foundation
+
+IdeasUI components are built on top of **React Aria** primitives, guaranteeing WAI-ARIA standards and WCAG 2.1 AA compliance out of the box.
+
+- Automatic ARIA roles and state attributes (`data-hovered`, `data-pressed`, `data-focus-visible`).
+- Built-in keyboard navigation trap and focus management.
+- Screen reader announcements and high-contrast OKLCH color ratios.
+
+---
+
+### 3. Composition Over Configuration
+
+Instead of monolithic components with dozens of rigid props, IdeasUI emphasizes compound components that can be reordered, omitted, or extended.
+
+```tsx
+import { Button, ButtonGroup } from '@ideasui/react';
+
+// Compose controls naturally
+<ButtonGroup className="gap-3">
+  <Button color="primary">Confirm</Button>
+  <Button variant="outline">Cancel</Button>
+</ButtonGroup>;
+```
+
+---
+
+### 4. Perceptual OKLCH Theme Engine
+
+Colors in IdeasUI are engineered using the **OKLCH perceptual color space**. Unlike traditional RGB or HSL, OKLCH guarantees consistent perceptual lightness across dark and light themes without muddy contrast.
+
+```css
+/* Perceptual OKLCH CSS Custom Property */
+:root {
+  --ideasui-color-primary-500: 0.65 0.25 145;
+}
+```
+
+---
+
+### 5. Type Safety & Developer Experience
+
+Every component export features full TypeScript definitions, strict prop typings, and IDE IntelliSense autocompletion for variants, colors, and event handlers.
+
+```tsx
+import type { ButtonProps } from '@ideasui/react';
+
+<Button
+  color="primary" // Autocomplete: primary | secondary | success | warning | danger
+  size="md" // Type checked: sm | md | lg
+  onPress={(e) => {
+    // Typed PressEvent from React Aria
+    console.log(e.target);
+  }}
+/>;
+```
+
+---
+
+### 6. Separation of Styles and Logic
+
+IdeasUI separates structural component logic (`@ideasui/react`) from theme recipes (`@ideasui/theme`) and pre-compiled distribution stylesheets (`@ideasui/styles`).
+
+- **Want Tailwind CSS v4?** Use `@ideasui/react` + `@ideasui/theme`.
+- **No Tailwind CSS?** Use `@ideasui/styles` standalone CSS.
+
+---
+
+### 7. Modular & Tree-Shakeable Monorepo
+
+Install the unified `@ideasui/react` package or individual single-component packages (such as `@ideasui/button`) to keep bundle footprints minimal.
+
+---
+
+## Next Steps
+
+- Explore **[Quick Start](/react/docs/start/quick-start)** for setup instructions.
+- Explore **[Theming](/react/docs/start/theming)** for custom OKLCH color configurations.
+- Browse **[Components](/react/docs/components/button)** to explore component APIs.

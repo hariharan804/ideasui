@@ -8,7 +8,7 @@ export default function ButtonGroupVariants() {
       {/* Solid Variant */}
       <div className="flex flex-col gap-2">
         <p className="text-content-tertiary text-sm font-medium">Solid</p>
-        <Button.Group color="primary" variant="solid">
+        <Button.Group color="primary" divider="middle" variant="solid">
           <Button>First</Button>
           <Button>Second</Button>
           <Button>Third</Button>
@@ -18,17 +18,17 @@ export default function ButtonGroupVariants() {
       {/* Outline Variant */}
       <div className="flex flex-col gap-2">
         <p className="text-content-tertiary text-sm font-medium">Outline</p>
-        <Button.Group color="neutral" variant="outline">
+        <Button.Group color="neutral" divider="middle" variant="outline">
           <Button>First</Button>
           <Button>Second</Button>
           <Button>Third</Button>
         </Button.Group>
       </div>
 
-      {/* Muted Variant (IdeasUI Specific) */}
+      {/* Soft Variant (IdeasUI Specific) */}
       <div className="flex flex-col gap-2">
-        <p className="text-content-tertiary text-sm font-medium">Muted</p>
-        <Button.Group color="primary" variant="muted">
+        <p className="text-content-tertiary text-sm font-medium">Soft</p>
+        <Button.Group color="primary" divider="middle" variant="soft">
           <Button>First</Button>
           <Button>Second</Button>
           <Button>Third</Button>
@@ -38,7 +38,7 @@ export default function ButtonGroupVariants() {
       {/* Ghost Variant */}
       <div className="flex flex-col gap-2">
         <p className="text-content-tertiary text-sm font-medium">Ghost</p>
-        <Button.Group color="neutral" variant="ghost">
+        <Button.Group color="neutral" divider="middle" variant="ghost">
           <Button>First</Button>
           <Button>Second</Button>
           <Button>Third</Button>
@@ -48,7 +48,17 @@ export default function ButtonGroupVariants() {
       {/* Elevated Variant (IdeasUI Specific) */}
       <div className="flex flex-col gap-2">
         <p className="text-content-tertiary text-sm font-medium">Elevated</p>
-        <Button.Group color="neutral" variant="elevated">
+        <Button.Group color="neutral" divider="middle" variant="elevated">
+          <Button>First</Button>
+          <Button>Second</Button>
+          <Button>Third</Button>
+        </Button.Group>
+      </div>
+
+      {/* Surface Variant */}
+      <div className="flex flex-col gap-2">
+        <p className="text-content-tertiary text-sm font-medium">Surface</p>
+        <Button.Group color="primary" divider="middle" variant="surface">
           <Button>First</Button>
           <Button>Second</Button>
           <Button>Third</Button>

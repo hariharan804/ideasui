@@ -1,7 +1,7 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 
 import { BookOpen, LayoutGrid, Route } from 'lucide-react';
-import { Github } from '@/components/ui/docs/icons';
+import { Github } from '@/components/docs-ui/icons';
 
 import { Logo } from '@/components/ui/logo';
 import { ExternalLink } from '@/components/ui/external-link';
@@ -25,7 +25,7 @@ export const homeLayoutLinks = [
       {
         icon: <BookOpen className="size-4" />,
         text: 'Getting Started',
-        url: '/react/docs/getting-started',
+        url: '/react/docs/start',
       },
       {
         icon: <LayoutGrid className="size-4" />,

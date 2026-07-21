@@ -11,6 +11,7 @@ export const { docs, meta } = defineDocs({
       full: z.boolean().optional(),
       links: z
         .object({
+          npm: z.union([z.boolean(), z.string()]).optional(),
           rac: z.string().optional(),
           source: z.string().optional(),
           recipe: z.string().optional(),

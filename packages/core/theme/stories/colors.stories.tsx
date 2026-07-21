@@ -238,8 +238,8 @@ export const ColorComparison: Story = {
             <div className="border-b border-neutral-100 px-6 py-4">
               <h3 className="text-content-primary text-xl font-bold capitalize">{colorName}</h3>
             </div>
-            <div className="grid grid-cols-2">
-              <div className="border-r border-neutral-100 p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              <div className="border-b border-neutral-100 p-6 md:border-r md:border-b-0">
                 <h4 className="text-content-tertiary mb-4 text-sm font-semibold tracking-wider uppercase">
                   Light Theme
                 </h4>

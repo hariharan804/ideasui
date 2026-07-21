@@ -50,7 +50,7 @@ export default function ButtonPreview(): JSX.Element {
             <div className="flex flex-col gap-2">
               <Button variant="solid">Solid (Default)</Button>
               <Button variant="outline">Outline</Button>
-              <Button variant="muted">Soft</Button>
+              <Button variant="soft">Soft</Button>
               <Button variant="ghost">Ghost</Button>
             </div>
           </div>
@@ -60,7 +60,6 @@ export default function ButtonPreview(): JSX.Element {
             </h3>
             <div className="flex flex-col gap-2">
               <Button variant="elevated">Elevated</Button>
-              <Button variant="glaze">Glaze (Glass)</Button>
               <Button variant="text">Text</Button>
               <Button variant="link">Link Style</Button>
               <Button isIconOnly aria-label="Icon Variant">
@@ -115,7 +114,7 @@ export default function ButtonPreview(): JSX.Element {
             <code className="text-muted-foreground text-xs">{'elevation="2xl"'}</code>
           </div>
           <div className="surface border-border flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
-            <Button elevation="none" variant="ghost">
+            <Button elevation="none" variant="elevated">
               None
             </Button>
             <code className="text-muted-foreground text-xs">{'elevation="none"'}</code>
@@ -127,41 +126,13 @@ export default function ButtonPreview(): JSX.Element {
         </div>
       </section>
 
-      {/* 4. Premium Glassmorphism */}
+      {/* 4. Keyboard Shortcuts */}
       <section className="space-y-6">
         <div className="flex items-center justify-between border-b pb-2">
-          <h2 className="text-2xl font-semibold">4. Premium Glassmorphism</h2>
-          <span className="bg-muted rounded px-2 py-1 font-mono text-sm">{`variant="glaze"`}</span>
-        </div>
-        <div className="relative overflow-hidden rounded-2xl bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center p-12">
-          <div className="absolute inset-0 bg-black/20" />
-          <div className="relative flex flex-wrap justify-center gap-6">
-            <Button size="lg" variant="glaze">
-              Default Glaze
-            </Button>
-            <Button color="primary" size="lg" variant="glaze">
-              Primary Glaze
-            </Button>
-            <Button color="success" size="lg" variant="glaze">
-              Success Glaze
-            </Button>
-            <Button color="error" size="lg" variant="glaze">
-              Error Glaze
-            </Button>
-            <Button color="info" size="lg" variant="glaze">
-              Info Glaze
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Keyboard Shortcuts */}
-      <section className="space-y-6">
-        <div className="flex items-center justify-between border-b pb-2">
-          <h2 className="text-2xl font-semibold">5. Keyboard Shortcuts</h2>
+          <h2 className="text-2xl font-semibold">4. Keyboard Shortcuts</h2>
           <span className="bg-muted rounded px-2 py-1 font-mono text-sm">Button.Shortcut</span>
         </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Button fullWidth className="justify-between" variant="outline">
             <div className="flex items-center gap-2">
               <Search className="size-4" />
@@ -178,27 +149,19 @@ export default function ButtonPreview(): JSX.Element {
             <Button.Shortcut>⌘N</Button.Shortcut>
           </Button>
 
-          <Button fullWidth className="justify-between" variant="muted">
+          <Button fullWidth className="justify-between" variant="soft">
             <div className="flex items-center gap-2">
               <Trash2 className="size-4" />
               <span>Delete</span>
             </div>
             <Button.Shortcut>⌫</Button.Shortcut>
           </Button>
-
-          <Button fullWidth className="justify-between" variant="glaze">
-            <div className="flex items-center gap-2">
-              <Settings className="size-4" />
-              <span>Settings</span>
-            </div>
-            <Button.Shortcut>⌘,</Button.Shortcut>
-          </Button>
         </div>
       </section>
-      {/* 6. Semantic Colors (Full Palette) */}
+      {/* 5. Semantic Colors (Full Palette) */}
       <section className="space-y-6">
         <div className="flex items-center justify-between border-b pb-2">
-          <h2 className="text-2xl font-semibold">6. Semantic Colors</h2>
+          <h2 className="text-2xl font-semibold">5. Semantic Colors</h2>
           <span className="bg-muted rounded px-2 py-1 font-mono text-sm">{'color="*"'}</span>
         </div>
         <div className="space-y-8">
@@ -219,31 +182,31 @@ export default function ButtonPreview(): JSX.Element {
           </div>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-medium tracking-wider uppercase">
-              Muted Palette
+              Soft Palette
             </h3>
             <div className="flex flex-wrap gap-4">
-              <Button color="primary" variant="muted">
+              <Button color="primary" variant="soft">
                 Primary
               </Button>
-              <Button color="secondary" variant="muted">
+              <Button color="secondary" variant="soft">
                 Secondary
               </Button>
-              <Button color="tertiary" variant="muted">
+              <Button color="tertiary" variant="soft">
                 Tertiary
               </Button>
-              <Button color="success" variant="muted">
+              <Button color="success" variant="soft">
                 Success
               </Button>
-              <Button color="warning" variant="muted">
+              <Button color="warning" variant="soft">
                 Warning
               </Button>
-              <Button color="error" variant="muted">
+              <Button color="error" variant="soft">
                 Error
               </Button>
-              <Button color="info" variant="muted">
+              <Button color="info" variant="soft">
                 Info
               </Button>
-              <Button color="neutral" variant="muted">
+              <Button color="neutral" variant="soft">
                 Neutral
               </Button>
             </div>
@@ -251,10 +214,10 @@ export default function ButtonPreview(): JSX.Element {
         </div>
       </section>
 
-      {/* 7. Composition Patterns */}
+      {/* 6. Composition Patterns */}
       <section className="space-y-6">
         <div className="flex items-center justify-between border-b pb-2">
-          <h2 className="text-2xl font-semibold">7. Composition Patterns</h2>
+          <h2 className="text-2xl font-semibold">6. Composition Patterns</h2>
           <span className="bg-muted rounded px-2 py-1 font-mono text-sm">
             Complex Internal Layouts
           </span>
@@ -295,10 +258,10 @@ export default function ButtonPreview(): JSX.Element {
         </div>
       </section>
 
-      {/* 8. Button Groups */}
+      {/* 7. Button Groups */}
       <section className="space-y-6">
         <div className="flex items-center justify-between border-b pb-2">
-          <h2 className="text-2xl font-semibold">8. Button Groups</h2>
+          <h2 className="text-2xl font-semibold">7. Button Groups</h2>
           <span className="bg-muted rounded px-2 py-1 font-mono text-sm">Button.Group</span>
         </div>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -336,12 +299,12 @@ export default function ButtonPreview(): JSX.Element {
         </div>
       </section>
 
-      {/* 9. State & Dynamics */}
+      {/* 8. State & Dynamics */}
       <section className="space-y-12">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
           <div className="space-y-6">
             <div className="flex items-center justify-between border-b pb-2">
-              <h2 className="text-2xl font-semibold">9. State Dynamics</h2>
+              <h2 className="text-2xl font-semibold">8. State Dynamics</h2>
             </div>
             <div className="bg-muted/30 space-y-4 rounded-xl p-6">
               <p className="text-sm">Interactive loading simulation:</p>
@@ -372,9 +335,6 @@ export default function ButtonPreview(): JSX.Element {
               <Button radius="none" size="sm">
                 none
               </Button>
-              <Button radius="default" size="sm">
-                default
-              </Button>
               <Button radius="sm" size="sm">
                 sm
               </Button>
@@ -386,12 +346,6 @@ export default function ButtonPreview(): JSX.Element {
               </Button>
               <Button radius="xl" size="sm">
                 xl
-              </Button>
-              <Button radius="2xl" size="sm">
-                2xl
-              </Button>
-              <Button radius="3xl" size="sm">
-                3xl
               </Button>
               <Button radius="full" size="sm">
                 full

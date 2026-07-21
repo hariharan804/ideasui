@@ -73,9 +73,16 @@ html:not(.dark) {
   --text-3xl: var(--ideasui-font-size-3xl);
   --text-full: var(--ideasui-font-size-full);
 
+  /* ── Master Docs Background Color ────────────────────────────────────
+     Change this single variable to update the background color across the entire docs site!
+  */
+  --docs-bg-color: oklch(var(--ideasui-color-surface));
+
   /* Backgrounds */
-  --fd-background: var(--ideasui-color-surface);
-  --color-fd-background: oklch(var(--ideasui-color-surface));
+  --fd-background: var(--docs-bg-color);
+  --color-fd-background: var(--docs-bg-color);
+  --fd-card: var(--docs-bg-color);
+  --color-fd-card: var(--docs-bg-color);
 
   --fd-foreground: var(--ideasui-color-content-primary);
   --color-fd-foreground: oklch(var(--ideasui-color-content-primary));
@@ -185,11 +192,39 @@ main:has(.hero-section) {
   background: var(--color-border) / 0.5;
 }
 
-/* Glassmorphism for Sidebar & Nav */
+html,
+body,
+#nd-sidebar,
+#nd-sidebar-mobile {
+  background-color: var(--docs-bg-color) !important;
+}
+
+/* Sidebar & Scroll Area Surface Background */
 #nd-sidebar {
-  background: var(--color-background) / 0.6 !important;
-  backdrop-filter: blur(12px) !important;
-  border-right: 1px solid var(--color-border-subtle) / 0.2 !important;
+  border-right: 1px solid oklch(var(--ideasui-color-border-subtle) / 0.2) !important;
+}
+
+[data-radix-scroll-area-viewport] {
+  background-color: transparent !important;
+}
+
+/* Sidebar Tabs Dropdown UI Override */
+.sidebar-tabs-dropdown {
+  background-color: oklch(var(--ideasui-color-surface-muted) / 0.8) !important;
+  color: oklch(var(--ideasui-color-content-primary)) !important;
+  border: 1px solid oklch(var(--ideasui-color-border-subtle) / 0.3) !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.sidebar-tabs-dropdown:hover {
+  background-color: oklch(var(--ideasui-color-surface-muted)) !important;
+  color: oklch(var(--ideasui-color-primary)) !important;
+  border-color: oklch(var(--ideasui-color-border-primary) / 0.4) !important;
+}
+
+.sidebar-tabs-dropdown svg {
+  color: oklch(var(--ideasui-color-content-secondary)) !important;
 }
 
 /* Sidebar Item Enhancements */
@@ -254,4 +289,11 @@ article {
 /* Fix for overlapping header in anchors */
 :target {
   scroll-margin-top: 100px;
+}
+
+/* Ensure Radix dropdowns, menus, and popovers render above the mobile drawer (z-60) and allow pointer interactions */
+[data-radix-portal],
+[data-radix-popper-content-wrapper] {
+  z-index: 100 !important;
+  pointer-events: auto !important;
 }

@@ -119,7 +119,7 @@ function CopyButton({ className, code, containerRef }: CopyButtonProperties) {
       data-checked={checked || undefined}
       size="sm"
       type="button"
-      variant="muted"
+      variant="soft"
       onPress={(e) => onClick(e as unknown as React.MouseEvent)}
     >
       {checked ? <Check className="size-4" /> : <Copy className="size-4" />}

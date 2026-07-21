@@ -119,7 +119,7 @@ interface ComponentWithStatus {
 }
 
 interface CategoryProperties {
-  category: string;
+  category?: string;
 }
 
 function getComponentWithStatus(name: string): ComponentWithStatus | null {
@@ -129,7 +129,10 @@ function getComponentWithStatus(name: string): ComponentWithStatus | null {
     return null;
   }
 
-  const pagePath = componentInfo.href.replace('/docs/', '').split('/').filter(Boolean);
+  const pagePath = componentInfo.href
+    .replace(/^\/(react\/)?docs\//, '')
+    .split('/')
+    .filter(Boolean);
   const page = source.getPage(pagePath);
   const icon = page?.data.icon;
 
@@ -146,29 +149,46 @@ function getComponentWithStatus(name: string): ComponentWithStatus | null {
 
 export function Category(properties: Readonly<CategoryProperties>) {
   const { category } = properties;
-  const group = COMPONENT_GROUPS.find((group) => group.category === category);
 
-  if (!group) {
-    return null;
-  }
+  const targetGroups =
+    category && category !== 'all'
+      ? COMPONENT_GROUPS.filter((g) => g.category.toLowerCase() === category.toLowerCase())
+      : COMPONENT_GROUPS;
 
-  const components = group.components
-    .map((element) => getComponentWithStatus(element))
-    .filter((item): item is ComponentWithStatus => item !== null);
+  const activeGroups = targetGroups
+    .map((group) => ({
+      group,
+      components: group.components
+        .map((element) => getComponentWithStatus(element))
+        .filter((item): item is ComponentWithStatus => item !== null),
+    }))
+    .filter(({ components }) => components.length > 0);
 
-  if (components.length === 0) {
+  if (activeGroups.length === 0) {
     return null;
   }
 
   return (
     <div className={cn('not-prose flex flex-col gap-12')}>
-      <div key={group.category} className="flex flex-col gap-6">
-        <div className={cn('grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3')}>
-          {components.map(({ component, status }) => (
-            <Item key={component.name} component={component} openInNewTab={false} status={status} />
-          ))}
+      {activeGroups.map(({ group, components }) => (
+        <div key={group.category} className="flex flex-col gap-6">
+          {(!category || category === 'all' || activeGroups.length > 1) && (
+            <h2 className="text-content-primary text-xl font-bold tracking-tight">
+              {group.category}
+            </h2>
+          )}
+          <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+            {components.map(({ component, status }) => (
+              <Item
+                key={component.name}
+                component={component}
+                openInNewTab={false}
+                status={status}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      ))}
     </div>
   );
 }
