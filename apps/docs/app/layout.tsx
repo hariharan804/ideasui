@@ -43,6 +43,17 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html suppressHydrationWarning className={inter.className} lang="en">
       <head>
         <ThemeScript defaultTheme="light" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(function(registrations) {
+    for (let registration of registrations) {
+      registration.unregister();
+    }
+  });
+}`,
+          }}
+        />
       </head>
       <body>
         <RootProvider>

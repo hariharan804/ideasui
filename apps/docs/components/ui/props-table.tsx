@@ -39,30 +39,27 @@ export function PropsTable({ data }: Readonly<{ readonly data: PropDef[] }>) {
 
   if (!data?.length) {
     return (
-      <div className="bg-error/20 text-error p-4">
+      <div className="bg-error/20 text-error rounded-2xl p-4 text-sm font-medium">
         PropsTable mounted but data is empty or undefined!
       </div>
     );
   }
 
   if (!mounted) {
-    return <div className="not-prose bg-surface-subtle my-6 h-40 w-full animate-pulse rounded" />;
+    return (
+      <div className="not-prose bg-surface-subtle my-6 h-40 w-full animate-pulse rounded-2xl" />
+    );
   }
 
   return (
-    <div className="not-prose w-full">
+    <div className="not-prose my-6 w-full">
       {isMobile ? (
-        /* Mobile Card View: Soft rounded cards */
+        /* Mobile Card View: Borderless rounded cards */
         <div className="grid gap-3">
           {data.map((p) => (
             <div
               key={p.name}
-              className={cn(
-                'group relative overflow-hidden rounded-2xl',
-                'border-subtle/30 bg-surface-subtle/30 border',
-                'p-5 backdrop-blur-sm',
-                'hover:border-subtle/50 transition-all duration-200',
-              )}
+              className="group bg-surface-subtle/85 relative overflow-hidden rounded-2xl p-5 backdrop-blur-sm transition-all duration-200"
             >
               {/* Top Row: Name & Default */}
               <div className="mb-2.5 flex items-start justify-between gap-4">
@@ -81,7 +78,7 @@ export function PropsTable({ data }: Readonly<{ readonly data: PropDef[] }>) {
                     </span>
                   )}
                   {p.deprecated && (
-                    <span className="border-warning/20 bg-warning/10 text-warning rounded-md border px-1.5 py-0.5 text-[9px] font-bold tracking-wider uppercase">
+                    <span className="bg-warning/10 text-warning rounded-md px-1.5 py-0.5 text-[9px] font-bold tracking-wider uppercase">
                       Deprecated
                     </span>
                   )}
@@ -92,7 +89,7 @@ export function PropsTable({ data }: Readonly<{ readonly data: PropDef[] }>) {
                     <span className="text-content-tertiary mb-1 block text-[9px] font-bold tracking-wider uppercase">
                       Default
                     </span>
-                    <span className="bg-primary/8 border-primary/15 text-primary inline-block rounded-md border px-2 py-0.5 font-mono text-[10px] leading-tight">
+                    <span className="bg-primary/10 text-primary inline-block rounded-md px-2 py-0.5 font-mono text-[10px] leading-tight">
                       {p.default}
                     </span>
                   </div>
@@ -104,7 +101,7 @@ export function PropsTable({ data }: Readonly<{ readonly data: PropDef[] }>) {
                 <span className="text-content-tertiary mb-1 block text-[9px] font-bold tracking-wider uppercase">
                   Type
                 </span>
-                <span className="bg-surface-muted/80 border-subtle/20 text-content-secondary inline-block rounded-md border px-2.5 py-1 font-mono text-[11px] leading-normal break-words whitespace-pre-wrap">
+                <span className="bg-surface-muted/80 text-content-secondary inline-block rounded-md px-2.5 py-1 font-mono text-[11px] leading-normal break-words whitespace-pre-wrap">
                   {p.type}
                 </span>
               </div>
@@ -124,8 +121,8 @@ export function PropsTable({ data }: Readonly<{ readonly data: PropDef[] }>) {
           ))}
         </div>
       ) : (
-        /* Desktop View: Clean bordered table with consistent rhythm */
-        <div className="border-subtle/30 bg-surface-subtle/20 w-full overflow-hidden rounded-2xl border">
+        /* Desktop View: Clean borderless card table */
+        <div className="bg-surface-subtle/50 w-full overflow-hidden rounded-2xl">
           <div className="w-full overflow-x-auto">
             <table className="w-full border-collapse text-left text-sm">
               <colgroup>
@@ -135,28 +132,28 @@ export function PropsTable({ data }: Readonly<{ readonly data: PropDef[] }>) {
                 <col />
               </colgroup>
               <thead>
-                <tr className="border-subtle/20 bg-surface-subtle/60 border-b">
-                  <th className="text-content-tertiary px-5 py-3 text-[10px] font-bold tracking-wider uppercase">
+                <tr className="bg-surface-muted/60">
+                  <th className="text-content-tertiary px-5 py-3.5 text-[10px] font-bold tracking-wider uppercase">
                     Prop
                   </th>
-                  <th className="text-content-tertiary px-5 py-3 text-[10px] font-bold tracking-wider uppercase">
+                  <th className="text-content-tertiary px-5 py-3.5 text-[10px] font-bold tracking-wider uppercase">
                     Type
                   </th>
-                  <th className="text-content-tertiary px-5 py-3 text-[10px] font-bold tracking-wider uppercase">
+                  <th className="text-content-tertiary px-5 py-3.5 text-[10px] font-bold tracking-wider uppercase">
                     Default
                   </th>
-                  <th className="text-content-tertiary px-5 py-3 text-[10px] font-bold tracking-wider uppercase">
+                  <th className="text-content-tertiary px-5 py-3.5 text-[10px] font-bold tracking-wider uppercase">
                     Description
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-subtle/15 divide-y">
+              <tbody>
                 {data.map((p) => (
                   <tr
                     key={p.name}
-                    className="hover:bg-surface-subtle/40 transition-colors duration-150"
+                    className="hover:bg-surface-subtle/60 transition-colors duration-150"
                   >
-                    <td className="px-5 py-3.5 align-top">
+                    <td className="px-5 py-4 align-top">
                       <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
                         <span
                           className={cn(
@@ -175,20 +172,20 @@ export function PropsTable({ data }: Readonly<{ readonly data: PropDef[] }>) {
                           </span>
                         )}
                         {p.deprecated && (
-                          <span className="border-warning/20 bg-warning/10 text-warning rounded-md border px-1.5 py-0.5 text-[9px] font-bold tracking-wider uppercase">
+                          <span className="bg-warning/10 text-warning rounded-md px-1.5 py-0.5 text-[9px] font-bold tracking-wider uppercase">
                             Deprecated
                           </span>
                         )}
                       </div>
                     </td>
-                    <td className="px-5 py-3.5 align-top">
-                      <span className="bg-surface-muted/80 border-subtle/20 text-content-secondary inline-block max-w-full rounded-md border px-2.5 py-1 font-mono text-[11px] leading-[1.6] break-words whitespace-pre-wrap">
+                    <td className="px-5 py-4 align-top">
+                      <span className="bg-surface-muted/80 text-content-secondary inline-block max-w-full rounded-md px-2.5 py-1 font-mono text-[11px] leading-[1.6] break-words whitespace-pre-wrap">
                         {p.type}
                       </span>
                     </td>
-                    <td className="px-5 py-3.5 align-top">
+                    <td className="px-5 py-4 align-top">
                       {p.default ? (
-                        <span className="bg-primary/8 border-primary/15 text-primary inline-block max-w-full rounded-md border px-2.5 py-1 font-mono text-[11px] leading-[1.6] break-words whitespace-pre-wrap">
+                        <span className="bg-primary/10 text-primary inline-block max-w-full rounded-md px-2.5 py-1 font-mono text-[11px] leading-[1.6] break-words whitespace-pre-wrap">
                           {p.default}
                         </span>
                       ) : (
@@ -197,7 +194,7 @@ export function PropsTable({ data }: Readonly<{ readonly data: PropDef[] }>) {
                         </span>
                       )}
                     </td>
-                    <td className="text-content-secondary px-5 py-3.5 align-top text-[13px] leading-relaxed">
+                    <td className="text-content-secondary px-5 py-4 align-top text-[13px] leading-relaxed">
                       {p.deprecated && typeof p.deprecated === 'string' && (
                         <div className="text-warning mb-1.5 text-xs font-semibold">
                           ⚠️ Deprecated: {p.deprecated}

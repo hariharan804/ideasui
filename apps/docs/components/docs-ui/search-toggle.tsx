@@ -125,7 +125,7 @@ export function DynamicSearchToggle({
       type="button"
       {...properties}
       className={cn(
-        'group bg-background text-content-secondary hover:text-content-primary inline-flex h-8 w-full max-w-[320px] items-center gap-2 rounded-full px-3 text-xs font-medium shadow-xs backdrop-blur-md transition-all duration-200 select-none hover:scale-105 sm:text-sm',
+        'group bg-background dark:bg-surface-subtle text-content-secondary hover:text-content-primary inline-flex h-8 w-full max-w-[320px] items-center gap-2 rounded-full px-3 text-xs font-medium shadow-xs backdrop-blur-md transition-all duration-200 select-none hover:scale-105 sm:text-sm',
         properties.className,
       )}
       onClick={() => {

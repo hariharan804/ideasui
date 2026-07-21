@@ -1,0 +1,223 @@
+---
+title: Theming
+description: Configure the @ideasui/theme engine, Tailwind CSS v4 plugin, OKLCH color palettes, and CSS variables.
+---
+
+The `@ideasui/theme` package is the official design system and theme engine for **IdeasUI** — built natively on **Tailwind CSS v4** and perceptual OKLCH color spaces.
+
+---
+
+## Features
+
+- **Unified Design System**: Centralized tokens for colors, typography, spacing, border radius, and motion.
+- **Dark Mode First**: Native light/dark support using OKLCH color spaces.
+- **Tailwind CSS v4 Plugin**: Seamless integration with Tailwind v4 utility classes.
+- **Zero Runtime Overhead**: Tokens compiled to CSS variables at build time.
+- **Type-Safe**: Full TypeScript support for theme configuration and overrides.
+
+---
+
+## Installation
+
+Install `@ideasui/theme` alongside your package:
+
+<InstallTabs pkg="@ideasui/theme" />
+
+---
+
+## Setup Options
+
+Pick **one** of the following options to set up the theme engine in your project.
+
+### Option 1 — CSS Import (Recommended)
+
+The simplest setup for Tailwind CSS v4. Import Tailwind and the prebuilt theme stylesheet in your root CSS file:
+
+```css
+/* app/globals.css or src/index.css */
+@import 'tailwindcss';
+@import '@ideasui/theme/theme.css';
+```
+
+> No `tailwind.config.ts` needed. The theme CSS already includes all plugin variables and utility definitions.
+
+---
+
+### Option 2 — Tailwind Config (Classic)
+
+Add the plugin via a `tailwind.config.ts` file and reference it from your CSS:
+
+```ts
+// tailwind.config.ts
+import { ideasUIPlugin } from '@ideasui/theme/plugin';
+
+export default {
+  plugins: [ideasUIPlugin()],
+};
+```
+
+```css
+/* app/globals.css */
+@import 'tailwindcss';
+@config '../tailwind.config.ts';
+
+@source '../../../node_modules/@ideasui/*/.{js,ts,jsx,tsx,mdx,css}';
+```
+
+---
+
+### Option 3 — Inline Plugin (CSS-First)
+
+Reference the plugin directly from your CSS without a separate config file:
+
+```css
+/* app/globals.css */
+@import 'tailwindcss';
+@config '../plugin.ts';
+```
+
+```ts
+// plugin.ts
+import { ideasUIPlugin } from '@ideasui/theme/plugin';
+
+export default ideasUIPlugin();
+```
+
+---
+
+## Theme Provider & SSR (Optional)
+
+Wrap your app with `ThemeProvider` for **runtime theme switching** (e.g. light/dark mode toggles):
+
+```tsx
+// app/providers.tsx
+import { ThemeProvider } from '@ideasui/theme';
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  return <ThemeProvider defaultTheme="system">{children}</ThemeProvider>;
+}
+```
+
+### Prevent FOUC (SSR / Next.js)
+
+Add `ThemeScript` to your root HTML head to prevent initial theme flickering during SSR:
+
+```tsx
+// app/layout.tsx
+import { ThemeScript } from '@ideasui/theme';
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+---
+
+## Token Architecture
+
+| Tier           | Examples                     | Description                      |
+| -------------- | ---------------------------- | -------------------------------- |
+| **Primitives** | `primary-500`, `neutral-100` | Raw OKLCH color values           |
+| **Semantic**   | `surface`, `content-primary` | Contextual role aliases          |
+| **Component**  | `button.base`                | Component-specific style recipes |
+
+### Usage Example
+
+```tsx
+// Tailwind utilities
+<div className="bg-surface text-content-primary rounded-xl p-4">
+  <button className="bg-primary hover:bg-primary/90 text-on-primary">Click</button>
+</div>
+```
+
+```css
+/* Direct CSS Variable Usage */
+.my-element {
+  background: var(--ideasui-color-surface);
+  color: var(--ideasui-color-content-primary);
+}
+```
+
+---
+
+## Customization via Plugin
+
+All customization is performed via `ideasUIPlugin()`. Every option is **optional**.
+
+### Global Options
+
+| Option              | Type                          | Default     | Description                              |
+| ------------------- | ----------------------------- | ----------- | ---------------------------------------- |
+| `defaultTheme`      | `'light' \| 'dark' \| string` | `'light'`   | Initial active theme                     |
+| `disableAnimations` | `boolean`                     | `false`     | Globally disable all animations          |
+| `designTokens`      | `TokenOverrides`              | `undefined` | Override design tokens across all themes |
+| `semanticTokens`    | `SemanticTokenOverrides`      | `undefined` | Override semantic color tokens globally  |
+| `themes`            | `{ light?, dark? }`           | `undefined` | Per-theme color and token overrides      |
+
+```ts
+ideasUIPlugin({
+  defaultTheme: 'dark',
+  disableAnimations: false,
+});
+```
+
+---
+
+### Customizing Colors
+
+Override brand colors per-theme using valid CSS colors (OKLCH recommended):
+
+```ts
+ideasUIPlugin({
+  themes: {
+    light: {
+      colors: {
+        primary: {
+          500: 'oklch(0.65 0.25 145)', // Custom emerald primary
+          600: 'oklch(0.55 0.22 145)',
+        },
+      },
+    },
+    dark: {
+      colors: {
+        primary: {
+          500: 'oklch(0.70 0.20 145)',
+        },
+      },
+    },
+  },
+});
+```
+
+Available palettes: `primary`, `secondary`, `tertiary`, `neutral`, `success`, `danger`, `warning`, `info`  
+Available shades: `50` `100` `200` `300` `400` `500` `600` `700` `800` `900` `950`
+
+---
+
+### CSS-Only Customization
+
+Override any token directly in CSS without `tailwind.config.ts`:
+
+```css
+:root {
+  /* Brand color overrides */
+  --ideasui-color-primary-500: 0.65 0.25 145;
+  --ideasui-color-primary-600: 0.55 0.22 145;
+
+  /* Surface & Content Overrides */
+  --ideasui-color-surface: var(--ideasui-color-neutral-50);
+  --ideasui-color-content-primary: var(--ideasui-color-neutral-900);
+}
+
+.dark,
+[data-ideasui-theme='dark'] {
+  --ideasui-color-primary-500: 0.7 0.2 145;
+}
+```

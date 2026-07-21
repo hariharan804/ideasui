@@ -1,0 +1,15 @@
+{
+  "title": "Getting Started",
+  "root": true,
+  "pages": [
+    "index",
+    "quick-start",
+    "design-principles",
+    "frameworks",
+    "theming",
+    "dark-mode",
+    "styling",
+    "standalone-css",
+    "tokens"
+  ]
+}

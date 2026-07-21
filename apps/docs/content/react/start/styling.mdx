@@ -1,0 +1,232 @@
+---
+title: Styling
+description: Learn how to style IdeasUI components using Tailwind CSS, state data attributes, custom variants, and CSS-in-JS.
+---
+
+IdeasUI components provide flexible styling options: Tailwind CSS utilities, state-based data attributes, inline styles, CSS-in-JS libraries, and custom variant recipes.
+
+---
+
+## Basic Styling
+
+### Using className
+
+All IdeasUI components accept standard `className` props and automatically merge them with component base recipes:
+
+```tsx
+import { Button, ButtonGroup } from '@ideasui/react';
+
+export function StyledCardHeader() {
+  return (
+    <div className="bg-surface-subtle/50 border-subtle/40 flex items-center justify-between rounded-2xl border p-4 backdrop-blur-md">
+      <span className="text-content-primary font-semibold">Account Actions</span>
+      <ButtonGroup className="gap-2">
+        <Button color="primary" size="sm">
+          Save
+        </Button>
+        <Button variant="outline" size="sm">
+          Discard
+        </Button>
+      </ButtonGroup>
+    </div>
+  );
+}
+```
+
+### Using Inline Style
+
+Components also accept inline React `style` objects:
+
+```tsx
+import { Button } from '@ideasui/react';
+
+<Button style={{ backgroundColor: 'var(--ideasui-color-primary-500)', borderRadius: '14px' }}>
+  Dynamic Action
+</Button>;
+```
+
+---
+
+## State-Based Styling
+
+IdeasUI components are powered by React Aria primitives and automatically expose state through data attributes. You can target these states directly using Tailwind CSS `data-[state]` modifiers or CSS selectors:
+
+```tsx
+import { Button } from '@ideasui/react';
+
+<Button className="bg-surface-subtle text-content-primary data-[hovered=true]:bg-surface-strong data-[focus-visible=true]:ring-primary/40 rounded-xl transition-all duration-200 data-[focus-visible=true]:ring-2 data-[pressed=true]:scale-95">
+  Interactive State Button
+</Button>;
+```
+
+### Supported Data Attributes
+
+| Data Attribute              | Trigger Condition                         |
+| --------------------------- | ----------------------------------------- |
+| `data-hovered="true"`       | Active mouse/pointer hover state          |
+| `data-pressed="true"`       | Active mouse down or keypress state       |
+| `data-focus-visible="true"` | Keyboard navigation focus indicator state |
+| `data-disabled="true"`      | Disabled component state                  |
+| `data-selected="true"`      | Active selection / toggle state           |
+
+### Standard CSS State Selectors
+
+```css
+/* Custom CSS state selectors */
+[data-ideasui-button][data-hovered='true'] {
+  background-color: var(--ideasui-color-surface-strong);
+}
+
+[data-ideasui-button][data-pressed='true'] {
+  transform: scale(0.96);
+}
+
+[data-ideasui-button][data-focus-visible='true'] {
+  outline: 2px solid oklch(var(--ideasui-color-primary-500));
+}
+```
+
+---
+
+## Creating Custom Wrapper Components
+
+You can create reusable custom component variants using `tv()` (`tailwind-variants`) and `@ideasui/theme/recipes`:
+
+```tsx
+import { Button as BaseButton, type ButtonProps } from '@ideasui/react';
+import { buttonVariants } from '@ideasui/theme/recipes';
+import { tv, type VariantProps } from 'tailwind-variants';
+
+const customButtonVariants = tv({
+  extend: buttonVariants,
+  base: 'rounded-2xl font-semibold tracking-tight transition-all duration-200 active:scale-95',
+  variants: {
+    intent: {
+      glass:
+        'bg-surface-subtle/60 text-content-primary hover:bg-surface-subtle backdrop-blur-md shadow-xs',
+      vibrant:
+        'bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:brightness-110 shadow-sm',
+    },
+  },
+  defaultVariants: {
+    intent: 'glass',
+  },
+});
+
+type CustomVariants = VariantProps<typeof customButtonVariants>;
+interface CustomButtonProps extends Omit<ButtonProps, 'className'>, CustomVariants {
+  className?: string;
+}
+
+export function CustomActionButton({ intent, className, ...props }: CustomButtonProps) {
+  return <BaseButton className={customButtonVariants({ intent, className })} {...props} />;
+}
+```
+
+---
+
+## Responsive Design
+
+Use standard Tailwind CSS responsive breakpoint modifiers directly on component `className` props:
+
+```tsx
+import { Button, ButtonGroup } from '@ideasui/react';
+
+<ButtonGroup className="flex-col sm:flex-row sm:items-center">
+  <Button className="w-full text-xs sm:w-auto sm:text-sm lg:px-6">Responsive Primary</Button>
+  <Button variant="outline" className="w-full text-xs sm:w-auto sm:text-sm lg:px-6">
+    Secondary
+  </Button>
+</ButtonGroup>;
+```
+
+---
+
+## CSS Modules & CSS-in-JS
+
+### CSS Modules
+
+```css
+/* ActionCard.module.css */
+.cardContainer {
+  background: var(--ideasui-color-surface-subtle);
+  border: 1px solid oklch(var(--ideasui-color-border-subtle) / 0.4);
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cardContainer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.12);
+}
+```
+
+```tsx
+import styles from './ActionCard.module.css';
+import { Button } from '@ideasui/react';
+
+export function ScopedCardButton() {
+  return (
+    <div className={styles.cardContainer}>
+      <Button color="primary">Module Styled Button</Button>
+    </div>
+  );
+}
+```
+
+### Styled Components
+
+```tsx
+import styled from 'styled-components';
+import { Button } from '@ideasui/react';
+
+const GlowButton = styled(Button)`
+  background: linear-gradient(135deg, oklch(0.65 0.22 260), oklch(0.55 0.25 300));
+  border-radius: 12px;
+  color: white;
+  padding: 10px 20px;
+  font-weight: 600;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -4px rgba(124, 58, 237, 0.4);
+  }
+`;
+```
+
+### Emotion
+
+```tsx
+import { css } from '@emotion/css';
+import { Button } from '@ideasui/react';
+
+const emeraldPillStyles = css`
+  background: linear-gradient(135deg, oklch(0.68 0.2 150), oklch(0.58 0.22 170));
+  border-radius: 9999px;
+  color: white;
+  padding: 10px 22px;
+  font-weight: 600;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+`;
+
+export function EmotionButton() {
+  return <Button className={emeraldPillStyles}>Emerald Glow</Button>;
+}
+```
+
+---
+
+## Next Steps
+
+- Explore **[Theming](/react/docs/start/theming)** for OKLCH color overrides.
+- Explore **[Design Tokens](/react/docs/start/tokens)** to discover semantic tokens.
+- Browse **[Components](/react/docs/components/button)** for component API references.

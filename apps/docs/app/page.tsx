@@ -141,7 +141,7 @@ export default function HomePage() {
           >
             <Link
               className="from-primary to-info shadow-primary/35 inline-flex items-center gap-2 rounded-xl bg-linear-to-br px-7 py-3 text-sm font-semibold text-white shadow-[0_8px_32px] transition-all hover:scale-105 hover:brightness-110 active:scale-95"
-              href="/react/docs/getting-started"
+              href="/react/docs/start"
             >
               Get Started
               <ArrowRight className="size-4" />
@@ -264,7 +264,7 @@ export default function HomePage() {
             </p>
             <Link
               className="from-primary to-info shadow-primary/35 inline-flex items-center gap-2 rounded-xl bg-linear-to-br px-8 py-3 text-sm font-semibold text-white shadow-[0_8px_32px] transition-all hover:scale-105 active:scale-95"
-              href="/react/docs/getting-started"
+              href="/react/docs/start"
             >
               View Documentation
               <ArrowRight className="size-4" />

@@ -40,7 +40,7 @@ export function ThemeToggle({
             className={cn(
               'flex size-7 cursor-pointer items-center justify-center rounded-full p-1.5 transition-all duration-200',
               isActive
-                ? 'bg-white/90 text-neutral-800 shadow-sm dark:bg-neutral-600 dark:text-white'
+                ? 'bg-white/90 text-neutral-800 shadow-sm dark:bg-neutral-400 dark:text-white'
                 : 'text-neutral-500 hover:bg-black/[0.06] hover:text-neutral-800 dark:text-neutral-400 dark:hover:bg-white/[0.08] dark:hover:text-white',
             )}
             onClick={() => setTheme(key)}

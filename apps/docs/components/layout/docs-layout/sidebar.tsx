@@ -13,6 +13,8 @@ import { cn } from '@ideasui/utils';
 import { LayoutContext } from './context';
 
 import { mergeRefs } from '@/lib/docs/merge-refs';
+import { StatusChip, type StatusChipStatus } from '@/components/mdx/status-chip';
+import { getComponentInfo } from '@/components-registry';
 
 const itemVariants = tv({
   base: 'relative my-0.5 flex flex-row items-center gap-2 rounded-md px-2.5 py-1.5 text-start text-sm text-content-secondary transition-colors duration-150 [&_svg]:size-4 [&_svg]:shrink-0',
@@ -157,21 +159,43 @@ export function SidebarSeparator({
 export function SidebarItem({
   children,
   className,
+  icon,
   style,
   onClick,
   ...properties
-}: ComponentProps<typeof Base.SidebarItem>) {
+}: ComponentProps<typeof Base.SidebarItem> & { icon?: React.ReactNode }) {
   const depth = Base.useFolderDepth();
   const { setOpen } = Base.useSidebar();
+
+  const href = (properties as { href?: string }).href ?? '';
+  const componentSlug = href.includes('/components/')
+    ? href.split('/components/')[1]?.split('/')[0]?.split('#')[0]
+    : undefined;
+
+  const componentInfo = componentSlug ? getComponentInfo(componentSlug) : undefined;
+  const status: StatusChipStatus | undefined =
+    (componentInfo?.status as StatusChipStatus) ||
+    (typeof icon === 'string' && ['new', 'updated', 'preview', 'planned'].includes(icon)
+      ? (icon as StatusChipStatus)
+      : undefined);
+
+  const statusBadge = status ? <StatusChip className="shrink-0" status={status} /> : undefined;
+
+  let renderedIcon = icon;
+
+  if (typeof icon === 'string' && ['new', 'updated', 'preview', 'planned'].includes(icon)) {
+    renderedIcon = undefined;
+  }
 
   return (
     <Base.SidebarItem
       className={cn(
-        'text-content-secondary hover:text-content-primary data-[active=true]:text-primary relative mt-0.5 flex flex-row items-center gap-2.5 rounded-md px-2 py-1.5 text-sm font-medium transition-colors duration-200',
+        'text-content-secondary hover:text-content-primary data-[active=true]:text-primary relative mt-0.5 flex flex-row items-center justify-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors duration-200',
         'hover:from-primary/5 data-[active=true]:from-primary/10 hover:bg-gradient-to-r hover:to-transparent data-[active=true]:bg-gradient-to-r data-[active=true]:to-transparent data-[active=true]:font-semibold',
         '[&_svg]:size-4 [&_svg]:shrink-0',
         className,
       )}
+      icon={renderedIcon}
       style={{
         paddingInlineStart: getItemOffset(depth),
         ...style,
@@ -182,7 +206,8 @@ export function SidebarItem({
       }}
       {...properties}
     >
-      {children}
+      <span className="truncate">{children}</span>
+      {statusBadge}
     </Base.SidebarItem>
   );
 }

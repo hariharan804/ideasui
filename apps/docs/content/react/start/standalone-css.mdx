@@ -1,0 +1,66 @@
+---
+title: Standalone CSS (No Tailwind)
+description: Use IdeasUI components in any React project without installing, compiling, or configuring Tailwind CSS.
+---
+
+If your project does **not** use Tailwind CSS (or if you prefer not to set up Tailwind CSS compilation in your build pipeline), you can use **`@ideasui/styles`**.
+
+`@ideasui/styles` provides pre-compiled CSS stylesheets for all IdeasUI components.
+
+---
+
+## Installation
+
+Install the `@ideasui/styles` package using your package manager:
+
+<InstallTabs pkg="@ideasui/styles" />
+
+---
+
+## Usage Options
+
+### Option 1 — All-in-One CSS (Recommended)
+
+Import the base resets and pre-compiled component styles in your application root file (`app/layout.tsx` or `src/main.tsx`):
+
+```tsx
+// 1. Import base resets and design tokens
+import '@ideasui/styles/base.css';
+
+// 2. Import pre-compiled styles for all components
+import '@ideasui/styles/styles.css';
+```
+
+Now you can use any IdeasUI component in your React application out of the box:
+
+```tsx
+import { Button } from '@ideasui/react';
+
+export default function App() {
+  return <Button color="primary">Click Me</Button>;
+}
+```
+
+---
+
+### Option 2 — Component-Wise CSS (Bundle Optimized)
+
+To optimize your CSS bundle size, import `base.css` once, then import only the specific component stylesheets you use:
+
+```tsx
+// 1. Import base resets once
+import '@ideasui/styles/base.css';
+
+// 2. Import only the component stylesheets you use
+import '@ideasui/styles/components/button.css';
+```
+
+---
+
+## Stylesheet Reference
+
+| File Export                                  | Description                                                         | Includes Resets? |
+| -------------------------------------------- | ------------------------------------------------------------------- | :--------------: |
+| `@ideasui/styles/base.css`                   | CSS resets, theme custom properties, and base tokens.               |       Yes        |
+| `@ideasui/styles/styles.css`                 | All compiled component utility classes in a single file.            |        No        |
+| `@ideasui/styles/components/[component].css` | Utility classes specific to a single component (e.g. `button.css`). |        No        |

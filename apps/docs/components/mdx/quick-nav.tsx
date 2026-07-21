@@ -41,7 +41,7 @@ export function QuickNav({
               className="group hover:bg-surface-subtle/60 flex items-start gap-3 rounded-xl p-2 transition-all duration-150 active:scale-[0.99] sm:items-center"
               href={item.href}
             >
-              <span className="bg-primary/10 text-primary border-primary/20 mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md border font-mono text-[10px] font-semibold sm:mt-0">
+              <span className="bg-primary/10 text-primary mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full font-mono text-[10px] font-semibold sm:mt-0">
                 {numberString}
               </span>
               <div className="flex min-w-0 flex-1 flex-col sm:flex-row sm:items-baseline sm:gap-2">

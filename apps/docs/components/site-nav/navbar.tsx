@@ -27,7 +27,7 @@ export function Navbar() {
   }
 
   const links = [
-    { label: 'Docs', href: '/react/docs/getting-started' },
+    { label: 'Docs', href: '/react/docs/start' },
     { label: 'Components', href: '/react/docs/components/button' },
     { label: 'Changelog', href: '/changelog' },
   ];

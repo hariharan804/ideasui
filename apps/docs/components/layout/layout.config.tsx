@@ -25,7 +25,7 @@ export const homeLayoutLinks = [
       {
         icon: <BookOpen className="size-4" />,
         text: 'Getting Started',
-        url: '/react/docs/getting-started',
+        url: '/react/docs/start',
       },
       {
         icon: <LayoutGrid className="size-4" />,

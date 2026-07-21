@@ -6,7 +6,7 @@ import path from 'node:path';
 import { source } from '@/lib/source';
 import { DocsPage, DocsBody } from '@/components/layout/docs-layout/page';
 import { PropsTable } from '@/components/ui/props-table';
-import { Code2, BookOpen, Paintbrush, Sparkles } from 'lucide-react';
+import { Code2, BookOpen, Paintbrush, Sparkles, Box } from 'lucide-react';
 import { Figma } from '@/components/docs-ui/icons';
 import { siteConfig } from '@/config/site';
 import { CopyDropdown } from '@/components/docs-ui/copy-dropdown';
@@ -69,11 +69,40 @@ function MdxPreBlock({
   );
 }
 
+async function getPackageVersion(componentSlug?: string): Promise<string> {
+  if (!componentSlug) return '0.0.1';
+
+  const pkgFolder = componentSlug === 'button-group' ? 'button' : componentSlug;
+
+  try {
+    const pkgPath = path.join(
+      process.cwd(),
+      '../../packages/components',
+      pkgFolder,
+      'package.json',
+    );
+    const content = await fs.readFile(pkgPath, 'utf8');
+    const json = JSON.parse(content);
+
+    return (json.version as string) ?? '0.0.1';
+  } catch {
+    try {
+      const corePkgPath = path.join(process.cwd(), '../../packages/core/react/package.json');
+      const content = await fs.readFile(corePkgPath, 'utf8');
+      const json = JSON.parse(content);
+
+      return (json.version as string) ?? '0.0.1';
+    } catch {
+      return '0.0.1';
+    }
+  }
+}
+
 export default async function Page(properties: Readonly<{ params: Promise<{ slug?: string[] }> }>) {
   const parameters = await properties.params;
 
   if (!parameters.slug || parameters.slug.length === 0) {
-    redirect('/react/docs/getting-started');
+    redirect('/react/docs/start');
   }
 
   const page = source.getPage(parameters.slug);
@@ -84,6 +113,9 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
   const pageData = page.data;
   const MdxContent = pageData.body;
+
+  const componentSlug = parameters.slug.at(-1);
+  const packageVersion = await getPackageVersion(componentSlug);
 
   const filePath = page.absolutePath || path.join(process.cwd(), 'content/react', page.path);
   let rawMarkdown = '';
@@ -100,7 +132,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
       <div className="bg-surface-subtle/25 relative mb-8 rounded-3xl p-6 backdrop-blur-sm sm:p-8">
         {/* Decorative ambient background mesh */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
-          <div className="absolute inset-0 bg-[radial-gradient(oklch(var(--ideasui-color-content-tertiary)/0.15)_1px,transparent_1px)] [background-size:24px_24px]" />
+          <div className="absolute inset-0 bg-[radial-gradient(oklch(var(--ideasui-color-content-tertiary)/0.10)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_100%)] [background-size:24px_24px] dark:opacity-40" />
           <div className="bg-primary/10 absolute -top-20 -left-10 size-64 rounded-full blur-3xl dark:opacity-40" />
           <div className="bg-secondary/10 absolute -top-10 -right-10 size-56 rounded-full blur-3xl" />
           <div className="bg-primary/10 absolute -right-10 -bottom-20 size-64 rounded-full blur-3xl dark:opacity-40" />
@@ -120,6 +152,33 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
         {/* ── Interactive Resource Cards ───────────────────────────────────── */}
         <div className="relative mt-6 flex flex-wrap items-center gap-2.5">
+          {pageData.links?.npm && (
+            <a
+              className="group border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-red-500/40 hover:shadow-xs active:scale-[0.98]"
+              href={
+                typeof pageData.links.npm === 'string' && pageData.links.npm.startsWith('http')
+                  ? pageData.links.npm
+                  : `https://www.npmjs.com/package/@ideasui/${componentSlug ?? 'button'}`
+              }
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <div className="flex size-7 shrink-0 items-center justify-center rounded-xl bg-red-500/10 text-red-500 transition-transform duration-200 group-hover:scale-105 group-hover:bg-red-500/20">
+                <Box className="size-3.5" />
+              </div>
+              <div className="flex min-w-0 flex-col">
+                <span className="text-content-primary truncate text-xs font-semibold">npm</span>
+                <span className="text-content-tertiary truncate text-[10px]">
+                  {typeof pageData.links.npm === 'string' &&
+                  !pageData.links.npm.startsWith('http') &&
+                  !pageData.links.npm.includes('true')
+                    ? `v${pageData.links.npm}`
+                    : `v${packageVersion}`}
+                </span>
+              </div>
+            </a>
+          )}
+
           {pageData.links?.source && (
             <a
               className="group bg-surface/80 hover:bg-surface hover:border-primary/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"

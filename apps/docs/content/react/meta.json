@@ -1,4 +1,4 @@
 {
   "title": "Documentation",
-  "pages": ["getting-started", "components", "changelog"]
+  "pages": ["start", "components", "changelog"]
 }

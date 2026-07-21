@@ -37,7 +37,7 @@ export function APIReferenceViewer({ componentName }: Readonly<APIReferenceViewe
     <div className="not-prose my-6 flex w-full flex-col gap-4">
       {/* Segmented Tab Selectors */}
       {componentDocs.length > 1 && (
-        <div className="bg-surface-muted/60 flex max-w-full [scrollbar-width:none] items-center gap-1 overflow-x-auto rounded-xl p-1 select-none [&::-webkit-scrollbar]:hidden">
+        <div className="bg-surface-muted/60 flex max-w-fit min-w-auto [scrollbar-width:none] items-center gap-1 overflow-x-auto rounded-xl p-1 select-none [&::-webkit-scrollbar]:hidden">
           {componentDocs.map((document_, index) => (
             <button
               key={document_.componentName}
@@ -57,12 +57,12 @@ export function APIReferenceViewer({ componentName }: Readonly<APIReferenceViewe
       )}
 
       {/* Component Title and Description Header Card */}
-      <div className="border-subtle/30 bg-surface-subtle/25 flex flex-col gap-1.5 rounded-2xl border p-5 backdrop-blur-sm">
+      <div className="bg-surface-subtle flex flex-col gap-1.5 rounded-2xl p-5 backdrop-blur-sm">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h4 className="text-content-primary text-sm font-bold tracking-tight sm:text-base">
             {activeDocument.title}
           </h4>
-          <span className="bg-primary/10 text-primary shrink-0 rounded-lg border px-2.5 py-0.5 font-mono text-[11px] font-semibold select-all">
+          <span className="bg-primary/10 text-primary shrink-0 rounded-lg px-2.5 py-0.5 font-mono text-[11px] font-semibold select-all">
             {activeDocument.component}
           </span>
         </div>

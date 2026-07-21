@@ -10,6 +10,7 @@ var { docs, meta } = defineDocs({
       icon: z.string().optional(),
       full: z.boolean().optional(),
       links: z.object({
+        npm: z.union([z.boolean(), z.string()]).optional(),
         rac: z.string().optional(),
         source: z.string().optional(),
         recipe: z.string().optional(),

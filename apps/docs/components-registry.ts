@@ -5,32 +5,32 @@ export interface ComponentInfo {
   description: string;
   href: string;
   category?: string;
-  status?: 'stable' | 'planned' | 'deprecated';
+  status?: 'new' | 'updated' | 'preview' | 'planned' | 'deprecated';
 }
 
 const componentsMap: Record<string, ComponentInfo> = {
   button: {
-    category: 'forms',
-    description: 'Allows a user to perform an action',
-    href: '/docs/components/button',
+    category: 'buttons',
+    description: 'A versatile button component with multiple variants, sizes, and states',
+    href: '/react/docs/components/button',
     name: 'button',
-    status: 'stable',
+    status: 'updated',
     title: 'Button',
+  },
+  buttongroup: {
+    category: 'buttons',
+    description: 'Group multiple buttons together in a horizontal or vertical layout',
+    href: '/react/docs/components/button-group',
+    name: 'button-group',
+    status: 'new',
+    title: 'Button Group',
   },
 };
 
 // Define relationships between components
 const componentRelationships: Record<string, string[]> = {
-  button: [
-    'popover',
-    'tooltip',
-    'form',
-    'alert',
-    'alertdialog',
-    'closebutton',
-    'dropdown',
-    'toast',
-  ],
+  button: ['buttongroup'],
+  buttongroup: ['button'],
 };
 
 /**

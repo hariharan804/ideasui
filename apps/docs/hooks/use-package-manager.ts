@@ -1,19 +1,32 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useSyncExternalStore } from 'react';
 
 export type PackageManager = 'pnpm' | 'npm' | 'yarn' | 'bun';
 
 const STORAGE_KEY = 'ideasui_package_manager';
 const CHANGE_EVENT = 'ideasui_pm_change';
+const VALID_PMS: Set<PackageManager> = new Set(['pnpm', 'npm', 'yarn', 'bun']);
 
-function getInitialPackageManager(): PackageManager {
+function subscribe(callback: () => void) {
+  if (globalThis.window === undefined) return () => {};
+
+  globalThis.addEventListener(CHANGE_EVENT, callback);
+  globalThis.addEventListener('storage', callback);
+
+  return () => {
+    globalThis.removeEventListener(CHANGE_EVENT, callback);
+    globalThis.removeEventListener('storage', callback);
+  };
+}
+
+function getSnapshot(): PackageManager {
   if (globalThis.window === undefined) return 'pnpm';
 
   try {
     const stored = localStorage.getItem(STORAGE_KEY) as PackageManager | null;
 
-    if (stored && ['pnpm', 'npm', 'yarn', 'bun'].includes(stored)) {
+    if (stored && VALID_PMS.has(stored)) {
       return stored;
     }
   } catch {
@@ -23,41 +36,18 @@ function getInitialPackageManager(): PackageManager {
   return 'pnpm';
 }
 
+function getServerSnapshot(): PackageManager {
+  return 'pnpm';
+}
+
 /**
  * Hook to manage and sync the user's preferred package manager (pnpm, npm, yarn, bun)
  * across all InstallTabs instances and website pages.
  */
 export function usePackageManager(): [PackageManager, (pm: PackageManager) => void] {
-  const [pm, setPmState] = useState<PackageManager>(getInitialPackageManager);
-
-  useEffect(() => {
-    function handleCustomEvent(event: CustomEvent<PackageManager>) {
-      if (event.detail && ['pnpm', 'npm', 'yarn', 'bun'].includes(event.detail)) {
-        setPmState(event.detail);
-      }
-    }
-
-    function handleStorageEvent(event: StorageEvent) {
-      if (event.key === STORAGE_KEY && event.newValue) {
-        const newPm = event.newValue as PackageManager;
-
-        if (['pnpm', 'npm', 'yarn', 'bun'].includes(newPm)) {
-          setPmState(newPm);
-        }
-      }
-    }
-
-    globalThis.addEventListener(CHANGE_EVENT, handleCustomEvent as EventListener);
-    globalThis.addEventListener('storage', handleStorageEvent);
-
-    return () => {
-      globalThis.removeEventListener(CHANGE_EVENT, handleCustomEvent as EventListener);
-      globalThis.removeEventListener('storage', handleStorageEvent);
-    };
-  }, []);
+  const pm = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const setPm = (newPm: PackageManager) => {
-    setPmState(newPm);
     try {
       localStorage.setItem(STORAGE_KEY, newPm);
     } catch {

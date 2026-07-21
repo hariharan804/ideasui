@@ -1,16 +1,29 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to IdeasUI will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [0.1.0] - 2026-03-15
+## [0.0.2-beta.1] - 2026-07-21
 
 ### Added
 
-- Initial component library setup
-- TypeScript support
-- Storybook playground
-- Testing framework (Vitest + Playwright)
-- Development tooling (ESLint, Prettier, Husky)
+- `Button` and `ButtonGroup` components powered by React Aria and OKLCH color palettes.
+- Real-time status badges (`New`, `Updated`) in component previews and sidebar navigation.
+- Dynamic package version badges for npm component packages.
+- Soft-styled Tailwind CSS v4 Design Token Explorer with scaled typography previews.
+- Borderless PropsTable layout for component API references.
+
+### Fixed
+
+- SSR hydration mismatches in package manager storage sync.
+- Scaled typography preview overflow inside design token cards.
+- Ambient dark-mode dot grid background opacity.
+
+---
+
+## [0.0.1] - 2026-03-15
+
+### Added
+
+- Monorepo structure with `@ideasui/react`, `@ideasui/button`, `@ideasui/theme`, and `@ideasui/utils`.
+- Perceptual OKLCH design token theme system for Tailwind CSS v4.
+- Documentation platform built with Fumadocs.
