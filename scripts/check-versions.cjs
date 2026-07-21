@@ -5,6 +5,8 @@
  * This provides helpful error messages instead of cryptic failures
  */
 
+const { execFileSync } = require('node:child_process');
+
 const MIN_NODE_VERSION = '18.0.0';
 const MIN_PNPM_VERSION = '8.0.0';
 const RECOMMENDED_NODE_VERSION = '22.12.0'; // Node 22 LTS (Jod) - Maintenance LTS until April 2027
