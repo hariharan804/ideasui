@@ -366,7 +366,7 @@ If you're using **Option 1** (CSS Import) or prefer not to touch `tailwind.confi
 }
 
 .dark,
-[data-ideasui-theme='dark'] {
+[data-theme='dark'] {
   --ideasui-color-primary-500: 0.7 0.2 145;
 }
 ```
@@ -450,7 +450,7 @@ Available shades: `50` `100` `200` `300` `400` `500` `600` `700` `800` `900` `95
 }
 
 .dark,
-[data-ideasui-theme='dark'] {
+[data-theme='dark'] {
   --ideasui-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
   --ideasui-shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.25);
 }

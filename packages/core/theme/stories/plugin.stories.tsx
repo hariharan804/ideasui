@@ -190,7 +190,7 @@ export default ideasUIPlugin({
 }
 
 .dark,
-[data-ideasui-theme='dark'] {
+[data-theme='dark'] {
   --ideasui-color-primary-500: 0.7 0.2 145;
 }`}
           title="Custom Theme Configuration via CSS Variables"
@@ -208,7 +208,7 @@ export default ideasUIPlugin({
 </div>
 
 <!-- Custom theme mapped to data-attribute -->
-<div data-ideasui-theme="brand-dark" class="bg-surface text-content-secondary">
+<div data-theme="brand-dark" class="bg-surface text-content-secondary">
   Custom theme content
 </div>`}
           title="Applying Themes in HTML"

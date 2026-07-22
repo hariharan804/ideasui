@@ -5,6 +5,6 @@ export const defaultConfig: ThemeScriptConfig & { attribute: string; storageKey:
   themes: ['light', 'dark', 'system'],
   defaultTheme: 'light',
   storageKey: 'ideasui-theme',
-  attribute: 'data-ideasui-theme',
+  attribute: 'data-theme',
   systemThemes: { light: 'light', dark: 'dark' },
 };

@@ -105,7 +105,7 @@ describe('ideasUIPlugin — default design token CSS variables', () => {
   it('emits color CSS vars for light theme on :root', () => {
     const { addBase } = runHandler(ideasUIPlugin());
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
+    const lightSelector = ":root, .light, [data-theme='light']";
     const lightVariables = variables[lightSelector];
 
     expect(lightVariables).toBeDefined();
@@ -125,7 +125,7 @@ describe('ideasUIPlugin — default design token CSS variables', () => {
   it('emits dark-mode shadow overrides on dark selector', () => {
     const { addBase } = runHandler(ideasUIPlugin());
     const variables = flatBaseVariables(addBase);
-    const darkSelector = ".dark, [data-ideasui-theme='dark']";
+    const darkSelector = ".dark, [data-theme='dark']";
     const darkVariables = variables[darkSelector];
 
     expect(darkVariables).toBeDefined();
@@ -183,7 +183,7 @@ describe('ideasUIPlugin — theme variants', () => {
     expect(names).toContain('ocean');
   });
 
-  it('registers data-ideasui-theme selector for custom theme', () => {
+  it('registers data-theme selector for custom theme', () => {
     const { addVariant } = runHandler(ideasUIPlugin({ themes: { ocean: { colors: {} } } }));
     const oceanCall = addVariant.mock.calls.find(([name]) => name === 'ocean');
 
@@ -194,7 +194,7 @@ describe('ideasUIPlugin — theme variants', () => {
     }
     const selectorDef = oceanCall[1] as string[];
 
-    expect(selectorDef.some((s: string) => s.includes("data-ideasui-theme='ocean'"))).toBe(true);
+    expect(selectorDef.some((s: string) => s.includes("data-theme='ocean'"))).toBe(true);
   });
 });
 
@@ -218,7 +218,7 @@ describe('ideasUIPlugin — color scale overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
+    const lightSelector = ":root, .light, [data-theme='light']";
 
     expect(variables[lightSelector]['--ideasui-color-primary-500']).toBeDefined();
     expect(variables[lightSelector]['--ideasui-color-primary-900']).toBeDefined();
@@ -234,8 +234,8 @@ describe('ideasUIPlugin — color scale overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
-    const darkSelector = ".dark, [data-ideasui-theme='dark']";
+    const lightSelector = ":root, .light, [data-theme='light']";
+    const darkSelector = ".dark, [data-theme='dark']";
 
     // The light override (#3b82f6 converted to oklch) should only appear on the light selector
     // Both selectors will have primary-500 set (from their own defaults), but different values
@@ -264,7 +264,7 @@ describe('ideasUIPlugin — flat semanticTokens overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
+    const lightSelector = ":root, .light, [data-theme='light']";
 
     expect(variables[lightSelector]['--ideasui-color-primary']).toBe('oklch(0.42 0.18 125)');
     expect(variables[lightSelector]['--ideasui-color-on-primary']).toBe('oklch(0.98 0.02 240)');
@@ -281,7 +281,7 @@ describe('ideasUIPlugin — flat semanticTokens overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
+    const lightSelector = ":root, .light, [data-theme='light']";
 
     expect(variables[lightSelector]['--ideasui-color-scrim']).toBe('oklch(0 0 0 / 0.45)');
   });
@@ -300,7 +300,7 @@ describe('ideasUIPlugin — flat semanticTokens overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
+    const lightSelector = ":root, .light, [data-theme='light']";
 
     expect(variables[lightSelector]['--ideasui-color-surface']).toBe('oklch(1 0 0)');
     expect(variables[lightSelector]['--ideasui-color-surface-muted']).toBe('oklch(0.97 0 0)');
@@ -321,7 +321,7 @@ describe('ideasUIPlugin — flat semanticTokens overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
+    const lightSelector = ":root, .light, [data-theme='light']";
 
     expect(variables[lightSelector]['--ideasui-color-content-primary']).toBe('oklch(0.1 0 0)');
     expect(variables[lightSelector]['--ideasui-color-content-secondary']).toBe('oklch(0.3 0 0)');
@@ -342,7 +342,7 @@ describe('ideasUIPlugin — flat semanticTokens overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
+    const lightSelector = ":root, .light, [data-theme='light']";
 
     // border, border-focus, and border-error are flat tokens → --ideasui-color-{key}
     expect(variables[lightSelector]['--ideasui-color-border']).toBe('oklch(0.9 0 0)');
@@ -360,8 +360,8 @@ describe('ideasUIPlugin — flat semanticTokens overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
-    const darkSelector = ".dark, [data-ideasui-theme='dark']";
+    const lightSelector = ":root, .light, [data-theme='light']";
+    const darkSelector = ".dark, [data-theme='dark']";
 
     // The custom override only appears on the light selector
     expect(variables[lightSelector]['--ideasui-color-primary']).toBe('oklch(0.42 0.18 125)');
@@ -379,8 +379,8 @@ describe('ideasUIPlugin — flat semanticTokens overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
-    const darkSelector = ".dark, [data-ideasui-theme='dark']";
+    const lightSelector = ":root, .light, [data-theme='light']";
+    const darkSelector = ".dark, [data-theme='dark']";
 
     expect(variables[lightSelector]['--ideasui-color-scrim']).toBe('oklch(0 0 0 / 0.5)');
     expect(variables[darkSelector]['--ideasui-color-scrim']).toBe('oklch(0 0 0 / 0.5)');
@@ -402,7 +402,7 @@ describe('ideasUIPlugin — designTokens overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
+    const lightSelector = ":root, .light, [data-theme='light']";
 
     expect(variables[lightSelector]['--ideasui-spacing-4']).toBe('20px');
   });
@@ -417,7 +417,7 @@ describe('ideasUIPlugin — designTokens overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
+    const lightSelector = ":root, .light, [data-theme='light']";
 
     expect(variables[lightSelector]['--ideasui-radius-md']).toBe('12px');
   });
@@ -433,7 +433,7 @@ describe('ideasUIPlugin — designTokens overrides', () => {
 
     const { addBase: addBaseA } = runHandler(pluginA);
     const { addBase: addBaseB } = runHandler(pluginB);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
+    const lightSelector = ":root, .light, [data-theme='light']";
 
     const variableA = flatBaseVariables(addBaseA)[lightSelector]['--ideasui-shadow-custom'];
     const variableB = flatBaseVariables(addBaseB)[lightSelector]['--ideasui-shadow-custom'];
@@ -449,8 +449,8 @@ describe('ideasUIPlugin — designTokens overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
-    const darkSelector = ".dark, [data-ideasui-theme='dark']";
+    const lightSelector = ":root, .light, [data-theme='light']";
+    const darkSelector = ".dark, [data-theme='dark']";
 
     expect(variables[lightSelector]['--ideasui-spacing-section']).toBe('3rem');
     expect(variables[darkSelector]['--ideasui-spacing-section']).toBe('3rem');
@@ -479,7 +479,7 @@ describe('ideasUIPlugin — component overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
+    const lightSelector = ":root, .light, [data-theme='light']";
 
     expect(variables[lightSelector]['--ideasui-button-base-background-color']).toBe('red');
     expect(variables[lightSelector]['--ideasui-button-base-border-radius']).toBe('8px');
@@ -500,7 +500,7 @@ describe('ideasUIPlugin — component overrides', () => {
     });
     const { addBase } = runHandler(plugin);
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ":root, .light, [data-ideasui-theme='light']";
+    const lightSelector = ":root, .light, [data-theme='light']";
 
     expect(variables[lightSelector]['--ideasui-card-header-font-size']).toBe('14px');
     expect(variables[lightSelector]['--ideasui-card-footer-color']).toBe('#555');
@@ -516,24 +516,24 @@ describe('ideasUIPlugin — defaultTheme', () => {
     const { addBase } = runHandler(ideasUIPlugin({ defaultTheme: 'light' }));
     const variables = flatBaseVariables(addBase);
 
-    expect(variables[":root, .light, [data-ideasui-theme='light']"]).toBeDefined();
+    expect(variables[":root, .light, [data-theme='light']"]).toBeDefined();
   });
 
   it('default theme dark styles include :root when defaultTheme=dark', () => {
     const { addBase } = runHandler(ideasUIPlugin({ defaultTheme: 'dark' }));
     const variables = flatBaseVariables(addBase);
 
-    expect(variables[":root, .dark, [data-ideasui-theme='dark']"]).toBeDefined();
+    expect(variables[":root, .dark, [data-theme='dark']"]).toBeDefined();
   });
 
   it('non-default theme does not include :root', () => {
     const { addBase } = runHandler(ideasUIPlugin({ defaultTheme: 'dark' }));
     const variables = flatBaseVariables(addBase);
-    const lightSelector = ".light, [data-ideasui-theme='light']";
+    const lightSelector = ".light, [data-theme='light']";
 
     expect(variables[lightSelector]).toBeDefined();
     // The non-default light selector must NOT start with :root
-    expect(Object.keys(variables)).not.toContain(":root, .light, [data-ideasui-theme='light']");
+    expect(Object.keys(variables)).not.toContain(":root, .light, [data-theme='light']");
   });
 });
 

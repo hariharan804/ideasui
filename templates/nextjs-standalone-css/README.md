@@ -7,7 +7,7 @@ This repository is a Next.js starter boilerplate template pre-configured with th
 - **Next.js App Router**: Configured with React 19 and Next.js 16.
 - **IdeasUI Styles Integration**: Imports `@ideasui/styles` compiled base variables and utilities directly into the global stylesheet.
 - **Component Packaging ready**: Uses workspace component dependencies like `@ideasui/button` directly.
-- **Light/Dark Mode Theme**: Pre-configured with dynamic CSS color tokens that swap colors smoothly based on `data-ideasui-theme="light|dark"`.
+- **Light/Dark Mode Theme**: Pre-configured with dynamic CSS color tokens that swap colors smoothly based on `data-theme="light|dark"`.
 - **CSS Modules & SCSS Support**: Native support for modular components and layout styles using Sass.
 
 ## 🛠️ Getting Started
@@ -59,10 +59,10 @@ npm run build
 
 ## 🎨 Theme & Customization
 
-The theme system works by injecting design tokens as CSS variables. To change themes dynamically, toggle the `data-ideasui-theme` attribute on any parent wrapper or the `<html>`/`<body>` element:
+The theme system works by injecting design tokens as CSS variables. To change themes dynamically, toggle the `data-theme` attribute on any parent wrapper or the `<html>`/`<body>` element:
 
 ```html
-<div data-ideasui-theme="dark">
+<div data-theme="dark">
   <!-- Content will render using dark tokens -->
 </div>
 ```

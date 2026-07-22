@@ -9,7 +9,7 @@ import { THEME_ADDON_ID, THEME_EVENT_NAME, THEME_GLOBAL_TYPE_ID, ensureThemeKey 
 const updatePreviewTheme = (theme: string) => {
   const root = document.documentElement;
 
-  root.setAttribute('data-ideasui-theme', theme);
+  root.setAttribute('data-theme', theme);
   root.classList.remove('light', 'dark');
   root.classList.add(theme);
 };

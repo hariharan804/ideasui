@@ -65,10 +65,7 @@ describe('ideasUIPlugin', () => {
 
     // Check if the addBase was called with the overridden value
     const baseCall = mockPluginAPI.addBase.mock.calls.find((call: Record<string, unknown>[]) => {
-      const theme = call[0][":root, .light, [data-ideasui-theme='light']"] as Record<
-        string,
-        string
-      >;
+      const theme = call[0][":root, .light, [data-theme='light']"] as Record<string, string>;
 
       return theme && theme['--ideasui-color-primary-500'] === '0.628 0.2577 29.23';
     });
@@ -99,10 +96,7 @@ describe('ideasUIPlugin', () => {
     plugin.handler(mockPluginAPI);
 
     const baseCall = mockPluginAPI.addBase.mock.calls.find((call: Record<string, unknown>[]) => {
-      const theme = call[0][":root, .light, [data-ideasui-theme='light']"] as Record<
-        string,
-        string
-      >;
+      const theme = call[0][":root, .light, [data-theme='light']"] as Record<string, string>;
 
       return theme && theme['--ideasui-color-primary-600'] !== undefined;
     });
@@ -110,8 +104,8 @@ describe('ideasUIPlugin', () => {
     expect(baseCall).toBeDefined();
 
     const lightThemeVariables = mockPluginAPI.addBase.mock.calls.find(
-      (call: Record<string, unknown>[]) => call[0][":root, .light, [data-ideasui-theme='light']"],
-    )[0][":root, .light, [data-ideasui-theme='light']"];
+      (call: Record<string, unknown>[]) => call[0][":root, .light, [data-theme='light']"],
+    )[0][":root, .light, [data-theme='light']"];
 
     // Check that primary-600 is generated and has the matching red hue (around 29.23)
     const primary600Value = lightThemeVariables['--ideasui-color-primary-600'];
@@ -136,8 +130,8 @@ describe('ideasUIPlugin', () => {
     plugin.handler(mockPluginAPI);
 
     const lightThemeVariables = mockPluginAPI.addBase.mock.calls.find(
-      (call: Record<string, unknown>[]) => call[0][":root, .light, [data-ideasui-theme='light']"],
-    )[0][":root, .light, [data-ideasui-theme='light']"];
+      (call: Record<string, unknown>[]) => call[0][":root, .light, [data-theme='light']"],
+    )[0][":root, .light, [data-theme='light']"];
 
     // primary-600 remains default blue
     const primary600Value = lightThemeVariables['--ideasui-color-primary-600'];
@@ -151,7 +145,7 @@ describe('ideasUIPlugin', () => {
     plugin.handler(mockPluginAPI);
 
     const baseCall = mockPluginAPI.addBase.mock.calls.find((call: any) => {
-      const theme = call[0][":root, .light, [data-ideasui-theme='light']"];
+      const theme = call[0][":root, .light, [data-theme='light']"];
 
       return theme && theme['--ideasui-color-border-subtle'] !== undefined;
     });

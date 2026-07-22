@@ -15,7 +15,7 @@ export default function Home() {
     <div
       className={theme === 'dark' ? 'dark' : ''}
       style={{ display: 'contents' }}
-      data-ideasui-theme={theme}
+      data-theme={theme}
     >
       {/* Navbar Header */}
       <header className="app-header">

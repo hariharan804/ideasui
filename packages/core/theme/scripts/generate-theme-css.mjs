@@ -173,8 +173,8 @@ function generateThemeCSS() {
   const findSelector = (styles, keywords) =>
     Object.keys(styles).find((s) => keywords.some((k) => s.includes(k)));
 
-  const lightSelector = findSelector(baseStyles, ['light', 'data-ideasui-theme="light"']);
-  const darkSelector = findSelector(baseStyles, ['dark', 'data-ideasui-theme="dark"']);
+  const lightSelector = findSelector(baseStyles, ['light', 'data-theme="light"']);
+  const darkSelector = findSelector(baseStyles, ['dark', 'data-theme="dark"']);
   const lightSource = { ...rootVariables, ...(lightSelector ? baseStyles[lightSelector] : {}) };
   const darkSource = { ...rootVariables, ...(darkSelector ? baseStyles[darkSelector] : {}) };
 
@@ -315,12 +315,12 @@ function generateThemeCSS() {
 
   return {
     variables: `:root,
-[data-ideasui-theme="light"] {
+[data-theme="light"] {
 ${format(lightThemed)}
 }
 
 .dark,
-[data-ideasui-theme="dark"] {
+[data-theme="dark"] {
 ${format(darkThemed)}
 }
 

@@ -212,13 +212,13 @@ font-weight: var(--text-label-weight);
 /* ⚠️ INTENTIONAL DUPLICATION — DO NOT "FIX" */
 
 :root,
-[data-ideasui-theme='light'] {
+[data-theme='light'] {
   --neutral-50: #fafafa;
   --primary-500: #3b82f6;
   /* ... full scale */
 }
 
-[data-ideasui-theme='dark'] {
+[data-theme='dark'] {
   --neutral-50: #fafafa;
   --primary-500: #3b82f6;
   /* ... full scale (can differ per theme) */

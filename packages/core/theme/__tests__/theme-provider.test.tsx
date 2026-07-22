@@ -30,7 +30,7 @@ describe('ThemeProvider', () => {
   });
 
   it('should apply theme attribute to document element', () => {
-    // We render with default settings, which should use data-ideasui-theme
+    // We render with default settings, which should use data-theme
     render(
       <ThemeProvider defaultTheme="dark">
         <div>Content</div>

@@ -200,7 +200,7 @@ export const createIdeasUIPlugin: ReturnType<typeof plugin.withOptions<ThemeConf
  *
  *   // ─────────────────────────────────────────────────────────────
  *   // THEMES
- *   // Each key is a theme name. Toggle with data-ideasui-theme="dark"
+ *   // Each key is a theme name. Toggle with data-theme="dark"
  *   // or programmatically via the theme switcher utility.
  *   // ─────────────────────────────────────────────────────────────
  *   themes: {
