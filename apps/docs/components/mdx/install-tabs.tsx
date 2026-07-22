@@ -8,20 +8,22 @@ import { usePackageManager, type PackageManager } from '@/hooks/use-package-mana
 interface InstallTabsProperties {
   pkg: string;
   isDev?: boolean;
+  /** Default selected mode. Defaults to 'core'. Only applies when the package is an individual component. */
+  defaultMode?: 'component' | 'core';
   className?: string;
 }
 
 export function InstallTabs({
   pkg,
   isDev: isDevelopment = false,
+  defaultMode = 'core',
   className,
 }: Readonly<InstallTabsProperties>) {
   const [activeTab, setActiveTab] = usePackageManager();
   const [copied, setCopied] = useState(false);
-  const [installMode, setInstallMode] = useState<'component' | 'core'>('core');
+  const [installMode, setInstallMode] = useState<'component' | 'core'>(defaultMode);
 
-  const isIndividualComponent =
-    pkg.startsWith('@ideasui/') && pkg !== '@ideasui/react' && pkg !== '@ideasui/theme';
+  const isIndividualComponent = pkg.startsWith('@ideasui/') && pkg !== '@ideasui/react';
 
   const activePackage = installMode === 'component' ? pkg : '@ideasui/react';
 
@@ -117,7 +119,7 @@ export function InstallTabs({
           <div className="bg-surface-muted/60 flex max-w-full [scrollbar-width:none] items-center gap-0.5 overflow-x-auto rounded-xl p-1 select-none [&::-webkit-scrollbar]:hidden">
             <button
               className={cn(
-                'shrink-0 cursor-pointer rounded-lg px-2.5 py-1 text-[11px] font-medium whitespace-nowrap transition-all duration-200',
+                'shrink-0 cursor-pointer rounded-lg px-2.5 text-[10px] font-medium whitespace-nowrap transition-all duration-200',
                 installMode === 'component'
                   ? 'bg-surface text-content-primary font-semibold shadow-xs'
                   : 'text-content-tertiary hover:text-content-primary',
@@ -129,7 +131,7 @@ export function InstallTabs({
             </button>
             <button
               className={cn(
-                'shrink-0 cursor-pointer rounded-lg px-2.5 py-1 text-[11px] font-medium whitespace-nowrap transition-all duration-200',
+                'shrink-0 cursor-pointer rounded-lg px-2.5 text-[10px] font-medium whitespace-nowrap transition-all duration-200',
                 installMode === 'core'
                   ? 'bg-surface text-content-primary font-semibold shadow-xs'
                   : 'text-content-tertiary hover:text-content-primary',

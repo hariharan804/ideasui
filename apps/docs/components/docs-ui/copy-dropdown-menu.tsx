@@ -2,31 +2,72 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 import { ChatGPTIcon, ClaudeIcon, MarkdownIcon } from '@/components/docs-ui/icons';
 
 interface CopyDropdownMenuProps {
   readonly isOpen: boolean;
+  readonly buttonRect: DOMRect | null;
   readonly onClose: () => void;
   readonly onViewMarkdown: () => void;
   readonly onOpenInChatGPT: () => void;
   readonly onOpenInClaude: () => void;
 }
 
+const MENU_WIDTH = 288; // w-72
+const MENU_OFFSET = 8;
+const MOBILE_BREAKPOINT = 640; // sm
+
 export function CopyDropdownMenu({
   isOpen,
+  buttonRect,
   onViewMarkdown,
   onOpenInChatGPT,
   onOpenInClaude,
 }: Readonly<CopyDropdownMenuProps>) {
-  return (
+  if (!buttonRect) return null;
+
+  const viewportWidth = globalThis.window === undefined ? 1024 : window.innerWidth;
+  const top = buttonRect.bottom + MENU_OFFSET;
+  const isMobile = viewportWidth < MOBILE_BREAKPOINT;
+
+  let style: React.CSSProperties;
+
+  if (isMobile) {
+    // Full width with 8px margins on each side, centered
+    style = {
+      position: 'fixed',
+      top,
+      left: 8,
+      right: 8,
+      zIndex: 99_999,
+    };
+  } else {
+    // Right-align with the button's right edge; clamp so left edge stays ≥ 8px
+    const distanceFromRight = viewportWidth - buttonRect.right;
+    const needsLeftAlign = buttonRect.right - MENU_WIDTH < 8;
+
+    style = {
+      position: 'fixed',
+      top,
+      zIndex: 99_999,
+      width: MENU_WIDTH,
+      ...(needsLeftAlign
+        ? { left: Math.max(8, buttonRect.left) }
+        : { right: Math.max(0, distanceFromRight) }),
+    };
+  }
+
+  const menu = (
     <AnimatePresence>
       {isOpen && (
         <motion.div
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          className="bg-surface/95 absolute top-full right-0 z-[999] mt-2 w-72 rounded-2xl p-1.5 shadow-xl backdrop-blur-xl"
+          className="bg-surface rounded-2xl p-1.5 shadow-xl backdrop-blur-xl"
           exit={{ opacity: 0, y: 6, scale: 0.95 }}
           initial={{ opacity: 0, y: 8, scale: 0.95 }}
+          style={style}
           transition={{ duration: 0.15, ease: 'easeOut' }}
         >
           <div className="flex flex-col gap-0.5">
@@ -92,4 +133,7 @@ export function CopyDropdownMenu({
       )}
     </AnimatePresence>
   );
+
+  // Render into body to fully escape any stacking context (e.g. sticky TOC)
+  return typeof document === 'undefined' ? null : createPortal(menu, document.body);
 }

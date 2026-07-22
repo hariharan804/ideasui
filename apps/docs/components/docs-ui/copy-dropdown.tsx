@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Copy, Check, ChevronDown } from 'lucide-react';
 import { cn } from '@ideasui/utils';
@@ -20,6 +20,14 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const dropdownReference = useRef<HTMLDivElement>(null);
+  const splitButtonRef = useRef<HTMLDivElement>(null);
+  const [buttonRect, setButtonRect] = useState<DOMRect | null>(null);
+
+  const updateRect = useCallback(() => {
+    if (splitButtonRef.current) {
+      setButtonRect(splitButtonRef.current.getBoundingClientRect());
+    }
+  }, []);
 
   const isLocal =
     globalThis.window !== undefined &&
@@ -38,6 +46,19 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
 
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  // Keep rect fresh while open so dropdown tracks scroll/resize
+  useEffect(() => {
+    if (!isOpen) return;
+    updateRect();
+    window.addEventListener('scroll', updateRect, true);
+    window.addEventListener('resize', updateRect);
+
+    return () => {
+      window.removeEventListener('scroll', updateRect, true);
+      window.removeEventListener('resize', updateRect);
+    };
+  }, [isOpen, updateRect]);
 
   // Auto-dismiss toast
   useEffect(() => {
@@ -98,7 +119,7 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
   };
 
   return (
-    <div ref={dropdownReference} className="relative inline-flex">
+    <div ref={dropdownReference} className="relative inline-flex max-w-full">
       {/* Toast Notification */}
       <AnimatePresence>
         {toast && (
@@ -115,22 +136,25 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
       </AnimatePresence>
 
       {/* Split Button */}
-      <div className="bg-surface-subtle inline-flex items-center rounded-3xl p-0.5 shadow-[0_1px_3px_rgba(0,0,0,0.01)] transition-all duration-300">
+      <div
+        ref={splitButtonRef}
+        className="bg-surface-subtle inline-flex max-w-full items-center overflow-hidden rounded-3xl p-0.5 shadow-[0_1px_3px_rgba(0,0,0,0.01)] transition-all duration-300"
+      >
         {/* Copy Markdown */}
         <button
           aria-label="Copy page as Markdown"
-          className="text-content-secondary hover:text-content-primary focus-visible:ring-primary/40 inline-flex cursor-pointer items-center gap-1.5 rounded-l-2xl px-3.5 py-1.5 text-[11px] font-medium transition-all duration-200 outline-none select-none focus-visible:ring-1 active:scale-[0.98]"
+          className="text-content-secondary hover:text-content-primary focus-visible:ring-primary/40 inline-flex min-w-0 cursor-pointer items-center gap-1.5 rounded-l-2xl px-3.5 py-1.5 text-[11px] font-medium transition-all duration-200 outline-none select-none focus-visible:ring-1 active:scale-[0.98]"
           onClick={handleCopyMarkdown}
         >
           {copied ? (
             <>
-              <Check className="animate-in fade-in zoom-in text-success size-3.5 duration-200" />
-              <span className="text-success font-semibold">Copied!</span>
+              <Check className="animate-in fade-in zoom-in text-success size-3.5 shrink-0 duration-200" />
+              <span className="text-success min-w-0 truncate font-semibold">Copied!</span>
             </>
           ) : (
             <>
-              <Copy className="size-3.5" />
-              <span>Copy Markdown</span>
+              <Copy className="size-3.5 shrink-0" />
+              <span className="min-w-0 truncate">Copy Markdown</span>
             </>
           )}
         </button>
@@ -151,8 +175,9 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
         </button>
       </div>
 
-      {/* Dropdown Menu — inside relative ancestor so absolute positioning works */}
+      {/* Dropdown Menu — fixed positioning escapes all stacking contexts */}
       <CopyDropdownMenu
+        buttonRect={buttonRect}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         onOpenInChatGPT={() => handleOpenInAI('ChatGPT', 'https://chatgpt.com/')}

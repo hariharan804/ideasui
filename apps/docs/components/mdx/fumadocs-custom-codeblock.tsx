@@ -57,17 +57,16 @@ export function FumadocsCustomCodeblock({
   return (
     <CodeBlock
       className={cn(
-        // Base light/dark styles: no border, no shadow, clean rounded corners using IdeasUI tokens
-        'bg-surface-subtle! border-none! shadow-none! transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]',
-        // Pre styles
-        '[&_pre]:bg-transparent!',
+        'bg-surface-subtle rounded-xl shadow-none transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]',
+        // Pre: allow Shiki bg through; add inner padding
+        '[&_pre]:rounded-xl! [&_pre]:bg-transparent!',
         // Code typography
-        '[&_code]:font-mono! [&_code]:text-[0.8125rem]! [&_code]:leading-[1.65]!',
+        '[&_code]:font-mono! [&_code]:text-[0.8125rem]! [&_code]:leading-[1.7]!',
         // Selection colors matching IdeasUI primary
         '[&_::selection]:bg-primary/25! [&_::selection]:text-inherit!',
         // Custom scrollbar
         '[&_.fd-scroll-container::-webkit-scrollbar-thumb]:bg-border/40 [&_.fd-scroll-container::-webkit-scrollbar-thumb:hover]:bg-border/60 [&_.fd-scroll-container]:[scrollbar-width:thin] [&_.fd-scroll-container::-webkit-scrollbar]:size-[5px] [&_.fd-scroll-container::-webkit-scrollbar-thumb]:rounded-[10px] [&_.fd-scroll-container::-webkit-scrollbar-track]:bg-transparent',
-        // Copy buttons transition/interaction
+        // Copy buttons
         '[&_button]:transition-all! [&_button]:duration-200! [&_button]:ease-[cubic-bezier(0.4,0,0.2,1)]! [&_button:active]:scale-95! [&_button:hover]:scale-105!',
         className,
       )}
