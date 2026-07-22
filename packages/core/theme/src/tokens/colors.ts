@@ -133,15 +133,15 @@ export const primitives = {
       0: 'oklch(1.000 0 0)', // white
       50: 'oklch(0.985 0.002 260)', // ~1.05:1 vs white
       100: 'oklch(0.967 0.003 260)', // ~1.15:1 vs white
-      200: 'oklch(0.925 0.004 260)', // ~1.35:1 vs white
-      300: 'oklch(0.878 0.005 260)', // ~1.6:1 vs white
-      400: 'oklch(0.745 0.006 260)', // ~2.4:1 vs white — large text / icons only
-      500: 'oklch(0.620 0.007 260)', // ~3.4:1 vs white — large text AA
-      600: 'oklch(0.505 0.007 260)', // ~4.7:1 vs white — AA ✓ (normal text)
-      700: 'oklch(0.425 0.008 260)', // ~6.2:1 vs white — AA/AAA ✓
-      800: 'oklch(0.320 0.009 260)', // ~8.9:1 vs white — AAA ✓
-      900: 'oklch(0.250 0.008 260)', // ~11.6:1 vs white — AAA ✓
-      950: 'oklch(0.180 0.006 260)', // ~14.3:1 vs white — AAA ✓
+      200: 'oklch(0.922 0.004 260)', // ~1.4:1 vs white
+      300: 'oklch(0.870 0.005 260)', // ~1.7:1 vs white
+      400: 'oklch(0.708 0.006 260)', // ~2.8:1 vs white — large text only
+      500: 'oklch(0.552 0.007 260)', // ~4.6:1 vs white — AA normal text ✓
+      600: 'oklch(0.442 0.008 260)', // ~6.3:1 vs white — AA/AAA ✓
+      700: 'oklch(0.371 0.009 260)', // ~8.1:1 vs white — AAA ✓
+      800: 'oklch(0.269 0.009 260)', // ~11.5:1 vs white — AAA ✓
+      900: 'oklch(0.205 0.008 260)', // ~14.2:1 vs white — AAA ✓
+      950: 'oklch(0.145 0.006 260)', // ~16.9:1 vs white — AAA ✓
     },
 
     common: { pure: 'oklch(1 0 0)', 'on-pure': 'oklch(0 0 0)' },
