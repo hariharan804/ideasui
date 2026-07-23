@@ -38,6 +38,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { CustomSearchDialog } from '@/components/docs-ui/custom-search-dialog';
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html suppressHydrationWarning className={inter.className} lang="en">
@@ -56,7 +58,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         />
       </head>
       <body>
-        <RootProvider>
+        <RootProvider search={{ SearchDialog: CustomSearchDialog }}>
           <ThemeBridge>
             <Navbar />
             {children}

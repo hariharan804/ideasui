@@ -272,6 +272,22 @@ article {
   background-color: oklch(var(--ideasui-color-primary)) !important;
 }
 
+.bg-fd-border {
+  background-color: oklch(var(--ideasui-color-border-muted)) !important;
+}
+
+.border-fd-border {
+  border-color: oklch(var(--ideasui-color-border-subtle)) !important;
+}
+
+.bg-fd-accent {
+  background-color: oklch(var(--ideasui-color-surface-muted)) !important;
+}
+
+.text-fd-accent-foreground {
+  color: oklch(var(--ideasui-color-content-primary)) !important;
+}
+
 .fill-fd-muted {
   fill: oklch(var(--ideasui-color-surface-muted)) !important;
 }
@@ -294,6 +310,281 @@ article {
 /* Ensure Radix dropdowns, menus, and popovers render above the mobile drawer (z-60) and allow pointer interactions */
 [data-radix-portal],
 [data-radix-popper-content-wrapper] {
-  z-index: 100 !important;
+  z-index: 99999 !important;
   pointer-events: auto !important;
+}
+
+/* Responsive positioning for search dialog across device viewports */
+.ideasui-search-dialog,
+body div[role='dialog'].ideasui-search-dialog,
+[role='dialog']:has(input[placeholder*='Search']),
+[role='dialog']:has(input) {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  inset: 0 !important;
+  margin: auto !important;
+  height: fit-content !important;
+  width: min(calc(100vw - 2rem), 672px) !important;
+  max-height: min(82vh, 620px) !important;
+  transform: none !important;
+  translate: none !important;
+  background: oklch(var(--ideasui-color-surface) / 0.95) !important;
+  border: none !important;
+  box-shadow:
+    0 30px 80px -20px rgba(0, 0, 0, 0.35),
+    0 0 50px -10px oklch(var(--ideasui-color-primary) / 0.1) !important;
+  backdrop-filter: blur(28px) saturate(180%) !important;
+  border-radius: 1.25rem !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.dark .ideasui-search-dialog {
+  background: oklch(var(--ideasui-color-surface-modal) / 0.94) !important;
+  border: none !important;
+  box-shadow:
+    0 35px 90px -20px rgba(0, 0, 0, 0.75),
+    0 0 60px -10px oklch(var(--ideasui-color-primary) / 0.18) !important;
+}
+
+@media (max-width: 639px) {
+  .ideasui-search-dialog,
+  body div[role='dialog'].ideasui-search-dialog,
+  [role='dialog']:has(input[placeholder*='Search']),
+  [role='dialog']:has(input) {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    inset: 0 !important;
+    margin: auto !important;
+    height: fit-content !important;
+    width: calc(100vw - 1.25rem) !important;
+    max-height: calc(100dvh - 1.5rem) !important;
+    transform: none !important;
+    translate: none !important;
+    border: none !important;
+  }
+}
+
+/* ── Search Result Items ── */
+.ideasui-search-dialog button[type='button'][aria-selected] {
+  border-radius: 0.625rem !important;
+  padding: 0.5rem 0.75rem !important;
+  margin-bottom: 0.125rem !important;
+  transition:
+    background-color 0.12s ease,
+    box-shadow 0.12s ease !important;
+  border: none !important;
+}
+
+.ideasui-search-dialog button[type='button'][aria-selected='true'] {
+  background-color: oklch(var(--ideasui-color-primary) / 0.1) !important;
+  border: none !important;
+  border-radius: 0.625rem !important;
+  box-shadow: none !important;
+  color: oklch(var(--ideasui-color-content-primary)) !important;
+}
+
+.ideasui-search-dialog button[type='button'][aria-selected='false']:hover {
+  background-color: oklch(var(--ideasui-color-surface-muted) / 0.65) !important;
+  border: none !important;
+}
+
+/* ── Breadcrumb path — subtle, small, muted ── */
+.ideasui-search-dialog button .inline-flex.items-center {
+  font-size: 0.7rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: none !important;
+  color: oklch(var(--ideasui-color-content-tertiary)) !important;
+  background: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  margin-bottom: 0.15rem !important;
+}
+
+/* Breadcrumb chevron icon — keep tiny & muted */
+.ideasui-search-dialog button .inline-flex.items-center svg {
+  width: 0.7rem !important;
+  height: 0.7rem !important;
+  color: oklch(var(--ideasui-color-content-tertiary) / 0.6) !important;
+  opacity: 1 !important;
+}
+
+/* ── Tree Guide Line — thin, subtle ── */
+.ideasui-search-dialog button [role='none'] {
+  background-color: oklch(var(--ideasui-color-border-subtle) / 0.5) !important;
+  width: 1.5px !important;
+  border-radius: 2px !important;
+}
+
+/* ── Hash icon for section headings — muted accent ── */
+.ideasui-search-dialog button svg.lucide-hash,
+.ideasui-search-dialog button svg.lucide-Hash {
+  color: oklch(var(--ideasui-color-content-tertiary)) !important;
+  opacity: 0.6 !important;
+}
+
+/* ── Page-level result: button contains breadcrumb but NO tree guide [role='none'] ── */
+/* This targets the page title inside the result button */
+.ideasui-search-dialog button[type='button']:not(:has([role='none'])) .font-medium {
+  font-size: 0.9375rem !important;
+  font-weight: 700 !important;
+  color: oklch(var(--ideasui-color-content-primary)) !important;
+  letter-spacing: -0.015em !important;
+}
+
+/* Page-level item — subtle left accent stripe */
+.ideasui-search-dialog button[type='button']:not(:has([role='none'])) {
+  position: relative !important;
+  padding-left: 1rem !important;
+}
+
+.ideasui-search-dialog button[type='button']:not(:has([role='none']))::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  height: 60% !important;
+  width: 2.5px !important;
+  border-radius: 9999px !important;
+  background: oklch(var(--ideasui-color-primary)) !important;
+  opacity: 0 !important;
+  transition: opacity 0.15s ease !important;
+}
+
+/* Show accent on hover or selected */
+.ideasui-search-dialog button[type='button']:not(:has([role='none']))[aria-selected='true']::before,
+.ideasui-search-dialog button[type='button']:not(:has([role='none'])):hover::before {
+  opacity: 1 !important;
+}
+
+/* ── Section heading title (nested, has tree guide) — normal weight ── */
+.ideasui-search-dialog button[type='button']:has([role='none']) .font-medium {
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+  color: oklch(var(--ideasui-color-content-secondary)) !important;
+  letter-spacing: 0 !important;
+}
+
+/* ── Snippet body text — softer, readable ── */
+.ideasui-search-dialog button .min-w-0:not(.font-medium) {
+  color: oklch(var(--ideasui-color-content-secondary)) !important;
+  font-size: 0.8125rem !important;
+  line-height: 1.45 !important;
+}
+
+/* ── Search match highlight ── */
+.ideasui-search-dialog mark {
+  background-color: oklch(var(--ideasui-color-primary) / 0.15) !important;
+  color: oklch(var(--ideasui-color-primary)) !important;
+  padding: 0 0.25rem !important;
+  border-radius: 0.25rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* ── Inline code ── */
+.ideasui-search-dialog code {
+  background-color: oklch(var(--ideasui-color-surface-muted) / 0.8) !important;
+  color: oklch(var(--ideasui-color-content-secondary)) !important;
+  border: none !important;
+  border-radius: 0.3rem !important;
+  padding: 0.1rem 0.3rem !important;
+  font-size: 0.75rem !important;
+  font-family: var(--font-mono) !important;
+}
+
+/* Strip any fumadocs border from header/footer */
+.ideasui-search-dialog header,
+.ideasui-search-dialog footer {
+  border: none !important;
+}
+
+.ideasui-search-dialog kbd {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* ── Premium Search Header ── */
+.ideasui-search-header {
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
+/* Icon glow on active search */
+.ideasui-search-icon-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    oklch(var(--ideasui-color-primary) / 0.15) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ideasui-search-dialog:focus-within .ideasui-search-icon-wrap::before {
+  opacity: 1;
+}
+
+/* ── Thin Divider Line ── */
+.ideasui-search-divider {
+  background: oklch(var(--ideasui-color-border-subtle) / 0.2) !important;
+  height: 1px !important;
+}
+
+html.dark .ideasui-search-divider {
+  background: oklch(var(--ideasui-color-border-subtle) / 0.15) !important;
+}
+
+/* ── Footer ── */
+.ideasui-search-footer {
+  background: oklch(var(--ideasui-color-surface-muted) / 0.4) !important;
+  border-top: 1px solid oklch(var(--ideasui-color-border-subtle) / 0.15) !important;
+}
+
+html.dark .ideasui-search-footer {
+  background: oklch(var(--ideasui-color-surface-muted) / 0.25) !important;
+  border-top-color: oklch(var(--ideasui-color-border-subtle) / 0.1) !important;
+}
+
+/* ── KBD Pill Badges ── */
+.ideasui-kbd {
+  background: oklch(var(--ideasui-color-surface) / 0.8) !important;
+  color: oklch(var(--ideasui-color-content-primary) / 0.8) !important;
+  border: none !important;
+  box-shadow:
+    0 1px 2px oklch(var(--ideasui-color-surface-muted) / 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  font-weight: 700 !important;
+}
+
+html.dark .ideasui-kbd {
+  background: oklch(var(--ideasui-color-surface-muted) / 0.6) !important;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ── Close Button ── */
+.ideasui-search-close {
+  background: oklch(var(--ideasui-color-surface-muted) / 0.6) !important;
+  color: oklch(var(--ideasui-color-content-tertiary)) !important;
+  font-size: 10px !important;
+}
+
+.ideasui-search-close:hover {
+  background: oklch(var(--ideasui-color-surface-muted)) !important;
+  color: oklch(var(--ideasui-color-content-primary)) !important;
 }

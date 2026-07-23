@@ -142,7 +142,7 @@ export function SidebarSeparator({
   return (
     <Base.SidebarSeparator
       className={cn(
-        'text-content-tertiary mt-4 mb-1.5 flex items-center px-2.5 text-[11px] font-semibold tracking-wider uppercase transition-opacity',
+        'text-content-muted mt-4 mb-1.5 flex items-center px-2.5 text-[11px] font-bold tracking-wider uppercase transition-opacity',
         className,
       )}
       style={{
