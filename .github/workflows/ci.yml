@@ -37,10 +37,6 @@ jobs:
       - name: TypeScript Check
         run: pnpm tsc --noEmit
 
-      # 3️⃣ Build Packages (must run before lint — ESLint resolves theme CSS build artifacts)
-      - name: Build packages
-        uses: ./.github/composite-actions/build
-
       # 4️⃣ ESLint Check
       - name: ESLint
         run: pnpm run lint
@@ -50,6 +46,10 @@ jobs:
       # 4.5️⃣ Naming Convention Check
       - name: Check Naming Conventions
         run: pnpm run check-naming
+
+      # 3️⃣ Build Packages (must run before lint — ESLint resolves theme CSS build artifacts)
+      - name: Build packages
+        uses: ./.github/composite-actions/build
 
       # 5️⃣ Size Limit Checks
       - name: Run size limit check
