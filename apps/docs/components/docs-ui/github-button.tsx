@@ -54,8 +54,11 @@ export function GitHubButton({
       rel="noopener noreferrer"
       target="_blank"
     >
-      <Github className="size-3.5 shrink-0 transition-transform duration-200 group-hover:scale-110" />
-      <span className="font-semibold tracking-tight">{formatStars(stars)}</span>
+      <Github className="size-4 shrink-0 transition-transform duration-200 group-hover:scale-110" />
+      <span className="font-semibold tracking-tight">Star on GitHub</span>
+      <span className="text-content-secondary ml-1 rounded-full bg-black/8 px-2 py-0.5 text-[11px] font-bold dark:bg-white/10">
+        {formatStars(stars)}
+      </span>
     </a>
   );
 }

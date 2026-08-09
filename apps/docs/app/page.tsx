@@ -78,39 +78,39 @@ const MARQUEE_ITEMS_2 = ['a', 'b', 'c'].flatMap((set) =>
 /* ─── Features Data ─────────────────────────────────────────────────── */
 const FEATURES = [
   {
-    icon: <Cpu className="size-5" />,
-    title: 'Perceptual OKLCH Engine',
-    desc: 'Color tokens engineered with OKLCH for consistent lightness and contrast ratio across dark & light modes.',
-    badge: 'Color System',
-  },
-  {
     icon: <Accessibility className="size-5" />,
-    title: 'Accessibility First',
-    desc: 'Built on top of React Aria. Automatic ARIA semantics, focus traps, and full keyboard navigation controls.',
-    badge: 'WCAG AA',
+    title: 'Accessible by Default',
+    desc: 'Full keyboard navigation, WAI-ARIA patterns, and screen reader support — zero extra effort required from you.',
+    badge: 'WCAG 2.1 AA',
   },
   {
     icon: <Zap className="size-5" />,
-    title: 'Tailwind Variants Recipes',
-    desc: 'Type-safe component variants compiled with tv() recipes into pure utility classes with zero overhead.',
-    badge: 'Zero Runtime',
-  },
-  {
-    icon: <Layers className="size-5" />,
-    title: 'Modular Architecture',
-    desc: 'Import from @ideasui/react or granular package entries to ship minimal JavaScript bundles.',
-    badge: 'Tree Shakeable',
+    title: 'Zero Configuration',
+    desc: 'Drop into Next.js, Vite, or any React project. No providers, no setup. SSR and RSC ready out of the box.',
+    badge: 'Works Everywhere',
   },
   {
     icon: <Palette className="size-5" />,
-    title: 'CSS Custom Properties',
-    desc: 'Theme switching operates purely via CSS variables — instantaneous switching with no React re-renders.',
+    title: 'Fully Themeable',
+    desc: 'CSS variables, dark mode, and custom color palettes. Swap your entire design language in one line.',
     badge: 'Instant Theme',
   },
   {
+    icon: <Layers className="size-5" />,
+    title: 'Production Ready',
+    desc: 'Tree-shaking, strict TypeScript types, and modern ESM output. Ship only what you use — nothing more.',
+    badge: 'Tree Shakeable',
+  },
+  {
+    icon: <Cpu className="size-5" />,
+    title: 'Perceptual Color Engine',
+    desc: 'OKLCH-based color tokens maintain consistent lightness and contrast across every palette and mode.',
+    badge: 'Color System',
+  },
+  {
     icon: <MousePointer2 className="size-5" />,
-    title: 'Developer Experience',
-    desc: 'Strict TypeScript prop typing, complete forwardRef support, and clean composable component primitives.',
+    title: 'Excellent DX',
+    desc: 'Full forwardRef support, clean composable APIs, and IntelliSense-friendly prop types from day one.',
     badge: 'DX Driven',
   },
 ];
@@ -496,12 +496,20 @@ export default function HomePage() {
         </div>
 
         <div className="mx-auto max-w-5xl px-6 text-center lg:px-8">
-          {/* Launch Badge */}
+          {/* Hero Announcement Badge */}
           <motion.div {...fadeUp(0)} className="mb-6 inline-flex">
-            <span className="border-primary-500/20 bg-primary-500/8 text-primary-600 dark:text-primary-400 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold backdrop-blur-md">
-              <span className="bg-primary-500 size-1.5 animate-pulse rounded-full" /> IdeasUI ·
-              Tailwind CSS v4 Component Library
-            </span>
+            <Link
+              className="group bg-surface/80 hover:bg-surface inline-flex items-center gap-2 rounded-full border border-black/8 px-3.5 py-1.5 text-xs font-medium shadow-2xs backdrop-blur-xl transition-all duration-300 hover:border-black/16 hover:shadow-md dark:border-white/10 dark:hover:border-white/20"
+              href="/react/docs/start"
+            >
+              <span className="from-primary-500 to-secondary-500 rounded-full bg-gradient-to-r px-2 py-0.5 text-[10px] font-bold tracking-wider text-white uppercase">
+                ✨ v1.0
+              </span>
+              <span className="text-content-primary font-medium">
+                React + Tailwind CSS v4 Component Library
+              </span>
+              <ArrowRight className="text-content-tertiary group-hover:text-content-primary size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+            </Link>
           </motion.div>
 
           {/* Headline */}
@@ -509,9 +517,8 @@ export default function HomePage() {
             {...fadeUp(0.06)}
             className="text-content-primary text-4xl leading-[1.08] font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl"
           >
-            Craft accessible interfaces
-            <br />
-            <span className="perceptual-gradient-text">with perceptual precision</span>
+            Build Faster. Design Smarter.{' '}
+            <span className="perceptual-gradient-text">With IdeasUI.</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -519,9 +526,7 @@ export default function HomePage() {
             {...fadeUp(0.12)}
             className="text-content-secondary mx-auto mt-6 max-w-2xl text-base leading-relaxed sm:text-lg"
           >
-            An open-source React component library built on React Aria primitives, Tailwind CSS v4,
-            and a perceptual OKLCH color engine. Designed for performance and WCAG 2.1 AA
-            compliance.
+            Beautiful, accessible React components built with Tailwind CSS v4 and TypeScript.
           </motion.p>
 
           {/* Action CTAs */}
@@ -533,7 +538,15 @@ export default function HomePage() {
               className="group bg-primary-600 shadow-primary-600/25 hover:bg-primary-500 hover:shadow-primary-500/40 inline-flex items-center gap-2.5 rounded-xl px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-200 active:scale-98"
               href="/react/docs/start"
             >
-              Explore Documentation
+              Get Started
+              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
+
+            <Link
+              className="group bg-surface/80 hover:bg-surface text-content-primary inline-flex items-center gap-2.5 rounded-xl border border-black/12 px-6 py-3.5 text-sm font-semibold backdrop-blur-md transition-all duration-200 hover:border-black/20 active:scale-98 dark:border-white/12 dark:hover:border-white/20"
+              href="/react/docs/components"
+            >
+              Browse Components
               <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
 
@@ -541,8 +554,33 @@ export default function HomePage() {
             <GitHubButton className="h-12 rounded-xl border border-black/10 bg-black/5 px-5 text-sm backdrop-blur-md transition-all duration-200 hover:border-black/20 hover:bg-black/10 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20 dark:hover:bg-white/10" />
           </motion.div>
 
+          {/* Trust Indicators */}
+          <motion.div
+            {...fadeUp(0.22)}
+            className="text-content-tertiary mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-semibold"
+          >
+            <span className="inline-flex items-center gap-1.5">
+              <Check className="text-success-500 size-3.5" /> React 19
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Check className="text-success-500 size-3.5" /> Next.js 16
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Check className="text-success-500 size-3.5" /> Tailwind CSS v4
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Check className="text-success-500 size-3.5" /> TypeScript
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Check className="text-success-500 size-3.5" /> Accessible
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Check className="text-success-500 size-3.5" /> Tree-shakeable
+            </span>
+          </motion.div>
+
           {/* Install Command Snippet */}
-          <motion.div {...fadeUp(0.24)}>
+          <motion.div {...fadeUp(0.26)}>
             <InstallSnippet />
           </motion.div>
 
@@ -723,8 +761,8 @@ export default function HomePage() {
               Ready to build with IdeasUI?
             </h2>
             <p className="text-content-secondary mx-auto mt-4 max-w-md text-sm leading-relaxed">
-              Explore component documentation, installation guides, and design tokens to start
-              building.
+              Start building in minutes. Browse 50+ components with live previews, full TypeScript
+              support, and first-class accessibility.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -732,8 +770,15 @@ export default function HomePage() {
                 className="group bg-primary-600 shadow-primary-600/25 hover:bg-primary-500 hover:shadow-primary-500/40 inline-flex items-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-semibold text-white shadow-lg transition-all duration-200 active:scale-98"
                 href="/react/docs/start"
               >
-                Read Getting Started Guide
+                Get Started Free
                 <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </Link>
+              <Link
+                className="group text-content-secondary hover:text-content-primary inline-flex items-center gap-1.5 text-sm font-medium transition-colors duration-200"
+                href="/react/docs/components"
+              >
+                View Components
+                <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
             </div>
           </motion.div>
@@ -750,7 +795,7 @@ export default function HomePage() {
             </span>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-6">
             <Link
               className="text-content-muted hover:text-content-primary transition-colors"
               href="/react/docs/start"
@@ -759,7 +804,7 @@ export default function HomePage() {
             </Link>
             <Link
               className="text-content-muted hover:text-content-primary transition-colors"
-              href="/react/docs/components/button"
+              href="/react/docs/components"
             >
               Components
             </Link>
@@ -769,6 +814,20 @@ export default function HomePage() {
             >
               Changelog
             </Link>
+            <Link
+              className="text-content-muted hover:text-content-primary transition-colors"
+              href="/react/docs/roadmap"
+            >
+              Roadmap
+            </Link>
+            <a
+              className="text-content-muted hover:text-content-primary transition-colors"
+              href="https://github.com/hariharan804/ideasui/blob/main/LICENSE"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              MIT License
+            </a>
             <a
               className="text-content-muted hover:text-content-primary transition-colors"
               href="https://github.com/hariharan804/ideasui"

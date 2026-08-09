@@ -228,10 +228,10 @@ body,
 /* ─── OKLCH Perceptual Precision Gradients ─────────────────────────── */
 .perceptual-gradient-text {
   background-image: linear-gradient(
-    to right in oklch,
-    var(--color-primary-500),
+    135deg in oklch,
+    var(--color-secondary-600),
     var(--color-secondary-500),
-    var(--color-tertiary-500)
+    var(--color-primary-600)
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -240,9 +240,9 @@ body,
 
 html.dark .perceptual-gradient-text {
   background-image: linear-gradient(
-    to right in oklch,
-    var(--color-primary-400),
+    135deg in oklch,
     var(--color-secondary-400),
+    var(--color-primary-400),
     var(--color-tertiary-400)
   );
 }
