@@ -31,7 +31,7 @@ export default function HomePage() {
     <main className="bg-background text-content-primary flex min-h-screen flex-col overflow-x-hidden antialiased">
       <LandingNavbar />
       {/* ── 1. HERO SECTION ───────────────────────────────────────────── */}
-      <section className="relative overflow-hidden pt-22 pb-20 lg:pt-28 lg:pb-28">
+      <section className="relative overflow-hidden pt-22 pb-20 lg:pt-36 lg:pb-28">
         {/* Crisp Subtle Grid Overlay */}
         <div
           className="pointer-events-none absolute inset-0 -z-20 opacity-40 dark:opacity-20"

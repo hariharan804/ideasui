@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--max-old-space-size=8192' lsof -i :6006 -t | xargs kill -9 2>/dev/null || true && storybook dev --host 127.0.0.1 --port 6006 --no-open",
     "build": "NODE_OPTIONS='--max-old-space-size=8192' storybook build",
-    "start": "http-server storybook-static -p 6006 -c-1 --silent",
+    "start": "pnpm exec http-server storybook-static -p 6006 -c-1 --silent",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
