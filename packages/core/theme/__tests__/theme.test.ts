@@ -133,10 +133,10 @@ describe('ideasUIPlugin', () => {
       (call: Record<string, unknown>[]) => call[0][":root, .light, [data-theme='light']"],
     )[0][":root, .light, [data-theme='light']"];
 
-    // primary-600 remains default blue
+    // primary-600 remains default indigo
     const primary600Value = lightThemeVariables['--ideasui-color-primary-600'];
 
-    expect(primary600Value).toBe('0.472 0.209 268.4');
+    expect(primary600Value).toBe('0.535 0.230 277.0');
   });
 
   it('should generate border tokens', () => {
