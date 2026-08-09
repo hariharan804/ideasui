@@ -4,7 +4,6 @@ import { Inter } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 
 import { ThemeBridge } from '@/components/ui/theme-bridge';
-import { Navbar } from '@/components/site-nav/navbar';
 
 import './globals.css';
 import { ThemeScript } from '@ideasui/theme';
@@ -20,17 +19,33 @@ export const metadata: Metadata = {
     default: `${siteConfig.name} — Modern Component Library`,
   },
   description: siteConfig.description,
+  icons: {
+    icon: [
+      { url: '/IdeasUI-favicon-16.svg', sizes: '16x16', type: 'image/svg+xml' },
+      { url: '/IdeasUI-favicon-32.svg', sizes: '32x32', type: 'image/svg+xml' },
+    ],
+    apple: [{ url: '/apple-icon-180.png', sizes: '180x180', type: 'image/png' }],
+  },
   openGraph: {
     title: `${siteConfig.name} — Modern Component Library`,
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
     type: 'website',
+    images: [
+      {
+        url: '/IdeasUI-og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'IdeasUI Component Library',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${siteConfig.name} — Modern Component Library`,
     description: siteConfig.description,
+    images: ['/IdeasUI-og-image.png'],
   },
   robots: {
     index: true,
@@ -59,10 +74,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <RootProvider search={{ SearchDialog: CustomSearchDialog }}>
-          <ThemeBridge>
-            <Navbar />
-            {children}
-          </ThemeBridge>
+          <ThemeBridge>{children}</ThemeBridge>
         </RootProvider>
       </body>
     </html>

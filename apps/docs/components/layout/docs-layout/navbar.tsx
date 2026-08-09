@@ -252,8 +252,10 @@ export function DocsNavbar({
     >
       <div
         className={cn(
-          'relative z-50 mx-auto flex h-14 w-full max-w-[95%] min-w-10 items-center gap-6 border-2 pr-2 pl-4 shadow-sm backdrop-blur-md transition-all duration-300 sm:py-2 md:pl-6',
-          isTop ? 'rounded-none border-transparent bg-transparent shadow-none' : 'rounded-full',
+          'relative z-50 mx-auto flex h-14 w-full max-w-[95%] min-w-10 items-center gap-6 border pr-2 pl-4 backdrop-blur-md transition-all duration-300 sm:py-2 md:pl-6',
+          isTop
+            ? 'rounded-none border-transparent bg-transparent'
+            : 'border-surface-muted bg-surface/85 rounded-full',
         )}
         data-header-body=""
         style={{

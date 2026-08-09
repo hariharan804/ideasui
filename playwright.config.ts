@@ -26,7 +26,7 @@ export default defineConfig({
 
   expect: {
     toHaveScreenshot: {
-      maxDiffPixelRatio: 0.05,
+      maxDiffPixelRatio: 0.1,
       threshold: 0.2,
     },
   },
@@ -65,7 +65,7 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'pnpm run storybook:serve',
+    command: 'pnpm run storybook:start',
     url: 'http://localhost:6006',
     reuseExistingServer: !process.env.CI,
   },

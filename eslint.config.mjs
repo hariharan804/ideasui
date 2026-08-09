@@ -536,6 +536,37 @@ export default defineConfig([
       'unicorn/prefer-node-protocol': 'warn',
       'unicorn/no-array-callback-reference': 'warn',
       'unicorn/no-console-spaces': 'warn',
+      'no-restricted-syntax': [
+        'warn',
+        {
+          selector:
+            'JSXAttribute[name.name="className"] Literal[value=/(?:^|\\s)(?:bg|border|text|ring|shadow|outline|fill|stroke)-(?:black|white)\\/\\d/]',
+          message:
+            'Avoid raw black/* or white/* opacity utilities. Use semantic surface tokens instead: bg-surface, bg-surface-muted, border-surface-muted, bg-background.',
+        },
+      ],
+    },
+  },
+
+  // Landing components — stricter: also disallow template literals in className
+  {
+    files: ['apps/docs/components/landing/**/*'],
+    rules: {
+      'no-restricted-syntax': [
+        'warn',
+        {
+          selector:
+            'JSXAttribute[name.name="className"] Literal[value=/(?:^|\\s)(?:bg|border|text|ring|shadow|outline|fill|stroke)-(?:black|white)\\/\\d/]',
+          message:
+            'Avoid raw black/* or white/* opacity utilities. Use semantic surface tokens instead: bg-surface, bg-surface-muted, border-surface-muted, bg-background.',
+        },
+        {
+          selector:
+            'JSXAttribute[name.name="className"] > JSXExpressionContainer > TemplateLiteral',
+          message:
+            'Template literals in className hide token violations. Use cn() from @ideasui/utils for conditional classes.',
+        },
+      ],
     },
   },
 ]);

@@ -11,7 +11,7 @@ import { ExternalLink } from '@/components/ui/external-link';
  */
 export const baseOptions: BaseLayoutProps = {
   nav: {
-    title: <Logo />,
+    title: <Logo size="lg" />,
     transparentMode: 'top',
   },
 };

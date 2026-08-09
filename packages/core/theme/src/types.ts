@@ -257,6 +257,7 @@ export interface ColorScale {
   readonly 800?: string;
   readonly 900?: string;
   readonly 950?: string;
+  readonly 1000?: string;
   readonly [key: string]: string | undefined;
 }
 

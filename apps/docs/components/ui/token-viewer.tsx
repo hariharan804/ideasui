@@ -357,7 +357,14 @@ export function TokenViewer() {
               onClick={() => copyToClipboard(token.tailwindClass.split(' / ')[0])}
             >
               {/* Token Preview Canvas */}
-              <div className="bg-surface-muted/50 relative flex h-24 w-full items-center justify-center overflow-hidden rounded-xl">
+              <div
+                className={cn(
+                  'relative flex h-24 w-full items-center justify-center overflow-hidden rounded-xl',
+                  token.previewType === 'color'
+                    ? 'bg-[image:repeating-conic-gradient(#e5e7eb_0%_25%,#f9fafb_0%_50%)] [background-size:16px_16px] dark:bg-[image:repeating-conic-gradient(#1f2937_0%_25%,#111827_0%_50%)]'
+                    : 'bg-surface-muted/50',
+                )}
+              >
                 {token.previewType === 'color' && (
                   <div
                     className="absolute inset-0 opacity-25 blur-xl"
@@ -370,7 +377,7 @@ export function TokenViewer() {
                 )}
                 {token.previewType === 'color' && (
                   <div
-                    className="z-10 size-10 rounded-full shadow-xs transition-transform duration-200 group-hover:scale-105"
+                    className="ring-pure z-10 size-10 rounded-full shadow-xs ring-1 transition-transform duration-200 group-hover:scale-105"
                     style={{
                       backgroundColor: token.value.startsWith('var(')
                         ? `oklch(${token.value})`

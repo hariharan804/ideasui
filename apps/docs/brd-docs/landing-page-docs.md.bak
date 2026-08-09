@@ -1,0 +1,1010 @@
+# IdeasUI — Component Library Website Development Guide
+
+> Next.js App Router | Tailwind CSS | MDX | Dark/Light Theme | Documentation Site
+> 
+
+---
+
+## 1. What is ideasUI?
+
+A modern, open-source React component library website — like shadcn/ui, Chakra UI, or Radix UI docs site. Users can:
+
+- Browse components with live previews
+- Copy code snippets
+- Read installation/usage docs
+- Switch between dark/light themes
+- Search components
+
+---
+
+## 2. Landing Page Layout
+
+```
+┌─────────────────────────────────────────┐
+│  Navbar (Logo | Docs | Components |     │
+│          GitHub | Theme Toggle)          │
+├─────────────────────────────────────────┤
+│  Hero (Tagline + Install Command + CTA) │
+├─────────────────────────────────────────┤
+│  Features Grid (Why ideasUI?)           │
+├─────────────────────────────────────────┤
+│  Component Showcase (Live Preview)      │
+├─────────────────────────────────────────┤
+│  Stats (Components | Downloads | Stars) │
+├─────────────────────────────────────────┤
+│  Testimonials / Community               │
+├─────────────────────────────────────────┤
+│  CTA (Get Started)                      │
+├─────────────────────────────────────────┤
+│  Footer                                 │
+└─────────────────────────────────────────┘
+```
+
+---
+
+## 3. Routing
+
+| Route | Page | Purpose |
+| --- | --- | --- |
+| `/` | Landing | Homepage with hero + showcase |
+| `/docs` | Docs Index | Getting started guide |
+| `/docs/installation` | Installation | Install & setup instructions |
+| `/docs/theming` | Theming | Customize colors, dark mode |
+| `/docs/cli` | CLI | CLI tool usage (optional) |
+| `/components` | Components Index | Browse all components |
+| `/components/[slug]` | Component Detail | Docs + preview + code |
+| `/examples` | Examples | Full page examples |
+| `/changelog` | Changelog | Version history |
+
+---
+
+## 4. Tech Stack
+
+```bash
+npx create-next-app@latest ideas-ui-site --typescript --tailwind --app
+cd ideas-ui-site
+npm install next-themes next-mdx-remote shiki lucide-react
+```
+
+| Package | Purpose |
+| --- | --- |
+| `next-themes` | Dark/light mode |
+| `next-mdx-remote` | MDX content for docs |
+| `shiki` | Syntax highlighting |
+| `lucide-react` | Icons |
+
+---
+
+## 5. Folder Structure
+
+```
+src/
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx                    # Landing
+│   ├── docs/
+│   │   ├── page.tsx                # Docs index
+│   │   ├── installation/page.tsx
+│   │   ├── theming/page.tsx
+│   │   └── cli/page.tsx
+│   ├── components/
+│   │   ├── page.tsx                # All components list
+│   │   └── [slug]/page.tsx         # Component detail
+│   ├── examples/page.tsx
+│   └── changelog/page.tsx
+├── components/
+│   ├── layout/
+│   │   ├── Navbar.tsx
+│   │   ├── Sidebar.tsx
+│   │   └── Footer.tsx
+│   ├── docs/
+│   │   ├── CodeBlock.tsx
+│   │   ├── ComponentPreview.tsx
+│   │   ├── CopyButton.tsx
+│   │   ├── PropsTable.tsx
+│   │   └── TabSwitcher.tsx
+│   ├── landing/
+│   │   ├── Hero.tsx
+│   │   ├── Features.tsx
+│   │   ├── Showcase.tsx
+│   │   └── CTA.tsx
+│   └── ui/
+│       ├── ThemeToggle.tsx
+│       ├── SearchDialog.tsx
+│       └── Badge.tsx
+├── content/
+│   └── components/
+│       ├── button.mdx
+│       ├── card.mdx
+│       ├── input.mdx
+│       ├── modal.mdx
+│       └── ...
+├── data/
+│   └── components.ts
+└── lib/
+    ├── mdx.ts
+    └── highlighter.ts
+```
+
+---
+
+## 6. Dark/Light Theme
+
+```tsx
+// src/app/layout.tsx
+import { ThemeProvider } from "next-themes";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+> Default to **dark** theme — most dev tool sites use dark as default.
+> 
+
+---
+
+## 7. Component Categories
+
+| Category | Components |
+| --- | --- |
+| Layout | Container, Grid, Stack, Divider |
+| Forms | Button, Input, Textarea, Select, Checkbox, Radio, Switch |
+| Feedback | Alert, Toast, Progress, Spinner, Skeleton |
+| Overlay | Modal, Drawer, Popover, Tooltip, Dropdown |
+| Data Display | Card, Badge, Avatar, Table, Accordion, Tabs |
+| Navigation | Navbar, Sidebar, Breadcrumb, Pagination |
+| Typography | Heading, Text, Code, Blockquote |
+
+---
+
+## 8. Key Features to Highlight
+
+```
+✅ Copy-paste components (like shadcn/ui)
+✅ Fully accessible (WAI-ARIA)
+✅ Dark mode built-in
+✅ Tailwind CSS based
+✅ TypeScript support
+✅ Customizable with CSS variables
+✅ Lightweight — no runtime overhead
+✅ Open source
+```
+
+---
+
+## 9. Installation Command (Hero Section)
+
+```bash
+npx ideasui init
+# or
+npm install @ideasui/react
+```
+
+---
+
+## 10. Landing Page — Design & Development Guide
+
+> The landing page is the first impression of ideasUI. It must instantly communicate trust, quality, and ease of use to developers.
+> 
+
+---
+
+### Why the Landing Page Matters
+
+| Goal | How ideasUI Achieves It |
+| --- | --- |
+| Build trust instantly | Clean dark UI, professional typography, live component previews |
+| Show value in seconds | Hero tagline + install command above the fold |
+| Reduce friction | Copy-paste workflow, no npm install required |
+| Drive adoption | Open source badge, GitHub stars, community links |
+| Prove quality | Live previews, accessible components, TypeScript support |
+
+---
+
+### Why Use ideasUI?
+
+```
+✅ No npm install — just copy the code into your project
+✅ Built on Tailwind CSS — works with your existing setup
+✅ WAI-ARIA accessible — production-ready out of the box
+✅ Dark mode on every component — zero extra config
+✅ Full TypeScript support — IntelliSense + type safety
+✅ CSS variable theming — match your brand in minutes
+✅ Zero runtime dependencies — no bundle size cost
+✅ Open source — free forever, community driven
+```
+
+---
+
+### Section-Level Design
+
+#### Section 1 — Navbar
+
+```
+Logo (ideasUI) | Docs | Components | Examples | [⌘K Search] | [GitHub ★] | [Theme Toggle]
+```
+
+- Sticky, `backdrop-blur`, `bg-zinc-950/80` — stays visible on scroll
+- GitHub star count badge for social proof
+- Keyboard shortcut hint (`⌘K`) builds developer trust
+
+```tsx
+<nav className="sticky top-0 z-50 h-16 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
+  <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
+    <Logo />
+    <NavLinks /> {/* Docs | Components | Examples */}
+    <div className="flex items-center gap-3">
+      <SearchTrigger /> {/* ⌘K */}
+      <GitHubStars />
+      <ThemeToggle />
+    </div>
+  </div>
+</nav>
+```
+
+---
+
+#### Section 2 — Hero
+
+> Goal: Communicate the value prop in under 5 seconds.
+> 
+
+```
+[Badge]     v1.0 — Now Available
+[H1]        Build beautiful UIs
+            with copy-paste components
+[Subtext]   Accessible, customizable, open-source React
+            components built with Tailwind CSS.
+[Install]   $ npx ideasui init          [Copy]
+[CTAs]      [Get Started]  [Browse Components]
+```
+
+Design rules:
+
+- Violet gradient glow behind headline (`from-violet-500/10`)
+- Headline split: white line 1, `text-violet-400` line 2
+- Install command in a pill — monospace, copyable, bordered
+- Two CTAs: primary (white bg) + secondary (ghost border)
+
+```tsx
+<section className="relative py-28 md:py-40 text-center">
+  <div className="absolute inset-0 bg-gradient-to-b from-violet-500/10 via-transparent to-transparent" />
+  <div className="relative max-w-3xl mx-auto px-6 space-y-6">
+    <Badge>v1.0 — Now Available</Badge>
+    <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
+      Build beautiful UIs<br />
+      <span className="text-violet-400">with copy-paste components</span>
+    </h1>
+    <p className="text-lg text-zinc-400 max-w-xl mx-auto">
+      Accessible, customizable, open-source React components built with Tailwind CSS.
+    </p>
+    <InstallCommand /> {/* npx ideasui init */}
+    <div className="flex gap-3 justify-center">
+      <Link href="/docs" className="px-5 py-2.5 rounded-lg bg-white text-black text-sm font-medium hover:bg-zinc-200">Get Started</Link>
+      <Link href="/components" className="px-5 py-2.5 rounded-lg border border-zinc-700 text-sm text-zinc-300 hover:bg-zinc-800">Browse Components</Link>
+    </div>
+  </div>
+</section>
+```
+
+---
+
+#### Section 3 — Features Grid
+
+> Goal: Answer "why should I use this?" with 6 scannable cards.
+> 
+
+```
+┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+│ 📋 Copy & Paste│ │ 🌙 Dark Mode  │ │ ♿ Accessible │
+│ No install   │ │ Every comp   │ │ WAI-ARIA     │
+└──────────────┘ └──────────────┘ └──────────────┘
+┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+│ 🔷 TypeScript │ │ 🎨 Themeable  │ │ ⚡ Lightweight│
+│ Full types   │ │ CSS vars     │ │ Zero runtime │
+└──────────────┘ └──────────────┘ └──────────────┘
+```
+
+```tsx
+// src/components/landing/Features.tsx
+const features = [
+  { icon: Clipboard, title: "Copy & Paste",  desc: "No npm install. Just copy the code." },
+  { icon: Moon,      title: "Dark Mode",     desc: "Built-in dark mode on every component." },
+  { icon: Shield,    title: "Accessible",    desc: "WAI-ARIA compliant out of the box." },
+  { icon: FileCode,  title: "TypeScript",    desc: "Full type safety and IntelliSense." },
+  { icon: Paintbrush,title: "Customizable",  desc: "CSS variables for easy theming." },
+  { icon: Zap,       title: "Lightweight",   desc: "Zero runtime, just Tailwind classes." },
+];
+
+export default function Features() {
+  return (
+    <section className="py-20 max-w-5xl mx-auto px-6">
+      <h2 className="text-3xl font-bold text-center mb-12">Why ideasUI?</h2>
+      <div className="grid md:grid-cols-3 gap-4">
+        {features.map(({ icon: Icon, title, desc }) => (
+          <div key={title} className="p-6 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:border-zinc-700 transition">
+            <Icon className="w-5 h-5 text-violet-400 mb-3" />
+            <h3 className="font-semibold text-white mb-1">{title}</h3>
+            <p className="text-sm text-zinc-400">{desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+```
+
+---
+
+#### Section 4 — Component Showcase
+
+> Goal: Show real components working — builds instant credibility.
+> 
+- Live interactive previews (not screenshots)
+- Tab switcher: Preview | Code
+- Show 3–4 popular components: Button, Card, Input, Badge
+
+```tsx
+// src/components/landing/Showcase.tsx
+const showcaseComponents = ["button", "card", "input", "badge"];
+
+export default function Showcase() {
+  return (
+    <section className="py-20 bg-zinc-950 border-y border-zinc-800">
+      <div className="max-w-5xl mx-auto px-6">
+        <h2 className="text-3xl font-bold text-center mb-4">See it in action</h2>
+        <p className="text-center text-zinc-400 mb-12">Live previews. Copy the code. Ship faster.</p>
+        <div className="grid md:grid-cols-2 gap-6">
+          {showcaseComponents.map((slug) => (
+            <ComponentPreview key={slug} slug={slug} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+---
+
+#### Section 5 — Stats Bar
+
+> Goal: Social proof through numbers.
+> 
+
+```
+┌──────────┬──────────────┬──────────────────┬──────────────┐
+│  50+     │   100%       │       0          │     ∞        │
+│Components│ Open Source  │Runtime Deps      │Customization │
+└──────────┴──────────────┴──────────────────┴──────────────┘
+```
+
+```tsx
+const stats = [
+  { value: "50+",  label: "Components" },
+  { value: "100%", label: "Open Source" },
+  { value: "0",    label: "Runtime Dependencies" },
+  { value: "∞",    label: "Customization" },
+];
+
+export default function Stats() {
+  return (
+    <section className="py-16 border-y border-zinc-800">
+      <div className="max-w-4xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        {stats.map(({ value, label }) => (
+          <div key={label}>
+            <div className="text-4xl font-bold text-white">{value}</div>
+            <div className="text-sm text-zinc-400 mt-1">{label}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+```
+
+---
+
+#### Section 6 — Community / GitHub CTA
+
+> Goal: Convert visitors into contributors and GitHub stars.
+> 
+
+```
+┌─────────────────────────────────────────┐
+│  ⭐ Star us on GitHub                   │
+│  Join 1,000+ developers building        │
+│  beautiful UIs with ideasUI             │
+│                                         │
+│  [⭐ Star on GitHub]  [Join Discord]    │
+└─────────────────────────────────────────┘
+```
+
+```tsx
+export default function CommunityCTA() {
+  return (
+    <section className="py-24 text-center">
+      <div className="max-w-2xl mx-auto px-6">
+        <h2 className="text-3xl font-bold mb-4">Built in the open</h2>
+        <p className="text-zinc-400 mb-8">
+          Join thousands of developers building beautiful UIs with ideasUI.
+          Star us on GitHub and help shape the future of the library.
+        </p>
+        <div className="flex gap-3 justify-center">
+          <a href="<https://github.com/ideasui>" className="px-5 py-2.5 rounded-lg bg-white text-black text-sm font-medium hover:bg-zinc-200 flex items-center gap-2">
+            <Star className="w-4 h-4" /> Star on GitHub
+          </a>
+          <a href="/discord" className="px-5 py-2.5 rounded-lg border border-zinc-700 text-sm text-zinc-300 hover:bg-zinc-800">
+            Join Discord
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+---
+
+### Landing Page File Checklist
+
+```
+src/app/page.tsx                        ← Assembles all sections
+src/components/landing/
+├── Hero.tsx                            ← Tagline, install cmd, CTAs
+├── Features.tsx                        ← 6-card "Why ideasUI?" grid
+├── Showcase.tsx                        ← Live component previews
+├── Stats.tsx                           ← Numbers bar
+└── CommunityCTA.tsx                    ← GitHub + Discord CTA
+```
+
+### Final Assembly
+
+```tsx
+// src/app/page.tsx
+import Hero         from "@/components/landing/Hero";
+import Features     from "@/components/landing/Features";
+import Showcase     from "@/components/landing/Showcase";
+import Stats        from "@/components/landing/Stats";
+import CommunityCTA from "@/components/landing/CommunityCTA";
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      <Features />
+      <Showcase />
+      <Stats />
+      <CommunityCTA />
+    </>
+  );
+}
+```
+
+- [ ]  Setup Next.js + Tailwind + next-themes
+- [ ]  Create landing page with hero
+- [ ]  Build docs layout with sidebar
+- [ ]  Add component pages with live preview + code
+- [ ]  Add copy-to-clipboard on code blocks
+- [ ]  Add search (Cmd+K dialog)
+- [ ]  Add syntax highlighting with shiki
+- [ ]  Deploy on Vercel
+
+---
+
+## 11. Landing Page — Trust, Modern UI, Engaging Content & Responsiveness
+
+---
+
+### 11.1 Building a Trustable UI
+
+Trust is the #1 conversion factor for a component library. Developers won't use a library they don't trust.
+
+#### Trust Signals Checklist
+
+| Signal | Where to Place | Implementation |
+| --- | --- | --- |
+| Version badge | Hero | `v1.0 — Now Available` pill near headline |
+| GitHub stars | Navbar + CTA | Live star count via GitHub API |
+| Open source label | Stats bar | `100% Open Source` stat |
+| WAI-ARIA badge | Features grid | Accessibility card with shield icon |
+| TypeScript badge | Features grid | TypeScript card with type icon |
+| "Used by X developers" | Stats / CTA | Social proof number |
+| Changelog link | Footer + Navbar | Shows active maintenance |
+| MIT License | Footer | `MIT License — Free forever` |
+
+#### Trust-Building Design Rules
+
+```
+✅ No broken links or placeholder content on launch
+✅ Real component previews — not mockup screenshots
+✅ Consistent spacing and alignment throughout
+✅ Professional monospace font for all code
+✅ Correct syntax highlighting — no errors in code samples
+✅ Copy button works on first click
+✅ Dark/light toggle works instantly with no flash
+✅ All CTAs lead to real pages
+```
+
+#### GitHub Stars Widget
+
+```tsx
+// Fetch live star count for social proof
+async function getGitHubStars(): Promise<number> {
+  const res = await fetch("<https://api.github.com/repos/your-org/ideasui>", {
+    next: { revalidate: 3600 }, // cache 1 hour
+  });
+  const data = await res.json();
+  return data.stargazers_count ?? 0;
+}
+
+// In Navbar
+<a href="<https://github.com/your-org/ideasui>"
+  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-700 text-sm text-zinc-300 hover:bg-zinc-800 transition">
+  <Star className="w-3.5 h-3.5 text-yellow-400" />
+  {stars.toLocaleString()}
+</a>
+```
+
+#### Testimonials Section (Social Proof)
+
+> Place between Showcase and Stats. Real quotes from real developers = highest trust signal.
+> 
+
+```tsx
+const testimonials = [
+  {
+    quote: "ideasUI saved me hours. Copy, paste, done. No config hell.",
+    author: "Sarah K.",
+    role: "Frontend Engineer",
+    avatar: "/avatars/sarah.jpg",
+  },
+  {
+    quote: "Finally a component lib that doesn't fight my Tailwind setup.",
+    author: "Marcus T.",
+    role: "Full Stack Developer",
+    avatar: "/avatars/marcus.jpg",
+  },
+  {
+    quote: "The accessibility defaults alone are worth switching for.",
+    author: "Priya M.",
+    role: "UI Engineer",
+    avatar: "/avatars/priya.jpg",
+  },
+];
+
+export default function Testimonials() {
+  return (
+    <section className="py-20 max-w-5xl mx-auto px-6">
+      <h2 className="text-3xl font-bold text-center mb-12">Loved by developers</h2>
+      <div className="grid md:grid-cols-3 gap-6">
+        {testimonials.map(({ quote, author, role, avatar }) => (
+          <div key={author} className="p-6 rounded-xl border border-zinc-800 bg-zinc-900/50 space-y-4">
+            <p className="text-zinc-300 text-sm leading-relaxed">"{quote}"</p>
+            <div className="flex items-center gap-3">
+              <img src={avatar} alt={author} className="w-8 h-8 rounded-full object-cover" />
+              <div>
+                <div className="text-sm font-medium text-white">{author}</div>
+                <div className="text-xs text-zinc-500">{role}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+```
+
+---
+
+### 11.2 Modern Eye-Catching Smooth UI
+
+#### Visual Hierarchy — The 3-Layer System
+
+```
+Layer 1 — Background:   #09090B  (near-black base)
+Layer 2 — Surface:      #18181B  (cards, panels)
+Layer 3 — Elevated:     #27272A  (hover states, active)
+Accent:                 #A78BFA  (violet — CTAs, highlights, icons)
+```
+
+#### Gradient Techniques
+
+```tsx
+// Hero background glow — subtle, not distracting
+<div className="absolute inset-0 overflow-hidden pointer-events-none">
+  {/* Top violet glow */}
+  <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[400px]
+    bg-violet-600/20 rounded-full blur-[120px]" />
+  {/* Bottom fade */}
+  <div className="absolute bottom-0 inset-x-0 h-40
+    bg-gradient-to-t from-zinc-950 to-transparent" />
+</div>
+
+// Animated gradient border on feature cards (hover)
+<div className="relative p-[1px] rounded-xl bg-gradient-to-br from-violet-500/30 to-transparent
+  hover:from-violet-500/60 transition-all duration-300">
+  <div className="rounded-xl bg-zinc-900 p-6">
+    {/* card content */}
+  </div>
+</div>
+
+// Section divider gradient
+<div className="h-px bg-gradient-to-r from-transparent via-zinc-700 to-transparent" />
+```
+
+#### Smooth Micro-Interactions
+
+```tsx
+// Hover lift on cards
+className="transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-violet-500/5"
+
+// Smooth color transitions on links
+className="text-zinc-400 hover:text-white transition-colors duration-150"
+
+// Scale on CTA button press
+className="active:scale-95 transition-transform duration-100"
+
+// Glow on primary button hover
+className="hover:shadow-lg hover:shadow-violet-500/25 transition-shadow duration-200"
+
+// Fade-in on scroll (use Intersection Observer)
+className="opacity-0 translate-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500"
+```
+
+#### Tailwind Animation Config
+
+```tsx
+// tailwind.config.ts
+theme: {
+  extend: {
+    animation: {
+      "fade-in":    "fadeIn 0.5s ease-out forwards",
+      "slide-up":   "slideUp 0.4s ease-out forwards",
+      "glow-pulse": "glowPulse 3s ease-in-out infinite",
+    },
+    keyframes: {
+      fadeIn:    { from: { opacity: "0" },                    to: { opacity: "1" } },
+      slideUp:   { from: { opacity: "0", transform: "translateY(16px)" }, to: { opacity: "1", transform: "translateY(0)" } },
+      glowPulse: { "0%,100%": { opacity: "0.4" },             "50%": { opacity: "0.8" } },
+    },
+  },
+}
+```
+
+#### Typography Polish
+
+```tsx
+// Hero headline — tight tracking, bold weight, gradient text accent
+<h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1]">
+  Build beautiful UIs
+  <br />
+  <span className="bg-gradient-to-r from-violet-400 to-violet-600 bg-clip-text text-transparent">
+    with copy-paste components
+  </span>
+</h1>
+
+// Section labels — uppercase spaced tracking
+<p className="text-xs font-semibold uppercase tracking-widest text-violet-400 mb-3">
+  Why ideasUI
+</p>
+
+// Body text — comfortable line height
+<p className="text-base text-zinc-400 leading-relaxed max-w-prose">
+```
+
+---
+
+### 11.3 Engaging Content Strategy
+
+#### Content Principles
+
+| Principle | Rule |
+| --- | --- |
+| Lead with outcome | "Build beautiful UIs" not "A component library" |
+| Developer language | Use terms devs know: copy-paste, WAI-ARIA, CSS vars, zero deps |
+| Show don't tell | Live previews beat feature bullet lists |
+| Scannable | Short sentences, icons, bold key words |
+| Action-oriented | Every section ends with a CTA or next step |
+
+#### Hero Copy — Variants to Test
+
+```
+Option A (outcome-first):
+  "Build beautiful UIs with copy-paste components"
+  "Accessible, customizable, open-source React components built with Tailwind CSS."
+
+Option B (pain-point):
+  "Stop fighting your component library"
+  "ideasUI gives you production-ready components you actually own."
+
+Option C (speed):
+  "Ship faster with ready-made React components"
+  "Copy. Paste. Done. No config, no lock-in, no runtime overhead."
+```
+
+#### Features Section — Engaging Card Copy
+
+```
+❌ Weak:   "Dark mode support"
+✅ Strong: "Dark mode on every component — zero extra config"
+
+❌ Weak:   "TypeScript"
+✅ Strong: "Full TypeScript — IntelliSense works out of the box"
+
+❌ Weak:   "Accessible"
+✅ Strong: "WAI-ARIA compliant — production-ready accessibility, free"
+
+❌ Weak:   "Customizable"
+✅ Strong: "CSS variables — change your entire theme in 10 lines"
+```
+
+#### Showcase Section — Engaging Labels
+
+```tsx
+// Add context labels above each preview — tells the story
+<div className="flex items-center gap-2 mb-3">
+  <span className="w-2 h-2 rounded-full bg-green-400" /> {/* live indicator */}
+  <span className="text-xs text-zinc-500 font-mono">Live Preview</span>
+</div>
+```
+
+#### Empty States & Loading
+
+```tsx
+// Skeleton loader for component previews — keeps page feeling alive
+<div className="animate-pulse space-y-3">
+  <div className="h-10 bg-zinc-800 rounded-lg w-32" />
+  <div className="h-4 bg-zinc-800 rounded w-48" />
+</div>
+```
+
+---
+
+### 11.4 Full Screen Responsiveness
+
+#### Breakpoint Strategy
+
+```
+Mobile:   < 640px   (sm)  — single column, stacked layout
+Tablet:   640–1024px (md) — 2 columns, condensed nav
+Desktop:  > 1024px  (lg)  — full layout, sidebar visible
+Wide:     > 1280px  (xl)  — max-width containers centered
+```
+
+#### Responsive Navbar
+
+```tsx
+<nav className="sticky top-0 z-50 h-16 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
+    <Logo />
+
+    {/* Desktop nav links — hidden on mobile */}
+    <div className="hidden md:flex items-center gap-6 text-sm text-zinc-400">
+      <Link href="/docs">Docs</Link>
+      <Link href="/components">Components</Link>
+      <Link href="/examples">Examples</Link>
+    </div>
+
+    <div className="flex items-center gap-2 sm:gap-3">
+      <SearchTrigger />
+      <GitHubStars className="hidden sm:flex" />
+      <ThemeToggle />
+      {/* Mobile hamburger — visible only on mobile */}
+      <MobileMenuButton className="md:hidden" />
+    </div>
+  </div>
+</nav>
+
+{/* Mobile slide-down menu */}
+<MobileMenu links={["Docs", "Components", "Examples", "GitHub"]} />
+```
+
+#### Responsive Hero
+
+```tsx
+<section className="relative py-20 sm:py-28 md:py-40 text-center px-4">
+  <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
+    Build beautiful UIs<br />
+    <span className="text-violet-400">with copy-paste components</span>
+  </h1>
+
+  <p className="mt-4 text-base sm:text-lg text-zinc-400 max-w-sm sm:max-w-xl mx-auto">
+    Accessible, customizable, open-source React components built with Tailwind CSS.
+  </p>
+
+  {/* Stack CTAs vertically on mobile, horizontal on sm+ */}
+  <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center items-center">
+    <Link href="/docs" className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-white text-black text-sm font-medium">
+      Get Started
+    </Link>
+    <Link href="/components" className="w-full sm:w-auto px-5 py-2.5 rounded-lg border border-zinc-700 text-sm text-zinc-300">
+      Browse Components
+    </Link>
+  </div>
+</section>
+```
+
+#### Responsive Features Grid
+
+```tsx
+{/* 1 col mobile → 2 col tablet → 3 col desktop */}
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  {features.map(({ icon: Icon, title, desc }) => (
+    <div key={title} className="p-5 sm:p-6 rounded-xl border border-zinc-800 bg-zinc-900/50">
+      <Icon className="w-5 h-5 text-violet-400 mb-3" />
+      <h3 className="font-semibold text-white mb-1">{title}</h3>
+      <p className="text-sm text-zinc-400">{desc}</p>
+    </div>
+  ))}
+</div>
+```
+
+#### Responsive Showcase Grid
+
+```tsx
+{/* 1 col mobile → 2 col desktop */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+  {showcaseComponents.map((slug) => (
+    <ComponentPreview key={slug} slug={slug} />
+  ))}
+</div>
+```
+
+#### Responsive Stats Bar
+
+```tsx
+{/* 2 col mobile → 4 col desktop */}
+<div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
+  {stats.map(({ value, label }) => (
+    <div key={label}>
+      <div className="text-3xl sm:text-4xl font-bold text-white">{value}</div>
+      <div className="text-xs sm:text-sm text-zinc-400 mt-1">{label}</div>
+    </div>
+  ))}
+</div>
+```
+
+#### Responsive Testimonials
+
+```tsx
+{/* 1 col mobile → 3 col desktop */}
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+```
+
+#### Responsive Typography Scale
+
+| Screen | Hero H1 | Section H2 | Body |
+| --- | --- | --- | --- |
+| Mobile `< 640px` | `text-4xl` | `text-2xl` | `text-sm` |
+| Tablet `640px+` | `text-5xl` | `text-3xl` | `text-base` |
+| Desktop `1024px+` | `text-6xl` | `text-3xl` | `text-base` |
+| Wide `1280px+` | `text-7xl` | `text-4xl` | `text-base` |
+
+#### Touch & Mobile UX Rules
+
+```
+✅ Tap targets minimum 44×44px (buttons, links)
+✅ No hover-only interactions — all hover states have tap equivalents
+✅ Install command pill scrolls horizontally on small screens (overflow-x-auto)
+✅ Code blocks scroll horizontally, never wrap
+✅ Modal/search dialog fills screen on mobile (w-full, rounded-none on sm)
+✅ Sidebar collapses to bottom sheet or hamburger on mobile
+✅ Font size never below 14px on mobile
+✅ Line length max 65–75 chars on all screens (max-w-prose or max-w-xl)
+```
+
+#### Mobile Search Dialog
+
+```tsx
+// Full screen on mobile, centered modal on desktop
+<div className="fixed inset-0 z-50 flex items-end sm:items-start sm:justify-center sm:pt-[20vh]
+  bg-black/60 backdrop-blur-sm">
+  <div className="w-full sm:max-w-lg rounded-t-2xl sm:rounded-xl
+    bg-zinc-900 border border-zinc-800 shadow-2xl overflow-hidden">
+    {/* search input */}
+  </div>
+</div>
+```
+
+---
+
+### 11.5 Updated Landing Page Section Order
+
+With all the above applied, the final section order for maximum trust + engagement:
+
+```
+┌─────────────────────────────────────────┐
+│  Navbar (sticky, blur, GitHub stars)    │
+├─────────────────────────────────────────┤
+│  Hero (gradient glow, animated badge,   │
+│        gradient headline, install cmd)  │
+├─────────────────────────────────────────┤
+│  Features Grid (6 cards, hover glow)    │
+├─────────────────────────────────────────┤
+│  Component Showcase (live previews)     │
+├─────────────────────────────────────────┤
+│  Testimonials (3 developer quotes)      │  ← trust
+├─────────────────────────────────────────┤
+│  Stats Bar (50+ | 100% | 0 | ∞)        │  ← credibility
+├─────────────────────────────────────────┤
+│  Community / GitHub CTA                 │  ← conversion
+├─────────────────────────────────────────┤
+│  Footer                                 │
+└─────────────────────────────────────────┘
+```
+
+```tsx
+// src/app/page.tsx — final assembly
+import Navbar        from "@/components/layout/Navbar";
+import Hero          from "@/components/landing/Hero";
+import Features      from "@/components/landing/Features";
+import Showcase      from "@/components/landing/Showcase";
+import Testimonials  from "@/components/landing/Testimonials";
+import Stats         from "@/components/landing/Stats";
+import CommunityCTA  from "@/components/landing/CommunityCTA";
+import Footer        from "@/components/layout/Footer";
+
+export default function Home() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <Features />
+        <Showcase />
+        <Testimonials />
+        <Stats />
+        <CommunityCTA />
+      </main>
+      <Footer />
+    </>
+  );
+}
+```
+
+---
+
+### 11.6 Updated File Checklist
+
+```
+src/components/landing/
+├── Hero.tsx           ← gradient glow, animated headline, responsive CTAs
+├── Features.tsx       ← hover gradient border cards, responsive grid
+├── Showcase.tsx       ← live previews, tab switcher, responsive 2-col
+├── Testimonials.tsx   ← 3 quotes, avatar, role — trust section     ← NEW
+├── Stats.tsx          ← 2-col mobile / 4-col desktop
+└── CommunityCTA.tsx   ← GitHub stars + Discord, stacked on mobile
+```
+
+---
+
+Color System — Theme Variables & Primitives
+
+> **Rule:** Never use raw hex values or hardcoded Tailwind color classes like `bg-zinc-900` or `text-violet-400` directly in components. Always use semantic CSS variable tokens mapped through Tailwind. This ensures dark/light mode works automatically everywhere.
+CSS Variable Primitives (`globals.css`) (`colors.ts`)
+> 
+
+## 12. Quick Start Checklist
+
+- [ ]  Setup Next.js + Tailwind + next-themes
+- [ ]  Create landing page with hero
+- [ ]  Build docs layout with sidebar
+- [ ]  Add component pages with live preview + code
+- [ ]  Add copy-to-clipboard on code blocks
+- [ ]  Add search (Cmd+K dialog)
+- [ ]  Add syntax highlighting with shiki
+- [ ]  Add GitHub stars API fetch
+- [ ]  Add Testimonials section
+- [ ]  Test all breakpoints (mobile / tablet / desktop)
+- [ ]  Deploy on Vercel

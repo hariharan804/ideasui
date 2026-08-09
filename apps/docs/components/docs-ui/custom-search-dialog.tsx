@@ -82,7 +82,7 @@ export function CustomSearchDialog({
   return (
     <SearchDialog isLoading={query.isLoading} search={search} onSearchChange={setSearch} {...props}>
       {/* Overlay */}
-      <SearchDialogOverlay className="data-[state=open]:animate-fd-fade-in data-[state=closed]:animate-fd-fade-out fixed inset-0 z-[99999] bg-black/60 backdrop-blur-2xl transition-opacity" />
+      <SearchDialogOverlay className="data-[state=open]:animate-fd-fade-in data-[state=closed]:animate-fd-fade-out bg-pure/60 fixed inset-0 z-[99999] backdrop-blur-2xl transition-opacity" />
 
       {/* Dialog Card */}
       <SearchDialogContent className="ideasui-search-dialog text-content-primary data-[state=closed]:animate-fd-fade-out data-[state=open]:animate-fd-fade-in fixed inset-0 top-0 right-0 bottom-0 left-0 z-[99999] m-auto flex h-fit max-h-[85vh] w-[calc(100vw-2rem)] max-w-2xl translate-x-0 translate-y-0 flex-col overflow-hidden rounded-2xl border-0 shadow-2xl backdrop-blur-2xl transition-all sm:max-h-[80vh]">

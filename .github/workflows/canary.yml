@@ -3,7 +3,7 @@ name: Canary Release
 on:
   pull_request:
     types: [closed]
-    branches: [master]
+    branches: [main, master]
   workflow_dispatch:
     inputs:
       component:
@@ -36,33 +36,29 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-
 
-      # - name: Run tests
-      #   uses: ./.github/composite-actions/test
-
       - name: Build packages
         uses: ./.github/composite-actions/build
 
       - name: Create canary version
-        run: |
-          # Create snapshot changeset for canary
-          npx changeset version --snapshot canary
+        run: pnpm exec changeset version --snapshot canary
 
       - name: Publish canary to npm
-        run: |
-          # Publish all packages with canary tag
-          npx changeset publish --tag canary
+        run: pnpm exec changeset publish --tag canary
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Comment on merged PR
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           script: |
             const { execSync } = require('child_process');
             const fs = require('fs');
             const path = require('path');
+
+            const prNumber = context.payload.pull_request?.number;
+            if (!prNumber) return;
 
             // Dynamically discover all @ideasui packages from the workspace
             const getPackages = () => {
@@ -138,7 +134,7 @@ jobs:
             `;
 
             github.rest.issues.createComment({
-              issue_number: context.payload.pull_request.number,
+              issue_number: prNumber,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: comment
