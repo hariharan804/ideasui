@@ -45,7 +45,7 @@ jobs:
       # Upload artifacts ONLY if tests fail
       - name: Upload Playwright report
         if: failure()
-        uses: actions/upload-artifact@4bec352467d363717d5a528a478b88dff741498b # v4
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb454930 # v4.6.1
         with:
           name: playwright-report
           path: playwright-report/
