@@ -1,10 +1,10 @@
 name: Visual Tests
 
-# on:
-#   pull_request:
-#     branches: [main]
-#   push:
-#     branches: [main]
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
 on:
   workflow_dispatch: # Allow manual trigger only
 

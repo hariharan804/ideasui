@@ -37,6 +37,7 @@
     "storybook": "turbo run dev --filter=@ideasui/storybook",
     "storybook:build": "turbo run build --filter=@ideasui/storybook --only --",
     "storybook:start": "turbo run start --filter=@ideasui/storybook",
+    "storybook:serve": "pnpm run storybook:start",
     "storybook:kill": "lsof -ti:6006 | xargs kill -9 || true",
     "chromatic": "chromatic --project-token=$CHROMATIC_PROJECT_TOKEN",
     "test": "vitest run",
