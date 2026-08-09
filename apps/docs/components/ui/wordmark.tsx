@@ -1,4 +1,5 @@
 import type { HTMLAttributes } from 'react';
+import { cn } from '@ideasui/utils';
 
 interface WordmarkProperties extends HTMLAttributes<HTMLSpanElement> {
   readonly className?: string;
@@ -7,15 +8,13 @@ interface WordmarkProperties extends HTMLAttributes<HTMLSpanElement> {
 
 export function Wordmark({ className = '', size = 'md' }: Readonly<WordmarkProperties>) {
   const sizeClasses = {
-    sm: 'text-sm',
-    md: 'text-base',
-    lg: 'text-xl md:text-2xl',
+    sm: 'text-base font-bold leading-none',
+    md: 'text-xl font-bold leading-none',
+    lg: 'text-2xl font-bold leading-none',
   };
 
   return (
-    <span
-      className={`inline-flex items-center font-bold tracking-tight ${sizeClasses[size]} ${className}`}
-    >
+    <span className={cn('inline-flex items-center tracking-tight', sizeClasses[size], className)}>
       <span className="text-content-primary">Ideas</span>
       <span className="from-primary-500 via-secondary-500 to-tertiary-500 ml-0.5 bg-gradient-to-r bg-clip-text font-extrabold text-transparent">
         UI

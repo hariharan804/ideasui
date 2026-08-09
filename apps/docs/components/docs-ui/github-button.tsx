@@ -45,9 +45,9 @@ export function GitHubButton({
       aria-label="GitHub Repository"
       className={cn(
         'group inline-flex h-8 items-center gap-1.5 rounded-full px-3.5 text-xs font-medium',
-        'bg-surface-muted text-content-tertiary',
-        'hover:bg-surface-subtle hover:text-content-primary',
-        'shadow-xs backdrop-blur-md transition-all active:scale-95',
+        'bg-pure text-content-tertiary',
+        'hover:bg-pure hover:text-content-primary',
+        'backdrop-blur-md transition-all active:scale-95',
         className,
       )}
       href={`https://github.com/${repo}`}
@@ -56,7 +56,7 @@ export function GitHubButton({
     >
       <Github className="size-4 shrink-0 transition-transform duration-200 group-hover:scale-110" />
       <span className="font-semibold tracking-tight">Star on GitHub</span>
-      <span className="text-content-secondary ml-1 rounded-full bg-black/8 px-2 py-0.5 text-[11px] font-bold dark:bg-white/10">
+      <span className="text-content-secondary bg-surface-muted ml-1 rounded-full px-2 py-0.5 text-[11px] font-bold">
         {formatStars(stars)}
       </span>
     </a>

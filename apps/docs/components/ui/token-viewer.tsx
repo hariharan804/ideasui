@@ -377,7 +377,7 @@ export function TokenViewer() {
                 )}
                 {token.previewType === 'color' && (
                   <div
-                    className="z-10 size-10 rounded-full shadow-xs ring-1 ring-black/10 transition-transform duration-200 group-hover:scale-105 dark:ring-white/10"
+                    className="ring-pure z-10 size-10 rounded-full shadow-xs ring-1 transition-transform duration-200 group-hover:scale-105"
                     style={{
                       backgroundColor: token.value.startsWith('var(')
                         ? `oklch(${token.value})`

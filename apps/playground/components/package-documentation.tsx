@@ -225,11 +225,12 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
     return (
       <div className={`min-h-screen bg-gray-50 ${className || ''}`}>
         {/* Header */}
-        <div className="sticky top-0 z-10 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
+        <div className="bg-background/80 sticky top-0 z-10 border-b border-gray-200 backdrop-blur-sm">
           <div className="mx-auto max-w-7xl p-4 sm:px-6">
             <div className="flex items-center gap-4">
               <button
                 className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                type="button"
                 onClick={() => setSelectedPackage(null)}
               >
                 <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -334,9 +335,9 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
     >
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 px-6 py-16">
-        <div className="absolute inset-0 bg-black/10" />
+        <div className="bg-pure/10 absolute inset-0" />
         <div className="relative mx-auto max-w-4xl text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm text-white backdrop-blur-sm">
+          <div className="bg-pure/20 mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white backdrop-blur-sm">
             <span className="size-2 animate-pulse rounded-full bg-green-400" />
             <span>Latest Documentation</span>
           </div>
@@ -375,6 +376,7 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
                     key={package_.name}
                     className="group cursor-pointer overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10"
                     tabIndex={0}
+                    type="button"
                     onClick={() => setSelectedPackage(package_)}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
@@ -384,7 +386,7 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
                   >
                     {/* Package Header */}
                     <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 p-6">
-                      <div className="absolute top-4 right-4 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-gray-600 backdrop-blur-sm">
+                      <div className="bg-background/80 absolute top-4 right-4 rounded-full px-3 py-1 text-xs font-medium text-gray-600 backdrop-blur-sm">
                         v{package_.version}
                       </div>
                       <div className="mb-3 flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-xl text-white shadow-lg">
