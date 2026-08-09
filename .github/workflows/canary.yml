@@ -40,7 +40,11 @@ jobs:
         uses: ./.github/composite-actions/build
 
       - name: Create canary version
-        run: pnpm exec changeset version --snapshot canary
+        run: |
+          if [ -f .changeset/pre.json ]; then
+            pnpm exec changeset pre exit
+          fi
+          pnpm exec changeset version --snapshot canary
 
       - name: Publish canary to npm
         run: pnpm exec changeset publish --tag canary
