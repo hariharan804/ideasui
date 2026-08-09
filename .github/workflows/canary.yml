@@ -21,6 +21,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+      pull-requests: write
+      issues: write
       id-token: write # Required for npm provenance
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -64,58 +66,49 @@ jobs:
             const prNumber = context.payload.pull_request?.number;
             if (!prNumber) return;
 
-            // Dynamically discover all @ideasui packages from the workspace
+            // Dynamically discover all public @ideasui packages from the workspace
             const getPackages = () => {
               const packages = [];
-              
-              // Check packages/components
-              const componentsDir = './packages/components';
-              if (fs.existsSync(componentsDir)) {
-                fs.readdirSync(componentsDir).forEach(dir => {
-                  const pkgPath = path.join(componentsDir, dir, 'package.json');
-                  if (fs.existsSync(pkgPath)) {
-                    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-                    if (pkg.name?.startsWith('@ideasui/')) {
-                      packages.push(pkg.name.replace('@ideasui/', ''));
+
+              const scanDir = (baseDir) => {
+                if (fs.existsSync(baseDir)) {
+                  fs.readdirSync(baseDir).forEach(dir => {
+                    const pkgPath = path.join(baseDir, dir, 'package.json');
+                    if (fs.existsSync(pkgPath)) {
+                      const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+                      if (pkg.name?.startsWith('@ideasui/') && !pkg.private) {
+                        packages.push(pkg.name.replace('@ideasui/', ''));
+                      }
                     }
-                  }
-                });
-              }
-              
-              // Check packages/core
-              const coreDir = './packages/core';
-              if (fs.existsSync(coreDir)) {
-                fs.readdirSync(coreDir).forEach(dir => {
-                  const pkgPath = path.join(coreDir, dir, 'package.json');
-                  if (fs.existsSync(pkgPath)) {
-                    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-                    if (pkg.name?.startsWith('@ideasui/')) {
-                      packages.push(pkg.name.replace('@ideasui/', ''));
-                    }
-                  }
-                });
-              }
-              
-              // Check standalone packages (hooks, icons, utils, cli)
+                  });
+                }
+              };
+
+              scanDir('./packages/components');
+              scanDir('./packages/core');
+
               ['hooks', 'icons', 'utils', 'cli'].forEach(pkgName => {
                 const pkgPath = `./packages/${pkgName}/package.json`;
                 if (fs.existsSync(pkgPath)) {
                   const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-                  if (pkg.name?.startsWith('@ideasui/')) {
+                  if (pkg.name?.startsWith('@ideasui/') && !pkg.private) {
                     packages.push(pkg.name.replace('@ideasui/', ''));
                   }
                 }
               });
-              
+
               return packages;
             };
 
             const packages = getPackages();
-            console.log('Discovered packages:', packages);
+            console.log('Discovered public packages:', packages);
 
             const canaryVersions = packages.map(pkg => {
               try {
-                const version = execSync(`npm view @ideasui/${pkg}@canary version`, { encoding: 'utf8' }).trim();
+                const version = execSync(`npm view @ideasui/${pkg}@canary version`, {
+                  encoding: 'utf8',
+                  stdio: ['pipe', 'pipe', 'ignore']
+                }).trim();
                 return `- \`@ideasui/${pkg}@${version}\``;
               } catch (e) {
                 return `- \`@ideasui/${pkg}\` (no canary version)`;
