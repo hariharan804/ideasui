@@ -16,13 +16,20 @@ import {
 import { useState } from 'react';
 import { Button, ButtonGroup } from '@ideasui/react';
 
-const SMOOTH_EASE = [0.16, 1, 0.3, 1] as const;
+const SMOOTH_EASE = [0.22, 1, 0.36, 1] as const;
 
 const inView = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '-20px' },
-  transition: { duration: 0.5, delay, ease: SMOOTH_EASE },
+  transition: { duration: 0.45, delay, ease: SMOOTH_EASE },
+});
+
+const cardFadeIn = (index = 0) => ({
+  initial: { opacity: 0 },
+  whileInView: { opacity: 1 },
+  viewport: { once: true },
+  transition: { duration: 0.35, delay: index * 0.05, ease: 'easeOut' as const },
 });
 
 /** Component gallery section using semantic design tokens. */
@@ -64,10 +71,10 @@ export function ComponentGallery() {
         <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {/* Card 1 — Variant System */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-surface-strong relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
-            {...inView(0.12)}
+            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            {...cardFadeIn(0)}
           >
-            <div className="from-primary to-secondary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-primary to-secondary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
             <div className="mb-5 flex items-center justify-between gap-2">
               <div className="flex min-w-0 items-center gap-2.5">
@@ -106,10 +113,10 @@ export function ComponentGallery() {
 
           {/* Card 2 — Intent Semantics */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-surface-strong relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
-            {...inView(0.16)}
+            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            {...cardFadeIn(1)}
           >
-            <div className="from-secondary to-primary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-secondary to-primary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
             <div className="mb-5 flex items-center justify-between gap-2">
               <div className="flex min-w-0 items-center gap-2.5">
@@ -148,10 +155,10 @@ export function ComponentGallery() {
 
           {/* Card 3 — Icons & Icon-Only */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-surface-strong relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
-            {...inView(0.2)}
+            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            {...cardFadeIn(2)}
           >
-            <div className="from-primary to-success absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-primary to-success absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
             <div className="mb-5 flex items-center justify-between gap-2">
               <div className="flex min-w-0 items-center gap-2.5">
@@ -201,10 +208,10 @@ export function ComponentGallery() {
 
           {/* Card 4 — Button Groups & Tabs */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-surface-strong relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
-            {...inView(0.24)}
+            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            {...cardFadeIn(3)}
           >
-            <div className="from-secondary to-warning absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-secondary to-warning absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
             <div className="mb-5 flex items-center justify-between gap-2">
               <div className="flex min-w-0 items-center gap-2.5">
@@ -244,8 +251,8 @@ export function ComponentGallery() {
 
           {/* Card 5 — Interactive Loading States */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-surface-strong relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
-            {...inView(0.28)}
+            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            {...cardFadeIn(4)}
           >
             <div className="from-primary to-secondary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
@@ -288,8 +295,8 @@ export function ComponentGallery() {
 
           {/* Card 6 — Density & Radii */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-surface-strong relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
-            {...inView(0.32)}
+            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            {...cardFadeIn(5)}
           >
             <div className="from-secondary to-primary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 

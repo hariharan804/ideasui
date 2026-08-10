@@ -67,17 +67,26 @@ export function InstallSnippet() {
         </div>
         <button
           aria-label="Copy installation command"
-          className="text-content-muted hover:text-content-primary hover:bg-surface-muted shrink-0 rounded-lg p-1.5 transition-colors active:scale-95"
+          className="text-content-muted hover:text-content-primary hover:bg-surface-muted relative flex shrink-0 items-center justify-center rounded-lg p-1.5 transition-colors duration-150 active:scale-95"
           type="button"
           onClick={copyCommand}
         >
-          {copied ? (
-            <span className="text-success-600 flex items-center gap-1 text-[10px] font-semibold">
-              <Check className="size-3" /> Copied
-            </span>
-          ) : (
+          <span
+            className={cn(
+              'flex items-center gap-1 transition-opacity duration-150',
+              copied ? 'opacity-0' : 'opacity-100',
+            )}
+          >
             <Copy className="size-3.5" />
-          )}
+          </span>
+          <span
+            className={cn(
+              'text-success-600 absolute flex items-center gap-1 text-[10px] font-semibold transition-opacity duration-150',
+              copied ? 'opacity-100' : 'pointer-events-none opacity-0',
+            )}
+          >
+            <Check className="size-3" /> Copied!
+          </span>
         </button>
       </div>
     </div>

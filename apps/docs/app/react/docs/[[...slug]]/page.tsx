@@ -129,13 +129,10 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
   return (
     <DocsPage className="!pt-8" full={pageData.full} toc={pageData.toc}>
       {/* ── Executive Hero Header Card ────────────────────────────────────── */}
-      <div className="bg-surface-subtle/25 relative mb-8 rounded-3xl p-6 backdrop-blur-sm sm:p-8">
+      <div className="from-primary-muted/90 via-secondary-muted/60 to-primary-muted/80 dark:from-primary/15 dark:via-secondary/10 dark:to-surface/40 relative mb-8 rounded-3xl bg-gradient-to-br p-6 backdrop-blur-md sm:p-8">
         {/* Decorative ambient background mesh */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
-          <div className="absolute inset-0 bg-[radial-gradient(oklch(var(--ideasui-color-content-tertiary)/0.10)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_100%)] [background-size:24px_24px] dark:opacity-40" />
-          <div className="bg-primary/10 absolute -top-20 -left-10 size-64 rounded-full blur-3xl dark:opacity-40" />
-          <div className="bg-secondary/10 absolute -top-10 -right-10 size-56 rounded-full blur-3xl" />
-          <div className="bg-primary/10 absolute -right-10 -bottom-20 size-64 rounded-full blur-3xl dark:opacity-40" />
+          <div className="absolute inset-0 bg-[radial-gradient(oklch(var(--ideasui-color-content-tertiary)/0.06)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_100%)] [background-size:24px_24px] opacity-60 dark:opacity-20" />
         </div>
 
         {/* ── Title ────────────────────────────────────────────────────────── */}

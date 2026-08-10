@@ -73,43 +73,40 @@ export function LandingNavbar() {
           WebkitBackdropFilter: 'blur(10px)',
         }}
       >
-        {/* Left Section: Logo & Links */}
-        <div className="flex items-center gap-3 sm:gap-4">
+        {/* Left Section: Logo */}
+        <div className="flex shrink-0 items-center">
           <Link
             className="flex shrink-0 items-center gap-2.5 font-bold transition-opacity hover:opacity-80"
             href="/"
           >
             <Logo size="lg" />
           </Link>
-
-          {/* Vertical Separator */}
-          <div className="bg-border mx-2 block h-4 w-px max-md:hidden" />
-
-          {/* Navigation Links */}
-          <nav className="flex items-center gap-4 max-md:hidden">
-            {NAV_LINKS.map(({ label, href }) => {
-              const isActive = pathname === href || pathname.startsWith(`${href}/`);
-
-              return (
-                <Link
-                  key={href}
-                  className={cn(
-                    'text-sm font-medium transition-colors',
-                    isActive
-                      ? 'text-content-primary font-semibold'
-                      : 'text-content-secondary hover:text-content-primary',
-                  )}
-                  href={href}
-                >
-                  {label}
-                </Link>
-              );
-            })}
-          </nav>
         </div>
 
+        {/* Center Section: Navigation Links */}
+        <nav className="absolute left-1/2 flex -translate-x-1/2 items-center gap-6 max-md:hidden">
+          {NAV_LINKS.map(({ label, href }) => {
+            const isActive = pathname === href || pathname.startsWith(`${href}/`);
+
+            return (
+              <Link
+                key={href}
+                className={cn(
+                  'text-sm font-medium transition-colors',
+                  isActive
+                    ? 'text-content-primary font-semibold'
+                    : 'text-content-secondary hover:text-content-primary',
+                )}
+                href={href}
+              >
+                {label}
+              </Link>
+            );
+          })}
+        </nav>
+
         {/* Right Section: Search & Controls */}
-        <div className="flex items-center justify-end gap-2">
+        <div className="flex shrink-0 items-center justify-end gap-2">
           {/* Desktop Controls */}
           <div className="ml-2 flex items-center gap-2 max-md:hidden">
             <GitHubButton repo="hariharan804/ideasui" />
@@ -130,7 +127,7 @@ export function LandingNavbar() {
 
             <button
               aria-label="Toggle mobile menu"
-              className="text-content-primary border-surface-strong bg-surface-subtle hover:bg-surface-muted flex size-9 items-center justify-center rounded-full border transition-all active:scale-95"
+              className="text-content-primary bg-surface-subtle hover:bg-surface-muted flex size-9 items-center justify-center rounded-full border transition-all active:scale-95"
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >

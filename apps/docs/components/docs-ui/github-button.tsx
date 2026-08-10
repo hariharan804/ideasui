@@ -4,9 +4,13 @@ import { useEffect, useState } from 'react';
 import { Github } from './icons';
 import { cn } from '@ideasui/utils';
 
+export type GitHubButtonVariant = 'badge' | 'button' | 'outline' | 'ghost';
+
 interface GitHubButtonProperties {
   readonly repo?: string;
   readonly starCount?: number;
+  readonly variant?: GitHubButtonVariant;
+  readonly showText?: boolean;
   readonly className?: string;
 }
 
@@ -18,9 +22,22 @@ function formatStars(count: number): string {
   return count.toString();
 }
 
+const VARIANT_STYLES: Record<GitHubButtonVariant, string> = {
+  badge:
+    'h-8 rounded-full px-2.5 sm:px-3.5 text-xs font-medium bg-surface-muted/70 hover:bg-surface-muted text-content-secondary hover:text-content-primary',
+  button:
+    'h-11 sm:h-12 rounded-xl px-5 sm:px-6 text-sm font-semibold bg-surface/90 hover:bg-surface border border-surface-strong shadow-xs hover:shadow-md text-content-primary',
+  outline:
+    'h-8 rounded-full px-2.5 sm:px-3.5 text-xs font-medium border border-border bg-transparent hover:bg-surface-muted text-content-secondary hover:text-content-primary',
+  ghost:
+    'h-8 rounded-full px-2.5 sm:px-3.5 text-xs font-medium bg-pure text-content-tertiary hover:text-content-primary',
+};
+
 export function GitHubButton({
   repo = 'hariharan804/ideasui',
   starCount = 5200,
+  variant = 'badge',
+  showText = true,
   className,
 }: GitHubButtonProperties) {
   const [stars, setStars] = useState<number>(starCount);
@@ -40,23 +57,40 @@ export function GitHubButton({
       });
   }, [repo]);
 
+  const isButton = variant === 'button';
+
   return (
     <a
       aria-label="GitHub Repository"
       className={cn(
-        'group inline-flex h-8 items-center gap-1.5 rounded-full px-3.5 text-xs font-medium',
-        'bg-pure text-content-tertiary',
-        'hover:bg-pure hover:text-content-primary',
-        'backdrop-blur-md transition-all active:scale-95',
+        'group inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap backdrop-blur-md transition-all active:scale-95',
+        VARIANT_STYLES[variant],
         className,
       )}
       href={`https://github.com/${repo}`}
       rel="noopener noreferrer"
       target="_blank"
     >
-      <Github className="size-4 shrink-0 transition-transform duration-200 group-hover:scale-110" />
-      <span className="font-semibold tracking-tight">Star on GitHub</span>
-      <span className="text-content-secondary bg-surface-muted ml-1 rounded-full px-2 py-0.5 text-[11px] font-bold">
+      <Github
+        className={cn(
+          'shrink-0 transition-transform duration-200 group-hover:scale-110',
+          isButton ? 'size-4.5' : 'size-4',
+        )}
+      />
+      <span
+        className={cn(
+          'font-semibold tracking-tight whitespace-nowrap',
+          showText ? 'inline' : 'hidden sm:inline',
+        )}
+      >
+        Star on GitHub
+      </span>
+      <span
+        className={cn(
+          'text-content-secondary bg-surface-muted shrink-0 rounded-full font-bold whitespace-nowrap',
+          isButton ? 'ml-1.5 px-2.5 py-0.5 text-xs' : 'ml-0.5 px-2 py-0.5 text-[11px] sm:ml-1',
+        )}
+      >
         {formatStars(stars)}
       </span>
     </a>
