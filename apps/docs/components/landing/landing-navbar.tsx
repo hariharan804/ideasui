@@ -4,7 +4,8 @@ import type { ComponentProps } from 'react';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@ideasui/utils';
 import { Logo } from '@/components/ui/logo';
 import { GitHubButton } from '@/components/docs-ui/github-button';
@@ -53,7 +54,7 @@ export function LandingNavbar() {
 
   return (
     <header
-      className="fixed top-0 right-0 left-0 z-50 flex w-full flex-col border-none bg-transparent pt-4 backdrop-blur-none transition-all duration-300"
+      className="fixed top-0 right-0 left-0 z-50 flex w-full [transform:translateZ(0)] flex-col border-none bg-transparent pt-3 backdrop-blur-none transition-all duration-300 sm:pt-4"
       id="nd-subnav"
       style={{
         backdropFilter: 'none',
@@ -62,10 +63,10 @@ export function LandingNavbar() {
     >
       <div
         className={cn(
-          'relative z-50 mx-auto flex h-14 w-full max-w-[95%] min-w-10 items-center gap-6 border pr-2 pl-4 backdrop-blur-md transition-all duration-300 sm:py-2 md:pl-6',
+          'relative z-50 mx-auto flex h-14 w-full max-w-[95%] items-center justify-between gap-3 border px-3 backdrop-blur-md transition-all duration-300 sm:max-w-[92%] sm:px-4 md:pr-4 md:pl-6 lg:max-w-[88%]',
           isTop
             ? 'rounded-none border-transparent bg-transparent'
-            : 'border-surface-muted bg-surface/85 rounded-full',
+            : 'border-surface-muted bg-surface/85 rounded-full shadow-lg',
         )}
         style={{
           backdropFilter: 'blur(10px)',
@@ -73,9 +74,9 @@ export function LandingNavbar() {
         }}
       >
         {/* Left Section: Logo & Links */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           <Link
-            className="flex items-center gap-2.5 font-bold transition-opacity hover:opacity-80"
+            className="flex shrink-0 items-center gap-2.5 font-bold transition-opacity hover:opacity-80"
             href="/"
           >
             <Logo size="lg" />
@@ -107,13 +108,11 @@ export function LandingNavbar() {
           </nav>
         </div>
 
-        {/* Center / Right Section: Search & Icons */}
-        <div className="flex flex-1 items-center justify-end">
+        {/* Right Section: Search & Controls */}
+        <div className="flex items-center justify-end gap-2">
+          {/* Desktop Controls */}
           <div className="ml-2 flex items-center gap-2 max-md:hidden">
-            {/* GitHub Star Count Pill */}
             <GitHubButton repo="hariharan804/ideasui" />
-
-            {/* Theme Mode Toggle Pill */}
             <NavbarPill className="px-1">
               <ThemeToggle mode="light-dark-system" />
             </NavbarPill>
@@ -121,7 +120,9 @@ export function LandingNavbar() {
 
           {/* Mobile Controls */}
           <div className="flex items-center gap-1.5 md:hidden">
-            <GitHubButton repo="hariharan804/ideasui" />
+            <div className="xs:block hidden">
+              <GitHubButton repo="hariharan804/ideasui" />
+            </div>
 
             <NavbarPill className="px-1">
               <ThemeToggle mode="light-dark-system" />
@@ -129,33 +130,61 @@ export function LandingNavbar() {
 
             <button
               aria-label="Toggle mobile menu"
-              className="text-content-primary border-surface-strong bg-surface-subtle rounded-full border p-1.5"
+              className="text-content-primary border-surface-strong bg-surface-subtle hover:bg-surface-muted flex size-9 items-center justify-center rounded-full border transition-all active:scale-95"
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+              {mobileMenuOpen ? <X className="size-4.5" /> : <Menu className="size-4.5" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="border-surface-muted bg-surface/95 mx-auto mt-2 max-w-[92%] overflow-hidden rounded-2xl border p-4 shadow-xl backdrop-blur-2xl md:hidden">
-          <nav className="flex flex-col gap-3">
-            {NAV_LINKS.map(({ label, href }) => (
+      {/* Mobile Drawer Overlay & Panel */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            className="border-surface-muted bg-surface/95 mx-auto mt-2.5 w-[92%] max-w-lg overflow-hidden rounded-2xl border p-5 shadow-2xl backdrop-blur-2xl md:hidden dark:bg-[#0d1117]/95"
+            exit={{ opacity: 0, y: -10, scale: 0.97 }}
+            initial={{ opacity: 0, y: -10, scale: 0.97 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+          >
+            <nav className="flex flex-col gap-1.5">
+              {NAV_LINKS.map(({ label, href }) => {
+                const isActive = pathname === href || pathname.startsWith(`${href}/`);
+
+                return (
+                  <Link
+                    key={href}
+                    className={cn(
+                      'flex min-h-[44px] items-center rounded-xl px-3.5 text-sm font-semibold transition-colors',
+                      isActive
+                        ? 'bg-primary-subtle/60 text-primary'
+                        : 'text-content-primary hover:bg-surface-muted',
+                    )}
+                    href={href}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="border-surface-muted mt-4 flex flex-col gap-2.5 border-t pt-4">
               <Link
-                key={href}
-                className="text-content-secondary hover:text-content-primary text-sm font-medium transition-colors"
-                href={href}
+                className="bg-primary text-on-primary hover:bg-primary/90 flex min-h-[44px] items-center justify-center gap-2 rounded-xl text-xs font-semibold shadow-md transition-all active:scale-98"
+                href="/react/docs/start"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                {label}
+                <span>Get Started</span>
+                <ArrowRight className="size-3.5" />
               </Link>
-            ))}
-          </nav>
-        </div>
-      )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

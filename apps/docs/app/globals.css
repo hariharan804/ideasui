@@ -23,6 +23,22 @@ html:not(.dark) {
   color-scheme: light;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE SCROLL PERFORMANCE ACCELERATION
+   ───────────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* Hardware accelerate animated layers to prevent scroll jank */
+  .perceptual-ambient-glow {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
+}
+
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
@@ -190,6 +206,15 @@ main:has(.hero-section) {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-border) / 0.5;
+}
+
+/* Hide scrollbar utility for touch scrollbars */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 html,

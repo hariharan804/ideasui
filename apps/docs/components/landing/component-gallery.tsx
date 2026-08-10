@@ -19,10 +19,10 @@ import { Button, ButtonGroup } from '@ideasui/react';
 const SMOOTH_EASE = [0.16, 1, 0.3, 1] as const;
 
 const inView = (delay = 0) => ({
-  initial: { opacity: 0, y: 24, filter: 'blur(6px)' },
-  whileInView: { opacity: 1, y: 0, filter: 'blur(0px)' },
-  viewport: { once: true, margin: '-40px' },
-  transition: { duration: 0.6, delay, ease: SMOOTH_EASE },
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-20px' },
+  transition: { duration: 0.5, delay, ease: SMOOTH_EASE },
 });
 
 /** Component gallery section using semantic design tokens. */
@@ -31,13 +31,13 @@ export function ComponentGallery() {
   const [activeGroupTab, setActiveGroupTab] = useState<'all' | 'unread' | 'archived'>('all');
 
   return (
-    <section className="relative overflow-hidden py-28">
+    <section className="relative overflow-hidden py-16 sm:py-24 lg:py-28">
       {/* Background Subtle Accent Glow Halo */}
-      <div className="from-primary/5 via-secondary/5 pointer-events-none absolute top-1/2 left-1/2 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr to-transparent blur-3xl" />
+      <div className="from-primary/5 via-secondary/5 pointer-events-none absolute top-1/2 left-1/2 h-[350px] w-[500px] max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-tr to-transparent blur-3xl sm:h-[500px] sm:w-[800px]" />
 
-      <div className="relative mx-auto max-w-6xl px-6 lg:px-8">
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-20 text-center">
+        <div className="mb-12 text-center sm:mb-16 lg:mb-20">
           <motion.div {...inView(0)} className="inline-flex">
             <span className="border-primary-subtle bg-primary-subtle text-primary inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1 text-xs font-semibold tracking-wide">
               <Sparkles className="size-3.5" /> Component Architecture
@@ -45,14 +45,14 @@ export function ComponentGallery() {
           </motion.div>
 
           <motion.h2
-            className="text-content-primary mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl"
+            className="text-content-primary xs:text-3xl mt-4 text-2xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl"
             {...inView(0.05)}
           >
             Engineered for precision &amp; total control
           </motion.h2>
 
           <motion.p
-            className="text-content-secondary mx-auto mt-4 max-w-xl text-base leading-relaxed"
+            className="text-content-secondary mx-auto mt-3.5 max-w-xl px-2 text-sm leading-relaxed sm:mt-4 sm:text-base"
             {...inView(0.1)}
           >
             Explore real-time interactive previews of core component variants, semantic intents,
@@ -61,7 +61,7 @@ export function ComponentGallery() {
         </div>
 
         {/* 6-Card Showcase Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {/* Card 1 — Variant System */}
           <motion.div
             className="bg-surface/80 group border-surface-muted hover:border-surface-strong relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
@@ -69,19 +69,21 @@ export function ComponentGallery() {
           >
             <div className="from-primary to-secondary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-            <div className="mb-5 flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="bg-primary-subtle text-primary flex size-8 items-center justify-center rounded-lg">
+            <div className="mb-5 flex items-center justify-between gap-2">
+              <div className="flex min-w-0 items-center gap-2.5">
+                <div className="bg-primary-subtle text-primary flex size-8 shrink-0 items-center justify-center rounded-lg">
                   <Layers className="size-4" />
                 </div>
-                <h3 className="text-content-primary text-sm font-bold">Variant System</h3>
+                <h3 className="text-content-primary shrink-0 text-sm font-bold whitespace-nowrap">
+                  Variant System
+                </h3>
               </div>
-              <span className="text-content-muted bg-surface-muted rounded-md px-2 py-0.5 font-mono text-[10px]">
+              <span className="text-content-muted bg-surface-muted shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] whitespace-nowrap">
                 variant=&quot;...&quot;
               </span>
             </div>
 
-            <div className="bg-surface-subtle flex flex-wrap gap-2.5 rounded-xl p-4.5">
+            <div className="bg-surface-subtle flex flex-wrap items-center gap-2 rounded-xl p-4">
               <Button color="primary" variant="solid">
                 Solid
               </Button>
@@ -109,19 +111,21 @@ export function ComponentGallery() {
           >
             <div className="from-secondary to-primary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-            <div className="mb-5 flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="bg-secondary-subtle text-secondary flex size-8 items-center justify-center rounded-lg">
+            <div className="mb-5 flex items-center justify-between gap-2">
+              <div className="flex min-w-0 items-center gap-2.5">
+                <div className="bg-secondary-subtle text-secondary flex size-8 shrink-0 items-center justify-center rounded-lg">
                   <Palette className="size-4" />
                 </div>
-                <h3 className="text-content-primary text-sm font-bold">Intent Semantics</h3>
+                <h3 className="text-content-primary shrink-0 text-sm font-bold whitespace-nowrap">
+                  Intent Semantics
+                </h3>
               </div>
-              <span className="text-content-muted bg-surface-muted rounded-md px-2 py-0.5 font-mono text-[10px]">
+              <span className="text-content-muted bg-surface-muted shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] whitespace-nowrap">
                 color=&quot;...&quot;
               </span>
             </div>
 
-            <div className="bg-surface-subtle flex flex-wrap gap-2 rounded-xl p-4.5">
+            <div className="bg-surface-subtle flex flex-wrap items-center gap-1.5 rounded-xl p-4 sm:gap-2">
               <Button color="primary" size="sm">
                 Primary
               </Button>
@@ -149,19 +153,21 @@ export function ComponentGallery() {
           >
             <div className="from-primary to-success absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-            <div className="mb-5 flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="bg-success-subtle text-success flex size-8 items-center justify-center rounded-lg">
+            <div className="mb-5 flex items-center justify-between gap-2">
+              <div className="flex min-w-0 items-center gap-2.5">
+                <div className="bg-success-subtle text-success flex size-8 shrink-0 items-center justify-center rounded-lg">
                   <Zap className="size-4" />
                 </div>
-                <h3 className="text-content-primary text-sm font-bold">Icon Integration</h3>
+                <h3 className="text-content-primary shrink-0 text-sm font-bold whitespace-nowrap">
+                  Icon Integration
+                </h3>
               </div>
-              <span className="text-content-muted bg-surface-muted rounded-md px-2 py-0.5 font-mono text-[10px]">
-                startIcon / isIconOnly
+              <span className="text-content-muted bg-surface-muted shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] whitespace-nowrap">
+                startIcon
               </span>
             </div>
 
-            <div className="bg-surface-subtle flex flex-wrap items-center gap-2.5 rounded-xl p-4.5">
+            <div className="bg-surface-subtle flex flex-wrap items-center gap-1.5 rounded-xl p-3.5 sm:gap-2 sm:p-4">
               <Button color="primary" size="sm" startIcon={<Send className="size-3.5" />}>
                 Send
               </Button>
@@ -174,7 +180,7 @@ export function ComponentGallery() {
                 Next
               </Button>
               <Button isIconOnly aria-label="Add item" color="primary" size="sm" variant="soft">
-                <Plus className="size-4" />
+                <Plus className="size-3.5" />
               </Button>
               <Button
                 isIconOnly
@@ -183,7 +189,7 @@ export function ComponentGallery() {
                 size="sm"
                 variant="ghost"
               >
-                <Heart className="size-4" />
+                <Heart className="size-3.5" />
               </Button>
             </div>
 
@@ -200,19 +206,21 @@ export function ComponentGallery() {
           >
             <div className="from-secondary to-warning absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-            <div className="mb-5 flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="bg-warning-subtle text-warning flex size-8 items-center justify-center rounded-lg">
+            <div className="mb-5 flex items-center justify-between gap-2">
+              <div className="flex min-w-0 items-center gap-2.5">
+                <div className="bg-warning-subtle text-warning flex size-8 shrink-0 items-center justify-center rounded-lg">
                   <SlidersHorizontal className="size-4" />
                 </div>
-                <h3 className="text-content-primary text-sm font-bold">Button Groups</h3>
+                <h3 className="text-content-primary shrink-0 text-sm font-bold whitespace-nowrap">
+                  Button Groups
+                </h3>
               </div>
-              <span className="text-content-muted bg-surface-muted rounded-md px-2 py-0.5 font-mono text-[10px]">
+              <span className="text-content-muted bg-surface-muted shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] whitespace-nowrap">
                 &lt;ButtonGroup /&gt;
               </span>
             </div>
 
-            <div className="bg-surface-subtle flex flex-col items-start gap-3 rounded-xl p-4.5">
+            <div className="bg-surface-subtle flex flex-col items-start gap-3 rounded-xl p-4">
               <ButtonGroup>
                 {(['all', 'unread', 'archived'] as const).map((tab) => (
                   <Button
@@ -241,19 +249,21 @@ export function ComponentGallery() {
           >
             <div className="from-primary to-secondary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-            <div className="mb-5 flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="bg-primary-subtle text-primary flex size-8 items-center justify-center rounded-lg">
+            <div className="mb-5 flex items-center justify-between gap-2">
+              <div className="flex min-w-0 items-center gap-2.5">
+                <div className="bg-primary-subtle text-primary flex size-8 shrink-0 items-center justify-center rounded-lg">
                   <Sparkles className="size-4" />
                 </div>
-                <h3 className="text-content-primary text-sm font-bold">Dynamic States</h3>
+                <h3 className="text-content-primary shrink-0 text-sm font-bold whitespace-nowrap">
+                  Dynamic States
+                </h3>
               </div>
-              <span className="text-content-muted bg-surface-muted rounded-md px-2 py-0.5 font-mono text-[10px]">
-                isLoading / isDisabled
+              <span className="text-content-muted bg-surface-muted shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] whitespace-nowrap">
+                isLoading
               </span>
             </div>
 
-            <div className="bg-surface-subtle flex flex-wrap items-center gap-2.5 rounded-xl p-4.5">
+            <div className="bg-surface-subtle flex flex-wrap items-center gap-2 rounded-xl p-4">
               <Button
                 color="primary"
                 isLoading={loadingState}
@@ -283,19 +293,21 @@ export function ComponentGallery() {
           >
             <div className="from-secondary to-primary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-            <div className="mb-5 flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="bg-secondary-subtle text-secondary flex size-8 items-center justify-center rounded-lg">
+            <div className="mb-5 flex items-center justify-between gap-2">
+              <div className="flex min-w-0 items-center gap-2.5">
+                <div className="bg-secondary-subtle text-secondary flex size-8 shrink-0 items-center justify-center rounded-lg">
                   <ShieldCheck className="size-4" />
                 </div>
-                <h3 className="text-content-primary text-sm font-bold">Density &amp; Radii</h3>
+                <h3 className="text-content-primary shrink-0 text-sm font-bold whitespace-nowrap">
+                  Density &amp; Radii
+                </h3>
               </div>
-              <span className="text-content-muted bg-surface-muted rounded-md px-2 py-0.5 font-mono text-[10px]">
+              <span className="text-content-muted bg-surface-muted shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] whitespace-nowrap">
                 size / radius
               </span>
             </div>
 
-            <div className="bg-surface-subtle flex flex-wrap items-center gap-2.5 rounded-xl p-4.5">
+            <div className="bg-surface-subtle flex flex-wrap items-center gap-2 rounded-xl p-4">
               <Button color="primary" radius="full" size="sm">
                 Pill
               </Button>

@@ -3,7 +3,7 @@ name: Canary Release
 on:
   pull_request:
     types: [closed]
-    branches: [main, master]
+    branches: [main]
   workflow_dispatch:
     inputs:
       component:

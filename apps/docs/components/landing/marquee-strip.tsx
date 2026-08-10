@@ -41,7 +41,7 @@ export function MarqueeStrip() {
   return (
     <section
       aria-label="Technology features"
-      className="bg-surface-subtle/30 border-surface-muted relative overflow-hidden border-y py-6 backdrop-blur-md"
+      className="bg-surface-subtle/50 border-surface-muted relative overflow-hidden border-y py-6"
     >
       {/* Visually-hidden accessible list — read once by screen readers */}
       <ul className="sr-only">
@@ -51,8 +51,8 @@ export function MarqueeStrip() {
       </ul>
 
       {/* Edge Blur Fade Masks */}
-      <div className="from-background pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r to-transparent" />
-      <div className="from-background pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l to-transparent" />
+      <div className="from-background xs:w-16 pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r to-transparent sm:w-28 lg:w-36" />
+      <div className="from-background xs:w-16 pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l to-transparent sm:w-28 lg:w-36" />
 
       {/* aria-hidden — animated duplicates are decorative only */}
       <div aria-hidden="true" className="flex flex-col gap-3">
