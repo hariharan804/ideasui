@@ -28,14 +28,14 @@ export function InstallSnippet() {
   }
 
   return (
-    <div className="mx-auto mt-16 w-full max-w-md">
+    <div className="mx-auto mt-10 w-full max-w-md px-2 sm:mt-16 sm:px-0">
       {/* Package Tabs */}
-      <div className="bg-surface-muted relative mx-auto mb-2.5 flex w-fit items-center justify-center gap-1 rounded-xl p-1">
+      <div className="bg-surface-muted relative mx-auto mb-2 flex w-fit items-center justify-center gap-0.5 rounded-xl p-1 sm:gap-1">
         {PACKAGE_MANAGERS.map((p) => (
           <button
             key={p}
             className={cn(
-              'relative z-10 rounded-lg px-3 py-1 font-mono text-xs transition-colors duration-200',
+              'relative z-10 rounded-lg px-2.5 py-1 font-mono text-xs transition-colors duration-200 sm:px-3',
               pkg === p
                 ? 'text-primary-600 dark:text-primary-300 font-semibold'
                 : 'text-content-muted hover:text-content-secondary',
@@ -56,12 +56,14 @@ export function InstallSnippet() {
       </div>
 
       {/* Snippet Pill */}
-      <div className="group border-surface-muted bg-surface mt-6 flex items-center justify-between gap-3 rounded-2xl border px-4 py-3 backdrop-blur-xl transition-all duration-300">
-        <div className="flex min-w-0 items-center gap-2.5">
+      <div className="group border-surface-muted bg-surface mt-4 flex items-center justify-between gap-2.5 rounded-2xl border px-3.5 py-2.5 backdrop-blur-xl transition-all duration-300 sm:mt-6 sm:gap-3 sm:px-4 sm:py-3">
+        <div className="flex min-w-0 flex-1 items-center gap-2.5 overflow-hidden">
           <Terminal className="text-content-tertiary size-4 shrink-0" />
-          <code className="text-content-primary truncate font-mono text-xs sm:text-sm">
-            {INSTALL_COMMANDS[pkg]}
-          </code>
+          <div className="min-w-0 flex-1 scrollbar-none overflow-x-auto py-0.5 whitespace-nowrap">
+            <code className="text-content-primary font-mono text-xs sm:text-sm">
+              {INSTALL_COMMANDS[pkg]}
+            </code>
+          </div>
         </div>
         <button
           aria-label="Copy installation command"

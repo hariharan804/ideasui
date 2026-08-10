@@ -28,10 +28,10 @@ const NAV_LINKS: NavLink[] = [
 /** Clean, minimal landing footer with powered-by credit using semantic tokens. */
 export function LandingFooter() {
   return (
-    <footer className="border-surface-muted bg-background/60 border-t py-8 text-xs backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 sm:flex-row">
+    <footer className="border-surface-muted bg-background/60 border-t py-8 text-xs backdrop-blur-md sm:py-10">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 px-4 sm:flex-row sm:px-6">
         {/* Left: Brand Logo & Powered By Credit */}
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
           <Logo showVersion={false} size="md" />
           <span className="text-content-muted">·</span>
           <span className="text-content-tertiary">
@@ -48,7 +48,7 @@ export function LandingFooter() {
         </div>
 
         {/* Right: Quick Links & Copyright */}
-        <div className="text-content-muted flex flex-wrap items-center gap-6">
+        <div className="text-content-muted flex flex-wrap items-center justify-center gap-4 sm:gap-6">
           {NAV_LINKS.map(({ label, href, isExternal }) =>
             isExternal ? (
               <a
@@ -70,7 +70,9 @@ export function LandingFooter() {
               </Link>
             ),
           )}
-          <span className="text-content-muted">© {new Date().getFullYear()}</span>
+          <span className="text-content-muted font-mono text-[11px]">
+            © {new Date().getFullYear()}
+          </span>
         </div>
       </div>
     </footer>

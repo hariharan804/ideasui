@@ -46,7 +46,7 @@ export default function Example() {
   }
 
   return (
-    <div className="relative mx-auto mt-28 w-full max-w-3xl text-left">
+    <div className="relative mx-auto mt-12 w-full max-w-3xl text-left sm:mt-20 md:mt-28">
       {/* Dynamic Ambient Glow Halo */}
       <motion.div
         animate={{ scale: [1, 1.03, 1], opacity: [0.4, 0.7, 0.4] }}
@@ -56,12 +56,12 @@ export default function Example() {
 
       <div className="bg-surface/90 border-surface-muted relative overflow-hidden rounded-2xl border shadow-2xl backdrop-blur-xl dark:bg-[#0d1117]/90">
         {/* Window Chrome Header */}
-        <div className="bg-surface-muted border-surface-muted flex flex-wrap items-center justify-between gap-3 border-b px-5 py-3.5">
+        <div className="bg-surface-muted border-surface-muted flex flex-wrap items-center justify-between gap-2.5 border-b px-4 py-3 sm:px-5 sm:py-3.5">
           <div className="flex items-center gap-2">
-            <div className="bg-error/80 size-3 rounded-full" />
-            <div className="bg-warning/80 size-3 rounded-full" />
-            <div className="bg-success/80 size-3 rounded-full" />
-            <span className="text-content-muted ml-2 font-mono text-xs tracking-tight">
+            <div className="bg-error/80 size-2.5 rounded-full sm:size-3" />
+            <div className="bg-warning/80 size-2.5 rounded-full sm:size-3" />
+            <div className="bg-success/80 size-2.5 rounded-full sm:size-3" />
+            <span className="text-content-muted xs:inline-block ml-2 hidden font-mono text-[11px] tracking-tight sm:text-xs">
               Interactive Component Workbench
             </span>
           </div>
@@ -72,7 +72,7 @@ export default function Example() {
               <button
                 key={tab}
                 className={cn(
-                  'relative z-10 rounded-md px-3.5 py-1 text-xs font-medium capitalize transition-colors duration-200',
+                  'relative z-10 rounded-md px-2.5 py-1 text-xs font-medium capitalize transition-colors duration-200 sm:px-3.5',
                   activeTab === tab
                     ? 'text-content-primary'
                     : 'text-content-muted hover:text-content-secondary',
@@ -95,17 +95,17 @@ export default function Example() {
           </div>
         </div>
 
-        {/* Controls Toolbar */}
-        <div className="bg-surface-subtle/40 border-surface-muted flex flex-wrap items-center justify-between gap-4 border-b px-5 py-3 text-xs">
-          <div className="flex items-center gap-2">
-            <Sliders className="text-primary size-3.5" />
-            <span className="text-content-secondary font-semibold">Props:</span>
-          </div>
+        {/* Controls Toolbar — Touch Scrollable on Mobile */}
+        <div className="bg-surface-subtle/40 border-surface-muted border-b px-4 py-2.5 text-xs sm:px-5 sm:py-3">
+          <div className="flex scrollbar-none items-center gap-4 overflow-x-auto pb-1 sm:pb-0">
+            <div className="flex shrink-0 items-center gap-1.5 pr-1">
+              <Sliders className="text-primary size-3.5" />
+              <span className="text-content-secondary font-semibold">Props:</span>
+            </div>
 
-          <div className="flex flex-wrap items-center gap-4 sm:gap-5">
             {/* Color Prop Selector */}
-            <div className="flex items-center gap-1.5">
-              <span className="text-content-muted">color:</span>
+            <div className="flex shrink-0 items-center gap-1.5">
+              <span className="text-content-muted text-[11px]">color:</span>
               <div className="bg-surface-muted relative flex rounded-lg p-0.5">
                 {(['primary', 'secondary', 'error', 'success'] as const).map((c) => {
                   const activeColor = {
@@ -119,20 +119,15 @@ export default function Example() {
                     <button
                       key={c}
                       className={cn(
-                        'relative z-10 rounded-md px-2 py-0.5 text-[11px] font-medium capitalize transition-colors duration-200',
-                        color === c ? activeColor : 'text-content-muted hover:text-content-primary',
+                        'rounded-md px-2 py-0.5 text-[11px] font-medium capitalize transition-all duration-150',
+                        color === c
+                          ? cn('bg-background font-semibold shadow-2xs', activeColor)
+                          : 'text-content-muted hover:text-content-primary',
                       )}
                       type="button"
                       onClick={() => setColor(c)}
                     >
-                      {color === c && (
-                        <motion.div
-                          className="bg-background absolute inset-0 rounded-md shadow-xs"
-                          layoutId="colorIndicator"
-                          transition={{ type: 'spring', stiffness: 450, damping: 35 }}
-                        />
-                      )}
-                      <span className="relative z-10">{c}</span>
+                      {c}
                     </button>
                   );
                 })}
@@ -140,85 +135,66 @@ export default function Example() {
             </div>
 
             {/* Variant Prop Selector */}
-            <div className="flex items-center gap-1.5">
-              <span className="text-content-muted">variant:</span>
+            <div className="flex shrink-0 items-center gap-1.5">
+              <span className="text-content-muted text-[11px]">variant:</span>
               <div className="bg-surface-muted relative flex rounded-lg p-0.5">
                 {(['solid', 'outline', 'soft', 'ghost'] as const).map((v) => (
                   <button
                     key={v}
                     className={cn(
-                      'relative z-10 rounded-md px-2 py-0.5 text-[11px] font-medium capitalize transition-colors duration-200',
+                      'rounded-md px-2 py-0.5 text-[11px] font-medium capitalize transition-all duration-150',
                       variant === v
-                        ? 'text-primary'
+                        ? 'bg-background text-primary font-semibold shadow-2xs'
                         : 'text-content-muted hover:text-content-primary',
                     )}
                     type="button"
                     onClick={() => setVariant(v)}
                   >
-                    {variant === v && (
-                      <motion.div
-                        className="bg-background absolute inset-0 rounded-md shadow-2xs"
-                        layoutId="variantIndicator"
-                        transition={{ type: 'spring', stiffness: 450, damping: 35 }}
-                      />
-                    )}
-                    <span className="relative z-10">{v}</span>
+                    {v}
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Size Prop Selector */}
-            <div className="flex items-center gap-1.5">
-              <span className="text-content-muted">size:</span>
+            <div className="flex shrink-0 items-center gap-1.5">
+              <span className="text-content-muted text-[11px]">size:</span>
               <div className="bg-surface-muted relative flex rounded-lg p-0.5">
                 {(['sm', 'md', 'lg'] as const).map((s) => (
                   <button
                     key={s}
                     className={cn(
-                      'relative z-10 rounded-md px-2 py-0.5 text-[11px] font-medium uppercase transition-colors duration-200',
-                      size === s ? 'text-primary' : 'text-content-muted hover:text-content-primary',
+                      'rounded-md px-2 py-0.5 text-[11px] font-medium uppercase transition-all duration-150',
+                      size === s
+                        ? 'bg-background text-primary font-semibold shadow-2xs'
+                        : 'text-content-muted hover:text-content-primary',
                     )}
                     type="button"
                     onClick={() => setSize(s)}
                   >
-                    {size === s && (
-                      <motion.div
-                        className="bg-background absolute inset-0 rounded-md shadow-2xs"
-                        layoutId="sizeIndicator"
-                        transition={{ type: 'spring', stiffness: 450, damping: 35 }}
-                      />
-                    )}
-                    <span className="relative z-10">{s}</span>
+                    {s}
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Radius Prop Selector */}
-            <div className="flex items-center gap-1.5">
-              <span className="text-content-muted">radius:</span>
+            <div className="flex shrink-0 items-center gap-1.5">
+              <span className="text-content-muted text-[11px]">radius:</span>
               <div className="bg-surface-muted relative flex rounded-lg p-0.5">
                 {(['sm', 'md', 'lg', 'full'] as const).map((r) => (
                   <button
                     key={r}
                     className={cn(
-                      'relative z-10 rounded-md px-2 py-0.5 text-[11px] font-medium lowercase transition-colors duration-200',
+                      'rounded-md px-2 py-0.5 text-[11px] font-medium lowercase transition-all duration-150',
                       radius === r
-                        ? 'text-primary'
+                        ? 'bg-background text-primary font-semibold shadow-2xs'
                         : 'text-content-muted hover:text-content-primary',
                     )}
                     type="button"
                     onClick={() => setRadius(r)}
                   >
-                    {radius === r && (
-                      <motion.div
-                        className="bg-background absolute inset-0 rounded-md shadow-2xs"
-                        layoutId="radiusIndicator"
-                        transition={{ type: 'spring', stiffness: 450, damping: 35 }}
-                      />
-                    )}
-                    <span className="relative z-10">{r}</span>
+                    {r}
                   </button>
                 ))}
               </div>
@@ -227,27 +203,23 @@ export default function Example() {
         </div>
 
         {/* View Switcher with Smooth AnimatePresence */}
-        <div className="relative min-h-64">
+        <div className="relative min-h-52 sm:min-h-64">
           <AnimatePresence mode="wait">
             {activeTab === 'preview' ? (
               <motion.div
                 key="preview-view"
                 animate={{ opacity: 1, scale: 1 }}
-                className="flex min-h-64 flex-col items-center justify-center gap-6 p-8"
+                className="flex min-h-52 flex-col items-center justify-center gap-5 p-5 sm:min-h-64 sm:p-8"
                 exit={{ opacity: 0, scale: 0.98 }}
                 initial={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.25, ease: 'easeOut' }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
               >
-                <motion.div
-                  layout
-                  className="flex items-center justify-center p-4"
-                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                >
+                <div className="flex items-center justify-center p-3 sm:p-4">
                   <Button color={color} radius={radius} size={size} variant={variant}>
                     Click Me
                   </Button>
-                </motion.div>
-                <p className="text-content-muted text-[11px] tracking-wide">
+                </div>
+                <p className="text-content-muted text-center text-[11px] tracking-wide">
                   Active configuration rendered using live{' '}
                   <code className="text-primary font-mono">@ideasui/react</code> components
                 </p>
@@ -256,7 +228,7 @@ export default function Example() {
               <motion.div
                 key="code-view"
                 animate={{ opacity: 1, scale: 1 }}
-                className="relative min-h-64 overflow-x-auto bg-[#0d1117] p-6 font-mono text-sm leading-relaxed text-neutral-300"
+                className="relative min-h-52 scrollbar-none overflow-x-auto bg-[#0d1117] p-4 font-mono text-xs leading-relaxed text-neutral-300 sm:min-h-64 sm:p-6 sm:text-sm"
                 exit={{ opacity: 0, scale: 0.98 }}
                 initial={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.25, ease: 'easeOut' }}
@@ -264,7 +236,7 @@ export default function Example() {
                 {/* Copy Code Button */}
                 <button
                   aria-label="Copy generated code"
-                  className="bg-surface-subtle/20 hover:bg-surface-subtle/40 text-content-primary absolute top-4 right-4 flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs backdrop-blur-md transition-all duration-200 active:scale-95"
+                  className="bg-surface-subtle/20 hover:bg-surface-subtle/40 text-content-primary absolute top-3.5 right-3.5 flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs backdrop-blur-md transition-all duration-200 active:scale-95 sm:px-3 sm:py-1.5"
                   type="button"
                   onClick={handleCopyCode}
                 >
@@ -314,7 +286,7 @@ export default function Example() {
         </div>
 
         {/* Status Bar */}
-        <div className="bg-surface-muted border-surface-muted flex items-center justify-between border-t px-5 py-2.5 text-[11px]">
+        <div className="bg-surface-muted border-surface-muted flex flex-col items-center justify-between gap-1 border-t px-4 py-2.5 text-center text-[10px] sm:flex-row sm:gap-0 sm:px-5 sm:text-left sm:text-[11px]">
           <span className="text-content-muted">Tailwind CSS v4 Pure Recipe Output</span>
           <span className="text-success flex items-center gap-1.5 font-medium">
             <CheckCircle2 className="size-3.5" /> React Aria Standard Verified
