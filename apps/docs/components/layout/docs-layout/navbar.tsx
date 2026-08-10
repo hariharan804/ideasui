@@ -252,10 +252,10 @@ export function DocsNavbar({
     >
       <div
         className={cn(
-          'relative z-50 mx-auto flex h-14 w-full max-w-[95%] min-w-10 items-center gap-6 border pr-2 pl-4 backdrop-blur-md transition-all duration-300 sm:py-2 md:pl-6',
+          'relative z-50 mx-auto flex h-14 w-full max-w-[95%] min-w-10 items-center gap-2 border pr-3 pl-4 backdrop-blur-md transition-all duration-300 sm:gap-4 sm:py-2 sm:pl-5 md:gap-6 md:pl-6',
           isTop
             ? 'rounded-none border-transparent bg-transparent'
-            : 'border-surface-muted bg-surface/85 rounded-full',
+            : 'border-surface-muted bg-surface/85 rounded-full shadow-sm',
         )}
         data-header-body=""
         style={{
@@ -266,7 +266,7 @@ export function DocsNavbar({
         {/* Left Section: Logo & Tabs */}
         <div
           className={cn(
-            'flex items-center gap-4',
+            'flex items-center gap-2.5 sm:gap-4',
             navMode === 'top' && 'flex-1',
             navMode === 'auto' && 'max-md:flex has-data-[collapsed=true]:md:flex',
             navMode === 'auto' && 'hidden md:items-center',
@@ -321,7 +321,7 @@ export function DocsNavbar({
 
         {/* Center / Right Section: Search & Icons */}
         <div className="flex flex-1 items-center justify-end">
-          <div className="mr-4 flex items-center justify-end">
+          <div className="mr-2 flex items-center justify-end sm:mr-4">
             {searchToggle.enabled !== false &&
               (searchToggle.components?.lg ? (
                 <div className="max-md:hidden">{searchToggle.components.lg}</div>
@@ -333,7 +333,7 @@ export function DocsNavbar({
               ))}
           </div>
 
-          <nav className="flex items-center gap-4 empty:hidden max-lg:hidden">
+          <nav className="flex items-center gap-2 empty:hidden max-lg:hidden sm:gap-3 lg:gap-4">
             {links
               .filter(
                 (item): item is Extract<LinkItemType, { type?: 'main' | 'menu' | 'button' }> =>
@@ -346,11 +346,14 @@ export function DocsNavbar({
               })}
           </nav>
 
-          <div className="ml-2 flex items-center gap-2 max-md:hidden">
+          <div className="ml-2 flex items-center gap-1.5 max-md:hidden sm:gap-2">
             {/* 1. Theme Customizer Pill */}
-            <NavbarPillButton aria-label="Customize Theme" className="text-xs font-medium">
+            <NavbarPillButton
+              aria-label="Customize Theme"
+              className="px-2.5 text-xs font-medium sm:px-3.5"
+            >
               <Palette className="size-4" />
-              <span>Theme</span>
+              <span className="hidden xl:inline">Theme</span>
             </NavbarPillButton>
 
             {/* 2. GitHub Star Count Pill */}
@@ -374,11 +377,13 @@ export function DocsNavbar({
           </div>
 
           {/* Mobile Controls */}
-          <div className="flex items-center gap-1.5 md:hidden">
+          <div className="flex items-center gap-1 sm:gap-1.5 md:hidden">
             {searchToggle.enabled !== false &&
               (searchToggle.components?.sm ?? <SearchToggle hideIfDisabled className="p-2" />)}
 
-            <GitHubButton repo="hariharan804/ideasui" />
+            <div className="xs:inline-flex hidden">
+              <GitHubButton repo="hariharan804/ideasui" />
+            </div>
 
             <SidebarTrigger
               className={cn(

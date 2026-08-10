@@ -138,7 +138,7 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
       {/* Split Button */}
       <div
         ref={splitButtonRef}
-        className="bg-surface-subtle inline-flex max-w-full items-center overflow-hidden rounded-3xl p-0.5 shadow-[0_1px_3px_rgba(0,0,0,0.01)] transition-all duration-300"
+        className="bg-surface/80 hover:bg-surface inline-flex max-w-full items-center overflow-hidden rounded-3xl p-0.5 backdrop-blur-sm transition-all duration-200"
       >
         {/* Copy Markdown */}
         <button

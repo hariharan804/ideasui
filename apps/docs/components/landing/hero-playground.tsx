@@ -47,12 +47,8 @@ export default function Example() {
 
   return (
     <div className="relative mx-auto mt-12 w-full max-w-3xl text-left sm:mt-20 md:mt-28">
-      {/* Dynamic Ambient Glow Halo */}
-      <motion.div
-        animate={{ scale: [1, 1.03, 1], opacity: [0.4, 0.7, 0.4] }}
-        className="perceptual-ambient-glow pointer-events-none absolute -inset-1 rounded-3xl blur-2xl"
-        transition={{ duration: 6, ease: 'easeInOut', repeat: Infinity }}
-      />
+      {/* Ambient Glow Halo */}
+      <div className="perceptual-ambient-glow pointer-events-none absolute -inset-1 rounded-3xl opacity-50 blur-2xl" />
 
       <div className="bg-surface/90 border-surface-muted relative overflow-hidden rounded-2xl border shadow-2xl backdrop-blur-xl dark:bg-[#0d1117]/90">
         {/* Window Chrome Header */}

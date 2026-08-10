@@ -11,13 +11,20 @@ import {
   Check,
 } from 'lucide-react';
 
-const SMOOTH_EASE = [0.16, 1, 0.3, 1] as const;
+const SMOOTH_EASE = [0.22, 1, 0.36, 1] as const;
 
 const inView = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '-20px' },
-  transition: { duration: 0.5, delay, ease: SMOOTH_EASE },
+  transition: { duration: 0.45, delay, ease: SMOOTH_EASE },
+});
+
+const cardFadeIn = (index = 0) => ({
+  initial: { opacity: 0 },
+  whileInView: { opacity: 1 },
+  viewport: { once: true },
+  transition: { duration: 0.35, delay: index * 0.05, ease: 'easeOut' as const },
 });
 
 /** Bento grid showcasing the library's core technical features using semantic tokens. */
@@ -56,14 +63,14 @@ export function FeaturesSection() {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {/* Bento Item 1 (Spans 2 columns on md & lg): Accessibility First */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-surface-strong relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md sm:p-7 md:col-span-2 lg:col-span-2"
-            {...inView(0.12)}
+            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:p-7 md:col-span-2 lg:col-span-2"
+            {...cardFadeIn(0)}
           >
-            <div className="from-primary to-secondary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-primary to-secondary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="bg-primary-subtle text-primary flex size-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110">
+                <div className="bg-primary-subtle text-primary flex size-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-110">
                   <Accessibility className="size-5" />
                 </div>
                 <div>
@@ -111,13 +118,13 @@ export function FeaturesSection() {
 
           {/* Bento Item 2: Perceptual OKLCH Engine */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-surface-strong relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md sm:p-7 md:col-span-1 lg:col-span-1"
-            {...inView(0.16)}
+            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:p-7 md:col-span-1 lg:col-span-1"
+            {...cardFadeIn(1)}
           >
-            <div className="from-secondary to-primary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-secondary to-primary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
             <div className="flex items-center justify-between">
-              <div className="bg-secondary-subtle text-secondary flex size-10 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110">
+              <div className="bg-secondary-subtle text-secondary flex size-10 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-110">
                 <Cpu className="size-5" />
               </div>
               <span className="text-content-muted border-surface-muted bg-surface-muted rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-medium">
@@ -146,13 +153,13 @@ export function FeaturesSection() {
 
           {/* Bento Item 3: Zero Config SSR */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-surface-strong relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md sm:p-7 md:col-span-1 lg:col-span-1"
-            {...inView(0.2)}
+            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:p-7 md:col-span-1 lg:col-span-1"
+            {...cardFadeIn(2)}
           >
-            <div className="from-success to-primary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-success to-primary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
 
             <div className="flex items-center justify-between">
-              <div className="bg-success-subtle text-success flex size-10 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110">
+              <div className="bg-success-subtle text-success flex size-10 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-110">
                 <Zap className="size-5" />
               </div>
               <span className="text-content-muted border-surface-muted bg-surface-muted rounded-full border px-2.5 py-0.5 font-mono text-[10px] font-medium">
@@ -181,8 +188,8 @@ export function FeaturesSection() {
 
           {/* Bento Item 4 (Spans 2 columns on md & lg): DX Driven Architecture */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-surface-strong relative overflow-hidden rounded-2xl border p-5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md sm:p-7 md:col-span-2 lg:col-span-2"
-            {...inView(0.24)}
+            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-5 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:p-7 md:col-span-2 lg:col-span-2"
+            {...cardFadeIn(3)}
           >
             <div className="from-secondary to-warning absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 

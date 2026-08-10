@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, ExternalLink, ShieldCheck, Zap, Layers } from 'lucide-react';
 import Link from 'next/link';
 
-const SMOOTH_EASE = [0.16, 1, 0.3, 1] as const;
+const SMOOTH_EASE = [0.22, 1, 0.36, 1] as const;
 
 const inView = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
