@@ -1,6 +1,7 @@
+/* eslint-disable sonarjs/no-unused-vars */
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Github } from './icons';
 import { cn } from '@ideasui/utils';
 
@@ -40,22 +41,22 @@ export function GitHubButton({
   showText = true,
   className,
 }: GitHubButtonProperties) {
-  const [stars, setStars] = useState<number>(starCount);
+  const [stars] = useState<number>(starCount);
 
-  useEffect(() => {
-    fetch(`https://api.github.com/repos/${repo}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (typeof data.stargazers_count === 'number') {
-          setStars(data.stargazers_count);
-        }
+  // useEffect(() => {
+  //   fetch(`https://api.github.com/repos/${repo}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (typeof data.stargazers_count === 'number') {
+  //         setStars(data.stargazers_count);
+  //       }
 
-        return null;
-      })
-      .catch(() => {
-        // Fallback to initial starCount if fetch fails
-      });
-  }, [repo]);
+  //       return null;
+  //     })
+  //     .catch(() => {
+  //       // Fallback to initial starCount if fetch fails
+  //     });
+  // }, [repo]);
 
   const isButton = variant === 'button';
 

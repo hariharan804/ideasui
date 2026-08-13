@@ -48,7 +48,7 @@ export function CtaSection() {
           <div className="relative z-10">
             {/* Top Pill */}
             <div className="mb-5 inline-flex sm:mb-6">
-              <span className="border-primary-subtle bg-primary-subtle text-primary inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1 text-xs font-semibold tracking-wide sm:px-4">
+              <span className="border-primary-subtle bg-primary-subtle text-on-primary-subtle inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1 text-xs font-semibold tracking-wide sm:px-4">
                 <Sparkles className="size-3.5" /> Start Building Today
               </span>
             </div>

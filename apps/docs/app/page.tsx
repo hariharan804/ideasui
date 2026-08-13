@@ -1,5 +1,3 @@
-'use client';
-
 import { ArrowRight, Check, Rocket } from 'lucide-react';
 import Link from 'next/link';
 import { GitHubButton } from '@/components/docs-ui/github-button';
@@ -53,19 +51,19 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* 3. Headline — Slide up, 100ms delay */}
-          <h1 className="animate-slide-up text-content-primary xs:text-4xl text-3xl leading-[1.1] font-extrabold tracking-tight opacity-0 [animation-delay:100ms] sm:text-5xl sm:leading-[1.08] md:text-6xl lg:text-7xl">
+          {/* 3. Headline — Instant SSR paint for zero LCP render delay */}
+          <h1 className="text-content-primary xs:text-4xl text-3xl leading-[1.1] font-extrabold tracking-tight sm:text-5xl sm:leading-[1.08] md:text-6xl lg:text-7xl">
             Build Faster. Design Smarter.{' '}
             <span className="perceptual-gradient-text">With IdeasUI.</span>
           </h1>
 
-          {/* 4. Subtext — Slide up, 200ms delay */}
-          <p className="animate-slide-up text-content-secondary mx-auto mt-4 max-w-2xl px-2 text-sm leading-relaxed opacity-0 [animation-delay:200ms] sm:mt-6 sm:text-base md:text-lg">
+          {/* 4. Subtext */}
+          <p className="text-content-secondary mx-auto mt-4 max-w-2xl px-2 text-sm leading-relaxed sm:mt-6 sm:text-base md:text-lg">
             Beautiful, accessible React components built with Tailwind CSS v4 and TypeScript.
           </p>
 
-          {/* 5. CTA Buttons — Fade in, 300ms delay */}
-          <div className="animate-fade-in mt-6 flex flex-row flex-wrap items-center justify-center gap-3.5 opacity-0 [animation-delay:300ms] sm:mt-8 sm:gap-4.5">
+          {/* 5. CTA Buttons */}
+          <div className="mt-6 flex flex-row flex-wrap items-center justify-center gap-3.5 sm:mt-8 sm:gap-4.5">
             <Link
               className="group bg-primary text-on-primary shadow-primary/25 hover:bg-primary/90 hover:shadow-primary/40 inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl px-5.5 py-3 text-sm font-semibold whitespace-nowrap shadow-lg transition-all duration-150 active:scale-95 sm:min-h-[50px] sm:gap-2.5 sm:px-7.5 sm:py-3.5 sm:text-base"
               href="/react/docs/start"
@@ -75,7 +73,7 @@ export default function HomePage() {
             </Link>
 
             <Link
-              className="group border-primary-subtle bg-primary-subtle/50 text-primary hover:bg-primary-subtle inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl border px-5.5 py-3 text-sm font-semibold whitespace-nowrap backdrop-blur-md transition-all duration-150 active:scale-95 sm:min-h-[50px] sm:gap-2.5 sm:px-7.5 sm:py-3.5 sm:text-base"
+              className="group border-primary-subtle bg-primary-subtle/50 text-on-primary-subtle hover:bg-primary-subtle inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl border px-5.5 py-3 text-sm font-semibold whitespace-nowrap backdrop-blur-md transition-all duration-150 active:scale-95 sm:min-h-[50px] sm:gap-2.5 sm:px-7.5 sm:py-3.5 sm:text-base"
               href="/react/docs/components"
             >
               Browse Components
@@ -83,13 +81,13 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* 6. GitHub Badge (350ms delay) */}
-          <div className="animate-fade-in mt-6 opacity-0 [animation-delay:350ms] sm:mt-8">
+          {/* 6. GitHub Badge */}
+          <div className="mt-6 sm:mt-8">
             <GitHubButton variant="badge" />
           </div>
 
-          {/* 7. Trust Indicators (400ms delay) */}
-          <div className="animate-fade-in text-content-tertiary mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2.5 px-2 text-xs font-semibold opacity-0 [animation-delay:400ms] sm:mt-9 sm:gap-x-6">
+          {/* 7. Trust Indicators */}
+          <div className="text-content-tertiary mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2.5 px-2 text-xs font-semibold sm:mt-9 sm:gap-x-6">
             {[
               'React 19',
               'Next.js 16',
@@ -104,13 +102,13 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* 8. Install Command Snippet (450ms delay) */}
-          <div className="animate-fade-in opacity-0 [animation-delay:450ms]">
+          {/* 8. Install Command Snippet */}
+          <div>
             <InstallSnippet />
           </div>
 
-          {/* 9. Interactive Hero Workbench (500ms delay) */}
-          <div className="animate-fade-in opacity-0 [animation-delay:500ms]">
+          {/* 9. Interactive Hero Workbench */}
+          <div>
             <HeroPlayground />
           </div>
         </div>
