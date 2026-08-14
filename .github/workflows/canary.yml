@@ -2,7 +2,7 @@ name: Canary Release
 
 on:
   pull_request:
-    types: [closed, labeled]
+    types: [closed]
     branches: [master]
   workflow_dispatch:
     inputs:
@@ -13,12 +13,8 @@ on:
 
 jobs:
   canary:
-    # Run on:
-    # 1. PR tagged with 'canary' label
-    # 2. Merged PRs tagged with 'canary' label
-    # 3. Manual workflow dispatch
+    # Run ONLY on merged PRs tagged with 'canary' label OR manual workflow dispatch
     if: |
-      (github.event_name == 'pull_request' && github.event.action == 'labeled' && github.event.label.name == 'canary') ||
       (github.event_name == 'pull_request' && github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'canary')) ||
       github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
@@ -58,8 +54,8 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Comment on PR
-        if: github.event_name == 'pull_request'
+      - name: Comment on merged PR
+        if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
         uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           script: |
