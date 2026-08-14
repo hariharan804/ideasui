@@ -18,7 +18,7 @@ import {
   blur,
   backdrop,
   border,
-  borderColor,
+  dividerColors,
   opacity,
   zIndex,
 } from '../src/tokens';
@@ -222,7 +222,7 @@ export const Borders: Story = {
               />
             )}
             title="Border Colors"
-            tokens={borderColor}
+            tokens={dividerColors}
           />
         </div>
       </div>

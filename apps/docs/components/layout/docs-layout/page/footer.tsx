@@ -49,7 +49,7 @@ export function PageFooter({ items, ...properties }: Readonly<FooterProperties>)
         <span className="text-content-tertiary text-[10px] font-semibold tracking-widest uppercase">
           Continue reading
         </span>
-        <div className="border-border-base/40 h-px flex-1 border-t" />
+        <div className="border-divider-base/40 h-px flex-1 border-t" />
       </div>
 
       {/* Cards */}

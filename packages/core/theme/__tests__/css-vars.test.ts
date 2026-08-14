@@ -140,13 +140,13 @@ describe('generateCSSVarsFromTokenOverrides', () => {
     expect(result['--ui-animation-spin']).toBe('spin 1s linear infinite');
   });
 
-  it('generates --prefix-border-{key} for borderColor tokens', () => {
+  it('generates --prefix-divider-{key} for dividerColors tokens', () => {
     const result = generateCSVariablesFromTokenOverrides(
-      { borderColor: { primary: '#3b82f6' } },
+      { dividerColors: { primary: '#3b82f6' } },
       'ui',
     );
 
-    expect(result['--ui-border-primary']).toBe('#3b82f6');
+    expect(result['--ui-divider-primary']).toBe('#3b82f6');
   });
 
   // ── Components ─────────────────────────────────────────────────────────────

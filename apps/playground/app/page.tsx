@@ -92,7 +92,7 @@ export default function Home(): JSX.Element {
               return (
                 <Link
                   key={item.href}
-                  className="group border-border-subtle hover:border-border-default bg-surface-subtle hover:bg-surface-muted relative flex flex-col justify-between overflow-hidden rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group border-divider-subtle hover:border-divider-default bg-surface-subtle hover:bg-surface-muted relative flex flex-col justify-between overflow-hidden rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                   href={item.href}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -108,7 +108,7 @@ export default function Home(): JSX.Element {
                     >
                       <Icon className="size-6 text-white" />
                     </div>
-                    <div className="border-border-subtle bg-surface-subtle group-hover:bg-content-primary flex size-10 items-center justify-center rounded-full border transition-all duration-300 group-hover:border-transparent">
+                    <div className="border-divider-subtle bg-surface-subtle group-hover:bg-content-primary flex size-10 items-center justify-center rounded-full border transition-all duration-300 group-hover:border-transparent">
                       <ArrowRight className="text-content-muted group-hover:text-surface h-5 w-5 transition-colors duration-300" />
                     </div>
                   </div>
@@ -133,7 +133,7 @@ export default function Home(): JSX.Element {
           </div>
 
           {/* Quick Stats / Highlights */}
-          <div className="border-border-subtle bg-surface-subtle mt-20 overflow-hidden rounded-3xl border p-8 backdrop-blur-sm lg:p-12">
+          <div className="border-divider-subtle bg-surface-subtle mt-20 overflow-hidden rounded-3xl border p-8 backdrop-blur-sm lg:p-12">
             <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
               <div className="flex flex-col items-center justify-center space-y-2 text-center">
                 <div className="mb-1 flex items-center gap-2">

@@ -710,7 +710,7 @@ export default function DesignSystemPage(): JSX.Element {
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {/* Surface Override */}
                 <div className="space-y-3">
-                  <div className="bg-surface-cus text-surface-on-cus border-border-cus flex h-24 w-full flex-col items-center justify-center rounded-xl border-2 font-bold shadow-lg">
+                  <div className="bg-surface-cus text-surface-on-cus border-divider-cus flex h-24 w-full flex-col items-center justify-center rounded-xl border-2 font-bold shadow-lg">
                     <span className="text-sm">bg-surface-cus</span>
                     <span className="text-[10px] underline opacity-80">text-surface-on-cus</span>
                   </div>
@@ -738,12 +738,12 @@ export default function DesignSystemPage(): JSX.Element {
 
                 {/* Border Override */}
                 <div className="space-y-3">
-                  <div className="border-border-cus bg-surface-muted flex h-24 w-full items-center justify-center rounded-xl border-4 border-double">
+                  <div className="border-divider-cus bg-surface-muted flex h-24 w-full items-center justify-center rounded-xl border-4 border-double">
                     <span className="text-content-tertiary text-[10px] font-semibold uppercase">
-                      border-border-cus
+                      border-divider-cus
                     </span>
                   </div>
-                  <div className="flex flex-wrap gap-2">{chip('border-border-cus')}</div>
+                  <div className="flex flex-wrap gap-2">{chip('border-divider-cus')}</div>
                 </div>
               </div>
             </div>

@@ -10,6 +10,7 @@ import type {
   OpacityProps as OpacityProperties,
   BlurProps as BlurProperties,
   BorderWidthProps as BorderWidthProperties,
+  DividerColorProps as DividerColorProperties,
   SurfaceProps as SurfaceProperties,
   ContentProps as ContentProperties,
   DurationProps as DurationProperties,
@@ -28,8 +29,8 @@ export interface TokenOverrides {
   readonly borderRadius?: ThemeToken<BorderRadiusProperties, string>;
   /** Border width tokens */
   readonly borderWidth?: ThemeToken<BorderWidthProperties, string>;
-  /** Border color tokens */
-  readonly borderColor?: Partial<Record<string, string>>;
+  /** Divider color tokens */
+  readonly dividerColors?: ThemeToken<DividerColorProperties, string>;
   /** Font size tokens (value or [size, { lineHeight }] tuple) */
   readonly fontSize?: ThemeToken<FontSizeProperties, string | [string, { lineHeight: string }]>;
   /** Letter spacing tokens */
