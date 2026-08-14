@@ -27,7 +27,7 @@ import {
   lightShadow,
   surface,
   content,
-  borderColor,
+  dividerColors,
   duration,
   easing,
   keyframes,
@@ -217,7 +217,11 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
         ...flattenThemeObject(primitives.light),
         ...semantic,
         ...surface,
-        ...flattenThemeObject({ content, border: borderColor, ...componentColors }),
+        ...flattenThemeObject({
+          content,
+          divider: dividerColors,
+          ...componentColors,
+        }),
       },
       autoGenerateScales
         ? autoGenerateColorScales(
@@ -237,7 +241,11 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
         ...flattenThemeObject(primitives.dark),
         ...semantic,
         ...surface,
-        ...flattenThemeObject({ content, border: borderColor, ...componentColors }),
+        ...flattenThemeObject({
+          content,
+          divider: dividerColors,
+          ...componentColors,
+        }),
       },
       autoGenerateScales
         ? autoGenerateColorScales(
@@ -342,18 +350,18 @@ export function createThemeExtension(
 
     // ── Layout ──
     borderRadius: { ...borderRadius, ...t.borderRadius },
-    borderColor: {
-      default: colors['border-default'],
-      subtle: colors['border-subtle'],
-      strong: colors['border-strong'],
-      focus: colors['border-focus'],
-      error: colors['border-error'],
-      ...t.borderColor,
+    divider: {
+      DEFAULT: colors['divider'] || colors['divider-base'],
+      base: colors['divider-base'],
+      subtle: colors['divider-subtle'],
+      strong: colors['divider-strong'],
+      focus: colors['divider-focus'],
+      error: colors['divider-error'],
+      ...t.dividerColors,
       ...Object.fromEntries(
-        Object.keys(semanticTokens.border || {}).map((key) => [
-          key,
-          `var(--${_prefix}-border-${key})`,
-        ]),
+        Object.keys(
+          ((semanticTokens as Record<string, unknown>).divider as Record<string, unknown>) || {},
+        ).map((key) => [key, `var(--${_prefix}-divider-${key})`]),
       ),
     },
     borderWidth: {

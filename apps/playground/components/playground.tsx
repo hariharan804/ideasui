@@ -69,7 +69,7 @@ function Playground(): JSX.Element {
             <div className="relative max-w-md flex-1">
               <Search className="text-content-muted absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 transform" />
               <input
-                className="border-border-subtle bg-surface-subtle text-content-primary placeholder:text-content-muted focus:border-primary-500 focus:ring-primary-500/20 w-full rounded-2xl border py-3.5 pr-4 pl-12 text-base shadow-sm transition-all focus:ring-4 focus:outline-none"
+                className="border-divider-subtle bg-surface-subtle text-content-primary placeholder:text-content-muted focus:border-primary-500 focus:ring-primary-500/20 w-full rounded-2xl border py-3.5 pr-4 pl-12 text-base shadow-sm transition-all focus:ring-4 focus:outline-none"
                 placeholder="Search components..."
                 type="text"
                 value={searchQuery}
@@ -80,7 +80,7 @@ function Playground(): JSX.Element {
             <div className="flex items-center gap-4">
               {/* Category Filter */}
               <select
-                className="border-border-subtle bg-surface-subtle text-content-primary focus:border-primary-500 focus:ring-primary-500/20 cursor-pointer rounded-2xl border px-5 py-3.5 text-base shadow-sm transition-all focus:ring-4 focus:outline-none"
+                className="border-divider-subtle bg-surface-subtle text-content-primary focus:border-primary-500 focus:ring-primary-500/20 cursor-pointer rounded-2xl border px-5 py-3.5 text-base shadow-sm transition-all focus:ring-4 focus:outline-none"
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
@@ -93,7 +93,7 @@ function Playground(): JSX.Element {
               </select>
 
               {/* View Mode Toggle */}
-              <div className="border-border-subtle bg-surface-subtle flex items-center rounded-2xl border p-1.5 shadow-sm">
+              <div className="border-divider-subtle bg-surface-subtle flex items-center rounded-2xl border p-1.5 shadow-sm">
                 <button
                   className={`rounded-xl p-2.5 transition-colors ${viewMode === 'grid' ? 'bg-primary-500 text-white shadow-md' : 'text-content-muted hover:bg-surface hover:text-content-primary'}`}
                   title="Grid View"
@@ -116,7 +116,7 @@ function Playground(): JSX.Element {
         {/* Components Grid/List */}
         <main className="container mx-auto px-6 pb-16">
           {filteredComponents.length === 0 ? (
-            <div className="border-border-subtle bg-surface-subtle mt-4 rounded-2xl border py-20 text-center backdrop-blur-sm">
+            <div className="border-divider-subtle bg-surface-subtle mt-4 rounded-2xl border py-20 text-center backdrop-blur-sm">
               <Search className="text-content-muted mx-auto mb-4 h-12 w-12 opacity-50" />
               <h3 className="text-content-primary mb-2 text-xl font-bold tracking-tight">
                 No components found
@@ -136,7 +136,7 @@ function Playground(): JSX.Element {
               {filteredComponents.map((item, index) => (
                 <button
                   key={item.name}
-                  className={`group border-border-default animate-slideIn bg-surface-subtle hover:border-primary-500 hover:bg-surface-muted hover:shadow-primary-500/20 cursor-pointer overflow-hidden rounded-2xl border p-6 shadow-md backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-8 ${
+                  className={`group border-divider-default animate-slideIn bg-surface-subtle hover:border-primary-500 hover:bg-surface-muted hover:shadow-primary-500/20 cursor-pointer overflow-hidden rounded-2xl border p-6 shadow-md backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-8 ${
                     viewMode === 'list' ? 'flex items-center gap-6' : 'flex h-full flex-col'
                   }`}
                   style={{ animationDelay: `${index * 50}ms` }}
@@ -164,7 +164,7 @@ function Playground(): JSX.Element {
                       ) : null}
                     </div>
 
-                    <div className="border-border-subtle bg-surface text-content-primary group-hover:bg-primary-500 flex items-center gap-2 self-start rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300 group-hover:border-transparent group-hover:text-white group-hover:shadow-md">
+                    <div className="border-divider-subtle bg-surface text-content-primary group-hover:bg-primary-500 flex items-center gap-2 self-start rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300 group-hover:border-transparent group-hover:text-white group-hover:shadow-md">
                       <span>View Component</span>
                       <span className="transition-transform duration-300 group-hover:translate-x-1">
                         →

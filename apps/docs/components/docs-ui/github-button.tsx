@@ -1,6 +1,7 @@
+/* eslint-disable sonarjs/no-unused-vars */
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Github } from './icons';
 import { cn } from '@ideasui/utils';
 
@@ -28,7 +29,7 @@ const VARIANT_STYLES: Record<GitHubButtonVariant, string> = {
   button:
     'h-11 sm:h-12 rounded-xl px-5 sm:px-6 text-sm font-semibold bg-surface/90 hover:bg-surface border border-surface-strong shadow-xs hover:shadow-md text-content-primary',
   outline:
-    'h-8 rounded-full px-2.5 sm:px-3.5 text-xs font-medium border border-border bg-transparent hover:bg-surface-muted text-content-secondary hover:text-content-primary',
+    'h-8 rounded-full px-2.5 sm:px-3.5 text-xs font-medium border border-divider bg-transparent hover:bg-surface-muted text-content-secondary hover:text-content-primary',
   ghost:
     'h-8 rounded-full px-2.5 sm:px-3.5 text-xs font-medium bg-pure text-content-tertiary hover:text-content-primary',
 };
@@ -40,22 +41,22 @@ export function GitHubButton({
   showText = true,
   className,
 }: GitHubButtonProperties) {
-  const [stars, setStars] = useState<number>(starCount);
+  const [stars] = useState<number>(starCount);
 
-  useEffect(() => {
-    fetch(`https://api.github.com/repos/${repo}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (typeof data.stargazers_count === 'number') {
-          setStars(data.stargazers_count);
-        }
+  // useEffect(() => {
+  //   fetch(`https://api.github.com/repos/${repo}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (typeof data.stargazers_count === 'number') {
+  //         setStars(data.stargazers_count);
+  //       }
 
-        return null;
-      })
-      .catch(() => {
-        // Fallback to initial starCount if fetch fails
-      });
-  }, [repo]);
+  //       return null;
+  //     })
+  //     .catch(() => {
+  //       // Fallback to initial starCount if fetch fails
+  //     });
+  // }, [repo]);
 
   const isButton = variant === 'button';
 

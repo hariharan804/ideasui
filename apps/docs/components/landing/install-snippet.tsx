@@ -38,7 +38,7 @@ export function InstallSnippet() {
               'relative z-10 rounded-lg px-2.5 py-1 font-mono text-xs transition-colors duration-200 sm:px-3',
               pkg === p
                 ? 'text-primary-600 dark:text-primary-300 font-semibold'
-                : 'text-content-muted hover:text-content-secondary',
+                : 'text-content-tertiary hover:text-content-primary',
             )}
             type="button"
             onClick={() => setPkg(p)}
@@ -67,7 +67,7 @@ export function InstallSnippet() {
         </div>
         <button
           aria-label="Copy installation command"
-          className="text-content-muted hover:text-content-primary hover:bg-surface-muted relative flex shrink-0 items-center justify-center rounded-lg p-1.5 transition-colors duration-150 active:scale-95"
+          className="text-content-secondary hover:text-content-primary hover:bg-surface-muted relative flex shrink-0 items-center justify-center rounded-lg p-1.5 transition-colors duration-150 active:scale-95"
           type="button"
           onClick={copyCommand}
         >

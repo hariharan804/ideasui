@@ -3,10 +3,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
 
-import { ThemeBridge } from '@/components/ui/theme-bridge';
-
 import './globals.css';
-import { ThemeScript } from '@ideasui/theme';
+import { ThemeProvider, ThemeScript } from '@ideasui/theme';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -73,8 +71,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         />
       </head>
       <body>
-        <RootProvider search={{ SearchDialog: CustomSearchDialog }}>
-          <ThemeBridge>{children}</ThemeBridge>
+        <RootProvider search={{ SearchDialog: CustomSearchDialog }} theme={{ enabled: false }}>
+          <ThemeProvider defaultTheme="light">{children}</ThemeProvider>
         </RootProvider>
       </body>
     </html>

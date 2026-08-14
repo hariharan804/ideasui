@@ -147,7 +147,7 @@ describe('ideasUIPlugin', () => {
     const baseCall = mockPluginAPI.addBase.mock.calls.find((call: any) => {
       const theme = call[0][":root, .light, [data-theme='light']"];
 
-      return theme && theme['--ideasui-color-border-subtle'] !== undefined;
+      return theme && theme['--ideasui-color-divider-subtle'] !== undefined;
     });
 
     expect(baseCall).toBeDefined();

@@ -1,6 +1,6 @@
 import type { animation } from './animation';
 import type { blur } from './blur';
-import type { border } from './border';
+import type { border, dividerColors } from './border';
 import type { borderRadius } from './border-radius';
 import type { lightShadow } from './box-shadow';
 import type { disabled, scrollbar, interactions, subtleInteractions } from './classes';
@@ -56,6 +56,7 @@ export type ZIndexProps = keyof typeof zIndex;
 export type OpacityProps = keyof typeof opacity;
 export type BlurProps = keyof typeof blur;
 export type BorderWidthProps = keyof typeof border;
+export type DividerColorProps = keyof typeof dividerColors;
 export type SurfaceProps = keyof typeof surface;
 export type OnSurfaceProps = Extract<keyof typeof surface, `on-${string}`>;
 export type ContentProps = keyof typeof content;
@@ -67,7 +68,7 @@ export { darkShadow, lightShadow as boxShadow, lightShadow } from './box-shadow'
 export { transition, duration, easing, keyframes } from './motion';
 export { semantic, primitives, surface, content } from './colors';
 export { backdrop, blur } from './blur';
-export { borderColor, border } from './border';
+export { dividerColors, border } from './border';
 export {
   textStyles,
   fontFamily as font,
