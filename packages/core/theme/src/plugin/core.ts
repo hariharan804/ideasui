@@ -217,7 +217,11 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
         ...flattenThemeObject(primitives.light),
         ...semantic,
         ...surface,
-        ...flattenThemeObject({ content, divider: dividerColors, ...componentColors }),
+        ...flattenThemeObject({
+          content,
+          divider: dividerColors,
+          ...componentColors,
+        }),
       },
       autoGenerateScales
         ? autoGenerateColorScales(
@@ -237,7 +241,11 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
         ...flattenThemeObject(primitives.dark),
         ...semantic,
         ...surface,
-        ...flattenThemeObject({ content, divider: dividerColors, ...componentColors }),
+        ...flattenThemeObject({
+          content,
+          divider: dividerColors,
+          ...componentColors,
+        }),
       },
       autoGenerateScales
         ? autoGenerateColorScales(

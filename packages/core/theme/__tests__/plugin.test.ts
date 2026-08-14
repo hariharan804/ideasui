@@ -119,7 +119,7 @@ describe('ideasUIPlugin — default design token CSS variables', () => {
     expect(lightVariables['--ideasui-color-surface']).toBeDefined();
     expect(lightVariables['--ideasui-color-on-surface']).toBeDefined();
     expect(lightVariables['--ideasui-color-content-primary']).toBeDefined();
-    expect(lightVariables['--ideasui-color-border-base']).toBeDefined();
+    expect(lightVariables['--ideasui-color-divider-base']).toBeDefined();
   });
 
   it('emits dark-mode shadow overrides on dark selector', () => {
@@ -561,6 +561,6 @@ describe('ideasUIPlugin — Tailwind color references', () => {
     expect(colors['surface']).toMatch(/--ideasui-color-surface/);
     expect(colors['on-surface']).toMatch(/--ideasui-color-on-surface/);
     expect(colors['content-primary']).toMatch(/--ideasui-color-content-primary/);
-    expect(colors['border-base']).toMatch(/--ideasui-color-border-base/);
+    expect(colors['divider-base']).toMatch(/--ideasui-color-divider-base/);
   });
 });

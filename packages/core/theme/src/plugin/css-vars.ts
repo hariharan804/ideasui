@@ -245,6 +245,10 @@ const tokenConfigs: TokenCategoryConfig[] = [
     getName: (key, prefix) => `--${prefix}-animation-${key}`,
   },
   {
+    key: 'dividerColors',
+    getName: (key, prefix) => `--${prefix}-divider-${key}`,
+  },
+  {
     key: 'divider',
     getName: (key, prefix) => `--${prefix}-divider-${key}`,
   },
