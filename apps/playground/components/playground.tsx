@@ -136,7 +136,7 @@ function Playground(): JSX.Element {
               {filteredComponents.map((item, index) => (
                 <button
                   key={item.name}
-                  className={`group border-divider-default animate-slideIn bg-surface-subtle hover:border-primary-500 hover:bg-surface-muted hover:shadow-primary-500/20 cursor-pointer overflow-hidden rounded-2xl border p-6 shadow-md backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-8 ${
+                  className={`group border-divider animate-slideIn bg-surface-subtle hover:border-primary-500 hover:bg-surface-muted hover:shadow-primary-500/20 cursor-pointer overflow-hidden rounded-2xl border p-6 shadow-md backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-8 ${
                     viewMode === 'list' ? 'flex items-center gap-6' : 'flex h-full flex-col'
                   }`}
                   style={{ animationDelay: `${index * 50}ms` }}

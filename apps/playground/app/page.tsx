@@ -92,7 +92,7 @@ export default function Home(): JSX.Element {
               return (
                 <Link
                   key={item.href}
-                  className="group border-divider-subtle hover:border-divider-default bg-surface-subtle hover:bg-surface-muted relative flex flex-col justify-between overflow-hidden rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group border-divider-subtle hover:border-divider bg-surface-subtle hover:bg-surface-muted relative flex flex-col justify-between overflow-hidden rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                   href={item.href}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
