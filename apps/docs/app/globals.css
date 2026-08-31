@@ -122,11 +122,11 @@ html {
   --color-fd-card-foreground: oklch(var(--ideasui-color-content-primary));
 
   /* Borders */
-  --fd-border: var(--ideasui-color-border-subtle);
-  --color-fd-border: oklch(var(--ideasui-color-border-subtle));
+  --fd-border: var(--ideasui-color-divider-subtle);
+  --color-fd-border: oklch(var(--ideasui-color-divider-subtle));
 
-  --fd-ring: var(--ideasui-color-border-primary);
-  --color-fd-ring: oklch(var(--ideasui-color-border-primary));
+  --fd-ring: var(--ideasui-color-divider-strong);
+  --color-fd-ring: oklch(var(--ideasui-color-divider-strong));
 
   /* Semantics */
   --fd-primary: var(--ideasui-color-primary);
@@ -367,7 +367,7 @@ html.dark .perceptual-gradient-text {
 
 /* Sidebar & Scroll Area Surface Background */
 #nd-sidebar {
-  border-right: 1px solid oklch(var(--ideasui-color-border-subtle) / 0.2) !important;
+  border-right: 1px solid oklch(var(--ideasui-color-divider-subtle) / 0.2) !important;
 }
 
 [data-radix-scroll-area-viewport] {
@@ -378,7 +378,7 @@ html.dark .perceptual-gradient-text {
 .sidebar-tabs-dropdown {
   background-color: oklch(var(--ideasui-color-surface-muted) / 0.8) !important;
   color: oklch(var(--ideasui-color-content-primary)) !important;
-  border: 1px solid oklch(var(--ideasui-color-border-subtle) / 0.3) !important;
+  border: 1px solid oklch(var(--ideasui-color-divider-subtle) / 0.3) !important;
   box-shadow: var(--shadow-sm) !important;
   transition: all 0.2s ease-in-out !important;
 }
@@ -386,7 +386,7 @@ html.dark .perceptual-gradient-text {
 .sidebar-tabs-dropdown:hover {
   background-color: oklch(var(--ideasui-color-surface-muted)) !important;
   color: oklch(var(--ideasui-color-primary)) !important;
-  border-color: oklch(var(--ideasui-color-border-primary) / 0.4) !important;
+  border-color: oklch(var(--ideasui-color-divider-primary) / 0.4) !important;
 }
 
 .sidebar-tabs-dropdown svg {
@@ -439,11 +439,11 @@ article {
 }
 
 .bg-fd-border {
-  background-color: oklch(var(--ideasui-color-border-muted)) !important;
+  background-color: oklch(var(--ideasui-color-divider-muted)) !important;
 }
 
 .border-fd-border {
-  border-color: oklch(var(--ideasui-color-border-subtle)) !important;
+  border-color: oklch(var(--ideasui-color-divider-subtle)) !important;
 }
 
 .bg-fd-accent {
@@ -583,7 +583,7 @@ html.dark .ideasui-search-dialog {
 
 /* ── Tree Guide Line — thin, subtle ── */
 .ideasui-search-dialog button [role='none'] {
-  background-color: oklch(var(--ideasui-color-border-subtle) / 0.5) !important;
+  background-color: oklch(var(--ideasui-color-divider-subtle) / 0.5) !important;
   width: 1.5px !important;
   border-radius: 2px !important;
 }
@@ -706,23 +706,23 @@ html.dark .ideasui-search-dialog {
 
 /* ── Thin Divider Line ── */
 .ideasui-search-divider {
-  background: oklch(var(--ideasui-color-border-subtle) / 0.2) !important;
+  background: oklch(var(--ideasui-color-divider-subtle) / 0.2) !important;
   height: 1px !important;
 }
 
 html.dark .ideasui-search-divider {
-  background: oklch(var(--ideasui-color-border-subtle) / 0.15) !important;
+  background: oklch(var(--ideasui-color-divider-subtle) / 0.15) !important;
 }
 
 /* ── Footer ── */
 .ideasui-search-footer {
   background: oklch(var(--ideasui-color-surface-muted) / 0.4) !important;
-  border-top: 1px solid oklch(var(--ideasui-color-border-subtle) / 0.15) !important;
+  border-top: 1px solid oklch(var(--ideasui-color-divider-subtle) / 0.15) !important;
 }
 
 html.dark .ideasui-search-footer {
   background: oklch(var(--ideasui-color-surface-muted) / 0.25) !important;
-  border-top-color: oklch(var(--ideasui-color-border-subtle) / 0.1) !important;
+  border-top-color: oklch(var(--ideasui-color-divider-subtle) / 0.1) !important;
 }
 
 /* ── KBD Pill Badges ── */

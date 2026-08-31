@@ -110,11 +110,23 @@ export const flattenThemeObject = <TTarget>(
   object: TTarget,
   maxDepth?: number,
 ): Record<string, unknown> => {
-  return flatten(object, {
+  const flattened = flatten(object, {
     safe: true,
     delimiter: '-',
     maxDepth,
   }) as Record<string, unknown>;
+
+  const result: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(flattened)) {
+    if (key.endsWith('-DEFAULT') || key.endsWith('-default')) {
+      result[key.slice(0, -8)] = value;
+    } else {
+      result[key] = value;
+    }
+  }
+
+  return result;
 };
 
 // ─────────────────────────────────────────────────────────────
