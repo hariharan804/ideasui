@@ -52,3 +52,21 @@ You MUST follow these rules during development. Refer to `/rules` for full detai
 - Tailwind CSS v4 using tokens from `@ideasui/theme`.
 - Use recipes from `@ideasui/theme/recipes` via `tv()`.
 - [tailwind-theme.md](../../rules/tailwind-theme.md)
+
+## 🎨 Design System & Theme Tokens
+
+- **NEVER** hardcode raw Tailwind palette colors (e.g. `gray-50`, `blue-600`, `red-500`, `indigo-*`).
+- **NEVER** use the `dark:` modifier prefix — semantic tokens resolve automatically.
+- Use ONLY IdeasUI semantic tokens:
+
+| Category    | Allowed Classes                                                                                |
+| ----------- | ---------------------------------------------------------------------------------------------- |
+| Brand       | `bg-primary`, `text-primary`, `bg-primary-subtle`, `text-on-primary`, `bg-primary-muted`       |
+| Secondary   | `bg-secondary`, `text-secondary`, `bg-secondary-subtle`, `text-on-secondary`                   |
+| Tertiary    | `bg-tertiary`, `text-tertiary`, `bg-tertiary-subtle`, `text-on-tertiary`                       |
+| Status      | `bg-success`, `bg-warning`, `bg-error`, `bg-info`, `text-on-success`, etc.                     |
+| Backgrounds | `bg-background`, `bg-surface`, `bg-surface-subtle`, `bg-surface-muted`, `bg-surface-modal`     |
+| Typography  | `text-content-primary`, `text-content-secondary`, `text-content-muted`, `text-content-inverse` |
+| Borders     | `border-divider`, `border-divider-subtle`, `border-divider-focus`, `border-divider-error`      |
+
+- [design-tokens.md](../../rules/design-tokens.md)
