@@ -77,7 +77,7 @@ describe('@ideasui/styles compilation outputs', () => {
     expect(css).not.toContain('box-sizing:border-box');
 
     // Should include Tailwind theme mappings and utility classes
-    expect(css).toContain('--color-primary');
+    expect(css).toContain('ideasui-color-primary');
     expect(css).toContain('.flex');
   });
 

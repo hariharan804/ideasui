@@ -135,158 +135,158 @@
 
 /* Outline */
 .btn.btn--outline.btn--primary {
-  @apply border-primary text-primary hover:bg-primary-subtle;
+  @apply border-primary text-primary hover:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
 .btn.btn--outline.btn--secondary {
-  @apply border-secondary text-secondary hover:bg-secondary-subtle;
+  @apply border-secondary text-secondary hover:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
 .btn.btn--outline.btn--tertiary {
-  @apply border-tertiary text-tertiary hover:bg-tertiary-subtle;
+  @apply border-tertiary text-tertiary hover:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
 .btn.btn--outline.btn--success {
-  @apply border-success text-success hover:bg-success-subtle;
+  @apply border-success text-success hover:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
 .btn.btn--outline.btn--warning {
-  @apply border-warning text-warning hover:bg-warning-subtle;
+  @apply border-warning text-warning hover:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
 .btn.btn--outline.btn--danger {
-  @apply border-danger text-danger hover:bg-danger-subtle;
+  @apply border-danger text-danger hover:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
 .btn.btn--outline.btn--info {
-  @apply border-info text-info hover:bg-info-subtle;
+  @apply border-info text-info hover:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
 .btn.btn--outline.btn--neutral {
-  @apply border-neutral text-neutral hover:bg-neutral-subtle;
+  @apply border-neutral text-neutral hover:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Ghost */
 .btn.btn--ghost.btn--primary {
-  @apply text-primary hover:bg-primary-subtle;
+  @apply text-primary hover:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
 .btn.btn--ghost.btn--secondary {
-  @apply text-secondary hover:bg-secondary-subtle;
+  @apply text-secondary hover:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
 .btn.btn--ghost.btn--tertiary {
-  @apply text-tertiary hover:bg-tertiary-subtle;
+  @apply text-tertiary hover:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
 .btn.btn--ghost.btn--success {
-  @apply text-success hover:bg-success-subtle;
+  @apply text-success hover:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
 .btn.btn--ghost.btn--warning {
-  @apply text-warning hover:bg-warning-subtle;
+  @apply text-warning hover:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
 .btn.btn--ghost.btn--danger {
-  @apply text-danger hover:bg-danger-subtle;
+  @apply text-danger hover:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
 .btn.btn--ghost.btn--info {
-  @apply text-info hover:bg-info-subtle;
+  @apply text-info hover:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
 .btn.btn--ghost.btn--neutral {
-  @apply text-neutral hover:bg-neutral-subtle;
+  @apply text-neutral hover:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Soft */
 .btn.btn--soft.btn--primary {
-  @apply bg-primary-muted text-on-primary-muted hover:bg-primary-subtle active:bg-primary-subtle;
+  @apply bg-primary-muted text-on-primary-muted hover:bg-primary-subtle active:bg-primary-subtle data-[pressed=true]:bg-primary-subtle;
 }
 .btn.btn--soft.btn--secondary {
-  @apply bg-secondary-muted text-on-secondary-muted hover:bg-secondary-subtle active:bg-secondary-subtle;
+  @apply bg-secondary-muted text-on-secondary-muted hover:bg-secondary-subtle active:bg-secondary-subtle data-[pressed=true]:bg-secondary-subtle;
 }
 .btn.btn--soft.btn--tertiary {
-  @apply bg-tertiary-muted text-on-tertiary-muted hover:bg-tertiary-subtle active:bg-tertiary-subtle;
+  @apply bg-tertiary-muted text-on-tertiary-muted hover:bg-tertiary-subtle active:bg-tertiary-subtle data-[pressed=true]:bg-tertiary-subtle;
 }
 .btn.btn--soft.btn--success {
-  @apply bg-success-muted text-on-success-muted hover:bg-success-subtle active:bg-success-subtle;
+  @apply bg-success-muted text-on-success-muted hover:bg-success-subtle active:bg-success-subtle data-[pressed=true]:bg-success-subtle;
 }
 .btn.btn--soft.btn--warning {
-  @apply bg-warning-muted text-on-warning-muted hover:bg-warning-subtle active:bg-warning-subtle;
+  @apply bg-warning-muted text-on-warning-muted hover:bg-warning-subtle active:bg-warning-subtle data-[pressed=true]:bg-warning-subtle;
 }
 .btn.btn--soft.btn--danger {
-  @apply bg-danger-muted text-on-danger-muted hover:bg-danger-subtle active:bg-danger-subtle;
+  @apply bg-danger-muted text-on-danger-muted hover:bg-danger-subtle active:bg-danger-subtle data-[pressed=true]:bg-danger-subtle;
 }
 .btn.btn--soft.btn--info {
-  @apply bg-info-muted text-on-info-muted hover:bg-info-subtle active:bg-info-subtle;
+  @apply bg-info-muted text-on-info-muted hover:bg-info-subtle active:bg-info-subtle data-[pressed=true]:bg-info-subtle;
 }
 .btn.btn--soft.btn--neutral {
-  @apply bg-neutral-muted text-on-neutral-muted hover:bg-neutral-subtle active:bg-neutral-subtle;
+  @apply bg-neutral-muted text-on-neutral-muted hover:bg-neutral-subtle active:bg-neutral-subtle data-[pressed=true]:bg-neutral-subtle;
 }
 
 /* Surface */
 .btn.btn--surface.btn--primary {
-  @apply text-primary hover:bg-primary-subtle active:bg-primary-subtle;
+  @apply text-primary hover:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
 .btn.btn--surface.btn--secondary {
-  @apply text-secondary hover:bg-secondary-subtle active:bg-secondary-subtle;
+  @apply text-secondary hover:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
 .btn.btn--surface.btn--tertiary {
-  @apply text-tertiary hover:bg-tertiary-subtle active:bg-tertiary-subtle;
+  @apply text-tertiary hover:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
 .btn.btn--surface.btn--success {
-  @apply text-success hover:bg-success-subtle active:bg-success-subtle;
+  @apply text-success hover:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
 .btn.btn--surface.btn--warning {
-  @apply text-warning hover:bg-warning-subtle active:bg-warning-subtle;
+  @apply text-warning hover:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
 .btn.btn--surface.btn--danger {
-  @apply text-danger hover:bg-danger-subtle active:bg-danger-subtle;
+  @apply text-danger hover:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
 .btn.btn--surface.btn--info {
-  @apply text-info hover:bg-info-subtle active:bg-info-subtle;
+  @apply text-info hover:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
 .btn.btn--surface.btn--neutral {
-  @apply text-neutral hover:bg-neutral-subtle active:bg-neutral-subtle;
+  @apply text-neutral hover:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Link */
 .btn.btn--link.btn--primary {
-  @apply text-primary hover:opacity-80;
+  @apply text-primary hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--secondary {
-  @apply text-secondary hover:opacity-80;
+  @apply text-secondary hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--tertiary {
-  @apply text-tertiary hover:opacity-80;
+  @apply text-tertiary hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--success {
-  @apply text-success hover:opacity-80;
+  @apply text-success hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--warning {
-  @apply text-warning hover:opacity-80;
+  @apply text-warning hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--danger {
-  @apply text-danger hover:opacity-80;
+  @apply text-danger hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--info {
-  @apply text-info hover:opacity-80;
+  @apply text-info hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--neutral {
-  @apply text-neutral hover:opacity-80;
+  @apply text-neutral hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
 }
 
 /* Text */
 .btn.btn--text.btn--primary {
-  @apply text-primary hover:bg-primary-subtle;
+  @apply text-primary hover:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
 .btn.btn--text.btn--secondary {
-  @apply text-secondary hover:bg-secondary-subtle;
+  @apply text-secondary hover:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
 .btn.btn--text.btn--tertiary {
-  @apply text-tertiary hover:bg-tertiary-subtle;
+  @apply text-tertiary hover:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
 .btn.btn--text.btn--success {
-  @apply text-success hover:bg-success-subtle;
+  @apply text-success hover:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
 .btn.btn--text.btn--warning {
-  @apply text-warning hover:bg-warning-subtle;
+  @apply text-warning hover:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
 .btn.btn--text.btn--danger {
-  @apply text-danger hover:bg-danger-subtle;
+  @apply text-danger hover:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
 .btn.btn--text.btn--info {
-  @apply text-info hover:bg-info-subtle;
+  @apply text-info hover:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
 .btn.btn--text.btn--neutral {
-  @apply text-neutral hover:bg-neutral-subtle;
+  @apply text-neutral hover:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Elevated */
@@ -313,28 +313,28 @@
 }
 
 .btn.btn--elevated.btn--primary {
-  @apply text-primary border-primary/10 hover:bg-primary-subtle;
+  @apply text-primary border-primary/10 hover:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
 .btn.btn--elevated.btn--secondary {
-  @apply text-secondary border-secondary/10 hover:bg-secondary-subtle;
+  @apply text-secondary border-secondary/10 hover:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
 .btn.btn--elevated.btn--tertiary {
-  @apply text-tertiary border-tertiary/10 hover:bg-tertiary-subtle;
+  @apply text-tertiary border-tertiary/10 hover:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
 .btn.btn--elevated.btn--success {
-  @apply text-success border-success/10 hover:bg-success-subtle;
+  @apply text-success border-success/10 hover:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
 .btn.btn--elevated.btn--warning {
-  @apply text-warning border-warning/10 hover:bg-warning-subtle;
+  @apply text-warning border-warning/10 hover:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
 .btn.btn--elevated.btn--danger {
-  @apply text-danger border-danger/10 hover:bg-danger-subtle;
+  @apply text-danger border-danger/10 hover:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
 .btn.btn--elevated.btn--info {
-  @apply text-info border-info/10 hover:bg-info-subtle;
+  @apply text-info border-info/10 hover:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
 .btn.btn--elevated.btn--neutral {
-  @apply text-neutral border-neutral/10 hover:bg-neutral-subtle;
+  @apply text-neutral border-neutral/10 hover:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Icon Only */
@@ -373,8 +373,40 @@
 
 /* ── Group / Attached ─────────────────────────────────────────────────────── */
 .btn.btn--attached {
-  @apply active:scale-100;
+  @apply relative hover:z-10 focus-visible:z-20 active:scale-100 data-[pressed=true]:z-10;
 }
-.btn.btn--vertical {
-  @apply flex-col;
+
+/* Horizontal Attached Buttons */
+.btn.btn--attached:not(.btn--vertical) {
+  @apply -ms-px first:ms-0;
+  @apply first:rounded-e-none last:rounded-s-none [&:not(:first-child):not(:last-child)]:rounded-none;
+}
+
+/* Vertical Attached Buttons */
+.btn.btn--attached.btn--vertical {
+  @apply -mt-px first:mt-0;
+  @apply first:rounded-b-none last:rounded-t-none [&:not(:first-child):not(:last-child)]:rounded-none;
+}
+
+/* Divider - Full */
+.btn.btn--attached.btn--divider-full:not(.btn--outline):not(:first-child):not(.btn--vertical) {
+  @apply border-s-border-subtle border-s hover:border-s-transparent active:border-s-transparent data-[pressed=true]:border-s-transparent;
+}
+.btn.btn--attached.btn--divider-full:not(.btn--outline).btn--vertical:not(:first-child) {
+  @apply border-t-border-subtle border-t hover:border-t-transparent active:border-t-transparent data-[pressed=true]:border-t-transparent;
+}
+
+/* Divider - Middle */
+.btn.btn--attached.btn--divider-middle:not(:first-child):not(.btn--vertical)::before {
+  content: '';
+  @apply bg-border-subtle pointer-events-none absolute inset-y-2 start-0 w-px transition-opacity duration-150;
+}
+.btn.btn--attached.btn--divider-middle:hover::before,
+.btn.btn--attached.btn--divider-middle:active::before,
+.btn.btn--attached.btn--divider-middle[data-pressed='true']::before {
+  opacity: 0;
+}
+.btn.btn--attached.btn--vertical.btn--divider-middle:not(:first-child)::before {
+  content: '';
+  @apply bg-border-subtle pointer-events-none absolute inset-x-2 top-0 h-px w-auto transition-opacity duration-150;
 }

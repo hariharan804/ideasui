@@ -51,6 +51,9 @@ export const createScript = (cfg: ThemeScriptConfig): string => {
       if(next) el.setAttribute(attr,next);
       else el.removeAttribute(attr);
 
+      if(next===sys.dark) el.classList.add('dark');
+      else el.classList.remove('dark');
+
       // Native browser UI theming
       el.style.colorScheme = (next===sys.dark)?'dark':'light';
     }

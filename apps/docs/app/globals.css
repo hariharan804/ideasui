@@ -15,12 +15,34 @@
 @source '../../../packages/core/theme/src/recipes/**/*.ts';
 @source '../../../packages/components/*/src/**/*.{js,ts,jsx,tsx}';
 
-html.dark {
+html.dark,
+[data-theme='dark'] {
   color-scheme: dark;
 }
 
-html:not(.dark) {
+html:not(.dark):not([data-theme='dark']) {
   color-scheme: light;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   SHIKI DUAL-THEME DYNAMIC COLOR SWITCHING
+   ───────────────────────────────────────────────────────────────────── */
+.dark .shiki code span,
+[data-theme='dark'] .shiki code span,
+html.dark pre code span,
+html[data-theme='dark'] pre code span {
+  color: var(
+    --shiki-dark,
+    var(--shiki-dark-color, oklch(var(--ideasui-color-content-primary)))
+  ) !important;
+}
+
+:root:not(.dark):not([data-theme='dark']) .shiki code span,
+html:not(.dark):not([data-theme='dark']) pre code span {
+  color: var(
+    --shiki-light,
+    var(--shiki-light-color, oklch(var(--ideasui-color-content-primary)))
+  ) !important;
 }
 
 html {
