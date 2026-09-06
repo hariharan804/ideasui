@@ -1,89 +1,106 @@
 /* Tailwind v4 Theme Mappings */
-@theme {
-  /* ── Color Palette & Semantic Colors ── */
-  --color-active-overlay: oklch(
-    var(--ideasui-overlay-color) / var(--ideasui-opacity-active-overlay)
-  );
-  --color-background: oklch(var(--ideasui-color-background));
+@theme inline {
+  /* ── Intent Colors (Primary, Secondary, Tertiary) ── */
+  --color-primary: oklch(var(--ideasui-color-primary));
+  --color-on-primary: oklch(var(--ideasui-color-on-primary));
+  --color-primary-subtle: oklch(var(--ideasui-color-primary-subtle));
+  --color-on-primary-subtle: oklch(var(--ideasui-color-on-primary-subtle));
+  --color-primary-muted: oklch(var(--ideasui-color-primary-muted));
+  --color-on-primary-muted: oklch(var(--ideasui-color-on-primary-muted));
+
+  --color-secondary: oklch(var(--ideasui-color-secondary));
+  --color-on-secondary: oklch(var(--ideasui-color-on-secondary));
+  --color-secondary-subtle: oklch(var(--ideasui-color-secondary-subtle));
+  --color-on-secondary-subtle: oklch(var(--ideasui-color-on-secondary-subtle));
+  --color-secondary-muted: oklch(var(--ideasui-color-secondary-muted));
+  --color-on-secondary-muted: oklch(var(--ideasui-color-on-secondary-muted));
+
+  --color-tertiary: oklch(var(--ideasui-color-tertiary));
+  --color-on-tertiary: oklch(var(--ideasui-color-on-tertiary));
+  --color-tertiary-subtle: oklch(var(--ideasui-color-tertiary-subtle));
+  --color-on-tertiary-subtle: oklch(var(--ideasui-color-on-tertiary-subtle));
+  --color-tertiary-muted: oklch(var(--ideasui-color-tertiary-muted));
+  --color-on-tertiary-muted: oklch(var(--ideasui-color-on-tertiary-muted));
+
+  /* ── Status Colors (Success, Warning, Danger, Info) ── */
+  --color-success: oklch(var(--ideasui-color-success));
+  --color-on-success: oklch(var(--ideasui-color-on-success));
+  --color-success-subtle: oklch(var(--ideasui-color-success-subtle));
+  --color-on-success-subtle: oklch(var(--ideasui-color-on-success-subtle));
+  --color-success-muted: oklch(var(--ideasui-color-success-muted));
+  --color-on-success-muted: oklch(var(--ideasui-color-on-success-muted));
+
+  --color-warning: oklch(var(--ideasui-color-warning));
+  --color-on-warning: oklch(var(--ideasui-color-on-warning));
+  --color-warning-subtle: oklch(var(--ideasui-color-warning-subtle));
+  --color-on-warning-subtle: oklch(var(--ideasui-color-on-warning-subtle));
+  --color-warning-muted: oklch(var(--ideasui-color-warning-muted));
+  --color-on-warning-muted: oklch(var(--ideasui-color-on-warning-muted));
+
+  --color-danger: oklch(var(--ideasui-color-danger));
+  --color-on-danger: oklch(var(--ideasui-color-on-danger));
+  --color-danger-subtle: oklch(var(--ideasui-color-danger-subtle));
+  --color-on-danger-subtle: oklch(var(--ideasui-color-on-danger-subtle));
+  --color-danger-muted: oklch(var(--ideasui-color-danger-muted));
+  --color-on-danger-muted: oklch(var(--ideasui-color-on-danger-muted));
+
+  --color-info: oklch(var(--ideasui-color-info));
+  --color-on-info: oklch(var(--ideasui-color-on-info));
+  --color-info-subtle: oklch(var(--ideasui-color-info-subtle));
+  --color-on-info-subtle: oklch(var(--ideasui-color-on-info-subtle));
+  --color-info-muted: oklch(var(--ideasui-color-info-muted));
+  --color-on-info-muted: oklch(var(--ideasui-color-on-info-muted));
+
+  /* ── Neutral & Common Scale ── */
+  --color-neutral: oklch(var(--ideasui-color-neutral));
+  --color-on-neutral: oklch(var(--ideasui-color-on-neutral));
+  --color-neutral-subtle: oklch(var(--ideasui-color-neutral-subtle));
+  --color-on-neutral-subtle: oklch(var(--ideasui-color-on-neutral-subtle));
+  --color-neutral-muted: oklch(var(--ideasui-color-neutral-muted));
+  --color-on-neutral-muted: oklch(var(--ideasui-color-on-neutral-muted));
   --color-common-black: oklch(var(--ideasui-color-common-black));
   --color-common-white: oklch(var(--ideasui-color-common-white));
-  --color-content-disabled: oklch(var(--ideasui-color-content-disabled));
-  --color-content-inverse: oklch(var(--ideasui-color-content-inverse));
-  --color-content-muted: oklch(var(--ideasui-color-content-muted));
-  --color-content-primary: oklch(var(--ideasui-color-content-primary));
-  --color-content-secondary: oklch(var(--ideasui-color-content-secondary));
-  --color-content-tertiary: oklch(var(--ideasui-color-content-tertiary));
-  --color-danger: oklch(var(--ideasui-color-danger));
-  --color-danger-muted: oklch(var(--ideasui-color-danger-muted));
-  --color-danger-subtle: oklch(var(--ideasui-color-danger-subtle));
-  --color-border: oklch(var(--ideasui-color-border));
-  --color-border-base: oklch(var(--ideasui-color-border-base));
-  --color-border-danger: oklch(var(--ideasui-color-border-danger));
-  --color-border-focus: oklch(var(--ideasui-color-border-focus));
-  --color-border-strong: oklch(var(--ideasui-color-border-strong));
-  --color-border-subtle: oklch(var(--ideasui-color-border-subtle));
-  --color-base: oklch(var(--ideasui-color-border-base));
-  --color-subtle: oklch(var(--ideasui-color-border-subtle));
-  --color-strong: oklch(var(--ideasui-color-border-strong));
-  --color-hover-overlay: oklch(var(--ideasui-overlay-color) / var(--ideasui-opacity-hover-overlay));
-  --color-info: oklch(var(--ideasui-color-info));
-  --color-info-muted: oklch(var(--ideasui-color-info-muted));
-  --color-info-subtle: oklch(var(--ideasui-color-info-subtle));
-  --color-neutral: oklch(var(--ideasui-color-neutral));
-  --color-neutral-muted: oklch(var(--ideasui-color-neutral-muted));
-  --color-neutral-subtle: oklch(var(--ideasui-color-neutral-subtle));
+
+  /* ── Background & Surface ── */
+  --color-background: oklch(var(--ideasui-color-background));
   --color-on-background: oklch(var(--ideasui-color-on-background));
-  --color-on-danger: oklch(var(--ideasui-color-on-danger));
-  --color-on-danger-muted: oklch(var(--ideasui-color-on-danger-muted));
-  --color-on-danger-subtle: oklch(var(--ideasui-color-on-danger-subtle));
-  --color-on-info: oklch(var(--ideasui-color-on-info));
-  --color-on-info-muted: oklch(var(--ideasui-color-on-info-muted));
-  --color-on-info-subtle: oklch(var(--ideasui-color-on-info-subtle));
-  --color-on-neutral: oklch(var(--ideasui-color-on-neutral));
-  --color-on-neutral-muted: oklch(var(--ideasui-color-on-neutral-muted));
-  --color-on-neutral-subtle: oklch(var(--ideasui-color-on-neutral-subtle));
-  --color-on-primary: oklch(var(--ideasui-color-on-primary));
-  --color-on-primary-muted: oklch(var(--ideasui-color-on-primary-muted));
-  --color-on-primary-subtle: oklch(var(--ideasui-color-on-primary-subtle));
-  --color-on-secondary: oklch(var(--ideasui-color-on-secondary));
-  --color-on-secondary-muted: oklch(var(--ideasui-color-on-secondary-muted));
-  --color-on-secondary-subtle: oklch(var(--ideasui-color-on-secondary-subtle));
-  --color-on-success: oklch(var(--ideasui-color-on-success));
-  --color-on-success-muted: oklch(var(--ideasui-color-on-success-muted));
-  --color-on-success-subtle: oklch(var(--ideasui-color-on-success-subtle));
-  --color-on-surface: oklch(var(--ideasui-color-on-surface));
-  --color-on-surface-inverse: oklch(var(--ideasui-color-on-surface-inverse));
-  --color-on-tertiary: oklch(var(--ideasui-color-on-tertiary));
-  --color-on-tertiary-muted: oklch(var(--ideasui-color-on-tertiary-muted));
-  --color-on-tertiary-subtle: oklch(var(--ideasui-color-on-tertiary-subtle));
-  --color-on-warning: oklch(var(--ideasui-color-on-warning));
-  --color-on-warning-muted: oklch(var(--ideasui-color-on-warning-muted));
-  --color-on-warning-subtle: oklch(var(--ideasui-color-on-warning-subtle));
-  --color-overlay-color: oklch(var(--ideasui-overlay-color));
-  --color-primary: oklch(var(--ideasui-color-primary));
-  --color-primary-muted: oklch(var(--ideasui-color-primary-muted));
-  --color-primary-subtle: oklch(var(--ideasui-color-primary-subtle));
-  --color-scrim: oklch(var(--ideasui-color-scrim));
-  --color-secondary: oklch(var(--ideasui-color-secondary));
-  --color-secondary-muted: oklch(var(--ideasui-color-secondary-muted));
-  --color-secondary-subtle: oklch(var(--ideasui-color-secondary-subtle));
-  --color-success: oklch(var(--ideasui-color-success));
-  --color-success-muted: oklch(var(--ideasui-color-success-muted));
-  --color-success-subtle: oklch(var(--ideasui-color-success-subtle));
   --color-surface: oklch(var(--ideasui-color-surface));
-  --color-surface-inverse: oklch(var(--ideasui-color-surface-inverse));
+  --color-on-surface: oklch(var(--ideasui-color-on-surface));
+  --color-surface-subtle: oklch(var(--ideasui-color-surface-subtle));
   --color-surface-muted: oklch(
     var(--ideasui-color-surface-muted) / var(--ideasui-opacity-surface-muted)
   );
-  --color-surface-overlay: oklch(var(--ideasui-color-surface-overlay));
   --color-surface-strong: oklch(var(--ideasui-color-surface-strong));
-  --color-surface-subtle: oklch(var(--ideasui-color-surface-subtle));
-  --color-tertiary: oklch(var(--ideasui-color-tertiary));
-  --color-tertiary-muted: oklch(var(--ideasui-color-tertiary-muted));
-  --color-tertiary-subtle: oklch(var(--ideasui-color-tertiary-subtle));
-  --color-warning: oklch(var(--ideasui-color-warning));
-  --color-warning-muted: oklch(var(--ideasui-color-warning-muted));
-  --color-warning-subtle: oklch(var(--ideasui-color-warning-subtle));
+  --color-surface-inverse: oklch(var(--ideasui-color-surface-inverse));
+  --color-on-surface-inverse: oklch(var(--ideasui-color-on-surface-inverse));
+  --color-surface-overlay: oklch(var(--ideasui-color-surface-overlay));
+
+  /* ── Content & Typography ── */
+  --color-content-primary: oklch(var(--ideasui-color-content-primary));
+  --color-content-secondary: oklch(var(--ideasui-color-content-secondary));
+  --color-content-tertiary: oklch(var(--ideasui-color-content-tertiary));
+  --color-content-muted: oklch(var(--ideasui-color-content-muted));
+  --color-content-disabled: oklch(var(--ideasui-color-content-disabled));
+  --color-content-inverse: oklch(var(--ideasui-color-content-inverse));
+
+  /* ── Borders & Dividers ── */
+  --color-border: oklch(var(--ideasui-color-border));
+  --color-border-base: oklch(var(--ideasui-color-border-base));
+  --color-border-subtle: oklch(var(--ideasui-color-border-subtle));
+  --color-border-strong: oklch(var(--ideasui-color-border-strong));
+  --color-border-focus: oklch(var(--ideasui-color-border-focus));
+  --color-border-danger: oklch(var(--ideasui-color-border-danger));
+  --color-base: oklch(var(--ideasui-color-border-base));
+  --color-subtle: oklch(var(--ideasui-color-border-subtle));
+  --color-strong: oklch(var(--ideasui-color-border-strong));
+
+  /* ── Overlays & Effects ── */
+  --color-active-overlay: oklch(
+    var(--ideasui-overlay-color) / var(--ideasui-opacity-active-overlay)
+  );
+  --color-hover-overlay: oklch(var(--ideasui-overlay-color) / var(--ideasui-opacity-hover-overlay));
+  --color-overlay-color: oklch(var(--ideasui-overlay-color));
+  --color-scrim: oklch(var(--ideasui-color-scrim));
 
   /* ── Typography — Font Families ── */
   --font-mono: var(--ideasui-font-mono);
