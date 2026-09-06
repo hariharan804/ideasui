@@ -3,7 +3,50 @@ import type { ReactElement } from 'react';
 
 import { useState } from 'react';
 
-import { primitives, semantic, surface, content } from '../src/tokens';
+const colors = {
+  light: {
+    primary: '0.575 0.214 277.1',
+    secondary: '0.535 0.205 292.7',
+    success: '0.535 0.165 142.5',
+    warning: '0.535 0.165 65.0',
+    danger: '0.530 0.185 25.3',
+    info: '0.510 0.126 215.2',
+  },
+  dark: {
+    primary: '0.620 0.214 277.1',
+    secondary: '0.620 0.205 292.7',
+    success: '0.590 0.165 142.5',
+    warning: '0.590 0.165 65.0',
+    danger: '0.605 0.175 25.3',
+    info: '0.590 0.126 215.2',
+  },
+};
+
+const semantic: Record<string, string> = {
+  primary: 'var(--ideasui-color-primary)',
+  secondary: 'var(--ideasui-color-secondary)',
+  success: 'var(--ideasui-color-success)',
+  warning: 'var(--ideasui-color-warning)',
+  danger: 'var(--ideasui-color-danger)',
+  info: 'var(--ideasui-color-info)',
+};
+
+const surface: Record<string, string> = {
+  surface: 'var(--ideasui-color-surface)',
+  'surface-subtle': 'var(--ideasui-color-surface-subtle)',
+  'surface-muted': 'var(--ideasui-color-surface-muted)',
+  'surface-strong': 'var(--ideasui-color-surface-strong)',
+  'surface-inverse': 'var(--ideasui-color-surface-inverse)',
+};
+
+const content: Record<string, string> = {
+  primary: 'var(--ideasui-color-content-primary)',
+  secondary: 'var(--ideasui-color-content-secondary)',
+  tertiary: 'var(--ideasui-color-content-tertiary)',
+  muted: 'var(--ideasui-color-content-muted)',
+  disabled: 'var(--ideasui-color-content-disabled)',
+  inverse: 'var(--ideasui-color-content-inverse)',
+};
 
 const meta: Meta = {
   title: 'Theme/Colors',
@@ -20,12 +63,10 @@ const COPY_FEEDBACK_DELAY = 1500;
 const ColorSwatch = ({
   name,
   value,
-  shade,
   isDark = false,
 }: {
   name: string;
   value: string;
-  shade: string;
   isDark?: boolean;
 }): ReactElement => {
   const [copied, setCopied] = useState(false);
@@ -52,12 +93,12 @@ const ColorSwatch = ({
       />
       <div className="min-w-0 flex-1">
         <div className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-content-primary'}`}>
-          {name}-{shade}
+          {name}
         </div>
         <div
           className={`mt-0.5 font-mono text-xs ${isDark ? 'text-neutral-200' : 'text-content-secondary'}`}
         >
-          {value}
+          {typeof value === 'string' ? value : JSON.stringify(value)}
         </div>
       </div>
       <div
@@ -73,11 +114,11 @@ const ColorSwatch = ({
 
 const ColorScale = ({
   colorName,
-  colors,
+  colorMap,
   isDark = false,
 }: {
   colorName: string;
-  colors: Record<string, string>;
+  colorMap: Record<string, string>;
   isDark?: boolean;
 }): ReactElement => (
   <div
@@ -95,8 +136,13 @@ const ColorScale = ({
       </h3>
     </div>
     <div className="grid grid-cols-1 gap-2 p-4">
-      {Object.entries(colors).map(([shade, value]) => (
-        <ColorSwatch key={shade} isDark={isDark} name={colorName} shade={shade} value={value} />
+      {Object.entries(colorMap).map(([token, val]) => (
+        <ColorSwatch
+          key={token}
+          isDark={isDark}
+          name={token}
+          value={typeof val === 'string' ? val : JSON.stringify(val)}
+        />
       ))}
     </div>
   </div>
@@ -183,16 +229,17 @@ export const LightColors: Story = {
           Light Theme Colors
         </h2>
         <p className="text-content-secondary mt-2 text-lg">
-          OKLCH color system for better perceptual uniformity
+          Semantic color system defined directly in OKLCH
         </p>
         <p className="text-content-tertiary mt-1 text-sm">
           Click any swatch to copy the color value
         </p>
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
-        {Object.entries(primitives.light).map(([colorName, shades]) => (
-          <ColorScale key={colorName} colorName={colorName} colors={shades} />
-        ))}
+        <ColorScale
+          colorMap={colors.light as unknown as Record<string, string>}
+          colorName="Semantic Light Tokens"
+        />
       </div>
     </div>
   ),
@@ -200,16 +247,24 @@ export const LightColors: Story = {
 
 export const DarkColors: Story = {
   render: () => (
-    <div className="min-h-screen space-y-8 rounded-2xl bg-neutral-950 p-8">
+    <div className="bg-surface min-h-screen space-y-8 rounded-2xl p-8">
       <div className="mb-10">
-        <h2 className="text-3xl font-bold tracking-tight text-white">Dark Theme Colors</h2>
-        <p className="mt-2 text-lg text-neutral-100">Optimized OKLCH colors for dark mode</p>
-        <p className="mt-1 text-sm text-neutral-200">Click any swatch to copy the color value</p>
+        <h2 className="text-content-primary text-3xl font-bold tracking-tight">
+          Dark Theme Colors
+        </h2>
+        <p className="text-content-secondary mt-2 text-lg">
+          Optimized semantic OKLCH colors for dark mode
+        </p>
+        <p className="text-content-tertiary mt-1 text-sm">
+          Click any swatch to copy the color value
+        </p>
       </div>
       <div className="grid gap-8 lg:grid-cols-2">
-        {Object.entries(primitives.dark).map(([colorName, shades]) => (
-          <ColorScale key={colorName} isDark colorName={colorName} colors={shades} />
-        ))}
+        <ColorScale
+          isDark
+          colorMap={colors.dark as unknown as Record<string, string>}
+          colorName="Semantic Dark Tokens"
+        />
       </div>
     </div>
   ),
@@ -223,68 +278,61 @@ export const ColorComparison: Story = {
           Light vs Dark Comparison
         </h2>
         <p className="text-content-secondary mt-2 text-lg">
-          Side-by-side color palette comparison across themes
+          Side-by-side semantic color comparison across themes
         </p>
       </div>
-      {Object.keys(primitives.light).map((colorName) => {
-        const lightShades = primitives.light[colorName as keyof typeof primitives.light];
-        const darkShades = primitives.dark[colorName as keyof typeof primitives.dark];
-
-        return (
-          <div
-            key={colorName}
-            className="bg-background overflow-hidden rounded-2xl border border-neutral-100"
-          >
-            <div className="border-b border-neutral-100 px-6 py-4">
-              <h3 className="text-content-primary text-xl font-bold capitalize">{colorName}</h3>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="border-b border-neutral-100 p-6 md:border-r md:border-b-0">
-                <h4 className="text-content-tertiary mb-4 text-sm font-semibold tracking-wider uppercase">
-                  Light Theme
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {Object.entries(lightShades).map(([shade, value]) => (
-                    <div
-                      key={shade}
-                      className="group relative size-12 cursor-pointer rounded-xl shadow-sm ring-1 ring-black/5 transition-transform hover:scale-110"
-                      style={{
-                        backgroundColor: value.includes('var(') ? `oklch(${value})` : value,
-                      }}
-                      title={`${colorName}-${shade}: ${value}`}
-                    >
-                      <span className="text-content-tertiary absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-medium whitespace-nowrap opacity-0 transition-opacity group-hover:opacity-100">
-                        {shade}
-                      </span>
-                    </div>
-                  ))}
+      <div className="bg-background overflow-hidden rounded-2xl border border-neutral-100">
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="border-b border-neutral-100 p-6 md:border-r md:border-b-0">
+            <h4 className="text-content-tertiary mb-4 text-sm font-semibold tracking-wider uppercase">
+              Light Theme
+            </h4>
+            <div className="space-y-2">
+              {Object.entries(colors.light).map(([token, value]) => (
+                <div key={token} className="flex items-center gap-3">
+                  <div
+                    className="size-8 rounded-lg border border-black/10"
+                    style={{
+                      backgroundColor:
+                        typeof value === 'string' && value.startsWith('oklch') ? value : undefined,
+                    }}
+                  />
+                  <div className="text-xs">
+                    <span className="text-content-primary font-semibold">{token}: </span>
+                    <span className="text-content-secondary font-mono">
+                      {typeof value === 'string' ? value : JSON.stringify(value)}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-neutral-950 p-6">
-                <h4 className="mb-4 text-sm font-semibold tracking-wider text-neutral-100 uppercase">
-                  Dark Theme
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {Object.entries(darkShades).map(([shade, value]) => (
-                    <div
-                      key={shade}
-                      className="group relative size-12 cursor-pointer rounded-xl shadow-sm ring-1 ring-white/10 transition-transform hover:scale-110"
-                      style={{
-                        backgroundColor: value.includes('var(') ? `oklch(${value})` : value,
-                      }}
-                      title={`${colorName}-${shade}: ${value}`}
-                    >
-                      <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-medium whitespace-nowrap text-neutral-400 opacity-0 transition-opacity group-hover:opacity-100">
-                        {shade}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-        );
-      })}
+          <div className="bg-neutral-950 p-6">
+            <h4 className="mb-4 text-sm font-semibold tracking-wider text-neutral-100 uppercase">
+              Dark Theme
+            </h4>
+            <div className="space-y-2">
+              {Object.entries(colors.dark).map(([token, value]) => (
+                <div key={token} className="flex items-center gap-3">
+                  <div
+                    className="size-8 rounded-lg border border-white/10"
+                    style={{
+                      backgroundColor:
+                        typeof value === 'string' && value.startsWith('oklch') ? value : undefined,
+                    }}
+                  />
+                  <div className="text-xs">
+                    <span className="font-semibold text-white">{token}: </span>
+                    <span className="font-mono text-neutral-300">
+                      {typeof value === 'string' ? value : JSON.stringify(value)}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 };
@@ -297,7 +345,7 @@ export const SemanticColors: Story = {
       'tertiary',
       'success',
       'warning',
-      'error',
+      'danger',
       'info',
       'neutral',
     ];

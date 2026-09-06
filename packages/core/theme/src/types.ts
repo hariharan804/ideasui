@@ -1,84 +1,44 @@
-import type {
-  SpacingProps as SpacingProperties,
-  BorderRadiusProps as BorderRadiusProperties,
-  FontSizeProps as FontSizeProperties,
-  LetterSpacingProps as LetterSpacingProperties,
-  FontFamilyProps as FontFamilyProperties,
-  FontWeightProps as FontWeightProperties,
-  BoxShadowProps as BoxShadowProperties,
-  ZIndexProps as ZIndexProperties,
-  OpacityProps as OpacityProperties,
-  BlurProps as BlurProperties,
-  BorderWidthProps as BorderWidthProperties,
-  DividerColorProps as DividerColorProperties,
-  SurfaceProps as SurfaceProperties,
-  ContentProps as ContentProperties,
-  DurationProps as DurationProperties,
-  EasingProps as EasingProperties,
-  AnimationProps as AnimationProperties,
-} from './tokens';
-
 export type ThemeToken<K extends string | number | symbol, V> = Partial<Record<K, V>> &
   Record<string, V>;
 
 /** Override any design token family */
 export interface TokenOverrides {
   /** Spacing scale (4px grid) */
-  readonly spacing?: ThemeToken<SpacingProperties, string>;
+  readonly spacing?: ThemeToken<string, string>;
   /** Border radius tokens */
-  readonly borderRadius?: ThemeToken<BorderRadiusProperties, string>;
+  readonly borderRadius?: ThemeToken<string, string>;
   /** Border width tokens */
-  readonly borderWidth?: ThemeToken<BorderWidthProperties, string>;
-  /** Divider color tokens */
-  readonly dividerColors?: ThemeToken<DividerColorProperties, string>;
+  readonly borderWidth?: ThemeToken<string, string>;
   /** Font size tokens (value or [size, { lineHeight }] tuple) */
-  readonly fontSize?: ThemeToken<FontSizeProperties, string | [string, { lineHeight: string }]>;
+  readonly fontSize?: ThemeToken<string, string | [string, { lineHeight: string }]>;
   /** Letter spacing tokens */
-  readonly letterSpacing?: ThemeToken<LetterSpacingProperties, string>;
+  readonly letterSpacing?: ThemeToken<string, string>;
   /** Font family tokens */
-  readonly fontFamily?: ThemeToken<FontFamilyProperties, string>;
+  readonly fontFamily?: ThemeToken<string, string>;
   /** Font weight tokens */
-  readonly fontWeight?: ThemeToken<FontWeightProperties, string>;
+  readonly fontWeight?: ThemeToken<string, string>;
   /** Box shadow tokens */
-  readonly boxShadow?: ThemeToken<BoxShadowProperties, string>;
+  readonly boxShadow?: ThemeToken<string, string>;
   /**
    * Shadow tokens — alias for `boxShadow`.
    * @example shadow: { sm: '0 2px 4px rgb(0 0 0 / 0.06)' }
    */
-  readonly shadow?: ThemeToken<BoxShadowProperties, string>;
+  readonly shadow?: ThemeToken<string, string>;
   /** Z-index tokens */
-  readonly zIndex?: ThemeToken<ZIndexProperties, string | number>;
+  readonly zIndex?: ThemeToken<string, string | number>;
   /** Opacity tokens */
-  readonly opacity?: ThemeToken<OpacityProperties, string | number>;
+  readonly opacity?: ThemeToken<string, string | number>;
   /** Blur tokens */
-  readonly blur?: ThemeToken<BlurProperties, string>;
+  readonly blur?: ThemeToken<string, string>;
   /** Transition duration tokens */
-  readonly duration?: ThemeToken<DurationProperties, string>;
+  readonly duration?: ThemeToken<string, string>;
   /** Transition easing tokens */
-  readonly easing?: ThemeToken<EasingProperties, string>;
+  readonly easing?: ThemeToken<string, string>;
   /** Animation presets */
-  readonly animation?: ThemeToken<AnimationProperties, string>;
+  readonly animation?: ThemeToken<string, string>;
   /** Keyframe definitions */
   readonly keyframes?: Partial<Record<string, Record<string, Record<string, string>>>>;
 }
-
-/**
- * Grouped semantic surface token overrides.
- * Keys are emitted as `--ideasui-color-{key}`.
- */
-export type SurfaceTokenOverrides = ThemeToken<SurfaceProperties, string>;
-
-/**
- * Grouped semantic content token overrides.
- * Keys are emitted as `--ideasui-color-content-{key}`.
- */
-export type ContentTokenOverrides = ThemeToken<ContentProperties, string>;
-
-/**
- * Grouped semantic border token overrides.
- * Keys are emitted as `--ideasui-border-{key}`.
- */
-export type BorderTokenOverrides = Partial<Record<string, string>>;
 
 /**
  * Override semantic token usage.
@@ -149,13 +109,13 @@ export type SemanticTokenOverrides = {
   'warning-muted'?: string;
   'on-warning-muted'?: string;
 
-  // ── Intent: Error ─────────────────────────────────────────────
-  error?: string;
-  'on-error'?: string;
-  'error-subtle'?: string;
-  'on-error-subtle'?: string;
-  'error-muted'?: string;
-  'on-error-muted'?: string;
+  // ── Intent: Danger ────────────────────────────────────────────
+  danger?: string;
+  'on-danger'?: string;
+  'danger-subtle'?: string;
+  'on-danger-subtle'?: string;
+  'danger-muted'?: string;
+  'on-danger-muted'?: string;
 
   // ── Intent: Info ──────────────────────────────────────────────
   info?: string;
@@ -175,7 +135,7 @@ export type SemanticTokenOverrides = {
 
   // ── Surface — elevation layers ────────────────────────────────
   // sunken < surface < surface-muted < surface-strong
-  surface?: string;
+  surface?: string | Record<string, string>;
   'on-surface'?: string;
   'surface-sunken'?: string;
   'surface-muted'?: string;
@@ -186,10 +146,11 @@ export type SemanticTokenOverrides = {
   'on-surface-inverse'?: string;
   /** Dropdowns / popovers */
   'surface-floating'?: string;
-  /** Dialogs / drawers */
-  'surface-modal'?: string;
+  /** Dialogs, drawers, popovers, overlays */
+  'surface-overlay'?: string;
 
   // ── Content — text emphasis hierarchy ─────────────────────────
+  content?: string | Record<string, string>;
   'content-primary'?: string;
   'content-secondary'?: string;
   'content-tertiary'?: string;
@@ -198,11 +159,11 @@ export type SemanticTokenOverrides = {
   'content-inverse'?: string;
 
   // ── Border ────────────────────────────────────────────────────
-  border?: string;
-  'border-subtle'?: string;
-  'border-strong'?: string;
+  border?: string | Record<string, string>;
+  'border-border-subtle'?: string;
+  ' border-border-strong'?: string;
   'border-focus'?: string;
-  'border-error'?: string;
+  'border-danger'?: string;
 
   // ── Scrim ─────────────────────────────────────────────────────
   /** Overlay / backdrop color. @example 'oklch(0 0 0 / 0.45)' */
@@ -210,9 +171,9 @@ export type SemanticTokenOverrides = {
 
   /**
    * Any custom semantic token not listed above.
-   * Emitted as `--ideasui-color-{key}`.
+   * Emitted as `--ideasui-color-{key}` (flat) or grouped sub-objects.
    */
-  [key: string]: string | undefined;
+  [key: string]: string | Record<string, string> | undefined;
 };
 
 export interface ThemeOptions {
@@ -236,8 +197,6 @@ export interface ThemeConfig {
   // readonly prefix?: string;
   /** Disable all animations globally */
   readonly disableAnimations?: boolean;
-  /** Automatically generate 11-stop color scales for partial color scale overrides. Default: false */
-  readonly autoGenerateScales?: boolean;
   /** Override any design token family */
   readonly designTokens?: Partial<TokenOverrides>;
   /** Override semantic tokens globally */
@@ -246,34 +205,32 @@ export interface ThemeConfig {
   readonly components?: Record<string, unknown>;
 }
 
-export interface ColorScale {
-  readonly 50?: string;
-  readonly 100?: string;
-  readonly 200?: string;
-  readonly 300?: string;
-  readonly 400?: string;
-  readonly 500?: string;
-  readonly 600?: string;
-  readonly 700?: string;
-  readonly 800?: string;
-  readonly 900?: string;
-  readonly 950?: string;
-  readonly 1000?: string;
-  readonly [key: string]: string | undefined;
-}
-
 export interface ColorTokens {
-  readonly primary?: ColorScale;
-  readonly secondary?: ColorScale;
-  readonly success?: ColorScale;
-  readonly warning?: ColorScale;
-  readonly error?: ColorScale;
-  readonly info?: ColorScale;
-  readonly neutral?: ColorScale;
-  /** Common flat colors */
-  readonly white?: string;
-  readonly black?: string;
-  readonly [key: string]: ColorScale | string | undefined;
+  readonly primary?: string;
+  readonly 'on-primary'?: string;
+  readonly 'primary-subtle'?: string;
+  readonly 'on-primary-subtle'?: string;
+  readonly 'primary-muted'?: string;
+  readonly 'on-primary-muted'?: string;
+  readonly secondary?: string;
+  readonly 'on-secondary'?: string;
+  readonly tertiary?: string;
+  readonly 'on-tertiary'?: string;
+  readonly success?: string;
+  readonly 'on-success'?: string;
+  readonly warning?: string;
+  readonly 'on-warning'?: string;
+  readonly danger?: string;
+  readonly 'on-danger'?: string;
+  readonly info?: string;
+  readonly 'on-info'?: string;
+  readonly neutral?: string;
+  readonly 'on-neutral'?: string;
+  readonly surface?: string;
+  readonly 'on-surface'?: string;
+  readonly background?: string;
+  readonly 'on-background'?: string;
+  readonly [key: string]: string | Record<string, string> | undefined;
 }
 
 export type ThemeMode = 'light' | 'dark' | 'system';

@@ -166,7 +166,7 @@ export const Colors: Story = {
       <Button {...arguments_} color="warning">
         Warning
       </Button>
-      <Button {...arguments_} color="error">
+      <Button {...arguments_} color="danger">
         Danger
       </Button>
       <Button {...arguments_} color="info">
@@ -252,7 +252,7 @@ export const IconButton: Story = {
       <Button {...arguments_} isIconOnly aria-label="Edit" color="secondary" variant="outline">
         <Plus className="size-5" />
       </Button>
-      <Button {...arguments_} isIconOnly aria-label="Favorite" color="error" variant="ghost">
+      <Button {...arguments_} isIconOnly aria-label="Favorite" color="danger" variant="ghost">
         <User className="size-5" />
       </Button>
     </div>

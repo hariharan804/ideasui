@@ -82,7 +82,7 @@ function DefaultFooter({
   return (
     <div
       className={cn(
-        'border-base/40 text-content-secondary hidden flex-row items-center border-t p-4 pt-2 md:px-6',
+        'border-border-base/40 text-content-secondary hidden flex-row items-center border-t p-4 pt-2 md:px-6',
         iconLinks.length > 0 && 'max-lg:flex',
         className,
       )}
@@ -259,7 +259,7 @@ export function SidebarContent({
         </Header>
         {viewport}
         <Footer
-          className="border-subtle/20 flex flex-col gap-3 border-t p-4"
+          className="border-border-subtle/20 flex flex-col gap-3 border-t p-4"
           footer={typeof footer === 'function' ? undefined : footer}
           iconLinks={iconLinks}
         >
@@ -279,7 +279,7 @@ export function SidebarContent({
             ) : null}
           </div>
           {(iconLinks.length > 0 || !!i18n) && (
-            <div className="border-subtle/10 flex w-full items-center justify-between gap-2 border-t pt-1">
+            <div className="border-border-subtle/10 flex w-full items-center justify-between gap-2 border-t pt-1">
               <IconLinkList iconLinks={iconLinks} variant="drawer" />
               {!!i18n && (
                 <LanguageToggle>

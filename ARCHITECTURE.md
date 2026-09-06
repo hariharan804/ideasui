@@ -318,13 +318,13 @@ export const card = tv({
       'card', // BEM base class
       'rounded-lg',
       'border',
-      'border-divider',
+      'border-border',
       'bg-surface',
       'shadow-medium',
     ],
-    header: ['card__header', 'px-6 py-4', 'border-b border-divider'],
+    header: ['card__header', 'px-6 py-4', 'border-b border-border'],
     body: ['card__body', 'px-6 py-4'],
-    footer: ['card__footer', 'px-6 py-4', 'border-t border-divider'],
+    footer: ['card__footer', 'px-6 py-4', 'border-t border-border'],
   },
   variants: {
     variant: {
@@ -405,7 +405,7 @@ export const textField = tv({
       'text-field__input',
       'w-full',
       'px-3 py-2',
-      'border border-divider',
+      'border border-border',
       'rounded-md',
       'bg-background',
       'focus:outline-none',

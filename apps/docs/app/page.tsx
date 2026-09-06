@@ -41,7 +41,7 @@ export default function HomePage() {
               className="group bg-primary-subtle hover:bg-primary-subtle inline-flex max-w-full items-center gap-1.5 rounded-full py-1 pr-2.5 pl-1 text-[10px] font-medium transition-all duration-150 hover:shadow-sm active:scale-95 sm:gap-2 sm:py-1.5 sm:pr-2.5 sm:text-xs"
               href="/react/docs/start"
             >
-              <span className="from-primary to-primary-400 inline-flex shrink-0 items-center gap-1 rounded-full bg-gradient-to-r px-2 py-0.5 text-[9px] font-normal tracking-wider text-white uppercase sm:px-2.5 sm:text-[10px]">
+              <span className="bg-primary text-on-primary inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[9px] font-normal tracking-wider uppercase sm:px-2.5 sm:text-[10px]">
                 <Rocket className="size-2.5 sm:size-3" /> Beta
               </span>
               <span className="text-content-primary text-[10px] font-medium tracking-tight">

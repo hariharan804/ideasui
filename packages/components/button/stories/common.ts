@@ -14,7 +14,7 @@ export const colorOptions = [
   'secondary',
   'tertiary',
   'neutral',
-  'error',
+  'danger',
   'success',
   'warning',
   'info',

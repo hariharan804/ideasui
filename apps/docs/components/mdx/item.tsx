@@ -37,7 +37,7 @@ export function Item({
       {...properties}
     >
       {/* Top Preview Canvas Box */}
-      <div className="bg-surface-subtle/50 group-hover:bg-surface-subtle border-subtle/20 relative flex h-44 w-full items-center justify-center overflow-hidden rounded-2xl border p-4 backdrop-blur-sm transition-all duration-200 group-hover:scale-[1.01]">
+      <div className="bg-surface-subtle/50 group-hover:bg-surface-subtle border-border-subtle/20 relative flex h-44 w-full items-center justify-center overflow-hidden rounded-2xl border p-4 backdrop-blur-sm transition-all duration-200 group-hover:scale-[1.01]">
         {/* Subtle grid pattern background */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(oklch(var(--ideasui-color-content-tertiary)/0.08)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)] [background-size:16px_16px]" />
 

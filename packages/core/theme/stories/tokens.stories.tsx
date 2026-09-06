@@ -1,27 +1,92 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactElement } from 'react';
 
-import {
-  spacing,
-  borderRadius,
-  fontSize,
-  fontFamily,
-  fontWeight,
-  letterSpacing,
-  textStyles,
-  lightShadow,
-  animation,
-  duration as transitionDuration,
-  easing as transitionTimingFunction,
-  keyframes,
-  transition,
-  blur,
-  backdrop,
-  border,
-  dividerColors,
-  opacity,
-  zIndex,
-} from '../src/tokens';
+const spacing: Record<string, string> = {
+  '0': '0',
+  '1': '0.25rem',
+  '2': '0.5rem',
+  '3': '0.75rem',
+  '4': '1rem',
+  '5': '1.25rem',
+  '6': '1.5rem',
+  '8': '2rem',
+  '10': '2.5rem',
+  '12': '3rem',
+  '16': '4rem',
+};
+const borderRadius: Record<string, string> = {
+  none: '0',
+  sm: '0.25rem',
+  md: '0.375rem',
+  lg: '0.5rem',
+  xl: '0.75rem',
+  full: '9999px',
+};
+const fontSize: Record<string, string> = {
+  xs: '0.75rem',
+  sm: '0.875rem',
+  base: '1rem',
+  lg: '1.125rem',
+  xl: '1.25rem',
+  '2xl': '1.5rem',
+  '3xl': '1.875rem',
+  '4xl': '2.25rem',
+};
+const fontFamily: Record<string, string> = {
+  sans: 'Inter, sans-serif',
+  mono: 'monospace',
+  serif: 'serif',
+};
+const fontWeight: Record<string, string> = {
+  normal: '400',
+  medium: '500',
+  semibold: '600',
+  bold: '700',
+};
+const letterSpacing: Record<string, string> = { tight: '-0.025em', normal: '0', wide: '0.025em' };
+const textStyles: Record<string, Record<string, string>> = {};
+const lightShadow: Record<string, string> = {
+  sm: '0 2px 4px rgb(0 0 0 / 0.06)',
+  md: '0 4px 8px rgb(0 0 0 / 0.08)',
+  lg: '0 8px 16px rgb(0 0 0 / 0.1)',
+  xl: '0 16px 24px rgb(0 0 0 / 0.12)',
+};
+const animation: Record<string, string> = { spin: 'spin 1s linear infinite' };
+const transitionDuration: Record<string, string> = {
+  fast: '100ms',
+  normal: '200ms',
+  slow: '300ms',
+};
+const transitionTimingFunction: Record<string, string> = {
+  standard: 'cubic-bezier(0.4, 0, 0.2, 1)',
+};
+const keyframes: Record<string, Record<string, Record<string, string>>> = {};
+const transition: Record<string, string> = {};
+const blur: Record<string, string> = { none: '0', sm: '4px', md: '8px', lg: '12px', xl: '16px' };
+const backdrop: Record<string, string> = { blur: 'blur(8px)' };
+const border: Record<string, string> = { thin: '1px', medium: '2px', thick: '4px' };
+const borderColors: Record<string, string> = {
+  base: 'var(--ideasui-color-border-base)',
+  subtle: 'var(--ideasui-color-border-subtle)',
+  strong: 'var(--ideasui-color-border-strong)',
+  focus: 'var(--ideasui-color-border-focus)',
+  danger: 'var(--ideasui-color-border-danger)',
+};
+const opacity: Record<string, string> = {
+  none: '0',
+  subtle: '0.04',
+  light: '0.08',
+  medium: '0.16',
+  strong: '0.38',
+  heavy: '0.6',
+  full: '1',
+};
+const zIndex: Record<string, number | string> = {
+  base: 0,
+  dropdown: 1000,
+  modal: 1200,
+  tooltip: 1500,
+};
 
 const systemTokens = {
   spacing,
@@ -130,10 +195,7 @@ export const Spacing: Story = {
               <div className="text-content-primary w-16 font-mono text-sm font-semibold">{key}</div>
               <div className="text-content-tertiary w-20 font-mono text-xs">{value}</div>
               <div className="min-w-0 flex-1">
-                <div
-                  className="bg-primary-500 h-4 max-w-full rounded-full"
-                  style={{ width: value }}
-                />
+                <div className="bg-primary h-4 max-w-full rounded-full" style={{ width: value }} />
               </div>
             </div>
           ))}
@@ -163,7 +225,7 @@ export const BorderRadius: Story = {
                 className="border-primary-200 mx-auto mb-3 flex h-20 w-20 items-center justify-center border bg-blue-50"
                 style={{ borderRadius: value }}
               >
-                <div className="bg-primary-500 h-full w-full" style={{ borderRadius: value }} />
+                <div className="bg-primary h-full w-full" style={{ borderRadius: value }} />
               </div>
               <div className="text-content-primary text-sm font-semibold">{key}</div>
               <div className="text-content-tertiary mt-0.5 font-mono text-xs">{value}</div>
@@ -222,7 +284,7 @@ export const Borders: Story = {
               />
             )}
             title="Border Colors"
-            tokens={dividerColors}
+            tokens={borderColors}
           />
         </div>
       </div>
@@ -483,7 +545,7 @@ export const Typography: Story = {
                 </div>
                 <div
                   className="text-content-secondary flex-1 text-lg"
-                  style={{ fontWeight: value as number }}
+                  style={{ fontWeight: value as unknown as number }}
                 >
                   Abc
                 </div>

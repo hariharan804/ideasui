@@ -85,12 +85,12 @@ export function InstallTabs({
   return (
     <div
       className={cn(
-        'not-prose bg-surface-subtle border-subtle/30 my-5 flex w-full flex-col overflow-hidden rounded-2xl border transition-all duration-200',
+        'not-prose bg-surface-subtle border-border-subtle/30 my-5 flex w-full flex-col overflow-hidden rounded-2xl border transition-all duration-200',
         className,
       )}
     >
       {/* Header: Package Manager Selector & Mode Toggle */}
-      <div className="border-subtle/20 flex flex-wrap items-center justify-between gap-2 border-b px-3.5 py-2.5 select-none">
+      <div className="border-border-subtle/20 flex flex-wrap items-center justify-between gap-2 border-b px-3.5 py-2.5 select-none">
         {/* Left: Package Managers (Segmented Pill) */}
         <div className="bg-surface-muted/60 flex max-w-full [scrollbar-width:none] items-center gap-0.5 overflow-x-auto rounded-xl p-1 select-none [&::-webkit-scrollbar]:hidden">
           {packageManagers.map((pm) => {

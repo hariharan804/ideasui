@@ -151,7 +151,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
         <div className="relative mt-6 flex flex-wrap items-center gap-2.5">
           {pageData.links?.npm && (
             <a
-              className="group border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-red-500/40 hover:shadow-xs active:scale-[0.98]"
+              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-danger/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
               href={
                 typeof pageData.links.npm === 'string' && pageData.links.npm.startsWith('http')
                   ? pageData.links.npm
@@ -160,7 +160,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
               rel="noopener noreferrer"
               target="_blank"
             >
-              <div className="flex size-7 shrink-0 items-center justify-center rounded-xl bg-red-500/10 text-red-500 transition-transform duration-200 group-hover:scale-105 group-hover:bg-red-500/20">
+              <div className="bg-danger/10 text-danger group-hover:bg-danger/20 flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
                 <Box className="size-3.5" />
               </div>
               <div className="flex min-w-0 flex-col">
@@ -178,7 +178,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
           {pageData.links?.source && (
             <a
-              className="group bg-surface/80 hover:bg-surface hover:border-primary/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
+              className="group bg-surface/80 border-border-subtle/30 hover:bg-surface hover:border-primary/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
               href={`${siteConfig.links.componentsBase}/${pageData.links.source}`}
               rel="noopener noreferrer"
               target="_blank"
@@ -195,7 +195,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
           {pageData.links?.recipe && (
             <a
-              className="group border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-sky-500/40 hover:shadow-xs active:scale-[0.98]"
+              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-sky-500/40 hover:shadow-xs active:scale-[0.98]"
               href={`${siteConfig.links.packageBase}/${pageData.links.recipe}`}
               rel="noopener noreferrer"
               target="_blank"
@@ -212,7 +212,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
           {pageData.links?.rac && (
             <a
-              className="group border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-emerald-500/40 hover:shadow-xs active:scale-[0.98]"
+              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-emerald-500/40 hover:shadow-xs active:scale-[0.98]"
               href={pageData.links.rac}
               rel="noopener noreferrer"
               target="_blank"
@@ -231,7 +231,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
           {pageData.links?.storybook && (
             <a
-              className="group border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-amber-500/40 hover:shadow-xs active:scale-[0.98]"
+              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-amber-500/40 hover:shadow-xs active:scale-[0.98]"
               href={`${siteConfig.links.storybook}/?path=/docs/${pageData.links.storybook.toLowerCase().replace('/', '-')}`}
               rel="noopener noreferrer"
               target="_blank"
@@ -250,7 +250,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
           {pageData.links?.figma && (
             <a
-              className="group border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-pink-500/40 hover:shadow-xs active:scale-[0.98]"
+              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-pink-500/40 hover:shadow-xs active:scale-[0.98]"
               href={
                 typeof pageData.links.figma === 'string'
                   ? pageData.links.figma

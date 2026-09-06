@@ -33,7 +33,9 @@
   "files": [
     "dist"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "clean-package": "./clean-package.config.json",
   "publishConfig": {
     "access": "public"

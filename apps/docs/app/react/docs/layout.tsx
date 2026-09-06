@@ -25,7 +25,8 @@ export default function Layout({ children }: Readonly<{ children: ReactNode }>) 
       nav={{
         ...baseOptions.nav,
         mode: 'top',
-        className: 'border-b border-subtle bg-surface backdrop-blur-xl transition-all duration-500',
+        className:
+          'border-b border-border-subtle bg-surface backdrop-blur-xl transition-all duration-500',
         links: [],
       }}
       sidebar={{

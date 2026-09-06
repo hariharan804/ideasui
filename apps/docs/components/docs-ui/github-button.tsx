@@ -29,7 +29,7 @@ const VARIANT_STYLES: Record<GitHubButtonVariant, string> = {
   button:
     'h-11 sm:h-12 rounded-xl px-5 sm:px-6 text-sm font-semibold bg-surface/90 hover:bg-surface border border-surface-strong shadow-xs hover:shadow-md text-content-primary',
   outline:
-    'h-8 rounded-full px-2.5 sm:px-3.5 text-xs font-medium border border-divider bg-transparent hover:bg-surface-muted text-content-secondary hover:text-content-primary',
+    'h-8 rounded-full px-2.5 sm:px-3.5 text-xs font-medium border border-border bg-transparent hover:bg-surface-muted text-content-secondary hover:text-content-primary',
   ghost:
     'h-8 rounded-full px-2.5 sm:px-3.5 text-xs font-medium bg-pure text-content-tertiary hover:text-content-primary',
 };

@@ -1,0 +1,324 @@
+/* Tailwind v4 Theme Mappings */
+@theme {
+  /* ── Color Palette & Semantic Colors ── */
+  --color-active-overlay: oklch(
+    var(--ideasui-overlay-color) / var(--ideasui-opacity-active-overlay)
+  );
+  --color-background: oklch(var(--ideasui-color-background));
+  --color-common-black: oklch(var(--ideasui-color-common-black));
+  --color-common-white: oklch(var(--ideasui-color-common-white));
+  --color-content-disabled: oklch(var(--ideasui-color-content-disabled));
+  --color-content-inverse: oklch(var(--ideasui-color-content-inverse));
+  --color-content-muted: oklch(var(--ideasui-color-content-muted));
+  --color-content-primary: oklch(var(--ideasui-color-content-primary));
+  --color-content-secondary: oklch(var(--ideasui-color-content-secondary));
+  --color-content-tertiary: oklch(var(--ideasui-color-content-tertiary));
+  --color-danger: oklch(var(--ideasui-color-danger));
+  --color-danger-muted: oklch(var(--ideasui-color-danger-muted));
+  --color-danger-subtle: oklch(var(--ideasui-color-danger-subtle));
+  --color-border: oklch(var(--ideasui-color-border));
+  --color-border-base: oklch(var(--ideasui-color-border-base));
+  --color-border-danger: oklch(var(--ideasui-color-border-danger));
+  --color-border-focus: oklch(var(--ideasui-color-border-focus));
+  --color-border-strong: oklch(var(--ideasui-color-border-strong));
+  --color-border-subtle: oklch(var(--ideasui-color-border-subtle));
+  --color-base: oklch(var(--ideasui-color-border-base));
+  --color-subtle: oklch(var(--ideasui-color-border-subtle));
+  --color-strong: oklch(var(--ideasui-color-border-strong));
+  --color-hover-overlay: oklch(var(--ideasui-overlay-color) / var(--ideasui-opacity-hover-overlay));
+  --color-info: oklch(var(--ideasui-color-info));
+  --color-info-muted: oklch(var(--ideasui-color-info-muted));
+  --color-info-subtle: oklch(var(--ideasui-color-info-subtle));
+  --color-neutral: oklch(var(--ideasui-color-neutral));
+  --color-neutral-muted: oklch(var(--ideasui-color-neutral-muted));
+  --color-neutral-subtle: oklch(var(--ideasui-color-neutral-subtle));
+  --color-on-background: oklch(var(--ideasui-color-on-background));
+  --color-on-danger: oklch(var(--ideasui-color-on-danger));
+  --color-on-danger-muted: oklch(var(--ideasui-color-on-danger-muted));
+  --color-on-danger-subtle: oklch(var(--ideasui-color-on-danger-subtle));
+  --color-on-info: oklch(var(--ideasui-color-on-info));
+  --color-on-info-muted: oklch(var(--ideasui-color-on-info-muted));
+  --color-on-info-subtle: oklch(var(--ideasui-color-on-info-subtle));
+  --color-on-neutral: oklch(var(--ideasui-color-on-neutral));
+  --color-on-neutral-muted: oklch(var(--ideasui-color-on-neutral-muted));
+  --color-on-neutral-subtle: oklch(var(--ideasui-color-on-neutral-subtle));
+  --color-on-primary: oklch(var(--ideasui-color-on-primary));
+  --color-on-primary-muted: oklch(var(--ideasui-color-on-primary-muted));
+  --color-on-primary-subtle: oklch(var(--ideasui-color-on-primary-subtle));
+  --color-on-secondary: oklch(var(--ideasui-color-on-secondary));
+  --color-on-secondary-muted: oklch(var(--ideasui-color-on-secondary-muted));
+  --color-on-secondary-subtle: oklch(var(--ideasui-color-on-secondary-subtle));
+  --color-on-success: oklch(var(--ideasui-color-on-success));
+  --color-on-success-muted: oklch(var(--ideasui-color-on-success-muted));
+  --color-on-success-subtle: oklch(var(--ideasui-color-on-success-subtle));
+  --color-on-surface: oklch(var(--ideasui-color-on-surface));
+  --color-on-surface-inverse: oklch(var(--ideasui-color-on-surface-inverse));
+  --color-on-tertiary: oklch(var(--ideasui-color-on-tertiary));
+  --color-on-tertiary-muted: oklch(var(--ideasui-color-on-tertiary-muted));
+  --color-on-tertiary-subtle: oklch(var(--ideasui-color-on-tertiary-subtle));
+  --color-on-warning: oklch(var(--ideasui-color-on-warning));
+  --color-on-warning-muted: oklch(var(--ideasui-color-on-warning-muted));
+  --color-on-warning-subtle: oklch(var(--ideasui-color-on-warning-subtle));
+  --color-overlay-color: oklch(var(--ideasui-overlay-color));
+  --color-primary: oklch(var(--ideasui-color-primary));
+  --color-primary-muted: oklch(var(--ideasui-color-primary-muted));
+  --color-primary-subtle: oklch(var(--ideasui-color-primary-subtle));
+  --color-scrim: oklch(var(--ideasui-color-scrim));
+  --color-secondary: oklch(var(--ideasui-color-secondary));
+  --color-secondary-muted: oklch(var(--ideasui-color-secondary-muted));
+  --color-secondary-subtle: oklch(var(--ideasui-color-secondary-subtle));
+  --color-success: oklch(var(--ideasui-color-success));
+  --color-success-muted: oklch(var(--ideasui-color-success-muted));
+  --color-success-subtle: oklch(var(--ideasui-color-success-subtle));
+  --color-surface: oklch(var(--ideasui-color-surface));
+  --color-surface-inverse: oklch(var(--ideasui-color-surface-inverse));
+  --color-surface-muted: oklch(
+    var(--ideasui-color-surface-muted) / var(--ideasui-opacity-surface-muted)
+  );
+  --color-surface-overlay: oklch(var(--ideasui-color-surface-overlay));
+  --color-surface-strong: oklch(var(--ideasui-color-surface-strong));
+  --color-surface-subtle: oklch(var(--ideasui-color-surface-subtle));
+  --color-tertiary: oklch(var(--ideasui-color-tertiary));
+  --color-tertiary-muted: oklch(var(--ideasui-color-tertiary-muted));
+  --color-tertiary-subtle: oklch(var(--ideasui-color-tertiary-subtle));
+  --color-warning: oklch(var(--ideasui-color-warning));
+  --color-warning-muted: oklch(var(--ideasui-color-warning-muted));
+  --color-warning-subtle: oklch(var(--ideasui-color-warning-subtle));
+
+  /* ── Typography — Font Families ── */
+  --font-mono: var(--ideasui-font-mono);
+  --font-sans: var(--ideasui-font-sans);
+  --font-serif: var(--ideasui-font-serif);
+
+  /* ── Typography — Font Sizes ── */
+  --text-3xs: var(--ideasui-font-size-3xs);
+  --text-2xs: var(--ideasui-font-size-2xs);
+  --text-xs: var(--ideasui-font-size-xs);
+  --text-sm: var(--ideasui-font-size-sm);
+  --text-base: var(--ideasui-font-size-base);
+  --text-lg: var(--ideasui-font-size-lg);
+  --text-xl: var(--ideasui-font-size-xl);
+  --text-2xl: var(--ideasui-font-size-2xl);
+  --text-3xl: var(--ideasui-font-size-3xl);
+  --text-4xl: var(--ideasui-font-size-4xl);
+  --text-5xl: var(--ideasui-font-size-5xl);
+  --text-6xl: var(--ideasui-font-size-6xl);
+  --text-7xl: var(--ideasui-font-size-7xl);
+  --text-8xl: var(--ideasui-font-size-8xl);
+  --text-9xl: var(--ideasui-font-size-9xl);
+
+  /* ── Typography — Letter Spacing ── */
+  --tracking-normal: var(--ideasui-tracking-normal);
+  --tracking-tight: var(--ideasui-tracking-tight);
+  --tracking-tighter: var(--ideasui-tracking-tighter);
+  --tracking-wide: var(--ideasui-tracking-wide);
+  --tracking-wider: var(--ideasui-tracking-wider);
+  --tracking-widest: var(--ideasui-tracking-widest);
+
+  /* ── Spacing Scale (4px Grid) ── */
+  --spacing-px: var(--ideasui-spacing-px);
+  --spacing-0: var(--ideasui-spacing-0);
+  --spacing-1: var(--ideasui-spacing-1);
+  --spacing-2: var(--ideasui-spacing-2);
+  --spacing-3: var(--ideasui-spacing-3);
+  --spacing-4: var(--ideasui-spacing-4);
+  --spacing-5: var(--ideasui-spacing-5);
+  --spacing-6: var(--ideasui-spacing-6);
+  --spacing-8: var(--ideasui-spacing-8);
+  --spacing-10: var(--ideasui-spacing-10);
+  --spacing-12: var(--ideasui-spacing-12);
+  --spacing-16: var(--ideasui-spacing-16);
+  --spacing-20: var(--ideasui-spacing-20);
+  --spacing-24: var(--ideasui-spacing-24);
+
+  /* ── Border Radius ── */
+  --radius-none: var(--ideasui-radius-none);
+  --radius-xs: var(--ideasui-radius-xs);
+  --radius-sm: var(--ideasui-radius-sm);
+  --radius-md: var(--ideasui-radius-md);
+  --radius: var(--ideasui-radius);
+  --radius-lg: var(--ideasui-radius-lg);
+  --radius-xl: var(--ideasui-radius-xl);
+  --radius-2xl: var(--ideasui-radius-2xl);
+  --radius-3xl: var(--ideasui-radius-3xl);
+  --radius-4xl: var(--ideasui-radius-4xl);
+  --radius-full: var(--ideasui-radius-full);
+  --radius-input: var(--ideasui-radius-input);
+
+  /* ── Border Widths ── */
+  --border-width-none: var(--ideasui-border-none);
+  --border-width-hairline: var(--ideasui-border-hairline);
+  --border-width-thin: var(--ideasui-border-thin);
+  --border-width-medium: var(--ideasui-border-medium);
+  --border-width-thick: var(--ideasui-border-thick);
+  --border-width-heavy: var(--ideasui-border-heavy);
+
+  /* ── Box Shadows ── */
+  --shadow-2xl: var(--ideasui-shadow-2xl);
+  --shadow-inner: var(--ideasui-shadow-inner);
+  --shadow-lg: var(--ideasui-shadow-lg);
+  --shadow-md: var(--ideasui-shadow-md);
+  --shadow-none: var(--ideasui-shadow-none);
+  --shadow-sm: var(--ideasui-shadow-sm);
+  --shadow-xl: var(--ideasui-shadow-xl);
+  --shadow-xs: var(--ideasui-shadow-xs);
+
+  /* ── Opacity Scale ── */
+  --opacity-active-overlay: var(--ideasui-opacity-active-overlay);
+  --opacity-full: var(--ideasui-opacity-full);
+  --opacity-heavy: var(--ideasui-opacity-heavy);
+  --opacity-hover-overlay: var(--ideasui-opacity-hover-overlay);
+  --opacity-light: var(--ideasui-opacity-light);
+  --opacity-medium: var(--ideasui-opacity-medium);
+  --opacity-none: var(--ideasui-opacity-none);
+  --opacity-strong: var(--ideasui-opacity-strong);
+  --opacity-subtle: var(--ideasui-opacity-subtle);
+  --opacity-surface-muted: var(--ideasui-opacity-surface-muted);
+
+  /* ── Blur Filters ── */
+  --blur-2xl: var(--ideasui-blur-2xl);
+  --blur-3xl: var(--ideasui-blur-3xl);
+  --blur-lg: var(--ideasui-blur-lg);
+  --blur-md: var(--ideasui-blur-md);
+  --blur-none: var(--ideasui-blur-none);
+  --blur-sm: var(--ideasui-blur-sm);
+  --blur-xl: var(--ideasui-blur-xl);
+
+  /* ── Motion — Transition Durations ── */
+  --duration-xs: var(--ideasui-duration-xs);
+  --duration-sm: var(--ideasui-duration-sm);
+  --duration-md: var(--ideasui-duration-md);
+  --duration-lg: var(--ideasui-duration-lg);
+  --duration-xl: var(--ideasui-duration-xl);
+  --duration-2xl: var(--ideasui-duration-2xl);
+  --duration-3xl: var(--ideasui-duration-3xl);
+  --duration-4xl: var(--ideasui-duration-4xl);
+
+  /* ── Motion — Easing Curves ── */
+  --ease-accelerate: var(--ideasui-easing-accelerate);
+  --ease-decelerate: var(--ideasui-easing-decelerate);
+  --ease-emphasized: var(--ideasui-easing-emphasized);
+  --ease-linear: var(--ideasui-easing-linear);
+  --ease-spring: var(--ideasui-easing-spring);
+  --ease-standard: var(--ideasui-easing-standard);
+
+  /* ── Motion — Animation Presets ── */
+  --animate-bounce: bounce 1s infinite;
+  --animate-fade-in: fadeIn 0.2s ease-in-out;
+  --animate-fade-out: fadeOut 0.2s ease-in-out;
+  --animate-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-scale-in: scaleIn 0.2s ease-out;
+  --animate-scale-out: scaleOut 0.2s ease-in;
+  --animate-slide-in: slideIn 0.2s ease-out;
+  --animate-slide-out: slideOut 0.2s ease-in;
+  --animate-spin: spin 1s linear infinite;
+
+  /* ── Layout — Z-Index Hierarchy ── */
+  --z-index-hide: var(--ideasui-z-index-hide);
+  --z-index-base: var(--ideasui-z-index-base);
+  --z-index-raised: var(--ideasui-z-index-raised);
+  --z-index-dropdown: var(--ideasui-z-index-dropdown);
+  --z-index-sticky: var(--ideasui-z-index-sticky);
+  --z-index-fixed: var(--ideasui-z-index-fixed);
+  --z-index-overlay: var(--ideasui-z-index-overlay);
+  --z-index-modal: var(--ideasui-z-index-modal);
+  --z-index-popover: var(--ideasui-z-index-popover);
+  --z-index-toast: var(--ideasui-z-index-toast);
+  --z-index-tooltip: var(--ideasui-z-index-tooltip);
+
+  /* ── Keyframe Animation Definitions ── */
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes ping {
+    75%,
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(-25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(-8px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideOut {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-8px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(0.96);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleOut {
+    from {
+      transform: scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: scale(0.96);
+      opacity: 0;
+    }
+  }
+}

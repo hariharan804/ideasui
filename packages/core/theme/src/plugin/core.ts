@@ -10,38 +10,7 @@ import type {
 
 import deepMerge from 'deepmerge';
 
-import {
-  animation,
-  borderRadius,
-  fontSize,
-  spacing,
-  letterSpacing,
-  primitives,
-  semantic,
-  zIndex,
-  opacity,
-  fontFamily,
-  fontWeight,
-  border,
-  blur,
-  lightShadow,
-  surface,
-  content,
-  dividerColors,
-  duration,
-  easing,
-  keyframes,
-  componentColors,
-  componentShadows,
-} from '../tokens';
-
-import {
-  flattenThemeObject,
-  omit,
-  escapeSelector,
-  parseColorValue,
-  formatColorComponents,
-} from './utils';
+import { flattenThemeObject, omit, escapeSelector } from './utils';
 import { processColors } from './colors';
 import { generateCSSVarsFromTokenOverrides as generateCSVariablesFromTokenOverrides } from './css-vars';
 
@@ -160,10 +129,7 @@ export function resolveConfig(
     const { cssSelector, baseSelector } = createThemeSelectors(themeName, defaultTheme);
     const colorScheme = getColorScheme(themeName, extend);
 
-    // Initialize style objects
-
     resolved.baseStyles[baseSelector] = colorScheme ? { 'color-scheme': colorScheme } : {};
-
     resolved.utilities[cssSelector] = colorScheme ? { 'color-scheme': colorScheme } : {};
 
     // Register variant
@@ -194,7 +160,6 @@ export function resolveConfig(
  */
 export function buildThemes(config: ThemeConfig): ConfigThemes {
   const themeData = config?.themes || {};
-  const autoGenerateScales = config?.autoGenerateScales ?? false;
 
   // Extract user overrides
   const globalDesignTokens = config?.designTokens || {};
@@ -212,48 +177,14 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
 
   // Build theme configs
   const lightTheme: ConfigTheme = {
-    colors: deepMerge(
-      {
-        ...flattenThemeObject(primitives.light),
-        ...semantic,
-        ...surface,
-        ...flattenThemeObject({
-          content,
-          divider: dividerColors,
-          ...componentColors,
-        }),
-      },
-      autoGenerateScales
-        ? autoGenerateColorScales(
-            flattenThemeObject(userLightColors) as Record<string, string>,
-            false,
-          )
-        : (flattenThemeObject(userLightColors) as Record<string, string>),
-    ) as Partial<ColorTokens>,
+    colors: flattenThemeObject(userLightColors) as Partial<ColorTokens>,
     designTokens: deepMerge(globalDesignTokens, userLightTokens),
     semanticTokens: deepMerge(globalSemanticTokens, userLightSemantic),
     components: deepMerge(globalComponents, userLightComponents),
   };
 
   const darkTheme: ConfigTheme = {
-    colors: deepMerge(
-      {
-        ...flattenThemeObject(primitives.dark),
-        ...semantic,
-        ...surface,
-        ...flattenThemeObject({
-          content,
-          divider: dividerColors,
-          ...componentColors,
-        }),
-      },
-      autoGenerateScales
-        ? autoGenerateColorScales(
-            flattenThemeObject(userDarkColors) as Record<string, string>,
-            true,
-          )
-        : (flattenThemeObject(userDarkColors) as Record<string, string>),
-    ) as Partial<ColorTokens>,
+    colors: flattenThemeObject(userDarkColors) as Partial<ColorTokens>,
     designTokens: deepMerge(globalDesignTokens, userDarkTokens),
     semanticTokens: deepMerge(globalSemanticTokens, userDarkSemantic),
     components: deepMerge(globalComponents, userDarkComponents),
@@ -264,14 +195,7 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
 
   for (const [themeName, themeConfig] of Object.entries(omit(themeData, ['light', 'dark']))) {
     if (themeConfig) {
-      const isDark = themeConfig.extend === 'dark' || themeName.includes('dark');
-      let finalColors = themeConfig.colors
-        ? (flattenThemeObject(themeConfig.colors) as Record<string, string>)
-        : undefined;
-
-      if (autoGenerateScales && finalColors) {
-        finalColors = autoGenerateColorScales(finalColors, isDark);
-      }
+      const finalColors = themeConfig.colors ? flattenThemeObject(themeConfig.colors) : {};
 
       customThemes[themeName] = {
         ...themeConfig,
@@ -289,23 +213,10 @@ export function buildThemes(config: ThemeConfig): ConfigThemes {
 
 /**
  * Creates the Tailwind theme extension configuration.
- *
- * Architecture:
- * - colors: flat CSS variable references (Tailwind v4 requires uniform types, no mixed flat+nested)
- * - spacing: 4px grid
- * - typography: fontSize with paired lineHeight
- * - motion: duration + easing + keyframes + animation presets
- * - All token families can be overridden via `tokenOverrides`
- *
- * @param {Record<string, string>} colors - The resolved flat colors map
- * @param {string} _prefix - The CSS variable prefix (unused, kept for API compat)
- * @param {boolean} disableAnimations - Whether to disable animations
- * @param {Partial<TokenOverrides>} tokenOverrides - User overrides for any token family
- * @returns {Record<string, any>} The Tailwind theme extension object
  */
 export function createThemeExtension(
   colors: Record<string, string>,
-  _prefix: string,
+  prefix: string,
   disableAnimations: boolean,
   tokenOverrides: Partial<TokenOverrides> = {},
   semanticTokens: Partial<SemanticTokenOverrides> = {},
@@ -313,252 +224,81 @@ export function createThemeExtension(
 ): Record<string, any> {
   const t = tokenOverrides;
 
+  const defaultColorRefs: Record<string, string> = {
+    primary: `oklch(var(--${prefix}-color-primary) / <alpha-value>)`,
+    'on-primary': `oklch(var(--${prefix}-color-on-primary) / <alpha-value>)`,
+    'primary-subtle': `oklch(var(--${prefix}-color-primary-subtle) / <alpha-value>)`,
+    'on-primary-subtle': `oklch(var(--${prefix}-color-on-primary-subtle) / <alpha-value>)`,
+    'primary-muted': `oklch(var(--${prefix}-color-primary-muted) / <alpha-value>)`,
+    'on-primary-muted': `oklch(var(--${prefix}-color-on-primary-muted) / <alpha-value>)`,
+    secondary: `oklch(var(--${prefix}-color-secondary) / <alpha-value>)`,
+    'on-secondary': `oklch(var(--${prefix}-color-on-secondary) / <alpha-value>)`,
+    tertiary: `oklch(var(--${prefix}-color-tertiary) / <alpha-value>)`,
+    'on-tertiary': `oklch(var(--${prefix}-color-on-tertiary) / <alpha-value>)`,
+    success: `oklch(var(--${prefix}-color-success) / <alpha-value>)`,
+    'on-success': `oklch(var(--${prefix}-color-on-success) / <alpha-value>)`,
+    warning: `oklch(var(--${prefix}-color-warning) / <alpha-value>)`,
+    'on-warning': `oklch(var(--${prefix}-color-on-warning) / <alpha-value>)`,
+    danger: `oklch(var(--${prefix}-color-danger) / <alpha-value>)`,
+    'on-danger': `oklch(var(--${prefix}-color-on-danger) / <alpha-value>)`,
+    info: `oklch(var(--${prefix}-color-info) / <alpha-value>)`,
+    'on-info': `oklch(var(--${prefix}-color-on-info) / <alpha-value>)`,
+    neutral: `oklch(var(--${prefix}-color-neutral) / <alpha-value>)`,
+    'on-neutral': `oklch(var(--${prefix}-color-on-neutral) / <alpha-value>)`,
+    surface: `oklch(var(--${prefix}-color-surface) / <alpha-value>)`,
+    'on-surface': `oklch(var(--${prefix}-color-on-surface) / <alpha-value>)`,
+    'surface-subtle': `oklch(var(--${prefix}-color-surface-subtle) / <alpha-value>)`,
+    'surface-muted': `oklch(var(--${prefix}-color-surface-muted) / <alpha-value>)`,
+    'surface-strong': `oklch(var(--${prefix}-color-surface-strong) / <alpha-value>)`,
+    'surface-inverse': `oklch(var(--${prefix}-color-surface-inverse) / <alpha-value>)`,
+    background: `oklch(var(--${prefix}-color-background) / <alpha-value>)`,
+    'on-background': `oklch(var(--${prefix}-color-on-background) / <alpha-value>)`,
+    border: `oklch(var(--${prefix}-color-border) / <alpha-value>)`,
+    'border-base': `oklch(var(--${prefix}-color-border-base) / <alpha-value>)`,
+    'border-subtle': `oklch(var(--${prefix}-color-border-subtle) / <alpha-value>)`,
+    'border-strong': `oklch(var(--${prefix}-color-border-strong) / <alpha-value>)`,
+    'border-focus': `oklch(var(--${prefix}-color-border-focus) / <alpha-value>)`,
+    'border-danger': `oklch(var(--${prefix}-color-border-danger) / <alpha-value>)`,
+    'content-primary': `oklch(var(--${prefix}-color-content-primary) / <alpha-value>)`,
+    'content-secondary': `oklch(var(--${prefix}-color-content-secondary) / <alpha-value>)`,
+    'content-tertiary': `oklch(var(--${prefix}-color-content-tertiary) / <alpha-value>)`,
+    'content-disabled': `oklch(var(--${prefix}-color-content-disabled) / <alpha-value>)`,
+    'content-inverse': `oklch(var(--${prefix}-color-content-inverse) / <alpha-value>)`,
+    'surface-overlay': `oklch(var(--${prefix}-color-surface-overlay) / <alpha-value>)`,
+    'common-white': `oklch(var(--${prefix}-color-common-white))`,
+    'common-black': `oklch(var(--${prefix}-color-common-black))`,
+    scrim: `oklch(var(--${prefix}-color-scrim))`,
+  };
+
   return {
-    // ── Colors (flat CSS variable references — v4 requires uniform types) ──
     colors: {
+      ...defaultColorRefs,
       ...colors,
       transparent: 'transparent',
-      // Map all flat semantic token overrides to their CSS variables so Tailwind detects them
       ...Object.fromEntries(
         Object.entries(semanticTokens)
           .filter(([key, value]) => key !== 'components' && typeof value === 'string')
-          .map(([key]) => [key, `var(--${_prefix}-color-${key})`]),
-      ),
-      // Map legacy grouped semantic overrides if any still exist
-      ...Object.fromEntries(
-        Object.keys(
-          ((semanticTokens as Record<string, unknown>).surface as Record<string, unknown>) || {},
-        ).map((key) => [key, `var(--${_prefix}-color-${key})`]),
-      ),
-      ...Object.fromEntries(
-        Object.keys(
-          ((semanticTokens as Record<string, unknown>).content as Record<string, unknown>) || {},
-        ).map((key) => [`content-${key}`, `var(--${_prefix}-color-content-${key})`]),
-      ),
-      ...Object.fromEntries(
-        Object.keys(
-          ((semanticTokens as Record<string, unknown>).border as Record<string, unknown>) || {},
-        ).map((key) => [`border-${key}`, `var(--${_prefix}-border-${key})`]),
+          .map(([key]) => [key, `var(--${prefix}-color-${key})`]),
       ),
     },
-
-    // ── Spacing (4px grid) ──
-    spacing: { ...spacing, ...t.spacing },
-
-    // ── Responsive ──
+    spacing: { ...t.spacing },
     container: { center: true },
-
-    // ── Layout ──
-    borderRadius: { ...borderRadius, ...t.borderRadius },
-    divider: {
-      DEFAULT: colors['divider'] || colors['divider-base'],
-      base: colors['divider-base'],
-      subtle: colors['divider-subtle'],
-      strong: colors['divider-strong'],
-      focus: colors['divider-focus'],
-      error: colors['divider-error'],
-      ...t.dividerColors,
-      ...Object.fromEntries(
-        Object.keys(
-          ((semanticTokens as Record<string, unknown>).divider as Record<string, unknown>) || {},
-        ).map((key) => [key, `var(--${_prefix}-divider-${key})`]),
-      ),
-    },
+    borderRadius: { ...t.borderRadius },
     borderWidth: {
-      DEFAULT: border.thin,
-      ...Object.fromEntries(
-        Object.entries(border).filter(
-          ([key]) => !key.startsWith('color') && !key.startsWith('width'),
-        ),
-      ),
+      DEFAULT: `var(--${prefix}-border-thin)`,
       ...t.borderWidth,
     },
-
-    // ── Typography ──
-    fontSize: { ...fontSize, ...t.fontSize },
-    fontWeight: { ...fontWeight, ...t.fontWeight },
-    letterSpacing: { ...letterSpacing, ...t.letterSpacing },
-    fontFamily: { ...fontFamily, ...t.fontFamily },
-
-    // ── Shadows ──
-    boxShadow: {
-      ...Object.fromEntries(
-        Object.keys(lightShadow).map((key) => [key, `var(--${_prefix}-shadow-${key})`]),
-      ),
-      ...flattenThemeObject(componentShadows),
-      ...t.boxShadow,
-    },
-
-    // ── Motion ──
-    animation: disableAnimations ? { none: 'none' } : { ...animation, ...t.animation },
-    keyframes: disableAnimations ? {} : { ...keyframes, ...t.keyframes },
-    transitionDuration: { ...duration, ...t.duration },
-    transitionTimingFunction: { ...easing, ...t.easing },
-
-    // ── Depth ──
-    zIndex: { ...zIndex, ...t.zIndex },
-    opacity: { ...opacity, ...t.opacity },
-
-    // ── Blur ──
-    blur: { ...blur, ...t.blur },
+    fontSize: { ...t.fontSize },
+    fontWeight: { ...t.fontWeight },
+    letterSpacing: { ...t.letterSpacing },
+    fontFamily: { ...t.fontFamily },
+    boxShadow: { ...t.boxShadow },
+    animation: disableAnimations ? { none: 'none' } : { ...t.animation },
+    keyframes: disableAnimations ? {} : { ...t.keyframes },
+    transitionDuration: { ...t.duration },
+    transitionTimingFunction: { ...t.easing },
+    zIndex: { ...t.zIndex },
+    opacity: { ...t.opacity },
+    blur: { ...t.blur },
   };
-}
-
-const SHADES = [
-  '50',
-  '100',
-  '200',
-  '300',
-  '400',
-  '500',
-  '600',
-  '700',
-  '800',
-  '900',
-  '950',
-] as const;
-const CHROMA_FACTORS = [0.1, 0.18, 0.35, 0.55, 0.75, 1, 0.95, 0.85, 0.72, 0.55, 0.4] as const;
-
-function findAnchorShade(presentShades: string[]): string {
-  let anchorShade = '500';
-  let minDiff = Infinity;
-
-  for (const shade of presentShades) {
-    const index = SHADES.indexOf(shade as (typeof SHADES)[number]);
-
-    if (index !== -1) {
-      const diff = Math.abs(index - 5);
-
-      if (diff < minDiff) {
-        minDiff = diff;
-        anchorShade = shade;
-      }
-    }
-  }
-
-  return anchorShade;
-}
-
-function interpolateLightness(
-  isDark: boolean,
-  index: number,
-  anchorIndex: number,
-  lAnchor: number,
-): number {
-  if (isDark) {
-    if (index < anchorIndex) {
-      return lAnchor - ((lAnchor - 0.14) * (anchorIndex - index)) / anchorIndex;
-    }
-    if (index > anchorIndex) {
-      return lAnchor + ((0.97 - lAnchor) * (index - anchorIndex)) / (10 - anchorIndex);
-    }
-  } else {
-    if (index < anchorIndex) {
-      return lAnchor + ((0.97 - lAnchor) * (anchorIndex - index)) / anchorIndex;
-    }
-    if (index > anchorIndex) {
-      return lAnchor - ((lAnchor - 0.14) * (index - anchorIndex)) / (10 - anchorIndex);
-    }
-  }
-
-  return lAnchor;
-}
-
-/**
- * Interpolates a single color family's shades based on the parsed anchor color.
- */
-export function generateColorScale(
-  familyColors: Record<string, string>,
-  isDark: boolean,
-): Record<string, string> {
-  const presentShades = Object.keys(familyColors);
-
-  if (presentShades.length === 0 || presentShades.length === SHADES.length) {
-    return familyColors;
-  }
-
-  // Find closest anchor shade to 500 (index 5)
-  const anchorShade = findAnchorShade(presentShades);
-  const anchorValue = familyColors[anchorShade];
-
-  if (!anchorValue) {
-    return familyColors;
-  }
-
-  const parsed = parseColorValue(anchorValue);
-
-  if (parsed?.cssFn !== 'oklch') {
-    return familyColors;
-  }
-
-  const [lAnchor, cAnchor, hAnchor] = parsed.components as [number, number, number];
-  const anchorIndex = SHADES.indexOf(anchorShade as (typeof SHADES)[number]);
-
-  if (anchorIndex === -1) {
-    return familyColors;
-  }
-
-  const result = { ...familyColors };
-
-  for (const [index, shade] of SHADES.entries()) {
-    if (familyColors[shade]) {
-      continue;
-    }
-
-    let lTarget = interpolateLightness(isDark, index, anchorIndex, lAnchor);
-
-    lTarget = Math.round(lTarget * 10_000) / 10_000;
-
-    const anchorFactor = CHROMA_FACTORS[anchorIndex];
-    const targetFactor = CHROMA_FACTORS[index];
-    const cTarget = Math.round(cAnchor * (targetFactor / anchorFactor) * 10_000) / 10_000;
-
-    const targetComponents: (string | number)[] = [lTarget, cTarget, hAnchor];
-
-    if (parsed.components[3] !== undefined) {
-      targetComponents.push(parsed.components[3]);
-    }
-
-    result[shade] = `oklch(${formatColorComponents(targetComponents)})`;
-  }
-
-  return result;
-}
-
-/**
- * Automates 11-stop color scale generation for any partially defined scales.
- */
-export function autoGenerateColorScales(
-  flatUserColors: Record<string, string>,
-  isDark: boolean,
-): Record<string, string> {
-  const result = { ...flatUserColors };
-  const overridesByFamily: Record<string, Record<string, string>> = {};
-
-  for (const [key, value] of Object.entries(flatUserColors)) {
-    const match = /^([a-z]+)-(\d+)$/i.exec(key);
-
-    if (match) {
-      const [, family, shade] = match;
-
-      if (!overridesByFamily[family]) {
-        overridesByFamily[family] = {};
-      }
-      overridesByFamily[family][shade] = value;
-    }
-  }
-
-  for (const [family, shades] of Object.entries(overridesByFamily)) {
-    const keys = Object.keys(shades);
-
-    if (keys.length > 0 && keys.length < SHADES.length) {
-      const completeScale = generateColorScale(shades, isDark);
-
-      for (const [shade, value] of Object.entries(completeScale)) {
-        result[`${family}-${shade}`] = value;
-      }
-    }
-  }
-
-  return result;
 }

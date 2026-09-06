@@ -140,15 +140,6 @@ describe('generateCSSVarsFromTokenOverrides', () => {
     expect(result['--ui-animation-spin']).toBe('spin 1s linear infinite');
   });
 
-  it('generates --prefix-divider-{key} for dividerColors tokens', () => {
-    const result = generateCSVariablesFromTokenOverrides(
-      { dividerColors: { primary: '#3b82f6' } },
-      'ui',
-    );
-
-    expect(result['--ui-divider-primary']).toBe('#3b82f6');
-  });
-
   // ── Components ─────────────────────────────────────────────────────────────
 
   it('converts component camelCase property to kebab-case CSS var', () => {

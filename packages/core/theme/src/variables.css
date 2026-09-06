@@ -1,0 +1,394 @@
+@layer base {
+  /* IdeasUI Default Theme */
+  :root,
+  .light,
+  .default,
+  [data-theme='light'],
+  [data-theme='default'] {
+    color-scheme: light;
+
+    /* ── Base Scale & Overlays ────────────────────────────────── */
+    --ideasui-radius: 0.5rem;
+    --ideasui-overlay-color: 0 0 0;
+    --ideasui-opacity-active-overlay: 0.08;
+    --ideasui-opacity-hover-overlay: 0.04;
+    --ideasui-opacity-surface-muted: 1;
+
+    /* ── Intent Colors (OKLCH) ────────────────────────────────── */
+    /* Primary */
+    --ideasui-color-primary: 0.575 0.214 277.1;
+    --ideasui-color-on-primary: 0.962 0.018 272.3;
+    --ideasui-color-primary-subtle: 0.962 0.018 272.3;
+    --ideasui-color-on-primary-subtle: 0.415 0.177 277.4;
+    --ideasui-color-primary-muted: 0.93 0.033 272.8;
+    --ideasui-color-on-primary-muted: 0.475 0.215 277;
+
+    /* Secondary */
+    --ideasui-color-secondary: 0.535 0.205 292.7;
+    --ideasui-color-on-secondary: 0.969 0.016 293.8;
+    --ideasui-color-secondary-subtle: 0.969 0.016 293.8;
+    --ideasui-color-on-secondary-subtle: 0.38 0.15 292.8;
+    --ideasui-color-secondary-muted: 0.943 0.028 294.6;
+    --ideasui-color-on-secondary-muted: 0.432 0.18 292.6;
+
+    /* Tertiary */
+    --ideasui-color-tertiary: 0.555 0.188 259.8;
+    --ideasui-color-on-tertiary: 0.97 0.014 254.6;
+    --ideasui-color-tertiary-subtle: 0.97 0.014 254.6;
+    --ideasui-color-on-tertiary-subtle: 0.39 0.13 265.6;
+    --ideasui-color-tertiary-muted: 0.932 0.032 255.6;
+    --ideasui-color-on-tertiary-muted: 0.45 0.16 264.4;
+
+    /* ── Status Colors (OKLCH) ────────────────────────────────── */
+    /* Success */
+    --ideasui-color-success: 0.535 0.165 142.5;
+    --ideasui-color-on-success: 0.97 0.019 142.5;
+    --ideasui-color-success-subtle: 0.97 0.019 142.5;
+    --ideasui-color-on-success-subtle: 0.306 0.078 142.5;
+    --ideasui-color-success-muted: 0.94 0.035 142.5;
+    --ideasui-color-on-success-muted: 0.389 0.1 142.5;
+
+    /* Warning */
+    --ideasui-color-warning: 0.535 0.165 65;
+    --ideasui-color-on-warning: 0.978 0.035 65;
+    --ideasui-color-warning-subtle: 0.978 0.035 65;
+    --ideasui-color-on-warning-subtle: 0.33 0.1 65;
+    --ideasui-color-warning-muted: 0.945 0.075 65;
+    --ideasui-color-on-warning-muted: 0.41 0.125 65;
+
+    /* Danger */
+    --ideasui-color-danger: 0.53 0.185 25.3;
+    --ideasui-color-on-danger: 0.97 0.014 25.3;
+    --ideasui-color-danger-subtle: 0.97 0.014 25.3;
+    --ideasui-color-on-danger-subtle: 0.29 0.105 25.3;
+    --ideasui-color-danger-muted: 0.89 0.035 25.3;
+    --ideasui-color-on-danger-muted: 0.37 0.135 25.3;
+
+    /* Info */
+    --ideasui-color-info: 0.51 0.126 215.2;
+    --ideasui-color-on-info: 0.984 0.019 215.2;
+    --ideasui-color-info-subtle: 0.984 0.019 215.2;
+    --ideasui-color-on-info-subtle: 0.36 0.077 215.2;
+    --ideasui-color-info-muted: 0.956 0.044 215.2;
+    --ideasui-color-on-info-muted: 0.42 0.094 215.2;
+
+    /* ── Neutral ─────────────────────────────────────────────── */
+    --ideasui-color-neutral: 0.551 0.015 264.4;
+    --ideasui-color-on-neutral: 0.985 0.002 260;
+    --ideasui-color-neutral-subtle: 0.985 0.002 260;
+    --ideasui-color-on-neutral-subtle: 0.269 0.009 260;
+    --ideasui-color-neutral-muted: 0.967 0.003 260;
+    --ideasui-color-on-neutral-muted: 0.371 0.009 260;
+
+    /* ── Common ──────────────────────────────────────────────── */
+    --ideasui-color-common-white: 1 0 0;
+    --ideasui-color-common-black: 0 0 0;
+
+    /* ── Background ──────────────────────────────────────────── */
+    --ideasui-color-background: 1 0 0;
+    --ideasui-color-on-background: 0.145 0.006 260;
+
+    /* ── Surface ─────────────────────────────────────────────── */
+    --ideasui-color-surface: 0.985 0.002 260;
+    --ideasui-color-on-surface: 0.205 0.008 260;
+    --ideasui-color-surface-subtle: 0.967 0.003 260;
+    --ideasui-color-surface-muted: 0.922 0.004 260;
+    --ideasui-color-surface-strong: 0.87 0.005 260;
+    --ideasui-color-surface-inverse: 0.205 0.008 260;
+    --ideasui-color-on-surface-inverse: 0.985 0.002 260;
+    --ideasui-color-surface-overlay: 1 0 0;
+
+    /* ── Content & Typography Colors ─────────────────────────── */
+    --ideasui-color-content-primary: 0.205 0.008 260;
+    --ideasui-color-content-secondary: 0.371 0.009 260;
+    --ideasui-color-content-tertiary: 0.442 0.008 260;
+    --ideasui-color-content-muted: 0.551 0.015 264.4;
+    --ideasui-color-content-disabled: 0.708 0.006 260;
+    --ideasui-color-content-inverse: 0.985 0.002 260;
+
+    /* ── Borders ──────────────────────────────────── */
+    --ideasui-color-border: 0.922 0.004 260;
+    --ideasui-color-border-base: 0.922 0.004 260;
+    --ideasui-color-border-subtle: 0.967 0.003 260;
+    --ideasui-color-border-strong: 0.87 0.005 260;
+    --ideasui-color-border-focus: 0.575 0.214 277.1;
+    --ideasui-color-border-danger: 0.53 0.185 25.3;
+
+    /* ── Overlays & Scrim ────────────────────────────────────── */
+    --ideasui-color-scrim: 0 0 0 / 0.45;
+
+    /* ── Typography Tokens ───────────────────────────────────── */
+    /* Font Families */
+    --ideasui-font-sans:
+      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      'Helvetica Neue', Arial, sans-serif;
+    --ideasui-font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+    --ideasui-font-mono:
+      'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+      'Courier New', monospace;
+
+    /* Font Sizes (Small to Large) */
+    --ideasui-font-size-3xs: 0.5rem;
+    --ideasui-font-size-2xs: 0.625rem;
+    --ideasui-font-size-xs: 0.75rem;
+    --ideasui-font-size-sm: 0.875rem;
+    --ideasui-font-size-base: 1rem;
+    --ideasui-font-size-lg: 1.125rem;
+    --ideasui-font-size-xl: 1.25rem;
+    --ideasui-font-size-2xl: 1.5rem;
+    --ideasui-font-size-3xl: 1.875rem;
+    --ideasui-font-size-4xl: 2.25rem;
+    --ideasui-font-size-5xl: 3rem;
+    --ideasui-font-size-6xl: 3.75rem;
+    --ideasui-font-size-7xl: 4.5rem;
+    --ideasui-font-size-8xl: 6rem;
+    --ideasui-font-size-9xl: 8rem;
+
+    /* Letter Spacing */
+    --ideasui-tracking-tighter: -0.05em;
+    --ideasui-tracking-tight: -0.025em;
+    --ideasui-tracking-normal: 0;
+    --ideasui-tracking-wide: 0.025em;
+    --ideasui-tracking-wider: 0.05em;
+    --ideasui-tracking-widest: 0.1em;
+
+    /* ── Spacing Scale (4px Grid) ────────────────────────────── */
+    --ideasui-spacing-px: 1px;
+    --ideasui-spacing-0: 0;
+    --ideasui-spacing-1: 0.25rem;
+    --ideasui-spacing-2: 0.5rem;
+    --ideasui-spacing-3: 0.75rem;
+    --ideasui-spacing-4: 1rem;
+    --ideasui-spacing-5: 1.25rem;
+    --ideasui-spacing-6: 1.5rem;
+    --ideasui-spacing-8: 2rem;
+    --ideasui-spacing-10: 2.5rem;
+    --ideasui-spacing-12: 3rem;
+    --ideasui-spacing-16: 4rem;
+    --ideasui-spacing-20: 5rem;
+    --ideasui-spacing-24: 6rem;
+
+    /* ── Border Radius Scale ─────────────────────────────────── */
+    --ideasui-radius-none: 0;
+    --ideasui-radius-xs: calc(var(--ideasui-radius) * 0.25);
+    --ideasui-radius-sm: calc(var(--ideasui-radius) * 0.5);
+    --ideasui-radius-md: calc(var(--ideasui-radius) * 0.75);
+    --ideasui-radius-lg: calc(var(--ideasui-radius) * 1.25);
+    --ideasui-radius-xl: calc(var(--ideasui-radius) * 1.5);
+    --ideasui-radius-2xl: calc(var(--ideasui-radius) * 2);
+    --ideasui-radius-3xl: calc(var(--ideasui-radius) * 3);
+    --ideasui-radius-4xl: calc(var(--ideasui-radius) * 4);
+    --ideasui-radius-full: calc(var(--ideasui-radius) * 9999);
+    --ideasui-radius-input: calc(var(--ideasui-radius) * 1.5);
+
+    /* ── Border Width Scale ──────────────────────────────────── */
+    --ideasui-border-none: 0;
+    --ideasui-border-hairline: 0.5px;
+    --ideasui-border-thin: 1px;
+    --ideasui-border-medium: 2px;
+    --ideasui-border-thick: 4px;
+    --ideasui-border-heavy: 8px;
+
+    /* ── Box Shadows ─────────────────────────────────────────── */
+    --ideasui-shadow-none: none;
+    --ideasui-shadow-xs: 0 1px 2px rgb(0 0 0 / 0.05);
+    --ideasui-shadow-sm: 0 2px 4px rgb(0 0 0 / 0.06), 0 1px 2px rgb(0 0 0 / 0.04);
+    --ideasui-shadow-md: 0 4px 8px rgb(0 0 0 / 0.08), 0 2px 4px rgb(0 0 0 / 0.05);
+    --ideasui-shadow-lg: 0 8px 16px rgb(0 0 0 / 0.1), 0 4px 6px rgb(0 0 0 / 0.05);
+    --ideasui-shadow-xl: 0 16px 24px rgb(0 0 0 / 0.12), 0 6px 8px rgb(0 0 0 / 0.06);
+    --ideasui-shadow-2xl: 0 24px 48px rgb(0 0 0 / 0.16);
+    --ideasui-shadow-inner: inset 0 2px 4px rgb(0 0 0 / 0.06);
+
+    /* ── Opacity Scale ───────────────────────────────────────── */
+    --ideasui-opacity-none: 0;
+    --ideasui-opacity-subtle: 0.04;
+    --ideasui-opacity-light: 0.08;
+    --ideasui-opacity-medium: 0.16;
+    --ideasui-opacity-strong: 0.38;
+    --ideasui-opacity-heavy: 0.6;
+    --ideasui-opacity-full: 1;
+
+    /* ── Blur Filters ────────────────────────────────────────── */
+    --ideasui-blur-none: 0;
+    --ideasui-blur-sm: 4px;
+    --ideasui-blur-md: 8px;
+    --ideasui-blur-lg: 12px;
+    --ideasui-blur-xl: 16px;
+    --ideasui-blur-2xl: 24px;
+    --ideasui-blur-3xl: 40px;
+
+    /* Backdrop Filters */
+    --ideasui-backdrop-blur-sm: blur(4px);
+    --ideasui-backdrop-blur-md: blur(8px);
+    --ideasui-backdrop-blur-lg: blur(12px);
+    --ideasui-backdrop-blur-xl: blur(16px);
+    --ideasui-backdrop-brightness-light: brightness(1.1);
+    --ideasui-backdrop-brightness-dark: brightness(0.8);
+    --ideasui-backdrop-saturate: saturate(180%);
+
+    /* ── Motion & Transitions ────────────────────────────────── */
+    /* Durations */
+    --ideasui-duration-xs: 75ms;
+    --ideasui-duration-sm: 100ms;
+    --ideasui-duration-md: 150ms;
+    --ideasui-duration-lg: 200ms;
+    --ideasui-duration-xl: 300ms;
+    --ideasui-duration-2xl: 500ms;
+    --ideasui-duration-3xl: 700ms;
+    --ideasui-duration-4xl: 1000ms;
+
+    /* Easing Curves */
+    --ideasui-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    --ideasui-easing-linear: linear;
+    --ideasui-easing-accelerate: cubic-bezier(0.4, 0, 1, 1);
+    --ideasui-easing-decelerate: cubic-bezier(0, 0, 0.2, 1);
+    --ideasui-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+    --ideasui-easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* ── Layout — Z-Index Hierarchy ──────────────────────────── */
+    --ideasui-z-index-hide: -1;
+    --ideasui-z-index-base: 0;
+    --ideasui-z-index-raised: 1;
+    --ideasui-z-index-sticky: 100;
+    --ideasui-z-index-fixed: 200;
+    --ideasui-z-index-dropdown: 1000;
+    --ideasui-z-index-overlay: 1100;
+    --ideasui-z-index-modal: 1200;
+    --ideasui-z-index-popover: 1300;
+    --ideasui-z-index-toast: 1400;
+    --ideasui-z-index-tooltip: 1500;
+  }
+
+  /* Dark Theme Overrides */
+  .dark,
+  [data-theme='dark'] {
+    color-scheme: dark;
+
+    /* ── Intent Colors (Dark Mode OKLCH) ─────────────────────── */
+    /* Primary */
+    --ideasui-color-primary: 0.62 0.214 277.1;
+    --ideasui-color-on-primary: 0.257 0.086 281.3;
+    --ideasui-color-primary-subtle: 0.257 0.086 281.3;
+    --ideasui-color-on-primary-subtle: 0.87 0.062 274;
+    --ideasui-color-primary-muted: 0.359 0.135 278.7;
+    --ideasui-color-on-primary-muted: 0.785 0.104 274.7;
+
+    /* Secondary */
+    --ideasui-color-secondary: 0.62 0.205 292.7;
+    --ideasui-color-on-secondary: 0.283 0.135 291.1;
+    --ideasui-color-secondary-subtle: 0.283 0.135 291.1;
+    --ideasui-color-on-secondary-subtle: 0.894 0.055 293.3;
+    --ideasui-color-secondary-muted: 0.38 0.178 293.7;
+    --ideasui-color-on-secondary-muted: 0.811 0.101 293.6;
+
+    /* Tertiary */
+    --ideasui-color-tertiary: 0.62 0.188 259.8;
+    --ideasui-color-on-tertiary: 0.282 0.087 267.9;
+    --ideasui-color-tertiary-subtle: 0.282 0.087 267.9;
+    --ideasui-color-on-tertiary-subtle: 0.882 0.057 254.1;
+    --ideasui-color-tertiary-muted: 0.379 0.138 265.5;
+    --ideasui-color-on-tertiary-muted: 0.809 0.096 251.8;
+
+    /* ── Status Colors (Dark Mode OKLCH) ─────────────────────── */
+    /* Success */
+    --ideasui-color-success: 0.59 0.165 142.5;
+    --ideasui-color-on-success: 0.14 0.036 142.5;
+    --ideasui-color-success-subtle: 0.14 0.036 142.5;
+    --ideasui-color-on-success-subtle: 0.83 0.067 142.5;
+    --ideasui-color-success-muted: 0.223 0.057 142.5;
+    --ideasui-color-on-success-muted: 0.75 0.106 142.5;
+
+    /* Warning */
+    --ideasui-color-warning: 0.59 0.165 65;
+    --ideasui-color-on-warning: 0.15 0.04 65;
+    --ideasui-color-warning-subtle: 0.15 0.04 65;
+    --ideasui-color-on-warning-subtle: 0.85 0.11 65;
+    --ideasui-color-warning-muted: 0.24 0.07 65;
+    --ideasui-color-on-warning-muted: 0.76 0.15 65;
+
+    /* Danger */
+    --ideasui-color-danger: 0.605 0.175 25.3;
+    --ideasui-color-on-danger: 0.14 0.045 25.3;
+    --ideasui-color-danger-subtle: 0.14 0.045 25.3;
+    --ideasui-color-on-danger-subtle: 0.85 0.08 25.3;
+    --ideasui-color-danger-muted: 0.21 0.075 25.3;
+    --ideasui-color-on-danger-muted: 0.77 0.115 25.3;
+
+    /* Info */
+    --ideasui-color-info: 0.59 0.126 215.2;
+    --ideasui-color-on-info: 0.24 0.054 215.2;
+    --ideasui-color-info-subtle: 0.24 0.054 215.2;
+    --ideasui-color-on-info-subtle: 0.84 0.077 215.2;
+    --ideasui-color-info-muted: 0.3 0.066 215.2;
+    --ideasui-color-on-info-muted: 0.76 0.115 215.2;
+
+    /* ── Neutral (Dark Mode) ─────────────────────────────────── */
+    --ideasui-color-neutral: 0.62 0.008 260;
+    --ideasui-color-on-neutral: 0.12 0.006 260;
+    --ideasui-color-neutral-subtle: 0.12 0.006 260;
+    --ideasui-color-on-neutral-subtle: 0.94 0.003 260;
+    --ideasui-color-neutral-muted: 0.18 0.008 260;
+    --ideasui-color-on-neutral-muted: 0.9 0.004 260;
+
+    /* ── Common (Dark Mode) ──────────────────────────────────── */
+    --ideasui-color-common-white: 1 0 0;
+    --ideasui-color-common-black: 0 0 0;
+
+    /* ── Background (Dark Mode) ──────────────────────────────── */
+    --ideasui-color-background: 0.08 0.004 260;
+    --ideasui-color-on-background: 0.985 0.002 260;
+
+    /* ── Surface (Dark Mode) ─────────────────────────────────── */
+    --ideasui-color-surface: 0.12 0.006 260;
+    --ideasui-color-on-surface: 0.97 0.002 260;
+    --ideasui-color-surface-subtle: 0.18 0.008 260;
+    --ideasui-color-surface-muted: 0.29 0.01 260;
+    --ideasui-color-surface-strong: 0.39 0.01 260;
+    --ideasui-color-surface-inverse: 0.97 0.002 260;
+    --ideasui-color-on-surface-inverse: 0.12 0.006 260;
+    --ideasui-color-surface-overlay: 0.12 0.006 260;
+
+    /* ── Content & Typography Colors (Dark Mode) ─────────────── */
+    --ideasui-color-content-primary: 0.97 0.002 260;
+    --ideasui-color-content-secondary: 0.9 0.004 260;
+    --ideasui-color-content-tertiary: 0.78 0.006 260;
+    --ideasui-color-content-muted: 0.62 0.008 260;
+    --ideasui-color-content-disabled: 0.5 0.009 260;
+    --ideasui-color-content-inverse: 0.205 0.008 260;
+
+    /* ── Borders (Dark Mode) ──────────────────────── */
+    --ideasui-color-border: 0.29 0.01 260;
+    --ideasui-color-border-base: 0.29 0.01 260;
+    --ideasui-color-border-subtle: 0.18 0.008 260;
+    --ideasui-color-border-strong: 0.39 0.01 260;
+    --ideasui-color-border-focus: 0.62 0.214 277.1;
+    --ideasui-color-border-danger: 0.605 0.175 25.3;
+
+    /* ── Dark Mode Box Shadows ───────────────────────────────── */
+    --ideasui-shadow-none: none;
+    --ideasui-shadow-xs: 0 1px 2px rgb(0 0 0 / 0.12);
+    --ideasui-shadow-sm: 0 2px 4px rgb(0 0 0 / 0.15), 0 1px 2px rgb(0 0 0 / 0.1);
+    --ideasui-shadow-md: 0 4px 8px rgb(0 0 0 / 0.18), 0 2px 4px rgb(0 0 0 / 0.12);
+    --ideasui-shadow-lg: 0 8px 16px rgb(0 0 0 / 0.22), 0 4px 6px rgb(0 0 0 / 0.14);
+    --ideasui-shadow-xl: 0 16px 24px rgb(0 0 0 / 0.26), 0 6px 8px rgb(0 0 0 / 0.16);
+    --ideasui-shadow-2xl: 0 24px 48px rgb(0 0 0 / 0.32);
+    --ideasui-shadow-inner: inset 0 2px 4px rgb(0 0 0 / 0.2);
+  }
+}
+
+/* ── Explicit Utilities ────────────────────────────────────────────── */
+@utility disabled-state {
+  @apply disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+@utility scrollbar-none {
+  @apply [&::-webkit-scrollbar]:hidden;
+}
+
+@utility scrollbar-default {
+  @apply [&::-webkit-scrollbar-thumb]:bg-border-subtle [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent;
+}
+
+@utility scrollbar-thin {
+  @apply [&::-webkit-scrollbar-thumb]:bg-border-subtle [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent;
+}

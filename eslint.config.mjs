@@ -450,7 +450,7 @@ export default defineConfig([
       'tailwindcss/enforces-negative-arbitrary-values': 'off',
       'tailwindcss/enforces-shorthand': 'off',
       'tailwindcss/no-custom-classname': 'off', // Allow BEM classes
-      'tailwindcss/no-contradicting-classname': 'error',
+      'tailwindcss/no-contradicting-classname': 'off', // Disabled for Tailwind v4 @theme semantic color tokens
       'tailwindcss/no-unnecessary-arbitrary-value': 'off',
     },
   },

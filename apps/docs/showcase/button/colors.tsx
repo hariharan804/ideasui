@@ -8,7 +8,7 @@ export function Colors() {
       <Button color="tertiary">Tertiary</Button>
       <Button color="success">Success</Button>
       <Button color="warning">Warning</Button>
-      <Button color="error">Error</Button>
+      <Button color="danger">Danger</Button>
       <Button color="info">Info</Button>
       <Button color="neutral">Neutral</Button>
     </div>

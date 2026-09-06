@@ -5,6 +5,7 @@ const { execSync } = require('node:child_process');
 
 const rootDir = path.resolve(__dirname, '../../../..');
 const componentsDir = path.join(rootDir, 'packages/components');
+const recipesDir = path.join(rootDir, 'packages/core/theme/src/recipes');
 const stylesDir = path.resolve(__dirname, '..');
 const srcDir = path.join(stylesDir, 'src');
 const distDir = path.join(stylesDir, 'dist');
@@ -55,11 +56,41 @@ function compile(inputPath, outputPath, minify = true) {
 console.log('📦 Compiling base.css...');
 compile(path.join(srcDir, 'base.css'), path.join(distDir, 'base.css'));
 
-// 2. Compile Styles CSS (all-in-one styles.css)
-console.log('📦 Compiling styles.css (all-in-one)...');
-compile(path.join(srcDir, 'styles.css'), path.join(distDir, 'styles.css'));
+// 2. Auto-discover component CSS files from theme recipes
+const recipeComponentCssImports = fs.existsSync(recipesDir)
+  ? fs
+      .readdirSync(recipesDir)
+      .filter((file) => {
+        const fullPath = path.join(recipesDir, file);
 
-// 3. Compile Component-wise CSS
+        return (
+          fs.statSync(fullPath).isDirectory() && fs.existsSync(path.join(fullPath, `${file}.css`))
+        );
+      })
+      .map((component) => `@import "../../theme/src/recipes/${component}/${component}.css";`)
+      .join('\n')
+  : '';
+
+// 3. Compile Styles CSS (all-in-one styles.css)
+console.log('📦 Compiling styles.css (all-in-one)...');
+const allInOneContent = `@import "tailwindcss/theme.css" layer(theme) source(none);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+@import "../../theme/src/theme-config.css";
+
+/* Automatically imported component CSS files */
+${recipeComponentCssImports}
+
+/* Scan component sources for tailwind utilities to compile */
+@source "../../../components/*/src/**/*.{ts,tsx}";
+@source "../../theme/src/recipes/**/*.ts";
+`;
+
+const allInOneInputPath = path.join(tempDir, 'styles.css');
+
+fs.writeFileSync(allInOneInputPath, allInOneContent, 'utf8');
+compile(allInOneInputPath, path.join(distDir, 'styles.css'));
+
+// 4. Compile Component-wise CSS
 const components = fs.readdirSync(componentsDir).filter((file) => {
   const fullPath = path.join(componentsDir, file);
 
@@ -71,15 +102,14 @@ console.log(`🧩 Found components: ${components.join(', ')}`);
 components.forEach((component) => {
   console.log(`📦 Compiling component styles for: ${component}...`);
 
-  // 3a. Standard version (utilities-only, no resets, theme + utilities only)
   const standardContent = `@import "tailwindcss/theme.css" layer(theme) source(none);
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
-@import "../../theme/dist/theme-config.css";
+@import "../../theme/src/theme-config.css";
+@import "../../theme/src/recipes/${component}/${component}.css";
 
 /* Scan component source and its specific recipe files */
 @source "../../../components/${component}/src/**/*.{ts,tsx}";
-@source "../../theme/src/recipes/${component}.ts";
-@source "../../theme/src/recipes/${component}.compound.ts";
+@source "../../theme/src/recipes/${component}/**/*.ts";
 `;
 
   const standardInputPath = path.join(tempDir, `${component}.css`);

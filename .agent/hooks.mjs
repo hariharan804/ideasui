@@ -98,7 +98,7 @@ const isTest = (f) => /\.(test|spec)\.(ts|tsx)$/.test(f);
 
 // Raw Tailwind palette colors forbidden in consumer files.
 // Also catches numeric shades on semantic names (e.g. primary-500, secondary-200).
-const FORBIDDEN_COLOR_PATTERN = String.raw`(gray|slate|zinc|stone|neutral|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose|primary|secondary|tertiary|success|warning|error|info)-\d+`;
+const FORBIDDEN_COLOR_PATTERN = String.raw`(gray|slate|zinc|stone|neutral|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose|primary|secondary|tertiary|success|warning|danger|error|info)-\d+`;
 
 // ─── Pre-edit hook ────────────────────────────────────────────────────────────
 

@@ -12,107 +12,84 @@ const config: Config = {
   plugins: [
     ideasUIPlugin({
       defaultTheme: 'light',
+
       // ─────────────────────────────────────────────────────────────
-      // 1. Global Token Overrides (applies globally across all themes)
+      // 1. Global Design Tokens (Applies globally across all themes)
       // ─────────────────────────────────────────────────────────────
       designTokens: {
+        fontFamily: {
+          sans: 'Inter, system-ui, -apple-system, sans-serif',
+          mono: 'Fira Code, monospace',
+        },
+        borderRadius: {
+          brand: '0.75rem', // 12px brand radius
+        },
         spacing: {
-          globalGap: '2.5rem',
+          18: '4.5rem',
+          112: '28rem',
         },
       },
-      semanticTokens: {},
+
       // ─────────────────────────────────────────────────────────────
-      // 2. Theme-Specific Overrides
+      // 2. Global Semantic Tokens
+      // ─────────────────────────────────────────────────────────────
+      semanticTokens: {
+        content: {
+          brand: 'var(--ideasui-color-primary)',
+        },
+      },
+
+      // ─────────────────────────────────────────────────────────────
+      // 3. Theme-Specific Overrides (Light & Dark)
       // ─────────────────────────────────────────────────────────────
       themes: {
-        dark: {
-          colors: {},
-          // components:{
-
-          // }
-          designTokens: {},
-          semanticTokens: {},
-        },
         light: {
-          // A. Theme-Specific Colors (Flat & Scales)
+          // A. Theme Colors (OKLCH Precision Palette)
           colors: {
-            // Core colors are represented as scales (objects matching ColorScale)
-            primary: {
-              '50': 'oklch(0.97 0.01 125)',
-              '100': 'oklch(0.93 0.03 125)',
-              '200': 'oklch(0.87 0.06 125)',
-              '300': 'oklch(0.79 0.10 125)',
-              '400': 'oklch(0.65 0.15 125)',
-              '500': 'oklch(0.42 0.18 125)', // Primary base color
-              '600': 'oklch(0.35 0.16 125)',
-              '700': 'oklch(0.28 0.13 125)',
-              '800': 'oklch(0.20 0.10 125)',
-              '900': 'oklch(0.13 0.06 125)',
-              '950': 'oklch(0.08 0.04 125)',
-            },
+            primary: 'oklch(0.55 0.22 250)', // Vibrant Ocean Blue
+            'on-primary': 'oklch(0.99 0 0)',
+            'primary-subtle': 'oklch(0.94 0.05 250)',
+            'on-primary-subtle': 'oklch(0.35 0.18 250)',
+
+            secondary: 'oklch(0.65 0.20 160)', // Fresh Emerald Green
+            'on-secondary': 'oklch(0.99 0 0)',
+
+            surface: 'oklch(0.99 0.005 250)',
+            'surface-subtle': 'oklch(0.96 0.01 250)',
+            'surface-muted': 'oklch(0.92 0.02 250)',
           },
-          // B. Theme-Specific Design Tokens
-          designTokens: {
-            spacing: {
-              cus: '10px',
-            },
-            borderRadius: {
-              cus: '5px',
-            },
-            borderWidth: {
-              cus: '1px',
-            },
-            borderColor: {
-              cus: 'red',
-            },
-            fontSize: {
-              cus: '12px',
-              cusWithLineHeight: ['14px', { lineHeight: '20px' }],
-            },
-            fontWeight: {
-              cus: 'bold',
-            },
-            fontFamily: {
-              cus: 'Arial',
-            },
-            letterSpacing: {
-              cus: '1px',
-            },
-            boxShadow: {
-              cus: '0 0 0 1px red',
-            },
-            zIndex: {
-              cus: '100',
-            },
-            opacity: {
-              cus: '0.5',
-            },
-            blur: {
-              cus: 'blur(10px)',
-            },
-            duration: {
-              cus: '1s',
-            },
-            easing: {
-              cus: 'ease-in-out',
-            },
-            animation: {
-              cus: 'spin 1s linear infinite',
-            },
-            keyframes: {
-              cus: {
-                '0%': { transform: 'rotate(0deg)' },
-                '100%': { transform: 'rotate(360deg)' },
-              },
-            },
-          },
-          // C. Theme-Specific Semantic Tokens
-          semanticTokens: {},
-          // D. Component Overrides
+
+          // B. Component-Level Theme Overrides
           components: {
             button: {
               base: {
-                backgroundColor: 'var(--ideasui-color-primary-500)',
+                borderRadius: 'var(--ideasui-radius-brand)',
+              },
+            },
+          },
+        },
+
+        dark: {
+          // A. Dark Mode Colors
+          colors: {
+            primary: 'oklch(0.68 0.20 250)', // Brighter Blue for Dark Surfaces
+            'on-primary': 'oklch(0.12 0.05 250)',
+            'primary-subtle': 'oklch(0.22 0.08 250)',
+            'on-primary-subtle': 'oklch(0.85 0.12 250)',
+
+            secondary: 'oklch(0.72 0.18 160)',
+            'on-secondary': 'oklch(0.12 0.05 160)',
+
+            surface: 'oklch(0.16 0.02 250)',
+            'surface-subtle': 'oklch(0.20 0.02 250)',
+            'surface-muted': 'oklch(0.25 0.03 250)',
+          },
+
+          // B. Dark Mode Component Overrides
+          components: {
+            button: {
+              base: {
+                borderRadius: 'var(--ideasui-radius-brand)',
               },
             },
           },

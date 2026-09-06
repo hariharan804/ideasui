@@ -1,0 +1,380 @@
+/**
+ * Button Component CSS
+ * Source of truth for visual styling for the Button component.
+ * Uses BEM selectors + Tailwind CSS v4 @apply directives.
+ */
+
+/* ── Base Block ───────────────────────────────────────────────────────────── */
+.btn {
+  @apply focus-visible:ring-primary relative inline-flex cursor-pointer items-center justify-center gap-2 overflow-hidden font-medium transition-all duration-200 ease-in-out select-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95 disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none motion-reduce:active:scale-100;
+}
+
+/* ── Elements ─────────────────────────────────────────────────────────────── */
+.btn__icon {
+  @apply inline-flex shrink-0 items-center justify-center;
+}
+
+.btn__label {
+  @apply inline-flex items-center truncate;
+}
+
+.btn__loader {
+  @apply inline-flex shrink-0 items-center justify-center;
+}
+
+.btn__shortcut {
+  @apply ms-auto inline-flex items-center font-sans text-sm tracking-widest;
+}
+
+/* ── Icon Slot Sizes ──────────────────────────────────────────────────────── */
+.btn__icon.btn__icon--xs {
+  @apply size-3.5;
+}
+.btn__icon.btn__icon--sm {
+  @apply size-4;
+}
+.btn__icon.btn__icon--md {
+  @apply size-5;
+}
+.btn__icon.btn__icon--lg {
+  @apply size-6;
+}
+.btn__icon.btn__icon--xl {
+  @apply size-7;
+}
+
+/* ── Size Modifiers ───────────────────────────────────────────────────────── */
+.btn.btn--xs {
+  @apply h-7 px-2 text-xs;
+}
+.btn.btn--sm {
+  @apply h-8 px-3 text-sm;
+}
+.btn.btn--md {
+  @apply h-10 px-4 text-base;
+}
+.btn.btn--lg {
+  @apply h-12 px-6 text-lg;
+}
+.btn.btn--xl {
+  @apply h-14 px-8 text-xl;
+}
+
+/* ── Radius Modifiers ─────────────────────────────────────────────────────── */
+.btn.btn--radius-none {
+  @apply rounded-none;
+}
+.btn.btn--radius-sm {
+  @apply rounded-sm;
+}
+.btn.btn--radius-md {
+  @apply rounded-md;
+}
+.btn.btn--radius-lg {
+  @apply rounded-lg;
+}
+.btn.btn--radius-xl {
+  @apply rounded-xl;
+}
+.btn.btn--radius-full {
+  @apply rounded-full;
+}
+
+/* ── Variant Modifiers ────────────────────────────────────────────────────── */
+.btn.btn--solid {
+  @apply text-on-primary;
+}
+.btn.btn--outline {
+  @apply border bg-transparent;
+}
+.btn.btn--ghost {
+  @apply bg-transparent;
+}
+.btn.btn--soft {
+  @apply bg-transparent;
+}
+.btn.btn--link {
+  @apply bg-transparent font-normal underline-offset-4 hover:underline;
+}
+.btn.btn--text {
+  @apply bg-transparent font-normal;
+}
+.btn.btn--elevated {
+  @apply bg-surface border border-transparent;
+}
+.btn.btn--surface {
+  @apply bg-surface-muted;
+}
+
+/* ── Color × Variant Combinations ─────────────────────────────────────────── */
+/* Solid */
+.btn.btn--solid.btn--primary {
+  @apply bg-primary text-on-primary hover:bg-primary/90 active:bg-primary/80;
+}
+.btn.btn--solid.btn--secondary {
+  @apply bg-secondary text-on-secondary hover:bg-secondary/90 active:bg-secondary/80;
+}
+.btn.btn--solid.btn--tertiary {
+  @apply bg-tertiary text-on-tertiary hover:bg-tertiary/90 active:bg-tertiary/80;
+}
+.btn.btn--solid.btn--success {
+  @apply bg-success text-on-success hover:bg-success/90 active:bg-success/80;
+}
+.btn.btn--solid.btn--warning {
+  @apply bg-warning text-on-warning hover:bg-warning/90 active:bg-warning/80;
+}
+.btn.btn--solid.btn--danger {
+  @apply bg-danger text-on-danger hover:bg-danger/90 active:bg-danger/80;
+}
+.btn.btn--solid.btn--info {
+  @apply bg-info text-on-info hover:bg-info/90 active:bg-info/80;
+}
+.btn.btn--solid.btn--neutral {
+  @apply bg-neutral text-on-neutral hover:bg-neutral/90 active:bg-neutral/80;
+}
+
+/* Outline */
+.btn.btn--outline.btn--primary {
+  @apply border-primary text-primary hover:bg-primary-subtle;
+}
+.btn.btn--outline.btn--secondary {
+  @apply border-secondary text-secondary hover:bg-secondary-subtle;
+}
+.btn.btn--outline.btn--tertiary {
+  @apply border-tertiary text-tertiary hover:bg-tertiary-subtle;
+}
+.btn.btn--outline.btn--success {
+  @apply border-success text-success hover:bg-success-subtle;
+}
+.btn.btn--outline.btn--warning {
+  @apply border-warning text-warning hover:bg-warning-subtle;
+}
+.btn.btn--outline.btn--danger {
+  @apply border-danger text-danger hover:bg-danger-subtle;
+}
+.btn.btn--outline.btn--info {
+  @apply border-info text-info hover:bg-info-subtle;
+}
+.btn.btn--outline.btn--neutral {
+  @apply border-neutral text-neutral hover:bg-neutral-subtle;
+}
+
+/* Ghost */
+.btn.btn--ghost.btn--primary {
+  @apply text-primary hover:bg-primary-subtle;
+}
+.btn.btn--ghost.btn--secondary {
+  @apply text-secondary hover:bg-secondary-subtle;
+}
+.btn.btn--ghost.btn--tertiary {
+  @apply text-tertiary hover:bg-tertiary-subtle;
+}
+.btn.btn--ghost.btn--success {
+  @apply text-success hover:bg-success-subtle;
+}
+.btn.btn--ghost.btn--warning {
+  @apply text-warning hover:bg-warning-subtle;
+}
+.btn.btn--ghost.btn--danger {
+  @apply text-danger hover:bg-danger-subtle;
+}
+.btn.btn--ghost.btn--info {
+  @apply text-info hover:bg-info-subtle;
+}
+.btn.btn--ghost.btn--neutral {
+  @apply text-neutral hover:bg-neutral-subtle;
+}
+
+/* Soft */
+.btn.btn--soft.btn--primary {
+  @apply bg-primary-muted text-on-primary-muted hover:bg-primary-subtle active:bg-primary-subtle;
+}
+.btn.btn--soft.btn--secondary {
+  @apply bg-secondary-muted text-on-secondary-muted hover:bg-secondary-subtle active:bg-secondary-subtle;
+}
+.btn.btn--soft.btn--tertiary {
+  @apply bg-tertiary-muted text-on-tertiary-muted hover:bg-tertiary-subtle active:bg-tertiary-subtle;
+}
+.btn.btn--soft.btn--success {
+  @apply bg-success-muted text-on-success-muted hover:bg-success-subtle active:bg-success-subtle;
+}
+.btn.btn--soft.btn--warning {
+  @apply bg-warning-muted text-on-warning-muted hover:bg-warning-subtle active:bg-warning-subtle;
+}
+.btn.btn--soft.btn--danger {
+  @apply bg-danger-muted text-on-danger-muted hover:bg-danger-subtle active:bg-danger-subtle;
+}
+.btn.btn--soft.btn--info {
+  @apply bg-info-muted text-on-info-muted hover:bg-info-subtle active:bg-info-subtle;
+}
+.btn.btn--soft.btn--neutral {
+  @apply bg-neutral-muted text-on-neutral-muted hover:bg-neutral-subtle active:bg-neutral-subtle;
+}
+
+/* Surface */
+.btn.btn--surface.btn--primary {
+  @apply text-primary hover:bg-primary-subtle active:bg-primary-subtle;
+}
+.btn.btn--surface.btn--secondary {
+  @apply text-secondary hover:bg-secondary-subtle active:bg-secondary-subtle;
+}
+.btn.btn--surface.btn--tertiary {
+  @apply text-tertiary hover:bg-tertiary-subtle active:bg-tertiary-subtle;
+}
+.btn.btn--surface.btn--success {
+  @apply text-success hover:bg-success-subtle active:bg-success-subtle;
+}
+.btn.btn--surface.btn--warning {
+  @apply text-warning hover:bg-warning-subtle active:bg-warning-subtle;
+}
+.btn.btn--surface.btn--danger {
+  @apply text-danger hover:bg-danger-subtle active:bg-danger-subtle;
+}
+.btn.btn--surface.btn--info {
+  @apply text-info hover:bg-info-subtle active:bg-info-subtle;
+}
+.btn.btn--surface.btn--neutral {
+  @apply text-neutral hover:bg-neutral-subtle active:bg-neutral-subtle;
+}
+
+/* Link */
+.btn.btn--link.btn--primary {
+  @apply text-primary hover:opacity-80;
+}
+.btn.btn--link.btn--secondary {
+  @apply text-secondary hover:opacity-80;
+}
+.btn.btn--link.btn--tertiary {
+  @apply text-tertiary hover:opacity-80;
+}
+.btn.btn--link.btn--success {
+  @apply text-success hover:opacity-80;
+}
+.btn.btn--link.btn--warning {
+  @apply text-warning hover:opacity-80;
+}
+.btn.btn--link.btn--danger {
+  @apply text-danger hover:opacity-80;
+}
+.btn.btn--link.btn--info {
+  @apply text-info hover:opacity-80;
+}
+.btn.btn--link.btn--neutral {
+  @apply text-neutral hover:opacity-80;
+}
+
+/* Text */
+.btn.btn--text.btn--primary {
+  @apply text-primary hover:bg-primary-subtle;
+}
+.btn.btn--text.btn--secondary {
+  @apply text-secondary hover:bg-secondary-subtle;
+}
+.btn.btn--text.btn--tertiary {
+  @apply text-tertiary hover:bg-tertiary-subtle;
+}
+.btn.btn--text.btn--success {
+  @apply text-success hover:bg-success-subtle;
+}
+.btn.btn--text.btn--warning {
+  @apply text-warning hover:bg-warning-subtle;
+}
+.btn.btn--text.btn--danger {
+  @apply text-danger hover:bg-danger-subtle;
+}
+.btn.btn--text.btn--info {
+  @apply text-info hover:bg-info-subtle;
+}
+.btn.btn--text.btn--neutral {
+  @apply text-neutral hover:bg-neutral-subtle;
+}
+
+/* Elevated */
+.btn.btn--elevated.btn--elevation-none {
+  @apply shadow-none;
+}
+.btn.btn--elevated.btn--elevation-xs {
+  @apply shadow-xs hover:shadow-sm active:shadow-xs;
+}
+.btn.btn--elevated.btn--elevation-sm {
+  @apply shadow-sm hover:shadow-md active:shadow-sm;
+}
+.btn.btn--elevated.btn--elevation-md {
+  @apply shadow-md hover:shadow-lg active:shadow-md;
+}
+.btn.btn--elevated.btn--elevation-lg {
+  @apply shadow-lg hover:shadow-xl active:shadow-lg;
+}
+.btn.btn--elevated.btn--elevation-xl {
+  @apply shadow-xl hover:shadow-2xl active:shadow-xl;
+}
+.btn.btn--elevated.btn--elevation-2xl {
+  @apply shadow-2xl hover:shadow-inner active:shadow-2xl;
+}
+
+.btn.btn--elevated.btn--primary {
+  @apply text-primary border-primary/10 hover:bg-primary-subtle;
+}
+.btn.btn--elevated.btn--secondary {
+  @apply text-secondary border-secondary/10 hover:bg-secondary-subtle;
+}
+.btn.btn--elevated.btn--tertiary {
+  @apply text-tertiary border-tertiary/10 hover:bg-tertiary-subtle;
+}
+.btn.btn--elevated.btn--success {
+  @apply text-success border-success/10 hover:bg-success-subtle;
+}
+.btn.btn--elevated.btn--warning {
+  @apply text-warning border-warning/10 hover:bg-warning-subtle;
+}
+.btn.btn--elevated.btn--danger {
+  @apply text-danger border-danger/10 hover:bg-danger-subtle;
+}
+.btn.btn--elevated.btn--info {
+  @apply text-info border-info/10 hover:bg-info-subtle;
+}
+.btn.btn--elevated.btn--neutral {
+  @apply text-neutral border-neutral/10 hover:bg-neutral-subtle;
+}
+
+/* Icon Only */
+.btn.btn--icon-only {
+  @apply aspect-square p-0;
+}
+.btn.btn--icon-only.btn--xs {
+  @apply size-7;
+}
+.btn.btn--icon-only.btn--sm {
+  @apply size-8;
+}
+.btn.btn--icon-only.btn--md {
+  @apply size-10;
+}
+.btn.btn--icon-only.btn--lg {
+  @apply size-12;
+}
+.btn.btn--icon-only.btn--xl {
+  @apply size-14;
+}
+
+/* ── States ───────────────────────────────────────────────────────────────── */
+.btn.btn--disabled {
+  @apply pointer-events-none cursor-not-allowed opacity-50;
+}
+.btn.btn--loading {
+  @apply pointer-events-none cursor-wait opacity-80;
+}
+.btn.btn--full-width {
+  @apply w-full;
+}
+.btn.btn--no-animation {
+  @apply transition-none active:scale-100;
+}
+
+/* ── Group / Attached ─────────────────────────────────────────────────────── */
+.btn.btn--attached {
+  @apply active:scale-100;
+}
+.btn.btn--vertical {
+  @apply flex-col;
+}

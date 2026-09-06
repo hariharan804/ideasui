@@ -15,7 +15,7 @@ const fadeIn = (delay = 0): MotionProps => ({
   transition: { duration: 0.5, delay, ease: 'easeOut' },
 });
 
-type ButtonColor = 'primary' | 'secondary' | 'error' | 'success';
+type ButtonColor = 'primary' | 'secondary' | 'danger' | 'success';
 type ButtonVariant = 'solid' | 'outline' | 'soft' | 'ghost';
 type ButtonSize = 'sm' | 'md' | 'lg';
 type ButtonRadius = 'sm' | 'md' | 'lg' | 'full';
@@ -103,11 +103,11 @@ export default function Example() {
             <div className="flex shrink-0 items-center gap-1.5">
               <span className="text-content-muted text-[11px]">color:</span>
               <div className="bg-surface-muted relative flex rounded-lg p-0.5">
-                {(['primary', 'secondary', 'error', 'success'] as const).map((c) => {
+                {(['primary', 'secondary', 'danger', 'success'] as const).map((c) => {
                   const activeColor = {
                     primary: 'text-primary',
                     secondary: 'text-secondary',
-                    error: 'text-error',
+                    danger: 'text-danger',
                     success: 'text-success',
                   }[c];
 

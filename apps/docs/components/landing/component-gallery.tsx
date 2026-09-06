@@ -142,8 +142,8 @@ export function ComponentGallery() {
               <Button color="success" size="sm">
                 Success
               </Button>
-              <Button color="error" size="sm">
-                Error
+              <Button color="danger" size="sm">
+                Danger
               </Button>
             </div>
 

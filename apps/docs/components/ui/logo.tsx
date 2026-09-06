@@ -34,7 +34,7 @@ export function Logo({
       />
       <Wordmark size={size} />
       {showVersion && (
-        <span className="border-primary-500/20 bg-primary-500/8 text-primary-600 dark:text-primary-400 hidden items-center rounded-md border px-1.5 py-0.5 text-[10px] font-bold tracking-wide md:inline-flex">
+        <span className="border-primary/20 bg-primary/10 text-primary hidden items-center rounded-md border px-1.5 py-0.5 text-[10px] font-bold tracking-wide md:inline-flex">
           v1.0
         </span>
       )}

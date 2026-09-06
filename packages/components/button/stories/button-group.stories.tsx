@@ -168,7 +168,7 @@ export const MixedStyles: Story = {
       <Button startIcon={<X className="size-4" />} variant="outline">
         Cancel
       </Button>
-      <Button color="error" variant="outline">
+      <Button color="danger" variant="outline">
         <Trash2 className="size-4" />
       </Button>
     </Button.Group>

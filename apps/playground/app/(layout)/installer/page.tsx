@@ -77,10 +77,10 @@ export default function InstallerPage(): JSX.Element {
         {/* Header */}
         <div className="mb-10 text-center">
           <div className="mb-4 flex items-center justify-center gap-3">
-            <div className="from-primary-500 to-secondary-500 shadow-primary-500/20 relative rounded-2xl bg-gradient-to-tr p-3 shadow-lg">
+            <div className="from-primary to-secondary shadow-primary/20 relative rounded-2xl bg-gradient-to-tr p-3 shadow-lg">
               <Package className="size-8 text-white" />
             </div>
-            <h1 className="from-primary-600 to-secondary-600 bg-gradient-to-r bg-clip-text text-4xl font-extrabold tracking-tight text-transparent">
+            <h1 className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-4xl font-extrabold tracking-tight text-transparent">
               Package Installer
             </h1>
           </div>
@@ -100,7 +100,7 @@ export default function InstallerPage(): JSX.Element {
                   className={`rounded-xl border-2 p-5 text-left transition-all duration-200 hover:-translate-y-1 ${
                     selectedTag === tag
                       ? 'border-primary-500 bg-primary-subtle ring-primary-500 shadow-sm ring-1'
-                      : 'border-default bg-surface-base hover:border-strong hover:shadow-sm'
+                      : 'border-default bg-surface-base hover: border-border-strong hover:shadow-sm'
                   }`}
                   onClick={() => setSelectedTag(tag as keyof typeof RELEASE_TAGS)}
                 >
@@ -150,7 +150,7 @@ export default function InstallerPage(): JSX.Element {
                   className={`flex cursor-pointer items-center gap-3 rounded-xl border p-4 transition-all duration-200 hover:-translate-y-0.5 ${
                     selectedPackages.has(package_)
                       ? 'border-primary-400 bg-primary-subtle ring-primary-500/50 shadow-sm ring-1'
-                      : 'border-default bg-surface-base hover:border-strong hover:shadow-sm'
+                      : 'border-default bg-surface-base hover: border-border-strong hover:shadow-sm'
                   }`}
                 >
                   <input

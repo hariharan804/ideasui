@@ -2,7 +2,7 @@
 @import 'fumadocs-ui/style.css';
 @import 'fumadocs-ui/css/black.css';
 @import 'fumadocs-ui/css/preset.css';
-@import '@ideasui/theme/theme.css';
+@import '@ideasui/theme';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -336,12 +336,7 @@ body,
 
 /* ─── OKLCH Perceptual Precision Gradients ─────────────────────────── */
 .perceptual-gradient-text {
-  background-image: linear-gradient(
-    135deg in oklch,
-    var(--color-secondary-600),
-    var(--color-secondary-500),
-    var(--color-primary-600)
-  );
+  background-image: linear-gradient(135deg in oklch, var(--color-secondary), var(--color-primary));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -350,18 +345,18 @@ body,
 html.dark .perceptual-gradient-text {
   background-image: linear-gradient(
     135deg in oklch,
-    var(--color-secondary-400),
-    var(--color-primary-400),
-    var(--color-tertiary-400)
+    var(--color-secondary),
+    var(--color-primary),
+    var(--color-tertiary)
   );
 }
 
 .perceptual-ambient-glow {
   background-image: linear-gradient(
     to right in oklch,
-    oklch(var(--ideasui-color-primary-500) / 0.22),
-    oklch(var(--ideasui-color-secondary-500) / 0.22),
-    oklch(var(--ideasui-color-tertiary-500) / 0.22)
+    oklch(var(--ideasui-color-primary) / 0.22),
+    oklch(var(--ideasui-color-secondary) / 0.22),
+    oklch(var(--ideasui-color-tertiary) / 0.22)
   );
 }
 

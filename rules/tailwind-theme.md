@@ -18,11 +18,11 @@ export default {
 Theme colors are exposed as CSS custom properties:
 
 ```css
-/* Primary color shades */
---primary-50, --primary-100, ..., --primary-950
+/* Primary semantic tokens */
+--ideasui-color-primary, --ideasui-color-on-primary, --ideasui-color-primary-subtle
 
-/* Semantic colors */
---on-primary, --on-surface, --surface, --background
+/* Semantic surface & background colors */
+--ideasui-color-on-primary, --ideasui-color-on-surface, --ideasui-color-surface, --ideasui-color-background
 ```
 
 ## 🎯 Color Usage
@@ -30,13 +30,13 @@ Theme colors are exposed as CSS custom properties:
 ### Tailwind Classes
 
 ```tsx
-// Use theme colors
-<div className="bg-primary-500 text-on-primary">
+// Use semantic theme colors
+<div className="bg-primary text-on-primary">
   Primary button
 </div>
 
-// Semantic colors
-<div className="bg-surface text-on-surface">
+// Surface & content colors
+<div className="bg-surface text-content-primary">
   Surface content
 </div>
 ```

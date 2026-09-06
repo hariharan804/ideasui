@@ -1,0 +1,18 @@
+/**
+ * IdeasUI Master Stylesheet
+ * @module @ideasui/theme
+ *
+ * Master entry point that bundles:
+ * 1. Base OKLCH design token variables (--ideasui-*)
+ * 2. Tailwind CSS v4 @theme utility mappings (--color-*, --font-*, etc.)
+ * 3. Component recipes in the `components` CSS layer
+ */
+
+/* ── Base CSS Custom Properties & Design Tokens ─────────────────────────── */
+@import './variables.css';
+
+/* ── Tailwind v4 Theme Mappings (@theme Block) ──────────────────────────── */
+@import './theme-config.css';
+
+/* ── Component Style Recipes (Layered Components) ───────────────────────── */
+@import './recipes/index.css' layer(components);

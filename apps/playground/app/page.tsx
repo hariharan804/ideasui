@@ -35,7 +35,7 @@ export default function Home(): JSX.Element {
     <div className="bg-background text-content-primary relative min-h-screen overflow-hidden transition-colors duration-500">
       {/* Dynamic Background Glows */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden outline-none">
-        <div className="bg-primary-500/20 absolute -top-[20%] -left-[10%] h-[500px] w-[500px] animate-pulse rounded-full opacity-50 mix-blend-normal blur-3xl transition-all duration-[3000ms] dark:mix-blend-screen" />
+        <div className="bg-primary/20 absolute -top-[20%] -left-[10%] h-[500px] w-[500px] animate-pulse rounded-full opacity-50 mix-blend-normal blur-3xl transition-all duration-[3000ms] dark:mix-blend-screen" />
         <div className="absolute top-[20%] right-[-10%] size-[600px] animate-pulse rounded-full bg-blue-500/20 opacity-40 mix-blend-normal blur-3xl transition-all delay-700 duration-[3000ms] dark:mix-blend-screen" />
         <div className="absolute bottom-[-20%] left-[20%] size-[700px] animate-pulse rounded-full bg-purple-500/20 opacity-30 mix-blend-normal blur-3xl transition-all delay-1000 duration-[3000ms] dark:mix-blend-screen" />
       </div>
@@ -45,9 +45,9 @@ export default function Home(): JSX.Element {
         <section className="relative mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <div className="animate-slideIn mb-8 flex items-center justify-center">
-              <div className="from-primary-500 shadow-primary-500/20 relative inline-flex items-center justify-center rounded-2xl bg-gradient-to-br to-indigo-500 p-[2px] shadow-xl transition-transform duration-300 hover:scale-105">
+              <div className="from-primary shadow-primary/20 relative inline-flex items-center justify-center rounded-2xl bg-gradient-to-br to-indigo-500 p-[2px] shadow-xl transition-transform duration-300 hover:scale-105">
                 <div className="bg-surface rounded-[14px] p-4">
-                  <Code2 className="text-primary-500 h-10 w-10" />
+                  <Code2 className="text-primary h-10 w-10" />
                 </div>
               </div>
             </div>
@@ -55,7 +55,7 @@ export default function Home(): JSX.Element {
             <h1 className="mb-6 text-5xl font-extrabold tracking-tight sm:text-7xl">
               <span className="text-content-primary">IdeasUI</span>
               <br />
-              <span className="from-primary-500 bg-gradient-to-r via-indigo-500 to-purple-500 bg-clip-text text-transparent">
+              <span className="from-primary bg-gradient-to-r via-indigo-500 to-purple-500 bg-clip-text text-transparent">
                 Playground
               </span>
             </h1>
@@ -67,14 +67,14 @@ export default function Home(): JSX.Element {
 
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
-                className="bg-primary-500 shadow-primary-500/30 hover:bg-primary-600 hover:shadow-primary-500/50 focus-visible:outline-primary-500 flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2"
+                className="bg-primary text-on-primary shadow-primary/30 hover:bg-primary/90 hover:shadow-primary/50 focus-visible:outline-primary flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold shadow-sm transition-all hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2"
                 href="/playground"
               >
                 Get Started
                 <ArrowRight className="size-4" />
               </Link>
               <Link
-                className="text-content-primary hover:text-primary-500 flex items-center gap-2 text-sm leading-6 font-semibold transition-colors"
+                className="text-content-primary hover:text-primary flex items-center gap-2 text-sm leading-6 font-semibold transition-colors"
                 href="/design-system"
               >
                 View Tokens <span aria-hidden="true">→</span>
@@ -92,7 +92,7 @@ export default function Home(): JSX.Element {
               return (
                 <Link
                   key={item.href}
-                  className="group border-divider-subtle hover:border-divider bg-surface-subtle hover:bg-surface-muted relative flex flex-col justify-between overflow-hidden rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group border-border-subtle hover:border-border bg-surface-subtle hover:bg-surface-muted relative flex flex-col justify-between overflow-hidden rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                   href={item.href}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -108,7 +108,7 @@ export default function Home(): JSX.Element {
                     >
                       <Icon className="size-6 text-white" />
                     </div>
-                    <div className="border-divider-subtle bg-surface-subtle group-hover:bg-content-primary flex size-10 items-center justify-center rounded-full border transition-all duration-300 group-hover:border-transparent">
+                    <div className="border-border-subtle bg-surface-subtle group-hover:bg-content-primary flex size-10 items-center justify-center rounded-full border transition-all duration-300 group-hover:border-transparent">
                       <ArrowRight className="text-content-muted group-hover:text-surface h-5 w-5 transition-colors duration-300" />
                     </div>
                   </div>
@@ -133,11 +133,11 @@ export default function Home(): JSX.Element {
           </div>
 
           {/* Quick Stats / Highlights */}
-          <div className="border-divider-subtle bg-surface-subtle mt-20 overflow-hidden rounded-3xl border p-8 backdrop-blur-sm lg:p-12">
+          <div className="border-border-subtle bg-surface-subtle mt-20 overflow-hidden rounded-3xl border p-8 backdrop-blur-sm lg:p-12">
             <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
               <div className="flex flex-col items-center justify-center space-y-2 text-center">
                 <div className="mb-1 flex items-center gap-2">
-                  <Sparkles className="text-primary-500 h-4 w-4" />
+                  <Sparkles className="text-primary h-4 w-4" />
                   <div className="text-content-primary text-3xl font-extrabold tracking-tight">
                     50+
                   </div>

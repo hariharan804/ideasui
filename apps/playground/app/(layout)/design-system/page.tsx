@@ -263,7 +263,7 @@ function CodeChip({
       className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-1 font-mono text-[11px] font-semibold transition-all duration-200 ${
         copied
           ? 'border-success-subtle bg-success-subtle text-success-800 scale-95'
-          : 'border-default hover:bg-surface-elevated hover:border-strong bg-surface-muted text-content-secondary hover:text-content-primary hover:shadow-sm'
+          : 'border-default hover:bg-surface-elevated hover: border-border-strong bg-surface-muted text-content-secondary hover:text-content-primary hover:shadow-sm'
       }`}
       type="button"
       onClick={onCopy}
@@ -478,9 +478,9 @@ const CONTENT_TEXT_MAP: Record<string, string> = {
 
 const BORDER_COLOR_MAP: Record<string, string> = {
   default: 'border-default',
-  subtle: 'border-subtle',
-  strong: 'border-strong',
-  focus: 'border-focus',
+  subtle: 'border-border-subtle',
+  strong: ' border-border-strong',
+  focus: ' border- border-border-focus',
   error: 'border-error',
 };
 
@@ -710,7 +710,7 @@ export default function DesignSystemPage(): JSX.Element {
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {/* Surface Override */}
                 <div className="space-y-3">
-                  <div className="bg-surface-cus text-surface-on-cus border-divider-cus flex h-24 w-full flex-col items-center justify-center rounded-xl border-2 font-bold shadow-lg">
+                  <div className="bg-surface-cus text-surface-on-cus border-border-cus flex h-24 w-full flex-col items-center justify-center rounded-xl border-2 font-bold shadow-lg">
                     <span className="text-sm">bg-surface-cus</span>
                     <span className="text-[10px] underline opacity-80">text-surface-on-cus</span>
                   </div>
@@ -738,12 +738,12 @@ export default function DesignSystemPage(): JSX.Element {
 
                 {/* Border Override */}
                 <div className="space-y-3">
-                  <div className="border-divider-cus bg-surface-muted flex h-24 w-full items-center justify-center rounded-xl border-4 border-double">
+                  <div className="border-border-cus bg-surface-muted flex h-24 w-full items-center justify-center rounded-xl border-4 border-double">
                     <span className="text-content-tertiary text-[10px] font-semibold uppercase">
-                      border-divider-cus
+                      border-border-cus
                     </span>
                   </div>
-                  <div className="flex flex-wrap gap-2">{chip('border-divider-cus')}</div>
+                  <div className="flex flex-wrap gap-2">{chip('border-border-cus')}</div>
                 </div>
               </div>
             </div>
@@ -777,7 +777,7 @@ export default function DesignSystemPage(): JSX.Element {
                           }}
                         >
                           <div
-                            className={`${bgClass} border-subtle aspect-square w-full rounded-lg border shadow-xs transition-all group-hover:scale-110 group-hover:shadow-md`}
+                            className={`${bgClass} border-border-subtle aspect-square w-full rounded-lg border shadow-xs transition-all group-hover:scale-110 group-hover:shadow-md`}
                           />
                           <span className="text-content-tertiary text-[10px] font-medium">
                             {shade}
@@ -812,7 +812,7 @@ export default function DesignSystemPage(): JSX.Element {
                     return (
                       <button
                         key={variant}
-                        className="group border-subtle flex w-full items-center gap-3 rounded-lg border p-3 transition-all hover:shadow-md"
+                        className="group border-border-subtle flex w-full items-center gap-3 rounded-lg border p-3 transition-all hover:shadow-md"
                         type="button"
                         onClick={() => {
                           void copyToClipboard(cls);
@@ -859,14 +859,14 @@ export default function DesignSystemPage(): JSX.Element {
 
                     {/* Background */}
                     <button
-                      className="group border-subtle flex w-full items-center gap-3 rounded-lg border p-3 transition-all hover:shadow-md"
+                      className="group border-border-subtle flex w-full items-center gap-3 rounded-lg border p-3 transition-all hover:shadow-md"
                       type="button"
                       onClick={() => {
                         void copyToClipboard(bgCls);
                       }}
                     >
                       <div
-                        className={`${SURFACE_BG_MAP[token]} border-subtle size-10 shrink-0 rounded-md border shadow-xs`}
+                        className={`${SURFACE_BG_MAP[token]} border-border-subtle size-10 shrink-0 rounded-md border shadow-xs`}
                       />
                       <div className="text-left">
                         <div className="text-content-secondary text-xs font-medium capitalize">
@@ -881,14 +881,14 @@ export default function DesignSystemPage(): JSX.Element {
 
                     {/* Foreground (On-Surface) */}
                     <button
-                      className="group border-subtle flex w-full items-center gap-3 rounded-lg border p-3 transition-all hover:shadow-md"
+                      className="group border-border-subtle flex w-full items-center gap-3 rounded-lg border p-3 transition-all hover:shadow-md"
                       type="button"
                       onClick={() => {
                         void copyToClipboard(textCls);
                       }}
                     >
                       <div
-                        className={`${SURFACE_BG_MAP[token]} border-subtle flex size-10 shrink-0 items-center justify-center rounded-md border shadow-xs`}
+                        className={`${SURFACE_BG_MAP[token]} border-border-subtle flex size-10 shrink-0 items-center justify-center rounded-md border shadow-xs`}
                       >
                         <span className={`${textCls} text-sm font-bold`}>Aa</span>
                       </div>
@@ -1039,7 +1039,7 @@ export default function DesignSystemPage(): JSX.Element {
               {SPACING_STEPS.map((step) => (
                 <div
                   key={step.key}
-                  className="border-subtle hover:bg-surface-muted flex items-center gap-4 rounded-lg border px-4 py-2 transition-colors"
+                  className="border-border-subtle hover:bg-surface-muted flex items-center gap-4 rounded-lg border px-4 py-2 transition-colors"
                 >
                   <span className="text-primary-600 w-8 text-right font-mono text-sm font-bold">
                     {step.key}
@@ -1223,7 +1223,7 @@ export default function DesignSystemPage(): JSX.Element {
             />
 
             <div
-              className="border-subtle bg-surface-muted relative mb-12 flex h-[500px] w-full items-center justify-center overflow-hidden rounded-xl border"
+              className="border-border-subtle bg-surface-muted relative mb-12 flex h-[500px] w-full items-center justify-center overflow-hidden rounded-xl border"
               style={{ perspective: '1000px' }}
             >
               <h3 className="text-content-muted absolute top-4 left-4 z-0 text-xs font-semibold">
@@ -1239,7 +1239,7 @@ export default function DesignSystemPage(): JSX.Element {
               >
                 {/* Base layer */}
                 <div
-                  className="border-subtle bg-surface-base z-base absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-sm"
+                  className="border-border-subtle bg-surface-base z-base absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-sm"
                   style={{ transform: 'translateZ(0px)' }}
                 >
                   <div className="text-content-secondary text-sm font-medium">
@@ -1279,7 +1279,7 @@ export default function DesignSystemPage(): JSX.Element {
 
                 {/* Topmost layer */}
                 <div
-                  className="border-strong z-tooltip bg-surface-inverse absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-xl"
+                  className="border-border-strong z-tooltip bg-surface-inverse absolute inset-0 flex flex-col justify-between rounded-xl border p-4 shadow-xl"
                   style={{ transform: 'translateZ(150px)' }}
                 >
                   <div className="text-content-inverse text-sm font-medium">Tooltip(z-tooltip)</div>
@@ -1319,7 +1319,7 @@ export default function DesignSystemPage(): JSX.Element {
             </div>
 
             {/* Full table */}
-            <div className="border-subtle overflow-hidden rounded-xl border">
+            <div className="border-border-subtle overflow-hidden rounded-xl border">
               <div className="bg-surface-muted text-content-tertiary hidden grid-cols-[60px_1fr_80px_auto] items-center gap-4 px-4 py-2 text-xs font-semibold sm:grid">
                 <span>Value</span>
                 <span>Name</span>
@@ -1344,7 +1344,7 @@ export default function DesignSystemPage(): JSX.Element {
                 return (
                   <div
                     key={z.name}
-                    className="border-subtle hover:bg-primary-50/40 flex flex-wrap items-center gap-2 border-t px-4 py-3 transition-colors sm:grid sm:grid-cols-[60px_1fr_80px_auto] sm:gap-4"
+                    className="border-border-subtle hover:bg-primary-50/40 flex flex-wrap items-center gap-2 border-t px-4 py-3 transition-colors sm:grid sm:grid-cols-[60px_1fr_80px_auto] sm:gap-4"
                   >
                     <span className="text-primary-600 font-mono text-sm font-bold">{z.value}</span>
                     <span className="text-content-primary text-sm font-medium capitalize">

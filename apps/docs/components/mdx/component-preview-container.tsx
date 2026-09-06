@@ -38,7 +38,7 @@ export function ComponentPreviewContainer({
   return (
     <div
       className={cn(
-        'not-prose group border-subtle/30 bg-surface-background relative my-6 w-full overflow-hidden rounded-2xl border transition-all duration-200',
+        'not-prose group border-border-subtle/30 bg-surface-background relative my-6 w-full overflow-hidden rounded-2xl border transition-all duration-200',
         className,
       )}
       data-name={name}
@@ -77,7 +77,7 @@ export function ComponentPreviewContainer({
 
       {/* Code Section */}
       {!hideCode && !!Code && (
-        <div className="code-section border-subtle/20 relative w-full overflow-hidden border-t">
+        <div className="code-section border-border-subtle/20 relative w-full overflow-hidden border-t">
           <div
             className={cn(
               'code-block-wrapper bg-surface-subtle/40 [&_pre]:!my-0 [&_pre]:!rounded-none [&_pre]:!border-0',

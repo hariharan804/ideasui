@@ -77,49 +77,49 @@ export default function ButtonPreview(): JSX.Element {
           <span className="bg-muted rounded px-2 py-1 font-mono text-sm">{'elevation="*"'}</span>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="surface border-divider flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
+          <div className="surface border-border flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
             <Button elevation="xs" variant="elevated">
               Elevation XS
             </Button>
             <code className="text-muted-foreground text-xs">{'elevation="xs"'}</code>
           </div>
-          <div className="surface border-divider flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
+          <div className="surface border-border flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
             <Button elevation="sm" variant="elevated">
               Elevation SM
             </Button>
             <code className="text-muted-foreground text-xs">{'elevation="sm"'}</code>
           </div>
-          <div className="surface border-divider flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
+          <div className="surface border-border flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
             <Button elevation="md" variant="elevated">
               Elevation MD
             </Button>
             <code className="text-muted-foreground text-xs">{'elevation="md"'}</code>
           </div>
-          <div className="surface border-divider flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
+          <div className="surface border-border flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
             <Button elevation="lg" variant="elevated">
               Elevation LG
             </Button>
             <code className="text-muted-foreground text-xs">{'elevation="lg"'}</code>
           </div>
-          <div className="surface border-divider flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
+          <div className="surface border-border flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
             <Button elevation="xl" variant="elevated">
               Elevation XL
             </Button>
             <code className="text-muted-foreground text-xs">{'elevation="xl"'}</code>
           </div>
-          <div className="surface border-divider flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
+          <div className="surface border-border flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
             <Button elevation="2xl" variant="elevated">
               Elevation 2XL
             </Button>
             <code className="text-muted-foreground text-xs">{'elevation="2xl"'}</code>
           </div>
-          <div className="surface border-divider flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
+          <div className="surface border-border flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
             <Button elevation="none" variant="elevated">
               None
             </Button>
             <code className="text-muted-foreground text-xs">{'elevation="none"'}</code>
           </div>
-          <div className="surface border-divider flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
+          <div className="surface border-border flex flex-col items-center justify-center gap-4 rounded-xl border p-6">
             <Button variant="elevated">Default</Button>
             <code className="text-muted-foreground text-xs">{'variant="elevated"'}</code>
           </div>
@@ -175,7 +175,7 @@ export default function ButtonPreview(): JSX.Element {
               <Button color="tertiary">Tertiary</Button>
               <Button color="success">Success</Button>
               <Button color="warning">Warning</Button>
-              <Button color="error">Error</Button>
+              <Button color="danger">Danger</Button>
               <Button color="info">Info</Button>
               <Button color="neutral">Neutral</Button>
             </div>
@@ -200,8 +200,8 @@ export default function ButtonPreview(): JSX.Element {
               <Button color="warning" variant="soft">
                 Warning
               </Button>
-              <Button color="error" variant="soft">
-                Error
+              <Button color="danger" variant="soft">
+                Danger
               </Button>
               <Button color="info" variant="soft">
                 Info
@@ -320,7 +320,7 @@ export default function ButtonPreview(): JSX.Element {
                 <Button isIconOnly isLoading aria-label="Searching">
                   <Search className="size-5" />
                 </Button>
-                <Button isDisabled color="error" startIcon={<Trash2 className="size-4" />}>
+                <Button isDisabled color="danger" startIcon={<Trash2 className="size-4" />}>
                   Forbidden Delete
                 </Button>
               </div>

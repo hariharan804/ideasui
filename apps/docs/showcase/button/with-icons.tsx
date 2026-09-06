@@ -11,7 +11,7 @@ export function WithIcons() {
       <Button color="tertiary" startIcon={<Envelope />}>
         Email
       </Button>
-      <Button color="error" startIcon={<TrashBin />}>
+      <Button color="danger" startIcon={<TrashBin />}>
         Delete
       </Button>
     </div>

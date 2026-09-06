@@ -1,13 +1,14 @@
 /* Global styles for playground */
 
 @import 'tailwindcss';
+@import '@ideasui/theme';
+@plugin '../components/plugin.ts';
 
 /* 1) Variants must exist before any file that uses them
 @custom-variant dark (&:where(.dark, .dark *)); 
 @config "../tailwind.config.ts";
 @plugin "../components/plugin.ts";
 */
-@plugin '../components/plugin.ts';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -22,6 +23,6 @@
 
 html,
 body {
-  @apply min-h-screen bg-white text-gray-900;
+  @apply bg-background text-content-primary min-h-screen;
   font-family: 'Inter', sans-serif;
 }

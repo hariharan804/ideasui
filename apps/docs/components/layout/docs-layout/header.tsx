@@ -23,7 +23,7 @@ export function LayoutHeader(properties: ComponentProps<'header'>) {
       {...properties}
       className={cn(
         'sticky top-0 z-50 flex w-full flex-col border-b transition-all duration-300',
-        isNavTransparent ? 'bg-transparent' : 'border-base/40 backdrop-blur-md',
+        isNavTransparent ? 'bg-transparent' : 'border-border-base/40 backdrop-blur-md',
         properties.className,
       )}
     >

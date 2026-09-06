@@ -14,11 +14,8 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 
-import { primitives } from '@ideasui/theme/tokens';
 import './globals.css';
 import { themes } from './styles/theme';
-
-const lightColors = primitives.light;
 
 // Import Addon Global Types
 import { i18nGlobalType } from './addons/localization-extension/preview';
