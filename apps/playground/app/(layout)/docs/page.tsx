@@ -92,7 +92,7 @@ export default function DocsPage(): JSX.Element {
       <div className="animate-in fade-in slide-in-from-bottom-4 mx-auto flex max-w-7xl flex-col gap-6 p-4 duration-700 md:p-8 lg:flex-row">
         {/* Sidebar */}
         <div className={`${sidebarOpen ? 'block' : 'hidden'} w-full lg:block lg:w-80`}>
-          <div className="border-default bg-surface-elevated/80 sticky top-6 rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300">
+          <div className="border-border-subtle bg-surface-elevated/80 sticky top-6 rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300">
             {/* Header */}
             <div className="mb-6">
               <div className="mb-3 flex items-center gap-3">
@@ -112,7 +112,7 @@ export default function DocsPage(): JSX.Element {
             <div className="relative mb-6">
               <Search className="text-content-tertiary absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
               <input
-                className="border-default bg-surface-base text-content-primary placeholder:text-content-muted focus:border-primary-500 focus:ring-primary-500/20 w-full rounded-xl border py-2.5 pr-4 pl-10 text-sm font-medium transition-all outline-none focus:ring-2"
+                className="border-border-subtle bg-surface-base text-content-primary placeholder:text-content-muted focus:border-primary-500 focus:ring-primary-500/20 w-full rounded-xl border py-2.5 pr-4 pl-10 text-sm font-medium transition-all outline-none focus:ring-2"
                 placeholder="Search docs..."
                 type="text"
                 value={searchTerm}
@@ -128,7 +128,7 @@ export default function DocsPage(): JSX.Element {
                   className={`w-full rounded-xl border p-3.5 text-left transition-all duration-200 ${
                     selectedDocument.name === document_.name
                       ? 'border-primary-300 bg-primary-subtle shadow-sm'
-                      : 'hover:border-default hover:bg-surface-muted border-transparent'
+                      : 'hover:border-border-subtle hover:bg-surface-muted border-transparent'
                   }`}
                   onClick={() => setSelectedDocument(document_)}
                 >
@@ -165,7 +165,7 @@ export default function DocsPage(): JSX.Element {
             </div>
 
             {/* External Links */}
-            <div className="border-default mt-8 border-t pt-6">
+            <div className="border-border-subtle mt-8 border-t pt-6">
               <h4 className="text-content-tertiary mb-4 text-xs font-bold tracking-widest uppercase">
                 Resources
               </h4>
@@ -185,7 +185,7 @@ export default function DocsPage(): JSX.Element {
         {/* Main Content */}
         <div className="min-w-0 flex-1">
           {/* Header */}
-          <div className="border-default bg-surface-elevated mb-6 rounded-3xl border p-8 shadow-sm transition-all duration-300">
+          <div className="border-border-subtle bg-surface-elevated mb-6 rounded-3xl border p-8 shadow-sm transition-all duration-300">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div className="from-primary-500 to-secondary-500 shadow-primary-500/20 rounded-xl bg-gradient-to-br p-3 shadow-md">
@@ -201,7 +201,7 @@ export default function DocsPage(): JSX.Element {
                 </div>
               </div>
               <button
-                className="border-default bg-surface-muted text-content-secondary hover:bg-surface-strong hover:text-content-primary rounded-lg border px-4 py-2 text-sm font-bold transition-colors lg:hidden"
+                className="border-border-subtle bg-surface-muted text-content-secondary hover:bg-surface-strong hover:text-content-primary rounded-lg border px-4 py-2 text-sm font-bold transition-colors lg:hidden"
                 onClick={() => setSidebarOpen(!sidebarOpen)}
               >
                 {sidebarOpen ? 'Hide' : 'Show'} Sidebar
@@ -210,7 +210,7 @@ export default function DocsPage(): JSX.Element {
           </div>
 
           {/* Content */}
-          <div className="border-default bg-surface-base min-h-[60vh] overflow-hidden rounded-3xl border shadow-sm transition-all duration-300">
+          <div className="border-border-subtle bg-surface-base min-h-[60vh] overflow-hidden rounded-3xl border shadow-sm transition-all duration-300">
             {/* Loading State */}
             {loading ? (
               <div className="flex h-96 items-center justify-center">
