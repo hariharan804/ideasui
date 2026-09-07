@@ -229,6 +229,18 @@ export function parseColorValue(colorValue: string): ParsedColor | null {
       return { cssFn: 'var', components: [trimmed] };
     }
 
+    // Handle raw space-separated OKLCH components (e.g. "0.575 0.214 277.1" or "0 0 0 / 0.45")
+    if (/^[\d\s./]+$/.test(trimmed)) {
+      const parts = trimmed.split('/');
+      const components = parts[0].trim().split(/\s+/);
+
+      if (parts[1]) {
+        components.push(parts[1].trim());
+      }
+
+      return { cssFn: 'oklch', components };
+    }
+
     // Convert all other formats (hex, rgb, hsl, named) to OKLCH
     const color = Color(trimmed);
     const rgb = color.rgb().array();

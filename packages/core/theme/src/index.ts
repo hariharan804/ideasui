@@ -12,11 +12,5 @@ export { ideasUIPlugin as default, ideasUIPlugin } from './plugin';
 export { ThemeProvider, ThemeScript, useTheme } from './providers';
 export type { ThemeProviderProps, ThemeScriptProps, ThemeScriptConfig } from './providers';
 
-// Design tokens
-// export * from './tokens';
-
-// Component recipes
-// export * from './recipes';
-
 // Type definitions
 export type * from './types';

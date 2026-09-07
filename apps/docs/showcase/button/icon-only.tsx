@@ -10,7 +10,7 @@ export function IconOnly() {
       <Button isIconOnly aria-label="Settings" color="secondary">
         <Gear />
       </Button>
-      <Button isIconOnly aria-label="Delete" color="error">
+      <Button isIconOnly aria-label="Delete" color="danger">
         <TrashBin />
       </Button>
     </div>

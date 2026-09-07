@@ -1,17 +1,11 @@
 import type { ResolvedConfig } from '../types';
 
-import { parseColorValue, formatColorComponents, isNumericShade } from './utils';
+import { parseColorValue, formatColorComponents } from './utils';
 
 const ALPHA_COMPONENT_INDEX = 3;
 
 /**
  * Processes a single shade color
- * @param {string} colorName - Name of the color
- * @param {string} colorValue - Value of the color
- * @param {string} prefix - CSS variable prefix
- * @param {ResolvedConfig} resolved - Mutable resolved config
- * @param {string} cssSelector - CSS selector
- * @param {string} baseSelector - Base selector
  */
 export function processShadeColor(
   colorName: string,
@@ -21,29 +15,13 @@ export function processShadeColor(
   cssSelector: string,
   baseSelector: string,
 ): void {
-  // Skip non-numeric shades for shade-based colors
-  if (colorName.includes('-')) {
-    const shade = colorName.split('-').pop() || '';
-
-    // Only enforce numeric shade validation if the shade identifier looks like a number
-    if (!Number.isNaN(Number(shade)) && !isNumericShade(shade)) {
-      return;
-    }
-  }
-
   const colorVariable = `--${prefix}-color-${colorName}`;
-
-  // If the value is a var() reference to another token, preserve the reference
-  // This ensures semantic tokens (e.g. primary-solid) derive from palette scale
-  // (e.g. --ideasui-primary-500) rather than duplicating raw OKLCH values
   const trimmed = colorValue.trim();
 
   if (trimmed.startsWith('var(') || trimmed.startsWith('oklch(var(')) {
-    // Store the reference directly
     resolved.utilities[cssSelector][colorVariable] = trimmed;
     resolved.baseStyles[baseSelector][colorVariable] = trimmed;
 
-    // Register Tailwind color with the new var (alpha still works via the referenced var)
     const twName = colorName.endsWith('-DEFAULT') ? colorName.replace('-DEFAULT', '') : colorName;
 
     if (!resolved.colors[twName]) {
@@ -63,14 +41,11 @@ export function processShadeColor(
 
   const { components } = parsed;
   const formattedValue = formatColorComponents(components);
-
   const alphaValue = components[ALPHA_COMPONENT_INDEX] ?? '<alpha-value>';
 
-  // Register CSS variable (per-theme)
   resolved.utilities[cssSelector][colorVariable] = formattedValue;
   resolved.baseStyles[baseSelector][colorVariable] = formattedValue;
 
-  // Register Tailwind color only if not already set (first theme wins)
   const twName = colorName.endsWith('-DEFAULT') ? colorName.replace('-DEFAULT', '') : colorName;
 
   if (!resolved.colors[twName]) {
@@ -80,11 +55,6 @@ export function processShadeColor(
 
 /**
  * Processes and registers all colors for a theme
- * @param {Record<string, string>} flatColors - The flattened colors object
- * @param {string} prefix - The CSS variable prefix
- * @param {ResolvedConfig} resolved - The mutable resolved config object
- * @param {string} cssSelector - The CSS selector for utilities
- * @param {string} baseSelector - The custom property selector
  */
 export function processColors(
   flatColors: Record<string, string>,
@@ -93,7 +63,6 @@ export function processColors(
   cssSelector: string,
   baseSelector: string,
 ): void {
-  // Process shade colors
   for (const [colorName, colorValue] of Object.entries(flatColors)) {
     if (!colorValue) {
       continue;

@@ -3,18 +3,89 @@
 import { useState, useMemo } from 'react';
 import { Search, Copy, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  spacing,
-  borderRadius,
-  fontSize,
-  fontWeight,
-  lightShadow,
-  opacity,
-  blur,
-  semantic,
-  surface,
-  content,
-} from '@ideasui/theme/tokens';
+const semantic = {
+  primary: 'var(--ideasui-color-primary)',
+  secondary: 'var(--ideasui-color-secondary)',
+  success: 'var(--ideasui-color-success)',
+  warning: 'var(--ideasui-color-warning)',
+  danger: 'var(--ideasui-color-danger)',
+  info: 'var(--ideasui-color-info)',
+};
+const surface = {
+  surface: 'var(--ideasui-color-surface)',
+  'surface-subtle': 'var(--ideasui-color-surface-subtle)',
+  'surface-muted': 'var(--ideasui-color-surface-muted)',
+  'surface-strong': 'var(--ideasui-color-surface-strong)',
+  'surface-inverse': 'var(--ideasui-color-surface-inverse)',
+};
+const content = {
+  primary: 'var(--ideasui-color-content-primary)',
+  secondary: 'var(--ideasui-color-content-secondary)',
+  tertiary: 'var(--ideasui-color-content-tertiary)',
+  muted: 'var(--ideasui-color-content-muted)',
+  disabled: 'var(--ideasui-color-content-disabled)',
+  inverse: 'var(--ideasui-color-content-inverse)',
+};
+const spacing = {
+  '0': '0',
+  '1': '0.25rem',
+  '2': '0.5rem',
+  '3': '0.75rem',
+  '4': '1rem',
+  '5': '1.25rem',
+  '6': '1.5rem',
+  '8': '2rem',
+  '10': '2.5rem',
+  '12': '3rem',
+  '16': '4rem',
+};
+const fontSize = {
+  xs: '0.75rem',
+  sm: '0.875rem',
+  base: '1rem',
+  lg: '1.125rem',
+  xl: '1.25rem',
+  '2xl': '1.5rem',
+  '3xl': '1.875rem',
+  '4xl': '2.25rem',
+};
+const fontWeight = {
+  normal: '400',
+  medium: '500',
+  semibold: '600',
+  bold: '700',
+};
+const borderRadius = {
+  none: '0',
+  sm: '0.25rem',
+  md: '0.375rem',
+  lg: '0.5rem',
+  xl: '0.75rem',
+  full: '9999px',
+};
+const lightShadow = {
+  sm: '0 2px 4px rgb(0 0 0 / 0.06)',
+  md: '0 4px 8px rgb(0 0 0 / 0.08)',
+  lg: '0 8px 16px rgb(0 0 0 / 0.1)',
+  xl: '0 16px 24px rgb(0 0 0 / 0.12)',
+};
+const opacity = {
+  none: '0',
+  subtle: '0.04',
+  light: '0.08',
+  medium: '0.16',
+  strong: '0.38',
+  heavy: '0.6',
+  full: '1',
+};
+const blur = {
+  none: '0',
+  sm: '4px',
+  md: '8px',
+  lg: '12px',
+  xl: '16px',
+};
+
 import { cn } from '@ideasui/utils';
 
 type CategoryType = 'All' | 'Colors' | 'Spacing' | 'Typography' | 'Radius' | 'Shadows' | 'Effects';

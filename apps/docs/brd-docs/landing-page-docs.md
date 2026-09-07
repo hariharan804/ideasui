@@ -229,7 +229,7 @@ token layer, so both Fumadocs UI and IdeasUI components use the same resolved th
 // Correct — semantic tokens
 className = 'bg-background text-content-primary';
 className = 'bg-surface text-content-secondary';
-className = 'border-subtle';
+className = 'border-border-subtle';
 className = 'text-content-muted';
 
 // Wrong — raw Tailwind colors
@@ -271,7 +271,7 @@ const buttonVariants = tv({
     color: {
       primary: 'bg-primary text-primary-foreground',
       secondary: 'bg-secondary text-secondary-foreground',
-      error: 'bg-error text-error-foreground',
+      error: 'bg-dangertext-error-foreground',
     },
     variant: {
       solid: '',
@@ -397,7 +397,7 @@ Key behaviors:
 - Mobile: hamburger (`Menu` / `X`) opens a `flex-col` nav drawer below the header
 
 ```tsx
-<header className="border-subtle bg-background/80 sticky top-0 z-50 w-full border-b backdrop-blur-md">
+<header className="border-border-subtle bg-background/80 sticky top-0 z-50 w-full border-b backdrop-blur-md">
   <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
     <Link href="/">
       <Logo />
@@ -622,7 +622,7 @@ Layer 3 — Surface-Subtle:  var(--surface-subtle)   — hover states, strips
 bg-background        text-content-primary     — main page + primary text
 bg-surface           text-content-secondary   — cards + secondary text
 bg-surface-subtle    text-content-tertiary    — strips + tertiary text
-border-subtle        text-content-muted       — dividers + muted text
+border-border-subtle        text-content-muted       — dividers + muted text
 ```
 
 ### Accent Colors (Landing Page)

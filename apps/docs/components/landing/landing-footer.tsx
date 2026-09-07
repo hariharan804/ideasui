@@ -28,7 +28,7 @@ const NAV_LINKS: NavLink[] = [
 /** Clean, minimal landing footer with powered-by credit using semantic tokens. */
 export function LandingFooter() {
   return (
-    <footer className="border-surface-muted bg-background/60 border-t py-8 text-xs backdrop-blur-md sm:py-10">
+    <footer className="bg-surface-subtle/40 py-10 text-xs sm:py-12">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 px-4 sm:flex-row sm:px-6">
         {/* Left: Brand Logo & Powered By Credit */}
         <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">

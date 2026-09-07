@@ -397,8 +397,8 @@ Available shades: `50` `100` `200` `300` `400` `500` `600` `700` `800` `900` `95
 
   /* Borders */
   --ideasui-color-border-default: var(--ideasui-color-neutral-200);
-  --ideasui-color-border-subtle: var(--ideasui-color-neutral-100);
-  --ideasui-color-border-strong: var(--ideasui-color-neutral-300);
+  --ideasui-color-border-border-subtle: var(--ideasui-color-neutral-100);
+  --ideasui-color- border-border-strong: var(--ideasui-color-neutral-300);
   --ideasui-color-border-focus: var(--ideasui-color-primary-500);
   --ideasui-color-border-danger: var(--ideasui-color-danger-500);
 }

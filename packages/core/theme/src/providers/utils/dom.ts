@@ -32,6 +32,8 @@ export const applyThemeToDOM = (resolved: string, darkThemeName: string): void =
 
   element.setAttribute(defaultConfig.attribute, resolved);
 
+  element.classList.toggle('dark', resolved === darkThemeName);
+
   // Native browser UI theming
   const colorScheme = resolved === darkThemeName ? 'dark' : 'light';
 

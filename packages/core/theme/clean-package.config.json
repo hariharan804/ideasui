@@ -4,20 +4,19 @@
     "main": "./dist/index.js",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "files": ["dist/**/*.js", "dist/**/*.d.ts", "dist/theme.css"],
+    "style": "./dist/index.css",
+    "files": ["dist"],
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
-        "import": "./dist/index.js"
+        "import": "./dist/index.js",
+        "style": "./dist/index.css"
       },
       "./recipes": {
         "types": "./dist/recipes/index.d.ts",
         "import": "./dist/recipes/index.js"
       },
-      "./tokens": {
-        "types": "./dist/tokens/index.d.ts",
-        "import": "./dist/tokens/index.js"
-      },
+      "./recipes/*": "./dist/recipes/*",
       "./providers": {
         "types": "./dist/providers/index.d.ts",
         "import": "./dist/providers/index.js"
@@ -26,8 +25,10 @@
         "types": "./dist/plugin/index.d.ts",
         "import": "./dist/plugin/index.js"
       },
-      "./dist/theme-config.css": "./dist/theme-config.css",
-      "./theme.css": "./dist/theme.css",
+      "./index.css": {
+        "style": "./dist/index.css",
+        "default": "./dist/index.css"
+      },
       "./package.json": "./package.json"
     }
   }

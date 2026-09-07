@@ -20,37 +20,49 @@
     "react-theme"
   ],
   "main": "./src/index.ts",
+  "style": "./src/index.css",
   "exports": {
     ".": {
       "types": "./src/index.ts",
-      "import": "./src/index.ts"
+      "import": "./src/index.ts",
+      "style": "./src/index.css"
     },
     "./recipes": {
       "types": "./src/recipes/index.ts",
       "import": "./src/recipes/index.ts"
     },
-    "./tokens": {
-      "types": "./src/tokens/index.ts",
-      "import": "./src/tokens/index.ts"
-    },
+    "./recipes/*": "./src/recipes/*",
     "./providers": {
       "types": "./src/providers/index.ts",
       "import": "./src/providers/index.ts"
     },
     "./plugin": {
       "types": "./src/plugin/index.ts",
-      "import": "./src/plugin/index.ts"
+      "import": "./dist/plugin/index.js"
     },
-    "./dist/theme-config.css": "./dist/theme-config.css",
-    "./theme.css": "./dist/theme.css"
+    "./index.css": {
+      "style": "./src/index.css",
+      "default": "./src/index.css"
+    },
+    "./variables.css": {
+      "style": "./src/variables.css",
+      "default": "./src/variables.css"
+    },
+    "./theme-config.css": {
+      "style": "./src/theme-config.css",
+      "default": "./src/theme-config.css"
+    }
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "build": "tsup && pnpm build:theme",
-    "build:theme": "node scripts/generate-theme-css.mjs && postcss dist/theme.css -o dist/theme.css && postcss dist/theme-variables.css -o dist/theme-variables.css && postcss dist/theme-config.css -o dist/theme-config.css",
+    "build:theme": "postcss src/index.css -o dist/index.css",
     "dev": "tsup --watch --onSuccess \"pnpm build:theme\"",
     "typecheck": "tsc --noEmit",
     "prepack": "clean-package",
@@ -64,6 +76,7 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "cssnano": "^7.1.3",
+    "glob": "^11.0.0",
     "postcss": "^8.5.8",
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.1",

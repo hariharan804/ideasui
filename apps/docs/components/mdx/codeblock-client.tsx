@@ -58,7 +58,7 @@ export function CodeBlock({
         style={
           isCollapsed
             ? {
-                maxHeight: '180px',
+                maxHeight: '320px',
                 maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
                 WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
               }

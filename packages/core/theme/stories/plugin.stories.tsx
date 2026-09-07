@@ -19,7 +19,7 @@ const colorClasses: Record<string, { subtle: string; onSubtle: string }> = {
   primary: { subtle: 'bg-primary-subtle', onSubtle: 'text-on-primary-subtle' },
   secondary: { subtle: 'bg-secondary-subtle', onSubtle: 'text-on-secondary-subtle' },
   success: { subtle: 'bg-success-subtle', onSubtle: 'text-on-success-subtle' },
-  error: { subtle: 'bg-error-subtle', onSubtle: 'text-on-error-subtle' },
+  danger: { subtle: 'bg-danger-subtle', onSubtle: 'text-on-danger-subtle' },
   warning: { subtle: 'bg-warning-subtle', onSubtle: 'text-on-warning-subtle' },
   info: { subtle: 'bg-info-subtle', onSubtle: 'text-on-info-subtle' },
 };
@@ -61,7 +61,7 @@ const FeatureCard = ({
   title: string;
   description: string;
 }): ReactElement => (
-  <div className="group border-surface-border bg-surface-surface hover:border-surface-border-strong overflow-hidden rounded-2xl border p-6 transition-all duration-200 hover:shadow-lg">
+  <div className="group border-surface-border bg-surface-surface hover:border-surface- border-border-strong overflow-hidden rounded-2xl border p-6 transition-all duration-200 hover:shadow-lg">
     <div className="mb-4 text-3xl">{icon}</div>
     <h3 className="text-content-primary mb-2 text-lg font-bold">{title}</h3>
     <p className="text-content-secondary text-sm leading-relaxed">{description}</p>
@@ -151,21 +151,15 @@ export default ideasUIPlugin({
   themes: {
     light: {
       colors: {
-        primary: {
-          500: 'oklch(0.65 0.25 145)', // Custom green primary
-        }
+        primary: 'oklch(0.65 0.25 145)', // Custom green primary
       },
       semanticTokens: {
-        surface: {
-          surface: 'oklch(1 0 0)', // bg-surface
-        }
+        surface: 'oklch(1 0 0)', // bg-surface
       }
     },
     dark: {
       colors: {
-        primary: {
-          500: 'oklch(0.70 0.20 145)',
-        }
+        primary: 'oklch(0.70 0.20 145)',
       }
     }
   },
@@ -184,21 +178,20 @@ export default ideasUIPlugin({
         <CodeBlock
           code={`/* globals.css (CSS-only Customization) */
 :root {
-  /* Shades 50–950, stored as "L C H" components */
-  --ideasui-color-primary-500: 0.65 0.25 145;
+  --ideasui-color-primary: 0.65 0.25 145;
   --ideasui-spacing-custom: 3px;
 }
 
 .dark,
 [data-theme='dark'] {
-  --ideasui-color-primary-500: 0.7 0.2 145;
+  --ideasui-color-primary: 0.7 0.2 145;
 }`}
           title="Custom Theme Configuration via CSS Variables"
         />
 
         <CodeBlock
           code={`<!-- Light theme (default) -->
-<div class="bg-primary-500 text-primary-on-surface">
+<div class="bg-primary text-on-primary">
   Light theme content
 </div>
 

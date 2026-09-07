@@ -3,6 +3,8 @@
 import type { JSX, FC } from 'react';
 
 import { useState, useEffect } from 'react';
+import { BookOpen, ChevronRight, ArrowLeft, Check, Copy } from 'lucide-react';
+import { Button } from '@ideasui/button';
 
 const MAX_VISIBLE_KEYWORDS = 3;
 
@@ -77,103 +79,92 @@ const getCategoryIcon = (category: string): string => {
 
 const getCategoryDescription = (category: string): string => {
   const descriptions = {
-    components: 'UI components for building interfaces',
-    core: 'Core system packages and themes',
-    hooks: 'React hooks for common functionality',
-    utils: 'Utility functions and helpers',
-    icons: 'Icon components and assets',
-    cli: 'Command line tools',
+    components: 'UI components for building modern React applications',
+    core: 'Core theme engine and styling primitives',
+    hooks: 'React hooks for accessibility & state management',
+    utils: 'Helper functions, DOM & style utilities',
+    icons: 'Icon sets and graphic assets',
+    cli: 'Command line development tools',
   };
 
   return descriptions[category as keyof typeof descriptions] || 'Package collection';
 };
 
 const getPackageIcon = (packageName: string): string => {
-  if (packageName.includes('button')) {
-    return '🔘';
-  }
-  if (packageName.includes('ripple')) {
-    return '〰️';
-  }
-  if (packageName.includes('theme')) {
-    return '🎨';
-  }
-  if (packageName.includes('slot')) {
-    return '📦';
-  }
-  if (packageName.includes('variants')) {
-    return '🎭';
-  }
-  if (packageName.includes('utils')) {
-    return '🔧';
-  }
-  if (packageName.includes('icons')) {
-    return '✨';
-  }
-  if (packageName.includes('cli')) {
-    return '⌨️';
-  }
+  if (packageName.includes('button')) return '🔘';
+  if (packageName.includes('theme')) return '🎨';
+  if (packageName.includes('utils')) return '🔧';
 
-  return '📋';
+  return '📦';
 };
 
 const PropCard: FC<{ prop: PropertyItem }> = ({ prop }): JSX.Element => (
-  <div className="rounded-lg border border-gray-200 bg-white p-4 transition-all hover:shadow-md">
-    <div className="mb-2 flex items-start justify-between gap-2">
-      <div className="flex items-center gap-2">
-        <code className="rounded bg-blue-50 px-2 py-1 text-sm font-semibold text-blue-700">
-          {prop.name}
-        </code>
+  <div className="border-border-subtle bg-surface/70 hover:border-primary/30 rounded-xl border p-4 transition-all hover:shadow-2xs">
+    <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+      <code className="border-primary/20 bg-primary-subtle text-primary rounded-md border px-2 py-0.5 font-mono text-xs font-bold">
+        {prop.name}
+      </code>
+      <div className="flex items-center gap-1.5">
         {!prop.optional && (
-          <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
+          <span className="border-danger/20 bg-danger-subtle text-danger rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase">
             required
           </span>
         )}
         {prop.isDeprecated ? (
-          <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-medium text-orange-700">
+          <span className="border-warning/20 bg-warning-subtle text-warning rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase">
             deprecated
           </span>
         ) : null}
       </div>
     </div>
+
     <div className="mb-2">
-      <code className="text-sm break-all text-gray-600">{prop.type}</code>
+      <code className="text-content-secondary font-mono text-xs break-all">{prop.type}</code>
     </div>
-    {prop.description ? <p className="mb-2 text-sm text-gray-700">{prop.description}</p> : null}
+
+    {prop.description ? (
+      <p className="text-content-secondary mb-2 text-xs leading-relaxed">{prop.description}</p>
+    ) : null}
+
     {prop.default ? (
-      <div className="text-xs text-gray-500">
-        Default: <code className="rounded bg-gray-100 px-1">{prop.default}</code>
+      <div className="text-content-muted font-mono text-[11px]">
+        Default:{' '}
+        <code className="bg-surface-subtle text-content-primary rounded px-1">{prop.default}</code>
       </div>
     ) : null}
   </div>
 );
 
 const EventCard: FC<{ event: EventItem }> = ({ event }): JSX.Element => (
-  <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
+  <div className="border-border-subtle bg-surface-subtle/50 rounded-xl border p-4">
     <div className="mb-2 flex items-center gap-2">
-      <code className="rounded bg-purple-100 px-2 py-1 text-sm font-semibold text-purple-700">
+      <code className="border-tertiary/20 bg-tertiary-subtle text-tertiary rounded-md border px-2 py-0.5 font-mono text-xs font-bold">
         {event.name}
       </code>
-      <span className="rounded-full bg-purple-200 px-2 py-0.5 text-xs font-medium text-purple-800">
+      <span className="border-tertiary/20 bg-tertiary-subtle text-tertiary rounded-full border px-2 py-0.5 text-[10px] font-semibold">
         event
       </span>
     </div>
-    <code className="mb-2 block text-sm break-all text-purple-600">{event.type}</code>
-    {event.description ? <p className="text-sm text-purple-700">{event.description}</p> : null}
+    <code className="text-content-secondary mb-1 block font-mono text-xs break-all">
+      {event.type}
+    </code>
+    {event.description ? (
+      <p className="text-content-secondary text-xs">{event.description}</p>
+    ) : null}
   </div>
 );
 
 const TypeCard: FC<{ type: TypeItem }> = ({ type }): JSX.Element => (
-  <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+  <div className="border-border-subtle bg-surface-subtle/50 rounded-xl border p-4">
     <div className="mb-2 flex items-center gap-2">
-      <code className="rounded bg-green-100 px-2 py-1 text-sm font-semibold text-green-700">
+      <code className="border-success/20 bg-success-subtle text-success rounded-md border px-2 py-0.5 font-mono text-xs font-bold">
         {type.name}
       </code>
-      <span className="rounded-full bg-green-200 px-2 py-0.5 text-xs font-medium text-green-800">
+      <span className="border-success/20 bg-success-subtle text-success rounded-full border px-2 py-0.5 text-[10px] font-semibold">
         type
       </span>
     </div>
-    <code className="text-sm break-all text-green-600">{type.definition}</code>
+    <code className="text-content-secondary font-mono text-xs break-all">{type.definition}</code>
   </div>
 );
 
@@ -181,6 +172,7 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
   const [packageList, setPackageList] = useState<PackageData | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
   useEffect(() => {
     const loadPackages = async (): Promise<void> => {
@@ -199,12 +191,20 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
     void loadPackages();
   }, []);
 
+  const handleCopyCode = (code: string): void => {
+    navigator.clipboard.writeText(code);
+    setCopiedCode(code);
+    setTimeout(() => setCopiedCode(null), 2000);
+  };
+
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <div className="mx-auto mb-4 size-8 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600" />
-          <p className="text-gray-600">Loading documentation...</p>
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <div className="space-y-3 text-center">
+          <div className="border-primary/20 border-t-primary mx-auto size-8 animate-spin rounded-full border-3" />
+          <p className="text-content-secondary text-sm font-medium">
+            Loading documentation index...
+          </p>
         </div>
       </div>
     );
@@ -212,10 +212,12 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
 
   if (!packageList) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center text-red-600">
-          <p className="text-xl font-semibold">Failed to load documentation</p>
-          <p className="text-sm">Please check your connection and try again</p>
+      <div className="flex min-h-[60vh] items-center justify-center p-6">
+        <div className="border-danger/20 bg-danger-subtle/30 text-content-primary max-w-md rounded-2xl border p-8 text-center">
+          <h2 className="text-danger mb-1 text-lg font-bold">Documentation Unavailable</h2>
+          <p className="text-content-secondary text-sm">
+            Could not load `package-list.json`. Ensure dev server is running.
+          </p>
         </div>
       </div>
     );
@@ -223,68 +225,97 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
 
   if (selectedPackage) {
     return (
-      <div className={`min-h-screen bg-gray-50 ${className || ''}`}>
-        {/* Header */}
-        <div className="bg-background/80 sticky top-0 z-10 border-b border-gray-200 backdrop-blur-sm">
-          <div className="mx-auto max-w-7xl p-4 sm:px-6">
+      <div className={`bg-background text-content-primary min-h-screen pb-20 ${className || ''}`}>
+        {/* Sticky Detail Header */}
+        <div className="bg-surface/80 border-border-subtle sticky top-0 z-20 border-b backdrop-blur-xl">
+          <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
             <div className="flex items-center gap-4">
-              <button
-                className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-                type="button"
+              <Button
+                aria-label="Back to Package List"
+                color="neutral"
+                size="sm"
+                variant="ghost"
                 onClick={() => setSelectedPackage(null)}
               >
-                <svg className="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M15 19l-7-7 7-7"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                  />
-                </svg>
-              </button>
+                <ArrowLeft className="size-4" />
+                <span>Packages</span>
+              </Button>
+              <div className="bg-border-subtle h-5 w-px" />
               <div>
-                <h1 className="text-xl font-bold text-gray-900">{selectedPackage.displayName}</h1>
-                <p className="text-sm text-gray-600">{selectedPackage.description}</p>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-content-primary text-xl font-bold">
+                    {selectedPackage.displayName}
+                  </h1>
+                  <span className="border-primary/20 bg-primary-subtle text-primary rounded-md border px-2 py-0.5 font-mono text-xs font-bold">
+                    v{selectedPackage.version}
+                  </span>
+                </div>
+                <p className="text-content-secondary line-clamp-1 text-xs">
+                  {selectedPackage.description}
+                </p>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Detail Content */}
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
           {selectedPackage.documentation
             ? Object.entries(selectedPackage.documentation).map(([fileName, docs]) => (
                 <div key={fileName} className="mb-12">
-                  <div className="mb-6 rounded-lg bg-white p-6 shadow-sm">
-                    <h2 className="mb-2 text-2xl font-bold text-gray-900">{fileName}</h2>
+                  <div className="border-border-subtle bg-surface/80 mb-6 rounded-2xl border p-6 shadow-xs backdrop-blur-xl">
+                    <h2 className="text-content-primary mb-4 font-mono text-2xl font-bold">
+                      {fileName}
+                    </h2>
 
                     {/* Import Instructions */}
                     {docs.importInstructions && docs.importInstructions.length > 0 ? (
-                      <div className="mb-6">
-                        <h3 className="mb-3 text-lg font-semibold text-gray-900">Import</h3>
-                        <div className="space-y-3">
-                          {docs.importInstructions.map((instruction) => (
-                            <div key={instruction.code} className="rounded-lg bg-gray-900 p-4">
-                              <p className="mb-2 text-sm text-gray-300">
+                      <div className="space-y-3">
+                        <h3 className="text-content-secondary text-xs font-bold tracking-wider uppercase">
+                          Import Syntax
+                        </h3>
+                        {docs.importInstructions.map((instruction) => (
+                          <div
+                            key={instruction.code}
+                            className="border-border-subtle bg-background/80 flex items-center justify-between rounded-xl border p-3 font-mono text-xs"
+                          >
+                            <div>
+                              <p className="text-content-muted mb-1 text-[11px]">
                                 {instruction.description}
                               </p>
-                              <code className="text-green-400">{instruction.code}</code>
+                              <code className="text-primary font-bold">{instruction.code}</code>
                             </div>
-                          ))}
-                        </div>
+                            <Button
+                              aria-label="Copy Import Code"
+                              color="neutral"
+                              size="xs"
+                              variant="ghost"
+                              onClick={() => handleCopyCode(instruction.code)}
+                            >
+                              {copiedCode === instruction.code ? (
+                                <Check className="text-success size-3.5" />
+                              ) : (
+                                <Copy className="size-3.5" />
+                              )}
+                            </Button>
+                          </div>
+                        ))}
                       </div>
                     ) : null}
                   </div>
 
                   {/* Props */}
                   {docs.interfaces?.some((index) => index.props && index.props.length > 0) ? (
-                    <div className="mb-8">
-                      <h3 className="mb-4 text-xl font-bold text-gray-900">Props</h3>
+                    <div className="mb-8 space-y-4">
+                      <h3 className="text-content-primary text-lg font-bold">
+                        Properties &amp; Props
+                      </h3>
                       {docs.interfaces.map(
                         (interfaceItem) =>
                           interfaceItem.props &&
                           interfaceItem.props.length > 0 && (
-                            <div key={interfaceItem.name} className="mb-6">
-                              <h4 className="mb-3 text-lg font-semibold text-gray-800">
+                            <div key={interfaceItem.name} className="space-y-3">
+                              <h4 className="text-content-secondary font-mono text-xs font-bold tracking-wider uppercase">
                                 {interfaceItem.name}
                               </h4>
                               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -300,8 +331,8 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
 
                   {/* Events */}
                   {docs.events && docs.events.length > 0 ? (
-                    <div className="mb-8">
-                      <h3 className="mb-4 text-xl font-bold text-gray-900">Events</h3>
+                    <div className="mb-8 space-y-4">
+                      <h3 className="text-content-primary text-lg font-bold">Event Handlers</h3>
                       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {docs.events.map((event) => (
                           <EventCard key={event.name} event={event} />
@@ -312,8 +343,8 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
 
                   {/* Types */}
                   {docs.types && docs.types.length > 0 ? (
-                    <div className="mb-8">
-                      <h3 className="mb-4 text-xl font-bold text-gray-900">Types</h3>
+                    <div className="mb-8 space-y-4">
+                      <h3 className="text-content-primary text-lg font-bold">Type Definitions</h3>
                       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                         {docs.types.map((type) => (
                           <TypeCard key={type.name} type={type} />
@@ -329,119 +360,94 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
     );
   }
 
+  // Package Catalog List
   return (
-    <div
-      className={`min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 ${className || ''}`}
-    >
-      {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 px-6 py-16">
-        <div className="bg-pure/10 absolute inset-0" />
-        <div className="relative mx-auto max-w-4xl text-center">
-          <div className="bg-pure/20 mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-white backdrop-blur-sm">
-            <span className="size-2 animate-pulse rounded-full bg-green-400" />
-            <span>Latest Documentation</span>
+    <div className={`bg-background text-content-primary min-h-screen pb-20 ${className || ''}`}>
+      {/* Header Banner */}
+      <div className="border-border-subtle bg-surface-subtle/50 border-b px-6 py-12 backdrop-blur-xl">
+        <div className="mx-auto max-w-7xl space-y-3 text-center">
+          <div className="border-primary/20 bg-primary-subtle text-primary inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold">
+            <BookOpen className="size-3.5" />
+            <span>IdeasUI Monorepo Packages</span>
           </div>
-          <h1 className="mb-4 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-5xl font-bold text-transparent">
-            IdeasUI Documentation
+          <h1 className="text-content-primary text-4xl font-extrabold tracking-tight sm:text-5xl">
+            Package Reference &amp; Docs
           </h1>
-          <p className="mx-auto max-w-2xl text-xl text-blue-100">
-            Complete reference for modern React components with TypeScript support
+          <p className="text-content-secondary mx-auto max-w-2xl text-base">
+            Complete API specifications, props interfaces, and event handlers for all packages.
           </p>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 py-12">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
         {Object.entries(packageList).map(([category, packages]) => {
-          if (!packages || !Array.isArray(packages) || packages.length === 0) {
-            return null;
-          }
+          if (!packages || !Array.isArray(packages) || packages.length === 0) return null;
 
           return (
             <section key={category} className="mb-16">
               {/* Category Header */}
-              <div className="mb-8 flex items-center gap-4">
-                <div className="flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-xl text-white shadow-lg">
+              <div className="mb-6 flex items-center gap-3">
+                <div className="bg-primary-subtle border-primary/20 text-primary flex size-10 items-center justify-center rounded-xl border text-lg shadow-2xs">
                   {getCategoryIcon(category)}
                 </div>
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900 capitalize">{category}</h2>
-                  <p className="text-gray-600">{getCategoryDescription(category)}</p>
+                  <h2 className="text-content-primary text-2xl font-bold capitalize">{category}</h2>
+                  <p className="text-content-secondary text-xs">
+                    {getCategoryDescription(category)}
+                  </p>
                 </div>
               </div>
 
-              {/* Package Grid */}
+              {/* Package Cards Grid */}
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {packages.map((package_) => (
                   <button
                     key={package_.name}
-                    className="group cursor-pointer overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10"
+                    className="border-border-subtle bg-surface/70 hover:border-primary/40 hover:shadow-primary/5 group cursor-pointer overflow-hidden rounded-2xl border text-left backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                     tabIndex={0}
                     type="button"
                     onClick={() => setSelectedPackage(package_)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        setSelectedPackage(package_);
-                      }
-                    }}
                   >
-                    {/* Package Header */}
-                    <div className="relative bg-gradient-to-br from-gray-50 to-gray-100 p-6">
-                      <div className="bg-background/80 absolute top-4 right-4 rounded-full px-3 py-1 text-xs font-medium text-gray-600 backdrop-blur-sm">
-                        v{package_.version}
-                      </div>
-                      <div className="mb-3 flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-xl text-white shadow-lg">
-                        {getPackageIcon(package_.name)}
-                      </div>
-                      <h3 className="mb-2 text-xl font-bold text-gray-900">
-                        {package_.displayName}
-                      </h3>
-                      <p className="line-clamp-2 text-sm text-gray-600">{package_.description}</p>
-                    </div>
-
-                    {/* Package Content */}
                     <div className="space-y-4 p-6">
-                      {/* Keywords */}
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-2xl">{getPackageIcon(package_.name)}</span>
+                        <span className="border-primary/20 bg-primary-subtle text-primary rounded-md border px-2 py-0.5 font-mono text-[10px] font-bold">
+                          v{package_.version}
+                        </span>
+                      </div>
+
+                      <div>
+                        <h3 className="text-content-primary group-hover:text-primary text-lg font-bold transition-colors">
+                          {package_.displayName}
+                        </h3>
+                        <p className="text-content-secondary mt-1 line-clamp-2 text-xs">
+                          {package_.description}
+                        </p>
+                      </div>
+
                       {package_.keywords && package_.keywords.length > 0 ? (
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-1.5">
                           {package_.keywords
                             .slice(0, MAX_VISIBLE_KEYWORDS)
                             .map((keyword: string) => (
                               <span
                                 key={keyword}
-                                className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700"
+                                className="border-border-subtle bg-surface-subtle text-content-secondary rounded-md border px-2 py-0.5 text-[10px] font-medium"
                               >
                                 {keyword}
                               </span>
                             ))}
-                          {package_.keywords.length > MAX_VISIBLE_KEYWORDS && (
-                            <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600">
-                              +{package_.keywords.length - MAX_VISIBLE_KEYWORDS}
-                            </span>
-                          )}
                         </div>
                       ) : null}
 
-                      {/* Quick Stats */}
-                      <div className="flex items-center justify-between text-sm text-gray-500">
+                      <div className="border-border-subtle text-content-muted flex items-center justify-between border-t pt-3 text-xs">
                         <span>
                           {package_.documentation ? Object.keys(package_.documentation).length : 0}{' '}
-                          files
+                          modules
                         </span>
-                        <span className="flex items-center gap-1">
-                          Click to explore
-                          <svg
-                            className="size-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              d="M9 5l7 7-7 7"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                            />
-                          </svg>
+                        <span className="text-primary flex items-center gap-1 font-semibold transition-transform group-hover:translate-x-1">
+                          Explore API
+                          <ChevronRight className="size-3.5" />
                         </span>
                       </div>
                     </div>

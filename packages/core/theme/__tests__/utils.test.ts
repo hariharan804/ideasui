@@ -159,10 +159,10 @@ describe('Theme Utils', () => {
     });
 
     it('should pass through bare var() references', () => {
-      const result = parseColorValue('var(--ideasui-color-primary-500)');
+      const result = parseColorValue('var(--ideasui-color-primary)');
 
       expect(result?.cssFn).toBe('var');
-      expect(result?.components).toStrictEqual(['var(--ideasui-color-primary-500)']);
+      expect(result?.components).toStrictEqual(['var(--ideasui-color-primary)']);
     });
   });
 

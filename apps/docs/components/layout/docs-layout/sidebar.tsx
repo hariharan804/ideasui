@@ -69,9 +69,9 @@ export function SidebarContent({
             ref={mergeRefs(reference, referenceProperty, asideReference)}
             className={cn(
               'bg-surface absolute inset-y-0 start-0 flex w-full flex-col items-end text-sm duration-250 *:w-(--sidebar-width)',
-              navMode === 'auto' && 'border-subtle/40 border-e',
+              navMode === 'auto' && 'border-border-subtle/40 border-e',
               collapsed && [
-                'border-subtle/40 bg-surface inset-y-2 w-(--sidebar-width) rounded-xl border transition-transform',
+                'border-border-subtle/40 bg-surface inset-y-2 w-(--sidebar-width) rounded-xl border transition-transform',
                 hovered
                   ? 'translate-x-2 shadow-lg rtl:-translate-x-2'
                   : '-translate-x-(--sidebar-width) rtl:translate-x-full',

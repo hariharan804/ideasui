@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { Rocket, Blocks, History } from 'lucide-react';
+import { ROUTES } from '@/config/routes';
 
 import { DocsLayout } from '@/components/layout/docs-layout';
 import { reactPageTree } from '@/lib/source';
@@ -25,7 +26,8 @@ export default function Layout({ children }: Readonly<{ children: ReactNode }>) 
       nav={{
         ...baseOptions.nav,
         mode: 'top',
-        className: 'border-b border-subtle bg-surface backdrop-blur-xl transition-all duration-500',
+        className:
+          'border-b border-border-subtle bg-surface backdrop-blur-xl transition-all duration-500',
         links: [],
       }}
       sidebar={{
@@ -34,17 +36,17 @@ export default function Layout({ children }: Readonly<{ children: ReactNode }>) 
         tabs: [
           {
             title: 'Getting Started',
-            url: '/react/docs',
+            url: ROUTES.docs.root,
             icon: <Rocket className="size-4" />,
           },
           {
             title: 'Components',
-            url: '/react/docs/components/button',
+            url: ROUTES.docs.components,
             icon: <Blocks className="size-4" />,
           },
           {
             title: 'Changelog',
-            url: '/react/docs/changelog',
+            url: ROUTES.docs.changelog,
             icon: <History className="size-4" />,
           },
         ],

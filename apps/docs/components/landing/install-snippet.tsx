@@ -37,7 +37,7 @@ export function InstallSnippet() {
             className={cn(
               'relative z-10 rounded-lg px-2.5 py-1 font-mono text-xs transition-colors duration-200 sm:px-3',
               pkg === p
-                ? 'text-primary-600 dark:text-primary-300 font-semibold'
+                ? 'text-primary font-semibold'
                 : 'text-content-tertiary hover:text-content-primary',
             )}
             type="button"
@@ -56,9 +56,9 @@ export function InstallSnippet() {
       </div>
 
       {/* Snippet Pill */}
-      <div className="group border-surface-muted bg-surface mt-4 flex items-center justify-between gap-2.5 rounded-2xl border px-3.5 py-2.5 backdrop-blur-xl transition-all duration-300 sm:mt-6 sm:gap-3 sm:px-4 sm:py-3">
+      <div className="group bg-surface-subtle/90 hover:bg-surface-subtle shadow-surface/10 mt-4 flex items-center justify-between gap-2.5 rounded-2xl px-4 py-3 shadow-md backdrop-blur-xl transition-all duration-300 hover:shadow-xl sm:mt-6 sm:gap-3 sm:px-5 sm:py-3.5">
         <div className="flex min-w-0 flex-1 items-center gap-2.5 overflow-hidden">
-          <Terminal className="text-content-tertiary size-4 shrink-0" />
+          <Terminal className="text-primary size-4 shrink-0 transition-transform duration-200 group-hover:scale-110" />
           <div className="min-w-0 flex-1 scrollbar-none overflow-x-auto py-0.5 whitespace-nowrap">
             <code className="text-content-primary font-mono text-xs sm:text-sm">
               {INSTALL_COMMANDS[pkg]}
@@ -81,7 +81,7 @@ export function InstallSnippet() {
           </span>
           <span
             className={cn(
-              'text-success-600 absolute flex items-center gap-1 text-[10px] font-semibold transition-opacity duration-150',
+              'text-success absolute flex items-center gap-1 text-[10px] font-semibold transition-opacity duration-150',
               copied ? 'opacity-100' : 'pointer-events-none opacity-0',
             )}
           >

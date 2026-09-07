@@ -36,6 +36,18 @@ describe('Button', () => {
     expect(() => wrapper.unmount()).not.toThrow();
   });
 
+  it('should render with default variant and theme recipe props', () => {
+    render(<Button>Default Button</Button>);
+    const button = screen.getByRole('button');
+
+    expect(button).toHaveClass('btn');
+    expect(button).toHaveClass('btn--solid');
+    expect(button).toHaveClass('btn--md');
+    expect(button).toHaveClass('btn--primary');
+    expect(button).toHaveClass('btn--radius-md');
+    expect(button).toHaveClass('btn--elevation-sm');
+  });
+
   it('should not have accessibility violations', async () => {
     const { container } = render(<Button>Click me</Button>);
 
@@ -200,12 +212,25 @@ describe('Button', () => {
     );
     expect(screen.getByText('⌘K')).toBeInTheDocument();
   });
+
+  it('renders correctly when isIconOnly is true', () => {
+    render(
+      <Button isIconOnly aria-label="Settings">
+        <span data-testid="icon">⚙</span>
+      </Button>,
+    );
+
+    const button = screen.getByRole('button', { name: 'Settings' });
+
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveClass('btn--icon-only');
+  });
 });
 
 describe('ButtonGroup', () => {
   it('should pass props to children', () => {
     render(
-      <Button.Group isDisabled color="error" size="xl">
+      <Button.Group isDisabled color="danger" size="xl">
         <Button>Button 1</Button>
         <Button>Button 2</Button>
       </Button.Group>,
@@ -216,7 +241,7 @@ describe('ButtonGroup', () => {
     for (const button of buttons) {
       expect(button).toBeDisabled();
       expect(button).toHaveClass('btn--xl');
-      expect(button).toHaveClass('btn--error');
+      expect(button).toHaveClass('btn--danger');
     }
   });
 

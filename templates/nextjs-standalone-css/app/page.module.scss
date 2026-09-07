@@ -64,7 +64,7 @@
 .card {
   padding: 2rem;
   border-radius: $radius-lg;
-  border: 1px solid $border-base;
+  border: 1px solid $border-border-base;
   background-color: $background;
   box-shadow: $shadow-sm;
   display: flex;
@@ -75,7 +75,7 @@
     box-shadow 0.2s;
 
   &:hover {
-    border-color: color-mix(in srgb, $primary 40%, $border-base);
+    border-color: color-mix(in srgb, $primary 40%, $border-border-base);
     box-shadow: $shadow-md;
   }
 

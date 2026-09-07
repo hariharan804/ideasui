@@ -78,7 +78,7 @@ export function APIReferenceViewer({ componentName }: Readonly<APIReferenceViewe
         {mappedProperties.length > 0 ? (
           <PropsTable data={mappedProperties} />
         ) : (
-          <div className="border-subtle/30 bg-surface-subtle/20 text-content-tertiary rounded-2xl border p-8 text-center text-xs leading-relaxed">
+          <div className="border-border-subtle/30 bg-surface-subtle/20 text-content-tertiary rounded-2xl border p-8 text-center text-xs leading-relaxed">
             This component does not define any custom props. It accepts all standard HTML
             attributes.
           </div>

@@ -14,6 +14,8 @@ When building, modifying, or refactoring UI components, pages, or features in Id
 ```
 emerald-500  amber-500  slate-900  blue-600  red-500
 gray-50  gray-100  gray-200  neutral-50  indigo-*
+bg-white  bg-black  text-white  text-black
+dark:* modifier prefix (e.g. dark:bg-*, dark:text-*)
 any raw HEX/RGB/OKLCH value inline in className
 ```
 
@@ -38,16 +40,16 @@ primary-500  primary-600  primary-700  primary-800  primary-900  primary-950
 
 ✅ **Required — use only these semantic aliases:**
 
-| Purpose           | Class                    | Resolves to                           |
-| ----------------- | ------------------------ | ------------------------------------- |
-| Filled background | `bg-primary`             | `primary-500`, auto-adapted per theme |
-| Text on filled    | `text-on-primary`        | High contrast on `bg-primary`         |
-| Subtle fill       | `bg-primary-subtle`      | Light wash background                 |
-| Text on subtle    | `text-on-primary-subtle` | Readable on subtle background         |
-| Muted fill        | `bg-primary-muted`       | Softer than subtle                    |
-| Text on muted     | `text-on-primary-muted`  | Readable on muted background          |
-| Text / icon color | `text-primary`           | Brand-colored text or icon            |
-| Border color      | `border-primary`         | Brand-colored border                  |
+| Purpose           | Class                    | Resolves to                             |
+| ----------------- | ------------------------ | --------------------------------------- |
+| Filled background | `bg-primary`             | `primary-500`, auto-adapted per theme   |
+| Text on filled    | `text-on-primary`        | High contrast on `bg-primary`           |
+| Subtle fill       | `bg-primary-subtle`      | Lowest-emphasis light wash background   |
+| Text on subtle    | `text-on-primary-subtle` | Readable on subtle background           |
+| Muted fill        | `bg-primary-muted`       | Stronger/denser low-emphasis background |
+| Text on muted     | `text-on-primary-muted`  | Readable on muted background            |
+| Text / icon color | `text-primary`           | Brand-colored text or icon              |
+| Border color      | `border-primary`         | Brand-colored border                    |
 
 Apply the **exact same pattern** for `secondary-*` and `tertiary-*`.
 
@@ -57,13 +59,13 @@ Apply the **exact same pattern** for `secondary-*` and `tertiary-*`.
 
 Use **only** these tokens for status states. Do NOT reach for raw Tailwind green/red/yellow/blue.
 
-| State          | Token prefix | Example classes                                                                |
-| -------------- | ------------ | ------------------------------------------------------------------------------ |
-| Success        | `success-*`  | `bg-success`, `text-on-success`, `bg-success-subtle`, `text-on-success-subtle` |
-| Warning        | `warning-*`  | `bg-warning`, `text-on-warning`, `bg-warning-subtle`                           |
-| Error / Danger | `error-*`    | `bg-error`, `text-on-error`, `bg-error-subtle`, `border-error`                 |
-| Info           | `info-*`     | `bg-info`, `text-on-info`, `bg-info-subtle`                                    |
-| Neutral        | `neutral-*`  | `bg-neutral`, `bg-neutral-muted`, `text-on-neutral`                            |
+| State   | Token prefix | Example classes                                                                |
+| ------- | ------------ | ------------------------------------------------------------------------------ |
+| Success | `success-*`  | `bg-success`, `text-on-success`, `bg-success-subtle`, `text-on-success-subtle` |
+| Warning | `warning-*`  | `bg-warning`, `text-on-warning`, `bg-warning-subtle`                           |
+| Danger  | `danger-*`   | `bg-danger`, `text-on-danger`, `bg-danger-subtle`, `border-danger`             |
+| Info    | `info-*`     | `bg-info`, `text-on-info`, `bg-info-subtle`                                    |
+| Neutral | `neutral-*`  | `bg-neutral`, `bg-neutral-muted`, `text-on-neutral`                            |
 
 ---
 
@@ -80,7 +82,7 @@ Never use `bg-white`, `bg-gray-50`, `bg-slate-900`, etc. Use these instead:
 | Nested (subtle)    | `bg-surface-subtle`       | Nested container, lighter than surface |
 | Nested (muted)     | `bg-surface-muted`        | Secondary nesting level                |
 | Nested (strong)    | `bg-surface-strong`       | Sidebar / section headers              |
-| Modal / drawer     | `bg-surface-modal`        | Overlay dialog backgrounds             |
+| Overlay / modal    | `bg-surface-overlay`      | Overlay dialog backgrounds             |
 | Inverse surface    | `bg-surface-inverse`      | Dark surface in light mode             |
 | Text on inverse    | `text-on-surface-inverse` | Text on `bg-surface-inverse`           |
 
@@ -103,15 +105,15 @@ Use these for **all text color** decisions:
 
 ### Border / Divider Tokens
 
-Use `divider-*` tokens for **all border color** decisions:
+Use `border-*` tokens for **all border color** decisions:
 
-| Token           | Class                   | Description                        |
-| --------------- | ----------------------- | ---------------------------------- |
-| Default divider | `border-divider`        | Standard separator                 |
-| Subtle divider  | `border-divider-subtle` | Lighter separator                  |
-| Strong divider  | `border-divider-strong` | Prominent separator                |
-| Focus ring      | `border-divider-focus`  | Focus state border (`primary-500`) |
-| Error border    | `border-divider-error`  | Validation error border            |
+| Token         | Class                  | Description                        |
+| ------------- | ---------------------- | ---------------------------------- |
+| Base border   | `border-border-base`   | Standard border                    |
+| Subtle border | `border-border-subtle` | Lighter border                     |
+| Strong border | `border-border-strong` | Prominent border                   |
+| Focus ring    | `border-border-focus`  | Focus state border (`primary-500`) |
+| Danger border | `border-border-danger` | Validation danger border           |
 
 With opacity variants for transparent borders:
 
@@ -147,7 +149,7 @@ When authoring a new recipe with `tv()`, use color `variant` classes that follow
 import { tv } from 'tailwind-variants';
 
 export const myComponent = tv({
-  base: 'bg-surface text-content-primary border-divider',
+  base: 'bg-surface text-content-primary border-border',
   variants: {
     color: {
       primary: { base: 'my-comp--primary' }, // compound variants handle actual classes
@@ -171,18 +173,18 @@ See `packages/core/theme/src/recipes/button.ts` for the canonical recipe referen
 
 ```
 BACKGROUNDS        TYPOGRAPHY                BORDERS
-bg-background      text-content-primary      border-divider
-bg-surface         text-content-secondary    border-divider-subtle
-bg-surface-subtle  text-content-tertiary     border-divider-strong
-bg-surface-muted   text-content-muted        border-divider-focus
-bg-surface-strong  text-content-disabled     border-divider-error
-bg-surface-modal   text-content-inverse
+bg-background      text-content-primary      border-border
+bg-surface         text-content-secondary    border-border-subtle
+bg-surface-subtle  text-content-tertiary     border-border-strong
+bg-surface-muted   text-content-muted        border-border-focus
+bg-surface-strong  text-content-disabled     border-border-danger
+bg-surface-overlay text-content-inverse
 
 BRAND (replace * with primary / secondary / tertiary)
 bg-*               text-*              bg-*-subtle       bg-*-muted
 text-on-*          border-*            text-on-*-subtle  text-on-*-muted
 
-STATUS (replace * with success / warning / error / info / neutral)
+STATUS (replace * with success / warning / danger / info / neutral)
 bg-*               text-on-*           bg-*-subtle
 text-*             border-*            text-on-*-subtle
 ```

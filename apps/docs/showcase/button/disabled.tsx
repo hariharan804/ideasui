@@ -16,7 +16,7 @@ export function Disabled() {
       <Button isDisabled variant="ghost">
         Ghost
       </Button>
-      <Button isDisabled color="error">
+      <Button isDisabled color="danger">
         Danger
       </Button>
     </div>

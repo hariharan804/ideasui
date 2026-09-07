@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, sonarjs/deprecation, sonarjs/function-return-type */
+/* eslint-disable @typescript-eslint/no-explicit-any, sonarjs/deprecation */
 
 'use client';
 
@@ -295,7 +295,7 @@ export function DocsNavbar({
           </Link>
 
           {/* Vertical Separator */}
-          <div className="bg-border mx-2 block h-4 w-px max-md:hidden" />
+          {/* <div className="bg-border mx-2 block h-4 w-px max-md:hidden" /> */}
 
           {/* React / Native Toggle */}
           {/* NOSONAR */}

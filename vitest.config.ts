@@ -16,7 +16,6 @@ export default defineConfig({
         __dirname,
         './packages/core/theme/src/recipes/index.ts',
       ),
-      '@ideasui/theme/tokens': path.resolve(__dirname, './packages/core/theme/src/tokens/index.ts'),
       '@ideasui/theme/system': path.resolve(__dirname, './packages/core/theme/src/system/index.ts'),
       '@ideasui/theme/plugin': path.resolve(
         __dirname,

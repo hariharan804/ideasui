@@ -20,7 +20,11 @@ async function getHighlighted(code: string, lang: string): Promise<React.ReactNo
     return await highlight(code, {
       components: { pre: HighlightPre },
       lang: lang ?? 'text',
-      // themes: { light: 'github-light', dark: 'github-dark' },
+      themes: {
+        light: 'github-light-default',
+        dark: 'dracula',
+      },
+      defaultColor: false,
     });
   } catch (error) {
     console.error('Syntax highlighting error:', error);
@@ -52,7 +56,7 @@ export async function Code({
 
     rendered =
       result === null ? (
-        <Base.Pre className="[&_code]:font-mono! [&_code]:text-[0.8125rem]! [&_code]:leading-[1.65]! [&_code]:text-slate-900 dark:[&_code]:text-slate-50!">
+        <Base.Pre className="[&_code]:text-content-primary! [&_code]:font-mono! [&_code]:text-[0.8125rem]! [&_code]:leading-[1.65]!">
           <code>{code}</code>
         </Base.Pre>
       ) : (

@@ -64,9 +64,9 @@ You MUST follow these rules during development. Refer to `/rules` for full detai
 | Brand       | `bg-primary`, `text-primary`, `bg-primary-subtle`, `text-on-primary`, `bg-primary-muted`       |
 | Secondary   | `bg-secondary`, `text-secondary`, `bg-secondary-subtle`, `text-on-secondary`                   |
 | Tertiary    | `bg-tertiary`, `text-tertiary`, `bg-tertiary-subtle`, `text-on-tertiary`                       |
-| Status      | `bg-success`, `bg-warning`, `bg-error`, `bg-info`, `text-on-success`, etc.                     |
-| Backgrounds | `bg-background`, `bg-surface`, `bg-surface-subtle`, `bg-surface-muted`, `bg-surface-modal`     |
+| Status      | `bg-success`, `bg-warning`, `bg-danger`, `bg-info`, `text-on-success`, etc.                    |
+| Backgrounds | `bg-background`, `bg-surface`, `bg-surface-subtle`, `bg-surface-muted`, `bg-surface-overlay`   |
 | Typography  | `text-content-primary`, `text-content-secondary`, `text-content-muted`, `text-content-inverse` |
-| Borders     | `border-divider`, `border-divider-subtle`, `border-divider-focus`, `border-divider-error`      |
+| Borders     | `border-border`, `borderborder-border-base`, `border-border-focus`, `border-border-danger`     |
 
 - [design-tokens.md](../../rules/design-tokens.md)
