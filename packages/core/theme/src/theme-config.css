@@ -90,9 +90,6 @@
   --color-border-strong: oklch(var(--ideasui-color-border-strong));
   --color-border-focus: oklch(var(--ideasui-color-border-focus));
   --color-border-danger: oklch(var(--ideasui-color-border-danger));
-  --color-base: oklch(var(--ideasui-color-border-base));
-  --color-subtle: oklch(var(--ideasui-color-border-subtle));
-  --color-strong: oklch(var(--ideasui-color-border-strong));
 
   /* ── Overlays & Effects ── */
   --color-active-overlay: oklch(

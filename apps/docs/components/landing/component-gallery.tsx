@@ -44,9 +44,9 @@ export function ComponentGallery() {
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-12 text-center sm:mb-16 lg:mb-20">
+        <div className="mb-6 text-center sm:mb-8 lg:mb-10">
           <motion.div {...inView(0)} className="inline-flex">
-            <span className="border-primary-subtle bg-primary-subtle text-primary inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1 text-xs font-semibold tracking-wide">
+            <span className="bg-primary-subtle/80 text-primary inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide shadow-2xs">
               <Sparkles className="size-3.5" /> Component Architecture
             </span>
           </motion.div>
@@ -71,7 +71,7 @@ export function ComponentGallery() {
         <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {/* Card 1 — Variant System */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative overflow-hidden rounded-2xl p-6 shadow-md backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
             {...cardFadeIn(0)}
           >
             <div className="from-primary to-secondary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
@@ -113,7 +113,7 @@ export function ComponentGallery() {
 
           {/* Card 2 — Intent Semantics */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative overflow-hidden rounded-2xl p-6 shadow-md backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
             {...cardFadeIn(1)}
           >
             <div className="from-secondary to-primary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
@@ -155,7 +155,7 @@ export function ComponentGallery() {
 
           {/* Card 3 — Icons & Icon-Only */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative overflow-hidden rounded-2xl p-6 shadow-md backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
             {...cardFadeIn(2)}
           >
             <div className="from-primary to-success absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
@@ -208,7 +208,7 @@ export function ComponentGallery() {
 
           {/* Card 4 — Button Groups & Tabs */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative overflow-hidden rounded-2xl p-6 shadow-md backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
             {...cardFadeIn(3)}
           >
             <div className="from-secondary to-warning absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
@@ -251,7 +251,7 @@ export function ComponentGallery() {
 
           {/* Card 5 — Interactive Loading States */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative overflow-hidden rounded-2xl p-6 shadow-md backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
             {...cardFadeIn(4)}
           >
             <div className="from-primary to-secondary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -295,7 +295,7 @@ export function ComponentGallery() {
 
           {/* Card 6 — Density & Radii */}
           <motion.div
-            className="bg-surface/80 group border-surface-muted hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+            className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative overflow-hidden rounded-2xl p-6 shadow-md backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
             {...cardFadeIn(5)}
           >
             <div className="from-secondary to-primary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

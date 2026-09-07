@@ -40,16 +40,16 @@ primary-500  primary-600  primary-700  primary-800  primary-900  primary-950
 
 ✅ **Required — use only these semantic aliases:**
 
-| Purpose           | Class                    | Resolves to                           |
-| ----------------- | ------------------------ | ------------------------------------- |
-| Filled background | `bg-primary`             | `primary-500`, auto-adapted per theme |
-| Text on filled    | `text-on-primary`        | High contrast on `bg-primary`         |
-| Subtle fill       | `bg-primary-subtle`      | Light wash background                 |
-| Text on subtle    | `text-on-primary-subtle` | Readable on subtle background         |
-| Muted fill        | `bg-primary-muted`       | Softer than subtle                    |
-| Text on muted     | `text-on-primary-muted`  | Readable on muted background          |
-| Text / icon color | `text-primary`           | Brand-colored text or icon            |
-| Border color      | `border-primary`         | Brand-colored border                  |
+| Purpose           | Class                    | Resolves to                             |
+| ----------------- | ------------------------ | --------------------------------------- |
+| Filled background | `bg-primary`             | `primary-500`, auto-adapted per theme   |
+| Text on filled    | `text-on-primary`        | High contrast on `bg-primary`           |
+| Subtle fill       | `bg-primary-subtle`      | Lowest-emphasis light wash background   |
+| Text on subtle    | `text-on-primary-subtle` | Readable on subtle background           |
+| Muted fill        | `bg-primary-muted`       | Stronger/denser low-emphasis background |
+| Text on muted     | `text-on-primary-muted`  | Readable on muted background            |
+| Text / icon color | `text-primary`           | Brand-colored text or icon              |
+| Border color      | `border-primary`         | Brand-colored border                    |
 
 Apply the **exact same pattern** for `secondary-*` and `tertiary-*`.
 

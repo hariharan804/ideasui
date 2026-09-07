@@ -156,9 +156,9 @@ function Header({
               onClick={onToggleTheme}
             >
               {resolvedTheme === 'dark' ? (
-                <Sun className="size-4 text-amber-400" />
+                <Sun className="text-warning size-4" />
               ) : (
-                <Moon className="size-4 text-indigo-400" />
+                <Moon className="text-primary size-4" />
               )}
             </Button>
           </div>

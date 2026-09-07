@@ -271,7 +271,7 @@ const buttonVariants = tv({
     color: {
       primary: 'bg-primary text-primary-foreground',
       secondary: 'bg-secondary text-secondary-foreground',
-      error: 'bg-error text-error-foreground',
+      error: 'bg-dangertext-error-foreground',
     },
     variant: {
       solid: '',

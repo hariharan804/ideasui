@@ -1205,7 +1205,7 @@ export default function DesignSystemPage(): JSX.Element {
                 <span>Pending</span>
               </span>
               <span className="border-error/30 bg-error-subtle text-on-error-subtle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">
-                <span className="bg-error h-1.5 w-1.5 rounded-full" />
+                <span className="bg-dangerh-1.5 w-1.5 rounded-full" />
                 <span>Failed</span>
               </span>
               <span className="border-info/30 bg-info-subtle text-on-info-subtle inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold shadow-xs">

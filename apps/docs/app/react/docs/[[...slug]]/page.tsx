@@ -129,10 +129,10 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
   return (
     <DocsPage className="!pt-8" full={pageData.full} toc={pageData.toc}>
       {/* ── Executive Hero Header Card ────────────────────────────────────── */}
-      <div className="from-primary-muted/90 via-secondary-muted/60 to-primary-muted/80 dark:from-primary/15 dark:via-secondary/10 dark:to-surface/40 relative mb-8 rounded-3xl bg-gradient-to-br p-6 backdrop-blur-md sm:p-8">
+      <div className="from-primary-muted/60 via-secondary-muted/40 to-surface-subtle/80 relative mb-8 rounded-3xl bg-gradient-to-br p-6 backdrop-blur-md sm:p-8">
         {/* Decorative ambient background mesh */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
-          <div className="absolute inset-0 bg-[radial-gradient(oklch(var(--ideasui-color-content-tertiary)/0.06)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_100%)] [background-size:24px_24px] opacity-80 dark:opacity-35" />
+          <div className="absolute inset-0 bg-[radial-gradient(oklch(var(--ideasui-color-content-tertiary)/0.06)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_100%)] [background-size:24px_24px] opacity-50" />
         </div>
 
         {/* ── Title ────────────────────────────────────────────────────────── */}
@@ -195,12 +195,12 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
           {pageData.links?.recipe && (
             <a
-              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-sky-500/40 hover:shadow-xs active:scale-[0.98]"
+              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-info/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
               href={`${siteConfig.links.packageBase}/${pageData.links.recipe}`}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <div className="flex size-7 shrink-0 items-center justify-center rounded-xl bg-sky-500/10 text-sky-500 transition-transform duration-200 group-hover:scale-105 group-hover:bg-sky-500/20">
+              <div className="bg-info-subtle text-info flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
                 <Paintbrush className="size-3.5" />
               </div>
               <div className="flex min-w-0 flex-col">
@@ -212,12 +212,12 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
           {pageData.links?.rac && (
             <a
-              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-emerald-500/40 hover:shadow-xs active:scale-[0.98]"
+              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-success/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
               href={pageData.links.rac}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <div className="flex size-7 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500 transition-transform duration-200 group-hover:scale-105 group-hover:bg-emerald-500/20">
+              <div className="bg-success-subtle text-success flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
                 <Code2 className="size-3.5" />
               </div>
               <div className="flex min-w-0 flex-col">
@@ -231,12 +231,12 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
           {pageData.links?.storybook && (
             <a
-              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-amber-500/40 hover:shadow-xs active:scale-[0.98]"
+              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-warning/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
               href={`${siteConfig.links.storybook}/?path=/docs/${pageData.links.storybook.toLowerCase().replace('/', '-')}`}
               rel="noopener noreferrer"
               target="_blank"
             >
-              <div className="flex size-7 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-500 transition-transform duration-200 group-hover:scale-105 group-hover:bg-amber-500/20">
+              <div className="bg-warning-subtle text-warning flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
                 <BookOpen className="size-3.5" />
               </div>
               <div className="flex min-w-0 flex-col">
@@ -250,7 +250,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
           {pageData.links?.figma && (
             <a
-              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:border-pink-500/40 hover:shadow-xs active:scale-[0.98]"
+              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-secondary/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
               href={
                 typeof pageData.links.figma === 'string'
                   ? pageData.links.figma
@@ -259,7 +259,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
               rel="noopener noreferrer"
               target="_blank"
             >
-              <div className="flex size-7 shrink-0 items-center justify-center rounded-xl bg-pink-500/10 text-pink-500 transition-transform duration-200 group-hover:scale-105 group-hover:bg-pink-500/20">
+              <div className="bg-secondary-subtle text-secondary flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
                 <Figma className="size-3.5" />
               </div>
               <div className="flex min-w-0 flex-col">

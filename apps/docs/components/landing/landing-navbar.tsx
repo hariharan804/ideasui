@@ -65,14 +65,14 @@ export function LandingNavbar() {
     >
       <div
         className={cn(
-          'relative z-50 mx-auto flex h-14 w-full max-w-[95%] items-center justify-between gap-3 border px-3 backdrop-blur-md transition-all duration-300 sm:max-w-[92%] sm:px-4 md:pr-4 md:pl-6 lg:max-w-[88%]',
+          'relative z-50 mx-auto flex h-14 w-full max-w-[95%] items-center justify-between gap-3 rounded-full border px-4.5 transition-all duration-300 sm:max-w-[92%] sm:px-6 lg:max-w-[88%]',
           isTop
-            ? 'rounded-none border-transparent bg-transparent'
-            : 'border-surface-muted bg-surface/85 rounded-full shadow-lg',
+            ? 'bg-surface/80 border-border-subtle/40 shadow-sm backdrop-blur-xl'
+            : 'bg-surface/95 border-border-subtle/80 shadow-xl backdrop-blur-2xl',
         )}
         style={{
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
         }}
       >
         {/* Left Section: Logo */}
@@ -144,7 +144,7 @@ export function LandingNavbar() {
         {mobileMenuOpen && (
           <motion.div
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            className="border-surface-muted bg-surface/95 mx-auto mt-2.5 w-[92%] max-w-lg overflow-hidden rounded-2xl border p-5 shadow-2xl backdrop-blur-2xl md:hidden dark:bg-[#0d1117]/95"
+            className="border-surface-muted bg-surface-overlay/95 mx-auto mt-2.5 w-[92%] max-w-lg overflow-hidden rounded-2xl border p-5 shadow-2xl backdrop-blur-2xl md:hidden"
             exit={{ opacity: 0, y: -10, scale: 0.97 }}
             initial={{ opacity: 0, y: -10, scale: 0.97 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}

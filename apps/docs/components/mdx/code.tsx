@@ -56,7 +56,7 @@ export async function Code({
 
     rendered =
       result === null ? (
-        <Base.Pre className="[&_code]:font-mono! [&_code]:text-[0.8125rem]! [&_code]:leading-[1.65]! [&_code]:text-slate-900 dark:[&_code]:text-slate-50!">
+        <Base.Pre className="[&_code]:text-content-primary! [&_code]:font-mono! [&_code]:text-[0.8125rem]! [&_code]:leading-[1.65]!">
           <code>{code}</code>
         </Base.Pre>
       ) : (

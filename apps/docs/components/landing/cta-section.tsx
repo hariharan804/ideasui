@@ -16,10 +16,10 @@ const inView = (delay = 0) => ({
 /** Full-width call-to-action section using semantic design tokens. */
 export function CtaSection() {
   return (
-    <section className="border-surface-muted relative overflow-hidden border-t py-16 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden py-16 sm:py-24 lg:py-28">
       <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
         <motion.div
-          className="bg-surface/80 border-surface-muted xs:p-8 relative overflow-hidden rounded-2xl border p-6 backdrop-blur-2xl sm:rounded-3xl sm:p-12 lg:p-16"
+          className="bg-surface-subtle/70 shadow-surface/10 xs:p-8 relative overflow-hidden rounded-2xl p-6 shadow-2xl backdrop-blur-2xl sm:rounded-3xl sm:p-12 lg:p-16"
           {...inView(0)}
         >
           {/* Top Gradient Accent Line */}
@@ -29,7 +29,7 @@ export function CtaSection() {
           <div className="from-primary/15 via-secondary/10 pointer-events-none absolute -top-32 left-1/2 h-80 w-[500px] max-w-full -translate-x-1/2 rounded-full bg-gradient-to-b to-transparent blur-3xl" />
 
           {/* Subtle Decorative Grid Pattern */}
-          <div className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent_75%)] opacity-15 dark:opacity-10">
+          <div className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent_75%)] opacity-15">
             <svg
               className="size-full"
               height="100%"
@@ -48,7 +48,7 @@ export function CtaSection() {
           <div className="relative z-10">
             {/* Top Pill */}
             <div className="mb-5 inline-flex sm:mb-6">
-              <span className="border-primary-subtle bg-primary-subtle text-on-primary-subtle inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1 text-xs font-semibold tracking-wide sm:px-4">
+              <span className="bg-primary-subtle/80 text-on-primary-subtle inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide shadow-2xs">
                 <Sparkles className="size-3.5" /> Start Building Today
               </span>
             </div>
@@ -78,7 +78,7 @@ export function CtaSection() {
             {/* Action Buttons */}
             <div className="mt-8 flex w-full flex-col items-center justify-center gap-3.5 sm:mt-10 sm:w-auto sm:flex-row">
               <Link
-                className="group bg-primary text-on-primary hover:bg-primary/90 shadow-primary/25 inline-flex w-auto items-center justify-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-semibold shadow-lg transition-all duration-200 active:scale-98 sm:w-auto"
+                className="group bg-primary text-on-primary hover:bg-primary/95 shadow-primary/25 inline-flex w-auto items-center justify-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-semibold shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-98 sm:w-auto"
                 href="/react/docs/start"
               >
                 Get Started Free
@@ -86,17 +86,16 @@ export function CtaSection() {
               </Link>
 
               <Link
-                className="group border-surface-strong bg-surface-subtle/80 hover:bg-surface-muted text-content-primary inline-flex w-auto items-center justify-center gap-2 rounded-xl border px-6 py-3.5 text-sm font-semibold backdrop-blur-md transition-all duration-200 active:scale-98 sm:w-auto"
+                className="group bg-surface-subtle/90 hover:bg-surface-muted text-content-primary inline-flex w-auto items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold shadow-sm backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md active:scale-98 sm:w-auto"
                 href="/react/docs/components"
               >
                 Browse Components
               </Link>
             </div>
 
-            {/* NPM Package Pill */}
             <a
               aria-label="Explore IdeasUI packages on npm"
-              className="group bg-error-subtle text-error border-error-subtle mt-6 inline-flex items-center gap-2.5 rounded-xl border px-3.5 py-1.5 text-xs font-semibold backdrop-blur-md transition-all duration-200 active:scale-98 sm:mt-8"
+              className="group bg-surface-subtle/90 text-content-secondary hover:bg-surface-muted hover:text-content-primary shadow-surface/5 mt-6 inline-flex items-center gap-2.5 rounded-xl px-4 py-2 text-xs font-semibold shadow-2xs transition-all duration-200 hover:shadow-sm active:scale-98 sm:mt-8"
               href="https://www.npmjs.com/search?q=ideasui"
               rel="noopener noreferrer"
               target="_blank"

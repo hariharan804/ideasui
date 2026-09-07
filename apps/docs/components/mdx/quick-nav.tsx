@@ -23,7 +23,7 @@ export function QuickNav({
   return (
     <div
       className={cn(
-        'not-prose bg-surface-muted/50 my-6 w-full max-w-xl rounded-2xl p-4 sm:p-5',
+        'not-prose bg-surface-subtle my-6 w-full max-w-xl rounded-2xl p-4 sm:p-5',
         className,
       )}
       {...properties}

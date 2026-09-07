@@ -14,7 +14,7 @@ const MARQUEE_ROW_1 = [
   { label: 'Tailwind CSS v4', icon: <Sparkles className="size-3.5" /> },
   { label: 'OKLCH Color Engine', icon: <Palette className="size-3.5" /> },
   { label: 'React Aria Primitives', icon: <Accessibility className="size-3.5" /> },
-  { label: 'WCAG 2.1 AA Compliant', icon: <ShieldCheck className="size-3.5" /> },
+  { label: 'Built for WCAG 2.1 AA', icon: <ShieldCheck className="size-3.5" /> },
   { label: 'TypeScript Native', icon: <Code2 className="size-3.5" /> },
   { label: 'Zero Runtime CSS', icon: <Zap className="size-3.5" /> },
 ];
@@ -41,7 +41,7 @@ export function MarqueeStrip() {
   return (
     <section
       aria-label="Technology features"
-      className="bg-surface-subtle/50 border-surface-muted relative overflow-hidden border-y py-6"
+      className="bg-surface-subtle/30 relative overflow-hidden py-8 sm:py-10"
     >
       {/* Visually-hidden accessible list — read once by screen readers */}
       <ul className="sr-only">
@@ -55,17 +55,17 @@ export function MarqueeStrip() {
       <div className="from-background xs:w-16 pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l to-transparent sm:w-28 lg:w-36" />
 
       {/* aria-hidden — animated duplicates are decorative only */}
-      <div aria-hidden="true" className="flex flex-col gap-3">
+      <div aria-hidden="true" className="group flex flex-col gap-3">
         {/* Row 1 — Left Scroll */}
         <div className="flex overflow-hidden">
           <div
-            className="flex shrink-0 gap-3"
+            className="flex shrink-0 gap-3 group-hover:[animation-play-state:paused]"
             style={{ animation: 'marquee-left 40s linear infinite' }}
           >
             {MARQUEE_ITEMS_1.map((item) => (
               <div
                 key={item.key}
-                className="text-content-tertiary border-surface-muted bg-surface-muted flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-medium"
+                className="text-content-tertiary bg-surface-subtle/80 hover:bg-surface-muted hover:text-content-primary flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium shadow-2xs transition-all duration-150"
               >
                 <span className="text-primary">{item.icon}</span>
                 {item.label}
@@ -77,13 +77,13 @@ export function MarqueeStrip() {
         {/* Row 2 — Right Scroll */}
         <div className="flex overflow-hidden">
           <div
-            className="flex shrink-0 gap-3"
+            className="flex shrink-0 gap-3 group-hover:[animation-play-state:paused]"
             style={{ animation: 'marquee-right 48s linear infinite' }}
           >
             {MARQUEE_ITEMS_2.map((item) => (
               <div
                 key={item.key}
-                className="text-content-tertiary border-surface-muted bg-surface-muted flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-medium"
+                className="text-content-tertiary bg-surface-subtle/80 hover:bg-surface-muted hover:text-content-primary flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium shadow-2xs transition-all duration-150"
               >
                 <span className="text-secondary">{item.icon}</span>
                 {item.label}
