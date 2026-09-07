@@ -6,7 +6,7 @@
 
 /* ── Base Block ───────────────────────────────────────────────────────────── */
 .btn {
-  @apply focus-visible:ring-primary relative inline-flex cursor-pointer items-center justify-center gap-2 overflow-hidden font-medium transition-all duration-200 ease-in-out select-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95 disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none motion-reduce:active:scale-100;
+  @apply focus-visible:ring-primary relative inline-flex cursor-pointer items-center justify-center gap-2 overflow-hidden font-medium transition-all duration-200 ease-in-out select-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95 data-[pressed=true]:scale-95 motion-reduce:transition-none motion-reduce:active:scale-100 motion-reduce:data-[pressed=true]:scale-100;
 }
 
 /* ── Elements ─────────────────────────────────────────────────────────────── */
@@ -82,7 +82,7 @@
 
 /* ── Variant Modifiers ────────────────────────────────────────────────────── */
 .btn.btn--solid {
-  @apply text-on-primary;
+  @apply border-transparent;
 }
 .btn.btn--outline {
   @apply border bg-transparent;
@@ -109,184 +109,184 @@
 /* ── Color × Variant Combinations ─────────────────────────────────────────── */
 /* Solid */
 .btn.btn--solid.btn--primary {
-  @apply bg-primary text-on-primary hover:bg-primary/90 active:bg-primary/80;
+  @apply bg-primary text-on-primary hover:bg-primary/90 data-[hovered=true]:bg-primary/90 active:bg-primary/80 data-[pressed=true]:bg-primary/80;
 }
 .btn.btn--solid.btn--secondary {
-  @apply bg-secondary text-on-secondary hover:bg-secondary/90 active:bg-secondary/80;
+  @apply bg-secondary text-on-secondary hover:bg-secondary/90 data-[hovered=true]:bg-secondary/90 active:bg-secondary/80 data-[pressed=true]:bg-secondary/80;
 }
 .btn.btn--solid.btn--tertiary {
-  @apply bg-tertiary text-on-tertiary hover:bg-tertiary/90 active:bg-tertiary/80;
+  @apply bg-tertiary text-on-tertiary hover:bg-tertiary/90 data-[hovered=true]:bg-tertiary/90 active:bg-tertiary/80 data-[pressed=true]:bg-tertiary/80;
 }
 .btn.btn--solid.btn--success {
-  @apply bg-success text-on-success hover:bg-success/90 active:bg-success/80;
+  @apply bg-success text-on-success hover:bg-success/90 data-[hovered=true]:bg-success/90 active:bg-success/80 data-[pressed=true]:bg-success/80;
 }
 .btn.btn--solid.btn--warning {
-  @apply bg-warning text-on-warning hover:bg-warning/90 active:bg-warning/80;
+  @apply bg-warning text-on-warning hover:bg-warning/90 data-[hovered=true]:bg-warning/90 active:bg-warning/80 data-[pressed=true]:bg-warning/80;
 }
 .btn.btn--solid.btn--danger {
-  @apply bg-danger text-on-danger hover:bg-danger/90 active:bg-danger/80;
+  @apply bg-danger text-on-danger hover:bg-danger/90 data-[hovered=true]:bg-danger/90 active:bg-danger/80 data-[pressed=true]:bg-danger/80;
 }
 .btn.btn--solid.btn--info {
-  @apply bg-info text-on-info hover:bg-info/90 active:bg-info/80;
+  @apply bg-info text-on-info hover:bg-info/90 data-[hovered=true]:bg-info/90 active:bg-info/80 data-[pressed=true]:bg-info/80;
 }
 .btn.btn--solid.btn--neutral {
-  @apply bg-neutral text-on-neutral hover:bg-neutral/90 active:bg-neutral/80;
+  @apply bg-neutral text-on-neutral hover:bg-neutral/90 data-[hovered=true]:bg-neutral/90 active:bg-neutral/80 data-[pressed=true]:bg-neutral/80;
 }
 
 /* Outline */
 .btn.btn--outline.btn--primary {
-  @apply border-primary text-primary hover:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
+  @apply border-primary text-primary hover:bg-primary-subtle data-[hovered=true]:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
 .btn.btn--outline.btn--secondary {
-  @apply border-secondary text-secondary hover:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
+  @apply border-secondary text-secondary hover:bg-secondary-subtle data-[hovered=true]:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
 .btn.btn--outline.btn--tertiary {
-  @apply border-tertiary text-tertiary hover:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
+  @apply border-tertiary text-tertiary hover:bg-tertiary-subtle data-[hovered=true]:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
 .btn.btn--outline.btn--success {
-  @apply border-success text-success hover:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
+  @apply border-success text-success hover:bg-success-subtle data-[hovered=true]:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
 .btn.btn--outline.btn--warning {
-  @apply border-warning text-warning hover:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
+  @apply border-warning text-warning hover:bg-warning-subtle data-[hovered=true]:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
 .btn.btn--outline.btn--danger {
-  @apply border-danger text-danger hover:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
+  @apply border-danger text-danger hover:bg-danger-subtle data-[hovered=true]:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
 .btn.btn--outline.btn--info {
-  @apply border-info text-info hover:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
+  @apply border-info text-info hover:bg-info-subtle data-[hovered=true]:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
 .btn.btn--outline.btn--neutral {
-  @apply border-neutral text-neutral hover:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
+  @apply border-neutral text-neutral hover:bg-neutral-subtle data-[hovered=true]:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Ghost */
 .btn.btn--ghost.btn--primary {
-  @apply text-primary hover:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
+  @apply text-primary hover:bg-primary-subtle data-[hovered=true]:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
 .btn.btn--ghost.btn--secondary {
-  @apply text-secondary hover:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
+  @apply text-secondary hover:bg-secondary-subtle data-[hovered=true]:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
 .btn.btn--ghost.btn--tertiary {
-  @apply text-tertiary hover:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
+  @apply text-tertiary hover:bg-tertiary-subtle data-[hovered=true]:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
 .btn.btn--ghost.btn--success {
-  @apply text-success hover:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
+  @apply text-success hover:bg-success-subtle data-[hovered=true]:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
 .btn.btn--ghost.btn--warning {
-  @apply text-warning hover:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
+  @apply text-warning hover:bg-warning-subtle data-[hovered=true]:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
 .btn.btn--ghost.btn--danger {
-  @apply text-danger hover:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
+  @apply text-danger hover:bg-danger-subtle data-[hovered=true]:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
 .btn.btn--ghost.btn--info {
-  @apply text-info hover:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
+  @apply text-info hover:bg-info-subtle data-[hovered=true]:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
 .btn.btn--ghost.btn--neutral {
-  @apply text-neutral hover:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
+  @apply text-neutral hover:bg-neutral-subtle data-[hovered=true]:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Soft */
 .btn.btn--soft.btn--primary {
-  @apply bg-primary-muted text-on-primary-muted hover:bg-primary-subtle active:bg-primary-subtle data-[pressed=true]:bg-primary-subtle;
+  @apply bg-primary-subtle text-on-primary-subtle hover:bg-primary-muted data-[hovered=true]:bg-primary-muted active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
 .btn.btn--soft.btn--secondary {
-  @apply bg-secondary-muted text-on-secondary-muted hover:bg-secondary-subtle active:bg-secondary-subtle data-[pressed=true]:bg-secondary-subtle;
+  @apply bg-secondary-subtle text-on-secondary-subtle hover:bg-secondary-muted data-[hovered=true]:bg-secondary-muted active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
 .btn.btn--soft.btn--tertiary {
-  @apply bg-tertiary-muted text-on-tertiary-muted hover:bg-tertiary-subtle active:bg-tertiary-subtle data-[pressed=true]:bg-tertiary-subtle;
+  @apply bg-tertiary-subtle text-on-tertiary-subtle hover:bg-tertiary-muted data-[hovered=true]:bg-tertiary-muted active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
 .btn.btn--soft.btn--success {
-  @apply bg-success-muted text-on-success-muted hover:bg-success-subtle active:bg-success-subtle data-[pressed=true]:bg-success-subtle;
+  @apply bg-success-subtle text-on-success-subtle hover:bg-success-muted data-[hovered=true]:bg-success-muted active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
 .btn.btn--soft.btn--warning {
-  @apply bg-warning-muted text-on-warning-muted hover:bg-warning-subtle active:bg-warning-subtle data-[pressed=true]:bg-warning-subtle;
+  @apply bg-warning-subtle text-on-warning-subtle hover:bg-warning-muted data-[hovered=true]:bg-warning-muted active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
 .btn.btn--soft.btn--danger {
-  @apply bg-danger-muted text-on-danger-muted hover:bg-danger-subtle active:bg-danger-subtle data-[pressed=true]:bg-danger-subtle;
+  @apply bg-danger-subtle text-on-danger-subtle hover:bg-danger-muted data-[hovered=true]:bg-danger-muted active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
 .btn.btn--soft.btn--info {
-  @apply bg-info-muted text-on-info-muted hover:bg-info-subtle active:bg-info-subtle data-[pressed=true]:bg-info-subtle;
+  @apply bg-info-subtle text-on-info-subtle hover:bg-info-muted data-[hovered=true]:bg-info-muted active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
 .btn.btn--soft.btn--neutral {
-  @apply bg-neutral-muted text-on-neutral-muted hover:bg-neutral-subtle active:bg-neutral-subtle data-[pressed=true]:bg-neutral-subtle;
+  @apply bg-neutral-subtle text-on-neutral-subtle hover:bg-neutral-muted data-[hovered=true]:bg-neutral-muted active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Surface */
 .btn.btn--surface.btn--primary {
-  @apply text-primary hover:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
+  @apply text-primary hover:bg-primary-subtle data-[hovered=true]:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
 .btn.btn--surface.btn--secondary {
-  @apply text-secondary hover:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
+  @apply text-secondary hover:bg-secondary-subtle data-[hovered=true]:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
 .btn.btn--surface.btn--tertiary {
-  @apply text-tertiary hover:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
+  @apply text-tertiary hover:bg-tertiary-subtle data-[hovered=true]:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
 .btn.btn--surface.btn--success {
-  @apply text-success hover:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
+  @apply text-success hover:bg-success-subtle data-[hovered=true]:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
 .btn.btn--surface.btn--warning {
-  @apply text-warning hover:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
+  @apply text-warning hover:bg-warning-subtle data-[hovered=true]:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
 .btn.btn--surface.btn--danger {
-  @apply text-danger hover:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
+  @apply text-danger hover:bg-danger-subtle data-[hovered=true]:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
 .btn.btn--surface.btn--info {
-  @apply text-info hover:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
+  @apply text-info hover:bg-info-subtle data-[hovered=true]:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
 .btn.btn--surface.btn--neutral {
-  @apply text-neutral hover:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
+  @apply text-neutral hover:bg-neutral-subtle data-[hovered=true]:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Link */
 .btn.btn--link.btn--primary {
-  @apply text-primary hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
+  @apply text-primary hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--secondary {
-  @apply text-secondary hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
+  @apply text-secondary hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--tertiary {
-  @apply text-tertiary hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
+  @apply text-tertiary hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--success {
-  @apply text-success hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
+  @apply text-success hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--warning {
-  @apply text-warning hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
+  @apply text-warning hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--danger {
-  @apply text-danger hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
+  @apply text-danger hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--info {
-  @apply text-info hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
+  @apply text-info hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
 .btn.btn--link.btn--neutral {
-  @apply text-neutral hover:opacity-80 active:opacity-60 data-[pressed=true]:opacity-60;
+  @apply text-neutral hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
 
 /* Text */
 .btn.btn--text.btn--primary {
-  @apply text-primary hover:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
+  @apply text-primary hover:bg-primary-subtle data-[hovered=true]:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
 .btn.btn--text.btn--secondary {
-  @apply text-secondary hover:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
+  @apply text-secondary hover:bg-secondary-subtle data-[hovered=true]:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
 .btn.btn--text.btn--tertiary {
-  @apply text-tertiary hover:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
+  @apply text-tertiary hover:bg-tertiary-subtle data-[hovered=true]:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
 .btn.btn--text.btn--success {
-  @apply text-success hover:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
+  @apply text-success hover:bg-success-subtle data-[hovered=true]:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
 .btn.btn--text.btn--warning {
-  @apply text-warning hover:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
+  @apply text-warning hover:bg-warning-subtle data-[hovered=true]:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
 .btn.btn--text.btn--danger {
-  @apply text-danger hover:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
+  @apply text-danger hover:bg-danger-subtle data-[hovered=true]:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
 .btn.btn--text.btn--info {
-  @apply text-info hover:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
+  @apply text-info hover:bg-info-subtle data-[hovered=true]:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
 .btn.btn--text.btn--neutral {
-  @apply text-neutral hover:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
+  @apply text-neutral hover:bg-neutral-subtle data-[hovered=true]:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Elevated */
@@ -294,47 +294,47 @@
   @apply shadow-none;
 }
 .btn.btn--elevated.btn--elevation-xs {
-  @apply shadow-xs hover:shadow-sm active:shadow-xs;
+  @apply shadow-xs hover:shadow-sm active:shadow-xs data-[hovered=true]:shadow-sm data-[pressed=true]:shadow-xs;
 }
 .btn.btn--elevated.btn--elevation-sm {
-  @apply shadow-sm hover:shadow-md active:shadow-sm;
+  @apply shadow-sm hover:shadow-md active:shadow-sm data-[hovered=true]:shadow-md data-[pressed=true]:shadow-sm;
 }
 .btn.btn--elevated.btn--elevation-md {
-  @apply shadow-md hover:shadow-lg active:shadow-md;
+  @apply shadow-md hover:shadow-lg active:shadow-md data-[hovered=true]:shadow-lg data-[pressed=true]:shadow-md;
 }
 .btn.btn--elevated.btn--elevation-lg {
-  @apply shadow-lg hover:shadow-xl active:shadow-lg;
+  @apply shadow-lg hover:shadow-xl active:shadow-lg data-[hovered=true]:shadow-xl data-[pressed=true]:shadow-lg;
 }
 .btn.btn--elevated.btn--elevation-xl {
-  @apply shadow-xl hover:shadow-2xl active:shadow-xl;
+  @apply shadow-xl hover:shadow-2xl active:shadow-xl data-[hovered=true]:shadow-2xl data-[pressed=true]:shadow-xl;
 }
 .btn.btn--elevated.btn--elevation-2xl {
-  @apply shadow-2xl hover:shadow-inner active:shadow-2xl;
+  @apply shadow-2xl hover:shadow-inner active:shadow-2xl data-[hovered=true]:shadow-inner data-[pressed=true]:shadow-2xl;
 }
 
 .btn.btn--elevated.btn--primary {
-  @apply text-primary border-primary/10 hover:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
+  @apply text-primary border-primary/10 hover:bg-primary-subtle data-[hovered=true]:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
 .btn.btn--elevated.btn--secondary {
-  @apply text-secondary border-secondary/10 hover:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
+  @apply text-secondary border-secondary/10 hover:bg-secondary-subtle data-[hovered=true]:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
 .btn.btn--elevated.btn--tertiary {
-  @apply text-tertiary border-tertiary/10 hover:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
+  @apply text-tertiary border-tertiary/10 hover:bg-tertiary-subtle data-[hovered=true]:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
 .btn.btn--elevated.btn--success {
-  @apply text-success border-success/10 hover:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
+  @apply text-success border-success/10 hover:bg-success-subtle data-[hovered=true]:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
 .btn.btn--elevated.btn--warning {
-  @apply text-warning border-warning/10 hover:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
+  @apply text-warning border-warning/10 hover:bg-warning-subtle data-[hovered=true]:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
 .btn.btn--elevated.btn--danger {
-  @apply text-danger border-danger/10 hover:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
+  @apply text-danger border-danger/10 hover:bg-danger-subtle data-[hovered=true]:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
 .btn.btn--elevated.btn--info {
-  @apply text-info border-info/10 hover:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
+  @apply text-info border-info/10 hover:bg-info-subtle data-[hovered=true]:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
 .btn.btn--elevated.btn--neutral {
-  @apply text-neutral border-neutral/10 hover:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
+  @apply text-neutral border-neutral/10 hover:bg-neutral-subtle data-[hovered=true]:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Icon Only */
@@ -358,7 +358,9 @@
 }
 
 /* ── States ───────────────────────────────────────────────────────────────── */
-.btn.btn--disabled {
+.btn.btn--disabled,
+.btn:disabled,
+.btn[data-disabled='true'] {
   @apply pointer-events-none cursor-not-allowed opacity-50;
 }
 .btn.btn--loading {
@@ -373,7 +375,7 @@
 
 /* ── Group / Attached ─────────────────────────────────────────────────────── */
 .btn.btn--attached {
-  @apply relative hover:z-10 focus-visible:z-20 active:scale-100 data-[pressed=true]:z-10;
+  @apply relative hover:z-10 focus-visible:z-20 active:scale-100 data-[hovered=true]:z-10 data-[pressed=true]:z-10;
 }
 
 /* Horizontal Attached Buttons */
@@ -389,24 +391,23 @@
 }
 
 /* Divider - Full */
-.btn.btn--attached.btn--divider-full:not(.btn--outline):not(:first-child):not(.btn--vertical) {
-  @apply border-s-border-subtle border-s hover:border-s-transparent active:border-s-transparent data-[pressed=true]:border-s-transparent;
+.btn.btn--attached.btn--divider-full:not(.btn--outline):not(.btn--ghost):not(.btn--link):not(
+    .btn--text
+  ):not(:first-child):not(.btn--vertical) {
+  @apply border-s-border-base/30 border-s;
 }
-.btn.btn--attached.btn--divider-full:not(.btn--outline).btn--vertical:not(:first-child) {
-  @apply border-t-border-subtle border-t hover:border-t-transparent active:border-t-transparent data-[pressed=true]:border-t-transparent;
+.btn.btn--attached.btn--divider-full:not(.btn--outline):not(.btn--ghost):not(.btn--link):not(
+    .btn--text
+  ).btn--vertical:not(:first-child) {
+  @apply border-t-border-base/30 border-t;
 }
 
 /* Divider - Middle */
 .btn.btn--attached.btn--divider-middle:not(:first-child):not(.btn--vertical)::before {
   content: '';
-  @apply bg-border-subtle pointer-events-none absolute inset-y-2 start-0 w-px transition-opacity duration-150;
-}
-.btn.btn--attached.btn--divider-middle:hover::before,
-.btn.btn--attached.btn--divider-middle:active::before,
-.btn.btn--attached.btn--divider-middle[data-pressed='true']::before {
-  opacity: 0;
+  @apply bg-border-base/30 pointer-events-none absolute inset-y-2 start-0 w-px;
 }
 .btn.btn--attached.btn--vertical.btn--divider-middle:not(:first-child)::before {
   content: '';
-  @apply bg-border-subtle pointer-events-none absolute inset-x-2 top-0 h-px w-auto transition-opacity duration-150;
+  @apply bg-border-base/30 pointer-events-none absolute inset-x-2 top-0 h-px w-auto;
 }

@@ -14,6 +14,8 @@ When building, modifying, or refactoring UI components, pages, or features in Id
 ```
 emerald-500  amber-500  slate-900  blue-600  red-500
 gray-50  gray-100  gray-200  neutral-50  indigo-*
+bg-white  bg-black  text-white  text-black
+dark:* modifier prefix (e.g. dark:bg-*, dark:text-*)
 any raw HEX/RGB/OKLCH value inline in className
 ```
 

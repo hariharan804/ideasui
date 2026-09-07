@@ -1,6 +1,7 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 
 import { BookOpen, LayoutGrid, Route } from 'lucide-react';
+import { ROUTES } from '@/config/routes';
 import { Github } from '@/components/docs-ui/icons';
 
 import { Logo } from '@/components/ui/logo';
@@ -25,12 +26,12 @@ export const homeLayoutLinks = [
       {
         icon: <BookOpen className="size-4" />,
         text: 'Getting Started',
-        url: '/react/docs/start',
+        url: ROUTES.docs.start,
       },
       {
         icon: <LayoutGrid className="size-4" />,
         text: 'Components',
-        url: '/react/docs/components/button',
+        url: ROUTES.docs.components,
       },
     ],
     on: 'menu' as const,
@@ -43,13 +44,13 @@ export const homeLayoutLinks = [
         external: true,
         icon: <Github className="size-4" />,
         text: 'GitHub',
-        url: 'https://github.com/ideas2logic-lab/ideasui',
+        url: ROUTES.external.github,
       },
       {
         external: true,
         icon: <Route className="size-4" />,
         text: 'Roadmap',
-        url: '#',
+        url: ROUTES.external.roadmap,
       },
     ],
     on: 'menu' as const,
@@ -57,19 +58,19 @@ export const homeLayoutLinks = [
     type: 'menu' as const,
   },
   {
-    active: 'none' as const,
+    active: 'nested-url' as const,
     on: 'nav' as const,
     text: 'Docs',
-    url: '/react/docs/getting-started',
+    url: ROUTES.docs.root,
   },
   {
-    active: 'none' as const,
+    active: 'nested-url' as const,
     on: 'nav' as const,
     text: 'Components',
-    url: '/react/docs/components/button',
+    url: ROUTES.docs.components,
   },
   {
-    children: <ExternalLink href="https://github.com/ideas2logic-lab/ideasui">GitHub</ExternalLink>,
+    children: <ExternalLink href={ROUTES.external.github}>GitHub</ExternalLink>,
     on: 'nav' as const,
     type: 'custom' as const,
   },

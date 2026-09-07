@@ -15,10 +15,21 @@ import { ButtonGroupContext } from './button-group-context';
 export interface ButtonGroupProperties
   extends Omit<HTMLAttributes<HTMLDivElement>, 'color'>, ButtonGroupContextType {
   /**
-   * Whether the buttons in the group should be vertical.
-   * @default false
+   * The size of the buttons in the group.
    */
-  isVertical?: boolean;
+  size?: NonNullable<ButtonGroupContextType['size']>;
+  /**
+   * The color scheme of the buttons in the group.
+   */
+  color?: NonNullable<ButtonGroupContextType['color']>;
+  /**
+   * The visual style of the buttons in the group.
+   */
+  variant?: NonNullable<ButtonGroupContextType['variant']>;
+  /**
+   * Whether the buttons in the group should be disabled.
+   */
+  isDisabled?: boolean;
   /**
    * Whether the buttons in the group should be joined together without gaps.
    * @default true
@@ -49,12 +60,13 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProperties>(
       radius = 'md',
       fullWidth,
       disableAnimation = false,
-      divider = 'full',
-      isIconOnly,
+      divider,
       ...properties
     },
     reference,
   ): JSX.Element => {
+    const resolvedDivider = divider ?? (isAttached ? 'full' : 'none');
+
     const contextValue = useMemo(
       () => ({
         size,
@@ -66,8 +78,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProperties>(
         radius,
         fullWidth,
         disableAnimation,
-        divider,
-        isIconOnly,
+        divider: resolvedDivider,
       }),
       [
         size,
@@ -79,8 +90,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProperties>(
         radius,
         fullWidth,
         disableAnimation,
-        divider,
-        isIconOnly,
+        resolvedDivider,
       ],
     );
 

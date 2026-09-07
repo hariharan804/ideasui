@@ -75,10 +75,10 @@
     /* ── Neutral ─────────────────────────────────────────────── */
     --ideasui-color-neutral: 0.551 0.015 264.4;
     --ideasui-color-on-neutral: 0.985 0.002 260;
-    --ideasui-color-neutral-subtle: 0.985 0.002 260;
+    --ideasui-color-neutral-subtle: 0.94 0.008 260;
     --ideasui-color-on-neutral-subtle: 0.269 0.009 260;
-    --ideasui-color-neutral-muted: 0.967 0.003 260;
-    --ideasui-color-on-neutral-muted: 0.371 0.009 260;
+    --ideasui-color-neutral-muted: 0.88 0.012 260;
+    --ideasui-color-on-neutral-muted: 0.22 0.015 260;
 
     /* ── Common ──────────────────────────────────────────────── */
     --ideasui-color-common-white: 1 0 0;
@@ -325,10 +325,10 @@
     /* ── Neutral (Dark Mode) ─────────────────────────────────── */
     --ideasui-color-neutral: 0.62 0.008 260;
     --ideasui-color-on-neutral: 0.12 0.006 260;
-    --ideasui-color-neutral-subtle: 0.12 0.006 260;
+    --ideasui-color-neutral-subtle: 0.22 0.01 260;
     --ideasui-color-on-neutral-subtle: 0.94 0.003 260;
-    --ideasui-color-neutral-muted: 0.18 0.008 260;
-    --ideasui-color-on-neutral-muted: 0.9 0.004 260;
+    --ideasui-color-neutral-muted: 0.3 0.015 260;
+    --ideasui-color-on-neutral-muted: 0.94 0.004 260;
 
     /* ── Common (Dark Mode) ──────────────────────────────────── */
     --ideasui-color-common-white: 1 0 0;

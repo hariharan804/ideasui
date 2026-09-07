@@ -5,17 +5,16 @@ import type { ButtonProps as ButtonProperties } from './button.types';
 import { createContext, useContext } from 'react';
 
 export interface ButtonGroupContextType {
-  size?: ButtonProperties['size'];
-  color?: ButtonProperties['color'];
-  variant?: ButtonProperties['variant'];
+  size?: NonNullable<ButtonProperties['size']>;
+  color?: NonNullable<ButtonProperties['color']>;
+  variant?: NonNullable<ButtonProperties['variant']>;
   isDisabled?: boolean;
   isAttached?: boolean;
   isVertical?: boolean;
-  radius?: ButtonProperties['radius'];
+  radius?: NonNullable<ButtonProperties['radius']>;
   fullWidth?: boolean;
   disableAnimation?: boolean;
-  divider?: ButtonProperties['divider'];
-  isIconOnly?: boolean;
+  divider?: NonNullable<ButtonProperties['divider']>;
 }
 
 export const ButtonGroupContext = createContext<ButtonGroupContextType | null>(null);

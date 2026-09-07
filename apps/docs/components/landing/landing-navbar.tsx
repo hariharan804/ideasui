@@ -11,10 +11,12 @@ import { Logo } from '@/components/ui/logo';
 import { GitHubButton } from '@/components/docs-ui/github-button';
 import { ThemeToggle } from '@/components/docs-ui/theme-toggle';
 
+import { ROUTES } from '@/config/routes';
+
 const NAV_LINKS = [
-  { label: 'Docs', href: '/react/docs/start' },
-  { label: 'Components', href: '/react/docs/components' },
-  { label: 'Changelog', href: '/react/docs/changelog' },
+  { label: 'Docs', href: ROUTES.docs.start },
+  { label: 'Components', href: ROUTES.docs.components },
+  { label: 'Changelog', href: ROUTES.docs.changelog },
 ] as const;
 
 /**
@@ -172,7 +174,7 @@ export function LandingNavbar() {
             <div className="border-surface-muted mt-4 flex flex-col gap-2.5 border-t pt-4">
               <Link
                 className="bg-primary text-on-primary hover:bg-primary/90 flex min-h-[44px] items-center justify-center gap-2 rounded-xl text-xs font-semibold shadow-md transition-all active:scale-98"
-                href="/react/docs/start"
+                href={ROUTES.docs.start}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span>Get Started</span>

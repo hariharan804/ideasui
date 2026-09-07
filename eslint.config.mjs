@@ -372,6 +372,7 @@ export default defineConfig([
       'sonarjs/prefer-immediate-return': 'error',
       'sonarjs/prefer-single-boolean-return': 'error',
       'sonarjs/different-types-comparison': 'off',
+      'sonarjs/function-return-type': 'off',
 
       // Modern JavaScript (Unicorn)
       'unicorn/better-regex': 'error',

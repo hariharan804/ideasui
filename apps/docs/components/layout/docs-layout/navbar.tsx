@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any, sonarjs/deprecation, sonarjs/function-return-type */
+/* eslint-disable @typescript-eslint/no-explicit-any, sonarjs/deprecation */
 
 'use client';
 

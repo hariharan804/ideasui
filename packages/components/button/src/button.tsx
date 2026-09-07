@@ -101,6 +101,7 @@ const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProperties>(
         {...properties}
       >
         <svg
+          aria-hidden="true"
           className="size-full animate-spin"
           fill="none"
           stroke="currentColor"
@@ -176,6 +177,23 @@ interface ButtonContentProperties {
   renderProps: ButtonRenderProps;
 }
 
+function getButtonSpinner(isLoading?: boolean, indicator?: ReactNode): ReactNode {
+  const spinner: ReactNode = isLoading ? (indicator ?? <ButtonSpinner />) : null;
+
+  return spinner;
+}
+
+function renderButtonContentLabel(content: ReactNode): ReactNode {
+  const label: ReactNode =
+    typeof content === 'string' || typeof content === 'number' ? (
+      <ButtonLabel>{content}</ButtonLabel>
+    ) : (
+      content
+    );
+
+  return label;
+}
+
 const ButtonContent = ({
   isLoading,
   loadingIndicator,
@@ -186,39 +204,49 @@ const ButtonContent = ({
   shortcut,
   children,
   renderProps,
-  // eslint-disable-next-line sonarjs/function-return-type
 }: ButtonContentProperties): ReactNode => {
   const content = typeof children === 'function' ? children(renderProps) : children;
-  const loader = loadingIndicator || <ButtonSpinner />;
+  const isCenterLoading = isLoading && loadingPosition === 'center';
 
-  if (isIconOnly || (isLoading && loadingPosition === 'center')) {
-    return isLoading ? loader : content;
+  if (isIconOnly || isCenterLoading) {
+    const centerNode: ReactNode = isLoading ? getButtonSpinner(true, loadingIndicator) : content;
+
+    return centerNode;
   }
 
-  const showStartLoader = isLoading && loadingPosition === 'start';
-  const showEndLoader = isLoading && loadingPosition === 'end';
-  const showStartIcon = startIcon && !showStartLoader;
-  const showEndIcon = endIcon && !showEndLoader;
+  const spinner = getButtonSpinner(isLoading, loadingIndicator);
+  const isStartLoading = isLoading && loadingPosition === 'start';
+  const isEndLoading = isLoading && loadingPosition === 'end';
 
-  return (
+  let startNode: ReactNode = null;
+
+  if (isStartLoading) {
+    startNode = spinner;
+  } else if (startIcon) {
+    startNode = startIcon;
+  }
+
+  let endNode: ReactNode = null;
+
+  if (isEndLoading) {
+    endNode = spinner;
+  } else if (endIcon) {
+    endNode = endIcon;
+  }
+
+  const mainNode: ReactNode = (
     <>
-      {showStartLoader ? <ButtonIcon placement="start">{loader}</ButtonIcon> : null}
+      {startNode ? <ButtonIcon placement="start">{startNode}</ButtonIcon> : null}
 
-      {showStartIcon ? <ButtonIcon placement="start">{startIcon}</ButtonIcon> : null}
+      {renderButtonContentLabel(content)}
 
-      {typeof content === 'string' || typeof content === 'number' ? (
-        <ButtonLabel>{content}</ButtonLabel>
-      ) : (
-        content
-      )}
-
-      {showEndIcon ? <ButtonIcon placement="end">{endIcon}</ButtonIcon> : null}
-
-      {showEndLoader ? <ButtonIcon placement="end">{loader}</ButtonIcon> : null}
+      {endNode ? <ButtonIcon placement="end">{endNode}</ButtonIcon> : null}
 
       {shortcut ? <ButtonShortcut>{shortcut}</ButtonShortcut> : null}
     </>
   );
+
+  return mainNode;
 };
 
 /* -----------------------------------------------------------------------------------------------
@@ -231,8 +259,6 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProperties>(
       isLoading,
       loadingIndicator,
       loadingPosition,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      isIconOnly,
       startIcon,
       endIcon,
       shortcut,
@@ -248,6 +274,11 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProperties>(
     // Specific logic for Button
     const mergedDisabled = merged.isDisabled || isLoading;
 
+    const isBorderlessVariant =
+      merged.variant === 'ghost' || merged.variant === 'link' || merged.variant === 'text';
+    const defaultDivider = !isBorderlessVariant && merged.isAttached ? 'full' : 'none';
+    const divider = merged.divider || defaultDivider;
+
     const styles = button({
       variant: merged.variant,
       size: merged.size,
@@ -261,7 +292,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProperties>(
       isAttached: merged.isAttached,
       isVertical: merged.isVertical,
       elevation: merged.elevation,
-      divider: merged.divider || (merged.isAttached ? 'full' : 'none'),
+      divider,
     });
 
     // Context value - React Compiler will optimize this automatically
