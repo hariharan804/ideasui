@@ -21,7 +21,7 @@
     "ignore": ["react", "react/jsx-runtime"]
   },
   {
-    "path": "packages/core/theme/dist/theme.css",
+    "path": "packages/core/theme/dist/index.css",
     "limit": "40 KB",
     "name": "@ideasui/theme (CSS)",
     "webpack": false

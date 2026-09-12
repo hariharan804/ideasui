@@ -26,7 +26,8 @@ const myButtonVariants = tv({
       xl: 'h-13 px-10',
     },
     variant: {
-      primary: 'text-white dark:bg-white/10 dark:text-white dark:hover:bg-white/15',
+      primary:
+        'bg-surface-subtle text-content-primary hover:bg-surface-muted border border-border-subtle',
     },
   },
 });

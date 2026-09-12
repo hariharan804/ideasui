@@ -1,19 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import {
-  Accessibility,
-  Zap,
-  Cpu,
-  MousePointer2,
-  CheckCircle2,
-  Sparkles,
-  Check,
-} from 'lucide-react';
+import { Accessibility, Zap, Cpu, MousePointer2, Sparkles, Check } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@ideasui/react';
 import { cn } from '@ideasui/utils';
-import { DottedHexagon } from './dotted-hexagon';
 
 const SMOOTH_EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -79,7 +70,7 @@ function getFocusButtonLabel(key: FocusKey): string {
   return 'Focused Target';
 }
 
-/** Bento grid showcasing the library's core technical features using semantic tokens. */
+/** Bento grid showcasing technical foundation cleanly with restrained background accents. */
 export function FeaturesSection() {
   /* Interactive Card States */
   const [activeKey, setActiveKey] = useState<FocusKey>('Tab');
@@ -90,11 +81,10 @@ export function FeaturesSection() {
 
   return (
     <section className="relative isolate overflow-hidden py-16 sm:py-24 lg:py-28">
-      {/* ── Landing Page Dotted Hexagon & Spotlight Background ── */}
-      <DottedHexagon />
+      {/* Landing Page Dotted Hexagon */}
 
-      {/* Background Glow */}
-      <div className="from-secondary/10 via-primary/10 pointer-events-none absolute top-1/3 right-1/4 h-96 w-96 max-w-full rounded-full bg-gradient-to-br to-transparent blur-3xl" />
+      {/* Restrained Ambient Glow */}
+      <div className="from-secondary/5 via-primary/5 pointer-events-none absolute top-1/3 right-1/4 h-80 w-80 max-w-full rounded-full bg-gradient-to-br to-transparent blur-3xl" />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -140,22 +130,35 @@ export function FeaturesSection() {
                     Accessible by Default
                   </h3>
                   <p className="text-content-tertiary text-xs sm:text-sm">
-                    React Aria Primitives &amp; WCAG 2.1 AA Compliant
+                    React Aria Primitives &amp; Semantic HTML Base
                   </p>
                 </div>
               </div>
               <span className="text-primary bg-primary-subtle/80 inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 font-mono text-xs font-semibold shadow-2xs">
-                <CheckCircle2 className="size-4" /> 100% Axe Verified
+                <Check className="size-4" /> Built for WCAG 2.1 AA
               </span>
             </div>
 
-            <p className="text-content-secondary mt-5 text-sm leading-relaxed">
-              Full keyboard navigation, WAI-ARIA 1.2 patterns, focus ring indicators, and screen
-              reader announcements built right in — zero additional code required.
-            </p>
+            {/* Visual Feature Checklist */}
+            <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+              {[
+                'Keyboard navigation',
+                'ARIA 1.2 support',
+                'Focus management',
+                'Screen reader support',
+              ].map((feat) => (
+                <div
+                  key={feat}
+                  className="bg-surface-subtle/80 text-content-primary flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold shadow-2xs"
+                >
+                  <Check className="text-success size-3.5 shrink-0" />
+                  <span>{feat}</span>
+                </div>
+              ))}
+            </div>
 
             {/* Interactive Keyboard Accessibility Tester */}
-            <div className="mt-6 flex flex-col gap-4 sm:mt-8">
+            <div className="mt-6 flex flex-col gap-4">
               <div className="flex flex-wrap items-center gap-2">
                 {(['Tab', 'Enter', 'Space'] as const).map((k) => (
                   <button
@@ -225,10 +228,22 @@ export function FeaturesSection() {
               <h3 className="text-content-primary mt-5 text-lg font-bold">
                 Perceptual Color Engine
               </h3>
-              <p className="text-content-tertiary mt-2 text-xs leading-relaxed sm:text-sm">
-                Calculated lightness curves maintain even contrast steps across light &amp; dark
-                modes without color shifting.
-              </p>
+
+              <div className="mt-4 flex flex-col gap-2">
+                {[
+                  'Perceptually uniform lightness',
+                  'Dark & light mode auto-mapping',
+                  'Consistent contrast ratios',
+                ].map((feat) => (
+                  <div
+                    key={feat}
+                    className="text-content-secondary flex items-center gap-2 text-xs font-medium"
+                  >
+                    <Check className="text-success size-3.5 shrink-0" />
+                    <span>{feat}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Interactive OKLCH Color Swatch Inspector */}
@@ -291,13 +306,9 @@ export function FeaturesSection() {
               </div>
 
               <h3 className="text-content-primary mt-5 text-lg font-bold">Zero Configuration</h3>
-              <p className="text-content-tertiary mt-2 text-xs leading-relaxed sm:text-sm">
-                Drop into Next.js, Vite, or any React framework. No providers required for layout or
-                styling.
-              </p>
 
               {/* SSR Feature Highlights Checklist */}
-              <div className="mt-4 flex flex-col gap-2">
+              <div className="mt-4 flex flex-col gap-2.5">
                 {[
                   'Zero Context Provider wrapping',
                   'React Server Component (RSC) native',
@@ -305,7 +316,7 @@ export function FeaturesSection() {
                 ].map((feat) => (
                   <div
                     key={feat}
-                    className="text-content-secondary flex items-center gap-2 text-xs"
+                    className="text-content-secondary flex items-center gap-2 text-xs font-medium"
                   >
                     <Check className="text-success size-3.5 shrink-0" />
                     <span>{feat}</span>
@@ -359,31 +370,24 @@ export function FeaturesSection() {
                   <h3 className="text-content-primary text-lg font-bold sm:text-xl">
                     Developer Experience First
                   </h3>
-                  <p className="text-content-tertiary text-xs sm:text-sm">
-                    Composable APIs &amp; IntelliSense Auto-complete
+                  <p className="text-primary mt-0.5 font-mono text-xs font-semibold">
+                    Import → Compose → Ship
                   </p>
                 </div>
               </div>
-              <span className="text-content-muted bg-surface-muted/80 rounded-full px-3.5 py-1.5 font-mono text-xs font-medium shadow-2xs">
-                Strict TypeScript
-              </span>
-            </div>
 
-            <p className="text-content-secondary mt-5 text-sm leading-relaxed">
-              Full{' '}
-              <code className="bg-surface-muted text-content-primary rounded-md px-1.5 py-0.5 font-mono text-xs font-semibold">
-                React.forwardRef
-              </code>{' '}
-              support, slotted compound components (
-              <code className="bg-surface-muted text-content-primary rounded-md px-1.5 py-0.5 font-mono text-xs font-semibold">
-                Button.Icon
-              </code>
-              ,{' '}
-              <code className="bg-surface-muted text-content-primary rounded-md px-1.5 py-0.5 font-mono text-xs font-semibold">
-                Button.Label
-              </code>
-              {'), and exact type definitions for seamless IDE autocomplete.'}
-            </p>
+              <div className="flex items-center gap-2">
+                {['Type-safe', 'Tree-shakeable', 'Server Component ready'].map((badge) => (
+                  <span
+                    key={badge}
+                    className="bg-surface-muted/90 text-content-primary inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-medium shadow-2xs max-sm:hidden"
+                  >
+                    <Check className="text-success size-3 shrink-0" />
+                    {badge}
+                  </span>
+                ))}
+              </div>
+            </div>
 
             {/* Formatted IDE Code Inspector Block */}
             <div className="bg-surface/90 shadow-surface/10 mt-6 overflow-hidden rounded-2xl shadow-lg backdrop-blur-xl">
@@ -434,7 +438,7 @@ export function FeaturesSection() {
                 </div>
               </div>
 
-              {/* Fixed Height Code Area — Zero Layout Shift / Zero Height Glitch */}
+              {/* Fixed Height Code Area */}
               <div className="bg-background/95 text-content-primary relative h-[210px] overflow-auto p-4 font-mono text-xs leading-relaxed sm:h-[220px] sm:p-5">
                 {activeDxTab === 'compound' && (
                   <pre className="whitespace-pre">
@@ -522,6 +526,19 @@ export function FeaturesSection() {
                   </pre>
                 )}
               </div>
+            </div>
+
+            {/* Mobile Feature Badges */}
+            <div className="mt-4 flex flex-wrap items-center gap-2 sm:hidden">
+              {['Type-safe', 'Tree-shakeable', 'Server Component ready'].map((badge) => (
+                <span
+                  key={badge}
+                  className="bg-surface-muted/90 text-content-primary inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-medium shadow-2xs"
+                >
+                  <Check className="text-success size-3 shrink-0" />
+                  {badge}
+                </span>
+              ))}
             </div>
           </motion.div>
         </div>

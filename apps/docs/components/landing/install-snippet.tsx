@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Terminal, Copy, Check } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@ideasui/utils';
 
@@ -28,66 +28,76 @@ export function InstallSnippet() {
   }
 
   return (
-    <div className="mx-auto mt-10 w-full max-w-md px-2 sm:mt-16 sm:px-0">
-      {/* Package Tabs */}
-      <div className="bg-surface-muted relative mx-auto mb-2 flex w-fit items-center justify-center gap-0.5 rounded-xl p-1 sm:gap-1">
-        {PACKAGE_MANAGERS.map((p) => (
-          <button
-            key={p}
-            className={cn(
-              'relative z-10 rounded-lg px-2.5 py-1 font-mono text-xs transition-colors duration-200 sm:px-3',
-              pkg === p
-                ? 'text-primary font-semibold'
-                : 'text-content-tertiary hover:text-content-primary',
-            )}
-            type="button"
-            onClick={() => setPkg(p)}
-          >
-            {pkg === p && (
-              <motion.div
-                className="bg-background absolute inset-0 rounded-lg shadow-2xs"
-                layoutId="pkgTabIndicator"
-                transition={{ type: 'spring', stiffness: 450, damping: 35 }}
-              />
-            )}
-            <span className="relative z-10">{p}</span>
-          </button>
-        ))}
-      </div>
+    <div className="mx-auto w-full max-w-[calc(100vw-2rem)] px-2 sm:max-w-[470px] sm:px-0">
+      {/* Soft Glass Terminal Card */}
+      <div className="bg-surface/70 border-border-base/50 shadow-surface/8 group relative overflow-hidden rounded-xl border shadow-lg backdrop-blur-2xl transition-all duration-300 hover:shadow-xl sm:rounded-2xl">
+        {/* Header Bar */}
+        <div className="border-border-subtle/30 flex items-center justify-between border-b px-3 py-2 sm:px-4 sm:py-2.5">
+          {/* Left: Window Controls (hidden on mobile) + Package Tabs */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="hidden items-center gap-1.5 sm:flex">
+              <span className="bg-danger/50 size-2 rounded-full" />
+              <span className="bg-warning/50 size-2 rounded-full" />
+              <span className="bg-success/50 size-2 rounded-full" />
+            </div>
 
-      {/* Snippet Pill */}
-      <div className="group bg-surface-subtle/90 hover:bg-surface-subtle shadow-surface/10 mt-4 flex items-center justify-between gap-2.5 rounded-2xl px-4 py-3 shadow-md backdrop-blur-xl transition-all duration-300 hover:shadow-xl sm:mt-6 sm:gap-3 sm:px-5 sm:py-3.5">
-        <div className="flex min-w-0 flex-1 items-center gap-2.5 overflow-hidden">
-          <Terminal className="text-primary size-4 shrink-0 transition-transform duration-200 group-hover:scale-110" />
-          <div className="min-w-0 flex-1 scrollbar-none overflow-x-auto py-0.5 whitespace-nowrap">
-            <code className="text-content-primary font-mono text-xs sm:text-sm">
-              {INSTALL_COMMANDS[pkg]}
-            </code>
+            {/* Package Tabs */}
+            <div className="bg-surface-muted/50 border-border-subtle/30 flex items-center gap-px rounded-full border p-0.5 sm:gap-0.5">
+              {PACKAGE_MANAGERS.map((p) => (
+                <button
+                  key={p}
+                  className={cn(
+                    'relative rounded-full px-2 py-0.5 font-mono text-[11px] font-medium transition-all duration-200 sm:px-2.5 sm:py-1 sm:text-xs',
+                    pkg === p
+                      ? 'text-content-primary font-semibold'
+                      : 'text-content-tertiary hover:text-content-secondary',
+                  )}
+                  type="button"
+                  onClick={() => setPkg(p)}
+                >
+                  {pkg === p && (
+                    <motion.div
+                      className="bg-surface-subtle absolute inset-0 rounded-full shadow-xs"
+                      layoutId="pkgTabIndicator"
+                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{p}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-        <button
-          aria-label="Copy installation command"
-          className="text-content-secondary hover:text-content-primary hover:bg-surface-muted relative flex shrink-0 items-center justify-center rounded-lg p-1.5 transition-colors duration-150 active:scale-95"
-          type="button"
-          onClick={copyCommand}
-        >
-          <span
-            className={cn(
-              'flex items-center gap-1 transition-opacity duration-150',
-              copied ? 'opacity-0' : 'opacity-100',
-            )}
+
+        {/* Command Line Content */}
+        <div className="flex items-center justify-between gap-2 px-3 py-2.5 font-mono text-[11px] sm:gap-3 sm:px-5 sm:py-3.5 sm:text-sm">
+          <div className="flex min-w-0 flex-1 scrollbar-none items-center gap-1.5 overflow-x-auto py-0.5 whitespace-nowrap sm:gap-2">
+            <span className="text-primary/70 font-semibold select-none">$</span>
+            <code className="text-content-primary">{INSTALL_COMMANDS[pkg]}</code>
+          </div>
+
+          {/* Copy Action */}
+          <button
+            aria-label="Copy installation command"
+            className="text-content-tertiary hover:text-content-primary hover:bg-surface-subtle relative flex h-7 shrink-0 items-center justify-center gap-1 rounded-lg px-1.5 text-xs transition-all duration-200 active:scale-95 sm:gap-1.5"
+            type="button"
+            onClick={copyCommand}
           >
-            <Copy className="size-3.5" />
-          </span>
-          <span
-            className={cn(
-              'text-success absolute flex items-center gap-1 text-[10px] font-semibold transition-opacity duration-150',
-              copied ? 'opacity-100' : 'pointer-events-none opacity-0',
+            {copied ? (
+              <>
+                <Check className="text-success size-3.5" />
+                <span className="text-success hidden text-[11px] font-semibold sm:inline">
+                  Copied!
+                </span>
+              </>
+            ) : (
+              <>
+                <Copy className="size-3.5" />
+                <span className="hidden font-sans text-[11px] font-medium sm:inline">Copy</span>
+              </>
             )}
-          >
-            <Check className="size-3" /> Copied!
-          </span>
-        </button>
+          </button>
+        </div>
       </div>
     </div>
   );

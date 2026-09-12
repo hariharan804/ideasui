@@ -31,7 +31,7 @@ const VARIANT_STYLES: Record<GitHubButtonVariant, string> = {
   outline:
     'h-8 rounded-full px-2.5 sm:px-3.5 text-xs font-medium border border-border bg-transparent hover:bg-surface-muted text-content-secondary hover:text-content-primary',
   ghost:
-    'h-8 rounded-full px-2.5 sm:px-3.5 text-xs font-medium bg-pure text-content-tertiary hover:text-content-primary',
+    'h-8 rounded-full px-2.5 sm:px-3.5 text-xs font-medium bg-background text-content-tertiary hover:text-content-primary',
 };
 
 export function GitHubButton({
