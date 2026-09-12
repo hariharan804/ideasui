@@ -16,7 +16,7 @@ describe('tailwind utils', () => {
     it('should handle conditional classes', () => {
       const condition = false;
 
-      expect(cn(P4, condition && M2, 'text-red-500')).toBe(`${P4} text-red-500`);
+      expect(cn(P4, condition && M2, 'text-danger')).toBe(`${P4} text-danger`);
     });
 
     it('should handle array inputs', () => {
@@ -30,12 +30,12 @@ describe('tailwind utils', () => {
 
   describe('cva', () => {
     const BASE_CLASS = 'base-class';
-    const BG_BLUE = 'bg-blue-500';
+    const BG_BLUE = 'bg-primary';
 
     const button = cva(BASE_CLASS, {
       variant: {
         primary: BG_BLUE,
-        secondary: 'bg-gray-500',
+        secondary: 'bg-neutral',
       },
       size: {
         sm: 'text-sm',

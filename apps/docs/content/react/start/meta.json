@@ -4,12 +4,12 @@
   "pages": [
     "index",
     "quick-start",
-    "design-principles",
     "frameworks",
     "theming",
     "dark-mode",
     "styling",
     "standalone-css",
-    "tokens"
+    "tokens",
+    "design-principles"
   ]
 }

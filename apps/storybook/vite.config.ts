@@ -77,8 +77,4 @@ export default defineConfig({
       ignored: ['**/node_modules/**', '**/dist/**', '**/.turbo/**'],
     },
   },
-
-  optimizeDeps: {
-    include: ['@mdx-js/react'],
-  },
 });

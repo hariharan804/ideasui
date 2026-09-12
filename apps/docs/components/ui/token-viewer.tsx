@@ -3,253 +3,463 @@
 import { useState, useMemo } from 'react';
 import { Search, Copy, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-const semantic = {
-  primary: 'var(--ideasui-color-primary)',
-  secondary: 'var(--ideasui-color-secondary)',
-  success: 'var(--ideasui-color-success)',
-  warning: 'var(--ideasui-color-warning)',
-  danger: 'var(--ideasui-color-danger)',
-  info: 'var(--ideasui-color-info)',
-};
-const surface = {
-  surface: 'var(--ideasui-color-surface)',
-  'surface-subtle': 'var(--ideasui-color-surface-subtle)',
-  'surface-muted': 'var(--ideasui-color-surface-muted)',
-  'surface-strong': 'var(--ideasui-color-surface-strong)',
-  'surface-inverse': 'var(--ideasui-color-surface-inverse)',
-};
-const content = {
-  primary: 'var(--ideasui-color-content-primary)',
-  secondary: 'var(--ideasui-color-content-secondary)',
-  tertiary: 'var(--ideasui-color-content-tertiary)',
-  muted: 'var(--ideasui-color-content-muted)',
-  disabled: 'var(--ideasui-color-content-disabled)',
-  inverse: 'var(--ideasui-color-content-inverse)',
-};
-const spacing = {
-  '0': '0',
-  '1': '0.25rem',
-  '2': '0.5rem',
-  '3': '0.75rem',
-  '4': '1rem',
-  '5': '1.25rem',
-  '6': '1.5rem',
-  '8': '2rem',
-  '10': '2.5rem',
-  '12': '3rem',
-  '16': '4rem',
-};
-const fontSize = {
-  xs: '0.75rem',
-  sm: '0.875rem',
-  base: '1rem',
-  lg: '1.125rem',
-  xl: '1.25rem',
-  '2xl': '1.5rem',
-  '3xl': '1.875rem',
-  '4xl': '2.25rem',
-};
-const fontWeight = {
-  normal: '400',
-  medium: '500',
-  semibold: '600',
-  bold: '700',
-};
-const borderRadius = {
-  none: '0',
-  sm: '0.25rem',
-  md: '0.375rem',
-  lg: '0.5rem',
-  xl: '0.75rem',
-  full: '9999px',
-};
-const lightShadow = {
-  sm: '0 2px 4px rgb(0 0 0 / 0.06)',
-  md: '0 4px 8px rgb(0 0 0 / 0.08)',
-  lg: '0 8px 16px rgb(0 0 0 / 0.1)',
-  xl: '0 16px 24px rgb(0 0 0 / 0.12)',
-};
-const opacity = {
-  none: '0',
-  subtle: '0.04',
-  light: '0.08',
-  medium: '0.16',
-  strong: '0.38',
-  heavy: '0.6',
-  full: '1',
-};
-const blur = {
-  none: '0',
-  sm: '4px',
-  md: '8px',
-  lg: '12px',
-  xl: '16px',
-};
-
 import { cn } from '@ideasui/utils';
 
-type CategoryType = 'All' | 'Colors' | 'Spacing' | 'Typography' | 'Radius' | 'Shadows' | 'Effects';
+export type CategoryType =
+  | 'All'
+  | 'Colors'
+  | 'Spacing'
+  | 'Typography'
+  | 'Radius & Borders'
+  | 'Shadows & Layout'
+  | 'Effects & Motion';
 
-interface TokenItem {
+export type ColorSubCategory = 'All' | 'Semantic' | 'Surface' | 'Content' | 'Borders' | 'Neutral';
+
+export interface TokenItem {
   name: string;
   value: string;
   previewValue?: string;
   tailwindClass: string;
   category: CategoryType;
-  subCategory?: 'Semantic' | 'Surface' | 'Content';
-  previewType: 'color' | 'text' | 'spacing' | 'shadow' | 'radius' | 'none';
+  subCategory?: ColorSubCategory;
+  previewType: 'color' | 'text' | 'spacing' | 'shadow' | 'radius' | 'border-width' | 'code';
 }
-
-const parseColors = (items: TokenItem[]): void => {
-  for (const [key, value] of Object.entries(semantic)) {
-    items.push({
-      name: key,
-      value: value as string,
-      previewValue: value as string,
-      tailwindClass: `bg-${key} / text-${key}`,
-      category: 'Colors',
-      subCategory: 'Semantic',
-      previewType: 'color',
-    });
-  }
-  for (const [key, value] of Object.entries(surface)) {
-    items.push({
-      name: key,
-      value: value as string,
-      previewValue: value as string,
-      tailwindClass: `bg-${key}`,
-      category: 'Colors',
-      subCategory: 'Surface',
-      previewType: 'color',
-    });
-  }
-  for (const [key, value] of Object.entries(content)) {
-    items.push({
-      name: `content-${key}`,
-      value: value as string,
-      previewValue: value as string,
-      tailwindClass: `text-content-${key}`,
-      category: 'Colors',
-      subCategory: 'Content',
-      previewType: 'color',
-    });
-  }
-};
-
-const parseSpacing = (items: TokenItem[]): void => {
-  for (const [key, value] of Object.entries(spacing)) {
-    items.push({
-      name: key,
-      value: value as string,
-      previewValue: value as string,
-      tailwindClass: `p-${key} / m-${key} / gap-${key}`,
-      category: 'Spacing',
-      previewType: 'spacing',
-    });
-  }
-};
-
-const parseTypography = (items: TokenItem[]): void => {
-  for (const [key, value] of Object.entries(fontSize)) {
-    let displayValue = String(value);
-    let previewSize = String(value);
-
-    if (Array.isArray(value)) {
-      previewSize = String(value[0]);
-      displayValue =
-        typeof value[1] === 'object' && value[1] !== null && 'lineHeight' in value[1]
-          ? `${value[0]} / ${value[1].lineHeight}`
-          : String(value[0]);
-    }
-
-    items.push({
-      name: key,
-      value: displayValue,
-      previewValue: previewSize,
-      tailwindClass: `text-${key}`,
-      category: 'Typography',
-      previewType: 'text',
-    });
-  }
-  for (const [key, value] of Object.entries(fontWeight)) {
-    items.push({
-      name: key,
-      value: String(value),
-      previewValue: String(value),
-      tailwindClass: `font-${key}`,
-      category: 'Typography',
-      previewType: 'text',
-    });
-  }
-};
-
-const parseRadiusAndShadows = (items: TokenItem[]): void => {
-  for (const [key, value] of Object.entries(borderRadius)) {
-    items.push({
-      name: key,
-      value: value as string,
-      previewValue: value as string,
-      tailwindClass: key === 'DEFAULT' ? 'rounded' : `rounded-${key}`,
-      category: 'Radius',
-      previewType: 'radius',
-    });
-  }
-  for (const [key, value] of Object.entries(lightShadow)) {
-    items.push({
-      name: key,
-      value: value as string,
-      previewValue: value as string,
-      tailwindClass: key === 'DEFAULT' ? 'shadow' : `shadow-${key}`,
-      category: 'Shadows',
-      previewType: 'shadow',
-    });
-  }
-};
-
-const parseEffects = (items: TokenItem[]): void => {
-  for (const [key, value] of Object.entries(opacity)) {
-    items.push({
-      name: key,
-      value: String(value),
-      previewValue: String(value),
-      tailwindClass: `opacity-${key}`,
-      category: 'Effects',
-      previewType: 'none',
-    });
-  }
-  for (const [key, value] of Object.entries(blur)) {
-    items.push({
-      name: `blur-${key}`,
-      value: value as string,
-      previewValue: value as string,
-      tailwindClass: key === 'DEFAULT' ? 'blur' : `blur-${key}`,
-      category: 'Effects',
-      previewType: 'none',
-    });
-  }
-};
-
-const parseTokens = (): TokenItem[] => {
-  const items: TokenItem[] = [];
-
-  parseColors(items);
-  parseSpacing(items);
-  parseTypography(items);
-  parseRadiusAndShadows(items);
-  parseEffects(items);
-
-  return items;
-};
 
 const CATEGORIES: CategoryType[] = [
   'All',
   'Colors',
   'Spacing',
   'Typography',
-  'Radius',
-  'Shadows',
-  'Effects',
+  'Radius & Borders',
+  'Shadows & Layout',
+  'Effects & Motion',
 ];
+
+const COLOR_SUBCATEGORIES: ColorSubCategory[] = [
+  'All',
+  'Semantic',
+  'Surface',
+  'Content',
+  'Borders',
+  'Neutral',
+];
+
+const getSpacingPx = (key: string): string => {
+  if (key === 'px') return '1px';
+  if (key === '0') return '0px';
+
+  return `${Number.parseInt(key, 10) * 4}px`;
+};
+
+const getRadiusPx = (key: string): string => {
+  if (key === 'none') return '0px';
+  if (key === 'full') return '9999px';
+
+  return '8px';
+};
+
+const parseTokens = (): TokenItem[] => {
+  const items: TokenItem[] = [];
+
+  // 1. Semantic Action / Intent Colors (Primary, Secondary, Tertiary, Success, Warning, Danger, Info)
+  const intentColors = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'info'];
+  const variants = ['', '-subtle', '-muted'];
+
+  for (const intent of intentColors) {
+    for (const variant of variants) {
+      const colorKey = `${intent}${variant}`;
+      const onColorKey = `on-${colorKey}`;
+
+      items.push(
+        {
+          name: `--ideasui-color-${colorKey}`,
+          value: `var(--ideasui-color-${colorKey})`,
+          previewValue: `var(--ideasui-color-${colorKey})`,
+          tailwindClass: `bg-${colorKey}`,
+          category: 'Colors',
+          subCategory: 'Semantic',
+          previewType: 'color',
+        },
+        {
+          name: `--ideasui-color-${onColorKey}`,
+          value: `var(--ideasui-color-${onColorKey})`,
+          previewValue: `var(--ideasui-color-${onColorKey})`,
+          tailwindClass: `text-${onColorKey}`,
+          category: 'Colors',
+          subCategory: 'Semantic',
+          previewType: 'color',
+        },
+      );
+    }
+  }
+
+  // 2. Neutral & Common Colors
+  const neutralKeys = [
+    'neutral',
+    'on-neutral',
+    'neutral-subtle',
+    'on-neutral-subtle',
+    'neutral-muted',
+    'on-neutral-muted',
+    'common-white',
+    'common-black',
+  ];
+
+  for (const key of neutralKeys) {
+    items.push({
+      name: `--ideasui-color-${key}`,
+      value: `var(--ideasui-color-${key})`,
+      previewValue: `var(--ideasui-color-${key})`,
+      tailwindClass:
+        key.startsWith('on-') || key.startsWith('common-') ? `text-${key}` : `bg-${key}`,
+      category: 'Colors',
+      subCategory: 'Neutral',
+      previewType: 'color',
+    });
+  }
+
+  // 3. Surface Colors
+  const surfaceKeys = [
+    'background',
+    'on-background',
+    'surface',
+    'on-surface',
+    'surface-subtle',
+    'surface-muted',
+    'surface-strong',
+    'surface-inverse',
+    'on-surface-inverse',
+    'surface-overlay',
+  ];
+
+  for (const key of surfaceKeys) {
+    items.push({
+      name: `--ideasui-color-${key}`,
+      value: `var(--ideasui-color-${key})`,
+      previewValue: `var(--ideasui-color-${key})`,
+      tailwindClass: key.startsWith('on-') ? `text-${key}` : `bg-${key}`,
+      category: 'Colors',
+      subCategory: 'Surface',
+      previewType: 'color',
+    });
+  }
+
+  // 4. Content & Typography Colors
+  const contentKeys = ['primary', 'secondary', 'tertiary', 'muted', 'disabled', 'inverse'];
+
+  for (const key of contentKeys) {
+    items.push({
+      name: `--ideasui-color-content-${key}`,
+      value: `var(--ideasui-color-content-${key})`,
+      previewValue: `var(--ideasui-color-content-${key})`,
+      tailwindClass: `text-content-${key}`,
+      category: 'Colors',
+      subCategory: 'Content',
+      previewType: 'color',
+    });
+  }
+
+  // 5. Border Colors
+  const borderColors = [
+    'border',
+    'border-base',
+    'border-subtle',
+    'border-strong',
+    'border-focus',
+    'border-danger',
+  ];
+
+  for (const key of borderColors) {
+    items.push({
+      name: `--ideasui-color-${key}`,
+      value: `var(--ideasui-color-${key})`,
+      previewValue: `var(--ideasui-color-${key})`,
+      tailwindClass: key === 'border' ? 'border-border' : `border-${key}`,
+      category: 'Colors',
+      subCategory: 'Borders',
+      previewType: 'color',
+    });
+  }
+
+  // 6. Spacing Scale (4px Base Grid)
+  const spacingMap: Record<string, string> = {
+    px: '1px',
+    '0': '0px',
+    '1': '0.25rem (4px)',
+    '2': '0.5rem (8px)',
+    '3': '0.75rem (12px)',
+    '4': '1rem (16px)',
+    '5': '1.25rem (20px)',
+    '6': '1.5rem (24px)',
+    '8': '2rem (32px)',
+    '10': '2.5rem (40px)',
+    '12': '3rem (48px)',
+    '16': '4rem (64px)',
+    '20': '5rem (80px)',
+    '24': '6rem (96px)',
+  };
+
+  for (const [key, val] of Object.entries(spacingMap)) {
+    items.push({
+      name: `--ideasui-spacing-${key}`,
+      value: val,
+      previewValue: getSpacingPx(key),
+      tailwindClass: `p-${key} / m-${key} / gap-${key}`,
+      category: 'Spacing',
+      previewType: 'spacing',
+    });
+  }
+
+  // 7. Typography (Font Sizes)
+  const fontSizeMap: Record<string, string> = {
+    '3xs': '0.5rem (8px)',
+    '2xs': '0.625rem (10px)',
+    xs: '0.75rem (12px)',
+    sm: '0.875rem (14px)',
+    base: '1rem (16px)',
+    lg: '1.125rem (18px)',
+    xl: '1.25rem (20px)',
+    '2xl': '1.5rem (24px)',
+    '3xl': '1.875rem (30px)',
+    '4xl': '2.25rem (36px)',
+    '5xl': '3rem (48px)',
+    '6xl': '3.75rem (60px)',
+    '7xl': '4.5rem (72px)',
+    '8xl': '6rem (96px)',
+    '9xl': '8rem (128px)',
+  };
+
+  for (const [key, val] of Object.entries(fontSizeMap)) {
+    items.push({
+      name: `--ideasui-font-size-${key}`,
+      value: val,
+      previewValue: val.split(' ')[0],
+      tailwindClass: `text-${key}`,
+      category: 'Typography',
+      previewType: 'text',
+    });
+  }
+
+  // 8. Typography (Font Families & Letter Spacing)
+  const fontFamilyMap: Record<string, string> = {
+    sans: 'Inter, ui-sans-serif, system-ui...',
+    serif: 'ui-serif, Georgia, Cambria...',
+    mono: 'JetBrains Mono, ui-monospace...',
+  };
+
+  for (const [key, val] of Object.entries(fontFamilyMap)) {
+    items.push({
+      name: `--ideasui-font-${key}`,
+      value: val,
+      tailwindClass: `font-${key}`,
+      category: 'Typography',
+      previewType: 'code',
+    });
+  }
+
+  const trackingMap: Record<string, string> = {
+    tighter: '-0.05em',
+    tight: '-0.025em',
+    normal: '0',
+    wide: '0.025em',
+    wider: '0.05em',
+    widest: '0.1em',
+  };
+
+  for (const [key, val] of Object.entries(trackingMap)) {
+    items.push({
+      name: `--ideasui-tracking-${key}`,
+      value: val,
+      tailwindClass: `tracking-${key}`,
+      category: 'Typography',
+      previewType: 'text',
+    });
+  }
+
+  // 9. Radius Scale
+  const radiusMap: Record<string, string> = {
+    none: '0px',
+    xs: 'calc(var(--ideasui-radius) * 0.25)',
+    sm: 'calc(var(--ideasui-radius) * 0.5)',
+    md: 'calc(var(--ideasui-radius) * 0.75)',
+    DEFAULT: 'var(--ideasui-radius) (0.5rem)',
+    lg: 'calc(var(--ideasui-radius) * 1.25)',
+    xl: 'calc(var(--ideasui-radius) * 1.5)',
+    '2xl': 'calc(var(--ideasui-radius) * 2)',
+    '3xl': 'calc(var(--ideasui-radius) * 3)',
+    '4xl': 'calc(var(--ideasui-radius) * 4)',
+    full: '9999px',
+    input: 'calc(var(--ideasui-radius) * 1.5)',
+  };
+
+  for (const [key, val] of Object.entries(radiusMap)) {
+    const tailwind = key === 'DEFAULT' ? 'rounded' : `rounded-${key}`;
+
+    items.push({
+      name: key === 'DEFAULT' ? '--ideasui-radius' : `--ideasui-radius-${key}`,
+      value: val,
+      previewValue: getRadiusPx(key),
+      tailwindClass: tailwind,
+      category: 'Radius & Borders',
+      previewType: 'radius',
+    });
+  }
+
+  // 10. Border Widths
+  const borderWidthMap: Record<string, string> = {
+    none: '0px',
+    hairline: '0.5px',
+    thin: '1px',
+    medium: '2px',
+    thick: '4px',
+    heavy: '8px',
+  };
+
+  for (const [key, val] of Object.entries(borderWidthMap)) {
+    items.push({
+      name: `--ideasui-border-${key}`,
+      value: val,
+      previewValue: val,
+      tailwindClass: key === 'none' ? 'border-0' : `border-${key}`,
+      category: 'Radius & Borders',
+      previewType: 'border-width',
+    });
+  }
+
+  // 11. Box Shadows
+  const shadowMap: Record<string, string> = {
+    none: 'none',
+    xs: '0 1px 2px rgb(0 0 0 / 0.05)',
+    sm: '0 2px 4px rgb(0 0 0 / 0.06)',
+    md: '0 4px 8px rgb(0 0 0 / 0.08)',
+    lg: '0 8px 16px rgb(0 0 0 / 0.1)',
+    xl: '0 16px 24px rgb(0 0 0 / 0.12)',
+    '2xl': '0 24px 48px rgb(0 0 0 / 0.16)',
+    inner: 'inset 0 2px 4px rgb(0 0 0 / 0.06)',
+  };
+
+  for (const [key, val] of Object.entries(shadowMap)) {
+    items.push({
+      name: key === 'none' ? '--ideasui-shadow-none' : `--ideasui-shadow-${key}`,
+      value: val,
+      previewValue: val,
+      tailwindClass: key === 'none' ? 'shadow-none' : `shadow-${key}`,
+      category: 'Shadows & Layout',
+      previewType: 'shadow',
+    });
+  }
+
+  // 12. Z-Index Hierarchy
+  const zIndexMap: Record<string, string> = {
+    hide: '-1',
+    base: '0',
+    raised: '1',
+    sticky: '100',
+    fixed: '200',
+    dropdown: '1000',
+    overlay: '1100',
+    modal: '1200',
+    popover: '1300',
+    toast: '1400',
+    tooltip: '1500',
+  };
+
+  for (const [key, val] of Object.entries(zIndexMap)) {
+    items.push({
+      name: `--ideasui-z-index-${key}`,
+      value: val,
+      tailwindClass: `z-${key}`,
+      category: 'Shadows & Layout',
+      previewType: 'code',
+    });
+  }
+
+  // 13. Opacity Scale
+  const opacityMap: Record<string, string> = {
+    none: '0',
+    subtle: '0.04',
+    light: '0.08',
+    medium: '0.16',
+    strong: '0.38',
+    heavy: '0.6',
+    full: '1',
+  };
+
+  for (const [key, val] of Object.entries(opacityMap)) {
+    items.push({
+      name: `--ideasui-opacity-${key}`,
+      value: val,
+      tailwindClass: `opacity-${key}`,
+      category: 'Effects & Motion',
+      previewType: 'code',
+    });
+  }
+
+  // 14. Blur Filters
+  const blurMap: Record<string, string> = {
+    none: '0px',
+    sm: '4px',
+    md: '8px',
+    lg: '12px',
+    xl: '16px',
+    '2xl': '24px',
+    '3xl': '40px',
+  };
+
+  for (const [key, val] of Object.entries(blurMap)) {
+    items.push({
+      name: `--ideasui-blur-${key}`,
+      value: val,
+      tailwindClass: key === 'none' ? 'blur-none' : `blur-${key}`,
+      category: 'Effects & Motion',
+      previewType: 'code',
+    });
+  }
+
+  // 15. Motion (Durations & Easings)
+  const durationMap: Record<string, string> = {
+    xs: '75ms',
+    sm: '100ms',
+    md: '150ms',
+    lg: '200ms',
+    xl: '300ms',
+    '2xl': '500ms',
+    '3xl': '700ms',
+    '4xl': '1000ms',
+  };
+
+  for (const [key, val] of Object.entries(durationMap)) {
+    items.push({
+      name: `--ideasui-duration-${key}`,
+      value: val,
+      tailwindClass: `duration-${key}`,
+      category: 'Effects & Motion',
+      previewType: 'code',
+    });
+  }
+
+  const easeMap: Record<string, string> = {
+    standard: 'cubic-bezier(0.4, 0, 0.2, 1)',
+    linear: 'linear',
+    accelerate: 'cubic-bezier(0.4, 0, 1, 1)',
+    decelerate: 'cubic-bezier(0, 0, 0.2, 1)',
+    emphasized: 'cubic-bezier(0.2, 0, 0, 1)',
+    spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+  };
+
+  for (const [key, val] of Object.entries(easeMap)) {
+    items.push({
+      name: `--ideasui-easing-${key}`,
+      value: val,
+      tailwindClass: `ease-${key}`,
+      category: 'Effects & Motion',
+      previewType: 'code',
+    });
+  }
+
+  return items;
+};
 
 const REM_REGEX = /^([\d.]+)rem$/;
 const PX_REGEX = /^([\d.]+)px$/;
@@ -277,15 +487,13 @@ const getScaledFontSize = (sizeStr?: string): string => {
     return `${scaledPx}px`;
   }
 
-  return '16px';
+  return '14px';
 };
 
 export function TokenViewer() {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>('All');
-  const [selectedSubCategory, setSelectedSubCategory] = useState<
-    'All' | 'Semantic' | 'Surface' | 'Content'
-  >('All');
+  const [selectedSubCategory, setSelectedSubCategory] = useState<ColorSubCategory>('All');
   const [copied, setCopied] = useState<string | null>(null);
 
   const allTokens = useMemo(() => parseTokens(), []);
@@ -294,7 +502,9 @@ export function TokenViewer() {
     return allTokens.filter((token) => {
       const matchesSearch =
         token.name.toLowerCase().includes(search.toLowerCase()) ||
-        token.tailwindClass.toLowerCase().includes(search.toLowerCase());
+        token.tailwindClass.toLowerCase().includes(search.toLowerCase()) ||
+        token.value.toLowerCase().includes(search.toLowerCase());
+
       const matchesCategory = selectedCategory === 'All' || token.category === selectedCategory;
       const matchesSubCategory =
         selectedCategory !== 'Colors' ||
@@ -318,15 +528,15 @@ export function TokenViewer() {
   return (
     <div className="not-prose my-6 flex w-full flex-col gap-6 select-none">
       {/* Soft & Smooth Control Card */}
-      <div className="bg-surface-subtle/50 flex flex-col gap-4 rounded-3xl p-4 backdrop-blur-md sm:p-5">
+      <div className="bg-background flex flex-col gap-4 rounded-3xl p-4 backdrop-blur-md sm:p-5">
         {/* Search Bar */}
         <div className="group relative w-full">
           <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center justify-center">
             <Search className="text-content-tertiary group-focus-within:text-primary size-4.5 transition-colors duration-200" />
           </div>
           <input
-            className="bg-surface/80 text-content-primary placeholder:text-content-tertiary focus:bg-surface focus:ring-primary/20 h-11 w-full rounded-2xl pr-4 pl-11 text-sm font-medium transition-all duration-200 outline-none focus:ring-2"
-            placeholder="Search tokens or utilities (e.g. 'primary', 'p-4')..."
+            className="bg-surface-subtle text-content-primary placeholder:text-content-tertiary focus:bg-surface focus:ring-primary/20 h-11 w-full rounded-2xl pr-4 pl-11 text-sm font-medium transition-all duration-200 outline-none focus:ring-2"
+            placeholder="Search tokens, variables or utilities (e.g. '--ideasui-color-primary', 'bg-surface', 'p-4')..."
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -375,11 +585,11 @@ export function TokenViewer() {
             {selectedCategory === 'Colors' && (
               <motion.div
                 animate={{ opacity: 1, height: 'auto', marginTop: 0 }}
-                className="bg-surface-muted/60 flex w-fit max-w-full gap-1 rounded-xl p-1"
+                className="bg-surface-muted/60 flex w-fit max-w-full flex-wrap gap-1 rounded-xl p-1"
                 exit={{ opacity: 0, height: 0, marginTop: -8 }}
                 initial={{ opacity: 0, height: 0, marginTop: -8 }}
               >
-                {['All', 'Semantic', 'Surface', 'Content'].map((sub) => {
+                {COLOR_SUBCATEGORIES.map((sub) => {
                   const isActive = selectedSubCategory === sub;
 
                   return (
@@ -392,9 +602,7 @@ export function TokenViewer() {
                           : 'text-content-tertiary hover:text-content-primary',
                       )}
                       type="button"
-                      onClick={() =>
-                        setSelectedSubCategory(sub as 'All' | 'Semantic' | 'Surface' | 'Content')
-                      }
+                      onClick={() => setSelectedSubCategory(sub)}
                     >
                       {isActive && (
                         <motion.div
@@ -418,7 +626,7 @@ export function TokenViewer() {
         <AnimatePresence mode="popLayout">
           {filteredTokens.map((token) => (
             <motion.div
-              key={`${token.category}-${token.tailwindClass}-token`}
+              key={`${token.category}-${token.name}-token`}
               layout
               animate={{ opacity: 1, scale: 1 }}
               className="group bg-surface-subtle/50 hover:bg-surface-subtle relative flex cursor-pointer flex-col gap-3 rounded-2xl p-4 transition-all duration-200 hover:scale-[1.01]"
@@ -470,7 +678,13 @@ export function TokenViewer() {
                 {token.previewType === 'radius' && (
                   <div
                     className="bg-primary/20 size-11"
-                    style={{ borderRadius: token.previewValue ?? token.value }}
+                    style={{ borderRadius: token.previewValue ?? '8px' }}
+                  />
+                )}
+                {token.previewType === 'border-width' && (
+                  <div
+                    className="border-primary size-12 rounded-lg"
+                    style={{ borderWidth: token.previewValue ?? '1px' }}
                   />
                 )}
                 {token.previewType === 'shadow' && (
@@ -479,7 +693,7 @@ export function TokenViewer() {
                     style={{ boxShadow: token.previewValue ?? token.value }}
                   />
                 )}
-                {token.previewType === 'text' && token.tailwindClass.startsWith('text-') && (
+                {token.previewType === 'text' && (
                   <div className="flex max-h-full max-w-full flex-col items-center justify-center gap-1 overflow-hidden p-2 text-center">
                     <span
                       className="text-content-primary max-w-full truncate leading-none font-medium tracking-tight"
@@ -488,36 +702,28 @@ export function TokenViewer() {
                       Aa
                     </span>
                     <span className="text-content-tertiary max-w-full truncate font-mono text-[10px]">
-                      {token.previewValue ?? token.value}
+                      {token.value}
                     </span>
                   </div>
                 )}
-                {token.previewType === 'text' && token.tailwindClass.startsWith('font-') && (
-                  <div className="flex max-h-full max-w-full flex-col items-center justify-center gap-1 overflow-hidden p-2 text-center">
-                    <span
-                      className="text-content-primary max-w-full truncate text-xl leading-none tracking-tight"
-                      style={{ fontWeight: token.previewValue ?? token.value }}
-                    >
-                      Aa
-                    </span>
-                    <span className="text-content-tertiary max-w-full truncate font-mono text-[10px]">
-                      {token.previewValue ?? token.value}
+                {token.previewType === 'code' && (
+                  <div className="flex max-h-full max-w-full flex-col items-center justify-center gap-1 p-2 text-center">
+                    <span className="text-content-primary max-w-full truncate font-mono text-xs font-semibold">
+                      {token.value}
                     </span>
                   </div>
-                )}
-                {token.previewType === 'none' && (
-                  <span className="text-content-tertiary font-mono text-[10px] font-semibold tracking-wider uppercase">
-                    Effect
-                  </span>
                 )}
               </div>
 
               {/* Token Class & Details */}
               <div className="flex flex-col gap-1 px-0.5">
-                <span className="bg-primary/10 text-primary w-fit truncate rounded-md px-2 py-0.5 font-mono text-[11px] font-semibold">
+                <span className="bg-primary/10 text-primary w-fit max-w-full truncate rounded-md px-2 py-0.5 font-mono text-[11px] font-semibold">
                   {token.tailwindClass.split(' / ')[0]}
                 </span>
-                <span className="text-content-tertiary truncate font-mono text-xs">
+                <span
+                  className="text-content-tertiary max-w-full truncate font-mono text-[11px]"
+                  title={token.name}
+                >
                   {token.name}
                 </span>
               </div>
@@ -558,7 +764,7 @@ export function TokenViewer() {
               <span className="text-content-primary text-base font-semibold">No tokens found</span>
               <span className="text-content-tertiary max-w-sm text-xs">
                 No tokens match your search criteria. Try a different keyword like
-                &quot;surface&quot; or &quot;primary&quot;.
+                &quot;--ideasui-color-primary&quot; or &quot;bg-surface&quot;.
               </span>
             </div>
           </div>

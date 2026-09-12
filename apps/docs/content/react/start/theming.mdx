@@ -10,7 +10,7 @@ The `@ideasui/theme` package is the official design system and theme engine for 
 ## Features
 
 - **Unified Design System**: Centralized tokens for colors, typography, spacing, border radius, and motion.
-- **Dark Mode First**: Native light/dark support using OKLCH color spaces.
+- **Light & Dark Themes**: Built-in light and dark themes using OKLCH color tokens.
 - **Tailwind CSS v4 Plugin**: Seamless integration with Tailwind v4 utility classes.
 - **Zero Runtime Overhead**: Tokens compiled to CSS variables at build time.
 - **Type-Safe**: Full TypeScript support for theme configuration and overrides.
@@ -36,7 +36,7 @@ The simplest setup for Tailwind CSS v4. Import Tailwind and the prebuilt theme s
 ```css
 /* app/globals.css or src/index.css */
 @import 'tailwindcss';
-@import '@ideasui/theme/theme.css';
+@import '@ideasui/theme/index.css';
 ```
 
 > No `tailwind.config.ts` needed. The theme CSS already includes all plugin variables and utility definitions.
@@ -85,53 +85,29 @@ export default ideasUIPlugin();
 
 ---
 
-## Theme Provider & SSR (Optional)
+## Dark Mode
 
-Wrap your app with `ThemeProvider` for **runtime theme switching** (e.g. light/dark mode toggles):
+IdeasUI supports light and dark themes through the same token system.
 
-```tsx
-// app/providers.tsx
-import { ThemeProvider } from '@ideasui/theme';
-
-export function Providers({ children }: { children: React.ReactNode }) {
-  return <ThemeProvider defaultTheme="system">{children}</ThemeProvider>;
-}
-```
-
-### Prevent FOUC (SSR / Next.js)
-
-Add `ThemeScript` to your root HTML head to prevent initial theme flickering during SSR:
-
-```tsx
-// app/layout.tsx
-import { ThemeScript } from '@ideasui/theme';
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <ThemeScript />
-      </head>
-      <body>{children}</body>
-    </html>
-  );
-}
-```
+For runtime theme switching, system preference detection, and SSR setup, see the **[Dark Mode](/react/docs/start/dark-mode)** guide.
 
 ---
 
 ## Token Architecture
 
-| Tier           | Examples                     | Description                      |
-| -------------- | ---------------------------- | -------------------------------- |
-| **Primitives** | `primary-500`, `neutral-100` | Raw OKLCH color values           |
-| **Semantic**   | `surface`, `content-primary` | Contextual role aliases          |
-| **Component**  | `button.base`                | Component-specific style recipes |
+IdeasUI organizes design tokens using semantic roles:
+
+| Category                   | Utility Class Examples                             | CSS Variable Examples                                                  | Description                                                     |
+| -------------------------- | -------------------------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------------- |
+| **Brand Colors**           | `bg-primary`, `text-primary`, `bg-secondary`       | `--ideasui-color-primary`, `--ideasui-color-secondary`                 | Primary, secondary, and tertiary brand identity colors.         |
+| **Surfaces & Backgrounds** | `bg-background`, `bg-surface`, `bg-surface-subtle` | `--ideasui-color-background`, `--ideasui-color-surface`                | Application background and container surfaces.                  |
+| **Typography & Content**   | `text-content-primary`, `text-content-secondary`   | `--ideasui-color-content-primary`, `--ideasui-color-content-secondary` | Text emphasis levels for headings, body text, and muted labels. |
+| **Borders**                | `border-border`, `border-border-subtle`            | `--ideasui-color-border`, `--ideasui-color-border-subtle`              | Container borders and divider lines.                            |
 
 ### Usage Example
 
 ```tsx
-// Tailwind utilities
+// Semantic Tailwind utilities (Recommended)
 <div className="bg-surface text-content-primary rounded-xl p-4">
   <button className="bg-primary hover:bg-primary/90 text-on-primary">Click</button>
 </div>
@@ -147,11 +123,192 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 ---
 
-## Customization via Plugin
+## How to Override Themes
 
-All customization is performed via `ideasUIPlugin()`. Every option is **optional**.
+You can customize or override IdeasUI theme tokens using either **CSS Custom Properties** or the **Tailwind Plugin configuration**.
 
-### Global Options
+### Method 1 — CSS Overrides (Recommended for Tailwind v4)
+
+Override theme tokens directly in your global stylesheet (`app/globals.css` or `src/index.css`) under `:root` or dark mode selectors.
+
+All color tokens use **OKLCH space component values** (`Lightness Chroma Hue`):
+
+```css
+/* app/globals.css */
+@import 'tailwindcss';
+@import '@ideasui/theme/index.css';
+
+:root {
+  /* ── Base Scale & Overlays ────────────────────────────────── */
+  --ideasui-radius: 0.5rem;
+  --ideasui-overlay-color: 0 0 0;
+  --ideasui-opacity-active-overlay: 0.08;
+  --ideasui-opacity-hover-overlay: 0.04;
+  --ideasui-opacity-surface-muted: 1;
+
+  /* ── Primary Brand (OKLCH: L C H) ─────────────────────────── */
+  --ideasui-color-primary: 0.54 0.22 272;
+  --ideasui-color-on-primary: 0.985 0.008 272;
+  --ideasui-color-primary-subtle: 0.965 0.02 272;
+  --ideasui-color-on-primary-subtle: 0.4 0.18 272;
+  --ideasui-color-primary-muted: 0.93 0.04 272;
+  --ideasui-color-on-primary-muted: 0.46 0.2 272;
+
+  /* ── Secondary Brand ──────────────────────────────────────── */
+  --ideasui-color-secondary: 0.53 0.21 310;
+  --ideasui-color-on-secondary: 0.985 0.008 310;
+  --ideasui-color-secondary-subtle: 0.965 0.02 310;
+  --ideasui-color-on-secondary-subtle: 0.38 0.16 310;
+  --ideasui-color-secondary-muted: 0.93 0.04 310;
+  --ideasui-color-on-secondary-muted: 0.44 0.18 310;
+
+  /* ── Tertiary Brand ───────────────────────────────────────── */
+  --ideasui-color-tertiary: 0.53 0.18 250;
+  --ideasui-color-on-tertiary: 0.985 0.008 250;
+  --ideasui-color-tertiary-subtle: 0.965 0.015 250;
+  --ideasui-color-on-tertiary-subtle: 0.38 0.14 250;
+  --ideasui-color-tertiary-muted: 0.93 0.03 250;
+  --ideasui-color-on-tertiary-muted: 0.44 0.16 250;
+
+  /* ── Success Status ───────────────────────────────────────── */
+  --ideasui-color-success: 0.54 0.17 155;
+  --ideasui-color-on-success: 0.985 0.01 155;
+  --ideasui-color-success-subtle: 0.965 0.02 155;
+  --ideasui-color-on-success-subtle: 0.3 0.08 155;
+  --ideasui-color-success-muted: 0.93 0.04 155;
+  --ideasui-color-on-success-muted: 0.38 0.1 155;
+
+  /* ── Warning Status ───────────────────────────────────────── */
+  --ideasui-color-warning: 0.54 0.17 68;
+  --ideasui-color-on-warning: 0.985 0.01 68;
+  --ideasui-color-warning-subtle: 0.97 0.03 68;
+  --ideasui-color-on-warning-subtle: 0.33 0.11 68;
+  --ideasui-color-warning-muted: 0.94 0.06 68;
+  --ideasui-color-on-warning-muted: 0.4 0.13 68;
+
+  /* ── Danger Status ────────────────────────────────────────── */
+  --ideasui-color-danger: 0.53 0.19 22;
+  --ideasui-color-on-danger: 0.985 0.01 22;
+  --ideasui-color-danger-subtle: 0.97 0.015 22;
+  --ideasui-color-on-danger-subtle: 0.29 0.11 22;
+  --ideasui-color-danger-muted: 0.91 0.035 22;
+  --ideasui-color-on-danger-muted: 0.36 0.14 22;
+
+  /* ── Info Status ──────────────────────────────────────────── */
+  --ideasui-color-info: 0.54 0.15 235;
+  --ideasui-color-on-info: 0.985 0.01 235;
+  --ideasui-color-info-subtle: 0.965 0.02 235;
+  --ideasui-color-on-info-subtle: 0.34 0.08 235;
+  --ideasui-color-info-muted: 0.93 0.04 235;
+  --ideasui-color-on-info-muted: 0.4 0.1 235;
+
+  /* ── Neutral ──────────────────────────────────────────────── */
+  --ideasui-color-neutral: 0.551 0.015 260;
+  --ideasui-color-on-neutral: 0.985 0.002 260;
+  --ideasui-color-neutral-subtle: 0.94 0.008 260;
+  --ideasui-color-on-neutral-subtle: 0.269 0.009 260;
+  --ideasui-color-neutral-muted: 0.88 0.012 260;
+  --ideasui-color-on-neutral-muted: 0.22 0.015 260;
+
+  /* ── Common ───────────────────────────────────────────────── */
+  --ideasui-color-common-white: 1 0 0;
+  --ideasui-color-common-black: 0 0 0;
+
+  /* ── Backgrounds ──────────────────────────────────────────── */
+  --ideasui-color-background: 1 0 0;
+  --ideasui-color-on-background: 0.145 0.006 260;
+
+  /* ── Surfaces ─────────────────────────────────────────────── */
+  --ideasui-color-surface: 0.985 0.002 260;
+  --ideasui-color-on-surface: 0.205 0.008 260;
+  --ideasui-color-surface-subtle: 0.967 0.003 260;
+  --ideasui-color-surface-muted: 0.922 0.004 260;
+  --ideasui-color-surface-strong: 0.87 0.005 260;
+  --ideasui-color-surface-inverse: 0.205 0.008 260;
+  --ideasui-color-on-surface-inverse: 0.985 0.002 260;
+  --ideasui-color-surface-overlay: 1 0 0;
+
+  /* ── Content & Typography ─────────────────────────────────── */
+  --ideasui-color-content-primary: 0.205 0.008 260;
+  --ideasui-color-content-secondary: 0.371 0.009 260;
+  --ideasui-color-content-tertiary: 0.442 0.008 260;
+  --ideasui-color-content-muted: 0.551 0.015 260;
+  --ideasui-color-content-disabled: 0.708 0.006 260;
+  --ideasui-color-content-inverse: 0.985 0.002 260;
+
+  /* ── Borders ──────────────────────────────────────────────── */
+  --ideasui-color-border: 0.922 0.004 260;
+  --ideasui-color-border-base: 0.922 0.004 260;
+  --ideasui-color-border-subtle: 0.967 0.003 260;
+  --ideasui-color-border-strong: 0.87 0.005 260;
+  --ideasui-color-border-focus: 0.575 0.214 277.1;
+  --ideasui-color-border-danger: 0.53 0.185 25.3;
+
+  /* ── Overlays & Scrim ─────────────────────────────────────── */
+  --ideasui-color-scrim: 0 0 0 / 0.45;
+}
+
+/* Dark mode theme overrides */
+.dark,
+[data-theme='dark'] {
+  --ideasui-color-primary: 0.62 0.22 272;
+  --ideasui-color-on-primary: 0.14 0.04 272;
+  --ideasui-color-primary-subtle: 0.15 0.04 272;
+
+  --ideasui-color-secondary: 0.62 0.21 310;
+  --ideasui-color-tertiary: 0.62 0.18 250;
+
+  --ideasui-color-background: 0.08 0.004 260;
+  --ideasui-color-on-background: 0.985 0.002 260;
+
+  --ideasui-color-surface: 0.12 0.006 260;
+  --ideasui-color-on-surface: 0.97 0.002 260;
+  --ideasui-color-surface-subtle: 0.18 0.008 260;
+  --ideasui-color-surface-muted: 0.29 0.01 260;
+
+  --ideasui-color-content-primary: 0.97 0.002 260;
+  --ideasui-color-content-secondary: 0.78 0.006 260;
+
+  --ideasui-color-border: 0.29 0.01 260;
+  --ideasui-color-border-subtle: 0.18 0.008 260;
+}
+```
+
+---
+
+### Method 2 — Plugin Configuration Overrides
+
+If you use `tailwind.config.ts`, customize themes programmatically via options in `ideasUIPlugin()`:
+
+```ts
+// tailwind.config.ts
+import { ideasUIPlugin } from '@ideasui/theme/plugin';
+
+export default {
+  plugins: [
+    ideasUIPlugin({
+      defaultTheme: 'light',
+      themes: {
+        light: {
+          colors: {
+            primary: 'oklch(0.65 0.25 145)', // Custom primary accent
+            'on-primary': 'oklch(0.98 0.01 145)',
+            'primary-subtle': 'oklch(0.96 0.02 145)',
+          },
+        },
+        dark: {
+          colors: {
+            primary: 'oklch(0.70 0.20 145)',
+            surface: 'oklch(0.18 0.01 260)',
+          },
+        },
+      },
+    }),
+  ],
+};
+```
+
+#### Plugin Option Reference
 
 | Option              | Type                          | Default     | Description                              |
 | ------------------- | ----------------------------- | ----------- | ---------------------------------------- |
@@ -161,63 +318,12 @@ All customization is performed via `ideasUIPlugin()`. Every option is **optional
 | `semanticTokens`    | `SemanticTokenOverrides`      | `undefined` | Override semantic color tokens globally  |
 | `themes`            | `{ light?, dark? }`           | `undefined` | Per-theme color and token overrides      |
 
-```ts
-ideasUIPlugin({
-  defaultTheme: 'dark',
-  disableAnimations: false,
-});
-```
+Available color tokens for overrides: `primary`, `secondary`, `tertiary`, `neutral`, `success`, `danger`, `warning`, `info`, `surface`, `background`, `content-primary`, `content-secondary`, `border`
 
 ---
 
-### Customizing Colors
+## Next Steps
 
-Override brand colors per-theme using valid CSS colors (OKLCH recommended):
-
-```ts
-ideasUIPlugin({
-  themes: {
-    light: {
-      colors: {
-        primary: {
-          500: 'oklch(0.65 0.25 145)', // Custom emerald primary
-          600: 'oklch(0.55 0.22 145)',
-        },
-      },
-    },
-    dark: {
-      colors: {
-        primary: {
-          500: 'oklch(0.70 0.20 145)',
-        },
-      },
-    },
-  },
-});
-```
-
-Available palettes: `primary`, `secondary`, `tertiary`, `neutral`, `success`, `danger`, `warning`, `info`  
-Available shades: `50` `100` `200` `300` `400` `500` `600` `700` `800` `900` `950`
-
----
-
-### CSS-Only Customization
-
-Override any token directly in CSS without `tailwind.config.ts`:
-
-```css
-:root {
-  /* Brand color overrides */
-  --ideasui-color-primary-500: 0.65 0.25 145;
-  --ideasui-color-primary-600: 0.55 0.22 145;
-
-  /* Surface & Content Overrides */
-  --ideasui-color-surface: var(--ideasui-color-neutral-50);
-  --ideasui-color-content-primary: var(--ideasui-color-neutral-900);
-}
-
-.dark,
-[data-theme='dark'] {
-  --ideasui-color-primary-500: 0.7 0.2 145;
-}
-```
+- **[Dark Mode](/react/docs/start/dark-mode)**: Set up runtime theme switching and system preferences.
+- **[Design Tokens](/react/docs/start/tokens)**: Explore all available theme variables.
+- **[Styling](/react/docs/start/styling)**: Learn component recipe and variant customization.

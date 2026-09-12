@@ -1,25 +1,23 @@
 ---
 title: Frameworks
-description: Integrate IdeasUI with Next.js, Vite, Remix, and popular React frameworks.
+description: Learn how to set up IdeasUI with Next.js, Vite, and Remix.
 ---
 
-Learn how to integrate IdeasUI with your favorite React framework.
+Set up IdeasUI in your preferred React framework.
 
 ---
 
 ## Next.js
 
-> Refer to the [Official Next.js Installation Documentation](https://nextjs.org/docs/getting-started/installation) for full Next.js routing and deployment guides.
-
 ### 1. Create a Next.js project
 
-Run the official Next.js initializer to create a new application:
+Create a new application using `create-next-app`:
 
 ```bash
 npx create-next-app@latest
 ```
 
-On installation, you'll see interactive CLI prompts. We recommend enabling **TypeScript**, **Tailwind CSS**, and **App Router**:
+Select your preferred configuration options (we recommend TypeScript, Tailwind CSS, and App Router):
 
 ```bash
 ✔ What is your project named? … my-app
@@ -35,23 +33,23 @@ On installation, you'll see interactive CLI prompts. We recommend enabling **Typ
 
 Install `@ideasui/react` and `@ideasui/theme`:
 
-<InstallTabs pkg="@ideasui/react" defaultMode="core" />
+<InstallTabs pkg="@ideasui/react @ideasui/theme" defaultMode="core" />
 
-### 3. Configure Stylesheet
+### 3. Add the stylesheet
 
-Import Tailwind CSS and `@ideasui/theme/theme.css` in your global stylesheet (`app/globals.css` or `src/app/globals.css`):
+Import Tailwind CSS and `@ideasui/theme/index.css` in `app/globals.css`:
 
 ```css
 /* app/globals.css */
 @import 'tailwindcss';
-@import '@ideasui/theme/theme.css';
+@import '@ideasui/theme/index.css';
 ```
 
-Or import directly in your root layout:
+Or import the CSS directly in your root layout:
 
 ```tsx
 // app/layout.tsx
-import '@ideasui/theme/theme.css';
+import '@ideasui/theme/index.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -62,7 +60,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-### 4. Use your first IdeasUI component
+### 4. Add a component
+
+Use IdeasUI components in your application pages:
 
 ```tsx
 // app/page.tsx
@@ -72,8 +72,8 @@ export default function HomePage() {
   return (
     <main className="bg-surface flex min-h-screen items-center justify-center p-8">
       <ButtonGroup>
-        <Button color="primary">Hello IdeasUI</Button>
-        <Button variant="outline">Learn More</Button>
+        <Button color="primary">Save Changes</Button>
+        <Button variant="outline">Cancel</Button>
       </ButtonGroup>
     </main>
   );
@@ -84,11 +84,9 @@ export default function HomePage() {
 
 ## Vite
 
-> Refer to the [Official Vite Documentation](https://vitejs.dev/guide/) for advanced Vite build configurations.
-
 ### 1. Create a Vite project
 
-Create a new Vite + React + TypeScript project:
+Create a new React and TypeScript app using Vite:
 
 ```bash
 npm create vite@latest my-app -- --template react-ts
@@ -96,19 +94,19 @@ npm create vite@latest my-app -- --template react-ts
 
 ### 2. Install IdeasUI
 
-Install the core React package and theme engine:
+Install `@ideasui/react` and `@ideasui/theme`:
 
-<InstallTabs pkg="@ideasui/react" defaultMode="core" />
+<InstallTabs pkg="@ideasui/react @ideasui/theme" defaultMode="core" />
 
-### 3. Import Stylesheet
+### 3. Add the stylesheet
 
-Import the theme stylesheet in `src/main.tsx` or `src/index.css`:
+Import `@ideasui/theme/index.css` in `src/main.tsx`:
 
 ```tsx
 // src/main.tsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import '@ideasui/theme/theme.css';
+import '@ideasui/theme/index.css';
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -118,7 +116,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 );
 ```
 
-### 4. Use your first IdeasUI component
+### 4. Add a component
+
+Add an IdeasUI component to your app:
 
 ```tsx
 // src/App.tsx
@@ -127,9 +127,7 @@ import { Button } from '@ideasui/react';
 export default function App() {
   return (
     <main className="bg-surface flex min-h-screen items-center justify-center p-8">
-      <Button color="primary" size="md">
-        Hello IdeasUI
-      </Button>
+      <Button color="primary">Get Started</Button>
     </main>
   );
 }
@@ -139,11 +137,9 @@ export default function App() {
 
 ## Remix / React Router
 
-> Refer to the [Official Remix Documentation](https://remix.run/docs) for SSR and routing guides.
+### 1. Create a project
 
-### 1. Create or open project
-
-Create a new Remix application:
+Create a new Remix or React Router application:
 
 ```bash
 npx create-remix@latest
@@ -151,16 +147,18 @@ npx create-remix@latest
 
 ### 2. Install IdeasUI
 
-<InstallTabs pkg="@ideasui/react" defaultMode="core" />
+Install `@ideasui/react` and `@ideasui/theme`:
 
-### 3. Configure Root Layout
+<InstallTabs pkg="@ideasui/react @ideasui/theme" defaultMode="core" />
 
-Import the theme stylesheet in your root route links or CSS:
+### 3. Add the stylesheet
+
+Import `@ideasui/theme/index.css` in `app/root.tsx`:
 
 ```tsx
 // app/root.tsx
 import { Links, Meta, Outlet, Scripts } from '@remix-run/react';
-import '@ideasui/theme/theme.css';
+import '@ideasui/theme/index.css';
 
 export default function App() {
   return (
@@ -178,11 +176,27 @@ export default function App() {
 }
 ```
 
+### 4. Add a component
+
+Add an IdeasUI component to your route:
+
+```tsx
+// app/routes/_index.tsx
+import { Button } from '@ideasui/react';
+
+export default function Index() {
+  return (
+    <main className="bg-surface flex min-h-screen items-center justify-center p-8">
+      <Button color="primary">Get Started</Button>
+    </main>
+  );
+}
+```
+
 ---
 
 ## Next Steps
 
-- **[Quick Start](/react/docs/start/quick-start)** for individual component setup.
-- **[Theming](/react/docs/start/theming)** to customize OKLCH colors and dark mode.
-- **[Design Tokens](/react/docs/start/tokens)** to explore available utility tokens.
-- **[Components](/react/docs/components/button)** to explore the component library.
+- **[Quick Start](/react/docs/start/quick-start)**: Learn basic component setup.
+- **[Theming](/react/docs/start/theming)**: Customize OKLCH colors and theme providers.
+- **[Components](/react/docs/components/button)**: Explore available components.

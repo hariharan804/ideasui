@@ -1,9 +1,9 @@
 ---
 title: Styling
-description: Learn how to style IdeasUI components using Tailwind CSS, state data attributes, custom variants, and CSS-in-JS.
+description: Learn how to style IdeasUI components with Tailwind CSS, BEM classes, state attributes, and custom recipes.
 ---
 
-IdeasUI components provide flexible styling options: Tailwind CSS utilities, state-based data attributes, inline styles, CSS-in-JS libraries, and custom variant recipes.
+IdeasUI works naturally with Tailwind CSS. Start with `className` for most customizations, use semantic tokens for theme-aware colors, and reach for BEM classes or `tv()` recipes when you need reusable styling.
 
 ---
 
@@ -11,156 +11,234 @@ IdeasUI components provide flexible styling options: Tailwind CSS utilities, sta
 
 ### Using className
 
-All IdeasUI components accept standard `className` props and automatically merge them with component base recipes:
+Every IdeasUI component accepts a `className` prop.
 
-```tsx
-import { Button, ButtonGroup } from '@ideasui/react';
-
-export function StyledCardHeader() {
-  return (
-    <div className="bg-surface-subtle/50 border-border-subtle/40 flex items-center justify-between rounded-2xl border p-4 backdrop-blur-md">
-      <span className="text-content-primary font-semibold">Account Actions</span>
-      <ButtonGroup className="gap-2">
-        <Button color="primary" size="sm">
-          Save
-        </Button>
-        <Button variant="outline" size="sm">
-          Discard
-        </Button>
-      </ButtonGroup>
-    </div>
-  );
-}
-```
-
-### Using Inline Style
-
-Components also accept inline React `style` objects:
+Use it for one-off layout and visual adjustments:
 
 ```tsx
 import { Button } from '@ideasui/react';
 
-<Button style={{ backgroundColor: 'var(--ideasui-color-primary-500)', borderRadius: '14px' }}>
-  Dynamic Action
-</Button>;
+export function Example() {
+  return (
+    <Button color="primary" className="rounded-xl px-6 shadow-sm">
+      Save Changes
+    </Button>
+  );
+}
 ```
+
+You can also use responsive utilities and semantic color tokens:
+
+```tsx
+<Button className="w-full sm:w-auto">Continue</Button>
+```
+
+---
+
+## Semantic Design Tokens
+
+Prefer IdeasUI semantic tokens when customizing colors.
+
+```tsx
+<div className="bg-surface text-content-primary border-border-subtle border p-6">
+  <h2 className="text-content-primary font-semibold">Account Settings</h2>
+  <p className="text-content-secondary text-sm">Manage your account preferences.</p>
+</div>
+```
+
+This keeps custom styles consistent with the active IdeasUI theme and allows them to work across light and dark modes.
+
+For available tokens, see **[Design Tokens](/react/docs/start/tokens)**.
+
+---
+
+## BEM Class Architecture
+
+IdeasUI components expose BEM-style class names for their internal structure.
+
+This gives you stable class targets when you need to customize component styles outside of `className`.
+
+### Naming Convention
+
+| Tier     | Format                 | Example         |
+| -------- | ---------------------- | --------------- |
+| Block    | `.[block]`             | `.btn`          |
+| Element  | `.[block]__[element]`  | `.btn__icon`    |
+| Modifier | `.[block]--[modifier]` | `.btn--primary` |
+
+For example, a Button may use:
+
+```text
+.btn
+.btn__icon
+.btn__label
+.btn__loader
+.btn__shortcut
+.btn--primary
+.btn--solid
+.btn--md
+```
+
+### Customizing BEM Classes
+
+You can target these classes from your application stylesheet:
+
+```css
+.btn.btn--primary {
+  letter-spacing: var(--ideasui-tracking-wide);
+}
+
+.btn .btn__label {
+  font-weight: 600;
+}
+
+.btn .btn__icon {
+  opacity: 0.9;
+}
+```
+
+Use BEM selectors when you want a consistent customization to apply to multiple instances of a component.
 
 ---
 
 ## State-Based Styling
 
-IdeasUI components are powered by React Aria primitives and automatically expose state through data attributes. You can target these states directly using Tailwind CSS `data-[state]` modifiers or CSS selectors:
+IdeasUI components expose interaction state through data attributes.
+
+This allows you to style states directly with Tailwind CSS:
 
 ```tsx
-import { Button } from '@ideasui/react';
-
-<Button className="bg-surface-subtle text-content-primary data-[hovered=true]:bg-surface-strong data-[focus-visible=true]:ring-primary/40 rounded-xl transition-all duration-200 data-[focus-visible=true]:ring-2 data-[pressed=true]:scale-95">
-  Interactive State Button
-</Button>;
+<Button className="bg-surface-subtle text-content-primary data-[hovered=true]:bg-surface-muted data-[focus-visible=true]:ring-border-focus data-[focus-visible=true]:ring-2 data-[pressed=true]:scale-95">
+  Interactive Button
+</Button>
 ```
 
-### Supported Data Attributes
+### Common State Attributes
 
-| Data Attribute              | Trigger Condition                         |
-| --------------------------- | ----------------------------------------- |
-| `data-hovered="true"`       | Active mouse/pointer hover state          |
-| `data-pressed="true"`       | Active mouse down or keypress state       |
-| `data-focus-visible="true"` | Keyboard navigation focus indicator state |
-| `data-disabled="true"`      | Disabled component state                  |
-| `data-selected="true"`      | Active selection / toggle state           |
+| Attribute                   | State                                |
+| --------------------------- | ------------------------------------ |
+| `data-hovered="true"`       | Pointer is hovering the component    |
+| `data-pressed="true"`       | Component is currently pressed       |
+| `data-focus-visible="true"` | Component has keyboard-visible focus |
+| `data-disabled="true"`      | Component is disabled                |
+| `data-selected="true"`      | Component is selected                |
 
-### Standard CSS State Selectors
+You can also target these states with regular CSS:
 
 ```css
-/* Custom CSS state selectors */
-[data-ideasui-button][data-hovered='true'] {
-  background-color: var(--ideasui-color-surface-strong);
+.btn[data-hovered='true'] {
+  background: var(--ideasui-color-surface-muted);
 }
 
-[data-ideasui-button][data-pressed='true'] {
+.btn[data-pressed='true'] {
   transform: scale(0.96);
 }
 
-[data-ideasui-button][data-focus-visible='true'] {
-  outline: 2px solid oklch(var(--ideasui-color-primary-500));
+.btn[data-focus-visible='true'] {
+  outline: 2px solid var(--ideasui-color-border-focus);
 }
 ```
 
 ---
 
-## Creating Custom Wrapper Components
+## Responsive Styling
 
-You can create reusable custom component variants using `tv()` (`tailwind-variants`) and `@ideasui/theme/recipes`:
-
-```tsx
-import { Button as BaseButton, type ButtonProps } from '@ideasui/react';
-import { buttonVariants } from '@ideasui/theme/recipes';
-import { tv, type VariantProps } from 'tailwind-variants';
-
-const customButtonVariants = tv({
-  extend: buttonVariants,
-  base: 'rounded-2xl font-semibold tracking-tight transition-all duration-200 active:scale-95',
-  variants: {
-    intent: {
-      glass:
-        'bg-surface-subtle/60 text-content-primary hover:bg-surface-subtle backdrop-blur-md shadow-xs',
-      vibrant:
-        'bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:brightness-110 shadow-sm',
-    },
-  },
-  defaultVariants: {
-    intent: 'glass',
-  },
-});
-
-type CustomVariants = VariantProps<typeof customButtonVariants>;
-interface CustomButtonProps extends Omit<ButtonProps, 'className'>, CustomVariants {
-  className?: string;
-}
-
-export function CustomActionButton({ intent, className, ...props }: CustomButtonProps) {
-  return <BaseButton className={customButtonVariants({ intent, className })} {...props} />;
-}
-```
-
----
-
-## Responsive Design
-
-Use standard Tailwind CSS responsive breakpoint modifiers directly on component `className` props:
+Use Tailwind's responsive modifiers directly on component `className` props:
 
 ```tsx
 import { Button, ButtonGroup } from '@ideasui/react';
 
-<ButtonGroup className="flex-col sm:flex-row sm:items-center">
-  <Button className="w-full text-xs sm:w-auto sm:text-sm lg:px-6">Responsive Primary</Button>
-  <Button variant="outline" className="w-full text-xs sm:w-auto sm:text-sm lg:px-6">
-    Secondary
+<ButtonGroup className="flex-col sm:flex-row">
+  <Button className="w-full sm:w-auto">Save</Button>
+
+  <Button variant="outline" className="w-full sm:w-auto">
+    Cancel
   </Button>
 </ButtonGroup>;
 ```
 
+No additional IdeasUI configuration is required.
+
 ---
 
-## CSS Modules & CSS-in-JS
+## Extending Component Recipes
 
-### CSS Modules
+When you need a reusable custom style, extend the existing IdeasUI recipe with `tv()`.
+
+This is useful when the same customization appears throughout your application.
+
+```tsx
+import { Button as BaseButton, type ButtonProps } from '@ideasui/react';
+import { button } from '@ideasui/theme/recipes';
+import { tv, type VariantProps } from 'tailwind-variants';
+
+const customButton = tv({
+  extend: button,
+  slots: {
+    base: 'rounded-2xl font-semibold tracking-tight',
+  },
+  variants: {
+    intent: {
+      glass: {
+        base: 'bg-surface-subtle/60 text-content-primary backdrop-blur-md',
+      },
+      surface: {
+        base: 'border-border-subtle bg-surface text-content-primary border shadow-sm',
+      },
+    },
+  },
+  defaultVariants: {
+    intent: 'surface',
+  },
+});
+
+type CustomButtonVariants = VariantProps<typeof customButton>;
+
+interface CustomButtonProps extends Omit<ButtonProps, 'className'>, CustomButtonVariants {
+  className?: string;
+}
+
+export function CustomButton({ intent, className, ...props }: CustomButtonProps) {
+  const styles = customButton({ intent });
+
+  return <BaseButton className={styles.base({ className })} {...props} />;
+}
+```
+
+The advantage is that your custom component keeps the original IdeasUI recipe while adding your own application-specific variants.
+
+---
+
+## Inline Styles
+
+Use React's `style` prop when a value needs to be calculated dynamically at runtime.
+
+```tsx
+<Button
+  style={{
+    width: `${progress}%`,
+  }}
+>
+  Uploading
+</Button>
+```
+
+For static styling, prefer Tailwind utilities or CSS instead.
+
+---
+
+## CSS Modules
+
+CSS Modules are useful when you want locally scoped styles.
 
 ```css
 /* ActionCard.module.css */
-.cardContainer {
-  background: var(--ideasui-color-surface-subtle);
-  border: 1px solid oklch(var(--ideasui-color-border-subtle) / 0.4);
-  border-radius: 1.25rem;
-  padding: 1.25rem;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
 
-.cardContainer:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.12);
+.card {
+  background: var(--ideasui-color-surface-subtle);
+  border: 1px solid var(--ideasui-color-border-subtle);
+  border-radius: 1rem;
+  padding: 1.25rem;
 }
 ```
 
@@ -168,65 +246,53 @@ import { Button, ButtonGroup } from '@ideasui/react';
 import styles from './ActionCard.module.css';
 import { Button } from '@ideasui/react';
 
-export function ScopedCardButton() {
+export function ActionCard() {
   return (
-    <div className={styles.cardContainer}>
-      <Button color="primary">Module Styled Button</Button>
+    <div className={styles.card}>
+      <Button color="primary">Continue</Button>
     </div>
   );
 }
 ```
 
-### Styled Components
+---
+
+## CSS-in-JS
+
+IdeasUI components can also be used with CSS-in-JS libraries such as `styled-components`.
 
 ```tsx
 import styled from 'styled-components';
 import { Button } from '@ideasui/react';
 
-const GlowButton = styled(Button)`
-  background: linear-gradient(135deg, oklch(0.65 0.22 260), oklch(0.55 0.25 300));
+const CustomButton = styled(Button)`
   border-radius: 12px;
-  color: white;
-  padding: 10px 20px;
   font-weight: 600;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px -4px rgba(124, 58, 237, 0.4);
-  }
 `;
 ```
 
-### Emotion
+For most IdeasUI applications, Tailwind CSS and the built-in recipe system are the recommended approach. CSS-in-JS is an optional choice when it fits the architecture of your application.
 
-```tsx
-import { css } from '@emotion/css';
-import { Button } from '@ideasui/react';
+---
 
-const emeraldPillStyles = css`
-  background: linear-gradient(135deg, oklch(0.68 0.2 150), oklch(0.58 0.22 170));
-  border-radius: 9999px;
-  color: white;
-  padding: 10px 22px;
-  font-weight: 600;
+## Choosing a Styling Approach
 
-  &:hover {
-    filter: brightness(1.1);
-  }
-`;
-
-export function EmotionButton() {
-  return <Button className={emeraldPillStyles}>Emerald Glow</Button>;
-}
-```
+| Approach         | Best for                                        |
+| ---------------- | ----------------------------------------------- |
+| `className`      | One-off customization and layout                |
+| Semantic tokens  | Theme-aware colors and surfaces                 |
+| BEM classes      | Reusable CSS overrides                          |
+| State attributes | Interaction states                              |
+| `tv()` recipes   | Reusable custom variants                        |
+| CSS Modules      | Locally scoped CSS                              |
+| Inline `style`   | Dynamic runtime values                          |
+| CSS-in-JS        | Applications already using a CSS-in-JS solution |
 
 ---
 
 ## Next Steps
 
-- Explore **[Theming](/react/docs/start/theming)** for OKLCH color overrides.
-- Explore **[Design Tokens](/react/docs/start/tokens)** to discover semantic tokens.
-- Browse **[Components](/react/docs/components/button)** for component API references.
+- **[Theming](/react/docs/start/theming)**: Configure and customize the IdeasUI theme.
+- **[Dark Mode](/react/docs/start/dark-mode)**: Add light and dark theme switching.
+- **[Design Tokens](/react/docs/start/tokens)**: Explore IdeasUI's semantic tokens.
+- **[Components](/react/docs/components/button)**: Explore component APIs and examples.

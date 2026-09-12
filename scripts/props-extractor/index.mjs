@@ -397,7 +397,10 @@ Options:
   -v, --version  Show version
 Config format:
   export const extractConfig = {
-    outputFile: "components-props.ts",
+    output: {
+      path: "../../apps/docs/lib/docs",
+      filename: "components-props.ts"
+    },
     interfaces: {
       button: {
         componentName: "Button",

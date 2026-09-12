@@ -120,18 +120,19 @@ export default function RootLayout({ children }) {
 
 ## Token Architecture
 
-| Tier           | Examples                                              |
-| -------------- | ----------------------------------------------------- |
-| **Primitives** | Raw OKLCH color values (`primary-500`, `neutral-100`) |
-| **Semantic**   | Role aliases (`surface.elevated`, `content.primary`)  |
-| **Component**  | Component-specific tokens (`button.base`)             |
+| Tier                     | Examples                                                                     |
+| ------------------------ | ---------------------------------------------------------------------------- |
+| **Brand & Intent**       | Primary, Secondary, Tertiary (`primary`, `primary-subtle`, `primary-muted`)  |
+| **Surfaces & Layout**    | Application & container surfaces (`background`, `surface`, `surface-subtle`) |
+| **Content & Typography** | Text emphasis levels (`content-primary`, `content-secondary`)                |
+| **Borders**              | Container borders (`border`, `border-base`, `border-subtle`, `border-focus`) |
 
 ### Using Tokens
 
 ```tsx
 // Tailwind utilities
-<div className="bg-surface-elevated text-content-primary rounded-lg p-4">
-  <button className="bg-primary-500 hover:bg-primary-600 text-white">Click</button>
+<div className="bg-surface text-content-primary rounded-lg p-4">
+  <button className="bg-primary hover:bg-primary/90 text-on-primary">Click</button>
 </div>
 ```
 
@@ -359,20 +360,19 @@ If you're using **Option 1** (CSS Import) or prefer not to touch `tailwind.confi
 
 ```css
 :root {
-  /* Shades 50–950, stored as "L C H" components */
-  --ideasui-color-primary-500: 0.65 0.25 145;
-  --ideasui-color-primary-600: 0.55 0.22 145;
-  --ideasui-color-secondary-500: 0.6 0.2 30;
+  /* OKLCH values stored as "L C H" components */
+  --ideasui-color-primary: 0.54 0.22 272;
+  --ideasui-color-primary-subtle: 0.965 0.02 272;
+  --ideasui-color-secondary: 0.53 0.21 310;
 }
 
 .dark,
 [data-theme='dark'] {
-  --ideasui-color-primary-500: 0.7 0.2 145;
+  --ideasui-color-primary: 0.62 0.22 272;
 }
 ```
 
-Available palettes: `primary` `secondary` `tertiary` `neutral` `success` `danger` `warning` `info`  
-Available shades: `50` `100` `200` `300` `400` `500` `600` `700` `800` `900` `950`
+Available intent & status colors: `primary` `secondary` `tertiary` `neutral` `success` `danger` `warning` `info`
 
 ---
 
@@ -380,27 +380,26 @@ Available shades: `50` `100` `200` `300` `400` `500` `600` `700` `800` `900` `95
 
 ```css
 :root {
-  /* Surfaces — reference palette vars or provide bare L C H */
-  --ideasui-color-surface-base: var(--ideasui-color-neutral-50);
-  --ideasui-color-surface-elevated: var(--ideasui-color-neutral-100);
-  --ideasui-color-surface-muted: var(--ideasui-color-neutral-200);
-  --ideasui-color-surface-strong: var(--ideasui-color-neutral-300);
-  --ideasui-color-surface-inverse: var(--ideasui-color-neutral-900);
+  /* Surfaces */
+  --ideasui-color-background: 1 0 0;
+  --ideasui-color-surface: 0.985 0.002 260;
+  --ideasui-color-surface-subtle: 0.967 0.003 260;
+  --ideasui-color-surface-muted: 0.922 0.004 260;
+  --ideasui-color-surface-strong: 0.87 0.005 260;
 
   /* Content (text) */
-  --ideasui-color-content-primary: var(--ideasui-color-neutral-900);
-  --ideasui-color-content-secondary: var(--ideasui-color-neutral-700);
-  --ideasui-color-content-tertiary: var(--ideasui-color-neutral-600);
-  --ideasui-color-content-muted: var(--ideasui-color-neutral-500);
-  --ideasui-color-content-disabled: var(--ideasui-color-neutral-400);
-  --ideasui-color-content-inverse: var(--ideasui-color-neutral-50);
+  --ideasui-color-content-primary: 0.205 0.008 260;
+  --ideasui-color-content-secondary: 0.371 0.009 260;
+  --ideasui-color-content-tertiary: 0.442 0.008 260;
+  --ideasui-color-content-muted: 0.551 0.015 260;
+  --ideasui-color-content-disabled: 0.708 0.006 260;
 
   /* Borders */
-  --ideasui-color-border-default: var(--ideasui-color-neutral-200);
-  --ideasui-color-border-border-subtle: var(--ideasui-color-neutral-100);
-  --ideasui-color- border-border-strong: var(--ideasui-color-neutral-300);
-  --ideasui-color-border-focus: var(--ideasui-color-primary-500);
-  --ideasui-color-border-danger: var(--ideasui-color-danger-500);
+  --ideasui-color-border: 0.922 0.004 260;
+  --ideasui-color-border-subtle: 0.967 0.003 260;
+  --ideasui-color-border-strong: 0.87 0.005 260;
+  --ideasui-color-border-focus: 0.575 0.214 277.1;
+  --ideasui-color-border-danger: 0.53 0.185 25.3;
 }
 ```
 

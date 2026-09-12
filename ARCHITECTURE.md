@@ -172,7 +172,7 @@ export const button = tv({
   variants: {
     variant: {
       solid: {
-        base: 'btn--solid bg-primary-500 hover:bg-primary-600',
+        base: 'btn--solid bg-primary hover:bg-primary/90 text-on-primary',
         //     ↑ BEM for debugging  ↑ Utilities for styling
       },
     },
@@ -183,7 +183,7 @@ export const button = tv({
 **Generated Output:**
 
 ```html
-<button class="btn btn--solid bg-primary-500 inline-flex items-center ...">
+<button class="btn btn--solid bg-primary text-on-primary inline-flex items-center ...">
   ↑ Easy to find in DevTools ↑ JIT utilities
 </button>
 ```
@@ -650,7 +650,7 @@ Design tokens are the **atomic units** of the design system. Think of them as de
                ↓
 ┌──────────────────────────────────────┐
 │  Generated CSS Variables             │
-│  • --ideasui-color-primary-500     │
+│  • --ideasui-color-primary           │
 │  • --ideasui-spacing-4               │
 └──────────────────────────────────────┘
 ```
@@ -795,12 +795,11 @@ IdeasUI uses **OKLCH** (Lightness, Chroma, Hue) for:
 
 ```css
 /* OKLCH format: oklch(L C H / A) */
-/* OKLCH format: Lo Ch H */
---ideasui-color-primary-500: 0.62 0.195 253.83;
+/* OKLCH format: L C H */
+--ideasui-color-primary: 0.54 0.22 272;
 /* ↑    ↑    ↑
              L    C    H
           Light Chroma Hue
-          60%  Vibrant Blue
           */
 ```
 
@@ -1151,10 +1150,10 @@ import { colors } from '@ideasui/theme/tokens';
 #### 2. Update Color References
 
 ```typescript
-// Before
-className = 'bg-primary-500';
+// Before (raw palette class)
+className = 'bg-blue-600';
 
-// After (still works, but use semantic)
+// After (semantic alias)
 className = 'bg-primary';
 ```
 

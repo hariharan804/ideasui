@@ -217,7 +217,7 @@ export default config;
 
 // ── Example 2: Custom CSS variable prefix ──
 // ideasUIPlugin({ prefix: 'myapp' })
-// → generates --myapp-primary-500, --myapp-neutral-50, etc.
+// → generates --myapp-primary, --myapp-neutral-50, etc.
 
 // ── Example 3: Override brand colors (using OKLCH for precision) ──
 // ideasUIPlugin({

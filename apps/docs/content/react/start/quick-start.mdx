@@ -1,45 +1,43 @@
 ---
 title: Quick Start
-description: Learn how to install and setup IdeasUI in your React, Next.js, or Vite application.
+description: Learn how to install, configure, and use IdeasUI in your React application.
 ---
 
-Follow this guide to install IdeasUI, configure the theme stylesheet, and start using components in your project.
+Get IdeasUI set up in your React project in a few simple steps.
 
 ---
 
 ## Installation
 
-Install the main React package and theme engine using your package manager:
+Install the main package using your preferred package manager:
 
-<InstallTabs pkg="@ideasui/react" defaultMode="core" />
+<InstallTabs pkg="@ideasui/react @ideasui/theme" defaultMode="core" />
 
-Or install standalone component packages if you prefer minimal bundle footprints:
+### Standalone Component Packages
 
-<InstallTabs pkg="@ideasui/button" />
+If you only need specific components and want to minimize your bundle size, install individual component packages instead:
+
+<InstallTabs pkg="@ideasui/button" defaultMode="component" />
 
 ---
 
 ## Configuration
 
-Import the theme stylesheet in your global CSS file or application entrypoint:
+Import the theme stylesheet into your global CSS file. If you are using Tailwind CSS v4, include `@ideasui/theme/index.css` alongside `@import 'tailwindcss'`:
 
 ```css
 /* app/globals.css or src/index.css */
 @import 'tailwindcss';
-@import '@ideasui/theme/theme.css';
+@import '@ideasui/theme/index.css';
 ```
 
-Or import directly in your React root file:
-
-```tsx
-import '@ideasui/theme/theme.css';
-```
+If your project does not use Tailwind CSS, install `@ideasui/styles` for pre-compiled component stylesheets. See the [Standalone CSS](/react/docs/start/standalone-css) guide for setup details.
 
 ---
 
-## Usage Example
+## Usage
 
-Import components from `@ideasui/react` and place them in your application:
+Import components from `@ideasui/react` (or from standalone packages like `@ideasui/button`) and add them to your app:
 
 ```tsx
 import { Button, ButtonGroup } from '@ideasui/react';
@@ -55,3 +53,24 @@ export default function App() {
   );
 }
 ```
+
+---
+
+## Framework Integration
+
+IdeasUI works with Next.js, Vite, and other React-based frameworks.
+
+- **Next.js**: Add `@import '@ideasui/theme/index.css';` to `app/globals.css` or import it in `app/layout.tsx`.
+- **Vite**: Import `@ideasui/theme/index.css` in `src/main.tsx` or `src/index.css`.
+
+For step-by-step instructions for specific frameworks, see the [Frameworks](/react/docs/start/frameworks) guide.
+
+---
+
+## Next Steps
+
+Once your setup is complete, explore the rest of the documentation:
+
+- Check out available components like [Button](/react/docs/components/button).
+- Learn how [Theming](/react/docs/start/theming) works with OKLCH design tokens.
+- Configure [Dark Mode](/react/docs/start/dark-mode) for your app.

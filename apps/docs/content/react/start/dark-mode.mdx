@@ -1,170 +1,142 @@
 ---
 title: Dark Mode
-description: Add seamless light, dark, and system theme switching to your IdeasUI application.
+description: Add light and dark themes to your IdeasUI application with automatic system detection and theme switching.
 ---
 
-IdeasUI dark mode is **CSS-driven** and powered by OKLCH color spaces. Components read semantic design variables directly from the root element (`<html>`).
+IdeasUI includes built-in support for light and dark themes. The theme system uses CSS variables, so components automatically adapt when the active theme changes.
 
-Adding the `.dark` class or `data-theme="dark"` attribute to `<html>` applies the dark theme instantly across all components.
+You can let the user's system preference control the theme or give them a simple light/dark toggle in your application.
 
-```html
-<html class="dark" data-theme="dark">
-  <body class="bg-background text-content-primary">
-    <!-- Application content -->
-  </body>
-</html>
+---
+
+## How Dark Mode Works
+
+IdeasUI uses the theme variables provided by `@ideasui/theme`.
+
+When the active theme changes, the semantic colors used by components are updated automatically. You don't need to define separate colors for every component.
+
+For example:
+
+```tsx
+<div className="bg-surface text-content-primary">
+  <h1>Welcome to IdeasUI</h1>
+  <p>Your application works in both light and dark mode.</p>
+</div>
+```
+
+The same classes work in both themes.
+
+---
+
+## Using the Theme Provider
+
+For applications that need runtime theme switching, use `ThemeProvider` from `@ideasui/theme`:
+
+```tsx
+import { ThemeProvider } from '@ideasui/theme';
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  return <ThemeProvider defaultTheme="system">{children}</ThemeProvider>;
+}
+```
+
+With `defaultTheme="system"`, IdeasUI follows the user's operating-system preference.
+
+You can also start with a specific theme:
+
+```tsx
+<ThemeProvider defaultTheme="light">{children}</ThemeProvider>
+```
+
+or:
+
+```tsx
+<ThemeProvider defaultTheme="dark">{children}</ThemeProvider>
 ```
 
 ---
 
-## Next.js with @ideasui/theme
+## Adding a Theme Toggle
 
-To handle theme persistence, system preference synchronization, and prevent **FOUC** (Flash of Unstyled Content) during SSR, use `ThemeProvider` and `ThemeScript` from `@ideasui/theme`.
+If your application allows users to switch themes, connect your theme toggle to the theme provider.
 
-### 1. Add Providers & ThemeScript
+Keep the toggle focused on changing the theme rather than manually changing colors throughout the application.
 
-Create a client provider wrapper and include `ThemeScript` in your root HTML head:
+For example:
 
 ```tsx
-// app/providers.tsx
-'use client';
+import { useTheme } from '@ideasui/theme';
 
-import { ThemeProvider } from '@ideasui/theme';
+export function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
 
-export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider defaultTheme="system" enableSystem>
-      {children}
-    </ThemeProvider>
+    <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+      {theme === 'dark' ? 'Light mode' : 'Dark mode'}
+    </button>
   );
 }
 ```
 
+The exact toggle UI is up to your application. IdeasUI handles the theme state and CSS variables underneath.
+
+---
+
+## System Theme
+
+Use `system` when you want the application to follow the user's operating-system preference:
+
 ```tsx
-// app/layout.tsx
+<ThemeProvider defaultTheme="system">{children}</ThemeProvider>
+```
+
+This is a good default for applications where users should not have to choose a theme manually.
+
+---
+
+## Preventing Theme Flicker
+
+When using SSR frameworks such as Next.js, the server-rendered page may initially use a different theme from the user's saved preference.
+
+Add `ThemeScript` to the document head to apply the correct theme before the page is rendered:
+
+```tsx
 import { ThemeScript } from '@ideasui/theme';
-import { Providers } from './providers';
-import './globals.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <ThemeScript defaultTheme="system" />
+        <ThemeScript />
       </head>
-      <body className="bg-background text-content-primary">
-        <Providers>{children}</Providers>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
 ```
 
----
-
-### 2. Building a Theme Switcher Component
-
-Use `useTheme` from `@ideasui/theme` to create a theme switcher control:
-
-```tsx
-// components/theme-switcher.tsx
-'use client';
-
-import { Button, ButtonGroup } from '@ideasui/react';
-import { useTheme } from '@ideasui/theme';
-import { useEffect, useState } from 'react';
-
-export function ThemeSwitcher() {
-  const [mounted, setMounted] = useState(false);
-  const { theme, resolvedTheme, setTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
-  return (
-    <ButtonGroup size="sm">
-      <Button
-        color={theme === 'light' ? 'primary' : 'secondary'}
-        variant={theme === 'light' ? 'solid' : 'outline'}
-        onPress={() => setTheme('light')}
-      >
-        Light
-      </Button>
-      <Button
-        color={theme === 'dark' ? 'primary' : 'secondary'}
-        variant={theme === 'dark' ? 'solid' : 'outline'}
-        onPress={() => setTheme('dark')}
-      >
-        Dark
-      </Button>
-      <Button
-        color={theme === 'system' ? 'primary' : 'secondary'}
-        variant={theme === 'system' ? 'solid' : 'outline'}
-        onPress={() => setTheme('system')}
-      >
-        System ({resolvedTheme})
-      </Button>
-    </ButtonGroup>
-  );
-}
-```
+This helps avoid a visible flash when the application loads.
 
 ---
 
-## Integration with `next-themes`
+## Using Theme Tokens
 
-If your project already uses `next-themes`, configure it with `attribute="class"`:
-
-```tsx
-// app/providers.tsx
-'use client';
-
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
-
-export function Providers({ children }: { children: React.ReactNode }) {
-  return (
-    <NextThemesProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      {children}
-    </NextThemesProvider>
-  );
-}
-```
-
----
-
-## Theme-Aware Utilities & Tokens
-
-By using semantic tokens (like `bg-background`, `bg-surface`, `text-content-primary`), your application automatically responds to theme changes without writing custom CSS overrides:
+Prefer IdeasUI's semantic tokens instead of hard-coding light and dark colors.
 
 ```tsx
-// Automatically adapts to dark and light mode
-<main className="bg-background text-content-primary min-h-screen">
-  <div className="bg-surface border-border-subtle/50 text-content-primary rounded-2xl border p-6 shadow-sm">
-    Theme-aware container content
+<div className="bg-surface text-content-primary">
+  <div className="bg-surface-subtle">
+    <span className="text-content-secondary">Theme-aware content</span>
   </div>
-</main>
-```
-
-For one-off adjustments specific to dark mode, use Tailwind's `dark:` modifier:
-
-```tsx
-<div className="bg-surface text-content-primary dark:border-primary/30 border p-4">
-  Specific dark mode accent border
 </div>
 ```
+
+Because these values come from the theme, the same component can be used in both light and dark mode.
 
 ---
 
 ## Next Steps
 
-- Explore **[Theming](/react/docs/start/theming)** to customize OKLCH color palettes.
-- Explore **[Design Tokens](/react/docs/start/tokens)** to discover available theme variables.
-- Browse **[Styling](/react/docs/start/styling)** for custom variant techniques.
+- **[Styling](/react/docs/start/styling)**: Learn how to customize component styles.
+- **[Standalone CSS](/react/docs/start/standalone-css)**: Use IdeasUI without Tailwind CSS.
+- **[Design Tokens](/react/docs/start/tokens)**: Explore the available theme tokens.

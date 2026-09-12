@@ -92,14 +92,14 @@ export default function DocsPage(): JSX.Element {
       <div className="animate-in fade-in slide-in-from-bottom-4 mx-auto flex max-w-7xl flex-col gap-6 p-4 duration-700 md:p-8 lg:flex-row">
         {/* Sidebar */}
         <div className={`${sidebarOpen ? 'block' : 'hidden'} w-full lg:block lg:w-80`}>
-          <div className="border-border-subtle bg-surface-elevated/80 sticky top-6 rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300">
+          <div className="border-border-subtle bg-surface/80 sticky top-6 rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300">
             {/* Header */}
             <div className="mb-6">
               <div className="mb-3 flex items-center gap-3">
-                <div className="from-primary-500 to-secondary-500 shadow-primary-500/20 rounded-xl bg-gradient-to-br p-2.5 shadow-md">
-                  <FileText className="size-5 text-white" />
+                <div className="from-primary to-secondary shadow-primary/20 rounded-xl bg-gradient-to-br p-2.5 shadow-md">
+                  <FileText className="text-on-primary size-5" />
                 </div>
-                <h3 className="from-primary-600 to-secondary-600 bg-gradient-to-r bg-clip-text text-xl font-bold tracking-tight text-transparent">
+                <h3 className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-xl font-bold tracking-tight text-transparent">
                   Documentation
                 </h3>
               </div>
@@ -112,7 +112,7 @@ export default function DocsPage(): JSX.Element {
             <div className="relative mb-6">
               <Search className="text-content-tertiary absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
               <input
-                className="border-border-subtle bg-surface-base text-content-primary placeholder:text-content-muted focus:border-primary-500 focus:ring-primary-500/20 w-full rounded-xl border py-2.5 pr-4 pl-10 text-sm font-medium transition-all outline-none focus:ring-2"
+                className="border-border-subtle bg-surface text-content-primary placeholder:text-content-muted focus:border-border-focus focus:ring-primary/20 w-full rounded-xl border py-2.5 pr-4 pl-10 text-sm font-medium transition-all outline-none focus:ring-2"
                 placeholder="Search docs..."
                 type="text"
                 value={searchTerm}
@@ -127,7 +127,7 @@ export default function DocsPage(): JSX.Element {
                   key={document_.name}
                   className={`w-full rounded-xl border p-3.5 text-left transition-all duration-200 ${
                     selectedDocument.name === document_.name
-                      ? 'border-primary-300 bg-primary-subtle shadow-sm'
+                      ? 'border-border-focus bg-primary-subtle shadow-sm'
                       : 'hover:border-border-subtle hover:bg-surface-muted border-transparent'
                   }`}
                   onClick={() => setSelectedDocument(document_)}
@@ -136,7 +136,7 @@ export default function DocsPage(): JSX.Element {
                     <FileText
                       className={`mt-0.5 size-4.5 flex-shrink-0 transition-colors ${
                         selectedDocument.name === document_.name
-                          ? 'text-primary-600'
+                          ? 'text-primary'
                           : 'text-content-tertiary'
                       }`}
                     />
@@ -144,7 +144,7 @@ export default function DocsPage(): JSX.Element {
                       <div
                         className={`truncate text-sm font-bold transition-colors ${
                           selectedDocument.name === document_.name
-                            ? 'text-primary-700'
+                            ? 'text-primary'
                             : 'text-content-secondary hover:text-content-primary'
                         }`}
                       >
@@ -170,7 +170,7 @@ export default function DocsPage(): JSX.Element {
                 Resources
               </h4>
               <a
-                className="text-content-secondary hover:text-primary-500 flex items-center gap-2.5 text-sm font-semibold transition-colors"
+                className="text-content-secondary hover:text-primary flex items-center gap-2.5 text-sm font-semibold transition-colors"
                 href="https://github.com/ideas2logic-lab/ideasui"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -185,11 +185,11 @@ export default function DocsPage(): JSX.Element {
         {/* Main Content */}
         <div className="min-w-0 flex-1">
           {/* Header */}
-          <div className="border-border-subtle bg-surface-elevated mb-6 rounded-3xl border p-8 shadow-sm transition-all duration-300">
+          <div className="border-border-subtle bg-surface mb-6 rounded-3xl border p-8 shadow-sm transition-all duration-300">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-4">
-                <div className="from-primary-500 to-secondary-500 shadow-primary-500/20 rounded-xl bg-gradient-to-br p-3 shadow-md">
-                  <Book className="size-6 text-white" />
+                <div className="from-primary to-secondary shadow-primary/20 rounded-xl bg-gradient-to-br p-3 shadow-md">
+                  <Book className="text-on-primary size-6" />
                 </div>
                 <div>
                   <h1 className="text-content-primary text-3xl font-extrabold tracking-tight md:text-4xl">
@@ -210,12 +210,12 @@ export default function DocsPage(): JSX.Element {
           </div>
 
           {/* Content */}
-          <div className="border-border-subtle bg-surface-base min-h-[60vh] overflow-hidden rounded-3xl border shadow-sm transition-all duration-300">
+          <div className="border-border-subtle bg-surface min-h-[60vh] overflow-hidden rounded-3xl border shadow-sm transition-all duration-300">
             {/* Loading State */}
             {loading ? (
               <div className="flex h-96 items-center justify-center">
                 <div className="text-center">
-                  <Loader className="text-primary-500 mx-auto mb-4 h-8 w-8 animate-spin" />
+                  <Loader className="text-primary mx-auto mb-4 h-8 w-8 animate-spin" />
                   <p className="text-content-secondary text-sm font-semibold">
                     Loading documentation...
                   </p>
@@ -225,12 +225,12 @@ export default function DocsPage(): JSX.Element {
 
             {/* Error State */}
             {error && !loading ? (
-              <div className="border-error-subtle bg-error-subtle/30 border-b p-8">
+              <div className="border-border-danger bg-danger-subtle/30 border-b p-8">
                 <div className="flex items-start gap-4">
-                  <div className="bg-error-500 shadow-error-500/40 mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full shadow-sm" />
+                  <div className="bg-danger shadow-danger/40 mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full shadow-sm" />
                   <div>
-                    <h3 className="text-error-700 font-bold">Error loading document</h3>
-                    <p className="text-error-600 mt-1.5 text-sm font-medium">{error}</p>
+                    <h3 className="text-on-danger-subtle font-bold">Error loading document</h3>
+                    <p className="text-on-danger-subtle/80 mt-1.5 text-sm font-medium">{error}</p>
                   </div>
                 </div>
               </div>
