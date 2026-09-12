@@ -1,8 +1,8 @@
 import { ArrowRight, Check, Rocket } from 'lucide-react';
 import Link from 'next/link';
-import { GitHubButton } from '@/components/docs-ui/github-button';
 import {
   InstallSnippet,
+  HeroComponentPreview,
   MarqueeStrip,
   ComponentGallery,
   FeaturesSection,
@@ -18,30 +18,20 @@ export default function HomePage() {
     <main className="bg-background text-content-primary flex min-h-screen flex-col overflow-x-hidden antialiased">
       <LandingNavbar />
       {/* ── 1. HERO SECTION ───────────────────────────────────────────── */}
-      <section className="hero-section relative isolate overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-28">
-        {/* Dotted Hexagon & Spotlight Background */}
-        <DottedHexagon />
-        {/* Crisp Subtle Grid Overlay */}
-        <div
-          className="pointer-events-none absolute inset-0 -z-20 opacity-40"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle, oklch(var(--ideasui-color-content-tertiary) / 0.25) 1px, transparent 1px)',
-            backgroundSize: '28px 28px',
-          }}
-        />
+      <section className="hero-section relative isolate overflow-hidden pt-26 pb-4 sm:pt-30 sm:pb-6 lg:pt-32 lg:pb-8">
+        {/* Dotted Hexagon — Ultra-subtle Technical Texture */}
+        <DottedHexagon patternOpacity={0.025} />
 
-        {/* 1. Background Glow — Slow Looping 4s Pulse */}
-        <div className="pointer-events-none absolute inset-0 -z-10 max-w-full overflow-hidden">
-          <div className="animate-glow-pulse from-primary/20 via-secondary/15 absolute top-0 left-1/2 h-[350px] w-[90%] -translate-x-1/2 rounded-full bg-gradient-to-b to-transparent blur-[80px] sm:h-[550px] sm:w-[900px] sm:blur-[120px]" />
-          <div className="animate-glow-pulse bg-secondary/10 absolute top-1/3 -right-32 size-[280px] rounded-full blur-[70px] sm:size-[420px] sm:blur-[100px]" />
+        {/* 1. Background Glow — Concentrated Centered Subtle Glow (Felt, Not Noticed) */}
+        <div className="pointer-events-none absolute inset-0 -z-10 max-w-full overflow-hidden select-none">
+          <div className="from-primary/8 via-secondary/3 absolute top-0 left-1/2 h-[280px] w-[460px] -translate-x-1/2 rounded-full bg-gradient-to-b to-transparent blur-[100px] sm:h-[320px] sm:w-[520px] sm:blur-[120px]" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-          {/* 2. Badge — Pop in first */}
-          <div className="animate-badge-pop mb-4 inline-flex max-w-full sm:mb-6">
+          {/* 2. Beta Badge — Compact & Subtle */}
+          <div className="animate-badge-pop mb-5 inline-flex max-w-full sm:mb-6">
             <Link
-              className="group bg-surface-subtle/80 hover:bg-surface-subtle shadow-surface/5 inline-flex max-w-full items-center gap-1.5 rounded-full py-1 pr-3 pl-1 text-[10px] font-medium shadow-sm backdrop-blur-md transition-all duration-200 hover:shadow-md active:scale-95 sm:gap-2 sm:py-1.5 sm:pr-3.5 sm:text-xs"
+              className="group bg-surface-subtle/80 hover:bg-surface-subtle border-border-subtle/60 shadow-surface/5 inline-flex max-w-full items-center gap-1.5 rounded-full border py-1 pr-3 pl-1 text-[11px] font-medium shadow-2xs backdrop-blur-md transition-all duration-200 hover:shadow-xs active:scale-95 sm:gap-2 sm:pr-3.5 sm:text-xs"
               href="/react/docs/start"
             >
               <span className="bg-primary text-on-primary inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[9px] font-semibold tracking-wider uppercase sm:px-2.5 sm:text-[10px]">
@@ -54,21 +44,25 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* 3. Headline — Instant SSR paint for zero LCP render delay */}
-          <h1 className="text-content-primary xs:text-4xl text-3xl leading-[1.08] font-extrabold tracking-tight sm:text-5xl sm:leading-[1.05] md:text-6xl lg:text-7xl">
-            Build Faster. Design Smarter.{' '}
-            <span className="perceptual-gradient-text">With IdeasUI.</span>
+          {/* 3. Headline — 2 Deliberate Statements with Refined Typography Hierarchy */}
+          <h1 className="text-content-primary mx-auto text-3xl leading-[1.03] font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-[3.25rem]">
+            <span className="block lg:whitespace-nowrap">
+              Build production-ready React interfaces.
+            </span>
+            <span className="perceptual-gradient-text mt-1 block font-extrabold sm:mt-1.5">
+              Faster with IdeasUI.
+            </span>
           </h1>
 
-          {/* 4. Subtext */}
-          <p className="text-content-secondary mx-auto mt-4 max-w-2xl px-2 text-sm leading-relaxed sm:mt-6 sm:text-base md:text-lg">
-            Beautiful, accessible React components built with Tailwind CSS v4 and TypeScript.
+          {/* 4. Subtext — Exact Copy */}
+          <p className="text-content-secondary mx-auto mt-5 max-w-xl px-2 text-sm leading-relaxed sm:mt-6 sm:text-base">
+            IdeasUI is a TypeScript-first component library built for React and Tailwind CSS v4.
           </p>
 
-          {/* 5. CTA Buttons */}
-          <div className="mt-6 flex flex-row flex-wrap items-center justify-center gap-3.5 sm:mt-8 sm:gap-4.5">
+          {/* 5. CTA Buttons — Tightened Gap (~4px reduced) */}
+          <div className="mt-7 flex flex-row flex-wrap items-center justify-center gap-2.5 sm:mt-8 sm:gap-3">
             <Link
-              className="group bg-primary text-on-primary shadow-primary/25 hover:bg-primary/95 hover:shadow-primary/40 inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold whitespace-nowrap shadow-lg transition-all duration-200 hover:-translate-y-0.5 active:scale-95 sm:min-h-[50px] sm:gap-2.5 sm:px-8 sm:py-3.5 sm:text-base"
+              className="group bg-primary text-on-primary shadow-primary/20 hover:bg-primary/95 hover:shadow-primary/35 inline-flex h-11 items-center justify-center gap-2 rounded-xl px-6 text-sm font-semibold whitespace-nowrap shadow-md transition-all duration-200 hover:-translate-y-0.5 active:scale-95 sm:h-12 sm:gap-2.5 sm:px-7 sm:text-base"
               href="/react/docs/start"
             >
               Get Started Free
@@ -76,7 +70,7 @@ export default function HomePage() {
             </Link>
 
             <Link
-              className="group bg-surface-subtle/90 text-content-primary hover:bg-surface-muted shadow-surface/5 inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold whitespace-nowrap shadow-sm backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md active:scale-95 sm:min-h-[50px] sm:gap-2.5 sm:px-8 sm:py-3.5 sm:text-base"
+              className="group bg-surface text-content-primary hover:bg-surface-subtle border-border-base/80 shadow-surface/5 hover:border-border-strong inline-flex h-11 items-center justify-center gap-2 rounded-xl border px-6 text-sm font-semibold whitespace-nowrap shadow-2xs backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xs active:scale-95 sm:h-12 sm:gap-2.5 sm:px-7 sm:text-base"
               href="/react/docs/components"
             >
               Browse Components
@@ -84,13 +78,8 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* 6. GitHub Badge */}
-          <div className="mt-6 sm:mt-8">
-            <GitHubButton variant="badge" />
-          </div>
-
-          {/* 7. Trust Indicators */}
-          <div className="text-content-tertiary mt-8 flex flex-wrap items-center justify-center gap-2 px-2 text-xs font-semibold sm:mt-9 sm:gap-2.5">
+          {/* 6. Feature Pills — Compact & Lighter Pill Treatment */}
+          <div className="text-content-tertiary mt-7 flex flex-wrap items-center justify-center gap-1.5 px-2 text-[10px] font-medium sm:mt-8 sm:gap-2 sm:text-[11px]">
             {[
               'React 19',
               'Next.js 16',
@@ -101,17 +90,20 @@ export default function HomePage() {
             ].map((label) => (
               <span
                 key={label}
-                className="bg-surface-subtle/80 text-content-secondary hover:bg-surface-muted hover:text-content-primary inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] shadow-2xs transition-all duration-150 sm:text-xs"
+                className="bg-surface-subtle/40 border-border-subtle/30 text-content-secondary hover:bg-surface-subtle hover:text-content-primary inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] shadow-2xs transition-all duration-150 sm:px-2.5 sm:py-0.5 sm:text-[11px]"
               >
-                <Check className="text-success size-3.5 shrink-0" /> {label}
+                <Check className="text-success size-3 shrink-0 sm:size-3.5" /> {label}
               </span>
             ))}
           </div>
 
-          {/* 8. Install Command Snippet */}
-          <div>
+          {/* 7. Install Command Snippet — Slightly Increased Gap */}
+          <div className="mt-8 sm:mt-10">
             <InstallSnippet />
           </div>
+
+          {/* 8. Live Component Hero Preview */}
+          <HeroComponentPreview />
         </div>
       </section>
 

@@ -54,12 +54,12 @@ export function CtaSection() {
             </div>
 
             <h2 className="text-content-primary xs:text-3xl text-2xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
-              Ready to elevate your React application?
+              Start building with IdeasUI.
             </h2>
 
             <p className="text-content-secondary mx-auto mt-3.5 max-w-lg text-sm leading-relaxed sm:mt-4 sm:text-base">
-              Ship accessible, ultra-fast interfaces in minutes with 50+ production-ready
-              components, complete TypeScript support, and modern design tokens.
+              Production-ready React components, TypeScript types, and Tailwind CSS v4 — ready when
+              you are.
             </p>
 
             {/* Micro Feature Badges */}
@@ -86,7 +86,7 @@ export function CtaSection() {
               </Link>
 
               <Link
-                className="group bg-surface-subtle/90 hover:bg-surface-muted text-content-primary inline-flex w-auto items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold shadow-sm backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md active:scale-98 sm:w-auto"
+                className="group bg-background text-content-primary inline-flex w-auto items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold shadow-sm backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md active:scale-98 sm:w-auto"
                 href="/react/docs/components"
               >
                 Browse Components

@@ -1,5 +1,6 @@
 export { LandingNavbar } from './landing-navbar';
 export { InstallSnippet } from './install-snippet';
+export { HeroComponentPreview } from './hero-component-preview';
 export { MarqueeStrip } from './marquee-strip';
 export { ComponentGallery } from './component-gallery';
 export { FeaturesSection } from './features-section';

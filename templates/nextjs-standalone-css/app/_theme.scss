@@ -257,9 +257,9 @@ $border-strong: color(border-strong);
 $border-focus: color(border-focus);
 $border-error: color(border-error);
 
-// Common / Pure Color Wrappers
-$common-pure: oklch(var(--ideasui-color-common-pure));
-$common-on-pure: oklch(var(--ideasui-color-common-on-pure));
+// Common Colors (Theme-Independent Pure Colors)
+$common-background: oklch(var(--ideasui-color-background));
+$common-on-background: oklch(var(--ideasui-color-on-background));
 $overlay-color: oklch(var(--ideasui-overlay-color));
 
 // --- Shadows ---

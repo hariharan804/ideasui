@@ -1,95 +1,62 @@
-import {
-  Palette,
-  Accessibility,
-  Zap,
-  Layers,
-  ShieldCheck,
-  Sparkles,
-  Code2,
-  Globe,
-} from 'lucide-react';
+import { Palette, Zap, Layers, ShieldCheck, Sparkles, Code2, Globe } from 'lucide-react';
 
-/* ─── Marquee Data ───────────────────────────────────────────────────── */
-const MARQUEE_ROW_1 = [
-  { label: 'Tailwind CSS v4', icon: <Sparkles className="size-3.5" /> },
-  { label: 'OKLCH Color Engine', icon: <Palette className="size-3.5" /> },
-  { label: 'React Aria Primitives', icon: <Accessibility className="size-3.5" /> },
-  { label: 'Built for WCAG 2.1 AA', icon: <ShieldCheck className="size-3.5" /> },
-  { label: 'TypeScript Native', icon: <Code2 className="size-3.5" /> },
-  { label: 'Zero Runtime CSS', icon: <Zap className="size-3.5" /> },
+/* ─── 7 Strong Primary Claims ───────────────────────────────────────── */
+const MARQUEE_ITEMS = [
+  {
+    label: 'Built for WCAG 2.1 AA',
+    icon: <ShieldCheck className="text-content-tertiary size-3 shrink-0" />,
+  },
+  { label: 'Tree Shakeable', icon: <Zap className="text-content-tertiary size-3 shrink-0" /> },
+  { label: '100% Open Source', icon: <Globe className="text-content-tertiary size-3 shrink-0" /> },
+  {
+    label: 'Tailwind CSS v4',
+    icon: <Sparkles className="text-content-tertiary size-3 shrink-0" />,
+  },
+  { label: 'TypeScript Native', icon: <Code2 className="text-content-tertiary size-3 shrink-0" /> },
+  {
+    label: 'OKLCH Color Engine',
+    icon: <Palette className="text-content-tertiary size-3 shrink-0" />,
+  },
+  { label: 'CSS Variables', icon: <Layers className="text-content-tertiary size-3 shrink-0" /> },
 ];
 
-const MARQUEE_ROW_2 = [
-  { label: 'Tree Shakeable', icon: <Layers className="size-3.5" /> },
-  { label: '100% Open Source', icon: <Globe className="size-3.5" /> },
-  { label: 'CSS Variables', icon: <Palette className="size-3.5" /> },
-  { label: 'Next.js 16 Ready', icon: <Sparkles className="size-3.5" /> },
-  { label: 'Vite Compatible', icon: <Zap className="size-3.5" /> },
-  { label: 'WAI-ARIA Pattern', icon: <ShieldCheck className="size-3.5" /> },
-];
-
-const MARQUEE_ITEMS_1 = ['a', 'b', 'c'].flatMap((set) =>
-  MARQUEE_ROW_1.map((item) => ({ ...item, key: `${set}-${item.label}` })),
+/* Duplicate 4 sets of the 7 items for a seamless translateX(-50%) infinite marquee loop on all screen sizes */
+const LOOPING_ITEMS = ['a', 'b', 'c', 'd'].flatMap((set) =>
+  MARQUEE_ITEMS.map((item) => ({ ...item, key: `${set}-${item.label}` })),
 );
 
-const MARQUEE_ITEMS_2 = ['a', 'b', 'c'].flatMap((set) =>
-  MARQUEE_ROW_2.map((item) => ({ ...item, key: `${set}-${item.label}` })),
-);
-
-/** Infinite dual-row marquee strip using semantic design tokens. */
+/** Quiet, refined marquee strip displaying key supporting technical claims. */
 export function MarqueeStrip() {
   return (
     <section
       aria-label="Technology features"
-      className="bg-surface-subtle/30 relative overflow-hidden py-8 sm:py-10"
+      className="border-border-subtle/25 bg-surface-subtle/10 relative mt-6 overflow-hidden border-y py-2.5 opacity-80 transition-opacity duration-300 hover:opacity-100 sm:mt-16 sm:py-3.5"
     >
       {/* Visually-hidden accessible list — read once by screen readers */}
       <ul className="sr-only">
-        {[...MARQUEE_ROW_1, ...MARQUEE_ROW_2].map((item) => (
+        {MARQUEE_ITEMS.map((item) => (
           <li key={item.label}>{item.label}</li>
         ))}
       </ul>
 
-      {/* Edge Blur Fade Masks */}
-      <div className="from-background xs:w-16 pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r to-transparent sm:w-28 lg:w-36" />
-      <div className="from-background xs:w-16 pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l to-transparent sm:w-28 lg:w-36" />
-
-      {/* aria-hidden — animated duplicates are decorative only */}
-      <div aria-hidden="true" className="group flex flex-col gap-3">
-        {/* Row 1 — Left Scroll */}
-        <div className="flex overflow-hidden">
-          <div
-            className="flex shrink-0 gap-3 group-hover:[animation-play-state:paused]"
-            style={{ animation: 'marquee-left 40s linear infinite' }}
-          >
-            {MARQUEE_ITEMS_1.map((item) => (
-              <div
-                key={item.key}
-                className="text-content-tertiary bg-surface-subtle/80 hover:bg-surface-muted hover:text-content-primary flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium shadow-2xs transition-all duration-150"
-              >
-                <span className="text-primary">{item.icon}</span>
-                {item.label}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Row 2 — Right Scroll */}
-        <div className="flex overflow-hidden">
-          <div
-            className="flex shrink-0 gap-3 group-hover:[animation-play-state:paused]"
-            style={{ animation: 'marquee-right 48s linear infinite' }}
-          >
-            {MARQUEE_ITEMS_2.map((item) => (
-              <div
-                key={item.key}
-                className="text-content-tertiary bg-surface-subtle/80 hover:bg-surface-muted hover:text-content-primary flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium shadow-2xs transition-all duration-150"
-              >
-                <span className="text-secondary">{item.icon}</span>
-                {item.label}
-              </div>
-            ))}
-          </div>
+      {/* Edge Blur Fade Masks using CSS Mask */}
+      <div
+        aria-hidden="true"
+        className="group [WebkitMaskImage:linear-gradient(to_right,transparent_0%,black_8%,black_92%,transparent_100%)] flex overflow-hidden [mask-image:linear-gradient(to_right,transparent_0%,black_8%,black_92%,transparent_100%)]"
+      >
+        <div
+          className="flex shrink-0 gap-3 group-hover:[animation-play-state:paused]"
+          style={{ animation: 'marquee-left 40s linear infinite' }}
+        >
+          {LOOPING_ITEMS.map((item) => (
+            <div
+              key={item.key}
+              className="text-content-tertiary bg-surface-subtle/30 border-border-subtle/20 hover:border-border-subtle/50 hover:bg-surface-subtle/60 hover:text-content-secondary flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[10px] font-medium tracking-wide transition-all duration-150 sm:px-3 sm:py-1 sm:text-[11px]"
+            >
+              {item.icon}
+              <span>{item.label}</span>
+            </div>
+          ))}
         </div>
       </div>
     </section>

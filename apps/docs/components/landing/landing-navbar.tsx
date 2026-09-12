@@ -14,8 +14,9 @@ import { ThemeToggle } from '@/components/docs-ui/theme-toggle';
 import { ROUTES } from '@/config/routes';
 
 const NAV_LINKS = [
-  { label: 'Docs', href: ROUTES.docs.start },
   { label: 'Components', href: ROUTES.docs.components },
+  { label: 'Docs', href: ROUTES.docs.start },
+  { label: 'Theme', href: ROUTES.docs.tokens },
   { label: 'Changelog', href: ROUTES.docs.changelog },
 ] as const;
 
@@ -96,8 +97,8 @@ export function LandingNavbar() {
                 className={cn(
                   'text-sm font-medium transition-colors',
                   isActive
-                    ? 'text-content-primary font-semibold'
-                    : 'text-content-secondary hover:text-content-primary',
+                    ? 'text-primary font-semibold'
+                    : 'text-content-primary/85 hover:text-primary font-medium',
                 )}
                 href={href}
               >
@@ -107,14 +108,23 @@ export function LandingNavbar() {
           })}
         </nav>
 
-        {/* Right Section: Search & Controls */}
+        {/* Right Section: Controls & Get Started */}
         <div className="flex shrink-0 items-center justify-end gap-2">
           {/* Desktop Controls */}
           <div className="ml-2 flex items-center gap-2 max-md:hidden">
-            <GitHubButton repo="hariharan804/ideasui" />
-            <NavbarPill className="px-1">
+            <div className="opacity-80 transition-opacity hover:opacity-100">
+              <GitHubButton repo="hariharan804/ideasui" />
+            </div>
+            <NavbarPill className="px-1 opacity-80 transition-opacity hover:opacity-100">
               <ThemeToggle mode="light-dark-system" />
             </NavbarPill>
+            <Link
+              className="bg-primary text-on-primary hover:bg-primary/95 shadow-primary/20 ml-1 inline-flex h-8.5 items-center gap-1.5 rounded-full px-4 text-xs font-semibold shadow-sm transition-all duration-200 hover:shadow-md active:scale-95"
+              href={ROUTES.docs.start}
+            >
+              <span>Get Started</span>
+              <ArrowRight className="size-3.5" />
+            </Link>
           </div>
 
           {/* Mobile Controls */}
