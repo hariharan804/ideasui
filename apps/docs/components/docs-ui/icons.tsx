@@ -392,6 +392,21 @@ export const ChatGPTIcon = (properties: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+export const GeminiIcon = (properties: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    fill="currentColor"
+    height="16"
+    role="img"
+    viewBox="0 0 24 24"
+    width="16"
+    xmlns="http://www.w3.org/2000/svg"
+    {...properties}
+  >
+    <title>Google Gemini</title>
+    <path d="M12 0C12 6.62742 6.62742 12 0 12C6.62742 12 12 17.3726 12 24C12 17.3726 17.3726 12 24 12C17.3726 12 12 6.62742 12 0Z" />
+  </svg>
+);
+
 export const ClaudeIcon = (properties: React.SVGProps<SVGSVGElement>) => (
   <svg
     fill="currentColor"

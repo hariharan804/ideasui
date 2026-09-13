@@ -29,12 +29,6 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
     }
   }, []);
 
-  const isLocal =
-    globalThis.window !== undefined &&
-    (globalThis.location.hostname === 'localhost' ||
-      globalThis.location.hostname === '127.0.0.1' ||
-      globalThis.location.hostname.endsWith('.local'));
-
   // Close dropdown on outside click
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -88,34 +82,35 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
     }
   };
 
-  const handleOpenInAI = async (aiName: 'Claude' | 'ChatGPT', targetUrl: string) => {
-    const queryParameter = aiName === 'ChatGPT' ? 'prompt' : 'q';
-
+  const handleOpenInAI = async (aiName: 'ChatGPT' | 'Claude' | 'Gemini', targetUrl: string) => {
     setIsOpen(false);
 
-    if (isLocal) {
-      const prompt = `I am building a web app using IdeasUI (React component library built with Tailwind CSS v4 and React Aria).\nHere is the documentation page for "${pageTitle}":\n\`\`\`markdown\n${rawMarkdown}\n\`\`\`\nI have the above context. Please help me with my task or question regarding this component:`;
+    const fullPrompt = `I am building a web app using IdeasUI (React component library built with Tailwind CSS v4 and React Aria).\nHere is the documentation page for "${pageTitle}":\n\`\`\`markdown\n${rawMarkdown}\n\`\`\`\nI have the above context. Please help me with my task or question regarding this component:`;
 
-      try {
-        await navigator.clipboard.writeText(prompt);
-        setToast(
-          `Copied context! Paste it when ${aiName} opens (Localhost cannot be read by AIs).`,
-        );
-        setTimeout(() => window.open(targetUrl, '_blank'), 800);
-      } catch (error) {
-        console.error('Failed to copy prompt:', error);
-      }
-
-      return;
+    try {
+      await navigator.clipboard.writeText(fullPrompt);
+    } catch (error) {
+      console.error('Failed to copy prompt:', error);
     }
 
-    const pathname = globalThis.location.pathname.replace(/\/$/, '');
-    const rawDocUrl = `${globalThis.location.origin}${pathname.replace(/^\/react\/docs/, '/api/raw-doc')}.mdx`;
-    const aiPrompt = `Read ${rawDocUrl}, I want to ask questions about it.`;
-    const fullUrl = `${targetUrl}?${queryParameter}=${encodeURIComponent(aiPrompt)}`;
+    const isMac =
+      globalThis.navigator !== undefined &&
+      /mac|ipod|iphone|ipad/i.test(globalThis.navigator.userAgent);
+    const pasteShortcut = isMac ? '⌘V' : 'Ctrl+V';
 
-    setToast(`Opening ${aiName} with raw doc reference...`);
-    setTimeout(() => window.open(fullUrl, '_blank'), 800);
+    if (aiName === 'ChatGPT') {
+      const queryPrompt =
+        fullPrompt.length <= 1500
+          ? fullPrompt
+          : `I am building a web app using IdeasUI. Here is context for "${pageTitle}":\n\`\`\`markdown\n${rawMarkdown.slice(0, 1000)}\n...\n\`\`\`\nPlease help me with this component:`;
+
+      setToast(`Opening ChatGPT (Context copied, use ${pasteShortcut} to paste)`);
+      window.open(`${targetUrl}?q=${encodeURIComponent(queryPrompt)}`, '_blank');
+    } else {
+      // Gemini and Claude web interfaces do not support URL query prompt prefilling
+      setToast(`Copied context! Press ${pasteShortcut} to paste in ${aiName}`);
+      window.open(targetUrl, '_blank');
+    }
   };
 
   return (
@@ -182,6 +177,7 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
         onClose={() => setIsOpen(false)}
         onOpenInChatGPT={() => handleOpenInAI('ChatGPT', 'https://chatgpt.com/')}
         onOpenInClaude={() => handleOpenInAI('Claude', 'https://claude.ai/new')}
+        onOpenInGemini={() => handleOpenInAI('Gemini', 'https://gemini.google.com/app')}
         onViewMarkdown={() => {
           setIsModalOpen(true);
           setIsOpen(false);

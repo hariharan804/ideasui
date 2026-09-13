@@ -61,7 +61,7 @@ export function DynamicSearchToggle({
 
   const placeholders = useMemo(
     () => [
-      t('Search'),
+      t('Search here'),
       'Search components',
       'Search buttons',
       'Search tables',
@@ -141,9 +141,9 @@ export function DynamicSearchToggle({
         />
       </span>
       <div className="ms-auto flex shrink-0 items-center gap-1 transition-opacity">
-        {hotKey.map((k) => (
+        {hotKey.map((k, index) => (
           <kbd
-            key={String(k.display)}
+            key={typeof k.key === 'string' ? k.key : index}
             className="bg-surface text-content-tertiary inline-flex h-5 min-w-5 items-center justify-center rounded-md px-1.5 font-mono text-[10px] font-semibold tracking-wider uppercase shadow-2xs"
           >
             {k.display === 'Control' ? 'Ctrl' : k.display}

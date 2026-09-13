@@ -52,9 +52,9 @@ export function ComponentPreviewContainer({
       {/* Preview Canvas Section */}
       <div
         className={cn(
-          'preview relative flex w-full overflow-hidden p-6 sm:p-10',
+          'preview bg-surface-subtle/60 relative flex w-full overflow-hidden p-6 sm:p-10',
           alignmentClasses[align],
-          isBgSolid ? 'bg-surface-subtle' : 'bg-surface/50',
+          // isBgSolid ? 'bg-surface-subtle' : 'bg-surface/50',
         )}
         style={{ minHeight: minHeight ?? '220px' }}
       >
