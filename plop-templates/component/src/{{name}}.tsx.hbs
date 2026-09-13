@@ -1,39 +1,29 @@
-import type { VariantProps } from "tailwind-variants";
+'use client';
+
 import type { JSX } from 'react';
-import { forwardRef } from "react";
-import { {{camelCase name}} } from "@ideasui/theme/recipes";
-import { cn } from "@ideasui/utils";
+import type { {{pascalCase name}}Props } from './{{name}}.types';
 
-export interface {{pascalCase name}}Props
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof {{camelCase name}}> {
-  /**
-   * Content of the component
-   */
-  children?: React.ReactNode;
-
-  /**
-   * Custom classes for different slots
-   */
-  classNames?: {
-    base?: string;
-  };
-}
+import { forwardRef } from 'react';
+import { {{camelCase name}} } from '@ideasui/theme/recipes';
+import { cn } from '@ideasui/utils';
 
 export const {{pascalCase name}} = forwardRef<HTMLDivElement, {{pascalCase name}}Props>(
-  ({ className, children, classNames, ...props }, ref): JSX.Element => {
-    const { base } = {{camelCase name}}(props);
+  (properties, reference): JSX.Element => {
+    const { className, children, classNames, variant, size, color, isDisabled, ...otherProperties } = properties;
+
+    const styles = {{camelCase name}}({ variant, size, color, isDisabled });
 
     return (
       <div
-        ref={ref}
-        className={cn(base(), className, classNames?.base)}
-        {...props}
+        ref={reference}
+        className={cn(styles.base({ className }), classNames?.base)}
+        data-slot="{{kebabCase name}}"
+        {...otherProperties}
       >
         {children}
       </div>
     );
-  }
+  },
 );
 
-{{pascalCase name}}.displayName = "IdeasUI.{{pascalCase name}}";
+{{pascalCase name}}.displayName = 'IdeasUI.{{pascalCase name}}';

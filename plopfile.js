@@ -1,9 +1,9 @@
 module.exports = function plopConfig(plop) {
   const COMPONENT_NAME_MESSAGE = 'Component name (kebab-case):';
 
-  // Full component generator (component + recipe)
+  // Full component generator (component package + 3-file theme recipe + playground page)
   plop.setGenerator('component', {
-    description: 'Create complete component (component + recipe)',
+    description: 'Create complete component (component package + theme recipe + playground page)',
     prompts: [
       {
         type: 'input',
@@ -13,7 +13,7 @@ module.exports = function plopConfig(plop) {
       },
     ],
     actions: [
-      // Create component package
+      // 1. Create component package (src/[component].tsx, src/[component].types.ts, src/index.ts, __tests__, stories)
       {
         type: 'addMany',
         destination: 'packages/components/{{name}}/',
@@ -22,48 +22,53 @@ module.exports = function plopConfig(plop) {
         skipIfExists: true,
         stripExtensions: ['hbs'],
       },
-      // Add recipe to theme package
+      // 2. Add 3-file recipe to theme package (index.ts, {{name}}.ts, {{name}}.css)
       {
-        type: 'add',
-        path: 'packages/core/theme/src/recipes/{{name}}.ts',
-        templateFile: 'plop-templates/recipe/recipe.ts.hbs',
+        type: 'addMany',
+        destination: 'packages/core/theme/src/recipes/{{name}}/',
+        base: 'plop-templates/recipe/',
+        templateFiles: 'plop-templates/recipe/**/*.hbs',
         skipIfExists: true,
+        stripExtensions: ['hbs'],
       },
       {
         type: 'modify',
         path: 'packages/core/theme/src/recipes/index.ts',
-        pattern: /(### export recipe here ###)/gi,
-        template: "$1\nexport * from './{{name}}'",
+        pattern: /(\/\* ### EXPORT RECIPES HERE ### \*\/)/g,
+        template: "$1\nexport * from './{{name}}';",
       },
-      // Create playground page
+      {
+        type: 'modify',
+        path: 'packages/core/theme/src/recipes/index.css',
+        pattern: /(\/\* ### IMPORT RECIPES HERE ### \*\/)/g,
+        template: "$1\n@import './{{name}}/{{name}}.css';",
+      },
+      // 3. Create playground page & component wrapper
       {
         type: 'add',
         path: 'apps/playground/app/(layout)/playground/{{name}}/page.tsx',
         templateFile: 'plop-templates/playground/page.tsx.hbs',
         skipIfExists: true,
       },
-      // Create playground component wrapper
       {
         type: 'add',
         path: 'apps/playground/components/{{name}}.tsx',
         templateFile: 'plop-templates/playground/component.tsx.hbs',
         skipIfExists: true,
       },
-      // Add to component list
       {
         type: 'modify',
         path: 'apps/playground/components/playground.tsx',
-        pattern: /(### append component here ###)/gi,
+        pattern: /(### APPEND COMPONENT HERE ###)/gi,
         template: "$1\n\n  {\n    name: '{{pascalCase name}}',\n    category: 'Core',\n  },",
       },
-      // Add dependency to @ideasui/react package.json
+      // 4. Add dependency & export to @ideasui/react
       {
         type: 'modify',
         path: 'packages/core/react/package.json',
         pattern: /("dependencies":\s*{)/g,
         template: '$1\n    "@ideasui/{{name}}": "workspace:*",',
       },
-      // Add export to @ideasui/react entrypoint
       {
         type: 'modify',
         path: 'packages/core/react/src/index.ts',
@@ -89,15 +94,16 @@ module.exports = function plopConfig(plop) {
         type: 'addMany',
         destination: 'packages/components/{{name}}/',
         base: 'plop-templates/component/',
-        templateFiles: 'plop-templates/component/**/*',
+        templateFiles: 'plop-templates/component/**/*.hbs',
         skipIfExists: true,
+        stripExtensions: ['hbs'],
       },
     ],
   });
 
-  // Recipe only generator
+  // Recipe only generator (creates 3-file recipe in @ideasui/theme)
   plop.setGenerator('recipe-only', {
-    description: 'Add component recipe to @ideasui/theme only',
+    description: 'Add 3-file component recipe (index.ts, recipe.ts, recipe.css) to @ideasui/theme only',
     prompts: [
       {
         type: 'input',
@@ -108,10 +114,24 @@ module.exports = function plopConfig(plop) {
     ],
     actions: [
       {
-        type: 'add',
-        path: 'packages/core/theme/src/recipes/{{name}}.ts',
-        templateFile: 'plop-templates/recipe/recipe.ts',
+        type: 'addMany',
+        destination: 'packages/core/theme/src/recipes/{{name}}/',
+        base: 'plop-templates/recipe/',
+        templateFiles: 'plop-templates/recipe/**/*.hbs',
         skipIfExists: true,
+        stripExtensions: ['hbs'],
+      },
+      {
+        type: 'modify',
+        path: 'packages/core/theme/src/recipes/index.ts',
+        pattern: /(\/\* ### EXPORT RECIPES HERE ### \*\/)/g,
+        template: "$1\nexport * from './{{name}}';",
+      },
+      {
+        type: 'modify',
+        path: 'packages/core/theme/src/recipes/index.css',
+        pattern: /(\/\* ### IMPORT RECIPES HERE ### \*\/)/g,
+        template: "$1\n@import './{{name}}/{{name}}.css';",
       },
     ],
   });

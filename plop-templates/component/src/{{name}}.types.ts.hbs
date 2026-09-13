@@ -1,0 +1,41 @@
+import type { ReactNode } from 'react';
+import type { VariantProps } from 'tailwind-variants';
+import type { {{camelCase name}} } from '@ideasui/theme/recipes';
+
+/**
+ * Granular class names for the {{pascalCase name}} component slots.
+ */
+export interface {{pascalCase name}}ClassNames {
+  /** Class name for the {{kebabCase name}} container. */
+  base?: string;
+  /** Class name for the content container. */
+  content?: string;
+}
+
+/**
+ * Props for the {{pascalCase name}} component.
+ */
+export interface {{pascalCase name}}Props
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'className'>,
+    VariantProps<typeof {{camelCase name}}> {
+  /**
+   * Content to render inside the component.
+   */
+  children?: ReactNode;
+
+  /**
+   * Custom class names for individual component slots.
+   */
+  classNames?: {{pascalCase name}}ClassNames;
+
+  /**
+   * Additional CSS class name to merge into the base slot.
+   */
+  className?: string;
+
+  /**
+   * Whether the component is in a disabled state.
+   * @default false
+   */
+  isDisabled?: boolean;
+}

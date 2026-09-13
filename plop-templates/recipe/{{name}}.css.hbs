@@ -1,0 +1,61 @@
+/**
+ * {{pascalCase name}} Component CSS
+ * Source of truth for visual styling for the {{pascalCase name}} component.
+ * Uses BEM selectors + Tailwind CSS v4 @apply directives.
+ */
+
+/* ── Base Block ───────────────────────────────────────────────────────────── */
+.{{kebabCase name}} {
+  @apply relative inline-flex cursor-pointer items-center justify-center font-medium transition-all duration-200 ease-in-out select-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none active:scale-98;
+}
+
+/* ── Elements ─────────────────────────────────────────────────────────────── */
+.{{kebabCase name}}__content {
+  @apply inline-flex items-center truncate;
+}
+
+/* ── Size Modifiers ───────────────────────────────────────────────────────── */
+.{{kebabCase name}}.{{kebabCase name}}--sm {
+  @apply h-8 gap-1.5 px-3 text-xs rounded-md;
+}
+.{{kebabCase name}}.{{kebabCase name}}--md {
+  @apply h-10 gap-2 px-4 text-sm rounded-lg;
+}
+.{{kebabCase name}}.{{kebabCase name}}--lg {
+  @apply h-12 gap-2.5 px-6 text-base rounded-xl;
+}
+
+/* ── Color & Variant Combinations ─────────────────────────────────────────── */
+.{{kebabCase name}}.{{kebabCase name}}--solid.{{kebabCase name}}--primary {
+  @apply bg-primary text-on-primary hover:bg-primary/90;
+}
+.{{kebabCase name}}.{{kebabCase name}}--solid.{{kebabCase name}}--secondary {
+  @apply bg-secondary text-on-secondary hover:bg-secondary/90;
+}
+.{{kebabCase name}}.{{kebabCase name}}--solid.{{kebabCase name}}--success {
+  @apply bg-success text-on-success hover:bg-success/90;
+}
+.{{kebabCase name}}.{{kebabCase name}}--solid.{{kebabCase name}}--warning {
+  @apply bg-warning text-on-warning hover:bg-warning/90;
+}
+.{{kebabCase name}}.{{kebabCase name}}--solid.{{kebabCase name}}--danger {
+  @apply bg-danger text-on-danger hover:bg-danger/90;
+}
+.{{kebabCase name}}.{{kebabCase name}}--solid.{{kebabCase name}}--info {
+  @apply bg-info text-on-info hover:bg-info/90;
+}
+
+.{{kebabCase name}}.{{kebabCase name}}--outline {
+  @apply border-border border bg-transparent text-content-primary hover:bg-surface-subtle;
+}
+.{{kebabCase name}}.{{kebabCase name}}--ghost {
+  @apply bg-transparent text-content-primary hover:bg-surface-subtle;
+}
+.{{kebabCase name}}.{{kebabCase name}}--soft {
+  @apply bg-primary-subtle text-primary hover:bg-primary-subtle/80;
+}
+
+/* ── State Modifiers ──────────────────────────────────────────────────────── */
+.{{kebabCase name}}.{{kebabCase name}}--disabled {
+  @apply pointer-events-none opacity-50 cursor-not-allowed;
+}

@@ -1,23 +1,29 @@
+import '@testing-library/jest-dom';
+
+import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
-import * as React from 'react';
+import { expectAccessible } from '@ideasui/utils/test';
 
 import { {{pascalCase name}} } from '../src';
 
 describe('{{pascalCase name}}', () => {
-  it('renders correctly', () => {
-    render(<{{pascalCase name}}>Test content</{{pascalCase name}}>);
+  it('should render correctly', () => {
+    const wrapper = render(<{{pascalCase name}}>Test content</{{pascalCase name}}>);
     expect(screen.getByText('Test content')).toBeInTheDocument();
+    expect(() => wrapper.unmount()).not.toThrow();
   });
 
-  it('applies variant styles', () => {
-    render(<{{pascalCase name}} className="test-class">Test</{{pascalCase name}}>);
-    const element = screen.getByText('Test');
-    expect(element).toHaveClass('test-class');
+  it('should set correct displayName', () => {
+    expect({{pascalCase name}}.displayName).toBe('IdeasUI.{{pascalCase name}}');
   });
 
-  it('forwards ref correctly', () => {
-    const ref = React.createRef<HTMLDivElement>();
-    render(<{{pascalCase name}} ref={ref}>Test</{{pascalCase name}}>);
+  it('should forward ref correctly', () => {
+    const ref = createRef<HTMLDivElement>();
+    render(<{{pascalCase name}} ref={ref}>Ref test</{{pascalCase name}}>);
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
+  });
+
+  it('should pass accessibility audit with zero violations', async () => {
+    await expectAccessible(<{{pascalCase name}}>Accessible content</{{pascalCase name}}>);
   });
 });

@@ -1,10 +1,22 @@
 {
   "name": "@ideasui/{{kebabCase name}}",
-  "version": "0.0.0",
+  "version": "0.0.1-beta.1",
   "description": "{{pascalCase name}} component for IdeasUI",
   "author": "IdeasUI <ideas2logic@gmail.com>",
   "homepage": "https://ideasui.com",
   "license": "MIT",
+  "keywords": [
+    "react",
+    "{{kebabCase name}}",
+    "react-aria",
+    "tailwindcss",
+    "tailwind-v4",
+    "accessible-ui",
+    "wcag",
+    "ideasui",
+    "components",
+    "design-system"
+  ],
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "exports": {
@@ -17,7 +29,7 @@
     "src"
   ],
   "sideEffects": false,
-  "clean-package": "../../clean-package.config.json",
+  "clean-package": "../../../clean-package.config.json",
   "publishConfig": {
     "access": "public"
   },
@@ -30,7 +42,7 @@
     "url": "https://github.com/ideas2logic-lab/ideasui/issues"
   },
   "scripts": {
-    "build": "tsup src --dts",
+    "build": "tsup --dts",
     "dev": "pnpm build:dev --watch",
     "clean": "rimraf dist .turbo",
     "typecheck": "tsc --noEmit",
@@ -40,20 +52,17 @@
   },
   "peerDependencies": {
     "react": ">=18",
-    "react-dom": ">=18",
-    "@ideasui/theme": "workspace:*"
+    "react-dom": ">=18"
   },
   "dependencies": {
+    "@ideasui/theme": "workspace:*",
     "@ideasui/utils": "workspace:*",
-    "tailwind-variants": "^0.3.1",
-    "react-aria": "^3.37.0"
+    "react-aria-components": "^1.16.0"
   },
   "devDependencies": {
-    "@ideasui/eslint-config": "workspace:*",
-    "@ideasui/theme": "workspace:*",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "typescript": "^5.9.3",
-    "clean-package": "^2.2.0"
+    "clean-package": "^2.2.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "typescript": "^5.9.3"
   }
 }
