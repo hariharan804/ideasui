@@ -1,7 +1,6 @@
-/* eslint-disable sonarjs/no-unused-vars */
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Github } from './icons';
 import { cn } from '@ideasui/utils';
 
@@ -35,28 +34,47 @@ const VARIANT_STYLES: Record<GitHubButtonVariant, string> = {
 };
 
 export function GitHubButton({
-  repo = 'hariharan804/ideasui',
-  starCount = 5200,
+  repo = 'ideas2logic-lab/ideasui',
+  starCount,
   variant = 'badge',
   showText = true,
   className,
 }: GitHubButtonProperties) {
-  const [stars] = useState<number>(starCount);
+  const [stars, setStars] = useState<number | null>(starCount ?? null);
 
-  // useEffect(() => {
-  //   fetch(`https://api.github.com/repos/${repo}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (typeof data.stargazers_count === 'number') {
-  //         setStars(data.stargazers_count);
-  //       }
+  useEffect(() => {
+    if (starCount !== undefined) return;
 
-  //       return null;
-  //     })
-  //     .catch(() => {
-  //       // Fallback to initial starCount if fetch fails
-  //     });
-  // }, [repo]);
+    let isMounted = true;
+
+    async function fetchStars(): Promise<void> {
+      try {
+        const response = await fetch(`https://api.github.com/repos/${repo}`);
+
+        if (!response.ok) return;
+
+        const data: unknown = await response.json();
+
+        if (
+          isMounted &&
+          data &&
+          typeof data === 'object' &&
+          'stargazers_count' in data &&
+          typeof data.stargazers_count === 'number'
+        ) {
+          setStars(data.stargazers_count);
+        }
+      } catch {
+        // Silently handle fetch failures without showing fake counts
+      }
+    }
+
+    void fetchStars();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [repo, starCount]);
 
   const isButton = variant === 'button';
 
@@ -86,14 +104,16 @@ export function GitHubButton({
       >
         Star on GitHub
       </span>
-      <span
-        className={cn(
-          'text-content-secondary bg-surface-muted shrink-0 rounded-full font-bold whitespace-nowrap',
-          isButton ? 'ml-1.5 px-2.5 py-0.5 text-xs' : 'ml-0.5 px-2 py-0.5 text-[11px] sm:ml-1',
-        )}
-      >
-        {formatStars(stars)}
-      </span>
+      {stars !== null && stars > 0 && (
+        <span
+          className={cn(
+            'text-content-secondary bg-surface-muted shrink-0 rounded-full font-bold whitespace-nowrap',
+            isButton ? 'ml-1.5 px-2.5 py-0.5 text-xs' : 'ml-0.5 px-2 py-0.5 text-[11px] sm:ml-1',
+          )}
+        >
+          {formatStars(stars)}
+        </span>
+      )}
     </a>
   );
 }

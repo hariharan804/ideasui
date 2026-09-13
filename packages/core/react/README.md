@@ -3,7 +3,7 @@
 The main entry point for the **IdeasUI** component library — a collection of high-performance, accessible UI components built with **Tailwind CSS v4** and **React Aria**.
 
 [![NPM Version](https://img.shields.io/npm/v/@ideasui/react.svg)](https://www.npmjs.com/package/@ideasui/react)
-[![License](https://img.shields.io/npm/l/@ideasui/react.svg)](https://github.com/hariharan804/ideasui/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/@ideasui/react.svg)](https://github.com/ideas2logic-lab/ideasui/blob/master/LICENSE)
 
 ## Why IdeasUI?
 

@@ -3,7 +3,7 @@
 The official design system and theme engine for **IdeasUI** — built on **Tailwind CSS v4** and modern CSS.
 
 [![NPM Version](https://img.shields.io/npm/v/@ideasui/theme.svg)](https://www.npmjs.com/package/@ideasui/theme)
-[![License](https://img.shields.io/npm/l/@ideasui/theme.svg)](https://github.com/hariharan804/ideasui/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/@ideasui/theme.svg)](https://github.com/ideas2logic-lab/ideasui/blob/master/LICENSE)
 
 ## Features
 

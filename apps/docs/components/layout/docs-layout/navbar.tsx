@@ -357,7 +357,7 @@ export function DocsNavbar({
             </NavbarPillButton>
 
             {/* 2. GitHub Star Count Pill */}
-            <GitHubButton repo="hariharan804/ideasui" />
+            <GitHubButton repo="ideas2logic-lab/ideasui" />
 
             {/* 3. Language Toggle Circle */}
             {!!i18n && (
@@ -382,7 +382,7 @@ export function DocsNavbar({
               (searchToggle.components?.sm ?? <SearchToggle hideIfDisabled className="p-2" />)}
 
             <div className="xs:inline-flex hidden">
-              <GitHubButton repo="hariharan804/ideasui" />
+              <GitHubButton repo="ideas2logic-lab/ideasui" />
             </div>
 
             <SidebarTrigger
