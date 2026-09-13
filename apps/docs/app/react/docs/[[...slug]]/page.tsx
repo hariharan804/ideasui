@@ -69,6 +69,10 @@ function MdxPreBlock({
   );
 }
 
+function MdxHrBlock({ className, ...properties }: React.ComponentProps<'hr'>) {
+  return <hr {...properties} className={cn('border-border-subtle/30 my-8 border-t', className)} />;
+}
+
 async function getPackageVersion(componentSlug?: string): Promise<string> {
   if (!componentSlug) return '0.0.1';
 
@@ -127,9 +131,9 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
   }
 
   return (
-    <DocsPage className="!pt-8" full={pageData.full} toc={pageData.toc}>
+    <DocsPage className="!pt-8 !pb-16" full={pageData.full} toc={pageData.toc}>
       {/* ── Executive Hero Header Card ────────────────────────────────────── */}
-      <div className="from-primary-muted/60 via-secondary-muted/40 to-surface-subtle/80 relative mb-8 rounded-3xl bg-gradient-to-br p-6 backdrop-blur-md sm:p-8">
+      <div className="from-primary-muted/60 via-secondary-muted/40 to-surface-subtle/80 relative mb-4 rounded-3xl bg-gradient-to-br p-5 backdrop-blur-md sm:px-8 sm:py-6">
         {/* Decorative ambient background mesh */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
           <div className="absolute inset-0 bg-[radial-gradient(oklch(var(--ideasui-color-content-tertiary)/0.06)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_100%)] [background-size:24px_24px] opacity-50" />
@@ -274,7 +278,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
 
         {/* ── Copy Markdown Row ─────────────────────────────────────────────── */}
         {rawMarkdown && (
-          <div className="relative mt-6 flex flex-wrap items-center justify-between gap-3 pt-2">
+          <div className="relative mt-4 flex flex-wrap items-center justify-between gap-3 pt-2">
             <div className="text-content-tertiary flex items-center gap-2 text-xs font-medium">
               <span className="bg-primary/10 text-primary flex size-5 items-center justify-center rounded-full">
                 <Sparkles className="size-3" />
@@ -286,7 +290,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
         )}
       </div>
 
-      <DocsBody>
+      <DocsBody className="pb-16">
         <MdxContent
           components={{
             ...defaultMdxComponents,
@@ -300,6 +304,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
             APIReferenceViewer,
             QuickNav,
             pre: MdxPreBlock,
+            hr: MdxHrBlock,
           }}
         />
       </DocsBody>

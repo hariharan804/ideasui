@@ -111,9 +111,9 @@ export default {
 ### Avoid Dynamic Classes
 
 ```tsx
-// ❌ Bad - can't be purged
-<div className={`bg-${color}-500`} />
+// ❌ Bad - can't be statically analyzed
+<div className={`bg-${color}`} />
 
 // ✅ Good - use static classes
-<div className={color === "primary" ? "bg-primary-500" : "bg-secondary-500"} />
+<div className={color === "primary" ? "bg-primary" : "bg-secondary"} />
 ```

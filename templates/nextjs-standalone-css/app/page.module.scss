@@ -34,12 +34,6 @@
       background: linear-gradient(to right, $primary, $secondary);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-
-      :global(.dark) & {
-        background: linear-gradient(to right, $primary-700, $secondary-700);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
     }
   }
 
@@ -176,7 +170,7 @@
   height: 1.5rem;
   border-radius: 9999px;
   background-color: $primary;
-  color: #ffffff;
+  color: $on-primary;
   font-size: 0.8125rem;
   font-weight: 700;
 }

@@ -18,7 +18,7 @@ export const ROUTES = {
   },
   external: {
     github: siteConfig.links.github,
-    githubRepo: 'hariharan804/ideasui',
+    githubRepo: 'ideas2logic-lab/ideasui',
     packageBase: siteConfig.links.packageBase,
     componentsBase: siteConfig.links.componentsBase,
     figma: siteConfig.links.figmaDefault,

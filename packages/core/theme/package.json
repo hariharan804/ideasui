@@ -95,10 +95,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hariharan804/ideasui.git",
+    "url": "git+https://github.com/ideas2logic-lab/ideasui.git",
     "directory": "packages/core/theme"
   },
   "bugs": {
-    "url": "https://github.com/hariharan804/ideasui/issues"
+    "url": "https://github.com/ideas2logic-lab/ideasui/issues"
   }
 }

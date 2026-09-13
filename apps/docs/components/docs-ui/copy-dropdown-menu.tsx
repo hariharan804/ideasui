@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { createPortal } from 'react-dom';
 
-import { ChatGPTIcon, ClaudeIcon, MarkdownIcon } from '@/components/docs-ui/icons';
+import { ChatGPTIcon, ClaudeIcon, GeminiIcon, MarkdownIcon } from '@/components/docs-ui/icons';
 
 interface CopyDropdownMenuProps {
   readonly isOpen: boolean;
@@ -13,6 +13,7 @@ interface CopyDropdownMenuProps {
   readonly onViewMarkdown: () => void;
   readonly onOpenInChatGPT: () => void;
   readonly onOpenInClaude: () => void;
+  readonly onOpenInGemini: () => void;
 }
 
 const MENU_WIDTH = 288; // w-72
@@ -25,6 +26,7 @@ export function CopyDropdownMenu({
   onViewMarkdown,
   onOpenInChatGPT,
   onOpenInClaude,
+  onOpenInGemini,
 }: Readonly<CopyDropdownMenuProps>) {
   if (!buttonRect) return null;
 
@@ -121,6 +123,25 @@ export function CopyDropdownMenu({
               <div className="flex flex-1 flex-col">
                 <div className="flex items-center justify-between">
                   <span className="text-content-primary text-xs font-semibold">Open in Claude</span>
+                  <ExternalLink className="text-content-tertiary size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </div>
+                <span className="text-content-tertiary mt-0.5 text-[10px] leading-snug">
+                  Ask questions about this page
+                </span>
+              </div>
+            </button>
+
+            {/* Open in Gemini */}
+            <button
+              className="group hover:bg-surface-subtle focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
+              onClick={onOpenInGemini}
+            >
+              <div className="bg-surface-subtle text-content-secondary group-hover:bg-primary-subtle/15 group-hover:text-primary mt-0.5 rounded-lg p-1.5 transition-colors">
+                <GeminiIcon className="size-4 transition-transform duration-300 group-hover:scale-105" />
+              </div>
+              <div className="flex flex-1 flex-col">
+                <div className="flex items-center justify-between">
+                  <span className="text-content-primary text-xs font-semibold">Open in Gemini</span>
                   <ExternalLink className="text-content-tertiary size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </div>
                 <span className="text-content-tertiary mt-0.5 text-[10px] leading-snug">

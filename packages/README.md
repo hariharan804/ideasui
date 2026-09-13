@@ -55,8 +55,8 @@ export const button = tv({
   base: 'inline-flex items-center justify-center',
   variants: {
     variant: {
-      solid: 'bg-primary-500 text-white',
-      outline: 'border-2 border-primary-500',
+      solid: 'bg-primary text-on-primary',
+      outline: 'border-2 border-primary',
     },
   },
 });

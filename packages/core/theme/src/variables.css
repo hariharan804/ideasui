@@ -16,61 +16,61 @@
 
     /* ── Intent Colors (OKLCH) ────────────────────────────────── */
     /* Primary (Modern Violet / Indigo) */
-    --ideasui-color-primary: 0.54 0.22 272;
-    --ideasui-color-on-primary: 0.985 0.008 272;
-    --ideasui-color-primary-subtle: 0.965 0.02 272;
-    --ideasui-color-on-primary-subtle: 0.4 0.18 272;
-    --ideasui-color-primary-muted: 0.93 0.04 272;
-    --ideasui-color-on-primary-muted: 0.46 0.2 272;
+    --ideasui-color-primary: 0.46 0.22 272;
+    --ideasui-color-on-primary: 1 0 0;
+    --ideasui-color-primary-subtle: 0.96 0.028 272;
+    --ideasui-color-on-primary-subtle: 0.38 0.18 272;
+    --ideasui-color-primary-muted: 0.92 0.05 272;
+    --ideasui-color-on-primary-muted: 0.42 0.2 272;
 
     /* Secondary (Modern Fuchsia / Plum) */
-    --ideasui-color-secondary: 0.53 0.21 310;
-    --ideasui-color-on-secondary: 0.985 0.008 310;
-    --ideasui-color-secondary-subtle: 0.965 0.02 310;
-    --ideasui-color-on-secondary-subtle: 0.38 0.16 310;
-    --ideasui-color-secondary-muted: 0.93 0.04 310;
-    --ideasui-color-on-secondary-muted: 0.44 0.18 310;
+    --ideasui-color-secondary: 0.46 0.21 310;
+    --ideasui-color-on-secondary: 1 0 0;
+    --ideasui-color-secondary-subtle: 0.96 0.028 310;
+    --ideasui-color-on-secondary-subtle: 0.36 0.16 310;
+    --ideasui-color-secondary-muted: 0.92 0.05 310;
+    --ideasui-color-on-secondary-muted: 0.4 0.18 310;
 
-    /* Tertiary (Modern Cyan-Slate) */
-    --ideasui-color-tertiary: 0.53 0.18 250;
-    --ideasui-color-on-tertiary: 0.985 0.008 250;
-    --ideasui-color-tertiary-subtle: 0.965 0.015 250;
-    --ideasui-color-on-tertiary-subtle: 0.38 0.14 250;
-    --ideasui-color-tertiary-muted: 0.93 0.03 250;
-    --ideasui-color-on-tertiary-muted: 0.44 0.16 250;
+    /* Tertiary (Modern Soft Teal) */
+    --ideasui-color-tertiary: 0.48 0.13 192;
+    --ideasui-color-on-tertiary: 1 0 0;
+    --ideasui-color-tertiary-subtle: 0.96 0.025 192;
+    --ideasui-color-on-tertiary-subtle: 0.32 0.11 192;
+    --ideasui-color-tertiary-muted: 0.92 0.04 192;
+    --ideasui-color-on-tertiary-muted: 0.36 0.12 192;
 
     /* ── Status Colors (OKLCH) ────────────────────────────────── */
     /* Success (Modern Emerald) */
-    --ideasui-color-success: 0.54 0.17 155;
-    --ideasui-color-on-success: 0.985 0.01 155;
-    --ideasui-color-success-subtle: 0.965 0.02 155;
-    --ideasui-color-on-success-subtle: 0.3 0.08 155;
-    --ideasui-color-success-muted: 0.93 0.04 155;
-    --ideasui-color-on-success-muted: 0.38 0.1 155;
+    --ideasui-color-success: 0.44 0.17 155;
+    --ideasui-color-on-success: 1 0 0;
+    --ideasui-color-success-subtle: 0.96 0.025 155;
+    --ideasui-color-on-success-subtle: 0.28 0.08 155;
+    --ideasui-color-success-muted: 0.92 0.045 155;
+    --ideasui-color-on-success-muted: 0.34 0.1 155;
 
-    /* Warning (Modern Golden Amber) */
-    --ideasui-color-warning: 0.54 0.17 68;
-    --ideasui-color-on-warning: 0.985 0.01 68;
-    --ideasui-color-warning-subtle: 0.97 0.03 68;
-    --ideasui-color-on-warning-subtle: 0.33 0.11 68;
-    --ideasui-color-warning-muted: 0.94 0.06 68;
-    --ideasui-color-on-warning-muted: 0.4 0.13 68;
+    /* Warning (Vibrant Golden Amber) */
+    --ideasui-color-warning: 0.46 0.18 48;
+    --ideasui-color-on-warning: 1 0 0;
+    --ideasui-color-warning-subtle: 0.965 0.03 48;
+    --ideasui-color-on-warning-subtle: 0.3 0.11 48;
+    --ideasui-color-warning-muted: 0.93 0.055 48;
+    --ideasui-color-on-warning-muted: 0.36 0.13 48;
 
     /* Danger (Modern Crimson Rose) */
-    --ideasui-color-danger: 0.53 0.19 22;
-    --ideasui-color-on-danger: 0.985 0.01 22;
-    --ideasui-color-danger-subtle: 0.97 0.015 22;
-    --ideasui-color-on-danger-subtle: 0.29 0.11 22;
-    --ideasui-color-danger-muted: 0.91 0.035 22;
-    --ideasui-color-on-danger-muted: 0.36 0.14 22;
+    --ideasui-color-danger: 0.45 0.19 22;
+    --ideasui-color-on-danger: 1 0 0;
+    --ideasui-color-danger-subtle: 0.965 0.02 22;
+    --ideasui-color-on-danger-subtle: 0.27 0.11 22;
+    --ideasui-color-danger-muted: 0.91 0.04 22;
+    --ideasui-color-on-danger-muted: 0.32 0.14 22;
 
-    /* Info (Modern Electric Azure) */
-    --ideasui-color-info: 0.54 0.15 235;
-    --ideasui-color-on-info: 0.985 0.01 235;
-    --ideasui-color-info-subtle: 0.965 0.02 235;
-    --ideasui-color-on-info-subtle: 0.34 0.08 235;
-    --ideasui-color-info-muted: 0.93 0.04 235;
-    --ideasui-color-on-info-muted: 0.4 0.1 235;
+    /* Info (Electric Cyan-Blue) */
+    --ideasui-color-info: 0.46 0.18 215;
+    --ideasui-color-on-info: 1 0 0;
+    --ideasui-color-info-subtle: 0.96 0.028 215;
+    --ideasui-color-on-info-subtle: 0.3 0.12 215;
+    --ideasui-color-info-muted: 0.92 0.045 215;
+    --ideasui-color-on-info-muted: 0.36 0.14 215;
 
     /* ── Neutral ─────────────────────────────────────────────── */
     --ideasui-color-neutral: 0.551 0.015 260;
@@ -266,61 +266,61 @@
 
     /* ── Intent Colors (Dark Mode OKLCH) ─────────────────────── */
     /* Primary (Modern Violet / Indigo) */
-    --ideasui-color-primary: 0.62 0.22 272;
+    --ideasui-color-primary: 0.65 0.22 272;
     --ideasui-color-on-primary: 0.14 0.04 272;
-    --ideasui-color-primary-subtle: 0.15 0.04 272;
+    --ideasui-color-primary-subtle: 0.18 0.05 272;
     --ideasui-color-on-primary-subtle: 0.88 0.06 272;
-    --ideasui-color-primary-muted: 0.25 0.08 272;
+    --ideasui-color-primary-muted: 0.26 0.08 272;
     --ideasui-color-on-primary-muted: 0.84 0.07 272;
 
     /* Secondary (Modern Fuchsia / Plum) */
-    --ideasui-color-secondary: 0.62 0.21 310;
+    --ideasui-color-secondary: 0.65 0.21 310;
     --ideasui-color-on-secondary: 0.14 0.04 310;
-    --ideasui-color-secondary-subtle: 0.15 0.04 310;
+    --ideasui-color-secondary-subtle: 0.18 0.05 310;
     --ideasui-color-on-secondary-subtle: 0.89 0.06 310;
-    --ideasui-color-secondary-muted: 0.25 0.08 310;
+    --ideasui-color-secondary-muted: 0.26 0.08 310;
     --ideasui-color-on-secondary-muted: 0.84 0.07 310;
 
-    /* Tertiary (Modern Cyan-Slate) */
-    --ideasui-color-tertiary: 0.62 0.18 250;
-    --ideasui-color-on-tertiary: 0.14 0.04 250;
-    --ideasui-color-tertiary-subtle: 0.15 0.04 250;
-    --ideasui-color-on-tertiary-subtle: 0.88 0.06 250;
-    --ideasui-color-tertiary-muted: 0.25 0.08 250;
-    --ideasui-color-on-tertiary-muted: 0.84 0.07 250;
+    /* Tertiary (Modern Soft Teal) */
+    --ideasui-color-tertiary: 0.68 0.13 192;
+    --ideasui-color-on-tertiary: 0.12 0.04 192;
+    --ideasui-color-tertiary-subtle: 0.18 0.045 192;
+    --ideasui-color-on-tertiary-subtle: 0.88 0.06 192;
+    --ideasui-color-tertiary-muted: 0.26 0.07 192;
+    --ideasui-color-on-tertiary-muted: 0.84 0.07 192;
 
     /* ── Status Colors (Dark Mode OKLCH) ─────────────────────── */
     /* Success (Modern Emerald) */
-    --ideasui-color-success: 0.6 0.17 155;
+    --ideasui-color-success: 0.65 0.17 155;
     --ideasui-color-on-success: 0.14 0.04 155;
-    --ideasui-color-success-subtle: 0.15 0.04 155;
+    --ideasui-color-success-subtle: 0.18 0.045 155;
     --ideasui-color-on-success-subtle: 0.86 0.07 155;
-    --ideasui-color-success-muted: 0.24 0.06 155;
+    --ideasui-color-success-muted: 0.26 0.06 155;
     --ideasui-color-on-success-muted: 0.78 0.11 155;
 
-    /* Warning (Modern Golden Amber) */
-    --ideasui-color-warning: 0.6 0.17 68;
-    --ideasui-color-on-warning: 0.14 0.04 68;
-    --ideasui-color-warning-subtle: 0.15 0.04 68;
-    --ideasui-color-on-warning-subtle: 0.86 0.11 68;
-    --ideasui-color-warning-muted: 0.24 0.07 68;
-    --ideasui-color-on-warning-muted: 0.78 0.14 68;
+    /* Warning (Vibrant Golden Amber) */
+    --ideasui-color-warning: 0.65 0.18 48;
+    --ideasui-color-on-warning: 0.14 0.04 48;
+    --ideasui-color-warning-subtle: 0.18 0.05 48;
+    --ideasui-color-on-warning-subtle: 0.86 0.11 48;
+    --ideasui-color-warning-muted: 0.26 0.07 48;
+    --ideasui-color-on-warning-muted: 0.78 0.14 48;
 
     /* Danger (Modern Crimson Rose) */
-    --ideasui-color-danger: 0.6 0.19 22;
+    --ideasui-color-danger: 0.65 0.19 22;
     --ideasui-color-on-danger: 0.14 0.04 22;
-    --ideasui-color-danger-subtle: 0.15 0.04 22;
+    --ideasui-color-danger-subtle: 0.18 0.045 22;
     --ideasui-color-on-danger-subtle: 0.86 0.08 22;
-    --ideasui-color-danger-muted: 0.22 0.075 22;
+    --ideasui-color-danger-muted: 0.26 0.075 22;
     --ideasui-color-on-danger-muted: 0.78 0.12 22;
 
-    /* Info (Modern Electric Azure) */
-    --ideasui-color-info: 0.6 0.15 235;
-    --ideasui-color-on-info: 0.14 0.04 235;
-    --ideasui-color-info-subtle: 0.15 0.04 235;
-    --ideasui-color-on-info-subtle: 0.86 0.07 235;
-    --ideasui-color-info-muted: 0.24 0.06 235;
-    --ideasui-color-on-info-muted: 0.78 0.11 235;
+    /* Info (Electric Cyan-Blue) */
+    --ideasui-color-info: 0.66 0.18 215;
+    --ideasui-color-on-info: 0.12 0.04 215;
+    --ideasui-color-info-subtle: 0.2 0.055 215;
+    --ideasui-color-on-info-subtle: 0.88 0.08 215;
+    --ideasui-color-info-muted: 0.28 0.07 215;
+    --ideasui-color-on-info-muted: 0.82 0.12 215;
 
     /* ── Neutral (Dark Mode) ─────────────────────────────────── */
     --ideasui-color-neutral: 0.62 0.008 260;
@@ -381,14 +381,41 @@
   @apply disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50;
 }
 
-@utility scrollbar-none {
-  @apply [&::-webkit-scrollbar]:hidden;
-}
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 
-@utility scrollbar-default {
-  @apply [&::-webkit-scrollbar-thumb]:bg-border-subtle [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent;
-}
+  .scrollbar-default {
+    scrollbar-width: auto;
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+      height: 0.5rem;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: oklch(var(--ideasui-color-border-subtle));
+      border-radius: 9999px;
+    }
+  }
 
-@utility scrollbar-thin {
-  @apply [&::-webkit-scrollbar-thumb]:bg-border-subtle [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent;
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      width: 0.375rem;
+      height: 0.375rem;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: oklch(var(--ideasui-color-border-subtle));
+      border-radius: 9999px;
+    }
+  }
 }

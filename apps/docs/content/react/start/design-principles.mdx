@@ -1,9 +1,9 @@
 ---
 title: Design Principles
-description: Core architectural principles guiding IdeasUI design, accessibility, and monorepo engineering.
+description: Core principles guiding IdeasUI design, accessibility, composition, theming, and developer experience.
 ---
 
-IdeasUI follows core architectural principles designed to prioritize accessibility, visual excellence, composition, and developer experience.
+IdeasUI is designed around a few core principles that keep the library accessible, flexible, themeable, and easy to use as applications grow.
 
 ---
 
@@ -11,101 +11,204 @@ IdeasUI follows core architectural principles designed to prioritize accessibili
 
 ### 1. Semantic Intent Over Visual Description
 
-Props and variants communicate **purpose and hierarchy** rather than hardcoded visual styles.
+Props and variants should communicate **what an action means**, rather than describing how it should look.
 
 ```tsx
 import { Button } from '@ideasui/react';
 
-// ✅ Semantic props communicate intent clearly
+// Primary action
 <Button color="primary">Save Changes</Button>
+
+// Alternative action
 <Button variant="outline">Edit Details</Button>
-<Button color="danger" variant="subtle">Delete Account</Button>
+
+// Destructive action
+<Button color="danger">Delete Account</Button>
 ```
 
-| Variant / Color             | Purpose                             | Usage Guideline                |
-| --------------------------- | ----------------------------------- | ------------------------------ |
-| **`primary`**               | Main action to advance workflow     | Primary action per view        |
-| **`secondary` / `outline`** | Alternative actions                 | Multiple allowed per section   |
-| **`subtle` / `ghost`**      | Low-emphasis or dismissive actions  | Inline or tertiary controls    |
-| **`danger` / `error`**      | Destructive or irreversible actions | Used with confirmation prompts |
+Choose variants and colors based on the purpose of the action:
+
+| Variant / Color             | Purpose             | Typical Usage                           |
+| --------------------------- | ------------------- | --------------------------------------- |
+| **`primary`**               | Main action         | Primary action in a workflow            |
+| **`secondary` / `outline`** | Alternative action  | Supporting actions                      |
+| **`subtle` / `ghost`**      | Low-emphasis action | Secondary or inline controls            |
+| **`danger`**                | Destructive action  | Delete, remove, or irreversible actions |
+
+The goal is to make component usage understandable from the code itself.
 
 ---
 
-### 2. Accessibility as Foundation
+### 2. Accessibility as a Foundation
 
-IdeasUI components are built on top of **React Aria** primitives, guaranteeing WAI-ARIA standards and WCAG 2.1 AA compliance out of the box.
+IdeasUI uses **React Aria primitives** to provide accessible interaction patterns and behavior.
 
-- Automatic ARIA roles and state attributes (`data-hovered`, `data-pressed`, `data-focus-visible`).
-- Built-in keyboard navigation trap and focus management.
-- Screen reader announcements and high-contrast OKLCH color ratios.
+Components can expose interaction state through data attributes such as:
+
+- `data-hovered`
+- `data-pressed`
+- `data-focus-visible`
+- `data-disabled`
+- `data-selected`
+
+React Aria also provides behavior for keyboard interaction, focus management, and ARIA attributes where appropriate.
+
+Accessibility remains part of the component foundation rather than something that needs to be added separately by each application.
 
 ---
 
 ### 3. Composition Over Configuration
 
-Instead of monolithic components with dozens of rigid props, IdeasUI emphasizes compound components that can be reordered, omitted, or extended.
+IdeasUI favors composable components over large components with many configuration props.
+
+Components can be combined, reordered, or omitted depending on the application's needs.
 
 ```tsx
 import { Button, ButtonGroup } from '@ideasui/react';
 
-// Compose controls naturally
 <ButtonGroup className="gap-3">
   <Button color="primary">Confirm</Button>
   <Button variant="outline">Cancel</Button>
 </ButtonGroup>;
 ```
 
+This keeps components flexible while allowing applications to build their own higher-level UI patterns.
+
 ---
 
-### 4. Perceptual OKLCH Theme Engine
+### 4. Perceptual OKLCH Theme System
 
-Colors in IdeasUI are engineered using the **OKLCH perceptual color space**. Unlike traditional RGB or HSL, OKLCH guarantees consistent perceptual lightness across dark and light themes without muddy contrast.
+IdeasUI uses **OKLCH** for its color system.
+
+OKLCH provides a perceptual color model that makes it easier to create consistent color scales and theme variations.
 
 ```css
-/* Perceptual OKLCH CSS Custom Property */
 :root {
-  --ideasui-color-primary-500: 0.65 0.25 145;
+  --ideasui-color-primary: 0.54 0.22 272;
 }
 ```
+
+Semantic tokens then allow components and application UI to consume these colors without depending directly on individual color values.
+
+For example:
+
+```tsx
+<div className="bg-surface text-content-primary">Theme-aware content</div>
+```
+
+This allows the same UI to work across light and dark themes.
 
 ---
 
 ### 5. Type Safety & Developer Experience
 
-Every component export features full TypeScript definitions, strict prop typings, and IDE IntelliSense autocompletion for variants, colors, and event handlers.
+IdeasUI provides TypeScript types for component props and variants, giving developers autocomplete and compile-time feedback while building interfaces.
 
 ```tsx
-import type { ButtonProps } from '@ideasui/react';
+import { Button } from '@ideasui/react';
 
 <Button
-  color="primary" // Autocomplete: primary | secondary | success | warning | danger
-  size="md" // Type checked: sm | md | lg
-  onPress={(e) => {
-    // Typed PressEvent from React Aria
-    console.log(e.target);
+  color="primary"
+  size="md"
+  onPress={(event) => {
+    console.log(event);
   }}
-/>;
+>
+  Save
+</Button>;
+```
+
+Typed component APIs make variants, properties, and event handlers easier to discover directly from the editor.
+
+---
+
+### 6. Separation of Logic and Styling
+
+IdeasUI separates component behavior from its styling and theme system.
+
+- **`@ideasui/react`** — React components and interaction logic.
+- **`@ideasui/theme`** — Design tokens, theme configuration, recipes, and Tailwind CSS integration.
+- **`@ideasui/styles`** — Pre-compiled CSS for projects that do not use Tailwind CSS.
+
+This allows applications to choose the styling approach that best fits their architecture.
+
+```text
+@ideasui/react
+      │
+      ├── Component behavior
+      │
+      ├── @ideasui/theme
+      │      ├── Design tokens
+      │      ├── Theme system
+      │      └── Recipes
+      │
+      └── @ideasui/styles
+             └── Pre-compiled CSS
 ```
 
 ---
 
-### 6. Separation of Styles and Logic
+### 7. Modular Package Architecture
 
-IdeasUI separates structural component logic (`@ideasui/react`) from theme recipes (`@ideasui/theme`) and pre-compiled distribution stylesheets (`@ideasui/styles`).
+IdeasUI is structured as a modular monorepo.
 
-- **Want Tailwind CSS v4?** Use `@ideasui/react` + `@ideasui/theme`.
-- **No Tailwind CSS?** Use `@ideasui/styles` standalone CSS.
+Applications can use the unified package:
+
+```tsx
+import { Button } from '@ideasui/react';
+```
+
+Or use standalone component packages when a more granular dependency structure is preferred:
+
+```tsx
+import { Button } from '@ideasui/button';
+```
+
+This package architecture keeps the library flexible as the component collection grows.
 
 ---
 
-### 7. Modular & Tree-Shakeable Monorepo
+### 8. Consistent Customization
 
-Install the unified `@ideasui/react` package or individual single-component packages (such as `@ideasui/button`) to keep bundle footprints minimal.
+IdeasUI provides multiple levels of customization without requiring applications to replace the underlying components.
+
+Start with component props:
+
+```tsx
+<Button color="primary" variant="outline">
+  Save
+</Button>
+```
+
+Add local customization with `className`:
+
+```tsx
+<Button className="rounded-xl px-6">Save</Button>
+```
+
+For reusable application-specific styles, extend the component recipe with `tv()`:
+
+```tsx
+const customButton = tv({
+  extend: button,
+  variants: {
+    intent: {
+      custom: {
+        base: 'rounded-2xl',
+      },
+    },
+  },
+});
+```
+
+This provides a progression from simple customization to reusable design patterns.
 
 ---
 
 ## Next Steps
 
-- Explore **[Quick Start](/react/docs/start/quick-start)** for setup instructions.
-- Explore **[Theming](/react/docs/start/theming)** for custom OKLCH color configurations.
-- Browse **[Components](/react/docs/components/button)** to explore component APIs.
+- **[Quick Start](/react/docs/start/quick-start)**: Set up IdeasUI in your application.
+- **[Theming](/react/docs/start/theming)**: Configure themes and OKLCH design tokens.
+- **[Dark Mode](/react/docs/start/dark-mode)**: Add light and dark theme switching.
+- **[Styling](/react/docs/start/styling)**: Customize components and extend recipes.
+- **[Components](/react/docs/components/button)**: Explore component APIs and examples.

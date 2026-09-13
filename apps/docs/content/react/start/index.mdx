@@ -1,28 +1,37 @@
 ---
 title: Introduction
-description: Discover IdeasUI, a modern React component library built with Tailwind CSS v4, React Aria, and OKLCH color engine.
+description: IdeasUI is a React component library built with Tailwind CSS v4, React Aria primitives, and OKLCH design tokens.
 ---
 
-Welcome to **IdeasUI**, an executive, accessible, and high-performance component library for React applications.
+**IdeasUI** is a React component library built with Tailwind CSS v4, React Aria primitives, and OKLCH design tokens.
 
-Built on top of **Tailwind CSS v4**, **OKLCH color space**, and **React Aria** primitives, IdeasUI gives developers production-ready UI components with total control over styling, accessibility, and performance.
+It combines three core technologies:
+
+- **Tailwind CSS v4** for flexible, utility-first styling.
+- **React Aria primitives** for accessible interactions and keyboard navigation.
+- **OKLCH design tokens** for consistent colors across light and dark themes.
+
+Whether you're building an internal tool, a SaaS application, or a design system, IdeasUI provides components that are easy to customize and extend.
 
 ---
 
 ## Core Philosophy
 
-- **Accessible by Default**: Powered by WAI-ARIA standards and React Aria hooks, every component provides full keyboard navigation, screen reader support, and robust focus traps.
-- **Tailwind CSS v4 Engine**: Built natively for Tailwind CSS v4 using CSS variables and modern perceptual color spaces (OKLCH) for seamless dark mode contrast.
-- **Tree-Shakeable & Modular**: Install the full library `@ideasui/react` or single standalone packages like `@ideasui/button` to keep bundle sizes lean.
-- **Headless & Flexible**: Styled with Tailwind Variants (`tv()`) so you can customize recipes, variants, and slots without fighting library opinion.
+- **Accessible by Default**: Powered by React Aria primitives for keyboard navigation, focus management, and screen reader support out of the box.
+- **Tailwind v4 Native**: Integrates with Tailwind CSS v4 using CSS variables and OKLCH design tokens for light and dark theme switching.
+- **Modular & Tree-Shakeable**: Use the complete `@ideasui/react` package or install standalone packages like `@ideasui/button` when you only need specific components.
+- **Easy to Customize**: Uses Tailwind Variants (`tv()`), allowing you to adapt component recipes, slots, and variants without fighting default styles.
 
 ---
 
-## Architecture Overview
+## Package Architecture
 
-IdeasUI is organized into a modular monorepo structure:
+IdeasUI is structured as a modular monorepo:
 
-- **`@ideasui/react`**: Combined entrypoint exporting all ready-to-use components.
-- **`@ideasui/theme`**: Perceptual OKLCH design token engine, style recipes, and Tailwind v4 theme CSS.
-- **`@ideasui/utils`**: Class merge helpers (`cn`) and internal utilities.
-- **`@ideasui/[component]`**: Standalone component packages (e.g. `@ideasui/button`).
+- **`@ideasui/react`**: Main package providing access to all components.
+- **`@ideasui/theme`**: OKLCH design tokens, color system, style recipes, and Tailwind v4 theme CSS.
+- **`@ideasui/styles`**: Pre-compiled stylesheets for projects that do not use Tailwind CSS.
+- **`@ideasui/utils`**: Shared helpers, including class merging (`cn`) and DOM utilities.
+- **`@ideasui/*`**: Standalone component packages for individual components.
+
+Individual component packages are also available when you only need specific components.

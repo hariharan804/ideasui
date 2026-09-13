@@ -50,6 +50,7 @@ export default defineConfig({
         '**/node_modules/**',
         '**/dist/**',
         '**/__tests__/**',
+        '**/stories/**',
         '**/*.stories.{ts,tsx}',
         '**/tsup.config.ts',
         '**/*.d.ts',

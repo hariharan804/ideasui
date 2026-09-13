@@ -113,7 +113,7 @@ export function LandingNavbar() {
           {/* Desktop Controls */}
           <div className="ml-2 flex items-center gap-2 max-md:hidden">
             <div className="opacity-80 transition-opacity hover:opacity-100">
-              <GitHubButton repo="hariharan804/ideasui" />
+              <GitHubButton repo="ideas2logic-lab/ideasui" />
             </div>
             <NavbarPill className="px-1 opacity-80 transition-opacity hover:opacity-100">
               <ThemeToggle mode="light-dark-system" />
@@ -130,7 +130,7 @@ export function LandingNavbar() {
           {/* Mobile Controls */}
           <div className="flex items-center gap-1.5 md:hidden">
             <div className="xs:block hidden">
-              <GitHubButton repo="hariharan804/ideasui" />
+              <GitHubButton repo="ideas2logic-lab/ideasui" />
             </div>
 
             <NavbarPill className="px-1">

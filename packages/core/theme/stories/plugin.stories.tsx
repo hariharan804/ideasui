@@ -18,6 +18,7 @@ const COPY_FEEDBACK_DELAY = 1500;
 const colorClasses: Record<string, { subtle: string; onSubtle: string }> = {
   primary: { subtle: 'bg-primary-subtle', onSubtle: 'text-on-primary-subtle' },
   secondary: { subtle: 'bg-secondary-subtle', onSubtle: 'text-on-secondary-subtle' },
+  tertiary: { subtle: 'bg-tertiary-subtle', onSubtle: 'text-on-tertiary-subtle' },
   success: { subtle: 'bg-success-subtle', onSubtle: 'text-on-success-subtle' },
   danger: { subtle: 'bg-danger-subtle', onSubtle: 'text-on-danger-subtle' },
   warning: { subtle: 'bg-warning-subtle', onSubtle: 'text-on-warning-subtle' },
@@ -34,18 +35,18 @@ const CodeBlock = ({ title, code }: { title: string; code: string }): ReactEleme
   };
 
   return (
-    <div className="border-surface-border bg-surface-surface overflow-hidden rounded-2xl border shadow-sm">
-      <div className="border-surface-border bg-surface-sunken/40 flex items-center justify-between border-b px-5 py-3">
+    <div className="border-border-subtle bg-surface overflow-hidden rounded-2xl border shadow-xs">
+      <div className="border-border-subtle bg-surface-subtle flex items-center justify-between border-b px-5 py-3">
         <h3 className="text-content-primary text-sm font-semibold">{title}</h3>
         <button
-          className="border-surface-border bg-surface-surface hover:bg-surface-sunken text-content-secondary hover:text-content-primary rounded-lg border px-3 py-1.5 text-xs font-medium transition-all"
+          className="border-border-subtle bg-surface text-content-secondary hover:bg-surface-muted hover:text-content-primary rounded-lg border px-3 py-1.5 text-xs font-medium transition-all"
           type="button"
           onClick={handleCopy}
         >
           {copied ? '✓ Copied' : 'Copy'}
         </button>
       </div>
-      <pre className="overflow-x-auto bg-neutral-950 p-5 font-mono text-sm leading-relaxed text-neutral-100">
+      <pre className="bg-surface-inverse text-content-inverse overflow-x-auto p-5 font-mono text-sm leading-relaxed">
         <code>{code}</code>
       </pre>
     </div>
@@ -61,7 +62,7 @@ const FeatureCard = ({
   title: string;
   description: string;
 }): ReactElement => (
-  <div className="group border-surface-border bg-surface-surface hover:border-surface- border-border-strong overflow-hidden rounded-2xl border p-6 transition-all duration-200 hover:shadow-lg">
+  <div className="group border-border-subtle bg-surface hover:border-border-strong overflow-hidden rounded-2xl border p-6 transition-all duration-200 hover:shadow-lg">
     <div className="mb-4 text-3xl">{icon}</div>
     <h3 className="text-content-primary mb-2 text-lg font-bold">{title}</h3>
     <p className="text-content-secondary text-sm leading-relaxed">{description}</p>
@@ -85,7 +86,7 @@ export const SetupOptions: Story = {
         <CodeBlock
           code={`/* globals.css */
 @import 'tailwindcss';
-@import '@ideasui/theme/theme.css';`}
+@import '@ideasui/theme/index.css';`}
           title="Option 1 — CSS Import (Recommended)"
         />
 
@@ -196,7 +197,7 @@ export default ideasUIPlugin({
 </div>
 
 <!-- Built-in Dark theme -->
-<div class="dark bg-surface text-content-primary">
+<div class="bg-surface text-content-primary">
   Dark theme card
 </div>
 
@@ -222,20 +223,20 @@ export const ThemeExamples: Story = {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        {/* Light Theme */}
-        <div className="bg-background overflow-hidden rounded-2xl border border-neutral-100">
-          <div className="bg-background border-b border-neutral-100 px-6 py-4">
-            <h3 className="text-content-primary text-lg font-bold">Light Theme</h3>
+        {/* Surface Card Example 1 */}
+        <div className="border-border-subtle bg-surface overflow-hidden rounded-2xl border">
+          <div className="border-border-subtle bg-surface-subtle border-b px-6 py-4">
+            <h3 className="text-content-primary text-lg font-bold">Light & System Theme Surface</h3>
             <p className="text-content-tertiary mt-1 text-sm">Default semantic color mapping</p>
           </div>
           <div className="grid grid-cols-1 gap-3 p-5">
             {Object.keys(colorClasses).map((color) => (
               <div
                 key={color}
-                className="bg-surface flex items-center gap-4 rounded-xl border border-neutral-100 p-4 transition-all hover:shadow-md"
+                className="border-border-subtle bg-surface flex items-center gap-4 rounded-xl border p-4 transition-all hover:shadow-md"
               >
                 <div
-                  className={`${colorClasses[color].subtle} ${colorClasses[color].onSubtle} flex size-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-sm`}
+                  className={`${colorClasses[color].subtle} ${colorClasses[color].onSubtle} flex size-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-xs`}
                 >
                   Aa
                 </div>
@@ -244,8 +245,12 @@ export const ThemeExamples: Story = {
                     {color}
                   </div>
                   <div className="text-content-tertiary mt-0.5 flex gap-2 text-xs">
-                    <span className="bg-surface-sunken rounded px-1">bg-{color}-solid</span>
-                    <span className="bg-surface-sunken rounded px-1">text-{color}-on-surface</span>
+                    <span className="bg-surface-muted rounded px-1.5 py-0.5 font-mono">
+                      bg-{color}-subtle
+                    </span>
+                    <span className="bg-surface-muted rounded px-1.5 py-0.5 font-mono">
+                      text-on-{color}-subtle
+                    </span>
                   </div>
                 </div>
               </div>
@@ -253,28 +258,34 @@ export const ThemeExamples: Story = {
           </div>
         </div>
 
-        {/* Dark Theme */}
-        <div className="dark border-surface-border bg-background overflow-hidden rounded-2xl border">
-          <div className="border-b border-white/10 px-6 py-4">
-            <h3 className="text-lg font-bold text-white">Dark Theme</h3>
-            <p className="mt-1 text-sm text-neutral-800">Optimized for dark mode</p>
+        {/* Surface Card Example 2 */}
+        <div className="border-border-subtle bg-surface-muted overflow-hidden rounded-2xl border">
+          <div className="border-border-subtle bg-surface border-b px-6 py-4">
+            <h3 className="text-content-primary text-lg font-bold">Muted Theme Surface</h3>
+            <p className="text-content-tertiary mt-1 text-sm">Subtle background token hierarchy</p>
           </div>
           <div className="grid grid-cols-1 gap-3 p-5">
             {Object.keys(colorClasses).map((color) => (
               <div
                 key={color}
-                className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 transition-all hover:bg-white/10"
+                className="border-border-subtle bg-surface flex items-center gap-4 rounded-xl border p-4 transition-all hover:shadow-md"
               >
                 <div
-                  className={`${colorClasses[color].subtle} ${colorClasses[color].onSubtle} flex size-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-sm`}
+                  className={`${colorClasses[color].subtle} ${colorClasses[color].onSubtle} flex size-12 shrink-0 items-center justify-center rounded-xl text-center font-bold capitalize shadow-xs`}
                 >
                   Aa
                 </div>
                 <div className="flex-1">
-                  <div className="text-sm font-semibold text-white capitalize">{color}</div>
-                  <div className="mt-0.5 flex gap-2 text-xs text-neutral-400">
-                    <span className="rounded bg-white/10 px-1">bg-{color}-solid</span>
-                    <span className="rounded bg-white/10 px-1">text-{color}-on-surface</span>
+                  <div className="text-content-primary text-sm font-semibold capitalize">
+                    {color}
+                  </div>
+                  <div className="text-content-tertiary mt-0.5 flex gap-2 text-xs">
+                    <span className="bg-surface-subtle rounded px-1.5 py-0.5 font-mono">
+                      bg-{color}-subtle
+                    </span>
+                    <span className="bg-surface-subtle rounded px-1.5 py-0.5 font-mono">
+                      text-{color}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -318,7 +329,7 @@ export const Features: Story = {
           title="Highly Customizable"
         />
         <FeatureCard
-          description="Ensures legible text against backgrounds automatically via 'on-surface' / 'on-background' mapped contrast pairs"
+          description="Ensures legible text against backgrounds automatically via mapped contrast pairs"
           icon="♿"
           title="Accessible Constructs"
         />

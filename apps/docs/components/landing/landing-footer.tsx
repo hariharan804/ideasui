@@ -15,12 +15,12 @@ const NAV_LINKS: NavLink[] = [
   { label: 'Changelog', href: '/react/docs/changelog' },
   {
     label: 'GitHub',
-    href: 'https://github.com/hariharan804/ideasui',
+    href: 'https://github.com/ideas2logic-lab/ideasui',
     isExternal: true,
   },
   {
     label: 'License',
-    href: 'https://github.com/hariharan804/ideasui/blob/main/LICENSE',
+    href: 'https://github.com/ideas2logic-lab/ideasui/blob/main/LICENSE',
     isExternal: true,
   },
 ];

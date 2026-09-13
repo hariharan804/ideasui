@@ -1,13 +1,38 @@
 ---
 title: Button Group
-description: Group multiple buttons together in a horizontal or vertical layout.
+description: Group multiple buttons together in a horizontal or vertical layout with attached or detached styling.
 links:
   npm: true
   rac: https://react-spectrum.adobe.com/react-aria/Button.html
-  source: button/src/button.tsx
+  source: button/src/button-group.tsx
   recipe: core/theme/src/recipes/button.ts
-  storybook: Components/Button
+  storybook: Components/ButtonGroup
 ---
+
+<QuickNav
+  items={[
+    {
+      title: 'Basic Usage',
+      description: 'Implementation and group layout options.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'Composition',
+      description: 'Compound component API and toolbar arrangements.',
+      href: '#composition',
+    },
+    {
+      title: 'Standalone CSS',
+      description: 'Use Button Group without Tailwind CSS.',
+      href: '#standalone-css',
+    },
+    {
+      title: 'API Reference',
+      description: 'Complete Button Group props and configuration details.',
+      href: '#api-reference',
+    },
+  ]}
+/>
 
 ## Installation
 
@@ -21,121 +46,124 @@ import { Button, ButtonGroup } from '@ideasui/react';
 import { ButtonGroup } from '@ideasui/button';
 ```
 
-### Usage
+## Basic Usage
 
 <Preview name="button-group-basic" />
 
-### Anatomy
-
-Import the `Button.Group` (or `ButtonGroup`) component and access all parts using dot notation or directly.
-
-```tsx
-import { Button } from '@ideasui/react';
-
-export default () => (
-  <Button.Group>
-    <Button>First</Button>
-    <Button>Second</Button>
-    <Button>Third</Button>
-  </Button.Group>
-);
-```
-
-> **Button.Group** wraps multiple Button components together, applying consistent styling, spacing, and automatic border radius handling. It uses React Context to pass `size`, `variant`, `color`, `isIconOnly`, and `isDisabled` props to all child buttons automatically without requiring manual separators.
-
 ### Variants
 
-Just like individual buttons, groups support different variants. Note how the borders seamlessly integrate!
+Just like individual buttons, Button Group supports all visual variants, including solid, outline, ghost, soft, link, text, elevated, and surface. Borders and corner radiuses seamlessly integrate between adjacent buttons.
 
 <Preview name="button-group-variants" />
 
 ### Sizes
 
-Apply a size to the group to uniformly scale all buttons inside it.
+Apply a `size` prop to the group to uniformly scale all buttons inside it (`xs`, `sm`, `md`, `lg`, `xl`).
 
 <Preview name="button-group-sizes" />
 
 ### Orientation
 
-Use the `isVertical` prop to arrange buttons vertically instead of horizontally. Perfect for sidebars and menus.
+Use `isVertical` to stack buttons vertically instead of horizontally. Perfect for sidebars, action panels, and vertical toolbars.
 
 <Preview name="button-group-vertical" />
 
 ### With Icons
 
-Combine text and icons for more descriptive actions.
+Combine text and icons inside group items for descriptive actions.
 
 <Preview name="button-group-with-icons" />
 
 ### Full Width
 
-Make the button group stretch to fill its container by passing `fullWidth`.
+Use `fullWidth` when the button group should stretch to fill its container width.
 
 <Preview name="button-group-full-width" />
 
 ### Disabled State
 
-Disable the entire group at once, or disable individual buttons within it.
+Disable all buttons within the group simultaneously by passing `isDisabled` to `ButtonGroup`, or disable specific individual buttons.
 
 <Preview name="button-group-disabled" />
 
 ### Dividers
 
-Choose how dividers are rendered between attached buttons. The `divider` prop accepts `'full'`, `'middle'` (centered inset), or `'none'`.
+Configure dividers between attached buttons using the `divider` prop (`'full'`, `'middle'`, or `'none'`).
 
 <Preview name="button-group-dividers" />
 
-### Without Separator (Detached)
+### Detached Mode
 
-Simply pass `isAttached={false}` to remove the attached borders and spacing, creating a grouped layout with standard gaps.
+Pass `isAttached={false}` to remove attached borders and clipping, creating a grouped layout with standard spacing gaps.
 
 <Preview name="button-group-detached" />
 
-### Complex Scenarios
+## Composition
 
-Mix and match components, icons, and static labels to build complex toolbars.
-
-<Preview name="button-group-complex" />
-
-<Related component="button" />
-
-<RelatedShowcases component="ButtonGroup" />
-
-## Styling
-
-### CSS Classes
-
-The Button Group component uses these core data attributes and states for flexibility:
-
-- `[data-slot="button-group"]` - Base button group container
-- `[data-attached="true"]` - When buttons are attached seamlessly
-- `[data-vertical="true"]` - When buttons are stacked vertically
-
-The Button Group component automatically applies border radius to buttons via CSS adjacent sibling selectors. No manual separator elements are required!
-
-### Passing Tailwind CSS classes
+Button Group supports compound component dot-notation (`Button.Group`) to keep component imports clean:
 
 ```tsx
 import { Button } from '@ideasui/react';
 
-function CustomButtonGroup() {
+export function ToolbarExample() {
   return (
-    <Button.Group className="gap-4 shadow-xl">
-      <Button>First</Button>
-      <Button>Second</Button>
-      <Button>Third</Button>
+    <Button.Group size="sm" variant="outline">
+      <Button>Cut</Button>
+      <Button>Copy</Button>
+      <Button>Paste</Button>
     </Button.Group>
   );
 }
 ```
 
+### Complex Toolbars
+
+Mix and match icons, shortcuts, and static labels to build application toolbars.
+
+<Preview name="button-group-complex" />
+
+## Standalone CSS
+
+Button Group can also be used in projects that do not use Tailwind CSS.
+
+Install the standalone styles package:
+
+```bash
+npm install @ideasui/styles
+```
+
+Import base styles and component CSS:
+
+```tsx
+import '@ideasui/styles/base.css';
+import '@ideasui/styles/components/button.css';
+```
+
+### Custom Styling
+
+Pass custom classes to the group container using `className`:
+
+```tsx
+<ButtonGroup className="gap-2 shadow-lg">
+  <Button>First</Button>
+  <Button>Second</Button>
+</ButtonGroup>
+```
+
+### CSS Attributes & Selectors
+
+The Button Group component uses DOM data attributes to manage structural layout and attached borders via CSS:
+
+- `[data-slot="button-group"]` — Base container selector.
+- `[data-attached="true"]` — Active when buttons are attached seamlessly.
+- `[data-vertical="true"]` — Active when orientation is vertical.
+
+Adjacent sibling selectors automatically handle border radius clipping between connected buttons without requiring manual divider elements.
+
 ## API Reference
 
 <APIReferenceViewer componentName="buttonGroup" />
 
-### Notes
+<Related component="button" />
 
-- Button Group uses React Context to pass `size`, `variant`, `color`, `isIconOnly`, and `isDisabled` props to all child Button components.
-- **Only direct child buttons receive the Button Group props** - Buttons nested inside other components will not inherit the group's props even if they are descendants of the Button.Group.
-- Individual Button components can override the group's properties (like `isDisabled={false}`) if explicitly provided.
-- The component automatically handles border radiuses between buttons via CSS. No extra separator components are needed.
+<RelatedShowcases component="ButtonGroup" />

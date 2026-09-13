@@ -1,12 +1,12 @@
-import { scan } from 'react-scan';
+// import { scan } from 'react-scan';
 
-if (typeof window !== 'undefined') {
-  scan({
-    enabled: true,
-    showToolbar: true,
-    log: false,
-  });
-}
+// if (typeof window !== 'undefined') {
+//   scan({
+//     enabled: true,
+//     showToolbar: true,
+//     log: false,
+//   });
+// }
 
 import type { Preview } from '@storybook/react-vite';
 import '@fontsource/inter/400.css';
@@ -15,7 +15,6 @@ import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 
 import './globals.css';
-import { themes } from './styles/theme';
 
 // Import Addon Global Types
 import { i18nGlobalType } from './addons/localization-extension/preview';
@@ -56,7 +55,7 @@ const parameters: Preview['parameters'] = {
   },
 
   docs: {
-    theme: themes.light,
+    // theme: "light",
   },
 
   a11y: {

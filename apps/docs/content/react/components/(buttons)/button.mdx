@@ -1,6 +1,6 @@
 ---
 title: Button
-description: A versatile button component with multiple variants, sizes, and states.
+description: A versatile button component with multiple variants, sizes, colors, and states.
 links:
   npm: true
   rac: https://react-spectrum.adobe.com/react-aria/Button.html
@@ -23,7 +23,7 @@ links:
     },
     {
       title: 'Standalone CSS',
-      description: 'Use the component library without Tailwind CSS.',
+      description: 'Use Button without Tailwind CSS.',
       href: '#standalone-css',
     },
     {
@@ -52,86 +52,222 @@ import { Button } from '@ideasui/button';
 
 ### Variants
 
-IdeasUI buttons support multiple variants including solid, outline, ghost, soft, text, elevated, and surface.
+IdeasUI buttons support multiple visual variants for different levels of emphasis, including solid, outline, ghost, soft, link, text, elevated, and surface.
 
 <Preview name="button-variants" />
 
+Available variants include:
+
+- **Solid** — High-emphasis actions.
+- **Outline** — Secondary or alternative actions.
+- **Ghost** — Low-emphasis actions.
+- **Soft** — Subtle emphasis using a semantic color.
+- **Link** — Navigation or link-styled actions.
+- **Text** — Minimal button treatment.
+- **Elevated** — Emphasized actions with elevation.
+- **Surface** — Actions that visually integrate with the surrounding surface.
+
 ### Colors
 
-Semantic color themes let you quickly adapt the button for different contexts (e.g. primary, success, error, warning).
+Button colors use semantic tokens so the same component can adapt to the active theme.
 
 <Preview name="button-colors" />
 
+Common semantic colors include:
+
+- **`primary`** — Main application action.
+- **`secondary`** — Supporting action.
+- **`success`** — Positive or completion actions.
+- **`warning`** — Cautionary actions.
+- **`danger`** — Destructive or irreversible actions.
+- **`info`** — Informational actions.
+
+For example:
+
+```tsx
+<Button color="primary">Save Changes</Button>
+<Button color="success">Approve</Button>
+<Button color="warning">Review</Button>
+<Button color="danger">Delete</Button>
+```
+
 ### With Icons
 
-You can use the `startIcon` or `endIcon` props, or use the `Button.Icon` compound component for ultimate control over placement and styling.
+Use `startIcon` and `endIcon` for common icon placement, or use the compound `Button.Icon` component for more control.
 
 <Preview name="button-with-icons" />
 
 ### Icon Only
 
+Use an icon-only button when the action can be communicated clearly by its icon.
+
 <Preview name="button-icon-only" />
 
 ### Loading
 
-Control the loading indicator with `isLoading`, `loadingPosition`, and custom `loadingIndicator` elements.
+Use `isLoading` to indicate that an action is currently being processed. When `isLoading` is active, pointer events are automatically suspended and `aria-busy="true"` is applied.
 
 <Preview name="button-loading" />
+
+#### Loading Positions (loadingPosition)
+
+The loading indicator can be positioned at `'start'` (default), `'end'`, or `'center'`:
+
+```tsx
+{
+  /* Default start position */
+}
+<Button isLoading loadingPosition="start">
+  Saving...
+</Button>;
+
+{
+  /* End position */
+}
+<Button isLoading loadingPosition="end">
+  Processing...
+</Button>;
+
+{
+  /* Center position (replaces text content) */
+}
+<Button isLoading loadingPosition="center">
+  Submitting
+</Button>;
+```
+
+#### Custom Loading Indicator (loadingIndicator)
+
+Customize the spinner icon or pass custom elements using `loadingIndicator`:
+
+```tsx
+<Button isLoading loadingIndicator={<CustomSpinner className="animate-pulse" />}>
+  Syncing Data
+</Button>
+```
+
+#### Dynamic State Handling
+
 <Preview name="button-loading-state" />
 
 ### Sizes & Radius
+
+Buttons support multiple sizes and configurable corner radius options.
 
 <Preview name="button-sizes" />
 
 ### Full Width
 
+Use the full-width option when the button should fill its available container width.
+
 <Preview name="button-full-width" />
 
 ### Disabled State
+
+Use the disabled state when an action is temporarily unavailable.
 
 <Preview name="button-disabled" />
 
 ## Composition
 
-The Button component uses compound components for maximum flexibility:
+The Button component supports compound components for more flexible composition:
 
-- `Button.Label` - The text content of the button.
-- `Button.Icon` - For adding icons, with a `placement` prop.
-- `Button.Spinner` - Customizable loading indicator.
-- `Button.Shortcut` - Display keyboard shortcuts.
+- `Button.Label` — Text content of the button.
+- `Button.Icon` — Icon content with configurable placement.
+- `Button.Spinner` — Customizable loading indicator.
+- `Button.Shortcut` — Displays a keyboard shortcut.
 
 ```tsx
 <Button>
   <Button.Icon placement="start">
     <Search />
   </Button.Icon>
+
   <Button.Label>Search</Button.Label>
+
   <Button.Shortcut>⌘K</Button.Shortcut>
 </Button>
 ```
 
+Compound components allow individual parts of the Button to be customized or omitted without introducing additional configuration props.
+
 ## Standalone CSS
 
-### CSS Classes
+Button can also be used in projects that do not use Tailwind CSS.
 
-The Button component uses granular class names and the BEM methodology for slots:
+Install the standalone styles package:
 
-- `base` - Base button container
-- `label` - Text label slot
-- `startIcon` - Leading icon slot
-- `endIcon` - Trailing icon slot
-- `spinner` - Loading spinner slot
-- `shortcut` - Keyboard shortcut slot
+```bash
+npm install @ideasui/styles
+```
+
+Import the base styles and Button styles:
+
+```tsx
+import '@ideasui/styles/base.css';
+import '@ideasui/styles/components/button.css';
+```
+
+The Button component can then be used normally:
+
+```tsx
+import { Button } from '@ideasui/react';
+
+export default function Example() {
+  return <Button color="primary">Save</Button>;
+}
+```
+
+### Slot Customization
+
+Pass custom classes to specific sub-elements using the `classNames` prop (`ButtonClassNames`):
+
+- `base` — Custom class for the root button container.
+- `label` — Custom class for the button text label.
+- `startIcon` — Custom class for the leading icon container.
+- `endIcon` — Custom class for the trailing icon container.
+- `spinner` — Custom class for the loading spinner.
+- `shortcut` — Custom class for the keyboard shortcut element.
+
+```tsx
+<Button
+  classNames={{
+    base: 'shadow-md',
+    label: 'font-semibold',
+    startIcon: 'text-primary',
+  }}
+>
+  Custom Styled Button
+</Button>
+```
+
+### BEM CSS Classes
+
+The Button component exposes BEM class names and granular slot class names:
+
+- **Block:** `.btn` (`base` slot) — Main button container.
+- **Elements:**
+  - `.btn__label` (`label` slot) — Text label slot.
+  - `.btn__icon` (`startIcon` / `endIcon` slot) — Icon container slot.
+  - `.btn__loader` (`spinner` slot) — Loading indicator slot.
+  - `.btn__shortcut` (`shortcut` slot) — Keyboard shortcut slot.
+- **BEM Modifiers:**
+  - **Variants:** `.btn--solid`, `.btn--outline`, `.btn--ghost`, `.btn--soft`, `.btn--link`, `.btn--text`, `.btn--elevated`, `.btn--surface`
+  - **Colors:** `.btn--primary`, `.btn--secondary`, `.btn--success`, `.btn--warning`, `.btn--danger`, `.btn--info`
+  - **Sizes:** `.btn--xs`, `.btn--sm`, `.btn--md`, `.btn--lg`, `.btn--xl`
+  - **States:** `.btn--disabled`, `.btn--loading`, `.btn--icon-only`, `.btn--full-width`
 
 ### Interactive States
 
-The button supports both CSS pseudo-classes and data attributes for flexibility:
+The Button supports standard CSS states and React Aria interaction state attributes.
 
-- **Hover**: `:hover` or `[data-hovered="true"]`
-- **Active/Pressed**: `:active` or `[data-pressed="true"]`
-- **Focus**: `:focus-visible` or `[data-focus-visible="true"]`
-- **Disabled**: `:disabled` or `[aria-disabled="true"]`
-- **Pending**: `[data-pending]` (no pointer events during loading)
+- **Hover:** `:hover` or `[data-hovered="true"]`
+- **Pressed:** `:active` or `[data-pressed="true"]`
+- **Focus:** `:focus-visible` or `[data-focus-visible="true"]`
+- **Disabled:** `:disabled` or `[aria-disabled="true"]`
+- **Pending:** `[data-pending]`
+
+These states can be used when extending or customizing Button styles.
 
 ## API Reference
 

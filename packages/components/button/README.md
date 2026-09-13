@@ -3,7 +3,7 @@
 A high-performance, accessible Button and ButtonGroup component library for React, built with **Tailwind CSS v4** and **React Aria**.
 
 [![NPM Version](https://img.shields.io/npm/v/@ideasui/button.svg)](https://www.npmjs.com/package/@ideasui/button)
-[![License](https://img.shields.io/npm/l/@ideasui/button.svg)](https://github.com/hariharan804/ideasui/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/@ideasui/button.svg)](https://github.com/ideas2logic-lab/ideasui/blob/master/LICENSE)
 
 ## Features
 

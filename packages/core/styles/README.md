@@ -3,7 +3,7 @@
 The CSS distribution package for **IdeasUI**. It provides pre-compiled CSS stylesheets for the design system and individual UI components, built with **Tailwind CSS v4** and `@ideasui/theme`.
 
 [![NPM Version](https://img.shields.io/npm/v/@ideasui/styles.svg)](https://www.npmjs.com/package/@ideasui/styles)
-[![License](https://img.shields.io/npm/l/@ideasui/styles.svg)](https://github.com/hariharan804/ideasui/blob/master/LICENSE)
+[![License](https://img.shields.io/npm/l/@ideasui/styles.svg)](https://github.com/ideas2logic-lab/ideasui/blob/master/LICENSE)
 
 ## Why `@ideasui/styles`?
 

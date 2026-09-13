@@ -59,9 +59,32 @@ const transitionDuration: Record<string, string> = {
 };
 const transitionTimingFunction: Record<string, string> = {
   standard: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  accelerate: 'cubic-bezier(0.4, 0, 1, 1)',
+  decelerate: 'cubic-bezier(0, 0, 0.2, 1)',
 };
-const keyframes: Record<string, Record<string, Record<string, string>>> = {};
-const transition: Record<string, string> = {};
+const keyframes: Record<string, Record<string, Record<string, string>>> = {
+  spin: {
+    from: { transform: 'rotate(0deg)' },
+    to: { transform: 'rotate(360deg)' },
+  },
+  fadeIn: {
+    from: { opacity: '0' },
+    to: { opacity: '1' },
+  },
+  slideIn: {
+    from: { transform: 'translateY(-8px)', opacity: '0' },
+    to: { transform: 'translateY(0)', opacity: '1' },
+  },
+};
+const transition: Record<string, string> = {
+  none: 'none',
+  all: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+  colors:
+    'color 200ms cubic-bezier(0.4, 0, 0.2, 1), background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), border-color 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+  opacity: 'opacity 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+  shadow: 'box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+  transform: 'transform 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+};
 const blur: Record<string, string> = { none: '0', sm: '4px', md: '8px', lg: '12px', xl: '16px' };
 const backdrop: Record<string, string> = { blur: 'blur(8px)' };
 const border: Record<string, string> = { thin: '1px', medium: '2px', thick: '4px' };
@@ -128,7 +151,7 @@ const TokenCard = ({
   value: string;
   preview?: ReactElement;
 }): ReactElement => (
-  <div className="bg-surface-DEFAULT flex items-center gap-4 rounded-xl border border-neutral-100 p-4 transition-all duration-200 hover:border-neutral-200 hover:shadow-md">
+  <div className="border-border-subtle bg-surface hover:border-border flex items-center gap-4 rounded-xl border p-4 transition-all duration-200 hover:shadow-md">
     {preview ? <div className="shrink-0">{preview}</div> : null}
     <div className="min-w-0 flex-1">
       <div className="text-content-primary text-sm font-semibold">{name}</div>
@@ -146,8 +169,8 @@ const TokenGroup = ({
   tokens: Record<string, unknown>;
   renderPreview?: (value: string, key: string) => ReactElement;
 }): ReactElement => (
-  <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
-    <div className="border-b border-neutral-100 px-5 py-4">
+  <div className="border-border-subtle bg-surface-subtle inline-block h-fit w-full break-inside-avoid overflow-hidden rounded-2xl border">
+    <div className="border-border-subtle border-b px-5 py-4">
       <h3 className="text-content-primary text-lg font-bold">{title}</h3>
     </div>
     <div className="grid grid-cols-1 gap-2 p-4">
@@ -182,15 +205,15 @@ export const Spacing: Story = {
         <h2 className="text-content-primary text-3xl font-bold tracking-tight">Spacing Tokens</h2>
         <p className="text-content-secondary mt-2 text-lg">Consistent spacing scale for layouts</p>
       </div>
-      <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
-        <div className="border-b border-neutral-100 px-5 py-4">
+      <div className="border-border-subtle bg-surface-subtle overflow-hidden rounded-2xl border">
+        <div className="border-border-subtle border-b px-5 py-4">
           <h3 className="text-content-primary text-lg font-bold">Scale</h3>
         </div>
         <div className="space-y-3 p-5">
           {Object.entries(systemTokens.spacing).map(([key, value]) => (
             <div
               key={key}
-              className="bg-surface-DEFAULT flex items-center gap-4 rounded-xl border border-neutral-100 p-4"
+              className="border-border-subtle bg-surface flex items-center gap-4 rounded-xl border p-4"
             >
               <div className="text-content-primary w-16 font-mono text-sm font-semibold">{key}</div>
               <div className="text-content-tertiary w-20 font-mono text-xs">{value}</div>
@@ -214,15 +237,15 @@ export const BorderRadius: Story = {
         </h2>
         <p className="text-content-secondary mt-2 text-lg">Consistent border radius scale</p>
       </div>
-      <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
-        <div className="border-b border-neutral-100 px-5 py-4">
+      <div className="border-border-subtle bg-surface-subtle overflow-hidden rounded-2xl border">
+        <div className="border-border-subtle border-b px-5 py-4">
           <h3 className="text-content-primary text-lg font-bold">Scale</h3>
         </div>
         <div className="grid grid-cols-2 gap-6 p-6 md:grid-cols-4">
           {Object.entries(systemTokens.borderRadius).map(([key, value]) => (
             <div key={key} className="text-center">
               <div
-                className="border-primary-200 mx-auto mb-3 flex h-20 w-20 items-center justify-center border bg-blue-50"
+                className="border-primary/30 bg-primary-subtle mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-xl border"
                 style={{ borderRadius: value }}
               >
                 <div className="bg-primary h-full w-full" style={{ borderRadius: value }} />
@@ -247,25 +270,22 @@ export const Borders: Story = {
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
-          <div className="border-b border-neutral-100 px-5 py-4">
+      <div className="grid items-start gap-6 lg:grid-cols-2">
+        <div className="border-border-subtle bg-surface-subtle overflow-hidden rounded-2xl border">
+          <div className="border-border-subtle border-b px-5 py-4">
             <h3 className="text-content-primary text-lg font-bold">Border Width Scale</h3>
           </div>
           <div className="space-y-4 p-5">
             {Object.entries(systemTokens.border).map(([key, value]) => (
               <div
                 key={key}
-                className="bg-surface-DEFAULT flex items-center gap-6 rounded-xl border border-neutral-200 p-5"
+                className="border-border-subtle bg-surface flex items-center gap-6 rounded-xl border p-5"
               >
                 <div className="text-content-primary w-20 font-mono text-sm font-semibold">
                   {key}
                 </div>
                 <div className="flex-1">
-                  <div
-                    className="w-full bg-neutral-200"
-                    style={{ height: value, backgroundColor: 'var(--ideasui-color-neutral-300)' }}
-                  />
+                  <div className="bg-border-strong w-full" style={{ height: value }} />
                 </div>
                 <div className="text-content-tertiary w-16 text-right font-mono text-xs">
                   {value}
@@ -277,12 +297,18 @@ export const Borders: Story = {
 
         <div className="space-y-6">
           <TokenGroup
-            renderPreview={(value) => (
-              <div
-                className="bg-surface-DEFAULT size-8 rounded shadow-sm"
-                style={{ border: `2px solid ${value}` }}
-              />
-            )}
+            renderPreview={(value) => {
+              const colorValue = value.startsWith('var(') ? `oklch(${value})` : value;
+
+              return (
+                <div
+                  className="bg-surface size-8 rounded shadow-xs"
+                  style={{
+                    border: `2px solid ${colorValue}`,
+                  }}
+                />
+              );
+            }}
             title="Border Colors"
             tokens={borderColors}
           />
@@ -301,15 +327,15 @@ export const Shadows: Story = {
         </h2>
         <p className="text-content-secondary mt-2 text-lg">Elevation and depth system</p>
       </div>
-      <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
-        <div className="border-b border-neutral-100 px-5 py-4">
+      <div className="border-border-subtle bg-surface-subtle overflow-hidden rounded-2xl border">
+        <div className="border-border-subtle border-b px-5 py-4">
           <h3 className="text-content-primary text-lg font-bold">Scale</h3>
         </div>
         <div className="grid grid-cols-1 gap-8 p-8 md:grid-cols-3">
           {Object.entries(systemTokens.boxShadow).map(([key, value]) => (
             <div key={key} className="text-center">
               <div
-                className="bg-surface-DEFAULT mx-auto mb-4 size-24 rounded-2xl border border-neutral-100/50"
+                className="border-border-subtle bg-surface mx-auto mb-4 size-24 rounded-2xl border"
                 style={{ boxShadow: value }}
               />
               <div className="text-content-primary text-sm font-semibold">{key}</div>
@@ -336,9 +362,9 @@ export const Blur: Story = {
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
-          <div className="border-b border-neutral-100 px-5 py-4">
+      <div className="grid items-start gap-6 lg:grid-cols-2">
+        <div className="border-border-subtle bg-surface-subtle overflow-hidden rounded-2xl border">
+          <div className="border-border-subtle border-b px-5 py-4">
             <h3 className="text-content-primary text-lg font-bold">Filter Blur Scale</h3>
           </div>
           <div className="p-5">
@@ -346,15 +372,15 @@ export const Blur: Story = {
               {Object.entries(systemTokens.blur).map(([key, value]) => (
                 <div
                   key={key}
-                  className="bg-surface-DEFAULT relative flex h-24 items-center justify-between overflow-hidden rounded-xl border border-neutral-200"
+                  className="border-border-subtle bg-surface relative flex h-24 items-center justify-between overflow-hidden rounded-xl border"
                 >
-                  <div className="absolute inset-0 z-0 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 opacity-20" />
-                  <div className="bg-surface-DEFAULT/80 z-10 rounded-r-lg border border-neutral-100 px-6 py-2 shadow-sm backdrop-blur-sm">
+                  <div className="from-primary/30 via-secondary/20 to-tertiary/30 absolute inset-0 z-0 bg-gradient-to-r opacity-30" />
+                  <div className="border-border-subtle bg-surface/80 z-10 rounded-r-lg border px-6 py-2 shadow-xs backdrop-blur-sm">
                     <div className="text-content-primary text-sm font-semibold">{key}</div>
                     <div className="text-content-tertiary font-mono text-xs">{value}</div>
                   </div>
                   <div
-                    className="z-10 mr-6 size-16 rounded-full bg-blue-600"
+                    className="bg-primary z-10 mr-6 size-16 rounded-full"
                     style={{ filter: `blur(${value})` }}
                   />
                 </div>
@@ -363,8 +389,8 @@ export const Blur: Story = {
           </div>
         </div>
 
-        <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
-          <div className="border-b border-neutral-100 px-5 py-4">
+        <div className="border-border-subtle bg-surface-subtle overflow-hidden rounded-2xl border">
+          <div className="border-border-subtle border-b px-5 py-4">
             <h3 className="text-content-primary text-lg font-bold">Backdrop Filters</h3>
           </div>
           <div className="p-5">
@@ -372,25 +398,23 @@ export const Blur: Story = {
               {Object.entries(systemTokens.backdrop).map(([key, value]) => (
                 <div
                   key={key}
-                  className="bg-surface-DEFAULT relative flex h-24 items-center justify-start overflow-hidden rounded-xl border border-neutral-200"
+                  className="border-border-subtle bg-surface relative flex h-24 items-center justify-start overflow-hidden rounded-xl border"
                 >
-                  {/* Background pattern */}
                   <div
                     className="absolute inset-0 z-0"
                     style={{
                       backgroundImage:
-                        'radial-gradient(var(--ideasui-color-primary-300) 2px, transparent 2px)',
+                        'radial-gradient(oklch(var(--ideasui-color-primary) / 0.3) 2px, transparent 2px)',
                       backgroundSize: '16px 16px',
                     }}
                   />
-                  <div className="absolute inset-0 z-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20" />
+                  <div className="from-primary/20 to-secondary/20 absolute inset-0 z-0 bg-gradient-to-r" />
 
-                  {/* Backdrop element */}
                   <div
-                    className="bg-surface-DEFAULT/40 text-content-secondary relative z-10 ml-6 flex h-[70%] w-[60%] flex-col justify-center rounded-lg border border-white/20 px-4 font-medium shadow-sm"
+                    className="border-border-subtle bg-surface/60 relative z-10 ml-6 flex h-[70%] w-[60%] flex-col justify-center rounded-lg border px-4 font-medium shadow-xs"
                     style={{ backdropFilter: value, WebkitBackdropFilter: value }}
                   >
-                    <div className="text-sm font-semibold">{key}</div>
+                    <div className="text-content-primary text-sm font-semibold">{key}</div>
                     <div className="text-content-secondary font-mono text-xs break-words">
                       {value}
                     </div>
@@ -414,15 +438,15 @@ export const Opacity: Story = {
           Semantic opacity scale for overlays and states
         </p>
       </div>
-      <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
-        <div className="border-b border-neutral-100 px-5 py-4">
+      <div className="border-border-subtle bg-surface-subtle overflow-hidden rounded-2xl border">
+        <div className="border-border-subtle border-b px-5 py-4">
           <h3 className="text-content-primary text-lg font-bold">Scale</h3>
         </div>
         <div className="grid grid-cols-2 gap-6 p-6 md:grid-cols-4">
           {Object.entries(systemTokens.opacity).map(([key, value]) => (
             <div key={key} className="text-center">
-              <div className="mx-auto mb-3 flex size-20 items-center justify-center rounded-xl border border-neutral-200 bg-[url('https://transparenttextures.com/patterns/cubes.png')]">
-                <div className="size-full rounded-xl bg-blue-600" style={{ opacity: value }} />
+              <div className="border-border-subtle bg-surface-muted mx-auto mb-3 flex size-20 items-center justify-center rounded-xl border">
+                <div className="bg-primary size-full rounded-xl" style={{ opacity: value }} />
               </div>
               <div className="text-content-primary text-sm font-semibold">{key}</div>
               <div className="text-content-tertiary mt-0.5 font-mono text-xs">{value}</div>
@@ -442,9 +466,9 @@ export const ZIndex: Story = {
         <p className="text-content-secondary mt-2 text-lg">Ordered, predictable layering</p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
-          <div className="border-b border-neutral-100 px-5 py-4">
+      <div className="grid items-start gap-6 lg:grid-cols-2">
+        <div className="border-border-subtle bg-surface-subtle overflow-hidden rounded-2xl border">
+          <div className="border-border-subtle border-b px-5 py-4">
             <h3 className="text-content-primary text-lg font-bold">Visual Stacking</h3>
           </div>
           <div aria-hidden="true" className="relative h-80 p-8">
@@ -459,18 +483,16 @@ export const ZIndex: Story = {
                   <div
                     key={key}
                     aria-hidden="true"
-                    className="absolute flex h-20 w-28 cursor-pointer flex-col justify-center rounded-xl border border-white/40 p-2 shadow-lg backdrop-blur-md transition-transform hover:-translate-y-12 hover:scale-105 sm:h-24 sm:w-40 sm:p-4"
+                    className="border-border-subtle bg-surface/90 absolute flex h-20 w-28 cursor-pointer flex-col justify-center rounded-xl border p-2 shadow-lg backdrop-blur-md transition-transform hover:-translate-y-12 hover:scale-105 sm:h-24 sm:w-40 sm:p-4"
                     style={{
                       zIndex: value as number,
                       left: `calc(10% + ${leftOffset}%)`,
                       top: `calc(10% + ${topOffset}%)`,
-                      backgroundColor: `hsl(${(index * 40) % 360}, 90%, 60%, 0.1)`,
-                      color: 'white',
                     }}
                   >
                     <div
                       aria-hidden="true"
-                      className="text-content-secondary text-sm font-bold capitalize"
+                      className="text-content-primary text-sm font-bold capitalize"
                     >
                       {key}
                     </div>
@@ -502,13 +524,13 @@ export const Typography: Story = {
       </div>
 
       {/* Font Family */}
-      <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
-        <div className="border-b border-neutral-100 px-5 py-4">
+      <div className="border-border-subtle bg-surface-subtle overflow-hidden rounded-2xl border">
+        <div className="border-border-subtle border-b px-5 py-4">
           <h3 className="text-content-primary text-lg font-bold">Font Families</h3>
         </div>
         <div className="space-y-4 p-5">
           {Object.entries(systemTokens.fontFamily).map(([key, value]) => (
-            <div key={key} className="bg-surface-DEFAULT rounded-xl border border-neutral-100 p-5">
+            <div key={key} className="border-border-subtle bg-surface rounded-xl border p-5">
               <div className="mb-2 flex items-center gap-2">
                 <span className="text-content-primary font-mono text-sm font-semibold capitalize">
                   {key}
@@ -525,17 +547,17 @@ export const Typography: Story = {
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid items-start gap-6 lg:grid-cols-2">
         {/* Font Weights */}
-        <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
-          <div className="border-b border-neutral-100 px-5 py-4">
+        <div className="border-border-subtle bg-surface-subtle overflow-hidden rounded-2xl border">
+          <div className="border-border-subtle border-b px-5 py-4">
             <h3 className="text-content-primary text-lg font-bold">Font Weights</h3>
           </div>
           <div className="space-y-2 p-5">
             {Object.entries(systemTokens.fontWeight).map(([key, value]) => (
               <div
                 key={key}
-                className="bg-surface-DEFAULT flex items-center gap-4 rounded-xl border border-neutral-100 p-4"
+                className="border-border-subtle bg-surface flex items-center gap-4 rounded-xl border p-4"
               >
                 <div className="text-content-primary w-20 font-mono text-sm font-semibold">
                   {key}
@@ -555,15 +577,15 @@ export const Typography: Story = {
         </div>
 
         {/* Letter Spacing */}
-        <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
-          <div className="border-b border-neutral-100 px-5 py-4">
+        <div className="border-border-subtle bg-surface-subtle overflow-hidden rounded-2xl border">
+          <div className="border-border-subtle border-b px-5 py-4">
             <h3 className="text-content-primary text-lg font-bold">Letter Spacing</h3>
           </div>
           <div className="space-y-2 p-5">
             {Object.entries(systemTokens.letterSpacing).map(([key, value]) => (
               <div
                 key={key}
-                className="bg-surface-DEFAULT flex items-center gap-4 rounded-xl border border-neutral-100 p-4"
+                className="border-border-subtle bg-surface flex items-center gap-4 rounded-xl border p-4"
               >
                 <div className="text-content-primary w-20 font-mono text-sm font-semibold">
                   {key}
@@ -584,8 +606,8 @@ export const Typography: Story = {
       </div>
 
       {/* Font Size Scale */}
-      <div className="bg-surface-base/50 overflow-hidden rounded-2xl border border-neutral-100">
-        <div className="border-b border-neutral-100 px-5 py-4">
+      <div className="border-border-subtle bg-surface-subtle overflow-hidden rounded-2xl border">
+        <div className="border-border-subtle border-b px-5 py-4">
           <h3 className="text-content-primary text-lg font-bold">Font Size Scale</h3>
         </div>
         <div className="space-y-3 p-5">
@@ -603,12 +625,12 @@ export const Typography: Story = {
             return (
               <div
                 key={key}
-                className="bg-surface-DEFAULT hover:border-primary-200 flex flex-col items-start gap-4 rounded-xl border border-neutral-200 p-5 transition-colors sm:flex-row sm:items-center sm:gap-6"
+                className="border-border-subtle bg-surface hover:border-border flex flex-col items-start gap-4 rounded-xl border p-5 transition-colors sm:flex-row sm:items-center sm:gap-6"
               >
                 <div className="text-content-primary w-16 font-mono text-sm font-semibold">
                   {key}
                 </div>
-                <div className="flex h-20 w-full flex-1 items-center overflow-hidden border-t border-neutral-100 pt-4 sm:h-24 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-6">
+                <div className="border-border-subtle flex h-20 w-full flex-1 items-center overflow-hidden border-t pt-4 sm:h-24 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-6">
                   <div
                     className="text-content-primary truncate"
                     style={{
@@ -619,7 +641,7 @@ export const Typography: Story = {
                     The quick brown fox
                   </div>
                 </div>
-                <div className="text-content-tertiary w-full border-t border-neutral-100 pt-2 text-left text-xs sm:w-auto sm:min-w-24 sm:border-t-0 sm:pt-0 sm:text-right">
+                <div className="border-border-subtle text-content-tertiary w-full border-t pt-2 text-left text-xs sm:w-auto sm:min-w-24 sm:border-t-0 sm:pt-0 sm:text-right">
                   <div className="font-mono">size: {fontSizeValue}</div>
                   <div className="mt-1 font-mono">line: {lineHeight}</div>
                 </div>
@@ -651,12 +673,12 @@ export const Motion: Story = {
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid items-start gap-6 lg:grid-cols-2">
         <TokenGroup title="Transition Durations" tokens={systemTokens.transitionDuration} />
         <TokenGroup title="Easing Curves" tokens={systemTokens.transitionTimingFunction} />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid items-start gap-6 lg:grid-cols-2">
         <TokenGroup title="Transition Presets" tokens={systemTokens.transition} />
         <TokenGroup title="Animation Classes" tokens={systemTokens.animation} />
       </div>
@@ -678,7 +700,7 @@ export const AllTokens: Story = {
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="columns-1 gap-6 lg:columns-2 [&>*]:mb-6">
         <TokenGroup title="Spacing" tokens={systemTokens.spacing} />
         <TokenGroup title="Border Radius" tokens={systemTokens.borderRadius} />
         <TokenGroup title="Border Widths" tokens={systemTokens.border} />

@@ -23,9 +23,21 @@ export function InstallTabs({
   const [copied, setCopied] = useState(false);
   const [installMode, setInstallMode] = useState<'component' | 'core'>(defaultMode);
 
-  const isIndividualComponent = pkg.startsWith('@ideasui/') && pkg !== '@ideasui/react';
+  const corePackages = new Set([
+    '@ideasui/react',
+    '@ideasui/theme',
+    '@ideasui/styles',
+    '@ideasui/utils',
+  ]);
 
-  const activePackage = installMode === 'component' ? pkg : '@ideasui/react';
+  const isIndividualComponent =
+    pkg.startsWith('@ideasui/') && !pkg.includes(' ') && !corePackages.has(pkg);
+
+  let activePackage = pkg;
+
+  if (isIndividualComponent) {
+    activePackage = installMode === 'component' ? pkg : '@ideasui/react';
+  }
 
   // Command mappings
   const getCommand = (pm: PackageManager) => {

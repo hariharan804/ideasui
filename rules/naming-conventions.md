@@ -6,24 +6,24 @@ All naming follows a consistent, role-based system. The case style signals the *
 
 ## 📋 Quick Reference
 
-| Context                  | Convention              | Example                                         |
-| ------------------------ | ----------------------- | ----------------------------------------------- |
-| File name                | kebab-case              | `input-field.tsx`, `use-button.ts`              |
-| Folder / package name    | kebab-case              | `packages/input-field/`, `@ideasui/date-picker` |
-| React component          | PascalCase              | `InputField`, `Button`, `ButtonGroup`           |
-| `displayName`            | `IdeasUI.ComponentName` | `IdeasUI.Button`, `IdeasUI.Button.Icon`         |
-| Variable                 | camelCase               | `inputValue`, `isDisabled`                      |
-| Function                 | camelCase               | `handleInputChange`, `getAccessibleName`        |
-| React hook               | camelCase, `use` prefix | `useButtonGroupContext`, `useTheme`             |
-| TypeScript interface     | PascalCase              | `ButtonProps`, `InputFieldProps`                |
-| TypeScript type alias    | PascalCase              | `VariantType`, `ColorToken`                     |
-| Constant (immutable)     | SCREAMING_SNAKE_CASE    | `MAX_FILE_SIZE`, `DEFAULT_RADIUS`               |
-| Environment variable     | SCREAMING_SNAKE_CASE    | `API_BASE_URL`, `NODE_ENV`                      |
-| CSS class (BEM block)    | kebab-case              | `btn`, `input-field`                            |
-| CSS class (BEM element)  | kebab-case + `__`       | `btn__icon`, `btn__label`                       |
-| CSS class (BEM modifier) | kebab-case + `--`       | `btn--solid`, `btn--disabled`                   |
-| CSS custom property      | kebab-case              | `--primary-500`, `--on-surface`                 |
-| `data-slot` attribute    | kebab-case              | `data-slot="button-icon"`                       |
+| Context                  | Convention              | Example                                              |
+| ------------------------ | ----------------------- | ---------------------------------------------------- |
+| File name                | kebab-case              | `input-field.tsx`, `use-button.ts`                   |
+| Folder / package name    | kebab-case              | `packages/input-field/`, `@ideasui/date-picker`      |
+| React component          | PascalCase              | `InputField`, `Button`, `ButtonGroup`                |
+| `displayName`            | `IdeasUI.ComponentName` | `IdeasUI.Button`, `IdeasUI.Button.Icon`              |
+| Variable                 | camelCase               | `inputValue`, `isDisabled`                           |
+| Function                 | camelCase               | `handleInputChange`, `getAccessibleName`             |
+| React hook               | camelCase, `use` prefix | `useButtonGroupContext`, `useTheme`                  |
+| TypeScript interface     | PascalCase              | `ButtonProps`, `InputFieldProps`                     |
+| TypeScript type alias    | PascalCase              | `VariantType`, `ColorToken`                          |
+| Constant (immutable)     | SCREAMING_SNAKE_CASE    | `MAX_FILE_SIZE`, `DEFAULT_RADIUS`                    |
+| Environment variable     | SCREAMING_SNAKE_CASE    | `API_BASE_URL`, `NODE_ENV`                           |
+| CSS class (BEM block)    | kebab-case              | `btn`, `input-field`                                 |
+| CSS class (BEM element)  | kebab-case + `__`       | `btn__icon`, `btn__label`                            |
+| CSS class (BEM modifier) | kebab-case + `--`       | `btn--solid`, `btn--disabled`                        |
+| CSS custom property      | kebab-case              | `--ideasui-color-primary`, `--ideasui-color-surface` |
+| `data-slot` attribute    | kebab-case              | `data-slot="button-icon"`                            |
 
 ---
 
@@ -126,7 +126,7 @@ export const button = tv({
   },
   variants: {
     variant: {
-      solid: { base: 'btn--solid bg-primary-500' }, // BEM modifier + utilities
+      solid: { base: 'btn--solid bg-primary text-on-primary' }, // BEM modifier + utilities
     },
   },
 });

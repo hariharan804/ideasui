@@ -213,15 +213,15 @@ font-weight: var(--text-label-weight);
 
 :root,
 [data-theme='light'] {
-  --neutral-50: #fafafa;
-  --primary-500: #3b82f6;
-  /* ... full scale */
+  --ideasui-color-surface: 0.985 0.002 260;
+  --ideasui-color-primary: 0.54 0.22 272;
+  /* ... full theme */
 }
 
 [data-theme='dark'] {
-  --neutral-50: #fafafa;
-  --primary-500: #3b82f6;
-  /* ... full scale (can differ per theme) */
+  --ideasui-color-surface: 0.12 0.006 260;
+  --ideasui-color-primary: 0.62 0.22 272;
+  /* ... full theme (can differ per theme) */
 }
 ```
 

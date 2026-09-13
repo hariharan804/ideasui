@@ -169,15 +169,20 @@ export function Category(properties: Readonly<CategoryProperties>) {
   }
 
   return (
-    <div className={cn('not-prose flex flex-col gap-12')}>
+    <div className={cn('not-prose flex flex-col gap-8')}>
       {activeGroups.map(({ group, components }) => (
-        <div key={group.category} className="flex flex-col gap-6">
+        <div key={group.category} className="flex flex-col gap-4">
           {(!category || category === 'all' || activeGroups.length > 1) && (
             <h2 className="text-content-primary text-xl font-bold tracking-tight">
               {group.category}
             </h2>
           )}
-          <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            className={cn(
+              'grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2',
+              components.length >= 3 && 'lg:grid-cols-3',
+            )}
+          >
             {components.map(({ component, status }) => (
               <Item
                 key={component.name}

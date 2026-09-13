@@ -7,105 +7,109 @@ import { TokenViewer } from '@/components/ui/token-viewer';
 
 ## What are Design Tokens?
 
-IdeasUI is built on a highly structured design token system. Rather than hardcoding colors, spacing, and typography values directly in components, the library maps values to **Tailwind CSS variables and classes**.
+IdeasUI uses design tokens to keep colors, spacing, typography, radius, and other visual values consistent across your application.
 
-This allows you to customize the entire look and feel of your app effortlessly.
-
----
-
-## Token Explorer
-
-Explore all available semantic tokens in the library. Click on any token to copy its associated Tailwind utility class.
-
-<TokenViewer />
+Instead of hardcoding visual values, use IdeasUI's semantic Tailwind utilities. These tokens adapt to the active theme, making your UI easier to customize and maintain.
 
 ---
 
 ## How to Use Tokens
 
-You should **always** prefer using semantic tokens (e.g., `bg-surface`, `text-primary`) rather than absolute scale colors (e.g., `bg-blue-500`). By using semantic tokens, your interface will automatically support Dark Mode seamlessly and remain entirely themeable.
+Prefer using semantic tokens (e.g., `bg-surface`, `text-content-primary`) rather than absolute color values. Semantic tokens adapt automatically to light and dark themes.
 
 ---
 
 ### Colors: Surface & Layout
 
-Surface colors form the foundational backgrounds of your layout. By layering these correctly, you build natural depth and hierarchy.
+Surface colors form the foundational backgrounds of your layout.
 
-- **`bg-background`**: The lowest level color. Use this strictly for the main application body background (`<body>`).
-- **`bg-surface`**: The primary surface color. Use this for your main content areas, cards, and primary containers.
-- **`bg-surface-muted`**: A lower-contrast, indented surface. Perfect for secondary sections, input fields, code blocks, or subtle groups of content.
-- **`bg-surface-strong`**: A higher-contrast, elevated surface. Ideal for sidebars, emphasized section headers, or active state backgrounds.
-- **`bg-surface-modal` / `bg-surface-floating`**: Highly elevated surfaces. Use these specifically for dropdowns, popovers, drawers, and modal dialogs.
-- **`bg-surface-inverse`**: The exact opposite of the current theme (dark in light mode, light in dark mode). Great for high-impact tooltips or floating action buttons.
+- **`bg-background`**: The primary page background (`<body>`).
+- **`bg-surface`**: Main container background for cards and layout components.
+- **`bg-surface-subtle`**: Slightly softer surface background for secondary sections.
+- **`bg-surface-muted`**: Subtle surface background for inset content, code blocks, or grouped items.
+- **`bg-surface-strong`**: Emphasized surface background for elevated panels or active states.
+- **`bg-surface-overlay`**: Elevated background for overlay components like dialogs, popovers, and menus.
+- **`bg-surface-inverse`**: High-contrast surface background opposing the current theme.
+
+---
 
 ### Colors: Content & Text
 
-Content colors define how text, icons, and strokes appear on top of your surfaces.
+Content tokens style text, icons, and inline elements on surfaces.
 
-- **`text-content-primary`**: High contrast. Use for all standard reading text, headings, and primary icons.
-- **`text-content-secondary`**: Medium contrast. Use for less critical text, subtitles, and standard descriptions.
-- **`text-content-tertiary`**: Low contrast. Use for helper text, timestamps, or subtle metadata.
-- **`text-content-muted`**: Very low contrast. Use for input placeholders and subtle disabled states.
-- **`text-content-inverse`**: Use whenever you are placing text on top of an inverse surface or a dark, highly saturated semantic color.
+- **`text-content-primary`**: High contrast for primary text, headings, and key icons.
+- **`text-content-secondary`**: Medium contrast for secondary text and subtitles.
+- **`text-content-tertiary`**: Lower contrast for captions, timestamps, and metadata.
+- **`text-content-muted`**: Very low contrast for placeholder text and disabled hints.
+- **`text-content-inverse`**: Inverted text color for placement on dark or inverse surfaces.
+
+---
 
 ### Colors: Semantic Actions
 
-Semantic colors convey clear meaning, status, or brand identity. They are usually applied to highly interactive elements like Buttons, Badges, or Alerts.
+Semantic colors convey purpose and status across interactive components like Buttons, Badges, and Alerts.
 
-_Every semantic color has variants: e.g., `primary`, `primary-subtle`, `primary-muted`._
+Every semantic color supports subtle and muted variants (e.g., `primary`, `primary-subtle`, `primary-muted`).
 
-- **`primary` / `secondary` / `tertiary`**: Your brand colors. Use these to guide the user towards primary and secondary actions.
-- **`success`**: Indicates a positive outcome (e.g., "Saved successfully", "Online").
-- **`warning`**: Indicates caution (e.g., "Your trial ends soon", "Pending").
-- **`error`**: Indicates a destructive action or failure (e.g., "Delete account", "Failed to load").
-- **`info`**: Indicates neutral, informative highlights (e.g., "New feature available").
+- **`primary` / `secondary` / `tertiary`**: Brand and hierarchy colors for key actions.
+- **`neutral`**: Neutral surfaces, subtle borders, and structural elements.
+- **`success`**: Positive outcomes and status indicators.
+- **`warning`**: Warnings and caution indicators.
+- **`danger`**: Destructive actions and error states.
+- **`info`**: Informational messaging and feature highlights.
 
-**Usage Example:**
+**Usage Examples:**
 
-- Use `bg-primary text-on-primary` for a solid, high-emphasis button.
-- Use `bg-error-subtle text-error` for a soft, low-emphasis error badge.
+- `bg-primary text-on-primary` for high-emphasis buttons.
+- `bg-danger-subtle text-on-danger-subtle` for low-emphasis error badges.
 
 ---
 
 ### Spacing & Layout
 
-IdeasUI uses a consistent spacing scale that perfectly aligns to an **8px grid** (where `1` unit = `0.25rem` = `4px`).
+IdeasUI uses a consistent spacing scale based on a 4px base unit.
 
-Maintaining a consistent rhythm is crucial for a professional UI.
-
-- **`gap-2` / `p-2` (8px)**: Tight spacing between highly related sibling elements (e.g., icon and text).
-- **`gap-4` / `p-4` (16px)**: Standard spacing for inner padding of cards or spacing between form fields.
-- **`gap-8` / `mb-8` (32px)**: Large spacing between distinct sections or main layout components.
+- **`gap-2` / `p-2` (8px)**: Tight spacing between closely related elements.
+- **`gap-4` / `p-4` (16px)**: Standard spacing for card padding and form fields.
+- **`gap-8` / `mb-8` (32px)**: Larger spacing between sections and major layout elements.
 
 ---
 
 ### Typography
 
-Our typography scales automatically handle optimal `font-size` and `line-height` ratios out of the box.
+Our typography scale ensures proper `font-size` and `line-height` ratios across display and body text.
 
-- **`text-xs` / `text-sm`**: Use for metadata, helper text, and dense UI components (like badges or tooltips).
-- **`text-base`**: The standard size for long-form reading content and standard paragraphs.
-- **`text-lg` / `text-xl`**: Use for card titles and subheadings.
-- **`text-2xl` to `text-5xl`**: Use for prominent page headers and hero sections.
+- **`text-xs` / `text-sm`**: Metadata, helper text, and compact UI components (badges, tooltips).
+- **`text-base`**: Standard font size for primary UI content and body text.
+- **`text-lg` / `text-xl`**: Card titles, section headers, and emphasized labels.
+- **`text-2xl` to `text-5xl`**: Page headers, display titles, and hero titles.
 
 ---
 
 ### Radius (Corners)
 
-Corner radiuses heavily influence the "personality" of your app.
+Corner radiuses define component border curvature and visual shape.
 
-- **`rounded-sm` / `rounded`**: Use for very small interactive elements (checkboxes, tiny tags).
-- **`rounded-md` / `rounded-lg`**: The standard radius. Use for buttons, inputs, and standard UI controls.
-- **`rounded-xl` / `rounded-2xl`**: Use for larger layout elements like cards, dialogs, and modals.
-- **`rounded-full`**: Use for circular avatars or pill-shaped badges.
+- **`rounded-sm` / `rounded`**: Subtle corner radius for small UI controls.
+- **`rounded-md` / `rounded-lg`**: Standard border radius for buttons, inputs, and cards.
+- **`rounded-xl` / `rounded-2xl`**: Larger radius for elevated cards, dialogs, and modals.
+- **`rounded-full`**: Pill shapes, badges, and circular avatars.
 
 ---
 
 ### Shadows & Effects
 
-Shadows and blurs create depth, helping users understand the z-index hierarchy of your interface.
+Shadows and blurs establish visual depth and z-index hierarchy.
 
-- **`shadow-sm`**: Use for slightly elevated elements like buttons or subtle cards.
-- **`shadow-md`**: Use for standard cards and prominent containers.
-- **`shadow-lg` / `shadow-xl`**: Use for highly elevated floating elements like dropdowns, popovers, and modal dialogs.
-- **`blur-sm` / `blur-md`**: Use on absolutely positioned backdrop elements to create modern glassmorphism effects (e.g., behind a sticky navbar).
+- **`shadow-sm`**: Subtle elevation for interactive controls and subtle cards.
+- **`shadow-md`**: Standard elevation for cards and floating elements.
+- **`shadow-lg` / `shadow-xl`**: Deep elevation for popovers, dropdowns, and modals.
+- **`backdrop-blur-md`**: Glassmorphism backdrop blur using IdeasUI blur tokens (`--ideasui-blur-md`).
+
+---
+
+## Token Explorer
+
+Explore the available IdeasUI tokens below. Select a token to copy its corresponding Tailwind utility class.
+
+<TokenViewer />

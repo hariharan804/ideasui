@@ -1,37 +1,35 @@
 ---
 title: Standalone CSS (No Tailwind)
-description: Use IdeasUI components in any React project without installing, compiling, or configuring Tailwind CSS.
+description: Use IdeasUI components in any React project without installing or configuring Tailwind CSS.
 ---
 
-If your project does **not** use Tailwind CSS (or if you prefer not to set up Tailwind CSS compilation in your build pipeline), you can use **`@ideasui/styles`**.
+If your project does not use Tailwind CSS, you can use **`@ideasui/styles`** to get pre-compiled styles for IdeasUI components.
 
-`@ideasui/styles` provides pre-compiled CSS stylesheets for all IdeasUI components.
+This is useful when you want to use IdeasUI without adding Tailwind CSS to your existing build setup.
 
 ---
 
 ## Installation
 
-Install the `@ideasui/styles` package using your package manager:
+Install the `@ideasui/styles` package:
 
 <InstallTabs pkg="@ideasui/styles" defaultMode="component" />
 
 ---
 
-## Usage Options
+## Usage
 
-### Option 1 — All-in-One CSS (Recommended)
+### All-in-One CSS
 
-Import the base resets and pre-compiled component styles in your application root file (`app/layout.tsx` or `src/main.tsx`):
+For most projects, import the base styles and the complete IdeasUI stylesheet once in your application entry point:
 
 ```tsx
-// 1. Import base resets and design tokens
+// src/main.tsx
 import '@ideasui/styles/base.css';
-
-// 2. Import pre-compiled styles for all components
 import '@ideasui/styles/styles.css';
 ```
 
-Now you can use any IdeasUI component in your React application out of the box:
+You can then use IdeasUI components normally:
 
 ```tsx
 import { Button } from '@ideasui/react';
@@ -43,24 +41,63 @@ export default function App() {
 
 ---
 
-### Option 2 — Component-Wise CSS (Bundle Optimized)
+### Component-Wise CSS
 
-To optimize your CSS bundle size, import `base.css` once, then import only the specific component stylesheets you use:
+If you only use a few components, you can import their styles individually.
+
+Import the base styles once:
 
 ```tsx
-// 1. Import base resets once
 import '@ideasui/styles/base.css';
+```
 
-// 2. Import only the component stylesheets you use
+Then import the styles for the components you use:
+
+```tsx
 import '@ideasui/styles/components/button.css';
 ```
+
+Use the component normally:
+
+```tsx
+import { Button } from '@ideasui/react';
+
+export default function App() {
+  return <Button color="primary">Click Me</Button>;
+}
+```
+
+This keeps your CSS bundle smaller when you only use a few components.
 
 ---
 
 ## Stylesheet Reference
 
-| File Export                                  | Description                                                         | Includes Resets? |
-| -------------------------------------------- | ------------------------------------------------------------------- | :--------------: |
-| `@ideasui/styles/base.css`                   | CSS resets, theme custom properties, and base tokens.               |       Yes        |
-| `@ideasui/styles/styles.css`                 | All compiled component utility classes in a single file.            |        No        |
-| `@ideasui/styles/components/[component].css` | Utility classes specific to a single component (e.g. `button.css`). |        No        |
+| File                                         | Description                                      |
+| -------------------------------------------- | ------------------------------------------------ |
+| `@ideasui/styles/base.css`                   | Base resets, theme variables, and shared styles. |
+| `@ideasui/styles/styles.css`                 | Pre-compiled styles for all IdeasUI components.  |
+| `@ideasui/styles/components/[component].css` | Pre-compiled styles for an individual component. |
+
+---
+
+## When to Use Standalone CSS
+
+Use `@ideasui/styles` when:
+
+- Your project does not use Tailwind CSS.
+- You don't want to add Tailwind CSS to your build pipeline.
+- You prefer pre-compiled CSS.
+- You are using IdeasUI alongside another component library and only need specific IdeasUI components.
+- You want to import styles for only the components you use.
+
+If your project already uses Tailwind CSS v4, use the regular **[Theming](/react/docs/start/theming)** setup instead.
+
+---
+
+## Next Steps
+
+- **[Theming](/react/docs/start/theming)**: Configure the IdeasUI theme with Tailwind CSS v4.
+- **[Dark Mode](/react/docs/start/dark-mode)**: Configure light and dark themes.
+- **[Design Tokens](/react/docs/start/tokens)**: Explore IdeasUI's design tokens.
+- **[Components](/react/docs/components/button)**: Explore component APIs and examples.
