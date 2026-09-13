@@ -381,39 +381,41 @@
   @apply disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50;
 }
 
-@utility scrollbar-none {
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
-}
 
-@utility scrollbar-default {
-  scrollbar-width: auto;
-  &::-webkit-scrollbar {
-    width: 0.5rem;
-    height: 0.5rem;
+  .scrollbar-default {
+    scrollbar-width: auto;
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+      height: 0.5rem;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: oklch(var(--ideasui-color-border-subtle));
+      border-radius: 9999px;
+    }
   }
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: oklch(var(--ideasui-color-border-subtle));
-    border-radius: 9999px;
-  }
-}
 
-@utility scrollbar-thin {
-  scrollbar-width: thin;
-  &::-webkit-scrollbar {
-    width: 0.375rem;
-    height: 0.375rem;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: oklch(var(--ideasui-color-border-subtle));
-    border-radius: 9999px;
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      width: 0.375rem;
+      height: 0.375rem;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: oklch(var(--ideasui-color-border-subtle));
+      border-radius: 9999px;
+    }
   }
 }

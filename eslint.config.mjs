@@ -364,7 +364,7 @@ export default defineConfig([
       ],
 
       // Code quality (SonarJS)
-      'sonarjs/cognitive-complexity': ['error', 20],
+      'sonarjs/cognitive-complexity': ['error', 15],
       'sonarjs/no-duplicate-string': 'off',
       'sonarjs/no-identical-functions': 'error',
       'sonarjs/no-redundant-boolean': 'error',
@@ -530,7 +530,7 @@ export default defineConfig([
       'max-lines-per-function': 'off',
       'max-params': 'off',
       complexity: 'off',
-      'sonarjs/cognitive-complexity': 'off',
+      'sonarjs/cognitive-complexity': ['error', 15],
       'sonarjs/prefer-read-only-props': 'warn',
       'sonarjs/no-nested-conditional': 'warn',
       'unicorn/prefer-number-properties': 'warn',

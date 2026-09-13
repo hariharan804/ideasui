@@ -25,6 +25,7 @@ type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 type ButtonElevation = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export default function ButtonPreview(): JSX.Element {
   // Sandbox State
   const [variant, setVariant] = useState<ButtonVariant>('solid');
@@ -39,13 +40,6 @@ export default function ButtonPreview(): JSX.Element {
   const [buttonText, setButtonText] = useState('Interactive Button');
   const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState<'sandbox' | 'matrix' | 'groups' | 'a11y'>('sandbox');
-
-  // Async state simulation
-  const [asyncLoading, setAsyncLoading] = useState(false);
-  const triggerAsync = (): void => {
-    setAsyncLoading(true);
-    setTimeout(() => setAsyncLoading(false), 2000);
-  };
 
   // Generate live code snippet
   const generateCode = (): string => {
@@ -168,6 +162,7 @@ export default function ButtonPreview(): JSX.Element {
                   className={`flex w-full items-center justify-center p-8 transition-all ${fullWidth ? 'max-w-md' : ''}`}
                 >
                   <Button
+                    aria-label={isIconOnly ? 'Settings' : buttonText}
                     color={color}
                     elevation={elevation}
                     fullWidth={fullWidth}
@@ -427,284 +422,290 @@ export default function ButtonPreview(): JSX.Element {
         ) : null}
 
         {/* SECTION 2: Variants & Palette Matrix */}
-        {activeTab === 'matrix' ? (
-          <div className="space-y-12">
-            {/* Visual Variants */}
-            <section className="space-y-4">
-              <div className="flex items-center justify-between pb-2">
-                <h2 className="text-content-primary text-xl font-bold">
-                  Visual Styles (`variant`)
-                </h2>
-                <span className="text-content-muted font-mono text-xs">7 Options</span>
-              </div>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-7">
-                <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
-                  <Button variant="solid">Solid</Button>
-                  <span className="text-content-secondary font-mono text-[11px]">
-                    variant=&quot;solid&quot;
-                  </span>
-                </div>
-                <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
-                  <Button variant="outline">Outline</Button>
-                  <span className="text-content-secondary font-mono text-[11px]">
-                    variant=&quot;outline&quot;
-                  </span>
-                </div>
-                <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
-                  <Button variant="soft">Soft</Button>
-                  <span className="text-content-secondary font-mono text-[11px]">
-                    variant=&quot;soft&quot;
-                  </span>
-                </div>
-                <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
-                  <Button variant="ghost">Ghost</Button>
-                  <span className="text-content-secondary font-mono text-[11px]">
-                    variant=&quot;ghost&quot;
-                  </span>
-                </div>
-                <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
-                  <Button variant="elevated">Elevated</Button>
-                  <span className="text-content-secondary font-mono text-[11px]">
-                    variant=&quot;elevated&quot;
-                  </span>
-                </div>
-                <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
-                  <Button variant="text">Text</Button>
-                  <span className="text-content-secondary font-mono text-[11px]">
-                    variant=&quot;text&quot;
-                  </span>
-                </div>
-                <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
-                  <Button variant="link">Link</Button>
-                  <span className="text-content-secondary font-mono text-[11px]">
-                    variant=&quot;link&quot;
-                  </span>
-                </div>
-              </div>
-            </section>
-
-            {/* Semantic Palette Grid */}
-            <section className="space-y-4">
-              <div className="pb-2">
-                <h2 className="text-content-primary text-xl font-bold">
-                  Semantic Palette Matrix (`color`)
-                </h2>
-              </div>
-
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-content-secondary mb-3 text-xs font-bold tracking-wider uppercase">
-                    Solid Variant
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    <Button color="primary">Primary</Button>
-                    <Button color="secondary">Secondary</Button>
-                    <Button color="tertiary">Tertiary</Button>
-                    <Button color="success">Success</Button>
-                    <Button color="warning">Warning</Button>
-                    <Button color="danger">Danger</Button>
-                    <Button color="info">Info</Button>
-                    <Button color="neutral">Neutral</Button>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-content-secondary mb-3 text-xs font-bold tracking-wider uppercase">
-                    Soft Variant
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    <Button color="primary" variant="soft">
-                      Primary
-                    </Button>
-                    <Button color="secondary" variant="soft">
-                      Secondary
-                    </Button>
-                    <Button color="tertiary" variant="soft">
-                      Tertiary
-                    </Button>
-                    <Button color="success" variant="soft">
-                      Success
-                    </Button>
-                    <Button color="warning" variant="soft">
-                      Warning
-                    </Button>
-                    <Button color="danger" variant="soft">
-                      Danger
-                    </Button>
-                    <Button color="info" variant="soft">
-                      Info
-                    </Button>
-                    <Button color="neutral" variant="soft">
-                      Neutral
-                    </Button>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-content-secondary mb-3 text-xs font-bold tracking-wider uppercase">
-                    Outline Variant
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    <Button color="primary" variant="outline">
-                      Primary
-                    </Button>
-                    <Button color="secondary" variant="outline">
-                      Secondary
-                    </Button>
-                    <Button color="tertiary" variant="outline">
-                      Tertiary
-                    </Button>
-                    <Button color="success" variant="outline">
-                      Success
-                    </Button>
-                    <Button color="warning" variant="outline">
-                      Warning
-                    </Button>
-                    <Button color="danger" variant="outline">
-                      Danger
-                    </Button>
-                    <Button color="info" variant="outline">
-                      Info
-                    </Button>
-                    <Button color="neutral" variant="outline">
-                      Neutral
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        ) : null}
+        {activeTab === 'matrix' ? <MatrixTab /> : null}
 
         {/* SECTION 3: Compound Button Groups */}
-        {activeTab === 'groups' ? (
-          <div className="space-y-10">
-            <section className="space-y-6">
-              <div className="pb-2">
-                <h2 className="text-content-primary text-xl font-bold">Button.Group Composition</h2>
-              </div>
-
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                <div className="bg-surface/80 space-y-4 rounded-3xl p-6 shadow-xs">
-                  <h3 className="text-content-primary text-sm font-bold">
-                    Standard Attached Group
-                  </h3>
-                  <Button.Group isAttached color="primary">
-                    <Button>Left</Button>
-                    <Button>Middle</Button>
-                    <Button>Right</Button>
-                  </Button.Group>
-                </div>
-
-                <div className="bg-surface/80 space-y-4 rounded-3xl p-6 shadow-xs">
-                  <h3 className="text-content-primary text-sm font-bold">
-                    Full Pill Attached Group
-                  </h3>
-                  <Button.Group isAttached color="neutral" radius="full" variant="outline">
-                    <Button>Overview</Button>
-                    <Button>Analytics</Button>
-                    <Button>Settings</Button>
-                  </Button.Group>
-                </div>
-
-                <div className="bg-surface/80 space-y-4 rounded-3xl p-6 shadow-xs">
-                  <h3 className="text-content-primary text-sm font-bold">
-                    Vertical Attached Group
-                  </h3>
-                  <Button.Group isAttached isVertical color="secondary" variant="soft">
-                    <Button>Profile</Button>
-                    <Button>Billing</Button>
-                    <Button>Logout</Button>
-                  </Button.Group>
-                </div>
-
-                <div className="bg-surface/80 space-y-4 rounded-3xl p-6 shadow-xs">
-                  <h3 className="text-content-primary text-sm font-bold">Icon-only Toolbar</h3>
-                  <Button.Group isAttached variant="outline">
-                    <Button isIconOnly aria-label="Add">
-                      <Plus className="size-4" />
-                    </Button>
-                    <Button isIconOnly aria-label="Search">
-                      <Search className="size-4" />
-                    </Button>
-                    <Button isIconOnly aria-label="Delete" color="danger">
-                      <Trash2 className="size-4" />
-                    </Button>
-                  </Button.Group>
-                </div>
-              </div>
-            </section>
-          </div>
-        ) : null}
+        {activeTab === 'groups' ? <GroupsTab /> : null}
 
         {/* SECTION 4: Shortcuts & A11Y */}
-        {activeTab === 'a11y' ? (
-          <div className="space-y-10">
-            <section className="space-y-6">
-              <div className="pb-2">
-                <h2 className="text-content-primary text-xl font-bold">
-                  Keyboard Shortcuts &amp; Async Dynamics
-                </h2>
-              </div>
-
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                <div className="bg-surface/80 space-y-3 rounded-3xl p-6 shadow-xs">
-                  <h3 className="text-content-primary text-sm font-bold">Search Trigger</h3>
-                  <Button fullWidth className="justify-between" variant="outline">
-                    <div className="flex items-center gap-2">
-                      <Search className="text-content-muted size-4" />
-                      <span>Quick Search</span>
-                    </div>
-                    <Button.Shortcut>⌘K</Button.Shortcut>
-                  </Button>
-                </div>
-
-                <div className="bg-surface/80 space-y-3 rounded-3xl p-6 shadow-xs">
-                  <h3 className="text-content-primary text-sm font-bold">Primary Action</h3>
-                  <Button fullWidth className="justify-between" color="primary">
-                    <div className="flex items-center gap-2">
-                      <Plus className="size-4" />
-                      <span>New Project</span>
-                    </div>
-                    <Button.Shortcut>⌘N</Button.Shortcut>
-                  </Button>
-                </div>
-
-                <div className="bg-surface/80 space-y-3 rounded-3xl p-6 shadow-xs">
-                  <h3 className="text-content-primary text-sm font-bold">Destructive Action</h3>
-                  <Button fullWidth className="justify-between" color="danger" variant="soft">
-                    <div className="flex items-center gap-2">
-                      <Trash2 className="size-4" />
-                      <span>Delete File</span>
-                    </div>
-                    <Button.Shortcut>⌫</Button.Shortcut>
-                  </Button>
-                </div>
-              </div>
-
-              <div className="bg-surface/80 space-y-4 rounded-3xl p-6 shadow-xs">
-                <h3 className="text-content-primary text-sm font-bold">
-                  Async Loading State Simulation
-                </h3>
-                <div className="flex items-center gap-4">
-                  <Button
-                    color="success"
-                    isLoading={asyncLoading}
-                    startIcon={<Check className="size-4" />}
-                    onClick={triggerAsync}
-                  >
-                    {asyncLoading ? 'Saving changes...' : 'Save Configuration'}
-                  </Button>
-
-                  <Button endIcon={<ChevronRight className="size-4" />} variant="outline">
-                    Next Step
-                  </Button>
-                </div>
-              </div>
-            </section>
-          </div>
-        ) : null}
+        {activeTab === 'a11y' ? <A11yTab /> : null}
       </div>
+    </div>
+  );
+}
+
+function MatrixTab() {
+  return (
+    <div className="space-y-12">
+      {/* Visual Variants */}
+      <section className="space-y-4">
+        <div className="flex items-center justify-between pb-2">
+          <h2 className="text-content-primary text-xl font-bold">Visual Styles (`variant`)</h2>
+          <span className="text-content-muted font-mono text-xs">7 Options</span>
+        </div>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-7">
+          <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
+            <Button variant="solid">Solid</Button>
+            <span className="text-content-secondary font-mono text-[11px]">
+              variant=&quot;solid&quot;
+            </span>
+          </div>
+          <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
+            <Button variant="outline">Outline</Button>
+            <span className="text-content-secondary font-mono text-[11px]">
+              variant=&quot;outline&quot;
+            </span>
+          </div>
+          <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
+            <Button variant="soft">Soft</Button>
+            <span className="text-content-secondary font-mono text-[11px]">
+              variant=&quot;soft&quot;
+            </span>
+          </div>
+          <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
+            <Button variant="ghost">Ghost</Button>
+            <span className="text-content-secondary font-mono text-[11px]">
+              variant=&quot;ghost&quot;
+            </span>
+          </div>
+          <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
+            <Button variant="elevated">Elevated</Button>
+            <span className="text-content-secondary font-mono text-[11px]">
+              variant=&quot;elevated&quot;
+            </span>
+          </div>
+          <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
+            <Button variant="text">Text</Button>
+            <span className="text-content-secondary font-mono text-[11px]">
+              variant=&quot;text&quot;
+            </span>
+          </div>
+          <div className="bg-surface/80 flex flex-col items-center gap-3 rounded-2xl p-5 text-center shadow-xs">
+            <Button variant="link">Link</Button>
+            <span className="text-content-secondary font-mono text-[11px]">
+              variant=&quot;link&quot;
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* Semantic Color Palette */}
+      <section className="space-y-4">
+        <div className="flex items-center justify-between pb-2">
+          <h2 className="text-content-primary text-xl font-bold">Semantic Color Palette</h2>
+          <span className="text-content-muted font-mono text-xs">8 Colors x 3 Variants</span>
+        </div>
+        <div className="bg-surface/80 space-y-6 rounded-3xl p-6 shadow-xs backdrop-blur-xl">
+          <div>
+            <h3 className="text-content-secondary mb-3 text-xs font-bold tracking-wider uppercase">
+              Solid Variant
+            </h3>
+            <div className="flex flex-wrap gap-3">
+              <Button color="primary">Primary</Button>
+              <Button color="secondary">Secondary</Button>
+              <Button color="tertiary">Tertiary</Button>
+              <Button color="success">Success</Button>
+              <Button color="warning">Warning</Button>
+              <Button color="danger">Danger</Button>
+              <Button color="info">Info</Button>
+              <Button color="neutral">Neutral</Button>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-content-secondary mb-3 text-xs font-bold tracking-wider uppercase">
+              Soft Variant
+            </h3>
+            <div className="flex flex-wrap gap-3">
+              <Button color="primary" variant="soft">
+                Primary
+              </Button>
+              <Button color="secondary" variant="soft">
+                Secondary
+              </Button>
+              <Button color="tertiary" variant="soft">
+                Tertiary
+              </Button>
+              <Button color="success" variant="soft">
+                Success
+              </Button>
+              <Button color="warning" variant="soft">
+                Warning
+              </Button>
+              <Button color="danger" variant="soft">
+                Danger
+              </Button>
+              <Button color="info" variant="soft">
+                Info
+              </Button>
+              <Button color="neutral" variant="soft">
+                Neutral
+              </Button>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-content-secondary mb-3 text-xs font-bold tracking-wider uppercase">
+              Outline Variant
+            </h3>
+            <div className="flex flex-wrap gap-3">
+              <Button color="primary" variant="outline">
+                Primary
+              </Button>
+              <Button color="secondary" variant="outline">
+                Secondary
+              </Button>
+              <Button color="tertiary" variant="outline">
+                Tertiary
+              </Button>
+              <Button color="success" variant="outline">
+                Success
+              </Button>
+              <Button color="warning" variant="outline">
+                Warning
+              </Button>
+              <Button color="danger" variant="outline">
+                Danger
+              </Button>
+              <Button color="info" variant="outline">
+                Info
+              </Button>
+              <Button color="neutral" variant="outline">
+                Neutral
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function GroupsTab() {
+  return (
+    <div className="space-y-10">
+      <section className="space-y-6">
+        <div className="pb-2">
+          <h2 className="text-content-primary text-xl font-bold">Button.Group Composition</h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="bg-surface/80 space-y-4 rounded-3xl p-6 shadow-xs">
+            <h3 className="text-content-primary text-sm font-bold">Standard Attached Group</h3>
+            <Button.Group isAttached color="primary">
+              <Button>Left</Button>
+              <Button>Middle</Button>
+              <Button>Right</Button>
+            </Button.Group>
+          </div>
+
+          <div className="bg-surface/80 space-y-4 rounded-3xl p-6 shadow-xs">
+            <h3 className="text-content-primary text-sm font-bold">Full Pill Attached Group</h3>
+            <Button.Group isAttached color="neutral" radius="full" variant="outline">
+              <Button>Overview</Button>
+              <Button>Analytics</Button>
+              <Button>Settings</Button>
+            </Button.Group>
+          </div>
+
+          <div className="bg-surface/80 space-y-4 rounded-3xl p-6 shadow-xs">
+            <h3 className="text-content-primary text-sm font-bold">Vertical Attached Group</h3>
+            <Button.Group isAttached isVertical color="secondary" variant="soft">
+              <Button>Profile</Button>
+              <Button>Billing</Button>
+              <Button>Logout</Button>
+            </Button.Group>
+          </div>
+
+          <div className="bg-surface/80 space-y-4 rounded-3xl p-6 shadow-xs">
+            <h3 className="text-content-primary text-sm font-bold">Icon-only Toolbar</h3>
+            <Button.Group isAttached variant="outline">
+              <Button isIconOnly aria-label="Add">
+                <Plus className="size-4" />
+              </Button>
+              <Button isIconOnly aria-label="Search">
+                <Search className="size-4" />
+              </Button>
+              <Button isIconOnly aria-label="Delete" color="danger">
+                <Trash2 className="size-4" />
+              </Button>
+            </Button.Group>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function A11yTab() {
+  const [asyncLoading, setAsyncLoading] = useState(false);
+  const triggerAsync = (): void => {
+    setAsyncLoading(true);
+    setTimeout(() => setAsyncLoading(false), 2000);
+  };
+
+  return (
+    <div className="space-y-10">
+      <section className="space-y-6">
+        <div className="pb-2">
+          <h2 className="text-content-primary text-xl font-bold">
+            Keyboard Shortcuts &amp; Async Dynamics
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="bg-surface/80 space-y-3 rounded-3xl p-6 shadow-xs">
+            <h3 className="text-content-primary text-sm font-bold">Search Trigger</h3>
+            <Button fullWidth className="justify-between" variant="outline">
+              <div className="flex items-center gap-2">
+                <Search className="text-content-muted size-4" />
+                <span>Quick Search</span>
+              </div>
+              <Button.Shortcut>⌘K</Button.Shortcut>
+            </Button>
+          </div>
+
+          <div className="bg-surface/80 space-y-3 rounded-3xl p-6 shadow-xs">
+            <h3 className="text-content-primary text-sm font-bold">Primary Action</h3>
+            <Button fullWidth className="justify-between" color="primary">
+              <div className="flex items-center gap-2">
+                <Plus className="size-4" />
+                <span>New Project</span>
+              </div>
+              <Button.Shortcut>⌘N</Button.Shortcut>
+            </Button>
+          </div>
+
+          <div className="bg-surface/80 space-y-3 rounded-3xl p-6 shadow-xs">
+            <h3 className="text-content-primary text-sm font-bold">Destructive Action</h3>
+            <Button fullWidth className="justify-between" color="danger" variant="soft">
+              <div className="flex items-center gap-2">
+                <Trash2 className="size-4" />
+                <span>Delete File</span>
+              </div>
+              <Button.Shortcut>⌫</Button.Shortcut>
+            </Button>
+          </div>
+        </div>
+
+        <div className="bg-surface/80 space-y-4 rounded-3xl p-6 shadow-xs">
+          <h3 className="text-content-primary text-sm font-bold">Async Loading State Simulation</h3>
+          <div className="flex items-center gap-4">
+            <Button
+              color="success"
+              isLoading={asyncLoading}
+              startIcon={<Check className="size-4" />}
+              onClick={triggerAsync}
+            >
+              {asyncLoading ? 'Saving changes...' : 'Save Configuration'}
+            </Button>
+
+            <Button endIcon={<ChevronRight className="size-4" />} variant="outline">
+              Next Step
+            </Button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

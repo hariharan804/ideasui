@@ -59,10 +59,8 @@ const getRadiusPx = (key: string): string => {
   return '8px';
 };
 
-const parseTokens = (): TokenItem[] => {
+const getSemanticColorTokens = (): TokenItem[] => {
   const items: TokenItem[] = [];
-
-  // 1. Semantic Action / Intent Colors (Primary, Secondary, Tertiary, Success, Warning, Danger, Info)
   const intentColors = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'info'];
   const variants = ['', '-subtle', '-muted'];
 
@@ -94,7 +92,10 @@ const parseTokens = (): TokenItem[] => {
     }
   }
 
-  // 2. Neutral & Common Colors
+  return items;
+};
+
+const getNeutralColorTokens = (): TokenItem[] => {
   const neutralKeys = [
     'neutral',
     'on-neutral',
@@ -106,20 +107,18 @@ const parseTokens = (): TokenItem[] => {
     'common-black',
   ];
 
-  for (const key of neutralKeys) {
-    items.push({
-      name: `--ideasui-color-${key}`,
-      value: `var(--ideasui-color-${key})`,
-      previewValue: `var(--ideasui-color-${key})`,
-      tailwindClass:
-        key.startsWith('on-') || key.startsWith('common-') ? `text-${key}` : `bg-${key}`,
-      category: 'Colors',
-      subCategory: 'Neutral',
-      previewType: 'color',
-    });
-  }
+  return neutralKeys.map((key) => ({
+    name: `--ideasui-color-${key}`,
+    value: `var(--ideasui-color-${key})`,
+    previewValue: `var(--ideasui-color-${key})`,
+    tailwindClass: key.startsWith('on-') || key.startsWith('common-') ? `text-${key}` : `bg-${key}`,
+    category: 'Colors',
+    subCategory: 'Neutral',
+    previewType: 'color',
+  }));
+};
 
-  // 3. Surface Colors
+const getSurfaceColorTokens = (): TokenItem[] => {
   const surfaceKeys = [
     'background',
     'on-background',
@@ -133,34 +132,32 @@ const parseTokens = (): TokenItem[] => {
     'surface-overlay',
   ];
 
-  for (const key of surfaceKeys) {
-    items.push({
-      name: `--ideasui-color-${key}`,
-      value: `var(--ideasui-color-${key})`,
-      previewValue: `var(--ideasui-color-${key})`,
-      tailwindClass: key.startsWith('on-') ? `text-${key}` : `bg-${key}`,
-      category: 'Colors',
-      subCategory: 'Surface',
-      previewType: 'color',
-    });
-  }
+  return surfaceKeys.map((key) => ({
+    name: `--ideasui-color-${key}`,
+    value: `var(--ideasui-color-${key})`,
+    previewValue: `var(--ideasui-color-${key})`,
+    tailwindClass: key.startsWith('on-') ? `text-${key}` : `bg-${key}`,
+    category: 'Colors',
+    subCategory: 'Surface',
+    previewType: 'color',
+  }));
+};
 
-  // 4. Content & Typography Colors
+const getContentColorTokens = (): TokenItem[] => {
   const contentKeys = ['primary', 'secondary', 'tertiary', 'muted', 'disabled', 'inverse'];
 
-  for (const key of contentKeys) {
-    items.push({
-      name: `--ideasui-color-content-${key}`,
-      value: `var(--ideasui-color-content-${key})`,
-      previewValue: `var(--ideasui-color-content-${key})`,
-      tailwindClass: `text-content-${key}`,
-      category: 'Colors',
-      subCategory: 'Content',
-      previewType: 'color',
-    });
-  }
+  return contentKeys.map((key) => ({
+    name: `--ideasui-color-content-${key}`,
+    value: `var(--ideasui-color-content-${key})`,
+    previewValue: `var(--ideasui-color-content-${key})`,
+    tailwindClass: `text-content-${key}`,
+    category: 'Colors',
+    subCategory: 'Content',
+    previewType: 'color',
+  }));
+};
 
-  // 5. Border Colors
+const getBorderColorTokens = (): TokenItem[] => {
   const borderColors = [
     'border',
     'border-base',
@@ -170,19 +167,18 @@ const parseTokens = (): TokenItem[] => {
     'border-danger',
   ];
 
-  for (const key of borderColors) {
-    items.push({
-      name: `--ideasui-color-${key}`,
-      value: `var(--ideasui-color-${key})`,
-      previewValue: `var(--ideasui-color-${key})`,
-      tailwindClass: key === 'border' ? 'border-border' : `border-${key}`,
-      category: 'Colors',
-      subCategory: 'Borders',
-      previewType: 'color',
-    });
-  }
+  return borderColors.map((key) => ({
+    name: `--ideasui-color-${key}`,
+    value: `var(--ideasui-color-${key})`,
+    previewValue: `var(--ideasui-color-${key})`,
+    tailwindClass: key === 'border' ? 'border-border' : `border-${key}`,
+    category: 'Colors',
+    subCategory: 'Borders',
+    previewType: 'color',
+  }));
+};
 
-  // 6. Spacing Scale (4px Base Grid)
+const getSpacingTokens = (): TokenItem[] => {
   const spacingMap: Record<string, string> = {
     px: '1px',
     '0': '0px',
@@ -200,18 +196,17 @@ const parseTokens = (): TokenItem[] => {
     '24': '6rem (96px)',
   };
 
-  for (const [key, val] of Object.entries(spacingMap)) {
-    items.push({
-      name: `--ideasui-spacing-${key}`,
-      value: val,
-      previewValue: getSpacingPx(key),
-      tailwindClass: `p-${key} / m-${key} / gap-${key}`,
-      category: 'Spacing',
-      previewType: 'spacing',
-    });
-  }
+  return Object.entries(spacingMap).map(([key, val]) => ({
+    name: `--ideasui-spacing-${key}`,
+    value: val,
+    previewValue: getSpacingPx(key),
+    tailwindClass: `p-${key} / m-${key} / gap-${key}`,
+    category: 'Spacing',
+    previewType: 'spacing',
+  }));
+};
 
-  // 7. Typography (Font Sizes)
+const getTypographyTokens = (): TokenItem[] => {
   const fontSizeMap: Record<string, string> = {
     '3xs': '0.5rem (8px)',
     '2xs': '0.625rem (10px)',
@@ -230,33 +225,11 @@ const parseTokens = (): TokenItem[] => {
     '9xl': '8rem (128px)',
   };
 
-  for (const [key, val] of Object.entries(fontSizeMap)) {
-    items.push({
-      name: `--ideasui-font-size-${key}`,
-      value: val,
-      previewValue: val.split(' ')[0],
-      tailwindClass: `text-${key}`,
-      category: 'Typography',
-      previewType: 'text',
-    });
-  }
-
-  // 8. Typography (Font Families & Letter Spacing)
   const fontFamilyMap: Record<string, string> = {
     sans: 'Inter, ui-sans-serif, system-ui...',
     serif: 'ui-serif, Georgia, Cambria...',
     mono: 'JetBrains Mono, ui-monospace...',
   };
-
-  for (const [key, val] of Object.entries(fontFamilyMap)) {
-    items.push({
-      name: `--ideasui-font-${key}`,
-      value: val,
-      tailwindClass: `font-${key}`,
-      category: 'Typography',
-      previewType: 'code',
-    });
-  }
 
   const trackingMap: Record<string, string> = {
     tighter: '-0.05em',
@@ -267,17 +240,35 @@ const parseTokens = (): TokenItem[] => {
     widest: '0.1em',
   };
 
-  for (const [key, val] of Object.entries(trackingMap)) {
-    items.push({
-      name: `--ideasui-tracking-${key}`,
-      value: val,
-      tailwindClass: `tracking-${key}`,
-      category: 'Typography',
-      previewType: 'text',
-    });
-  }
+  const fontSizes: TokenItem[] = Object.entries(fontSizeMap).map(([key, val]) => ({
+    name: `--ideasui-font-size-${key}`,
+    value: val,
+    previewValue: val.split(' ')[0],
+    tailwindClass: `text-${key}`,
+    category: 'Typography',
+    previewType: 'text',
+  }));
 
-  // 9. Radius Scale
+  const fontFamilies: TokenItem[] = Object.entries(fontFamilyMap).map(([key, val]) => ({
+    name: `--ideasui-font-${key}`,
+    value: val,
+    tailwindClass: `font-${key}`,
+    category: 'Typography',
+    previewType: 'code',
+  }));
+
+  const tracking: TokenItem[] = Object.entries(trackingMap).map(([key, val]) => ({
+    name: `--ideasui-tracking-${key}`,
+    value: val,
+    tailwindClass: `tracking-${key}`,
+    category: 'Typography',
+    previewType: 'text',
+  }));
+
+  return [...fontSizes, ...fontFamilies, ...tracking];
+};
+
+const getRadiusAndBorderTokens = (): TokenItem[] => {
   const radiusMap: Record<string, string> = {
     none: '0px',
     xs: 'calc(var(--ideasui-radius) * 0.25)',
@@ -293,20 +284,6 @@ const parseTokens = (): TokenItem[] => {
     input: 'calc(var(--ideasui-radius) * 1.5)',
   };
 
-  for (const [key, val] of Object.entries(radiusMap)) {
-    const tailwind = key === 'DEFAULT' ? 'rounded' : `rounded-${key}`;
-
-    items.push({
-      name: key === 'DEFAULT' ? '--ideasui-radius' : `--ideasui-radius-${key}`,
-      value: val,
-      previewValue: getRadiusPx(key),
-      tailwindClass: tailwind,
-      category: 'Radius & Borders',
-      previewType: 'radius',
-    });
-  }
-
-  // 10. Border Widths
   const borderWidthMap: Record<string, string> = {
     none: '0px',
     hairline: '0.5px',
@@ -316,18 +293,28 @@ const parseTokens = (): TokenItem[] => {
     heavy: '8px',
   };
 
-  for (const [key, val] of Object.entries(borderWidthMap)) {
-    items.push({
-      name: `--ideasui-border-${key}`,
-      value: val,
-      previewValue: val,
-      tailwindClass: key === 'none' ? 'border-0' : `border-${key}`,
-      category: 'Radius & Borders',
-      previewType: 'border-width',
-    });
-  }
+  const radiusTokens: TokenItem[] = Object.entries(radiusMap).map(([key, val]) => ({
+    name: key === 'DEFAULT' ? '--ideasui-radius' : `--ideasui-radius-${key}`,
+    value: val,
+    previewValue: getRadiusPx(key),
+    tailwindClass: key === 'DEFAULT' ? 'rounded' : `rounded-${key}`,
+    category: 'Radius & Borders',
+    previewType: 'radius',
+  }));
 
-  // 11. Box Shadows
+  const borderWidthTokens: TokenItem[] = Object.entries(borderWidthMap).map(([key, val]) => ({
+    name: `--ideasui-border-${key}`,
+    value: val,
+    previewValue: val,
+    tailwindClass: key === 'none' ? 'border-0' : `border-${key}`,
+    category: 'Radius & Borders',
+    previewType: 'border-width',
+  }));
+
+  return [...radiusTokens, ...borderWidthTokens];
+};
+
+const getShadowAndLayoutTokens = (): TokenItem[] => {
   const shadowMap: Record<string, string> = {
     none: 'none',
     xs: '0 1px 2px rgb(0 0 0 / 0.05)',
@@ -339,18 +326,6 @@ const parseTokens = (): TokenItem[] => {
     inner: 'inset 0 2px 4px rgb(0 0 0 / 0.06)',
   };
 
-  for (const [key, val] of Object.entries(shadowMap)) {
-    items.push({
-      name: key === 'none' ? '--ideasui-shadow-none' : `--ideasui-shadow-${key}`,
-      value: val,
-      previewValue: val,
-      tailwindClass: key === 'none' ? 'shadow-none' : `shadow-${key}`,
-      category: 'Shadows & Layout',
-      previewType: 'shadow',
-    });
-  }
-
-  // 12. Z-Index Hierarchy
   const zIndexMap: Record<string, string> = {
     hide: '-1',
     base: '0',
@@ -365,17 +340,27 @@ const parseTokens = (): TokenItem[] => {
     tooltip: '1500',
   };
 
-  for (const [key, val] of Object.entries(zIndexMap)) {
-    items.push({
-      name: `--ideasui-z-index-${key}`,
-      value: val,
-      tailwindClass: `z-${key}`,
-      category: 'Shadows & Layout',
-      previewType: 'code',
-    });
-  }
+  const shadowTokens: TokenItem[] = Object.entries(shadowMap).map(([key, val]) => ({
+    name: key === 'none' ? '--ideasui-shadow-none' : `--ideasui-shadow-${key}`,
+    value: val,
+    previewValue: val,
+    tailwindClass: key === 'none' ? 'shadow-none' : `shadow-${key}`,
+    category: 'Shadows & Layout',
+    previewType: 'shadow',
+  }));
 
-  // 13. Opacity Scale
+  const zIndexTokens: TokenItem[] = Object.entries(zIndexMap).map(([key, val]) => ({
+    name: `--ideasui-z-index-${key}`,
+    value: val,
+    tailwindClass: `z-${key}`,
+    category: 'Shadows & Layout',
+    previewType: 'code',
+  }));
+
+  return [...shadowTokens, ...zIndexTokens];
+};
+
+const getEffectAndMotionTokens = (): TokenItem[] => {
   const opacityMap: Record<string, string> = {
     none: '0',
     subtle: '0.04',
@@ -386,17 +371,6 @@ const parseTokens = (): TokenItem[] => {
     full: '1',
   };
 
-  for (const [key, val] of Object.entries(opacityMap)) {
-    items.push({
-      name: `--ideasui-opacity-${key}`,
-      value: val,
-      tailwindClass: `opacity-${key}`,
-      category: 'Effects & Motion',
-      previewType: 'code',
-    });
-  }
-
-  // 14. Blur Filters
   const blurMap: Record<string, string> = {
     none: '0px',
     sm: '4px',
@@ -407,17 +381,6 @@ const parseTokens = (): TokenItem[] => {
     '3xl': '40px',
   };
 
-  for (const [key, val] of Object.entries(blurMap)) {
-    items.push({
-      name: `--ideasui-blur-${key}`,
-      value: val,
-      tailwindClass: key === 'none' ? 'blur-none' : `blur-${key}`,
-      category: 'Effects & Motion',
-      previewType: 'code',
-    });
-  }
-
-  // 15. Motion (Durations & Easings)
   const durationMap: Record<string, string> = {
     xs: '75ms',
     sm: '100ms',
@@ -429,16 +392,6 @@ const parseTokens = (): TokenItem[] => {
     '4xl': '1000ms',
   };
 
-  for (const [key, val] of Object.entries(durationMap)) {
-    items.push({
-      name: `--ideasui-duration-${key}`,
-      value: val,
-      tailwindClass: `duration-${key}`,
-      category: 'Effects & Motion',
-      previewType: 'code',
-    });
-  }
-
   const easeMap: Record<string, string> = {
     standard: 'cubic-bezier(0.4, 0, 0.2, 1)',
     linear: 'linear',
@@ -448,18 +401,53 @@ const parseTokens = (): TokenItem[] => {
     spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
   };
 
-  for (const [key, val] of Object.entries(easeMap)) {
-    items.push({
-      name: `--ideasui-easing-${key}`,
-      value: val,
-      tailwindClass: `ease-${key}`,
-      category: 'Effects & Motion',
-      previewType: 'code',
-    });
-  }
+  const opacityTokens: TokenItem[] = Object.entries(opacityMap).map(([key, val]) => ({
+    name: `--ideasui-opacity-${key}`,
+    value: val,
+    tailwindClass: `opacity-${key}`,
+    category: 'Effects & Motion',
+    previewType: 'code',
+  }));
 
-  return items;
+  const blurTokens: TokenItem[] = Object.entries(blurMap).map(([key, val]) => ({
+    name: `--ideasui-blur-${key}`,
+    value: val,
+    tailwindClass: key === 'none' ? 'blur-none' : `blur-${key}`,
+    category: 'Effects & Motion',
+    previewType: 'code',
+  }));
+
+  const durationTokens: TokenItem[] = Object.entries(durationMap).map(([key, val]) => ({
+    name: `--ideasui-duration-${key}`,
+    value: val,
+    tailwindClass: `duration-${key}`,
+    category: 'Effects & Motion',
+    previewType: 'code',
+  }));
+
+  const easeTokens: TokenItem[] = Object.entries(easeMap).map(([key, val]) => ({
+    name: `--ideasui-easing-${key}`,
+    value: val,
+    tailwindClass: `ease-${key}`,
+    category: 'Effects & Motion',
+    previewType: 'code',
+  }));
+
+  return [...opacityTokens, ...blurTokens, ...durationTokens, ...easeTokens];
 };
+
+const parseTokens = (): TokenItem[] => [
+  ...getSemanticColorTokens(),
+  ...getNeutralColorTokens(),
+  ...getSurfaceColorTokens(),
+  ...getContentColorTokens(),
+  ...getBorderColorTokens(),
+  ...getSpacingTokens(),
+  ...getTypographyTokens(),
+  ...getRadiusAndBorderTokens(),
+  ...getShadowAndLayoutTokens(),
+  ...getEffectAndMotionTokens(),
+];
 
 const REM_REGEX = /^([\d.]+)rem$/;
 const PX_REGEX = /^([\d.]+)px$/;

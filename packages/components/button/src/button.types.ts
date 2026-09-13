@@ -106,21 +106,7 @@ export type ButtonProps =
        * Whether the button should be square and optimized for icons.
        * @default false
        */
-      isIconOnly?: false;
-      /**
-       * Accessibility label for the button.
-       */
-      'aria-label'?: string;
-      /**
-       * ID of an element that serves as the accessible label for the button.
-       */
-      'aria-labelledby'?: string;
-    })
-  | (ButtonBaseProperties & {
-      /**
-       * Whether the button should be square and optimized for icons.
-       */
-      isIconOnly: true;
+      isIconOnly?: boolean;
       /**
        * Accessibility label for the button.
        * Required if the button has no visible label (e.g., `isIconOnly`).
@@ -134,8 +120,9 @@ export type ButtonProps =
   | (ButtonBaseProperties & {
       /**
        * Whether the button should be square and optimized for icons.
+       * @default false
        */
-      isIconOnly: true;
+      isIconOnly?: boolean;
       /**
        * Accessibility label for the button.
        */
@@ -145,6 +132,21 @@ export type ButtonProps =
        * Required if the button has no visible label (e.g., `isIconOnly`).
        */
       'aria-labelledby': string;
+    })
+  | (ButtonBaseProperties & {
+      /**
+       * Whether the button should be square and optimized for icons.
+       * @default false
+       */
+      isIconOnly?: false;
+      /**
+       * Accessibility label for the button.
+       */
+      'aria-label'?: string;
+      /**
+       * ID of an element that serves as the accessible label for the button.
+       */
+      'aria-labelledby'?: string;
     });
 
 /**
