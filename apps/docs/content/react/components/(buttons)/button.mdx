@@ -58,14 +58,14 @@ IdeasUI buttons support multiple visual variants for different levels of emphasi
 
 Available variants include:
 
-* **Solid** — High-emphasis actions.
-* **Outline** — Secondary or alternative actions.
-* **Ghost** — Low-emphasis actions.
-* **Soft** — Subtle emphasis using a semantic color.
-* **Link** — Navigation or link-styled actions.
-* **Text** — Minimal button treatment.
-* **Elevated** — Emphasized actions with elevation.
-* **Surface** — Actions that visually integrate with the surrounding surface.
+- **Solid** — High-emphasis actions.
+- **Outline** — Secondary or alternative actions.
+- **Ghost** — Low-emphasis actions.
+- **Soft** — Subtle emphasis using a semantic color.
+- **Link** — Navigation or link-styled actions.
+- **Text** — Minimal button treatment.
+- **Elevated** — Emphasized actions with elevation.
+- **Surface** — Actions that visually integrate with the surrounding surface.
 
 ### Colors
 
@@ -75,12 +75,12 @@ Button colors use semantic tokens so the same component can adapt to the active 
 
 Common semantic colors include:
 
-* **`primary`** — Main application action.
-* **`secondary`** — Supporting action.
-* **`success`** — Positive or completion actions.
-* **`warning`** — Cautionary actions.
-* **`danger`** — Destructive or irreversible actions.
-* **`info`** — Informational actions.
+- **`primary`** — Main application action.
+- **`secondary`** — Supporting action.
+- **`success`** — Positive or completion actions.
+- **`warning`** — Cautionary actions.
+- **`danger`** — Destructive or irreversible actions.
+- **`info`** — Informational actions.
 
 For example:
 
@@ -114,20 +114,26 @@ Use `isLoading` to indicate that an action is currently being processed. When `i
 The loading indicator can be positioned at `'start'` (default), `'end'`, or `'center'`:
 
 ```tsx
-{/* Default start position */}
+{
+  /* Default start position */
+}
 <Button isLoading loadingPosition="start">
   Saving...
-</Button>
+</Button>;
 
-{/* End position */}
+{
+  /* End position */
+}
 <Button isLoading loadingPosition="end">
   Processing...
-</Button>
+</Button>;
 
-{/* Center position (replaces text content) */}
+{
+  /* Center position (replaces text content) */
+}
 <Button isLoading loadingPosition="center">
   Submitting
-</Button>
+</Button>;
 ```
 
 #### Custom Loading Indicator (loadingIndicator)
@@ -135,10 +141,7 @@ The loading indicator can be positioned at `'start'` (default), `'end'`, or `'ce
 Customize the spinner icon or pass custom elements using `loadingIndicator`:
 
 ```tsx
-<Button
-  isLoading
-  loadingIndicator={<CustomSpinner className="animate-pulse" />}
->
+<Button isLoading loadingIndicator={<CustomSpinner className="animate-pulse" />}>
   Syncing Data
 </Button>
 ```
@@ -169,10 +172,10 @@ Use the disabled state when an action is temporarily unavailable.
 
 The Button component supports compound components for more flexible composition:
 
-* `Button.Label` — Text content of the button.
-* `Button.Icon` — Icon content with configurable placement.
-* `Button.Spinner` — Customizable loading indicator.
-* `Button.Shortcut` — Displays a keyboard shortcut.
+- `Button.Label` — Text content of the button.
+- `Button.Icon` — Icon content with configurable placement.
+- `Button.Spinner` — Customizable loading indicator.
+- `Button.Shortcut` — Displays a keyboard shortcut.
 
 ```tsx
 <Button>
@@ -219,12 +222,12 @@ export default function Example() {
 
 Pass custom classes to specific sub-elements using the `classNames` prop (`ButtonClassNames`):
 
-* `base` — Custom class for the root button container.
-* `label` — Custom class for the button text label.
-* `startIcon` — Custom class for the leading icon container.
-* `endIcon` — Custom class for the trailing icon container.
-* `spinner` — Custom class for the loading spinner.
-* `shortcut` — Custom class for the keyboard shortcut element.
+- `base` — Custom class for the root button container.
+- `label` — Custom class for the button text label.
+- `startIcon` — Custom class for the leading icon container.
+- `endIcon` — Custom class for the trailing icon container.
+- `spinner` — Custom class for the loading spinner.
+- `shortcut` — Custom class for the keyboard shortcut element.
 
 ```tsx
 <Button
@@ -242,27 +245,27 @@ Pass custom classes to specific sub-elements using the `classNames` prop (`Butto
 
 The Button component exposes BEM class names and granular slot class names:
 
-* **Block:** `.btn` (`base` slot) — Main button container.
-* **Elements:**
-  * `.btn__label` (`label` slot) — Text label slot.
-  * `.btn__icon` (`startIcon` / `endIcon` slot) — Icon container slot.
-  * `.btn__loader` (`spinner` slot) — Loading indicator slot.
-  * `.btn__shortcut` (`shortcut` slot) — Keyboard shortcut slot.
-* **BEM Modifiers:**
-  * **Variants:** `.btn--solid`, `.btn--outline`, `.btn--ghost`, `.btn--soft`, `.btn--link`, `.btn--text`, `.btn--elevated`, `.btn--surface`
-  * **Colors:** `.btn--primary`, `.btn--secondary`, `.btn--success`, `.btn--warning`, `.btn--danger`, `.btn--info`
-  * **Sizes:** `.btn--xs`, `.btn--sm`, `.btn--md`, `.btn--lg`, `.btn--xl`
-  * **States:** `.btn--disabled`, `.btn--loading`, `.btn--icon-only`, `.btn--full-width`
+- **Block:** `.btn` (`base` slot) — Main button container.
+- **Elements:**
+  - `.btn__label` (`label` slot) — Text label slot.
+  - `.btn__icon` (`startIcon` / `endIcon` slot) — Icon container slot.
+  - `.btn__loader` (`spinner` slot) — Loading indicator slot.
+  - `.btn__shortcut` (`shortcut` slot) — Keyboard shortcut slot.
+- **BEM Modifiers:**
+  - **Variants:** `.btn--solid`, `.btn--outline`, `.btn--ghost`, `.btn--soft`, `.btn--link`, `.btn--text`, `.btn--elevated`, `.btn--surface`
+  - **Colors:** `.btn--primary`, `.btn--secondary`, `.btn--success`, `.btn--warning`, `.btn--danger`, `.btn--info`
+  - **Sizes:** `.btn--xs`, `.btn--sm`, `.btn--md`, `.btn--lg`, `.btn--xl`
+  - **States:** `.btn--disabled`, `.btn--loading`, `.btn--icon-only`, `.btn--full-width`
 
 ### Interactive States
 
 The Button supports standard CSS states and React Aria interaction state attributes.
 
-* **Hover:** `:hover` or `[data-hovered="true"]`
-* **Pressed:** `:active` or `[data-pressed="true"]`
-* **Focus:** `:focus-visible` or `[data-focus-visible="true"]`
-* **Disabled:** `:disabled` or `[aria-disabled="true"]`
-* **Pending:** `[data-pending]`
+- **Hover:** `:hover` or `[data-hovered="true"]`
+- **Pressed:** `:active` or `[data-pressed="true"]`
+- **Focus:** `:focus-visible` or `[data-focus-visible="true"]`
+- **Disabled:** `:disabled` or `[aria-disabled="true"]`
+- **Pending:** `[data-pending]`
 
 These states can be used when extending or customizing Button styles.
 
