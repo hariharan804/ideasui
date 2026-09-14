@@ -196,6 +196,58 @@ function getCustomOklch(hex: string): string {
   return `${l.toFixed(2)} ${c.toFixed(2)} ${Math.round(h)}`;
 }
 
+interface ColorTileItemProps {
+  readonly backgroundColor: string;
+  readonly children?: React.ReactNode;
+  readonly icon?: React.ReactNode;
+  readonly isSelected: boolean;
+  readonly label: string;
+  readonly onClick?: () => void;
+}
+
+function ColorTileItem({
+  backgroundColor,
+  children,
+  icon,
+  isSelected,
+  label,
+  onClick,
+}: Readonly<ColorTileItemProps>) {
+  return (
+    <button
+      className={cn(
+        'group border-border-subtle/50 relative flex cursor-pointer flex-col items-center gap-1.5 rounded-xl border p-2 text-left transition-all duration-200 active:scale-95 sm:p-2.5',
+        isSelected
+          ? 'ring-primary border-primary bg-primary-subtle/30 ring-2'
+          : 'bg-surface-subtle/40 hover:bg-surface hover:border-border-subtle',
+      )}
+      type="button"
+      onClick={onClick}
+    >
+      {children}
+      <div className="relative flex size-7 items-center justify-center rounded-full shadow-xs sm:size-8">
+        <span
+          className="absolute inset-0 rounded-full transition-transform duration-200 group-hover:scale-105"
+          style={{ backgroundColor }}
+        />
+        {isSelected ? <Check className="relative z-10 size-4 text-white drop-shadow-xs" /> : icon}
+      </div>
+      <span className="text-content-primary w-full truncate text-center font-mono text-[10px] font-medium sm:text-[11px]">
+        {label}
+      </span>
+    </button>
+  );
+}
+
+const PRIMARY_COLOR_VARS = [
+  '--ideasui-color-primary',
+  '--ideasui-color-on-primary',
+  '--ideasui-color-primary-subtle',
+  '--ideasui-color-on-primary-subtle',
+  '--ideasui-color-primary-muted',
+  '--ideasui-color-on-primary-muted',
+] as const;
+
 export function applyPrimaryColorTokens(oklchStr: string) {
   if (globalThis.window === undefined) return;
 
@@ -209,48 +261,35 @@ export function applyPrimaryColorTokens(oklchStr: string) {
   const h = parts[2];
 
   const isDark = document.documentElement.classList.contains('dark');
+  const values = isDark
+    ? [
+        `${Math.max(l, 0.62)} ${c} ${h}`,
+        `0.14 0.04 ${h}`,
+        `0.18 0.05 ${h}`,
+        `0.88 0.06 ${h}`,
+        `0.26 0.08 ${h}`,
+        `0.84 0.07 ${h}`,
+      ]
+    : [
+        `${l} ${c} ${h}`,
+        '1 0 0',
+        `0.96 0.028 ${h}`,
+        `0.38 0.18 ${h}`,
+        `0.92 0.05 ${h}`,
+        `0.42 0.20 ${h}`,
+      ];
 
-  if (isDark) {
-    document.documentElement.style.setProperty(
-      '--ideasui-color-primary',
-      `${Math.max(l, 0.62)} ${c} ${h}`,
-    );
-    document.documentElement.style.setProperty('--ideasui-color-on-primary', `0.14 0.04 ${h}`);
-    document.documentElement.style.setProperty('--ideasui-color-primary-subtle', `0.18 0.05 ${h}`);
-    document.documentElement.style.setProperty(
-      '--ideasui-color-on-primary-subtle',
-      `0.88 0.06 ${h}`,
-    );
-    document.documentElement.style.setProperty('--ideasui-color-primary-muted', `0.26 0.08 ${h}`);
-    document.documentElement.style.setProperty(
-      '--ideasui-color-on-primary-muted',
-      `0.84 0.07 ${h}`,
-    );
-  } else {
-    document.documentElement.style.setProperty('--ideasui-color-primary', `${l} ${c} ${h}`);
-    document.documentElement.style.setProperty('--ideasui-color-on-primary', '1 0 0');
-    document.documentElement.style.setProperty('--ideasui-color-primary-subtle', `0.96 0.028 ${h}`);
-    document.documentElement.style.setProperty(
-      '--ideasui-color-on-primary-subtle',
-      `0.38 0.18 ${h}`,
-    );
-    document.documentElement.style.setProperty('--ideasui-color-primary-muted', `0.92 0.05 ${h}`);
-    document.documentElement.style.setProperty(
-      '--ideasui-color-on-primary-muted',
-      `0.42 0.20 ${h}`,
-    );
+  for (const [idx, varName] of PRIMARY_COLOR_VARS.entries()) {
+    document.documentElement.style.setProperty(varName, values[idx]);
   }
 }
 
 export function resetPrimaryColorTokens() {
   if (globalThis.window === undefined) return;
 
-  document.documentElement.style.removeProperty('--ideasui-color-primary');
-  document.documentElement.style.removeProperty('--ideasui-color-on-primary');
-  document.documentElement.style.removeProperty('--ideasui-color-primary-subtle');
-  document.documentElement.style.removeProperty('--ideasui-color-on-primary-subtle');
-  document.documentElement.style.removeProperty('--ideasui-color-primary-muted');
-  document.documentElement.style.removeProperty('--ideasui-color-on-primary-muted');
+  for (const varName of PRIMARY_COLOR_VARS) {
+    document.documentElement.style.removeProperty(varName);
+  }
 }
 
 export function useInitThemeCustomizer() {
@@ -405,11 +444,14 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
     setCustomOklch('');
     resetPrimaryColorTokens();
     document.documentElement.style.removeProperty('--ideasui-radius');
-    localStorage.removeItem(STORAGE_KEYS.COLOR);
-    localStorage.removeItem(STORAGE_KEYS.COLOR_OKLCH);
-    localStorage.removeItem(STORAGE_KEYS.CUSTOM_HEX);
-    localStorage.removeItem(STORAGE_KEYS.RADIUS);
-    localStorage.removeItem(STORAGE_KEYS.RADIUS_VAL);
+    for (const key of [
+      STORAGE_KEYS.COLOR,
+      STORAGE_KEYS.COLOR_OKLCH,
+      STORAGE_KEYS.CUSTOM_HEX,
+      STORAGE_KEYS.RADIUS,
+      STORAGE_KEYS.RADIUS_VAL,
+    ])
+      localStorage.removeItem(key);
     setTheme('system');
   };
 
@@ -504,46 +546,26 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
                   <span>Brand Accent Colors</span>
                 </div>
                 <div className="grid grid-cols-4 gap-2">
-                  {COLOR_PRESETS.map((preset) => {
-                    const isSelected = selectedColor === preset.id;
-                    const oklchCss = `oklch(${preset.oklch})`;
-
-                    return (
-                      <button
-                        key={preset.id}
-                        className={cn(
-                          'group border-border-subtle/50 flex cursor-pointer flex-col items-center gap-1.5 rounded-xl border p-2 text-left transition-all duration-200 active:scale-95 sm:p-2.5',
-                          isSelected
-                            ? 'ring-primary border-primary bg-primary-subtle/30 ring-2'
-                            : 'bg-surface-subtle/40 hover:bg-surface hover:border-border-subtle',
-                        )}
-                        type="button"
-                        onClick={() => handleApplyColor(preset)}
-                      >
-                        <div className="relative flex size-7 items-center justify-center rounded-full shadow-xs sm:size-8">
-                          <span
-                            className="absolute inset-0 rounded-full transition-transform duration-200 group-hover:scale-105"
-                            style={{ backgroundColor: oklchCss }}
-                          />
-                          {isSelected && (
-                            <Check className="relative z-10 size-4 text-white drop-shadow-xs" />
-                          )}
-                        </div>
-                        <span className="text-content-primary w-full truncate text-center font-mono text-[10px] font-medium sm:text-[11px]">
-                          {preset.name.split(' ')[0]}
-                        </span>
-                      </button>
-                    );
-                  })}
+                  {COLOR_PRESETS.map((preset) => (
+                    <ColorTileItem
+                      key={preset.id}
+                      backgroundColor={`oklch(${preset.oklch})`}
+                      isSelected={selectedColor === preset.id}
+                      label={preset.name.split(' ')[0]}
+                      onClick={() => handleApplyColor(preset)}
+                    />
+                  ))}
 
                   {/* Custom User Color Tile */}
-                  <div
-                    className={cn(
-                      'group border-border-subtle/50 relative flex cursor-pointer flex-col items-center gap-1.5 rounded-xl border p-2 text-left transition-all duration-200 active:scale-95 sm:p-2.5',
-                      selectedColor === 'custom'
-                        ? 'ring-primary border-primary bg-primary-subtle/30 ring-2'
-                        : 'bg-surface-subtle/40 hover:bg-surface hover:border-border-subtle',
-                    )}
+                  <ColorTileItem
+                    backgroundColor={
+                      selectedColor === 'custom' && customOklch
+                        ? `oklch(${customOklch})`
+                        : customHex
+                    }
+                    icon={<Pipette className="relative z-10 size-3.5 text-white drop-shadow-xs" />}
+                    isSelected={selectedColor === 'custom'}
+                    label="Custom"
                   >
                     <input
                       aria-label="Pick custom color"
@@ -552,26 +574,7 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
                       value={customHex}
                       onChange={(e) => handleApplyCustomColor(e.target.value)}
                     />
-                    <div className="relative flex size-7 items-center justify-center rounded-full shadow-xs sm:size-8">
-                      <span
-                        className="absolute inset-0 rounded-full transition-transform duration-200 group-hover:scale-105"
-                        style={{
-                          backgroundColor:
-                            selectedColor === 'custom' && customOklch
-                              ? `oklch(${customOklch})`
-                              : customHex,
-                        }}
-                      />
-                      {selectedColor === 'custom' ? (
-                        <Check className="relative z-10 size-4 text-white drop-shadow-xs" />
-                      ) : (
-                        <Pipette className="relative z-10 size-3.5 text-white drop-shadow-xs" />
-                      )}
-                    </div>
-                    <span className="text-content-primary w-full truncate text-center font-mono text-[10px] font-medium sm:text-[11px]">
-                      Custom
-                    </span>
-                  </div>
+                  </ColorTileItem>
                 </div>
               </div>
 
