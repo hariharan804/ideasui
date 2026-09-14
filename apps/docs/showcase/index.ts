@@ -46,6 +46,10 @@ export const demos: Record<string, DemoItem> = {
     component: ButtonDemos.WithIcons,
     file: 'button/with-icons.tsx',
   },
+  'button-shortcut': {
+    component: ButtonDemos.Shortcut,
+    file: 'button/shortcut.tsx',
+  },
   'button-icon-only': {
     component: ButtonDemos.IconOnly,
     file: 'button/icon-only.tsx',

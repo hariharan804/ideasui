@@ -25,6 +25,24 @@ export interface ButtonClassNames {
 }
 
 /**
+ * Granular props for individual Button slots.
+ */
+export interface ButtonSlotProps {
+  /** Props for the button container base slot. */
+  base?: ButtonPrimitiveProperties & { [key: `data-${string}`]: unknown };
+  /** Props for the button label slot. */
+  label?: ButtonLabelProperties;
+  /** Props for the start icon container slot. */
+  startIcon?: ButtonIconProperties;
+  /** Props for the end icon container slot. */
+  endIcon?: ButtonIconProperties;
+  /** Props for the loading spinner slot. */
+  spinner?: ButtonSpinnerProperties;
+  /** Props for the shortcut container slot. */
+  shortcut?: ButtonShortcutProperties;
+}
+
+/**
  * Base props for the Button component.
  */
 interface ButtonBaseProperties
@@ -67,6 +85,10 @@ interface ButtonBaseProperties
    * Custom class names for individual button slots.
    */
   classNames?: ButtonClassNames;
+  /**
+   * Custom props for individual button slots.
+   */
+  slotProps?: ButtonSlotProps;
   /**
    * The CSS class name for the button.
    * Can be a string or a function that receives the button render props.
@@ -152,7 +174,9 @@ export type ButtonProps =
 /**
  * Props for the Button.Label component.
  */
-export interface ButtonLabelProperties extends HTMLAttributes<HTMLSpanElement> {}
+export interface ButtonLabelProperties extends HTMLAttributes<HTMLSpanElement> {
+  [key: `data-${string}`]: unknown;
+}
 
 /**
  * Props for the Button.Icon component.
@@ -161,12 +185,13 @@ export interface ButtonIconProperties extends HTMLAttributes<HTMLElement> {
   /**
    * The icon content.
    */
-  children: ReactNode;
+  children?: ReactNode;
   /**
    * The placement of the icon relative to the label.
    * @default 'start'
    */
   placement?: 'start' | 'end';
+  [key: `data-${string}`]: unknown;
 }
 
 /**
@@ -178,6 +203,7 @@ export interface ButtonSpinnerProperties extends HTMLAttributes<HTMLSpanElement>
    * @default 'Loading'
    */
   label?: string;
+  [key: `data-${string}`]: unknown;
 }
 
 /**
@@ -187,7 +213,8 @@ export interface ButtonShortcutProperties extends HTMLAttributes<HTMLSpanElement
   /**
    * The shortcut keys to display.
    */
-  children: ReactNode;
+  children?: ReactNode;
+  [key: `data-${string}`]: unknown;
 }
 
 /**

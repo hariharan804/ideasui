@@ -14,6 +14,7 @@ export { Colors } from './colors';
 export { WithIcons } from './with-icons';
 export { RippleEffect } from './ripple-effect';
 export { CustomRenderFunction } from './custom-render-function';
+export { Shortcut } from './shortcut';
 
 // Button Group demos
 export { default as ButtonGroupBasic } from './button-group-basic';

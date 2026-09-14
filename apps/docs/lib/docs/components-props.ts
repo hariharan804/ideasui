@@ -103,6 +103,14 @@ export const propsDocumentation: PropsDocumentation = {
           description: 'Custom class names for individual button slots.',
         },
         {
+          name: 'slotProps',
+          type: 'ButtonSlotProps',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom props for individual button slots.',
+        },
+        {
           name: 'className',
           type: 'string | ((properties: ButtonRenderProps) => string)',
           required: false,
@@ -164,7 +172,7 @@ export const propsDocumentation: PropsDocumentation = {
         {
           name: 'children',
           type: 'ReactNode',
-          required: true,
+          required: false,
           defaultValue: null,
           deprecated: false,
           description: 'The icon content.',
@@ -204,7 +212,7 @@ export const propsDocumentation: PropsDocumentation = {
         {
           name: 'children',
           type: 'ReactNode',
-          required: true,
+          required: false,
           defaultValue: null,
           deprecated: false,
           description: 'The shortcut keys to display.',

@@ -103,6 +103,18 @@ Use an icon-only button when the action can be communicated clearly by its icon.
 
 <Preview name="button-icon-only" />
 
+### Keyboard Shortcuts
+
+Display a keyboard shortcut key combination inside the button using the `shortcut` prop or `<Button.Shortcut>` sub-component.
+
+<Preview name="button-shortcut" />
+
+```tsx
+<Button shortcut="⌘K" startIcon={<Search />}>
+  Quick Search
+</Button>
+```
+
 ### Loading
 
 Use `isLoading` to indicate that an action is currently being processed. When `isLoading` is active, pointer events are automatically suspended and `aria-busy="true"` is applied.
@@ -238,6 +250,32 @@ Pass custom classes to specific sub-elements using the `classNames` prop (`Butto
   }}
 >
   Custom Styled Button
+</Button>
+```
+
+### Slot Props (slotProps)
+
+Pass granular HTML attributes, event handlers, and data attributes to individual sub-slots using `slotProps` (`ButtonSlotProps`):
+
+- `base` — Props for the root button element (`<button>`).
+- `label` — Props for the text label element (`<span>`).
+- `startIcon` — Props for the start icon container (`<span>`).
+- `endIcon` — Props for the end icon container (`<span>`).
+- `spinner` — Props for the loading spinner container (`<span>`).
+- `shortcut` — Props for the keyboard shortcut element (`<kbd>`).
+
+```tsx
+<Button
+  shortcut="⌘K"
+  startIcon={<Search />}
+  slotProps={{
+    base: { 'data-testid': 'search-button-base' },
+    label: { 'aria-label': 'Custom search label' },
+    startIcon: { className: 'text-primary' },
+    shortcut: { className: 'font-mono opacity-80' },
+  }}
+>
+  Search
 </Button>
 ```
 
