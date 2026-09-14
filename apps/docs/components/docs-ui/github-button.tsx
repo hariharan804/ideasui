@@ -104,7 +104,7 @@ export function GitHubButton({
       >
         Star on GitHub
       </span>
-      {stars !== null && stars > 0 && (
+      {stars !== null && stars > 0 ? (
         <span
           className={cn(
             'text-content-secondary bg-surface-muted shrink-0 rounded-full font-bold whitespace-nowrap',
@@ -112,6 +112,15 @@ export function GitHubButton({
           )}
         >
           {formatStars(stars)}
+        </span>
+      ) : (
+        <span
+          className={cn(
+            'text-content-secondary bg-surface-muted shrink-0 rounded-full font-bold whitespace-nowrap',
+            isButton ? 'ml-1.5 px-2.5 py-0.5 text-xs' : 'ml-0.5 px-2 py-0.5 text-[11px] sm:ml-1',
+          )}
+        >
+          0
         </span>
       )}
     </a>

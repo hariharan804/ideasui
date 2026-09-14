@@ -25,6 +25,10 @@ import { GitHubButton } from '@/components/docs-ui/github-button';
 import { ThemeToggle } from '@/components/docs-ui/theme-toggle';
 import { LanguageToggle } from '@/components/docs-ui/language-toggle';
 import { LinkItem } from '@/components/docs-ui/link-item';
+import {
+  ThemeCustomizerModal,
+  useInitThemeCustomizer,
+} from '@/components/docs-ui/theme-customizer-modal';
 
 export function NavbarLinkItem({
   className,
@@ -238,6 +242,10 @@ export function DocsNavbar({
   const themeSwitchEnabled = themeSwitch?.enabled !== false;
   const themeSwitchMode = themeSwitch?.mode ?? 'light-dark-system';
 
+  const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+
+  useInitThemeCustomizer();
+
   return (
     <LayoutHeader
       className={cn(
@@ -350,9 +358,14 @@ export function DocsNavbar({
             {/* 1. Theme Customizer Pill */}
             <NavbarPillButton
               aria-label="Customize Theme"
-              className="px-2.5 text-xs font-medium sm:px-3.5"
+              className="bg-primary-subtle hover:bg-primary-muted text-primary hover:text-primary cursor-pointer gap-1.5 px-2.5 text-xs font-medium transition-colors sm:px-3.5"
+              onClick={() => setIsThemeModalOpen(true)}
             >
               <Palette className="size-4" />
+              <span
+                className="size-4 rounded-full shadow-xs transition-colors"
+                style={{ backgroundColor: 'oklch(var(--ideasui-color-primary))' }}
+              />
               <span className="hidden xl:inline">Theme</span>
             </NavbarPillButton>
 
@@ -378,6 +391,19 @@ export function DocsNavbar({
 
           {/* Mobile Controls */}
           <div className="flex items-center gap-1 sm:gap-1.5 md:hidden">
+            {/* Theme Customizer Pill (Mobile) */}
+            <NavbarPillButton
+              aria-label="Customize Theme"
+              className="relative cursor-pointer px-2 text-xs font-medium"
+              onClick={() => setIsThemeModalOpen(true)}
+            >
+              <Palette className="size-4" />
+              <span
+                className="absolute top-1 right-1 size-1.5 rounded-full shadow-xs transition-colors"
+                style={{ backgroundColor: 'oklch(var(--ideasui-color-primary))' }}
+              />
+            </NavbarPillButton>
+
             {searchToggle.enabled !== false &&
               (searchToggle.components?.sm ?? <SearchToggle hideIfDisabled className="p-2" />)}
 
@@ -413,6 +439,8 @@ export function DocsNavbar({
           </div>
         </div>
       </div>
+
+      <ThemeCustomizerModal isOpen={isThemeModalOpen} onClose={() => setIsThemeModalOpen(false)} />
     </LayoutHeader>
   );
 }

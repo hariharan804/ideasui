@@ -4,12 +4,16 @@ import type { ComponentProps } from 'react';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, Palette } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@ideasui/utils';
 import { Logo } from '@/components/ui/logo';
 import { GitHubButton } from '@/components/docs-ui/github-button';
 import { ThemeToggle } from '@/components/docs-ui/theme-toggle';
+import {
+  ThemeCustomizerModal,
+  useInitThemeCustomizer,
+} from '@/components/docs-ui/theme-customizer-modal';
 
 import { ROUTES } from '@/config/routes';
 
@@ -44,6 +48,9 @@ export function LandingNavbar() {
   const pathname = usePathname();
   const [isTop, setIsTop] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+
+  useInitThemeCustomizer();
 
   useEffect(() => {
     function handleScroll() {
@@ -112,6 +119,20 @@ export function LandingNavbar() {
         <div className="flex shrink-0 items-center justify-end gap-2">
           {/* Desktop Controls */}
           <div className="ml-2 flex items-center gap-2 max-md:hidden">
+            <button
+              aria-label="Customize Theme"
+              className="bg-primary-subtle text-primary hover:bg-primary-muted hover:text-primary flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-full px-3 text-xs font-semibold backdrop-blur-md transition-all active:scale-95"
+              type="button"
+              onClick={() => setIsThemeModalOpen(true)}
+            >
+              <Palette className="size-4" />
+              <span
+                className="size-4 rounded-full shadow-xs transition-colors"
+                style={{ backgroundColor: 'oklch(var(--ideasui-color-primary))' }}
+              />
+              <span className="hidden xl:inline">Theme</span>
+            </button>
+
             <div className="opacity-80 transition-opacity hover:opacity-100">
               <GitHubButton repo="ideas2logic-lab/ideasui" />
             </div>
@@ -129,13 +150,22 @@ export function LandingNavbar() {
 
           {/* Mobile Controls */}
           <div className="flex items-center gap-1.5 md:hidden">
+            <button
+              aria-label="Customize Theme"
+              className="bg-surface-muted text-content-primary hover:bg-surface-subtle relative flex size-8 cursor-pointer items-center justify-center rounded-full transition-all active:scale-95"
+              type="button"
+              onClick={() => setIsThemeModalOpen(true)}
+            >
+              <Palette className="size-4" />
+              <span
+                className="absolute top-1 right-1 size-1.5 rounded-full shadow-xs transition-colors"
+                style={{ backgroundColor: 'oklch(var(--ideasui-color-primary))' }}
+              />
+            </button>
+
             <div className="xs:block hidden">
               <GitHubButton repo="ideas2logic-lab/ideasui" />
             </div>
-
-            <NavbarPill className="px-1">
-              <ThemeToggle mode="light-dark-system" />
-            </NavbarPill>
 
             <button
               aria-label="Toggle mobile menu"
@@ -194,6 +224,8 @@ export function LandingNavbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ThemeCustomizerModal isOpen={isThemeModalOpen} onClose={() => setIsThemeModalOpen(false)} />
     </header>
   );
 }
