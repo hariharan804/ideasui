@@ -20,100 +20,24 @@ export interface ColorPreset {
   readonly id: string;
   readonly name: string;
   readonly oklch: string;
-  readonly bgClass: string;
 }
 
 export const COLOR_PRESETS: readonly ColorPreset[] = [
-  {
-    id: 'indigo',
-    name: 'IdeasUI Indigo',
-    oklch: '0.52 0.24 275',
-    bgClass: 'bg-primary',
-  },
-  {
-    id: 'linear',
-    name: 'Linear Indigo',
-    oklch: '0.567 0.159 275',
-    bgClass: 'bg-primary',
-  },
-  {
-    id: 'supabase',
-    name: 'Supabase Green',
-    oklch: '0.762 0.154 159',
-    bgClass: 'bg-success',
-  },
-  {
-    id: 'stripe',
-    name: 'Stripe Blurple',
-    oklch: '0.578 0.235 278',
-    bgClass: 'bg-primary',
-  },
-  {
-    id: 'raycast',
-    name: 'Raycast Coral',
-    oklch: '0.700 0.191 23',
-    bgClass: 'bg-danger',
-  },
-  {
-    id: 'tailwind',
-    name: 'Tailwind Sky',
-    oklch: '0.754 0.139 233',
-    bgClass: 'bg-info',
-  },
-  {
-    id: 'spotify',
-    name: 'Spotify Green',
-    oklch: '0.689 0.187 149',
-    bgClass: 'bg-success',
-  },
-  {
-    id: 'whatsapp',
-    name: 'WhatsApp Green',
-    oklch: '0.761 0.201 150',
-    bgClass: 'bg-success',
-  },
-  {
-    id: 'instagram',
-    name: 'Instagram Pink',
-    oklch: '0.619 0.200 15',
-    bgClass: 'bg-danger',
-  },
-  {
-    id: 'facebook',
-    name: 'Facebook Blue',
-    oklch: '0.589 0.203 258',
-    bgClass: 'bg-primary',
-  },
-  {
-    id: 'figma',
-    name: 'Figma Red',
-    oklch: '0.648 0.208 36',
-    bgClass: 'bg-danger',
-  },
-  {
-    id: 'openai',
-    name: 'OpenAI Green',
-    oklch: '0.637 0.124 170',
-    bgClass: 'bg-success',
-  },
-  {
-    id: 'discord',
-    name: 'Discord Blurple',
-    oklch: '0.577 0.209 274',
-    bgClass: 'bg-secondary',
-  },
-  {
-    id: 'vercel',
-    name: 'Vercel Black',
-    oklch: '0 0 0',
-    bgClass: 'bg-neutral',
-  },
-  {
-    id: 'github',
-    name: 'GitHub Green',
-    oklch: '0.70 0.19 145',
-    bgClass: 'bg-success',
-  },
+  { id: 'indigo', name: 'IdeasUI Indigo', oklch: '0.52 0.24 275' },
+  { id: 'linear', name: 'Linear Indigo', oklch: '0.567 0.159 275' },
+  { id: 'supabase', name: 'Supabase Green', oklch: '0.762 0.154 159' },
+  { id: 'stripe', name: 'Stripe Blurple', oklch: '0.578 0.235 278' },
+  { id: 'raycast', name: 'Raycast Coral', oklch: '0.700 0.191 23' },
+  { id: 'tailwind', name: 'Tailwind Sky', oklch: '0.754 0.139 233' },
+  { id: 'spotify', name: 'Spotify Green', oklch: '0.689 0.187 149' },
+  { id: 'whatsapp', name: 'WhatsApp Green', oklch: '0.761 0.201 150' },
+  { id: 'instagram', name: 'Instagram Pink', oklch: '0.619 0.200 15' },
+  { id: 'facebook', name: 'Facebook Blue', oklch: '0.589 0.203 258' },
+  { id: 'figma', name: 'Figma Red', oklch: '0.648 0.208 36' },
+  { id: 'openai', name: 'OpenAI Green', oklch: '0.637 0.124 170' },
+  { id: 'discord', name: 'Discord Blurple', oklch: '0.577 0.209 274' },
+  { id: 'vercel', name: 'Vercel Black', oklch: '0 0 0' },
+  { id: 'github', name: 'GitHub Green', oklch: '0.70 0.19 145' },
 ] as const;
 
 export interface RadiusPreset {
@@ -238,6 +162,42 @@ function ColorTileItem({
     </button>
   );
 }
+
+interface SegmentPillButtonProps {
+  readonly children: React.ReactNode;
+  readonly className?: string;
+  readonly isSelected: boolean;
+  readonly onClick: () => void;
+}
+
+function SegmentPillButton({
+  children,
+  className,
+  isSelected,
+  onClick,
+}: Readonly<SegmentPillButtonProps>) {
+  return (
+    <button
+      className={cn(
+        'flex cursor-pointer items-center justify-center gap-1.5 rounded-xl transition-all duration-200 active:scale-95',
+        isSelected
+          ? 'bg-primary text-on-primary shadow-sm'
+          : 'bg-surface-subtle/80 text-content-secondary hover:bg-surface hover:text-content-primary',
+        className,
+      )}
+      type="button"
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+}
+
+const MODE_OPTIONS = [
+  { id: 'light', label: 'Light', icon: Sun },
+  { id: 'dark', label: 'Dark', icon: Moon },
+  { id: 'system', label: 'System', icon: Airplay },
+] as const;
 
 const PRIMARY_COLOR_VARS = [
   '--ideasui-color-primary',
@@ -511,32 +471,17 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
                   <span>Color Mode</span>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
-                  {(
-                    [
-                      { id: 'light', label: 'Light', icon: Sun },
-                      { id: 'dark', label: 'Dark', icon: Moon },
-                      { id: 'system', label: 'System', icon: Airplay },
-                    ] as const
-                  ).map(({ id, label, icon: Icon }) => {
-                    const isSelected = theme === id;
-
-                    return (
-                      <button
-                        key={id}
-                        className={cn(
-                          'flex cursor-pointer items-center justify-center gap-2 rounded-xl py-2 text-xs font-semibold transition-all duration-200 active:scale-95 sm:py-2.5 sm:text-sm',
-                          isSelected
-                            ? 'bg-primary text-on-primary shadow-sm'
-                            : 'bg-surface-subtle/80 text-content-secondary hover:bg-surface hover:text-content-primary',
-                        )}
-                        type="button"
-                        onClick={() => setTheme(id)}
-                      >
-                        <Icon className="size-4" />
-                        <span>{label}</span>
-                      </button>
-                    );
-                  })}
+                  {MODE_OPTIONS.map(({ id, label, icon: Icon }) => (
+                    <SegmentPillButton
+                      key={id}
+                      className="py-2 text-xs font-semibold sm:py-2.5 sm:text-sm"
+                      isSelected={theme === id}
+                      onClick={() => setTheme(id)}
+                    >
+                      <Icon className="size-4" />
+                      <span>{label}</span>
+                    </SegmentPillButton>
+                  ))}
                 </div>
               </div>
 
@@ -584,25 +529,16 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
                   <span>Corner Radius Density</span>
                 </div>
                 <div className="grid grid-cols-5 gap-1 sm:gap-2">
-                  {RADIUS_PRESETS.map((preset) => {
-                    const isSelected = selectedRadius === preset.id;
-
-                    return (
-                      <button
-                        key={preset.id}
-                        className={cn(
-                          'flex cursor-pointer items-center justify-center gap-1 rounded-xl py-1.5 text-[11px] font-semibold transition-all duration-200 active:scale-95 sm:py-2 sm:text-xs',
-                          isSelected
-                            ? 'bg-primary text-on-primary shadow-sm'
-                            : 'bg-surface-subtle/80 text-content-secondary hover:bg-surface hover:text-content-primary',
-                        )}
-                        type="button"
-                        onClick={() => handleApplyRadius(preset)}
-                      >
-                        <span>{preset.name}</span>
-                      </button>
-                    );
-                  })}
+                  {RADIUS_PRESETS.map((preset) => (
+                    <SegmentPillButton
+                      key={preset.id}
+                      className="py-1.5 text-[11px] font-semibold sm:py-2 sm:text-xs"
+                      isSelected={selectedRadius === preset.id}
+                      onClick={() => handleApplyRadius(preset)}
+                    >
+                      <span>{preset.name}</span>
+                    </SegmentPillButton>
+                  ))}
                 </div>
               </div>
             </div>
