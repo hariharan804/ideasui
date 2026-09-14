@@ -9,7 +9,8 @@ import type { ComponentProps, HTMLAttributes, PointerEvent, ReactNode, FC } from
 import type { LayoutHeaderTabsProps as LayoutHeaderTabsProperties } from './header';
 
 import { useState, useRef, Fragment } from 'react';
-import { ChevronDown, Palette } from 'lucide-react';
+import { ChevronDown, Palette, Menu, X, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'fumadocs-core/link';
 import { buttonVariants } from 'fumadocs-ui/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from 'fumadocs-ui/components/ui/popover';
@@ -29,6 +30,7 @@ import {
   ThemeCustomizerModal,
   useInitThemeCustomizer,
 } from '@/components/docs-ui/theme-customizer-modal';
+import { ROUTES } from '@/config/routes';
 
 export function NavbarLinkItem({
   className,
@@ -193,6 +195,7 @@ function NavbarPillButton({ children, className, ...properties }: ComponentProps
 export interface DocsNavbarProps {
   headerTabsProps?: LayoutHeaderTabsProperties;
   i18n?: BaseLayoutProps['i18n'];
+  isLanding?: boolean;
   links: LinkItemType[];
   nav?: {
     mode?: 'top' | 'auto';
@@ -218,22 +221,99 @@ export interface DocsNavbarProps {
   themeSwitch?: BaseLayoutProps['themeSwitch'];
 }
 
+function NavbarDesktopActions({
+  i18n,
+  isLanding,
+  onOpenThemeModal,
+  themeSwitch,
+  themeSwitchEnabled,
+  themeSwitchMode,
+}: Readonly<{
+  i18n?: BaseLayoutProps['i18n'];
+  isLanding: boolean;
+  onOpenThemeModal: () => void;
+  themeSwitch?: BaseLayoutProps['themeSwitch'];
+  themeSwitchEnabled: boolean;
+  themeSwitchMode: 'light-dark' | 'light-dark-system';
+}>) {
+  return (
+    <div className="ml-2 flex items-center gap-1.5 max-md:hidden sm:gap-2">
+      <NavbarPillButton
+        aria-label="Customize Theme"
+        className="bg-primary-subtle hover:bg-primary-muted text-primary hover:text-primary cursor-pointer gap-1.5 px-2.5 text-xs font-medium transition-colors sm:px-3.5"
+        onClick={onOpenThemeModal}
+      >
+        <Palette className="size-4" />
+        <span
+          className="size-4 rounded-full shadow-xs transition-colors"
+          style={{ backgroundColor: 'oklch(var(--ideasui-color-primary))' }}
+        />
+        <span className="hidden xl:inline">Theme</span>
+      </NavbarPillButton>
+
+      <GitHubButton repo="ideas2logic-lab/ideasui" />
+
+      {!!i18n && (
+        <LanguageToggle>
+          <NavbarPill>
+            <Languages className="size-4" />
+          </NavbarPill>
+        </LanguageToggle>
+      )}
+
+      {themeSwitchEnabled ? (
+        <NavbarPill className="px-1">
+          {themeSwitch?.component ?? <ThemeToggle mode={themeSwitchMode} />}
+        </NavbarPill>
+      ) : null}
+
+      {isLanding && (
+        <Link
+          className="bg-primary text-on-primary hover:bg-primary/95 shadow-primary/20 ml-1 inline-flex h-8.5 items-center gap-1.5 rounded-full px-4 text-xs font-semibold shadow-sm transition-all duration-200 hover:shadow-md active:scale-95 max-md:hidden"
+          href={ROUTES.docs.start}
+        >
+          <span>Get Started</span>
+          <ArrowRight className="size-3.5" />
+        </Link>
+      )}
+    </div>
+  );
+}
+
+function getHeaderBodyClassName(isLanding: boolean, isTop: boolean): string {
+  if (isLanding) {
+    return cn(
+      'w-[95%] max-w-7xl gap-3 transition-all duration-300 sm:w-[92%] lg:w-[88%]',
+      isTop
+        ? 'rounded-none border-transparent bg-transparent shadow-none backdrop-blur-none px-4.5 sm:px-6'
+        : 'bg-surface/90 border-border-subtle/80 rounded-full border px-4.5 shadow-xl backdrop-blur-2xl sm:px-6',
+    );
+  }
+
+  return cn(
+    'max-w-[95%] min-w-10 gap-2 border transition-all duration-300 pr-3 pl-4 backdrop-blur-md sm:gap-4 sm:py-2 sm:pl-5 md:gap-6 md:pl-6',
+    isTop
+      ? 'rounded-none border-transparent bg-transparent shadow-none'
+      : 'border-surface-muted bg-surface/85 rounded-full shadow-sm',
+  );
+}
+
 export function DocsNavbar({
   headerTabsProps,
   i18n,
+  isLanding = false,
   links,
   nav = {},
   searchToggle = {},
   sidebar: { collapsible: sidebarCollapsible = true } = {},
   tabMode = 'sidebar',
-  tabs,
+  tabs = [],
   themeSwitch = {},
 }: Readonly<DocsNavbarProps>) {
   const navMode = nav.mode ?? 'auto';
   const showLayoutTabs = tabMode === 'navbar' && tabs.length > 0;
   const isTop = useIsScrollTop({ enabled: true }) ?? true;
-
-  // Normalize nav.title
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const titleNode = (
     typeof nav.title === 'function' ? nav.title({} as ComponentProps<'a'>) : nav.title
@@ -246,10 +326,14 @@ export function DocsNavbar({
 
   useInitThemeCustomizer();
 
+  const HeaderComponent = isLanding ? 'header' : LayoutHeader;
+
   return (
-    <LayoutHeader
+    <HeaderComponent
       className={cn(
-        'top-(--row-1) border-none bg-transparent pt-4 backdrop-blur-none [grid-area:header]',
+        isLanding
+          ? 'fixed top-0 right-0 left-0 z-50 flex w-full [transform:translateZ(0)] flex-col border-none bg-transparent pt-3 backdrop-blur-none transition-all duration-300 sm:pt-4'
+          : 'top-(--row-1) border-none bg-transparent pt-4 backdrop-blur-none [grid-area:header]',
         showLayoutTabs ? 'h-auto pb-0' : '',
       )}
       id="nd-subnav"
@@ -260,10 +344,8 @@ export function DocsNavbar({
     >
       <div
         className={cn(
-          'relative z-50 mx-auto flex h-14 w-full max-w-[95%] min-w-10 items-center gap-2 border pr-3 pl-4 backdrop-blur-md transition-all duration-300 sm:gap-4 sm:py-2 sm:pl-5 md:gap-6 md:pl-6',
-          isTop
-            ? 'rounded-none border-transparent bg-transparent'
-            : 'border-surface-muted bg-surface/85 rounded-full shadow-sm',
+          'relative z-50 mx-auto flex h-14 w-full items-center justify-between transition-all duration-300',
+          getHeaderBodyClassName(isLanding, isTop),
         )}
         data-header-body=""
         style={{
@@ -275,9 +357,10 @@ export function DocsNavbar({
         <div
           className={cn(
             'flex items-center gap-2.5 sm:gap-4',
-            navMode === 'top' && 'flex-1',
-            navMode === 'auto' && 'max-md:flex has-data-[collapsed=true]:md:flex',
-            navMode === 'auto' && 'hidden md:items-center',
+            isLanding && 'z-10 flex items-center',
+            !isLanding && navMode === 'top' && 'flex-1',
+            !isLanding && navMode === 'auto' && 'max-md:flex has-data-[collapsed=true]:md:flex',
+            !isLanding && navMode === 'auto' && 'hidden md:items-center',
           )}
         >
           {!!sidebarCollapsible && navMode === 'auto' && (
@@ -301,18 +384,6 @@ export function DocsNavbar({
             {titleNode}
             {nav.titleSuffix}
           </Link>
-
-          {/* Vertical Separator */}
-          {/* <div className="bg-border mx-2 block h-4 w-px max-md:hidden" /> */}
-
-          {/* React / Native Toggle */}
-          {/* NOSONAR */}
-          {/* <div className="flex items-center rounded-full bg-black/5 p-1 text-xs font-semibold max-md:hidden dark:bg-white/5">
-            <div className="bg-primary rounded-full px-3 py-1 text-white shadow-sm">REACT</div>
-            <div className="text-content-secondary hover:text-content-primary cursor-pointer rounded-full px-3 py-1 transition-colors hover:bg-black/5 dark:hover:bg-white/10">
-              NATIVE
-            </div>
-          </div> */}
         </div>
 
         {/* Center Section: Tabs (Perfectly Centered on Desktop) */}
@@ -329,19 +400,25 @@ export function DocsNavbar({
 
         {/* Center / Right Section: Search & Icons */}
         <div className="flex flex-1 items-center justify-end">
-          <div className="mr-2 flex items-center justify-end sm:mr-4">
-            {searchToggle.enabled !== false &&
-              (searchToggle.components?.lg ? (
+          {!isLanding && searchToggle.enabled !== false && (
+            <div className="mr-2 flex items-center justify-end sm:mr-4">
+              {searchToggle.components?.lg ? (
                 <div className="max-md:hidden">{searchToggle.components.lg}</div>
               ) : (
                 <>
                   <DynamicSearchToggle hideIfDisabled className="w-64 max-xl:hidden" />
                   <SearchToggle hideIfDisabled className="p-2 max-md:hidden xl:hidden" />
                 </>
-              ))}
-          </div>
+              )}
+            </div>
+          )}
 
-          <nav className="flex items-center gap-2 empty:hidden max-lg:hidden sm:gap-3 lg:gap-4">
+          <nav
+            className={cn(
+              'flex items-center gap-2 empty:hidden max-lg:hidden sm:gap-3 lg:gap-4',
+              isLanding && 'absolute left-1/2 -translate-x-1/2 gap-6 max-md:hidden',
+            )}
+          >
             {links
               .filter(
                 (item): item is Extract<LinkItemType, { type?: 'main' | 'menu' | 'button' }> =>
@@ -354,40 +431,14 @@ export function DocsNavbar({
               })}
           </nav>
 
-          <div className="ml-2 flex items-center gap-1.5 max-md:hidden sm:gap-2">
-            {/* 1. Theme Customizer Pill */}
-            <NavbarPillButton
-              aria-label="Customize Theme"
-              className="bg-primary-subtle hover:bg-primary-muted text-primary hover:text-primary cursor-pointer gap-1.5 px-2.5 text-xs font-medium transition-colors sm:px-3.5"
-              onClick={() => setIsThemeModalOpen(true)}
-            >
-              <Palette className="size-4" />
-              <span
-                className="size-4 rounded-full shadow-xs transition-colors"
-                style={{ backgroundColor: 'oklch(var(--ideasui-color-primary))' }}
-              />
-              <span className="hidden xl:inline">Theme</span>
-            </NavbarPillButton>
-
-            {/* 2. GitHub Star Count Pill */}
-            <GitHubButton repo="ideas2logic-lab/ideasui" />
-
-            {/* 3. Language Toggle Circle */}
-            {!!i18n && (
-              <LanguageToggle>
-                <NavbarPill>
-                  <Languages className="size-4" />
-                </NavbarPill>
-              </LanguageToggle>
-            )}
-
-            {/* 4. Theme Mode Toggle Pill */}
-            {themeSwitchEnabled ? (
-              <NavbarPill className="px-1">
-                {themeSwitch?.component ?? <ThemeToggle mode={themeSwitchMode} />}
-              </NavbarPill>
-            ) : null}
-          </div>
+          <NavbarDesktopActions
+            i18n={i18n}
+            isLanding={isLanding}
+            themeSwitch={themeSwitch}
+            themeSwitchEnabled={themeSwitchEnabled}
+            themeSwitchMode={themeSwitchMode}
+            onOpenThemeModal={() => setIsThemeModalOpen(true)}
+          />
 
           {/* Mobile Controls */}
           <div className="flex items-center gap-1 sm:gap-1.5 md:hidden">
@@ -404,43 +455,125 @@ export function DocsNavbar({
               />
             </NavbarPillButton>
 
-            {searchToggle.enabled !== false &&
+            {!isLanding &&
+              searchToggle.enabled !== false &&
               (searchToggle.components?.sm ?? <SearchToggle hideIfDisabled className="p-2" />)}
 
             <div className="xs:inline-flex hidden">
               <GitHubButton repo="ideas2logic-lab/ideasui" />
             </div>
 
-            <SidebarTrigger
-              className={cn(
-                buttonVariants({
-                  className:
-                    'text-content-secondary hover:bg-surface-subtle hover:text-content-primary p-2 transition-all',
-                  color: 'ghost',
-                  size: 'icon-sm',
-                }),
-              )}
-            >
-              <SidebarIcon />
-            </SidebarTrigger>
-            {!!sidebarCollapsible && navMode === 'top' && (
-              <SidebarCollapseTrigger
-                className={cn(
-                  buttonVariants({
-                    color: 'secondary',
-                    size: 'icon-sm',
-                  }),
-                  'text-content-secondary hover:bg-surface-subtle hover:text-content-primary -me-1.5 rounded-3xl transition-all duration-300 hover:rotate-180',
+            {sidebarCollapsible ? (
+              <>
+                <SidebarTrigger
+                  className={cn(
+                    buttonVariants({
+                      className:
+                        'text-content-secondary hover:bg-surface-subtle hover:text-content-primary p-2 transition-all',
+                      color: 'ghost',
+                      size: 'icon-sm',
+                    }),
+                  )}
+                >
+                  <SidebarIcon />
+                </SidebarTrigger>
+                {navMode === 'top' && (
+                  <SidebarCollapseTrigger
+                    className={cn(
+                      buttonVariants({
+                        color: 'secondary',
+                        size: 'icon-sm',
+                      }),
+                      'text-content-secondary hover:bg-surface-subtle hover:text-content-primary -me-1.5 rounded-3xl transition-all duration-300 hover:rotate-180',
+                    )}
+                  >
+                    <SidebarIcon />
+                  </SidebarCollapseTrigger>
                 )}
+              </>
+            ) : (
+              <button
+                aria-label="Toggle mobile menu"
+                className="text-content-primary bg-surface-subtle hover:bg-surface-muted flex size-9 items-center justify-center rounded-full border transition-all active:scale-95"
+                type="button"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
-                <SidebarIcon />
-              </SidebarCollapseTrigger>
+                {mobileMenuOpen ? <X className="size-4.5" /> : <Menu className="size-4.5" />}
+              </button>
             )}
           </div>
         </div>
       </div>
 
+      {/* Mobile Navigation Drawer for Non-Sidebar pages */}
+      {!sidebarCollapsible && (
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              className="border-surface-muted bg-surface-overlay/95 mx-auto mt-2.5 w-[92%] max-w-lg overflow-hidden rounded-2xl border p-5 shadow-2xl backdrop-blur-2xl md:hidden"
+              exit={{ opacity: 0, y: -10, scale: 0.97 }}
+              initial={{ opacity: 0, y: -10, scale: 0.97 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+            >
+              <nav className="flex flex-col gap-1.5">
+                {links.map((item, index) => {
+                  const itemUrl = (item as any).url ?? '#';
+                  const itemText =
+                    (item as any).text ?? (item as any).label ?? (item as any).title ?? '';
+                  const keyId = itemUrl === '#' ? `mobile-link-${index}` : `mobile-link-${itemUrl}`;
+
+                  return (
+                    <Link
+                      key={keyId}
+                      className="hover:bg-surface-muted text-content-primary flex min-h-[44px] items-center gap-2.5 rounded-xl px-3.5 text-sm font-semibold transition-colors"
+                      href={itemUrl}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {(item as any).icon}
+                      <span>{itemText}</span>
+                    </Link>
+                  );
+                })}
+
+                {links.length === 0 &&
+                  tabs.map((tab, index) => {
+                    const tabUrl = (tab as any).url ?? '#';
+                    const tabTitle = (tab as any).title ?? (tab as any).text ?? '';
+                    const keyId = `mobile-tab-${index}-${tabUrl}`;
+
+                    return (
+                      <Link
+                        key={keyId}
+                        className="hover:bg-surface-muted text-content-primary flex min-h-[44px] items-center gap-2.5 rounded-xl px-3.5 text-sm font-semibold transition-colors"
+                        href={tabUrl}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {(tab as any).icon}
+                        <span>{tabTitle}</span>
+                      </Link>
+                    );
+                  })}
+              </nav>
+
+              {isLanding && (
+                <div className="border-surface-muted mt-4 flex flex-col gap-2.5 border-t pt-4">
+                  <Link
+                    className="bg-primary text-on-primary hover:bg-primary/90 flex min-h-[44px] items-center justify-center gap-2 rounded-xl text-xs font-semibold shadow-md transition-all active:scale-98"
+                    href={ROUTES.docs.start}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span>Get Started</span>
+                    <ArrowRight className="size-3.5" />
+                  </Link>
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+
       <ThemeCustomizerModal isOpen={isThemeModalOpen} onClose={() => setIsThemeModalOpen(false)} />
-    </LayoutHeader>
+    </HeaderComponent>
   );
 }

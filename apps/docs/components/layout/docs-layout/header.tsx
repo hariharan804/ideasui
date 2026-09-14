@@ -6,14 +6,18 @@ import type { ComponentProps } from 'react';
 import { useContext, useMemo } from 'react';
 import { usePathname } from 'fumadocs-core/framework';
 import Link from 'fumadocs-core/link';
-import { useSidebar } from 'fumadocs-ui/components/sidebar/base';
+import * as Base from 'fumadocs-ui/components/sidebar/base';
 import { SidebarTabsDropdown, isTabActive } from 'fumadocs-ui/components/sidebar/tabs/dropdown';
 import { cn } from '@ideasui/utils';
 
 import { LayoutContext } from './context';
 
 export function LayoutHeader(properties: ComponentProps<'header'>) {
-  const { open } = useSidebar();
+  const sidebarContext = useContext(
+    (Base as unknown as { SidebarContext?: React.Context<{ open: boolean }> }).SidebarContext ??
+      ({} as React.Context<{ open: boolean }>),
+  );
+  const open = sidebarContext?.open ?? false;
   const context = useContext(LayoutContext);
   const isNavTransparent = context?.isNavTransparent ?? !open;
 
