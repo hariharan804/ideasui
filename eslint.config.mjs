@@ -50,7 +50,8 @@ export default defineConfig([
   // Global ignores
   globalIgnores([
     '.next/*',
-    '**/*.css',
+    '**/dist/**/*.css',
+    '**/.next/**/*.css',
     'public/*',
     '**/dist',
     'esm/*',
@@ -252,6 +253,7 @@ export default defineConfig([
       'react/prop-types': 'off',
       'react/jsx-uses-react': 'off',
       'react/react-in-jsx-scope': 'off',
+      'react/button-has-type': 'error',
       'react/jsx-no-useless-fragment': 'error',
       'react/no-unstable-nested-components': 'error',
       'react/no-unescaped-entities': ['error', { forbid: ['>', '}'] }],
@@ -446,13 +448,13 @@ export default defineConfig([
       // React Compiler (React 19+)
       'react-compiler/react-compiler': 'error',
 
-      // Tailwind CSS rules
-      'tailwindcss/classnames-order': 'off',
-      'tailwindcss/enforces-negative-arbitrary-values': 'off',
-      'tailwindcss/enforces-shorthand': 'off',
-      'tailwindcss/no-custom-classname': 'off', // Allow BEM classes
+      // CSS & Tailwind CSS Best Practice Rules
+      'tailwindcss/classnames-order': 'off', // Disabled to prevent circular fixes with Prettier & Tailwind v4
+      'tailwindcss/enforces-negative-arbitrary-values': 'off', // Disabled for Tailwind CSS v4 syntax
+      'tailwindcss/enforces-shorthand': 'off', // Directional property overrides & shorthands (inset: 0) checked via CSS standards
+      'tailwindcss/no-custom-classname': 'off', // Allow BEM & custom semantic CSS classes
       'tailwindcss/no-contradicting-classname': 'off', // Disabled for Tailwind v4 @theme semantic color tokens
-      'tailwindcss/no-unnecessary-arbitrary-value': 'off',
+      'tailwindcss/no-unnecessary-arbitrary-value': 'off', // Allow custom cubic-bezier and OKLCH color values
     },
   },
 
@@ -540,8 +542,7 @@ export default defineConfig([
       'no-restricted-syntax': [
         'warn',
         {
-          selector:
-            'JSXAttribute[name.name="className"] Literal[value=/(?:^|\\s)(?:bg|border|text|ring|shadow|outline|fill|stroke)-(?:black|white)\\/\\d/]',
+          selector: String.raw`JSXAttribute[name.name="className"] Literal[value=/(?:^|\s)(?:bg|border|text|ring|shadow|outline|fill|stroke)-(?:black|white)\/\d/]`,
           message:
             'Avoid raw black/* or white/* opacity utilities. Use semantic surface tokens instead: bg-surface, bg-surface-muted, border-surface-muted, bg-background.',
         },
@@ -556,8 +557,7 @@ export default defineConfig([
       'no-restricted-syntax': [
         'warn',
         {
-          selector:
-            'JSXAttribute[name.name="className"] Literal[value=/(?:^|\\s)(?:bg|border|text|ring|shadow|outline|fill|stroke)-(?:black|white)\\/\\d/]',
+          selector: String.raw`JSXAttribute[name.name="className"] Literal[value=/(?:^|\s)(?:bg|border|text|ring|shadow|outline|fill|stroke)-(?:black|white)\/\d/]`,
           message:
             'Avoid raw black/* or white/* opacity utilities. Use semantic surface tokens instead: bg-surface, bg-surface-muted, border-surface-muted, bg-background.',
         },

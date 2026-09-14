@@ -1,0 +1,52 @@
+import type { VariantProps } from 'tailwind-variants';
+
+import { tv } from 'tailwind-variants';
+
+/**
+ * {{pascalCase name}} recipe — maps variant props to BEM class names.
+ * All Tailwind utility classes live in {{name}}.css.
+ */
+export const {{camelCase name}} = tv({
+  slots: {
+    base: '{{kebabCase name}}',
+    content: '{{kebabCase name}}__content',
+  },
+  variants: {
+    // ── Variant ───────────────────────────────────────────────────────────────
+    variant: {
+      solid: { base: '{{kebabCase name}}--solid' },
+      outline: { base: '{{kebabCase name}}--outline' },
+      ghost: { base: '{{kebabCase name}}--ghost' },
+      soft: { base: '{{kebabCase name}}--soft' },
+    },
+    // ── Size ──────────────────────────────────────────────────────────────────
+    size: {
+      sm: { base: '{{kebabCase name}}--sm' },
+      md: { base: '{{kebabCase name}}--md' },
+      lg: { base: '{{kebabCase name}}--lg' },
+    },
+    // ── Color ─────────────────────────────────────────────────────────────────
+    color: {
+      primary: { base: '{{kebabCase name}}--primary' },
+      secondary: { base: '{{kebabCase name}}--secondary' },
+      success: { base: '{{kebabCase name}}--success' },
+      warning: { base: '{{kebabCase name}}--warning' },
+      danger: { base: '{{kebabCase name}}--danger' },
+      info: { base: '{{kebabCase name}}--info' },
+    },
+    // ── States ────────────────────────────────────────────────────────────────
+    isDisabled: {
+      true: { base: '{{kebabCase name}}--disabled' },
+    },
+  },
+  defaultVariants: {
+    variant: 'solid',
+    size: 'md',
+    color: 'primary',
+    isDisabled: false,
+  },
+});
+
+export type {{pascalCase name}}VariantProps = VariantProps<typeof {{camelCase name}}>;
+export type {{pascalCase name}}Slots = keyof ReturnType<typeof {{camelCase name}}>;
+export type {{pascalCase name}}ReturnType = ReturnType<typeof {{camelCase name}}>;

@@ -4,6 +4,7 @@ import type {
   ButtonProps as ButtonProperties,
   ButtonComponent,
   ButtonClassNames,
+  ButtonSlotProps,
   ButtonLabelProperties,
   ButtonIconProperties,
   ButtonSpinnerProperties,
@@ -31,6 +32,7 @@ import { ButtonGroup } from './button-group';
 interface ButtonContextValue {
   styles: ButtonReturnType;
   classNames?: ButtonClassNames;
+  slotProps?: ButtonSlotProps;
 }
 
 const ButtonContext = createContext<ButtonContextValue | null>(null);
@@ -56,23 +58,26 @@ function useButtonContext(): ButtonContextValue {
 
 const ButtonIcon = forwardRef<HTMLElement, ButtonIconProperties>(
   ({ children, className, placement = 'start', ...properties }, reference): JSX.Element => {
-    const { styles, classNames } = useButtonContext();
+    const { styles, classNames, slotProps } = useButtonContext();
     const { icon } = styles;
 
     const slotClass = placement === 'start' ? classNames?.startIcon : classNames?.endIcon;
+    const iconSlotProps = placement === 'start' ? slotProps?.startIcon : slotProps?.endIcon;
 
     return (
       <span
         ref={reference}
         aria-hidden="true"
+        {...iconSlotProps}
+        {...properties}
         className={cn(
           icon(),
           placement === 'end' ? 'order-last' : 'order-first',
           slotClass,
+          iconSlotProps?.className,
           className,
         )}
         data-slot="button-icon"
-        {...properties}
       >
         {children}
       </span>
@@ -84,21 +89,24 @@ ButtonIcon.displayName = 'IdeasUI.Button.Icon';
 
 const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProperties>(
   ({ className, label = 'Loading', ...properties }, reference): JSX.Element => {
-    const { styles, classNames } = useButtonContext();
+    const { styles, classNames, slotProps } = useButtonContext();
     const { loader, icon } = styles;
+    const spinnerSlotProps = slotProps?.spinner;
 
     return (
       <span
         ref={reference}
+        {...spinnerSlotProps}
+        {...properties}
         className={cn(
           loader(),
           icon(),
           'inline-flex shrink-0 items-center justify-center',
           classNames?.spinner,
+          spinnerSlotProps?.className,
           className,
         )}
         data-slot="button-spinner"
-        {...properties}
       >
         <svg
           aria-hidden="true"
@@ -113,7 +121,7 @@ const ButtonSpinner = forwardRef<HTMLSpanElement, ButtonSpinnerProperties>(
         >
           <path d="M21 12a9 9 0 1 1-6.219-8.56" />
         </svg>
-        <span className="sr-only">{label}</span>
+        <span className="sr-only">{spinnerSlotProps?.label ?? label}</span>
       </span>
     );
   },
@@ -123,15 +131,17 @@ ButtonSpinner.displayName = 'IdeasUI.Button.Spinner';
 
 const ButtonShortcut = forwardRef<HTMLSpanElement, ButtonShortcutProperties>(
   ({ children, className, ...properties }, reference): JSX.Element => {
-    const { styles, classNames } = useButtonContext();
+    const { styles, classNames, slotProps } = useButtonContext();
     const { shortcut } = styles;
+    const shortcutSlotProps = slotProps?.shortcut;
 
     return (
       <kbd
         ref={reference}
-        className={cn(shortcut(), classNames?.shortcut, className)}
-        data-slot="button-shortcut"
+        {...shortcutSlotProps}
         {...properties}
+        className={cn(shortcut(), classNames?.shortcut, shortcutSlotProps?.className, className)}
+        data-slot="button-shortcut"
       >
         {children}
       </kbd>
@@ -143,15 +153,17 @@ ButtonShortcut.displayName = 'IdeasUI.Button.Shortcut';
 
 const ButtonLabel = forwardRef<HTMLSpanElement, ButtonLabelProperties>(
   ({ children, className, ...properties }, reference): JSX.Element => {
-    const { styles, classNames } = useButtonContext();
+    const { styles, classNames, slotProps } = useButtonContext();
     const { label } = styles;
+    const labelSlotProps = slotProps?.label;
 
     return (
       <span
         ref={reference}
-        className={cn(label(), classNames?.label, className)}
-        data-slot="button-label"
+        {...labelSlotProps}
         {...properties}
+        className={cn(label(), classNames?.label, labelSlotProps?.className, className)}
+        data-slot="button-label"
       >
         {children}
       </span>
@@ -265,6 +277,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProperties>(
       children,
       className,
       classNames,
+      slotProps,
       ...properties
     } = originalProperties;
 
@@ -296,7 +309,7 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProperties>(
     });
 
     // Context value - React Compiler will optimize this automatically
-    const contextValue = { styles, classNames };
+    const contextValue = { styles, classNames, slotProps };
 
     // Ensure we have an accessible name when loading or icon-only
     const ariaLabel = getAccessibleName(merged, typeof children === 'function' ? null : children);
@@ -307,14 +320,22 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProperties>(
         ref={reference}
         aria-busy={isLoading}
         aria-label={isLoading && !ariaLabel ? loadingLabel : ariaLabel}
-        className={(renderProperties) =>
-          styles.base({
+        {...slotProps?.base}
+        {...properties}
+        className={(renderProperties) => {
+          const baseSlotClass =
+            typeof slotProps?.base?.className === 'function'
+              ? slotProps.base.className(renderProperties)
+              : slotProps?.base?.className;
+
+          return styles.base({
             className: cn(
               typeof className === 'function' ? className(renderProperties) : className,
               classNames?.base,
+              baseSlotClass,
             ),
-          })
-        }
+          });
+        }}
         data-attached={merged.isAttached}
         data-slot="button"
         data-vertical={merged.isVertical}

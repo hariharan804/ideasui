@@ -293,4 +293,26 @@ describe('ButtonGroup', () => {
     // eslint-disable-next-line testing-library/no-node-access
     expect(container.firstChild).toHaveClass('gap-y-2');
   });
+
+  it('passes slotProps to individual sub-slots correctly', () => {
+    render(
+      <Button
+        shortcut="⌘K"
+        slotProps={{
+          base: { 'data-testid': 'custom-base' },
+          label: { 'data-testid': 'custom-label' },
+          startIcon: { 'data-testid': 'custom-start-slot' },
+          shortcut: { 'data-testid': 'custom-shortcut-slot' },
+        }}
+        startIcon={<span data-testid="start-icon">★</span>}
+      >
+        Custom Slots
+      </Button>,
+    );
+
+    expect(screen.getByTestId('custom-base')).toBeInTheDocument();
+    expect(screen.getByTestId('custom-label')).toHaveTextContent('Custom Slots');
+    expect(screen.getByTestId('custom-start-slot')).toBeInTheDocument();
+    expect(screen.getByTestId('custom-shortcut-slot')).toHaveTextContent('⌘K');
+  });
 });

@@ -17,7 +17,7 @@ const testCases = [
 for (const c of testCases) {
   test(`Button ${c.name} visual regression`, async ({ page }) => {
     await page.goto(`/iframe.html?id=${c.id}`);
-    await page.waitForLoadState('networkidle');
+    await expect(page.locator(c.selector)).toBeVisible();
     await expect(page.locator(c.selector)).toHaveScreenshot(`button-${c.name}.png`, {
       timeout: 15_000,
     });

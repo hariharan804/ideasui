@@ -188,6 +188,7 @@ export default function InstallerPage(): JSX.Element {
                       ? 'bg-primary text-on-primary shadow-xs'
                       : 'text-content-secondary hover:text-content-primary'
                   }`}
+                  type="button"
                   onClick={() => setActivePm(pm)}
                 >
                   {pm}

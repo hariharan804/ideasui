@@ -98,7 +98,7 @@ export function Button({
   const finalClassName = `${baseClasses} ${currentVariantStyles} ${className}`.trim();
 
   return (
-    <button className={finalClassName} {...properties}>
+    <button className={finalClassName} type="button" {...properties}>
       {children}
     </button>
   );

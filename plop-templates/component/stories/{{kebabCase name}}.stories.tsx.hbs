@@ -8,16 +8,32 @@ const meta: Meta<typeof {{pascalCase name}}> = {
   component: {{pascalCase name}},
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: 'Accessible {{pascalCase name}} component built with Tailwind CSS v4 and React Aria.',
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: { type: 'select' },
-      options: ['default', 'secondary'],
+      control: 'select',
+      options: ['solid', 'outline', 'ghost'],
+      description: 'The visual variant style.',
     },
     size: {
-      control: { type: 'select' },
+      control: 'select',
       options: ['sm', 'md', 'lg'],
+      description: 'The component size.',
+    },
+    color: {
+      control: 'select',
+      options: ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'neutral'],
+      description: 'The semantic color theme.',
+    },
+    isDisabled: {
+      control: 'boolean',
+      description: 'Whether the component is disabled.',
     },
   },
 };
@@ -27,7 +43,7 @@ export default meta;
 type Story = StoryObj<typeof {{pascalCase name}}>;
 
 const defaultProps: Partial<{{pascalCase name}}Props> = {
-  children: '{{pascalCase name}}',
+  children: '{{pascalCase name}} Content',
 };
 
 export const Default: Story = {
@@ -37,10 +53,11 @@ export const Default: Story = {
 };
 
 export const Variants: Story = {
-  render: (args) => (
-    <div className="flex gap-2">
-      <{{pascalCase name}} {...args} variant="default">Default</{{pascalCase name}}>
-      <{{pascalCase name}} {...args} variant="secondary">Secondary</{{pascalCase name}}>
+  render: (arguments_) => (
+    <div className="flex gap-4">
+      <{{pascalCase name}} {...arguments_} variant="solid">Solid</{{pascalCase name}}>
+      <{{pascalCase name}} {...arguments_} variant="outline">Outline</{{pascalCase name}}>
+      <{{pascalCase name}} {...arguments_} variant="ghost">Ghost</{{pascalCase name}}>
     </div>
   ),
   args: {
@@ -49,11 +66,11 @@ export const Variants: Story = {
 };
 
 export const Sizes: Story = {
-  render: (args) => (
-    <div className="flex items-center gap-2">
-      <{{pascalCase name}} {...args} size="sm">Small</{{pascalCase name}}>
-      <{{pascalCase name}} {...args} size="md">Medium</{{pascalCase name}}>
-      <{{pascalCase name}} {...args} size="lg">Large</{{pascalCase name}}>
+  render: (arguments_) => (
+    <div className="flex items-center gap-4">
+      <{{pascalCase name}} {...arguments_} size="sm">Small</{{pascalCase name}}>
+      <{{pascalCase name}} {...arguments_} size="md">Medium</{{pascalCase name}}>
+      <{{pascalCase name}} {...arguments_} size="lg">Large</{{pascalCase name}}>
     </div>
   ),
   args: {

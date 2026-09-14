@@ -50,6 +50,7 @@ export function CopyDropdownModal({
               <button
                 aria-label="Close modal"
                 className="text-content-secondary hover:bg-surface-subtle hover:text-content-primary cursor-pointer rounded-lg p-1 transition-colors"
+                type="button"
                 onClick={onClose}
               >
                 <X className="size-4" />
@@ -61,6 +62,7 @@ export function CopyDropdownModal({
               <div className="relative">
                 <button
                   className="bg-surface/85 text-content-secondary hover:bg-surface hover:text-content-primary absolute top-3 right-3 z-10 inline-flex cursor-pointer items-center gap-1 rounded-lg px-2.5 py-1.5 text-[10px] font-semibold shadow-sm transition-all duration-200 active:scale-95"
+                  type="button"
                   onClick={() => onCopyContent(rawMarkdown, 'Markdown content')}
                 >
                   <Copy className="size-3" />

@@ -70,3 +70,11 @@ You MUST follow these rules during development. Refer to `/rules` for full detai
 | Borders     | `border-border`, `borderborder-border-base`, `border-border-focus`, `border-border-danger`     |
 
 - [design-tokens.md](../../rules/design-tokens.md)
+
+## 🎯 CSS Best Practice Rules
+
+- **Use Shorthands:** Use modern CSS `inset: 0` instead of specifying `top`, `left`, `right`, and `bottom` individually.
+- **No Overridden Properties:** Avoid redeclaring directional properties when a shorthand like `inset` or `margin` is applied.
+- **Semantic Custom Properties:** Use OKLCH CSS variables (`var(--ideasui-color-*)`) instead of raw hex/RGB values.
+- **Logical Properties:** Prefer logical properties (`margin-inline`, `padding-block`, `inset-inline-start`) for RTL compatibility.
+- **No Duplicate Selectors:** Keep global and component CSS modular and clean.

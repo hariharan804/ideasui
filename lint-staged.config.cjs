@@ -26,6 +26,6 @@ module.exports = {
   // CSS/SCSS - Prettier
   '*.{css,scss}': 'prettier --write',
 
-  // JSON/YAML/Markdown - Prettier
-  '*.{json,yml,yaml,md}': 'prettier --write',
+  // JSON/YAML/Markdown/MDX - Prettier
+  '*.{json,yml,yaml,md,mdx,cjs,mjs,jsx,tsx,js,ts}': 'prettier --write',
 };
