@@ -542,8 +542,7 @@ export default defineConfig([
       'no-restricted-syntax': [
         'warn',
         {
-          selector:
-            String.raw`JSXAttribute[name.name="className"] Literal[value=/(?:^|\s)(?:bg|border|text|ring|shadow|outline|fill|stroke)-(?:black|white)\/\d/]`,
+          selector: String.raw`JSXAttribute[name.name="className"] Literal[value=/(?:^|\s)(?:bg|border|text|ring|shadow|outline|fill|stroke)-(?:black|white)\/\d/]`,
           message:
             'Avoid raw black/* or white/* opacity utilities. Use semantic surface tokens instead: bg-surface, bg-surface-muted, border-surface-muted, bg-background.',
         },
@@ -558,8 +557,7 @@ export default defineConfig([
       'no-restricted-syntax': [
         'warn',
         {
-          selector:
-            String.raw`JSXAttribute[name.name="className"] Literal[value=/(?:^|\s)(?:bg|border|text|ring|shadow|outline|fill|stroke)-(?:black|white)\/\d/]`,
+          selector: String.raw`JSXAttribute[name.name="className"] Literal[value=/(?:^|\s)(?:bg|border|text|ring|shadow|outline|fill|stroke)-(?:black|white)\/\d/]`,
           message:
             'Avoid raw black/* or white/* opacity utilities. Use semantic surface tokens instead: bg-surface, bg-surface-muted, border-surface-muted, bg-background.',
         },

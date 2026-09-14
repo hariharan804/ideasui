@@ -103,7 +103,8 @@ module.exports = function plopConfig(plop) {
 
   // Recipe only generator (creates 3-file recipe in @ideasui/theme)
   plop.setGenerator('recipe-only', {
-    description: 'Add 3-file component recipe (index.ts, recipe.ts, recipe.css) to @ideasui/theme only',
+    description:
+      'Add 3-file component recipe (index.ts, recipe.ts, recipe.css) to @ideasui/theme only',
     prompts: [
       {
         type: 'input',
