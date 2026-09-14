@@ -35,10 +35,11 @@ export default function Home() {
 
             {/* Theme Toggle Button */}
             <button
+              aria-label="Toggle theme"
+              className="theme-toggle-btn"
               id="theme-toggle"
               onClick={toggleTheme}
-              className="theme-toggle-btn"
-              aria-label="Toggle theme"
+              type="button"
             >
               {theme === 'light' ? (
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

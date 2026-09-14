@@ -107,6 +107,7 @@ function Playground(): JSX.Element {
               {searchQuery ? (
                 <button
                   className="text-content-muted hover:text-content-primary absolute top-1/2 right-3 -translate-y-1/2 text-xs font-medium"
+                  type="button"
                   onClick={() => setSearchQuery('')}
                 >
                   Clear
@@ -125,6 +126,7 @@ function Playground(): JSX.Element {
                         ? 'bg-primary text-on-primary shadow-xs'
                         : 'text-content-secondary hover:bg-surface-muted hover:text-content-primary'
                     }`}
+                    type="button"
                     onClick={() => setSelectedCategory(category)}
                   >
                     {category}
@@ -140,6 +142,7 @@ function Playground(): JSX.Element {
                       : 'text-content-muted hover:text-content-primary'
                   }`}
                   title="Grid View"
+                  type="button"
                   onClick={() => setViewMode('grid')}
                 >
                   <Grid className="size-4" />
@@ -151,6 +154,7 @@ function Playground(): JSX.Element {
                       : 'text-content-muted hover:text-content-primary'
                   }`}
                   title="List View"
+                  type="button"
                   onClick={() => setViewMode('list')}
                 >
                   <List className="size-4" />

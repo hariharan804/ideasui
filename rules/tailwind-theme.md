@@ -116,4 +116,13 @@ export default {
 
 // ✅ Good - use static classes
 <div className={color === "primary" ? "bg-primary" : "bg-secondary"} />
+
+## 🎯 CSS Best Practice Rules
+
+1. **Modern Positioning Shorthand:** Use `inset: 0` instead of redundant `top: 0; right: 0; bottom: 0; left: 0;`.
+2. **Prevent Property Overrides:** Do not combine individual directional properties (`top`, `right`, etc.) with `inset` in the same declaration block.
+3. **Semantic Tokens First:** Never hardcode raw hex (`#3b82f6`) or RGB values in custom CSS — always consume OKLCH design variables (`oklch(var(--ideasui-color-primary))`).
+4. **Logical Properties:** Prefer `margin-inline`, `padding-block`, `inset-inline-start/end` for effortless RTL (Right-to-Left) localization support.
+5. **Clean Cascade & Layers:** Keep custom CSS inside Tailwind `@layer` directives or component scopes to avoid unintended specificity side-effects.
+
 ```

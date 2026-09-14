@@ -76,6 +76,7 @@ export function CopyDropdownMenu({
             {/* View as Markdown */}
             <button
               className="group hover:bg-surface-subtle focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
+              type="button"
               onClick={onViewMarkdown}
             >
               <div className="bg-surface-subtle text-content-secondary group-hover:bg-primary-subtle/15 group-hover:text-primary mt-0.5 rounded-lg p-1.5 transition-colors">
@@ -94,6 +95,7 @@ export function CopyDropdownMenu({
             {/* Open in ChatGPT */}
             <button
               className="group hover:bg-surface-subtle focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
+              type="button"
               onClick={onOpenInChatGPT}
             >
               <div className="bg-surface-subtle text-content-secondary group-hover:bg-primary-subtle/15 group-hover:text-primary mt-0.5 rounded-lg p-1.5 transition-colors">
@@ -115,6 +117,7 @@ export function CopyDropdownMenu({
             {/* Open in Claude */}
             <button
               className="group hover:bg-surface-subtle focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
+              type="button"
               onClick={onOpenInClaude}
             >
               <div className="bg-surface-subtle text-content-secondary group-hover:bg-primary-subtle/15 group-hover:text-primary mt-0.5 rounded-lg p-1.5 transition-colors">
@@ -134,6 +137,7 @@ export function CopyDropdownMenu({
             {/* Open in Gemini */}
             <button
               className="group hover:bg-surface-subtle focus-visible:bg-surface-subtle flex w-full cursor-pointer items-start gap-3 rounded-xl p-2.5 text-left transition-all duration-200 outline-none"
+              type="button"
               onClick={onOpenInGemini}
             >
               <div className="bg-surface-subtle text-content-secondary group-hover:bg-primary-subtle/15 group-hover:text-primary mt-0.5 rounded-lg p-1.5 transition-colors">

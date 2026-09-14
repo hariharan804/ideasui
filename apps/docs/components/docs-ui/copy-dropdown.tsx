@@ -139,6 +139,7 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
         <button
           aria-label="Copy page as Markdown"
           className="text-content-secondary hover:text-content-primary focus-visible:ring-primary/40 inline-flex min-w-0 cursor-pointer items-center gap-1.5 rounded-l-2xl px-3.5 py-1.5 text-[11px] font-medium transition-all duration-200 outline-none select-none focus-visible:ring-1 active:scale-[0.98]"
+          type="button"
           onClick={handleCopyMarkdown}
         >
           {copied ? (
@@ -164,6 +165,7 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
             'text-content-secondary hover:text-content-primary focus-visible:ring-primary/40 inline-flex cursor-pointer items-center justify-center rounded-r-2xl p-1.5 transition-all duration-200 outline-none select-none focus-visible:ring-1 active:scale-[0.95]',
             isOpen ? 'text-content-primary rotate-180' : '',
           )}
+          type="button"
           onClick={() => setIsOpen(!isOpen)}
         >
           <ChevronDown className="size-3.5 transition-transform duration-300" />

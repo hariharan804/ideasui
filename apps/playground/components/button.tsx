@@ -110,6 +110,7 @@ export default function ButtonPreview(): JSX.Element {
                   ? 'bg-surface text-primary shadow-xs'
                   : 'text-content-secondary hover:text-content-primary'
               }`}
+              type="button"
               onClick={() => setActiveTab('sandbox')}
             >
               <Sliders className="size-3.5" />
@@ -121,6 +122,7 @@ export default function ButtonPreview(): JSX.Element {
                   ? 'bg-surface text-primary shadow-xs'
                   : 'text-content-secondary hover:text-content-primary'
               }`}
+              type="button"
               onClick={() => setActiveTab('matrix')}
             >
               <Sparkles className="size-3.5" />
@@ -132,6 +134,7 @@ export default function ButtonPreview(): JSX.Element {
                   ? 'bg-surface text-primary shadow-xs'
                   : 'text-content-secondary hover:text-content-primary'
               }`}
+              type="button"
               onClick={() => setActiveTab('groups')}
             >
               <File className="size-3.5" />
@@ -143,6 +146,7 @@ export default function ButtonPreview(): JSX.Element {
                   ? 'bg-surface text-primary shadow-xs'
                   : 'text-content-secondary hover:text-content-primary'
               }`}
+              type="button"
               onClick={() => setActiveTab('a11y')}
             >
               <Code2 className="size-3.5" />
@@ -268,6 +272,7 @@ export default function ButtonPreview(): JSX.Element {
                           ? 'bg-primary text-on-primary font-bold shadow-xs'
                           : 'bg-surface-subtle text-content-secondary hover:bg-surface-muted'
                       }`}
+                      type="button"
                       onClick={() => setVariant(v)}
                     >
                       {v}
@@ -301,6 +306,7 @@ export default function ButtonPreview(): JSX.Element {
                           ? 'bg-primary text-on-primary font-bold shadow-xs'
                           : 'bg-surface-subtle text-content-secondary hover:bg-surface-muted'
                       }`}
+                      type="button"
                       onClick={() => setColor(c)}
                     >
                       {c}
@@ -323,6 +329,7 @@ export default function ButtonPreview(): JSX.Element {
                           ? 'bg-primary text-on-primary font-bold shadow-xs'
                           : 'bg-surface-subtle text-content-secondary hover:bg-surface-muted'
                       }`}
+                      type="button"
                       onClick={() => setSize(s)}
                     >
                       {s}
@@ -345,6 +352,7 @@ export default function ButtonPreview(): JSX.Element {
                           ? 'bg-primary text-on-primary font-bold shadow-xs'
                           : 'bg-surface-subtle text-content-secondary hover:bg-surface-muted'
                       }`}
+                      type="button"
                       onClick={() => setRadius(r)}
                     >
                       {r}
@@ -367,6 +375,7 @@ export default function ButtonPreview(): JSX.Element {
                           ? 'bg-primary text-on-primary font-bold shadow-xs'
                           : 'bg-surface-subtle text-content-secondary hover:bg-surface-muted'
                       }`}
+                      type="button"
                       onClick={() => setElevation(e)}
                     >
                       {e}

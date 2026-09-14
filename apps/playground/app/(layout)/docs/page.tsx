@@ -130,6 +130,7 @@ export default function DocsPage(): JSX.Element {
                       ? 'border-border-focus bg-primary-subtle shadow-sm'
                       : 'hover:border-border-subtle hover:bg-surface-muted border-transparent'
                   }`}
+                  type="button"
                   onClick={() => setSelectedDocument(document_)}
                 >
                   <div className="flex items-start gap-3">
@@ -202,6 +203,7 @@ export default function DocsPage(): JSX.Element {
               </div>
               <button
                 className="border-border-subtle bg-surface-muted text-content-secondary hover:bg-surface-strong hover:text-content-primary rounded-lg border px-4 py-2 text-sm font-bold transition-colors lg:hidden"
+                type="button"
                 onClick={() => setSidebarOpen(!sidebarOpen)}
               >
                 {sidebarOpen ? 'Hide' : 'Show'} Sidebar

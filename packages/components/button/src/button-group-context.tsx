@@ -14,7 +14,7 @@ export interface ButtonGroupContextType {
   radius?: NonNullable<ButtonProperties['radius']>;
   fullWidth?: boolean;
   disableAnimation?: boolean;
-  divider?: NonNullable<ButtonProperties['divider']>;
+  divider?: 'full' | 'middle' | 'none';
 }
 
 export const ButtonGroupContext = createContext<ButtonGroupContextType | null>(null);

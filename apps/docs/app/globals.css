@@ -15,6 +15,11 @@
 @source '../../../packages/core/theme/src/recipes/**/*.ts';
 @source '../../../packages/components/*/src/**/*.{js,ts,jsx,tsx}';
 
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
 html.dark,
 [data-theme='dark'] {
   color-scheme: dark;
@@ -22,32 +27,6 @@ html.dark,
 
 html:not(.dark):not([data-theme='dark']) {
   color-scheme: light;
-}
-
-/* ─────────────────────────────────────────────────────────────────────
-   SHIKI DUAL-THEME DYNAMIC COLOR SWITCHING
-   ───────────────────────────────────────────────────────────────────── */
-.dark .shiki code span,
-[data-theme='dark'] .shiki code span,
-html.dark pre code span,
-html[data-theme='dark'] pre code span {
-  color: var(
-    --shiki-dark,
-    var(--shiki-dark-color, oklch(var(--ideasui-color-content-primary)))
-  ) !important;
-}
-
-:root:not(.dark):not([data-theme='dark']) .shiki code span,
-html:not(.dark):not([data-theme='dark']) pre code span {
-  color: var(
-    --shiki-light,
-    var(--shiki-light-color, oklch(var(--ideasui-color-content-primary)))
-  ) !important;
-}
-
-html {
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -535,10 +514,6 @@ body div[role='dialog'].ideasui-search-dialog,
 [role='dialog']:has(input[placeholder*='Search']),
 [role='dialog']:has(input) {
   position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
   inset: 0 !important;
   margin: auto !important;
   height: fit-content !important;
@@ -570,10 +545,6 @@ html.dark .ideasui-search-dialog {
   [role='dialog']:has(input[placeholder*='Search']),
   [role='dialog']:has(input) {
     position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
     inset: 0 !important;
     margin: auto !important;
     height: fit-content !important;
@@ -613,7 +584,7 @@ html.dark .ideasui-search-dialog {
 .ideasui-search-dialog button .inline-flex.items-center {
   font-size: 0.7rem !important;
   font-weight: 500 !important;
-  letter-spacing: 0.02em !important;
+  letter-spacing: 0.02em;
   text-transform: none !important;
   color: oklch(var(--ideasui-color-content-tertiary)) !important;
   background: none !important;
@@ -650,7 +621,7 @@ html.dark .ideasui-search-dialog {
   font-size: 0.9375rem !important;
   font-weight: 700 !important;
   color: oklch(var(--ideasui-color-content-primary)) !important;
-  letter-spacing: -0.015em !important;
+  letter-spacing: -0.015em;
 }
 
 /* Page-level item — subtle left accent stripe */
@@ -684,7 +655,7 @@ html.dark .ideasui-search-dialog {
   font-size: 0.8125rem !important;
   font-weight: 500 !important;
   color: oklch(var(--ideasui-color-content-secondary)) !important;
-  letter-spacing: 0 !important;
+  letter-spacing: 0;
 }
 
 /* ── Snippet body text — softer, readable ── */
