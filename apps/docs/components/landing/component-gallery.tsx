@@ -12,7 +12,7 @@ import {
   ArrowRight,
   Heart,
 } from 'lucide-react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button, ButtonGroup } from '@ideasui/react';
 import { cn } from '@ideasui/utils';
 
@@ -43,6 +43,81 @@ function getIconModeLabel(mode: IconMode): string {
   if (mode === 'end') return 'endIcon';
 
   return 'isIconOnly';
+}
+
+interface GalleryCardProps {
+  readonly index: number;
+  readonly gradientFromTo?: string;
+  readonly children: React.ReactNode;
+  readonly description: string;
+}
+
+function GalleryCard({
+  index,
+  gradientFromTo = 'from-primary to-secondary',
+  children,
+  description,
+}: Readonly<GalleryCardProps>) {
+  return (
+    <motion.div
+      className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 shadow-md backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
+      {...cardFadeIn(index)}
+    >
+      <div
+        className={cn(
+          'absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100',
+          gradientFromTo,
+        )}
+      />
+      <div>{children}</div>
+      <p className="text-content-tertiary mt-4 text-xs leading-relaxed">{description}</p>
+    </motion.div>
+  );
+}
+
+interface CardHeaderProps {
+  readonly icon: React.ReactNode;
+  readonly iconBgClass: string;
+  readonly title: string;
+  readonly badgeText: string;
+}
+
+function CardHeader({ icon, iconBgClass, title, badgeText }: Readonly<CardHeaderProps>) {
+  return (
+    <div className="mb-4 flex items-center justify-between gap-2">
+      <div className="flex min-w-0 items-center gap-2.5">
+        <div
+          className={cn('flex size-8 shrink-0 items-center justify-center rounded-lg', iconBgClass)}
+        >
+          {icon}
+        </div>
+        <h3 className="text-content-primary shrink-0 text-sm font-bold whitespace-nowrap">
+          {title}
+        </h3>
+      </div>
+      <span className="text-content-muted bg-surface-muted shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] whitespace-nowrap">
+        {badgeText}
+      </span>
+    </div>
+  );
+}
+
+interface PreviewBoxProps {
+  readonly children: React.ReactNode;
+  readonly className?: string;
+}
+
+function PreviewBox({ children, className }: Readonly<PreviewBoxProps>) {
+  return (
+    <div
+      className={cn(
+        'bg-background/80 border-border-subtle/50 mt-3 flex items-center justify-center rounded-xl border p-4 shadow-inner',
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
 }
 
 /** Component gallery section with live interactive component cards. */
@@ -88,382 +163,286 @@ export function ComponentGallery() {
         {/* 6-Card Showcase Grid */}
         <div className="grid grid-cols-1 gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
           {/* Card 1 — Variant System */}
-          <motion.div
-            className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 shadow-md backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
-            {...cardFadeIn(0)}
+          <GalleryCard
+            description="Click buttons to test contrast, soft highlights, and ghost hover states across light & dark themes."
+            gradientFromTo="from-primary to-secondary"
+            index={0}
           >
-            <div className="from-primary to-secondary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+            <CardHeader
+              badgeText={`variant="${activeVariant}"`}
+              icon={<Layers className="size-4" />}
+              iconBgClass="bg-primary-subtle text-primary"
+              title="Variant System"
+            />
 
-            <div>
-              <div className="mb-4 flex items-center justify-between gap-2">
-                <div className="flex min-w-0 items-center gap-2.5">
-                  <div className="bg-primary-subtle text-primary flex size-8 shrink-0 items-center justify-center rounded-lg">
-                    <Layers className="size-4" />
-                  </div>
-                  <h3 className="text-content-primary shrink-0 text-sm font-bold whitespace-nowrap">
-                    Variant System
-                  </h3>
-                </div>
-                <span className="text-content-muted bg-surface-muted shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] whitespace-nowrap">
-                  variant=&quot;{activeVariant}&quot;
-                </span>
-              </div>
-
-              {/* Interactive Variant Tabs */}
-              <div className="bg-surface-subtle flex flex-wrap items-center gap-1.5 rounded-xl p-2.5">
-                {(['solid', 'outline', 'soft', 'ghost'] as const).map((v) => (
-                  <button
-                    key={v}
-                    className={cn(
-                      'rounded-lg px-2.5 py-1 text-xs font-medium capitalize transition-all duration-150 active:scale-95',
-                      activeVariant === v
-                        ? 'bg-primary text-on-primary font-semibold shadow-2xs'
-                        : 'text-content-secondary hover:bg-surface-muted hover:text-content-primary',
-                    )}
-                    type="button"
-                    onClick={() => setActiveVariant(v)}
-                  >
-                    {v}
-                  </button>
-                ))}
-              </div>
-
-              {/* Live Preview Button */}
-              <div className="bg-background/80 border-border-subtle/50 mt-3 flex items-center justify-center rounded-xl border p-4 shadow-inner">
-                <Button color="primary" variant={activeVariant}>
-                  {activeVariant.charAt(0).toUpperCase() + activeVariant.slice(1)} Variant
-                </Button>
-              </div>
+            {/* Interactive Variant Tabs */}
+            <div className="bg-surface-subtle flex flex-wrap items-center gap-1.5 rounded-xl p-2.5">
+              {(['solid', 'outline', 'soft', 'ghost'] as const).map((v) => (
+                <button
+                  key={v}
+                  className={cn(
+                    'rounded-lg px-2.5 py-1 text-xs font-medium capitalize transition-all duration-150 active:scale-95',
+                    activeVariant === v
+                      ? 'bg-primary text-on-primary font-semibold shadow-2xs'
+                      : 'text-content-secondary hover:bg-surface-muted hover:text-content-primary',
+                  )}
+                  type="button"
+                  onClick={() => setActiveVariant(v)}
+                >
+                  {v}
+                </button>
+              ))}
             </div>
 
-            <p className="text-content-tertiary mt-4 text-xs leading-relaxed">
-              Click buttons to test contrast, soft highlights, and ghost hover states across light
-              &amp; dark themes.
-            </p>
-          </motion.div>
+            <PreviewBox>
+              <Button color="primary" variant={activeVariant}>
+                {activeVariant.charAt(0).toUpperCase() + activeVariant.slice(1)} Variant
+              </Button>
+            </PreviewBox>
+          </GalleryCard>
 
           {/* Card 2 — Intent Semantics */}
-          <motion.div
-            className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 shadow-md backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
-            {...cardFadeIn(1)}
+          <GalleryCard
+            description="Perceptually uniform OKLCH intent scales ensuring WCAG AA contrast compliance and predictable color hierarchy."
+            gradientFromTo="from-secondary to-primary"
+            index={1}
           >
-            <div className="from-secondary to-primary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+            <CardHeader
+              badgeText={`color="${activeColor}"`}
+              icon={<Palette className="size-4" />}
+              iconBgClass="bg-secondary-subtle text-secondary"
+              title="Intent Semantics"
+            />
 
-            <div>
-              <div className="mb-4 flex items-center justify-between gap-2">
-                <div className="flex min-w-0 items-center gap-2.5">
-                  <div className="bg-secondary-subtle text-secondary flex size-8 shrink-0 items-center justify-center rounded-lg">
-                    <Palette className="size-4" />
-                  </div>
-                  <h3 className="text-content-primary shrink-0 text-sm font-bold whitespace-nowrap">
-                    Intent Semantics
-                  </h3>
-                </div>
-                <span className="text-content-muted bg-surface-muted shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] whitespace-nowrap">
-                  color=&quot;{activeColor}&quot;
-                </span>
-              </div>
+            {/* Interactive Color Selector */}
+            <div className="bg-surface-subtle flex flex-wrap items-center gap-1.5 rounded-xl p-2.5">
+              {(['primary', 'secondary', 'success', 'danger'] as const).map((c) => {
+                const colorClasses = {
+                  primary: 'bg-primary text-on-primary',
+                  secondary: 'bg-secondary text-on-secondary',
+                  success: 'bg-success text-on-success',
+                  danger: 'bg-danger text-on-danger',
+                };
 
-              {/* Interactive Color Selector */}
-              <div className="bg-surface-subtle flex flex-wrap items-center gap-1.5 rounded-xl p-2.5">
-                {(['primary', 'secondary', 'success', 'danger'] as const).map((c) => {
-                  const colorClasses = {
-                    primary: 'bg-primary text-on-primary',
-                    secondary: 'bg-secondary text-on-secondary',
-                    success: 'bg-success text-on-success',
-                    danger: 'bg-danger text-on-danger',
-                  };
-
-                  return (
-                    <button
-                      key={c}
-                      className={cn(
-                        'rounded-lg px-2.5 py-1 text-xs font-medium capitalize transition-all duration-150 active:scale-95',
-                        activeColor === c
-                          ? cn(colorClasses[c], 'font-semibold shadow-2xs')
-                          : 'text-content-secondary hover:bg-surface-muted hover:text-content-primary',
-                      )}
-                      type="button"
-                      onClick={() => setActiveColor(c)}
-                    >
-                      {c}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Live Preview Button */}
-              <div className="bg-background/80 border-border-subtle/50 mt-3 flex items-center justify-center rounded-xl border p-4 shadow-inner">
-                <Button color={activeColor} variant="solid">
-                  {activeColor.charAt(0).toUpperCase() + activeColor.slice(1)} Action
-                </Button>
-              </div>
-            </div>
-
-            <p className="text-content-tertiary mt-4 text-xs leading-relaxed">
-              Perceptually uniform OKLCH intent scales ensuring WCAG AA contrast compliance and
-              predictable color hierarchy.
-            </p>
-          </motion.div>
-
-          {/* Card 3 — Icons & Icon-Only */}
-          <motion.div
-            className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 shadow-md backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
-            {...cardFadeIn(2)}
-          >
-            <div className="from-primary to-success absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
-
-            <div>
-              <div className="mb-4 flex items-center justify-between gap-2">
-                <div className="flex min-w-0 items-center gap-2.5">
-                  <div className="bg-success-subtle text-success flex size-8 shrink-0 items-center justify-center rounded-lg">
-                    <Zap className="size-4" />
-                  </div>
-                  <h3 className="text-content-primary shrink-0 text-sm font-bold whitespace-nowrap">
-                    Icon Integration
-                  </h3>
-                </div>
-                <span className="text-content-muted bg-surface-muted shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] whitespace-nowrap">
-                  {getIconModeLabel(activeIconMode)}
-                </span>
-              </div>
-
-              {/* Mode Switcher */}
-              <div className="bg-surface-subtle flex flex-wrap items-center gap-1.5 rounded-xl p-2.5">
-                {[
-                  { mode: 'start', label: 'Start Icon' },
-                  { mode: 'end', label: 'End Icon' },
-                  { mode: 'iconOnly', label: 'Icon Only' },
-                ].map(({ mode, label }) => (
+                return (
                   <button
-                    key={mode}
+                    key={c}
                     className={cn(
-                      'rounded-lg px-2 py-1 text-xs font-medium transition-all duration-150 active:scale-95',
-                      activeIconMode === mode
-                        ? 'bg-primary text-on-primary font-semibold shadow-2xs'
+                      'rounded-lg px-2.5 py-1 text-xs font-medium capitalize transition-all duration-150 active:scale-95',
+                      activeColor === c
+                        ? cn(colorClasses[c], 'font-semibold shadow-2xs')
                         : 'text-content-secondary hover:bg-surface-muted hover:text-content-primary',
                     )}
                     type="button"
-                    onClick={() => setActiveIconMode(mode as IconMode)}
+                    onClick={() => setActiveColor(c)}
                   >
-                    {label}
+                    {c}
                   </button>
-                ))}
-              </div>
-
-              {/* Live Preview Button */}
-              <div className="bg-background/80 border-border-subtle/50 mt-3 flex items-center justify-center rounded-xl border p-4 shadow-inner">
-                {activeIconMode === 'start' && (
-                  <Button color="primary" size="sm" startIcon={<Send className="size-3.5" />}>
-                    Send Message
-                  </Button>
-                )}
-                {activeIconMode === 'end' && (
-                  <Button
-                    color="primary"
-                    endIcon={<ArrowRight className="size-3.5" />}
-                    size="sm"
-                    variant="outline"
-                  >
-                    Continue
-                  </Button>
-                )}
-                {activeIconMode === 'iconOnly' && (
-                  <Button
-                    isIconOnly
-                    aria-label="Favorite item"
-                    color="primary"
-                    size="sm"
-                    variant="soft"
-                  >
-                    <Heart className="size-4" />
-                  </Button>
-                )}
-              </div>
+                );
+              })}
             </div>
 
-            <p className="text-content-tertiary mt-4 text-xs leading-relaxed">
-              First-class icon slot positioning with automatic spacing alignment and aria-label
-              enforced icon-only buttons.
-            </p>
-          </motion.div>
+            <PreviewBox>
+              <Button color={activeColor} variant="solid">
+                {activeColor.charAt(0).toUpperCase() + activeColor.slice(1)} Action
+              </Button>
+            </PreviewBox>
+          </GalleryCard>
 
-          {/* Card 4 — Button Groups & Tabs */}
-          <motion.div
-            className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 shadow-md backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
-            {...cardFadeIn(3)}
+          {/* Card 3 — Icons & Icon-Only */}
+          <GalleryCard
+            description="First-class icon slot positioning with automatic spacing alignment and aria-label enforced icon-only buttons."
+            gradientFromTo="from-primary to-success"
+            index={2}
           >
-            <div className="from-secondary to-warning absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
+            <CardHeader
+              badgeText={getIconModeLabel(activeIconMode)}
+              icon={<Zap className="size-4" />}
+              iconBgClass="bg-success-subtle text-success"
+              title="Icon Integration"
+            />
 
-            <div>
-              <div className="mb-4 flex items-center justify-between gap-2">
-                <div className="flex min-w-0 items-center gap-2.5">
-                  <div className="bg-warning-subtle text-warning flex size-8 shrink-0 items-center justify-center rounded-lg">
-                    <SlidersHorizontal className="size-4" />
-                  </div>
-                  <h3 className="text-content-primary shrink-0 text-sm font-bold whitespace-nowrap">
-                    Button Groups
-                  </h3>
-                </div>
-                <span className="text-content-muted bg-surface-muted shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] whitespace-nowrap">
-                  &lt;ButtonGroup /&gt;
-                </span>
-              </div>
-
-              {/* Interactive Segmented Control Preview */}
-              <div className="bg-background/80 border-border-subtle/50 flex flex-col items-center justify-center rounded-xl border p-4.5 shadow-inner">
-                <ButtonGroup>
-                  {(['all', 'unread', 'archived'] as const).map((tab) => (
-                    <Button
-                      key={tab}
-                      color={activeGroupTab === tab ? 'primary' : 'neutral'}
-                      size="sm"
-                      variant={activeGroupTab === tab ? 'solid' : 'outline'}
-                      onClick={() => setActiveGroupTab(tab)}
-                    >
-                      <span className="capitalize">{tab}</span>
-                    </Button>
-                  ))}
-                </ButtonGroup>
-                <span className="text-content-tertiary mt-2 font-mono text-[10px]">
-                  activeTab: &quot;{activeGroupTab}&quot;
-                </span>
-              </div>
+            {/* Mode Switcher */}
+            <div className="bg-surface-subtle flex flex-wrap items-center gap-1.5 rounded-xl p-2.5">
+              {[
+                { mode: 'start', label: 'Start Icon' },
+                { mode: 'end', label: 'End Icon' },
+                { mode: 'iconOnly', label: 'Icon Only' },
+              ].map(({ mode, label }) => (
+                <button
+                  key={mode}
+                  className={cn(
+                    'rounded-lg px-2 py-1 text-xs font-medium transition-all duration-150 active:scale-95',
+                    activeIconMode === mode
+                      ? 'bg-primary text-on-primary font-semibold shadow-2xs'
+                      : 'text-content-secondary hover:bg-surface-muted hover:text-content-primary',
+                  )}
+                  type="button"
+                  onClick={() => setActiveIconMode(mode as IconMode)}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
 
-            <p className="text-content-tertiary mt-4 text-xs leading-relaxed">
-              Segmented control toolbars with automatic corner radius masking, border merging, and
-              keyboard arrow navigation.
-            </p>
-          </motion.div>
-
-          {/* Card 5 — Interactive Loading & Disabled States */}
-          <motion.div
-            className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 shadow-md backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
-            {...cardFadeIn(4)}
-          >
-            <div className="from-primary to-secondary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
-            <div>
-              <div className="mb-4 flex items-center justify-between gap-2">
-                <div className="flex min-w-0 items-center gap-2.5">
-                  <div className="bg-primary-subtle text-primary flex size-8 shrink-0 items-center justify-center rounded-lg">
-                    <Sparkles className="size-4" />
-                  </div>
-                  <h3 className="text-content-primary shrink-0 text-sm font-bold whitespace-nowrap">
-                    Dynamic States
-                  </h3>
-                </div>
-                <span className="text-content-muted bg-surface-muted shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] whitespace-nowrap">
-                  {loadingState ? 'isLoading={true}' : 'isLoading={false}'}
-                </span>
-              </div>
-
-              {/* Interactive Loading Demo */}
-              <div className="bg-background/80 border-border-subtle/50 flex flex-wrap items-center justify-center gap-2 rounded-xl border p-4 shadow-inner">
+            <PreviewBox>
+              {activeIconMode === 'start' && (
+                <Button color="primary" size="sm" startIcon={<Send className="size-3.5" />}>
+                  Send Message
+                </Button>
+              )}
+              {activeIconMode === 'end' && (
                 <Button
                   color="primary"
-                  isLoading={loadingState}
+                  endIcon={<ArrowRight className="size-3.5" />}
                   size="sm"
-                  onClick={() => {
-                    setLoadingState(true);
-                    setTimeout(() => setLoadingState(false), 2000);
-                  }}
+                  variant="outline"
                 >
-                  {loadingState ? 'Saving Changes...' : 'Click to Load'}
+                  Continue
                 </Button>
-                <Button isDisabled color="secondary" size="sm" variant="soft">
-                  Disabled
+              )}
+              {activeIconMode === 'iconOnly' && (
+                <Button
+                  isIconOnly
+                  aria-label="Favorite item"
+                  color="primary"
+                  size="sm"
+                  variant="soft"
+                >
+                  <Heart className="size-4" />
                 </Button>
-              </div>
-            </div>
+              )}
+            </PreviewBox>
+          </GalleryCard>
 
-            <p className="text-content-tertiary mt-4 text-xs leading-relaxed">
-              Built-in spinner indicators with pointer interaction locking and zero layout shift
-              during async loading transitions.
-            </p>
-          </motion.div>
+          {/* Card 4 — Button Groups & Tabs */}
+          <GalleryCard
+            description="Segmented control toolbars with automatic corner radius masking, border merging, and keyboard arrow navigation."
+            gradientFromTo="from-secondary to-warning"
+            index={3}
+          >
+            <CardHeader
+              badgeText="<ButtonGroup />"
+              icon={<SlidersHorizontal className="size-4" />}
+              iconBgClass="bg-warning-subtle text-warning"
+              title="Button Groups"
+            />
+
+            <PreviewBox className="flex-col p-4.5">
+              <ButtonGroup>
+                {(['all', 'unread', 'archived'] as const).map((tab) => (
+                  <Button
+                    key={tab}
+                    color={activeGroupTab === tab ? 'primary' : 'neutral'}
+                    size="sm"
+                    variant={activeGroupTab === tab ? 'solid' : 'outline'}
+                    onClick={() => setActiveGroupTab(tab)}
+                  >
+                    <span className="capitalize">{tab}</span>
+                  </Button>
+                ))}
+              </ButtonGroup>
+              <span className="text-content-tertiary mt-2 font-mono text-[10px]">
+                activeTab: &quot;{activeGroupTab}&quot;
+              </span>
+            </PreviewBox>
+          </GalleryCard>
+
+          {/* Card 5 — Interactive Loading & Disabled States */}
+          <GalleryCard
+            description="Built-in spinner indicators with pointer interaction locking and zero layout shift during async loading transitions."
+            gradientFromTo="from-primary to-secondary"
+            index={4}
+          >
+            <CardHeader
+              badgeText={loadingState ? 'isLoading={true}' : 'isLoading={false}'}
+              icon={<Sparkles className="size-4" />}
+              iconBgClass="bg-primary-subtle text-primary"
+              title="Dynamic States"
+            />
+
+            <PreviewBox className="flex-wrap gap-2">
+              <Button
+                color="primary"
+                isLoading={loadingState}
+                size="sm"
+                onClick={() => {
+                  setLoadingState(true);
+                  setTimeout(() => setLoadingState(false), 2000);
+                }}
+              >
+                {loadingState ? 'Saving Changes...' : 'Click to Load'}
+              </Button>
+              <Button isDisabled color="secondary" size="sm" variant="soft">
+                Disabled
+              </Button>
+            </PreviewBox>
+          </GalleryCard>
 
           {/* Card 6 — Density & Radii */}
-          <motion.div
-            className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative flex flex-col justify-between overflow-hidden rounded-2xl p-6 shadow-md backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
-            {...cardFadeIn(5)}
+          <GalleryCard
+            description="Comprehensive size density steps (`xs` to `xl`) and configurable corner radius system adapting to any design vision."
+            gradientFromTo="from-secondary to-primary"
+            index={5}
           >
-            <div className="from-secondary to-primary absolute top-0 right-0 left-0 h-0.5 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <CardHeader
+              badgeText={`${activeSize} / ${activeRadius}`}
+              icon={<ShieldCheck className="size-4" />}
+              iconBgClass="bg-secondary-subtle text-secondary"
+              title="Density & Radii"
+            />
 
-            <div>
-              <div className="mb-4 flex items-center justify-between gap-2">
-                <div className="flex min-w-0 items-center gap-2.5">
-                  <div className="bg-secondary-subtle text-secondary flex size-8 shrink-0 items-center justify-center rounded-lg">
-                    <ShieldCheck className="size-4" />
-                  </div>
-                  <h3 className="text-content-primary shrink-0 text-sm font-bold whitespace-nowrap">
-                    Density &amp; Radii
-                  </h3>
-                </div>
-                <span className="text-content-muted bg-surface-muted shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] whitespace-nowrap">
-                  {activeSize} / {activeRadius}
-                </span>
-              </div>
-
-              {/* Size & Radius Controls */}
-              <div className="bg-surface-subtle flex flex-col gap-2 rounded-xl p-2.5">
-                <div className="flex items-center justify-between text-[11px]">
-                  <span className="text-content-tertiary font-medium">Size:</span>
-                  <div className="flex items-center gap-1">
-                    {(['sm', 'md', 'lg'] as const).map((s) => (
-                      <button
-                        key={s}
-                        className={cn(
-                          'rounded-md px-2 py-0.5 font-mono text-[10px] uppercase transition-all active:scale-95',
-                          activeSize === s
-                            ? 'bg-primary text-on-primary font-semibold'
-                            : 'text-content-secondary hover:text-content-primary',
-                        )}
-                        type="button"
-                        onClick={() => setActiveSize(s)}
-                      >
-                        {s}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between text-[11px]">
-                  <span className="text-content-tertiary font-medium">Radius:</span>
-                  <div className="flex items-center gap-1">
-                    {(['none', 'md', 'full'] as const).map((r) => (
-                      <button
-                        key={r}
-                        className={cn(
-                          'rounded-md px-2 py-0.5 font-mono text-[10px] capitalize transition-all active:scale-95',
-                          activeRadius === r
-                            ? 'bg-primary text-on-primary font-semibold'
-                            : 'text-content-secondary hover:text-content-primary',
-                        )}
-                        type="button"
-                        onClick={() => setActiveRadius(r)}
-                      >
-                        {r}
-                      </button>
-                    ))}
-                  </div>
+            {/* Size & Radius Controls */}
+            <div className="bg-surface-subtle flex flex-col gap-2 rounded-xl p-2.5">
+              <div className="flex items-center justify-between text-[11px]">
+                <span className="text-content-tertiary font-medium">Size:</span>
+                <div className="flex items-center gap-1">
+                  {(['sm', 'md', 'lg'] as const).map((s) => (
+                    <button
+                      key={s}
+                      className={cn(
+                        'rounded-md px-2 py-0.5 font-mono text-[10px] uppercase transition-all active:scale-95',
+                        activeSize === s
+                          ? 'bg-primary text-on-primary font-semibold'
+                          : 'text-content-secondary hover:text-content-primary',
+                      )}
+                      type="button"
+                      onClick={() => setActiveSize(s)}
+                    >
+                      {s}
+                    </button>
+                  ))}
                 </div>
               </div>
 
-              {/* Live Preview Button */}
-              <div className="bg-background/80 border-border-subtle/50 mt-3 flex items-center justify-center rounded-xl border p-4 shadow-inner">
-                <Button color="primary" radius={activeRadius} size={activeSize}>
-                  Custom Button
-                </Button>
+              <div className="flex items-center justify-between text-[11px]">
+                <span className="text-content-tertiary font-medium">Radius:</span>
+                <div className="flex items-center gap-1">
+                  {(['none', 'md', 'full'] as const).map((r) => (
+                    <button
+                      key={r}
+                      className={cn(
+                        'rounded-md px-2 py-0.5 font-mono text-[10px] capitalize transition-all active:scale-95',
+                        activeRadius === r
+                          ? 'bg-primary text-on-primary font-semibold'
+                          : 'text-content-secondary hover:text-content-primary',
+                      )}
+                      type="button"
+                      onClick={() => setActiveRadius(r)}
+                    >
+                      {r}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <p className="text-content-tertiary mt-4 text-xs leading-relaxed">
-              Comprehensive size density steps (`xs` to `xl`) and configurable corner radius system
-              adapting to any design vision.
-            </p>
-          </motion.div>
+            <PreviewBox>
+              <Button color="primary" radius={activeRadius} size={activeSize}>
+                Custom Button
+              </Button>
+            </PreviewBox>
+          </GalleryCard>
         </div>
       </div>
     </section>
