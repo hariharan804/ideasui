@@ -95,7 +95,7 @@ function hexToOklch(hex: string): { l: number; c: number; h: number } {
   const lg = toLinear(g8);
   const lb = toLinear(b8);
 
-  const l_ = Math.cbrt(0.412_221_470_8 * lr + 0.536_332_536_3 * lg + 0.051_445_992_9 * lb);
+  const l_ = Math.cbrt(0.412_221_470_8 * lr + 0.536_232_536_3 * lg + 0.051_445_992_9 * lb);
   const m_ = Math.cbrt(0.211_903_498_2 * lr + 0.680_699_545_1 * lg + 0.107_396_956_6 * lb);
   const s_ = Math.cbrt(0.088_302_461_9 * lr + 0.281_718_837_6 * lg + 0.629_978_700_5 * lb);
 
