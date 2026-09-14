@@ -70,6 +70,53 @@ function getFocusButtonLabel(key: FocusKey): string {
   return 'Focused Target';
 }
 
+const DX_BADGES = ['Type-safe', 'Tree-shakeable', 'Server Component ready'] as const;
+
+interface FeatureChecklistProps {
+  readonly features: readonly string[];
+  readonly className?: string;
+  readonly itemClassName?: string;
+}
+
+function FeatureChecklist({ features, className, itemClassName }: Readonly<FeatureChecklistProps>) {
+  return (
+    <div className={className}>
+      {features.map((feat) => (
+        <div
+          key={feat}
+          className={cn(
+            'text-content-secondary flex items-center gap-2 text-xs font-medium',
+            itemClassName,
+          )}
+        >
+          <Check className="text-success size-3.5 shrink-0" />
+          <span>{feat}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+interface DxBadgesProps {
+  readonly className?: string;
+}
+
+function DxBadges({ className }: Readonly<DxBadgesProps>) {
+  return (
+    <div className={className}>
+      {DX_BADGES.map((badge) => (
+        <span
+          key={badge}
+          className="bg-surface-muted/90 text-content-primary inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-medium shadow-2xs"
+        >
+          <Check className="text-success size-3 shrink-0" />
+          {badge}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 /** Bento grid showcasing technical foundation cleanly with restrained background accents. */
 export function FeaturesSection() {
   /* Interactive Card States */
@@ -140,22 +187,16 @@ export function FeaturesSection() {
             </div>
 
             {/* Visual Feature Checklist */}
-            <div className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-              {[
+            <FeatureChecklist
+              className="mt-5 grid grid-cols-2 gap-2.5 sm:grid-cols-4"
+              features={[
                 'Keyboard navigation',
                 'ARIA 1.2 support',
                 'Focus management',
                 'Screen reader support',
-              ].map((feat) => (
-                <div
-                  key={feat}
-                  className="bg-surface-subtle/80 text-content-primary flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold shadow-2xs"
-                >
-                  <Check className="text-success size-3.5 shrink-0" />
-                  <span>{feat}</span>
-                </div>
-              ))}
-            </div>
+              ]}
+              itemClassName="bg-surface-subtle/80 text-content-primary rounded-xl px-3 py-2 text-xs font-semibold shadow-2xs"
+            />
 
             {/* Interactive Keyboard Accessibility Tester */}
             <div className="mt-6 flex flex-col gap-4">
@@ -229,21 +270,14 @@ export function FeaturesSection() {
                 Perceptual Color Engine
               </h3>
 
-              <div className="mt-4 flex flex-col gap-2">
-                {[
+              <FeatureChecklist
+                className="mt-4 flex flex-col gap-2"
+                features={[
                   'Perceptually uniform lightness',
                   'Dark & light mode auto-mapping',
                   'Consistent contrast ratios',
-                ].map((feat) => (
-                  <div
-                    key={feat}
-                    className="text-content-secondary flex items-center gap-2 text-xs font-medium"
-                  >
-                    <Check className="text-success size-3.5 shrink-0" />
-                    <span>{feat}</span>
-                  </div>
-                ))}
-              </div>
+                ]}
+              />
             </div>
 
             {/* Interactive OKLCH Color Swatch Inspector */}
@@ -308,21 +342,14 @@ export function FeaturesSection() {
               <h3 className="text-content-primary mt-5 text-lg font-bold">Zero Configuration</h3>
 
               {/* SSR Feature Highlights Checklist */}
-              <div className="mt-4 flex flex-col gap-2.5">
-                {[
+              <FeatureChecklist
+                className="mt-4 flex flex-col gap-2.5"
+                features={[
                   'Zero Context Provider wrapping',
                   'React Server Component (RSC) native',
                   'Pure CSS recipe compile target',
-                ].map((feat) => (
-                  <div
-                    key={feat}
-                    className="text-content-secondary flex items-center gap-2 text-xs font-medium"
-                  >
-                    <Check className="text-success size-3.5 shrink-0" />
-                    <span>{feat}</span>
-                  </div>
-                ))}
-              </div>
+                ]}
+              />
             </div>
 
             {/* Interactive Framework Switcher */}
@@ -376,17 +403,7 @@ export function FeaturesSection() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
-                {['Type-safe', 'Tree-shakeable', 'Server Component ready'].map((badge) => (
-                  <span
-                    key={badge}
-                    className="bg-surface-muted/90 text-content-primary inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-medium shadow-2xs max-sm:hidden"
-                  >
-                    <Check className="text-success size-3 shrink-0" />
-                    {badge}
-                  </span>
-                ))}
-              </div>
+              <DxBadges className="flex items-center gap-2 max-sm:hidden" />
             </div>
 
             {/* Formatted IDE Code Inspector Block */}
@@ -529,17 +546,7 @@ export function FeaturesSection() {
             </div>
 
             {/* Mobile Feature Badges */}
-            <div className="mt-4 flex flex-wrap items-center gap-2 sm:hidden">
-              {['Type-safe', 'Tree-shakeable', 'Server Component ready'].map((badge) => (
-                <span
-                  key={badge}
-                  className="bg-surface-muted/90 text-content-primary inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-medium shadow-2xs"
-                >
-                  <Check className="text-success size-3 shrink-0" />
-                  {badge}
-                </span>
-              ))}
-            </div>
+            <DxBadges className="mt-4 flex flex-wrap items-center gap-2 sm:hidden" />
           </motion.div>
         </div>
       </div>
