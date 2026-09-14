@@ -97,6 +97,7 @@ export default defineConfig([
       'unicorn/prefer-number-properties': 'off',
       'unicorn/no-abusive-eslint-disable': 'off',
       'unicorn/no-array-sort': 'off',
+      'unicorn/numeric-separators-style': 'error',
     },
   },
 

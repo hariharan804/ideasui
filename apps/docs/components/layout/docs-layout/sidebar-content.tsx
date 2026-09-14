@@ -21,8 +21,6 @@ import {
 } from './sidebar';
 import { FilteredSidebarTabsDropdown } from './header';
 
-import { Palette } from 'lucide-react';
-
 import { Sidebar as SidebarIcon, X, Languages } from '@/components/docs-ui/icons';
 import { LanguageToggle } from '@/components/docs-ui/language-toggle';
 import { ThemeToggle } from '@/components/docs-ui/theme-toggle';
@@ -263,21 +261,13 @@ export function SidebarContent({
           footer={typeof footer === 'function' ? undefined : footer}
           iconLinks={iconLinks}
         >
-          <div className="flex w-full items-center justify-between gap-2">
-            <button
-              aria-label="Customize Theme"
-              className="bg-surface-muted text-content-tertiary hover:text-content-primary flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-medium shadow-xs backdrop-blur-md transition-all active:scale-95"
-              type="button"
-            >
-              <Palette className="size-4" />
-              <span>Customize Theme</span>
-            </button>
-            {themeSwitchEnabled ? (
+          {themeSwitchEnabled ? (
+            <div className="flex w-full items-center justify-end">
               <div className="bg-surface-muted text-content-tertiary flex h-8 items-center rounded-full px-1 shadow-xs backdrop-blur-md">
                 {themeToggle}
               </div>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
           {(iconLinks.length > 0 || !!i18n) && (
             <div className="border-border-subtle/10 flex w-full items-center justify-between gap-2 border-t pt-1">
               <IconLinkList iconLinks={iconLinks} variant="drawer" />
