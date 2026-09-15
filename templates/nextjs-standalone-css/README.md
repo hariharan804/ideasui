@@ -2,6 +2,8 @@
 
 This repository is a Next.js starter boilerplate template pre-configured with the **IdeasUI Standalone CSS** styling system. It provides a production-ready starting point for building clean, premium, and accessible web applications.
 
+📚 **[Official Documentation & Live Demos →](https://ideasui.com)**
+
 ## 🚀 Features
 
 - **Next.js App Router**: Configured with React 19 and Next.js 16.

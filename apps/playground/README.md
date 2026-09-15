@@ -2,6 +2,8 @@
 
 This is a [Next.js](https://nextjs.org) playground app for testing and developing IdeasUI components.
 
+📚 **[Official Documentation & Live Demos →](https://ideasui.com)**
+
 ## Getting Started
 
 From the root of the IdeasUI monorepo:

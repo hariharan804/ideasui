@@ -2,6 +2,8 @@
 
 This document explains the organization, structure, and best practices for the IdeasUI monorepo packages.
 
+📚 **[Official Documentation & Live Demos →](https://ideasui.com)**
+
 ---
 
 ## 📁 Structure Overview

@@ -5,6 +5,8 @@ A high-performance, accessible component library built with **TypeScript**, **Ta
 [![NPM Version](https://img.shields.io/npm/v/@ideasui/react.svg)](https://www.npmjs.com/package/@ideasui/react)
 [![License](https://img.shields.io/npm/l/@ideasui/react.svg)](https://github.com/ideas2logic-lab/ideasui/blob/master/LICENSE)
 
+📚 **[Official Documentation & Live Demos →](https://ideasui.com)**
+
 ## 🚀 Quick Start
 
 ```bash

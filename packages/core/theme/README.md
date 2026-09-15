@@ -5,6 +5,8 @@ The official design system and theme engine for **IdeasUI** — built on **Tailw
 [![NPM Version](https://img.shields.io/npm/v/@ideasui/theme.svg)](https://www.npmjs.com/package/@ideasui/theme)
 [![License](https://img.shields.io/npm/l/@ideasui/theme.svg)](https://github.com/ideas2logic-lab/ideasui/blob/master/LICENSE)
 
+📚 **[Official Documentation & Live Demos →](https://ideasui.com)**
+
 ## Features
 
 - 🎨 **Unified Design System** — Centralized tokens for colors, typography, spacing, and more.

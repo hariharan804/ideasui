@@ -2,6 +2,8 @@
 
 The official documentation website for **IdeasUI** — built with **Next.js 16**, **Fumadocs**, and **Tailwind CSS v4**.
 
+📚 **[Official Documentation Website →](https://ideasui.com)**
+
 ## 🚀 Getting Started
 
 From the root of the IdeasUI monorepo:
