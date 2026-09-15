@@ -2,6 +2,8 @@
 
 This is a [Next.js](https://nextjs.org) playground app for testing and developing IdeasUI components.
 
+📚 **[Official Documentation & Live Demos →](https://ideasui.com)**
+
 ## Getting Started
 
 From the root of the IdeasUI monorepo:
@@ -11,16 +13,16 @@ From the root of the IdeasUI monorepo:
 pnpm install
 
 # Start the playground development server
-pnpm run dev:next
+pnpm run dev:playground
 ```
 
 Or run directly from the playground directory:
 
 ```bash
-pnpm run dev:next
+pnpm dev
 ```
 
-Open [http://localhost:5000](http://localhost:5000) with your browser to see the result.
+Open [http://localhost:3005](http://localhost:3005) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
@@ -37,16 +39,15 @@ This playground app serves as:
 
 ```bash
 # Development
-pnpm run dev:next          # Start development server on port 5000
-pnpm run build:next        # Build for production
-pnpm run start:next        # Start production server
+pnpm run dev:playground       # Start development server from root (port 3005)
+pnpm run build                # Build playground for production
 
 # Package Testing
-pnpm run test:alpha         # Test with alpha packages
-pnpm run test:beta          # Test with beta packages
-pnpm run test:canary        # Test with canary packages
-pnpm run test:latest        # Test with latest packages
-pnpm run restore:workspace  # Restore workspace dependencies
+pnpm run test:alpha          # Test with alpha packages
+pnpm run test:beta           # Test with beta packages
+pnpm run test:canary         # Test with canary packages
+pnpm run test:latest         # Test with latest packages
+pnpm run restore:workspace   # Restore workspace dependencies
 ```
 
 ## IdeasUI Components

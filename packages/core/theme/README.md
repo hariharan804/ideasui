@@ -5,6 +5,8 @@ The official design system and theme engine for **IdeasUI** — built on **Tailw
 [![NPM Version](https://img.shields.io/npm/v/@ideasui/theme.svg)](https://www.npmjs.com/package/@ideasui/theme)
 [![License](https://img.shields.io/npm/l/@ideasui/theme.svg)](https://github.com/ideas2logic-lab/ideasui/blob/master/LICENSE)
 
+📚 **[Official Documentation & Live Demos →](https://ideasui.com)**
+
 ## Features
 
 - 🎨 **Unified Design System** — Centralized tokens for colors, typography, spacing, and more.
@@ -34,7 +36,7 @@ The simplest setup. Just import Tailwind and the prebuilt theme stylesheet.
 ```css
 /* globals.css */
 @import 'tailwindcss';
-@import '@ideasui/theme/theme.css';
+@import '@ideasui/theme/index.css';
 ```
 
 > No `tailwind.config.ts` needed. The theme CSS already includes all plugin output.
@@ -495,4 +497,4 @@ Built-in z-index: `hide`(-1) `base`(0) `raised`(1) `sticky`(100) `fixed`(200) `d
 
 ## License
 
-MIT
+MIT © [IdeasUI](https://ideasui.com)

@@ -5,6 +5,7 @@ import { useEffect, useState, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { useTheme } from '@ideasui/theme';
 import { cn } from '@ideasui/utils';
+import { trackEvent } from './google-analytics';
 
 const noop = () => {};
 const emptySubscribe = () => noop;
@@ -470,6 +471,11 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
     applyPrimaryColorTokens(cleanValue);
     localStorage.setItem(STORAGE_KEYS.COLOR, preset.id);
     localStorage.setItem(STORAGE_KEYS.COLOR_OKLCH, cleanValue);
+    trackEvent('theme_customize', {
+      action: 'set_color',
+      color_id: preset.id,
+      color_name: preset.name,
+    });
   };
 
   const handleApplyCustomColor = (hex: string) => {
@@ -482,6 +488,7 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
     localStorage.setItem(STORAGE_KEYS.COLOR, 'custom');
     localStorage.setItem(STORAGE_KEYS.CUSTOM_HEX, hex);
     localStorage.setItem(STORAGE_KEYS.COLOR_OKLCH, rawOklch);
+    trackEvent('theme_customize', { action: 'set_custom_color', hex });
   };
 
   const handleApplyRadius = (preset: RadiusPreset) => {
@@ -489,6 +496,11 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
     document.documentElement.style.setProperty('--ideasui-radius', preset.value);
     localStorage.setItem(STORAGE_KEYS.RADIUS, preset.id);
     localStorage.setItem(STORAGE_KEYS.RADIUS_VAL, preset.value);
+    trackEvent('theme_customize', {
+      action: 'set_radius',
+      radius_id: preset.id,
+      radius_val: preset.value,
+    });
   };
 
   const handleReset = () => {
@@ -507,6 +519,7 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
     ])
       localStorage.removeItem(key);
     setTheme('system');
+    trackEvent('theme_customize', { action: 'reset' });
   };
 
   if (!mounted) return null;
@@ -570,7 +583,10 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
                       key={id}
                       className="py-2 text-xs font-semibold sm:py-2.5 sm:text-sm"
                       isSelected={theme === id}
-                      onClick={() => setTheme(id)}
+                      onClick={() => {
+                        setTheme(id);
+                        trackEvent('theme_customize', { action: 'set_mode', mode: id });
+                      }}
                     >
                       <Icon className="size-4" />
                       <span>{label}</span>

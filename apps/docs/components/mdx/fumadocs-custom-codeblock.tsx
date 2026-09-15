@@ -9,6 +9,7 @@ import { useCallback, useRef } from 'react';
 import { cn } from '@ideasui/utils';
 
 import { Check, Copy } from 'lucide-react';
+import { trackEvent } from '@/components/docs-ui/google-analytics';
 
 interface ActionsPanelProperties extends HTMLAttributes<HTMLDivElement> {
   readonly allowCopy: boolean;
@@ -89,6 +90,10 @@ interface CopyButtonProperties {
 
 function CopyButton({ className, code, containerRef }: CopyButtonProperties) {
   const [checked, onClick] = useCopyButton(() => {
+    trackEvent('copy_code_snippet', {
+      page_path: globalThis.window ? globalThis.location.pathname : '',
+    });
+
     if (code) {
       void navigator.clipboard.writeText(code);
 

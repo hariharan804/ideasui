@@ -2,6 +2,8 @@
 
 UI components with complete styling and behavior using tailwind-variants and OKLCH color system.
 
+📚 **[Official Documentation & Live Demos →](https://ideasui.com)**
+
 ## 📦 Available Components
 
 - **Button** (`@ideasui/button`) - Interactive button with variants, loading states, and ripple effects

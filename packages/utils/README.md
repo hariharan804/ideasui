@@ -5,6 +5,8 @@ Shared utility functions, accessibility helpers, and performance-optimized tools
 [![NPM Version](https://img.shields.io/npm/v/@ideasui/utils.svg)](https://www.npmjs.com/package/@ideasui/utils)
 [![License](https://img.shields.io/npm/l/@ideasui/utils.svg)](https://github.com/ideas2logic-lab/ideasui/blob/master/LICENSE)
 
+📚 **[Official Documentation & Live Demos →](https://ideasui.com)**
+
 ## 📦 Installation
 
 ```bash
@@ -343,4 +345,4 @@ pnpm test:coverage
 
 ## 📄 License
 
-MIT License - see [LICENSE](../../LICENSE) file for details.
+MIT © [IdeasUI](https://ideasui.com)

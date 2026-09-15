@@ -2,6 +2,8 @@
 
 This directory contains the central guidelines for developing the IdeasUI design system. These rules ensure consistency, accessibility, and high code quality across all packages.
 
+📚 **[Official Documentation & Live Demos →](https://ideasui.com)**
+
 ## 📋 Core Rule Files
 
 | File                                                   | Description                                                                            |

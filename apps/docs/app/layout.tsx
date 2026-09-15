@@ -52,6 +52,7 @@ export const metadata: Metadata = {
 };
 
 import { CustomSearchDialog } from '@/components/docs-ui/custom-search-dialog';
+import { GoogleAnalytics } from '@/components/docs-ui/google-analytics';
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <RootProvider search={{ SearchDialog: CustomSearchDialog }} theme={{ enabled: false }}>
           <ThemeProvider defaultTheme="light">{children}</ThemeProvider>
         </RootProvider>
+        <GoogleAnalytics />
       </body>
     </html>
   );

@@ -16,7 +16,9 @@ import {
 } from 'fumadocs-ui/components/dialog/search';
 import { useDocsSearch } from 'fumadocs-core/search/client';
 import { fetchClient } from 'fumadocs-core/search/client/fetch';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
+
+import { trackEvent } from '@/components/docs-ui/google-analytics';
 
 interface CustomSearchDialogProps extends Omit<
   React.ComponentProps<typeof SearchDialog>,
@@ -58,6 +60,18 @@ export function CustomSearchDialog({
     client,
     delayMs,
   });
+
+  useEffect(() => {
+    const trimmed = search.trim();
+
+    if (trimmed.length < 2) return;
+
+    const timer = setTimeout(() => {
+      trackEvent('search', { search_term: trimmed });
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, [search]);
 
   const defaultItems = useMemo(() => {
     const activeLinks =

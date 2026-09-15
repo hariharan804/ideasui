@@ -7,6 +7,7 @@ import { cn } from '@ideasui/utils';
 
 import { CopyDropdownMenu } from './copy-dropdown-menu';
 import { CopyDropdownModal } from './copy-dropdown-modal';
+import { trackEvent } from './google-analytics';
 
 interface CopyDropdownProperties {
   readonly rawMarkdown: string;
@@ -68,6 +69,10 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
       await navigator.clipboard.writeText(rawMarkdown);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+      trackEvent('copy_page_markdown', {
+        page_title: pageTitle,
+        page_path: globalThis.window ? globalThis.location.pathname : '',
+      });
     } catch (error) {
       console.error('Failed to copy markdown:', error);
     }
@@ -77,6 +82,10 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
     try {
       await navigator.clipboard.writeText(text);
       setToast(`Copied ${label} to clipboard!`);
+      trackEvent('copy_markdown_section', {
+        label,
+        page_title: pageTitle,
+      });
     } catch (error) {
       console.error('Copy failed:', error);
     }
@@ -84,6 +93,10 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
 
   const handleOpenInAI = async (aiName: 'ChatGPT' | 'Claude' | 'Gemini', targetUrl: string) => {
     setIsOpen(false);
+    trackEvent('copy_prompt_for_ai', {
+      ai_name: aiName,
+      page_title: pageTitle,
+    });
 
     const fullPrompt = `I am building a web app using IdeasUI (React component library built with Tailwind CSS v4 and React Aria).\nHere is the documentation page for "${pageTitle}":\n\`\`\`markdown\n${rawMarkdown}\n\`\`\`\nI have the above context. Please help me with my task or question regarding this component:`;
 

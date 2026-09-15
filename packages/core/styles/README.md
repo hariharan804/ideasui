@@ -5,6 +5,8 @@ The CSS distribution package for **IdeasUI**. It provides pre-compiled CSS style
 [![NPM Version](https://img.shields.io/npm/v/@ideasui/styles.svg)](https://www.npmjs.com/package/@ideasui/styles)
 [![License](https://img.shields.io/npm/l/@ideasui/styles.svg)](https://github.com/ideas2logic-lab/ideasui/blob/master/LICENSE)
 
+📚 **[Official Documentation & Live Demos →](https://ideasui.com)**
+
 ## Why `@ideasui/styles`?
 
 IdeasUI components are styled using Tailwind CSS v4. To support environments where consumers do not run Tailwind CSS compilation themselves (or want to use components without configuring Tailwind), `@ideasui/styles` exports pre-compiled stylesheets.
@@ -72,3 +74,9 @@ pnpm run build
 ```
 
 This builds the TypeScript/JavaScript distribution files and compiles the CSS variants into the `dist/` directory using `@tailwindcss/cli`.
+
+---
+
+## License
+
+MIT © [IdeasUI](https://ideasui.com)

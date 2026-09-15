@@ -16,9 +16,7 @@ export function Wordmark({ className = '', size = 'md' }: Readonly<WordmarkPrope
   return (
     <span className={cn('inline-flex items-center tracking-tight', sizeClasses[size], className)}>
       <span className="text-content-primary">Ideas</span>
-      <span className="from-primary via-secondary to-tertiary -mb-0.5 ml-0.5 bg-gradient-to-r bg-clip-text font-extrabold text-transparent">
-        UI
-      </span>
+      <span className="perceptual-gradient-text -mb-0.5 ml-0.5 font-extrabold">UI</span>
     </span>
   );
 }
