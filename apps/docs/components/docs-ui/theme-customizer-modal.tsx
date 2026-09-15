@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/numeric-separators-style */
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check, Sun, Moon, Airplay, RotateCcw, Palette, Sliders, Pipette } from 'lucide-react';
 import { useEffect, useState, useSyncExternalStore } from 'react';
@@ -88,20 +89,20 @@ function hexToOklch(hex: string): { l: number; c: number; h: number } {
   const toLinear = (val: number) => {
     const v = val / 255;
 
-    return v > 0.040_45 ? Math.pow((v + 0.055) / 1.055, 2.4) : v / 12.92;
+    return v > 0.04045 ? Math.pow((v + 0.055) / 1.055, 2.4) : v / 12.92;
   };
 
   const lr = toLinear(r8);
   const lg = toLinear(g8);
   const lb = toLinear(b8);
 
-  const l_ = Math.cbrt(0.412_221_470_8 * lr + 0.536_232_536_3 * lg + 0.051_445_992_9 * lb);
-  const m_ = Math.cbrt(0.211_903_498_2 * lr + 0.680_699_545_1 * lg + 0.107_396_956_6 * lb);
-  const s_ = Math.cbrt(0.088_302_461_9 * lr + 0.281_718_837_6 * lg + 0.629_978_700_5 * lb);
+  const l_ = Math.cbrt(0.4122214708 * lr + 0.5362325363 * lg + 0.0514459929 * lb);
+  const m_ = Math.cbrt(0.2119034982 * lr + 0.6806995451 * lg + 0.1073969566 * lb);
+  const s_ = Math.cbrt(0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb);
 
-  const L = 0.210_454_255_3 * l_ + 0.793_617_785 * m_ - 0.004_072_046_8 * s_;
-  const a = 1.977_998_495_1 * l_ - 2.428_592_205 * m_ + 0.450_593_709_9 * s_;
-  const b = 0.025_904_037_1 * l_ + 0.782_771_766_2 * m_ - 0.808_675_797_1 * s_;
+  const L = 0.2104542553 * l_ + 0.793617785 * m_ - 0.0040720468 * s_;
+  const a = 1.9779984951 * l_ - 2.428592205 * m_ + 0.4505937099 * s_;
+  const b = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757971 * s_;
 
   const C = Math.hypot(a, b);
   let H = (Math.atan2(b, a) * 180) / Math.PI;
@@ -199,14 +200,121 @@ const MODE_OPTIONS = [
   { id: 'system', label: 'System', icon: Airplay },
 ] as const;
 
-const PRIMARY_COLOR_VARS = [
+const ALL_DYNAMIC_COLOR_VARS = [
+  // Primary
   '--ideasui-color-primary',
   '--ideasui-color-on-primary',
   '--ideasui-color-primary-subtle',
   '--ideasui-color-on-primary-subtle',
   '--ideasui-color-primary-muted',
   '--ideasui-color-on-primary-muted',
+  // Secondary
+  '--ideasui-color-secondary',
+  '--ideasui-color-on-secondary',
+  '--ideasui-color-secondary-subtle',
+  '--ideasui-color-on-secondary-subtle',
+  '--ideasui-color-secondary-muted',
+  '--ideasui-color-on-secondary-muted',
+  // Tertiary
+  '--ideasui-color-tertiary',
+  '--ideasui-color-on-tertiary',
+  '--ideasui-color-tertiary-subtle',
+  '--ideasui-color-on-tertiary-subtle',
+  '--ideasui-color-tertiary-muted',
+  '--ideasui-color-on-tertiary-muted',
+  // Neutral
+  '--ideasui-color-neutral',
+  '--ideasui-color-on-neutral',
+  '--ideasui-color-neutral-subtle',
+  '--ideasui-color-on-neutral-subtle',
+  '--ideasui-color-neutral-muted',
+  '--ideasui-color-on-neutral-muted',
+  // Border Focus
+  '--ideasui-color-border-focus',
 ] as const;
+
+function calculateThemeColorTokens(
+  l: number,
+  c: number,
+  h: number,
+  isDark: boolean,
+): Record<string, string> {
+  const hPrimary = h;
+  const hSecondary = (h + 38) % 360;
+  const hTertiary = (h + 280) % 360;
+  const hNeutral = c > 0.01 ? h : 260;
+
+  if (isDark) {
+    const pL = Math.max(l, 0.62);
+    const sC = Math.min(c, 0.21);
+
+    return {
+      '--ideasui-color-primary': `${pL} ${c} ${hPrimary}`,
+      '--ideasui-color-on-primary': `0.14 0.04 ${hPrimary}`,
+      '--ideasui-color-primary-subtle': `0.18 0.05 ${hPrimary}`,
+      '--ideasui-color-on-primary-subtle': `0.88 0.06 ${hPrimary}`,
+      '--ideasui-color-primary-muted': `0.26 0.08 ${hPrimary}`,
+      '--ideasui-color-on-primary-muted': `0.84 0.07 ${hPrimary}`,
+
+      '--ideasui-color-secondary': `${pL} ${sC} ${hSecondary}`,
+      '--ideasui-color-on-secondary': `0.14 0.04 ${hSecondary}`,
+      '--ideasui-color-secondary-subtle': `0.18 0.05 ${hSecondary}`,
+      '--ideasui-color-on-secondary-subtle': `0.88 0.06 ${hSecondary}`,
+      '--ideasui-color-secondary-muted': `0.26 0.08 ${hSecondary}`,
+      '--ideasui-color-on-secondary-muted': `0.84 0.07 ${hSecondary}`,
+
+      '--ideasui-color-tertiary': `0.65 0.14 ${hTertiary}`,
+      '--ideasui-color-on-tertiary': `0.14 0.04 ${hTertiary}`,
+      '--ideasui-color-tertiary-subtle': `0.18 0.05 ${hTertiary}`,
+      '--ideasui-color-on-tertiary-subtle': `0.88 0.06 ${hTertiary}`,
+      '--ideasui-color-tertiary-muted': `0.26 0.08 ${hTertiary}`,
+      '--ideasui-color-on-tertiary-muted': `0.84 0.07 ${hTertiary}`,
+
+      '--ideasui-color-neutral': `0.65 0.015 ${hNeutral}`,
+      '--ideasui-color-on-neutral': `0.145 0.006 ${hNeutral}`,
+      '--ideasui-color-neutral-subtle': `0.22 0.012 ${hNeutral}`,
+      '--ideasui-color-on-neutral-subtle': `0.88 0.008 ${hNeutral}`,
+      '--ideasui-color-neutral-muted': `0.30 0.015 ${hNeutral}`,
+      '--ideasui-color-on-neutral-muted': `0.82 0.012 ${hNeutral}`,
+
+      '--ideasui-color-border-focus': `${pL} ${c} ${hPrimary}`,
+    };
+  }
+
+  const sC = Math.min(c, 0.21);
+
+  return {
+    '--ideasui-color-primary': `${l} ${c} ${hPrimary}`,
+    '--ideasui-color-on-primary': '1 0 0',
+    '--ideasui-color-primary-subtle': `0.96 0.028 ${hPrimary}`,
+    '--ideasui-color-on-primary-subtle': `0.38 0.18 ${hPrimary}`,
+    '--ideasui-color-primary-muted': `0.92 0.05 ${hPrimary}`,
+    '--ideasui-color-on-primary-muted': `0.42 0.20 ${hPrimary}`,
+
+    '--ideasui-color-secondary': `0.46 ${sC} ${hSecondary}`,
+    '--ideasui-color-on-secondary': '1 0 0',
+    '--ideasui-color-secondary-subtle': `0.96 0.028 ${hSecondary}`,
+    '--ideasui-color-on-secondary-subtle': `0.36 0.16 ${hSecondary}`,
+    '--ideasui-color-secondary-muted': `0.92 0.05 ${hSecondary}`,
+    '--ideasui-color-on-secondary-muted': `0.40 0.18 ${hSecondary}`,
+
+    '--ideasui-color-tertiary': `0.48 0.13 ${hTertiary}`,
+    '--ideasui-color-on-tertiary': '1 0 0',
+    '--ideasui-color-tertiary-subtle': `0.96 0.025 ${hTertiary}`,
+    '--ideasui-color-on-tertiary-subtle': `0.32 0.11 ${hTertiary}`,
+    '--ideasui-color-tertiary-muted': `0.92 0.04 ${hTertiary}`,
+    '--ideasui-color-on-tertiary-muted': `0.36 0.12 ${hTertiary}`,
+
+    '--ideasui-color-neutral': `0.551 0.015 ${hNeutral}`,
+    '--ideasui-color-on-neutral': `0.985 0.002 ${hNeutral}`,
+    '--ideasui-color-neutral-subtle': `0.94 0.008 ${hNeutral}`,
+    '--ideasui-color-on-neutral-subtle': `0.269 0.009 ${hNeutral}`,
+    '--ideasui-color-neutral-muted': `0.88 0.012 ${hNeutral}`,
+    '--ideasui-color-on-neutral-muted': `0.22 0.015 ${hNeutral}`,
+
+    '--ideasui-color-border-focus': `${l} ${c} ${hPrimary}`,
+  };
+}
 
 export function applyPrimaryColorTokens(oklchStr: string) {
   if (globalThis.window === undefined) return;
@@ -218,36 +326,22 @@ export function applyPrimaryColorTokens(oklchStr: string) {
 
   const l = Number.parseFloat(parts[0]);
   const c = Number.parseFloat(parts[1]);
-  const h = parts[2];
+  const h = Number.parseFloat(parts[2]);
+
+  if (Number.isNaN(l) || Number.isNaN(c) || Number.isNaN(h)) return;
 
   const isDark = document.documentElement.classList.contains('dark');
-  const values = isDark
-    ? [
-        `${Math.max(l, 0.62)} ${c} ${h}`,
-        `0.14 0.04 ${h}`,
-        `0.18 0.05 ${h}`,
-        `0.88 0.06 ${h}`,
-        `0.26 0.08 ${h}`,
-        `0.84 0.07 ${h}`,
-      ]
-    : [
-        `${l} ${c} ${h}`,
-        '1 0 0',
-        `0.96 0.028 ${h}`,
-        `0.38 0.18 ${h}`,
-        `0.92 0.05 ${h}`,
-        `0.42 0.20 ${h}`,
-      ];
+  const tokens = calculateThemeColorTokens(l, c, h, isDark);
 
-  for (const [idx, varName] of PRIMARY_COLOR_VARS.entries()) {
-    document.documentElement.style.setProperty(varName, values[idx]);
+  for (const [varName, varVal] of Object.entries(tokens)) {
+    document.documentElement.style.setProperty(varName, varVal);
   }
 }
 
 export function resetPrimaryColorTokens() {
   if (globalThis.window === undefined) return;
 
-  for (const varName of PRIMARY_COLOR_VARS) {
+  for (const varName of ALL_DYNAMIC_COLOR_VARS) {
     document.documentElement.style.removeProperty(varName);
   }
 }
@@ -423,7 +517,7 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
         <div className="fixed inset-0 z-[99999] flex items-center justify-center overflow-y-auto p-3 py-6 sm:p-4 sm:py-10">
           <motion.div
             animate={{ opacity: 1 }}
-            className="bg-background/60 fixed inset-0 backdrop-blur-md"
+            className="bg-background/60 fixed inset-0"
             exit={{ opacity: 0 }}
             initial={{ opacity: 0 }}
             onClick={onClose}

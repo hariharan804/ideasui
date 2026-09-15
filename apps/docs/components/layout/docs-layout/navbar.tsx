@@ -164,7 +164,7 @@ function NavbarPill({ children, className, ...properties }: ComponentProps<'div'
       className={cn(
         'bg-surface-muted text-content-tertiary',
         'flex h-8 items-center justify-center rounded-full px-2.5 backdrop-blur-md transition-all active:scale-95',
-        'hover:bg-surface-subtle hover:text-content-primary',
+        'hover:text-content-primary',
         className,
       )}
       {...properties}
