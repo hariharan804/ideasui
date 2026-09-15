@@ -343,4 +343,4 @@ pnpm test:coverage
 
 ## 📄 License
 
-MIT License - see [LICENSE](../../LICENSE) file for details.
+MIT © [IdeasUI](https://ideasui.com)

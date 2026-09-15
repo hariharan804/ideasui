@@ -72,3 +72,9 @@ pnpm run build
 ```
 
 This builds the TypeScript/JavaScript distribution files and compiles the CSS variants into the `dist/` directory using `@tailwindcss/cli`.
+
+---
+
+## License
+
+MIT © [IdeasUI](https://ideasui.com)

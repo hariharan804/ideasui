@@ -9,16 +9,12 @@ This document explains the organization, structure, and best practices for the I
 ```
 packages/
 ├── components/          # Styled UI components
-│   ├── button/          # @ideasui/button
-│   ├── ripple/          # @ideasui/ripple
-│   ├── slot/            # @ideasui/slot
-│   └── touchable/       # @ideasui/touchable
+│   └── button/          # @ideasui/button
 ├── core/
+│   ├── react/           # @ideasui/react - Main component bundle
+│   ├── styles/          # @ideasui/styles - Pre-compiled CSS stylesheets
 │   └── theme/           # @ideasui/theme - OKLCH colors, recipes, tokens
-├── hooks/               # @ideasui/hooks - React hooks
-├── utils/               # @ideasui/utils - Utility functions
-├── icons/               # @ideasui/icons - Icon components
-└── cli/                 # @ideasui/cli - CLI tools
+└── utils/               # @ideasui/utils - Shared utilities
 ```
 
 ---
