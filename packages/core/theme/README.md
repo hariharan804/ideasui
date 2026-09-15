@@ -34,7 +34,7 @@ The simplest setup. Just import Tailwind and the prebuilt theme stylesheet.
 ```css
 /* globals.css */
 @import 'tailwindcss';
-@import '@ideasui/theme/theme.css';
+@import '@ideasui/theme/index.css';
 ```
 
 > No `tailwind.config.ts` needed. The theme CSS already includes all plugin output.
@@ -495,4 +495,4 @@ Built-in z-index: `hide`(-1) `base`(0) `raised`(1) `sticky`(100) `fixed`(200) `d
 
 ## License
 
-MIT
+MIT © [IdeasUI](https://ideasui.com)
