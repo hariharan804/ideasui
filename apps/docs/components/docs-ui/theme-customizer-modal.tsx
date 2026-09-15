@@ -199,14 +199,121 @@ const MODE_OPTIONS = [
   { id: 'system', label: 'System', icon: Airplay },
 ] as const;
 
-const PRIMARY_COLOR_VARS = [
+const ALL_DYNAMIC_COLOR_VARS = [
+  // Primary
   '--ideasui-color-primary',
   '--ideasui-color-on-primary',
   '--ideasui-color-primary-subtle',
   '--ideasui-color-on-primary-subtle',
   '--ideasui-color-primary-muted',
   '--ideasui-color-on-primary-muted',
+  // Secondary
+  '--ideasui-color-secondary',
+  '--ideasui-color-on-secondary',
+  '--ideasui-color-secondary-subtle',
+  '--ideasui-color-on-secondary-subtle',
+  '--ideasui-color-secondary-muted',
+  '--ideasui-color-on-secondary-muted',
+  // Tertiary
+  '--ideasui-color-tertiary',
+  '--ideasui-color-on-tertiary',
+  '--ideasui-color-tertiary-subtle',
+  '--ideasui-color-on-tertiary-subtle',
+  '--ideasui-color-tertiary-muted',
+  '--ideasui-color-on-tertiary-muted',
+  // Neutral
+  '--ideasui-color-neutral',
+  '--ideasui-color-on-neutral',
+  '--ideasui-color-neutral-subtle',
+  '--ideasui-color-on-neutral-subtle',
+  '--ideasui-color-neutral-muted',
+  '--ideasui-color-on-neutral-muted',
+  // Border Focus
+  '--ideasui-color-border-focus',
 ] as const;
+
+function calculateThemeColorTokens(
+  l: number,
+  c: number,
+  h: number,
+  isDark: boolean,
+): Record<string, string> {
+  const hPrimary = h;
+  const hSecondary = (h + 38) % 360;
+  const hTertiary = (h + 280) % 360;
+  const hNeutral = c > 0.01 ? h : 260;
+
+  if (isDark) {
+    const pL = Math.max(l, 0.62);
+    const sC = Math.min(c, 0.21);
+
+    return {
+      '--ideasui-color-primary': `${pL} ${c} ${hPrimary}`,
+      '--ideasui-color-on-primary': `0.14 0.04 ${hPrimary}`,
+      '--ideasui-color-primary-subtle': `0.18 0.05 ${hPrimary}`,
+      '--ideasui-color-on-primary-subtle': `0.88 0.06 ${hPrimary}`,
+      '--ideasui-color-primary-muted': `0.26 0.08 ${hPrimary}`,
+      '--ideasui-color-on-primary-muted': `0.84 0.07 ${hPrimary}`,
+
+      '--ideasui-color-secondary': `${pL} ${sC} ${hSecondary}`,
+      '--ideasui-color-on-secondary': `0.14 0.04 ${hSecondary}`,
+      '--ideasui-color-secondary-subtle': `0.18 0.05 ${hSecondary}`,
+      '--ideasui-color-on-secondary-subtle': `0.88 0.06 ${hSecondary}`,
+      '--ideasui-color-secondary-muted': `0.26 0.08 ${hSecondary}`,
+      '--ideasui-color-on-secondary-muted': `0.84 0.07 ${hSecondary}`,
+
+      '--ideasui-color-tertiary': `0.65 0.14 ${hTertiary}`,
+      '--ideasui-color-on-tertiary': `0.14 0.04 ${hTertiary}`,
+      '--ideasui-color-tertiary-subtle': `0.18 0.05 ${hTertiary}`,
+      '--ideasui-color-on-tertiary-subtle': `0.88 0.06 ${hTertiary}`,
+      '--ideasui-color-tertiary-muted': `0.26 0.08 ${hTertiary}`,
+      '--ideasui-color-on-tertiary-muted': `0.84 0.07 ${hTertiary}`,
+
+      '--ideasui-color-neutral': `0.65 0.015 ${hNeutral}`,
+      '--ideasui-color-on-neutral': `0.145 0.006 ${hNeutral}`,
+      '--ideasui-color-neutral-subtle': `0.22 0.012 ${hNeutral}`,
+      '--ideasui-color-on-neutral-subtle': `0.88 0.008 ${hNeutral}`,
+      '--ideasui-color-neutral-muted': `0.30 0.015 ${hNeutral}`,
+      '--ideasui-color-on-neutral-muted': `0.82 0.012 ${hNeutral}`,
+
+      '--ideasui-color-border-focus': `${pL} ${c} ${hPrimary}`,
+    };
+  }
+
+  const sC = Math.min(c, 0.21);
+
+  return {
+    '--ideasui-color-primary': `${l} ${c} ${hPrimary}`,
+    '--ideasui-color-on-primary': '1 0 0',
+    '--ideasui-color-primary-subtle': `0.96 0.028 ${hPrimary}`,
+    '--ideasui-color-on-primary-subtle': `0.38 0.18 ${hPrimary}`,
+    '--ideasui-color-primary-muted': `0.92 0.05 ${hPrimary}`,
+    '--ideasui-color-on-primary-muted': `0.42 0.20 ${hPrimary}`,
+
+    '--ideasui-color-secondary': `0.46 ${sC} ${hSecondary}`,
+    '--ideasui-color-on-secondary': '1 0 0',
+    '--ideasui-color-secondary-subtle': `0.96 0.028 ${hSecondary}`,
+    '--ideasui-color-on-secondary-subtle': `0.36 0.16 ${hSecondary}`,
+    '--ideasui-color-secondary-muted': `0.92 0.05 ${hSecondary}`,
+    '--ideasui-color-on-secondary-muted': `0.40 0.18 ${hSecondary}`,
+
+    '--ideasui-color-tertiary': `0.48 0.13 ${hTertiary}`,
+    '--ideasui-color-on-tertiary': '1 0 0',
+    '--ideasui-color-tertiary-subtle': `0.96 0.025 ${hTertiary}`,
+    '--ideasui-color-on-tertiary-subtle': `0.32 0.11 ${hTertiary}`,
+    '--ideasui-color-tertiary-muted': `0.92 0.04 ${hTertiary}`,
+    '--ideasui-color-on-tertiary-muted': `0.36 0.12 ${hTertiary}`,
+
+    '--ideasui-color-neutral': `0.551 0.015 ${hNeutral}`,
+    '--ideasui-color-on-neutral': `0.985 0.002 ${hNeutral}`,
+    '--ideasui-color-neutral-subtle': `0.94 0.008 ${hNeutral}`,
+    '--ideasui-color-on-neutral-subtle': `0.269 0.009 ${hNeutral}`,
+    '--ideasui-color-neutral-muted': `0.88 0.012 ${hNeutral}`,
+    '--ideasui-color-on-neutral-muted': `0.22 0.015 ${hNeutral}`,
+
+    '--ideasui-color-border-focus': `${l} ${c} ${hPrimary}`,
+  };
+}
 
 export function applyPrimaryColorTokens(oklchStr: string) {
   if (globalThis.window === undefined) return;
@@ -218,36 +325,22 @@ export function applyPrimaryColorTokens(oklchStr: string) {
 
   const l = Number.parseFloat(parts[0]);
   const c = Number.parseFloat(parts[1]);
-  const h = parts[2];
+  const h = Number.parseFloat(parts[2]);
+
+  if (Number.isNaN(l) || Number.isNaN(c) || Number.isNaN(h)) return;
 
   const isDark = document.documentElement.classList.contains('dark');
-  const values = isDark
-    ? [
-        `${Math.max(l, 0.62)} ${c} ${h}`,
-        `0.14 0.04 ${h}`,
-        `0.18 0.05 ${h}`,
-        `0.88 0.06 ${h}`,
-        `0.26 0.08 ${h}`,
-        `0.84 0.07 ${h}`,
-      ]
-    : [
-        `${l} ${c} ${h}`,
-        '1 0 0',
-        `0.96 0.028 ${h}`,
-        `0.38 0.18 ${h}`,
-        `0.92 0.05 ${h}`,
-        `0.42 0.20 ${h}`,
-      ];
+  const tokens = calculateThemeColorTokens(l, c, h, isDark);
 
-  for (const [idx, varName] of PRIMARY_COLOR_VARS.entries()) {
-    document.documentElement.style.setProperty(varName, values[idx]);
+  for (const [varName, varVal] of Object.entries(tokens)) {
+    document.documentElement.style.setProperty(varName, varVal);
   }
 }
 
 export function resetPrimaryColorTokens() {
   if (globalThis.window === undefined) return;
 
-  for (const varName of PRIMARY_COLOR_VARS) {
+  for (const varName of ALL_DYNAMIC_COLOR_VARS) {
     document.documentElement.style.removeProperty(varName);
   }
 }
@@ -423,7 +516,7 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
         <div className="fixed inset-0 z-[99999] flex items-center justify-center overflow-y-auto p-3 py-6 sm:p-4 sm:py-10">
           <motion.div
             animate={{ opacity: 1 }}
-            className="bg-background/60 fixed inset-0 backdrop-blur-md"
+            className="bg-background/60 fixed inset-0"
             exit={{ opacity: 0 }}
             initial={{ opacity: 0 }}
             onClick={onClose}
