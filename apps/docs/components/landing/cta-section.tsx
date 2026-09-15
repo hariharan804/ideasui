@@ -23,10 +23,10 @@ export function CtaSection() {
           {...inView(0)}
         >
           {/* Top Gradient Accent Line */}
-          <div className="from-primary via-secondary to-primary absolute top-0 right-0 left-0 h-1 bg-gradient-to-r" />
+          <div className="from-primary via-secondary to-primary absolute top-0 right-0 left-0 h-1 bg-linear-to-r" />
 
           {/* Background Ambient Glow Halos */}
-          <div className="from-primary/15 via-secondary/10 pointer-events-none absolute -top-32 left-1/2 h-80 w-[500px] max-w-full -translate-x-1/2 rounded-full bg-gradient-to-b to-transparent blur-3xl" />
+          <div className="from-primary/15 via-secondary/10 pointer-events-none absolute -top-32 left-1/2 h-80 w-[500px] max-w-full -translate-x-1/2 rounded-full bg-linear-to-b to-transparent blur-3xl" />
 
           {/* Subtle Decorative Grid Pattern */}
           <div className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent_75%)] opacity-15">

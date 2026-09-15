@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { trackEvent } from './google-analytics';
 import { Github } from './icons';
 import { cn } from '@ideasui/utils';
 
@@ -89,6 +90,12 @@ export function GitHubButton({
       href={`https://github.com/${repo}`}
       rel="noopener noreferrer"
       target="_blank"
+      onClick={() => {
+        trackEvent('github_star_click', {
+          repo,
+          page: globalThis.window === undefined ? '' : globalThis.location.pathname,
+        });
+      }}
     >
       <Github
         className={cn(

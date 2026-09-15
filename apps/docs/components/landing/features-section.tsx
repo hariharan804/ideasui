@@ -165,7 +165,7 @@ export function FeaturesSection() {
             className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative overflow-hidden rounded-3xl p-6 shadow-lg backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-8 md:col-span-2 lg:col-span-2"
             {...cardFadeIn(0)}
           >
-            <div className="from-primary via-secondary to-primary absolute top-0 right-0 left-0 h-1 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-primary via-secondary to-primary absolute top-0 right-0 left-0 h-1 bg-linear-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3.5">
@@ -254,7 +254,7 @@ export function FeaturesSection() {
             className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative flex flex-col justify-between overflow-hidden rounded-3xl p-6 shadow-lg backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-8 md:col-span-1 lg:col-span-1"
             {...cardFadeIn(1)}
           >
-            <div className="from-secondary to-primary absolute top-0 right-0 left-0 h-1 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-secondary to-primary absolute top-0 right-0 left-0 h-1 bg-linear-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
             <div>
               <div className="flex items-center justify-between">
@@ -327,7 +327,7 @@ export function FeaturesSection() {
             className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative flex flex-col justify-between overflow-hidden rounded-3xl p-6 shadow-lg backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-8 md:col-span-1 lg:col-span-1"
             {...cardFadeIn(2)}
           >
-            <div className="from-success to-primary absolute top-0 right-0 left-0 h-1 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-success to-primary absolute top-0 right-0 left-0 h-1 bg-linear-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
             <div>
               <div className="flex items-center justify-between">
@@ -386,7 +386,7 @@ export function FeaturesSection() {
             className="bg-surface-subtle/60 group shadow-surface/5 hover:bg-surface-subtle/90 relative overflow-hidden rounded-3xl p-6 shadow-lg backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:p-8 md:col-span-2 lg:col-span-2"
             {...cardFadeIn(3)}
           >
-            <div className="from-secondary via-warning to-primary absolute top-0 right-0 left-0 h-1 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="from-secondary via-on-primary-subtle to-primary absolute top-0 right-0 left-0 h-1 bg-linear-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
             <div className="flex flex-wrap items-start justify-between gap-3 sm:items-center sm:gap-4">
               <div className="flex items-center gap-3.5">

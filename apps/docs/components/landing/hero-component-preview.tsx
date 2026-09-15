@@ -22,7 +22,7 @@ export function HeroComponentPreview() {
   };
 
   return (
-    <div className="bg-surface border-border-subtle mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border p-4 text-left shadow-md backdrop-blur-2xl sm:mt-16 sm:p-6">
+    <div className="bg-surface border-border-subtle mx-auto mt-12 max-w-3xl overflow-hidden rounded-2xl border p-4 text-left backdrop-blur-2xl hover:shadow-sm sm:mt-16 sm:p-6">
       {/* Top Bar / Dimension Controls */}
       <div className="border-border-subtle/60 flex flex-wrap items-center justify-between gap-2.5 border-b pb-3">
         <div className="flex items-center gap-2">

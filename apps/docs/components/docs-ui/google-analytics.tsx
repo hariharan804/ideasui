@@ -1,4 +1,12 @@
+'use client';
+
 import Script from 'next/script';
+
+declare global {
+  interface Window {
+    gtag?: (command: string, eventName: string, params?: Record<string, unknown>) => void;
+  }
+}
 
 export interface GoogleAnalyticsProps {
   /**
@@ -6,6 +14,17 @@ export interface GoogleAnalyticsProps {
    * Defaults to process.env.NEXT_PUBLIC_GA_ID
    */
   readonly gaId?: string;
+}
+
+/**
+ * Triggers a custom Google Analytics event.
+ */
+export function trackEvent(eventName: string, eventParams?: Record<string, unknown>): void {
+  if (!globalThis.window?.gtag) {
+    return;
+  }
+
+  globalThis.window.gtag('event', eventName, eventParams);
 }
 
 /**
