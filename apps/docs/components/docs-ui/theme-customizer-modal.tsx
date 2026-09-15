@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/numeric-separators-style */
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Check, Sun, Moon, Airplay, RotateCcw, Palette, Sliders, Pipette } from 'lucide-react';
 import { useEffect, useState, useSyncExternalStore } from 'react';
@@ -88,20 +89,20 @@ function hexToOklch(hex: string): { l: number; c: number; h: number } {
   const toLinear = (val: number) => {
     const v = val / 255;
 
-    return v > 0.040_45 ? Math.pow((v + 0.055) / 1.055, 2.4) : v / 12.92;
+    return v > 0.04045 ? Math.pow((v + 0.055) / 1.055, 2.4) : v / 12.92;
   };
 
   const lr = toLinear(r8);
   const lg = toLinear(g8);
   const lb = toLinear(b8);
 
-  const l_ = Math.cbrt(0.412_221_470_8 * lr + 0.536_232_536_3 * lg + 0.051_445_992_9 * lb);
-  const m_ = Math.cbrt(0.211_903_498_2 * lr + 0.680_699_545_1 * lg + 0.107_396_956_6 * lb);
-  const s_ = Math.cbrt(0.088_302_461_9 * lr + 0.281_718_837_6 * lg + 0.629_978_700_5 * lb);
+  const l_ = Math.cbrt(0.4122214708 * lr + 0.5362325363 * lg + 0.0514459929 * lb);
+  const m_ = Math.cbrt(0.2119034982 * lr + 0.6806995451 * lg + 0.1073969566 * lb);
+  const s_ = Math.cbrt(0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb);
 
-  const L = 0.210_454_255_3 * l_ + 0.793_617_785 * m_ - 0.004_072_046_8 * s_;
-  const a = 1.977_998_495_1 * l_ - 2.428_592_205 * m_ + 0.450_593_709_9 * s_;
-  const b = 0.025_904_037_1 * l_ + 0.782_771_766_2 * m_ - 0.808_675_797_1 * s_;
+  const L = 0.2104542553 * l_ + 0.793617785 * m_ - 0.0040720468 * s_;
+  const a = 1.9779984951 * l_ - 2.428592205 * m_ + 0.4505937099 * s_;
+  const b = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757971 * s_;
 
   const C = Math.hypot(a, b);
   let H = (Math.atan2(b, a) * 180) / Math.PI;
