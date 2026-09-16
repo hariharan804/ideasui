@@ -130,185 +130,250 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
     console.error('Failed to read page markdown file:', error);
   }
 
+  const canonicalUrl = `${siteConfig.url}/react/docs/${parameters.slug.join('/')}`;
+
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: pageData.title,
+    description: pageData.description,
+    url: canonicalUrl,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonicalUrl,
+    },
+    author: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+  };
+
+  const slugList = parameters.slug ?? [];
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteConfig.url,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Documentation',
+        item: `${siteConfig.url}/react/docs/start`,
+      },
+      ...slugList.map((segment, index) => ({
+        '@type': 'ListItem',
+        position: index + 3,
+        name: segment.charAt(0).toUpperCase() + segment.slice(1).replaceAll('-', ' '),
+        item: `${siteConfig.url}/react/docs/${slugList.slice(0, index + 1).join('/')}`,
+      })),
+    ],
+  };
+
   return (
-    <DocsPage className="!pt-8 !pb-16" full={pageData.full} toc={pageData.toc}>
-      {/* ── Executive Hero Header Card ────────────────────────────────────── */}
-      <div className="from-primary-muted/60 via-secondary-muted/40 to-surface-subtle/80 relative mb-4 rounded-3xl bg-gradient-to-br p-5 backdrop-blur-md sm:px-8 sm:py-6">
-        {/* Decorative ambient background mesh */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
-          <div className="absolute inset-0 bg-[radial-gradient(oklch(var(--ideasui-color-content-tertiary)/0.06)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_100%)] [background-size:24px_24px] opacity-50" />
-        </div>
-
-        {/* ── Title ────────────────────────────────────────────────────────── */}
-        <h1 className="text-content-primary relative text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-          {pageData.title}
-        </h1>
-
-        {/* ── Description ──────────────────────────────────────────────────── */}
-        {pageData.description && (
-          <p className="text-content-secondary relative mt-3 max-w-2xl text-base leading-relaxed font-normal sm:text-lg">
-            {pageData.description}
-          </p>
-        )}
-
-        {/* ── Interactive Resource Cards ───────────────────────────────────── */}
-        <div className="relative mt-6 flex flex-wrap items-center gap-2.5">
-          {pageData.links?.npm && (
-            <a
-              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-danger/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
-              href={
-                typeof pageData.links.npm === 'string' && pageData.links.npm.startsWith('http')
-                  ? pageData.links.npm
-                  : `https://www.npmjs.com/package/@ideasui/${componentSlug ?? 'button'}`
-              }
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <div className="bg-danger/10 text-danger group-hover:bg-danger/20 flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
-                <Box className="size-3.5" />
-              </div>
-              <div className="flex min-w-0 flex-col">
-                <span className="text-content-primary truncate text-xs font-semibold">npm</span>
-                <span className="text-content-tertiary truncate text-[10px]">
-                  {typeof pageData.links.npm === 'string' &&
-                  !pageData.links.npm.startsWith('http') &&
-                  !pageData.links.npm.includes('true')
-                    ? `v${pageData.links.npm}`
-                    : `v${packageVersion}`}
-                </span>
-              </div>
-            </a>
-          )}
-
-          {pageData.links?.source && (
-            <a
-              className="group bg-surface/80 border-border-subtle/30 hover:bg-surface hover:border-primary/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
-              href={`${siteConfig.links.componentsBase}/${pageData.links.source}`}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <div className="bg-primary/10 text-primary group-hover:bg-primary/20 flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
-                <Code2 className="size-3.5" />
-              </div>
-              <div className="flex min-w-0 flex-col">
-                <span className="text-content-primary truncate text-xs font-semibold">Source</span>
-                <span className="text-content-tertiary truncate text-[10px]">View on GitHub</span>
-              </div>
-            </a>
-          )}
-
-          {pageData.links?.recipe && (
-            <a
-              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-info/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
-              href={`${siteConfig.links.packageBase}/${pageData.links.recipe}`}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <div className="bg-info-subtle text-info flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
-                <Paintbrush className="size-3.5" />
-              </div>
-              <div className="flex min-w-0 flex-col">
-                <span className="text-content-primary truncate text-xs font-semibold">Recipe</span>
-                <span className="text-content-tertiary truncate text-[10px]">Theme Styles</span>
-              </div>
-            </a>
-          )}
-
-          {pageData.links?.rac && (
-            <a
-              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-success/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
-              href={pageData.links.rac}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <div className="bg-success-subtle text-success flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
-                <Code2 className="size-3.5" />
-              </div>
-              <div className="flex min-w-0 flex-col">
-                <span className="text-content-primary truncate text-xs font-semibold">
-                  React Aria
-                </span>
-                <span className="text-content-tertiary truncate text-[10px]">A11y Spec</span>
-              </div>
-            </a>
-          )}
-
-          {pageData.links?.storybook && (
-            <a
-              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-warning/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
-              href={`${siteConfig.links.storybook}/?path=/docs/${pageData.links.storybook.toLowerCase().replace('/', '-')}`}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <div className="bg-warning-subtle text-warning flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
-                <BookOpen className="size-3.5" />
-              </div>
-              <div className="flex min-w-0 flex-col">
-                <span className="text-content-primary truncate text-xs font-semibold">
-                  Storybook
-                </span>
-                <span className="text-content-tertiary truncate text-[10px]">Playground</span>
-              </div>
-            </a>
-          )}
-
-          {pageData.links?.figma && (
-            <a
-              className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-secondary/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
-              href={
-                typeof pageData.links.figma === 'string'
-                  ? pageData.links.figma
-                  : siteConfig.links.figmaDefault
-              }
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <div className="bg-secondary-subtle text-secondary flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
-                <Figma className="size-3.5" />
-              </div>
-              <div className="flex min-w-0 flex-col">
-                <span className="text-content-primary truncate text-xs font-semibold">
-                  Figma UI
-                </span>
-                <span className="text-content-tertiary truncate text-[10px]">Design Assets</span>
-              </div>
-            </a>
-          )}
-        </div>
-
-        {/* ── Copy Markdown Row ─────────────────────────────────────────────── */}
-        {rawMarkdown && (
-          <div className="relative mt-4 flex flex-wrap items-center justify-between gap-3 pt-2">
-            <div className="text-content-tertiary flex items-center gap-2 text-xs font-medium">
-              <span className="bg-primary/10 text-primary flex size-5 items-center justify-center rounded-full">
-                <Sparkles className="size-3" />
-              </span>
-              <span>Copy as Markdown for AI assistants</span>
-            </div>
-            <CopyDropdown pageTitle={pageData.title ?? ''} rawMarkdown={rawMarkdown} />
+    <>
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        type="application/ld+json"
+      />
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        type="application/ld+json"
+      />
+      <DocsPage className="!pt-8 !pb-16" full={pageData.full} toc={pageData.toc}>
+        {/* ── Executive Hero Header Card ────────────────────────────────────── */}
+        <div className="from-primary-muted/60 via-secondary-muted/40 to-surface-subtle/80 relative mb-4 rounded-3xl bg-gradient-to-br p-5 backdrop-blur-md sm:px-8 sm:py-6">
+          {/* Decorative ambient background mesh */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
+            <div className="absolute inset-0 bg-[radial-gradient(oklch(var(--ideasui-color-content-tertiary)/0.06)_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_100%)] [background-size:24px_24px] opacity-50" />
           </div>
-        )}
-      </div>
 
-      <DocsBody className="pb-16">
-        <MdxContent
-          components={{
-            ...defaultMdxComponents,
-            PropsTable,
-            Preview,
-            Related,
-            RelatedShowcases,
-            Category,
-            Item,
-            InstallTabs,
-            APIReferenceViewer,
-            QuickNav,
-            pre: MdxPreBlock,
-            hr: MdxHrBlock,
-          }}
-        />
-      </DocsBody>
-    </DocsPage>
+          {/* ── Title ────────────────────────────────────────────────────────── */}
+          <h1 className="text-content-primary relative text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            {pageData.title}
+          </h1>
+
+          {/* ── Description ──────────────────────────────────────────────────── */}
+          {pageData.description && (
+            <p className="text-content-secondary relative mt-3 max-w-2xl text-base leading-relaxed font-normal sm:text-lg">
+              {pageData.description}
+            </p>
+          )}
+
+          {/* ── Interactive Resource Cards ───────────────────────────────────── */}
+          <div className="relative mt-6 flex flex-wrap items-center gap-2.5">
+            {pageData.links?.npm && (
+              <a
+                className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-danger/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
+                href={
+                  typeof pageData.links.npm === 'string' && pageData.links.npm.startsWith('http')
+                    ? pageData.links.npm
+                    : `https://www.npmjs.com/package/@ideasui/${componentSlug ?? 'button'}`
+                }
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div className="bg-danger/10 text-danger group-hover:bg-danger/20 flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
+                  <Box className="size-3.5" />
+                </div>
+                <div className="flex min-w-0 flex-col">
+                  <span className="text-content-primary truncate text-xs font-semibold">npm</span>
+                  <span className="text-content-tertiary truncate text-[10px]">
+                    {typeof pageData.links.npm === 'string' &&
+                    !pageData.links.npm.startsWith('http') &&
+                    !pageData.links.npm.includes('true')
+                      ? `v${pageData.links.npm}`
+                      : `v${packageVersion}`}
+                  </span>
+                </div>
+              </a>
+            )}
+
+            {pageData.links?.source && (
+              <a
+                className="group bg-surface/80 border-border-subtle/30 hover:bg-surface hover:border-primary/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
+                href={`${siteConfig.links.componentsBase}/${pageData.links.source}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div className="bg-primary/10 text-primary group-hover:bg-primary/20 flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
+                  <Code2 className="size-3.5" />
+                </div>
+                <div className="flex min-w-0 flex-col">
+                  <span className="text-content-primary truncate text-xs font-semibold">
+                    Source
+                  </span>
+                  <span className="text-content-tertiary truncate text-[10px]">View on GitHub</span>
+                </div>
+              </a>
+            )}
+
+            {pageData.links?.recipe && (
+              <a
+                className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-info/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
+                href={`${siteConfig.links.packageBase}/${pageData.links.recipe}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div className="bg-info-subtle text-info flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
+                  <Paintbrush className="size-3.5" />
+                </div>
+                <div className="flex min-w-0 flex-col">
+                  <span className="text-content-primary truncate text-xs font-semibold">
+                    Recipe
+                  </span>
+                  <span className="text-content-tertiary truncate text-[10px]">Theme Styles</span>
+                </div>
+              </a>
+            )}
+
+            {pageData.links?.rac && (
+              <a
+                className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-success/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
+                href={pageData.links.rac}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div className="bg-success-subtle text-success flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
+                  <Code2 className="size-3.5" />
+                </div>
+                <div className="flex min-w-0 flex-col">
+                  <span className="text-content-primary truncate text-xs font-semibold">
+                    React Aria
+                  </span>
+                  <span className="text-content-tertiary truncate text-[10px]">A11y Spec</span>
+                </div>
+              </a>
+            )}
+
+            {pageData.links?.storybook && (
+              <a
+                className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-warning/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
+                href={`${siteConfig.links.storybook}/?path=/docs/${pageData.links.storybook.toLowerCase().replace('/', '-')}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div className="bg-warning-subtle text-warning flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
+                  <BookOpen className="size-3.5" />
+                </div>
+                <div className="flex min-w-0 flex-col">
+                  <span className="text-content-primary truncate text-xs font-semibold">
+                    Storybook
+                  </span>
+                  <span className="text-content-tertiary truncate text-[10px]">Playground</span>
+                </div>
+              </a>
+            )}
+
+            {pageData.links?.figma && (
+              <a
+                className="group border-border-subtle/30 bg-surface/80 hover:bg-surface hover:border-secondary/40 flex items-center gap-2.5 rounded-2xl border px-3.5 py-2 transition-all duration-200 hover:shadow-xs active:scale-[0.98]"
+                href={
+                  typeof pageData.links.figma === 'string'
+                    ? pageData.links.figma
+                    : siteConfig.links.figmaDefault
+                }
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <div className="bg-secondary-subtle text-secondary flex size-7 shrink-0 items-center justify-center rounded-xl transition-transform duration-200 group-hover:scale-105">
+                  <Figma className="size-3.5" />
+                </div>
+                <div className="flex min-w-0 flex-col">
+                  <span className="text-content-primary truncate text-xs font-semibold">
+                    Figma UI
+                  </span>
+                  <span className="text-content-tertiary truncate text-[10px]">Design Assets</span>
+                </div>
+              </a>
+            )}
+          </div>
+
+          {/* ── Copy Markdown Row ─────────────────────────────────────────────── */}
+          {rawMarkdown && (
+            <div className="relative mt-4 flex flex-wrap items-center justify-between gap-3 pt-2">
+              <div className="text-content-tertiary flex items-center gap-2 text-xs font-medium">
+                <span className="bg-primary/10 text-primary flex size-5 items-center justify-center rounded-full">
+                  <Sparkles className="size-3" />
+                </span>
+                <span>Copy as Markdown for AI assistants</span>
+              </div>
+              <CopyDropdown pageTitle={pageData.title ?? ''} rawMarkdown={rawMarkdown} />
+            </div>
+          )}
+        </div>
+
+        <DocsBody className="pb-16">
+          <MdxContent
+            components={{
+              ...defaultMdxComponents,
+              PropsTable,
+              Preview,
+              Related,
+              RelatedShowcases,
+              Category,
+              Item,
+              InstallTabs,
+              APIReferenceViewer,
+              QuickNav,
+              pre: MdxPreBlock,
+              hr: MdxHrBlock,
+            }}
+          />
+        </DocsBody>
+      </DocsPage>
+    </>
   );
 }
 

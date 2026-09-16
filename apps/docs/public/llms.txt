@@ -1,0 +1,17 @@
+# IdeasUI
+
+> IdeasUI is a beautiful, accessible, and premium React component library built on React Aria and Tailwind CSS v4.
+
+## Quick Links
+- Website: https://ideasui.com
+- Repository: https://github.com/ideas2logic-lab/ideasui
+
+## Core Documentation
+- [Getting Started](https://ideasui.com/react/docs/start): Overview and architecture of IdeasUI.
+- [Installation Guide](https://ideasui.com/react/docs/start/installation): Installing `@ideasui/react` and setting up Tailwind CSS v4.
+- [Design Tokens](https://ideasui.com/react/docs/start/tokens): OKLCH semantic color system and token recipes.
+- [Dark Mode Integration](https://ideasui.com/react/docs/start/dark-mode): Configuring dynamic light and dark themes.
+
+## Components
+- [Button Component](https://ideasui.com/react/docs/components/button): Interactive button with tv() recipes, variants, sizes, and accessibility specs.
+- [Button Group](https://ideasui.com/react/docs/components/button-group): Connected button layouts and split-button menus.

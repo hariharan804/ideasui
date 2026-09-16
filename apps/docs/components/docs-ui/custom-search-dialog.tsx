@@ -16,7 +16,7 @@ import {
 } from 'fumadocs-ui/components/dialog/search';
 import { useDocsSearch } from 'fumadocs-core/search/client';
 import { fetchClient } from 'fumadocs-core/search/client/fetch';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 
 import { trackEvent } from '@/components/docs-ui/google-analytics';
 
@@ -61,14 +61,17 @@ export function CustomSearchDialog({
     delayMs,
   });
 
+  const lastTrackedReference = useRef<string>('');
+
   useEffect(() => {
     const trimmed = search.trim();
 
-    if (trimmed.length < 2) return;
+    if (trimmed.length < 3 || trimmed === lastTrackedReference.current) return;
 
     const timer = setTimeout(() => {
       trackEvent('search', { search_term: trimmed });
-    }, 800);
+      lastTrackedReference.current = trimmed;
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, [search]);
