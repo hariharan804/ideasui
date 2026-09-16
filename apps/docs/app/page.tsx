@@ -1,16 +1,28 @@
 import { ArrowRight, Check, Rocket } from 'lucide-react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import {
   InstallSnippet,
   HeroComponentPreview,
-  MarqueeStrip,
-  ComponentGallery,
-  FeaturesSection,
-  CtaSection,
   LandingFooter,
   LandingNavbar,
   DottedHexagon,
 } from '@/components/landing';
+
+const MarqueeStrip = dynamic(() => import('@/components/landing').then((mod) => mod.MarqueeStrip), {
+  ssr: true,
+});
+const ComponentGallery = dynamic(
+  () => import('@/components/landing').then((mod) => mod.ComponentGallery),
+  { ssr: true },
+);
+const FeaturesSection = dynamic(
+  () => import('@/components/landing').then((mod) => mod.FeaturesSection),
+  { ssr: true },
+);
+const CtaSection = dynamic(() => import('@/components/landing').then((mod) => mod.CtaSection), {
+  ssr: true,
+});
 
 /* ─── Main Landing Page ──────────────────────────────────────────────── */
 export default function HomePage() {

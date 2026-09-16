@@ -5,10 +5,9 @@ import { RootProvider } from 'fumadocs-ui/provider/next';
 
 import './globals.css';
 import { ThemeProvider, ThemeScript } from '@ideasui/theme';
-
-const inter = Inter({ subsets: ['latin'] });
-
 import { siteConfig } from '@/config/site';
+
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -99,13 +98,15 @@ const jsonLd = {
   ],
 };
 
-import { CustomSearchDialog } from '@/components/docs-ui/custom-search-dialog';
+import { CustomSearchDialogClient } from '@/components/docs-ui/search-dialog-wrapper';
 import { GoogleAnalytics } from '@/components/docs-ui/google-analytics';
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html suppressHydrationWarning className={inter.className} lang="en">
       <head>
+        <link href="https://api.github.com" rel="preconnect" />
+        <link href="https://api.github.com" rel="dns-prefetch" />
         <ThemeScript defaultTheme="light" />
         <script
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -124,7 +125,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         />
       </head>
       <body>
-        <RootProvider search={{ SearchDialog: CustomSearchDialog }} theme={{ enabled: false }}>
+        <RootProvider
+          search={{ SearchDialog: CustomSearchDialogClient }}
+          theme={{ enabled: false }}
+        >
           <ThemeProvider defaultTheme="light">{children}</ThemeProvider>
         </RootProvider>
         <GoogleAnalytics />

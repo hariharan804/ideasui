@@ -156,7 +156,11 @@ function ColorTileItem({
           className="absolute inset-0 rounded-full transition-transform duration-200 group-hover:scale-105"
           style={{ backgroundColor }}
         />
-        {isSelected ? <Check className="relative z-10 size-4 text-white drop-shadow-xs" /> : icon}
+        {isSelected ? (
+          <Check className="text-common-white relative z-10 size-4 drop-shadow-xs" />
+        ) : (
+          icon
+        )}
       </div>
       <span className="text-content-primary w-full truncate text-center font-mono text-[10px] font-medium sm:text-[11px]">
         {label}
@@ -623,7 +627,9 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
                         ? `oklch(${customOklch})`
                         : customHex
                     }
-                    icon={<Pipette className="relative z-10 size-3.5 text-white drop-shadow-xs" />}
+                    icon={
+                      <Pipette className="text-common-white relative z-10 size-3.5 drop-shadow-xs" />
+                    }
                     isSelected={selectedColor === 'custom'}
                     label="Custom"
                   >
