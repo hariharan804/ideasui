@@ -488,7 +488,12 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
     localStorage.setItem(STORAGE_KEYS.COLOR, 'custom');
     localStorage.setItem(STORAGE_KEYS.CUSTOM_HEX, hex);
     localStorage.setItem(STORAGE_KEYS.COLOR_OKLCH, rawOklch);
-    trackEvent('theme_customize', { action: 'set_custom_color', hex });
+  };
+
+  const handleCustomColorBlur = () => {
+    if (selectedColor === 'custom' && customHex) {
+      trackEvent('theme_customize', { action: 'set_custom_color', hex: customHex });
+    }
   };
 
   const handleApplyRadius = (preset: RadiusPreset) => {
@@ -627,6 +632,7 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
                       className="absolute inset-0 z-20 size-full cursor-pointer opacity-0"
                       type="color"
                       value={customHex}
+                      onBlur={handleCustomColorBlur}
                       onChange={(e) => handleApplyCustomColor(e.target.value)}
                     />
                   </ColorTileItem>

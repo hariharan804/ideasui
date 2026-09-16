@@ -17,6 +17,25 @@ export const metadata: Metadata = {
     default: `${siteConfig.name} — Modern Component Library`,
   },
   description: siteConfig.description,
+  keywords: [
+    'IdeasUI',
+    'React',
+    'Tailwind CSS v4',
+    'Component Library',
+    'React Aria',
+    'OKLCH',
+    'TypeScript',
+    'UI Kit',
+    'Accessible Components',
+    'Design System',
+    'Next.js',
+  ],
+  authors: [{ name: 'IdeasUI Team', url: siteConfig.url }],
+  creator: 'IdeasUI',
+  publisher: 'IdeasUI',
+  alternates: {
+    canonical: './',
+  },
   icons: {
     icon: [
       { url: '/IdeasUI-favicon-16.svg', sizes: '16x16', type: 'image/svg+xml' },
@@ -51,6 +70,35 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteConfig.url}/#website`,
+      url: siteConfig.url,
+      name: siteConfig.name,
+      description: siteConfig.description,
+      publisher: {
+        '@type': 'Organization',
+        name: siteConfig.name,
+      },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      '@id': `${siteConfig.url}/#software`,
+      name: siteConfig.name,
+      operatingSystem: 'Web',
+      applicationCategory: 'DeveloperApplication',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    },
+  ],
+};
+
 import { CustomSearchDialog } from '@/components/docs-ui/custom-search-dialog';
 import { GoogleAnalytics } from '@/components/docs-ui/google-analytics';
 
@@ -59,6 +107,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html suppressHydrationWarning className={inter.className} lang="en">
       <head>
         <ThemeScript defaultTheme="light" />
+        <script
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          type="application/ld+json"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {

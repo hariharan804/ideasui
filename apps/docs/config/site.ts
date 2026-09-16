@@ -4,7 +4,7 @@
 export const siteConfig = {
   name: 'IdeasUI',
   description: 'A beautiful, accessible, and premium React component library built on React Aria.',
-  url: 'https://ideasui.dev',
+  url: 'https://ideasui.com',
   links: {
     github: 'https://github.com/ideas2logic-lab/ideasui',
     packageBase: 'https://github.com/ideas2logic-lab/ideasui/tree/main/packages',
