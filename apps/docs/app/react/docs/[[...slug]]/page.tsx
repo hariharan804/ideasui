@@ -11,6 +11,8 @@ import { Figma } from '@/components/docs-ui/icons';
 import { siteConfig } from '@/config/site';
 import { CopyDropdown } from '@/components/docs-ui/copy-dropdown';
 
+import dynamic from 'next/dynamic';
+
 // IdeasUI MDX Components
 import { Preview } from '@/components/mdx/preview';
 import { Related } from '@/components/mdx/related';
@@ -18,8 +20,11 @@ import { RelatedShowcases } from '@/components/mdx/related-showcases';
 import { Category } from '@/components/mdx/category';
 import { Item } from '@/components/mdx/item';
 import { InstallTabs } from '@/components/mdx/install-tabs';
-import { APIReferenceViewer } from '@/components/mdx/api-reference-viewer';
 import { QuickNav } from '@/components/mdx/quick-nav';
+const APIReferenceViewer = dynamic(() =>
+  import('@/components/mdx/api-reference-viewer').then((mod) => mod.APIReferenceViewer),
+) as unknown as React.FC<{ componentName: string }>;
+
 import { Pre } from 'fumadocs-ui/components/codeblock';
 import { CodeBlock } from '@/components/mdx/codeblock-client';
 import { cn } from '@ideasui/utils';

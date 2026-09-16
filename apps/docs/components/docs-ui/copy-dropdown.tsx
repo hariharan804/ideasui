@@ -42,16 +42,24 @@ export function CopyDropdown({ rawMarkdown, pageTitle }: CopyDropdownProperties)
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Keep rect fresh while open so dropdown tracks scroll/resize
+  // Keep rect fresh while open so dropdown tracks scroll/resize without layout thrashing
   useEffect(() => {
     if (!isOpen) return;
+    let frameId: number;
+
+    const handleScrollOrResize = () => {
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(updateRect);
+    };
+
     updateRect();
-    window.addEventListener('scroll', updateRect, true);
-    window.addEventListener('resize', updateRect);
+    window.addEventListener('scroll', handleScrollOrResize, true);
+    window.addEventListener('resize', handleScrollOrResize);
 
     return () => {
-      window.removeEventListener('scroll', updateRect, true);
-      window.removeEventListener('resize', updateRect);
+      cancelAnimationFrame(frameId);
+      window.removeEventListener('scroll', handleScrollOrResize, true);
+      window.removeEventListener('resize', handleScrollOrResize);
     };
   }, [isOpen, updateRect]);
 
