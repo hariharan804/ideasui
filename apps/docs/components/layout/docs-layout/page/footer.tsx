@@ -22,7 +22,7 @@ export interface FooterProperties extends ComponentProps<'div'> {
   };
 }
 
-function getInitialVote(pathname: string): 'yes' | 'no' | null {
+function getClientVote(pathname: string): 'yes' | 'no' | null {
   if (globalThis.window === undefined) return null;
   const saved = localStorage.getItem(`ideasui-feedback-${pathname}`);
 
@@ -31,17 +31,24 @@ function getInitialVote(pathname: string): 'yes' | 'no' | null {
 
 export function DocsFeedbackWidget({ className }: Readonly<{ className?: string }>) {
   const pathname = usePathname();
-  const [voted, setVoted] = useState<'yes' | 'no' | null>(() => getInitialVote(pathname));
-  const [currentPath, setCurrentPath] = useState(pathname);
+  const savedVote = useSyncExternalStore(
+    emptySubscribe,
+    () => getClientVote(pathname),
+    () => null,
+  );
+  const [overrideVote, setOverrideVote] = useState<'yes' | 'no' | null>(null);
+  const [prevPath, setPrevPath] = useState(pathname);
 
-  if (currentPath !== pathname) {
-    setCurrentPath(pathname);
-    setVoted(getInitialVote(pathname));
+  if (prevPath !== pathname) {
+    setPrevPath(pathname);
+    setOverrideVote(null);
   }
+
+  const voted = overrideVote ?? savedVote;
 
   const handleVote = useCallback(
     (vote: 'yes' | 'no') => {
-      setVoted(vote);
+      setOverrideVote(vote);
       if (globalThis.window !== undefined) {
         localStorage.setItem(`ideasui-feedback-${pathname}`, vote);
       }
@@ -54,7 +61,7 @@ export function DocsFeedbackWidget({ className }: Readonly<{ className?: string 
   );
 
   const handleResetVote = useCallback(() => {
-    setVoted(null);
+    setOverrideVote(null);
     if (globalThis.window !== undefined) {
       localStorage.removeItem(`ideasui-feedback-${pathname}`);
     }
