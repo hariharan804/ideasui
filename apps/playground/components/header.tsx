@@ -37,11 +37,8 @@ const navLinks = [
   { href: '/playground', label: 'Playground', icon: Wrench },
   { href: '/design-system', label: 'Design System', icon: Layers },
   { href: '/installer', label: 'Installer', icon: Package },
+  { href: '/docs', label: 'Docs', icon: BookOpen },
 ];
-
-const goToDocs = (): void => {
-  window.open('https://ideasui.com', '_blank', 'noopener,noreferrer');
-};
 
 function Header({
   showBackButton = false,
@@ -124,17 +121,6 @@ function Header({
 
           {/* Right actions */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <Button
-              aria-label="View Documentation"
-              color="neutral"
-              size="sm"
-              variant="ghost"
-              onPress={goToDocs}
-            >
-              <BookOpen className="size-4" />
-              <span className="hidden sm:inline">Docs</span>
-            </Button>
-
             <a
               aria-label="GitHub Repository"
               href="https://github.com/ideas2logic-lab/ideasui"
