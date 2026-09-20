@@ -2,5 +2,12 @@
   "title": "Components",
   "description": "IdeasUI React components",
   "root": true,
-  "pages": ["index", "---General---", "(buttons)/button", "(buttons)/button-group"]
+  "pages": [
+    "index",
+    "---General---",
+    "(buttons)/button",
+    "(buttons)/button-group",
+    "---Typography---",
+    "(typography)/text"
+  ]
 }

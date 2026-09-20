@@ -27,6 +27,11 @@ links:
       href: '#standalone-css',
     },
     {
+      title: 'Testing & Attributes',
+      description: 'Using data-testid and selector attributes for testing.',
+      href: '#testing--data-attributes',
+    },
+    {
       title: 'API Reference',
       description: 'Complete Button Group props and configuration details.',
       href: '#api-reference',
@@ -159,6 +164,28 @@ The Button Group component uses DOM data attributes to manage structural layout 
 - `[data-vertical="true"]` — Active when orientation is vertical.
 
 Adjacent sibling selectors automatically handle border radius clipping between connected buttons without requiring manual divider elements.
+
+### Testing & Data Attributes
+
+The `ButtonGroup` component passes all standard HTML attributes (`data-testid`, `id`) directly to the root element, and renders `data-slot="button-group"` for automated testing:
+
+```tsx
+<ButtonGroup data-testid="toolbar-actions" size="sm" variant="outline">
+  <Button data-testid="cut-btn">Cut</Button>
+  <Button data-testid="copy-btn">Copy</Button>
+  <Button data-testid="paste-btn">Paste</Button>
+</ButtonGroup>
+```
+
+```ts
+// Querying in Vitest / React Testing Library:
+screen.getByTestId('toolbar-actions');
+screen.getByTestId('cut-btn');
+
+// Querying in Playwright / CSS selectors:
+page.locator('[data-slot="button-group"]');
+page.locator('[data-attached="true"]');
+```
 
 ## API Reference
 

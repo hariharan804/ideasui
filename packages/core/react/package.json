@@ -59,6 +59,7 @@
     "react-dom": ">=18"
   },
   "dependencies": {
+    "@ideasui/text": "workspace:*",
     "@ideasui/button": "workspace:*",
     "@ideasui/theme": "workspace:*",
     "@ideasui/utils": "workspace:*"

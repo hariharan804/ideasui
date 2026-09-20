@@ -62,6 +62,19 @@ export const extractConfig = {
         },
       ],
     },
+    text: {
+      componentName: 'Text',
+      interfaces: [
+        {
+          name: 'Text',
+          title: 'Text Props',
+          description:
+            'Theme-aware typography primitive supporting semantic tokens, line clamping, and slots',
+          filePath: '../../packages/components/text/src/text.types.ts',
+          interfaceName: 'TextProps',
+        },
+      ],
+    },
   },
 };
 export default extractConfig;

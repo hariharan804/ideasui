@@ -3,6 +3,7 @@
 UI components with complete styling and behavior using tailwind-variants and OKLCH color system.
 
 📚 **[Official Documentation & Live Demos →](https://ideasui.com)**
+🎨 **[Storybook Component Explorer →](https://storybook.ideasui.com)**
 
 ## 📦 Available Components
 

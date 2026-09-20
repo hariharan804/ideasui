@@ -22,12 +22,14 @@ export interface ComponentDoc {
 export interface PropsDocumentation {
   button: ComponentDoc[];
   buttonGroup: ComponentDoc[];
+  text: ComponentDoc[];
 }
 
 /**
  * Components extracted from TypeScript interfaces:
  * - Button: ButtonBaseProperties, ButtonLabelProperties, ButtonIconProperties, ButtonSpinnerProperties, ButtonShortcutProperties
  * - ButtonGroup: ButtonGroupProperties
+ * - Text: TextProps
  */
 export const propsDocumentation: PropsDocumentation = {
   button: [
@@ -282,6 +284,109 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: null,
           deprecated: false,
           description: 'The content of the button group.',
+        },
+      ],
+    },
+  ],
+  text: [
+    {
+      componentName: 'Text',
+      title: 'Text Props',
+      component: '<Text />',
+      description:
+        'Theme-aware typography primitive supporting semantic tokens, line clamping, and slots',
+      props: [
+        {
+          name: 'as',
+          type: 'ElementType',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'The underlying HTML element or React component to render. If omitted, automatically selects the semantic element based on `variant`: - `h1`–`h6` → `<h1>`–`<h6>` - `body`, `lead` → `<p>` - `label`, `caption`, `overline`, `helper` → `<span>` - `code` → `<code>`',
+        },
+        {
+          name: 'variant',
+          type: 'TextVariant',
+          required: false,
+          defaultValue: "'body'",
+          deprecated: false,
+          description:
+            'Typographic intent variant. Sets default font size, font weight, line height, and HTML tag.',
+        },
+        {
+          name: 'size',
+          type: 'TextSize',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Font size scale override. When provided, overrides the default font size scale of the active `variant`.',
+        },
+        {
+          name: 'weight',
+          type: 'TextWeight',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Font weight setting override. When provided, overrides the default font weight of the active `variant`.',
+        },
+        {
+          name: 'color',
+          type: 'TextColor',
+          required: false,
+          defaultValue: "'primary'",
+          deprecated: false,
+          description: 'Semantic OKLCH content color token.',
+        },
+        {
+          name: 'align',
+          type: 'TextAlign',
+          required: false,
+          defaultValue: "'start'",
+          deprecated: false,
+          description: 'Text alignment using logical properties (start/end for RTL compatibility).',
+        },
+        {
+          name: 'truncate',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Truncate overflowing text on a single line with ellipsis.',
+        },
+        {
+          name: 'lineClamp',
+          type: 'number',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Maximum number of lines to display before truncating.',
+        },
+        {
+          name: 'slot',
+          type: 'string | ',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Slot identifier used for composition with React Aria components.',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()`.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Children content to render inside the text element.',
         },
       ],
     },

@@ -27,8 +27,8 @@ export default defineConfig({
   mdxOptions: {
     rehypeCodeOptions: {
       themes: {
-        light: 'github-light',
-        dark: 'github-dark',
+        light: 'github-light-default',
+        dark: 'github-dark-default',
       },
     },
   },

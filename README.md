@@ -6,6 +6,7 @@ A high-performance, accessible component library built with **TypeScript**, **Ta
 [![License](https://img.shields.io/npm/l/@ideasui/react.svg)](https://github.com/ideas2logic-lab/ideasui/blob/master/LICENSE)
 
 📚 **[Official Documentation & Live Demos →](https://ideasui.com)**
+🎨 **[Storybook Component Explorer →](https://storybook.ideasui.com)**
 
 ## 🚀 Quick Start
 

@@ -1,10 +1,24 @@
 'use client';
-import type { JSX } from 'react';
+import type { JSX, ReactNode } from 'react';
 
-import { useState, useEffect, useCallback } from 'react';
-import { FileText, Book, ExternalLink, Search, Loader } from 'lucide-react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import {
+  FileText,
+  Book,
+  ExternalLink,
+  Search,
+  Loader,
+  Maximize2,
+  Minimize2,
+  Copy,
+  Check,
+  Menu,
+  X,
+} from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Button } from '@ideasui/button';
+import { cn } from '@ideasui/utils';
 
 interface DocumentFile {
   name: string;
@@ -13,34 +27,171 @@ interface DocumentFile {
 }
 
 const DOC_FILES: DocumentFile[] = [
-  { name: 'README.md', path: '../../README.md', description: 'Main project documentation' },
-  { name: 'ARCHITECTURE.md', path: '../../ARCHITECTURE.md', description: 'System Architecture' },
   {
-    name: 'CONTRIBUTING.md',
-    path: '../../CONTRIBUTING.md',
-    description: 'Contribution guidelines',
+    name: 'README.md',
+    path: '../../README.md',
+    description: 'Main project architecture & package map overview',
   },
   {
-    name: 'DESIGN_TOKEN_RULES.md',
-    path: '../../docs/DESIGN_TOKEN_RULES.md',
-    description: 'CSS variables and theming rules',
+    name: 'ARCHITECTURE.md',
+    path: '../../ARCHITECTURE.md',
+    description: 'System architecture & allowed dependency flow',
   },
   {
-    name: 'COMPONENT_STANDARDS.md',
-    path: '../../docs/COMPONENT_STANDARDS.md',
-    description: 'Component development standards',
+    name: 'COMPONENT_CHECKLIST.md',
+    path: '../../docs/COMPONENT_CHECKLIST.md',
+    description: 'Step-by-step component creation & release checklist',
   },
   {
-    name: 'DEVELOPMENT_SETUP.md',
-    path: '../../docs/DEVELOPMENT_SETUP.md',
-    description: 'Local development guide',
+    name: 'design-tokens.md',
+    path: '../../rules/design-tokens.md',
+    description: 'OKLCH color system & design token usage rules',
   },
   {
-    name: 'TESTING_GUIDE.md',
-    path: '../../docs/TESTING_GUIDE.md',
-    description: 'Quality assurance guide',
+    name: 'component-development.md',
+    path: '../../rules/component-development.md',
+    description: 'Component anatomy, slots, and ref forwarding patterns',
+  },
+  {
+    name: 'accessibility.md',
+    path: '../../rules/accessibility.md',
+    description: 'WCAG 2.1 AA accessibility rules & React Aria integration',
+  },
+  {
+    name: 'project-structure.md',
+    path: '../../rules/project-structure.md',
+    description: 'Package map & folder structure standards',
+  },
+  {
+    name: 'tailwind-theme.md',
+    path: '../../rules/tailwind-theme.md',
+    description: 'Tailwind CSS v4 plugin & recipe styling guide',
+  },
+  {
+    name: 'naming-conventions.md',
+    path: '../../rules/naming-conventions.md',
+    description: 'Naming conventions for props, types, and CSS classes',
+  },
+  {
+    name: 'code-quality.md',
+    path: '../../rules/code-quality.md',
+    description: 'Code quality metrics, complexity, and file size limits',
+  },
+  {
+    name: 'typescript-quality.md',
+    path: '../../rules/typescript-quality.md',
+    description: 'TypeScript strict mode standards & JSDoc guidelines',
   },
 ];
+
+interface CodeSnippetProperties {
+  readonly children?: ReactNode;
+  readonly className?: string;
+}
+
+function CodeSnippet({ children, className }: Readonly<CodeSnippetProperties>): JSX.Element {
+  const [copied, setCopied] = useState(false);
+  const codeText = String(children ?? '').replace(/\n$/, '');
+
+  const onCopy = (): void => {
+    void navigator.clipboard.writeText(codeText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const isInline = !className?.includes('language-');
+
+  if (isInline) {
+    return (
+      <code className="bg-primary-subtle text-primary border-primary/20 rounded-md border px-1.5 py-0.5 font-mono text-xs font-semibold">
+        {children}
+      </code>
+    );
+  }
+
+  const lang = className?.replace('language-', '') ?? '';
+
+  return (
+    <div className="group relative my-6 overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-950 text-slate-100 shadow-md">
+      <div className="flex items-center justify-between border-b border-slate-800/80 bg-slate-900/80 px-4 py-2 text-xs text-slate-400">
+        <span className="font-mono font-semibold text-slate-300">{lang || 'code'}</span>
+        <Button
+          isIconOnly
+          aria-label={copied ? 'Copied code' : 'Copy code'}
+          className="text-slate-400 hover:text-white"
+          size="sm"
+          variant="ghost"
+          onPress={onCopy}
+        >
+          {copied ? <Check className="text-success size-3.5" /> : <Copy className="size-3.5" />}
+        </Button>
+      </div>
+      <pre className="custom-scrollbar overflow-x-auto p-4 font-mono text-xs leading-relaxed text-slate-200">
+        <code>{codeText}</code>
+      </pre>
+    </div>
+  );
+}
+
+/* Stable markdown components object defined OUTSIDE DocsPage component to prevent re-renders & flickering */
+const markdownComponents = {
+  code: CodeSnippet,
+  h1: ({ children }: { children?: ReactNode }) => (
+    <h1 className="text-content-primary border-border/60 mt-2 mb-6 border-b pb-3 text-3xl font-extrabold tracking-tight md:text-4xl">
+      {children}
+    </h1>
+  ),
+  h2: ({ children }: { children?: ReactNode }) => (
+    <h2 className="text-content-primary border-border/40 mt-8 mb-4 border-b pb-2 text-2xl font-bold tracking-tight">
+      {children}
+    </h2>
+  ),
+  h3: ({ children }: { children?: ReactNode }) => (
+    <h3 className="text-content-primary mt-6 mb-3 text-xl font-bold">{children}</h3>
+  ),
+  p: ({ children }: { children?: ReactNode }) => (
+    <p className="text-content-secondary my-3 text-base leading-relaxed">{children}</p>
+  ),
+  ul: ({ children }: { children?: ReactNode }) => (
+    <ul className="text-content-secondary my-3 list-disc space-y-1.5 pl-6">{children}</ul>
+  ),
+  ol: ({ children }: { children?: ReactNode }) => (
+    <ol className="text-content-secondary my-3 list-decimal space-y-1.5 pl-6">{children}</ol>
+  ),
+  blockquote: ({ children }: { children?: ReactNode }) => (
+    <blockquote className="border-primary bg-primary-subtle/30 text-content-secondary my-6 rounded-r-2xl border-l-4 px-5 py-3 font-medium italic shadow-2xs">
+      {children}
+    </blockquote>
+  ),
+  table: ({ children }: { children?: ReactNode }) => (
+    <div className="border-border bg-surface my-6 overflow-x-auto rounded-2xl border shadow-xs">
+      <table className="w-full text-left text-sm">{children}</table>
+    </div>
+  ),
+  thead: ({ children }: { children?: ReactNode }) => (
+    <thead className="bg-surface-subtle text-content-primary border-border border-b font-bold">
+      {children}
+    </thead>
+  ),
+  th: ({ children }: { children?: ReactNode }) => (
+    <th className="text-content-primary px-4 py-3 font-bold">{children}</th>
+  ),
+  td: ({ children }: { children?: ReactNode }) => (
+    <td className="border-border-subtle/40 text-content-secondary border-b px-4 py-3">
+      {children}
+    </td>
+  ),
+  a: ({ href, children }: { href?: string; children?: ReactNode }) => (
+    <a
+      className="text-primary font-semibold underline underline-offset-4 transition-opacity hover:opacity-80"
+      href={href}
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      {children}
+    </a>
+  ),
+};
 
 export default function DocsPage(): JSX.Element {
   const [selectedDocument, setSelectedDocument] = useState<DocumentFile>(DOC_FILES[0]);
@@ -49,13 +200,28 @@ export default function DocsPage(): JSX.Element {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [docCopied, setDocCopied] = useState(false);
 
-  const getDocument = useCallback(async () => {
+  // In-memory cache for instant document switching without blinking
+  const docCacheReference = useRef<Map<string, string>>(new Map());
+
+  const getDocument = useCallback(async (docPath: string) => {
+    // Return cached document content instantly if available
+    const cached = docCacheReference.current.get(docPath);
+
+    if (cached) {
+      setDocumentContent(cached);
+      setLoading(false);
+
+      return;
+    }
+
     setLoading(true);
     setError('');
 
     try {
-      const res = await fetch(`/api/docs?file=${encodeURIComponent(selectedDocument.path)}`);
+      const res = await fetch(`/api/docs?file=${encodeURIComponent(docPath)}`);
 
       if (!res.ok) {
         throw new Error('Failed to load document');
@@ -63,23 +229,28 @@ export default function DocsPage(): JSX.Element {
 
       const data = await res.json();
 
+      docCacheReference.current.set(docPath, data.content);
       setDocumentContent(data.content);
     } catch (error_) {
       setError(error_ instanceof Error ? error_.message : 'An error occurred');
     } finally {
       setLoading(false);
     }
-  }, [selectedDocument.path]);
+  }, []);
 
   useEffect(() => {
     if (selectedDocument.path) {
-      const timer = setTimeout(() => {
-        getDocument();
-      }, 0);
-
-      return () => clearTimeout(timer);
+      void getDocument(selectedDocument.path);
     }
   }, [getDocument, selectedDocument.path]);
+
+  const onCopyDocument = (): void => {
+    if (documentContent) {
+      void navigator.clipboard.writeText(documentContent);
+      setDocCopied(true);
+      setTimeout(() => setDocCopied(false), 2000);
+    }
+  };
 
   const filteredDocs = DOC_FILES.filter(
     (document_) =>
@@ -88,11 +259,27 @@ export default function DocsPage(): JSX.Element {
   );
 
   return (
-    <div className="text-content-primary min-h-screen transition-colors duration-300 ease-in-out">
-      <div className="animate-in fade-in slide-in-from-bottom-4 mx-auto flex max-w-7xl flex-col gap-6 p-4 duration-700 md:p-8 lg:flex-row">
+    <div
+      className={cn(
+        'text-content-primary min-h-screen transition-colors duration-300 ease-in-out',
+        isFullScreen && 'bg-background fixed inset-0 z-50 overflow-y-auto p-4 md:p-8',
+      )}
+    >
+      <div
+        className={cn(
+          'animate-in fade-in slide-in-from-bottom-4 mx-auto flex flex-col gap-6 duration-700 lg:flex-row',
+          isFullScreen ? 'max-w-full' : 'max-w-7xl p-4 md:p-8',
+        )}
+      >
         {/* Sidebar */}
-        <div className={`${sidebarOpen ? 'block' : 'hidden'} w-full lg:block lg:w-80`}>
-          <div className="border-border-subtle bg-surface/80 sticky top-6 rounded-3xl border p-8 shadow-sm backdrop-blur-md transition-all duration-300">
+        <div
+          className={cn(
+            sidebarOpen ? 'block' : 'hidden',
+            'w-full lg:block lg:w-80',
+            isFullScreen && 'hidden lg:hidden',
+          )}
+        >
+          <div className="border-border-subtle bg-surface/80 sticky top-6 rounded-3xl border p-6 shadow-sm backdrop-blur-md transition-all duration-300">
             {/* Header */}
             <div className="mb-6">
               <div className="mb-3 flex items-center gap-3">
@@ -185,46 +372,70 @@ export default function DocsPage(): JSX.Element {
 
         {/* Main Content */}
         <div className="min-w-0 flex-1">
-          {/* Header */}
-          <div className="border-border-subtle bg-surface mb-6 rounded-3xl border p-8 shadow-sm transition-all duration-300">
+          {/* Reader Header */}
+          <div className="border-border-subtle bg-surface mb-6 rounded-3xl border p-6 shadow-sm transition-all duration-300">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div className="from-primary to-secondary shadow-primary/20 rounded-xl bg-gradient-to-br p-3 shadow-md">
                   <Book className="text-on-primary size-6" />
                 </div>
                 <div>
-                  <h1 className="text-content-primary text-3xl font-extrabold tracking-tight md:text-4xl">
-                    {selectedDocument.name}
-                  </h1>
-                  <p className="text-content-tertiary mt-2 text-sm font-medium">
+                  <div className="flex items-center gap-3">
+                    <h1 className="text-content-primary text-2xl font-extrabold tracking-tight md:text-3xl">
+                      {selectedDocument.name}
+                    </h1>
+                    {loading ? <Loader className="text-primary size-4 animate-spin" /> : null}
+                  </div>
+                  <p className="text-content-tertiary mt-1 text-xs font-medium sm:text-sm">
                     {selectedDocument.description}
                   </p>
                 </div>
               </div>
-              <button
-                className="border-border-subtle bg-surface-muted text-content-secondary hover:bg-surface-strong hover:text-content-primary rounded-lg border px-4 py-2 text-sm font-bold transition-colors lg:hidden"
-                type="button"
-                onClick={() => setSidebarOpen(!sidebarOpen)}
-              >
-                {sidebarOpen ? 'Hide' : 'Show'} Sidebar
-              </button>
+
+              <div className="flex items-center gap-2">
+                <Button color="neutral" size="sm" variant="soft" onPress={onCopyDocument}>
+                  {docCopied ? (
+                    <Check className="text-success size-4" />
+                  ) : (
+                    <Copy className="size-4" />
+                  )}
+                  <span className="hidden sm:inline">{docCopied ? 'Copied' : 'Copy MD'}</span>
+                </Button>
+
+                <Button
+                  isIconOnly
+                  aria-label={isFullScreen ? 'Exit Full Screen' : 'Full Screen View'}
+                  color="neutral"
+                  size="sm"
+                  variant="soft"
+                  onPress={() => setIsFullScreen(!isFullScreen)}
+                >
+                  {isFullScreen ? (
+                    <Minimize2 className="size-4" />
+                  ) : (
+                    <Maximize2 className="size-4" />
+                  )}
+                </Button>
+
+                {!isFullScreen && (
+                  <Button
+                    isIconOnly
+                    aria-label={sidebarOpen ? 'Hide Sidebar' : 'Show Sidebar'}
+                    className="lg:hidden"
+                    color="neutral"
+                    size="sm"
+                    variant="ghost"
+                    onPress={() => setSidebarOpen(!sidebarOpen)}
+                  >
+                    {sidebarOpen ? <X className="size-4" /> : <Menu className="size-4" />}
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
 
-          {/* Content */}
-          <div className="border-border-subtle bg-surface min-h-[60vh] overflow-hidden rounded-3xl border shadow-sm transition-all duration-300">
-            {/* Loading State */}
-            {loading ? (
-              <div className="flex h-96 items-center justify-center">
-                <div className="text-center">
-                  <Loader className="text-primary mx-auto mb-4 h-8 w-8 animate-spin" />
-                  <p className="text-content-secondary text-sm font-semibold">
-                    Loading documentation...
-                  </p>
-                </div>
-              </div>
-            ) : null}
-
+          {/* Reader Container */}
+          <div className="border-border-subtle bg-surface relative min-h-[65vh] overflow-hidden rounded-3xl border shadow-sm transition-all duration-300">
             {/* Error State */}
             {error && !loading ? (
               <div className="border-border-danger bg-danger-subtle/30 border-b p-8">
@@ -238,14 +449,17 @@ export default function DocsPage(): JSX.Element {
               </div>
             ) : null}
 
-            {/* Content */}
-            {!loading && !error && (
-              <div className="prose prose-base prose-headings:scroll-mt-24 prose-h1:text-4xl prose-h1:font-extrabold prose-h1:text-content-primary prose-h1:tracking-tight prose-h1:mt-2 prose-h1:mb-8 prose-h2:text-3xl prose-h2:font-bold prose-h2:text-content-primary prose-h2:tracking-tight prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-border-base prose-h2:pb-4 prose-h3:text-2xl prose-h3:font-bold prose-h3:text-content-primary prose-h3:mt-8 prose-h3:mb-4 prose-a:text-primary prose-a:font-semibold prose-a:no-underline hover:prose-a:underline prose-code:bg-primary-subtle prose-code:text-primary prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-lg prose-code:font-mono prose-code:text-[0.9em] prose-code:font-bold prose-code:before:content-none prose-code:after:content-none prose-pre:bg-surface-inverse prose-pre:text-content-inverse prose-pre:border prose-pre:border-border-base prose-pre:rounded-2xl prose-pre:shadow-lg prose-pre:p-6 prose-pre:my-8 prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-surface-subtle prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-content-secondary prose-blockquote:font-medium prose-blockquote:italic prose-blockquote:shadow-sm prose-strong:text-content-primary prose-strong:font-bold prose-ul:list-disc prose-ol:list-decimal prose-li:text-content-secondary prose-li:marker:text-primary prose-p:text-content-secondary prose-p:leading-relaxed prose-p:text-lg prose-table:border-collapse prose-table:w-full prose-table:my-8 prose-table:text-left prose-table:rounded-xl prose-table:overflow-hidden prose-table:shadow-sm prose-table:border prose-table:border-border-base prose-thead:bg-surface-subtle prose-th:border-b-2 prose-th:border-border prose-th:px-6 prose-th:py-4 prose-th:font-bold prose-th:text-content-primary prose-td:border-b prose-td:border-border-base prose-td:px-6 prose-td:py-4 prose-td:text-content-secondary prose-tr:transition-colors hover:prose-tr:bg-surface-subtle/50 prose-img:rounded-2xl prose-img:border prose-img:border-border-base prose-img:shadow-sm max-w-none p-8 transition-colors md:p-12">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{documentContent}</ReactMarkdown>
-              </div>
-            )}
-
-            {/* Footer */}
+            {/* Smooth Non-Blinking Content Container */}
+            <div
+              className={cn(
+                'prose prose-base text-content-primary max-w-none p-6 transition-opacity duration-200 md:p-10',
+                loading && 'pointer-events-none opacity-60',
+              )}
+            >
+              <ReactMarkdown components={markdownComponents} remarkPlugins={[remarkGfm]}>
+                {documentContent}
+              </ReactMarkdown>
+            </div>
           </div>
         </div>
       </div>

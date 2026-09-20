@@ -27,6 +27,11 @@ links:
       href: '#standalone-css',
     },
     {
+      title: 'Testing & Attributes',
+      description: 'Using data-testid and slotProps for automated testing.',
+      href: '#testing--data-attributes',
+    },
+    {
       title: 'API Reference',
       description: 'Complete Button props, variants, and configuration details.',
       href: '#api-reference',
@@ -306,6 +311,41 @@ The Button supports standard CSS states and React Aria interaction state attribu
 - **Pending:** `[data-pending]`
 
 These states can be used when extending or customizing Button styles.
+
+### Testing & Data Attributes
+
+The `Button` component forwards standard HTML attributes (such as `data-testid`, `id`, `aria-label`) directly to the root element. In addition, slot-level data attributes can be passed to individual sub-slots via `slotProps`:
+
+```tsx
+// Direct data-testid on root element
+<Button data-testid="submit-btn" color="primary">
+  Submit
+</Button>
+
+// Granular test IDs on sub-slots via slotProps
+<Button
+  shortcut="⌘K"
+  startIcon={<SearchIcon />}
+  slotProps={{
+    base: { 'data-testid': 'search-btn' },
+    label: { 'data-testid': 'search-btn-label' },
+    startIcon: { 'data-testid': 'search-btn-icon' },
+    shortcut: { 'data-testid': 'search-btn-shortcut' },
+  }}
+>
+  Search
+</Button>
+```
+
+```ts
+// Querying in Vitest / React Testing Library:
+screen.getByTestId('submit-btn');
+screen.getByTestId('search-btn-label');
+
+// Querying in Playwright / CSS:
+page.locator('[data-slot="button"]');
+page.locator('[data-pressed="true"]');
+```
 
 ## API Reference
 

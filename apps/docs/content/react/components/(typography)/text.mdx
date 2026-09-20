@@ -1,0 +1,158 @@
+---
+title: Text
+description: A theme-aware typography primitive for rendering consistent paragraphs, labels, captions, and code blocks.
+links:
+  npm: true
+  source: text/src/text.tsx
+  recipe: core/theme/src/recipes/text/text.ts
+  storybook: Components/Text
+---
+
+<QuickNav
+  items={[
+    {
+      title: 'Basic Usage',
+      description: 'Implementation and typographic variants.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'Variants & Styling',
+      description: 'Explore typographic intents, colors, sizes, and font weights.',
+      href: '#variants',
+    },
+    {
+      title: 'Polymorphic Elements',
+      description: 'Render custom HTML elements with consistent styles.',
+      href: '#polymorphic-elements',
+    },
+    {
+      title: 'Line Clamping & Truncation',
+      description: 'Single-line ellipsis and multi-line clamping.',
+      href: '#line-clamping--truncation',
+    },
+    {
+      title: 'Slot Integration',
+      description: 'Connect text with React Aria component slots.',
+      href: '#slot-integration',
+    },
+    {
+      title: 'Testing & Attributes',
+      description: 'Using data-testid and data-slot for automated testing.',
+      href: '#testing--data-attributes',
+    },
+    {
+      title: 'API Reference',
+      description: 'Complete Text props and configuration details.',
+      href: '#api-reference',
+    },
+  ]}
+/>
+
+## Installation
+
+<InstallTabs pkg="@ideasui/text" />
+
+## Import
+
+```tsx
+import { Text } from '@ideasui/react';
+// or from individual package
+import { Text } from '@ideasui/text';
+```
+
+## Basic Usage
+
+The `Text` component renders semantic typography with full theme support.
+
+<Preview name="text-basic" />
+
+### Variants
+
+Use the `variant` prop to set typographic intent.
+
+<Preview name="text-variants" />
+
+### Colors
+
+Apply OKLCH semantic content colors to text elements.
+
+<Preview name="text-colors" />
+
+### Sizes
+
+Adjust text scaling using semantic design tokens. Each `variant` sets a default font size, font weight, line height, and HTML tag. Providing an explicit `size` or `weight` prop overrides the variant's default scale for custom design needs:
+
+```tsx
+// Variant defines typographic intent and default scale:
+<Text variant="h1">Heading Title</Text>
+
+// Explicit size overrides the variant scale for custom layout needs:
+<Text variant="h1" size="xl">Compact Heading</Text>
+```
+
+<Preview name="text-sizes" />
+
+### Weights
+
+Control typography weight settings.
+
+<Preview name="text-weights" />
+
+### Polymorphic Elements & Custom Components
+
+Render any semantic HTML element or custom React component (such as Next.js `Link` or React Router `Link`) via the `as` prop while maintaining consistent typography:
+
+```tsx
+// Render as standard HTML elements:
+<Text as="h3" variant="h3">Section Heading</Text>
+<Text as="blockquote" variant="lead">Quote content</Text>
+
+// Render as custom React components (e.g., Next.js Link):
+<Text as={Link} href="/docs" variant="label" color="primary">
+  Documentation Link
+</Text>
+```
+
+<Preview name="text-polymorphic" />
+
+### Line Clamping & Truncation
+
+Truncate text on a single line or limit maximum line count.
+
+<Preview name="text-truncation" />
+
+### Slot Integration
+
+Use the `slot` prop when placing `Text` inside React Aria components (such as `TextField` or `Dialog`) to automatically link accessible ARIA relationships (`aria-describedby`, `aria-labelledby`):
+
+```tsx
+<TextField>
+  <Label>Email</Label>
+  <Input />
+  <Text slot="description" variant="caption" color="muted">
+    We will never share your email address.
+  </Text>
+</TextField>
+```
+
+### Testing & Data Attributes
+
+The `Text` component passes all standard HTML attributes (such as `data-testid`, `id`, `aria-*`) directly to the DOM element. In addition, it automatically assigns `data-slot="text"` (or `data-slot="[slot-name]"` when `slot` is provided) for testing and selector targeting:
+
+```tsx
+<Text data-testid="user-profile-bio" slot="description">
+  Software engineer based in San Francisco.
+</Text>
+```
+
+```ts
+// Query in Vitest / React Testing Library:
+screen.getByTestId('user-profile-bio');
+
+// Query in Playwright / CSS:
+page.locator('[data-slot="description"]');
+```
+
+## API Reference
+
+<APIReferenceViewer componentName="text" />

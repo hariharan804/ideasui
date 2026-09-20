@@ -1,6 +1,17 @@
 /* eslint-disable unicorn/numeric-separators-style */
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, Sun, Moon, Airplay, RotateCcw, Palette, Sliders, Pipette } from 'lucide-react';
+import {
+  X,
+  Check,
+  Sun,
+  Moon,
+  Airplay,
+  RotateCcw,
+  Palette,
+  Sliders,
+  Pipette,
+  RefreshCw,
+} from 'lucide-react';
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { useTheme } from '@ideasui/theme';
@@ -67,6 +78,7 @@ const STORAGE_KEYS = {
   CUSTOM_HEX: 'ideasui-custom-color-hex',
   RADIUS: 'ideasui-custom-radius-id',
   RADIUS_VAL: 'ideasui-custom-radius-val',
+  AUTO_CYCLE: 'ideasui-custom-auto-cycle',
 } as const;
 
 function sanitizeOklch(val: string): string {
@@ -351,6 +363,31 @@ export function resetPrimaryColorTokens() {
   }
 }
 
+export function cycleNextThemeColor() {
+  if (globalThis.window === undefined) return;
+
+  const currentId = localStorage.getItem(STORAGE_KEYS.COLOR) ?? 'indigo';
+  let currentIndex = COLOR_PRESETS.findIndex((p) => p.id === currentId);
+
+  if (currentIndex === -1) {
+    currentIndex = 0;
+  }
+
+  const nextIndex = (currentIndex + 1) % COLOR_PRESETS.length;
+  const nextPreset = COLOR_PRESETS[nextIndex];
+  const cleanValue = sanitizeOklch(nextPreset.oklch);
+
+  applyPrimaryColorTokens(cleanValue);
+  localStorage.setItem(STORAGE_KEYS.COLOR, nextPreset.id);
+  localStorage.setItem(STORAGE_KEYS.COLOR_OKLCH, cleanValue);
+
+  globalThis.dispatchEvent(
+    new CustomEvent('ideasui-color-auto-changed', {
+      detail: { id: nextPreset.id, oklch: cleanValue },
+    }),
+  );
+}
+
 export function useInitThemeCustomizer() {
   useEffect(() => {
     if (globalThis.window === undefined) return;
@@ -380,7 +417,38 @@ export function useInitThemeCustomizer() {
       attributeFilter: ['class'],
     });
 
-    return () => observer.disconnect();
+    let timer: number | undefined;
+
+    const checkAndStartTimer = () => {
+      if (timer !== undefined) {
+        globalThis.clearInterval(timer);
+        timer = undefined;
+      }
+
+      const isAutoCycle = localStorage.getItem(STORAGE_KEYS.AUTO_CYCLE) === 'true';
+
+      if (isAutoCycle) {
+        timer = globalThis.setInterval(() => {
+          cycleNextThemeColor();
+        }, 5000) as unknown as number;
+      }
+    };
+
+    checkAndStartTimer();
+
+    const handleAutoCycleToggle = () => {
+      checkAndStartTimer();
+    };
+
+    globalThis.addEventListener('ideasui-auto-cycle-toggle', handleAutoCycleToggle);
+
+    return () => {
+      observer.disconnect();
+      if (timer !== undefined) {
+        globalThis.clearInterval(timer);
+      }
+      globalThis.removeEventListener('ideasui-auto-cycle-toggle', handleAutoCycleToggle);
+    };
   }, []);
 }
 
@@ -443,6 +511,38 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
 
     return 'md';
   });
+
+  const [isAutoCycle, setIsAutoCycle] = useState<boolean>(() => {
+    if (globalThis.window === undefined) return false;
+
+    return localStorage.getItem(STORAGE_KEYS.AUTO_CYCLE) === 'true';
+  });
+
+  useEffect(() => {
+    const handleColorAutoChanged = (e: Event) => {
+      const customEvent = e as CustomEvent<{ id: string; oklch: string }>;
+
+      if (customEvent.detail?.id) {
+        setSelectedColor(customEvent.detail.id);
+      }
+    };
+
+    globalThis.addEventListener('ideasui-color-auto-changed', handleColorAutoChanged);
+
+    return () => {
+      globalThis.removeEventListener('ideasui-color-auto-changed', handleColorAutoChanged);
+    };
+  }, []);
+
+  const handleToggleAutoCycle = (enabled: boolean) => {
+    setIsAutoCycle(enabled);
+    localStorage.setItem(STORAGE_KEYS.AUTO_CYCLE, String(enabled));
+    globalThis.dispatchEvent(new CustomEvent('ideasui-auto-cycle-toggle'));
+    trackEvent('theme_customize', {
+      action: 'toggle_auto_cycle',
+      enabled,
+    });
+  };
 
   useEffect(() => {
     if (!mounted || !isOpen) return;
@@ -517,6 +617,7 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
     setSelectedRadius('md');
     setCustomHex('#6366f1');
     setCustomOklch('');
+    setIsAutoCycle(false);
     resetPrimaryColorTokens();
     document.documentElement.style.removeProperty('--ideasui-radius');
     for (const key of [
@@ -525,8 +626,10 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
       STORAGE_KEYS.CUSTOM_HEX,
       STORAGE_KEYS.RADIUS,
       STORAGE_KEYS.RADIUS_VAL,
+      STORAGE_KEYS.AUTO_CYCLE,
     ])
       localStorage.removeItem(key);
+    globalThis.dispatchEvent(new CustomEvent('ideasui-auto-cycle-toggle'));
     setTheme('system');
     trackEvent('theme_customize', { action: 'reset' });
   };
@@ -661,6 +764,50 @@ export function ThemeCustomizerModal({ isOpen, onClose }: Readonly<ThemeCustomiz
                       <span>{preset.name}</span>
                     </SegmentPillButton>
                   ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="bg-surface-subtle/50 border-border-subtle/40 flex items-center justify-between rounded-2xl border p-3.5 sm:p-4">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-primary-subtle text-primary flex size-8.5 items-center justify-center rounded-xl shadow-2xs sm:size-9">
+                      <RefreshCw
+                        className={cn(
+                          'size-4 transition-transform sm:size-4.5',
+                          isAutoCycle && 'animate-spin',
+                        )}
+                        style={isAutoCycle ? { animationDuration: '4s' } : undefined}
+                      />
+                    </div>
+                    <div>
+                      <div className="text-content-primary text-xs font-bold sm:text-sm">
+                        Auto Change Theme
+                      </div>
+                      <div className="text-content-muted text-[11px] font-medium sm:text-xs">
+                        Automatically cycle colors every 5 seconds
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    aria-checked={isAutoCycle}
+                    aria-label="Auto change theme every 5 seconds"
+                    className={cn(
+                      'focus-visible:ring-primary relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus-visible:ring-2 focus-visible:ring-offset-2',
+                      isAutoCycle ? 'bg-primary' : 'bg-surface-muted border-border-subtle/60',
+                    )}
+                    role="switch"
+                    type="button"
+                    onClick={() => handleToggleAutoCycle(!isAutoCycle)}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        'bg-common-white pointer-events-none inline-block size-5 transform rounded-full shadow-md ring-0 transition duration-200 ease-in-out',
+                        isAutoCycle ? 'translate-x-5' : 'translate-x-0',
+                      )}
+                    />
+                  </button>
                 </div>
               </div>
             </div>

@@ -3,6 +3,8 @@
   "replace": {
     "dependencies": {
       "@ideasui/button": "latest",
+      "@ideasui/react": "latest",
+      "@ideasui/text": "latest",
       "@ideasui/ripple": "latest",
       "@ideasui/theme": "latest",
       "@ideasui/box": "latest",
