@@ -88,7 +88,7 @@ function Playground(): JSX.Element {
               color="primary"
               size="sm"
               variant="soft"
-              onClick={() => router.push('/design-system')}
+              onPress={() => router.push('/design-system')}
             >
               <Layers className="size-4" />
               <span>Design Tokens</span>

@@ -131,6 +131,33 @@ export const Sizes: Story = {
   ),
 };
 
+export const Polymorphic: Story = {
+  render: () => (
+    <div className="flex max-w-md flex-col gap-3">
+      <Text as="div" variant="h2" weight="bold">
+        Heading variant rendered as &lt;div&gt;
+      </Text>
+      <Text as="a" className="cursor-pointer underline underline-offset-4" color="primary">
+        Text component rendered as semantic link (&lt;a&gt;)
+      </Text>
+      <Text as="pre" className="p-3" variant="code">
+        {`// Text rendered as <pre>
+const theme = "oklch";`}
+      </Text>
+    </div>
+  ),
+};
+
+export const Alignment: Story = {
+  render: () => (
+    <div className="border-border max-w-lg space-y-3 rounded-xl border p-4">
+      <Text align="start">Start aligned text (left in LTR, right in RTL)</Text>
+      <Text align="center">Center aligned typography statement</Text>
+      <Text align="end">End aligned text (right in LTR, left in RTL)</Text>
+    </div>
+  ),
+};
+
 export const Slots: Story = {
   render: () => (
     <div className="border-border space-y-2 rounded-xl border p-4">
@@ -144,21 +171,72 @@ export const Slots: Story = {
   ),
 };
 
-export const Truncate: Story = {
+export const TruncateAndClamp: Story = {
   render: () => (
-    <div className="w-64 space-y-4">
+    <div className="w-80 space-y-4">
       <div>
-        <Text weight="semibold">Single Line Truncate:</Text>
-        <Text truncate>
-          This is a very long line of text that will be truncated on a single line with an ellipsis.
+        <Text className="mb-1" weight="semibold">
+          Single Line Truncate (`truncate`):
+        </Text>
+        <Text truncate color="secondary">
+          This is a very long single-line text string that will truncate gracefully with an ellipsis
+          when overflowing its container boundary.
         </Text>
       </div>
+
       <div>
-        <Text weight="semibold">Multi-Line Clamp (2 lines):</Text>
-        <Text lineClamp={2}>
-          IdeasUI provides high-performance, accessible components built with React Aria and
-          Tailwind CSS v4. Line clamping gracefully limits long text blocks to exact line limits.
+        <Text className="mb-1" weight="semibold">
+          Multi-Line Clamp (`lineClamp={1}`):
         </Text>
+        <Text color="secondary" lineClamp={1}>
+          IdeasUI provides first-class support for multi-line clamping. This paragraph is clamped
+          strictly to one line of text before truncating gracefully with a trailing ellipsis.
+        </Text>
+      </div>
+
+      <div>
+        <Text className="mb-1" weight="semibold">
+          Multi-Line Clamp (`lineClamp={2}`):
+        </Text>
+        <Text color="secondary" lineClamp={2}>
+          IdeasUI provides first-class support for multi-line clamping. This paragraph is clamped
+          strictly to two lines of text before truncating gracefully with a trailing ellipsis
+          regardless of dynamic container resizing.
+        </Text>
+      </div>
+
+      <div>
+        <Text className="mb-1" weight="semibold">
+          Multi-Line Clamp (`lineClamp={3}`):
+        </Text>
+        <Text color="secondary" lineClamp={3}>
+          IdeasUI typography provides first-class support for multi-line clamping. This paragraph is
+          clamped strictly to three lines of text before truncating gracefully with a trailing
+          ellipsis regardless of dynamic container resizing.
+        </Text>
+      </div>
+    </div>
+  ),
+};
+
+export const CompositionHierarchy: Story = {
+  render: () => (
+    <div className="border-border bg-surface max-w-sm space-y-3 rounded-2xl border p-5 shadow-xs">
+      <Text color="muted" variant="overline">
+        Getting Started
+      </Text>
+      <Text color="primary" variant="h3">
+        IdeasUI Typography
+      </Text>
+      <Text color="secondary" variant="body">
+        Build high-performance, accessible React applications with theme-aware OKLCH design tokens
+        and zero-config styling.
+      </Text>
+      <div className="flex items-center justify-between pt-2">
+        <Text color="primary" variant="label">
+          Package Version
+        </Text>
+        <Text variant="code">v0.0.5</Text>
       </div>
     </div>
   ),

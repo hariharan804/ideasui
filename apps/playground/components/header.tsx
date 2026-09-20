@@ -39,6 +39,10 @@ const navLinks = [
   { href: '/installer', label: 'Installer', icon: Package },
 ];
 
+const goToDocs = (): void => {
+  window.open('https://ideasui.com', '_blank', 'noopener,noreferrer');
+};
+
 function Header({
   showBackButton = false,
   title,
@@ -56,10 +60,6 @@ function Header({
     router.push('/playground');
   };
 
-  const goToDocs = (): void => {
-    router.push('/docs');
-  };
-
   return (
     <header className="bg-surface/80 sticky top-0 z-50 shadow-xs backdrop-blur-xl transition-all duration-300">
       <div className="container mx-auto px-4 sm:px-6">
@@ -72,7 +72,7 @@ function Header({
                 color="neutral"
                 size="sm"
                 variant="ghost"
-                onClick={goBack}
+                onPress={goBack}
               >
                 <ArrowLeft className="size-4" />
                 <span className="hidden sm:inline">Back</span>
@@ -88,7 +88,7 @@ function Header({
                   <span className="text-content-primary text-base font-extrabold tracking-tight sm:text-lg">
                     {title || 'IdeasUI'}
                   </span>
-                  <span className="bg-primary-subtle text-primary rounded-md px-1.5 py-0.5 font-mono text-[10px] font-bold">
+                  <span className="bg-primary-subtle text-primary border-primary/20 rounded-md border px-1.5 py-0.5 font-mono text-[10px] font-bold">
                     v0.0.5
                   </span>
                 </div>
@@ -99,7 +99,7 @@ function Header({
             </Link>
 
             {/* Nav Tabs */}
-            <nav className="bg-surface-subtle/80 ml-4 hidden items-center rounded-xl p-1 shadow-2xs md:flex">
+            <nav className="bg-surface-subtle/80 border-border/40 ml-4 hidden items-center rounded-xl border p-1 shadow-2xs md:flex">
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const isActive = pathname === link.href || pathname?.startsWith(`${link.href}/`);
@@ -107,7 +107,7 @@ function Header({
                 return (
                   <Link
                     key={link.href}
-                    className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all ${
+                    className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 ${
                       isActive
                         ? 'bg-surface text-primary shadow-xs'
                         : 'text-content-secondary hover:text-content-primary hover:bg-surface-muted/50'
@@ -129,7 +129,7 @@ function Header({
               color="neutral"
               size="sm"
               variant="ghost"
-              onClick={goToDocs}
+              onPress={goToDocs}
             >
               <BookOpen className="size-4" />
               <span className="hidden sm:inline">Docs</span>
@@ -153,7 +153,7 @@ function Header({
               color="neutral"
               size="sm"
               variant="soft"
-              onClick={onToggleTheme}
+              onPress={onToggleTheme}
             >
               {resolvedTheme === 'dark' ? (
                 <Sun className="text-warning size-4" />
