@@ -341,7 +341,6 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProperties>(
         data-vertical={merged.isVertical}
         isDisabled={mergedDisabled}
         isPending={isLoading}
-        {...properties}
       >
         {(renderProperties) => (
           <ButtonContext.Provider value={contextValue}>

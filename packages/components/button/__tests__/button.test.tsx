@@ -315,4 +315,20 @@ describe('ButtonGroup', () => {
     expect(screen.getByTestId('custom-start-slot')).toBeInTheDocument();
     expect(screen.getByTestId('custom-shortcut-slot')).toHaveTextContent('⌘K');
   });
+
+  it('forwards data-testid to ButtonGroup and child buttons', () => {
+    render(
+      <Button.Group data-testid="toolbar-actions" size="sm" variant="outline">
+        <Button data-testid="cut-btn">Cut</Button>
+        <Button data-testid="copy-btn">Copy</Button>
+        <Button data-testid="paste-btn">Paste</Button>
+      </Button.Group>,
+    );
+
+    expect(screen.getByTestId('toolbar-actions')).toBeInTheDocument();
+    expect(screen.getByTestId('toolbar-actions')).toHaveAttribute('data-slot', 'button-group');
+    expect(screen.getByTestId('cut-btn')).toBeInTheDocument();
+    expect(screen.getByTestId('copy-btn')).toBeInTheDocument();
+    expect(screen.getByTestId('paste-btn')).toBeInTheDocument();
+  });
 });

@@ -22,7 +22,7 @@ async function getHighlighted(code: string, lang: string): Promise<React.ReactNo
       lang: lang ?? 'text',
       themes: {
         light: 'github-light-default',
-        dark: 'dracula',
+        dark: 'github-dark-default',
       },
       defaultColor: false,
     });

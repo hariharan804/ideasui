@@ -3,6 +3,8 @@
   "replace": {
     "dependencies": {
       "@ideasui/button": "workspace:*",
+      "@ideasui/react": "workspace:*",
+      "@ideasui/text": "workspace:*",
       "@ideasui/ripple": "workspace:*",
       "@ideasui/theme": "workspace:*",
       "@ideasui/box": "workspace:*",

@@ -3,6 +3,8 @@
   "replace": {
     "dependencies": {
       "@ideasui/button": "alpha",
+      "@ideasui/react": "alpha",
+      "@ideasui/text": "alpha",
       "@ideasui/ripple": "alpha",
       "@ideasui/theme": "alpha",
       "@ideasui/box": "alpha",

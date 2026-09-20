@@ -1,0 +1,70 @@
+/**
+ * Text Component Standalone CSS
+ * Source of truth for visual styling for the Text component.
+ * Uses BEM selectors + Tailwind CSS v4 @apply directives.
+ */
+
+.ideasui-text {
+  @apply text-content-primary transition-colors duration-150;
+}
+
+/* ── Sizes ── */
+.ideasui-text--xs {
+  @apply text-xs;
+}
+.ideasui-text--sm {
+  @apply text-sm;
+}
+.ideasui-text--md {
+  @apply text-base;
+}
+.ideasui-text--lg {
+  @apply text-lg;
+}
+.ideasui-text--xl {
+  @apply text-xl;
+}
+.ideasui-text--2xl {
+  @apply text-2xl;
+}
+
+/* ── Colors ── */
+.ideasui-text--primary {
+  @apply text-content-primary;
+}
+.ideasui-text--secondary {
+  @apply text-content-secondary;
+}
+.ideasui-text--tertiary {
+  @apply text-content-tertiary;
+}
+.ideasui-text--muted {
+  @apply text-content-muted;
+}
+.ideasui-text--inverse {
+  @apply text-content-inverse;
+}
+.ideasui-text--success {
+  @apply text-success;
+}
+.ideasui-text--warning {
+  @apply text-warning;
+}
+.ideasui-text--danger {
+  @apply text-danger;
+}
+.ideasui-text--info {
+  @apply text-info;
+}
+
+/* ── Truncation & Line Clamp ── */
+.ideasui-text--truncate {
+  @apply truncate;
+}
+
+.ideasui-text--line-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--ideasui-line-clamp);
+  overflow: hidden;
+}

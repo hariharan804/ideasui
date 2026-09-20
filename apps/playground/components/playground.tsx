@@ -21,6 +21,11 @@ const COMPONENT_LIST: ComponentItem[] = [
   // ### APPEND COMPONENT HERE ###
 
   {
+    name: 'Text',
+    category: 'Core',
+  },
+
+  {
     name: 'Button',
     category: 'Form',
     description: 'High-performance interactive trigger button with React Aria accessibility.',

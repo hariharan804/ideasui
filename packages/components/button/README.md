@@ -52,7 +52,7 @@ export function Example() {
 For interactive component playgrounds, code examples, standalone CSS usage, and the complete API reference table:
 
 - 🌐 **[Official Documentation](https://ideasui.com/react/docs/components/button)**
-- 🎨 **[Storybook Explorer](https://ideasui.com/storybook/?path=/docs/components-button)**
+- 🎨 **[Storybook Explorer](https://storybook.ideasui.com/?path=/docs/components-button)**
 - 📦 **[NPM Package](https://www.npmjs.com/package/@ideasui/button)**
 
 ---

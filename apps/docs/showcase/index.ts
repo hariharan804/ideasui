@@ -2,6 +2,7 @@
 import type { ComponentType } from 'react';
 
 import * as ButtonDemos from './button';
+import * as TextDemos from './text';
 
 export type DemoItem = {
   component: ComponentType<any>;
@@ -9,6 +10,36 @@ export type DemoItem = {
 };
 
 export const demos: Record<string, DemoItem> = {
+  // Text demos
+  'text-basic': {
+    component: TextDemos.TextBasic,
+    file: 'text/basic.tsx',
+  },
+  'text-variants': {
+    component: TextDemos.TextVariants,
+    file: 'text/variants.tsx',
+  },
+  'text-colors': {
+    component: TextDemos.TextColors,
+    file: 'text/colors.tsx',
+  },
+  'text-sizes': {
+    component: TextDemos.TextSizes,
+    file: 'text/sizes.tsx',
+  },
+  'text-weights': {
+    component: TextDemos.TextWeights,
+    file: 'text/weights.tsx',
+  },
+  'text-polymorphic': {
+    component: TextDemos.TextPolymorphic,
+    file: 'text/polymorphic.tsx',
+  },
+  'text-truncation': {
+    component: TextDemos.TextTruncation,
+    file: 'text/truncation.tsx',
+  },
+
   // Button demos
   'button-basic': {
     component: ButtonDemos.Basic,

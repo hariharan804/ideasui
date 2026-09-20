@@ -3,6 +3,8 @@
   "replace": {
     "dependencies": {
       "@ideasui/button": "canary",
+      "@ideasui/react": "canary",
+      "@ideasui/text": "canary",
       "@ideasui/ripple": "canary",
       "@ideasui/theme": "canary",
       "@ideasui/box": "canary",
