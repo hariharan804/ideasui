@@ -12,20 +12,21 @@
 
 ### Purpose
 
-`InputField` is a fully accessible, theme-aware compound form primitive for IdeasUI applications. It composes a label, input, description, and error message into a single cohesive unit using React Aria slot composition and `InputFieldContext` for shared state propagation.
+`InputField` is a fully accessible, theme-aware compound form primitive for IdeasUI applications. It composes a label, native input, description, and error message into a single cohesive unit using a native React compound component architecture and `InputFieldContext` for shared state propagation.
 
 Key Features:
 
-- Compound component architecture (`InputField`, `InputFieldLabel`, `InputFieldInput`, `InputFieldDescription`, `InputFieldError`)
-- React Aria `react-aria-components` slot integration (`slot="label"`, `slot="description"`, `slot="errorMessage"`)
-- Context inheritance via `InputFieldContext` for shared `size`, `variant`, `isDisabled`, `isInvalid`, `isRequired` state
-- Input variants (`outline`, `filled`, `flushed`, `unstyled`)
+- Pure IdeasUI compound component architecture (`InputField`, `InputFieldLabel`, `InputFieldInput`, `InputFieldDescription`, `InputFieldError`)
+- Accessible ARIA relationship wiring (`htmlFor` / `id`, `aria-describedby`, `aria-invalid`, `aria-required`)
+- Safe `aria-describedby` resolution — only links to description/error elements if they are present in the DOM
+- Support for controlled/custom `id` overrides with auto-generated `useId()` fallback
+- Context inheritance via `InputFieldContext` for shared `size`, `variant`, `isDisabled`, `isReadOnly`, `isRequired`, `isInvalid` state
+- Input variants (`outline`, `filled`, `flushed`, `unstyled`) with variant-aware invalid border styling
 - Size scale (`sm`, `md`, `lg`)
 - Semantic OKLCH color tokens — no hardcoded colors or `dark:` prefixes
-- Start and end adornment slots (`startContent`, `endContent`)
-- Controlled and uncontrolled usage via `value` / `defaultValue` / `onChange`
+- Start and end decorative adornment slots (`startContent`, `endContent`)
+- Explicit attribute spreading order — internal accessibility & slot attributes take precedence over consumer `{...properties}`
 - Full keyboard navigation and screen reader support (WCAG 2.1 AA)
-- `isDisabled`, `isReadOnly`, `isRequired`, `isInvalid` state props
 - `data-slot` attributes on every sub-component for CSS targeting
 - Zero-violation `vitest-axe` accessibility testing
 
@@ -64,7 +65,7 @@ packages/core/styles/src/components/
 ### Dependency Flow
 
 ```
-@ideasui/input-field → @ideasui/theme, @ideasui/utils, react-aria-components
+@ideasui/input-field → @ideasui/theme, @ideasui/utils
 @ideasui/react → @ideasui/input-field (re-export in master barrel)
 ```
 
@@ -74,28 +75,28 @@ packages/core/styles/src/components/
 
 ## 3. Compound Component Architecture
 
-`InputField` is a **compound component** — the root provides shared state via `InputFieldContext`, and each sub-component reads from that context to stay in sync.
+`InputField` is a **pure compound component** — the root provides shared state via `InputFieldContext`, and each sub-component reads from that context to stay in sync.
 
 ### Slot Map
 
-| Sub-Component           | `data-slot`     | React Aria slot       | Default Element |
-| ----------------------- | --------------- | --------------------- | --------------- |
-| `InputField`            | `input-field`   | —                     | `<div>`         |
-| `InputFieldLabel`       | `label`         | `slot="label"`        | `<label>`       |
-| `InputFieldInput`       | `input`         | —                     | `<input>`       |
-| `InputFieldDescription` | `description`   | `slot="description"`  | `<p>`           |
-| `InputFieldError`       | `error-message` | `slot="errorMessage"` | `<p>`           |
+| Sub-Component           | `data-slot`     | BEM Class                           | Default Element |
+| ----------------------- | --------------- | ----------------------------------- | --------------- |
+| `InputField`            | `input-field`   | `.ideasui-input-field`              | `<div>`         |
+| `InputFieldLabel`       | `label`         | `.ideasui-input-field__label`       | `<label>`       |
+| `InputFieldInput`       | `input`         | `.ideasui-input-field__input`       | `<input>`       |
+| `InputFieldDescription` | `description`   | `.ideasui-input-field__description` | `<p>`           |
+| `InputFieldError`       | `error-message` | `.ideasui-input-field__error`       | `<p>`           |
 
 ### Anatomy
 
 ```
 InputField (root — context provider)
-├── InputFieldLabel       (slot="label")
+├── InputFieldLabel       (label element)
 ├── InputFieldInput       (native input + adornments)
-│   ├── startContent      (optional icon/adornment)
-│   └── endContent        (optional icon/adornment)
-├── InputFieldDescription (slot="description", hidden when isInvalid)
-└── InputFieldError       (slot="errorMessage", shown when isInvalid)
+│   ├── startContent      (decorative icon/adornment)
+│   └── endContent        (decorative icon/adornment)
+├── InputFieldDescription (description element, hidden when isInvalid)
+└── InputFieldError       (role="alert", rendered when isInvalid)
 ```
 
 ---
@@ -125,6 +126,12 @@ import {
   <InputFieldError>Please enter a valid email address.</InputFieldError>
 </InputField>
 
+// Custom ID override
+<InputField>
+  <InputFieldLabel>Username</InputFieldLabel>
+  <InputFieldInput id="custom-username-id" placeholder="Enter username" />
+</InputField>
+
 // Invalid state
 <InputField isInvalid>
   <InputFieldLabel>Username</InputFieldLabel>
@@ -138,6 +145,15 @@ import {
   <InputFieldInput value="sk-••••••••••••" isReadOnly />
 </InputField>
 ```
+
+### ClassName Properties Distinction
+
+- **`className`** (on `InputFieldInput`) → Targets the outer **input wrapper element** (`<div>`).
+- **`inputClassName`** (on `InputFieldInput`) → Targets the native `<input>` element directly.
+
+### Adornment Restrictions
+
+- **`startContent` / `endContent`**: Wrapped in `aria-hidden="true"` spans. These content areas are **decorative only** and must NOT contain interactive controls (such as buttons or links).
 
 ### TypeScript Definition (`input-field.types.ts`)
 
@@ -180,7 +196,7 @@ export interface InputFieldProps extends HTMLAttributes<HTMLDivElement> {
   readonly isReadOnly?: boolean;
 
   /**
-   * Marks the field as required. Adds `aria-required` to the input.
+   * Marks the field as required. Adds `required` to the input and visual asterisk indicator.
    * @default false
    */
   readonly isRequired?: boolean;
@@ -216,19 +232,24 @@ export interface InputFieldLabelProps extends LabelHTMLAttributes<HTMLLabelEleme
   readonly children: ReactNode;
 }
 
-export interface InputFieldInputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputFieldInputProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  'className'
+> {
   /**
-   * Element rendered before the input (e.g. icon, currency symbol).
+   * Element rendered before the input (e.g. decorative icon, currency symbol).
+   * Note: Must be non-interactive/decorative only.
    */
   readonly startContent?: ReactNode;
 
   /**
-   * Element rendered after the input (e.g. icon, clear button).
+   * Element rendered after the input (e.g. decorative icon).
+   * Note: Must be non-interactive/decorative only.
    */
   readonly endContent?: ReactNode;
 
   /**
-   * Custom CSS class names merged via `cn()` on the input wrapper.
+   * Custom CSS class names merged via `cn()` on the outer input wrapper `<div>`.
    */
   readonly className?: string;
 
@@ -266,6 +287,10 @@ export interface InputFieldContextValue {
   readonly inputId?: string;
   readonly descriptionId?: string;
   readonly errorId?: string;
+  readonly hasDescription?: boolean;
+  readonly hasErrorMessage?: boolean;
+  readonly registerDescription?: (id: string) => () => void;
+  readonly registerErrorMessage?: (id: string) => () => void;
   readonly styles?: InputFieldReturnType;
 }
 ```
@@ -274,35 +299,38 @@ export interface InputFieldContextValue {
 
 ## 5. Design Tokens & Recipe (`packages/core/theme/src/recipes/input-field.ts`)
 
-Styles are managed using **Tailwind Variants (`tv()`)** and mapped to IdeasUI OKLCH semantic tokens. **Raw Tailwind palette colors (e.g. `gray-50`, `blue-600`) and `dark:` modifier prefixes are strictly forbidden.**
+Styles are managed using **Tailwind Variants (`tv()`)** and mapped to IdeasUI OKLCH semantic tokens.
 
 ```tsx
 import { tv, type VariantProps } from 'tailwind-variants';
 
 export const inputField = tv({
   slots: {
-    root: 'flex flex-col gap-1.5 w-full',
+    root: 'ideasui-input-field flex flex-col gap-1.5 w-full',
     label: [
-      'text-content-primary',
-      'text-sm font-medium',
+      'ideasui-input-field__label',
+      'text-content-primary text-sm font-medium',
       'transition-colors duration-150',
       'data-[disabled=true]:text-content-muted',
     ],
     wrapper: [
+      'ideasui-input-field__wrapper',
       'flex items-center w-full',
       'transition-colors duration-150',
       'focus-within:ring-2 focus-within:ring-focus',
     ],
     input: [
+      'ideasui-input-field__input',
       'flex-1 min-w-0 bg-transparent',
       'text-content-primary placeholder:text-content-muted',
       'outline-none',
       'disabled:cursor-not-allowed disabled:text-content-muted',
     ],
-    startContent: 'flex items-center text-content-tertiary shrink-0',
-    endContent: 'flex items-center text-content-tertiary shrink-0',
-    description: 'text-content-secondary text-xs leading-normal',
-    errorMessage: 'text-danger text-xs leading-normal',
+    startContent:
+      'ideasui-input-field__start-content flex items-center text-content-tertiary shrink-0',
+    endContent: 'ideasui-input-field__end-content flex items-center text-content-tertiary shrink-0',
+    description: 'ideasui-input-field__description text-content-secondary text-xs leading-normal',
+    errorMessage: 'ideasui-input-field__error text-danger text-xs leading-normal',
   },
 
   variants: {
@@ -343,7 +371,6 @@ export const inputField = tv({
 
     isInvalid: {
       true: {
-        wrapper: 'border-danger focus-within:ring-danger',
         label: 'text-danger',
         errorMessage: 'text-danger',
       },
@@ -356,6 +383,31 @@ export const inputField = tv({
       },
     },
   },
+
+  compoundVariants: [
+    // Variant-aware invalid border styling
+    {
+      variant: 'outline',
+      isInvalid: true,
+      css: {
+        wrapper: 'border-danger focus-within:ring-danger',
+      },
+    },
+    {
+      variant: 'filled',
+      isInvalid: true,
+      css: {
+        wrapper: 'border-danger focus-within:ring-danger',
+      },
+    },
+    {
+      variant: 'flushed',
+      isInvalid: true,
+      css: {
+        wrapper: 'border-b-danger focus-within:ring-danger',
+      },
+    },
+  ],
 
   defaultVariants: {
     variant: 'outline',
@@ -373,9 +425,7 @@ export type InputFieldReturnType = ReturnType<typeof inputField>;
 
 ## 6. Context Definition (`packages/components/input-field/src/input-field-context.ts`)
 
-`InputField` uses **native React context** (`createContext` / `useContext`) for shared state propagation across sub-components — not `react-aria-components`' `useContextProps`. This keeps the context layer decoupled from React Aria internals and consumable by any parent.
-
-> **Rule:** Do NOT replace `useContext` with `useContextProps` here. React Aria slot wiring is handled by passing `slot` props directly to sub-component DOM elements.
+`InputField` uses **native React context** (`createContext` / `useContext`) for shared state propagation across sub-components.
 
 ```tsx
 import type { InputFieldContextValue } from './input-field.types';
@@ -392,17 +442,6 @@ export function useInputFieldContext(): InputFieldContextValue {
 }
 ```
 
-### Usage Example (Parent providing context)
-
-```tsx
-// Sub-components automatically receive shared state from the root
-<InputField size="lg" variant="filled" isInvalid isRequired>
-  <InputFieldLabel>Password</InputFieldLabel>
-  <InputFieldInput type="password" />
-  <InputFieldError>Password must be at least 8 characters.</InputFieldError>
-</InputField>
-```
-
 ---
 
 ## 7. Component Implementation
@@ -415,7 +454,7 @@ export function useInputFieldContext(): InputFieldContextValue {
 import type { InputFieldProps } from './input-field.types';
 import type { JSX } from 'react';
 
-import { forwardRef, useId } from 'react';
+import { forwardRef, useId, useState, useCallback } from 'react';
 import { inputField } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 import { InputFieldContext } from './input-field-context';
@@ -436,9 +475,22 @@ export const InputField = forwardRef<HTMLDivElement, InputFieldProps>(
     },
     reference,
   ): JSX.Element => {
-    const inputId = useId();
+    const autoId = useId();
     const descriptionId = useId();
     const errorId = useId();
+
+    const [hasDescription, setHasDescription] = useState(false);
+    const [hasErrorMessage, setHasErrorMessage] = useState(false);
+
+    const registerDescription = useCallback(() => {
+      setHasDescription(true);
+      return () => setHasDescription(false);
+    }, []);
+
+    const registerErrorMessage = useCallback(() => {
+      setHasErrorMessage(true);
+      return () => setHasErrorMessage(false);
+    }, []);
 
     const styles = inputField({ variant, size, isDisabled, isInvalid });
 
@@ -451,13 +503,18 @@ export const InputField = forwardRef<HTMLDivElement, InputFieldProps>(
           isReadOnly,
           isRequired,
           isInvalid,
-          inputId,
+          inputId: autoId,
           descriptionId,
           errorId,
+          hasDescription,
+          hasErrorMessage,
+          registerDescription,
+          registerErrorMessage,
           styles,
         }}
       >
         <div
+          {...properties}
           ref={reference}
           className={cn(styles.root(), className)}
           data-slot="input-field"
@@ -466,7 +523,6 @@ export const InputField = forwardRef<HTMLDivElement, InputFieldProps>(
           data-required={isRequired || undefined}
           data-readonly={isReadOnly || undefined}
           style={style}
-          {...properties}
         >
           {children}
         </div>
@@ -496,6 +552,7 @@ export const InputFieldLabel = forwardRef<HTMLLabelElement, InputFieldLabelProps
 
     return (
       <label
+        {...properties}
         ref={reference}
         htmlFor={inputId}
         className={cn(styles?.label(), className)}
@@ -530,19 +587,26 @@ import { useInputFieldContext } from './input-field-context';
 
 export const InputFieldInput = forwardRef<HTMLInputElement, InputFieldInputProps>(
   (
-    { startContent, endContent, className, inputClassName, ...properties },
+    { startContent, endContent, className, inputClassName, id, ...properties },
     reference,
   ): JSX.Element => {
     const {
-      inputId,
+      inputId: contextInputId,
       descriptionId,
       errorId,
+      hasDescription,
+      hasErrorMessage,
       isDisabled,
       isReadOnly,
       isRequired,
       isInvalid,
       styles,
     } = useInputFieldContext();
+
+    const finalInputId = id ?? contextInputId;
+
+    const describedBy =
+      isInvalid && hasErrorMessage ? errorId : hasDescription ? descriptionId : undefined;
 
     return (
       <div className={cn(styles?.wrapper(), className)} data-slot="input-wrapper">
@@ -552,17 +616,17 @@ export const InputFieldInput = forwardRef<HTMLInputElement, InputFieldInputProps
           </span>
         )}
         <input
+          {...properties}
           ref={reference}
-          id={inputId}
+          id={finalInputId}
           className={cn(styles?.input(), inputClassName)}
           disabled={isDisabled}
           readOnly={isReadOnly}
           required={isRequired}
           aria-required={isRequired || undefined}
           aria-invalid={isInvalid || undefined}
-          aria-describedby={isInvalid ? errorId : descriptionId}
+          aria-describedby={describedBy}
           data-slot="input"
-          {...properties}
         />
         {endContent && (
           <span className={styles?.endContent()} data-slot="end-content" aria-hidden="true">
@@ -585,25 +649,29 @@ InputFieldInput.displayName = 'IdeasUI.InputFieldInput';
 import type { InputFieldDescriptionProps } from './input-field.types';
 import type { JSX } from 'react';
 
-import { forwardRef } from 'react';
+import { forwardRef, useEffect } from 'react';
 import { cn } from '@ideasui/utils';
 import { useInputFieldContext } from './input-field-context';
 
 export const InputFieldDescription = forwardRef<HTMLParagraphElement, InputFieldDescriptionProps>(
   ({ className, children, ...properties }, reference): JSX.Element => {
-    const { descriptionId, isInvalid, styles } = useInputFieldContext();
+    const { descriptionId, isInvalid, registerDescription, styles } = useInputFieldContext();
 
-    // Hidden when field is invalid — error message takes over
+    useEffect(() => {
+      if (registerDescription) {
+        return registerDescription();
+      }
+    }, [registerDescription]);
+
     if (isInvalid) return <></>;
 
     return (
       <p
+        {...properties}
         ref={reference}
         id={descriptionId}
         className={cn(styles?.description(), className)}
         data-slot="description"
-        slot="description"
-        {...properties}
       >
         {children}
       </p>
@@ -622,27 +690,30 @@ InputFieldDescription.displayName = 'IdeasUI.InputFieldDescription';
 import type { InputFieldErrorProps } from './input-field.types';
 import type { JSX } from 'react';
 
-import { forwardRef } from 'react';
+import { forwardRef, useEffect } from 'react';
 import { cn } from '@ideasui/utils';
 import { useInputFieldContext } from './input-field-context';
 
 export const InputFieldError = forwardRef<HTMLParagraphElement, InputFieldErrorProps>(
   ({ className, children, ...properties }, reference): JSX.Element => {
-    const { errorId, isInvalid, styles } = useInputFieldContext();
+    const { errorId, isInvalid, registerErrorMessage, styles } = useInputFieldContext();
 
-    // Only rendered when field is invalid
+    useEffect(() => {
+      if (registerErrorMessage && isInvalid) {
+        return registerErrorMessage();
+      }
+    }, [registerErrorMessage, isInvalid]);
+
     if (!isInvalid) return <></>;
 
     return (
       <p
+        {...properties}
         ref={reference}
         id={errorId}
         className={cn(styles?.errorMessage(), className)}
         data-slot="error-message"
-        slot="errorMessage"
         role="alert"
-        aria-live="polite"
-        {...properties}
       >
         {children}
       </p>
@@ -673,10 +744,6 @@ For standalone CSS usage (without Tailwind), `@ideasui/styles` exports BEM modif
   font-size: var(--ideasui-font-size-sm);
   font-weight: var(--ideasui-font-weight-medium, 500);
   transition: color 150ms ease;
-}
-.ideasui-input-field__label--required::after {
-  content: ' *';
-  color: oklch(var(--ideasui-color-danger));
 }
 
 /* Input wrapper */
@@ -780,8 +847,12 @@ For standalone CSS usage (without Tailwind), `@ideasui/styles` exports BEM modif
 }
 
 /* Invalid state */
-.ideasui-input-field--invalid .ideasui-input-field__wrapper {
+.ideasui-input-field--invalid .ideasui-input-field__wrapper--outline,
+.ideasui-input-field--invalid .ideasui-input-field__wrapper--filled {
   border-color: oklch(var(--ideasui-color-danger));
+}
+.ideasui-input-field--invalid .ideasui-input-field__wrapper--flushed {
+  border-bottom-color: oklch(var(--ideasui-color-danger));
 }
 .ideasui-input-field--invalid .ideasui-input-field__wrapper:focus-within {
   box-shadow: 0 0 0 2px oklch(var(--ideasui-color-danger));
@@ -796,110 +867,52 @@ For standalone CSS usage (without Tailwind), `@ideasui/styles` exports BEM modif
   cursor: not-allowed;
   pointer-events: none;
 }
-
-/* prefers-reduced-motion — suppressed via @ideasui/styles global rule */
 ```
 
 ---
 
 ## 9. Compound Component Behavior Rules
 
-| Behavior                            | Rule                                                                                                          |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `isInvalid=true`                    | `InputFieldDescription` is hidden; `InputFieldError` is rendered with `role="alert"` and `aria-live="polite"` |
-| `isInvalid=false`                   | `InputFieldError` renders nothing (`<></>`); `InputFieldDescription` is visible                               |
-| `isDisabled=true`                   | Propagated via context to all sub-components; `pointer-events: none` on wrapper                               |
-| `isRequired=true`                   | `aria-required="true"` on `<input>`; visual `*` indicator on label via `aria-hidden` span                     |
-| `isReadOnly=true`                   | `readOnly` on `<input>`; no visual change by default                                                          |
-| `startContent` / `endContent`       | Wrapped in `aria-hidden` spans — purely decorative; screen readers skip them                                  |
-| `inputId`                           | Auto-generated via `useId()` on root; wired to `<label htmlFor>` and `<input id>` automatically               |
-| `descriptionId` / `errorId`         | Auto-generated via `useId()`; wired to `aria-describedby` on `<input>`                                        |
-| `useInputFieldContext` outside root | Throws a descriptive error — never silently returns `null`                                                    |
+| Behavior                            | Rule                                                                                                   |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `isInvalid=true`                    | `InputFieldDescription` is hidden; `InputFieldError` is rendered with `role="alert"`                   |
+| `isInvalid=false`                   | `InputFieldError` renders nothing (`<></>`); `InputFieldDescription` is visible                        |
+| `isDisabled=true`                   | Propagated via context to all sub-components; `pointer-events: none` on wrapper                        |
+| `isRequired=true`                   | `required` on `<input>`; visual `*` indicator on label via `aria-hidden` span                          |
+| `isReadOnly=true`                   | `readOnly` on `<input>`                                                                                |
+| `startContent` / `endContent`       | Wrapped in `aria-hidden` spans — purely decorative/non-interactive                                     |
+| `inputId`                           | Auto-generated via `useId()` fallback; controllable via explicit `id` prop on `InputFieldInput`        |
+| `aria-describedby`                  | Safely resolves ONLY if target description/error elements exist in DOM                                 |
+| Spreading `{...properties}`         | Spread BEFORE internal accessibility & slot props so internal accessibility attributes take precedence |
+| `useInputFieldContext` outside root | Throws a descriptive error — never silently returns `null`                                             |
 
 ---
 
 ## 10. Accessibility Requirements (WCAG 2.1 AA)
 
-- **Label association**: `<label htmlFor={inputId}>` is always wired to `<input id={inputId}>` via auto-generated `useId()` — no manual `id` prop required.
-- **`aria-required`**: Set on `<input>` when `isRequired=true`. The visual indicator uses `aria-hidden="true"` to avoid double-announcing.
-- **`aria-invalid`**: Set on `<input>` when `isInvalid=true` to signal invalid state to screen readers.
-- **`aria-describedby`**: Points to `errorId` when `isInvalid=true`, otherwise to `descriptionId`. Only one is active at a time.
-- **`role="alert"` + `aria-live="polite"`**: On `InputFieldError` so error messages are announced to screen readers when they appear.
-- **`aria-hidden` on adornments**: `startContent` and `endContent` are wrapped in `aria-hidden="true"` spans — they are decorative and must not be read by screen readers.
-- **Keyboard navigation**: Native `<input>` element ensures full keyboard support out of the box.
-- **Contrast Ratios**: All color tokens map to OKLCH variables meeting or exceeding 4.5:1 contrast in light and dark modes.
-- **`prefers-reduced-motion`**: `transition-colors` and `transition-border` are suppressed via the global `@media (prefers-reduced-motion: reduce)` rule in `@ideasui/styles`.
-- **A11y Tests (`vitest-axe`)**: Must pass zero-violation automated accessibility testing:
-
-```tsx
-import { render } from '@testing-library/react';
-import { axe } from 'vitest-axe';
-import {
-  InputField,
-  InputFieldLabel,
-  InputFieldInput,
-  InputFieldDescription,
-  InputFieldError,
-} from '../src';
-
-it('should have zero accessibility violations in default state', async () => {
-  const { container } = render(
-    <InputField>
-      <InputFieldLabel>Email</InputFieldLabel>
-      <InputFieldInput type="email" placeholder="you@example.com" />
-      <InputFieldDescription>We will never share your email.</InputFieldDescription>
-    </InputField>,
-  );
-  expect(await axe(container)).toHaveNoViolations();
-});
-
-it('should have zero accessibility violations in invalid state', async () => {
-  const { container } = render(
-    <InputField isInvalid>
-      <InputFieldLabel>Email</InputFieldLabel>
-      <InputFieldInput type="email" />
-      <InputFieldError>Invalid email address.</InputFieldError>
-    </InputField>,
-  );
-  expect(await axe(container)).toHaveNoViolations();
-});
-```
+- **Label association**: `<label htmlFor={finalInputId}>` is always wired to `<input id={finalInputId}>`.
+- **`required` / `aria-required`**: Set on `<input>` when `isRequired=true`.
+- **`aria-invalid`**: Set on `<input>` when `isInvalid=true`.
+- **Safe `aria-describedby`**: Points to `errorId` when `isInvalid=true` AND `InputFieldError` is present; points to `descriptionId` when `InputFieldDescription` is present; omitted if neither exists.
+- **`role="alert"`**: Applied to `InputFieldError` without redundant `aria-live` attributes.
+- **Decorative Adornments**: `startContent` and `endContent` are wrapped in `aria-hidden="true"` spans.
+- **Keyboard navigation**: Native `<input>` element ensures full keyboard support.
+- **Contrast Ratios**: Color tokens map to OKLCH variables meeting 4.5:1 contrast.
+- **Attribute Precedence**: Spreading `{...properties}` early ensures accessibility wiring cannot be broken by consumer props.
+- **A11y Tests (`vitest-axe`)**: Zero-violation automated accessibility testing.
 
 ---
 
-## 11. Typography System Boundaries (`InputField` vs `Text`)
+## 11. Definition of Done Checklist
 
-| Feature                | `InputField`                                                | `Text`                                      |
-| ---------------------- | ----------------------------------------------------------- | ------------------------------------------- |
-| **Primary Focus**      | Form input with label, description, error                   | Standalone typography rendering             |
-| **Label Element**      | `<label>` wired via `htmlFor` / `useId()`                   | `<label>` via `as="label"` (no auto-wiring) |
-| **Error Handling**     | Built-in `isInvalid` + `InputFieldError` slot               | No built-in error state                     |
-| **Context**            | `InputFieldContext` (shared state across 5 sub-components)  | `TextContext` (shared style props only)     |
-| **Slot Compatibility** | `slot="label"`, `slot="description"`, `slot="errorMessage"` | `slot="description"`, `slot="label"`        |
-
----
-
-## 12. Definition of Done Checklist
-
-- [ ] Package created at `packages/components/input-field/`
-- [ ] Recipe created at `packages/core/theme/src/recipes/input-field.ts`
-- [ ] Standalone BEM CSS created at `packages/core/styles/src/components/input-field.css`
-- [ ] `index.ts` barrel exports all 5 sub-components, `InputFieldContext`, `useInputFieldContext`, and all public types
-- [ ] Exported through `@ideasui/react` master barrel
-- [ ] All 4 variants (`outline`, `filled`, `flushed`, `unstyled`) implemented and verified
-- [ ] All 3 sizes (`sm`, `md`, `lg`) implemented and verified
-- [ ] `isDisabled`, `isReadOnly`, `isRequired`, `isInvalid` state props propagated via context
-- [ ] `startContent` and `endContent` adornment slots implemented with `aria-hidden`
-- [ ] `inputId`, `descriptionId`, `errorId` auto-generated via `useId()` and wired correctly
-- [ ] `aria-required`, `aria-invalid`, `aria-describedby` set correctly on `<input>`
-- [ ] `InputFieldError` renders with `role="alert"` and `aria-live="polite"`
-- [ ] `InputFieldDescription` hidden when `isInvalid=true`; `InputFieldError` hidden when `isInvalid=false`
-- [ ] `useInputFieldContext` throws descriptive error when used outside `<InputField>`
-- [ ] `displayName` set on all 5 sub-components (`IdeasUI.InputField*`)
-- [ ] `data-slot` attribute rendered on all 5 sub-components
-- [ ] All semantic OKLCH colors used — no hardcoded colors or `dark:` prefixes
-- [ ] `vitest-axe` accessibility tests pass with 0 violations (default + invalid state)
-- [ ] `prefers-reduced-motion` suppression verified via `@ideasui/styles` global rule
-- [ ] Storybook stories created (`Basic`, `Variants`, `Sizes`, `States`, `Adornments`, `Validation`, `Playground`)
-- [ ] Documentation page created at `apps/docs/content/react/components/input-field.mdx`
+- [ ] Architecture confirmed as pure IdeasUI compound component
+- [ ] Explicit property spreading order verified (`{...properties}` spread before internal accessibility attributes)
+- [ ] Safe `aria-describedby` presence tracking implemented (`hasDescription`, `hasErrorMessage`)
+- [ ] Controlled `id` support on `InputFieldInput` (`id ?? contextInputId`)
+- [ ] `role="alert"` used on `InputFieldError` (redundant `aria-live="polite"` removed)
+- [ ] Documentation updated to clarify `className` (wrapper) vs `inputClassName` (input)
+- [ ] Documentation explicitly notes `startContent` / `endContent` are non-interactive/decorative
+- [ ] Variant-aware invalid border styling verified (`outline`, `filled`, `flushed`)
+- [ ] Monorepo BEM namespace `ideasui-input-field` applied in recipe and standalone CSS
+- [ ] `vitest-axe` accessibility tests pass with 0 violations
 - [ ] Monorepo `pnpm typecheck` and `pnpm lint` pass cleanly

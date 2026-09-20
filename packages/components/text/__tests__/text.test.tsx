@@ -11,6 +11,8 @@ describe('Text Component', () => {
 
     expect(element.tagName).toBe('P');
     expect(element).toHaveAttribute('data-slot', 'text');
+    expect(element).toHaveClass('ideasui-text');
+    expect(element).toHaveClass('ideasui-text--body');
   });
 
   it('supports polymorphic as prop rendering different elements', () => {
@@ -33,9 +35,10 @@ describe('Text Component', () => {
     );
     const element = screen.getByText('Styled Text');
 
-    expect(element).toHaveClass('text-lg');
-    expect(element).toHaveClass('font-bold');
-    expect(element).toHaveClass('text-content-secondary');
+    expect(element).toHaveClass('ideasui-text--lead');
+    expect(element).toHaveClass('ideasui-text--size-lg');
+    expect(element).toHaveClass('ideasui-text--weight-bold');
+    expect(element).toHaveClass('ideasui-text--color-secondary');
   });
 
   it('renders distinct classes for each typographic variant when no size/weight prop is specified', () => {
@@ -57,17 +60,12 @@ describe('Text Component', () => {
     const overline = screen.getByText('Overline Text');
     const code = screen.getByText('Code Text');
 
-    expect(lead).toHaveClass('text-lg');
-    expect(body).toHaveClass('text-base');
-    expect(label).toHaveClass('font-medium');
-    expect(label).toHaveClass('text-sm');
-    expect(caption).toHaveClass('text-xs');
-    expect(caption).toHaveClass('text-content-tertiary');
-    expect(overline).toHaveClass('text-[10px]');
-    expect(overline).toHaveClass('font-bold');
-    expect(overline).toHaveClass('uppercase');
-    expect(code).toHaveClass('font-mono');
-    expect(code).toHaveClass('text-xs');
+    expect(lead).toHaveClass('ideasui-text--lead');
+    expect(body).toHaveClass('ideasui-text--body');
+    expect(label).toHaveClass('ideasui-text--label');
+    expect(caption).toHaveClass('ideasui-text--caption');
+    expect(overline).toHaveClass('ideasui-text--overline');
+    expect(code).toHaveClass('ideasui-text--code');
   });
 
   it('renders heading variants (h1-h6) with appropriate heading tags and classes', () => {
@@ -90,21 +88,24 @@ describe('Text Component', () => {
     const h6 = screen.getByText('Heading 6');
 
     expect(h1.tagName).toBe('H1');
-    expect(h1).toHaveClass('font-extrabold');
+    expect(h1).toHaveClass('ideasui-text--h1');
     expect(h2.tagName).toBe('H2');
-    expect(h2).toHaveClass('font-bold');
+    expect(h2).toHaveClass('ideasui-text--h2');
     expect(h3.tagName).toBe('H3');
+    expect(h3).toHaveClass('ideasui-text--h3');
     expect(h4.tagName).toBe('H4');
+    expect(h4).toHaveClass('ideasui-text--h4');
     expect(h5.tagName).toBe('H5');
+    expect(h5).toHaveClass('ideasui-text--h5');
     expect(h6.tagName).toBe('H6');
+    expect(h6).toHaveClass('ideasui-text--h6');
   });
 
   it('renders helper variant correctly for form supporting text', () => {
     render(<Text variant="helper">Form helper note</Text>);
     const helper = screen.getByText('Form helper note');
 
-    expect(helper).toHaveClass('text-xs');
-    expect(helper).toHaveClass('text-content-secondary');
+    expect(helper).toHaveClass('ideasui-text--helper');
   });
 
   it('applies alignment and truncate props correctly', () => {
@@ -115,8 +116,8 @@ describe('Text Component', () => {
     );
     const element = screen.getByText('Centered Truncated Text');
 
-    expect(element).toHaveClass('text-center');
-    expect(element).toHaveClass('truncate');
+    expect(element).toHaveClass('ideasui-text--align-center');
+    expect(element).toHaveClass('ideasui-text--truncate');
   });
 
   it('applies multi-line lineClamp styles correctly', () => {
@@ -126,7 +127,7 @@ describe('Text Component', () => {
     expect(element).toHaveStyle({
       '--ideasui-line-clamp': '3',
     });
-    expect(element).toHaveClass('line-clamp-[var(--ideasui-line-clamp)]');
+    expect(element).toHaveClass('ideasui-text--line-clamp');
   });
 
   it('supports slot prop for composition while retaining data-slot="text"', () => {
@@ -148,9 +149,9 @@ describe('Text Component', () => {
     expect(element).toHaveStyle({
       '--ideasui-line-clamp': '2',
     });
-    expect(element).toHaveClass('line-clamp-[var(--ideasui-line-clamp)]');
-    // Truncate recipe class 'truncate' should not be applied when lineClamp is active
-    expect(element).not.toHaveClass('truncate');
+    expect(element).toHaveClass('ideasui-text--line-clamp');
+    // Truncate BEM class 'ideasui-text--truncate' should not be applied when lineClamp is active
+    expect(element).not.toHaveClass('ideasui-text--truncate');
   });
 
   it('forwards data-testid and custom attributes to the DOM element', () => {

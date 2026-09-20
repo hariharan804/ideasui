@@ -107,7 +107,7 @@ export const Colors: Story = {
       <Text color="secondary">Secondary — Muted supporting text color</Text>
       <Text color="tertiary">Tertiary — Subtle metadata color</Text>
       <Text color="muted">Muted — Low emphasis text color</Text>
-      <div className="bg-surface-overlay rounded-md p-2">
+      <div className="bg-on-surface rounded-md p-2">
         <Text color="inverse">Inverse — Contrast text on dark surface</Text>
       </div>
       <Text color="success">Success — Positively confirmed operation</Text>

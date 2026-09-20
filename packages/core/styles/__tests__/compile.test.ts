@@ -98,7 +98,7 @@ describe('@ideasui/styles compilation outputs', () => {
     expect(css).not.toContain('box-sizing:border-box');
 
     // Should compile button component utilities
-    expect(css).toContain('.btn');
+    expect(css).toContain('.ideasui-btn');
   });
 
   it('should export the version entry points', () => {

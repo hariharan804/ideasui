@@ -1,0 +1,261 @@
+---
+title: InputField
+description: An accessible text input field supporting compound composition, single-component shorthand usage, floating labels, icons, and WCAG 2.1 AA compliant validation states.
+links:
+  npm: true
+  rac: https://react-spectrum.adobe.com/react-aria/TextField.html
+  source: input-field/src/input-field.tsx
+  recipe: core/theme/src/recipes/input-field/input-field.ts
+  storybook: Components/InputField
+---
+
+<QuickNav
+  items={[
+    {
+      title: 'Basic Usage',
+      description: 'Implementation and common usage.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'Composition Patterns',
+      description: 'Single-component shorthand vs compound composition.',
+      href: '#composition-patterns',
+    },
+    {
+      title: 'Label Variants',
+      description: 'Default, inside-fixed, inside-floating, and floating label styles.',
+      href: '#label-variants',
+    },
+    {
+      title: 'Visual Variants',
+      description: 'Outline, filled, flushed, and unstyled appearance options.',
+      href: '#visual-variants',
+    },
+    {
+      title: 'Sizes',
+      description: 'Small (sm), Medium (md), and Large (lg) scales.',
+      href: '#sizes',
+    },
+    {
+      title: 'States & Validation',
+      description: 'Disabled, read-only, required, and error state handling.',
+      href: '#states--validation',
+    },
+    {
+      title: 'Controlled State',
+      description: 'Managing input value with React state.',
+      href: '#controlled-state',
+    },
+    {
+      title: 'Input Filtering',
+      description:
+        'Restricting allowed characters with numeric, decimal, alpha, and alphanumeric filters.',
+      href: '#input-filtering',
+    },
+    {
+      title: 'API Reference',
+      description: 'Complete InputField component and sub-component props.',
+      href: '#api-reference',
+    },
+  ]}
+/>
+
+## Installation
+
+<InstallTabs pkg="@ideasui/input-field" />
+
+## Import
+
+Only a single import statement is required for both shorthand usage and compound composition:
+
+```tsx
+import { InputField } from '@ideasui/react';
+// or from the individual package
+import { InputField } from '@ideasui/input-field';
+```
+
+## Basic Usage
+
+The `InputField` component can be used out of the box using shorthand props for clean and simple forms.
+
+<Preview name="input-field-basic" />
+
+```tsx
+<InputField
+  label="Email address"
+  placeholder="you@example.com"
+  description="We will never share your email address."
+  startContent={<Mail className="h-4 w-4" />}
+/>
+```
+
+## Composition Patterns
+
+`InputField` supports both **Single Component (Shorthand)** and **Compound Composition** using the same single import.
+
+<Preview name="input-field-shorthand" />
+
+### Single Component (Shorthand)
+
+Pass high-level props (`label`, `placeholder`, `description`, `errorMessage`, `startContent`, `endContent`) directly to `<InputField />`.
+
+```tsx
+<InputField
+  label="Email Address"
+  placeholder="you@example.com"
+  description="Single component shorthand usage."
+  startContent={<Mail className="h-4 w-4" />}
+/>
+```
+
+### Compound Composition
+
+For custom layout flexibility and element control, use static dot-notation sub-components (`InputField.Label`, `InputField.Input`, `InputField.Description`, `InputField.Error`).
+
+```tsx
+<InputField size="md" variant="outline">
+  <InputField.Label>Password</InputField.Label>
+  <InputField.Input
+    type="password"
+    placeholder="Enter your password"
+    startContent={<Lock className="h-4 w-4" />}
+  />
+  <InputField.Description>Must be at least 8 characters long.</InputField.Description>
+</InputField>
+```
+
+## Label Variants
+
+`InputField` supports four distinct label positioning variants:
+
+- **`default`** — Label sits above the input field.
+- **`inside-fixed`** — Label sits permanently inside the top of the input surface.
+- **`inside-floating`** — Label sits inside as a placeholder and transitions to the top inside position on focus/value.
+- **`floating`** — Label starts inside and floats over the top border on focus/value.
+
+<Preview name="input-field-label-variants" />
+
+```tsx
+<InputField labelVariant="default" label="Default Label" />
+<InputField labelVariant="inside-fixed" label="Inside Fixed Label" />
+<InputField labelVariant="inside-floating" label="Inside Floating Label" />
+<InputField labelVariant="floating" label="Floating Label" />
+```
+
+## Visual Variants
+
+Control visual styling using the `variant` prop:
+
+- **`outline`** — Standard border container (default).
+- **`filled`** — Soft filled surface background.
+- **`shadow`** — Subtle elevated shadow container.
+- **`flushed`** — Minimal underline border.
+- **`unstyled`** — Bare input element without border or background styles.
+
+<Preview name="input-field-variants" />
+
+```tsx
+<InputField variant="outline" label="Outline" />
+<InputField variant="filled" label="Filled" />
+<InputField variant="shadow" label="Shadow" />
+<InputField variant="flushed" label="Flushed" />
+<InputField variant="unstyled" label="Unstyled" />
+```
+
+## Sizes
+
+Choose between three size scales: `sm` (small), `md` (medium / default), and `lg` (large).
+
+<Preview name="input-field-sizes" />
+
+```tsx
+<InputField size="sm" label="Small" />
+<InputField size="md" label="Medium" />
+<InputField size="lg" label="Large" />
+```
+
+## States & Validation
+
+`InputField` handles interactive, read-only, disabled, required, and error states seamlessly across all sub-components and ARIA attributes.
+
+<Preview name="input-field-states" />
+
+```tsx
+{
+  /* Required Field */
+}
+<InputField label="Required Field" isRequired />;
+
+{
+  /* Disabled State */
+}
+<InputField label="Disabled Field" isDisabled />;
+
+{
+  /* Read-Only State */
+}
+<InputField label="Read Only Field" isReadOnly defaultValue="read.only@example.com" />;
+
+{
+  /* Invalid / Error State */
+}
+<InputField label="Invalid State" isInvalid errorMessage="Please enter a valid email address." />;
+```
+
+## Controlled State
+
+Manage the input value using standard React state (`value` and `onChange`). When `value` changes dynamically, floating labels automatically adjust their position.
+
+<Preview name="input-field-controlled" />
+
+```tsx
+import { useState } from 'react';
+import { InputField } from '@ideasui/react';
+
+export function ControlledExample() {
+  const [value, setValue] = useState('user@example.com');
+
+  return (
+    <InputField label="Controlled Input" value={value} onChange={(e) => setValue(e.target.value)} />
+  );
+}
+```
+
+## Input Filtering
+
+Restrict allowed character entry into the input using the `inputFilter` prop without mixing responsibilities with native HTML `type` or virtual keyboard `inputMode`.
+
+- **`numeric`** — Allows only digits (`0-9`). Automatically sets `inputMode="numeric"`.
+- **`decimal`** — Allows digits and a single decimal point (`0-9`, `.`). Automatically sets `inputMode="decimal"`.
+- **`alpha`** — Allows only alphabetic letters (`A-Z`, `a-z`).
+- **`alphanumeric`** — Allows only alphanumeric characters (`A-Z`, `a-z`, `0-9`).
+
+<Preview name="input-field-filter" />
+
+```tsx
+{
+  /* Numeric Filter */
+}
+<InputField inputFilter="numeric" label="Numeric Only" placeholder="123456" />;
+
+{
+  /* Decimal Filter */
+}
+<InputField inputFilter="decimal" label="Decimal Amount" placeholder="99.99" />;
+
+{
+  /* Alpha Filter */
+}
+<InputField inputFilter="alpha" label="First Name" placeholder="Hariharan" />;
+
+{
+  /* Alphanumeric Filter */
+}
+<InputField inputFilter="alphanumeric" label="Username" placeholder="Hari123" />;
+```
+
+---
+
+## API Reference
+
+<APIReferenceViewer componentName="inputField" />

@@ -38,7 +38,7 @@ export function ComponentPreviewContainer({
   return (
     <div
       className={cn(
-        'not-prose group border-border-subtle/30 bg-surface-background relative my-6 w-full overflow-hidden rounded-2xl border transition-all duration-200',
+        'not-prose group border-border-subtle/30 bg-background relative my-6 w-full overflow-hidden rounded-2xl border transition-all duration-200',
         className,
       )}
       data-name={name}
@@ -52,7 +52,7 @@ export function ComponentPreviewContainer({
       {/* Preview Canvas Section */}
       <div
         className={cn(
-          'preview bg-surface-subtle/60 relative flex w-full overflow-hidden p-6 sm:p-10',
+          'preview bg-background border-border-subtle relative flex w-full overflow-hidden border-b p-6 sm:p-10',
           alignmentClasses[align],
           // isBgSolid ? 'bg-surface-subtle' : 'bg-surface/50',
         )}

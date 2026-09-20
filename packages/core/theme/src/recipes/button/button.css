@@ -5,409 +5,413 @@
  */
 
 /* ── Base Block ───────────────────────────────────────────────────────────── */
-.btn {
+.ideasui-btn {
   @apply focus-visible:ring-primary relative inline-flex cursor-pointer items-center justify-center gap-2 overflow-hidden font-medium transition-all duration-200 ease-in-out select-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95 data-[pressed=true]:scale-95 motion-reduce:transition-none motion-reduce:active:scale-100 motion-reduce:data-[pressed=true]:scale-100;
 }
 
 /* ── Elements ─────────────────────────────────────────────────────────────── */
-.btn__icon {
+.ideasui-btn__icon {
   @apply inline-flex shrink-0 items-center justify-center;
 }
 
-.btn__label {
+.ideasui-btn__label {
   @apply inline-flex items-center truncate;
 }
 
-.btn__loader {
+.ideasui-btn__loader {
   @apply inline-flex shrink-0 items-center justify-center;
 }
 
-.btn__shortcut {
+.ideasui-btn__shortcut {
   @apply ms-auto inline-flex items-center font-sans text-sm tracking-widest;
 }
 
 /* ── Icon Slot Sizes ──────────────────────────────────────────────────────── */
-.btn__icon.btn__icon--xs {
+.ideasui-btn__icon.ideasui-btn__icon--xs {
   @apply size-3.5;
 }
-.btn__icon.btn__icon--sm {
+.ideasui-btn__icon.ideasui-btn__icon--sm {
   @apply size-4;
 }
-.btn__icon.btn__icon--md {
+.ideasui-btn__icon.ideasui-btn__icon--md {
   @apply size-5;
 }
-.btn__icon.btn__icon--lg {
+.ideasui-btn__icon.ideasui-btn__icon--lg {
   @apply size-6;
 }
-.btn__icon.btn__icon--xl {
+.ideasui-btn__icon.ideasui-btn__icon--xl {
   @apply size-7;
 }
 
 /* ── Size Modifiers ───────────────────────────────────────────────────────── */
-.btn.btn--xs {
+.ideasui-btn.ideasui-btn--xs {
   @apply h-7 px-2 text-xs;
 }
-.btn.btn--sm {
+.ideasui-btn.ideasui-btn--sm {
   @apply h-8 px-3 text-sm;
 }
-.btn.btn--md {
+.ideasui-btn.ideasui-btn--md {
   @apply h-10 px-4 text-base;
 }
-.btn.btn--lg {
+.ideasui-btn.ideasui-btn--lg {
   @apply h-12 px-6 text-lg;
 }
-.btn.btn--xl {
+.ideasui-btn.ideasui-btn--xl {
   @apply h-14 px-8 text-xl;
 }
 
 /* ── Radius Modifiers ─────────────────────────────────────────────────────── */
-.btn.btn--radius-none {
+.ideasui-btn.ideasui-btn--radius-none {
   @apply rounded-none;
 }
-.btn.btn--radius-sm {
+.ideasui-btn.ideasui-btn--radius-sm {
   @apply rounded-sm;
 }
-.btn.btn--radius-md {
+.ideasui-btn.ideasui-btn--radius-md {
   @apply rounded-md;
 }
-.btn.btn--radius-lg {
+.ideasui-btn.ideasui-btn--radius-lg {
   @apply rounded-lg;
 }
-.btn.btn--radius-xl {
+.ideasui-btn.ideasui-btn--radius-xl {
   @apply rounded-xl;
 }
-.btn.btn--radius-full {
+.ideasui-btn.ideasui-btn--radius-full {
   @apply rounded-full;
 }
 
 /* ── Variant Modifiers ────────────────────────────────────────────────────── */
-.btn.btn--solid {
+.ideasui-btn.ideasui-btn--solid {
   @apply border-transparent;
 }
-.btn.btn--outline {
+.ideasui-btn.ideasui-btn--outline {
   @apply border bg-transparent;
 }
-.btn.btn--ghost {
+.ideasui-btn.ideasui-btn--ghost {
   @apply bg-transparent;
 }
-.btn.btn--soft {
+.ideasui-btn.ideasui-btn--soft {
   @apply bg-transparent;
 }
-.btn.btn--link {
+.ideasui-btn.ideasui-btn--link {
   @apply bg-transparent font-normal underline-offset-4 hover:underline;
 }
-.btn.btn--text {
+.ideasui-btn.ideasui-btn--text {
   @apply bg-transparent font-normal;
 }
-.btn.btn--elevated {
+.ideasui-btn.ideasui-btn--elevated {
   @apply bg-surface border border-transparent;
 }
-.btn.btn--surface {
+.ideasui-btn.ideasui-btn--surface {
   @apply bg-surface-muted;
 }
 
 /* ── Color × Variant Combinations ─────────────────────────────────────────── */
 /* Solid */
-.btn.btn--solid.btn--primary {
+.ideasui-btn.ideasui-btn--solid.ideasui-btn--primary {
   @apply bg-primary text-on-primary hover:bg-primary/90 data-[hovered=true]:bg-primary/90 active:bg-primary/80 data-[pressed=true]:bg-primary/80;
 }
-.btn.btn--solid.btn--secondary {
+.ideasui-btn.ideasui-btn--solid.ideasui-btn--secondary {
   @apply bg-secondary text-on-secondary hover:bg-secondary/90 data-[hovered=true]:bg-secondary/90 active:bg-secondary/80 data-[pressed=true]:bg-secondary/80;
 }
-.btn.btn--solid.btn--tertiary {
+.ideasui-btn.ideasui-btn--solid.ideasui-btn--tertiary {
   @apply bg-tertiary text-on-tertiary hover:bg-tertiary/90 data-[hovered=true]:bg-tertiary/90 active:bg-tertiary/80 data-[pressed=true]:bg-tertiary/80;
 }
-.btn.btn--solid.btn--success {
+.ideasui-btn.ideasui-btn--solid.ideasui-btn--success {
   @apply bg-success text-on-success hover:bg-success/90 data-[hovered=true]:bg-success/90 active:bg-success/80 data-[pressed=true]:bg-success/80;
 }
-.btn.btn--solid.btn--warning {
+.ideasui-btn.ideasui-btn--solid.ideasui-btn--warning {
   @apply bg-warning text-on-warning hover:bg-warning/90 data-[hovered=true]:bg-warning/90 active:bg-warning/80 data-[pressed=true]:bg-warning/80;
 }
-.btn.btn--solid.btn--danger {
+.ideasui-btn.ideasui-btn--solid.ideasui-btn--danger {
   @apply bg-danger text-on-danger hover:bg-danger/90 data-[hovered=true]:bg-danger/90 active:bg-danger/80 data-[pressed=true]:bg-danger/80;
 }
-.btn.btn--solid.btn--info {
+.ideasui-btn.ideasui-btn--solid.ideasui-btn--info {
   @apply bg-info text-on-info hover:bg-info/90 data-[hovered=true]:bg-info/90 active:bg-info/80 data-[pressed=true]:bg-info/80;
 }
-.btn.btn--solid.btn--neutral {
+.ideasui-btn.ideasui-btn--solid.ideasui-btn--neutral {
   @apply bg-neutral text-on-neutral hover:bg-neutral/90 data-[hovered=true]:bg-neutral/90 active:bg-neutral/80 data-[pressed=true]:bg-neutral/80;
 }
 
 /* Outline */
-.btn.btn--outline.btn--primary {
+.ideasui-btn.ideasui-btn--outline.ideasui-btn--primary {
   @apply border-primary text-primary hover:bg-primary-subtle data-[hovered=true]:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
-.btn.btn--outline.btn--secondary {
+.ideasui-btn.ideasui-btn--outline.ideasui-btn--secondary {
   @apply border-secondary text-secondary hover:bg-secondary-subtle data-[hovered=true]:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
-.btn.btn--outline.btn--tertiary {
+.ideasui-btn.ideasui-btn--outline.ideasui-btn--tertiary {
   @apply border-tertiary text-tertiary hover:bg-tertiary-subtle data-[hovered=true]:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
-.btn.btn--outline.btn--success {
+.ideasui-btn.ideasui-btn--outline.ideasui-btn--success {
   @apply border-success text-success hover:bg-success-subtle data-[hovered=true]:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
-.btn.btn--outline.btn--warning {
+.ideasui-btn.ideasui-btn--outline.ideasui-btn--warning {
   @apply border-warning text-warning hover:bg-warning-subtle data-[hovered=true]:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
-.btn.btn--outline.btn--danger {
+.ideasui-btn.ideasui-btn--outline.ideasui-btn--danger {
   @apply border-danger text-danger hover:bg-danger-subtle data-[hovered=true]:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
-.btn.btn--outline.btn--info {
+.ideasui-btn.ideasui-btn--outline.ideasui-btn--info {
   @apply border-info text-info hover:bg-info-subtle data-[hovered=true]:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
-.btn.btn--outline.btn--neutral {
+.ideasui-btn.ideasui-btn--outline.ideasui-btn--neutral {
   @apply border-neutral text-neutral hover:bg-neutral-subtle data-[hovered=true]:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Ghost */
-.btn.btn--ghost.btn--primary {
+.ideasui-btn.ideasui-btn--ghost.ideasui-btn--primary {
   @apply text-primary hover:bg-primary-subtle data-[hovered=true]:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
-.btn.btn--ghost.btn--secondary {
+.ideasui-btn.ideasui-btn--ghost.ideasui-btn--secondary {
   @apply text-secondary hover:bg-secondary-subtle data-[hovered=true]:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
-.btn.btn--ghost.btn--tertiary {
+.ideasui-btn.ideasui-btn--ghost.ideasui-btn--tertiary {
   @apply text-tertiary hover:bg-tertiary-subtle data-[hovered=true]:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
-.btn.btn--ghost.btn--success {
+.ideasui-btn.ideasui-btn--ghost.ideasui-btn--success {
   @apply text-success hover:bg-success-subtle data-[hovered=true]:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
-.btn.btn--ghost.btn--warning {
+.ideasui-btn.ideasui-btn--ghost.ideasui-btn--warning {
   @apply text-warning hover:bg-warning-subtle data-[hovered=true]:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
-.btn.btn--ghost.btn--danger {
+.ideasui-btn.ideasui-btn--ghost.ideasui-btn--danger {
   @apply text-danger hover:bg-danger-subtle data-[hovered=true]:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
-.btn.btn--ghost.btn--info {
+.ideasui-btn.ideasui-btn--ghost.ideasui-btn--info {
   @apply text-info hover:bg-info-subtle data-[hovered=true]:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
-.btn.btn--ghost.btn--neutral {
+.ideasui-btn.ideasui-btn--ghost.ideasui-btn--neutral {
   @apply text-neutral hover:bg-neutral-subtle data-[hovered=true]:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Soft */
-.btn.btn--soft.btn--primary {
+.ideasui-btn.ideasui-btn--soft.ideasui-btn--primary {
   @apply bg-primary-subtle text-on-primary-subtle hover:bg-primary-muted data-[hovered=true]:bg-primary-muted active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
-.btn.btn--soft.btn--secondary {
+.ideasui-btn.ideasui-btn--soft.ideasui-btn--secondary {
   @apply bg-secondary-subtle text-on-secondary-subtle hover:bg-secondary-muted data-[hovered=true]:bg-secondary-muted active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
-.btn.btn--soft.btn--tertiary {
+.ideasui-btn.ideasui-btn--soft.ideasui-btn--tertiary {
   @apply bg-tertiary-subtle text-on-tertiary-subtle hover:bg-tertiary-muted data-[hovered=true]:bg-tertiary-muted active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
-.btn.btn--soft.btn--success {
+.ideasui-btn.ideasui-btn--soft.ideasui-btn--success {
   @apply bg-success-subtle text-on-success-subtle hover:bg-success-muted data-[hovered=true]:bg-success-muted active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
-.btn.btn--soft.btn--warning {
+.ideasui-btn.ideasui-btn--soft.ideasui-btn--warning {
   @apply bg-warning-subtle text-on-warning-subtle hover:bg-warning-muted data-[hovered=true]:bg-warning-muted active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
-.btn.btn--soft.btn--danger {
+.ideasui-btn.ideasui-btn--soft.ideasui-btn--danger {
   @apply bg-danger-subtle text-on-danger-subtle hover:bg-danger-muted data-[hovered=true]:bg-danger-muted active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
-.btn.btn--soft.btn--info {
+.ideasui-btn.ideasui-btn--soft.ideasui-btn--info {
   @apply bg-info-subtle text-on-info-subtle hover:bg-info-muted data-[hovered=true]:bg-info-muted active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
-.btn.btn--soft.btn--neutral {
+.ideasui-btn.ideasui-btn--soft.ideasui-btn--neutral {
   @apply bg-neutral-subtle text-on-neutral-subtle hover:bg-neutral-muted data-[hovered=true]:bg-neutral-muted active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Surface */
-.btn.btn--surface.btn--primary {
+.ideasui-btn.ideasui-btn--surface.ideasui-btn--primary {
   @apply text-primary hover:bg-primary-subtle data-[hovered=true]:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
-.btn.btn--surface.btn--secondary {
+.ideasui-btn.ideasui-btn--surface.ideasui-btn--secondary {
   @apply text-secondary hover:bg-secondary-subtle data-[hovered=true]:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
-.btn.btn--surface.btn--tertiary {
+.ideasui-btn.ideasui-btn--surface.ideasui-btn--tertiary {
   @apply text-tertiary hover:bg-tertiary-subtle data-[hovered=true]:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
-.btn.btn--surface.btn--success {
+.ideasui-btn.ideasui-btn--surface.ideasui-btn--success {
   @apply text-success hover:bg-success-subtle data-[hovered=true]:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
-.btn.btn--surface.btn--warning {
+.ideasui-btn.ideasui-btn--surface.ideasui-btn--warning {
   @apply text-warning hover:bg-warning-subtle data-[hovered=true]:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
-.btn.btn--surface.btn--danger {
+.ideasui-btn.ideasui-btn--surface.ideasui-btn--danger {
   @apply text-danger hover:bg-danger-subtle data-[hovered=true]:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
-.btn.btn--surface.btn--info {
+.ideasui-btn.ideasui-btn--surface.ideasui-btn--info {
   @apply text-info hover:bg-info-subtle data-[hovered=true]:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
-.btn.btn--surface.btn--neutral {
+.ideasui-btn.ideasui-btn--surface.ideasui-btn--neutral {
   @apply text-neutral hover:bg-neutral-subtle data-[hovered=true]:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Link */
-.btn.btn--link.btn--primary {
+.ideasui-btn.ideasui-btn--link.ideasui-btn--primary {
   @apply text-primary hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
-.btn.btn--link.btn--secondary {
+.ideasui-btn.ideasui-btn--link.ideasui-btn--secondary {
   @apply text-secondary hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
-.btn.btn--link.btn--tertiary {
+.ideasui-btn.ideasui-btn--link.ideasui-btn--tertiary {
   @apply text-tertiary hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
-.btn.btn--link.btn--success {
+.ideasui-btn.ideasui-btn--link.ideasui-btn--success {
   @apply text-success hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
-.btn.btn--link.btn--warning {
+.ideasui-btn.ideasui-btn--link.ideasui-btn--warning {
   @apply text-warning hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
-.btn.btn--link.btn--danger {
+.ideasui-btn.ideasui-btn--link.ideasui-btn--danger {
   @apply text-danger hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
-.btn.btn--link.btn--info {
+.ideasui-btn.ideasui-btn--link.ideasui-btn--info {
   @apply text-info hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
-.btn.btn--link.btn--neutral {
+.ideasui-btn.ideasui-btn--link.ideasui-btn--neutral {
   @apply text-neutral hover:opacity-80 active:opacity-60 data-[hovered=true]:opacity-80 data-[pressed=true]:opacity-60;
 }
 
 /* Text */
-.btn.btn--text.btn--primary {
+.ideasui-btn.ideasui-btn--text.ideasui-btn--primary {
   @apply text-primary hover:bg-primary-subtle data-[hovered=true]:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
-.btn.btn--text.btn--secondary {
+.ideasui-btn.ideasui-btn--text.ideasui-btn--secondary {
   @apply text-secondary hover:bg-secondary-subtle data-[hovered=true]:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
-.btn.btn--text.btn--tertiary {
+.ideasui-btn.ideasui-btn--text.ideasui-btn--tertiary {
   @apply text-tertiary hover:bg-tertiary-subtle data-[hovered=true]:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
-.btn.btn--text.btn--success {
+.ideasui-btn.ideasui-btn--text.ideasui-btn--success {
   @apply text-success hover:bg-success-subtle data-[hovered=true]:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
-.btn.btn--text.btn--warning {
+.ideasui-btn.ideasui-btn--text.ideasui-btn--warning {
   @apply text-warning hover:bg-warning-subtle data-[hovered=true]:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
-.btn.btn--text.btn--danger {
+.ideasui-btn.ideasui-btn--text.ideasui-btn--danger {
   @apply text-danger hover:bg-danger-subtle data-[hovered=true]:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
-.btn.btn--text.btn--info {
+.ideasui-btn.ideasui-btn--text.ideasui-btn--info {
   @apply text-info hover:bg-info-subtle data-[hovered=true]:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
-.btn.btn--text.btn--neutral {
+.ideasui-btn.ideasui-btn--text.ideasui-btn--neutral {
   @apply text-neutral hover:bg-neutral-subtle data-[hovered=true]:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Elevated */
-.btn.btn--elevated.btn--elevation-none {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--elevation-none {
   @apply shadow-none;
 }
-.btn.btn--elevated.btn--elevation-xs {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--elevation-xs {
   @apply shadow-xs hover:shadow-sm active:shadow-xs data-[hovered=true]:shadow-sm data-[pressed=true]:shadow-xs;
 }
-.btn.btn--elevated.btn--elevation-sm {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--elevation-sm {
   @apply shadow-sm hover:shadow-md active:shadow-sm data-[hovered=true]:shadow-md data-[pressed=true]:shadow-sm;
 }
-.btn.btn--elevated.btn--elevation-md {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--elevation-md {
   @apply shadow-md hover:shadow-lg active:shadow-md data-[hovered=true]:shadow-lg data-[pressed=true]:shadow-md;
 }
-.btn.btn--elevated.btn--elevation-lg {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--elevation-lg {
   @apply shadow-lg hover:shadow-xl active:shadow-lg data-[hovered=true]:shadow-xl data-[pressed=true]:shadow-lg;
 }
-.btn.btn--elevated.btn--elevation-xl {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--elevation-xl {
   @apply shadow-xl hover:shadow-2xl active:shadow-xl data-[hovered=true]:shadow-2xl data-[pressed=true]:shadow-xl;
 }
-.btn.btn--elevated.btn--elevation-2xl {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--elevation-2xl {
   @apply shadow-2xl hover:shadow-inner active:shadow-2xl data-[hovered=true]:shadow-inner data-[pressed=true]:shadow-2xl;
 }
 
-.btn.btn--elevated.btn--primary {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--primary {
   @apply text-primary border-primary/10 hover:bg-primary-subtle data-[hovered=true]:bg-primary-subtle active:bg-primary-muted data-[pressed=true]:bg-primary-muted;
 }
-.btn.btn--elevated.btn--secondary {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--secondary {
   @apply text-secondary border-secondary/10 hover:bg-secondary-subtle data-[hovered=true]:bg-secondary-subtle active:bg-secondary-muted data-[pressed=true]:bg-secondary-muted;
 }
-.btn.btn--elevated.btn--tertiary {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--tertiary {
   @apply text-tertiary border-tertiary/10 hover:bg-tertiary-subtle data-[hovered=true]:bg-tertiary-subtle active:bg-tertiary-muted data-[pressed=true]:bg-tertiary-muted;
 }
-.btn.btn--elevated.btn--success {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--success {
   @apply text-success border-success/10 hover:bg-success-subtle data-[hovered=true]:bg-success-subtle active:bg-success-muted data-[pressed=true]:bg-success-muted;
 }
-.btn.btn--elevated.btn--warning {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--warning {
   @apply text-warning border-warning/10 hover:bg-warning-subtle data-[hovered=true]:bg-warning-subtle active:bg-warning-muted data-[pressed=true]:bg-warning-muted;
 }
-.btn.btn--elevated.btn--danger {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--danger {
   @apply text-danger border-danger/10 hover:bg-danger-subtle data-[hovered=true]:bg-danger-subtle active:bg-danger-muted data-[pressed=true]:bg-danger-muted;
 }
-.btn.btn--elevated.btn--info {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--info {
   @apply text-info border-info/10 hover:bg-info-subtle data-[hovered=true]:bg-info-subtle active:bg-info-muted data-[pressed=true]:bg-info-muted;
 }
-.btn.btn--elevated.btn--neutral {
+.ideasui-btn.ideasui-btn--elevated.ideasui-btn--neutral {
   @apply text-neutral border-neutral/10 hover:bg-neutral-subtle data-[hovered=true]:bg-neutral-subtle active:bg-neutral-muted data-[pressed=true]:bg-neutral-muted;
 }
 
 /* Icon Only */
-.btn.btn--icon-only {
+.ideasui-btn.ideasui-btn--icon-only {
   @apply aspect-square p-0;
 }
-.btn.btn--icon-only.btn--xs {
+.ideasui-btn.ideasui-btn--icon-only.ideasui-btn--xs {
   @apply size-7;
 }
-.btn.btn--icon-only.btn--sm {
+.ideasui-btn.ideasui-btn--icon-only.ideasui-btn--sm {
   @apply size-8;
 }
-.btn.btn--icon-only.btn--md {
+.ideasui-btn.ideasui-btn--icon-only.ideasui-btn--md {
   @apply size-10;
 }
-.btn.btn--icon-only.btn--lg {
+.ideasui-btn.ideasui-btn--icon-only.ideasui-btn--lg {
   @apply size-12;
 }
-.btn.btn--icon-only.btn--xl {
+.ideasui-btn.ideasui-btn--icon-only.ideasui-btn--xl {
   @apply size-14;
 }
 
 /* ── States ───────────────────────────────────────────────────────────────── */
-.btn.btn--disabled,
-.btn:disabled,
-.btn[data-disabled='true'] {
+.ideasui-btn.ideasui-btn--disabled,
+.ideasui-btn:disabled,
+.ideasui-btn[data-disabled='true'] {
   @apply pointer-events-none cursor-not-allowed opacity-50;
 }
-.btn.btn--loading {
+.ideasui-btn.ideasui-btn--loading {
   @apply pointer-events-none cursor-wait opacity-80;
 }
-.btn.btn--full-width {
+.ideasui-btn.ideasui-btn--full-width {
   @apply w-full;
 }
-.btn.btn--no-animation {
+.ideasui-btn.ideasui-btn--no-animation {
   @apply transition-none active:scale-100;
 }
 
 /* ── Group / Attached ─────────────────────────────────────────────────────── */
-.btn.btn--attached {
+.ideasui-btn.ideasui-btn--attached {
   @apply relative hover:z-10 focus-visible:z-20 active:scale-100 data-[hovered=true]:z-10 data-[pressed=true]:z-10;
 }
 
 /* Horizontal Attached Buttons */
-.btn.btn--attached:not(.btn--vertical) {
+.ideasui-btn.ideasui-btn--attached:not(.ideasui-btn--vertical) {
   @apply -ms-px first:ms-0;
   @apply first:rounded-e-none last:rounded-s-none [&:not(:first-child):not(:last-child)]:rounded-none;
 }
 
 /* Vertical Attached Buttons */
-.btn.btn--attached.btn--vertical {
+.ideasui-btn.ideasui-btn--attached.ideasui-btn--vertical {
   @apply -mt-px first:mt-0;
   @apply first:rounded-b-none last:rounded-t-none [&:not(:first-child):not(:last-child)]:rounded-none;
 }
 
 /* Divider - Full */
-.btn.btn--attached.btn--divider-full:not(.btn--outline):not(.btn--ghost):not(.btn--link):not(
-    .btn--text
-  ):not(:first-child):not(.btn--vertical) {
+.ideasui-btn.ideasui-btn--attached.ideasui-btn--divider-full:not(.ideasui-btn--outline):not(
+    .ideasui-btn--ghost
+  ):not(.ideasui-btn--link):not(.ideasui-btn--text):not(:first-child):not(.ideasui-btn--vertical) {
   @apply border-s-border-base/30 border-s;
 }
-.btn.btn--attached.btn--divider-full:not(.btn--outline):not(.btn--ghost):not(.btn--link):not(
-    .btn--text
-  ).btn--vertical:not(:first-child) {
+.ideasui-btn.ideasui-btn--attached.ideasui-btn--divider-full:not(.ideasui-btn--outline):not(
+    .ideasui-btn--ghost
+  ):not(.ideasui-btn--link):not(.ideasui-btn--text).ideasui-btn--vertical:not(:first-child) {
   @apply border-t-border-base/30 border-t;
 }
 
 /* Divider - Middle */
-.btn.btn--attached.btn--divider-middle:not(:first-child):not(.btn--vertical)::before {
+.ideasui-btn.ideasui-btn--attached.ideasui-btn--divider-middle:not(:first-child):not(
+    .ideasui-btn--vertical
+  )::before {
   content: '';
   @apply bg-border-base/30 pointer-events-none absolute inset-y-2 start-0 w-px;
 }
-.btn.btn--attached.btn--vertical.btn--divider-middle:not(:first-child)::before {
+.ideasui-btn.ideasui-btn--attached.ideasui-btn--vertical.ideasui-btn--divider-middle:not(
+    :first-child
+  )::before {
   content: '';
   @apply bg-border-base/30 pointer-events-none absolute inset-x-2 top-0 h-px w-auto;
 }

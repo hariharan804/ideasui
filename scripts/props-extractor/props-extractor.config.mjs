@@ -75,6 +75,50 @@ export const extractConfig = {
         },
       ],
     },
+    inputField: {
+      componentName: 'InputField',
+      interfaces: [
+        {
+          name: 'InputField',
+          title: 'InputField Props',
+          description: 'Root wrapper and shorthand single-component interface for input fields',
+          filePath: '../../packages/components/input-field/src/input-field.types.ts',
+          interfaceName: 'InputFieldProps',
+        },
+        {
+          name: 'InputFieldLabel',
+          componentName: 'InputField.Label',
+          title: 'InputField Label Props',
+          description: 'Label component for the input field',
+          filePath: '../../packages/components/input-field/src/input-field.types.ts',
+          interfaceName: 'InputFieldLabelProps',
+        },
+        {
+          name: 'InputFieldInput',
+          componentName: 'InputField.Input',
+          title: 'InputField Input Props',
+          description: 'Native HTML input primitive wrapper',
+          filePath: '../../packages/components/input-field/src/input-field.types.ts',
+          interfaceName: 'InputFieldInputProps',
+        },
+        {
+          name: 'InputFieldDescription',
+          componentName: 'InputField.Description',
+          title: 'InputField Description Props',
+          description: 'Helper description text component for the input field',
+          filePath: '../../packages/components/input-field/src/input-field.types.ts',
+          interfaceName: 'InputFieldDescriptionProps',
+        },
+        {
+          name: 'InputFieldError',
+          componentName: 'InputField.Error',
+          title: 'InputField Error Props',
+          description: 'Error message text component for validation states',
+          filePath: '../../packages/components/input-field/src/input-field.types.ts',
+          interfaceName: 'InputFieldErrorProps',
+        },
+      ],
+    },
   },
 };
 export default extractConfig;

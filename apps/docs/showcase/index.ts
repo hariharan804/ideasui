@@ -2,6 +2,7 @@
 import type { ComponentType } from 'react';
 
 import * as ButtonDemos from './button';
+import * as InputFieldDemos from './input-field';
 import * as TextDemos from './text';
 
 export type DemoItem = {
@@ -146,6 +147,40 @@ export const demos: Record<string, DemoItem> = {
   'button-group-dividers': {
     component: ButtonDemos.ButtonGroupDividers,
     file: 'button/button-group-dividers.tsx',
+  },
+
+  // InputField demos
+  'input-field-basic': {
+    component: InputFieldDemos.Basic,
+    file: 'input-field/basic.tsx',
+  },
+  'input-field-shorthand': {
+    component: InputFieldDemos.ShorthandVsCompound,
+    file: 'input-field/shorthand-vs-compound.tsx',
+  },
+  'input-field-label-variants': {
+    component: InputFieldDemos.LabelVariants,
+    file: 'input-field/label-variants.tsx',
+  },
+  'input-field-variants': {
+    component: InputFieldDemos.VisualVariants,
+    file: 'input-field/variants.tsx',
+  },
+  'input-field-sizes': {
+    component: InputFieldDemos.Sizes,
+    file: 'input-field/sizes.tsx',
+  },
+  'input-field-states': {
+    component: InputFieldDemos.States,
+    file: 'input-field/states.tsx',
+  },
+  'input-field-controlled': {
+    component: InputFieldDemos.Controlled,
+    file: 'input-field/controlled.tsx',
+  },
+  'input-field-filter': {
+    component: InputFieldDemos.InputFilter,
+    file: 'input-field/input-filter.tsx',
   },
 };
 

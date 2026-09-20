@@ -3,76 +3,84 @@ import type { VariantProps } from 'tailwind-variants';
 import { tv } from 'tailwind-variants';
 
 /**
- * Text recipe — maps typography props to Tailwind class names.
+ * Text recipe — maps variant props → BEM class names only.
+ * Structural and utility styles live in text.css.
  */
 export const text = tv({
-  base: ['text-content-primary', 'transition-colors', 'duration-150'],
+  base: 'ideasui-text',
 
   variants: {
     variant: {
-      body: 'text-base leading-relaxed',
-      label: 'text-sm font-medium tracking-tight',
-      caption: 'text-content-tertiary text-xs leading-normal',
-      overline: 'text-content-tertiary text-[10px] font-bold tracking-widest uppercase',
-      code: 'font-mono text-xs bg-surface-muted px-1.5 py-0.5 rounded-md',
-      lead: 'text-lg font-normal leading-relaxed sm:text-xl',
-      helper: 'text-content-secondary text-xs leading-normal',
-      h1: 'text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl',
-      h2: 'text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl',
-      h3: 'text-xl font-bold tracking-tight sm:text-2xl md:text-3xl',
-      h4: 'text-lg font-semibold tracking-tight sm:text-xl',
-      h5: 'text-base font-semibold tracking-tight sm:text-lg',
-      h6: 'text-sm font-semibold tracking-tight',
+      body: 'ideasui-text--body',
+      label: 'ideasui-text--label',
+      caption: 'ideasui-text--caption',
+      overline: 'ideasui-text--overline',
+      code: 'ideasui-text--code',
+      lead: 'ideasui-text--lead',
+      helper: 'ideasui-text--helper',
+      h1: 'ideasui-text--h1',
+      h2: 'ideasui-text--h2',
+      h3: 'ideasui-text--h3',
+      h4: 'ideasui-text--h4',
+      h5: 'ideasui-text--h5',
+      h6: 'ideasui-text--h6',
     },
 
     size: {
-      xs: 'text-xs',
-      sm: 'text-sm',
-      md: 'text-base',
-      lg: 'text-lg',
-      xl: 'text-xl',
-      '2xl': 'text-2xl',
+      xs: 'ideasui-text--size-xs',
+      sm: 'ideasui-text--size-sm',
+      md: 'ideasui-text--size-md',
+      lg: 'ideasui-text--size-lg',
+      xl: 'ideasui-text--size-xl',
+      '2xl': 'ideasui-text--size-2xl',
+      '3xl': 'ideasui-text--size-3xl',
+      '4xl': 'ideasui-text--size-4xl',
+      '5xl': 'ideasui-text--size-5xl',
     },
 
     weight: {
-      regular: 'font-normal',
-      medium: 'font-medium',
-      semibold: 'font-semibold',
-      bold: 'font-bold',
+      regular: 'ideasui-text--weight-regular',
+      medium: 'ideasui-text--weight-medium',
+      semibold: 'ideasui-text--weight-semibold',
+      bold: 'ideasui-text--weight-bold',
     },
 
     color: {
-      primary: 'text-content-primary',
-      secondary: 'text-content-secondary',
-      tertiary: 'text-content-tertiary',
-      muted: 'text-content-muted',
-      inverse: 'text-content-inverse',
-      success: 'text-success',
-      warning: 'text-warning',
-      danger: 'text-danger',
-      info: 'text-info',
+      primary: 'ideasui-text--color-primary',
+      secondary: 'ideasui-text--color-secondary',
+      tertiary: 'ideasui-text--color-tertiary',
+      muted: 'ideasui-text--color-muted',
+      inverse: 'ideasui-text--color-inverse',
+      success: 'ideasui-text--color-success',
+      warning: 'ideasui-text--color-warning',
+      danger: 'ideasui-text--color-danger',
+      info: 'ideasui-text--color-info',
     },
 
     align: {
-      start: 'text-start',
-      center: 'text-center',
-      end: 'text-end',
-      justify: 'text-justify',
+      start: 'ideasui-text--align-start',
+      center: 'ideasui-text--align-center',
+      end: 'ideasui-text--align-end',
+      justify: 'ideasui-text--align-justify',
     },
 
     truncate: {
-      true: 'truncate',
+      true: 'ideasui-text--truncate',
     },
 
     lineClamp: {
-      true: 'line-clamp-[var(--ideasui-line-clamp)]',
+      true: 'ideasui-text--line-clamp',
     },
   },
 
   defaultVariants: {
     variant: 'body',
+    size: 'md',
+    weight: 'regular',
+    color: 'primary',
     align: 'start',
     truncate: false,
+    lineClamp: false,
   },
 });
 

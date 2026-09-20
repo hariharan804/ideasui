@@ -50,10 +50,10 @@ export const Text = forwardRef<HTMLElement, TextProps>((props, reference): JSX.E
 
   const defaultComponent = VARIANT_ELEMENT_MAP[variant];
   const Component = as ?? defaultComponent;
-  const isTruncated = !lineClamp && truncate;
-  const isLineClamped = Boolean(lineClamp);
+  const isLineClamped = typeof lineClamp === 'number' && lineClamp > 0;
+  const isTruncated = !isLineClamped && truncate;
 
-  const computedStyle = lineClamp
+  const computedStyle = isLineClamped
     ? ({ ...style, '--ideasui-line-clamp': lineClamp } as CSSProperties)
     : style;
 

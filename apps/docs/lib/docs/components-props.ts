@@ -23,6 +23,7 @@ export interface PropsDocumentation {
   button: ComponentDoc[];
   buttonGroup: ComponentDoc[];
   text: ComponentDoc[];
+  inputField: ComponentDoc[];
 }
 
 /**
@@ -30,6 +31,7 @@ export interface PropsDocumentation {
  * - Button: ButtonBaseProperties, ButtonLabelProperties, ButtonIconProperties, ButtonSpinnerProperties, ButtonShortcutProperties
  * - ButtonGroup: ButtonGroupProperties
  * - Text: TextProps
+ * - InputField: InputFieldProps, InputFieldLabelProps, InputFieldInputProps, InputFieldDescriptionProps, InputFieldErrorProps
  */
 export const propsDocumentation: PropsDocumentation = {
   button: [
@@ -387,6 +389,337 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: null,
           deprecated: false,
           description: 'Children content to render inside the text element.',
+        },
+      ],
+    },
+  ],
+  inputField: [
+    {
+      componentName: 'InputField',
+      title: 'InputField Props',
+      component: '<InputField />',
+      description: 'Root wrapper and shorthand single-component interface for input fields',
+      props: [
+        {
+          name: 'variant',
+          type: 'InputFieldVariant',
+          required: false,
+          defaultValue: "'outline'",
+          deprecated: false,
+          description: 'Visual style variant of the input surface.',
+        },
+        {
+          name: 'labelVariant',
+          type: 'InputFieldLabelVariant',
+          required: false,
+          defaultValue: "'default'",
+          deprecated: false,
+          description: 'Positioning and behavior variant of the label.',
+        },
+        {
+          name: 'size',
+          type: 'InputFieldSize',
+          required: false,
+          defaultValue: "'md'",
+          deprecated: false,
+          description: 'Size scale of the input field.',
+        },
+        {
+          name: 'shadow',
+          type: 'InputFieldShadow | boolean',
+          required: false,
+          defaultValue: "'none' (or 'sm' when variant=\"shadow\")",
+          deprecated: false,
+          description: 'Shadow elevation scale of the input field surface.',
+        },
+        {
+          name: 'isDisabled',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Marks the field as disabled. Propagated to all sub-components via context.',
+        },
+        {
+          name: 'isReadOnly',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Marks the field as read-only.',
+        },
+        {
+          name: 'isRequired',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description:
+            'Marks the field as required. Adds `required` to the input and visual asterisk indicator.',
+        },
+        {
+          name: 'isInvalid',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description:
+            'Marks the field as invalid. Shows `InputFieldError`, hides `InputFieldDescription`.',
+        },
+        {
+          name: 'label',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Label text or node rendered when used as a single component.',
+        },
+        {
+          name: 'placeholder',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Native placeholder text rendered when used as a single component.',
+        },
+        {
+          name: 'description',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Helper description text rendered when used as a single component.',
+        },
+        {
+          name: 'errorMessage',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Error message text rendered when `isInvalid` is true in single component usage.',
+        },
+        {
+          name: 'startContent',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Element rendered before the input (e.g. decorative icon).',
+        },
+        {
+          name: 'endContent',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Element rendered after the input (e.g. decorative icon).',
+        },
+        {
+          name: 'value',
+          type: 'string | number',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Current value of the input when used as a single component.',
+        },
+        {
+          name: 'defaultValue',
+          type: 'string | number',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Initial uncontrolled value of the input when used as a single component.',
+        },
+        {
+          name: 'type',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: "Input element HTML type (e.g. 'text', 'email', 'password').",
+        },
+        {
+          name: 'inputFilter',
+          type: 'InputFieldInputFilter',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            "Character input filter restricting allowed entry ('numeric', 'decimal', 'alpha', 'alphanumeric').",
+        },
+        {
+          name: 'onChange',
+          type: '(event: ChangeEvent<HTMLInputElement>) => void',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Change event handler when used as a single component.',
+        },
+        {
+          name: 'onFocus',
+          type: '(event: FocusEvent<HTMLInputElement>) => void',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Focus event handler when used as a single component.',
+        },
+        {
+          name: 'onBlur',
+          type: '(event: FocusEvent<HTMLInputElement>) => void',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Blur event handler when used as a single component.',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()`.',
+        },
+        {
+          name: 'style',
+          type: 'CSSProperties',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Inline styles applied to the root wrapper element.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Sub-components (compound pattern) OR omit for single-component shorthand pattern.',
+        },
+      ],
+    },
+    {
+      componentName: 'InputField.Label',
+      title: 'InputField Label Props',
+      component: '<InputField.Label />',
+      description: 'Label component for the input field',
+      props: [
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()`.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: true,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Label content.',
+        },
+      ],
+    },
+    {
+      componentName: 'InputField.Input',
+      title: 'InputField Input Props',
+      component: '<InputField.Input />',
+      description: 'Native HTML input primitive wrapper',
+      props: [
+        {
+          name: 'startContent',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Element rendered before the input (e.g. decorative icon, currency symbol). Note: Must be non-interactive/decorative only.',
+        },
+        {
+          name: 'endContent',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Element rendered after the input (e.g. decorative icon). Note: Must be non-interactive/decorative only.',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Custom CSS class names merged via `cn()` on the outer input wrapper `<div>`.',
+        },
+        {
+          name: 'inputClassName',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()` on the native `<input>` element.',
+        },
+        {
+          name: 'inputFilter',
+          type: 'InputFieldInputFilter',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            "Character input filter restricting allowed entry ('numeric', 'decimal', 'alpha', 'alphanumeric').",
+        },
+      ],
+    },
+    {
+      componentName: 'InputField.Description',
+      title: 'InputField Description Props',
+      component: '<InputField.Description />',
+      description: 'Helper description text component for the input field',
+      props: [
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()`.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: true,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Helper description content.',
+        },
+      ],
+    },
+    {
+      componentName: 'InputField.Error',
+      title: 'InputField Error Props',
+      component: '<InputField.Error />',
+      description: 'Error message text component for validation states',
+      props: [
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()`.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: true,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Error message content.',
         },
       ],
     },

@@ -1,68 +1,147 @@
 /**
- * Text Component Standalone CSS
+ * Text Component CSS
  * Source of truth for visual styling for the Text component.
  * Uses BEM selectors + Tailwind CSS v4 @apply directives.
  */
 
+/* ── Base Block ───────────────────────────────────────────────────────────── */
 .ideasui-text {
-  @apply text-content-primary transition-colors duration-150;
+  @apply transition-colors duration-150;
 }
 
-/* ── Sizes ── */
-.ideasui-text--xs {
+/* ── Variants ─────────────────────────────────────────────────────────────── */
+.ideasui-text.ideasui-text--body {
+  @apply text-base leading-relaxed;
+}
+.ideasui-text.ideasui-text--label {
+  @apply text-sm font-medium tracking-tight;
+}
+.ideasui-text.ideasui-text--caption {
+  @apply text-content-tertiary text-xs leading-normal;
+}
+.ideasui-text.ideasui-text--overline {
+  @apply text-content-tertiary text-[10px] font-bold tracking-widest uppercase;
+}
+.ideasui-text.ideasui-text--code {
+  @apply bg-surface-muted rounded-md px-1.5 py-0.5 font-mono text-xs;
+}
+.ideasui-text.ideasui-text--lead {
+  @apply text-lg leading-relaxed font-normal sm:text-xl;
+}
+.ideasui-text.ideasui-text--helper {
+  @apply text-content-secondary text-xs leading-normal;
+}
+.ideasui-text.ideasui-text--h1 {
+  @apply text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl;
+}
+.ideasui-text.ideasui-text--h2 {
+  @apply text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl;
+}
+.ideasui-text.ideasui-text--h3 {
+  @apply text-xl font-bold tracking-tight sm:text-2xl md:text-3xl;
+}
+.ideasui-text.ideasui-text--h4 {
+  @apply text-lg font-semibold tracking-tight sm:text-xl;
+}
+.ideasui-text.ideasui-text--h5 {
+  @apply text-base font-semibold tracking-tight sm:text-lg;
+}
+.ideasui-text.ideasui-text--h6 {
+  @apply text-sm font-semibold tracking-tight;
+}
+
+/* ── Sizes ────────────────────────────────────────────────────────────────── */
+.ideasui-text.ideasui-text--size-xs {
   @apply text-xs;
 }
-.ideasui-text--sm {
+.ideasui-text.ideasui-text--size-sm {
   @apply text-sm;
 }
-.ideasui-text--md {
+.ideasui-text.ideasui-text--size-md {
   @apply text-base;
 }
-.ideasui-text--lg {
+.ideasui-text.ideasui-text--size-lg {
   @apply text-lg;
 }
-.ideasui-text--xl {
+.ideasui-text.ideasui-text--size-xl {
   @apply text-xl;
 }
-.ideasui-text--2xl {
+.ideasui-text.ideasui-text--size-2xl {
   @apply text-2xl;
 }
+.ideasui-text.ideasui-text--size-3xl {
+  @apply text-3xl;
+}
+.ideasui-text.ideasui-text--size-4xl {
+  @apply text-4xl;
+}
+.ideasui-text.ideasui-text--size-5xl {
+  @apply text-5xl;
+}
 
-/* ── Colors ── */
-.ideasui-text--primary {
+/* ── Weights ──────────────────────────────────────────────────────────────── */
+.ideasui-text.ideasui-text--weight-regular {
+  @apply font-normal;
+}
+.ideasui-text.ideasui-text--weight-medium {
+  @apply font-medium;
+}
+.ideasui-text.ideasui-text--weight-semibold {
+  @apply font-semibold;
+}
+.ideasui-text.ideasui-text--weight-bold {
+  @apply font-bold;
+}
+
+/* ── Colors ───────────────────────────────────────────────────────────────── */
+.ideasui-text.ideasui-text--color-primary {
   @apply text-content-primary;
 }
-.ideasui-text--secondary {
+.ideasui-text.ideasui-text--color-secondary {
   @apply text-content-secondary;
 }
-.ideasui-text--tertiary {
+.ideasui-text.ideasui-text--color-tertiary {
   @apply text-content-tertiary;
 }
-.ideasui-text--muted {
+.ideasui-text.ideasui-text--color-muted {
   @apply text-content-muted;
 }
-.ideasui-text--inverse {
+.ideasui-text.ideasui-text--color-inverse {
   @apply text-content-inverse;
 }
-.ideasui-text--success {
+.ideasui-text.ideasui-text--color-success {
   @apply text-success;
 }
-.ideasui-text--warning {
+.ideasui-text.ideasui-text--color-warning {
   @apply text-warning;
 }
-.ideasui-text--danger {
+.ideasui-text.ideasui-text--color-danger {
   @apply text-danger;
 }
-.ideasui-text--info {
+.ideasui-text.ideasui-text--color-info {
   @apply text-info;
 }
 
-/* ── Truncation & Line Clamp ── */
-.ideasui-text--truncate {
+/* ── Align ────────────────────────────────────────────────────────────────── */
+.ideasui-text.ideasui-text--align-start {
+  @apply text-start;
+}
+.ideasui-text.ideasui-text--align-center {
+  @apply text-center;
+}
+.ideasui-text.ideasui-text--align-end {
+  @apply text-end;
+}
+.ideasui-text.ideasui-text--align-justify {
+  @apply text-justify;
+}
+
+/* ── Truncation & Line Clamp ──────────────────────────────────────────────── */
+.ideasui-text.ideasui-text--truncate {
   @apply truncate;
 }
 
-.ideasui-text--line-clamp {
+.ideasui-text.ideasui-text--line-clamp {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: var(--ideasui-line-clamp);

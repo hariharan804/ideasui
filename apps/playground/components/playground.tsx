@@ -21,6 +21,11 @@ const COMPONENT_LIST: ComponentItem[] = [
   // ### APPEND COMPONENT HERE ###
 
   {
+    name: 'InputField',
+    category: 'Core',
+  },
+
+  {
     name: 'Text',
     category: 'Core',
   },

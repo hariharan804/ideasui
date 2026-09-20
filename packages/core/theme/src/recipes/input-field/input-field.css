@@ -1,0 +1,376 @@
+/**
+ * InputField Component CSS
+ * Source of truth for visual styling for the InputField component.
+ * Uses BEM selectors + Tailwind CSS v4 @apply directives.
+ */
+
+/* ── Base Block ───────────────────────────────────────────────────────────── */
+.ideasui-input-field {
+  @apply flex w-full flex-col gap-1.5;
+  --ideasui-label-start: 13px;
+}
+
+.ideasui-input-field.ideasui-input-field--label-inside-fixed,
+.ideasui-input-field.ideasui-input-field--label-inside-floating,
+.ideasui-input-field.ideasui-input-field--label-floating {
+  @apply relative gap-0;
+}
+
+/* Base Label Start & Height Calculation */
+.ideasui-input-field.ideasui-input-field--sm {
+  --ideasui-label-start: 11px;
+  --ideasui-input-height: 2rem;
+}
+.ideasui-input-field.ideasui-input-field--md {
+  --ideasui-label-start: 13px;
+  --ideasui-input-height: 2.5rem;
+}
+.ideasui-input-field.ideasui-input-field--lg {
+  --ideasui-label-start: 17px;
+  --ideasui-input-height: 3rem;
+}
+
+/* Sync custom height utility classes to --ideasui-input-height */
+.ideasui-input-field:has(.h-8),
+.ideasui-input-field__wrapper.h-8 {
+  --ideasui-input-height: 2rem;
+}
+.ideasui-input-field:has(.h-10),
+.ideasui-input-field__wrapper.h-10 {
+  --ideasui-input-height: 2.5rem;
+}
+.ideasui-input-field:has(.h-12),
+.ideasui-input-field__wrapper.h-12 {
+  --ideasui-input-height: 3rem;
+}
+.ideasui-input-field:has(.h-14),
+.ideasui-input-field__wrapper.h-14 {
+  --ideasui-input-height: 3.5rem;
+}
+.ideasui-input-field:has(.h-16),
+.ideasui-input-field__wrapper.h-16 {
+  --ideasui-input-height: 4rem;
+}
+.ideasui-input-field:has(.h-20),
+.ideasui-input-field__wrapper.h-20 {
+  --ideasui-input-height: 5rem;
+}
+
+/* Label Start Calculation WITH startContent (Floating Label Variant ONLY when unfocused/empty) */
+.ideasui-input-field.ideasui-input-field--label-floating:not(
+    .ideasui-input-field--is-floating
+  ).ideasui-input-field--has-start-content.ideasui-input-field--sm,
+.ideasui-input-field.ideasui-input-field--label-floating:not(.ideasui-input-field--is-floating):has(
+    .ideasui-input-field__start-content
+  ).ideasui-input-field--sm {
+  --ideasui-label-start: 33px;
+}
+.ideasui-input-field.ideasui-input-field--label-floating:not(
+    .ideasui-input-field--is-floating
+  ).ideasui-input-field--has-start-content.ideasui-input-field--md,
+.ideasui-input-field.ideasui-input-field--label-floating:not(.ideasui-input-field--is-floating):has(
+    .ideasui-input-field__start-content
+  ).ideasui-input-field--md {
+  --ideasui-label-start: 37px;
+}
+.ideasui-input-field.ideasui-input-field--label-floating:not(
+    .ideasui-input-field--is-floating
+  ).ideasui-input-field--has-start-content.ideasui-input-field--lg,
+.ideasui-input-field.ideasui-input-field--label-floating:not(.ideasui-input-field--is-floating):has(
+    .ideasui-input-field__start-content
+  ).ideasui-input-field--lg {
+  --ideasui-label-start: 47px;
+}
+
+/* ── Label ───────────────────────────────────────────────────────────────── */
+.ideasui-input-field__label {
+  @apply text-content-primary text-sm font-medium transition-all duration-150 ease-in-out select-none;
+}
+.ideasui-input-field__label.ideasui-input-field__label--sm {
+  @apply text-xs;
+}
+.ideasui-input-field__label.ideasui-input-field__label--md {
+  @apply text-sm;
+}
+.ideasui-input-field__label.ideasui-input-field__label--lg {
+  @apply text-base;
+}
+.ideasui-input-field__label.ideasui-input-field__label--disabled,
+.ideasui-input-field__label[data-disabled='true'] {
+  @apply text-content-muted;
+}
+.ideasui-input-field__label.ideasui-input-field__label--invalid {
+  @apply text-danger;
+}
+
+/* ── Inside-Fixed Label Variant ────────────────────────────────────────────── */
+.ideasui-input-field__label.ideasui-input-field__label--inside-fixed {
+  @apply text-content-tertiary pointer-events-none absolute z-10 font-normal;
+  inset-inline-start: var(--ideasui-label-start);
+}
+.ideasui-input-field--label-inside-fixed
+  .ideasui-input-field__label.ideasui-input-field__label--sm {
+  @apply top-1 text-[10px];
+}
+.ideasui-input-field--label-inside-fixed
+  .ideasui-input-field__label.ideasui-input-field__label--md {
+  @apply top-1.5 text-xs;
+}
+.ideasui-input-field--label-inside-fixed
+  .ideasui-input-field__label.ideasui-input-field__label--lg {
+  @apply top-2 text-xs;
+}
+
+/* Inside-fixed wrapper layout */
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--label-inside-fixed {
+  @apply items-end;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--label-inside-fixed.ideasui-input-field__wrapper--sm {
+  @apply h-12 pb-1.5;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--label-inside-fixed.ideasui-input-field__wrapper--md {
+  @apply h-14 pb-2;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--label-inside-fixed.ideasui-input-field__wrapper--lg {
+  @apply h-16 pb-2.5;
+}
+
+/* ── Inside-Floating Label Variant ─────────────────────────────────────────── */
+.ideasui-input-field__label.ideasui-input-field__label--inside-floating {
+  @apply pointer-events-none absolute z-10 transition-all duration-150 ease-in-out;
+  inset-inline-start: var(--ideasui-label-start);
+}
+
+/* Hide native placeholder when !isFloating in inside-floating mode */
+.ideasui-input-field--label-inside-floating:not(.ideasui-input-field--is-floating)
+  .ideasui-input-field__input::placeholder {
+  color: transparent !important;
+  opacity: 0 !important;
+}
+
+/* Inside-floating Initial Position (!isFloating: empty + unfocused) -> Vertically centered like a placeholder */
+.ideasui-input-field--label-inside-floating:not(.ideasui-input-field--is-floating)
+  .ideasui-input-field__label.ideasui-input-field__label--sm {
+  @apply text-content-muted top-4 text-xs;
+}
+.ideasui-input-field--label-inside-floating:not(.ideasui-input-field--is-floating)
+  .ideasui-input-field__label.ideasui-input-field__label--md {
+  @apply text-content-muted top-[18px] text-sm;
+}
+.ideasui-input-field--label-inside-floating:not(.ideasui-input-field--is-floating)
+  .ideasui-input-field__label.ideasui-input-field__label--lg {
+  @apply text-content-muted top-5 text-base;
+}
+
+/* Inside-floating Active Position (isFloating: focused or has value) */
+.ideasui-input-field--label-inside-floating.ideasui-input-field--is-floating
+  .ideasui-input-field__label.ideasui-input-field__label--sm {
+  @apply text-content-tertiary top-1 text-[10px] font-normal;
+}
+.ideasui-input-field--label-inside-floating.ideasui-input-field--is-floating
+  .ideasui-input-field__label.ideasui-input-field__label--md {
+  @apply text-content-tertiary top-1.5 text-xs font-normal;
+}
+.ideasui-input-field--label-inside-floating.ideasui-input-field--is-floating
+  .ideasui-input-field__label.ideasui-input-field__label--lg {
+  @apply text-content-tertiary top-2 text-xs font-normal;
+}
+
+/* Inside-floating wrapper layout */
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--label-inside-floating {
+  @apply items-end;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--label-inside-floating.ideasui-input-field__wrapper--sm {
+  @apply h-12 pb-1.5;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--label-inside-floating.ideasui-input-field__wrapper--md {
+  @apply h-14 pb-2;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--label-inside-floating.ideasui-input-field__wrapper--lg {
+  @apply h-16 pb-2.5;
+}
+
+/* ── Floating Label Variant ────────────────────────────────────────────────── */
+.ideasui-input-field__label.ideasui-input-field__label--floating {
+  @apply text-content-muted pointer-events-none absolute z-10 transition-all duration-150 ease-in-out;
+  inset-inline-start: var(--ideasui-label-start);
+}
+
+/* Hide placeholder in floating label mode when empty + unfocused (!isFloating) */
+.ideasui-input-field--label-floating:not(.ideasui-input-field--is-floating)
+  .ideasui-input-field__input::placeholder {
+  color: transparent !important;
+  opacity: 0 !important;
+}
+
+/* Floating Initial Position (Empty + Unfocused) -> Centered via input height variable */
+.ideasui-input-field--label-floating:not(.ideasui-input-field--is-floating)
+  .ideasui-input-field__label {
+  top: calc(var(--ideasui-input-height, 2.5rem) / 2);
+  transform: translateY(-50%);
+}
+.ideasui-input-field--label-floating:not(.ideasui-input-field--is-floating)
+  .ideasui-input-field__label.ideasui-input-field__label--sm {
+  @apply text-xs;
+}
+.ideasui-input-field--label-floating:not(.ideasui-input-field--is-floating)
+  .ideasui-input-field__label.ideasui-input-field__label--md {
+  @apply text-sm;
+}
+.ideasui-input-field--label-floating:not(.ideasui-input-field--is-floating)
+  .ideasui-input-field__label.ideasui-input-field__label--lg {
+  @apply text-base;
+}
+
+/* Floating Active Position (Focused OR Has Value) -> moves over top border */
+.ideasui-input-field--label-floating.ideasui-input-field--is-floating .ideasui-input-field__label {
+  transform: translateY(0);
+}
+.ideasui-input-field--label-floating.ideasui-input-field--is-floating
+  .ideasui-input-field__label.ideasui-input-field__label--sm {
+  @apply text-content-secondary bg-background -top-2 -ml-1 rounded-md px-1 text-[10px] font-medium;
+}
+.ideasui-input-field--label-floating.ideasui-input-field--is-floating
+  .ideasui-input-field__label.ideasui-input-field__label--md {
+  @apply text-content-secondary bg-background -top-2.5 -ml-1 rounded-md px-1 text-xs font-medium;
+}
+.ideasui-input-field--label-floating.ideasui-input-field--is-floating
+  .ideasui-input-field__label.ideasui-input-field__label--lg {
+  @apply text-content-secondary bg-background -top-3 -ml-1 rounded-md px-1 text-xs font-medium;
+}
+
+/* Floating background per surface variant */
+.ideasui-input-field--label-floating.ideasui-input-field--is-floating:has(
+    .ideasui-input-field__wrapper--filled
+  )
+  .ideasui-input-field__label,
+.ideasui-input-field--label-floating.ideasui-input-field--is-floating:has(
+    .ideasui-input-field__wrapper--shadow
+  )
+  .ideasui-input-field__label {
+  @apply bg-background rounded-md;
+}
+
+/* Focus state text color for floating and inside-floating label */
+.ideasui-input-field--focused.ideasui-input-field--label-floating .ideasui-input-field__label,
+.ideasui-input-field--focused.ideasui-input-field--label-inside-floating
+  .ideasui-input-field__label {
+  @apply text-border-focus;
+}
+
+/* ── Input Wrapper ────────────────────────────────────────────────────────── */
+.ideasui-input-field__wrapper {
+  @apply flex w-full items-center transition-colors duration-150;
+}
+
+/* Wrapper Variants */
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--outline {
+  @apply border-border-strong bg-background hover:border-border-strong focus-within:ring-border-focus rounded-md border focus-within:ring-1;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--filled {
+  @apply bg-surface-subtle hover:bg-surface focus-within:ring-border-focus rounded-md border border-transparent focus-within:ring-1;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--flushed {
+  @apply border-border-strong hover:border-border-strong focus-within:border-b-border-focus rounded-none border-b bg-transparent focus-within:ring-0;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--unstyled {
+  @apply border-none bg-transparent focus-within:ring-0;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--shadow {
+  @apply border-border-subtle/60 bg-background hover:border-border-strong focus-within:border-border-focus focus-within:ring-border-focus rounded-md border shadow-xs transition-all duration-200 focus-within:shadow-md focus-within:ring-1 hover:shadow-sm;
+}
+
+/* Shadow Scale Classes */
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--shadow-none {
+  @apply shadow-none;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--shadow-xs {
+  @apply shadow-xs;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--shadow-sm {
+  @apply shadow-sm;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--shadow-md {
+  @apply shadow-md;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--shadow-lg {
+  @apply shadow-lg;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--shadow-xl {
+  @apply shadow-xl;
+}
+
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--focused.ideasui-input-field__wrapper--outline,
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--focused.ideasui-input-field__wrapper--filled,
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--focused.ideasui-input-field__wrapper--shadow {
+  @apply ring-border-focus ring-1;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--focused.ideasui-input-field__wrapper--flushed {
+  @apply border-b-border-focus ring-0;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--focused.ideasui-input-field__wrapper--unstyled {
+  @apply ring-0;
+}
+
+/* Wrapper Sizes */
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--sm {
+  @apply h-8 gap-1.5 px-2.5 text-sm;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--md {
+  @apply h-10 gap-2 px-3 text-base;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--lg {
+  @apply h-12 gap-2.5 px-4 text-lg;
+}
+
+/* Wrapper Invalid States */
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--invalid,
+.ideasui-input-field--invalid .ideasui-input-field__wrapper--outline,
+.ideasui-input-field--invalid .ideasui-input-field__wrapper--filled {
+  @apply border-danger focus-within:ring-danger;
+}
+.ideasui-input-field--invalid .ideasui-input-field__wrapper--flushed {
+  @apply border-b-danger focus-within:border-b-danger focus-within:ring-0;
+}
+
+/* Wrapper Disabled State */
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--disabled,
+.ideasui-input-field--disabled .ideasui-input-field__wrapper {
+  @apply pointer-events-none cursor-not-allowed opacity-50;
+}
+
+/* ── Native Input ─────────────────────────────────────────────────────────── */
+.ideasui-input-field__input {
+  @apply text-content-primary placeholder:text-content-muted disabled:text-content-muted m-0 min-w-0 flex-1 truncate bg-transparent p-0 leading-none outline-none disabled:cursor-not-allowed;
+}
+.ideasui-input-field__input.ideasui-input-field__input--sm {
+  @apply text-sm;
+}
+.ideasui-input-field__input.ideasui-input-field__input--md {
+  @apply text-base;
+}
+.ideasui-input-field__input.ideasui-input-field__input--lg {
+  @apply text-lg;
+}
+
+/* ── Start & End Content (Adornments) ─────────────────────────────────────── */
+.ideasui-input-field__start-content {
+  @apply text-content-tertiary z-10 flex h-4 w-4 shrink-0 items-center justify-center text-sm;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--lg .ideasui-input-field__start-content {
+  @apply h-5 w-5 text-base;
+}
+
+.ideasui-input-field__end-content {
+  @apply text-content-tertiary z-10 flex shrink-0 items-center justify-center;
+}
+
+/* ── Description ──────────────────────────────────────────────────────────── */
+.ideasui-input-field__description {
+  @apply text-content-secondary mt-1 text-xs leading-normal;
+}
+
+/* ── Error Message ────────────────────────────────────────────────────────── */
+.ideasui-input-field__error {
+  @apply text-danger mt-1 text-xs leading-normal;
+}
