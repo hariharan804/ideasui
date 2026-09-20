@@ -40,12 +40,12 @@ describe('Button', () => {
     render(<Button>Default Button</Button>);
     const button = screen.getByRole('button');
 
-    expect(button).toHaveClass('btn');
-    expect(button).toHaveClass('btn--solid');
-    expect(button).toHaveClass('btn--md');
-    expect(button).toHaveClass('btn--primary');
-    expect(button).toHaveClass('btn--radius-md');
-    expect(button).toHaveClass('btn--elevation-sm');
+    expect(button).toHaveClass('ideasui-btn');
+    expect(button).toHaveClass('ideasui-btn--solid');
+    expect(button).toHaveClass('ideasui-btn--md');
+    expect(button).toHaveClass('ideasui-btn--primary');
+    expect(button).toHaveClass('ideasui-btn--radius-md');
+    expect(button).toHaveClass('ideasui-btn--elevation-sm');
   });
 
   it('should not have accessibility violations', async () => {
@@ -223,7 +223,7 @@ describe('Button', () => {
     const button = screen.getByRole('button', { name: 'Settings' });
 
     expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('btn--icon-only');
+    expect(button).toHaveClass('ideasui-btn--icon-only');
   });
 });
 
@@ -240,8 +240,8 @@ describe('ButtonGroup', () => {
 
     for (const button of buttons) {
       expect(button).toBeDisabled();
-      expect(button).toHaveClass('btn--xl');
-      expect(button).toHaveClass('btn--danger');
+      expect(button).toHaveClass('ideasui-btn--xl');
+      expect(button).toHaveClass('ideasui-btn--danger');
     }
   });
 

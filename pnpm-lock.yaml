@@ -499,6 +499,31 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  packages/components/input-field:
+    dependencies:
+      '@ideasui/theme':
+        specifier: workspace:*
+        version: link:../../core/theme
+      '@ideasui/utils':
+        specifier: workspace:*
+        version: link:../../utils
+      react-aria-components:
+        specifier: ^1.16.0
+        version: 1.19.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+    devDependencies:
+      clean-package:
+        specifier: ^2.2.0
+        version: 2.2.0
+      react:
+        specifier: 19.2.4
+        version: 19.2.4
+      react-dom:
+        specifier: 19.2.4
+        version: 19.2.4(react@19.2.4)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/components/text:
     dependencies:
       '@ideasui/theme':
@@ -529,6 +554,9 @@ importers:
       '@ideasui/button':
         specifier: workspace:*
         version: link:../../components/button
+      '@ideasui/input-field':
+        specifier: workspace:*
+        version: link:../../components/input-field
       '@ideasui/text':
         specifier: workspace:*
         version: link:../../components/text

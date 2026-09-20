@@ -4,99 +4,94 @@ import { tv } from 'tailwind-variants';
 
 /**
  * Button recipe — maps variant props → BEM class names only.
- * All Tailwind utility classes live in button.css-map.ts.
- * All structural pseudo-selector styles live in src/components/button.group.css.
+ * All structural pseudo-selector styles live in button.css.
  */
 const button = tv({
   slots: {
-    base: 'btn',
-    icon: 'btn__icon',
-    label: 'btn__label',
-    loader: 'btn__loader',
-    shortcut: 'btn__shortcut',
+    base: 'ideasui-btn',
+    icon: 'ideasui-btn__icon',
+    label: 'ideasui-btn__label',
+    loader: 'ideasui-btn__loader',
+    shortcut: 'ideasui-btn__shortcut',
   },
   variants: {
     // ── Variant ───────────────────────────────────────────────────────────────
     variant: {
-      solid: { base: 'btn--solid' },
-      outline: { base: 'btn--outline' },
-      ghost: { base: 'btn--ghost' },
-      soft: { base: 'btn--soft' },
-      link: { base: 'btn--link' },
-      text: { base: 'btn--text' },
-      elevated: { base: 'btn--elevated' },
-      surface: { base: 'btn--surface' },
+      solid: { base: 'ideasui-btn--solid' },
+      outline: { base: 'ideasui-btn--outline' },
+      ghost: { base: 'ideasui-btn--ghost' },
+      soft: { base: 'ideasui-btn--soft' },
+      link: { base: 'ideasui-btn--link' },
+      text: { base: 'ideasui-btn--text' },
+      elevated: { base: 'ideasui-btn--elevated' },
+      surface: { base: 'ideasui-btn--surface' },
     },
     // ── Size ──────────────────────────────────────────────────────────────────
     size: {
-      xs: { base: 'btn--xs', icon: 'btn__icon--xs' },
-      sm: { base: 'btn--sm', icon: 'btn__icon--sm' },
-      md: { base: 'btn--md', icon: 'btn__icon--md' },
-      lg: { base: 'btn--lg', icon: 'btn__icon--lg' },
-      xl: { base: 'btn--xl', icon: 'btn__icon--xl' },
+      xs: { base: 'ideasui-btn--xs', icon: 'ideasui-btn__icon--xs' },
+      sm: { base: 'ideasui-btn--sm', icon: 'ideasui-btn__icon--sm' },
+      md: { base: 'ideasui-btn--md', icon: 'ideasui-btn__icon--md' },
+      lg: { base: 'ideasui-btn--lg', icon: 'ideasui-btn__icon--lg' },
+      xl: { base: 'ideasui-btn--xl', icon: 'ideasui-btn__icon--xl' },
     },
     // ── Color ─────────────────────────────────────────────────────────────────
     color: {
-      primary: { base: 'btn--primary' },
-      secondary: { base: 'btn--secondary' },
-      tertiary: { base: 'btn--tertiary' },
-      success: { base: 'btn--success' },
-      warning: { base: 'btn--warning' },
-      danger: { base: 'btn--danger' },
-      info: { base: 'btn--info' },
-      neutral: { base: 'btn--neutral' },
+      primary: { base: 'ideasui-btn--primary' },
+      secondary: { base: 'ideasui-btn--secondary' },
+      tertiary: { base: 'ideasui-btn--tertiary' },
+      success: { base: 'ideasui-btn--success' },
+      warning: { base: 'ideasui-btn--warning' },
+      danger: { base: 'ideasui-btn--danger' },
+      info: { base: 'ideasui-btn--info' },
+      neutral: { base: 'ideasui-btn--neutral' },
     },
     // ── Elevation ─────────────────────────────────────────────────────────────
-    // Shadow depth — only active on the 'elevated' variant via CSS compound selector.
-    // e.g. .btn.btn--elevated.btn--elevation-sm { @apply shadow-sm ...; }
     elevation: {
-      none: { base: 'btn--elevation-none' },
-      xs: { base: 'btn--elevation-xs' },
-      sm: { base: 'btn--elevation-sm' },
-      md: { base: 'btn--elevation-md' },
-      lg: { base: 'btn--elevation-lg' },
-      xl: { base: 'btn--elevation-xl' },
-      '2xl': { base: 'btn--elevation-2xl' },
+      none: { base: 'ideasui-btn--elevation-none' },
+      xs: { base: 'ideasui-btn--elevation-xs' },
+      sm: { base: 'ideasui-btn--elevation-sm' },
+      md: { base: 'ideasui-btn--elevation-md' },
+      lg: { base: 'ideasui-btn--elevation-lg' },
+      xl: { base: 'ideasui-btn--elevation-xl' },
+      '2xl': { base: 'ideasui-btn--elevation-2xl' },
     },
     // ── Radius ────────────────────────────────────────────────────────────────
     radius: {
-      none: { base: 'btn--radius-none' },
-      sm: { base: 'btn--radius-sm' },
-      md: { base: 'btn--radius-md' },
-      lg: { base: 'btn--radius-lg' },
-      xl: { base: 'btn--radius-xl' },
-      full: { base: 'btn--radius-full' },
+      none: { base: 'ideasui-btn--radius-none' },
+      sm: { base: 'ideasui-btn--radius-sm' },
+      md: { base: 'ideasui-btn--radius-md' },
+      lg: { base: 'ideasui-btn--radius-lg' },
+      xl: { base: 'ideasui-btn--radius-xl' },
+      full: { base: 'ideasui-btn--radius-full' },
     },
     // ── State ─────────────────────────────────────────────────────────────────
     isDisabled: {
-      true: { base: 'btn--disabled' },
+      true: { base: 'ideasui-btn--disabled' },
     },
     isLoading: {
-      true: { base: 'btn--loading' },
+      true: { base: 'ideasui-btn--loading' },
     },
     disableAnimation: {
-      true: { base: 'btn--no-animation' },
+      true: { base: 'ideasui-btn--no-animation' },
       false: {},
     },
     fullWidth: {
-      true: { base: 'btn--full-width' },
+      true: { base: 'ideasui-btn--full-width' },
     },
     isIconOnly: {
-      true: { base: 'btn--icon-only' },
+      true: { base: 'ideasui-btn--icon-only' },
     },
     // ── Group ─────────────────────────────────────────────────────────────────
-    // Structural styles (overlap, radius clipping, dividers) handled via
-    // CSS pseudo-selectors in src/components/button.group.css
     isAttached: {
-      true: { base: 'btn--attached' },
+      true: { base: 'ideasui-btn--attached' },
     },
     isVertical: {
-      true: { base: 'btn--vertical' },
+      true: { base: 'ideasui-btn--vertical' },
     },
     divider: {
       none: {},
-      full: { base: 'btn--divider-full' },
-      middle: { base: 'btn--divider-middle' },
+      full: { base: 'ideasui-btn--divider-full' },
+      middle: { base: 'ideasui-btn--divider-middle' },
     },
   },
   defaultVariants: {

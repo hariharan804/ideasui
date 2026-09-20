@@ -7,6 +7,8 @@
     "---General---",
     "(buttons)/button",
     "(buttons)/button-group",
+    "---Forms & Inputs---",
+    "(inputs)/input-field",
     "---Typography---",
     "(typography)/text"
   ]
