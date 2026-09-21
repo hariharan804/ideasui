@@ -404,6 +404,22 @@ export const propsDocumentation: PropsDocumentation = {
       description: 'Root wrapper and shorthand single-component interface for input fields',
       props: [
         {
+          name: 'id',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Explicit input element ID. Overrides auto-generated ID.',
+        },
+        {
+          name: 'name',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Form control name for HTML form submission and form libraries.',
+        },
+        {
           name: 'variant',
           type: 'InputFieldVariant',
           required: false,
@@ -536,11 +552,94 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'type',
+          type: 'HTMLInputTypeAttribute',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: "Input element HTML type (e.g. 'text', 'email', 'password', 'number').",
+        },
+        {
+          name: 'autoComplete',
           type: 'string',
           required: false,
           defaultValue: null,
           deprecated: false,
-          description: "Input element HTML type (e.g. 'text', 'email', 'password').",
+          description:
+            "Browser autofill / autocomplete attribute (e.g. 'email', 'current-password', 'given-name').",
+        },
+        {
+          name: 'inputMode',
+          type: "InputHTMLAttributes<HTMLInputElement>['inputMode']",
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            "Virtual keyboard hint for mobile browsers (e.g. 'numeric', 'decimal', 'email', 'tel').",
+        },
+        {
+          name: 'maxLength',
+          type: 'number',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Maximum character count allowed in the native input.',
+        },
+        {
+          name: 'minLength',
+          type: 'number',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Minimum character count required in the native input.',
+        },
+        {
+          name: 'pattern',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Regex pattern string for native HTML form validation.',
+        },
+        {
+          name: 'min',
+          type: 'number | string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Minimum value allowed for numeric/date input types.',
+        },
+        {
+          name: 'max',
+          type: 'number | string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Maximum value allowed for numeric/date input types.',
+        },
+        {
+          name: 'step',
+          type: 'number | string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Granular step increment for numeric input types.',
+        },
+        {
+          name: 'autoFocus',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Automatically focuses the input element when mounted.',
+        },
+        {
+          name: 'inputRef',
+          type: 'Ref<HTMLInputElement>',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Ref forwarded directly to the underlying native `<input>` element when using shorthand usage.',
         },
         {
           name: 'inputFilter',
@@ -567,7 +666,7 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: null,
           deprecated: false,
           description:
-            'Custom props for individual sub-component slots (`root`, `label`, `input`, `description`, `error`).',
+            'Custom props for individual sub-component slots (`root`, `label`, `input`, `description`, `errorMessage`).',
         },
         {
           name: 'onChange',
@@ -650,6 +749,14 @@ export const propsDocumentation: PropsDocumentation = {
       component: '<InputField.Input />',
       description: 'Native HTML input primitive wrapper',
       props: [
+        {
+          name: 'inputRef',
+          type: 'Ref<HTMLInputElement>',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Ref forwarded directly to the native `<input>` element.',
+        },
         {
           name: 'startContent',
           type: 'ReactNode',

@@ -8,6 +8,8 @@ import type {
   FocusEvent,
   ForwardRefExoticComponent,
   RefAttributes,
+  HTMLInputTypeAttribute,
+  Ref,
 } from 'react';
 import type { InputFieldReturnType } from '@ideasui/theme/recipes';
 
@@ -81,6 +83,8 @@ export interface InputFieldSlotProps {
   /** Props passed to the InputFieldDescription slot. */
   readonly description?: InputFieldDescriptionProps;
   /** Props passed to the InputFieldError slot. */
+  readonly errorMessage?: InputFieldErrorProps;
+  /** Alias for errorMessage slot props. */
   readonly error?: InputFieldErrorProps;
 }
 
@@ -89,8 +93,18 @@ export interface InputFieldSlotProps {
  */
 export interface InputFieldProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
-  'onChange' | 'onInput' | 'onFocus' | 'onBlur'
+  'onChange' | 'onInput' | 'onFocus' | 'onBlur' | 'id'
 > {
+  /**
+   * Explicit input element ID. Overrides auto-generated ID.
+   */
+  readonly id?: string;
+
+  /**
+   * Form control name for HTML form submission and form libraries.
+   */
+  readonly name?: string;
+
   /**
    * Visual style variant of the input surface.
    * @default 'outline'
@@ -180,9 +194,60 @@ export interface InputFieldProps extends Omit<
   readonly defaultValue?: string | number;
 
   /**
-   * Input element HTML type (e.g. 'text', 'email', 'password').
+   * Input element HTML type (e.g. 'text', 'email', 'password', 'number').
    */
-  readonly type?: string;
+  readonly type?: HTMLInputTypeAttribute;
+
+  /**
+   * Browser autofill / autocomplete attribute (e.g. 'email', 'current-password', 'given-name').
+   */
+  readonly autoComplete?: string;
+
+  /**
+   * Virtual keyboard hint for mobile browsers (e.g. 'numeric', 'decimal', 'email', 'tel').
+   */
+  readonly inputMode?: InputHTMLAttributes<HTMLInputElement>['inputMode'];
+
+  /**
+   * Maximum character count allowed in the native input.
+   */
+  readonly maxLength?: number;
+
+  /**
+   * Minimum character count required in the native input.
+   */
+  readonly minLength?: number;
+
+  /**
+   * Regex pattern string for native HTML form validation.
+   */
+  readonly pattern?: string;
+
+  /**
+   * Minimum value allowed for numeric/date input types.
+   */
+  readonly min?: number | string;
+
+  /**
+   * Maximum value allowed for numeric/date input types.
+   */
+  readonly max?: number | string;
+
+  /**
+   * Granular step increment for numeric input types.
+   */
+  readonly step?: number | string;
+
+  /**
+   * Automatically focuses the input element when mounted.
+   * @default false
+   */
+  readonly autoFocus?: boolean;
+
+  /**
+   * Ref forwarded directly to the underlying native `<input>` element when using shorthand usage.
+   */
+  readonly inputRef?: Ref<HTMLInputElement>;
 
   /**
    * Character input filter restricting allowed entry ('numeric', 'decimal', 'alpha', 'alphanumeric').
@@ -195,7 +260,7 @@ export interface InputFieldProps extends Omit<
   readonly classNames?: InputFieldClassNames;
 
   /**
-   * Custom props for individual sub-component slots (`root`, `label`, `input`, `description`, `error`).
+   * Custom props for individual sub-component slots (`root`, `label`, `input`, `description`, `errorMessage`).
    */
   readonly slotProps?: InputFieldSlotProps;
 
@@ -243,6 +308,11 @@ export interface InputFieldLabelProps extends LabelHTMLAttributes<HTMLLabelEleme
    * Label content.
    */
   readonly children?: ReactNode;
+
+  /**
+   * Data attributes for testing and DOM targeting.
+   */
+  readonly [key: `data-${string}`]: unknown;
 }
 
 /**
@@ -252,6 +322,11 @@ export interface InputFieldInputProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'className'
 > {
+  /**
+   * Ref forwarded directly to the native `<input>` element.
+   */
+  readonly inputRef?: Ref<HTMLInputElement>;
+
   /**
    * Element rendered before the input (e.g. decorative icon, currency symbol).
    * Note: Must be non-interactive/decorative only.
@@ -298,6 +373,11 @@ export interface InputFieldDescriptionProps extends HTMLAttributes<HTMLParagraph
    * Helper description content.
    */
   readonly children?: ReactNode;
+
+  /**
+   * Data attributes for testing and DOM targeting.
+   */
+  readonly [key: `data-${string}`]: unknown;
 }
 
 /**
@@ -313,6 +393,11 @@ export interface InputFieldErrorProps extends HTMLAttributes<HTMLParagraphElemen
    * Error message content.
    */
   readonly children?: ReactNode;
+
+  /**
+   * Data attributes for testing and DOM targeting.
+   */
+  readonly [key: `data-${string}`]: unknown;
 }
 
 /**
