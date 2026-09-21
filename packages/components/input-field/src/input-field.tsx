@@ -39,27 +39,45 @@ function resolveInputFieldShadow(
 }
 
 /* eslint-disable max-lines-per-function */
+const checkIsFloating = (
+  resolvedLabelVariant: InputFieldLabelVariant,
+  labelVariant: InputFieldLabelVariant,
+  isFocused: boolean,
+  hasValue: boolean,
+  hasStartContent: boolean,
+  hasEndContent: boolean,
+): boolean => {
+  return (
+    (resolvedLabelVariant === 'floating' || resolvedLabelVariant === 'inside-floating') &&
+    (isFocused ||
+      hasValue ||
+      ((hasStartContent || hasEndContent) && labelVariant === 'inside-floating'))
+  );
+};
+
 const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
   (
     {
       variant = 'outline',
       labelVariant = 'default',
       size = 'md',
-      shadow,
+      shadow = false,
       isDisabled = false,
       isReadOnly = false,
       isRequired = false,
       isInvalid = false,
       label,
-      placeholder,
       description,
       errorMessage,
+      placeholder,
       startContent,
       endContent,
       value,
       defaultValue,
       type,
       inputFilter,
+      classNames,
+      slotProps,
       onChange,
       onFocus,
       onBlur,
@@ -104,11 +122,14 @@ const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
     const resolvedShadow = resolveInputFieldShadow(shadow, variant);
 
     const effectiveInputId = customInputId ?? autoId;
-    const isFloating =
-      (resolvedLabelVariant === 'floating' || resolvedLabelVariant === 'inside-floating') &&
-      (isFocused ||
-        hasValue ||
-        ((hasStartContent || hasEndContent) && labelVariant === 'inside-floating'));
+    const isFloating = checkIsFloating(
+      resolvedLabelVariant,
+      labelVariant,
+      isFocused,
+      hasValue,
+      hasStartContent,
+      hasEndContent,
+    );
 
     const styles = inputField({
       variant,
@@ -143,6 +164,8 @@ const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
         errorId,
         hasDescription,
         hasErrorMessage,
+        classNames,
+        slotProps,
         setCustomInputId,
         setIsFocused,
         setHasValue,
@@ -172,6 +195,8 @@ const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
         errorId,
         hasDescription,
         hasErrorMessage,
+        classNames,
+        slotProps,
         setCustomInputId,
         setIsFocused,
         setHasValue,
@@ -194,8 +219,9 @@ const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
 
       return (
         <>
-          {hasLabel ? <InputFieldLabel>{label}</InputFieldLabel> : null}
+          {hasLabel ? <InputFieldLabel {...slotProps?.label}>{label}</InputFieldLabel> : null}
           <InputFieldInput
+            {...slotProps?.input}
             defaultValue={defaultValue}
             endContent={endContent}
             inputFilter={inputFilter}
@@ -207,8 +233,12 @@ const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
             onChange={onChange}
             onFocus={onFocus}
           />
-          {hasDesc ? <InputFieldDescription>{description}</InputFieldDescription> : null}
-          {hasError ? <InputFieldError>{errorMessage}</InputFieldError> : null}
+          {hasDesc ? (
+            <InputFieldDescription {...slotProps?.description}>{description}</InputFieldDescription>
+          ) : null}
+          {hasError ? (
+            <InputFieldError {...slotProps?.error}>{errorMessage}</InputFieldError>
+          ) : null}
         </>
       );
     };
@@ -216,9 +246,10 @@ const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
     return (
       <InputFieldContext.Provider value={contextValue}>
         <div
+          {...slotProps?.root}
           {...properties}
           ref={reference}
-          className={cn(styles.root(), className)}
+          className={cn(styles.root(), classNames?.root, className, slotProps?.root?.className)}
           data-disabled={isDisabled || undefined}
           data-floating={isFloating || undefined}
           data-focused={isFocused || undefined}

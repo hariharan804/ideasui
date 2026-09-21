@@ -499,4 +499,86 @@ describe('InputField', () => {
     fireEvent.change(input, { target: { value: 'Hari-123_abc!' } });
     expect(input.value).toBe('Hari123abc');
   });
+
+  it('should apply custom classNames to all slots in single-component shorthand usage', () => {
+    const { container } = render(
+      <InputField
+        classNames={{
+          root: 'custom-root-class',
+          label: 'custom-label-class',
+          wrapper: 'custom-wrapper-class',
+          input: 'custom-input-class',
+          startContent: 'custom-start-class',
+          endContent: 'custom-end-class',
+          description: 'custom-desc-class',
+        }}
+        description="Helper description"
+        endContent={<span>✓</span>}
+        label="Username"
+        startContent={<span>@</span>}
+      />,
+    );
+
+    expect(container.querySelector('[data-slot="input-field"]')).toHaveClass('custom-root-class');
+    expect(screen.getByText('Username')).toHaveClass('custom-label-class');
+    expect(container.querySelector('[data-slot="input-wrapper"]')).toHaveClass(
+      'custom-wrapper-class',
+    );
+    expect(screen.getByRole('textbox')).toHaveClass('custom-input-class');
+    expect(container.querySelector('[data-slot="start-content"]')).toHaveClass(
+      'custom-start-class',
+    );
+    expect(container.querySelector('[data-slot="end-content"]')).toHaveClass('custom-end-class');
+    expect(screen.getByText('Helper description')).toHaveClass('custom-desc-class');
+  });
+
+  it('should pass slotProps to sub-components in single-component shorthand usage', () => {
+    render(
+      <InputField
+        description="Helper"
+        label="Email"
+        slotProps={{
+          root: { 'aria-label': 'Email form group' },
+          label: { id: 'custom-label-id' },
+          input: { 'data-testid': 'custom-input-element' },
+          description: { id: 'custom-desc-id' },
+        }}
+      />,
+    );
+
+    expect(screen.getByLabelText('Email form group')).toBeInTheDocument();
+    expect(screen.getByText('Email')).toHaveAttribute('id', 'custom-label-id');
+    expect(screen.getByTestId('custom-input-element')).toBeInTheDocument();
+    expect(screen.getByText('Helper')).toHaveAttribute('id', 'custom-desc-id');
+  });
+
+  it('should merge user-provided aria-describedby with internal description ID', () => {
+    render(
+      <InputField description="Internal Helper" label="Username">
+        <InputField.Label>Username</InputField.Label>
+        <InputField.Input aria-describedby="external-help-id" />
+        <InputField.Description>Internal Helper</InputField.Description>
+      </InputField>,
+    );
+
+    const input = screen.getByRole('textbox');
+    const ariaDescribedBy = input.getAttribute('aria-describedby');
+
+    expect(ariaDescribedBy).toContain('external-help-id');
+    expect(ariaDescribedBy).toMatch(/external-help-id [:_]r\w+[:_]?/);
+  });
+
+  it('should preserve cursor position when input filter strips characters', () => {
+    render(
+      <InputField inputFilter="numeric" label="Pin">
+        <InputField.Label>Pin</InputField.Label>
+        <InputField.Input />
+      </InputField>,
+    );
+
+    const input = screen.getByRole('textbox') as HTMLInputElement;
+
+    fireEvent.change(input, { target: { value: '12abc34' } });
+    expect(input.value).toBe('1234');
+  });
 });

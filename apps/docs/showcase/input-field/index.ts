@@ -6,3 +6,5 @@ export * from './sizes';
 export * from './states';
 export * from './controlled';
 export * from './input-filter';
+export * from './input-types';
+export * from './input-number-buttons';

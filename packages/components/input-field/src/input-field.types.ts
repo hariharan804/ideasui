@@ -47,6 +47,44 @@ export type InputFieldShadow = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type InputFieldInputFilter = 'numeric' | 'decimal' | 'alpha' | 'alphanumeric';
 
 /**
+ * Custom CSS class names for individual InputField slots.
+ */
+export interface InputFieldClassNames {
+  /** Class name for the root container element. */
+  readonly root?: string;
+  /** Class name for the label element. */
+  readonly label?: string;
+  /** Class name for the outer input wrapper container element. */
+  readonly wrapper?: string;
+  /** Class name for the native `<input>` element. */
+  readonly input?: string;
+  /** Class name for the start content adornment container element. */
+  readonly startContent?: string;
+  /** Class name for the end content adornment container element. */
+  readonly endContent?: string;
+  /** Class name for the helper description text element. */
+  readonly description?: string;
+  /** Class name for the validation error message text element. */
+  readonly errorMessage?: string;
+}
+
+/**
+ * Custom props for individual InputField slots in shorthand usage.
+ */
+export interface InputFieldSlotProps {
+  /** Props passed to the root container element slot. */
+  readonly root?: HTMLAttributes<HTMLDivElement>;
+  /** Props passed to the InputFieldLabel slot. */
+  readonly label?: InputFieldLabelProps;
+  /** Props passed to the InputFieldInput slot. */
+  readonly input?: InputFieldInputProps;
+  /** Props passed to the InputFieldDescription slot. */
+  readonly description?: InputFieldDescriptionProps;
+  /** Props passed to the InputFieldError slot. */
+  readonly error?: InputFieldErrorProps;
+}
+
+/**
  * Props for the root InputField component wrapper.
  */
 export interface InputFieldProps extends Omit<
@@ -152,6 +190,16 @@ export interface InputFieldProps extends Omit<
   readonly inputFilter?: InputFieldInputFilter;
 
   /**
+   * Custom CSS class names for individual slots (`root`, `label`, `wrapper`, `input`, `startContent`, `endContent`, `description`, `errorMessage`).
+   */
+  readonly classNames?: InputFieldClassNames;
+
+  /**
+   * Custom props for individual sub-component slots (`root`, `label`, `input`, `description`, `error`).
+   */
+  readonly slotProps?: InputFieldSlotProps;
+
+  /**
    * Change event handler when used as a single component.
    */
   readonly onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -194,7 +242,7 @@ export interface InputFieldLabelProps extends LabelHTMLAttributes<HTMLLabelEleme
   /**
    * Label content.
    */
-  readonly children: ReactNode;
+  readonly children?: ReactNode;
 }
 
 /**
@@ -230,6 +278,11 @@ export interface InputFieldInputProps extends Omit<
    * Character input filter restricting allowed entry ('numeric', 'decimal', 'alpha', 'alphanumeric').
    */
   readonly inputFilter?: InputFieldInputFilter;
+
+  /**
+   * Data attributes for testing and DOM targeting.
+   */
+  readonly [key: `data-${string}`]: unknown;
 }
 
 /**
@@ -244,7 +297,7 @@ export interface InputFieldDescriptionProps extends HTMLAttributes<HTMLParagraph
   /**
    * Helper description content.
    */
-  readonly children: ReactNode;
+  readonly children?: ReactNode;
 }
 
 /**
@@ -259,7 +312,7 @@ export interface InputFieldErrorProps extends HTMLAttributes<HTMLParagraphElemen
   /**
    * Error message content.
    */
-  readonly children: ReactNode;
+  readonly children?: ReactNode;
 }
 
 /**
@@ -285,6 +338,8 @@ export interface InputFieldContextValue {
   readonly errorId?: string;
   readonly hasDescription?: boolean;
   readonly hasErrorMessage?: boolean;
+  readonly classNames?: InputFieldClassNames;
+  readonly slotProps?: InputFieldSlotProps;
   readonly setCustomInputId?: (id: string | undefined) => void;
   readonly setIsFocused?: (isFocused: boolean) => void;
   readonly setHasValue?: (hasValue: boolean) => void;

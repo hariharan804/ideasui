@@ -89,6 +89,7 @@ export const InputFieldInput = forwardRef<HTMLInputElement, InputFieldInputProps
       isRequired,
       isInvalid,
       inputFilter: contextInputFilter,
+      classNames,
       setCustomInputId,
       setIsFocused,
       setHasValue,
@@ -157,6 +158,34 @@ export const InputFieldInput = forwardRef<HTMLInputElement, InputFieldInputProps
       }
     }, [value, defaultValue, setHasValue]);
 
+    const applyInputFilter = (
+      inputElement: HTMLInputElement,
+      filter?: InputFieldInputFilter,
+    ): void => {
+      if (!filter) {
+        return;
+      }
+
+      const originalValue = inputElement.value;
+      const selectionStart = inputElement.selectionStart;
+      const filteredValue = filterInputValue(originalValue, filter);
+
+      if (originalValue !== filteredValue) {
+        const diff = originalValue.length - filteredValue.length;
+        const newPosition = selectionStart === null ? null : Math.max(0, selectionStart - diff);
+
+        inputElement.value = filteredValue;
+
+        if (newPosition !== null && typeof inputElement.setSelectionRange === 'function') {
+          try {
+            inputElement.setSelectionRange(newPosition, newPosition);
+          } catch {
+            // Ignore selection range errors on unsupported input types (e.g. number)
+          }
+        }
+      }
+    };
+
     const handleFocus = (event: FocusEvent<HTMLInputElement>): void => {
       setIsFocused?.(true);
       onFocus?.(event);
@@ -168,13 +197,7 @@ export const InputFieldInput = forwardRef<HTMLInputElement, InputFieldInputProps
     };
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-      if (effectiveInputFilter) {
-        const filteredValue = filterInputValue(event.target.value, effectiveInputFilter);
-
-        if (event.target.value !== filteredValue) {
-          event.target.value = filteredValue;
-        }
-      }
+      applyInputFilter(event.target, effectiveInputFilter);
       setHasValue?.(event.target.value.length > 0);
       onChange?.(event);
     };
@@ -182,13 +205,7 @@ export const InputFieldInput = forwardRef<HTMLInputElement, InputFieldInputProps
     const handleInput = (event: SyntheticEvent<HTMLInputElement>): void => {
       const target = event.target as HTMLInputElement;
 
-      if (effectiveInputFilter) {
-        const filteredValue = filterInputValue(target.value, effectiveInputFilter);
-
-        if (target.value !== filteredValue) {
-          target.value = filteredValue;
-        }
-      }
+      applyInputFilter(target, effectiveInputFilter);
       setHasValue?.(target.value.length > 0);
       if (onInput) {
         (onInput as (e: SyntheticEvent<HTMLInputElement>) => void)(event);
@@ -205,6 +222,9 @@ export const InputFieldInput = forwardRef<HTMLInputElement, InputFieldInputProps
       describedBy = descriptionId;
     }
 
+    const userDescribedBy = properties['aria-describedby'];
+    const mergedDescribedBy = [userDescribedBy, describedBy].filter(Boolean).join(' ') || undefined;
+
     const resolvedInputMode = resolveInputMode(properties.inputMode, effectiveInputFilter);
 
     const displayValue =
@@ -218,19 +238,26 @@ export const InputFieldInput = forwardRef<HTMLInputElement, InputFieldInputProps
         : defaultValue;
 
     return (
-      <div className={cn(styles?.wrapper(), className)} data-slot="input-wrapper">
+      <div
+        className={cn(styles?.wrapper(), classNames?.wrapper, className)}
+        data-slot="input-wrapper"
+      >
         {Boolean(startContent) && (
-          <span aria-hidden="true" className={styles?.startContent()} data-slot="start-content">
+          <span
+            aria-hidden="true"
+            className={cn(styles?.startContent(), classNames?.startContent)}
+            data-slot="start-content"
+          >
             {startContent}
           </span>
         )}
         <input
           {...properties}
           ref={setRef}
-          aria-describedby={describedBy}
+          aria-describedby={mergedDescribedBy}
           aria-invalid={isInvalid || undefined}
           aria-required={isRequired || undefined}
-          className={cn(styles?.input(), inputClassName)}
+          className={cn(styles?.input(), classNames?.input, inputClassName)}
           data-slot="input"
           defaultValue={displayDefaultValue}
           disabled={isDisabled}
@@ -245,7 +272,11 @@ export const InputFieldInput = forwardRef<HTMLInputElement, InputFieldInputProps
           onInput={handleInput}
         />
         {Boolean(endContent) && (
-          <span aria-hidden="true" className={styles?.endContent()} data-slot="end-content">
+          <span
+            aria-hidden="true"
+            className={cn(styles?.endContent(), classNames?.endContent)}
+            data-slot="end-content"
+          >
             {endContent}
           </span>
         )}

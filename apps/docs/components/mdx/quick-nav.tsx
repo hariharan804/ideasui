@@ -44,12 +44,12 @@ export function QuickNav({
               <span className="bg-primary/10 text-primary mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full font-mono text-[10px] font-semibold sm:mt-0">
                 {numberString}
               </span>
-              <div className="flex min-w-0 flex-1 flex-col sm:flex-row sm:items-baseline sm:gap-2">
-                <span className="text-content-primary group-hover:text-primary text-xs leading-snug font-semibold transition-colors sm:text-[13px]">
+              <div className="flex min-w-0 flex-1 flex-col sm:flex-row sm:items-baseline sm:gap-2.5">
+                <span className="text-content-primary group-hover:text-primary shrink-0 text-xs leading-snug font-semibold whitespace-nowrap transition-colors sm:text-[13px]">
                   {item.title}
                 </span>
                 {item.description && (
-                  <span className="text-content-tertiary truncate text-[11px] leading-relaxed">
+                  <span className="text-content-tertiary min-w-0 truncate text-[11px] leading-relaxed">
                     {item.description}
                   </span>
                 )}

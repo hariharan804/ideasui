@@ -343,6 +343,21 @@
 .ideasui-input-field__input {
   @apply text-content-primary placeholder:text-content-muted disabled:text-content-muted m-0 min-w-0 flex-1 truncate bg-transparent p-0 leading-none outline-none disabled:cursor-not-allowed;
 }
+/* Hide native search cancel button and decoration on search input */
+.ideasui-input-field__input[type='search']::-webkit-search-cancel-button,
+.ideasui-input-field__input[type='search']::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+/* Hide native browser spinner arrows on type="number" inputs */
+.ideasui-input-field__input[type='number']::-webkit-inner-spin-button,
+.ideasui-input-field__input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.ideasui-input-field__input[type='number'] {
+  -moz-appearance: textfield;
+}
 .ideasui-input-field__input.ideasui-input-field__input--sm {
   @apply text-sm;
 }
