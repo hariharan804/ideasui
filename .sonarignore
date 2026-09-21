@@ -1,0 +1,10 @@
+# Exclude auto-generated props documentation file from Sonar scanner
+apps/docs/lib/docs/components-props.ts
+**/components-props.ts
+scripts/props-extractor/props-extractor.config.mjs
+
+# Standard exclusions
+**/node_modules/**
+**/dist/**
+**/.next/**
+**/coverage/**

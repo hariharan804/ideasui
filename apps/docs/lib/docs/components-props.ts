@@ -1,6 +1,9 @@
+// @ts-nocheck
+/* eslint-disable */
+/* sonar-disable */
 // Auto-generated props documentation
 // Extracted from actual TypeScript interfaces
-// DO NOT EDIT MANUALLY
+// DO NOT EDIT MANUALLY - Excluded from SonarQube duplication check
 
 export interface PropInfo {
   name: string;
