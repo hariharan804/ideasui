@@ -9,8 +9,8 @@ import { cn } from '@ideasui/utils';
 import { useInputFieldContext } from './input-field-context';
 
 export const InputFieldError = forwardRef<HTMLParagraphElement, InputFieldErrorProps>(
-  ({ className, children, ...properties }, reference): JSX.Element | null => {
-    const { errorId, isInvalid, registerErrorMessage, styles } = useInputFieldContext();
+  ({ id, className, children, ...properties }, reference): JSX.Element | null => {
+    const { errorId, isInvalid, classNames, registerErrorMessage, styles } = useInputFieldContext();
 
     useEffect(() => {
       if (registerErrorMessage && isInvalid) {
@@ -22,13 +22,15 @@ export const InputFieldError = forwardRef<HTMLParagraphElement, InputFieldErrorP
       return null;
     }
 
+    const finalId = id ?? errorId;
+
     return (
       <p
         {...properties}
         ref={reference}
-        className={cn(styles?.errorMessage(), className)}
+        className={cn(styles?.errorMessage(), classNames?.errorMessage, className)}
         data-slot="error-message"
-        id={errorId}
+        id={finalId}
         role="alert"
       >
         {children}

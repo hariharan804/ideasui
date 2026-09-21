@@ -10,7 +10,13 @@ import { useInputFieldContext } from './input-field-context';
 
 export const InputFieldLabel = forwardRef<HTMLLabelElement, InputFieldLabelProps>(
   ({ htmlFor, className, children, ...properties }, reference): JSX.Element => {
-    const { inputId: contextInputId, isDisabled, isRequired, styles } = useInputFieldContext();
+    const {
+      inputId: contextInputId,
+      isDisabled,
+      isRequired,
+      classNames,
+      styles,
+    } = useInputFieldContext();
 
     const finalHtmlFor = htmlFor ?? contextInputId;
 
@@ -18,7 +24,7 @@ export const InputFieldLabel = forwardRef<HTMLLabelElement, InputFieldLabelProps
       <label
         {...properties}
         ref={reference}
-        className={cn(styles?.label(), className)}
+        className={cn(styles?.label(), classNames?.label, className)}
         data-disabled={isDisabled || undefined}
         data-slot="label"
         htmlFor={finalHtmlFor}

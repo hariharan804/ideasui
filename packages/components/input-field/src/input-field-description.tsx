@@ -9,8 +9,9 @@ import { cn } from '@ideasui/utils';
 import { useInputFieldContext } from './input-field-context';
 
 export const InputFieldDescription = forwardRef<HTMLParagraphElement, InputFieldDescriptionProps>(
-  ({ className, children, ...properties }, reference): JSX.Element | null => {
-    const { descriptionId, isInvalid, registerDescription, styles } = useInputFieldContext();
+  ({ id, className, children, ...properties }, reference): JSX.Element | null => {
+    const { descriptionId, isInvalid, classNames, registerDescription, styles } =
+      useInputFieldContext();
 
     useEffect(() => {
       if (registerDescription) {
@@ -22,13 +23,15 @@ export const InputFieldDescription = forwardRef<HTMLParagraphElement, InputField
       return null;
     }
 
+    const finalId = id ?? descriptionId;
+
     return (
       <p
         {...properties}
         ref={reference}
-        className={cn(styles?.description(), className)}
+        className={cn(styles?.description(), classNames?.description, className)}
         data-slot="description"
-        id={descriptionId}
+        id={finalId}
       >
         {children}
       </p>

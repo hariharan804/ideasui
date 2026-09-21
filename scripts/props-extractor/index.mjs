@@ -341,9 +341,12 @@ class PropsExtractor {
       .map((k) => `  "${k}": ComponentDoc[];`)
       .join('\n');
     const content = [
+      `// @ts-nocheck`,
+      `/* eslint-disable */`,
+      `/* sonar-disable */`,
       `// Auto-generated props documentation`,
       `// Extracted from actual TypeScript interfaces`,
-      `// DO NOT EDIT MANUALLY\n`,
+      `// DO NOT EDIT MANUALLY - Excluded from SonarQube duplication check\n`,
       `export interface PropInfo {`,
       `  name: string;`,
       `  type: string;`,

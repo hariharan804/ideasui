@@ -182,6 +182,14 @@ export const demos: Record<string, DemoItem> = {
     component: InputFieldDemos.InputFilter,
     file: 'input-field/input-filter.tsx',
   },
+  'input-field-types': {
+    component: InputFieldDemos.InputTypes,
+    file: 'input-field/input-types.tsx',
+  },
+  'input-field-number-buttons': {
+    component: InputFieldDemos.InputNumberButtons,
+    file: 'input-field/input-number-buttons.tsx',
+  },
 };
 
 export function getDemo(name: string): DemoItem | undefined {
