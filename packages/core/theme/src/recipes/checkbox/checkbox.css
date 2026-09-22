@@ -1,0 +1,61 @@
+/**
+ * Checkbox Component CSS
+ * Source of truth for visual styling for the Checkbox component.
+ * Uses BEM selectors + Tailwind CSS v4 @apply directives.
+ */
+
+/* ── Base Block ───────────────────────────────────────────────────────────── */
+.checkbox {
+  @apply focus-visible:ring-primary relative inline-flex cursor-pointer items-center justify-center font-medium transition-all duration-200 ease-in-out select-none focus-visible:ring-2 focus-visible:outline-none;
+}
+
+/* ── Elements ─────────────────────────────────────────────────────────────── */
+.checkbox__content {
+  @apply inline-flex items-center truncate;
+}
+
+/* ── Size Modifiers ───────────────────────────────────────────────────────── */
+.checkbox.checkbox--sm {
+  @apply h-8 gap-1.5 rounded-md px-3 text-xs;
+}
+.checkbox.checkbox--md {
+  @apply h-10 gap-2 rounded-lg px-4 text-sm;
+}
+.checkbox.checkbox--lg {
+  @apply h-12 gap-2.5 rounded-xl px-6 text-base;
+}
+
+/* ── Color & Variant Combinations ─────────────────────────────────────────── */
+.checkbox.checkbox--solid.checkbox--primary {
+  @apply bg-primary text-on-primary hover:bg-primary/90;
+}
+.checkbox.checkbox--solid.checkbox--secondary {
+  @apply bg-secondary text-on-secondary hover:bg-secondary/90;
+}
+.checkbox.checkbox--solid.checkbox--success {
+  @apply bg-success text-on-success hover:bg-success/90;
+}
+.checkbox.checkbox--solid.checkbox--warning {
+  @apply bg-warning text-on-warning hover:bg-warning/90;
+}
+.checkbox.checkbox--solid.checkbox--danger {
+  @apply bg-danger text-on-danger hover:bg-danger/90;
+}
+.checkbox.checkbox--solid.checkbox--info {
+  @apply bg-info text-on-info hover:bg-info/90;
+}
+
+.checkbox.checkbox--outline {
+  @apply border-border text-content-primary hover:bg-surface-subtle border bg-transparent;
+}
+.checkbox.checkbox--ghost {
+  @apply text-content-primary hover:bg-surface-subtle bg-transparent;
+}
+.checkbox.checkbox--soft {
+  @apply bg-primary-subtle text-primary hover:bg-primary-subtle/80;
+}
+
+/* ── State Modifiers ──────────────────────────────────────────────────────── */
+.checkbox.checkbox--disabled {
+  @apply pointer-events-none cursor-not-allowed opacity-50;
+}

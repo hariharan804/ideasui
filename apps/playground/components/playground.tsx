@@ -21,6 +21,11 @@ const COMPONENT_LIST: ComponentItem[] = [
   // ### APPEND COMPONENT HERE ###
 
   {
+    name: 'Checkbox',
+    category: 'Core',
+  },
+
+  {
     name: 'InputField',
     category: 'Core',
   },

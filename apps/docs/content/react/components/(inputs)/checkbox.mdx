@@ -1,0 +1,177 @@
+---
+title: Checkbox
+description: An accessible, theme-aware compound checkbox primitive supporting standalone usage, grouped selection trees, indeterminate state, visual variants, and WCAG 2.1 AA compliance.
+links:
+  npm: true
+  rac: https://react-spectrum.adobe.com/react-aria/Checkbox.html
+  source: checkbox/src/checkbox.tsx
+  recipe: core/theme/src/recipes/checkbox/checkbox.ts
+  storybook: Components/Checkbox
+---
+
+<QuickNav
+  items={[
+    {
+      title: 'Basic Usage',
+      description: 'Single checkbox usage and basic state handling.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'Variants & Color Schemes',
+      description: 'Solid, outline, and subtle styles across OKLCH color palettes.',
+      href: '#variants--color-schemes',
+    },
+    {
+      title: 'Corner Shapes (Radius)',
+      description: 'Square, rounded, and circular border radius styles.',
+      href: '#corner-shapes-radius',
+    },
+    {
+      title: 'Checkbox Group',
+      description: 'Compound group composition with label, description, and error.',
+      href: '#checkbox-group',
+    },
+    {
+      title: 'Indeterminate State',
+      description: 'Parent-child selection tree pattern.',
+      href: '#indeterminate-state',
+    },
+    {
+      title: 'API Reference',
+      description: 'Complete Checkbox and CheckboxGroup props reference.',
+      href: '#api-reference',
+    },
+  ]}
+/>
+
+## Installation
+
+<InstallTabs pkg="@ideasui/checkbox" />
+
+## Import
+
+```tsx
+import {
+  Checkbox,
+  CheckboxGroup,
+  CheckboxGroupLabel,
+  CheckboxGroupDescription,
+  CheckboxGroupError,
+} from '@ideasui/react';
+// or from individual package
+import { Checkbox, CheckboxGroup } from '@ideasui/checkbox';
+```
+
+## Basic Usage
+
+A standalone `Checkbox` can be used with default or controlled selection state:
+
+```tsx
+<Checkbox defaultSelected>Accept terms and conditions</Checkbox>
+```
+
+## Variants & Color Schemes
+
+`Checkbox` supports `solid`, `outline`, and `subtle` visual variants, as well as `primary`, `neutral`, `success`, `warning`, and `danger` color schemes.
+
+```tsx
+<Checkbox variant="solid" colorScheme="primary" defaultSelected>
+  Solid Primary
+</Checkbox>
+<Checkbox variant="outline" colorScheme="success" defaultSelected>
+  Outline Success
+</Checkbox>
+<Checkbox variant="subtle" colorScheme="warning" defaultSelected>
+  Subtle Warning
+</Checkbox>
+```
+
+## Corner Shapes (Radius)
+
+Custom corner radiuses can be set on individual checkboxes or propagated to an entire group via `radius`. Options include `none` (sharp square), `sm`, `md`, `lg`, and `full` (circular):
+
+```tsx
+{
+  /* Sharp Square */
+}
+<Checkbox radius="none" defaultSelected>
+  Square Checkbox
+</Checkbox>;
+
+{
+  /* Circular / Pill */
+}
+<Checkbox radius="full" defaultSelected>
+  Circular Checkbox
+</Checkbox>;
+
+{
+  /* Group Level Corner Shape Propagation */
+}
+<CheckboxGroup radius="full" defaultValue={['option1']}>
+  <CheckboxGroupLabel>Circular Options</CheckboxGroupLabel>
+  <Checkbox value="option1">Option 1</Checkbox>
+  <Checkbox value="option2">Option 2</Checkbox>
+</CheckboxGroup>;
+```
+
+## Checkbox Group
+
+`CheckboxGroup` manages grouped selection states and propagates theme, size, shape (`radius`), and state props to child checkboxes:
+
+```tsx
+<CheckboxGroup defaultValue={['email']}>
+  <CheckboxGroupLabel>Notification Channels</CheckboxGroupLabel>
+  <Checkbox value="email">Email</Checkbox>
+  <Checkbox value="sms">SMS</Checkbox>
+  <Checkbox value="push">Push Notifications</Checkbox>
+  <CheckboxGroupDescription>Select at least one channel.</CheckboxGroupDescription>
+  <CheckboxGroupError>Please make a selection.</CheckboxGroupError>
+</CheckboxGroup>
+```
+
+## Indeterminate State
+
+Use `isIndeterminate` for parent checkboxes controlling a tree of child options:
+
+```tsx
+<Checkbox isSelected={allSelected} isIndeterminate={someSelected} onChange={toggleAll}>
+  Select all
+</Checkbox>
+```
+
+## API Reference
+
+### Checkbox Props
+
+| Prop              | Type                                                           | Default     | Description                                               |
+| ----------------- | -------------------------------------------------------------- | ----------- | --------------------------------------------------------- |
+| `variant`         | `'solid' \| 'outline' \| 'subtle'`                             | `'solid'`   | Visual style variant of the indicator.                    |
+| `colorScheme`     | `'primary' \| 'neutral' \| 'success' \| 'warning' \| 'danger'` | `'primary'` | Color scheme applied when checked.                        |
+| `size`            | `'sm' \| 'md' \| 'lg'`                                         | `'md'`      | Size scale.                                               |
+| `radius`          | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`                     | `'md'`      | Border radius shape (`none` = square, `full` = circular). |
+| `isSelected`      | `boolean`                                                      | —           | Controlled selected state.                                |
+| `defaultSelected` | `boolean`                                                      | `false`     | Default uncontrolled selected state.                      |
+| `isIndeterminate` | `boolean`                                                      | `false`     | Renders dash icon and sets `aria-checked="mixed"`.        |
+| `isDisabled`      | `boolean`                                                      | `false`     | Disables user interaction.                                |
+| `isReadOnly`      | `boolean`                                                      | `false`     | Prevents value changes.                                   |
+| `isRequired`      | `boolean`                                                      | `false`     | Marks as required for form validation.                    |
+| `isInvalid`       | `boolean`                                                      | `false`     | Marks as invalid with danger styles.                      |
+| `value`           | `string`                                                       | —           | Value when used inside a `CheckboxGroup`.                 |
+| `onChange`        | `(isSelected: boolean) => void`                                | —           | Selection change callback.                                |
+
+### CheckboxGroup Props
+
+| Prop           | Type                                         | Default      | Description                                                      |
+| -------------- | -------------------------------------------- | ------------ | ---------------------------------------------------------------- |
+| `value`        | `string[]`                                   | —            | Controlled selected values array.                                |
+| `defaultValue` | `string[]`                                   | `[]`         | Default uncontrolled selected values array.                      |
+| `onChange`     | `(value: string[]) => void`                  | —            | Group selection change callback.                                 |
+| `variant`      | `'solid' \| 'outline' \| 'subtle'`           | `'solid'`    | Propagates visual variant to all child checkboxes.               |
+| `colorScheme`  | `'primary' \| 'neutral' \| 'success' \| ...` | `'primary'`  | Propagates color scheme to all child checkboxes.                 |
+| `size`         | `'sm' \| 'md' \| 'lg'`                       | `'md'`       | Propagates size scale to all child checkboxes.                   |
+| `radius`       | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`   | —            | Propagates corner shape (`none` = square, `full` = circular).    |
+| `orientation`  | `'vertical' \| 'horizontal'`                 | `'vertical'` | Layout orientation of group items.                               |
+| `isDisabled`   | `boolean`                                    | `false`      | Propagates disabled state to all child checkboxes.               |
+| `isInvalid`    | `boolean`                                    | `false`      | Shows `CheckboxGroupError` and hides `CheckboxGroupDescription`. |
+| `isRequired`   | `boolean`                                    | `false`      | Shows asterisk on `CheckboxGroupLabel`.                          |
