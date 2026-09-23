@@ -9,6 +9,7 @@
     "(buttons)/button-group",
     "---Forms & Inputs---",
     "(inputs)/input-field",
+    "(inputs)/textarea",
     "(inputs)/checkbox",
     "---Typography---",
     "(typography)/text"

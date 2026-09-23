@@ -139,6 +139,28 @@ export const extractConfig = {
         },
       ],
     },
+    textarea: {
+      componentName: 'Textarea',
+      interfaces: [
+        {
+          name: 'Textarea',
+          title: 'Textarea Props',
+          description:
+            'Standalone shorthand and wrapper component for multi-line inputs with auto-resize, character counter, and variants',
+          filePath: '../../packages/components/input-field/src/textarea.types.ts',
+          interfaceName: 'TextareaProps',
+        },
+        {
+          name: 'TextareaInput',
+          componentName: 'Textarea.Input',
+          title: 'Textarea Input Props',
+          description:
+            'Multi-line textarea element component with auto-resize and counter features',
+          filePath: '../../packages/components/input-field/src/textarea.types.ts',
+          interfaceName: 'InputFieldTextareaProps',
+        },
+      ],
+    },
   },
 };
 export default extractConfig;

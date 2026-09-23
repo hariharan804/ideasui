@@ -4,6 +4,7 @@ import type { ComponentType } from 'react';
 import * as ButtonDemos from './button';
 import * as CheckboxDemos from './checkbox';
 import * as InputFieldDemos from './input-field';
+import * as TextareaDemos from './textarea';
 import * as TextDemos from './text';
 
 export type DemoItem = {
@@ -231,6 +232,48 @@ export const demos: Record<string, DemoItem> = {
   'input-field-number-buttons': {
     component: InputFieldDemos.InputNumberButtons,
     file: 'input-field/input-number-buttons.tsx',
+  },
+
+  // Textarea demos
+  'textarea-basic': {
+    component: TextareaDemos.Basic,
+    file: 'textarea/basic.tsx',
+  },
+  'textarea-variants': {
+    component: TextareaDemos.Variants,
+    file: 'textarea/variants.tsx',
+  },
+  'textarea-sizes': {
+    component: TextareaDemos.Sizes,
+    file: 'textarea/sizes.tsx',
+  },
+  'textarea-label-variants': {
+    component: TextareaDemos.LabelVariants,
+    file: 'textarea/label-variants.tsx',
+  },
+  'textarea-auto-resize': {
+    component: TextareaDemos.AutoResize,
+    file: 'textarea/auto-resize.tsx',
+  },
+  'textarea-character-counter': {
+    component: TextareaDemos.CharacterCounter,
+    file: 'textarea/character-counter.tsx',
+  },
+  'textarea-resize': {
+    component: TextareaDemos.Resize,
+    file: 'textarea/resize.tsx',
+  },
+  'textarea-states': {
+    component: TextareaDemos.States,
+    file: 'textarea/states.tsx',
+  },
+  'textarea-controlled': {
+    component: TextareaDemos.Controlled,
+    file: 'textarea/controlled.tsx',
+  },
+  'textarea-compound': {
+    component: TextareaDemos.Compound,
+    file: 'textarea/compound.tsx',
   },
 };
 

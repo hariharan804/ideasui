@@ -12,6 +12,8 @@ export const inputField = tv({
     label: 'ideasui-input-field__label',
     wrapper: 'ideasui-input-field__wrapper',
     input: 'ideasui-input-field__input',
+    textarea: 'ideasui-input-field__textarea',
+    counter: 'ideasui-input-field__counter',
     startContent: 'ideasui-input-field__start-content',
     endContent: 'ideasui-input-field__end-content',
     description: 'ideasui-input-field__description',
@@ -47,24 +49,28 @@ export const inputField = tv({
         label: 'ideasui-input-field__label--inside-fixed',
         wrapper: 'ideasui-input-field__wrapper--label-inside-fixed',
         input: 'ideasui-input-field__input--label-inside-fixed',
+        textarea: 'ideasui-input-field__textarea--label-inside-fixed',
       },
       'inside-floating': {
         root: 'ideasui-input-field--label-inside-floating',
         label: 'ideasui-input-field__label--inside-floating',
         wrapper: 'ideasui-input-field__wrapper--label-inside-floating',
         input: 'ideasui-input-field__input--label-inside-floating',
+        textarea: 'ideasui-input-field__textarea--label-inside-floating',
       },
       floating: {
         root: 'ideasui-input-field--label-floating',
         label: 'ideasui-input-field__label--floating',
         wrapper: 'ideasui-input-field__wrapper--label-floating',
         input: 'ideasui-input-field__input--label-floating',
+        textarea: 'ideasui-input-field__textarea--label-floating',
       },
       inside: {
         root: 'ideasui-input-field--label-inside-fixed',
         label: 'ideasui-input-field__label--inside-fixed',
         wrapper: 'ideasui-input-field__wrapper--label-inside-fixed',
         input: 'ideasui-input-field__input--label-inside-fixed',
+        textarea: 'ideasui-input-field__textarea--label-inside-fixed',
       },
     },
 
@@ -73,18 +79,21 @@ export const inputField = tv({
         root: 'ideasui-input-field--sm',
         wrapper: 'ideasui-input-field__wrapper--sm',
         input: 'ideasui-input-field__input--sm',
+        textarea: 'ideasui-input-field__textarea--sm',
         label: 'ideasui-input-field__label--sm',
       },
       md: {
         root: 'ideasui-input-field--md',
         wrapper: 'ideasui-input-field__wrapper--md',
         input: 'ideasui-input-field__input--md',
+        textarea: 'ideasui-input-field__textarea--md',
         label: 'ideasui-input-field__label--md',
       },
       lg: {
         root: 'ideasui-input-field--lg',
         wrapper: 'ideasui-input-field__wrapper--lg',
         input: 'ideasui-input-field__input--lg',
+        textarea: 'ideasui-input-field__textarea--lg',
         label: 'ideasui-input-field__label--lg',
       },
     },
@@ -107,6 +116,21 @@ export const inputField = tv({
       },
       xl: {
         wrapper: 'ideasui-input-field__wrapper--shadow-xl',
+      },
+    },
+
+    resize: {
+      none: {
+        textarea: 'ideasui-input-field__textarea--resize-none',
+      },
+      vertical: {
+        textarea: 'ideasui-input-field__textarea--resize-vertical',
+      },
+      horizontal: {
+        textarea: 'ideasui-input-field__textarea--resize-horizontal',
+      },
+      both: {
+        textarea: 'ideasui-input-field__textarea--resize-both',
       },
     },
 
@@ -146,6 +170,7 @@ export const inputField = tv({
         root: 'ideasui-input-field--disabled',
         wrapper: 'ideasui-input-field__wrapper--disabled',
         input: 'ideasui-input-field__input--disabled',
+        textarea: 'ideasui-input-field__textarea--disabled',
         label: 'ideasui-input-field__label--disabled',
       },
     },
