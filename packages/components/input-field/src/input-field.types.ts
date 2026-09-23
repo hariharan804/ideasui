@@ -12,6 +12,7 @@ import type {
   Ref,
 } from 'react';
 import type { InputFieldReturnType } from '@ideasui/theme/recipes';
+import type { InputFieldTextareaProps } from './textarea.types';
 
 /**
  * Visual style variant of the input field surface.
@@ -450,6 +451,10 @@ export interface InputFieldComponent extends ForwardRefExoticComponent<
    */
   Input: ForwardRefExoticComponent<InputFieldInputProps & RefAttributes<HTMLInputElement>>;
   /**
+   * Component for the multi-line textarea input wrapper.
+   */
+  Textarea: ForwardRefExoticComponent<InputFieldTextareaProps & RefAttributes<HTMLTextAreaElement>>;
+  /**
    * Component for helper/description text.
    */
   Description: ForwardRefExoticComponent<
@@ -460,3 +465,5 @@ export interface InputFieldComponent extends ForwardRefExoticComponent<
    */
   Error: ForwardRefExoticComponent<InputFieldErrorProps & RefAttributes<HTMLParagraphElement>>;
 }
+
+export type * from './textarea.types';

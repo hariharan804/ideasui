@@ -1,0 +1,266 @@
+---
+title: Textarea
+description: An accessible multi-line text input component supporting dynamic auto-resize, character counting, compound composition, shorthand usage, floating labels, and WCAG 2.1 AA compliant validation states.
+links:
+  npm: true
+  rac: https://react-spectrum.adobe.com/react-aria/TextField.html
+  source: input-field/src/textarea.tsx
+  recipe: core/theme/src/recipes/input-field/input-field.ts
+  storybook: Components/Textarea
+---
+
+<QuickNav
+  items={[
+    {
+      title: 'Basic Usage',
+      description: 'Implementation and common usage.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'Auto-Resize',
+      description: 'Dynamic height adjustment with minRows and maxRows.',
+      href: '#auto-resize',
+    },
+    {
+      title: 'Character Counter',
+      description: 'Built-in character count with formatting.',
+      href: '#character-counter',
+    },
+    {
+      title: 'Visual Variants',
+      description: 'Outline, filled, flushed, and shadow styles.',
+      href: '#visual-variants',
+    },
+    {
+      title: 'Sizes',
+      description: 'Small (sm), Medium (md), and Large (lg) scales.',
+      href: '#sizes',
+    },
+    {
+      title: 'Label Variants',
+      description: 'Standard, inside-fixed, inside-floating, and floating styles.',
+      href: '#label-variants',
+    },
+    {
+      title: 'Resize Controls',
+      description: 'Native CSS directional resize behavior.',
+      href: '#resize-controls',
+    },
+    {
+      title: 'States & Validation',
+      description: 'Disabled, read-only, required, and error states.',
+      href: '#states--validation',
+    },
+    {
+      title: 'Controlled State',
+      description: 'Managing textarea value with React state.',
+      href: '#controlled-state',
+    },
+    {
+      title: 'Compound Composition',
+      description: 'Composing custom layouts with subcomponents.',
+      href: '#compound-composition',
+    },
+    {
+      title: 'Styling & Customization',
+      description: 'BEM classes and slot target selectors.',
+      href: '#styling--customization',
+    },
+    {
+      title: 'API Reference',
+      description: 'Complete Textarea component and sub-component props.',
+      href: '#api-reference',
+    },
+  ]}
+/>
+
+## Installation
+
+`Textarea` is built directly into `@ideasui/input-field` for maximum code reuse and minimal bundle size.
+
+<InstallTabs pkg="@ideasui/input-field" />
+
+## Import
+
+Import `Textarea` from the master package or the input-field package:
+
+```tsx
+import { Textarea } from '@ideasui/react';
+// or from the individual package
+import { Textarea } from '@ideasui/input-field';
+```
+
+## Basic Usage
+
+The shorthand `<Textarea />` provides a fast and accessible way to render multi-line input fields with integrated labels and descriptions:
+
+<Preview name="textarea-basic" />
+
+## Auto-Resize
+
+By default, `autoResize` is enabled. The textarea expands as the user types between `minRows` (default `3`) and `maxRows`. Once `maxRows` is reached, vertical scrolling is automatically enabled.
+
+<Preview name="textarea-auto-resize" />
+
+```tsx
+<Textarea
+  autoResize
+  minRows={2}
+  maxRows={6}
+  label="Auto-Resizing Textarea"
+  placeholder="Type multiple lines to expand..."
+/>
+```
+
+## Character Counter
+
+Pass `showCharacterCount` and `maxLength` to display an accessible character counter:
+
+<Preview name="textarea-character-counter" />
+
+```tsx
+<Textarea
+  label="Summary"
+  maxLength={140}
+  showCharacterCount
+  description="Write a concise product summary."
+/>
+```
+
+You can also pass a custom formatter function:
+
+```tsx
+<Textarea
+  maxLength={200}
+  showCharacterCount={(count, max) => `${count} of ${max} characters left`}
+/>
+```
+
+## Visual Variants
+
+Textarea supports the same surface visual variants as `InputField`: `outline` (default), `filled`, `flushed`, and `shadow`:
+
+<Preview name="textarea-variants" />
+
+## Sizes
+
+Textarea is available in three size scales: `sm`, `md` (default), and `lg`:
+
+<Preview name="textarea-sizes" />
+
+## Label Variants
+
+Choose from standard external labels or integrated inside/floating labels:
+
+- `default`: Label placed above the textarea wrapper.
+- `inside-fixed`: Label fixed at the top inside the container.
+- `inside-floating`: Floating label inside the container that transitions upward on focus or when content is present.
+- `floating`: Outlined floating label that rests along the top border.
+
+<Preview name="textarea-label-variants" />
+
+## Resize Controls
+
+When `autoResize={false}`, you can allow users to manually resize the textarea using the `resize` prop:
+
+- `none`: Manual resize disabled (default).
+- `vertical`: User can resize vertically.
+- `horizontal`: User can resize horizontally.
+- `both`: User can resize in both directions.
+
+<Preview name="textarea-resize" />
+
+## States & Validation
+
+Textarea provides first-class support for `isDisabled`, `isReadOnly`, `isRequired`, and `isInvalid`:
+
+<Preview name="textarea-states" />
+
+## Controlled State
+
+Control the textarea value with React state using `value` and `onValueChange`:
+
+<Preview name="textarea-controlled" />
+
+```tsx
+const [value, setValue] = useState('');
+
+<Textarea
+  label="Controlled Textarea"
+  value={value}
+  onValueChange={setValue}
+  placeholder="Type here..."
+/>;
+```
+
+## Compound Composition
+
+For complete control over layout and slots, use the compound subcomponent pattern:
+
+<Preview name="textarea-compound" />
+
+```tsx
+<Textarea variant="outline">
+  <Textarea.Label>Custom Review</Textarea.Label>
+  <Textarea.Input
+    minRows={4}
+    maxLength={300}
+    showCharacterCount
+    placeholder="Describe your detailed thoughts..."
+  />
+  <Textarea.Description>Submissions are subject to community guidelines.</Textarea.Description>
+  <Textarea.Error>Please provide more feedback.</Textarea.Error>
+</Textarea>
+```
+
+Alternatively, you can also use `<InputField.Textarea>` within `<InputField>`:
+
+```tsx
+<InputField label="Feedback">
+  <InputField.Label>Feedback</InputField.Label>
+  <InputField.Textarea minRows={4} placeholder="Your thoughts..." />
+</InputField>
+```
+
+## Styling & Customization
+
+### BEM CSS Classes
+
+`Textarea` uses standard BEM classes generated by the `@ideasui/theme` recipe:
+
+- **Block / Root:** `.ideasui-input-field`
+- **Slots:**
+  - `.ideasui-input-field__label` — Label element
+  - `.ideasui-input-field__wrapper` — Outer input container (`<div>`)
+  - `.ideasui-input-field__wrapper--textarea` — Multi-line wrapper container modifier
+  - `.ideasui-input-field__textarea` — Native `<textarea>` element
+  - `.ideasui-input-field__counter` — Character counter element
+  - `.ideasui-input-field__description` — Helper description text
+  - `.ideasui-input-field__error` — Validation error alert
+- **Resize Modifiers:**
+  - `.ideasui-input-field__textarea--resize-none`
+  - `.ideasui-input-field__textarea--resize-vertical`
+  - `.ideasui-input-field__textarea--resize-horizontal`
+  - `.ideasui-input-field__textarea--resize-both`
+
+### Slot Customization
+
+Custom CSS classes can be passed to specific inner slots using `classNames` or `slotProps`:
+
+```tsx
+<Textarea
+  label="Notes"
+  classNames={{
+    root: 'custom-root',
+    label: 'custom-label',
+    textarea: 'custom-textarea-element',
+    counter: 'custom-counter-class',
+  }}
+/>
+```
+
+---
+
+## API Reference
+
+<APIReferenceViewer componentName="textarea" />

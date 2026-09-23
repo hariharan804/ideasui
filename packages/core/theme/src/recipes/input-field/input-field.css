@@ -368,6 +368,53 @@
   @apply text-lg;
 }
 
+/* ── Multi-line / Textarea Wrapper Overrides ──────────────────────────────── */
+.ideasui-input-field__wrapper:has(.ideasui-input-field__textarea) {
+  height: auto;
+  align-items: flex-start;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--sm:has(.ideasui-input-field__textarea) {
+  min-height: 2.25rem;
+  @apply py-1.5;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--md:has(.ideasui-input-field__textarea) {
+  min-height: 3rem;
+  @apply py-2;
+}
+.ideasui-input-field__wrapper.ideasui-input-field__wrapper--lg:has(.ideasui-input-field__textarea) {
+  min-height: 3.75rem;
+  @apply py-2.5;
+}
+
+/* ── Native Textarea ──────────────────────────────────────────────────────── */
+.ideasui-input-field__textarea {
+  @apply text-content-primary placeholder:text-content-muted disabled:text-content-muted m-0 min-w-0 flex-1 bg-transparent p-0 leading-relaxed outline-none disabled:cursor-not-allowed;
+  scrollbar-width: thin;
+}
+.ideasui-input-field__textarea.ideasui-input-field__textarea--sm {
+  @apply text-sm leading-snug;
+}
+.ideasui-input-field__textarea.ideasui-input-field__textarea--md {
+  @apply text-base leading-relaxed;
+}
+.ideasui-input-field__textarea.ideasui-input-field__textarea--lg {
+  @apply text-lg leading-relaxed;
+}
+
+/* Resize Modifiers */
+.ideasui-input-field__textarea--resize-none {
+  resize: none;
+}
+.ideasui-input-field__textarea--resize-vertical {
+  resize: vertical;
+}
+.ideasui-input-field__textarea--resize-horizontal {
+  resize: horizontal;
+}
+.ideasui-input-field__textarea--resize-both {
+  resize: both;
+}
+
 /* ── Start & End Content (Adornments) ─────────────────────────────────────── */
 .ideasui-input-field__start-content {
   @apply text-content-tertiary z-10 flex h-4 w-4 shrink-0 items-center justify-center text-sm;
@@ -378,6 +425,11 @@
 
 .ideasui-input-field__end-content {
   @apply text-content-tertiary z-10 flex shrink-0 items-center justify-center;
+}
+
+/* ── Character Counter ────────────────────────────────────────────────────── */
+.ideasui-input-field__counter {
+  @apply text-content-muted ms-auto mt-1 text-xs tabular-nums;
 }
 
 /* ── Description ──────────────────────────────────────────────────────────── */

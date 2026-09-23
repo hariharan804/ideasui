@@ -16,6 +16,7 @@ import { cn } from '@ideasui/utils';
 import { InputFieldContext } from './input-field-context';
 import { InputFieldLabel } from './input-field-label';
 import { InputFieldInput } from './input-field-input';
+import { InputFieldTextarea } from './input-field-textarea';
 import { InputFieldDescription } from './input-field-description';
 import { InputFieldError } from './input-field-error';
 
@@ -55,7 +56,7 @@ const checkIsFloating = (
   );
 };
 
-const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
+export const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
   (
     {
       id,
@@ -297,5 +298,6 @@ export const InputField = InputFieldBase as InputFieldComponent;
 
 InputField.Label = InputFieldLabel;
 InputField.Input = InputFieldInput;
+InputField.Textarea = InputFieldTextarea;
 InputField.Description = InputFieldDescription;
 InputField.Error = InputFieldError;
