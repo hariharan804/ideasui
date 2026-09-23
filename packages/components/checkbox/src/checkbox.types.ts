@@ -99,6 +99,24 @@ export interface CheckboxProps extends Omit<
    * Visible label text rendered beside the indicator.
    */
   readonly children?: ReactNode;
+
+  /**
+   * Custom icon rendered when the checkbox is checked.
+   * Can be a ReactNode or a render function receiving `{ className: string }`.
+   */
+  readonly checkedIcon?: ReactNode | ((props: { readonly className: string }) => ReactNode);
+
+  /**
+   * Custom icon rendered when the checkbox is unchecked.
+   * Can be a ReactNode or a render function receiving `{ className: string }`.
+   */
+  readonly uncheckedIcon?: ReactNode | ((props: { readonly className: string }) => ReactNode);
+
+  /**
+   * Custom icon rendered when the checkbox is in an indeterminate state.
+   * Can be a ReactNode or a render function receiving `{ className: string }`.
+   */
+  readonly indeterminateIcon?: ReactNode | ((props: { readonly className: string }) => ReactNode);
 }
 
 export interface CheckboxGroupProps extends Omit<

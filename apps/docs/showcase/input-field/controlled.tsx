@@ -8,7 +8,7 @@ export function Controlled() {
   const [value, setValue] = useState('user@example.com');
 
   return (
-    <div className="flex w-80 flex-col gap-4">
+    <div className="flex w-full max-w-md flex-col gap-4">
       <InputField
         description="Value is managed via React state."
         label="Controlled Input"
@@ -18,7 +18,7 @@ export function Controlled() {
         onChange={(event) => setValue(event.target.value)}
       />
 
-      <div className="bg-surface-subtle flex items-center justify-between rounded-md p-3">
+      <div className="bg-surface-subtle flex flex-wrap items-center justify-between gap-3 rounded-md p-3">
         <div className="text-xs">
           <span className="text-content-muted">Current Value: </span>
           <span className="text-content-primary font-mono font-medium">

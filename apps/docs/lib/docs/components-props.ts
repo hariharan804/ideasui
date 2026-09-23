@@ -1,4 +1,5 @@
 // @ts-nocheck
+/* eslint-disable */
 /* sonar-disable */
 // Auto-generated props documentation
 // Extracted from actual TypeScript interfaces
@@ -26,6 +27,7 @@ export interface PropsDocumentation {
   buttonGroup: ComponentDoc[];
   text: ComponentDoc[];
   inputField: ComponentDoc[];
+  checkbox: ComponentDoc[];
 }
 
 /**
@@ -34,6 +36,7 @@ export interface PropsDocumentation {
  * - ButtonGroup: ButtonGroupProperties
  * - Text: TextProps
  * - InputField: InputFieldProps, InputFieldLabelProps, InputFieldInputProps, InputFieldDescriptionProps, InputFieldErrorProps
+ * - Checkbox: CheckboxProps, CheckboxGroupProps
  */
 export const propsDocumentation: PropsDocumentation = {
   button: [
@@ -847,6 +850,302 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: null,
           deprecated: false,
           description: 'Error message content.',
+        },
+      ],
+    },
+  ],
+  checkbox: [
+    {
+      componentName: 'Checkbox',
+      title: 'Checkbox Props',
+      component: '<Checkbox />',
+      description: 'Checkbox component supporting single, group, and custom icon usage',
+      props: [
+        {
+          name: 'variant',
+          type: 'CheckboxVariant',
+          required: false,
+          defaultValue: "'solid'",
+          deprecated: false,
+          description: 'Visual style variant of the checkbox indicator.',
+        },
+        {
+          name: 'colorScheme',
+          type: 'CheckboxColorScheme',
+          required: false,
+          defaultValue: "'primary'",
+          deprecated: false,
+          description: 'Color scheme applied to the checked/indeterminate state.',
+        },
+        {
+          name: 'size',
+          type: 'CheckboxSize',
+          required: false,
+          defaultValue: "'md'",
+          deprecated: false,
+          description: 'Size scale of the checkbox.',
+        },
+        {
+          name: 'radius',
+          type: 'CheckboxRadius',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            "Border radius corner shape of the checkbox indicator. Use 'none' for square or 'full' for circular checkboxes.",
+        },
+        {
+          name: 'isSelected',
+          type: 'boolean',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Controlled selected state.',
+        },
+        {
+          name: 'defaultSelected',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Uncontrolled default selected state.',
+        },
+        {
+          name: 'isIndeterminate',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Indeterminate state — used for parent checkboxes in a selection tree.',
+        },
+        {
+          name: 'isDisabled',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Marks the checkbox as disabled.',
+        },
+        {
+          name: 'isReadOnly',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Marks the checkbox as read-only.',
+        },
+        {
+          name: 'isRequired',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Marks the checkbox as required.',
+        },
+        {
+          name: 'isInvalid',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Marks the checkbox as invalid.',
+        },
+        {
+          name: 'value',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Value used when inside a CheckboxGroup.',
+        },
+        {
+          name: 'onChange',
+          type: '(isSelected: boolean) => void',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Change handler — receives the new boolean selected state.',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()` on the root label element.',
+        },
+        {
+          name: 'style',
+          type: 'CSSProperties',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Inline styles applied to the root label element.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Visible label text rendered beside the indicator.',
+        },
+        {
+          name: 'checkedIcon',
+          type: 'ReactNode | ((props: { readonly className: string }) => ReactNode)',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Custom icon rendered when the checkbox is checked. Can be a ReactNode or a render function receiving `{ className: string }`.',
+        },
+        {
+          name: 'uncheckedIcon',
+          type: 'ReactNode | ((props: { readonly className: string }) => ReactNode)',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Custom icon rendered when the checkbox is unchecked. Can be a ReactNode or a render function receiving `{ className: string }`.',
+        },
+        {
+          name: 'indeterminateIcon',
+          type: 'ReactNode | ((props: { readonly className: string }) => ReactNode)',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Custom icon rendered when the checkbox is in an indeterminate state. Can be a ReactNode or a render function receiving `{ className: string }`.',
+        },
+      ],
+    },
+    {
+      componentName: 'CheckboxGroup',
+      title: 'CheckboxGroup Props',
+      component: '<CheckboxGroup />',
+      description: 'Group component managing selection state for child checkboxes',
+      props: [
+        {
+          name: 'value',
+          type: 'string[]',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Controlled array of selected values.',
+        },
+        {
+          name: 'defaultValue',
+          type: 'string[]',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Uncontrolled default selected values.',
+        },
+        {
+          name: 'onChange',
+          type: '(value: string[]) => void',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Change handler — receives the new array of selected values.',
+        },
+        {
+          name: 'variant',
+          type: 'CheckboxVariant',
+          required: false,
+          defaultValue: "'solid'",
+          deprecated: false,
+          description: 'Visual style variant propagated to all child Checkboxes.',
+        },
+        {
+          name: 'colorScheme',
+          type: 'CheckboxColorScheme',
+          required: false,
+          defaultValue: "'primary'",
+          deprecated: false,
+          description: 'Color scheme propagated to all child Checkboxes.',
+        },
+        {
+          name: 'size',
+          type: 'CheckboxSize',
+          required: false,
+          defaultValue: "'md'",
+          deprecated: false,
+          description: 'Size scale propagated to all child Checkboxes.',
+        },
+        {
+          name: 'radius',
+          type: 'CheckboxRadius',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Border radius corner shape propagated to all child Checkboxes.',
+        },
+        {
+          name: 'orientation',
+          type: '"vertical" | "horizontal"',
+          required: false,
+          defaultValue: "'vertical'",
+          deprecated: false,
+          description: 'Layout direction of the checkbox group.',
+        },
+        {
+          name: 'isDisabled',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Marks all checkboxes in the group as disabled.',
+        },
+        {
+          name: 'isReadOnly',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Marks all checkboxes in the group as read-only.',
+        },
+        {
+          name: 'isRequired',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Marks the group as required.',
+        },
+        {
+          name: 'isInvalid',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description:
+            'Marks the group as invalid. Shows CheckboxGroupError, hides CheckboxGroupDescription.',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()`.',
+        },
+        {
+          name: 'style',
+          type: 'CSSProperties',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Inline styles applied to the root wrapper element.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: true,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Sub-components: CheckboxGroupLabel, Checkbox[], CheckboxGroupDescription, CheckboxGroupError.',
         },
       ],
     },

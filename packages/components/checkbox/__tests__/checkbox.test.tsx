@@ -163,8 +163,62 @@ describe('Checkbox', () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 
-  it('should pass accessibility audit for standalone checkbox', async () => {
-    const { container } = render(<Checkbox defaultSelected>Accept terms</Checkbox>);
+  it('should render custom checkedIcon when checked', () => {
+    render(
+      <Checkbox defaultSelected checkedIcon={<span data-testid="custom-check-icon">✓</span>}>
+        Custom checked icon
+      </Checkbox>,
+    );
+
+    expect(screen.getByTestId('custom-check-icon')).toBeInTheDocument();
+  });
+
+  it('should render custom uncheckedIcon when unchecked', () => {
+    render(
+      <Checkbox uncheckedIcon={<span data-testid="custom-uncheck-icon">✗</span>}>
+        Custom unchecked icon
+      </Checkbox>,
+    );
+
+    expect(screen.getByTestId('custom-uncheck-icon')).toBeInTheDocument();
+  });
+
+  it('should render custom indeterminateIcon when isIndeterminate', () => {
+    render(
+      <Checkbox
+        isIndeterminate
+        indeterminateIcon={<span data-testid="custom-indeterminate-icon">-</span>}
+      >
+        Custom indeterminate icon
+      </Checkbox>,
+    );
+
+    expect(screen.getByTestId('custom-indeterminate-icon')).toBeInTheDocument();
+  });
+
+  it('should support render function for checkedIcon and uncheckedIcon', () => {
+    render(
+      <Checkbox
+        defaultSelected
+        checkedIcon={({ className }) => (
+          <span className={className} data-testid="fn-check-icon">
+            FnCheck
+          </span>
+        )}
+      >
+        Render function icon
+      </Checkbox>,
+    );
+
+    expect(screen.getByTestId('fn-check-icon')).toBeInTheDocument();
+  });
+
+  it('should pass accessibility audit for checkbox with custom icons', async () => {
+    const { container } = render(
+      <Checkbox defaultSelected checkedIcon={<span>✓</span>} uncheckedIcon={<span>✗</span>}>
+        Custom icon terms
+      </Checkbox>,
+    );
 
     expect(container).toBeInTheDocument();
     await expectAccessible(container);

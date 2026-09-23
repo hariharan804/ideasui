@@ -1,9 +1,18 @@
 'use client';
 
 import type { CheckboxGroupContextValue, CheckboxProps } from './checkbox.types';
-import type { ChangeEvent, JSX } from 'react';
+import type { ChangeEvent, JSX, ReactElement, ReactNode } from 'react';
 
-import { forwardRef, useId, useRef, useEffect, useState, useCallback } from 'react';
+import {
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react';
 import { checkbox as checkboxRecipe } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -38,6 +47,29 @@ const IndeterminateIcon = ({ className }: { className?: string }): JSX.Element =
     <path d="M2.5 6h7" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" />
   </svg>
 );
+
+function renderIcon(
+  iconProp: ReactNode | ((props: { className: string }) => ReactNode),
+  className: string,
+): ReactNode {
+  if (typeof iconProp === 'function') {
+    return iconProp({ className });
+  }
+
+  if (iconProp === null || iconProp === undefined) {
+    return null;
+  }
+
+  if (isValidElement(iconProp)) {
+    const existingClassName = (iconProp.props as { className?: string }).className;
+
+    return cloneElement(iconProp as ReactElement<{ className?: string }>, {
+      className: cn(existingClassName, className),
+    });
+  }
+
+  return iconProp;
+}
 
 interface ResolvedProps {
   variant: 'solid' | 'outline' | 'subtle';
@@ -115,6 +147,9 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       className,
       style,
       children,
+      checkedIcon,
+      uncheckedIcon,
+      indeterminateIcon,
       ...otherProperties
     } = properties;
 
@@ -188,6 +223,33 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       }
     };
 
+    const renderIndicatorIcon = (): ReactNode => {
+      if (isIndeterminate) {
+        if (indeterminateIcon !== undefined) {
+          return renderIcon(indeterminateIcon, styles.icon());
+        }
+
+        return <IndeterminateIcon className={styles.icon()} />;
+      }
+
+      if (resolved.isSelected) {
+        if (checkedIcon !== undefined) {
+          return renderIcon(checkedIcon, styles.icon());
+        }
+
+        return <CheckIcon className={styles.icon()} />;
+      }
+
+      if (uncheckedIcon !== undefined) {
+        return renderIcon(
+          uncheckedIcon,
+          cn(styles.icon(), 'opacity-100 scale-100 group-data-[selected=true]:opacity-0'),
+        );
+      }
+
+      return <CheckIcon className={styles.icon()} />;
+    };
+
     return (
       <label
         className={cn(styles.root(), className)}
@@ -217,11 +279,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           onChange={handleChange}
         />
         <span aria-hidden="true" className={cn(styles.indicator())} data-slot="checkbox-indicator">
-          {isIndeterminate ? (
-            <IndeterminateIcon className={styles.icon()} />
-          ) : (
-            <CheckIcon className={styles.icon()} />
-          )}
+          {renderIndicatorIcon()}
         </span>
         {children ? (
           <span className={cn(styles.labelText())} data-slot="checkbox-label-text">

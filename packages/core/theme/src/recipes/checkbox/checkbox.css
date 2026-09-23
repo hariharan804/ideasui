@@ -5,57 +5,299 @@
  */
 
 /* ── Base Block ───────────────────────────────────────────────────────────── */
-.checkbox {
-  @apply focus-visible:ring-primary relative inline-flex cursor-pointer items-center justify-center font-medium transition-all duration-200 ease-in-out select-none focus-visible:ring-2 focus-visible:outline-none;
+.ideasui-checkbox {
+  @apply inline-flex cursor-pointer items-center gap-2 select-none;
 }
 
-/* ── Elements ─────────────────────────────────────────────────────────────── */
-.checkbox__content {
-  @apply inline-flex items-center truncate;
+/* ── Indicator Element ────────────────────────────────────────────────────── */
+.ideasui-checkbox__indicator {
+  @apply relative flex shrink-0 items-center justify-center border transition-all duration-150 ease-in-out;
 }
 
-/* ── Size Modifiers ───────────────────────────────────────────────────────── */
-.checkbox.checkbox--sm {
-  @apply h-8 gap-1.5 rounded-md px-3 text-xs;
-}
-.checkbox.checkbox--md {
-  @apply h-10 gap-2 rounded-lg px-4 text-sm;
-}
-.checkbox.checkbox--lg {
-  @apply h-12 gap-2.5 rounded-xl px-6 text-base;
+/* Focus Visible state on indicator when root checkbox child is focused */
+.ideasui-checkbox:has(:focus-visible) .ideasui-checkbox__indicator {
+  @apply ring-primary ring-2 ring-offset-2;
 }
 
-/* ── Color & Variant Combinations ─────────────────────────────────────────── */
-.checkbox.checkbox--solid.checkbox--primary {
-  @apply bg-primary text-on-primary hover:bg-primary/90;
+/* ── Icon Element ─────────────────────────────────────────────────────────── */
+.ideasui-checkbox__icon {
+  @apply pointer-events-none scale-50 opacity-0 transition-all duration-150 ease-in-out;
 }
-.checkbox.checkbox--solid.checkbox--secondary {
-  @apply bg-secondary text-on-secondary hover:bg-secondary/90;
-}
-.checkbox.checkbox--solid.checkbox--success {
-  @apply bg-success text-on-success hover:bg-success/90;
-}
-.checkbox.checkbox--solid.checkbox--warning {
-  @apply bg-warning text-on-warning hover:bg-warning/90;
-}
-.checkbox.checkbox--solid.checkbox--danger {
-  @apply bg-danger text-on-danger hover:bg-danger/90;
-}
-.checkbox.checkbox--solid.checkbox--info {
-  @apply bg-info text-on-info hover:bg-info/90;
+.ideasui-checkbox[data-selected='true'] .ideasui-checkbox__icon,
+.ideasui-checkbox[data-indeterminate='true'] .ideasui-checkbox__icon {
+  @apply scale-100 opacity-100;
 }
 
-.checkbox.checkbox--outline {
-  @apply border-border text-content-primary hover:bg-surface-subtle border bg-transparent;
-}
-.checkbox.checkbox--ghost {
-  @apply text-content-primary hover:bg-surface-subtle bg-transparent;
-}
-.checkbox.checkbox--soft {
-  @apply bg-primary-subtle text-primary hover:bg-primary-subtle/80;
+/* ── Label Text Element ───────────────────────────────────────────────────── */
+.ideasui-checkbox__label-text {
+  @apply text-content-primary leading-none transition-colors duration-150 ease-in-out;
 }
 
-/* ── State Modifiers ──────────────────────────────────────────────────────── */
-.checkbox.checkbox--disabled {
+/* ── Variants ─────────────────────────────────────────────────────────────── */
+.ideasui-checkbox--solid .ideasui-checkbox__indicator {
+  @apply border-border-strong bg-surface;
+}
+.ideasui-checkbox--outline .ideasui-checkbox__indicator {
+  @apply border-border-strong bg-transparent;
+}
+.ideasui-checkbox--subtle .ideasui-checkbox__indicator {
+  @apply bg-surface-muted border-transparent;
+}
+
+/* ── Color Schemes & Solid Variants ────────────────────────────────────────── */
+.ideasui-checkbox--solid.ideasui-checkbox--primary[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--solid.ideasui-checkbox--primary[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply bg-primary border-transparent;
+}
+.ideasui-checkbox--solid.ideasui-checkbox--primary .ideasui-checkbox__icon {
+  @apply text-background;
+}
+
+.ideasui-checkbox--solid.ideasui-checkbox--neutral[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--solid.ideasui-checkbox--neutral[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply bg-neutral border-transparent;
+}
+.ideasui-checkbox--solid.ideasui-checkbox--neutral .ideasui-checkbox__icon {
+  @apply text-background;
+}
+
+.ideasui-checkbox--solid.ideasui-checkbox--success[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--solid.ideasui-checkbox--success[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply bg-success border-transparent;
+}
+.ideasui-checkbox--solid.ideasui-checkbox--success .ideasui-checkbox__icon {
+  @apply text-background;
+}
+
+.ideasui-checkbox--solid.ideasui-checkbox--warning[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--solid.ideasui-checkbox--warning[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply bg-warning border-transparent;
+}
+.ideasui-checkbox--solid.ideasui-checkbox--warning .ideasui-checkbox__icon {
+  @apply text-background;
+}
+
+.ideasui-checkbox--solid.ideasui-checkbox--danger[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--solid.ideasui-checkbox--danger[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply bg-danger border-transparent;
+}
+.ideasui-checkbox--solid.ideasui-checkbox--danger .ideasui-checkbox__icon {
+  @apply text-background;
+}
+
+/* ── Color Schemes & Outline Variants ──────────────────────────────────────── */
+.ideasui-checkbox--outline.ideasui-checkbox--primary[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--outline.ideasui-checkbox--primary[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply border-primary;
+}
+.ideasui-checkbox--outline.ideasui-checkbox--primary .ideasui-checkbox__icon {
+  @apply text-primary;
+}
+
+.ideasui-checkbox--outline.ideasui-checkbox--neutral[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--outline.ideasui-checkbox--neutral[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply border-neutral;
+}
+.ideasui-checkbox--outline.ideasui-checkbox--neutral .ideasui-checkbox__icon {
+  @apply text-neutral;
+}
+
+.ideasui-checkbox--outline.ideasui-checkbox--success[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--outline.ideasui-checkbox--success[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply border-success;
+}
+.ideasui-checkbox--outline.ideasui-checkbox--success .ideasui-checkbox__icon {
+  @apply text-success;
+}
+
+.ideasui-checkbox--outline.ideasui-checkbox--warning[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--outline.ideasui-checkbox--warning[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply border-warning;
+}
+.ideasui-checkbox--outline.ideasui-checkbox--warning .ideasui-checkbox__icon {
+  @apply text-warning;
+}
+
+.ideasui-checkbox--outline.ideasui-checkbox--danger[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--outline.ideasui-checkbox--danger[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply border-danger;
+}
+.ideasui-checkbox--outline.ideasui-checkbox--danger .ideasui-checkbox__icon {
+  @apply text-danger;
+}
+
+/* ── Color Schemes & Subtle Variants ───────────────────────────────────────── */
+.ideasui-checkbox--subtle.ideasui-checkbox--primary[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--subtle.ideasui-checkbox--primary[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply bg-primary-subtle border-primary-subtle;
+}
+.ideasui-checkbox--subtle.ideasui-checkbox--primary .ideasui-checkbox__icon {
+  @apply text-primary;
+}
+
+.ideasui-checkbox--subtle.ideasui-checkbox--neutral[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--subtle.ideasui-checkbox--neutral[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply bg-surface-muted border-surface-muted;
+}
+.ideasui-checkbox--subtle.ideasui-checkbox--neutral .ideasui-checkbox__icon {
+  @apply text-content-primary;
+}
+
+.ideasui-checkbox--subtle.ideasui-checkbox--success[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--subtle.ideasui-checkbox--success[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply bg-success-subtle border-success-subtle;
+}
+.ideasui-checkbox--subtle.ideasui-checkbox--success .ideasui-checkbox__icon {
+  @apply text-success;
+}
+
+.ideasui-checkbox--subtle.ideasui-checkbox--warning[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--subtle.ideasui-checkbox--warning[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply bg-warning-subtle border-warning-subtle;
+}
+.ideasui-checkbox--subtle.ideasui-checkbox--warning .ideasui-checkbox__icon {
+  @apply text-warning;
+}
+
+.ideasui-checkbox--subtle.ideasui-checkbox--danger[data-selected='true']
+  .ideasui-checkbox__indicator,
+.ideasui-checkbox--subtle.ideasui-checkbox--danger[data-indeterminate='true']
+  .ideasui-checkbox__indicator {
+  @apply bg-danger-subtle border-danger-subtle;
+}
+.ideasui-checkbox--subtle.ideasui-checkbox--danger .ideasui-checkbox__icon {
+  @apply text-danger;
+}
+
+/* ── Sizes ────────────────────────────────────────────────────────────────── */
+.ideasui-checkbox.ideasui-checkbox--sm {
+  @apply gap-1.5;
+}
+.ideasui-checkbox--sm .ideasui-checkbox__indicator {
+  @apply size-3.5 rounded-[3px];
+}
+.ideasui-checkbox--sm .ideasui-checkbox__icon {
+  @apply size-2.5;
+}
+.ideasui-checkbox--sm .ideasui-checkbox__label-text {
+  @apply text-xs;
+}
+
+.ideasui-checkbox.ideasui-checkbox--md {
+  @apply gap-2;
+}
+.ideasui-checkbox--md .ideasui-checkbox__indicator {
+  @apply size-4 rounded-[4px];
+}
+.ideasui-checkbox--md .ideasui-checkbox__icon {
+  @apply size-3;
+}
+.ideasui-checkbox--md .ideasui-checkbox__label-text {
+  @apply text-sm;
+}
+
+.ideasui-checkbox.ideasui-checkbox--lg {
+  @apply gap-2.5;
+}
+.ideasui-checkbox--lg .ideasui-checkbox__indicator {
+  @apply size-5 rounded-md;
+}
+.ideasui-checkbox--lg .ideasui-checkbox__icon {
+  @apply size-3.5;
+}
+.ideasui-checkbox--lg .ideasui-checkbox__label-text {
+  @apply text-base;
+}
+
+/* ── Radius Shapes ────────────────────────────────────────────────────────── */
+.ideasui-checkbox--radius-none .ideasui-checkbox__indicator {
+  @apply rounded-none;
+}
+.ideasui-checkbox--radius-sm .ideasui-checkbox__indicator {
+  @apply rounded-[3px];
+}
+.ideasui-checkbox--radius-md .ideasui-checkbox__indicator {
+  @apply rounded-[4px];
+}
+.ideasui-checkbox--radius-lg .ideasui-checkbox__indicator {
+  @apply rounded-md;
+}
+.ideasui-checkbox--radius-full .ideasui-checkbox__indicator {
+  @apply rounded-full;
+}
+
+/* ── States ───────────────────────────────────────────────────────────────── */
+.ideasui-checkbox.ideasui-checkbox--invalid .ideasui-checkbox__indicator,
+.ideasui-checkbox.ideasui-checkbox--is-invalid .ideasui-checkbox__indicator {
+  @apply border-danger;
+}
+.ideasui-checkbox.ideasui-checkbox--invalid .ideasui-checkbox__label-text,
+.ideasui-checkbox.ideasui-checkbox--is-invalid .ideasui-checkbox__label-text {
+  @apply text-danger;
+}
+
+.ideasui-checkbox.ideasui-checkbox--disabled,
+.ideasui-checkbox.ideasui-checkbox--is-disabled {
   @apply pointer-events-none cursor-not-allowed opacity-50;
+}
+.ideasui-checkbox.ideasui-checkbox--disabled .ideasui-checkbox__label-text,
+.ideasui-checkbox.ideasui-checkbox--is-disabled .ideasui-checkbox__label-text {
+  @apply text-content-muted;
+}
+
+/* ── Checkbox Group BEM Block & Elements ─────────────────────────────────── */
+.ideasui-checkbox-group {
+  @apply m-0 flex w-full min-w-0 flex-col gap-2 border-0 p-0;
+}
+.ideasui-checkbox-group__label {
+  @apply text-content-primary text-sm font-medium;
+}
+.ideasui-checkbox-group__items {
+  @apply flex gap-2;
+}
+.ideasui-checkbox-group--vertical .ideasui-checkbox-group__items {
+  @apply flex-col;
+}
+.ideasui-checkbox-group--horizontal .ideasui-checkbox-group__items {
+  @apply flex-row flex-wrap;
+}
+.ideasui-checkbox-group__description {
+  @apply text-content-secondary text-xs leading-normal;
+}
+.ideasui-checkbox-group__error {
+  @apply text-danger text-xs leading-normal;
+}
+.ideasui-checkbox-group.ideasui-checkbox-group--invalid .ideasui-checkbox-group__label {
+  @apply text-danger;
+}
+.ideasui-checkbox-group.ideasui-checkbox-group--disabled {
+  @apply pointer-events-none opacity-50;
 }

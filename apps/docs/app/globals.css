@@ -601,7 +601,6 @@ html.dark .ideasui-search-dialog {
   opacity: 1 !important;
 }
 
-/* ── Tree Guide Line — thin, subtle ── */
 .ideasui-search-dialog button [role='none'] {
   background-color: oklch(var(--ideasui-color-border-subtle) / 0.5) !important;
   width: 1.5px !important;

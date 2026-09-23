@@ -1,3 +1,4 @@
+'use client';
 import type { CheckboxGroupContextValue } from './checkbox.types';
 
 import { createContext, useContext } from 'react';

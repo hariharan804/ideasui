@@ -22,10 +22,10 @@ export const checkbox = tv({
   variants: {
     variant: {
       solid: {
-        indicator: 'border-border bg-surface',
+        indicator: 'border-border-strong bg-surface',
       },
       outline: {
-        indicator: 'border border-border bg-transparent',
+        indicator: 'border-border-strong bg-transparent',
       },
       subtle: {
         indicator: 'border-transparent bg-surface-muted',

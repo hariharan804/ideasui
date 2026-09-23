@@ -243,6 +243,48 @@ export const GroupDisabled: Story = {
   ),
 };
 
+// ── Custom Icons ────────────────────────────────────────────────
+export const CustomIcons: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <Checkbox
+        defaultSelected
+        checkedIcon={
+          <svg className="size-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+          </svg>
+        }
+      >
+        Custom check SVG
+      </Checkbox>
+      <Checkbox
+        uncheckedIcon={
+          <svg className="size-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M6 18L18 6M6 6l12 12"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+            />
+          </svg>
+        }
+      >
+        Custom uncheck icon
+      </Checkbox>
+      <Checkbox
+        isIndeterminate
+        indeterminateIcon={
+          <svg className="size-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M20 12H4" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+          </svg>
+        }
+      >
+        Custom indeterminate icon
+      </Checkbox>
+    </div>
+  ),
+};
+
 // ── Playground ──────────────────────────────────────────────────
 export const Playground: Story = {
   args: {
