@@ -2,6 +2,117 @@ import type { VariantProps } from 'tailwind-variants';
 
 import { tv } from 'tailwind-variants';
 
+type ColorScheme = 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
+const COLOR_SCHEMES: readonly ColorScheme[] = [
+  'primary',
+  'neutral',
+  'success',
+  'warning',
+  'danger',
+];
+
+const solidMap: Record<ColorScheme, { indicator: string; icon: string }> = {
+  primary: {
+    indicator:
+      'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-primary group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-primary',
+    icon: 'text-background',
+  },
+  neutral: {
+    indicator:
+      'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-neutral group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-neutral',
+    icon: 'text-background',
+  },
+  success: {
+    indicator:
+      'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-success group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-success',
+    icon: 'text-background',
+  },
+  warning: {
+    indicator:
+      'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-warning group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-warning',
+    icon: 'text-background',
+  },
+  danger: {
+    indicator:
+      'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-danger group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-danger',
+    icon: 'text-background',
+  },
+};
+
+const outlineMap: Record<ColorScheme, { indicator: string; icon: string }> = {
+  primary: {
+    indicator:
+      'group-data-[selected=true]:border-primary group-data-[indeterminate=true]:border-primary',
+    icon: 'text-primary',
+  },
+  neutral: {
+    indicator:
+      'group-data-[selected=true]:border-neutral group-data-[indeterminate=true]:border-neutral',
+    icon: 'text-neutral',
+  },
+  success: {
+    indicator:
+      'group-data-[selected=true]:border-success group-data-[indeterminate=true]:border-success',
+    icon: 'text-success',
+  },
+  warning: {
+    indicator:
+      'group-data-[selected=true]:border-warning group-data-[indeterminate=true]:border-warning',
+    icon: 'text-warning',
+  },
+  danger: {
+    indicator:
+      'group-data-[selected=true]:border-danger group-data-[indeterminate=true]:border-danger',
+    icon: 'text-danger',
+  },
+};
+
+const subtleMap: Record<ColorScheme, { indicator: string; icon: string }> = {
+  primary: {
+    indicator:
+      'group-data-[selected=true]:bg-primary-subtle group-data-[selected=true]:border-primary-subtle group-data-[indeterminate=true]:bg-primary-subtle',
+    icon: 'text-primary',
+  },
+  neutral: {
+    indicator:
+      'group-data-[selected=true]:bg-surface-muted group-data-[selected=true]:border-surface-muted group-data-[indeterminate=true]:bg-surface-muted',
+    icon: 'text-content-primary',
+  },
+  success: {
+    indicator:
+      'group-data-[selected=true]:bg-success-subtle group-data-[selected=true]:border-success-subtle group-data-[indeterminate=true]:bg-success-subtle',
+    icon: 'text-success',
+  },
+  warning: {
+    indicator:
+      'group-data-[selected=true]:bg-warning-subtle group-data-[selected=true]:border-warning-subtle group-data-[indeterminate=true]:bg-warning-subtle',
+    icon: 'text-warning',
+  },
+  danger: {
+    indicator:
+      'group-data-[selected=true]:bg-danger-subtle group-data-[selected=true]:border-danger-subtle group-data-[indeterminate=true]:bg-danger-subtle',
+    icon: 'text-danger',
+  },
+};
+
+const solidCompoundVariants = COLOR_SCHEMES.map((colorScheme) => ({
+  variant: 'solid' as const,
+  colorScheme,
+  class: solidMap[colorScheme],
+}));
+
+const outlineCompoundVariants = COLOR_SCHEMES.map((colorScheme) => ({
+  variant: 'outline' as const,
+  colorScheme,
+  class: outlineMap[colorScheme],
+}));
+
+const subtleCompoundVariants = COLOR_SCHEMES.map((colorScheme) => ({
+  variant: 'subtle' as const,
+  colorScheme,
+  class: subtleMap[colorScheme],
+}));
+
 export const checkbox = tv({
   slots: {
     root: 'group inline-flex items-center gap-2 cursor-pointer select-none',
@@ -85,146 +196,9 @@ export const checkbox = tv({
   },
 
   compoundVariants: [
-    // ── Solid ────────────────────────────────────────────────────────
-    {
-      variant: 'solid',
-      colorScheme: 'primary',
-      class: {
-        indicator:
-          'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-primary group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-primary',
-        icon: 'text-background',
-      },
-    },
-    {
-      variant: 'solid',
-      colorScheme: 'neutral',
-      class: {
-        indicator:
-          'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-neutral group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-neutral',
-        icon: 'text-background',
-      },
-    },
-    {
-      variant: 'solid',
-      colorScheme: 'success',
-      class: {
-        indicator:
-          'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-success group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-success',
-        icon: 'text-background',
-      },
-    },
-    {
-      variant: 'solid',
-      colorScheme: 'warning',
-      class: {
-        indicator:
-          'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-warning group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-warning',
-        icon: 'text-background',
-      },
-    },
-    {
-      variant: 'solid',
-      colorScheme: 'danger',
-      class: {
-        indicator:
-          'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-danger group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-danger',
-        icon: 'text-background',
-      },
-    },
-
-    // ── Outline ──────────────────────────────────────────────────────
-    {
-      variant: 'outline',
-      colorScheme: 'primary',
-      class: {
-        indicator:
-          'group-data-[selected=true]:border-primary group-data-[indeterminate=true]:border-primary',
-        icon: 'text-primary',
-      },
-    },
-    {
-      variant: 'outline',
-      colorScheme: 'neutral',
-      class: {
-        indicator:
-          'group-data-[selected=true]:border-neutral group-data-[indeterminate=true]:border-neutral',
-        icon: 'text-neutral',
-      },
-    },
-    {
-      variant: 'outline',
-      colorScheme: 'success',
-      class: {
-        indicator:
-          'group-data-[selected=true]:border-success group-data-[indeterminate=true]:border-success',
-        icon: 'text-success',
-      },
-    },
-    {
-      variant: 'outline',
-      colorScheme: 'warning',
-      class: {
-        indicator:
-          'group-data-[selected=true]:border-warning group-data-[indeterminate=true]:border-warning',
-        icon: 'text-warning',
-      },
-    },
-    {
-      variant: 'outline',
-      colorScheme: 'danger',
-      class: {
-        indicator:
-          'group-data-[selected=true]:border-danger group-data-[indeterminate=true]:border-danger',
-        icon: 'text-danger',
-      },
-    },
-
-    // ── Subtle ───────────────────────────────────────────────────────
-    {
-      variant: 'subtle',
-      colorScheme: 'primary',
-      class: {
-        indicator:
-          'group-data-[selected=true]:bg-primary-subtle group-data-[selected=true]:border-primary-subtle group-data-[indeterminate=true]:bg-primary-subtle',
-        icon: 'text-primary',
-      },
-    },
-    {
-      variant: 'subtle',
-      colorScheme: 'neutral',
-      class: {
-        indicator:
-          'group-data-[selected=true]:bg-surface-muted group-data-[selected=true]:border-surface-muted group-data-[indeterminate=true]:bg-surface-muted',
-        icon: 'text-content-primary',
-      },
-    },
-    {
-      variant: 'subtle',
-      colorScheme: 'success',
-      class: {
-        indicator:
-          'group-data-[selected=true]:bg-success-subtle group-data-[selected=true]:border-success-subtle group-data-[indeterminate=true]:bg-success-subtle',
-        icon: 'text-success',
-      },
-    },
-    {
-      variant: 'subtle',
-      colorScheme: 'warning',
-      class: {
-        indicator:
-          'group-data-[selected=true]:bg-warning-subtle group-data-[selected=true]:border-warning-subtle group-data-[indeterminate=true]:bg-warning-subtle',
-        icon: 'text-warning',
-      },
-    },
-    {
-      variant: 'subtle',
-      colorScheme: 'danger',
-      class: {
-        indicator:
-          'group-data-[selected=true]:bg-danger-subtle group-data-[selected=true]:border-danger-subtle group-data-[indeterminate=true]:bg-danger-subtle',
-        icon: 'text-danger',
-      },
-    },
+    ...solidCompoundVariants,
+    ...outlineCompoundVariants,
+    ...subtleCompoundVariants,
 
     // ── Invalid Overrides ───────────────────────────────────────────
     {
