@@ -102,7 +102,7 @@ export interface CheckboxProps extends Omit<
 }
 
 export interface CheckboxGroupProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
+  HTMLAttributes<HTMLFieldSetElement>,
   'onChange' | 'color'
 > {
   /**

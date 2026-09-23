@@ -255,7 +255,7 @@ export const checkbox = tv({
 
 export const checkboxGroup = tv({
   slots: {
-    root: 'flex flex-col gap-2 w-full',
+    root: 'm-0 p-0 border-0 min-w-0 flex flex-col gap-2 w-full',
     groupLabel: 'text-content-primary text-sm font-medium',
     items: 'flex gap-2',
     description: 'text-content-secondary text-xs leading-normal',

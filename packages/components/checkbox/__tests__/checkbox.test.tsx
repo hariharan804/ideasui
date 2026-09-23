@@ -166,6 +166,7 @@ describe('Checkbox', () => {
   it('should pass accessibility audit for standalone checkbox', async () => {
     const { container } = render(<Checkbox defaultSelected>Accept terms</Checkbox>);
 
+    expect(container).toBeInTheDocument();
     await expectAccessible(container);
   });
 });
@@ -264,6 +265,7 @@ describe('CheckboxGroup', () => {
       </CheckboxGroup>,
     );
 
+    expect(container).toBeInTheDocument();
     await expectAccessible(container);
   });
 
@@ -276,6 +278,7 @@ describe('CheckboxGroup', () => {
       </CheckboxGroup>,
     );
 
+    expect(container).toBeInTheDocument();
     await expectAccessible(container);
   });
 });

@@ -336,6 +336,7 @@ describe('InputField', () => {
       </InputField>,
     );
 
+    expect(c1).toBeInTheDocument();
     await expectAccessible(c1);
 
     const { container: c2 } = render(
@@ -345,6 +346,7 @@ describe('InputField', () => {
       </InputField>,
     );
 
+    expect(c2).toBeInTheDocument();
     await expectAccessible(c2);
 
     const { container: c3 } = render(
@@ -354,6 +356,7 @@ describe('InputField', () => {
       </InputField>,
     );
 
+    expect(c3).toBeInTheDocument();
     await expectAccessible(c3);
 
     const { container: c4 } = render(
@@ -363,6 +366,7 @@ describe('InputField', () => {
       </InputField>,
     );
 
+    expect(c4).toBeInTheDocument();
     await expectAccessible(c4);
 
     const { container: c5 } = render(
@@ -373,6 +377,7 @@ describe('InputField', () => {
       </InputField>,
     );
 
+    expect(c5).toBeInTheDocument();
     await expectAccessible(c5);
   });
 

@@ -9,7 +9,7 @@ import { cn } from '@ideasui/utils';
 
 import { CheckboxGroupContext } from './checkbox-context';
 
-export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
+export const CheckboxGroup = forwardRef<HTMLFieldSetElement, CheckboxGroupProps>(
   (properties, reference): JSX.Element => {
     const {
       value,
@@ -93,7 +93,7 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
 
     return (
       <CheckboxGroupContext.Provider value={contextValue}>
-        <div
+        <fieldset
           {...otherProperties}
           ref={reference}
           aria-describedby={isInvalid ? groupErrorId : groupDescriptionId}
@@ -104,11 +104,10 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
           data-readonly={isReadOnly || undefined}
           data-required={isRequired || undefined}
           data-slot="checkbox-group"
-          role="group"
           style={style}
         >
           {children}
-        </div>
+        </fieldset>
       </CheckboxGroupContext.Provider>
     );
   },

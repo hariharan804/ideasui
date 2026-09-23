@@ -1,5 +1,4 @@
 // @ts-nocheck
-/* eslint-disable */
 /* sonar-disable */
 // Auto-generated props documentation
 // Extracted from actual TypeScript interfaces
