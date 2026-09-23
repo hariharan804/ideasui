@@ -58,6 +58,8 @@ const checkIsFloating = (
 const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
   (
     {
+      id,
+      name,
       variant = 'outline',
       labelVariant = 'default',
       size = 'md',
@@ -75,6 +77,16 @@ const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
       value,
       defaultValue,
       type,
+      autoComplete,
+      inputMode,
+      maxLength,
+      minLength,
+      pattern,
+      min,
+      max,
+      step,
+      autoFocus,
+      inputRef,
       inputFilter,
       classNames,
       slotProps,
@@ -121,7 +133,7 @@ const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
 
     const resolvedShadow = resolveInputFieldShadow(shadow, variant);
 
-    const effectiveInputId = customInputId ?? autoId;
+    const effectiveInputId = customInputId ?? id ?? autoId;
     const isFloating = checkIsFloating(
       resolvedLabelVariant,
       labelVariant,
@@ -216,17 +228,31 @@ const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
       const hasLabel = label !== undefined && label !== null && label !== '';
       const hasDesc = description !== undefined && description !== null && !isInvalid;
       const hasError = errorMessage !== undefined && errorMessage !== null && isInvalid;
+      const errorSlotProps = slotProps?.errorMessage ?? slotProps?.error;
 
       return (
         <>
           {hasLabel ? <InputFieldLabel {...slotProps?.label}>{label}</InputFieldLabel> : null}
           <InputFieldInput
             {...slotProps?.input}
+            autoComplete={autoComplete}
+            // eslint-disable-next-line jsx-a11y/no-autofocus
+            autoFocus={autoFocus}
             defaultValue={defaultValue}
             endContent={endContent}
+            id={id}
             inputFilter={inputFilter}
+            inputMode={inputMode}
+            inputRef={inputRef}
+            max={max}
+            maxLength={maxLength}
+            min={min}
+            minLength={minLength}
+            name={name}
+            pattern={pattern}
             placeholder={placeholder}
             startContent={startContent}
+            step={step}
             type={type}
             value={value}
             onBlur={onBlur}
@@ -236,9 +262,7 @@ const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
           {hasDesc ? (
             <InputFieldDescription {...slotProps?.description}>{description}</InputFieldDescription>
           ) : null}
-          {hasError ? (
-            <InputFieldError {...slotProps?.error}>{errorMessage}</InputFieldError>
-          ) : null}
+          {hasError ? <InputFieldError {...errorSlotProps}>{errorMessage}</InputFieldError> : null}
         </>
       );
     };

@@ -119,6 +119,26 @@ export const extractConfig = {
         },
       ],
     },
+    checkbox: {
+      componentName: 'Checkbox',
+      interfaces: [
+        {
+          name: 'Checkbox',
+          title: 'Checkbox Props',
+          description: 'Checkbox component supporting single, group, and custom icon usage',
+          filePath: '../../packages/components/checkbox/src/checkbox.types.ts',
+          interfaceName: 'CheckboxProps',
+        },
+        {
+          name: 'CheckboxGroup',
+          componentName: 'CheckboxGroup',
+          title: 'CheckboxGroup Props',
+          description: 'Group component managing selection state for child checkboxes',
+          filePath: '../../packages/components/checkbox/src/checkbox.types.ts',
+          interfaceName: 'CheckboxGroupProps',
+        },
+      ],
+    },
   },
 };
 export default extractConfig;

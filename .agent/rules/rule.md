@@ -78,3 +78,13 @@ You MUST follow these rules during development. Refer to `/rules` for full detai
 - **Semantic Custom Properties:** Use OKLCH CSS variables (`var(--ideasui-color-*)`) instead of raw hex/RGB values.
 - **Logical Properties:** Prefer logical properties (`margin-inline`, `padding-block`, `inset-inline-start`) for RTL compatibility.
 - **No Duplicate Selectors:** Keep global and component CSS modular and clean.
+
+## 📖 MDX & Documentation Rules
+
+- **File Path:** `apps/docs/content/react/components/(category)/[component-name].mdx`
+- **Navigation:** Include `<QuickNav items={...} />` matching all major `##` headings.
+- **Live Demos:** Use `<Preview name="[component]-[demo]" />`. Never embed inline JSX components directly in MDX body text.
+- **Showcase Components:** Define demo components in `apps/docs/showcase/[component-name]/[demo].tsx` and register them in `apps/docs/showcase/index.ts`.
+- **API Reference:** Always use `<APIReferenceViewer componentName="[camelCaseName]" />`. NEVER write manual Markdown/HTML prop tables.
+- **Props Dictionary:** Register component prop metadata in `apps/docs/lib/docs/components-props.ts`.
+- [mdx-documentation.md](../../rules/mdx-documentation.md)

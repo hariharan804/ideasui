@@ -1,4 +1,5 @@
 /* ### IMPORT RECIPES HERE ### */
+@import './checkbox/checkbox.css';
 @import './input-field/input-field.css';
 @import './text/text.css';
 @import './button/button.css';

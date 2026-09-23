@@ -1,0 +1,372 @@
+---
+title: Checkbox
+description: An accessible, theme-aware compound checkbox primitive supporting standalone usage, controlled state, custom icons, grouped selection trees, indeterminate state, visual variants, and WCAG 2.1 AA compliance.
+links:
+  npm: true
+  rac: https://react-spectrum.adobe.com/react-aria/Checkbox.html
+  source: checkbox/src/checkbox.tsx
+  recipe: core/theme/src/recipes/checkbox/checkbox.ts
+  storybook: Components/Checkbox
+---
+
+<QuickNav
+  items={[
+    {
+      title: 'Basic Usage',
+      description: 'Single checkbox usage and basic state handling.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'Variants & Color Schemes',
+      description: 'Solid, outline, and subtle styles across OKLCH color palettes.',
+      href: '#variants--color-schemes',
+    },
+    {
+      title: 'Sizes',
+      description: 'Small (sm), Medium (md), and Large (lg) size scales.',
+      href: '#sizes',
+    },
+    {
+      title: 'Corner Shapes (Radius)',
+      description: 'Square, rounded, and circular border radius styles.',
+      href: '#corner-shapes-radius',
+    },
+    {
+      title: 'States & Validation',
+      description: 'Disabled, read-only, required, and error state handling.',
+      href: '#states--validation',
+    },
+    {
+      title: 'Controlled State',
+      description: 'Managing checkbox selection with React state.',
+      href: '#controlled-state',
+    },
+    {
+      title: 'Custom Icons',
+      description: 'Custom checked, unchecked, and indeterminate icons.',
+      href: '#custom-icons',
+    },
+    {
+      title: 'Checkbox Group',
+      description: 'Compound group composition with label, description, and error.',
+      href: '#checkbox-group',
+    },
+    {
+      title: 'Indeterminate State',
+      description: 'Parent-child selection tree pattern.',
+      href: '#indeterminate-state',
+    },
+    {
+      title: 'Standalone CSS',
+      description: 'Using Checkbox without Tailwind CSS via @ideasui/styles.',
+      href: '#standalone-css',
+    },
+    {
+      title: 'API Reference',
+      description: 'Complete Checkbox and CheckboxGroup props reference.',
+      href: '#api-reference',
+    },
+  ]}
+/>
+
+## Installation
+
+<InstallTabs pkg="@ideasui/checkbox" />
+
+## Import
+
+```tsx
+import {
+  Checkbox,
+  CheckboxGroup,
+  CheckboxGroupLabel,
+  CheckboxGroupDescription,
+  CheckboxGroupError,
+} from '@ideasui/react';
+// or from individual package
+import { Checkbox, CheckboxGroup } from '@ideasui/checkbox';
+```
+
+## Basic Usage
+
+A standalone `Checkbox` can be used out of the box with default or controlled selection state:
+
+<Preview name="checkbox-basic" />
+
+```tsx
+<Checkbox defaultSelected>Accept terms and conditions</Checkbox>
+```
+
+## Variants & Color Schemes
+
+`Checkbox` supports `solid` (default), `outline`, and `subtle` visual style variants, as well as `primary`, `neutral`, `success`, `warning`, and `danger` OKLCH color schemes.
+
+<Preview name="checkbox-variants" />
+
+```tsx
+<Checkbox variant="solid" defaultSelected>
+  Solid
+</Checkbox>
+<Checkbox variant="outline" defaultSelected>
+  Outline
+</Checkbox>
+<Checkbox variant="subtle" defaultSelected>
+  Subtle
+</Checkbox>
+```
+
+<Preview name="checkbox-colors" />
+
+```tsx
+<Checkbox colorScheme="primary" defaultSelected>
+  Primary
+</Checkbox>
+<Checkbox colorScheme="neutral" defaultSelected>
+  Neutral
+</Checkbox>
+<Checkbox colorScheme="success" defaultSelected>
+  Success
+</Checkbox>
+<Checkbox colorScheme="warning" defaultSelected>
+  Warning
+</Checkbox>
+<Checkbox colorScheme="danger" defaultSelected>
+  Danger
+</Checkbox>
+```
+
+## Sizes
+
+Choose between three size scales: `sm` (small), `md` (medium / default), and `lg` (large).
+
+<Preview name="checkbox-sizes" />
+
+```tsx
+<Checkbox size="sm" defaultSelected>
+  Small (sm)
+</Checkbox>
+<Checkbox size="md" defaultSelected>
+  Medium (md)
+</Checkbox>
+<Checkbox size="lg" defaultSelected>
+  Large (lg)
+</Checkbox>
+```
+
+## Corner Shapes (Radius)
+
+Custom corner radiuses can be set on individual checkboxes or propagated to an entire group via `radius`. Options include `none` (sharp square), `sm`, `md`, `lg`, and `full` (circular / pill):
+
+<Preview name="checkbox-radius" />
+
+```tsx
+<Checkbox radius="none" defaultSelected>
+  Square (none)
+</Checkbox>
+<Checkbox radius="sm" defaultSelected>
+  Small (sm)
+</Checkbox>
+<Checkbox radius="md" defaultSelected>
+  Medium (md)
+</Checkbox>
+<Checkbox radius="lg" defaultSelected>
+  Large (lg)
+</Checkbox>
+<Checkbox radius="full" defaultSelected>
+  Circular (full)
+</Checkbox>
+```
+
+## States & Validation
+
+`Checkbox` handles interactive, read-only, disabled, required, and error states across ARIA attributes and visual styling.
+
+<Preview name="checkbox-states" />
+
+```tsx
+<Checkbox>Unchecked</Checkbox>
+<Checkbox defaultSelected>Checked</Checkbox>
+<Checkbox isIndeterminate isSelected>
+  Indeterminate
+</Checkbox>
+<Checkbox isDisabled>Disabled Unchecked</Checkbox>
+<Checkbox defaultSelected isDisabled>
+  Disabled Checked
+</Checkbox>
+<Checkbox defaultSelected isReadOnly>
+  Read-Only
+</Checkbox>
+<Checkbox isInvalid>Invalid State</Checkbox>
+```
+
+## Controlled State
+
+Manage the checkbox selection using React state (`isSelected` and `onChange`).
+
+<Preview name="checkbox-controlled" />
+
+```tsx
+import { useState } from 'react';
+import { Checkbox, Button } from '@ideasui/react';
+
+export function ControlledExample() {
+  const [isSelected, setIsSelected] = useState(true);
+
+  return (
+    <div className="flex flex-col gap-4">
+      <Checkbox isSelected={isSelected} onChange={(checked) => setIsSelected(checked)}>
+        Subscribe to email updates
+      </Checkbox>
+
+      <p className="text-xs">State: {isSelected ? 'Checked' : 'Unchecked'}</p>
+
+      <Button size="sm" onClick={() => setIsSelected((prev) => !prev)}>
+        Toggle State
+      </Button>
+    </div>
+  );
+}
+```
+
+## Custom Icons
+
+Customize the indicator icon rendered in checked, unchecked, or indeterminate states using `checkedIcon`, `uncheckedIcon`, and `indeterminateIcon`. Props accept a `ReactNode` or a render function `({ className }) => ReactNode`.
+
+<Preview name="checkbox-custom-icons" />
+
+```tsx
+import { Checkbox } from '@ideasui/react';
+import { Check, X, Minus } from 'lucide-react';
+
+{
+  /* Custom Checked Icon */
+}
+<Checkbox defaultSelected checkedIcon={<Check className="h-3.5 w-3.5" />}>
+  Custom Checked Icon
+</Checkbox>;
+
+{
+  /* Custom Unchecked Icon */
+}
+<Checkbox uncheckedIcon={<X className="h-3.5 w-3.5" />}>Custom Unchecked Icon</Checkbox>;
+
+{
+  /* Custom Indeterminate Icon */
+}
+<Checkbox isIndeterminate indeterminateIcon={<Minus className="h-3.5 w-3.5" />}>
+  Custom Indeterminate Icon
+</Checkbox>;
+```
+
+## Checkbox Group
+
+`CheckboxGroup` manages grouped selection states and propagates theme, size, corner shape (`radius`), and state props to child checkboxes:
+
+<Preview name="checkbox-group" />
+
+```tsx
+<CheckboxGroup defaultValue={['email']}>
+  <CheckboxGroupLabel>Notification Channels</CheckboxGroupLabel>
+  <Checkbox value="email">Email</Checkbox>
+  <Checkbox value="sms">SMS</Checkbox>
+  <Checkbox value="push">Push Notifications</Checkbox>
+  <CheckboxGroupDescription>Select at least one channel.</CheckboxGroupDescription>
+</CheckboxGroup>
+```
+
+## Indeterminate State
+
+Use `isIndeterminate` for parent checkboxes controlling a selection tree of child options:
+
+<Preview name="checkbox-indeterminate" />
+
+```tsx
+import { useState } from 'react';
+import { Checkbox } from '@ideasui/react';
+
+export function IndeterminateExample() {
+  const options = ['Email Notifications', 'SMS Alerts', 'Push Notifications'];
+  const [selected, setSelected] = useState(['Email Notifications']);
+
+  const allSelected = selected.length === options.length;
+  const someSelected = selected.length > 0 && !allSelected;
+
+  const toggleAll = (checked: boolean) => {
+    setSelected(checked ? [...options] : []);
+  };
+
+  const toggleOne = (opt: string, checked: boolean) => {
+    setSelected((prev) => (checked ? [...prev, opt] : prev.filter((v) => v !== opt)));
+  };
+
+  return (
+    <div className="flex flex-col gap-3">
+      <Checkbox isIndeterminate={someSelected} isSelected={allSelected} onChange={toggleAll}>
+        Select All Channels
+      </Checkbox>
+
+      <div className="ml-6 flex flex-col gap-2">
+        {options.map((opt) => (
+          <Checkbox
+            key={opt}
+            isSelected={selected.includes(opt)}
+            onChange={(checked) => toggleOne(opt, checked)}
+          >
+            {opt}
+          </Checkbox>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+## Standalone CSS
+
+`Checkbox` can also be used in non-Tailwind projects via the pre-compiled `@ideasui/styles` package.
+
+Install the standalone styles package:
+
+```bash
+pnpm add @ideasui/styles
+```
+
+Import base tokens and the checkbox component stylesheet:
+
+```tsx
+import '@ideasui/styles/base.css';
+import '@ideasui/styles/components/checkbox.css';
+```
+
+Or import all component styles in a single bundle:
+
+```tsx
+import '@ideasui/styles';
+```
+
+### BEM CSS Classes
+
+`Checkbox` components expose standard BEM class names and granular slot target selectors generated by the `@ideasui/theme` recipe:
+
+- **Block / Root:** `.ideasui-checkbox` (`root` slot) — Main label wrapper element (`<label>`).
+- **Elements (Slots):**
+  - `.ideasui-checkbox__input` (`input` slot) — Hidden native `<input type="checkbox">` element.
+  - `.ideasui-checkbox__indicator` (`indicator` slot) — Visual checkbox square or circle indicator container.
+  - `.ideasui-checkbox__icon` (`icon` slot) — Check mark or indeterminate dash SVG icon inside indicator.
+  - `.ideasui-checkbox__label-text` (`labelText` slot) — Visible label text element.
+- **Group Elements:**
+  - `.ideasui-checkbox-group` (`checkbox-group` slot) — Group `<fieldset>` container element.
+  - `.ideasui-checkbox-group__label` (`checkbox-group-label` slot) — Group label element.
+  - `.ideasui-checkbox-group__description` (`checkbox-group-description` slot) — Helper description paragraph.
+  - `.ideasui-checkbox-group__error` (`checkbox-group-error` slot) — Validation error alert paragraph.
+- **BEM Modifiers:**
+  - **Visual Variants:** `.ideasui-checkbox--solid`, `.ideasui-checkbox--outline`, `.ideasui-checkbox--subtle`
+  - **Sizes:** `.ideasui-checkbox--sm`, `.ideasui-checkbox--md`, `.ideasui-checkbox--lg`
+  - **Radius Shapes:** `.ideasui-checkbox--radius-none`, `.ideasui-checkbox--radius-sm`, `.ideasui-checkbox--radius-md`, `.ideasui-checkbox--radius-lg`, `.ideasui-checkbox--radius-full`
+  - **States:** `.ideasui-checkbox--selected`, `.ideasui-checkbox--indeterminate`, `.ideasui-checkbox--disabled`, `.ideasui-checkbox--readonly`, `.ideasui-checkbox--invalid`
+
+---
+
+## API Reference
+
+<APIReferenceViewer componentName="checkbox" />

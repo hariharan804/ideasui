@@ -70,6 +70,7 @@ export const InputFieldInput = forwardRef<HTMLInputElement, InputFieldInputProps
       value,
       defaultValue,
       inputFilter: inputFilterProp,
+      inputRef: propInputRef,
       onFocus,
       onBlur,
       onChange,
@@ -109,6 +110,13 @@ export const InputFieldInput = forwardRef<HTMLInputElement, InputFieldInputProps
         reference(node);
       } else if (reference && 'current' in reference) {
         (reference as { current: HTMLInputElement | null }).current = node;
+      }
+
+      if (typeof propInputRef === 'function') {
+        propInputRef(node);
+      } else if (propInputRef && 'current' in propInputRef) {
+        // eslint-disable-next-line react-compiler/react-compiler
+        (propInputRef as { current: HTMLInputElement | null }).current = node;
       }
     };
 

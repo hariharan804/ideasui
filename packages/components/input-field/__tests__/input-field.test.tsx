@@ -336,6 +336,7 @@ describe('InputField', () => {
       </InputField>,
     );
 
+    expect(c1).toBeInTheDocument();
     await expectAccessible(c1);
 
     const { container: c2 } = render(
@@ -345,6 +346,7 @@ describe('InputField', () => {
       </InputField>,
     );
 
+    expect(c2).toBeInTheDocument();
     await expectAccessible(c2);
 
     const { container: c3 } = render(
@@ -354,6 +356,7 @@ describe('InputField', () => {
       </InputField>,
     );
 
+    expect(c3).toBeInTheDocument();
     await expectAccessible(c3);
 
     const { container: c4 } = render(
@@ -363,6 +366,7 @@ describe('InputField', () => {
       </InputField>,
     );
 
+    expect(c4).toBeInTheDocument();
     await expectAccessible(c4);
 
     const { container: c5 } = render(
@@ -373,6 +377,7 @@ describe('InputField', () => {
       </InputField>,
     );
 
+    expect(c5).toBeInTheDocument();
     await expectAccessible(c5);
   });
 
@@ -580,5 +585,56 @@ describe('InputField', () => {
 
     fireEvent.change(input, { target: { value: '12abc34' } });
     expect(input.value).toBe('1234');
+  });
+
+  it('should pass native input props (name, id, autoComplete, inputMode, maxLength, pattern) in shorthand usage', () => {
+    render(
+      <InputField
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus
+        autoComplete="email"
+        id="explicit-email-id"
+        inputMode="email"
+        label="Email"
+        maxLength={50}
+        minLength={5}
+        name="user_email"
+        pattern="[^@]+@[^@]+"
+      />,
+    );
+
+    const input = screen.getByRole('textbox');
+
+    expect(input).toHaveAttribute('name', 'user_email');
+    expect(input).toHaveAttribute('id', 'explicit-email-id');
+    expect(input).toHaveAttribute('autocomplete', 'email');
+    expect(input).toHaveAttribute('inputmode', 'email');
+    expect(input).toHaveAttribute('maxlength', '50');
+    expect(input).toHaveAttribute('minlength', '5');
+    expect(input).toHaveAttribute('pattern', '[^@]+@[^@]+');
+  });
+
+  it('should forward inputRef to native input element in shorthand usage', () => {
+    const inputRef = createRef<HTMLInputElement>();
+
+    render(<InputField inputRef={inputRef} label="Username" placeholder="Enter username" />);
+
+    expect(inputRef.current).toBeInTheDocument();
+    expect(inputRef.current?.tagName).toBe('INPUT');
+  });
+
+  it('should support slotProps.errorMessage as primary naming for error slot props', () => {
+    render(
+      <InputField
+        isInvalid
+        errorMessage="Custom error message"
+        label="Email"
+        slotProps={{
+          errorMessage: { 'data-testid': 'error-slot-test-id' },
+        }}
+      />,
+    );
+
+    expect(screen.getByTestId('error-slot-test-id')).toHaveTextContent('Custom error message');
   });
 });

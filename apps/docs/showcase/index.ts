@@ -2,6 +2,7 @@
 import type { ComponentType } from 'react';
 
 import * as ButtonDemos from './button';
+import * as CheckboxDemos from './checkbox';
 import * as InputFieldDemos from './input-field';
 import * as TextDemos from './text';
 
@@ -11,6 +12,47 @@ export type DemoItem = {
 };
 
 export const demos: Record<string, DemoItem> = {
+  // Checkbox demos
+  'checkbox-basic': {
+    component: CheckboxDemos.Basic,
+    file: 'checkbox/basic.tsx',
+  },
+  'checkbox-variants': {
+    component: CheckboxDemos.Variants,
+    file: 'checkbox/variants.tsx',
+  },
+  'checkbox-colors': {
+    component: CheckboxDemos.Colors,
+    file: 'checkbox/colors.tsx',
+  },
+  'checkbox-sizes': {
+    component: CheckboxDemos.Sizes,
+    file: 'checkbox/sizes.tsx',
+  },
+  'checkbox-radius': {
+    component: CheckboxDemos.Radius,
+    file: 'checkbox/radius.tsx',
+  },
+  'checkbox-states': {
+    component: CheckboxDemos.States,
+    file: 'checkbox/states.tsx',
+  },
+  'checkbox-controlled': {
+    component: CheckboxDemos.Controlled,
+    file: 'checkbox/controlled.tsx',
+  },
+  'checkbox-group': {
+    component: CheckboxDemos.Group,
+    file: 'checkbox/group.tsx',
+  },
+  'checkbox-indeterminate': {
+    component: CheckboxDemos.Indeterminate,
+    file: 'checkbox/indeterminate.tsx',
+  },
+  'checkbox-custom-icons': {
+    component: CheckboxDemos.CustomIcons,
+    file: 'checkbox/custom-icons.tsx',
+  },
   // Text demos
   'text-basic': {
     component: TextDemos.TextBasic,

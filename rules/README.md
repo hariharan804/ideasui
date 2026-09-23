@@ -14,6 +14,7 @@ This directory contains the central guidelines for developing the IdeasUI design
 | [code-quality.md](./code-quality.md)                   | General code standards, complexity limits, and performance goals.                      |
 | [typescript-quality.md](./typescript-quality.md)       | TypeScript configurations, strict mode, and type safety rules.                         |
 | [tailwind-theme.md](./tailwind-theme.md)               | Tailwind CSS v4 implementation and the `@ideasui/theme` system.                        |
+| [mdx-documentation.md](./mdx-documentation.md)         | Standards for writing MDX docs pages, showcase previews, and `<APIReferenceViewer />`. |
 
 ## 🛠️ Usage
 

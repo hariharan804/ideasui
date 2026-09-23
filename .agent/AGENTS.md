@@ -136,6 +136,7 @@ Full details → `rules/naming-conventions.md`
 | Accessibility              | `rules/accessibility.md`         |
 | Code quality               | `rules/code-quality.md`          |
 | TypeScript quality         | `rules/typescript-quality.md`    |
+| **MDX Documentation**      | `rules/mdx-documentation.md`     |
 
 ## 🔄 Workflows
 
