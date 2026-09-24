@@ -25,10 +25,10 @@ const meta: Meta<typeof Checkbox> = {
       options: ['solid', 'outline', 'subtle'],
       description: 'Visual style variant of the checkbox indicator.',
     },
-    colorScheme: {
+    color: {
       control: 'select',
       options: ['primary', 'neutral', 'success', 'warning', 'danger'],
-      description: 'Color scheme applied to the checked state.',
+      description: 'Color applied to the checked state.',
     },
     size: {
       control: 'select',
@@ -84,13 +84,13 @@ export const Variants: Story = {
   ),
 };
 
-// ── All Color Schemes ───────────────────────────────────────────
-export const ColorSchemes: Story = {
+// ── All Colors ───────────────────────────────────────────
+export const Colors: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(['primary', 'neutral', 'success', 'warning', 'danger'] as const).map((colorScheme) => (
-        <Checkbox key={colorScheme} defaultSelected colorScheme={colorScheme}>
-          {colorScheme.charAt(0).toUpperCase() + colorScheme.slice(1)}
+      {(['primary', 'neutral', 'success', 'warning', 'danger'] as const).map((color) => (
+        <Checkbox key={color} defaultSelected color={color}>
+          {color.charAt(0).toUpperCase() + color.slice(1)}
         </Checkbox>
       ))}
     </div>
@@ -289,7 +289,7 @@ export const CustomIcons: Story = {
 export const Playground: Story = {
   args: {
     variant: 'solid',
-    colorScheme: 'primary',
+    color: 'primary',
     size: 'md',
     isDisabled: false,
     isInvalid: false,

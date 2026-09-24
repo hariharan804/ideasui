@@ -1,25 +1,21 @@
 {
-  "name": "@ideasui/react",
-  "version": "0.0.2-beta.1",
-  "description": "IdeasUI is a premium, accessible React component library built with Tailwind CSS v4, React Aria, and OKLCH design tokens. Fully customizable, high-performance, and dark-mode ready.",
-  "author": "IdeasUI<ideas2logic@gmail.com>",
+  "name": "@ideasui/radio",
+  "version": "0.0.1-beta.1",
+  "description": "Radio component for IdeasUI",
+  "author": "IdeasUI <ideas2logic@gmail.com>",
   "homepage": "https://ideasui.com",
   "license": "MIT",
   "keywords": [
     "react",
-    "components",
-    "design-system",
-    "ui-kit",
+    "radio",
+    "react-aria",
     "tailwindcss",
     "tailwind-v4",
-    "react-aria",
-    "oklch",
     "accessible-ui",
     "wcag",
-    "dark-mode",
     "ideasui",
-    "premium-ui",
-    "headless-ui"
+    "components",
+    "design-system"
   ],
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -40,7 +36,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ideas2logic-lab/ideasui.git",
-    "directory": "packages/core/react"
+    "directory": "packages/components/radio"
   },
   "bugs": {
     "url": "https://github.com/ideas2logic-lab/ideasui/issues"
@@ -59,13 +55,9 @@
     "react-dom": ">=18"
   },
   "dependencies": {
-    "@ideasui/radio": "workspace:*",
-    "@ideasui/checkbox": "workspace:*",
-    "@ideasui/input-field": "workspace:*",
-    "@ideasui/text": "workspace:*",
-    "@ideasui/button": "workspace:*",
     "@ideasui/theme": "workspace:*",
-    "@ideasui/utils": "workspace:*"
+    "@ideasui/utils": "workspace:*",
+    "react-aria-components": "^1.16.0"
   },
   "devDependencies": {
     "clean-package": "^2.2.0",

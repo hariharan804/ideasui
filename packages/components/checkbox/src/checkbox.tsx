@@ -73,7 +73,7 @@ function renderIcon(
 
 interface ResolvedProps {
   variant: 'solid' | 'outline' | 'subtle';
-  colorScheme: 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
+  color: 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
   size: 'sm' | 'md' | 'lg';
   radius: CheckboxProps['radius'];
   isDisabled: boolean;
@@ -91,11 +91,11 @@ function resolveVariant(
   return variant ?? groupVariant ?? 'solid';
 }
 
-function resolveColorScheme(
-  colorScheme: CheckboxProps['colorScheme'],
-  groupColorScheme: CheckboxGroupContextValue['colorScheme'],
+function resolveColor(
+  color: CheckboxProps['color'],
+  groupColor: CheckboxGroupContextValue['color'],
 ): 'primary' | 'neutral' | 'success' | 'warning' | 'danger' {
-  return colorScheme ?? groupColorScheme ?? 'primary';
+  return color ?? groupColor ?? 'primary';
 }
 
 function resolveSize(
@@ -116,7 +116,7 @@ function resolveProps(
 
   return {
     variant: resolveVariant(props.variant, group?.variant),
-    colorScheme: resolveColorScheme(props.colorScheme, group?.colorScheme),
+    color: resolveColor(props.color, group?.color),
     size: resolveSize(props.size, group?.size),
     radius: props.radius ?? group?.radius,
     isDisabled: props.isDisabled ?? group?.isDisabled ?? false,
@@ -132,7 +132,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (properties, reference): JSX.Element => {
     const {
       variant,
-      colorScheme,
+      color,
       size,
       radius,
       isSelected,
@@ -175,7 +175,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     const resolved = resolveProps(
       {
         variant,
-        colorScheme,
+        color,
         size,
         radius,
         isSelected,
@@ -198,7 +198,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     const styles = checkboxRecipe({
       variant: resolved.variant,
-      colorScheme: resolved.colorScheme,
+      color: resolved.color,
       size: resolved.size,
       radius: resolved.radius,
       isDisabled: resolved.isDisabled,

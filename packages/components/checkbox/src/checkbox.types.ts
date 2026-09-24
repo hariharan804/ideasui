@@ -2,13 +2,13 @@ import type { CSSProperties, HTMLAttributes, InputHTMLAttributes, ReactNode } fr
 import type { CheckboxReturnType } from '@ideasui/theme/recipes';
 
 export type CheckboxVariant = 'solid' | 'outline' | 'subtle';
-export type CheckboxColorScheme = 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
+export type CheckboxColor = 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
 export type CheckboxSize = 'sm' | 'md' | 'lg';
 export type CheckboxRadius = 'none' | 'sm' | 'md' | 'lg' | 'full';
 
 export interface CheckboxProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
-  'size' | 'onChange'
+  'size' | 'onChange' | 'color'
 > {
   /**
    * Visual style variant of the checkbox indicator.
@@ -20,7 +20,7 @@ export interface CheckboxProps extends Omit<
    * Color scheme applied to the checked/indeterminate state.
    * @default 'primary'
    */
-  readonly colorScheme?: CheckboxColorScheme;
+  readonly color?: CheckboxColor;
 
   /**
    * Size scale of the checkbox.
@@ -148,7 +148,7 @@ export interface CheckboxGroupProps extends Omit<
    * Color scheme propagated to all child Checkboxes.
    * @default 'primary'
    */
-  readonly colorScheme?: CheckboxColorScheme;
+  readonly color?: CheckboxColor;
 
   /**
    * Size scale propagated to all child Checkboxes.
@@ -254,7 +254,7 @@ export interface CheckboxGroupErrorProps extends HTMLAttributes<HTMLParagraphEle
 
 export interface CheckboxGroupContextValue {
   readonly variant?: CheckboxVariant;
-  readonly colorScheme?: CheckboxColorScheme;
+  readonly color?: CheckboxColor;
   readonly size?: CheckboxSize;
   readonly radius?: CheckboxRadius;
   readonly isDisabled?: boolean;

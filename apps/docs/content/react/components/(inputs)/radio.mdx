@@ -1,0 +1,227 @@
+---
+title: Radio
+description: An enterprise-grade, accessible, theme-aware compound radio selection primitive supporting standalone usage, radio groups, controlled state, custom icons, visual variants, and WCAG 2.1 AA compliance.
+links:
+  npm: true
+  source: radio/src/radio.tsx
+  recipe: core/theme/src/recipes/radio/radio.ts
+  storybook: Components/Radio
+---
+
+<QuickNav
+  items={[
+    {
+      title: 'Basic Usage',
+      description: 'Single radio option and basic selection handling.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'Variants & Color Themes',
+      description: 'Solid, outline, and subtle styles across OKLCH color palettes.',
+      href: '#variants--color-themes',
+    },
+    {
+      title: 'Sizes',
+      description: 'Small (sm), Medium (md), and Large (lg) size scales.',
+      href: '#sizes',
+    },
+    {
+      title: 'Corner Shapes (Radius)',
+      description: 'Square, rounded, and circular border radius styles.',
+      href: '#corner-shapes-radius',
+    },
+    {
+      title: 'States & Validation',
+      description: 'Disabled, read-only, required, and error state handling.',
+      href: '#states--validation',
+    },
+    {
+      title: 'Controlled State',
+      description: 'Managing selected radio option state with React.',
+      href: '#controlled-state',
+    },
+    {
+      title: 'Radio Group',
+      description: 'Compound radio group composition with label, description, and error.',
+      href: '#radio-group',
+    },
+    {
+      title: 'Horizontal Group Layout',
+      description: 'Displaying radio groups horizontally.',
+      href: '#horizontal-group-layout',
+    },
+    {
+      title: 'Custom Icons',
+      description: 'Custom selected bullet/icon indicators.',
+      href: '#custom-icons',
+    },
+    {
+      title: 'API Reference',
+      description: 'Complete Radio and RadioGroup props reference.',
+      href: '#api-reference',
+    },
+  ]}
+/>
+
+## Installation
+
+<InstallTabs pkg="@ideasui/radio" />
+
+## Import
+
+```tsx
+import {
+  Radio,
+  RadioGroup,
+  RadioGroupLabel,
+  RadioGroupDescription,
+  RadioGroupError,
+} from '@ideasui/react';
+// or from individual package
+import { Radio, RadioGroup } from '@ideasui/radio';
+```
+
+## Basic Usage
+
+A standalone `Radio` can be used directly for simple binary selection:
+
+<Preview name="radio-basic" />
+
+```tsx
+<Radio defaultSelected>Option 1</Radio>
+```
+
+## Variants & Color Themes
+
+Choose from three visual variants—`solid` (default), `outline`, and `subtle`—across IdeasUI semantic colors (`primary`, `neutral`, `success`, `warning`, `danger`):
+
+<Preview name="radio-variants" />
+
+```tsx
+<Radio defaultSelected variant="solid">Solid (Default)</Radio>
+<Radio defaultSelected variant="outline">Outline</Radio>
+<Radio defaultSelected variant="subtle">Subtle</Radio>
+```
+
+<Preview name="radio-colors" />
+
+```tsx
+<Radio color="primary" defaultSelected>Primary</Radio>
+<Radio color="neutral" defaultSelected>Neutral</Radio>
+<Radio color="success" defaultSelected>Success</Radio>
+<Radio color="warning" defaultSelected>Warning</Radio>
+<Radio color="danger" defaultSelected>Danger</Radio>
+```
+
+## Sizes
+
+Choose between three size scales: `sm` (small), `md` (medium / default), and `lg` (large):
+
+<Preview name="radio-sizes" />
+
+```tsx
+<Radio defaultSelected size="sm">Small (sm)</Radio>
+<Radio defaultSelected size="md">Medium (md)</Radio>
+<Radio defaultSelected size="lg">Large (lg)</Radio>
+```
+
+## Corner Shapes (Radius)
+
+Custom indicator corner shapes can be set via the `radius` prop (`none`, `sm`, `md`, `lg`, `full`):
+
+<Preview name="radio-radius" />
+
+```tsx
+<Radio defaultSelected radius="full">Full (Circular)</Radio>
+<Radio defaultSelected radius="lg">Large</Radio>
+<Radio defaultSelected radius="md">Medium</Radio>
+<Radio defaultSelected radius="sm">Small</Radio>
+<Radio defaultSelected radius="none">None (Square)</Radio>
+```
+
+## States & Validation
+
+`Radio` supports disabled, read-only, required, and invalid states:
+
+<Preview name="radio-states" />
+
+```tsx
+<Radio>Unchecked</Radio>
+<Radio defaultSelected>Checked</Radio>
+<Radio isDisabled>Disabled unchecked</Radio>
+<Radio defaultSelected isDisabled>Disabled checked</Radio>
+<Radio isInvalid>Invalid</Radio>
+<Radio defaultSelected isReadOnly>Read-only</Radio>
+```
+
+## Controlled State
+
+Pass `value` and `onChange` to `RadioGroup` to control selection state:
+
+<Preview name="radio-controlled" />
+
+```tsx
+const [selected, setSelected] = useState('pro');
+
+<RadioGroup value={selected} onChange={setSelected}>
+  <RadioGroupLabel>Selected Plan</RadioGroupLabel>
+  <Radio value="starter">Starter Plan ($9/mo)</Radio>
+  <Radio value="pro">Pro Plan ($29/mo)</Radio>
+  <Radio value="enterprise">Enterprise Plan ($99/mo)</Radio>
+</RadioGroup>;
+```
+
+## Radio Group
+
+Compose enterprise forms with `RadioGroup`, `RadioGroupLabel`, `RadioGroupDescription`, and `RadioGroupError`:
+
+<Preview name="radio-group" />
+
+```tsx
+<RadioGroup defaultValue="email">
+  <RadioGroupLabel>Notification Channel</RadioGroupLabel>
+  <Radio value="email">Email digest</Radio>
+  <Radio value="sms">SMS text alerts</Radio>
+  <Radio value="push">Push notifications</Radio>
+  <RadioGroupDescription>Choose your primary channel for notifications.</RadioGroupDescription>
+  <RadioGroupError>Please select a valid option.</RadioGroupError>
+</RadioGroup>
+```
+
+## Horizontal Group Layout
+
+Set `orientation="horizontal"` to align radio options horizontally:
+
+<Preview name="radio-group-horizontal" />
+
+```tsx
+<RadioGroup defaultValue="card" orientation="horizontal">
+  <RadioGroupLabel>Payment Method</RadioGroupLabel>
+  <Radio value="card">Credit Card</Radio>
+  <Radio value="paypal">PayPal</Radio>
+  <Radio value="apple">Apple Pay</Radio>
+</RadioGroup>
+```
+
+## Custom Icons
+
+Customize the checked dot/icon indicator by supplying a custom SVG or render function via `icon`:
+
+<Preview name="radio-custom-icons" />
+
+```tsx
+<Radio
+  defaultSelected
+  icon={
+    <svg className="size-full p-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} />
+    </svg>
+  }
+>
+  Custom Check Icon
+</Radio>
+```
+
+## API Reference
+
+<APIReferenceViewer componentName="radio" />

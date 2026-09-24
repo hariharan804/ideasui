@@ -1,65 +1,67 @@
 'use client';
 
-import type { CheckboxGroupProps } from './checkbox.types';
+import type { RadioGroupProps } from './radio.types';
 import type { JSX } from 'react';
 
 import { forwardRef, useId, useState, useCallback, useMemo } from 'react';
-import { checkboxGroup } from '@ideasui/theme/recipes';
+import { radioGroup } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
-import { CheckboxGroupContext } from './checkbox-context';
+import { RadioGroupContext } from './radio-context';
 
-export const CheckboxGroup = forwardRef<HTMLFieldSetElement, CheckboxGroupProps>(
+export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(
   (properties, reference): JSX.Element => {
     const {
+      name: propName,
       value,
-      defaultValue = [],
+      defaultValue,
       onChange,
       variant = 'solid',
       color = 'primary',
       size = 'md',
-      radius,
+      radius = 'full',
       orientation = 'vertical',
       isDisabled = false,
       isReadOnly = false,
       isRequired = false,
       isInvalid = false,
+      isToggleable = false,
       className,
       style,
       children,
       ...otherProperties
     } = properties;
 
-    const [internalValue, setInternalValue] = useState<string[]>(defaultValue);
-    const selectedValues = value ?? internalValue;
+    const autoName = useId();
+    const groupName = propName ?? `radio-group-${autoName}`;
+
+    const [internalValue, setInternalValue] = useState<string | undefined>(defaultValue);
+    const selectedValue = value ?? internalValue;
 
     const groupLabelId = useId();
     const groupDescriptionId = useId();
     const groupErrorId = useId();
 
-    const groupStyles = checkboxGroup({ orientation, isInvalid, isDisabled });
+    const groupStyles = radioGroup({ orientation, isInvalid, isDisabled });
 
     const onGroupChange = useCallback(
-      (itemValue: string, checked: boolean) => {
+      (itemValue: string) => {
         if (isReadOnly) {
           return;
         }
 
-        const next = checked
-          ? [...selectedValues, itemValue]
-          : selectedValues.filter((v) => v !== itemValue);
-
-        if (!value) {
-          setInternalValue(next);
+        if (value === undefined) {
+          setInternalValue(itemValue);
         }
 
-        onChange?.(next);
+        onChange?.(itemValue);
       },
-      [isReadOnly, selectedValues, value, onChange],
+      [isReadOnly, value, onChange],
     );
 
     const contextValue = useMemo(
       () => ({
+        name: groupName,
         variant,
         color,
         size,
@@ -68,13 +70,15 @@ export const CheckboxGroup = forwardRef<HTMLFieldSetElement, CheckboxGroupProps>
         isReadOnly,
         isRequired,
         isInvalid,
+        isToggleable,
         groupLabelId,
         groupDescriptionId,
         groupErrorId,
-        selectedValues,
+        selectedValue,
         onGroupChange,
       }),
       [
+        groupName,
         variant,
         color,
         size,
@@ -83,16 +87,17 @@ export const CheckboxGroup = forwardRef<HTMLFieldSetElement, CheckboxGroupProps>
         isReadOnly,
         isRequired,
         isInvalid,
+        isToggleable,
         groupLabelId,
         groupDescriptionId,
         groupErrorId,
-        selectedValues,
+        selectedValue,
         onGroupChange,
       ],
     );
 
     return (
-      <CheckboxGroupContext.Provider value={contextValue}>
+      <RadioGroupContext.Provider value={contextValue}>
         <fieldset
           {...otherProperties}
           ref={reference}
@@ -103,14 +108,14 @@ export const CheckboxGroup = forwardRef<HTMLFieldSetElement, CheckboxGroupProps>
           data-invalid={isInvalid || undefined}
           data-readonly={isReadOnly || undefined}
           data-required={isRequired || undefined}
-          data-slot="checkbox-group"
+          data-slot="radio-group"
           style={style}
         >
           {children}
         </fieldset>
-      </CheckboxGroupContext.Provider>
+      </RadioGroupContext.Provider>
     );
   },
 );
 
-CheckboxGroup.displayName = 'IdeasUI.CheckboxGroup';
+RadioGroup.displayName = 'IdeasUI.RadioGroup';

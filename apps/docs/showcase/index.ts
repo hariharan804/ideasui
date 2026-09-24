@@ -4,6 +4,7 @@ import type { ComponentType } from 'react';
 import * as ButtonDemos from './button';
 import * as CheckboxDemos from './checkbox';
 import * as InputFieldDemos from './input-field';
+import * as RadioDemos from './radio';
 import * as TextareaDemos from './textarea';
 import * as TextDemos from './text';
 
@@ -13,6 +14,48 @@ export type DemoItem = {
 };
 
 export const demos: Record<string, DemoItem> = {
+  // Radio demos
+  'radio-basic': {
+    component: RadioDemos.Basic,
+    file: 'radio/basic.tsx',
+  },
+  'radio-variants': {
+    component: RadioDemos.Variants,
+    file: 'radio/variants.tsx',
+  },
+  'radio-colors': {
+    component: RadioDemos.Colors,
+    file: 'radio/colors.tsx',
+  },
+  'radio-sizes': {
+    component: RadioDemos.Sizes,
+    file: 'radio/sizes.tsx',
+  },
+  'radio-radius': {
+    component: RadioDemos.Radius,
+    file: 'radio/radius.tsx',
+  },
+  'radio-states': {
+    component: RadioDemos.States,
+    file: 'radio/states.tsx',
+  },
+  'radio-controlled': {
+    component: RadioDemos.Controlled,
+    file: 'radio/controlled.tsx',
+  },
+  'radio-group': {
+    component: RadioDemos.Group,
+    file: 'radio/group.tsx',
+  },
+  'radio-group-horizontal': {
+    component: RadioDemos.GroupHorizontal,
+    file: 'radio/group-horizontal.tsx',
+  },
+  'radio-custom-icons': {
+    component: RadioDemos.CustomIcons,
+    file: 'radio/custom-icons.tsx',
+  },
+
   // Checkbox demos
   'checkbox-basic': {
     component: CheckboxDemos.Basic,

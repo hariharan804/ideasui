@@ -161,6 +161,50 @@ export const extractConfig = {
         },
       ],
     },
+    radio: {
+      componentName: 'Radio',
+      interfaces: [
+        {
+          name: 'Radio',
+          title: 'Radio Props',
+          description: 'Radio control component for selecting a single option from a list',
+          filePath: '../../packages/components/radio/src/radio.types.ts',
+          interfaceName: 'RadioProps',
+        },
+        {
+          name: 'RadioGroup',
+          componentName: 'RadioGroup',
+          title: 'RadioGroup Props',
+          description: 'Group container managing single selection state across child radios',
+          filePath: '../../packages/components/radio/src/radio.types.ts',
+          interfaceName: 'RadioGroupProps',
+        },
+        {
+          name: 'RadioGroupLabel',
+          componentName: 'RadioGroupLabel',
+          title: 'RadioGroupLabel Props',
+          description: 'Label component rendered above the radio group',
+          filePath: '../../packages/components/radio/src/radio.types.ts',
+          interfaceName: 'RadioGroupLabelProps',
+        },
+        {
+          name: 'RadioGroupDescription',
+          componentName: 'RadioGroupDescription',
+          title: 'RadioGroupDescription Props',
+          description: 'Accessible description text component rendered below the radio group',
+          filePath: '../../packages/components/radio/src/radio.types.ts',
+          interfaceName: 'RadioGroupDescriptionProps',
+        },
+        {
+          name: 'RadioGroupError',
+          componentName: 'RadioGroupError',
+          title: 'RadioGroupError Props',
+          description: 'Error message component rendered below the radio group when invalid',
+          filePath: '../../packages/components/radio/src/radio.types.ts',
+          interfaceName: 'RadioGroupErrorProps',
+        },
+      ],
+    },
   },
 };
 export default extractConfig;

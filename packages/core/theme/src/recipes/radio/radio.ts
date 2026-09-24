@@ -5,87 +5,77 @@ import { tv } from 'tailwind-variants';
 type Color = 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
 const COLORS: readonly Color[] = ['primary', 'neutral', 'success', 'warning', 'danger'];
 
-const solidMap: Record<Color, { indicator: string; icon: string }> = {
+const solidMap: Record<Color, { indicator: string; dot: string }> = {
   primary: {
-    indicator:
-      'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-primary group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-primary',
-    icon: 'text-background',
+    indicator: 'group-data-[selected=true]:border-primary group-data-[selected=true]:bg-primary',
+    dot: 'bg-background',
   },
   neutral: {
-    indicator:
-      'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-neutral group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-neutral',
-    icon: 'text-background',
+    indicator: 'group-data-[selected=true]:border-neutral group-data-[selected=true]:bg-neutral',
+    dot: 'bg-background',
   },
   success: {
-    indicator:
-      'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-success group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-success',
-    icon: 'text-background',
+    indicator: 'group-data-[selected=true]:border-success group-data-[selected=true]:bg-success',
+    dot: 'bg-background',
   },
   warning: {
-    indicator:
-      'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-warning group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-warning',
-    icon: 'text-background',
+    indicator: 'group-data-[selected=true]:border-warning group-data-[selected=true]:bg-warning',
+    dot: 'bg-background',
   },
   danger: {
-    indicator:
-      'group-data-[selected=true]:border-transparent group-data-[selected=true]:bg-danger group-data-[indeterminate=true]:border-transparent group-data-[indeterminate=true]:bg-danger',
-    icon: 'text-background',
+    indicator: 'group-data-[selected=true]:border-danger group-data-[selected=true]:bg-danger',
+    dot: 'bg-background',
   },
 };
 
-const outlineMap: Record<Color, { indicator: string; icon: string }> = {
+const outlineMap: Record<Color, { indicator: string; dot: string }> = {
   primary: {
-    indicator:
-      'group-data-[selected=true]:border-primary group-data-[indeterminate=true]:border-primary',
-    icon: 'text-primary',
+    indicator: 'group-data-[selected=true]:border-primary',
+    dot: 'bg-primary',
   },
   neutral: {
-    indicator:
-      'group-data-[selected=true]:border-neutral group-data-[indeterminate=true]:border-neutral',
-    icon: 'text-neutral',
+    indicator: 'group-data-[selected=true]:border-neutral',
+    dot: 'bg-neutral',
   },
   success: {
-    indicator:
-      'group-data-[selected=true]:border-success group-data-[indeterminate=true]:border-success',
-    icon: 'text-success',
+    indicator: 'group-data-[selected=true]:border-success',
+    dot: 'bg-success',
   },
   warning: {
-    indicator:
-      'group-data-[selected=true]:border-warning group-data-[indeterminate=true]:border-warning',
-    icon: 'text-warning',
+    indicator: 'group-data-[selected=true]:border-warning',
+    dot: 'bg-warning',
   },
   danger: {
-    indicator:
-      'group-data-[selected=true]:border-danger group-data-[indeterminate=true]:border-danger',
-    icon: 'text-danger',
+    indicator: 'group-data-[selected=true]:border-danger',
+    dot: 'bg-danger',
   },
 };
 
-const subtleMap: Record<Color, { indicator: string; icon: string }> = {
+const subtleMap: Record<Color, { indicator: string; dot: string }> = {
   primary: {
     indicator:
-      'group-data-[selected=true]:bg-primary-subtle group-data-[selected=true]:border-primary-subtle group-data-[indeterminate=true]:bg-primary-subtle',
-    icon: 'text-primary',
+      'group-data-[selected=true]:bg-primary-subtle group-data-[selected=true]:border-primary-subtle',
+    dot: 'bg-primary',
   },
   neutral: {
     indicator:
-      'group-data-[selected=true]:bg-surface-muted group-data-[selected=true]:border-surface-muted group-data-[indeterminate=true]:bg-surface-muted',
-    icon: 'text-content-primary',
+      'group-data-[selected=true]:bg-surface-muted group-data-[selected=true]:border-surface-muted',
+    dot: 'bg-content-primary',
   },
   success: {
     indicator:
-      'group-data-[selected=true]:bg-success-subtle group-data-[selected=true]:border-success-subtle group-data-[indeterminate=true]:bg-success-subtle',
-    icon: 'text-success',
+      'group-data-[selected=true]:bg-success-subtle group-data-[selected=true]:border-success-subtle',
+    dot: 'bg-success',
   },
   warning: {
     indicator:
-      'group-data-[selected=true]:bg-warning-subtle group-data-[selected=true]:border-warning-subtle group-data-[indeterminate=true]:bg-warning-subtle',
-    icon: 'text-warning',
+      'group-data-[selected=true]:bg-warning-subtle group-data-[selected=true]:border-warning-subtle',
+    dot: 'bg-warning',
   },
   danger: {
     indicator:
-      'group-data-[selected=true]:bg-danger-subtle group-data-[selected=true]:border-danger-subtle group-data-[indeterminate=true]:bg-danger-subtle',
-    icon: 'text-danger',
+      'group-data-[selected=true]:bg-danger-subtle group-data-[selected=true]:border-danger-subtle',
+    dot: 'bg-danger',
   },
 };
 
@@ -107,7 +97,7 @@ const subtleCompoundVariants = COLORS.map((color) => ({
   class: subtleMap[color],
 }));
 
-export const checkbox = tv({
+export const radio = tv({
   slots: {
     root: 'group inline-flex items-center gap-2 cursor-pointer select-none',
     indicator: [
@@ -115,11 +105,10 @@ export const checkbox = tv({
       'border transition-all duration-150 ease-in-out',
       'group-has-[:focus-visible]:ring-2 group-has-[:focus-visible]:ring-focus group-has-[:focus-visible]:ring-offset-2',
     ],
-    icon: [
-      'pointer-events-none transition-all duration-150 ease-in-out',
-      'opacity-0 scale-50',
+    dot: [
+      'pointer-events-none rounded-full transition-all duration-150 ease-in-out',
+      'opacity-0 scale-0',
       'group-data-[selected=true]:opacity-100 group-data-[selected=true]:scale-100',
-      'group-data-[indeterminate=true]:opacity-100 group-data-[indeterminate=true]:scale-100',
     ],
     labelText: 'text-content-primary leading-none transition-colors duration-150 ease-in-out',
   },
@@ -148,20 +137,20 @@ export const checkbox = tv({
     size: {
       sm: {
         root: 'gap-1.5',
-        indicator: 'size-3.5 rounded-[3px]',
-        icon: 'size-2.5',
+        indicator: 'size-3.5',
+        dot: 'size-1.5',
         labelText: 'text-xs',
       },
       md: {
         root: 'gap-2',
-        indicator: 'size-4 rounded-[4px]',
-        icon: 'size-3',
+        indicator: 'size-4',
+        dot: 'size-2',
         labelText: 'text-sm',
       },
       lg: {
         root: 'gap-2.5',
-        indicator: 'size-5 rounded-md',
-        icon: 'size-3.5',
+        indicator: 'size-5',
+        dot: 'size-2.5',
         labelText: 'text-base',
       },
     },
@@ -207,7 +196,7 @@ export const checkbox = tv({
       variant: 'outline',
       class: {
         indicator: 'border-danger group-data-[selected=true]:border-danger',
-        icon: 'text-danger',
+        dot: 'bg-danger',
       },
     },
   ],
@@ -216,12 +205,13 @@ export const checkbox = tv({
     variant: 'solid',
     color: 'primary',
     size: 'md',
+    radius: 'full',
     isInvalid: false,
     isDisabled: false,
   },
 });
 
-export const checkboxGroup = tv({
+export const radioGroup = tv({
   slots: {
     root: 'm-0 p-0 border-0 min-w-0 flex flex-col gap-2 w-full',
     groupLabel: 'text-content-primary text-sm font-medium',
@@ -252,7 +242,7 @@ export const checkboxGroup = tv({
   },
 });
 
-export type CheckboxVariants = VariantProps<typeof checkbox>;
-export type CheckboxGroupVariants = VariantProps<typeof checkboxGroup>;
-export type CheckboxReturnType = ReturnType<typeof checkbox>;
-export type CheckboxGroupReturnType = ReturnType<typeof checkboxGroup>;
+export type RadioVariants = VariantProps<typeof radio>;
+export type RadioGroupVariants = VariantProps<typeof radioGroup>;
+export type RadioReturnType = ReturnType<typeof radio>;
+export type RadioGroupReturnType = ReturnType<typeof radioGroup>;
