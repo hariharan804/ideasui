@@ -86,6 +86,11 @@ export interface InputFieldTextareaProps extends Omit<
   readonly textareaClassName?: string;
 
   /**
+   * Whether the textarea element should automatically receive focus on mount.
+   */
+  readonly autoFocus?: boolean;
+
+  /**
    * Callback fired when value changes, receiving the new text string.
    */
   readonly onValueChange?: (value: string) => void;
@@ -240,6 +245,11 @@ export interface TextareaProps {
    * Unique identifier for the textarea.
    */
   readonly id?: string;
+
+  /**
+   * Whether the textarea element should automatically receive focus on mount.
+   */
+  readonly autoFocus?: boolean;
 
   /**
    * Form field name for the textarea.

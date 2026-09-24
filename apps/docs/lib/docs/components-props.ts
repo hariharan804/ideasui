@@ -1346,6 +1346,14 @@ export const propsDocumentation: PropsDocumentation = {
           description: 'Unique identifier for the textarea.',
         },
         {
+          name: 'autoFocus',
+          type: 'boolean',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Whether the textarea element should automatically receive focus on mount.',
+        },
+        {
           name: 'name',
           type: 'string',
           required: false,
@@ -1514,6 +1522,14 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: null,
           deprecated: false,
           description: 'Additional class names applied directly to the native `<textarea>`.',
+        },
+        {
+          name: 'autoFocus',
+          type: 'boolean',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Whether the textarea element should automatically receive focus on mount.',
         },
         {
           name: 'onValueChange',
