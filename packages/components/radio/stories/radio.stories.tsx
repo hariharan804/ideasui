@@ -19,7 +19,7 @@ const meta: Meta<typeof Radio> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'subtle'],
+      options: ['outline', 'solid', 'subtle', 'ghost', 'soft'],
       description: 'Visual style variant of the radio indicator.',
     },
     color: {
@@ -66,7 +66,7 @@ export const Default: Story = {
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(['solid', 'outline', 'subtle'] as const).map((variant) => (
+      {(['outline', 'solid', 'subtle', 'ghost', 'soft'] as const).map((variant) => (
         <Radio key={variant} defaultSelected variant={variant}>
           {variant.charAt(0).toUpperCase() + variant.slice(1)}
         </Radio>

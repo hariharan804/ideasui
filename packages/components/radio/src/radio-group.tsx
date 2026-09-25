@@ -16,7 +16,7 @@ export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(
       value,
       defaultValue,
       onChange,
-      variant = 'solid',
+      variant = 'outline',
       color = 'primary',
       size = 'md',
       radius = 'full',

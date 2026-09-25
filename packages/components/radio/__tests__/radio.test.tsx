@@ -3,6 +3,7 @@ import '@testing-library/jest-dom';
 import { createRef } from 'react';
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
+import { radio } from '@ideasui/theme/recipes';
 import { expectAccessible } from '@ideasui/utils/test';
 
 import { Radio, RadioGroup, RadioGroupDescription, RadioGroupError, RadioGroupLabel } from '../src';
@@ -153,5 +154,22 @@ describe('Radio', () => {
     );
 
     await expectAccessible(container);
+  });
+
+  it('should apply hover classes on radio indicator recipe', () => {
+    const styles = radio({ variant: 'solid' });
+
+    expect(styles.indicator()).toContain('group-hover/radio:scale-105');
+    expect(styles.indicator()).toContain('group-hover/radio:border-border-focus');
+  });
+
+  it('should support all visual variants', () => {
+    const variants = ['solid', 'outline', 'subtle', 'ghost', 'soft'] as const;
+
+    for (const v of variants) {
+      const styles = radio({ variant: v });
+
+      expect(styles.indicator()).toBeDefined();
+    }
   });
 });

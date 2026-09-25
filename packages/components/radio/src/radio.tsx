@@ -1,6 +1,6 @@
 'use client';
 
-import type { RadioGroupContextValue, RadioProps } from './radio.types';
+import type { RadioGroupContextValue, RadioProps, RadioVariant } from './radio.types';
 import type { ChangeEvent, JSX, ReactElement, ReactNode } from 'react';
 
 import {
@@ -41,7 +41,7 @@ function renderIcon(
 }
 
 interface ResolvedProps {
-  variant: 'solid' | 'outline' | 'subtle';
+  variant: RadioVariant;
   color: 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
   size: 'sm' | 'md' | 'lg';
   radius: RadioProps['radius'];
@@ -90,7 +90,7 @@ function resolveProps(
   const isToggleable = props.isToggleable ?? g.isToggleable ?? group === null;
 
   return {
-    variant: props.variant ?? g.variant ?? 'solid',
+    variant: props.variant ?? g.variant ?? 'outline',
     color: props.color ?? g.color ?? 'primary',
     size: props.size ?? g.size ?? 'md',
     radius: props.radius ?? g.radius ?? 'full',

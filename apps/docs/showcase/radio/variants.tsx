@@ -6,13 +6,19 @@ export function Variants() {
   return (
     <div className="flex flex-col gap-4">
       <Radio defaultSelected variant="solid">
-        Solid (Default)
+        Solid
       </Radio>
       <Radio defaultSelected variant="outline">
         Outline
       </Radio>
       <Radio defaultSelected variant="subtle">
         Subtle
+      </Radio>
+      <Radio defaultSelected variant="soft">
+        Soft
+      </Radio>
+      <Radio defaultSelected variant="ghost">
+        Ghost
       </Radio>
     </div>
   );

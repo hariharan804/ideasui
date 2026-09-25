@@ -22,7 +22,7 @@ const meta: Meta<typeof Checkbox> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'subtle'],
+      options: ['solid', 'outline', 'subtle', 'ghost', 'soft'],
       description: 'Visual style variant of the checkbox indicator.',
     },
     color: {
@@ -75,7 +75,7 @@ export const Default: Story = {
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(['solid', 'outline', 'subtle'] as const).map((variant) => (
+      {(['solid', 'outline', 'subtle', 'ghost', 'soft'] as const).map((variant) => (
         <Checkbox key={variant} defaultSelected variant={variant}>
           {variant.charAt(0).toUpperCase() + variant.slice(1)}
         </Checkbox>

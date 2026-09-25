@@ -1,7 +1,7 @@
 import type { CSSProperties, HTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 import type { RadioReturnType } from '@ideasui/theme/recipes';
 
-export type RadioVariant = 'solid' | 'outline' | 'subtle';
+export type RadioVariant = 'solid' | 'outline' | 'subtle' | 'ghost' | 'soft';
 export type RadioColor = 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
 export type RadioSize = 'sm' | 'md' | 'lg';
 export type RadioRadius = 'none' | 'sm' | 'md' | 'lg' | 'full';
@@ -12,7 +12,7 @@ export interface RadioProps extends Omit<
 > {
   /**
    * Visual style variant of the radio indicator.
-   * @default 'solid'
+   * @default 'outline'
    */
   readonly variant?: RadioVariant;
 
@@ -133,7 +133,7 @@ export interface RadioGroupProps extends Omit<
 
   /**
    * Visual style variant propagated to all child Radios.
-   * @default 'solid'
+   * @default 'outline'
    */
   readonly variant?: RadioVariant;
 

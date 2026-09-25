@@ -1,6 +1,6 @@
 'use client';
 
-import type { CheckboxGroupContextValue, CheckboxProps } from './checkbox.types';
+import type { CheckboxGroupContextValue, CheckboxProps, CheckboxVariant } from './checkbox.types';
 import type { ChangeEvent, JSX, ReactElement, ReactNode } from 'react';
 
 import {
@@ -72,7 +72,7 @@ function renderIcon(
 }
 
 interface ResolvedProps {
-  variant: 'solid' | 'outline' | 'subtle';
+  variant: CheckboxVariant;
   color: 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
   size: 'sm' | 'md' | 'lg';
   radius: CheckboxProps['radius'];
@@ -87,7 +87,7 @@ interface ResolvedProps {
 function resolveVariant(
   variant: CheckboxProps['variant'],
   groupVariant: CheckboxGroupContextValue['variant'],
-): 'solid' | 'outline' | 'subtle' {
+): CheckboxVariant {
   return variant ?? groupVariant ?? 'solid';
 }
 
