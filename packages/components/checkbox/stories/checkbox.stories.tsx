@@ -7,10 +7,17 @@ import { useState } from 'react';
 import {
   Checkbox,
   CheckboxGroup,
-  CheckboxGroupLabel,
   CheckboxGroupDescription,
   CheckboxGroupError,
+  CheckboxGroupLabel,
 } from '../src';
+
+const VARIANTS = ['solid', 'outline', 'subtle', 'ghost', 'soft'] as const;
+const COLORS = ['primary', 'neutral', 'success', 'warning', 'danger'] as const;
+const SIZES = ['sm', 'md', 'lg'] as const;
+const RADIUS_OPTIONS = ['none', 'sm', 'md', 'lg', 'full'] as const;
+
+const capitalize = (text: string): string => text.charAt(0).toUpperCase() + text.slice(1);
 
 const meta: Meta<typeof Checkbox> = {
   title: 'Components/Checkbox',
@@ -22,22 +29,22 @@ const meta: Meta<typeof Checkbox> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['solid', 'outline', 'subtle', 'ghost', 'soft'],
+      options: VARIANTS,
       description: 'Visual style variant of the checkbox indicator.',
     },
     color: {
       control: 'select',
-      options: ['primary', 'neutral', 'success', 'warning', 'danger'],
+      options: COLORS,
       description: 'Color applied to the checked state.',
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg'],
+      options: SIZES,
       description: 'Size scale of the checkbox.',
     },
     radius: {
       control: 'select',
-      options: ['none', 'sm', 'md', 'lg', 'full'],
+      options: RADIUS_OPTIONS,
       description: 'Border radius corner shape of the indicator.',
     },
     isDisabled: {
@@ -75,9 +82,9 @@ export const Default: Story = {
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(['solid', 'outline', 'subtle', 'ghost', 'soft'] as const).map((variant) => (
+      {VARIANTS.map((variant) => (
         <Checkbox key={variant} defaultSelected variant={variant}>
-          {variant.charAt(0).toUpperCase() + variant.slice(1)}
+          {capitalize(variant)}
         </Checkbox>
       ))}
     </div>
@@ -88,9 +95,9 @@ export const Variants: Story = {
 export const Colors: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(['primary', 'neutral', 'success', 'warning', 'danger'] as const).map((color) => (
+      {COLORS.map((color) => (
         <Checkbox key={color} defaultSelected color={color}>
-          {color.charAt(0).toUpperCase() + color.slice(1)}
+          {capitalize(color)}
         </Checkbox>
       ))}
     </div>
@@ -101,7 +108,7 @@ export const Colors: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(['sm', 'md', 'lg'] as const).map((size) => (
+      {SIZES.map((size) => (
         <Checkbox key={size} defaultSelected size={size}>
           Size {size}
         </Checkbox>
@@ -125,7 +132,7 @@ function getRadiusLabel(radius: string): string {
 export const RadiusShapes: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(['none', 'sm', 'md', 'lg', 'full'] as const).map((radius) => (
+      {RADIUS_OPTIONS.map((radius) => (
         <Checkbox key={radius} defaultSelected radius={radius}>
           {getRadiusLabel(radius)}
         </Checkbox>

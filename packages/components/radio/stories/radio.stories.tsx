@@ -3,6 +3,13 @@ import type { RadioProps } from '../src';
 
 import { Radio, RadioGroup, RadioGroupDescription, RadioGroupError, RadioGroupLabel } from '../src';
 
+const RADIO_VARIANTS = ['outline', 'solid', 'subtle', 'ghost', 'soft'] as const;
+const RADIO_COLORS = ['primary', 'neutral', 'success', 'warning', 'danger'] as const;
+const RADIO_SIZES = ['sm', 'md', 'lg'] as const;
+const RADIO_RADIUS_OPTIONS = ['none', 'sm', 'md', 'lg', 'full'] as const;
+
+const formatTitle = (label: string): string => label.charAt(0).toUpperCase() + label.slice(1);
+
 const meta: Meta<typeof Radio> = {
   title: 'Components/Radio',
   component: Radio,
@@ -19,22 +26,22 @@ const meta: Meta<typeof Radio> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['outline', 'solid', 'subtle', 'ghost', 'soft'],
+      options: RADIO_VARIANTS,
       description: 'Visual style variant of the radio indicator.',
     },
     color: {
       control: 'select',
-      options: ['primary', 'neutral', 'success', 'warning', 'danger'],
+      options: RADIO_COLORS,
       description: 'Color theme applied to the selected state.',
     },
     size: {
       control: 'select',
-      options: ['sm', 'md', 'lg'],
+      options: RADIO_SIZES,
       description: 'Size scale of the radio indicator.',
     },
     radius: {
       control: 'select',
-      options: ['none', 'sm', 'md', 'lg', 'full'],
+      options: RADIO_RADIUS_OPTIONS,
       description: 'Corner radius shape of the indicator.',
     },
     isDisabled: {
@@ -66,9 +73,9 @@ export const Default: Story = {
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(['outline', 'solid', 'subtle', 'ghost', 'soft'] as const).map((variant) => (
+      {RADIO_VARIANTS.map((variant) => (
         <Radio key={variant} defaultSelected variant={variant}>
-          {variant.charAt(0).toUpperCase() + variant.slice(1)}
+          {formatTitle(variant)}
         </Radio>
       ))}
     </div>
@@ -78,9 +85,9 @@ export const Variants: Story = {
 export const Colors: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(['primary', 'neutral', 'success', 'warning', 'danger'] as const).map((color) => (
+      {RADIO_COLORS.map((color) => (
         <Radio key={color} defaultSelected color={color}>
-          {color.charAt(0).toUpperCase() + color.slice(1)}
+          {formatTitle(color)}
         </Radio>
       ))}
     </div>
@@ -90,7 +97,7 @@ export const Colors: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(['sm', 'md', 'lg'] as const).map((size) => (
+      {RADIO_SIZES.map((size) => (
         <Radio key={size} defaultSelected size={size}>
           Size {size}
         </Radio>

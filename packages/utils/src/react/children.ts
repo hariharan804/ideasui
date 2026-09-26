@@ -91,3 +91,33 @@ export function hasChildren(children: ReactNode): boolean {
 export function getValidElements(children: ReactNode): ReactElement[] {
   return Children.toArray(children).filter(isValidReactElement) as ReactElement[];
 }
+
+/**
+ * Renders an icon prop which can be a ReactNode or render function
+ * @param {ReactNode | ((props: { className: string }) => ReactNode)} iconProp - The icon prop to render
+ * @param {string} className - Class name to apply to the icon
+ * @returns {ReactNode} The rendered icon node
+ * @internal
+ */
+export function renderIcon(
+  iconProp: ReactNode | ((props: { className: string }) => ReactNode),
+  className: string,
+): ReactNode {
+  if (typeof iconProp === 'function') {
+    return iconProp({ className });
+  }
+
+  if (iconProp === null || iconProp === undefined) {
+    return null;
+  }
+
+  if (isValidReactElement(iconProp)) {
+    const existingClassName = (iconProp.props as { className?: string }).className;
+
+    return cloneElement(iconProp as ReactElement<{ className?: string }>, {
+      className: existingClassName ? `${existingClassName} ${className}` : className,
+    });
+  }
+
+  return iconProp;
+}

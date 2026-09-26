@@ -1,9 +1,9 @@
 import type { VariantProps } from 'tailwind-variants';
+import type { Color } from '../utils';
 
 import { tv } from 'tailwind-variants';
 
-type Color = 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
-const COLORS: readonly Color[] = ['primary', 'neutral', 'success', 'warning', 'danger'];
+import { createCompoundVariants, groupRecipeConfig } from '../utils';
 
 const solidMap: Record<Color, { indicator: string; icon: string }> = {
   primary: {
@@ -145,35 +145,40 @@ const softMap: Record<Color, { indicator: string; icon: string }> = {
   },
 };
 
-const solidCompoundVariants = COLORS.map((color) => ({
-  variant: 'solid' as const,
-  color,
-  class: solidMap[color],
-}));
+const customIconMap: Record<Color, { indicator: string; icon: string }> = {
+  primary: {
+    indicator:
+      'group-data-[selected=true]/checkbox:border-transparent group-data-[selected=true]/checkbox:bg-transparent group-data-[indeterminate=true]/checkbox:border-transparent group-data-[indeterminate=true]/checkbox:bg-transparent',
+    icon: 'text-primary',
+  },
+  neutral: {
+    indicator:
+      'group-data-[selected=true]/checkbox:border-transparent group-data-[selected=true]/checkbox:bg-transparent group-data-[indeterminate=true]/checkbox:border-transparent group-data-[indeterminate=true]/checkbox:bg-transparent',
+    icon: 'text-content-primary',
+  },
+  success: {
+    indicator:
+      'group-data-[selected=true]/checkbox:border-transparent group-data-[selected=true]/checkbox:bg-transparent group-data-[indeterminate=true]/checkbox:border-transparent group-data-[indeterminate=true]/checkbox:bg-transparent',
+    icon: 'text-success',
+  },
+  warning: {
+    indicator:
+      'group-data-[selected=true]/checkbox:border-transparent group-data-[selected=true]/checkbox:bg-transparent group-data-[indeterminate=true]/checkbox:border-transparent group-data-[indeterminate=true]/checkbox:bg-transparent',
+    icon: 'text-warning',
+  },
+  danger: {
+    indicator:
+      'group-data-[selected=true]/checkbox:border-transparent group-data-[selected=true]/checkbox:bg-transparent group-data-[indeterminate=true]/checkbox:border-transparent group-data-[indeterminate=true]/checkbox:bg-transparent',
+    icon: 'text-danger',
+  },
+};
 
-const outlineCompoundVariants = COLORS.map((color) => ({
-  variant: 'outline' as const,
-  color,
-  class: outlineMap[color],
-}));
-
-const subtleCompoundVariants = COLORS.map((color) => ({
-  variant: 'subtle' as const,
-  color,
-  class: subtleMap[color],
-}));
-
-const ghostCompoundVariants = COLORS.map((color) => ({
-  variant: 'ghost' as const,
-  color,
-  class: ghostMap[color],
-}));
-
-const softCompoundVariants = COLORS.map((color) => ({
-  variant: 'soft' as const,
-  color,
-  class: softMap[color],
-}));
+const solidCompoundVariants = createCompoundVariants('solid', solidMap);
+const outlineCompoundVariants = createCompoundVariants('outline', outlineMap);
+const subtleCompoundVariants = createCompoundVariants('subtle', subtleMap);
+const ghostCompoundVariants = createCompoundVariants('ghost', ghostMap);
+const softCompoundVariants = createCompoundVariants('soft', softMap);
+const customIconCompoundVariants = createCompoundVariants('customIcon', customIconMap);
 
 export const checkbox = tv({
   slots: {
@@ -217,6 +222,10 @@ export const checkbox = tv({
       soft: {
         indicator:
           'border-border-subtle bg-surface-subtle group-hover/checkbox:border-border-strong group-hover/checkbox:bg-surface-muted',
+      },
+      customIcon: {
+        indicator:
+          'border-transparent bg-transparent group-hover/checkbox:border-transparent group-hover/checkbox:bg-transparent',
       },
     },
 
@@ -278,6 +287,7 @@ export const checkbox = tv({
     ...subtleCompoundVariants,
     ...ghostCompoundVariants,
     ...softCompoundVariants,
+    ...customIconCompoundVariants,
 
     // ── Invalid Overrides ───────────────────────────────────────────
     {
@@ -308,36 +318,7 @@ export const checkbox = tv({
   },
 });
 
-export const checkboxGroup = tv({
-  slots: {
-    root: 'm-0 p-0 border-0 min-w-0 flex flex-col gap-2 w-full',
-    groupLabel: 'text-content-primary text-sm font-medium',
-    items: 'flex gap-2 items-start',
-    description: 'text-content-secondary text-xs leading-normal',
-    errorMessage: 'text-danger text-xs leading-normal',
-  },
-  variants: {
-    orientation: {
-      vertical: { items: 'flex-col items-start' },
-      horizontal: { items: 'flex-row flex-wrap items-center' },
-    },
-    isInvalid: {
-      true: {
-        groupLabel: 'text-danger',
-      },
-    },
-    isDisabled: {
-      true: {
-        root: 'opacity-50 pointer-events-none',
-      },
-    },
-  },
-  defaultVariants: {
-    orientation: 'vertical',
-    isInvalid: false,
-    isDisabled: false,
-  },
-});
+export const checkboxGroup = tv(groupRecipeConfig);
 
 export type CheckboxVariants = VariantProps<typeof checkbox>;
 export type CheckboxGroupVariants = VariantProps<typeof checkboxGroup>;

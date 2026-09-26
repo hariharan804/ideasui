@@ -1,9 +1,9 @@
 import type { VariantProps } from 'tailwind-variants';
+import type { Color } from '../utils';
 
 import { tv } from 'tailwind-variants';
 
-type Color = 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
-const COLORS: readonly Color[] = ['primary', 'neutral', 'success', 'warning', 'danger'];
+import { createCompoundVariants, groupRecipeConfig } from '../utils';
 
 const solidMap: Record<Color, { indicator: string; dot: string }> = {
   primary: {
@@ -145,35 +145,11 @@ const softMap: Record<Color, { indicator: string; dot: string }> = {
   },
 };
 
-const solidCompoundVariants = COLORS.map((color) => ({
-  variant: 'solid' as const,
-  color,
-  class: solidMap[color],
-}));
-
-const outlineCompoundVariants = COLORS.map((color) => ({
-  variant: 'outline' as const,
-  color,
-  class: outlineMap[color],
-}));
-
-const subtleCompoundVariants = COLORS.map((color) => ({
-  variant: 'subtle' as const,
-  color,
-  class: subtleMap[color],
-}));
-
-const ghostCompoundVariants = COLORS.map((color) => ({
-  variant: 'ghost' as const,
-  color,
-  class: ghostMap[color],
-}));
-
-const softCompoundVariants = COLORS.map((color) => ({
-  variant: 'soft' as const,
-  color,
-  class: softMap[color],
-}));
+const solidCompoundVariants = createCompoundVariants('solid', solidMap);
+const outlineCompoundVariants = createCompoundVariants('outline', outlineMap);
+const subtleCompoundVariants = createCompoundVariants('subtle', subtleMap);
+const ghostCompoundVariants = createCompoundVariants('ghost', ghostMap);
+const softCompoundVariants = createCompoundVariants('soft', softMap);
 
 export const radio = tv({
   slots: {
@@ -308,36 +284,7 @@ export const radio = tv({
   },
 });
 
-export const radioGroup = tv({
-  slots: {
-    root: 'm-0 p-0 border-0 min-w-0 flex flex-col gap-2 w-full',
-    groupLabel: 'text-content-primary text-sm font-medium',
-    items: 'flex gap-2 items-start',
-    description: 'text-content-secondary text-xs leading-normal',
-    errorMessage: 'text-danger text-xs leading-normal',
-  },
-  variants: {
-    orientation: {
-      vertical: { items: 'flex-col items-start' },
-      horizontal: { items: 'flex-row flex-wrap items-center' },
-    },
-    isInvalid: {
-      true: {
-        groupLabel: 'text-danger',
-      },
-    },
-    isDisabled: {
-      true: {
-        root: 'opacity-50 pointer-events-none',
-      },
-    },
-  },
-  defaultVariants: {
-    orientation: 'vertical',
-    isInvalid: false,
-    isDisabled: false,
-  },
-});
+export const radioGroup = tv(groupRecipeConfig);
 
 export type RadioVariants = VariantProps<typeof radio>;
 export type RadioGroupVariants = VariantProps<typeof radioGroup>;

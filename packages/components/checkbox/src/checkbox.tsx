@@ -1,20 +1,11 @@
 'use client';
 
 import type { CheckboxGroupContextValue, CheckboxProps, CheckboxVariant } from './checkbox.types';
-import type { ChangeEvent, JSX, ReactElement, ReactNode } from 'react';
+import type { ChangeEvent, JSX, ReactNode } from 'react';
 
-import {
-  cloneElement,
-  forwardRef,
-  isValidElement,
-  useCallback,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from 'react';
+import { forwardRef, useCallback, useEffect, useId, useRef, useState } from 'react';
 import { checkbox as checkboxRecipe } from '@ideasui/theme/recipes';
-import { cn } from '@ideasui/utils';
+import { cn, renderIcon } from '@ideasui/utils';
 
 import { useCheckboxGroupContext } from './checkbox-context';
 
@@ -47,29 +38,6 @@ const IndeterminateIcon = ({ className }: { className?: string }): JSX.Element =
     <path d="M2.5 6h7" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" />
   </svg>
 );
-
-function renderIcon(
-  iconProp: ReactNode | ((props: { className: string }) => ReactNode),
-  className: string,
-): ReactNode {
-  if (typeof iconProp === 'function') {
-    return iconProp({ className });
-  }
-
-  if (iconProp === null || iconProp === undefined) {
-    return null;
-  }
-
-  if (isValidElement(iconProp)) {
-    const existingClassName = (iconProp.props as { className?: string }).className;
-
-    return cloneElement(iconProp as ReactElement<{ className?: string }>, {
-      className: cn(existingClassName, className),
-    });
-  }
-
-  return iconProp;
-}
 
 interface ResolvedProps {
   variant: CheckboxVariant;
@@ -243,7 +211,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       if (uncheckedIcon !== undefined) {
         return renderIcon(
           uncheckedIcon,
-          cn(styles.icon(), 'opacity-100 scale-100 group-data-[selected=true]:opacity-0'),
+          cn(styles.icon(), 'opacity-100 scale-100 group-data-[selected=true]/checkbox:opacity-0'),
         );
       }
 

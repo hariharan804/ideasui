@@ -1,44 +1,13 @@
 'use client';
 
 import type { RadioGroupContextValue, RadioProps, RadioVariant } from './radio.types';
-import type { ChangeEvent, JSX, ReactElement, ReactNode } from 'react';
+import type { ChangeEvent, JSX, ReactNode } from 'react';
 
-import {
-  cloneElement,
-  forwardRef,
-  isValidElement,
-  useCallback,
-  useId,
-  useRef,
-  useState,
-} from 'react';
+import { forwardRef, useCallback, useId, useRef, useState } from 'react';
 import { radio as radioRecipe } from '@ideasui/theme/recipes';
-import { cn } from '@ideasui/utils';
+import { cn, renderIcon } from '@ideasui/utils';
 
 import { useRadioGroupContext } from './radio-context';
-
-function renderIcon(
-  iconProp: ReactNode | ((props: { className: string }) => ReactNode),
-  className: string,
-): ReactNode {
-  if (typeof iconProp === 'function') {
-    return iconProp({ className });
-  }
-
-  if (iconProp === null || iconProp === undefined) {
-    return null;
-  }
-
-  if (isValidElement(iconProp)) {
-    const existingClassName = (iconProp.props as { className?: string }).className;
-
-    return cloneElement(iconProp as ReactElement<{ className?: string }>, {
-      className: cn(existingClassName, className),
-    });
-  }
-
-  return iconProp;
-}
 
 interface ResolvedProps {
   variant: RadioVariant;

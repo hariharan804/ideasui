@@ -1,7 +1,7 @@
 import type { CSSProperties, HTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 import type { CheckboxReturnType } from '@ideasui/theme/recipes';
 
-export type CheckboxVariant = 'solid' | 'outline' | 'subtle' | 'ghost' | 'soft';
+export type CheckboxVariant = 'solid' | 'outline' | 'subtle' | 'ghost' | 'soft' | 'customIcon';
 export type CheckboxColor = 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
 export type CheckboxSize = 'sm' | 'md' | 'lg';
 export type CheckboxRadius = 'none' | 'sm' | 'md' | 'lg' | 'full';
