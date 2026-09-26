@@ -64,7 +64,7 @@ export const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
       variant = 'outline',
       labelVariant = 'default',
       size = 'md',
-      shadow = false,
+      shadow,
       isDisabled = false,
       isReadOnly = false,
       isRequired = false,

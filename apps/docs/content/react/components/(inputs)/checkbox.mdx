@@ -18,7 +18,7 @@ links:
     },
     {
       title: 'Variants & Color Schemes',
-      description: 'Solid, outline, and subtle styles across OKLCH color palettes.',
+      description: 'Solid, outline, subtle, soft, and ghost styles across OKLCH color palettes.',
       href: '#variants--color-schemes',
     },
     {
@@ -99,7 +99,7 @@ A standalone `Checkbox` can be used out of the box with default or controlled se
 
 ## Variants & Color Schemes
 
-`Checkbox` supports `solid` (default), `outline`, and `subtle` visual style variants, as well as `primary`, `neutral`, `success`, `warning`, and `danger` OKLCH color schemes.
+`Checkbox` supports `solid` (default), `outline`, `subtle`, `soft`, and `ghost` visual style variants, as well as `primary`, `neutral`, `success`, `warning`, and `danger` OKLCH color schemes.
 
 <Preview name="checkbox-variants" />
 
@@ -118,19 +118,19 @@ A standalone `Checkbox` can be used out of the box with default or controlled se
 <Preview name="checkbox-colors" />
 
 ```tsx
-<Checkbox colorScheme="primary" defaultSelected>
+<Checkbox color="primary" defaultSelected>
   Primary
 </Checkbox>
-<Checkbox colorScheme="neutral" defaultSelected>
+<Checkbox color="neutral" defaultSelected>
   Neutral
 </Checkbox>
-<Checkbox colorScheme="success" defaultSelected>
+<Checkbox color="success" defaultSelected>
   Success
 </Checkbox>
-<Checkbox colorScheme="warning" defaultSelected>
+<Checkbox color="warning" defaultSelected>
   Warning
 </Checkbox>
-<Checkbox colorScheme="danger" defaultSelected>
+<Checkbox color="danger" defaultSelected>
   Danger
 </Checkbox>
 ```
@@ -230,32 +230,49 @@ export function ControlledExample() {
 
 ## Custom Icons
 
-Customize the indicator icon rendered in checked, unchecked, or indeterminate states using `checkedIcon`, `uncheckedIcon`, and `indeterminateIcon`. Props accept a `ReactNode` or a render function `({ className }) => ReactNode`.
+Customize the indicator icon rendered in checked, unchecked, or indeterminate states using `checkedIcon`, `uncheckedIcon`, and `indeterminateIcon`. You can pass both `checkedIcon` and `uncheckedIcon` to create custom toggle buttons like Heart favorites or Bookmark saves:
 
 <Preview name="checkbox-custom-icons" />
 
 ```tsx
 import { Checkbox } from '@ideasui/react';
-import { Check, X, Minus } from 'lucide-react';
+import { Heart, Bookmark, Check, X, Minus } from 'lucide-react';
 
-{
-  /* Custom Checked Icon */
-}
-<Checkbox defaultSelected checkedIcon={<Check className="h-3.5 w-3.5" />}>
-  Custom Checked Icon
-</Checkbox>;
+/* Heart Toggle (borderless icon toggle with variant="customIcon") */
+<Checkbox
+  color="danger"
+  defaultSelected
+  variant="customIcon"
+  checkedIcon={<Heart className="size-4 fill-current text-danger" />}
+  uncheckedIcon={<Heart className="size-4 text-content-muted" />}
+>
+  Favorite
+</Checkbox>
 
-{
-  /* Custom Unchecked Icon */
-}
-<Checkbox uncheckedIcon={<X className="h-3.5 w-3.5" />}>Custom Unchecked Icon</Checkbox>;
+/* Bookmark Toggle (borderless icon toggle with variant="customIcon") */
+<Checkbox
+  color="primary"
+  defaultSelected
+  variant="customIcon"
+  checkedIcon={<Bookmark className="size-4 fill-current text-primary" />}
+  uncheckedIcon={<Bookmark className="size-4 text-content-muted" />}
+>
+  Bookmark
+</Checkbox>
 
-{
-  /* Custom Indeterminate Icon */
-}
-<Checkbox isIndeterminate indeterminateIcon={<Minus className="h-3.5 w-3.5" />}>
+/* Custom Check & Uncheck Icons */
+<Checkbox
+  defaultSelected
+  checkedIcon={<Check className="size-3.5" />}
+  uncheckedIcon={<X className="size-3.5" />}
+>
+  Custom Check / Uncheck
+</Checkbox>
+
+/* Custom Indeterminate Icon */
+<Checkbox isIndeterminate indeterminateIcon={<Minus className="size-3.5" />}>
   Custom Indeterminate Icon
-</Checkbox>;
+</Checkbox>
 ```
 
 ## Checkbox Group

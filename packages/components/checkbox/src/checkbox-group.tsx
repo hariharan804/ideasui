@@ -16,7 +16,7 @@ export const CheckboxGroup = forwardRef<HTMLFieldSetElement, CheckboxGroupProps>
       defaultValue = [],
       onChange,
       variant = 'solid',
-      colorScheme = 'primary',
+      color = 'primary',
       size = 'md',
       radius,
       orientation = 'vertical',
@@ -61,7 +61,7 @@ export const CheckboxGroup = forwardRef<HTMLFieldSetElement, CheckboxGroupProps>
     const contextValue = useMemo(
       () => ({
         variant,
-        colorScheme,
+        color,
         size,
         radius,
         isDisabled,
@@ -76,7 +76,7 @@ export const CheckboxGroup = forwardRef<HTMLFieldSetElement, CheckboxGroupProps>
       }),
       [
         variant,
-        colorScheme,
+        color,
         size,
         radius,
         isDisabled,

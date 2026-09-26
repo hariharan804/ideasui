@@ -143,7 +143,9 @@
 
 /* Hide native placeholder when !isFloating in inside-floating mode */
 .ideasui-input-field--label-inside-floating:not(.ideasui-input-field--is-floating)
-  .ideasui-input-field__input::placeholder {
+  .ideasui-input-field__input::placeholder,
+.ideasui-input-field--label-inside-floating:not(.ideasui-input-field--is-floating)
+  .ideasui-input-field__textarea::placeholder {
   color: transparent !important;
   opacity: 0 !important;
 }
@@ -198,7 +200,9 @@
 
 /* Hide placeholder in floating label mode when empty + unfocused (!isFloating) */
 .ideasui-input-field--label-floating:not(.ideasui-input-field--is-floating)
-  .ideasui-input-field__input::placeholder {
+  .ideasui-input-field__input::placeholder,
+.ideasui-input-field--label-floating:not(.ideasui-input-field--is-floating)
+  .ideasui-input-field__textarea::placeholder {
   color: transparent !important;
   opacity: 0 !important;
 }
@@ -368,6 +372,29 @@
   @apply text-lg;
 }
 
+/* ── Input & Textarea Autofill Reset ──────────────────────────────────────── */
+.ideasui-input-field__input:-webkit-autofill,
+.ideasui-input-field__input:-webkit-autofill:hover,
+.ideasui-input-field__input:-webkit-autofill:focus,
+.ideasui-input-field__input:-webkit-autofill:active,
+.ideasui-input-field__input:autofill,
+.ideasui-input-field__input:autofill:hover,
+.ideasui-input-field__input:autofill:focus,
+.ideasui-input-field__input:autofill:active,
+.ideasui-input-field__textarea:-webkit-autofill,
+.ideasui-input-field__textarea:-webkit-autofill:hover,
+.ideasui-input-field__textarea:-webkit-autofill:focus,
+.ideasui-input-field__textarea:-webkit-autofill:active,
+.ideasui-input-field__textarea:autofill,
+.ideasui-input-field__textarea:autofill:hover,
+.ideasui-input-field__textarea:autofill:focus,
+.ideasui-input-field__textarea:autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: var(--ideasui-color-content-primary, currentColor);
+  transition: background-color 5000000s ease-in-out 0s;
+  box-shadow: 0 0 0px 1000px transparent inset;
+}
+
 /* ── Multi-line / Textarea Wrapper Overrides ──────────────────────────────── */
 .ideasui-input-field__wrapper:has(.ideasui-input-field__textarea) {
   height: auto;
@@ -397,8 +424,23 @@
 .ideasui-input-field__textarea.ideasui-input-field__textarea--md {
   @apply text-base leading-relaxed;
 }
-.ideasui-input-field__textarea.ideasui-input-field__textarea--lg {
-  @apply text-lg leading-relaxed;
+/* Textarea Label Variant Adjustments */
+.ideasui-input-field--label-inside-fixed .ideasui-input-field__textarea,
+.ideasui-input-field--label-inside-floating.ideasui-input-field--is-floating
+  .ideasui-input-field__textarea {
+  @apply pt-4;
+}
+
+.ideasui-input-field--label-inside-fixed.ideasui-input-field--sm .ideasui-input-field__textarea,
+.ideasui-input-field--label-inside-floating.ideasui-input-field--is-floating.ideasui-input-field--sm
+  .ideasui-input-field__textarea {
+  @apply pt-3.5;
+}
+
+.ideasui-input-field--label-inside-fixed.ideasui-input-field--lg .ideasui-input-field__textarea,
+.ideasui-input-field--label-inside-floating.ideasui-input-field--is-floating.ideasui-input-field--lg
+  .ideasui-input-field__textarea {
+  @apply pt-5;
 }
 
 /* Resize Modifiers */
