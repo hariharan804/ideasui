@@ -1,4 +1,5 @@
 export * from '@ideasui/button';
+export * from '@ideasui/switch';
 export * from '@ideasui/radio';
 export * from '@ideasui/checkbox';
 export * from '@ideasui/input-field';

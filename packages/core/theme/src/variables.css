@@ -49,20 +49,20 @@
     --ideasui-color-on-success-muted: 0.34 0.1 155;
 
     /* Warning (Vibrant Golden Amber) */
-    --ideasui-color-warning: 0.46 0.18 48;
-    --ideasui-color-on-warning: 1 0 0;
-    --ideasui-color-warning-subtle: 0.965 0.03 48;
-    --ideasui-color-on-warning-subtle: 0.3 0.11 48;
-    --ideasui-color-warning-muted: 0.93 0.055 48;
-    --ideasui-color-on-warning-muted: 0.36 0.13 48;
+    --ideasui-color-warning: 0.72 0.17 75;
+    --ideasui-color-on-warning: 0.15 0.04 75;
+    --ideasui-color-warning-subtle: 0.97 0.035 75;
+    --ideasui-color-on-warning-subtle: 0.3 0.12 75;
+    --ideasui-color-warning-muted: 0.92 0.06 75;
+    --ideasui-color-on-warning-muted: 0.28 0.1 75;
 
-    /* Danger (Modern Crimson Rose) */
-    --ideasui-color-danger: 0.45 0.19 22;
+    /* Danger (Modern Crimson Red) */
+    --ideasui-color-danger: 0.56 0.22 27;
     --ideasui-color-on-danger: 1 0 0;
-    --ideasui-color-danger-subtle: 0.965 0.02 22;
-    --ideasui-color-on-danger-subtle: 0.27 0.11 22;
-    --ideasui-color-danger-muted: 0.91 0.04 22;
-    --ideasui-color-on-danger-muted: 0.32 0.14 22;
+    --ideasui-color-danger-subtle: 0.965 0.025 27;
+    --ideasui-color-on-danger-subtle: 0.3 0.14 27;
+    --ideasui-color-danger-muted: 0.91 0.05 27;
+    --ideasui-color-on-danger-muted: 0.35 0.16 27;
 
     /* Info (Electric Cyan-Blue) */
     --ideasui-color-info: 0.46 0.18 215;
@@ -298,21 +298,21 @@
     --ideasui-color-success-muted: 0.26 0.06 155;
     --ideasui-color-on-success-muted: 0.78 0.11 155;
 
-    /* Warning (Vibrant Golden Amber) */
-    --ideasui-color-warning: 0.65 0.18 48;
-    --ideasui-color-on-warning: 0.14 0.04 48;
-    --ideasui-color-warning-subtle: 0.18 0.05 48;
-    --ideasui-color-on-warning-subtle: 0.86 0.11 48;
-    --ideasui-color-warning-muted: 0.26 0.07 48;
-    --ideasui-color-on-warning-muted: 0.78 0.14 48;
+    /* Warning (Vibrant Golden Amber - Dark Mode) */
+    --ideasui-color-warning: 0.76 0.17 75;
+    --ideasui-color-on-warning: 0.14 0.04 75;
+    --ideasui-color-warning-subtle: 0.22 0.05 75;
+    --ideasui-color-on-warning-subtle: 0.92 0.08 75;
+    --ideasui-color-warning-muted: 0.28 0.07 75;
+    --ideasui-color-on-warning-muted: 0.88 0.1 75;
 
-    /* Danger (Modern Crimson Rose) */
-    --ideasui-color-danger: 0.65 0.19 22;
-    --ideasui-color-on-danger: 0.14 0.04 22;
-    --ideasui-color-danger-subtle: 0.18 0.045 22;
-    --ideasui-color-on-danger-subtle: 0.86 0.08 22;
-    --ideasui-color-danger-muted: 0.26 0.075 22;
-    --ideasui-color-on-danger-muted: 0.78 0.12 22;
+    /* Danger (Modern Crimson Red - Dark Mode) */
+    --ideasui-color-danger: 0.62 0.22 27;
+    --ideasui-color-on-danger: 0.12 0.04 27;
+    --ideasui-color-danger-subtle: 0.2 0.06 27;
+    --ideasui-color-on-danger-subtle: 0.92 0.08 27;
+    --ideasui-color-danger-muted: 0.28 0.09 27;
+    --ideasui-color-on-danger-muted: 0.85 0.12 27;
 
     /* Info (Electric Cyan-Blue) */
     --ideasui-color-info: 0.66 0.18 215;

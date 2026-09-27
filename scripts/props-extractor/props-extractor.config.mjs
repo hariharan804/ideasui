@@ -196,6 +196,23 @@ export const extractConfig = {
         'RadioGroupError',
       ),
     ]),
+    switch: makeComponent('Switch', [
+      makeInterface(
+        'Switch',
+        'Switch Props',
+        'Accessible, theme-aware toggle primitive supporting standalone usage, controlled state, visual variants, track labels, and group selection',
+        '../../packages/components/switch/src/switch.types.ts',
+        'SwitchProps',
+      ),
+      makeInterface(
+        'SwitchGroup',
+        'SwitchGroup Props',
+        'Group container managing toggle selection state across child switches',
+        '../../packages/components/switch/src/switch.types.ts',
+        'SwitchGroupProps',
+        'SwitchGroup',
+      ),
+    ]),
   },
 };
 export default extractConfig;

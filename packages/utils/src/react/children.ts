@@ -92,6 +92,8 @@ export function getValidElements(children: ReactNode): ReactElement[] {
   return Children.toArray(children).filter(isValidReactElement) as ReactElement[];
 }
 
+import { cn } from '../style/tailwind';
+
 /**
  * Renders an icon prop which can be a ReactNode or render function
  * @param {ReactNode | ((props: { className: string }) => ReactNode)} iconProp - The icon prop to render
@@ -115,7 +117,7 @@ export function renderIcon(
     const existingClassName = (iconProp.props as { className?: string }).className;
 
     return cloneElement(iconProp as ReactElement<{ className?: string }>, {
-      className: existingClassName ? `${existingClassName} ${className}` : className,
+      className: cn(className, existingClassName),
     });
   }
 
