@@ -143,12 +143,14 @@ describe('Image Component', () => {
   it('has zero accessibility violations with valid alt text', async () => {
     const { container } = render(<Image alt="Mountain landscape" src="/photo.jpg" />);
 
+    expect(container).toBeInTheDocument();
     await expectAccessible(container);
   });
 
   it('has zero accessibility violations for decorative image with empty alt', async () => {
     const { container } = render(<Image alt="" src="/bg.jpg" />);
 
+    expect(container).toBeInTheDocument();
     await expectAccessible(container);
   });
 
@@ -161,12 +163,14 @@ describe('Image Component', () => {
       </Image>,
     );
 
+    expect(container).toBeInTheDocument();
     await expectAccessible(container);
   });
 
   it('has zero accessibility violations when isLoading', async () => {
     const { container } = render(<Image isLoading alt="Loading image" />);
 
+    expect(container).toBeInTheDocument();
     await expectAccessible(container);
   });
 
@@ -181,6 +185,7 @@ describe('Image Component', () => {
       />,
     );
 
+    expect(container).toBeInTheDocument();
     await expectAccessible(container);
   });
 });
