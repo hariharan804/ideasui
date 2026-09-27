@@ -2,15 +2,9 @@
   "remove": [],
   "replace": {
     "dependencies": {
-      "@ideasui/button": "latest",
       "@ideasui/react": "latest",
-      "@ideasui/text": "latest",
-      "@ideasui/ripple": "latest",
       "@ideasui/theme": "latest",
-      "@ideasui/box": "latest",
-      "@ideasui/variants": "latest",
-      "@ideasui/utils": "latest",
-      "@ideasui/hooks": "latest"
+      "@ideasui/utils": "latest"
     }
   }
 }

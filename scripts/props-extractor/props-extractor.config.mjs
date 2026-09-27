@@ -213,6 +213,23 @@ export const extractConfig = {
         'SwitchGroup',
       ),
     ]),
+    image: makeComponent('Image', [
+      makeInterface(
+        'Image',
+        'Image Props',
+        'Framework-agnostic image primitive supporting custom renderers, LQIP blur, skeleton loading, fallback, and responsive aspect ratios',
+        '../../packages/components/image/src/image.types.ts',
+        'ImageProps',
+      ),
+      makeInterface(
+        'ImageFallback',
+        'ImageFallback Props',
+        'Fallback container component shown when image fails to load or src is missing',
+        '../../packages/components/image/src/image.types.ts',
+        'ImageFallbackProps',
+        'ImageFallback',
+      ),
+    ]),
   },
 };
 export default extractConfig;

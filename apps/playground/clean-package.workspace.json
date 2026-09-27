@@ -2,15 +2,9 @@
   "remove": [],
   "replace": {
     "dependencies": {
-      "@ideasui/button": "workspace:*",
       "@ideasui/react": "workspace:*",
-      "@ideasui/text": "workspace:*",
-      "@ideasui/ripple": "workspace:*",
       "@ideasui/theme": "workspace:*",
-      "@ideasui/box": "workspace:*",
-      "@ideasui/variants": "workspace:*",
-      "@ideasui/utils": "workspace:*",
-      "@ideasui/hooks": "workspace:*"
+      "@ideasui/utils": "workspace:*"
     }
   }
 }

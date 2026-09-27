@@ -2,15 +2,9 @@
   "remove": [],
   "replace": {
     "dependencies": {
-      "@ideasui/button": "canary",
       "@ideasui/react": "canary",
-      "@ideasui/text": "canary",
-      "@ideasui/ripple": "canary",
       "@ideasui/theme": "canary",
-      "@ideasui/box": "canary",
-      "@ideasui/variants": "canary",
-      "@ideasui/utils": "canary",
-      "@ideasui/hooks": "canary"
+      "@ideasui/utils": "canary"
     }
   }
 }

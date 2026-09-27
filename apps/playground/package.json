@@ -14,9 +14,7 @@
     "restore:workspace": "clean-package --config clean-package.workspace.json && pnpm install"
   },
   "dependencies": {
-    "@ideasui/button": "workspace:*",
     "@ideasui/react": "workspace:*",
-    "@ideasui/text": "workspace:*",
     "@ideasui/theme": "workspace:*",
     "@ideasui/utils": "workspace:*",
     "framer-motion": "^12.23.26",
