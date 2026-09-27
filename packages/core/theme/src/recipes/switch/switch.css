@@ -1,0 +1,61 @@
+/**
+ * Switch Component CSS
+ * Source of truth for visual styling for the Switch component.
+ * Uses BEM selectors + Tailwind CSS v4 @apply directives.
+ */
+
+/* ── Base Block ───────────────────────────────────────────────────────────── */
+.switch {
+  @apply focus-visible:ring-primary relative inline-flex cursor-pointer items-center justify-center font-medium transition-all duration-200 ease-in-out select-none focus-visible:ring-2 focus-visible:outline-none active:scale-98;
+}
+
+/* ── Elements ─────────────────────────────────────────────────────────────── */
+.switch__content {
+  @apply inline-flex items-center truncate;
+}
+
+/* ── Size Modifiers ───────────────────────────────────────────────────────── */
+.switch.switch--sm {
+  @apply h-8 gap-1.5 rounded-md px-3 text-xs;
+}
+.switch.switch--md {
+  @apply h-10 gap-2 rounded-lg px-4 text-sm;
+}
+.switch.switch--lg {
+  @apply h-12 gap-2.5 rounded-xl px-6 text-base;
+}
+
+/* ── Color & Variant Combinations ─────────────────────────────────────────── */
+.switch.switch--solid.switch--primary {
+  @apply bg-primary text-on-primary hover:bg-primary/90;
+}
+.switch.switch--solid.switch--secondary {
+  @apply bg-secondary text-on-secondary hover:bg-secondary/90;
+}
+.switch.switch--solid.switch--success {
+  @apply bg-success text-on-success hover:bg-success/90;
+}
+.switch.switch--solid.switch--warning {
+  @apply bg-warning text-on-warning hover:bg-warning/90;
+}
+.switch.switch--solid.switch--danger {
+  @apply bg-danger text-on-danger hover:bg-danger/90;
+}
+.switch.switch--solid.switch--info {
+  @apply bg-info text-on-info hover:bg-info/90;
+}
+
+.switch.switch--outline {
+  @apply border-border text-content-primary hover:bg-surface-subtle border bg-transparent;
+}
+.switch.switch--ghost {
+  @apply text-content-primary hover:bg-surface-subtle bg-transparent;
+}
+.switch.switch--soft {
+  @apply bg-primary-subtle text-primary hover:bg-primary-subtle/80;
+}
+
+/* ── State Modifiers ──────────────────────────────────────────────────────── */
+.switch.switch--disabled {
+  @apply pointer-events-none cursor-not-allowed opacity-50;
+}

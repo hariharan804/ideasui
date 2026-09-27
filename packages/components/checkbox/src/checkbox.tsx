@@ -1,20 +1,11 @@
 'use client';
 
-import type { CheckboxGroupContextValue, CheckboxProps } from './checkbox.types';
-import type { ChangeEvent, JSX, ReactElement, ReactNode } from 'react';
+import type { CheckboxGroupContextValue, CheckboxProps, CheckboxVariant } from './checkbox.types';
+import type { ChangeEvent, JSX, ReactNode } from 'react';
 
-import {
-  cloneElement,
-  forwardRef,
-  isValidElement,
-  useCallback,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from 'react';
+import { forwardRef, useCallback, useEffect, useId, useRef, useState } from 'react';
 import { checkbox as checkboxRecipe } from '@ideasui/theme/recipes';
-import { cn } from '@ideasui/utils';
+import { cn, renderIcon } from '@ideasui/utils';
 
 import { useCheckboxGroupContext } from './checkbox-context';
 
@@ -48,32 +39,9 @@ const IndeterminateIcon = ({ className }: { className?: string }): JSX.Element =
   </svg>
 );
 
-function renderIcon(
-  iconProp: ReactNode | ((props: { className: string }) => ReactNode),
-  className: string,
-): ReactNode {
-  if (typeof iconProp === 'function') {
-    return iconProp({ className });
-  }
-
-  if (iconProp === null || iconProp === undefined) {
-    return null;
-  }
-
-  if (isValidElement(iconProp)) {
-    const existingClassName = (iconProp.props as { className?: string }).className;
-
-    return cloneElement(iconProp as ReactElement<{ className?: string }>, {
-      className: cn(existingClassName, className),
-    });
-  }
-
-  return iconProp;
-}
-
 interface ResolvedProps {
-  variant: 'solid' | 'outline' | 'subtle';
-  colorScheme: 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
+  variant: CheckboxVariant;
+  color: 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
   size: 'sm' | 'md' | 'lg';
   radius: CheckboxProps['radius'];
   isDisabled: boolean;
@@ -84,45 +52,25 @@ interface ResolvedProps {
   isGroupControlled: boolean;
 }
 
-function resolveVariant(
-  variant: CheckboxProps['variant'],
-  groupVariant: CheckboxGroupContextValue['variant'],
-): 'solid' | 'outline' | 'subtle' {
-  return variant ?? groupVariant ?? 'solid';
-}
-
-function resolveColorScheme(
-  colorScheme: CheckboxProps['colorScheme'],
-  groupColorScheme: CheckboxGroupContextValue['colorScheme'],
-): 'primary' | 'neutral' | 'success' | 'warning' | 'danger' {
-  return colorScheme ?? groupColorScheme ?? 'primary';
-}
-
-function resolveSize(
-  size: CheckboxProps['size'],
-  groupSize: CheckboxGroupContextValue['size'],
-): 'sm' | 'md' | 'lg' {
-  return size ?? groupSize ?? 'md';
-}
-
 function resolveProps(
   props: CheckboxProps,
   group: CheckboxGroupContextValue | null,
   internalSelected: boolean,
 ): ResolvedProps {
+  const g = group ?? {};
   const isGroupControlled = group !== null && props.value !== undefined;
   const isSelectedInGroup =
-    props.value !== undefined && (group?.selectedValues?.includes(props.value) ?? false);
+    props.value !== undefined && (g.selectedValues?.includes(props.value) ?? false);
 
   return {
-    variant: resolveVariant(props.variant, group?.variant),
-    colorScheme: resolveColorScheme(props.colorScheme, group?.colorScheme),
-    size: resolveSize(props.size, group?.size),
-    radius: props.radius ?? group?.radius,
-    isDisabled: props.isDisabled ?? group?.isDisabled ?? false,
-    isReadOnly: props.isReadOnly ?? group?.isReadOnly ?? false,
-    isRequired: props.isRequired ?? group?.isRequired ?? false,
-    isInvalid: props.isInvalid ?? group?.isInvalid ?? false,
+    variant: props.variant ?? g.variant ?? 'solid',
+    color: props.color ?? g.color ?? 'primary',
+    size: props.size ?? g.size ?? 'md',
+    radius: props.radius ?? g.radius,
+    isDisabled: props.isDisabled ?? g.isDisabled ?? false,
+    isReadOnly: props.isReadOnly ?? g.isReadOnly ?? false,
+    isRequired: props.isRequired ?? g.isRequired ?? false,
+    isInvalid: props.isInvalid ?? g.isInvalid ?? false,
     isSelected: isGroupControlled ? isSelectedInGroup : (props.isSelected ?? internalSelected),
     isGroupControlled,
   };
@@ -132,7 +80,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (properties, reference): JSX.Element => {
     const {
       variant,
-      colorScheme,
+      color,
       size,
       radius,
       isSelected,
@@ -175,7 +123,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     const resolved = resolveProps(
       {
         variant,
-        colorScheme,
+        color,
         size,
         radius,
         isSelected,
@@ -198,7 +146,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     const styles = checkboxRecipe({
       variant: resolved.variant,
-      colorScheme: resolved.colorScheme,
+      color: resolved.color,
       size: resolved.size,
       radius: resolved.radius,
       isDisabled: resolved.isDisabled,
@@ -243,7 +191,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       if (uncheckedIcon !== undefined) {
         return renderIcon(
           uncheckedIcon,
-          cn(styles.icon(), 'opacity-100 scale-100 group-data-[selected=true]:opacity-0'),
+          cn(styles.icon(), 'opacity-100 scale-100 group-data-[selected=true]/checkbox:opacity-0'),
         );
       }
 

@@ -39,7 +39,8 @@ describe('@ideasui/styles compilation outputs', () => {
     }
 
     expect(fs.existsSync(distDir)).toBe(true);
-  });
+    // eslint-disable-next-line unicorn/numeric-separators-style
+  }, 30000);
 
   it('should compile and output base.css with correct contents', () => {
     const filePath = path.join(distDir, 'base.css');

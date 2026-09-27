@@ -17,7 +17,7 @@ export type {
   CheckboxGroupErrorProps,
   CheckboxGroupContextValue,
   CheckboxVariant,
-  CheckboxColorScheme,
+  CheckboxColor,
   CheckboxSize,
   CheckboxRadius,
 } from './checkbox.types';

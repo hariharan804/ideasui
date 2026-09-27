@@ -1,0 +1,414 @@
+---
+title: Switch
+description: An accessible, theme-aware toggle primitive supporting standalone usage, controlled state, visual variants, track labels, grouped selection, and WCAG 2.1 AA compliance.
+links:
+  npm: true
+  rac: https://react-spectrum.adobe.com/react-aria/Switch.html
+  source: switch/src/switch.tsx
+  recipe: core/theme/src/recipes/switch/switch.ts
+  storybook: Components/Switch
+---
+
+<QuickNav
+  items={[
+    {
+      title: 'Basic Usage',
+      description: 'Single switch toggle usage and basic state handling.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'Variants & Color Schemes',
+      description: 'Solid, outline, soft, and contrast styles across OKLCH color palettes.',
+      href: '#variants--color-schemes',
+    },
+    {
+      title: 'Thumb Variants & Shapes',
+      description: 'Solid, flat, gradient, bordered, contrast, dark thumb styles and shapes.',
+      href: '#thumb-variants--shapes',
+    },
+    {
+      title: 'Sizes',
+      description: 'Small (sm), Medium (md), and Large (lg) size scales.',
+      href: '#sizes',
+    },
+    {
+      title: 'Label Placement',
+      description: 'Start and end label position relative to track.',
+      href: '#label-placement',
+    },
+    {
+      title: 'On / Off Track Labels',
+      description: 'Rendering labels directly inside the toggle track.',
+      href: '#on--off-track-labels',
+    },
+    {
+      title: 'States & Validation',
+      description: 'Disabled, read-only, required, and error state handling.',
+      href: '#states--validation',
+    },
+    {
+      title: 'Controlled State',
+      description: 'Managing switch selection with React state.',
+      href: '#controlled-state',
+    },
+    {
+      title: 'Switch Group',
+      description: 'Compound group composition with label, description, and error.',
+      href: '#switch-group',
+    },
+    {
+      title: 'Custom Icons',
+      description: 'Rendering custom icons inside the switch thumb element.',
+      href: '#custom-icons',
+    },
+    {
+      title: 'Customization',
+      description: 'Examples of customizing the component layout and theme styles.',
+      href: '#customization',
+    },
+    {
+      title: 'Standalone CSS',
+      description: 'Using Switch without Tailwind CSS via @ideasui/styles.',
+      href: '#standalone-css',
+    },
+    {
+      title: 'API Reference',
+      description: 'Complete Switch and SwitchGroup props reference.',
+      href: '#api-reference',
+    },
+  ]}
+/>
+
+## Installation
+
+<InstallTabs pkg="@ideasui/switch" />
+
+## Import
+
+```tsx
+import {
+  Switch,
+  SwitchGroup,
+  SwitchGroupLabel,
+  SwitchGroupDescription,
+  SwitchGroupError,
+} from '@ideasui/react';
+// or from individual package
+import { Switch, SwitchGroup } from '@ideasui/switch';
+```
+
+## Basic Usage
+
+A standalone `Switch` can be used out of the box with default or controlled selection state:
+
+<Preview name="switch-basic" />
+
+```tsx
+<Switch defaultSelected>Enable notifications</Switch>
+```
+
+## Variants & Color Schemes
+
+`Switch` supports `solid` (default), `outline`, and `soft` visual style variants, as well as `primary`, `neutral`, `success`, `warning`, and `danger` OKLCH color schemes.
+
+<Preview name="switch-variants" />
+
+```tsx
+<Switch variant="solid" defaultSelected>
+  Solid
+</Switch>
+<Switch variant="outline" defaultSelected>
+  Outline
+</Switch>
+<Switch variant="soft" defaultSelected>
+  Soft
+</Switch>
+```
+
+<Preview name="switch-colors" />
+
+```tsx
+<Switch color="primary" defaultSelected>
+  Primary
+</Switch>
+<Switch color="neutral" defaultSelected>
+  Neutral
+</Switch>
+<Switch color="success" defaultSelected>
+  Success
+</Switch>
+<Switch color="warning" defaultSelected>
+  Warning
+</Switch>
+<Switch color="danger" defaultSelected>
+  Danger
+</Switch>
+```
+
+## Thumb Variants & Shapes
+
+Customize the switch thumb using `thumbVariant` (`solid`, `flat`, `gradient`, `bordered`, `contrast`, `dark`) and `thumbShape` (`full`, `pill`, `square`, `rectangle`).
+
+### Thumb Variants
+
+<Preview name="switch-thumb-variants" />
+
+```tsx
+<Switch thumbVariant="solid" defaultSelected>
+  Solid Thumb
+</Switch>
+<Switch thumbVariant="flat" defaultSelected>
+  Flat Thumb
+</Switch>
+<Switch thumbVariant="gradient" defaultSelected>
+  Gradient Thumb
+</Switch>
+<Switch thumbVariant="bordered" defaultSelected>
+  Bordered Thumb
+</Switch>
+<Switch thumbVariant="contrast" defaultSelected>
+  Contrast Thumb
+</Switch>
+<Switch thumbVariant="dark" defaultSelected>
+  Dark Thumb
+</Switch>
+```
+
+### Thumb Shapes
+
+<Preview name="switch-thumb-shapes" />
+
+```tsx
+<Switch thumbShape="full" defaultSelected>
+  Full (Circle)
+</Switch>
+<Switch thumbShape="pill" defaultSelected>
+  Pill
+</Switch>
+<Switch thumbShape="square" defaultSelected>
+  Square
+</Switch>
+<Switch thumbShape="rectangle" defaultSelected>
+  Rectangle
+</Switch>
+```
+
+### Thumb Sizes (Contained vs Extended)
+
+Choose between `contained` (default, thumb inside track) and `extended` ( style, thumb expands outside track bounds):
+
+<Preview name="switch-thumb-sizes" />
+
+```tsx
+<Switch thumbSize="contained" defaultSelected>
+  Contained (Default)
+</Switch>
+<Switch thumbSize="extended" defaultSelected>
+  Extended
+</Switch>
+```
+
+## Sizes
+
+Choose between three size scales: `sm` (small), `md` (medium / default), and `lg` (large).
+
+<Preview name="switch-sizes" />
+
+```tsx
+<Switch size="sm" defaultSelected>
+  Small (sm)
+</Switch>
+<Switch size="md" defaultSelected>
+  Medium (md)
+</Switch>
+<Switch size="lg" defaultSelected>
+  Large (lg)
+</Switch>
+```
+
+## Label Placement
+
+Position the label text before (`start`) or after (`end`, default) the switch track using `labelPlacement`:
+
+<Preview name="switch-label-placement" />
+
+```tsx
+<Switch labelPlacement="end" defaultSelected>
+  Label End (default)
+</Switch>
+<Switch labelPlacement="start" defaultSelected>
+  Label Start
+</Switch>
+```
+
+## On / Off Track Labels
+
+Render decorative text inside the track for on and off states using `onLabel` and `offLabel`:
+
+<Preview name="switch-track-labels" />
+
+```tsx
+<Switch defaultSelected offLabel="OFF" onLabel="ON">
+  Enable Feature
+</Switch>
+```
+
+## States & Validation
+
+`Switch` handles interactive, read-only, disabled, required, and error states across ARIA attributes and visual styling.
+
+<Preview name="switch-states" />
+
+```tsx
+<Switch>Unchecked</Switch>
+<Switch defaultSelected>Checked</Switch>
+<Switch isDisabled>Disabled Unchecked</Switch>
+<Switch defaultSelected isDisabled>
+  Disabled Checked
+</Switch>
+<Switch defaultSelected isReadOnly>
+  Read-Only
+</Switch>
+<Switch isInvalid>Invalid State</Switch>
+```
+
+## Controlled State
+
+Manage the switch selection using React state (`isSelected` and `onChange`).
+
+<Preview name="switch-controlled" />
+
+```tsx
+import { useState } from 'react';
+import { Switch } from '@ideasui/react';
+
+export function ControlledExample() {
+  const [isSelected, setIsSelected] = useState(true);
+
+  return (
+    <div className="flex flex-col gap-3">
+      <Switch isSelected={isSelected} onChange={(checked) => setIsSelected(checked)}>
+        Subscribe to email updates
+      </Switch>
+      <p className="text-xs">State: {isSelected ? 'ON' : 'OFF'}</p>
+    </div>
+  );
+}
+```
+
+## Switch Group
+
+`SwitchGroup` manages grouped selection states and propagates theme, size, and state props to child switches:
+
+<Preview name="switch-group" />
+
+```tsx
+<SwitchGroup defaultValue={['email']}>
+  <SwitchGroupLabel>Notification Channels</SwitchGroupLabel>
+  <Switch value="email">Email</Switch>
+  <Switch value="sms">SMS</Switch>
+  <Switch value="push">Push Notifications</Switch>
+  <SwitchGroupDescription>Enable at least one channel.</SwitchGroupDescription>
+</SwitchGroup>
+```
+
+## Custom Icons
+
+Customize the thumb indicator with SVG icons or dynamic render functions using `thumbIcon`, `checkedThumbIcon`, or `uncheckedThumbIcon`:
+
+<Preview name="switch-custom-icons" />
+
+```tsx
+<Switch
+  color="success"
+  size="lg"
+  defaultSelected
+  thumbIcon={<CheckIcon className="size-3 text-white" />}
+>
+  Checked Icon
+</Switch>
+
+<Switch
+  color="neutral"
+  size="lg"
+  defaultSelected
+  thumbIcon={({ isSelected, className }) =>
+    isSelected ? (
+      <MoonIcon className={`${className} text-yellow-300`} />
+    ) : (
+      <SunIcon className={`${className} text-amber-500`} />
+    )
+  }
+>
+  Dark Mode Toggle
+</Switch>
+```
+
+## Customization
+
+Here are examples of customizing the component layout, theme tokens, and custom variant overrides:
+
+<Preview name="switch-customization" />
+
+```tsx
+/* Custom Card Toggle Box */
+<div className="border-border bg-surface-subtle/50 flex w-full max-w-md items-center justify-between rounded-xl border p-4 shadow-2xs">
+  <div className="flex items-center gap-3">
+    <div className="bg-primary-subtle text-primary flex size-10 items-center justify-center rounded-lg">
+      <ShieldCheck className="size-5" />
+    </div>
+    <div className="flex flex-col">
+      <span className="text-content-primary text-sm font-semibold">Two-Factor Authentication</span>
+      <span className="text-content-secondary text-xs">Require 2FA code at login</span>
+    </div>
+  </div>
+  <Switch defaultSelected color="success" size="md" />
+</div>
+```
+
+## Standalone CSS
+
+`Switch` can also be used in non-Tailwind projects via the pre-compiled `@ideasui/styles` package.
+
+Install the standalone styles package:
+
+```bash
+pnpm add @ideasui/styles
+```
+
+Import base tokens and the switch component stylesheet:
+
+```tsx
+import '@ideasui/styles/base.css';
+import '@ideasui/styles/components/switch.css';
+```
+
+Or import all component styles in a single bundle:
+
+```tsx
+import '@ideasui/styles';
+```
+
+### BEM CSS Classes
+
+`Switch` components expose standard BEM class names and granular slot target selectors generated by the `@ideasui/theme` recipe:
+
+- **Block / Root:** `.ideasui-switch` (`root` slot) — Main label wrapper element (`<label>`).
+- **Elements (Slots):**
+  - `.ideasui-switch__input` (`input` slot) — Hidden native `<input type="checkbox" role="switch">` element.
+  - `.ideasui-switch__track` (`track` slot) — Visual track container element.
+  - `.ideasui-switch__thumb` (`thumb` slot) — Animated sliding thumb element inside track.
+  - `.ideasui-switch__on-label` (`onLabel` slot) — Text inside track when on.
+  - `.ideasui-switch__off-label` (`offLabel` slot) — Text inside track when off.
+  - `.ideasui-switch__label-text` (`labelText` slot) — Visible label text element.
+- **Group Elements:**
+  - `.ideasui-switch-group` (`switch-group` slot) — Group container element (`<div>`).
+  - `.ideasui-switch-group__label` (`group-label` slot) — Group label element.
+  - `.ideasui-switch-group__description` (`group-description` slot) — Helper description paragraph.
+  - `.ideasui-switch-group__error` (`group-error` slot) — Validation error alert paragraph.
+
+---
+
+## API Reference
+
+<APIReferenceViewer componentName="switch" />

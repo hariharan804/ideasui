@@ -11,6 +11,8 @@
     "(inputs)/input-field",
     "(inputs)/textarea",
     "(inputs)/checkbox",
+    "(inputs)/radio",
+    "(inputs)/switch",
     "---Typography---",
     "(typography)/text"
   ]

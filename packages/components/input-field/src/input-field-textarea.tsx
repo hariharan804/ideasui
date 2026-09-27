@@ -205,163 +205,226 @@ function useTextareaHandlers(options: TextareaHandlerOptions): TextareaHandlers 
   return { handleFocus, handleBlur, handleChange };
 }
 
+interface InputFieldTextareaHookResult {
+  readonly startContent: ReactNode;
+  readonly endContent: ReactNode;
+  readonly showCharacterCount:
+    boolean | ((count: number, maxLength?: number) => ReactNode) | undefined;
+  readonly charCount: number;
+  readonly maxLength: number | undefined;
+  readonly counterStyle: string | undefined;
+  readonly counterSlotClass: string | undefined;
+  readonly wrapperClassName: string;
+  readonly startContentClass: string;
+  readonly endContentClass: string;
+  readonly textareaProps: Record<string, unknown> & {
+    readonly ref: (node: HTMLTextAreaElement | null) => void;
+    readonly 'aria-describedby': string | undefined;
+    readonly 'aria-invalid': boolean | undefined;
+    readonly 'aria-readonly': boolean | undefined;
+    readonly 'aria-required': boolean | undefined;
+    readonly autoFocus?: boolean;
+    readonly className: string;
+    readonly 'data-slot': string;
+    readonly defaultValue?: string | number | readonly string[];
+    readonly disabled?: boolean;
+    readonly id?: string;
+    readonly maxLength?: number;
+    readonly readOnly?: boolean;
+    readonly required?: boolean;
+    readonly rows?: number;
+    readonly value?: string | number | readonly string[];
+    readonly onBlur: (event: FocusEvent<HTMLTextAreaElement>) => void;
+    readonly onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+    readonly onFocus: (event: FocusEvent<HTMLTextAreaElement>) => void;
+  };
+}
+
+function useInputFieldTextarea(
+  props: InputFieldTextareaProps,
+  reference: ForwardedRef<HTMLTextAreaElement>,
+): InputFieldTextareaHookResult {
+  const {
+    startContent,
+    endContent,
+    className,
+    textareaClassName,
+    id,
+    value,
+    defaultValue,
+    minRows = 3,
+    maxRows,
+    autoResize = true,
+    resize = 'none',
+    showCharacterCount = false,
+    maxLength,
+    autoFocus,
+    textareaRef: propTextareaRef,
+    onFocus,
+    onBlur,
+    onChange,
+    onValueChange,
+    ...properties
+  } = props;
+
+  const {
+    inputId: contextInputId,
+    descriptionId,
+    errorId,
+    hasDescription,
+    hasErrorMessage,
+    isDisabled,
+    isReadOnly,
+    isRequired,
+    isInvalid,
+    classNames,
+    setCustomInputId,
+    setIsFocused,
+    setHasValue,
+    setHasStartContent,
+    setHasEndContent,
+    styles,
+  } = useInputFieldContext();
+
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const [uncontrolledCount, setUncontrolledCount] = useState<number>(() => {
+    if (typeof defaultValue === 'string') {
+      return defaultValue.length;
+    }
+
+    return 0;
+  });
+
+  const charCount = value === undefined ? uncontrolledCount : String(value).length;
+
+  const setRef = (node: HTMLTextAreaElement | null): void => {
+    textareaRef.current = node;
+    assignRef(reference, node);
+    assignRef(propTextareaRef, node);
+  };
+
+  const adjustHeight = useTextareaAutoResize(textareaRef, {
+    autoResize,
+    minRows,
+    maxRows,
+    value,
+  });
+
+  useTextareaSync(
+    id,
+    startContent,
+    endContent,
+    value,
+    { setCustomInputId, setHasStartContent, setHasEndContent, setHasValue },
+    textareaRef,
+  );
+
+  const { handleFocus, handleBlur, handleChange } = useTextareaHandlers({
+    onFocus,
+    onBlur,
+    onChange,
+    onValueChange,
+    setIsFocused,
+    setHasValue,
+    setUncontrolledCount,
+    adjustHeight,
+  });
+
+  const effectiveId = id ?? contextInputId;
+  const ariaDescribedBy = useTextareaAriaDescribedBy(
+    hasErrorMessage,
+    isInvalid,
+    errorId,
+    hasDescription,
+    descriptionId,
+  );
+
+  const counterSlotClass = (classNames as Record<string, string | undefined>)?.counter;
+  const textareaSlotClass = (classNames as Record<string, string | undefined>)?.textarea;
+
+  useEffect(() => {
+    if (autoFocus) {
+      setIsFocused?.(true);
+    }
+  }, [autoFocus, setIsFocused]);
+
+  return {
+    startContent,
+    endContent,
+    showCharacterCount,
+    charCount,
+    maxLength,
+    counterStyle: styles?.counter?.(),
+    counterSlotClass,
+    wrapperClassName: cn(
+      styles?.wrapper?.(),
+      'ideasui-input-field__wrapper--textarea',
+      classNames?.wrapper,
+      className,
+    ),
+    startContentClass: cn(styles?.startContent?.(), classNames?.startContent),
+    endContentClass: cn(styles?.endContent?.(), classNames?.endContent),
+    textareaProps: {
+      ...properties,
+      ref: setRef,
+      'aria-describedby': ariaDescribedBy,
+      'aria-invalid': isInvalid || undefined,
+      'aria-readonly': isReadOnly || undefined,
+      'aria-required': isRequired || undefined,
+      autoFocus,
+      className: cn(
+        styles?.textarea?.(),
+        'ideasui-input-field__textarea',
+        getResizeClass(resize),
+        textareaSlotClass,
+        textareaClassName,
+      ),
+      'data-slot': 'textarea',
+      defaultValue,
+      disabled: isDisabled,
+      id: effectiveId,
+      maxLength,
+      readOnly: isReadOnly,
+      required: isRequired,
+      rows: minRows,
+      value,
+      onBlur: handleBlur,
+      onChange: handleChange,
+      onFocus: handleFocus,
+    },
+  };
+}
+
 export const InputFieldTextarea = forwardRef<HTMLTextAreaElement, InputFieldTextareaProps>(
   (props, reference): JSX.Element => {
     const {
       startContent,
       endContent,
-      className,
-      textareaClassName,
-      id,
-      value,
-      defaultValue,
-      minRows = 3,
-      maxRows,
-      autoResize = true,
-      resize = 'none',
-      showCharacterCount = false,
+      showCharacterCount,
+      charCount,
       maxLength,
-      textareaRef: propTextareaRef,
-      onFocus,
-      onBlur,
-      onChange,
-      onValueChange,
-      ...properties
-    } = props;
-
-    const {
-      inputId: contextInputId,
-      descriptionId,
-      errorId,
-      hasDescription,
-      hasErrorMessage,
-      isDisabled,
-      isReadOnly,
-      isRequired,
-      isInvalid,
-      classNames,
-      setCustomInputId,
-      setIsFocused,
-      setHasValue,
-      setHasStartContent,
-      setHasEndContent,
-      styles,
-    } = useInputFieldContext();
-
-    const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-
-    const [uncontrolledCount, setUncontrolledCount] = useState<number>(() => {
-      if (typeof defaultValue === 'string') {
-        return defaultValue.length;
-      }
-
-      return 0;
-    });
-
-    const charCount = value === undefined ? uncontrolledCount : String(value).length;
-
-    const setRef = (node: HTMLTextAreaElement | null): void => {
-      textareaRef.current = node;
-      assignRef(reference, node);
-      assignRef(propTextareaRef, node);
-    };
-
-    const adjustHeight = useTextareaAutoResize(textareaRef, {
-      autoResize,
-      minRows,
-      maxRows,
-      value,
-    });
-
-    useTextareaSync(
-      id,
-      startContent,
-      endContent,
-      value,
-      { setCustomInputId, setHasStartContent, setHasEndContent, setHasValue },
-      textareaRef,
-    );
-
-    const { handleFocus, handleBlur, handleChange } = useTextareaHandlers({
-      onFocus,
-      onBlur,
-      onChange,
-      onValueChange,
-      setIsFocused,
-      setHasValue,
-      setUncontrolledCount,
-      adjustHeight,
-    });
-
-    const effectiveId = id ?? contextInputId;
-    const ariaDescribedBy = useTextareaAriaDescribedBy(
-      hasErrorMessage,
-      isInvalid,
-      errorId,
-      hasDescription,
-      descriptionId,
-    );
-
-    const counterSlotClass = (classNames as Record<string, string | undefined>)?.counter;
-    const textareaSlotClass = (classNames as Record<string, string | undefined>)?.textarea;
+      counterStyle,
+      counterSlotClass,
+      wrapperClassName,
+      startContentClass,
+      endContentClass,
+      textareaProps,
+    } = useInputFieldTextarea(props, reference);
 
     return (
       <div className="flex w-full flex-col">
-        <div
-          className={cn(
-            styles?.wrapper?.(),
-            'ideasui-input-field__wrapper--textarea',
-            classNames?.wrapper,
-            className,
-          )}
-          data-slot="wrapper"
-        >
-          {renderAdornment(
-            startContent,
-            cn(styles?.startContent?.(), classNames?.startContent),
-            'start-content',
-          )}
-
-          <textarea
-            {...properties}
-            ref={setRef}
-            aria-describedby={ariaDescribedBy}
-            aria-invalid={isInvalid || undefined}
-            aria-readonly={isReadOnly || undefined}
-            aria-required={isRequired || undefined}
-            className={cn(
-              styles?.textarea?.(),
-              'ideasui-input-field__textarea',
-              getResizeClass(resize),
-              textareaSlotClass,
-              textareaClassName,
-            )}
-            data-slot="textarea"
-            defaultValue={defaultValue}
-            disabled={isDisabled}
-            id={effectiveId}
-            maxLength={maxLength}
-            readOnly={isReadOnly}
-            required={isRequired}
-            rows={minRows}
-            value={value}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            onFocus={handleFocus}
-          />
-
-          {renderAdornment(
-            endContent,
-            cn(styles?.endContent?.(), classNames?.endContent),
-            'end-content',
-          )}
+        <div className={wrapperClassName} data-slot="wrapper">
+          {renderAdornment(startContent, startContentClass, 'start-content')}
+          <textarea {...textareaProps} />
+          {renderAdornment(endContent, endContentClass, 'end-content')}
         </div>
 
         {renderCounterElement(
           showCharacterCount,
           charCount,
           maxLength,
-          styles?.counter?.(),
+          counterStyle,
           counterSlotClass,
         )}
       </div>

@@ -328,13 +328,12 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProperties>(
               ? slotProps.base.className(renderProperties)
               : slotProps?.base?.className;
 
-          return styles.base({
-            className: cn(
-              typeof className === 'function' ? className(renderProperties) : className,
-              classNames?.base,
-              baseSlotClass,
-            ),
-          });
+          return cn(
+            styles.base(),
+            typeof className === 'function' ? className(renderProperties) : className,
+            classNames?.base,
+            baseSlotClass,
+          );
         }}
         data-attached={merged.isAttached}
         data-slot="button"

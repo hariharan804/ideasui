@@ -59,6 +59,8 @@
     "react-dom": ">=18"
   },
   "dependencies": {
+    "@ideasui/switch": "workspace:*",
+    "@ideasui/radio": "workspace:*",
     "@ideasui/checkbox": "workspace:*",
     "@ideasui/input-field": "workspace:*",
     "@ideasui/text": "workspace:*",

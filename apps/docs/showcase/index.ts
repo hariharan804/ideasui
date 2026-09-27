@@ -4,6 +4,8 @@ import type { ComponentType } from 'react';
 import * as ButtonDemos from './button';
 import * as CheckboxDemos from './checkbox';
 import * as InputFieldDemos from './input-field';
+import * as RadioDemos from './radio';
+import * as SwitchDemos from './switch';
 import * as TextareaDemos from './textarea';
 import * as TextDemos from './text';
 
@@ -13,6 +15,48 @@ export type DemoItem = {
 };
 
 export const demos: Record<string, DemoItem> = {
+  // Radio demos
+  'radio-basic': {
+    component: RadioDemos.Basic,
+    file: 'radio/basic.tsx',
+  },
+  'radio-variants': {
+    component: RadioDemos.Variants,
+    file: 'radio/variants.tsx',
+  },
+  'radio-colors': {
+    component: RadioDemos.Colors,
+    file: 'radio/colors.tsx',
+  },
+  'radio-sizes': {
+    component: RadioDemos.Sizes,
+    file: 'radio/sizes.tsx',
+  },
+  'radio-radius': {
+    component: RadioDemos.Radius,
+    file: 'radio/radius.tsx',
+  },
+  'radio-states': {
+    component: RadioDemos.States,
+    file: 'radio/states.tsx',
+  },
+  'radio-controlled': {
+    component: RadioDemos.Controlled,
+    file: 'radio/controlled.tsx',
+  },
+  'radio-group': {
+    component: RadioDemos.Group,
+    file: 'radio/group.tsx',
+  },
+  'radio-group-horizontal': {
+    component: RadioDemos.GroupHorizontal,
+    file: 'radio/group-horizontal.tsx',
+  },
+  'radio-custom-icons': {
+    component: RadioDemos.CustomIcons,
+    file: 'radio/custom-icons.tsx',
+  },
+
   // Checkbox demos
   'checkbox-basic': {
     component: CheckboxDemos.Basic,
@@ -53,6 +97,64 @@ export const demos: Record<string, DemoItem> = {
   'checkbox-custom-icons': {
     component: CheckboxDemos.CustomIcons,
     file: 'checkbox/custom-icons.tsx',
+  },
+
+  // Switch demos
+  'switch-basic': {
+    component: SwitchDemos.Basic,
+    file: 'switch/basic.tsx',
+  },
+  'switch-variants': {
+    component: SwitchDemos.Variants,
+    file: 'switch/variants.tsx',
+  },
+  'switch-thumb-variants': {
+    component: SwitchDemos.ThumbVariants,
+    file: 'switch/thumb-variants.tsx',
+  },
+  'switch-thumb-shapes': {
+    component: SwitchDemos.ThumbShapes,
+    file: 'switch/thumb-shapes.tsx',
+  },
+  'switch-thumb-sizes': {
+    component: SwitchDemos.ThumbSizes,
+    file: 'switch/thumb-sizes.tsx',
+  },
+  'switch-colors': {
+    component: SwitchDemos.Colors,
+    file: 'switch/colors.tsx',
+  },
+  'switch-sizes': {
+    component: SwitchDemos.Sizes,
+    file: 'switch/sizes.tsx',
+  },
+  'switch-label-placement': {
+    component: SwitchDemos.LabelPlacement,
+    file: 'switch/label-placement.tsx',
+  },
+  'switch-track-labels': {
+    component: SwitchDemos.TrackLabels,
+    file: 'switch/track-labels.tsx',
+  },
+  'switch-states': {
+    component: SwitchDemos.States,
+    file: 'switch/states.tsx',
+  },
+  'switch-controlled': {
+    component: SwitchDemos.Controlled,
+    file: 'switch/controlled.tsx',
+  },
+  'switch-group': {
+    component: SwitchDemos.Group,
+    file: 'switch/group.tsx',
+  },
+  'switch-custom-icons': {
+    component: SwitchDemos.CustomIcons,
+    file: 'switch/custom-icons.tsx',
+  },
+  'switch-customization': {
+    component: SwitchDemos.Customization,
+    file: 'switch/customization.tsx',
   },
   // Text demos
   'text-basic': {

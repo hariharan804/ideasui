@@ -31,6 +31,7 @@ const TextareaRender = forwardRef<HTMLTextAreaElement, TextareaProps>(
       maxLength,
       id,
       name,
+      autoFocus,
       ...wrapperProps
     } = props;
 
@@ -64,6 +65,8 @@ const TextareaRender = forwardRef<HTMLTextAreaElement, TextareaProps>(
         <InputFieldTextarea
           {...slotProps?.textarea}
           ref={reference}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus={autoFocus}
           autoResize={autoResize}
           defaultValue={defaultValue}
           disabled={wrapperProps.isDisabled}

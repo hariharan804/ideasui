@@ -6,6 +6,7 @@ import { vi } from 'vitest';
 import { createRef } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { checkbox } from '@ideasui/theme/recipes';
 import { expectAccessible } from '@ideasui/utils/test';
 
 import {
@@ -334,5 +335,12 @@ describe('CheckboxGroup', () => {
 
     expect(container).toBeInTheDocument();
     await expectAccessible(container);
+  });
+
+  it('should apply hover classes on checkbox indicator recipe', () => {
+    const styles = checkbox({ variant: 'solid' });
+
+    expect(styles.indicator()).toContain('group-hover/checkbox:scale-105');
+    expect(styles.indicator()).toContain('group-hover/checkbox:border-border-focus');
   });
 });

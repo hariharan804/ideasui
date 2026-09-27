@@ -34,14 +34,35 @@
 }
 
 /* ── Variants ─────────────────────────────────────────────────────────────── */
+.ideasui-checkbox:hover:not([data-disabled='true']) .ideasui-checkbox__indicator {
+  @apply scale-105;
+}
 .ideasui-checkbox--solid .ideasui-checkbox__indicator {
   @apply border-border-strong bg-surface;
+}
+.ideasui-checkbox--solid:hover:not([data-selected='true']):not([data-indeterminate='true']):not(
+    [data-disabled='true']
+  )
+  .ideasui-checkbox__indicator {
+  @apply border-border-focus bg-surface-subtle;
 }
 .ideasui-checkbox--outline .ideasui-checkbox__indicator {
   @apply border-border-strong bg-transparent;
 }
+.ideasui-checkbox--outline:hover:not([data-selected='true']):not([data-indeterminate='true']):not(
+    [data-disabled='true']
+  )
+  .ideasui-checkbox__indicator {
+  @apply border-border-focus bg-surface-subtle/50;
+}
 .ideasui-checkbox--subtle .ideasui-checkbox__indicator {
   @apply bg-surface-muted border-transparent;
+}
+.ideasui-checkbox--subtle:hover:not([data-selected='true']):not([data-indeterminate='true']):not(
+    [data-disabled='true']
+  )
+  .ideasui-checkbox__indicator {
+  @apply bg-surface-subtle border-border-subtle;
 }
 
 /* ── Color Schemes & Solid Variants ────────────────────────────────────────── */

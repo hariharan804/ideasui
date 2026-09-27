@@ -9,9 +9,12 @@ import type {
   CSSProperties,
 } from 'react';
 import type {
-  InputFieldProps,
   InputFieldClassNames,
   InputFieldSlotProps,
+  InputFieldVariant,
+  InputFieldLabelVariant,
+  InputFieldSize,
+  InputFieldShadow,
 } from './input-field.types';
 import type { InputFieldLabel } from './input-field-label';
 import type { InputFieldDescription } from './input-field-description';
@@ -86,6 +89,11 @@ export interface InputFieldTextareaProps extends Omit<
   readonly textareaClassName?: string;
 
   /**
+   * Whether the textarea element should automatically receive focus on mount.
+   */
+  readonly autoFocus?: boolean;
+
+  /**
    * Callback fired when value changes, receiving the new text string.
    */
   readonly onValueChange?: (value: string) => void;
@@ -132,25 +140,25 @@ export interface TextareaProps {
    * Visual surface styling variant.
    * @default 'outline'
    */
-  readonly variant?: InputFieldProps['variant'];
+  readonly variant?: InputFieldVariant;
 
   /**
    * Label positioning and floating behavior.
    * @default 'default'
    */
-  readonly labelVariant?: InputFieldProps['labelVariant'];
+  readonly labelVariant?: InputFieldLabelVariant;
 
   /**
    * Size scale for the textarea.
    * @default 'md'
    */
-  readonly size?: InputFieldProps['size'];
+  readonly size?: InputFieldSize;
 
   /**
    * Shadow elevation level.
    * @default false
    */
-  readonly shadow?: InputFieldProps['shadow'];
+  readonly shadow?: InputFieldShadow;
 
   /**
    * Whether the textarea is disabled.
@@ -240,6 +248,11 @@ export interface TextareaProps {
    * Unique identifier for the textarea.
    */
   readonly id?: string;
+
+  /**
+   * Whether the textarea element should automatically receive focus on mount.
+   */
+  readonly autoFocus?: boolean;
 
   /**
    * Form field name for the textarea.

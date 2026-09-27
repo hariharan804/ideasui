@@ -158,7 +158,7 @@ import {
 </CheckboxGroup>
 
 // Variant + color + size
-<Checkbox variant="outline" colorScheme="success" size="lg" defaultSelected>
+<Checkbox variant="outline" color="success" size="lg" defaultSelected>
   Verified
 </Checkbox>
 ```
@@ -187,7 +187,7 @@ export interface CheckboxProps extends Omit<
    * Color scheme applied to the checked/indeterminate state.
    * @default 'primary'
    */
-  readonly colorScheme?: CheckboxColorScheme;
+  readonly color?: CheckboxColorScheme;
 
   /**
    * Size scale of the checkbox.
@@ -288,7 +288,7 @@ export interface CheckboxGroupProps extends HTMLAttributes<HTMLDivElement> {
    * Color scheme propagated to all child Checkboxes.
    * @default 'primary'
    */
-  readonly colorScheme?: CheckboxColorScheme;
+  readonly color?: CheckboxColorScheme;
 
   /**
    * Size scale propagated to all child Checkboxes.
@@ -359,7 +359,7 @@ export interface CheckboxGroupErrorProps extends HTMLAttributes<HTMLParagraphEle
 
 export interface CheckboxGroupContextValue {
   readonly variant?: CheckboxVariant;
-  readonly colorScheme?: CheckboxColorScheme;
+  readonly color?: CheckboxColorScheme;
   readonly size?: CheckboxSize;
   readonly isDisabled?: boolean;
   readonly isReadOnly?: boolean;
@@ -422,7 +422,7 @@ export const checkbox = tv({
       },
     },
 
-    colorScheme: {
+    color: {
       primary: {
         indicator:
           'group-data-[selected=true]:bg-primary group-data-[selected=true]:border-primary',
@@ -483,7 +483,7 @@ export const checkbox = tv({
 
   defaultVariants: {
     variant: 'solid',
-    colorScheme: 'primary',
+    color: 'primary',
     size: 'md',
     isInvalid: false,
     isDisabled: false,
@@ -582,7 +582,7 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
       defaultValue = [],
       onChange,
       variant = 'solid',
-      colorScheme = 'primary',
+      color = 'primary',
       size = 'md',
       orientation = 'vertical',
       isDisabled = false,
@@ -620,7 +620,7 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
       <CheckboxGroupContext.Provider
         value={{
           variant,
-          colorScheme,
+          color,
           size,
           isDisabled,
           isReadOnly,
@@ -692,7 +692,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
       variant,
-      colorScheme,
+      color,
       size,
       isSelected,
       defaultSelected = false,
@@ -716,7 +716,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     // Merge group context with local props (local props take precedence)
     const resolvedVariant = variant ?? group?.variant ?? 'solid';
-    const resolvedColorScheme = colorScheme ?? group?.colorScheme ?? 'primary';
+    const resolvedColorScheme = color ?? group?.color ?? 'primary';
     const resolvedSize = size ?? group?.size ?? 'md';
     const resolvedDisabled = isDisabled ?? group?.isDisabled ?? false;
     const resolvedReadOnly = isReadOnly ?? group?.isReadOnly ?? false;
@@ -737,7 +737,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     const styles = checkboxRecipe({
       variant: resolvedVariant,
-      colorScheme: resolvedColorScheme,
+      color: resolvedColorScheme,
       size: resolvedSize,
       isDisabled: resolvedDisabled,
       isInvalid: resolvedInvalid,
@@ -1161,13 +1161,13 @@ For standalone CSS usage (without Tailwind), `@ideasui/styles` exports BEM modif
 
 ### Color Schemes
 
-| `colorScheme` | Token used for checked bg/border |
-| ------------- | -------------------------------- |
-| `primary`     | `--ideasui-color-primary`        |
-| `neutral`     | `--ideasui-color-neutral`        |
-| `success`     | `--ideasui-color-success`        |
-| `warning`     | `--ideasui-color-warning`        |
-| `danger`      | `--ideasui-color-danger`         |
+| `color`   | Token used for checked bg/border |
+| --------- | -------------------------------- |
+| `primary` | `--ideasui-color-primary`        |
+| `neutral` | `--ideasui-color-neutral`        |
+| `success` | `--ideasui-color-success`        |
+| `warning` | `--ideasui-color-warning`        |
+| `danger`  | `--ideasui-color-danger`         |
 
 ### Sizes
 
@@ -1318,9 +1318,9 @@ export const Variants: Story = {
 export const ColorSchemes: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
-      {(['primary', 'neutral', 'success', 'warning', 'danger'] as const).map((colorScheme) => (
-        <Checkbox key={colorScheme} colorScheme={colorScheme} defaultSelected>
-          {colorScheme.charAt(0).toUpperCase() + colorScheme.slice(1)}
+      {(['primary', 'neutral', 'success', 'warning', 'danger'] as const).map((color) => (
+        <Checkbox key={color} color={color} defaultSelected>
+          {color.charAt(0).toUpperCase() + color.slice(1)}
         </Checkbox>
       ))}
     </div>
@@ -1447,7 +1447,7 @@ export const GroupDisabled: Story = {
 export const Playground: Story = {
   args: {
     variant: 'solid',
-    colorScheme: 'primary',
+    color: 'primary',
     size: 'md',
     isDisabled: false,
     isInvalid: false,

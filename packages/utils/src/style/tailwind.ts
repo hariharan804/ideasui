@@ -9,7 +9,24 @@ import { twMerge } from 'tailwind-merge';
  * @returns {string} Merged class string
  */
 export function cn(...inputs: ClassValue[]): string {
-  return twMerge(clsx(inputs));
+  const merged = twMerge(clsx(inputs));
+
+  if (!merged?.includes(' ')) {
+    return merged;
+  }
+
+  const parts = merged.split(' ');
+  const unique = new Set<string>();
+  const result: string[] = [];
+
+  for (const part of parts) {
+    if (part && !unique.has(part)) {
+      unique.add(part);
+      result.push(part);
+    }
+  }
+
+  return result.join(' ');
 }
 
 /**

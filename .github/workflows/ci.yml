@@ -31,6 +31,15 @@ jobs:
             ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml') }}-
             ${{ runner.os }}-turbo-
 
+      - name: ESLint Cache
+        uses: actions/cache@v4
+        with:
+          path: .eslintcache
+          key: ${{ runner.os }}-eslint-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-eslint-${{ hashFiles('pnpm-lock.yaml') }}-
+            ${{ runner.os }}-eslint-
+
       # 1️⃣ Format Check (Prettier)
       - name: Prettier Check
         run: pnpm run format:check
