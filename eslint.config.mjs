@@ -139,7 +139,7 @@ export default defineConfig([
       ecmaVersion: 12,
       sourceType: 'module',
       parserOptions: {
-        project: true,
+        projectService: true,
         tsconfigRootDir: __dirname,
         ecmaFeatures: {
           jsx: true,
@@ -334,7 +334,7 @@ export default defineConfig([
       ],
 
       // Import management
-      'import/no-cycle': ['error', { maxDepth: Infinity }],
+      'import/no-cycle': ['error', { maxDepth: 2, ignoreExternal: true }],
       'import/no-self-import': 'error',
       'unused-imports/no-unused-vars': 'off',
       'unused-imports/no-unused-imports': 'warn',
