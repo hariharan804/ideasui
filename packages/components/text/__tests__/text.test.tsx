@@ -169,6 +169,21 @@ describe('Text Component', () => {
     expect(element).toHaveAttribute('slot', 'description');
   });
 
+  it('supports classNames and slotProps for granular slot customization', () => {
+    render(
+      <Text
+        classNames={{ base: 'custom-text-base' }}
+        slotProps={{ base: { 'data-testid': 'custom-text-slot' } }}
+      >
+        Customized Text
+      </Text>,
+    );
+
+    const element = screen.getByTestId('custom-text-slot');
+
+    expect(element).toHaveClass('custom-text-base');
+  });
+
   it('passes automated accessibility tests with zero violations', async () => {
     const { container } = render(
       <main>

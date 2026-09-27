@@ -54,6 +54,7 @@ export function CodeBlock({
         className={cn(
           'code-block-wrapper relative overflow-hidden transition-all duration-300',
           isCollapsed && 'pb-20',
+          !isCollapsed && 'pb-3',
         )}
         style={
           isCollapsed

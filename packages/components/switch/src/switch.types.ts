@@ -1,6 +1,8 @@
 import type { CSSProperties, HTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 import type { SwitchReturnType } from '@ideasui/theme/recipes';
 
+export type { SwitchReturnType } from '@ideasui/theme/recipes';
+
 export type SwitchVariant = 'solid' | 'outline' | 'soft' | 'contrast';
 export type SwitchThumbVariant = 'solid' | 'flat' | 'gradient' | 'bordered' | 'contrast' | 'dark';
 export type SwitchThumbShape = 'full' | 'pill' | 'square' | 'rectangle';
@@ -9,10 +11,50 @@ export type SwitchColor = 'primary' | 'neutral' | 'success' | 'warning' | 'dange
 export type SwitchSize = 'sm' | 'md' | 'lg';
 export type SwitchLabelPlacement = 'start' | 'end';
 
+export interface SwitchClassNames {
+  readonly root?: string;
+  readonly input?: string;
+  readonly track?: string;
+  readonly thumb?: string;
+  readonly thumbIcon?: string;
+  readonly onLabel?: string;
+  readonly offLabel?: string;
+  readonly labelText?: string;
+}
+
+export interface SwitchSlotProps {
+  readonly root?: HTMLAttributes<HTMLLabelElement> & { readonly [key: `data-${string}`]: unknown };
+  readonly input?: InputHTMLAttributes<HTMLInputElement> & {
+    readonly [key: `data-${string}`]: unknown;
+  };
+  readonly track?: HTMLAttributes<HTMLSpanElement> & { readonly [key: `data-${string}`]: unknown };
+  readonly thumb?: HTMLAttributes<HTMLSpanElement> & { readonly [key: `data-${string}`]: unknown };
+  readonly thumbIcon?: HTMLAttributes<HTMLElement> & { readonly [key: `data-${string}`]: unknown };
+  readonly onLabel?: HTMLAttributes<HTMLSpanElement> & {
+    readonly [key: `data-${string}`]: unknown;
+  };
+  readonly offLabel?: HTMLAttributes<HTMLSpanElement> & {
+    readonly [key: `data-${string}`]: unknown;
+  };
+  readonly labelText?: HTMLAttributes<HTMLSpanElement> & {
+    readonly [key: `data-${string}`]: unknown;
+  };
+}
+
 export interface SwitchProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'size' | 'onChange' | 'color'
 > {
+  /**
+   * Custom CSS class names for individual switch sub-slots (`root`, `input`, `track`, `thumb`, `thumbIcon`, `onLabel`, `offLabel`, `labelText`).
+   */
+  readonly classNames?: SwitchClassNames;
+
+  /**
+   * Granular props for individual switch sub-slots (`root`, `input`, `track`, `thumb`, `thumbIcon`, `onLabel`, `offLabel`, `labelText`).
+   */
+  readonly slotProps?: SwitchSlotProps;
+
   /**
    * Visual style variant of the switch track.
    * @default 'solid'

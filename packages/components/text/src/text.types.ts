@@ -46,7 +46,25 @@ export type TextColor =
   | 'info';
 export type TextAlign = 'start' | 'center' | 'end' | 'justify';
 
+export interface TextClassNames {
+  readonly base?: string;
+}
+
+export interface TextSlotProps {
+  readonly base?: HTMLAttributes<HTMLElement> & { readonly [key: `data-${string}`]: unknown };
+}
+
 export interface TextProps extends Omit<HTMLAttributes<HTMLElement>, 'slot'> {
+  /**
+   * Custom CSS class names for individual text sub-slots (`base`).
+   */
+  readonly classNames?: TextClassNames;
+
+  /**
+   * Granular props for individual text sub-slots (`base`).
+   */
+  readonly slotProps?: TextSlotProps;
+
   /**
    * The underlying HTML element or React component to render.
    * If omitted, automatically selects the semantic element based on `variant`:

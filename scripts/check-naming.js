@@ -72,7 +72,12 @@ class NamingChecker {
   checkFolder(folderPath) {
     const folderName = path.basename(folderPath);
 
-    if (folderName.startsWith('.') || folderName === 'node_modules' || folderName === '__tests__') {
+    if (
+      folderName.startsWith('.') ||
+      folderName === 'node_modules' ||
+      folderName === '__tests__' ||
+      folderName === 'test-results'
+    ) {
       return;
     }
 
@@ -126,7 +131,8 @@ class NamingChecker {
           item !== 'storybook-static' &&
           item !== '.github' &&
           item !== '.chrome-profile' &&
-          item !== 'plop-templates'
+          item !== 'plop-templates' &&
+          item !== 'test-results'
         ) {
           this.checkFolder(fullPath);
           this.walkDirectory(fullPath);

@@ -16,8 +16,12 @@ You MUST follow these rules during development. Refer to `/rules` for full detai
 
 ## 🧩 Component Rules
 
-- Use `React.forwardRef` and set `displayName`.
+- Use `React.forwardRef` and set `displayName` (format: `IdeasUI.ComponentName`).
 - Use `tv()` for styling and `cn()` for merging classes.
+- Use semantic HTML (`<button>`, `<input>`, `<label>`, `<p>`) for default DOM structures.
+- Support `className`, `classNames` (slot class overrides), and `slotProps` (slot prop customization).
+- Form components must support `isRequired`, `isDisabled`, `isReadOnly`, and `isInvalid`.
+- All DOM slots must expose `data-slot="*"` and namespaced BEM classes (`.ideasui-[component]__*`).
 - JSDoc required for all public props.
 - [component-development.md](../../rules/component-development.md)
 
@@ -86,5 +90,6 @@ You MUST follow these rules during development. Refer to `/rules` for full detai
 - **Live Demos:** Use `<Preview name="[component]-[demo]" />`. Never embed inline JSX components directly in MDX body text.
 - **Showcase Components:** Define demo components in `apps/docs/showcase/[component-name]/[demo].tsx` and register them in `apps/docs/showcase/index.ts`.
 - **API Reference:** Always use `<APIReferenceViewer componentName="[camelCaseName]" />`. NEVER write manual Markdown/HTML prop tables.
+- **Standalone CSS:** Every component MDX file MUST include a `## Standalone CSS` section and a `### BEM CSS Classes` subsection.
 - **Props Dictionary:** Register component prop metadata in `apps/docs/lib/docs/components-props.ts`.
 - [mdx-documentation.md](../../rules/mdx-documentation.md)

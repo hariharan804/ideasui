@@ -1,11 +1,16 @@
 'use client';
 
-import type { CheckboxGroupContextValue, CheckboxProps, CheckboxVariant } from './checkbox.types';
-import type { ChangeEvent, JSX, ReactNode } from 'react';
+import type {
+  CheckboxGroupContextValue,
+  CheckboxProps,
+  CheckboxReturnType,
+  CheckboxVariant,
+} from './checkbox.types';
+import type { ChangeEvent, ForwardedRef, JSX, ReactNode } from 'react';
 
 import { forwardRef, useCallback, useEffect, useId, useRef, useState } from 'react';
 import { checkbox as checkboxRecipe } from '@ideasui/theme/recipes';
-import { cn, renderIcon } from '@ideasui/utils';
+import { cn, mergeRefs, omit, renderIcon } from '@ideasui/utils';
 
 import { useCheckboxGroupContext } from './checkbox-context';
 
@@ -76,166 +81,271 @@ function resolveProps(
   };
 }
 
+interface RenderCheckboxIconProps {
+  isIndeterminate: boolean;
+  isSelected: boolean;
+  indeterminateIcon?: CheckboxProps['indeterminateIcon'];
+  checkedIcon?: CheckboxProps['checkedIcon'];
+  uncheckedIcon?: CheckboxProps['uncheckedIcon'];
+  iconClassName: string;
+  iconSlotProps?: CheckboxProps['slotProps'] extends infer S
+    ? S extends { icon?: infer I }
+      ? I
+      : undefined
+    : undefined;
+}
+
+function renderCheckboxIndicatorIcon({
+  isIndeterminate,
+  isSelected,
+  indeterminateIcon,
+  checkedIcon,
+  uncheckedIcon,
+  iconClassName,
+  iconSlotProps,
+}: RenderCheckboxIconProps): ReactNode {
+  if (isIndeterminate) {
+    if (indeterminateIcon !== undefined) {
+      return renderIcon(indeterminateIcon, iconClassName);
+    }
+
+    return <IndeterminateIcon className={iconClassName} {...iconSlotProps} />;
+  }
+
+  if (isSelected) {
+    if (checkedIcon !== undefined) {
+      return renderIcon(checkedIcon, iconClassName);
+    }
+
+    return <CheckIcon className={iconClassName} {...iconSlotProps} />;
+  }
+
+  if (uncheckedIcon !== undefined) {
+    return renderIcon(
+      uncheckedIcon,
+      cn(iconClassName, 'opacity-100 scale-100 group-data-[selected=true]/checkbox:opacity-0'),
+    );
+  }
+
+  return <CheckIcon className={iconClassName} {...iconSlotProps} />;
+}
+
+interface UseCheckboxControlReturn {
+  setRefs: (node: HTMLInputElement | null) => void;
+  inputId: string;
+  resolved: ResolvedProps;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+function useCheckboxControl(
+  properties: CheckboxProps,
+  reference: ForwardedRef<HTMLInputElement>,
+): UseCheckboxControlReturn {
+  const group = useCheckboxGroupContext();
+  const internalInputRef = useRef<HTMLInputElement | null>(null);
+  const inputId = useId();
+
+  const [internalSelected, setInternalSelected] = useState<boolean>(
+    properties.defaultSelected ?? false,
+  );
+
+  const combinedRef = useCallback(
+    (node: HTMLInputElement | null) => {
+      internalInputRef.current = node;
+      mergeRefs(reference)(node);
+    },
+    [reference],
+  );
+
+  const resolved = resolveProps(properties, group, internalSelected);
+
+  useEffect(() => {
+    if (internalInputRef.current) {
+      internalInputRef.current.indeterminate = properties.isIndeterminate ?? false;
+    }
+  }, [properties.isIndeterminate]);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    if (resolved.isReadOnly) {
+      return;
+    }
+
+    const checked = event.target.checked;
+
+    if (resolved.isGroupControlled && properties.value !== undefined) {
+      group?.onGroupChange?.(properties.value, checked);
+    } else {
+      if (properties.isSelected === undefined) {
+        setInternalSelected(checked);
+      }
+
+      properties.onChange?.(checked);
+    }
+  };
+
+  return { setRefs: combinedRef, inputId, resolved, handleChange };
+}
+
+const CHECKBOX_PROPS_TO_OMIT = [
+  'variant',
+  'color',
+  'size',
+  'radius',
+  'isSelected',
+  'defaultSelected',
+  'isIndeterminate',
+  'isDisabled',
+  'isReadOnly',
+  'isRequired',
+  'isInvalid',
+  'value',
+  'onChange',
+  'className',
+  'classNames',
+  'slotProps',
+  'style',
+  'children',
+  'checkedIcon',
+  'uncheckedIcon',
+  'indeterminateIcon',
+] as const;
+
+interface RenderCheckboxInputProps {
+  properties: CheckboxProps;
+  resolved: ResolvedProps;
+  inputId: string;
+  setRefs: (node: HTMLInputElement | null) => void;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+function renderCheckboxInput({
+  properties,
+  resolved,
+  inputId,
+  setRefs,
+  handleChange,
+}: RenderCheckboxInputProps): JSX.Element {
+  const { isIndeterminate = false, value, classNames, slotProps } = properties;
+  const otherProperties = omit(
+    properties as Record<string, unknown>,
+    CHECKBOX_PROPS_TO_OMIT as unknown as (keyof Record<string, unknown>)[],
+  );
+
+  return (
+    <input
+      {...slotProps?.input}
+      {...otherProperties}
+      ref={setRefs}
+      aria-checked={isIndeterminate ? 'mixed' : resolved.isSelected}
+      aria-invalid={resolved.isInvalid || undefined}
+      aria-required={resolved.isRequired || undefined}
+      checked={resolved.isSelected}
+      className={cn('sr-only', classNames?.input, slotProps?.input?.className)}
+      data-slot="checkbox-input"
+      disabled={resolved.isDisabled}
+      id={inputId}
+      readOnly={resolved.isReadOnly}
+      required={resolved.isRequired}
+      type="checkbox"
+      value={value}
+      onChange={handleChange}
+    />
+  );
+}
+
+interface RenderCheckboxLayoutProps {
+  properties: CheckboxProps;
+  resolved: ResolvedProps;
+  inputId: string;
+  setRefs: (node: HTMLInputElement | null) => void;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  styles: CheckboxReturnType;
+}
+
+function renderCheckboxLayout({
+  properties,
+  resolved,
+  inputId,
+  setRefs,
+  handleChange,
+  styles,
+}: RenderCheckboxLayoutProps): JSX.Element {
+  const {
+    isIndeterminate = false,
+    className,
+    classNames,
+    slotProps,
+    style,
+    children,
+    checkedIcon,
+    uncheckedIcon,
+    indeterminateIcon,
+  } = properties;
+
+  const iconClassName = cn(styles.icon(), classNames?.icon, slotProps?.icon?.className);
+
+  return (
+    <label
+      {...slotProps?.root}
+      className={cn(styles.root(), classNames?.root, slotProps?.root?.className, className)}
+      data-disabled={resolved.isDisabled || undefined}
+      data-indeterminate={isIndeterminate || undefined}
+      data-invalid={resolved.isInvalid || undefined}
+      data-readonly={resolved.isReadOnly || undefined}
+      data-selected={resolved.isSelected || undefined}
+      data-slot="checkbox"
+      style={style}
+    >
+      {renderCheckboxInput({ properties, resolved, inputId, setRefs, handleChange })}
+      <span
+        aria-hidden="true"
+        {...slotProps?.indicator}
+        className={cn(styles.indicator(), classNames?.indicator, slotProps?.indicator?.className)}
+        data-slot="checkbox-indicator"
+      >
+        {renderCheckboxIndicatorIcon({
+          isIndeterminate,
+          isSelected: resolved.isSelected,
+          indeterminateIcon,
+          checkedIcon,
+          uncheckedIcon,
+          iconClassName,
+          iconSlotProps: slotProps?.icon,
+        })}
+      </span>
+      {children ? (
+        <span
+          {...slotProps?.labelText}
+          className={cn(styles.labelText(), classNames?.labelText, slotProps?.labelText?.className)}
+          data-slot="checkbox-label-text"
+        >
+          {children}
+        </span>
+      ) : null}
+    </label>
+  );
+}
+
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (properties, reference): JSX.Element => {
-    const {
-      variant,
-      color,
-      size,
-      radius,
-      isSelected,
-      defaultSelected = false,
-      isIndeterminate = false,
-      isDisabled,
-      isReadOnly,
-      isRequired,
-      isInvalid,
-      value,
-      onChange,
-      className,
-      style,
-      children,
-      checkedIcon,
-      uncheckedIcon,
-      indeterminateIcon,
-      ...otherProperties
-    } = properties;
-
-    const group = useCheckboxGroupContext();
-    const internalInputRef = useRef<HTMLInputElement | null>(null);
-    const inputId = useId();
-
-    const [internalSelected, setInternalSelected] = useState<boolean>(defaultSelected);
-
-    const setRefs = useCallback(
-      (node: HTMLInputElement | null) => {
-        internalInputRef.current = node;
-
-        if (typeof reference === 'function') {
-          reference(node);
-        } else if (reference) {
-          (reference as { current: HTMLInputElement | null }).current = node;
-        }
-      },
-      [reference],
-    );
-
-    const resolved = resolveProps(
-      {
-        variant,
-        color,
-        size,
-        radius,
-        isSelected,
-        defaultSelected,
-        isDisabled,
-        isReadOnly,
-        isRequired,
-        isInvalid,
-        value,
-      },
-      group,
-      internalSelected,
-    );
-
-    useEffect(() => {
-      if (internalInputRef.current) {
-        internalInputRef.current.indeterminate = isIndeterminate;
-      }
-    }, [isIndeterminate]);
-
+    const control = useCheckboxControl(properties, reference);
     const styles = checkboxRecipe({
-      variant: resolved.variant,
-      color: resolved.color,
-      size: resolved.size,
-      radius: resolved.radius,
-      isDisabled: resolved.isDisabled,
-      isInvalid: resolved.isInvalid,
+      variant: control.resolved.variant,
+      color: control.resolved.color,
+      size: control.resolved.size,
+      radius: control.resolved.radius,
+      isDisabled: control.resolved.isDisabled,
+      isInvalid: control.resolved.isInvalid,
     });
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-      if (resolved.isReadOnly) {
-        return;
-      }
-
-      const checked = event.target.checked;
-
-      if (resolved.isGroupControlled && value !== undefined) {
-        group?.onGroupChange?.(value, checked);
-      } else {
-        if (isSelected === undefined) {
-          setInternalSelected(checked);
-        }
-
-        onChange?.(checked);
-      }
-    };
-
-    const renderIndicatorIcon = (): ReactNode => {
-      if (isIndeterminate) {
-        if (indeterminateIcon !== undefined) {
-          return renderIcon(indeterminateIcon, styles.icon());
-        }
-
-        return <IndeterminateIcon className={styles.icon()} />;
-      }
-
-      if (resolved.isSelected) {
-        if (checkedIcon !== undefined) {
-          return renderIcon(checkedIcon, styles.icon());
-        }
-
-        return <CheckIcon className={styles.icon()} />;
-      }
-
-      if (uncheckedIcon !== undefined) {
-        return renderIcon(
-          uncheckedIcon,
-          cn(styles.icon(), 'opacity-100 scale-100 group-data-[selected=true]/checkbox:opacity-0'),
-        );
-      }
-
-      return <CheckIcon className={styles.icon()} />;
-    };
-
-    return (
-      <label
-        className={cn(styles.root(), className)}
-        data-disabled={resolved.isDisabled || undefined}
-        data-indeterminate={isIndeterminate || undefined}
-        data-invalid={resolved.isInvalid || undefined}
-        data-readonly={resolved.isReadOnly || undefined}
-        data-selected={resolved.isSelected || undefined}
-        data-slot="checkbox"
-        style={style}
-      >
-        <input
-          {...otherProperties}
-          ref={setRefs}
-          aria-checked={isIndeterminate ? 'mixed' : resolved.isSelected}
-          aria-invalid={resolved.isInvalid || undefined}
-          aria-required={resolved.isRequired || undefined}
-          checked={resolved.isSelected}
-          className="sr-only"
-          data-slot="checkbox-input"
-          disabled={resolved.isDisabled}
-          id={inputId}
-          readOnly={resolved.isReadOnly}
-          required={resolved.isRequired}
-          type="checkbox"
-          value={value}
-          onChange={handleChange}
-        />
-        <span aria-hidden="true" className={cn(styles.indicator())} data-slot="checkbox-indicator">
-          {renderIndicatorIcon()}
-        </span>
-        {children ? (
-          <span className={cn(styles.labelText())} data-slot="checkbox-label-text">
-            {children}
-          </span>
-        ) : null}
-      </label>
-    );
+    return renderCheckboxLayout({
+      properties,
+      resolved: control.resolved,
+      inputId: control.inputId,
+      setRefs: control.setRefs,
+      handleChange: control.handleChange,
+      styles,
+    });
   },
 );
 

@@ -54,7 +54,7 @@
     "lint:fix": "eslint --max-warnings=0 --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "quality": "pnpm lint && pnpm typecheck && pnpm check-tokens && pnpm format:check",
+    "quality": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm check-naming && pnpm check-tokens && pnpm test && pnpm size",
     "create": "plop",
     "extract:props": "node scripts/props-extractor/index.mjs scripts/props-extractor/props-extractor.config.mjs",
     "list:api": "node scripts/detect-api-packages.mjs",

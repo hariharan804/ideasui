@@ -43,6 +43,8 @@ export const Text = forwardRef<HTMLElement, TextProps>((props, reference): JSX.E
     lineClamp,
     slot,
     className,
+    classNames,
+    slotProps,
     style,
     children,
     ...properties
@@ -54,12 +56,14 @@ export const Text = forwardRef<HTMLElement, TextProps>((props, reference): JSX.E
   const isTruncated = !isLineClamped && truncate;
 
   const computedStyle = isLineClamped
-    ? ({ ...style, '--ideasui-line-clamp': lineClamp } as CSSProperties)
-    : style;
+    ? ({ ...slotProps?.base?.style, ...style, '--ideasui-line-clamp': lineClamp } as CSSProperties)
+    : { ...slotProps?.base?.style, ...style };
 
   return (
     <Component
       ref={reference}
+      {...slotProps?.base}
+      {...properties}
       className={cn(
         text({
           variant,
@@ -71,11 +75,12 @@ export const Text = forwardRef<HTMLElement, TextProps>((props, reference): JSX.E
           lineClamp: isLineClamped,
         }),
         className,
+        classNames?.base,
+        slotProps?.base?.className,
       )}
       data-slot="text"
       slot={slot ?? undefined}
       style={computedStyle}
-      {...properties}
     >
       {children}
     </Component>

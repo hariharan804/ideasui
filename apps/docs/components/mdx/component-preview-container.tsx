@@ -72,7 +72,9 @@ export function ComponentPreviewContainer({
           <rect fill={`url(#${gridId})`} height="100%" width="100%" />
         </svg>
 
-        <div className="relative z-10 flex w-full items-center justify-center">{Component}</div>
+        <div className="relative z-10 flex w-full min-w-0 items-center justify-center">
+          {Component}
+        </div>
       </div>
 
       {/* Code Section */}

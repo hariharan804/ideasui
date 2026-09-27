@@ -214,6 +214,37 @@ describe('Checkbox', () => {
     expect(screen.getByTestId('fn-check-icon')).toBeInTheDocument();
   });
 
+  it('should support classNames and slotProps for granular slot customization', () => {
+    render(
+      <Checkbox
+        classNames={{
+          root: 'custom-root-class',
+          input: 'custom-input-class',
+          indicator: 'custom-indicator-class',
+          labelText: 'custom-label-text-class',
+        }}
+        slotProps={{
+          root: { 'data-testid': 'checkbox-root' },
+          input: { 'data-testid': 'checkbox-input' },
+          indicator: { 'data-testid': 'checkbox-indicator' },
+          labelText: { 'data-testid': 'checkbox-label-text' },
+        }}
+      >
+        Customized Checkbox
+      </Checkbox>,
+    );
+
+    const root = screen.getByTestId('checkbox-root');
+    const input = screen.getByTestId('checkbox-input');
+    const indicator = screen.getByTestId('checkbox-indicator');
+    const labelText = screen.getByTestId('checkbox-label-text');
+
+    expect(root).toHaveClass('custom-root-class');
+    expect(input).toHaveClass('custom-input-class');
+    expect(indicator).toHaveClass('custom-indicator-class');
+    expect(labelText).toHaveClass('custom-label-text-class');
+  });
+
   it('should pass accessibility audit for checkbox with custom icons', async () => {
     const { container } = render(
       <Checkbox defaultSelected checkedIcon={<span>✓</span>} uncheckedIcon={<span>✗</span>}>

@@ -2,8 +2,12 @@
 
 ## 🎯 Core Principles
 
-- Use `React.forwardRef` and set `displayName` for all components.
+- Use `React.forwardRef` and set `displayName` for all components (format: `IdeasUI.ComponentName`).
 - Use `tv()` (tailwind-variants) for styling and `cn()` for merging classes.
+- Use semantic HTML (`<button>`, `<input>`, `<label>`, `<p>`, `<fieldset>`) as default DOM elements.
+- Support `className`, `classNames` (slot class overrides), and `slotProps` (slot prop customization).
+- Form components must support `isRequired`, `isDisabled`, `isReadOnly`, and `isInvalid` props.
+- All DOM slots must expose namespaced BEM class names (`.ideasui-[component]__*`) and `data-slot="*"` attributes.
 - JSDoc required for all public props.
 - Separate concerns: component, types, variants, and tests.
 - Support standard variants: primary, secondary, success, warning, danger.
