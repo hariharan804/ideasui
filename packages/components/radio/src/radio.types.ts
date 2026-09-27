@@ -1,15 +1,49 @@
 import type { CSSProperties, HTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 import type { RadioReturnType } from '@ideasui/theme/recipes';
 
+export type { RadioReturnType } from '@ideasui/theme/recipes';
+
 export type RadioVariant = 'solid' | 'outline' | 'subtle' | 'ghost' | 'soft';
 export type RadioColor = 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
 export type RadioSize = 'sm' | 'md' | 'lg';
 export type RadioRadius = 'none' | 'sm' | 'md' | 'lg' | 'full';
 
+export interface RadioClassNames {
+  readonly root?: string;
+  readonly input?: string;
+  readonly indicator?: string;
+  readonly icon?: string;
+  readonly labelText?: string;
+}
+
+export interface RadioSlotProps {
+  readonly root?: HTMLAttributes<HTMLLabelElement> & { readonly [key: `data-${string}`]: unknown };
+  readonly input?: InputHTMLAttributes<HTMLInputElement> & {
+    readonly [key: `data-${string}`]: unknown;
+  };
+  readonly indicator?: HTMLAttributes<HTMLSpanElement> & {
+    readonly [key: `data-${string}`]: unknown;
+  };
+  readonly icon?: HTMLAttributes<HTMLElement> & { readonly [key: `data-${string}`]: unknown };
+  readonly labelText?: HTMLAttributes<HTMLSpanElement> & {
+    readonly [key: `data-${string}`]: unknown;
+  };
+}
+
 export interface RadioProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'size' | 'onChange' | 'color'
 > {
+  /**
+   * Custom CSS class names for individual radio sub-slots (`root`, `input`, `indicator`, `icon`, `labelText`).
+   */
+  readonly classNames?: RadioClassNames;
+
+  /**
+   * Granular props for individual radio sub-slots (`root`, `input`, `indicator`, `icon`, `labelText`).
+   */
+  readonly slotProps?: RadioSlotProps;
+
   /**
    * Visual style variant of the radio indicator.
    * @default 'outline'

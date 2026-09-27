@@ -21,16 +21,15 @@ const COMPONENT_GROUPS = [
       'checkbox-group',
       'description',
       'error-message',
-      'field-error',
-      'fieldset',
       'form',
       'input',
-      'input-group',
+      'input-field',
       'input-otp',
       'label',
-      'number-field',
+      'radio',
       'radio-group',
       'search-field',
+      'switch',
       'textfield',
       'textarea',
     ],
@@ -68,7 +67,7 @@ const COMPONENT_GROUPS = [
   },
   {
     category: 'Controls',
-    components: ['slider', 'switch'],
+    components: ['slider'],
   },
   {
     category: 'Feedback',
@@ -88,7 +87,7 @@ const COMPONENT_GROUPS = [
   },
   {
     category: 'Typography',
-    components: ['kbd'],
+    components: ['text', 'kbd'],
   },
   {
     category: 'Data Display',

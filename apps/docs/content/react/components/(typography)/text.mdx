@@ -117,9 +117,18 @@ Render any semantic HTML element or custom React component (such as Next.js `Lin
 
 ### Line Clamping & Truncation
 
-Truncate text on a single line or limit maximum line count.
+`Text` provides built-in support for single-line truncation and multi-line clamping without writing custom CSS.
+
+- **Single Line (`truncate`):** Pass the `truncate` boolean prop to truncate text on a single line with a trailing ellipsis (`...`).
+- **Multi-Line Clamping (`lineClamp={N}`):** Pass a number (`1`, `2`, `3`, etc.) to `lineClamp` to limit text to a maximum number of lines before truncating.
 
 <Preview name="text-truncation" />
+
+> [!TIP]
+> **Flexbox & Grid Layout Containers:** In CSS Flexbox layouts, flex items default to `min-width: auto`. When placing `Text` with `truncate` or `lineClamp` inside a `flex` parent container, add `min-w-0` to the parent flex item or text element. This allows flexbox to calculate overflow bounds correctly instead of expanding to fit full text length.
+
+> [!NOTE]
+> **Accessibility Consideration:** Truncating text hides content visually. If truncated text contains critical information, consider adding a native `title="..."` attribute or wrapping `Text` in a `<Tooltip>` so mouse hover users and assistive technology can easily read the un-truncated text.
 
 ### Slot Integration
 

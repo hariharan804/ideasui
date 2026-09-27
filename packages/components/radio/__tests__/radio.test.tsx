@@ -164,6 +164,37 @@ describe('Radio', () => {
     expect(styles.indicator()).toContain('group-hover/radio:border-border-focus');
   });
 
+  it('should support classNames and slotProps for granular slot customization', () => {
+    render(
+      <Radio
+        classNames={{
+          root: 'custom-radio-root',
+          input: 'custom-radio-input',
+          indicator: 'custom-radio-indicator',
+          labelText: 'custom-radio-label-text',
+        }}
+        slotProps={{
+          root: { 'data-testid': 'radio-root' },
+          input: { 'data-testid': 'radio-input' },
+          indicator: { 'data-testid': 'radio-indicator' },
+          labelText: { 'data-testid': 'radio-label-text' },
+        }}
+      >
+        Customized Radio
+      </Radio>,
+    );
+
+    const root = screen.getByTestId('radio-root');
+    const input = screen.getByTestId('radio-input');
+    const indicator = screen.getByTestId('radio-indicator');
+    const labelText = screen.getByTestId('radio-label-text');
+
+    expect(root).toHaveClass('custom-radio-root');
+    expect(input).toHaveClass('custom-radio-input');
+    expect(indicator).toHaveClass('custom-radio-indicator');
+    expect(labelText).toHaveClass('custom-radio-label-text');
+  });
+
   it('should support all visual variants', () => {
     const variants = ['solid', 'outline', 'subtle', 'ghost', 'soft'] as const;
 

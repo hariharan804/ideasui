@@ -289,6 +289,47 @@ describe('Switch Component', () => {
     );
   });
 
+  it('should support classNames and slotProps for granular slot customization', () => {
+    render(
+      <Switch
+        defaultSelected
+        classNames={{
+          root: 'custom-switch-root',
+          input: 'custom-switch-input',
+          track: 'custom-switch-track',
+          thumb: 'custom-switch-thumb',
+          onLabel: 'custom-switch-on-label',
+          labelText: 'custom-switch-label-text',
+        }}
+        slotProps={{
+          root: { 'data-testid': 'switch-root' },
+          input: { 'data-testid': 'switch-input' },
+          track: { 'data-testid': 'switch-track' },
+          thumb: { 'data-testid': 'switch-thumb' },
+          onLabel: { 'data-testid': 'switch-on-label' },
+          labelText: { 'data-testid': 'switch-label-text' },
+        }}
+        onLabel="ON"
+      >
+        Customized Switch
+      </Switch>,
+    );
+
+    const root = screen.getByTestId('switch-root');
+    const input = screen.getByTestId('switch-input');
+    const track = screen.getByTestId('switch-track');
+    const thumb = screen.getByTestId('switch-thumb');
+    const onLabel = screen.getByTestId('switch-on-label');
+    const labelText = screen.getByTestId('switch-label-text');
+
+    expect(root).toHaveClass('custom-switch-root');
+    expect(input).toHaveClass('custom-switch-input');
+    expect(track).toHaveClass('custom-switch-track');
+    expect(thumb).toHaveClass('custom-switch-thumb');
+    expect(onLabel).toHaveClass('custom-switch-on-label');
+    expect(labelText).toHaveClass('custom-switch-label-text');
+  });
+
   describe('SwitchGroup', () => {
     it('should propagate size, variant, color, and selection state to children', async () => {
       render(

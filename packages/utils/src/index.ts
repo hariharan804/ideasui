@@ -1,7 +1,7 @@
 // PUBLIC API — safe for end-users
 
 // Core utilities
-export { logger } from './core';
+export { logger, omit, pick } from './core';
 
 // Browser utilities
 export * from './client';
@@ -14,4 +14,4 @@ export * from './aria';
 
 // React utilities (public only)
 export { forwardRef, type PolymorphicComponent } from './react/polymorphic-ref';
-export { mergePropsWithContext, renderIcon } from './react';
+export { mergePropsWithContext, mergeRefs, renderIcon } from './react';

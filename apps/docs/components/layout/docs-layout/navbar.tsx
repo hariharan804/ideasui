@@ -8,7 +8,7 @@ import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import type { ComponentProps, HTMLAttributes, PointerEvent, ReactNode, FC } from 'react';
 import type { LayoutHeaderTabsProps as LayoutHeaderTabsProperties } from './header';
 
-import { useState, useRef, Fragment } from 'react';
+import { useState, useRef, useEffect, Fragment } from 'react';
 import { ChevronDown, Palette, Menu, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'fumadocs-core/link';
@@ -314,6 +314,41 @@ export function DocsNavbar({
   const showLayoutTabs = tabMode === 'navbar' && tabs.length > 0;
   const isTop = useIsScrollTop({ enabled: true }) ?? true;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
+  const mobileButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      return;
+    }
+
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node;
+
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(target) &&
+        mobileButtonRef.current &&
+        !mobileButtonRef.current.contains(target)
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('pointerdown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
 
   const titleNode = (
     typeof nav.title === 'function' ? nav.title({} as ComponentProps<'a'>) : nav.title
@@ -493,6 +528,7 @@ export function DocsNavbar({
               </>
             ) : (
               <button
+                ref={mobileButtonRef}
                 aria-label="Toggle mobile menu"
                 className="text-content-primary bg-surface-subtle hover:bg-surface-muted flex size-9 items-center justify-center rounded-full border transition-all active:scale-95"
                 type="button"
@@ -510,6 +546,7 @@ export function DocsNavbar({
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
+              ref={mobileMenuRef}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               className="border-surface-muted bg-surface-overlay/95 mx-auto mt-2.5 w-[92%] max-w-lg overflow-hidden rounded-2xl border p-5 shadow-2xl backdrop-blur-2xl md:hidden"
               exit={{ opacity: 0, y: -10, scale: 0.97 }}

@@ -85,6 +85,8 @@ export const Basic: Story = {
   },
 };
 
+export const Default: Story = Basic;
+
 export const Variants: Story = {
   render: () => (
     <div className="flex max-w-md flex-col gap-4">

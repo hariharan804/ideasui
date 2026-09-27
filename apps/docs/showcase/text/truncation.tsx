@@ -2,7 +2,7 @@ import { Text } from '@ideasui/react';
 
 export function TextTruncation() {
   return (
-    <div className="max-w-md space-y-4">
+    <div className="w-full max-w-full min-w-0 space-y-4 sm:max-w-md">
       <div>
         <Text className="mb-1 underline" variant="label">
           Single Line Truncation (`truncate`):
@@ -19,8 +19,8 @@ export function TextTruncation() {
         </Text>
         <Text color="secondary" lineClamp={1}>
           IdeasUI typography provides first-class support for multi-line clamping. This paragraph is
-          clamped strictly to two lines of text before truncating gracefully with a trailing
-          ellipsis regardless of dynamic container resizing.
+          clamped strictly to one line of text before truncating gracefully with a trailing ellipsis
+          regardless of dynamic container resizing.
         </Text>
       </div>
       <div>
@@ -39,7 +39,7 @@ export function TextTruncation() {
         </Text>
         <Text color="secondary" lineClamp={3}>
           IdeasUI typography provides first-class support for multi-line clamping. This paragraph is
-          clamped strictly to two lines of text before truncating gracefully with a trailing
+          clamped strictly to three lines of text before truncating gracefully with a trailing
           ellipsis regardless of dynamic container resizing.
         </Text>
       </div>

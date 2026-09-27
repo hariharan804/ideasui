@@ -1,15 +1,49 @@
 import type { CSSProperties, HTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 import type { CheckboxReturnType } from '@ideasui/theme/recipes';
 
+export type { CheckboxReturnType } from '@ideasui/theme/recipes';
+
 export type CheckboxVariant = 'solid' | 'outline' | 'subtle' | 'ghost' | 'soft' | 'customIcon';
 export type CheckboxColor = 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
 export type CheckboxSize = 'sm' | 'md' | 'lg';
 export type CheckboxRadius = 'none' | 'sm' | 'md' | 'lg' | 'full';
 
+export interface CheckboxClassNames {
+  readonly root?: string;
+  readonly input?: string;
+  readonly indicator?: string;
+  readonly icon?: string;
+  readonly labelText?: string;
+}
+
+export interface CheckboxSlotProps {
+  readonly root?: HTMLAttributes<HTMLLabelElement> & { readonly [key: `data-${string}`]: unknown };
+  readonly input?: InputHTMLAttributes<HTMLInputElement> & {
+    readonly [key: `data-${string}`]: unknown;
+  };
+  readonly indicator?: HTMLAttributes<HTMLSpanElement> & {
+    readonly [key: `data-${string}`]: unknown;
+  };
+  readonly icon?: HTMLAttributes<HTMLElement> & { readonly [key: `data-${string}`]: unknown };
+  readonly labelText?: HTMLAttributes<HTMLSpanElement> & {
+    readonly [key: `data-${string}`]: unknown;
+  };
+}
+
 export interface CheckboxProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'size' | 'onChange' | 'color'
 > {
+  /**
+   * Custom CSS class names for individual checkbox sub-slots (`root`, `input`, `indicator`, `icon`, `labelText`).
+   */
+  readonly classNames?: CheckboxClassNames;
+
+  /**
+   * Granular props for individual checkbox sub-slots (`root`, `input`, `indicator`, `icon`, `labelText`).
+   */
+  readonly slotProps?: CheckboxSlotProps;
+
   /**
    * Visual style variant of the checkbox indicator.
    * @default 'solid'

@@ -85,6 +85,8 @@ export const Basic: Story = {
   ),
 };
 
+export const Default: Story = Basic;
+
 export const LabelVariants: Story = {
   render: (args) => (
     <div className="flex flex-col gap-8">
