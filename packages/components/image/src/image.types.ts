@@ -1,10 +1,10 @@
 import type { CSSProperties, HTMLAttributes, ImgHTMLAttributes, JSX, ReactNode } from 'react';
 
 export type ImageObjectFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
-export type ImageObjectPosition = 'center' | 'top' | 'bottom' | 'left' | 'right' | string;
+export type ImageObjectPosition = 'center' | 'top' | 'bottom' | 'left' | 'right' | (string & {});
 export type ImageRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
 export type ImageShadow = 'none' | 'sm' | 'md' | 'lg';
-export type ImageAspectRatio = 'square' | 'video' | 'auto' | string;
+export type ImageAspectRatio = 'square' | 'video' | 'auto' | (string & {});
 
 export interface ImageSlotClassNames {
   readonly root?: string;
