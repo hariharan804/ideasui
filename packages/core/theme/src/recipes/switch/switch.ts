@@ -20,7 +20,7 @@ export const switchRecipe = tv({
     thumbIcon:
       'size-full p-0.5 shrink-0 flex items-center justify-center text-current pointer-events-none transition-transform duration-200 [&>svg]:max-size-full [&>svg]:shrink-0',
     onLabel:
-      'absolute font-bold uppercase tracking-wider text-white leading-none pointer-events-none select-none z-0',
+      'absolute font-bold uppercase tracking-wider text-content-inverse leading-none pointer-events-none select-none z-0',
     offLabel:
       'absolute font-bold uppercase tracking-wider text-content-muted leading-none pointer-events-none select-none z-0',
     labelText: 'text-content-primary leading-none transition-colors duration-150',

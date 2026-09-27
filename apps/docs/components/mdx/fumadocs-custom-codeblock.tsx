@@ -58,7 +58,7 @@ export function FumadocsCustomCodeblock({
   return (
     <CodeBlock
       className={cn(
-        'text-content-primary border-border/80 rounded-xl border bg-white shadow-xs transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] dark:border-slate-800/80 dark:bg-[#0d1117] dark:text-[#e6edf3]',
+        'text-content-primary border-border/80 bg-surface rounded-xl border shadow-xs transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]',
         // Pre: allow Shiki bg through; add inner padding
         '[&_pre]:rounded-xl! [&_pre]:bg-transparent!',
         // Code typography with high-contrast font medium
@@ -68,7 +68,7 @@ export function FumadocsCustomCodeblock({
         // Custom scrollbar
         '[&_.fd-scroll-container::-webkit-scrollbar-thumb]:bg-border/40 [&_.fd-scroll-container::-webkit-scrollbar-thumb:hover]:bg-border/60 [&_.fd-scroll-container]:[scrollbar-width:thin] [&_.fd-scroll-container::-webkit-scrollbar]:size-[5px] [&_.fd-scroll-container::-webkit-scrollbar-thumb]:rounded-[10px] [&_.fd-scroll-container::-webkit-scrollbar-track]:bg-transparent',
         // Copy buttons
-        'text-content-secondary hover:text-content-primary dark:text-slate-400 dark:hover:text-white [&_button]:transition-all! [&_button]:duration-200! [&_button]:ease-[cubic-bezier(0.4,0,0.2,1)]! [&_button:active]:scale-95! [&_button:hover]:scale-105!',
+        'text-content-secondary hover:text-content-primary [&_button]:transition-all! [&_button]:duration-200! [&_button]:ease-[cubic-bezier(0.4,0,0.2,1)]! [&_button:active]:scale-95! [&_button:hover]:scale-105!',
         className,
       )}
       {...properties}
