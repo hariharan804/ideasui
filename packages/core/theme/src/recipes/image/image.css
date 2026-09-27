@@ -1,0 +1,61 @@
+/**
+ * Image Component CSS
+ * Source of truth for visual styling for the Image component.
+ * Uses BEM selectors + Tailwind CSS v4 @apply directives.
+ */
+
+/* ── Base Block ───────────────────────────────────────────────────────────── */
+.image {
+  @apply focus-visible:ring-primary relative inline-flex cursor-pointer items-center justify-center font-medium transition-all duration-200 ease-in-out select-none focus-visible:ring-2 focus-visible:outline-none active:scale-98;
+}
+
+/* ── Elements ─────────────────────────────────────────────────────────────── */
+.image__content {
+  @apply inline-flex items-center truncate;
+}
+
+/* ── Size Modifiers ───────────────────────────────────────────────────────── */
+.image.image--sm {
+  @apply h-8 gap-1.5 rounded-md px-3 text-xs;
+}
+.image.image--md {
+  @apply h-10 gap-2 rounded-lg px-4 text-sm;
+}
+.image.image--lg {
+  @apply h-12 gap-2.5 rounded-xl px-6 text-base;
+}
+
+/* ── Color & Variant Combinations ─────────────────────────────────────────── */
+.image.image--solid.image--primary {
+  @apply bg-primary text-on-primary hover:bg-primary/90;
+}
+.image.image--solid.image--secondary {
+  @apply bg-secondary text-on-secondary hover:bg-secondary/90;
+}
+.image.image--solid.image--success {
+  @apply bg-success text-on-success hover:bg-success/90;
+}
+.image.image--solid.image--warning {
+  @apply bg-warning text-on-warning hover:bg-warning/90;
+}
+.image.image--solid.image--danger {
+  @apply bg-danger text-on-danger hover:bg-danger/90;
+}
+.image.image--solid.image--info {
+  @apply bg-info text-on-info hover:bg-info/90;
+}
+
+.image.image--outline {
+  @apply border-border text-content-primary hover:bg-surface-subtle border bg-transparent;
+}
+.image.image--ghost {
+  @apply text-content-primary hover:bg-surface-subtle bg-transparent;
+}
+.image.image--soft {
+  @apply bg-primary-subtle text-primary hover:bg-primary-subtle/80;
+}
+
+/* ── State Modifiers ──────────────────────────────────────────────────────── */
+.image.image--disabled {
+  @apply pointer-events-none cursor-not-allowed opacity-50;
+}

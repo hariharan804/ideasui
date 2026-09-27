@@ -14,6 +14,8 @@
     "(inputs)/radio",
     "(inputs)/switch",
     "---Typography---",
-    "(typography)/text"
+    "(typography)/text",
+    "---Media & Display---",
+    "(media)/image"
   ]
 }

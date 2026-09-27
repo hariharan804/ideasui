@@ -21,6 +21,14 @@
         "types": "./dist/providers/index.d.ts",
         "import": "./dist/providers/index.js"
       },
+      "./theme-provider": {
+        "types": "./dist/providers/theme-provider.d.ts",
+        "import": "./dist/providers/theme-provider.js"
+      },
+      "./theme-script": {
+        "types": "./dist/providers/theme-script.d.ts",
+        "import": "./dist/providers/theme-script.js"
+      },
       "./plugin": {
         "types": "./dist/plugin/index.d.ts",
         "import": "./dist/plugin/index.js"

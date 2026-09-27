@@ -31,6 +31,7 @@ export interface PropsDocumentation {
   textarea: ComponentDoc[];
   radio: ComponentDoc[];
   switch: ComponentDoc[];
+  image: ComponentDoc[];
 }
 
 /**
@@ -43,6 +44,7 @@ export interface PropsDocumentation {
  * - Textarea: TextareaProps, InputFieldTextareaProps
  * - Radio: RadioProps, RadioGroupProps, RadioGroupLabelProps, RadioGroupDescriptionProps, RadioGroupErrorProps
  * - Switch: SwitchProps, SwitchGroupProps
+ * - Image: ImageProps, ImageFallbackProps
  */
 export const propsDocumentation: PropsDocumentation = {
   button: [
@@ -309,6 +311,22 @@ export const propsDocumentation: PropsDocumentation = {
       description:
         'Theme-aware typography primitive supporting semantic tokens, line clamping, and slots',
       props: [
+        {
+          name: 'classNames',
+          type: 'TextClassNames',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names for individual text sub-slots (`base`).',
+        },
+        {
+          name: 'slotProps',
+          type: 'TextSlotProps',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Granular props for individual text sub-slots (`base`).',
+        },
         {
           name: 'as',
           type: 'ElementType',
@@ -868,6 +886,24 @@ export const propsDocumentation: PropsDocumentation = {
       description: 'Checkbox component supporting single, group, and custom icon usage',
       props: [
         {
+          name: 'classNames',
+          type: 'CheckboxClassNames',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Custom CSS class names for individual checkbox sub-slots (`root`, `input`, `indicator`, `icon`, `labelText`).',
+        },
+        {
+          name: 'slotProps',
+          type: 'CheckboxSlotProps',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Granular props for individual checkbox sub-slots (`root`, `input`, `indicator`, `icon`, `labelText`).',
+        },
+        {
           name: 'variant',
           type: 'CheckboxVariant',
           required: false,
@@ -1190,7 +1226,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'variant',
-          type: "InputFieldProps['variant']",
+          type: 'InputFieldVariant',
           required: false,
           defaultValue: "'outline'",
           deprecated: false,
@@ -1198,7 +1234,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'labelVariant',
-          type: "InputFieldProps['labelVariant']",
+          type: 'InputFieldLabelVariant',
           required: false,
           defaultValue: "'default'",
           deprecated: false,
@@ -1206,7 +1242,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'size',
-          type: "InputFieldProps['size']",
+          type: 'InputFieldSize',
           required: false,
           defaultValue: "'md'",
           deprecated: false,
@@ -1214,7 +1250,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'shadow',
-          type: "InputFieldProps['shadow']",
+          type: 'InputFieldShadow',
           required: false,
           defaultValue: 'false',
           deprecated: false,
@@ -1553,6 +1589,24 @@ export const propsDocumentation: PropsDocumentation = {
       component: '<Radio />',
       description: 'Radio control component for selecting a single option from a list',
       props: [
+        {
+          name: 'classNames',
+          type: 'RadioClassNames',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Custom CSS class names for individual radio sub-slots (`root`, `input`, `indicator`, `icon`, `labelText`).',
+        },
+        {
+          name: 'slotProps',
+          type: 'RadioSlotProps',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Granular props for individual radio sub-slots (`root`, `input`, `indicator`, `icon`, `labelText`).',
+        },
         {
           name: 'variant',
           type: 'RadioVariant',
@@ -1922,6 +1976,24 @@ export const propsDocumentation: PropsDocumentation = {
         'Accessible, theme-aware toggle primitive supporting standalone usage, controlled state, visual variants, track labels, and group selection',
       props: [
         {
+          name: 'classNames',
+          type: 'SwitchClassNames',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Custom CSS class names for individual switch sub-slots (`root`, `input`, `track`, `thumb`, `thumbIcon`, `onLabel`, `offLabel`, `labelText`).',
+        },
+        {
+          name: 'slotProps',
+          type: 'SwitchSlotProps',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Granular props for individual switch sub-slots (`root`, `input`, `track`, `thumb`, `thumbIcon`, `onLabel`, `offLabel`, `labelText`).',
+        },
+        {
           name: 'variant',
           type: 'SwitchVariant',
           required: false,
@@ -1952,7 +2024,7 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: "'contained'",
           deprecated: false,
           description:
-            'Sizing style of the thumb relative to the track bounds. - `contained`: Thumb sits inside track bounds (default). - `extended`: Android 12 / style where thumb extends past track top/bottom edges.',
+            'Sizing style of the thumb relative to the track bounds. - `contained`: Thumb sits inside track bounds (default). - `extended`: Android 12 style where thumb extends past track top/bottom edges.',
         },
         {
           name: 'color',
@@ -2236,6 +2308,246 @@ export const propsDocumentation: PropsDocumentation = {
           deprecated: false,
           description:
             'Sub-components: SwitchGroupLabel, Switch[], SwitchGroupDescription, SwitchGroupError.',
+        },
+      ],
+    },
+  ],
+  image: [
+    {
+      componentName: 'Image',
+      title: 'Image Props',
+      component: '<Image />',
+      description:
+        'Framework-agnostic image primitive supporting custom renderers, LQIP blur, skeleton loading, fallback, and responsive aspect ratios',
+      props: [
+        {
+          name: 'src',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Image source URL.',
+        },
+        {
+          name: 'alt',
+          type: 'string',
+          required: false,
+          defaultValue: "''",
+          deprecated: false,
+          description:
+            'Alt text for the image. Required for accessibility unless the image is decorative. Pass `alt=""` for decorative images.',
+        },
+        {
+          name: 'width',
+          type: 'number',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Intrinsic width of the image in pixels. Used by native `<img>` and passed to `renderImage` for custom renderers.',
+        },
+        {
+          name: 'height',
+          type: 'number',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Intrinsic height of the image in pixels. Used by native `<img>` and passed to `renderImage` for custom renderers.',
+        },
+        {
+          name: 'srcSet',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Responsive image srcSet string. e.g. `"/img-400.jpg 400w, /img-800.jpg 800w"` Passed to native `<img>` and forwarded to `renderImage`.',
+        },
+        {
+          name: 'sizes',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Responsive sizes string. e.g. `"(max-width: 768px) 100vw, 800px"` Passed to native `<img>` and forwarded to `renderImage`.',
+        },
+        {
+          name: 'renderImage',
+          type: '(props: ImageRenderProps) => JSX.Element',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Custom image renderer — replaces the native `<img>` element entirely. Receives `ImageRenderProps` and must return a rendered image element.',
+        },
+        {
+          name: 'objectFit',
+          type: 'ImageObjectFit',
+          required: false,
+          defaultValue: "'cover'",
+          deprecated: false,
+          description: 'How the image should be resized to fit its container.',
+        },
+        {
+          name: 'objectPosition',
+          type: 'ImageObjectPosition',
+          required: false,
+          defaultValue: "'center'",
+          deprecated: false,
+          description:
+            'Alignment of the image within its container when `objectFit` is `cover` or `contain`.',
+        },
+        {
+          name: 'aspectRatio',
+          type: 'ImageAspectRatio',
+          required: false,
+          defaultValue: "'auto'",
+          deprecated: false,
+          description:
+            "Aspect ratio of the image wrapper. - `'square'`  → `aspect-ratio: 1 / 1` - `'video'`   → `aspect-ratio: 16 / 9` - `'auto'`    → no aspect ratio constraint (default) - Custom string e.g. `'4/3'`, `'3/2'`",
+        },
+        {
+          name: 'radius',
+          type: 'ImageRadius',
+          required: false,
+          defaultValue: "'none'",
+          deprecated: false,
+          description: 'Border radius of the image wrapper.',
+        },
+        {
+          name: 'shadow',
+          type: 'ImageShadow',
+          required: false,
+          defaultValue: "'none'",
+          deprecated: false,
+          description: 'Box shadow applied to the image wrapper.',
+        },
+        {
+          name: 'priority',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description:
+            'Marks this image as a priority / LCP image. - Native `<img>`: sets `loading="eager"` and `fetchpriority="high"` - Custom renderer: forwarded via `renderImage` props',
+        },
+        {
+          name: 'blurDataURL',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Low-quality image placeholder (LQIP) data URL shown while the full image loads. Displayed as a blurred `<img>` behind the main image until load completes.',
+        },
+        {
+          name: 'isLoading',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description:
+            'Shows a shimmer skeleton overlay. Use when the image src is not yet available.',
+        },
+        {
+          name: 'isZoomed',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Applies a CSS scale transform on hover for a zoom-in effect.',
+        },
+        {
+          name: 'classNames',
+          type: 'ImageSlotClassNames',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Slot specific class names.',
+        },
+        {
+          name: 'slotProps',
+          type: 'ImageSlotProps',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Slot specific props.',
+        },
+        {
+          name: 'onLoad',
+          type: '() => void',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Called when the image finishes loading successfully.',
+        },
+        {
+          name: 'onError',
+          type: '() => void',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Called when the image fails to load. The `ImageFallback` child is shown automatically.',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()` on the wrapper element.',
+        },
+        {
+          name: 'style',
+          type: 'CSSProperties',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Inline styles applied to the wrapper element.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Optional `ImageFallback` child shown when the image errors or `src` is absent.',
+        },
+      ],
+    },
+    {
+      componentName: 'ImageFallback',
+      title: 'ImageFallback Props',
+      component: '<ImageFallback />',
+      description: 'Fallback container component shown when image fails to load or src is missing',
+      props: [
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Fallback content — icon, text, or any ReactNode.',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: '',
+        },
+        {
+          name: 'style',
+          type: 'CSSProperties',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: '',
         },
       ],
     },

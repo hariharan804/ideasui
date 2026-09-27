@@ -21,6 +21,11 @@ const COMPONENT_LIST: ComponentItem[] = [
   // ### APPEND COMPONENT HERE ###
 
   {
+    name: 'Image',
+    category: 'Core',
+  },
+
+  {
     name: 'Switch',
     category: 'Core',
   },

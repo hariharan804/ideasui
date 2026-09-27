@@ -36,6 +36,14 @@
       "types": "./src/providers/index.ts",
       "import": "./src/providers/index.ts"
     },
+    "./theme-provider": {
+      "types": "./src/providers/theme-provider.tsx",
+      "import": "./src/providers/theme-provider.tsx"
+    },
+    "./theme-script": {
+      "types": "./src/providers/theme-script.tsx",
+      "import": "./src/providers/theme-script.tsx"
+    },
     "./plugin": {
       "types": "./src/plugin/index.ts",
       "import": "./dist/plugin/index.js"

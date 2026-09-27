@@ -16,7 +16,7 @@ import {
   Sliders,
   Code2,
 } from 'lucide-react';
-import { Button } from '@ideasui/button';
+import { Button } from '@ideasui/react';
 
 type ButtonVariant = 'solid' | 'outline' | 'soft' | 'ghost' | 'elevated' | 'text' | 'link';
 type ButtonColor =

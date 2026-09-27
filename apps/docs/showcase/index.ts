@@ -8,6 +8,7 @@ import * as RadioDemos from './radio';
 import * as SwitchDemos from './switch';
 import * as TextareaDemos from './textarea';
 import * as TextDemos from './text';
+import * as ImageDemos from './image';
 
 export type DemoItem = {
   component: ComponentType<any>;
@@ -376,6 +377,40 @@ export const demos: Record<string, DemoItem> = {
   'textarea-compound': {
     component: TextareaDemos.Compound,
     file: 'textarea/compound.tsx',
+  },
+
+  // Image demos
+  'image-default': {
+    component: ImageDemos.Default,
+    file: 'image/default.tsx',
+  },
+  'image-aspect-ratios': {
+    component: ImageDemos.AspectRatios,
+    file: 'image/aspect-ratios.tsx',
+  },
+  'image-object-fit': {
+    component: ImageDemos.ObjectFit,
+    file: 'image/object-fit.tsx',
+  },
+  'image-radius': {
+    component: ImageDemos.Radius,
+    file: 'image/radius.tsx',
+  },
+  'image-shadow': {
+    component: ImageDemos.Shadow,
+    file: 'image/shadow.tsx',
+  },
+  'image-zoomed': {
+    component: ImageDemos.Zoomed,
+    file: 'image/zoomed.tsx',
+  },
+  'image-loading-skeleton': {
+    component: ImageDemos.LoadingSkeleton,
+    file: 'image/loading-skeleton.tsx',
+  },
+  'image-error-fallback': {
+    component: ImageDemos.ErrorFallback,
+    file: 'image/error-fallback.tsx',
   },
 };
 

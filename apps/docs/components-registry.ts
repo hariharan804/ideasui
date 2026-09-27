@@ -5,7 +5,7 @@ export interface ComponentInfo {
   description: string;
   href: string;
   category?: string;
-  status?: 'new' | 'updated' | 'preview' | 'planned' | 'deprecated';
+  status?: 'new' | 'updated' | 'preview' | 'planned' | 'deprecated' | '';
 }
 
 const componentsMap: Record<string, ComponentInfo> = {
@@ -31,7 +31,7 @@ const componentsMap: Record<string, ComponentInfo> = {
       'Accessible checkbox supporting standalone, controlled, custom icons, and grouped usage',
     href: '/react/docs/components/checkbox',
     name: 'checkbox',
-    status: 'new',
+    status: '',
     title: 'Checkbox',
   },
   inputfield: {
@@ -40,7 +40,7 @@ const componentsMap: Record<string, ComponentInfo> = {
       'Text input field supporting left/right add-ons, helper text, and validation states',
     href: '/react/docs/components/input-field',
     name: 'input-field',
-    status: 'new',
+    status: '',
     title: 'Input Field',
   },
   radio: {
@@ -48,7 +48,7 @@ const componentsMap: Record<string, ComponentInfo> = {
     description: 'Radio button and RadioGroup primitive for single-select choice controls',
     href: '/react/docs/components/radio',
     name: 'radio',
-    status: 'new',
+    status: '',
     title: 'Radio',
   },
   switch: {
@@ -57,7 +57,7 @@ const componentsMap: Record<string, ComponentInfo> = {
       'Theme-aware toggle switch primitive supporting custom thumb shapes, icons, and labels',
     href: '/react/docs/components/switch',
     name: 'switch',
-    status: 'new',
+    status: '',
     title: 'Switch',
   },
   textarea: {
@@ -66,7 +66,7 @@ const componentsMap: Record<string, ComponentInfo> = {
       'Multi-line text input field supporting character counter, auto-resize, and validation',
     href: '/react/docs/components/textarea',
     name: 'textarea',
-    status: 'new',
+    status: '',
     title: 'Textarea',
   },
   text: {
@@ -77,6 +77,15 @@ const componentsMap: Record<string, ComponentInfo> = {
     name: 'text',
     status: 'new',
     title: 'Text',
+  },
+  image: {
+    category: 'media',
+    description:
+      'Framework-agnostic image primitive supporting custom renderers, LQIP blur, skeleton loading, and fallbacks',
+    href: '/react/docs/components/image',
+    name: 'image',
+    status: 'new',
+    title: 'Image',
   },
 };
 
