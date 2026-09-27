@@ -145,7 +145,7 @@ export interface SwitchProps extends Omit<
 }
 
 export interface SwitchGroupProps extends Omit<
-  HTMLAttributes<HTMLDivElement>,
+  HTMLAttributes<HTMLFieldSetElement>,
   'onChange' | 'color'
 > {
   /**

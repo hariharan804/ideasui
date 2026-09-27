@@ -347,6 +347,7 @@ describe('Switch Component', () => {
     it('standalone switch has zero a11y violations', async () => {
       const { container } = render(<Switch defaultSelected>Dark mode</Switch>);
 
+      expect(container).toBeInTheDocument();
       await expectAccessible(container);
     });
 
@@ -360,6 +361,7 @@ describe('Switch Component', () => {
         </SwitchGroup>,
       );
 
+      expect(container).toBeInTheDocument();
       await expectAccessible(container);
     });
 
@@ -372,12 +374,14 @@ describe('Switch Component', () => {
         </SwitchGroup>,
       );
 
+      expect(container).toBeInTheDocument();
       await expectAccessible(container);
     });
 
     it('disabled switch has zero a11y violations', async () => {
       const { container } = render(<Switch isDisabled>Locked setting</Switch>);
 
+      expect(container).toBeInTheDocument();
       await expectAccessible(container);
     });
   });

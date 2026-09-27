@@ -342,7 +342,7 @@ class PropsExtractor {
       .join('\n');
     const content = [
       `// @ts-nocheck`,
-      `/* eslint-disable */`,
+      `/* eslint-disable max-lines, max-len */`,
       `/* sonar-disable */`,
       `// Auto-generated props documentation`,
       `// Extracted from actual TypeScript interfaces`,

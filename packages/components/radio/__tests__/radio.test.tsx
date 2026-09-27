@@ -153,6 +153,7 @@ describe('Radio', () => {
       </RadioGroup>,
     );
 
+    expect(container).toBeInTheDocument();
     await expectAccessible(container);
   });
 

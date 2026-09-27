@@ -9,7 +9,7 @@ import { cn } from '@ideasui/utils';
 
 import { SwitchGroupContext } from './switch-context';
 
-export const SwitchGroup = forwardRef<HTMLDivElement, SwitchGroupProps>(
+export const SwitchGroup = forwardRef<HTMLFieldSetElement, SwitchGroupProps>(
   (properties, reference): JSX.Element => {
     const {
       value,
@@ -93,7 +93,7 @@ export const SwitchGroup = forwardRef<HTMLDivElement, SwitchGroupProps>(
 
     return (
       <SwitchGroupContext.Provider value={contextValue}>
-        <div
+        <fieldset
           {...otherProperties}
           ref={reference}
           aria-describedby={isInvalid ? groupErrorId : groupDescriptionId}
@@ -104,11 +104,10 @@ export const SwitchGroup = forwardRef<HTMLDivElement, SwitchGroupProps>(
           data-readonly={isReadOnly || undefined}
           data-required={isRequired || undefined}
           data-slot="switch-group"
-          role="group"
           style={style}
         >
           {children}
-        </div>
+        </fieldset>
       </SwitchGroupContext.Provider>
     );
   },

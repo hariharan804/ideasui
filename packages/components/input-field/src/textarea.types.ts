@@ -9,9 +9,12 @@ import type {
   CSSProperties,
 } from 'react';
 import type {
-  InputFieldProps,
   InputFieldClassNames,
   InputFieldSlotProps,
+  InputFieldVariant,
+  InputFieldLabelVariant,
+  InputFieldSize,
+  InputFieldShadow,
 } from './input-field.types';
 import type { InputFieldLabel } from './input-field-label';
 import type { InputFieldDescription } from './input-field-description';
@@ -137,25 +140,25 @@ export interface TextareaProps {
    * Visual surface styling variant.
    * @default 'outline'
    */
-  readonly variant?: InputFieldProps['variant'];
+  readonly variant?: InputFieldVariant;
 
   /**
    * Label positioning and floating behavior.
    * @default 'default'
    */
-  readonly labelVariant?: InputFieldProps['labelVariant'];
+  readonly labelVariant?: InputFieldLabelVariant;
 
   /**
    * Size scale for the textarea.
    * @default 'md'
    */
-  readonly size?: InputFieldProps['size'];
+  readonly size?: InputFieldSize;
 
   /**
    * Shadow elevation level.
    * @default false
    */
-  readonly shadow?: InputFieldProps['shadow'];
+  readonly shadow?: InputFieldShadow;
 
   /**
    * Whether the textarea is disabled.
