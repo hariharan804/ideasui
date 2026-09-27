@@ -22,52 +22,25 @@ interface ResolvedProps {
   isGroupControlled: boolean;
 }
 
-function resolveVariant(
-  variant: SwitchProps['variant'],
-  groupVariant: SwitchGroupContextValue['variant'],
-): SwitchVariant {
-  return variant ?? groupVariant ?? 'solid';
-}
-
-function resolveColor(
-  color: SwitchProps['color'],
-  groupColor: SwitchGroupContextValue['color'],
-): 'primary' | 'neutral' | 'success' | 'warning' | 'danger' {
-  return color ?? groupColor ?? 'primary';
-}
-
-function resolveSize(
-  size: SwitchProps['size'],
-  groupSize: SwitchGroupContextValue['size'],
-): 'sm' | 'md' | 'lg' {
-  return size ?? groupSize ?? 'md';
-}
-
-function resolveLabelPlacement(
-  placement: SwitchProps['labelPlacement'],
-  groupPlacement: SwitchGroupContextValue['labelPlacement'],
-): 'start' | 'end' {
-  return placement ?? groupPlacement ?? 'end';
-}
-
 function resolveProps(
   props: SwitchProps,
   group: SwitchGroupContextValue | null,
   internalSelected: boolean,
 ): ResolvedProps {
+  const g = group ?? {};
   const isGroupControlled = group !== null && props.value !== undefined;
   const isSelectedInGroup =
-    props.value !== undefined && (group?.selectedValues?.includes(props.value) ?? false);
+    props.value !== undefined && (g.selectedValues?.includes(props.value) ?? false);
 
   return {
-    variant: resolveVariant(props.variant, group?.variant),
-    color: resolveColor(props.color, group?.color),
-    size: resolveSize(props.size, group?.size),
-    labelPlacement: resolveLabelPlacement(props.labelPlacement, group?.labelPlacement),
-    isDisabled: props.isDisabled ?? group?.isDisabled ?? false,
-    isReadOnly: props.isReadOnly ?? group?.isReadOnly ?? false,
-    isRequired: props.isRequired ?? group?.isRequired ?? false,
-    isInvalid: props.isInvalid ?? group?.isInvalid ?? false,
+    variant: props.variant ?? g.variant ?? 'solid',
+    color: props.color ?? g.color ?? 'primary',
+    size: props.size ?? g.size ?? 'md',
+    labelPlacement: props.labelPlacement ?? g.labelPlacement ?? 'end',
+    isDisabled: props.isDisabled ?? g.isDisabled ?? false,
+    isReadOnly: props.isReadOnly ?? g.isReadOnly ?? false,
+    isRequired: props.isRequired ?? g.isRequired ?? false,
+    isInvalid: props.isInvalid ?? g.isInvalid ?? false,
     isSelected: isGroupControlled ? isSelectedInGroup : (props.isSelected ?? internalSelected),
     isGroupControlled,
   };

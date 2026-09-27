@@ -52,45 +52,25 @@ interface ResolvedProps {
   isGroupControlled: boolean;
 }
 
-function resolveVariant(
-  variant: CheckboxProps['variant'],
-  groupVariant: CheckboxGroupContextValue['variant'],
-): CheckboxVariant {
-  return variant ?? groupVariant ?? 'solid';
-}
-
-function resolveColor(
-  color: CheckboxProps['color'],
-  groupColor: CheckboxGroupContextValue['color'],
-): 'primary' | 'neutral' | 'success' | 'warning' | 'danger' {
-  return color ?? groupColor ?? 'primary';
-}
-
-function resolveSize(
-  size: CheckboxProps['size'],
-  groupSize: CheckboxGroupContextValue['size'],
-): 'sm' | 'md' | 'lg' {
-  return size ?? groupSize ?? 'md';
-}
-
 function resolveProps(
   props: CheckboxProps,
   group: CheckboxGroupContextValue | null,
   internalSelected: boolean,
 ): ResolvedProps {
+  const g = group ?? {};
   const isGroupControlled = group !== null && props.value !== undefined;
   const isSelectedInGroup =
-    props.value !== undefined && (group?.selectedValues?.includes(props.value) ?? false);
+    props.value !== undefined && (g.selectedValues?.includes(props.value) ?? false);
 
   return {
-    variant: resolveVariant(props.variant, group?.variant),
-    color: resolveColor(props.color, group?.color),
-    size: resolveSize(props.size, group?.size),
-    radius: props.radius ?? group?.radius,
-    isDisabled: props.isDisabled ?? group?.isDisabled ?? false,
-    isReadOnly: props.isReadOnly ?? group?.isReadOnly ?? false,
-    isRequired: props.isRequired ?? group?.isRequired ?? false,
-    isInvalid: props.isInvalid ?? group?.isInvalid ?? false,
+    variant: props.variant ?? g.variant ?? 'solid',
+    color: props.color ?? g.color ?? 'primary',
+    size: props.size ?? g.size ?? 'md',
+    radius: props.radius ?? g.radius,
+    isDisabled: props.isDisabled ?? g.isDisabled ?? false,
+    isReadOnly: props.isReadOnly ?? g.isReadOnly ?? false,
+    isRequired: props.isRequired ?? g.isRequired ?? false,
+    isInvalid: props.isInvalid ?? g.isInvalid ?? false,
     isSelected: isGroupControlled ? isSelectedInGroup : (props.isSelected ?? internalSelected),
     isGroupControlled,
   };
