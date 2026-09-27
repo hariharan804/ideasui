@@ -39,6 +39,7 @@ jobs:
             -Dsonar.tests=packages
             -Dsonar.test.inclusions=**/*.test.ts,**/*.test.tsx,**/__tests__/**
             -Dsonar.exclusions=**/node_modules/**,**/dist/**,**/*.stories.tsx
+            -Dsonar.cpd.exclusions=packages/core/theme/src/recipes/**,apps/docs/lib/docs/components-props.ts,**/components-props.ts,scripts/props-extractor/props-extractor.config.mjs,**/dist/**,**/.next/**
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.typescript.tsconfigPaths=tsconfig.json
 
