@@ -1,22 +1,72 @@
-name: CI
+name: PR Check
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  workflow_dispatch:
 
 permissions:
   contents: read
   pull-requests: write
   issues: write
-  security-events: write
+
+concurrency:
+  group: pr-check-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  review:
+  format:
+    name: Code Formatting
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        uses: ./.github/composite-actions/install
+
+      - name: Run Prettier Check
+        run: pnpm run format:check
+
+  standards:
+    name: Standards & Tokens
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        uses: ./.github/composite-actions/install
+
+      - name: Verify Naming Conventions
+        run: pnpm run check-naming
+
+      - name: Verify OKLCH Design Tokens
+        run: pnpm run check-tokens
+
+  secret-scan:
+    name: Secret Detection
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout PR commits
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks Secret Scanner
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    name: Monorepo Build
     runs-on: ubuntu-latest
     timeout-minutes: 15
-
     steps:
-      - name: Checkout
+      - name: Checkout PR branch
         uses: actions/checkout@v4
 
       - name: Setup environment
@@ -31,6 +81,47 @@ jobs:
             ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml') }}-
             ${{ runner.os }}-turbo-
 
+      - name: Build packages
+        uses: ./.github/composite-actions/build
+
+  type-check:
+    name: TypeScript Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [build]
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        uses: ./.github/composite-actions/install
+
+      - name: Turbo Cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml') }}-
+            ${{ runner.os }}-turbo-
+
+      - name: Build packages (from cache)
+        uses: ./.github/composite-actions/build
+
+      - name: Run TypeScript Workspace Check
+        run: pnpm run typecheck
+
+  lint:
+    name: ESLint & Quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        uses: ./.github/composite-actions/install
+
       - name: ESLint Cache
         uses: actions/cache@v4
         with:
@@ -40,45 +131,241 @@ jobs:
             ${{ runner.os }}-eslint-${{ hashFiles('pnpm-lock.yaml') }}-
             ${{ runner.os }}-eslint-
 
-      # 1️⃣ Format Check (Prettier)
-      - name: Prettier Check
-        run: pnpm run format:check
-
-      # 2️⃣ Build Packages (Must run before lint/typecheck so theme CSS & dist artifacts exist)
-      - name: Build packages
-        uses: ./.github/composite-actions/build
-
-      # 3️⃣ Type Safety Gate (Parallel workspace typechecking via Turbo)
-      - name: TypeScript Check
-        run: pnpm run typecheck
-
-      # 4️⃣ ESLint Check
-      - name: ESLint
+      - name: Run ESLint
         run: pnpm run lint
         env:
           NODE_OPTIONS: '--max-old-space-size=4096'
 
-      # 5️⃣ Naming Convention Check
-      - name: Check Naming Conventions
-        run: pnpm run check-naming
+  unit-test:
+    name: Unit & A11y Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [build]
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
 
-      # 6️⃣ Unit Tests
-      - name: Run tests
+      - name: Setup environment
+        uses: ./.github/composite-actions/install
+
+      - name: Run Unit & Accessibility Tests
         uses: ./.github/composite-actions/test
 
-      # 7️⃣ Size Limit Checks
-      - name: Run size limit check
+  size-limit:
+    name: Bundle Size Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [build]
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        uses: ./.github/composite-actions/install
+
+      - name: Turbo Cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-${{ hashFiles('pnpm-lock.yaml') }}-
+            ${{ runner.os }}-turbo-
+
+      - name: Build packages (from cache)
+        uses: ./.github/composite-actions/build
+
+      - name: Run Size Limit Check
         run: pnpm run size
 
-      # 8️⃣ CI Success Message
-      - name: Comment PR Success
-        if: success() && github.event_name == 'pull_request'
-        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+  summary:
+    name: PR Quality Summary
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: [format, standards, secret-scan, build, type-check, lint, unit-test, size-limit]
+    if: always() && github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Generate PR Summary & Update Comment
+        uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '## 🚀 CI Checks Passed\n\nAll automated checks have completed successfully. Ready for review! ✨'
-            })
+            const results = {
+              format: '${{ needs.format.result }}',
+              standards: '${{ needs.standards.result }}',
+              build: '${{ needs.build.result }}',
+              typeCheck: '${{ needs.type-check.result }}',
+              lint: '${{ needs.lint.result }}',
+              unitTest: '${{ needs.unit-test.result }}',
+              sizeLimit: '${{ needs.size-limit.result }}',
+              secretScan: '${{ needs.secret-scan.result }}',
+            };
+
+            const checks = [
+              {
+                name: '🎨 Code Formatting',
+                status: results.format,
+                command: 'pnpm run format:check',
+                fix: 'pnpm format',
+                description: 'Prettier code style verification',
+              },
+              {
+                name: '📐 Standards & Tokens',
+                status: results.standards,
+                command: 'pnpm run check-tokens && pnpm run check-naming',
+                fix: 'pnpm check-tokens && pnpm check-naming',
+                description: 'OKLCH design tokens & naming conventions',
+              },
+              {
+                name: '🏗️ Monorepo Build',
+                status: results.build,
+                command: 'pnpm run build',
+                fix: 'pnpm build',
+                description: 'Turbo packages compilation & dist generation',
+              },
+              {
+                name: '🔧 TypeScript Check',
+                status: results.typeCheck,
+                command: 'pnpm run typecheck',
+                fix: 'pnpm typecheck',
+                description: 'Workspace-wide strict type checking',
+              },
+              {
+                name: '🔍 ESLint & Quality',
+                status: results.lint,
+                command: 'pnpm run lint',
+                fix: 'pnpm lint:fix',
+                description: 'ESLint & architectural boundary rules',
+              },
+              {
+                name: '🧪 Unit & A11y Tests',
+                status: results.unitTest,
+                command: 'pnpm run test:coverage',
+                fix: 'pnpm test',
+                description: 'Vitest unit tests & vitest-axe a11y assertions',
+              },
+              {
+                name: '📦 Bundle Size Limit',
+                status: results.sizeLimit,
+                command: 'pnpm run size',
+                fix: 'pnpm size',
+                description: 'Brotli package size budget validation',
+              },
+              {
+                name: '🔒 Secret Leak Detection',
+                status: results.secretScan,
+                command: 'gitleaks',
+                fix: 'git log & remove leaked secrets',
+                description: 'Scanning commit history for tokens and credentials',
+              },
+            ];
+
+            const getBadge = (status) => {
+              if (status === 'success') return '`✅ Passed`';
+              if (status === 'failure') return '`❌ Failed`';
+              if (status === 'cancelled') return '`⚠️ Cancelled`';
+              if (status === 'skipped') return '`⏭️ Skipped`';
+              return `\`❓ ${status}\``;
+            };
+
+            const allPassed = Object.values(results).every(
+              (res) => res === 'success' || res === 'skipped'
+            );
+
+            const failedChecks = checks.filter((c) => c.status === 'failure');
+
+            const commitSha = context.sha.substring(0, 7);
+            const repoUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}`;
+            const runUrl = `${repoUrl}/actions/runs/${context.runId}`;
+            const commitUrl = `${repoUrl}/commit/${context.sha}`;
+            const author = context.actor;
+
+            let body = `<!-- ideasui-pr-check-bot-comment -->\n`;
+            body += `## ${allPassed ? '🚀 IdeasUI CI/CD: All Checks Passed ✅' : '⚠️ IdeasUI CI/CD: Action Required ❌'}\n\n`;
+
+            body += `> **Commit:** [\`${commitSha}\`](${commitUrl}) | **Author:** @${author} | **Run:** [#${context.runNumber}](${runUrl}) | **Status:** ${allPassed ? '**Ready to Review** ✨' : '**Needs Attention** 🛠️'}\n\n`;
+
+            body += `| Quality Gate | Status | Check Command | Description |\n`;
+            body += `| :--- | :---: | :--- | :--- |\n`;
+            for (const check of checks) {
+              body += `| ${check.name} | ${getBadge(check.status)} | \`${check.command}\` | ${check.description} |\n`;
+            }
+            body += `\n`;
+
+            if (allPassed) {
+              body += `### 🎉 Everything looks great!\n`;
+              body += `All quality gates, type checks, design token validations, and test suites passed cleanly. This pull request is ready for maintainer review.\n\n`;
+            } else {
+              body += `### 🛠️ How to Fix Failing Checks Locally\n`;
+              body += `One or more quality gates did not pass. Run the following commands in your local branch to replicate and fix:\n\n`;
+              body += '```bash\n';
+              body += '# 1. Ensure latest dependencies are installed\n';
+              body += 'pnpm install\n\n';
+              body += '# 2. Run fix commands for failed checks:\n';
+              for (const failed of failedChecks) {
+                body += `${failed.fix.padEnd(35)} # Fix: ${failed.name}\n`;
+              }
+              body += '\n# 3. (Optional) Run the complete verification suite before pushing:\n';
+              body += 'pnpm quality\n';
+              body += '```\n\n';
+            }
+
+            body += `<details>\n`;
+            body += `<summary>📖 <b>IdeasUI Architecture & Design Token Rules</b></summary>\n\n`;
+            body += `- **Design Tokens:** Never hardcode raw Tailwind colors (e.g. \`gray-100\`, \`blue-600\`) or CSS hex values. Always use semantic OKLCH tokens (\`bg-primary\`, \`text-content-primary\`, \`border-border\`).\n`;
+            body += `- **Component Architecture:** Every component lives in \`packages/components/<name>/\` and uses Tailwind Variants (\`tv()\`) recipes.\n`;
+            body += `- **Accessibility (WCAG 2.1 AA):** All interactive elements must maintain keyboard focusability, proper ARIA labels, and 0 \`axe\` violations.\n`;
+            body += `- **Naming Conventions:** Kebab-case filenames (\`input-field.tsx\`), PascalCase components (\`InputField\`), \`displayName\` = \`IdeasUI.InputField\`.\n\n`;
+            body += `</details>\n\n`;
+
+            body += `---\n`;
+            body += `*Automated PR Quality Gate • [IdeasUI Component Library](${repoUrl})*`;
+
+            // 1. Write natively to GitHub Step Summary (works 100% of the time, including forks)
+            await core.summary.addRaw(body).write();
+
+            // 2. Post or update the sticky PR comment
+            try {
+              const { owner, repo } = context.repo;
+              const issue_number = context.issue.number;
+
+              const comments = await github.rest.issues.listComments({
+                owner,
+                repo,
+                issue_number,
+                per_page: 100,
+              });
+
+              const existingComment = comments.data.find(
+                (c) => c.user && c.user.type === 'Bot' && c.body && c.body.includes('<!-- ideasui-pr-check-bot-comment -->')
+              );
+
+              if (existingComment) {
+                await github.rest.issues.updateComment({
+                  owner,
+                  repo,
+                  comment_id: existingComment.id,
+                  body,
+                });
+                core.info('Updated existing PR sticky comment.');
+              } else {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number,
+                  body,
+                });
+                core.info('Created new PR sticky comment.');
+              }
+            } catch (err) {
+              core.info(`PR comment skipped (fork PR or restricted token): ${err.message}`);
+            }
+
+            // 3. Fail the summary job if any check failed, blocking merge
+            if (!allPassed) {
+              core.setFailed('PR Quality Gate failed. Please resolve the failing checks listed above.');
+            }
