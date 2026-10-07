@@ -297,29 +297,30 @@ jobs:
             body += `\n`;
 
             if (allPassed) {
-              body += `### 🎉 Everything looks great!\n`;
-              body += `All quality gates, type checks, design token validations, and test suites passed cleanly. This pull request is ready for maintainer review.\n\n`;
+              body += `> [!NOTE]\n`;
+              body += `> 🎉 **All quality checks passed!** This pull request meets all repository standards and is ready for maintainer review.\n\n`;
             } else {
-              body += `### 🛠️ How to Fix Failing Checks Locally\n`;
-              body += `One or more quality gates did not pass. Run the following commands in your local branch to replicate and fix:\n\n`;
+              body += `> [!WARNING]\n`;
+              body += `> **Action Required:** One or more quality gates did not pass. Run the commands below in your branch to fix issues locally:\n\n`;
               body += '```bash\n';
-              body += '# 1. Ensure latest dependencies are installed\n';
+              body += '# Install dependencies\n';
               body += 'pnpm install\n\n';
-              body += '# 2. Run fix commands for failed checks:\n';
+              body += '# Fix commands for failed checks:\n';
               for (const failed of failedChecks) {
                 body += `${failed.fix.padEnd(35)} # Fix: ${failed.name}\n`;
               }
-              body += '\n# 3. (Optional) Run the complete verification suite before pushing:\n';
+              body += '\n# Run complete quality suite locally:\n';
               body += 'pnpm quality\n';
               body += '```\n\n';
             }
 
             body += `<details>\n`;
-            body += `<summary>📖 <b>IdeasUI Architecture & Design Token Rules</b></summary>\n\n`;
-            body += `- **Design Tokens:** Never hardcode raw Tailwind colors (e.g. \`gray-100\`, \`blue-600\`) or CSS hex values. Always use semantic OKLCH tokens (\`bg-primary\`, \`text-content-primary\`, \`border-border\`).\n`;
-            body += `- **Component Architecture:** Every component lives in \`packages/components/<name>/\` and uses Tailwind Variants (\`tv()\`) recipes.\n`;
-            body += `- **Accessibility (WCAG 2.1 AA):** All interactive elements must maintain keyboard focusability, proper ARIA labels, and 0 \`axe\` violations.\n`;
-            body += `- **Naming Conventions:** Kebab-case filenames (\`input-field.tsx\`), PascalCase components (\`InputField\`), \`displayName\` = \`IdeasUI.InputField\`.\n\n`;
+            body += `<summary>📖 <b>IdeasUI Architecture & Contribution Guidelines</b></summary>\n\n`;
+            body += `- 🎨 **[Design Tokens](${repoUrl}/blob/master/rules/design-tokens.md):** Never hardcode raw Tailwind colors (e.g. \`gray-100\`, \`blue-600\`) or CSS hex values. Always use semantic OKLCH tokens (\`bg-primary\`, \`text-content-primary\`, \`border-border\`).\n`;
+            body += `- 🧩 **[Component Development](${repoUrl}/blob/master/rules/component-development.md):** Components live in \`packages/components/<name>/\` and use Tailwind Variants (\`tv()\`) recipes.\n`;
+            body += `- ♿ **[Accessibility Guide](${repoUrl}/blob/master/rules/accessibility.md):** All interactive components must pass \`vitest-axe\` with 0 violations and maintain keyboard focusability.\n`;
+            body += `- 📐 **[Naming Conventions](${repoUrl}/blob/master/rules/naming-conventions.md):** Kebab-case files (\`input-field.tsx\`), PascalCase components (\`InputField\`), \`displayName\` = \`IdeasUI.InputField\`.\n`;
+            body += `- 🤝 **[Contributing Guide](${repoUrl}/blob/master/CONTRIBUTING.md):** Full setup, testing, and conventional commit workflow.\n\n`;
             body += `</details>\n\n`;
 
             body += `---\n`;
