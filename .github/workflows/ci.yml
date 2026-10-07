@@ -141,6 +141,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: [build]
+    outputs:
+      lines_pct: ${{ steps.coverage.outputs.lines_pct }}
+      branches_pct: ${{ steps.coverage.outputs.branches_pct }}
+      functions_pct: ${{ steps.coverage.outputs.functions_pct }}
+      statements_pct: ${{ steps.coverage.outputs.statements_pct }}
     steps:
       - name: Checkout PR branch
         uses: actions/checkout@v4
@@ -150,6 +155,31 @@ jobs:
 
       - name: Run Unit & Accessibility Tests
         uses: ./.github/composite-actions/test
+
+      - name: Extract Coverage Metrics
+        id: coverage
+        if: always()
+        run: |
+          if [ -f coverage/coverage-summary.json ]; then
+            node -e "
+              const fs = require('fs');
+              const data = JSON.parse(fs.readFileSync('coverage/coverage-summary.json', 'utf8'));
+              const total = data.total;
+              const setOutput = (k, v) => fs.appendFileSync(process.env.GITHUB_OUTPUT, \`\${k}=\${v}\n\`);
+              setOutput('lines_pct', total.lines.pct);
+              setOutput('branches_pct', total.branches.pct);
+              setOutput('functions_pct', total.functions.pct);
+              setOutput('statements_pct', total.statements.pct);
+            "
+          fi
+
+      - name: Upload Coverage Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-coverage-report
+          path: coverage/
+          retention-days: 7
 
   size-limit:
     name: Bundle Size Check
@@ -203,6 +233,13 @@ jobs:
               unitTest: '${{ needs.unit-test.result }}',
               sizeLimit: '${{ needs.size-limit.result }}',
               secretScan: '${{ needs.secret-scan.result }}',
+            };
+
+            const coverage = {
+              lines: '${{ needs.unit-test.outputs.lines_pct }}',
+              branches: '${{ needs.unit-test.outputs.branches_pct }}',
+              functions: '${{ needs.unit-test.outputs.functions_pct }}',
+              statements: '${{ needs.unit-test.outputs.statements_pct }}',
             };
 
             const checks = [
@@ -289,12 +326,30 @@ jobs:
 
             body += `> **Commit:** [\`${commitSha}\`](${commitUrl}) | **Author:** @${author} | **Run:** [#${context.runNumber}](${runUrl}) | **Status:** ${allPassed ? '**Ready to Review** ✨' : '**Needs Attention** 🛠️'}\n\n`;
 
+            body += `### 📋 Quality Gates Summary\n\n`;
             body += `| Quality Gate | Status | Check Command | Description |\n`;
             body += `| :--- | :---: | :--- | :--- |\n`;
             for (const check of checks) {
               body += `| ${check.name} | ${getBadge(check.status)} | \`${check.command}\` | ${check.description} |\n`;
             }
             body += `\n`;
+
+            // Test Coverage Section
+            if (coverage.lines && coverage.lines !== '') {
+              const numLines = parseFloat(coverage.lines);
+              const numBranches = parseFloat(coverage.branches);
+              const numFunctions = parseFloat(coverage.functions);
+              const numStatements = parseFloat(coverage.statements);
+
+              body += `### 📊 Test Coverage Metrics\n\n`;
+              body += `| Metric | Coverage | Threshold | Status |\n`;
+              body += `| :--- | :---: | :---: | :---: |\n`;
+              body += `| 📝 **Lines** | \`${coverage.lines}%\` | \`80%\` | ${numLines >= 80 ? '`✅ Passed`' : '`❌ Failed`'} |\n`;
+              body += `| 🌳 **Branches** | \`${coverage.branches}%\` | \`70% \` | ${numBranches >= 70 ? '`✅ Passed`' : '`❌ Failed`'} |\n`;
+              body += `| ⚡ **Functions** | \`${coverage.functions}%\` | \`80%\` | ${numFunctions >= 80 ? '`✅ Passed`' : '`❌ Failed`'} |\n`;
+              body += `| 📄 **Statements** | \`${coverage.statements}%\` | \`80%\` | ${numStatements >= 80 ? '`✅ Passed`' : '`❌ Failed`'} |\n\n`;
+              body += `> 📦 *Detailed HTML coverage report is available under the [Workflow Run Artifacts](${runUrl}).*\n\n`;
+            }
 
             if (allPassed) {
               body += `> [!NOTE]\n`;
