@@ -1,21 +1,21 @@
-import type { StatusChipStatus } from './status-chip';
+'use client';
 
+import * as React from 'react';
+import { Search, X, Layers } from 'lucide-react';
 import { cn } from '@ideasui/utils';
-
+import type { StatusChipStatus } from './status-chip';
 import { Item } from './item';
-
 import { getComponentInfo } from '@/components-registry';
-import { source } from '@/lib/source';
 
-// Component groups matching meta.json structure
 const COMPONENT_GROUPS = [
   {
     category: 'Buttons',
+    title: 'Buttons & Actions',
     components: ['button', 'button-group', 'close-button', 'toggle-button', 'toggle-button-group'],
   },
-  // ... (keeping the same group structure)
   {
     category: 'Forms',
+    title: 'Forms & Inputs',
     components: [
       'checkbox',
       'checkbox-group',
@@ -35,86 +35,41 @@ const COMPONENT_GROUPS = [
     ],
   },
   {
-    category: 'Date and Time',
-    components: [
-      'calendar',
-      'date-field',
-      'date-picker',
-      'date-range-picker',
-      'range-calendar',
-      'time-field',
-    ],
+    category: 'Media',
+    title: 'Media & Display',
+    components: ['image', 'avatar'],
+  },
+  {
+    category: 'Typography',
+    title: 'Typography',
+    components: ['text', 'kbd'],
   },
   {
     category: 'Navigation',
-    components: [
-      'accordion',
-      'breadcrumbs',
-      'disclosure',
-      'disclosure-group',
-      'link',
-      'pagination',
-      'tabs',
-    ],
-  },
-  {
-    category: 'Overlays',
-    components: ['alert-dialog', 'drawer', 'modal', 'popover', 'toast', 'tooltip'],
-  },
-  {
-    category: 'Collections',
-    components: ['dropdown', 'list-box', 'tag-group'],
-  },
-  {
-    category: 'Controls',
-    components: ['slider'],
+    title: 'Navigation',
+    components: ['accordion', 'breadcrumbs', 'disclosure', 'link', 'pagination', 'tabs'],
   },
   {
     category: 'Feedback',
+    title: 'Feedback',
     components: ['alert', 'meter', 'progressbar', 'progresscircle', 'skeleton', 'spinner'],
   },
   {
     category: 'Layout',
+    title: 'Layout',
     components: ['card', 'separator', 'surface', 'toolbar'],
   },
-  {
-    category: 'Media',
-    components: ['image', 'avatar'],
-  },
-  {
-    category: 'Pickers',
-    components: ['autocomplete', 'combo-box', 'select'],
-  },
-  {
-    category: 'Typography',
-    components: ['text', 'kbd'],
-  },
-  {
-    category: 'Data Display',
-    components: ['badge', 'chip', 'table'],
-  },
-  {
-    category: 'Colors',
-    components: [
-      'color-area',
-      'color-field',
-      'color-picker',
-      'color-slider',
-      'color-swatch',
-      'color-swatch-picker',
-    ],
-  },
-  {
-    category: 'Utilities',
-    components: ['scroll-shadow'],
-  },
 ] as const;
-
-const componentStatusIcons = new Set(['preview', 'new', 'updated', 'new-dot']);
 
 interface ComponentWithStatus {
   component: NonNullable<ReturnType<typeof getComponentInfo>>;
   status?: StatusChipStatus;
+}
+
+interface ActiveGroup {
+  category: string;
+  title: string;
+  components: ComponentWithStatus[];
 }
 
 interface CategoryProperties {
@@ -124,75 +79,239 @@ interface CategoryProperties {
 function getComponentWithStatus(name: string): ComponentWithStatus | null {
   const componentInfo = getComponentInfo(name);
 
-  if (!componentInfo) {
-    return null;
-  }
+  if (!componentInfo) return null;
 
-  const pagePath = componentInfo.href
-    .replace(/^\/(react\/)?docs\//, '')
-    .split('/')
-    .filter(Boolean);
-  const page = source.getPage(pagePath);
-  const icon = page?.data.icon;
+  const status: StatusChipStatus | undefined = componentInfo.status
+    ? (componentInfo.status as StatusChipStatus)
+    : undefined;
 
-  const status: StatusChipStatus | undefined =
-    icon && componentStatusIcons.has(icon)
-      ? (icon as StatusChipStatus)
-      : (componentInfo.status as StatusChipStatus);
+  return { component: componentInfo, status };
+}
 
-  return {
-    component: componentInfo,
-    status,
-  };
+function filterGroupComponents(
+  groups: readonly {
+    readonly category: string;
+    readonly title: string;
+    readonly components: readonly string[];
+  }[],
+  searchQuery: string,
+): ActiveGroup[] {
+  const query = searchQuery.trim().toLowerCase();
+
+  return groups
+    .map((group) => {
+      const items = group.components
+        .map((element) => getComponentWithStatus(element))
+        .filter((item): item is ComponentWithStatus => {
+          if (!item) return false;
+          if (!query) return true;
+          const { name, title, description } = item.component;
+
+          return (
+            name.toLowerCase().includes(query) ||
+            title.toLowerCase().includes(query) ||
+            description.toLowerCase().includes(query)
+          );
+        });
+
+      return {
+        category: group.category,
+        title: group.title,
+        components: items,
+      };
+    })
+    .filter((g) => g.components.length > 0);
+}
+
+function CategoryToolbar({
+  searchQuery,
+  onSearchChange,
+  totalCount,
+  filteredCount,
+}: Readonly<{
+  searchQuery: string;
+  onSearchChange: (val: string) => void;
+  totalCount: number;
+  filteredCount: number;
+}>) {
+  return (
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="relative w-full max-w-sm">
+        <Search className="text-content-tertiary pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+        <input
+          aria-label="Filter components"
+          className="bg-surface-subtle/50 text-content-primary placeholder:text-content-muted border-border-subtle/80 focus:border-border-focus focus:bg-surface h-9.5 w-full rounded-xl border pr-8 pl-9 text-sm transition-all outline-none"
+          placeholder="Filter components..."
+          type="text"
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
+        />
+        {searchQuery && (
+          <button
+            aria-label="Clear filter"
+            className="text-content-tertiary hover:text-content-primary absolute top-1/2 right-2.5 -translate-y-1/2"
+            type="button"
+            onClick={() => onSearchChange('')}
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
+      </div>
+
+      <div className="text-content-muted flex items-center gap-2 text-xs font-medium">
+        <Layers className="h-3.5 w-3.5" />
+        <span>
+          {filteredCount === totalCount
+            ? `${totalCount} components available`
+            : `${filteredCount} of ${totalCount} components`}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function CategoryTabs({
+  tabs,
+  selectedTab,
+  onTabSelect,
+}: Readonly<{
+  tabs: { id: string; label: string; count: number }[];
+  selectedTab: string;
+  onTabSelect: (id: string) => void;
+}>) {
+  return (
+    <div className="border-border/40 flex flex-wrap items-center gap-1.5 border-b pb-3">
+      {tabs.map((tab) => {
+        const isSelected = selectedTab === tab.id;
+
+        return (
+          <button
+            key={tab.id}
+            className={cn(
+              'flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-all',
+              isSelected
+                ? 'bg-primary-subtle text-primary shadow-xs'
+                : 'text-content-muted hover:text-content-primary hover:bg-surface-subtle/40',
+            )}
+            type="button"
+            onClick={() => onTabSelect(tab.id)}
+          >
+            <span>{tab.label}</span>
+            <span
+              className={cn(
+                'py-0.2 rounded-full px-1.5 text-[10px] font-semibold',
+                isSelected ? 'bg-primary/10 text-primary' : 'bg-surface text-content-muted',
+              )}
+            >
+              {tab.count}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
 }
 
 export function Category(properties: Readonly<CategoryProperties>) {
   const { category } = properties;
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [selectedTab, setSelectedTab] = React.useState('all');
 
-  const targetGroups =
-    category && category !== 'all'
-      ? COMPONENT_GROUPS.filter((g) => g.category.toLowerCase() === category.toLowerCase())
-      : COMPONENT_GROUPS;
+  const baseGroups = React.useMemo(() => {
+    return filterGroupComponents(COMPONENT_GROUPS, '');
+  }, []);
 
-  const activeGroups = targetGroups
-    .map((group) => ({
-      group,
-      components: group.components
-        .map((element) => getComponentWithStatus(element))
-        .filter((item): item is ComponentWithStatus => item !== null),
-    }))
-    .filter(({ components }) => components.length > 0);
+  const totalCount = React.useMemo(() => {
+    return baseGroups.reduce((acc, g) => acc + g.components.length, 0);
+  }, [baseGroups]);
 
-  if (activeGroups.length === 0) {
-    return null;
-  }
+  const activeGroups = React.useMemo(() => {
+    const filtered = filterGroupComponents(COMPONENT_GROUPS, searchQuery);
+
+    if (category && category !== 'all') {
+      return filtered.filter((g) => g.category.toLowerCase() === category.toLowerCase());
+    }
+    if (selectedTab !== 'all') {
+      return filtered.filter((g) => g.category.toLowerCase() === selectedTab.toLowerCase());
+    }
+
+    return filtered;
+  }, [category, selectedTab, searchQuery]);
+
+  const filteredCount = React.useMemo(() => {
+    return activeGroups.reduce((acc, g) => acc + g.components.length, 0);
+  }, [activeGroups]);
+
+  const tabs = React.useMemo(() => {
+    const list = [{ id: 'all', label: 'All', count: totalCount }];
+
+    for (const g of baseGroups) {
+      list.push({ id: g.category.toLowerCase(), label: g.title, count: g.components.length });
+    }
+
+    return list;
+  }, [baseGroups, totalCount]);
+
+  if (baseGroups.length === 0) return null;
 
   return (
-    <div className={cn('not-prose flex flex-col gap-8')}>
-      {activeGroups.map(({ group, components }) => (
-        <div key={group.category} className="flex flex-col gap-4">
-          {(!category || category === 'all' || activeGroups.length > 1) && (
-            <h2 className="text-content-primary text-xl font-bold tracking-tight">
-              {group.category}
-            </h2>
-          )}
-          <div
-            className={cn(
-              'grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2',
-              components.length >= 3 && 'lg:grid-cols-3',
-            )}
+    <div className="not-prose my-6 flex flex-col gap-6">
+      <CategoryToolbar
+        filteredCount={filteredCount}
+        searchQuery={searchQuery}
+        totalCount={totalCount}
+        onSearchChange={setSearchQuery}
+      />
+
+      {(!category || category === 'all') && (
+        <CategoryTabs selectedTab={selectedTab} tabs={tabs} onTabSelect={setSelectedTab} />
+      )}
+
+      {activeGroups.length === 0 ? (
+        <div className="border-border/60 rounded-2xl border border-dashed p-8 text-center">
+          <p className="text-content-muted text-sm">
+            No components found matching &ldquo;{searchQuery}&rdquo;
+          </p>
+          <button
+            className="text-primary mt-2 text-xs font-medium hover:underline"
+            type="button"
+            onClick={() => setSearchQuery('')}
           >
-            {components.map(({ component, status }) => (
-              <Item
-                key={component.name}
-                component={component}
-                openInNewTab={false}
-                status={status}
-              />
-            ))}
-          </div>
+            Clear filter
+          </button>
         </div>
-      ))}
+      ) : (
+        <div className="flex flex-col gap-10">
+          {activeGroups.map(({ category: groupCategory, title, components }) => (
+            <div key={groupCategory} className="flex flex-col gap-4">
+              <div className="flex items-center gap-2.5">
+                <h2 className="text-content-primary text-base font-semibold tracking-tight">
+                  {title}
+                </h2>
+                <span className="text-content-muted bg-surface-subtle rounded-full px-2 py-0.5 text-xs font-medium">
+                  {components.length}
+                </span>
+              </div>
+
+              <div
+                className="grid gap-5"
+                style={{
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+                }}
+              >
+                {components.map(({ component, status }) => (
+                  <Item
+                    key={component.name}
+                    component={component}
+                    openInNewTab={false}
+                    status={status}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

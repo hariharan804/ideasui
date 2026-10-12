@@ -51,8 +51,8 @@ export const image = tv({
 
     isZoomed: {
       true: {
-        wrapper: 'group',
-        img: 'group-hover:scale-110 transition-transform duration-500',
+        wrapper: 'group/image',
+        img: 'group-hover/image:scale-110 transition-transform duration-500',
       },
     },
 

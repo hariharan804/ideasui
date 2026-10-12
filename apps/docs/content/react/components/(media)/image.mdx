@@ -2,74 +2,102 @@
 title: Image
 description: A framework-agnostic, accessible image primitive supporting custom renderers (Next.js, Remix, Vite), LQIP blur placeholders, skeleton loading, error fallbacks, and responsive aspect ratios.
 category: media
+links:
+  npm: true
+  source: image/src/image.tsx
+  recipe: core/theme/src/recipes/image/image.ts
+  storybook: Components/Image
 ---
 
 <QuickNav
   items={[
-    { id: 'overview', name: 'Overview' },
-    { id: 'features', name: 'Features' },
-    { id: 'installation', name: 'Installation' },
-    { id: 'anatomy', name: 'Anatomy' },
-    { id: 'basic-usage', name: 'Basic Usage' },
-    { id: 'aspect-ratios', name: 'Aspect Ratios' },
-    { id: 'object-fit', name: 'Object Fit' },
-    { id: 'radius--shadow', name: 'Radius & Shadow' },
-    { id: 'zoom-effect', name: 'Zoom Effect' },
-    { id: 'loading-skeleton', name: 'Loading Skeleton' },
-    { id: 'error-fallback', name: 'Error Fallback' },
-    { id: 'framework-integration', name: 'Framework Integration' },
-    { id: 'api-reference', name: 'API Reference' },
-    { id: 'accessibility', name: 'Accessibility' },
-    { id: 'standalone-css', name: 'Standalone CSS' },
+    {
+      title: 'Basic Usage',
+      description: 'Single image usage and core props.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'Aspect Ratios',
+      description: 'Square, video, auto, and custom ratio scaling.',
+      href: '#aspect-ratios',
+    },
+    {
+      title: 'Object Fit',
+      description: 'Cover, contain, fill, and positioning styles.',
+      href: '#object-fit',
+    },
+    {
+      title: 'Radius & Shadow',
+      description: 'Border radius corner shapes and elevation shadows.',
+      href: '#radius--shadow',
+    },
+    {
+      title: 'Zoom Effect',
+      description: 'Smooth hover scale-up transform animation.',
+      href: '#zoom-effect',
+    },
+    {
+      title: 'Loading Skeleton',
+      description: 'Shimmer skeleton overlay for async images.',
+      href: '#loading-skeleton',
+    },
+    {
+      title: 'Error Fallback',
+      description: 'Fallback UI when image fails to load.',
+      href: '#error-fallback',
+    },
+    {
+      title: 'Framework Integration',
+      description: 'Plug in next/image via the renderImage prop.',
+      href: '#framework-integration',
+    },
+    {
+      title: 'Standalone CSS',
+      description: 'Use Image without Tailwind CSS via @ideasui/styles.',
+      href: '#standalone-css',
+    },
+    {
+      title: 'API Reference',
+      description: 'Complete Image component props reference.',
+      href: '#api-reference',
+    },
   ]}
 />
 
-## Overview
-
-`Image` is a framework-agnostic media component designed to work in any React environment. By accepting a custom `renderImage` render prop, consumers can plug in framework-specific image primitives such as `next/image` or `@unpic/react` while keeping layout, aspect ratios, styling, fallback, and accessibility managed by IdeasUI.
-
-<Preview name="image-default" />
-
-## Features
-
-- **Framework-Agnostic**: Native `<img>` out of the box with optional `renderImage` prop for Next.js, Remix, Gatsby, etc.
-- **LQIP Blur Placeholder**: Supports low-quality image placeholders (`blurDataURL`) shown while loading.
-- **Skeleton Shimmer**: Built-in shimmer overlay (`isLoading`) to prevent layout shift.
-- **Error Fallback**: Automatic `ImageFallback` container on `onError` or missing `src`.
-- **Responsive Aspect Ratio**: Shorthand support for `square`, `video`, `auto`, or custom ratios (e.g. `'4/3'`).
-- **Priority Loading**: Sets `loading="eager"` and `fetchpriority="high"` for above-the-fold LCP images.
-- **Hover Zoom**: Smooth CSS scale animation on hover (`isZoomed`).
-- **Accessible**: Full ARIA slot labels, decorative image support (`alt=""`), and zero `vitest-axe` violations.
-
 ## Installation
 
-```bash
-pnpm add @ideasui/image
-```
+<InstallTabs pkg="@ideasui/image" />
 
-Or via master barrel:
-
-```bash
-pnpm add @ideasui/react
-```
-
-## Anatomy
+## Import
 
 ```tsx
+// Master bundle
 import { Image, ImageFallback } from '@ideasui/react';
 
-<Image src="/photo.jpg" alt="Description">
-  <ImageFallback />
-</Image>;
+// Individual package
+import { Image, ImageFallback } from '@ideasui/image';
 ```
 
 ## Basic Usage
+
+The `Image` component renders an accessible image with customizable dimensions, radius, and fallback states.
+
+<Preview name="image-default" />
 
 ```tsx
 import { Image } from '@ideasui/react';
 
 export default function BasicImage() {
-  return <Image src="/mountain.jpg" alt="Mountain landscape" width={800} height={600} />;
+  return (
+    <Image
+      alt="IdeasUI Open Graph Image"
+      height={630}
+      radius="lg"
+      shadow="md"
+      src="/IdeasUI-og-image.png"
+      width={1200}
+    />
+  );
 }
 ```
 
@@ -110,7 +138,7 @@ Apply border radius (`none`, `sm`, `md`, `lg`, `xl`, `full`) and elevation shado
 
 ## Zoom Effect
 
-Enables smooth scale-up transformation on hover.
+Enables smooth scale-up transformation on hover with `isZoomed`.
 
 <Preview name="image-zoomed" />
 
@@ -120,7 +148,7 @@ Enables smooth scale-up transformation on hover.
 
 ## Loading Skeleton
 
-Render a shimmer skeleton overlay when fetching image data asynchronously.
+Render a shimmer skeleton overlay when fetching image data asynchronously with `isLoading`.
 
 <Preview name="image-loading-skeleton" />
 
@@ -130,6 +158,7 @@ Render a shimmer skeleton overlay when fetching image data asynchronously.
   alt="Async image"
   isLoading={loading}
   aspectRatio="video"
+  radius="md"
 />
 ```
 
@@ -151,7 +180,7 @@ Display custom fallback UI when an image fails to load or `src` is missing.
 
 ### Next.js App Router (`next/image`)
 
-Plug in `next/image` using the `renderImage` render prop:
+Plug in `next/image` using the `renderImage` render prop to combine IdeasUI container styling with Next.js image optimization:
 
 ```tsx
 import { Image } from '@ideasui/react';
@@ -173,10 +202,6 @@ export default function NextImageDemo() {
 }
 ```
 
-## API Reference
-
-<APIReferenceViewer componentName="image" />
-
 ## Accessibility
 
 - **Decorative Images**: Pass `alt=""` for decorative images to hide them from screen readers.
@@ -185,7 +210,18 @@ export default function NextImageDemo() {
 
 ## Standalone CSS
 
+`Image` can also be used in non-Tailwind projects via the pre-compiled `@ideasui/styles` package.
+
+Install the standalone styles package:
+
+```bash
+pnpm add @ideasui/styles
+```
+
+Import base tokens and the component stylesheet:
+
 ```css
+@import '@ideasui/styles/base.css';
 @import '@ideasui/styles/components/image.css';
 ```
 
@@ -198,3 +234,7 @@ export default function NextImageDemo() {
 | `.ideasui-image__blur`     | `<img>` LQIP     | Low-quality blurred placeholder                                 |
 | `.ideasui-image__skeleton` | `<div>` Skeleton | Shimmer loading overlay                                         |
 | `.ideasui-image__fallback` | `<div>` Fallback | Error container displaying icon or custom children              |
+
+## API Reference
+
+<APIReferenceViewer componentName="image" />
