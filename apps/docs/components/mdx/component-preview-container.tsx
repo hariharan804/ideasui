@@ -38,7 +38,7 @@ export function ComponentPreviewContainer({
   return (
     <div
       className={cn(
-        'not-prose group border-border-subtle/30 bg-background relative my-6 w-full overflow-hidden rounded-2xl border transition-all duration-200',
+        'not-prose border-border-subtle/30 bg-background relative my-6 w-full overflow-hidden rounded-2xl border transition-all duration-200',
         className,
       )}
       data-name={name}
