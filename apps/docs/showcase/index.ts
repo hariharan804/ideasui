@@ -384,6 +384,10 @@ export const demos: Record<string, DemoItem> = {
     component: ImageDemos.Default,
     file: 'image/default.tsx',
   },
+  'image-basic': {
+    component: ImageDemos.Default,
+    file: 'image/default.tsx',
+  },
   'image-aspect-ratios': {
     component: ImageDemos.AspectRatios,
     file: 'image/aspect-ratios.tsx',

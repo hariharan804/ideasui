@@ -78,33 +78,8 @@ function MdxHrBlock({ className, ...properties }: React.ComponentProps<'hr'>) {
   return <hr {...properties} className={cn('border-border-subtle/30 my-8 border-t', className)} />;
 }
 
-async function getPackageVersion(componentSlug?: string): Promise<string> {
-  if (!componentSlug) return '0.0.1';
-
-  const pkgFolder = componentSlug === 'button-group' ? 'button' : componentSlug;
-
-  try {
-    const pkgPath = path.join(
-      process.cwd(),
-      '../../packages/components',
-      pkgFolder,
-      'package.json',
-    );
-    const content = await fs.readFile(pkgPath, 'utf8');
-    const json = JSON.parse(content);
-
-    return (json.version as string) ?? '0.0.1';
-  } catch {
-    try {
-      const corePkgPath = path.join(process.cwd(), '../../packages/core/react/package.json');
-      const content = await fs.readFile(corePkgPath, 'utf8');
-      const json = JSON.parse(content);
-
-      return (json.version as string) ?? '0.0.1';
-    } catch {
-      return '0.0.1';
-    }
-  }
+function getPackageVersion(_componentSlug?: string): Promise<string> {
+  return Promise.resolve('0.0.2-beta.1');
 }
 
 export default async function Page(properties: Readonly<{ params: Promise<{ slug?: string[] }> }>) {

@@ -2,9 +2,11 @@ import type { HTMLAttributes } from 'react';
 import { cn } from '@ideasui/utils';
 
 interface QuickNavItem {
-  title: string;
-  description: string;
-  href: string;
+  title?: string;
+  name?: string;
+  description?: string;
+  href?: string;
+  id?: string;
 }
 
 interface QuickNavProperties extends HTMLAttributes<HTMLDivElement> {
@@ -34,19 +36,21 @@ export function QuickNav({
       <div className="flex flex-col gap-1">
         {items.map((item, index) => {
           const numberString = String(index + 1).padStart(2, '0');
+          const itemTitle = item.title ?? item.name ?? '';
+          const itemHref = item.href ?? (item.id ? `#${item.id}` : '#');
 
           return (
             <a
-              key={item.href}
+              key={itemHref || index}
               className="group hover:bg-surface-subtle/60 flex items-start gap-3 rounded-xl p-2 transition-all duration-150 active:scale-[0.99] sm:items-center"
-              href={item.href}
+              href={itemHref}
             >
               <span className="bg-primary/10 text-primary mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full font-mono text-[10px] font-semibold sm:mt-0">
                 {numberString}
               </span>
               <div className="flex min-w-0 flex-1 flex-col sm:flex-row sm:items-baseline sm:gap-2.5">
                 <span className="text-content-primary group-hover:text-primary shrink-0 text-xs leading-snug font-semibold whitespace-nowrap transition-colors sm:text-[13px]">
-                  {item.title}
+                  {itemTitle}
                 </span>
                 {item.description && (
                   <span className="text-content-tertiary min-w-0 truncate text-[11px] leading-relaxed">

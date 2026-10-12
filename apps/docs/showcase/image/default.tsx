@@ -7,12 +7,13 @@ export default function ImageDefaultDemo(): JSX.Element {
   return (
     <div className="flex justify-center p-4">
       <Image
-        alt="Mountain landscape"
-        height={600}
+        alt="IdeasUI Open Graph Image"
+        height={630}
         radius="lg"
-        src="https://picsum.photos/seed/ideasui-default/800/600"
-        style={{ width: 400, height: 260 }}
-        width={800}
+        shadow="md"
+        src="/IdeasUI-og-image.png"
+        style={{ width: 480, height: 252 }}
+        width={1200}
       />
     </div>
   );
