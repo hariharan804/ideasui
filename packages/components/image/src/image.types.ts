@@ -1,4 +1,14 @@
-import type { CSSProperties, HTMLAttributes, ImgHTMLAttributes, JSX, ReactNode } from 'react';
+import type {
+  CSSProperties,
+  ForwardRefExoticComponent,
+  HTMLAttributeReferrerPolicy,
+  HTMLAttributes,
+  ImgHTMLAttributes,
+  JSX,
+  ReactNode,
+  RefAttributes,
+} from 'react';
+import type { ImageFallback } from './image-fallback';
 
 export type ImageObjectFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
 export type ImageObjectPosition = 'center' | 'top' | 'bottom' | 'left' | 'right' | (string & {});
@@ -12,6 +22,8 @@ export interface ImageSlotClassNames {
   readonly fallback?: string;
   readonly skeleton?: string;
   readonly blur?: string;
+  readonly figure?: string;
+  readonly caption?: string;
 }
 
 export interface ImageSlotProps {
@@ -20,63 +32,42 @@ export interface ImageSlotProps {
   readonly fallback?: HTMLAttributes<HTMLDivElement> & { [key: `data-${string}`]: unknown };
   readonly skeleton?: HTMLAttributes<HTMLDivElement> & { [key: `data-${string}`]: unknown };
   readonly blur?: ImgHTMLAttributes<HTMLImageElement> & { [key: `data-${string}`]: unknown };
+  readonly figure?: HTMLAttributes<HTMLElement> & { [key: `data-${string}`]: unknown };
+  readonly caption?: HTMLAttributes<HTMLElement> & { [key: `data-${string}`]: unknown };
 }
 
 export interface ImageRenderProps {
-  /**
-   * The image source URL passed through from `Image` `src` prop.
-   */
+  /** The image source URL. */
   readonly src?: string;
-
-  /**
-   * Alt text passed through from `Image` `alt` prop.
-   */
+  /** Alt text passed through from `Image` `alt` prop. */
   readonly alt?: string;
-
-  /**
-   * Width in pixels passed through from `Image` `width` prop.
-   */
+  /** Width in pixels. */
   readonly width?: number;
-
-  /**
-   * Height in pixels passed through from `Image` `height` prop.
-   */
+  /** Height in pixels. */
   readonly height?: number;
-
-  /**
-   * CSS class string to apply to the rendered image element.
-   * Always pass this to your custom renderer to preserve objectFit and sizing styles.
-   */
+  /** CSS class string to apply to the rendered image element. */
   readonly className?: string;
-
-  /**
-   * Blur data URL for LQIP placeholder. Pass to Next.js `blurDataURL` prop.
-   */
+  /** Blur data URL for LQIP placeholder. */
   readonly blurDataURL?: string;
-
-  /**
-   * Whether this is a priority / LCP image. Pass to Next.js `priority` prop.
-   */
+  /** Whether this is a priority / LCP image. */
   readonly priority?: boolean;
-
-  /**
-   * srcSet string for responsive images.
-   */
+  /** Native image loading strategy for SEO. */
+  readonly loading?: 'lazy' | 'eager';
+  /** Image decoding hint for Core Web Vitals optimization. */
+  readonly decoding?: 'async' | 'sync' | 'auto';
+  /** Fetch priority hint for LCP optimization. */
+  readonly fetchPriority?: 'high' | 'low' | 'auto';
+  /** Cross-origin attribute for CDN sharing. */
+  readonly crossOrigin?: 'anonymous' | 'use-credentials' | '';
+  /** Referrer policy for external image assets. */
+  readonly referrerPolicy?: HTMLAttributeReferrerPolicy;
+  /** srcSet string for responsive images. */
   readonly srcSet?: string;
-
-  /**
-   * sizes string for responsive images.
-   */
+  /** sizes string for responsive images. */
   readonly sizes?: string;
-
-  /**
-   * Called when the image finishes loading successfully.
-   */
+  /** Called when the image finishes loading successfully. */
   readonly onLoad?: () => void;
-
-  /**
-   * Called when the image fails to load.
-   */
+  /** Called when the image fails to load. */
   readonly onError?: () => void;
 }
 
@@ -95,29 +86,62 @@ export interface ImageProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
 
   /**
    * Intrinsic width of the image in pixels.
-   * Used by native `<img>` and passed to `renderImage` for custom renderers.
+   * Used by native `<img>` to prevent Cumulative Layout Shift (CLS) and passed to `renderImage`.
    */
   readonly width?: number;
 
   /**
    * Intrinsic height of the image in pixels.
-   * Used by native `<img>` and passed to `renderImage` for custom renderers.
+   * Used by native `<img>` to prevent Cumulative Layout Shift (CLS) and passed to `renderImage`.
    */
   readonly height?: number;
 
   /**
    * Responsive image srcSet string.
    * e.g. `"/img-400.jpg 400w, /img-800.jpg 800w"`
-   * Passed to native `<img>` and forwarded to `renderImage`.
    */
   readonly srcSet?: string;
 
   /**
    * Responsive sizes string.
    * e.g. `"(max-width: 768px) 100vw, 800px"`
-   * Passed to native `<img>` and forwarded to `renderImage`.
    */
   readonly sizes?: string;
+
+  /**
+   * Native image loading strategy.
+   * Defaults to `'eager'` when `priority={true}`, otherwise `'lazy'`.
+   */
+  readonly loading?: 'lazy' | 'eager';
+
+  /**
+   * Image decoding hint. Modern SEO best practice defaults to `'async'`
+   * to avoid blocking the main browser thread during Core Web Vitals checks.
+   * @default 'async'
+   */
+  readonly decoding?: 'async' | 'sync' | 'auto';
+
+  /**
+   * Fetch priority hint for browser preloading and LCP optimization.
+   * Defaults to `'high'` when `priority={true}`, otherwise `'auto'`.
+   */
+  readonly fetchPriority?: 'high' | 'low' | 'auto';
+
+  /**
+   * Cross-origin attribute for CDN and resource sharing.
+   */
+  readonly crossOrigin?: 'anonymous' | 'use-credentials' | '';
+
+  /**
+   * Referrer policy for external image assets.
+   */
+  readonly referrerPolicy?: HTMLAttributeReferrerPolicy;
+
+  /**
+   * Optional image caption. When provided, the image is rendered inside a semantic
+   * `<figure>` with an accessible `<figcaption>` linked via `aria-labelledby`.
+   */
+  readonly caption?: ReactNode;
 
   /**
    * Custom image renderer — replaces the native `<img>` element entirely.
@@ -216,6 +240,12 @@ export interface ImageProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
   readonly style?: CSSProperties;
 
   /**
+   * Shorthand fallback content shown when the image errors or `src` is absent.
+   * If not provided, an `ImageFallback` child can be used instead.
+   */
+  readonly fallback?: ReactNode;
+
+  /**
    * Optional `ImageFallback` child shown when the image errors or `src` is absent.
    */
   readonly children?: ReactNode;
@@ -230,3 +260,9 @@ export interface ImageFallbackProps extends HTMLAttributes<HTMLDivElement> {
   readonly className?: string;
   readonly style?: CSSProperties;
 }
+
+export type ImageComponent = ForwardRefExoticComponent<
+  ImageProps & RefAttributes<HTMLDivElement>
+> & {
+  Fallback: typeof ImageFallback;
+};

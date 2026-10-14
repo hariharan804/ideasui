@@ -2344,7 +2344,7 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: null,
           deprecated: false,
           description:
-            'Intrinsic width of the image in pixels. Used by native `<img>` and passed to `renderImage` for custom renderers.',
+            'Intrinsic width of the image in pixels. Used by native `<img>` to prevent Cumulative Layout Shift (CLS) and passed to `renderImage`.',
         },
         {
           name: 'height',
@@ -2353,7 +2353,7 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: null,
           deprecated: false,
           description:
-            'Intrinsic height of the image in pixels. Used by native `<img>` and passed to `renderImage` for custom renderers.',
+            'Intrinsic height of the image in pixels. Used by native `<img>` to prevent Cumulative Layout Shift (CLS) and passed to `renderImage`.',
         },
         {
           name: 'srcSet',
@@ -2362,7 +2362,7 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: null,
           deprecated: false,
           description:
-            'Responsive image srcSet string. e.g. `"/img-400.jpg 400w, /img-800.jpg 800w"` Passed to native `<img>` and forwarded to `renderImage`.',
+            'Responsive image srcSet string. e.g. `"/img-400.jpg 400w, /img-800.jpg 800w"`',
         },
         {
           name: 'sizes',
@@ -2370,8 +2370,59 @@ export const propsDocumentation: PropsDocumentation = {
           required: false,
           defaultValue: null,
           deprecated: false,
+          description: 'Responsive sizes string. e.g. `"(max-width: 768px) 100vw, 800px"`',
+        },
+        {
+          name: 'loading',
+          type: '"lazy" | "eager"',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
           description:
-            'Responsive sizes string. e.g. `"(max-width: 768px) 100vw, 800px"` Passed to native `<img>` and forwarded to `renderImage`.',
+            "Native image loading strategy. Defaults to `'eager'` when `priority={true}`, otherwise `'lazy'`.",
+        },
+        {
+          name: 'decoding',
+          type: '"async" | "sync" | "auto"',
+          required: false,
+          defaultValue: "'async'",
+          deprecated: false,
+          description:
+            "Image decoding hint. Modern SEO best practice defaults to `'async'` to avoid blocking the main browser thread during Core Web Vitals checks.",
+        },
+        {
+          name: 'fetchPriority',
+          type: '"high" | "low" | "auto"',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            "Fetch priority hint for browser preloading and LCP optimization. Defaults to `'high'` when `priority={true}`, otherwise `'auto'`.",
+        },
+        {
+          name: 'crossOrigin',
+          type: '"anonymous" | "use-credentials" | ""',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Cross-origin attribute for CDN and resource sharing.',
+        },
+        {
+          name: 'referrerPolicy',
+          type: 'HTMLAttributeReferrerPolicy',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Referrer policy for external image assets.',
+        },
+        {
+          name: 'caption',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Optional image caption. When provided, the image is rendered inside a semantic `<figure>` with an accessible `<figcaption>` linked via `aria-labelledby`.',
         },
         {
           name: 'renderImage',
@@ -2507,6 +2558,15 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: null,
           deprecated: false,
           description: 'Inline styles applied to the wrapper element.',
+        },
+        {
+          name: 'fallback',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Shorthand fallback content shown when the image errors or `src` is absent. If not provided, an `ImageFallback` child can be used instead.',
         },
         {
           name: 'children',

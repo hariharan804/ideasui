@@ -188,4 +188,154 @@ describe('Image Component', () => {
     expect(container).toBeInTheDocument();
     await expectAccessible(container);
   });
+
+  it('does not forward component-specific props like aspectRatio, radius, shadow to the DOM element', () => {
+    render(
+      <Image
+        isZoomed
+        alt="Aspect ratio test"
+        aspectRatio="video"
+        objectFit="cover"
+        radius="md"
+        shadow="md"
+        slotProps={{ root: { 'data-testid': 'image-root' } }}
+        src="/photo.jpg"
+      />,
+    );
+
+    const root = screen.getByTestId('image-root');
+
+    expect(root).toBeInTheDocument();
+    expect(root).not.toHaveAttribute('aspectRatio');
+    expect(root).not.toHaveAttribute('radius');
+    expect(root).not.toHaveAttribute('shadow');
+    expect(root).not.toHaveAttribute('objectFit');
+    expect(root).not.toHaveAttribute('isZoomed');
+  });
+
+  it('renders shorthand fallback prop when image fails to load', () => {
+    render(
+      <Image
+        alt="Broken image"
+        fallback={<span data-testid="shorthand-fallback">Custom fallback</span>}
+        src="/broken.jpg"
+      />,
+    );
+
+    const img = screen.getByRole('img');
+
+    fireEvent.error(img);
+
+    expect(screen.getByTestId('shorthand-fallback')).toBeInTheDocument();
+    expect(screen.getByText('Custom fallback')).toBeInTheDocument();
+  });
+
+  it('resets loaded state when src changes', () => {
+    const { rerender } = render(<Image alt="Image 1" src="/img1.jpg" />);
+
+    const img = screen.getByRole('img');
+
+    fireEvent.load(img);
+    expect(img).toHaveClass('ideasui-image__img--loaded');
+
+    rerender(<Image alt="Image 2" src="/img2.jpg" />);
+
+    const img2 = screen.getByRole('img');
+
+    expect(img2).toHaveClass('ideasui-image__img--loading');
+  });
+
+  it('preserves wrapper recipe classes when slotProps.root.className is provided', () => {
+    render(
+      <Image
+        alt="Test"
+        radius="lg"
+        slotProps={{
+          root: { 'data-testid': 'root-el', className: 'custom-slot-class' },
+        }}
+        src="/photo.jpg"
+      />,
+    );
+
+    const root = screen.getByTestId('root-el');
+
+    expect(root).toHaveClass('ideasui-image');
+    expect(root).toHaveClass('ideasui-image--radius-lg');
+    expect(root).toHaveClass('custom-slot-class');
+  });
+
+  it('supports full SEO attributes: decoding, loading, crossOrigin, referrerPolicy', () => {
+    render(
+      <Image
+        alt="SEO optimized image"
+        crossOrigin="anonymous"
+        decoding="async"
+        loading="lazy"
+        referrerPolicy="no-referrer"
+        src="/seo.jpg"
+      />,
+    );
+
+    const img = screen.getByRole('img', { name: 'SEO optimized image' });
+
+    expect(img).toHaveAttribute('decoding', 'async');
+    expect(img).toHaveAttribute('loading', 'lazy');
+    expect(img).toHaveAttribute('crossorigin', 'anonymous');
+    expect(img).toHaveAttribute('referrerpolicy', 'no-referrer');
+  });
+
+  it('renders semantic figure and figcaption with aria-labelledby when caption is provided', () => {
+    render(
+      <Image
+        alt="Mountain landscape"
+        caption="A beautiful view of the Rocky Mountains"
+        slotProps={{ root: { 'data-testid': 'captioned-wrapper' } }}
+        src="/mountains.jpg"
+      />,
+    );
+
+    const figure = screen.getByRole('figure');
+
+    expect(figure).toBeInTheDocument();
+
+    const caption = screen.getByText('A beautiful view of the Rocky Mountains');
+
+    expect(caption).toBeInTheDocument();
+    expect(caption.tagName.toLowerCase()).toBe('figcaption');
+
+    const wrapper = screen.getByTestId('captioned-wrapper');
+
+    expect(wrapper).toHaveAttribute('aria-labelledby', caption.id);
+  });
+
+  it('supports compound Image.Fallback usage', () => {
+    render(
+      <Image alt="Compound fallback test" src="/broken.jpg">
+        <Image.Fallback data-testid="compound-fallback">
+          <span>Failed via Image.Fallback</span>
+        </Image.Fallback>
+      </Image>,
+    );
+
+    const img = screen.getByRole('img');
+
+    fireEvent.error(img);
+
+    expect(screen.getByTestId('compound-fallback')).toBeInTheDocument();
+    expect(screen.getByText('Failed via Image.Fallback')).toBeInTheDocument();
+  });
+
+  it('marks wrapper with aria-busy while image is loading', () => {
+    render(
+      <Image
+        alt="Loading test"
+        slotProps={{ root: { 'data-testid': 'busy-wrapper' } }}
+        src="/photo.jpg"
+      />,
+    );
+
+    const wrapper = screen.getByTestId('busy-wrapper');
+
+    expect(wrapper).toHaveAttribute('aria-busy', 'true');
+  });
 });

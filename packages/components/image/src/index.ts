@@ -5,6 +5,7 @@ export type {
   ImageProps,
   ImageFallbackProps,
   ImageRenderProps,
+  ImageComponent,
   ImageObjectFit,
   ImageObjectPosition,
   ImageRadius,

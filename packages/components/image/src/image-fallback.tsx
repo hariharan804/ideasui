@@ -35,13 +35,15 @@ const DefaultBrokenIcon = (): JSX.Element => (
 export const ImageFallback = forwardRef<HTMLDivElement, ImageFallbackProps>(
   ({ children, className, style, ...properties }, reference): JSX.Element => {
     const styles = imageRecipe();
+    const isDecorative = !children && !properties['aria-label'] && !properties['aria-labelledby'];
 
     return (
       <div
         ref={reference}
-        aria-hidden="true"
+        aria-hidden={isDecorative ? true : undefined}
         className={cn(styles.fallback(), 'ideasui-image__fallback', className)}
         data-slot="image-fallback"
+        role={isDecorative ? undefined : 'img'}
         style={style}
         {...properties}
       >
