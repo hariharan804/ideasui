@@ -5,57 +5,249 @@
  */
 
 /* ── Base Block ───────────────────────────────────────────────────────────── */
-.radio {
-  @apply focus-visible:ring-primary relative inline-flex cursor-pointer items-center justify-center font-medium transition-all duration-200 ease-in-out select-none focus-visible:ring-2 focus-visible:outline-none active:scale-98;
+.ideasui-radio {
+  @apply inline-flex w-fit cursor-pointer items-center gap-2 select-none;
 }
 
-/* ── Elements ─────────────────────────────────────────────────────────────── */
-.radio__content {
-  @apply inline-flex items-center truncate;
+/* ── Indicator Element ────────────────────────────────────────────────────── */
+.ideasui-radio__indicator {
+  @apply relative flex shrink-0 items-center justify-center rounded-full border transition-all duration-150 ease-in-out;
+}
+
+/* Focus Visible state on indicator when root radio child is focused */
+.ideasui-radio:has(:focus-visible) .ideasui-radio__indicator {
+  @apply ring-primary ring-2 ring-offset-2;
+}
+
+/* ── Dot Element ──────────────────────────────────────────────────────────── */
+.ideasui-radio__dot {
+  @apply pointer-events-none scale-0 rounded-full opacity-0 transition-all duration-150 ease-in-out;
+}
+.ideasui-radio[data-selected='true'] .ideasui-radio__dot {
+  @apply scale-100 opacity-100;
+}
+
+/* ── Label Text Element ───────────────────────────────────────────────────── */
+.ideasui-radio__label-text {
+  @apply text-content-primary leading-none transition-colors duration-150 ease-in-out;
+}
+
+/* ── Variants ─────────────────────────────────────────────────────────────── */
+.ideasui-radio:hover:not([data-disabled='true']) .ideasui-radio__indicator {
+  @apply scale-105;
+}
+
+/* Solid */
+.ideasui-radio--solid .ideasui-radio__indicator {
+  @apply border-border-strong bg-surface;
+}
+.ideasui-radio--solid:hover:not([data-selected='true']):not([data-disabled='true'])
+  .ideasui-radio__indicator {
+  @apply border-border-focus bg-surface-subtle;
+}
+
+/* Outline */
+.ideasui-radio--outline .ideasui-radio__indicator {
+  @apply border-border-strong bg-transparent;
+}
+.ideasui-radio--outline:hover:not([data-selected='true']):not([data-disabled='true'])
+  .ideasui-radio__indicator {
+  @apply border-border-focus bg-surface-subtle/50;
+}
+
+/* Subtle */
+.ideasui-radio--subtle .ideasui-radio__indicator {
+  @apply bg-surface-muted border-transparent;
+}
+.ideasui-radio--subtle:hover:not([data-selected='true']):not([data-disabled='true'])
+  .ideasui-radio__indicator {
+  @apply bg-surface-subtle border-border-subtle;
+}
+
+/* Ghost */
+.ideasui-radio--ghost .ideasui-radio__indicator {
+  @apply border-border/30 bg-transparent;
+}
+.ideasui-radio--ghost:hover:not([data-selected='true']):not([data-disabled='true'])
+  .ideasui-radio__indicator {
+  @apply border-border-strong bg-surface-subtle/30;
+}
+
+/* Soft */
+.ideasui-radio--soft .ideasui-radio__indicator {
+  @apply border-border-subtle bg-surface-subtle;
+}
+.ideasui-radio--soft:hover:not([data-selected='true']):not([data-disabled='true'])
+  .ideasui-radio__indicator {
+  @apply border-border-strong bg-surface-muted;
+}
+
+/* ── Color Schemes & Solid Variants ────────────────────────────────────────── */
+.ideasui-radio--solid.ideasui-radio--primary[data-selected='true'] .ideasui-radio__indicator {
+  @apply bg-primary border-primary;
+}
+.ideasui-radio--solid.ideasui-radio--primary .ideasui-radio__dot {
+  @apply bg-background;
+}
+
+.ideasui-radio--solid.ideasui-radio--neutral[data-selected='true'] .ideasui-radio__indicator {
+  @apply bg-neutral border-neutral;
+}
+.ideasui-radio--solid.ideasui-radio--neutral .ideasui-radio__dot {
+  @apply bg-background;
+}
+
+.ideasui-radio--solid.ideasui-radio--success[data-selected='true'] .ideasui-radio__indicator {
+  @apply bg-success border-success;
+}
+.ideasui-radio--solid.ideasui-radio--success .ideasui-radio__dot {
+  @apply bg-background;
+}
+
+.ideasui-radio--solid.ideasui-radio--warning[data-selected='true'] .ideasui-radio__indicator {
+  @apply bg-warning border-warning;
+}
+.ideasui-radio--solid.ideasui-radio--warning .ideasui-radio__dot {
+  @apply bg-background;
+}
+
+.ideasui-radio--solid.ideasui-radio--danger[data-selected='true'] .ideasui-radio__indicator {
+  @apply bg-danger border-danger;
+}
+.ideasui-radio--solid.ideasui-radio--danger .ideasui-radio__dot {
+  @apply bg-background;
+}
+
+/* ── Color Schemes & Outline Variants ──────────────────────────────────────── */
+.ideasui-radio--outline.ideasui-radio--primary[data-selected='true'] .ideasui-radio__indicator {
+  @apply border-primary;
+}
+.ideasui-radio--outline.ideasui-radio--primary .ideasui-radio__dot {
+  @apply bg-primary;
+}
+
+.ideasui-radio--outline.ideasui-radio--neutral[data-selected='true'] .ideasui-radio__indicator {
+  @apply border-neutral;
+}
+.ideasui-radio--outline.ideasui-radio--neutral .ideasui-radio__dot {
+  @apply bg-neutral;
+}
+
+.ideasui-radio--outline.ideasui-radio--success[data-selected='true'] .ideasui-radio__indicator {
+  @apply border-success;
+}
+.ideasui-radio--outline.ideasui-radio--success .ideasui-radio__dot {
+  @apply bg-success;
+}
+
+.ideasui-radio--outline.ideasui-radio--warning[data-selected='true'] .ideasui-radio__indicator {
+  @apply border-warning;
+}
+.ideasui-radio--outline.ideasui-radio--warning .ideasui-radio__dot {
+  @apply bg-warning;
+}
+
+.ideasui-radio--outline.ideasui-radio--danger[data-selected='true'] .ideasui-radio__indicator {
+  @apply border-danger;
+}
+.ideasui-radio--outline.ideasui-radio--danger .ideasui-radio__dot {
+  @apply bg-danger;
 }
 
 /* ── Size Modifiers ───────────────────────────────────────────────────────── */
-.radio.radio--sm {
-  @apply h-8 gap-1.5 rounded-md px-3 text-xs;
+.ideasui-radio--sm {
+  @apply gap-1.5;
 }
-.radio.radio--md {
-  @apply h-10 gap-2 rounded-lg px-4 text-sm;
+.ideasui-radio--sm .ideasui-radio__indicator {
+  @apply size-3.5;
 }
-.radio.radio--lg {
-  @apply h-12 gap-2.5 rounded-xl px-6 text-base;
+.ideasui-radio--sm .ideasui-radio__dot {
+  @apply size-1.5;
 }
-
-/* ── Color & Variant Combinations ─────────────────────────────────────────── */
-.radio.radio--solid.radio--primary {
-  @apply bg-primary text-on-primary hover:bg-primary/90;
-}
-.radio.radio--solid.radio--secondary {
-  @apply bg-secondary text-on-secondary hover:bg-secondary/90;
-}
-.radio.radio--solid.radio--success {
-  @apply bg-success text-on-success hover:bg-success/90;
-}
-.radio.radio--solid.radio--warning {
-  @apply bg-warning text-on-warning hover:bg-warning/90;
-}
-.radio.radio--solid.radio--danger {
-  @apply bg-danger text-on-danger hover:bg-danger/90;
-}
-.radio.radio--solid.radio--info {
-  @apply bg-info text-on-info hover:bg-info/90;
+.ideasui-radio--sm .ideasui-radio__label-text {
+  @apply text-xs;
 }
 
-.radio.radio--outline {
-  @apply border-border text-content-primary hover:bg-surface-subtle border bg-transparent;
+.ideasui-radio--md {
+  @apply gap-2;
 }
-.radio.radio--ghost {
-  @apply text-content-primary hover:bg-surface-subtle bg-transparent;
+.ideasui-radio--md .ideasui-radio__indicator {
+  @apply size-4;
 }
-.radio.radio--soft {
-  @apply bg-primary-subtle text-primary hover:bg-primary-subtle/80;
+.ideasui-radio--md .ideasui-radio__dot {
+  @apply size-2;
+}
+.ideasui-radio--md .ideasui-radio__label-text {
+  @apply text-sm;
 }
 
-/* ── State Modifiers ──────────────────────────────────────────────────────── */
-.radio.radio--disabled {
+.ideasui-radio--lg {
+  @apply gap-2.5;
+}
+.ideasui-radio--lg .ideasui-radio__indicator {
+  @apply size-5;
+}
+.ideasui-radio--lg .ideasui-radio__dot {
+  @apply size-2.5;
+}
+.ideasui-radio--lg .ideasui-radio__label-text {
+  @apply text-base;
+}
+
+/* ── Radius Shapes ────────────────────────────────────────────────────────── */
+.ideasui-radio--radius-none .ideasui-radio__indicator,
+.ideasui-radio--radius-none .ideasui-radio__dot {
+  @apply rounded-none;
+}
+.ideasui-radio--radius-full .ideasui-radio__indicator,
+.ideasui-radio--radius-full .ideasui-radio__dot {
+  @apply rounded-full;
+}
+
+/* ── States ───────────────────────────────────────────────────────────────── */
+.ideasui-radio.ideasui-radio--invalid .ideasui-radio__indicator,
+.ideasui-radio[data-invalid='true'] .ideasui-radio__indicator {
+  @apply border-danger;
+}
+.ideasui-radio.ideasui-radio--invalid .ideasui-radio__label-text,
+.ideasui-radio[data-invalid='true'] .ideasui-radio__label-text {
+  @apply text-danger;
+}
+
+.ideasui-radio.ideasui-radio--disabled,
+.ideasui-radio[data-disabled='true'] {
   @apply pointer-events-none cursor-not-allowed opacity-50;
+}
+.ideasui-radio.ideasui-radio--disabled .ideasui-radio__label-text,
+.ideasui-radio[data-disabled='true'] .ideasui-radio__label-text {
+  @apply text-content-muted;
+}
+
+/* ── Radio Group BEM Block & Elements ────────────────────────────────────── */
+.ideasui-radio-group {
+  @apply m-0 flex w-full min-w-0 flex-col gap-2 border-0 p-0;
+}
+.ideasui-radio-group__label {
+  @apply text-content-primary text-sm font-medium;
+}
+.ideasui-radio-group__items {
+  @apply flex gap-2;
+}
+.ideasui-radio-group--vertical .ideasui-radio-group__items {
+  @apply flex-col;
+}
+.ideasui-radio-group--horizontal .ideasui-radio-group__items {
+  @apply flex-row flex-wrap;
+}
+.ideasui-radio-group__description {
+  @apply text-content-secondary text-xs leading-normal;
+}
+.ideasui-radio-group__error {
+  @apply text-danger text-xs leading-normal;
+}
+.ideasui-radio-group.ideasui-radio-group--invalid .ideasui-radio-group__label {
+  @apply text-danger;
+}
+.ideasui-radio-group.ideasui-radio-group--disabled {
+  @apply pointer-events-none opacity-50;
 }

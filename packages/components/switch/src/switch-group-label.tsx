@@ -18,7 +18,7 @@ export const SwitchGroupLabel = forwardRef<HTMLSpanElement, SwitchGroupLabelProp
       <span
         {...properties}
         ref={reference}
-        className={cn(styles.groupLabel(), className)}
+        className={cn(styles.groupLabel(), 'ideasui-switch-group__label', className)}
         data-disabled={isDisabled || undefined}
         data-slot="group-label"
         id={groupLabelId}

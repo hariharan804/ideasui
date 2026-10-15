@@ -10,7 +10,6 @@ export default function ImageDefaultDemo(): JSX.Element {
         alt="IdeasUI Open Graph Image"
         height={630}
         radius="xl"
-        shadow="md"
         src="/IdeasUI-og-image.png"
         style={{ width: 480, height: 252 }}
         width={1200}

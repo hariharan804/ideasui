@@ -1,5 +1,16 @@
-import type { CSSProperties, HTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
+import type {
+  CSSProperties,
+  ForwardRefExoticComponent,
+  HTMLAttributes,
+  InputHTMLAttributes,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 import type { SwitchReturnType } from '@ideasui/theme/recipes';
+import type { SwitchGroup } from './switch-group';
+import type { SwitchGroupDescription } from './switch-group-description';
+import type { SwitchGroupError } from './switch-group-error';
+import type { SwitchGroupLabel } from './switch-group-label';
 
 export type { SwitchReturnType } from '@ideasui/theme/recipes';
 
@@ -305,4 +316,28 @@ export interface SwitchGroupContextValue {
   readonly selectedValues?: string[];
   readonly onGroupChange?: (value: string, checked: boolean) => void;
   readonly styles?: SwitchReturnType;
+}
+
+/**
+ * Component interface for `Switch` with attached compound components.
+ */
+export interface SwitchComponent extends ForwardRefExoticComponent<
+  SwitchProps & RefAttributes<HTMLInputElement>
+> {
+  /**
+   * Component for grouping multiple switches with coordinated state.
+   */
+  Group: typeof SwitchGroup;
+  /**
+   * Label component for the switch group.
+   */
+  Label: typeof SwitchGroupLabel;
+  /**
+   * Helper description component for the switch group.
+   */
+  Description: typeof SwitchGroupDescription;
+  /**
+   * Error message component for the switch group.
+   */
+  Error: typeof SwitchGroupError;
 }

@@ -23,7 +23,7 @@ export const RadioGroupError = forwardRef<HTMLParagraphElement, RadioGroupErrorP
       <p
         {...otherProperties}
         ref={reference}
-        className={cn(groupStyles.errorMessage(), className)}
+        className={cn(groupStyles.errorMessage(), 'ideasui-radio-group__error', className)}
         data-slot="radio-group-error"
         id={groupErrorId}
       >

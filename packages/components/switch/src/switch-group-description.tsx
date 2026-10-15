@@ -22,7 +22,7 @@ export const SwitchGroupDescription = forwardRef<HTMLParagraphElement, SwitchGro
       <p
         {...properties}
         ref={reference}
-        className={cn(styles.description(), className)}
+        className={cn(styles.description(), 'ideasui-switch-group__description', className)}
         data-slot="group-description"
         id={groupDescriptionId}
         slot="description"

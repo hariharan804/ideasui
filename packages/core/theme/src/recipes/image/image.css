@@ -5,57 +5,96 @@
  */
 
 /* ── Base Block ───────────────────────────────────────────────────────────── */
-.image {
-  @apply focus-visible:ring-primary relative inline-flex cursor-pointer items-center justify-center font-medium transition-all duration-200 ease-in-out select-none focus-visible:ring-2 focus-visible:outline-none active:scale-98;
+.ideasui-image {
+  @apply relative inline-block overflow-hidden transition-transform duration-300;
 }
 
 /* ── Elements ─────────────────────────────────────────────────────────────── */
-.image__content {
-  @apply inline-flex items-center truncate;
+.ideasui-image__img {
+  @apply h-full w-full transition-opacity duration-300;
 }
 
-/* ── Size Modifiers ───────────────────────────────────────────────────────── */
-.image.image--sm {
-  @apply h-8 gap-1.5 rounded-md px-3 text-xs;
+.ideasui-image__img--cover {
+  @apply object-cover;
 }
-.image.image--md {
-  @apply h-10 gap-2 rounded-lg px-4 text-sm;
+.ideasui-image__img--contain {
+  @apply object-contain;
 }
-.image.image--lg {
-  @apply h-12 gap-2.5 rounded-xl px-6 text-base;
+.ideasui-image__img--fill {
+  @apply object-fill;
 }
-
-/* ── Color & Variant Combinations ─────────────────────────────────────────── */
-.image.image--solid.image--primary {
-  @apply bg-primary text-on-primary hover:bg-primary/90;
+.ideasui-image__img--none {
+  @apply object-none;
 }
-.image.image--solid.image--secondary {
-  @apply bg-secondary text-on-secondary hover:bg-secondary/90;
-}
-.image.image--solid.image--success {
-  @apply bg-success text-on-success hover:bg-success/90;
-}
-.image.image--solid.image--warning {
-  @apply bg-warning text-on-warning hover:bg-warning/90;
-}
-.image.image--solid.image--danger {
-  @apply bg-danger text-on-danger hover:bg-danger/90;
-}
-.image.image--solid.image--info {
-  @apply bg-info text-on-info hover:bg-info/90;
+.ideasui-image__img--scale-down {
+  @apply object-scale-down;
 }
 
-.image.image--outline {
-  @apply border-border text-content-primary hover:bg-surface-subtle border bg-transparent;
+.ideasui-image__img--loading {
+  @apply opacity-0;
 }
-.image.image--ghost {
-  @apply text-content-primary hover:bg-surface-subtle bg-transparent;
-}
-.image.image--soft {
-  @apply bg-primary-subtle text-primary hover:bg-primary-subtle/80;
+.ideasui-image__img--loaded {
+  @apply opacity-100;
 }
 
-/* ── State Modifiers ──────────────────────────────────────────────────────── */
-.image.image--disabled {
-  @apply pointer-events-none cursor-not-allowed opacity-50;
+.ideasui-image__blur {
+  @apply absolute inset-0 h-full w-full scale-110 blur-xl transition-opacity duration-500;
+}
+
+.ideasui-image__skeleton {
+  @apply bg-surface-muted absolute inset-0 z-10 animate-pulse;
+}
+
+.ideasui-image__fallback {
+  @apply bg-surface-muted text-content-secondary absolute inset-0 flex items-center justify-center;
+}
+
+/* ── Radius Modifiers ─────────────────────────────────────────────────────── */
+.ideasui-image--radius-none {
+  @apply rounded-none;
+}
+.ideasui-image--radius-sm {
+  @apply rounded-sm;
+}
+.ideasui-image--radius-md {
+  @apply rounded-md;
+}
+.ideasui-image--radius-lg {
+  @apply rounded-lg;
+}
+.ideasui-image--radius-xl {
+  @apply rounded-xl;
+}
+.ideasui-image--radius-full {
+  @apply rounded-full;
+}
+
+/* ── Shadow Modifiers ─────────────────────────────────────────────────────── */
+.ideasui-image--shadow-none {
+  @apply shadow-none;
+}
+.ideasui-image--shadow-sm {
+  @apply shadow-sm;
+}
+.ideasui-image--shadow-md {
+  @apply shadow-md;
+}
+.ideasui-image--shadow-lg {
+  @apply shadow-lg;
+}
+
+/* ── Aspect Ratio Modifiers ──────────────────────────────────────────────── */
+.ideasui-image--aspect-square {
+  @apply aspect-square;
+}
+.ideasui-image--aspect-video {
+  @apply aspect-video;
+}
+
+/* ── Zoom on Hover ────────────────────────────────────────────────────────── */
+.ideasui-image--zoomed .ideasui-image__img {
+  @apply transition-transform duration-500;
+}
+.ideasui-image--zoomed:hover .ideasui-image__img {
+  @apply scale-110;
 }

@@ -11,29 +11,29 @@
 
 ## 1. Executive Summary
 
-| Category                       |     Status      | Details                                                                                                    |
-| :----------------------------- | :-------------: | :--------------------------------------------------------------------------------------------------------- |
-| **Monorepo Build & Typecheck** |   🟢 **PASS**   | 15 packages pass `tsc --noEmit` cleanly without error.                                                     |
-| **Linting (ESLint v9)**        |   🟢 **PASS**   | 0 warnings, 0 errors across all packages (`--max-warnings=0`).                                             |
-| **Unit & Interaction Tests**   |   🟢 **PASS**   | 34 test suites, 434 tests passing cleanly in Vitest.                                                       |
-| **Accessibility (vitest-axe)** |   🟢 **PASS**   | All interactive components test via `expectAccessible` with 0 violations.                                  |
-| **Component Consistency**      |  🟡 **MIXED**   | Architectural split between BEM-driven and Tailwind-driven recipes; compound component naming disparity.   |
-| **Standalone CSS Engine**      | 🔴 **CRITICAL** | `image.css`, `radio.css`, and `switch.css` in theme recipes contain placeholder/copy-pasted Button styles. |
-| **Dependency Hygiene**         |  🟡 **ACTION**  | 6 of 7 component packages declare `react-aria-components` as a dependency but never import it.             |
+| Category                       |   Status    | Details                                                                                                    |
+| :----------------------------- | :---------: | :--------------------------------------------------------------------------------------------------------- |
+| **Monorepo Build & Typecheck** | 🟢 **PASS** | 15 packages pass `tsc --noEmit` cleanly without error.                                                     |
+| **Linting (ESLint v9)**        | 🟢 **PASS** | 0 warnings, 0 errors across all packages (`--max-warnings=0`).                                             |
+| **Unit & Interaction Tests**   | 🟢 **PASS** | 34 test suites, 434 tests passing cleanly in Vitest.                                                       |
+| **Accessibility (vitest-axe)** | 🟢 **PASS** | All interactive components test via `expectAccessible` with 0 violations.                                  |
+| **Component Consistency**      | 🟢 **PASS** | Unified compound component attachments (`.Group`, `.Label`, etc.) and standard BEM DOM classes.            |
+| **Standalone CSS Engine**      | 🟢 **PASS** | Genuine BEM rules for `image.css`, `radio.css`, and `switch.css` compiling cleanly into `@ideasui/styles`. |
+| **Dependency Hygiene**         | 🟢 **PASS** | Phantom `react-aria-components` dependencies removed from all packages that don't import it.               |
 
 ---
 
 ## 2. Component Consistency Audit Matrix
 
-| Component                     |           `displayName` Pattern           |                  Compound Attachment (`Comp.Sub`)                   |         Slot BEM Classes in DOM         |         Recipe Architecture         |                                                         Standalone CSS File Status                                                          | Uses `react-aria-components` | Form Props (`required`, `disabled`, `readonly`, `invalid`) | Axe A11y Tests |
-| :---------------------------- | :---------------------------------------: | :-----------------------------------------------------------------: | :-------------------------------------: | :---------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------: | :--------------------------------------------------------: | :------------: |
-| **`Button`**                  |             `IdeasUI.Button`              |       ✅ `Button.Icon`, `Button.Group`, `Button.Label`, etc.        |           ✅ `.ideasui-btn*`            |    BEM Recipe (`tv` maps to BEM)    |           ✅ Real CSS ([button.css](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/button/button.css))            |  ✅ Yes (`ButtonPrimitive`)  |                           ✅ Yes                           |     ✅ Yes     |
-| **`InputField` / `Textarea`** | `IdeasUI.InputField` / `IdeasUI.Textarea` | ✅ `InputField.Label`, `InputField.Input`, `InputField.Error`, etc. |       ✅ `.ideasui-input-field*`        |    BEM Recipe (`tv` maps to BEM)    |    ✅ Real CSS ([input-field.css](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/input-field/input-field.css))    |   ❌ Unused (Phantom Dep)    |                           ✅ Yes                           |     ✅ Yes     |
-| **`Text`**                    |              `IdeasUI.Text`               |                          ➖ Single element                          |           ✅ `.ideasui-text*`           |    BEM Recipe (`tv` maps to BEM)    |              ✅ Real CSS ([text.css](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/text/text.css))               |   ❌ Unused (Phantom Dep)    |                           ➖ N/A                           |     ✅ Yes     |
-| **`Checkbox`**                |            `IdeasUI.Checkbox`             |          ❌ Only separate exports (`CheckboxGroup`, etc.)           | ❌ Not in DOM (Recipe emits TW classes) | Tailwind Recipe (Dynamic utilities) |                                            ⚠️ Real CSS written, but never applied by component!                                             |   ❌ Unused (Phantom Dep)    |                           ✅ Yes                           |     ✅ Yes     |
-| **`Radio`**                   |              `IdeasUI.Radio`              |            ❌ Only separate exports (`RadioGroup`, etc.)            | ❌ Not in DOM (Recipe emits TW classes) | Tailwind Recipe (Dynamic utilities) |  🔴 Fake / Copy-pasted Button CSS ([radio.css](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/radio/radio.css))   |   ❌ Unused (Phantom Dep)    |                           ✅ Yes                           |     ✅ Yes     |
-| **`Switch`**                  |             `IdeasUI.Switch`              |           ❌ Only separate exports (`SwitchGroup`, etc.)            | ❌ Not in DOM (Recipe emits TW classes) | Tailwind Recipe (Dynamic utilities) | 🔴 Fake / Copy-pasted Button CSS ([switch.css](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/switch/switch.css)) |   ❌ Unused (Phantom Dep)    |                           ✅ Yes                           |     ✅ Yes     |
-| **`Image`**                   |              `IdeasUI.Image`              |                         ✅ `Image.Fallback`                         | ❌ Not in DOM (Recipe emits TW classes) | Tailwind Recipe (Dynamic utilities) |  🔴 Fake / Copy-pasted Button CSS ([image.css](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/image/image.css))   |   ❌ Unused (Phantom Dep)    |                           ➖ N/A                           |     ✅ Yes     |
+| Component                     |           `displayName` Pattern           |                        Compound Attachment (`Comp.Sub`)                         |  Slot BEM Classes in DOM   |        Recipe Architecture         |                                                      Standalone CSS File Status                                                       | Uses `react-aria-components` | Form Props (`required`, `disabled`, `readonly`, `invalid`) | Axe A11y Tests |
+| :---------------------------- | :---------------------------------------: | :-----------------------------------------------------------------------------: | :------------------------: | :--------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------: | :--------------------------: | :--------------------------------------------------------: | :------------: |
+| **`Button`**                  |             `IdeasUI.Button`              |             ✅ `Button.Icon`, `Button.Group`, `Button.Label`, etc.              |     ✅ `.ideasui-btn*`     |   BEM Recipe (`tv` maps to BEM)    |        ✅ Real CSS ([button.css](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/button/button.css))         |  ✅ Yes (`ButtonPrimitive`)  |                           ✅ Yes                           |     ✅ Yes     |
+| **`InputField` / `Textarea`** | `IdeasUI.InputField` / `IdeasUI.Textarea` |       ✅ `InputField.Label`, `InputField.Input`, `InputField.Error`, etc.       | ✅ `.ideasui-input-field*` |   BEM Recipe (`tv` maps to BEM)    | ✅ Real CSS ([input-field.css](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/input-field/input-field.css)) |   ➖ Pruned (Native Prims)   |                           ✅ Yes                           |     ✅ Yes     |
+| **`Text`**                    |              `IdeasUI.Text`               |                                ➖ Single element                                |    ✅ `.ideasui-text*`     |   BEM Recipe (`tv` maps to BEM)    |           ✅ Real CSS ([text.css](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/text/text.css))            |   ➖ Pruned (Native Prims)   |                           ➖ N/A                           |     ✅ Yes     |
+| **`Checkbox`**                |            `IdeasUI.Checkbox`             | ✅ `Checkbox.Group`, `Checkbox.Label`, `Checkbox.Description`, `Checkbox.Error` |  ✅ `.ideasui-checkbox*`   | BEM + TW Recipe (Hybrid utilities) |     ✅ Real CSS ([checkbox.css](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/checkbox/checkbox.css))      |   ➖ Pruned (Native Prims)   |                           ✅ Yes                           |     ✅ Yes     |
+| **`Radio`**                   |              `IdeasUI.Radio`              |       ✅ `Radio.Group`, `Radio.Label`, `Radio.Description`, `Radio.Error`       |    ✅ `.ideasui-radio*`    | BEM + TW Recipe (Hybrid utilities) |          ✅ Real CSS ([radio.css](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/radio/radio.css))          |   ➖ Pruned (Native Prims)   |                           ✅ Yes                           |     ✅ Yes     |
+| **`Switch`**                  |             `IdeasUI.Switch`              |     ✅ `Switch.Group`, `Switch.Label`, `Switch.Description`, `Switch.Error`     |   ✅ `.ideasui-switch*`    | BEM + TW Recipe (Hybrid utilities) |        ✅ Real CSS ([switch.css](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/switch/switch.css))         |   ➖ Pruned (Native Prims)   |                           ✅ Yes                           |     ✅ Yes     |
+| **`Image`**                   |              `IdeasUI.Image`              |                               ✅ `Image.Fallback`                               |    ✅ `.ideasui-image*`    | BEM + TW Recipe (Hybrid utilities) |          ✅ Real CSS ([image.css](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/image/image.css))          |   ➖ Pruned (Native Prims)   |                           ➖ N/A                           |     ✅ Yes     |
 
 ---
 
@@ -147,31 +147,30 @@ In [`packages/components/*/package.json`](file:///Users/hariharan/projects/ideas
 
 ---
 
-## 6. Actionable Recommendations
+## 6. Actionable Recommendations (All Resolved)
 
-### Priority 1: Fix Placeholder CSS Files in Theme Recipes
+### Priority 1: Fix Placeholder CSS Files in Theme Recipes — ✅ RESOLVED
 
-Replace the template button code in:
+Replaced the template button code with genuine, complete BEM rules:
 
-1. [`packages/core/theme/src/recipes/image/image.css`](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/image/image.css) with genuine `.ideasui-image` BEM rules (aspect ratio, skeleton shimmer, blur transition).
-2. [`packages/core/theme/src/recipes/radio/radio.css`](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/radio/radio.css) with `.ideasui-radio` BEM rules (indicator, dot, group orientation).
-3. [`packages/core/theme/src/recipes/switch/switch.css`](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/switch/switch.css) with `.ideasui-switch` BEM rules (track, thumb, label placements).
+1. [`packages/core/theme/src/recipes/image/image.css`](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/image/image.css) — implemented `.ideasui-image`, `.ideasui-image__img`, `.ideasui-image__blur`, `.ideasui-image__skeleton`, `.ideasui-image__fallback`, aspect ratios, and hover zoom.
+2. [`packages/core/theme/src/recipes/radio/radio.css`](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/radio/radio.css) — implemented `.ideasui-radio`, `.ideasui-radio__indicator`, `.ideasui-radio__dot`, `.ideasui-radio__label-text`, color schemes, sizes, and `.ideasui-radio-group*`.
+3. [`packages/core/theme/src/recipes/switch/switch.css`](file:///Users/hariharan/projects/ideasui/packages/core/theme/src/recipes/switch/switch.css) — implemented `.ideasui-switch`, `.ideasui-switch__track`, `.ideasui-switch__thumb`, `.ideasui-switch__thumb-icon`, `.ideasui-switch__on-label`, `.ideasui-switch__off-label`, sizes, thumb shapes, and `.ideasui-switch-group*`.
 
-### Priority 2: Unify Compound Component API
+### Priority 2: Unify Compound Component API — ✅ RESOLVED
 
-Attach subcomponents to `Checkbox`, `Radio`, and `Switch`:
+Attached compound subcomponents to `Checkbox`, `Radio`, and `Switch`:
 
 - `Checkbox.Group`, `Checkbox.Label`, `Checkbox.Description`, `Checkbox.Error`
 - `Radio.Group`, `Radio.Label`, `Radio.Description`, `Radio.Error`
 - `Switch.Group`, `Switch.Label`, `Switch.Description`, `Switch.Error`
 
-### Priority 3: Align Checkbox Recipe with BEM or Align CSS
+Typed via `CheckboxComponent`, `RadioComponent`, and `SwitchComponent` exported from the package roots.
 
-Either:
+### Priority 3: Align Component Slots with BEM Architecture — ✅ RESOLVED
 
-- Add `.ideasui-checkbox*` BEM classes to the slots in `checkbox.ts` (matching `button.ts` and `input-field.ts`), or
-- Refactor `checkbox.css` to align with the active Tailwind class strategy.
+Added `.ideasui-checkbox*`, `.ideasui-radio*`, and `.ideasui-switch*` standard BEM classes directly onto slot elements in `checkbox.tsx`, `radio.tsx`, and `switch.tsx` alongside `data-slot="..."`, perfectly synchronizing React component renders with both Tailwind utilities and standalone CSS stylesheets.
 
-### Priority 4: Dependency Pruning
+### Priority 4: Dependency Pruning — ✅ RESOLVED
 
-Remove `"react-aria-components"` from `package.json` for `checkbox`, `radio`, `switch`, `input-field`, `text`, and `image` if native HTML primitives are the intended architecture for those packages.
+Removed phantom `"react-aria-components"` dependency from `package.json` across 6 packages (`checkbox`, `radio`, `switch`, `input-field`, `text`, `image`) where native HTML primitives are the intended architecture. Cleaned lockfile via `pnpm install`.

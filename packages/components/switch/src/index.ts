@@ -11,6 +11,7 @@ export {
 
 export type {
   SwitchProps,
+  SwitchComponent,
   SwitchGroupProps,
   SwitchGroupLabelProps,
   SwitchGroupDescriptionProps,

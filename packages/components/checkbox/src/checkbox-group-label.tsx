@@ -19,7 +19,7 @@ export const CheckboxGroupLabel = forwardRef<HTMLSpanElement, CheckboxGroupLabel
       <span
         {...otherProperties}
         ref={reference}
-        className={cn(styles.groupLabel(), className)}
+        className={cn(styles.groupLabel(), 'ideasui-checkbox-group__label', className)}
         data-disabled={isDisabled || undefined}
         data-slot="group-label"
         id={groupLabelId}

@@ -23,7 +23,7 @@ export const RadioGroupDescription = forwardRef<HTMLParagraphElement, RadioGroup
       <p
         {...otherProperties}
         ref={reference}
-        className={cn(groupStyles.description(), className)}
+        className={cn(groupStyles.description(), 'ideasui-radio-group__description', className)}
         data-slot="radio-group-description"
         id={groupDescriptionId}
       >

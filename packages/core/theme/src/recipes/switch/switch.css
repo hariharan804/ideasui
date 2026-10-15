@@ -5,57 +5,227 @@
  */
 
 /* ── Base Block ───────────────────────────────────────────────────────────── */
-.switch {
-  @apply focus-visible:ring-primary relative inline-flex cursor-pointer items-center justify-center font-medium transition-all duration-200 ease-in-out select-none focus-visible:ring-2 focus-visible:outline-none active:scale-98;
+.ideasui-switch {
+  @apply inline-flex w-fit cursor-pointer items-center gap-2 select-none;
 }
 
-/* ── Elements ─────────────────────────────────────────────────────────────── */
-.switch__content {
-  @apply inline-flex items-center truncate;
+/* ── Track Element ────────────────────────────────────────────────────────── */
+.ideasui-switch__track {
+  @apply relative inline-flex shrink-0 items-center transition-all duration-200 ease-in-out;
+}
+
+/* Focus Visible state on track */
+.ideasui-switch:has(:focus-visible) .ideasui-switch__track {
+  @apply ring-border-focus ring-2 ring-offset-2;
+}
+
+.ideasui-switch:hover:not([data-disabled='true']) .ideasui-switch__track {
+  @apply scale-105;
+}
+
+/* ── Thumb Element ────────────────────────────────────────────────────────── */
+.ideasui-switch__thumb {
+  @apply text-content-primary pointer-events-none absolute z-10 flex items-center justify-center transition-all duration-200 ease-in-out;
+}
+
+.ideasui-switch__thumb-icon {
+  @apply pointer-events-none flex size-full shrink-0 items-center justify-center p-0.5 text-current transition-transform duration-200;
+}
+
+/* ── On / Off Labels ──────────────────────────────────────────────────────── */
+.ideasui-switch__on-label {
+  @apply text-content-inverse pointer-events-none absolute z-0 leading-none font-bold tracking-wider uppercase select-none;
+}
+.ideasui-switch__off-label {
+  @apply text-content-muted pointer-events-none absolute z-0 leading-none font-bold tracking-wider uppercase select-none;
+}
+
+/* ── Label Text Element ───────────────────────────────────────────────────── */
+.ideasui-switch__label-text {
+  @apply text-content-primary leading-none transition-colors duration-150;
+}
+
+/* ── Variants ─────────────────────────────────────────────────────────────── */
+/* Solid */
+.ideasui-switch--solid .ideasui-switch__track {
+  @apply bg-surface-muted;
+}
+.ideasui-switch--solid .ideasui-switch__thumb {
+  @apply bg-surface text-content-primary shadow-sm;
+}
+
+/* Outline */
+.ideasui-switch--outline .ideasui-switch__track {
+  @apply border-border border-2 bg-transparent;
+}
+.ideasui-switch--outline .ideasui-switch__thumb {
+  @apply bg-content-muted text-content-inverse;
+}
+
+/* Soft */
+.ideasui-switch--soft .ideasui-switch__track {
+  @apply bg-surface-subtle;
+}
+.ideasui-switch--soft .ideasui-switch__thumb {
+  @apply bg-content-muted text-content-inverse;
+}
+
+/* Contrast */
+.ideasui-switch--contrast .ideasui-switch__track {
+  @apply bg-surface-muted;
+}
+.ideasui-switch--contrast .ideasui-switch__thumb {
+  @apply bg-surface text-content-primary shadow-sm;
+}
+
+/* ── Color Schemes When Selected (Solid) ─────────────────────────────────── */
+.ideasui-switch[data-selected='true'].ideasui-switch--primary .ideasui-switch__track,
+.ideasui-switch--solid.ideasui-switch--primary[data-selected='true'] .ideasui-switch__track {
+  @apply bg-primary;
+}
+
+.ideasui-switch[data-selected='true'].ideasui-switch--neutral .ideasui-switch__track,
+.ideasui-switch--solid.ideasui-switch--neutral[data-selected='true'] .ideasui-switch__track {
+  @apply bg-neutral;
+}
+
+.ideasui-switch[data-selected='true'].ideasui-switch--success .ideasui-switch__track,
+.ideasui-switch--solid.ideasui-switch--success[data-selected='true'] .ideasui-switch__track {
+  @apply bg-success;
+}
+
+.ideasui-switch[data-selected='true'].ideasui-switch--warning .ideasui-switch__track,
+.ideasui-switch--solid.ideasui-switch--warning[data-selected='true'] .ideasui-switch__track {
+  @apply bg-warning;
+}
+
+.ideasui-switch[data-selected='true'].ideasui-switch--danger .ideasui-switch__track,
+.ideasui-switch--solid.ideasui-switch--danger[data-selected='true'] .ideasui-switch__track {
+  @apply bg-danger;
 }
 
 /* ── Size Modifiers ───────────────────────────────────────────────────────── */
-.switch.switch--sm {
-  @apply h-8 gap-1.5 rounded-md px-3 text-xs;
+/* SM */
+.ideasui-switch--sm .ideasui-switch__track {
+  @apply h-5 w-9.5;
 }
-.switch.switch--md {
-  @apply h-10 gap-2 rounded-lg px-4 text-sm;
+.ideasui-switch--sm .ideasui-switch__thumb {
+  @apply top-0.5 left-0.5 h-4 w-4;
 }
-.switch.switch--lg {
-  @apply h-12 gap-2.5 rounded-xl px-6 text-base;
+.ideasui-switch--sm[data-selected='true'] .ideasui-switch__thumb {
+  @apply translate-x-4.5;
 }
-
-/* ── Color & Variant Combinations ─────────────────────────────────────────── */
-.switch.switch--solid.switch--primary {
-  @apply bg-primary text-on-primary hover:bg-primary/90;
+.ideasui-switch--sm .ideasui-switch__on-label {
+  @apply left-1.5 text-[8px];
 }
-.switch.switch--solid.switch--secondary {
-  @apply bg-secondary text-on-secondary hover:bg-secondary/90;
+.ideasui-switch--sm .ideasui-switch__off-label {
+  @apply right-1.5 text-[8px];
 }
-.switch.switch--solid.switch--success {
-  @apply bg-success text-on-success hover:bg-success/90;
-}
-.switch.switch--solid.switch--warning {
-  @apply bg-warning text-on-warning hover:bg-warning/90;
-}
-.switch.switch--solid.switch--danger {
-  @apply bg-danger text-on-danger hover:bg-danger/90;
-}
-.switch.switch--solid.switch--info {
-  @apply bg-info text-on-info hover:bg-info/90;
+.ideasui-switch--sm .ideasui-switch__label-text {
+  @apply text-xs;
 }
 
-.switch.switch--outline {
-  @apply border-border text-content-primary hover:bg-surface-subtle border bg-transparent;
+/* MD */
+.ideasui-switch--md .ideasui-switch__track {
+  @apply h-6 w-12;
 }
-.switch.switch--ghost {
-  @apply text-content-primary hover:bg-surface-subtle bg-transparent;
+.ideasui-switch--md .ideasui-switch__thumb {
+  @apply top-0.5 left-0.5 h-5 w-5;
 }
-.switch.switch--soft {
-  @apply bg-primary-subtle text-primary hover:bg-primary-subtle/80;
+.ideasui-switch--md[data-selected='true'] .ideasui-switch__thumb {
+  @apply translate-x-6;
+}
+.ideasui-switch--md .ideasui-switch__on-label {
+  @apply left-2 text-[9px];
+}
+.ideasui-switch--md .ideasui-switch__off-label {
+  @apply right-2 text-[9px];
+}
+.ideasui-switch--md .ideasui-switch__label-text {
+  @apply text-sm;
 }
 
-/* ── State Modifiers ──────────────────────────────────────────────────────── */
-.switch.switch--disabled {
+/* LG */
+.ideasui-switch--lg .ideasui-switch__track {
+  @apply h-7 w-14.5;
+}
+.ideasui-switch--lg .ideasui-switch__thumb {
+  @apply top-0.5 left-0.5 h-6 w-6;
+}
+.ideasui-switch--lg[data-selected='true'] .ideasui-switch__thumb {
+  @apply translate-x-7.5;
+}
+.ideasui-switch--lg .ideasui-switch__on-label {
+  @apply left-2.5 text-[10px];
+}
+.ideasui-switch--lg .ideasui-switch__off-label {
+  @apply right-2.5 text-[10px];
+}
+.ideasui-switch--lg .ideasui-switch__label-text {
+  @apply text-base;
+}
+
+/* ── Thumb Shapes ─────────────────────────────────────────────────────────── */
+.ideasui-switch--shape-full .ideasui-switch__track,
+.ideasui-switch--shape-full .ideasui-switch__thumb,
+.ideasui-switch--shape-pill .ideasui-switch__track,
+.ideasui-switch--shape-pill .ideasui-switch__thumb {
+  @apply rounded-full;
+}
+
+.ideasui-switch--shape-square .ideasui-switch__track,
+.ideasui-switch--shape-rectangle .ideasui-switch__track {
+  @apply rounded-md;
+}
+.ideasui-switch--shape-square .ideasui-switch__thumb,
+.ideasui-switch--shape-rectangle .ideasui-switch__thumb {
+  @apply rounded-sm;
+}
+
+/* ── States ───────────────────────────────────────────────────────────────── */
+.ideasui-switch.ideasui-switch--invalid .ideasui-switch__track,
+.ideasui-switch[data-invalid='true'] .ideasui-switch__track {
+  @apply border-danger;
+}
+.ideasui-switch.ideasui-switch--invalid[data-selected='true'] .ideasui-switch__track,
+.ideasui-switch[data-invalid='true'][data-selected='true'] .ideasui-switch__track {
+  @apply bg-danger;
+}
+.ideasui-switch.ideasui-switch--invalid .ideasui-switch__label-text,
+.ideasui-switch[data-invalid='true'] .ideasui-switch__label-text {
+  @apply text-danger;
+}
+
+.ideasui-switch.ideasui-switch--disabled,
+.ideasui-switch[data-disabled='true'] {
   @apply pointer-events-none cursor-not-allowed opacity-50;
+}
+
+/* ── Switch Group BEM Block & Elements ───────────────────────────────────── */
+.ideasui-switch-group {
+  @apply m-0 flex w-full min-w-0 flex-col gap-2 border-0 p-0;
+}
+.ideasui-switch-group__label {
+  @apply text-content-primary text-sm font-medium;
+}
+.ideasui-switch-group__items {
+  @apply flex gap-2;
+}
+.ideasui-switch-group--vertical .ideasui-switch-group__items {
+  @apply flex-col;
+}
+.ideasui-switch-group--horizontal .ideasui-switch-group__items {
+  @apply flex-row flex-wrap;
+}
+.ideasui-switch-group__description {
+  @apply text-content-secondary text-xs leading-normal;
+}
+.ideasui-switch-group__error {
+  @apply text-danger text-xs leading-normal;
+}
+.ideasui-switch-group.ideasui-switch-group--invalid .ideasui-switch-group__label {
+  @apply text-danger;
+}
+.ideasui-switch-group.ideasui-switch-group--disabled {
+  @apply pointer-events-none opacity-50;
 }

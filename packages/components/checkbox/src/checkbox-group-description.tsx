@@ -25,7 +25,7 @@ export const CheckboxGroupDescription = forwardRef<
     <p
       {...otherProperties}
       ref={reference}
-      className={cn(styles.description(), className)}
+      className={cn(styles.description(), 'ideasui-checkbox-group__description', className)}
       data-slot="group-description"
       id={groupDescriptionId}
       slot="description"

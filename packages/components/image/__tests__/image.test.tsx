@@ -338,4 +338,36 @@ describe('Image Component', () => {
 
     expect(wrapper).toHaveAttribute('aria-busy', 'true');
   });
+
+  it('does not have box shadow by default', () => {
+    render(
+      <Image
+        alt="Default image"
+        slotProps={{ root: { 'data-testid': 'no-shadow-image' } }}
+        src="/photo.jpg"
+      />,
+    );
+
+    const root = screen.getByTestId('no-shadow-image');
+
+    expect(root).not.toHaveClass('ideasui-image--shadow-sm');
+    expect(root).not.toHaveClass('ideasui-image--shadow-md');
+    expect(root).not.toHaveClass('ideasui-image--shadow-lg');
+  });
+
+  it('applies shadow modifier only when shadow prop is explicitly provided', () => {
+    render(
+      <Image
+        alt="Shadowed image"
+        shadow="md"
+        slotProps={{ root: { 'data-testid': 'shadow-image' } }}
+        src="/photo.jpg"
+      />,
+    );
+
+    const root = screen.getByTestId('shadow-image');
+
+    expect(root).toHaveClass('ideasui-image--shadow-md');
+    expect(root).toHaveClass('shadow-md');
+  });
 });

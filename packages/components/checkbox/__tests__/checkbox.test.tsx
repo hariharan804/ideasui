@@ -37,6 +37,11 @@ describe('Checkbox', () => {
     expect(CheckboxGroupLabel.displayName).toBe('IdeasUI.CheckboxGroupLabel');
     expect(CheckboxGroupDescription.displayName).toBe('IdeasUI.CheckboxGroupDescription');
     expect(CheckboxGroupError.displayName).toBe('IdeasUI.CheckboxGroupError');
+
+    expect(Checkbox.Group).toBe(CheckboxGroup);
+    expect(Checkbox.Label).toBe(CheckboxGroupLabel);
+    expect(Checkbox.Description).toBe(CheckboxGroupDescription);
+    expect(Checkbox.Error).toBe(CheckboxGroupError);
   });
 
   it('should forward ref to native HTMLInputElement', () => {

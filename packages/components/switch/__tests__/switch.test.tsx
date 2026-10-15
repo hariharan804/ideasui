@@ -44,6 +44,11 @@ describe('Switch Component', () => {
     expect(SwitchGroupLabel.displayName).toBe('IdeasUI.SwitchGroupLabel');
     expect(SwitchGroupDescription.displayName).toBe('IdeasUI.SwitchGroupDescription');
     expect(SwitchGroupError.displayName).toBe('IdeasUI.SwitchGroupError');
+
+    expect(Switch.Group).toBe(SwitchGroup);
+    expect(Switch.Label).toBe(SwitchGroupLabel);
+    expect(Switch.Description).toBe(SwitchGroupDescription);
+    expect(Switch.Error).toBe(SwitchGroupError);
   });
 
   it('should forward ref to native input element', () => {

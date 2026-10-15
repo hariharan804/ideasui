@@ -1,5 +1,16 @@
-import type { CSSProperties, HTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
+import type {
+  CSSProperties,
+  ForwardRefExoticComponent,
+  HTMLAttributes,
+  InputHTMLAttributes,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 import type { CheckboxReturnType } from '@ideasui/theme/recipes';
+import type { CheckboxGroup } from './checkbox-group';
+import type { CheckboxGroupDescription } from './checkbox-group-description';
+import type { CheckboxGroupError } from './checkbox-group-error';
+import type { CheckboxGroupLabel } from './checkbox-group-label';
 
 export type { CheckboxReturnType } from '@ideasui/theme/recipes';
 
@@ -301,4 +312,28 @@ export interface CheckboxGroupContextValue {
   readonly selectedValues?: string[];
   readonly onGroupChange?: (value: string, checked: boolean) => void;
   readonly styles?: CheckboxReturnType;
+}
+
+/**
+ * Component interface for `Checkbox` with attached compound components.
+ */
+export interface CheckboxComponent extends ForwardRefExoticComponent<
+  CheckboxProps & RefAttributes<HTMLInputElement>
+> {
+  /**
+   * Component for grouping multiple checkboxes with coordinated state.
+   */
+  Group: typeof CheckboxGroup;
+  /**
+   * Label component for the checkbox group.
+   */
+  Label: typeof CheckboxGroupLabel;
+  /**
+   * Helper description component for the checkbox group.
+   */
+  Description: typeof CheckboxGroupDescription;
+  /**
+   * Error message component for the checkbox group.
+   */
+  Error: typeof CheckboxGroupError;
 }
