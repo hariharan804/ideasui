@@ -19,7 +19,7 @@ export const RadioGroupLabel = forwardRef<HTMLLegendElement, RadioGroupLabelProp
       <legend
         {...otherProperties}
         ref={reference}
-        className={cn(groupStyles.groupLabel(), className)}
+        className={cn(groupStyles.groupLabel(), 'ideasui-radio-group__label', className)}
         data-slot="radio-group-label"
         id={groupLabelId}
       >

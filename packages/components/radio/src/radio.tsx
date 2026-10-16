@@ -1,6 +1,7 @@
 'use client';
 
 import type {
+  RadioComponent,
   RadioGroupContextValue,
   RadioProps,
   RadioReturnType,
@@ -13,6 +14,10 @@ import { radio as radioRecipe } from '@ideasui/theme/recipes';
 import { cn, mergeRefs, omit, renderIcon } from '@ideasui/utils';
 
 import { useRadioGroupContext } from './radio-context';
+import { RadioGroup } from './radio-group';
+import { RadioGroupDescription } from './radio-group-description';
+import { RadioGroupError } from './radio-group-error';
+import { RadioGroupLabel } from './radio-group-label';
 
 interface ResolvedProps {
   variant: RadioVariant;
@@ -218,7 +223,7 @@ function renderRadioInput({
       {...otherProperties}
       ref={setRefs}
       checked={resolved.isSelected}
-      className={cn('sr-only', classNames?.input, slotProps?.input?.className)}
+      className={cn('ideasui-radio__input sr-only', classNames?.input, slotProps?.input?.className)}
       data-slot="radio-input"
       disabled={resolved.isDisabled}
       id={inputId}
@@ -254,12 +259,23 @@ function renderRadioLayout({
 }: RenderRadioLayoutProps): JSX.Element {
   const { className, classNames, slotProps, style, children, icon } = properties;
 
-  const iconClassName = cn(styles.dot(), classNames?.icon, slotProps?.icon?.className);
+  const iconClassName = cn(
+    styles.dot(),
+    'ideasui-radio__dot',
+    classNames?.icon,
+    slotProps?.icon?.className,
+  );
 
   return (
     <label
       {...slotProps?.root}
-      className={cn(styles.root(), classNames?.root, slotProps?.root?.className, className)}
+      className={cn(
+        styles.root(),
+        'ideasui-radio',
+        classNames?.root,
+        slotProps?.root?.className,
+        className,
+      )}
       data-disabled={resolved.isDisabled || undefined}
       data-invalid={resolved.isInvalid || undefined}
       data-readonly={resolved.isReadOnly || undefined}
@@ -278,7 +294,12 @@ function renderRadioLayout({
       <span
         aria-hidden="true"
         {...slotProps?.indicator}
-        className={cn(styles.indicator(), classNames?.indicator, slotProps?.indicator?.className)}
+        className={cn(
+          styles.indicator(),
+          'ideasui-radio__indicator',
+          classNames?.indicator,
+          slotProps?.indicator?.className,
+        )}
         data-slot="radio-indicator"
       >
         {renderRadioDot(icon, iconClassName, slotProps?.icon)}
@@ -286,7 +307,12 @@ function renderRadioLayout({
       {children ? (
         <span
           {...slotProps?.labelText}
-          className={cn(styles.labelText(), classNames?.labelText, slotProps?.labelText?.className)}
+          className={cn(
+            styles.labelText(),
+            'ideasui-radio__label-text',
+            classNames?.labelText,
+            slotProps?.labelText?.className,
+          )}
           data-slot="radio-label-text"
         >
           {children}
@@ -296,28 +322,33 @@ function renderRadioLayout({
   );
 }
 
-export const Radio = forwardRef<HTMLInputElement, RadioProps>(
-  (properties, reference): JSX.Element => {
-    const control = useRadioControl(properties, reference);
-    const styles = radioRecipe({
-      variant: control.resolved.variant,
-      color: control.resolved.color,
-      size: control.resolved.size,
-      radius: control.resolved.radius,
-      isDisabled: control.resolved.isDisabled,
-      isInvalid: control.resolved.isInvalid,
-    });
+const RadioBase = forwardRef<HTMLInputElement, RadioProps>((properties, reference): JSX.Element => {
+  const control = useRadioControl(properties, reference);
+  const styles = radioRecipe({
+    variant: control.resolved.variant,
+    color: control.resolved.color,
+    size: control.resolved.size,
+    radius: control.resolved.radius,
+    isDisabled: control.resolved.isDisabled,
+    isInvalid: control.resolved.isInvalid,
+  });
 
-    return renderRadioLayout({
-      properties,
-      resolved: control.resolved,
-      inputId: control.inputId,
-      setRefs: control.setRefs,
-      handleClick: control.handleClick,
-      handleChange: control.handleChange,
-      styles,
-    });
-  },
-);
+  return renderRadioLayout({
+    properties,
+    resolved: control.resolved,
+    inputId: control.inputId,
+    setRefs: control.setRefs,
+    handleClick: control.handleClick,
+    handleChange: control.handleChange,
+    styles,
+  });
+});
 
-Radio.displayName = 'IdeasUI.Radio';
+RadioBase.displayName = 'IdeasUI.Radio';
+
+export const Radio = RadioBase as RadioComponent;
+
+Radio.Group = RadioGroup;
+Radio.Label = RadioGroupLabel;
+Radio.Description = RadioGroupDescription;
+Radio.Error = RadioGroupError;

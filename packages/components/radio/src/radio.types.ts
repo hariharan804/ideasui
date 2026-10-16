@@ -1,5 +1,16 @@
-import type { CSSProperties, HTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
+import type {
+  CSSProperties,
+  ForwardRefExoticComponent,
+  HTMLAttributes,
+  InputHTMLAttributes,
+  ReactNode,
+  RefAttributes,
+} from 'react';
 import type { RadioReturnType } from '@ideasui/theme/recipes';
+import type { RadioGroup } from './radio-group';
+import type { RadioGroupDescription } from './radio-group-description';
+import type { RadioGroupError } from './radio-group-error';
+import type { RadioGroupLabel } from './radio-group-label';
 
 export type { RadioReturnType } from '@ideasui/theme/recipes';
 
@@ -303,4 +314,28 @@ export interface RadioGroupContextValue {
   readonly selectedValue?: string;
   readonly onGroupChange?: (value: string) => void;
   readonly styles?: RadioReturnType;
+}
+
+/**
+ * Component interface for `Radio` with attached compound components.
+ */
+export interface RadioComponent extends ForwardRefExoticComponent<
+  RadioProps & RefAttributes<HTMLInputElement>
+> {
+  /**
+   * Component for grouping multiple radio buttons with coordinated selection.
+   */
+  Group: typeof RadioGroup;
+  /**
+   * Label component for the radio group.
+   */
+  Label: typeof RadioGroupLabel;
+  /**
+   * Helper description component for the radio group.
+   */
+  Description: typeof RadioGroupDescription;
+  /**
+   * Error message component for the radio group.
+   */
+  Error: typeof RadioGroupError;
 }

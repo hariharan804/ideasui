@@ -37,7 +37,7 @@ export const image = tv({
     },
 
     shadow: {
-      none: { wrapper: 'shadow-none' },
+      none: { wrapper: '' },
       sm: { wrapper: 'shadow-sm' },
       md: { wrapper: 'shadow-md' },
       lg: { wrapper: 'shadow-lg' },

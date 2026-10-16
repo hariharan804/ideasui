@@ -24,7 +24,7 @@ export const CheckboxGroupError = forwardRef<HTMLParagraphElement, CheckboxGroup
         {...otherProperties}
         ref={reference}
         aria-live="polite"
-        className={cn(styles.errorMessage(), className)}
+        className={cn(styles.errorMessage(), 'ideasui-checkbox-group__error', className)}
         data-slot="group-error"
         id={groupErrorId}
         role="alert"

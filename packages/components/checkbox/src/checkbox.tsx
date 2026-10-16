@@ -1,6 +1,7 @@
 'use client';
 
 import type {
+  CheckboxComponent,
   CheckboxGroupContextValue,
   CheckboxProps,
   CheckboxReturnType,
@@ -13,6 +14,10 @@ import { checkbox as checkboxRecipe } from '@ideasui/theme/recipes';
 import { cn, mergeRefs, omit, renderIcon } from '@ideasui/utils';
 
 import { useCheckboxGroupContext } from './checkbox-context';
+import { CheckboxGroup } from './checkbox-group';
+import { CheckboxGroupDescription } from './checkbox-group-description';
+import { CheckboxGroupError } from './checkbox-group-error';
+import { CheckboxGroupLabel } from './checkbox-group-label';
 
 const CheckIcon = ({ className }: { className?: string }): JSX.Element => (
   <svg
@@ -240,7 +245,11 @@ function renderCheckboxInput({
       aria-invalid={resolved.isInvalid || undefined}
       aria-required={resolved.isRequired || undefined}
       checked={resolved.isSelected}
-      className={cn('sr-only', classNames?.input, slotProps?.input?.className)}
+      className={cn(
+        'ideasui-checkbox__input sr-only',
+        classNames?.input,
+        slotProps?.input?.className,
+      )}
       data-slot="checkbox-input"
       disabled={resolved.isDisabled}
       id={inputId}
@@ -282,12 +291,23 @@ function renderCheckboxLayout({
     indeterminateIcon,
   } = properties;
 
-  const iconClassName = cn(styles.icon(), classNames?.icon, slotProps?.icon?.className);
+  const iconClassName = cn(
+    styles.icon(),
+    'ideasui-checkbox__icon',
+    classNames?.icon,
+    slotProps?.icon?.className,
+  );
 
   return (
     <label
       {...slotProps?.root}
-      className={cn(styles.root(), classNames?.root, slotProps?.root?.className, className)}
+      className={cn(
+        styles.root(),
+        'ideasui-checkbox',
+        classNames?.root,
+        slotProps?.root?.className,
+        className,
+      )}
       data-disabled={resolved.isDisabled || undefined}
       data-indeterminate={isIndeterminate || undefined}
       data-invalid={resolved.isInvalid || undefined}
@@ -300,7 +320,12 @@ function renderCheckboxLayout({
       <span
         aria-hidden="true"
         {...slotProps?.indicator}
-        className={cn(styles.indicator(), classNames?.indicator, slotProps?.indicator?.className)}
+        className={cn(
+          styles.indicator(),
+          'ideasui-checkbox__indicator',
+          classNames?.indicator,
+          slotProps?.indicator?.className,
+        )}
         data-slot="checkbox-indicator"
       >
         {renderCheckboxIndicatorIcon({
@@ -316,7 +341,12 @@ function renderCheckboxLayout({
       {children ? (
         <span
           {...slotProps?.labelText}
-          className={cn(styles.labelText(), classNames?.labelText, slotProps?.labelText?.className)}
+          className={cn(
+            styles.labelText(),
+            'ideasui-checkbox__label-text',
+            classNames?.labelText,
+            slotProps?.labelText?.className,
+          )}
           data-slot="checkbox-label-text"
         >
           {children}
@@ -326,7 +356,7 @@ function renderCheckboxLayout({
   );
 }
 
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+const CheckboxBase = forwardRef<HTMLInputElement, CheckboxProps>(
   (properties, reference): JSX.Element => {
     const control = useCheckboxControl(properties, reference);
     const styles = checkboxRecipe({
@@ -349,4 +379,11 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   },
 );
 
-Checkbox.displayName = 'IdeasUI.Checkbox';
+CheckboxBase.displayName = 'IdeasUI.Checkbox';
+
+export const Checkbox = CheckboxBase as CheckboxComponent;
+
+Checkbox.Group = CheckboxGroup;
+Checkbox.Label = CheckboxGroupLabel;
+Checkbox.Description = CheckboxGroupDescription;
+Checkbox.Error = CheckboxGroupError;

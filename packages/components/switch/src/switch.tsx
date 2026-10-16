@@ -2,6 +2,7 @@
 
 import type {
   SwitchClassNames,
+  SwitchComponent,
   SwitchGroupContextValue,
   SwitchProps,
   SwitchReturnType,
@@ -15,6 +16,10 @@ import { switchRecipe } from '@ideasui/theme/recipes';
 import { cn, mergeRefs, omit, renderIcon } from '@ideasui/utils';
 
 import { useSwitchGroupContext } from './switch-context';
+import { SwitchGroup } from './switch-group';
+import { SwitchGroupDescription } from './switch-group-description';
+import { SwitchGroupError } from './switch-group-error';
+import { SwitchGroupLabel } from './switch-group-label';
 
 interface ResolvedProps {
   variant: SwitchVariant;
@@ -120,13 +125,23 @@ function renderSwitchTrack({
     <span
       aria-hidden="true"
       {...slotProps?.track}
-      className={cn(styles.track(), classNames?.track, slotProps?.track?.className)}
+      className={cn(
+        styles.track(),
+        'ideasui-switch__track',
+        classNames?.track,
+        slotProps?.track?.className,
+      )}
       data-slot="switch-track"
     >
       {onLabel && isSelected ? (
         <span
           {...slotProps?.onLabel}
-          className={cn(styles.onLabel(), classNames?.onLabel, slotProps?.onLabel?.className)}
+          className={cn(
+            styles.onLabel(),
+            'ideasui-switch__on-label',
+            classNames?.onLabel,
+            slotProps?.onLabel?.className,
+          )}
           data-slot="switch-on-label"
         >
           {onLabel}
@@ -134,7 +149,12 @@ function renderSwitchTrack({
       ) : null}
       <span
         {...slotProps?.thumb}
-        className={cn(styles.thumb(), classNames?.thumb, slotProps?.thumb?.className)}
+        className={cn(
+          styles.thumb(),
+          'ideasui-switch__thumb',
+          classNames?.thumb,
+          slotProps?.thumb?.className,
+        )}
         data-slot="switch-thumb"
       >
         {renderSwitchThumbIcon({
@@ -148,7 +168,12 @@ function renderSwitchTrack({
       {offLabel && !isSelected ? (
         <span
           {...slotProps?.offLabel}
-          className={cn(styles.offLabel(), classNames?.offLabel, slotProps?.offLabel?.className)}
+          className={cn(
+            styles.offLabel(),
+            'ideasui-switch__off-label',
+            classNames?.offLabel,
+            slotProps?.offLabel?.className,
+          )}
           data-slot="switch-off-label"
         >
           {offLabel}
@@ -275,7 +300,13 @@ function renderSwitchLayout({
   return (
     <label
       {...slotProps?.root}
-      className={cn(styles.root(), classNames?.root, slotProps?.root?.className, className)}
+      className={cn(
+        styles.root(),
+        'ideasui-switch',
+        classNames?.root,
+        slotProps?.root?.className,
+        className,
+      )}
       data-disabled={resolved.isDisabled || undefined}
       data-invalid={resolved.isInvalid || undefined}
       data-readonly={resolved.isReadOnly || undefined}
@@ -291,7 +322,11 @@ function renderSwitchLayout({
         aria-invalid={resolved.isInvalid || undefined}
         aria-required={resolved.isRequired || undefined}
         checked={resolved.isSelected}
-        className={cn('sr-only', classNames?.input, slotProps?.input?.className)}
+        className={cn(
+          'ideasui-switch__input sr-only',
+          classNames?.input,
+          slotProps?.input?.className,
+        )}
         data-slot="switch-input"
         disabled={resolved.isDisabled}
         id={inputId}
@@ -318,7 +353,12 @@ function renderSwitchLayout({
       {children ? (
         <span
           {...slotProps?.labelText}
-          className={cn(styles.labelText(), classNames?.labelText, slotProps?.labelText?.className)}
+          className={cn(
+            styles.labelText(),
+            'ideasui-switch__label-text',
+            classNames?.labelText,
+            slotProps?.labelText?.className,
+          )}
           data-slot="switch-label-text"
         >
           {children}
@@ -328,7 +368,7 @@ function renderSwitchLayout({
   );
 }
 
-export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
+const SwitchBase = forwardRef<HTMLInputElement, SwitchProps>(
   (properties, reference): JSX.Element => {
     const control = useSwitchControl(properties, reference);
 
@@ -355,4 +395,11 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
   },
 );
 
-Switch.displayName = 'IdeasUI.Switch';
+SwitchBase.displayName = 'IdeasUI.Switch';
+
+export const Switch = SwitchBase as SwitchComponent;
+
+Switch.Group = SwitchGroup;
+Switch.Label = SwitchGroupLabel;
+Switch.Description = SwitchGroupDescription;
+Switch.Error = SwitchGroupError;

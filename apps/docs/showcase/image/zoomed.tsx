@@ -11,7 +11,6 @@ export default function ImageZoomedDemo(): JSX.Element {
         alt="Hover to zoom"
         aspectRatio="video"
         radius="lg"
-        shadow="md"
         src="https://picsum.photos/seed/zoom/800/600"
         style={{ width: 400 }}
       />

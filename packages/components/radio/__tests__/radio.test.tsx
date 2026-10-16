@@ -19,6 +19,14 @@ describe('Radio', () => {
   it('should set correct displayName', () => {
     expect(Radio.displayName).toBe('IdeasUI.Radio');
     expect(RadioGroup.displayName).toBe('IdeasUI.RadioGroup');
+    expect(RadioGroupLabel.displayName).toBe('IdeasUI.RadioGroupLabel');
+    expect(RadioGroupDescription.displayName).toBe('IdeasUI.RadioGroupDescription');
+    expect(RadioGroupError.displayName).toBe('IdeasUI.RadioGroupError');
+
+    expect(Radio.Group).toBe(RadioGroup);
+    expect(Radio.Label).toBe(RadioGroupLabel);
+    expect(Radio.Description).toBe(RadioGroupDescription);
+    expect(Radio.Error).toBe(RadioGroupError);
   });
 
   it('should forward ref correctly to native input', () => {

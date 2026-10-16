@@ -251,13 +251,24 @@ export interface ImageProps extends Omit<HTMLAttributes<HTMLDivElement>, 'childr
   readonly children?: ReactNode;
 }
 
+/**
+ * Props for the `ImageFallback` component.
+ */
 export interface ImageFallbackProps extends HTMLAttributes<HTMLDivElement> {
   /**
    * Fallback content — icon, text, or any ReactNode.
+   * If omitted, a default broken image icon is rendered.
    */
   readonly children?: ReactNode;
 
+  /**
+   * Custom CSS class names merged via `cn()` on the fallback element.
+   */
   readonly className?: string;
+
+  /**
+   * Inline styles applied to the fallback element.
+   */
   readonly style?: CSSProperties;
 }
 

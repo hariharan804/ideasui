@@ -23,7 +23,7 @@ export const SwitchGroupError = forwardRef<HTMLParagraphElement, SwitchGroupErro
         {...properties}
         ref={reference}
         aria-live="polite"
-        className={cn(styles.errorMessage(), className)}
+        className={cn(styles.errorMessage(), 'ideasui-switch-group__error', className)}
         data-slot="group-error"
         id={groupErrorId}
         role="alert"

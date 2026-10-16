@@ -56,8 +56,7 @@
   },
   "dependencies": {
     "@ideasui/theme": "workspace:*",
-    "@ideasui/utils": "workspace:*",
-    "react-aria-components": "^1.16.0"
+    "@ideasui/utils": "workspace:*"
   },
   "devDependencies": {
     "clean-package": "^2.2.0",
