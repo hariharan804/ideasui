@@ -3,8 +3,13 @@
  */
 export const siteConfig = {
   name: 'IdeasUI',
-  description: 'A beautiful, accessible, and premium React component library built on React Aria.',
+  description:
+    'IdeasUI is a free, open-source React component library built on Tailwind CSS v4, React Aria, and OKLCH design tokens. Ship accessible, production-ready UI fast.',
   url: 'https://ideasui.com',
+  publisher: 'IdeasUI',
+  twitterHandle: '@ideasui',
+  logo: 'https://ideasui.com/apple-icon-180.png',
+  ogImage: 'https://ideasui.com/IdeasUI-og-image.png',
   links: {
     github: 'https://github.com/ideas2logic-lab/ideasui',
     packageBase: 'https://github.com/ideas2logic-lab/ideasui/tree/main/packages',

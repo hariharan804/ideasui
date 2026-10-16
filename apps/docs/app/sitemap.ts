@@ -19,22 +19,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/react/docs/start/installation`,
+      url: `${baseUrl}/react/docs/components`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'weekly',
       priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/react/docs/start/tokens`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/react/docs/start/dark-mode`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
     },
   ];
 
@@ -45,9 +33,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/react/docs/${slugPath}`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
-      priority: page.slugs.includes('components') ? 0.9 : 0.7,
+      priority: page.slugs.includes('components') ? 0.9 : 0.8,
     };
   });
 
-  return [...staticRoutes, ...docPages];
+  const routesMap = new Map<string, MetadataRoute.Sitemap[number]>();
+
+  for (const route of [...staticRoutes, ...docPages]) {
+    routesMap.set(route.url, route);
+  }
+
+  return [...routesMap.values()];
 }

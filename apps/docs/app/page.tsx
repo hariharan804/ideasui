@@ -1,6 +1,16 @@
+import type { Metadata } from 'next';
 import { ArrowRight, Check, Rocket } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { siteConfig } from '@/config/site';
+
+export const metadata: Metadata = {
+  title: `${siteConfig.name} — Modern React & Tailwind CSS v4 Component Library`,
+  description: siteConfig.description,
+  alternates: {
+    canonical: '/',
+  },
+};
 import {
   InstallSnippet,
   HeroComponentPreview,
@@ -8,6 +18,8 @@ import {
   LandingNavbar,
   DottedHexagon,
 } from '@/components/landing';
+import { FaqJsonLd } from '@/components/seo';
+import { HOME_FAQ_ITEMS } from '@/lib/constants';
 
 const MarqueeStrip = dynamic(() => import('@/components/landing').then((mod) => mod.MarqueeStrip), {
   ssr: true,
@@ -28,6 +40,7 @@ const CtaSection = dynamic(() => import('@/components/landing').then((mod) => mo
 export default function HomePage() {
   return (
     <main className="bg-background text-content-primary flex min-h-screen flex-col overflow-x-hidden antialiased">
+      <FaqJsonLd items={HOME_FAQ_ITEMS} />
       <LandingNavbar />
       {/* ── 1. HERO SECTION ───────────────────────────────────────────── */}
       <section className="hero-section relative isolate overflow-hidden pt-26 pb-4 sm:pt-30 sm:pb-6 lg:pt-32 lg:pb-8">

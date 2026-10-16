@@ -9,6 +9,8 @@ var { docs, meta } = defineDocs({
       description: z.string().optional(),
       icon: z.string().optional(),
       full: z.boolean().optional(),
+      datePublished: z.string().optional(),
+      dateModified: z.string().optional(),
       links: z.object({
         npm: z.union([z.boolean(), z.string()]).optional(),
         rac: z.string().optional(),
