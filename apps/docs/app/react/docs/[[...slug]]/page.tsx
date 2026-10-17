@@ -10,6 +10,7 @@ import { Code2, BookOpen, Paintbrush, Sparkles, Box } from 'lucide-react';
 import { Figma } from '@/components/docs-ui/icons';
 import { siteConfig } from '@/config/site';
 import { CopyDropdown } from '@/components/docs-ui/copy-dropdown';
+import { ArticleJsonLd, BreadcrumbJsonLd, FaqJsonLd } from '@/components/seo';
 
 import dynamic from 'next/dynamic';
 
@@ -110,67 +111,38 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
     console.error('Failed to read page markdown file:', error);
   }
 
-  const canonicalUrl = `${siteConfig.url}/react/docs/${parameters.slug.join('/')}`;
-
-  const articleJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'TechArticle',
-    headline: pageData.title,
-    description: pageData.description,
-    url: canonicalUrl,
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': canonicalUrl,
-    },
-    author: {
-      '@type': 'Organization',
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: siteConfig.name,
-      url: siteConfig.url,
-    },
-  };
-
   const slugList = parameters.slug ?? [];
 
-  const breadcrumbJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Home',
-        item: siteConfig.url,
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: 'Documentation',
-        item: `${siteConfig.url}/react/docs/start`,
-      },
-      ...slugList.map((segment, index) => ({
-        '@type': 'ListItem',
-        position: index + 3,
+  const isComponentOrGuide =
+    slugList.includes('components') ||
+    slugList.includes('start') ||
+    pageData.title.toLowerCase().includes('guide') ||
+    pageData.title.toLowerCase().includes('installation');
+
+  const schemaType = isComponentOrGuide ? 'TechArticle' : 'WebPage';
+
+  const breadcrumbItems = [
+    { name: 'Docs', path: '/react/docs/start' },
+    ...slugList
+      .filter((segment, index) => !(index === 0 && segment === 'start'))
+      .map((segment) => ({
         name: segment.charAt(0).toUpperCase() + segment.slice(1).replaceAll('-', ' '),
-        item: `${siteConfig.url}/react/docs/${slugList.slice(0, index + 1).join('/')}`,
+        path: `/react/docs/${slugList.slice(0, slugList.indexOf(segment) + 1).join('/')}`,
       })),
-    ],
-  };
+  ];
 
   return (
     <>
-      <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
-        type="application/ld+json"
+      <ArticleJsonLd
+        dateModified={pageData.dateModified}
+        datePublished={pageData.datePublished}
+        description={pageData.description}
+        path={`/react/docs/${slugList.join('/')}`}
+        title={pageData.title}
+        type={schemaType}
+        version={packageVersion}
       />
-      <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-        type="application/ld+json"
-      />
+      <BreadcrumbJsonLd items={breadcrumbItems} />
       <DocsPage className="!pt-8 !pb-16" full={pageData.full} toc={pageData.toc}>
         {/* ── Executive Hero Header Card ────────────────────────────────────── */}
         <div className="from-primary-muted/60 via-secondary-muted/40 to-surface-subtle/80 relative mb-4 rounded-3xl bg-gradient-to-br p-5 backdrop-blur-md sm:px-8 sm:py-6">
@@ -347,6 +319,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
               InstallTabs,
               APIReferenceViewer,
               QuickNav,
+              FaqJsonLd,
               pre: MdxPreBlock,
               hr: MdxHrBlock,
             }}
@@ -384,11 +357,23 @@ export async function generateMetadata(properties: { params: Promise<{ slug?: st
       description: page.data.description,
       type: 'article',
       url: canonicalUrl,
+      siteName: siteConfig.name,
+      images: [
+        {
+          url: siteConfig.ogImage,
+          width: 1200,
+          height: 630,
+          alt: `${page.data.title} — ${siteConfig.name}`,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
+      site: siteConfig.twitterHandle,
+      creator: siteConfig.twitterHandle,
       title: page.data.title,
       description: page.data.description,
+      images: [siteConfig.ogImage],
     },
     alternates: {
       canonical: canonicalUrl,

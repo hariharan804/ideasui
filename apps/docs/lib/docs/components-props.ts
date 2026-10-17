@@ -2591,7 +2591,8 @@ export const propsDocumentation: PropsDocumentation = {
           required: false,
           defaultValue: null,
           deprecated: false,
-          description: 'Fallback content — icon, text, or any ReactNode.',
+          description:
+            'Fallback content — icon, text, or any ReactNode. If omitted, a default broken image icon is rendered.',
         },
         {
           name: 'className',
@@ -2599,7 +2600,7 @@ export const propsDocumentation: PropsDocumentation = {
           required: false,
           defaultValue: null,
           deprecated: false,
-          description: '',
+          description: 'Custom CSS class names merged via `cn()` on the fallback element.',
         },
         {
           name: 'style',
@@ -2607,7 +2608,7 @@ export const propsDocumentation: PropsDocumentation = {
           required: false,
           defaultValue: null,
           deprecated: false,
-          description: '',
+          description: 'Inline styles applied to the fallback element.',
         },
       ],
     },

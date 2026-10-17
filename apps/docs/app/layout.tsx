@@ -12,22 +12,26 @@ const inter = Inter({ subsets: ['latin'], display: 'swap' });
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    template: `%s | ${siteConfig.name}`,
-    default: `${siteConfig.name} — Modern Component Library`,
+    template: `%s | IdeasUI — React Component Library`,
+    default: `IdeasUI — Free React Component Library for Tailwind CSS v4`,
   },
   description: siteConfig.description,
   keywords: [
+    'React component library',
+    'Tailwind CSS v4 components',
+    'accessible React UI',
+    'React Aria components',
+    'headless UI React',
+    'open source React UI library',
+    'free React component library',
+    'TypeScript UI components',
+    'OKLCH design tokens',
+    'Next.js component library',
+    'shadcn alternative',
     'IdeasUI',
-    'React',
-    'Tailwind CSS v4',
-    'Component Library',
-    'React Aria',
-    'OKLCH',
-    'TypeScript',
-    'UI Kit',
-    'Accessible Components',
-    'Design System',
-    'Next.js',
+    'design system',
+    'WCAG 2.1 accessible components',
+    'React 19 components',
   ],
   authors: [{ name: 'IdeasUI Team', url: siteConfig.url }],
   creator: 'IdeasUI',
@@ -43,25 +47,27 @@ export const metadata: Metadata = {
     apple: [{ url: '/apple-icon-180.png', sizes: '180x180', type: 'image/png' }],
   },
   openGraph: {
-    title: `${siteConfig.name} — Modern Component Library`,
+    title: `IdeasUI — Free React Component Library for Tailwind CSS v4`,
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
     type: 'website',
     images: [
       {
-        url: '/IdeasUI-og-image.png',
+        url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: 'IdeasUI Component Library',
+        alt: `IdeasUI — React Component Library for Tailwind CSS v4`,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${siteConfig.name} — Modern Component Library`,
+    site: siteConfig.twitterHandle,
+    creator: siteConfig.twitterHandle,
+    title: `IdeasUI — Free React Component Library for Tailwind CSS v4`,
     description: siteConfig.description,
-    images: ['/IdeasUI-og-image.png'],
+    images: [siteConfig.ogImage],
   },
   robots: {
     index: true,
@@ -69,35 +75,7 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebSite',
-      '@id': `${siteConfig.url}/#website`,
-      url: siteConfig.url,
-      name: siteConfig.name,
-      description: siteConfig.description,
-      publisher: {
-        '@type': 'Organization',
-        name: siteConfig.name,
-      },
-    },
-    {
-      '@type': 'SoftwareApplication',
-      '@id': `${siteConfig.url}/#software`,
-      name: siteConfig.name,
-      operatingSystem: 'Web',
-      applicationCategory: 'DeveloperApplication',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-      },
-    },
-  ],
-};
-
+import { WebsiteJsonLd } from '@/components/seo';
 import { CustomSearchDialogClient } from '@/components/docs-ui/search-dialog-wrapper';
 import { GoogleAnalytics } from '@/components/docs-ui/google-analytics';
 
@@ -108,10 +86,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link href="https://api.github.com" rel="preconnect" />
         <link href="https://api.github.com" rel="dns-prefetch" />
         <ThemeScript defaultTheme="light" />
-        <script
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-          type="application/ld+json"
-        />
+        <WebsiteJsonLd />
         <script
           dangerouslySetInnerHTML={{
             __html: `if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
