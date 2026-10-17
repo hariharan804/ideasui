@@ -10,7 +10,7 @@ import { Code2, BookOpen, Paintbrush, Sparkles, Box } from 'lucide-react';
 import { Figma } from '@/components/docs-ui/icons';
 import { siteConfig } from '@/config/site';
 import { CopyDropdown } from '@/components/docs-ui/copy-dropdown';
-import { ArticleJsonLd, BreadcrumbJsonLd, FaqJsonLd } from '@/components/seo';
+import { DocJsonLd, FaqJsonLd } from '@/components/seo';
 
 import dynamic from 'next/dynamic';
 
@@ -122,18 +122,27 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
   const schemaType = isComponentOrGuide ? 'TechArticle' : 'WebPage';
 
   const breadcrumbItems = [
+    { name: 'Home', path: '/' },
     { name: 'Docs', path: '/react/docs/start' },
-    ...slugList
-      .filter((segment, index) => !(index === 0 && segment === 'start'))
-      .map((segment) => ({
-        name: segment.charAt(0).toUpperCase() + segment.slice(1).replaceAll('-', ' '),
-        path: `/react/docs/${slugList.slice(0, slugList.indexOf(segment) + 1).join('/')}`,
-      })),
   ];
+
+  let cumulativePath = '/react/docs';
+
+  for (const segment of slugList) {
+    cumulativePath += `/${segment}`;
+    if (segment === 'start' && cumulativePath === '/react/docs/start') {
+      continue;
+    }
+    breadcrumbItems.push({
+      name: segment.charAt(0).toUpperCase() + segment.slice(1).replaceAll('-', ' '),
+      path: cumulativePath,
+    });
+  }
 
   return (
     <>
-      <ArticleJsonLd
+      <DocJsonLd
+        breadcrumbs={breadcrumbItems}
         dateModified={pageData.dateModified}
         datePublished={pageData.datePublished}
         description={pageData.description}
@@ -142,7 +151,6 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
         type={schemaType}
         version={packageVersion}
       />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
       <DocsPage className="!pt-8 !pb-16" full={pageData.full} toc={pageData.toc}>
         {/* ── Executive Hero Header Card ────────────────────────────────────── */}
         <div className="from-primary-muted/60 via-secondary-muted/40 to-surface-subtle/80 relative mb-4 rounded-3xl bg-gradient-to-br p-5 backdrop-blur-md sm:px-8 sm:py-6">
@@ -336,24 +344,59 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(properties: { params: Promise<{ slug?: string[] }> }) {
   const parameters = await properties.params;
-  const page = source.getPage(parameters.slug);
+  const slug = parameters.slug;
+
+  if (!slug || slug.length === 0) {
+    const docsCanonical = `${siteConfig.url}/react/docs/start`;
+    const fallbackTitle = `Documentation | ${siteConfig.name} — React Component Library`;
+
+    return {
+      title: 'Documentation',
+      description: 'IdeasUI documentation, getting started guides, and React components.',
+      openGraph: {
+        title: fallbackTitle,
+        description: 'IdeasUI documentation, getting started guides, and React components.',
+        type: 'article',
+        url: docsCanonical,
+        siteName: siteConfig.name,
+        images: [
+          {
+            url: siteConfig.ogImage,
+            width: 1200,
+            height: 630,
+            alt: `Documentation — ${siteConfig.name}`,
+          },
+        ],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        site: siteConfig.twitterHandle,
+        creator: siteConfig.twitterHandle,
+        title: fallbackTitle,
+        description: 'IdeasUI documentation, getting started guides, and React components.',
+        images: [siteConfig.ogImage],
+      },
+      alternates: {
+        canonical: docsCanonical,
+      },
+    };
+  }
+
+  const page = source.getPage(slug);
 
   if (!page) {
-    if (!parameters.slug || parameters.slug.length === 0) {
-      return {
-        title: 'Documentation',
-      };
-    }
     notFound();
   }
 
-  const canonicalUrl = `/react/docs/${parameters.slug?.join('/') ?? ''}`;
+  const slugPath = slug.join('/');
+  const canonicalUrl = `${siteConfig.url}/react/docs/${slugPath}`;
+  const fullTitle = `${page.data.title} | ${siteConfig.name} — React Component Library`;
 
   return {
     title: page.data.title,
     description: page.data.description,
     openGraph: {
-      title: page.data.title,
+      title: fullTitle,
       description: page.data.description,
       type: 'article',
       url: canonicalUrl,
@@ -371,7 +414,7 @@ export async function generateMetadata(properties: { params: Promise<{ slug?: st
       card: 'summary_large_image',
       site: siteConfig.twitterHandle,
       creator: siteConfig.twitterHandle,
-      title: page.data.title,
+      title: fullTitle,
       description: page.data.description,
       images: [siteConfig.ogImage],
     },

@@ -16,25 +16,27 @@ export function WebsiteJsonLd({
   url = siteConfig.url,
   description = siteConfig.description,
 }: Readonly<WebsiteJsonLdProps> = {}) {
+  const canonicalUrl = url.endsWith('/') ? url.slice(0, -1) : url;
+
   const data = {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'WebSite',
-        '@id': `${url}/#website`,
-        url,
+        '@id': `${canonicalUrl}/#website`,
+        url: canonicalUrl,
         name,
         description,
         publisher: {
           '@type': 'Organization',
-          '@id': `${url}/#organization`,
+          '@id': `${canonicalUrl}/#organization`,
         },
       },
       {
         '@type': 'Organization',
-        '@id': `${url}/#organization`,
+        '@id': `${canonicalUrl}/#organization`,
         name: siteConfig.publisher,
-        url,
+        url: canonicalUrl,
         logo: {
           '@type': 'ImageObject',
           url: siteConfig.logo,
@@ -43,21 +45,15 @@ export function WebsiteJsonLd({
       },
       {
         '@type': 'SoftwareApplication',
-        '@id': `${url}/#software`,
+        '@id': `${canonicalUrl}/#software`,
         name,
-        operatingSystem: 'Web',
+        url: canonicalUrl,
         applicationCategory: 'DeveloperApplication',
+        operatingSystem: 'Web',
         offers: {
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-        },
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: '5',
-          ratingCount: '1',
-          bestRating: '5',
-          worstRating: '1',
         },
       },
     ],

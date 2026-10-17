@@ -6,6 +6,25 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'fumadocs-ui', 'motion', 'framer-motion'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/react/docs',
+        destination: '/react/docs/start',
+        permanent: true,
+      },
+      {
+        source: '/docs',
+        destination: '/react/docs/start',
+        permanent: true,
+      },
+      {
+        source: '/react/docs/button',
+        destination: '/react/docs/components/button',
+        permanent: true,
+      },
+    ];
+  },
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
