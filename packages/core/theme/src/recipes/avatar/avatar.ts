@@ -87,11 +87,11 @@ export const avatar = tv({
 
   compoundVariants: [
     // solid + color
-    { variant: 'solid', color: 'primary', class: { root: 'bg-primary text-white' } },
-    { variant: 'solid', color: 'neutral', class: { root: 'bg-neutral text-white' } },
-    { variant: 'solid', color: 'success', class: { root: 'bg-success text-white' } },
-    { variant: 'solid', color: 'warning', class: { root: 'bg-warning text-white' } },
-    { variant: 'solid', color: 'danger', class: { root: 'bg-danger text-white' } },
+    { variant: 'solid', color: 'primary', class: { root: 'bg-primary text-on-primary' } },
+    { variant: 'solid', color: 'neutral', class: { root: 'bg-neutral text-on-neutral' } },
+    { variant: 'solid', color: 'success', class: { root: 'bg-success text-on-success' } },
+    { variant: 'solid', color: 'warning', class: { root: 'bg-warning text-on-warning' } },
+    { variant: 'solid', color: 'danger', class: { root: 'bg-danger text-on-danger' } },
 
     // soft + color
     { variant: 'soft', color: 'primary', class: { root: 'bg-primary-subtle text-primary' } },
