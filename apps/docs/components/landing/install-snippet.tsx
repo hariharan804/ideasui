@@ -21,10 +21,14 @@ export function InstallSnippet() {
   const [copied, setCopied] = useState(false);
   const [pkg, setPkg] = useState<PackageManager>('pnpm');
 
-  function copyCommand() {
-    navigator.clipboard.writeText(INSTALL_COMMANDS[pkg]);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  async function copyCommand() {
+    try {
+      await navigator.clipboard.writeText(INSTALL_COMMANDS[pkg]);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Ignore clipboard write failure
+    }
   }
 
   return (

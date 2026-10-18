@@ -21,14 +21,18 @@ const EXTENSIONS = ['.ts', '.tsx'];
 const CHECKS = [
   {
     name: 'Forbidden Numeric Brand/Intent Shade',
-    regex: /\b(primary|secondary|tertiary|success|warning|danger|info|neutral)-[0-9]{2,3}\b/g,
+    regex: /\b(primary|secondary|tertiary|success|warning|danger|info|neutral)-\d{2,3}\b/g,
     suggestion:
       'Do not use numeric shades like primary-500. Use semantic aliases: primary, on-primary, primary-subtle, primary-muted',
   },
   {
-    name: 'Raw Palette Color',
-    regex:
-      /\b(gray|slate|zinc|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-[0-9]{2,3}\b/g,
+    name: 'Raw Palette Color (Neutrals & Warm)',
+    regex: /\b(gray|slate|zinc|stone|red|orange|amber|yellow|lime|green)-\d{2,3}\b/g,
+    suggestion: 'Use semantic tokens (e.g. bg-primary, text-content-primary, bg-surface)',
+  },
+  {
+    name: 'Raw Palette Color (Cool & Vivid)',
+    regex: /\b(emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d{2,3}\b/g,
     suggestion: 'Use semantic tokens (e.g. bg-primary, text-content-primary, bg-surface)',
   },
   {

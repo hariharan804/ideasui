@@ -15,10 +15,14 @@ export function HeroComponentPreview() {
 
   const codeSnippet = `<Button\n  variant="${variant}"\n  color="${color}"\n>\n  Primary Action\n</Button>`;
 
-  const handleCopyCode = () => {
-    navigator.clipboard.writeText(codeSnippet);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(codeSnippet);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Ignore clipboard write failure
+    }
   };
 
   return (
