@@ -1,247 +1,171 @@
 /**
  * Avatar Component CSS
- * Standalone BEM CSS for Avatar and AvatarGroup components.
+ * Source of truth for visual styling for the Avatar component.
+ * Uses BEM selectors + Tailwind CSS v4 @apply directives.
  */
 
-/* ─── Avatar root ─────────────────────────────────────────────── */
+/* ── Avatar Root ─────────────────────────────────────────────────────────── */
 .ideasui-avatar {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-weight: 600;
-  text-transform: uppercase;
-  user-select: none;
-  overflow: hidden;
-  transition: opacity 150ms ease;
+  @apply relative inline-flex shrink-0 items-center justify-center overflow-hidden font-semibold uppercase transition-opacity duration-150 select-none;
 }
 
-/* ─── Shapes ──────────────────────────────────────────────────── */
+/* ── Shapes ──────────────────────────────────────────────────────────────── */
 .ideasui-avatar--circle {
-  border-radius: 9999px;
+  @apply rounded-full;
 }
 .ideasui-avatar--square {
-  border-radius: 0.5rem;
+  @apply rounded-lg;
 }
 
-/* ─── Sizes ───────────────────────────────────────────────────── */
+/* ── Sizes ───────────────────────────────────────────────────────────────── */
 .ideasui-avatar--xs {
-  width: 1.5rem;
-  height: 1.5rem;
-  font-size: 10px;
+  @apply size-6 text-[10px];
 }
 .ideasui-avatar--sm {
-  width: 2rem;
-  height: 2rem;
-  font-size: var(--ideasui-font-size-xs, 0.75rem);
+  @apply size-8 text-xs;
 }
 .ideasui-avatar--md {
-  width: 2.5rem;
-  height: 2.5rem;
-  font-size: var(--ideasui-font-size-sm, 0.875rem);
+  @apply size-10 text-sm;
 }
 .ideasui-avatar--lg {
-  width: 3rem;
-  height: 3rem;
-  font-size: var(--ideasui-font-size-base, 1rem);
+  @apply size-12 text-base;
 }
 .ideasui-avatar--xl {
-  width: 4rem;
-  height: 4rem;
-  font-size: var(--ideasui-font-size-lg, 1.125rem);
+  @apply size-16 text-lg;
 }
 
-/* ─── Bordered ────────────────────────────────────────────────── */
+/* ── Bordered ────────────────────────────────────────────────────────────── */
 .ideasui-avatar--bordered {
-  box-shadow:
-    0 0 0 2px oklch(var(--ideasui-color-surface-default)),
-    0 0 0 4px currentColor;
+  @apply ring-offset-surface ring-2 ring-offset-2;
 }
 
-/* ─── Disabled ────────────────────────────────────────────────── */
+/* ── Disabled ────────────────────────────────────────────────────────────── */
 .ideasui-avatar--disabled {
-  opacity: 0.5;
-  pointer-events: none;
+  @apply pointer-events-none opacity-50;
 }
 
-/* ─── Variant: solid ──────────────────────────────────────────── */
+/* ── Variant: solid ──────────────────────────────────────────────────────── */
 .ideasui-avatar--solid.ideasui-avatar--primary {
-  background-color: oklch(var(--ideasui-color-primary));
-  color: white;
+  @apply bg-primary text-on-primary;
 }
 .ideasui-avatar--solid.ideasui-avatar--neutral {
-  background-color: oklch(var(--ideasui-color-neutral));
-  color: white;
+  @apply bg-neutral text-on-neutral;
 }
 .ideasui-avatar--solid.ideasui-avatar--success {
-  background-color: oklch(var(--ideasui-color-success));
-  color: white;
+  @apply bg-success text-on-success;
 }
 .ideasui-avatar--solid.ideasui-avatar--warning {
-  background-color: oklch(var(--ideasui-color-warning));
-  color: white;
+  @apply bg-warning text-on-warning;
 }
 .ideasui-avatar--solid.ideasui-avatar--danger {
-  background-color: oklch(var(--ideasui-color-danger));
-  color: white;
+  @apply bg-danger text-on-danger;
 }
 
-/* ─── Variant: soft ───────────────────────────────────────────── */
+/* ── Variant: soft ───────────────────────────────────────────────────────── */
 .ideasui-avatar--soft.ideasui-avatar--primary {
-  background-color: oklch(var(--ideasui-color-primary-subtle));
-  color: oklch(var(--ideasui-color-primary));
+  @apply bg-primary-subtle text-primary;
 }
 .ideasui-avatar--soft.ideasui-avatar--neutral {
-  background-color: oklch(var(--ideasui-color-neutral-subtle));
-  color: oklch(var(--ideasui-color-neutral));
+  @apply bg-surface-muted text-content-primary;
 }
 .ideasui-avatar--soft.ideasui-avatar--success {
-  background-color: oklch(var(--ideasui-color-success-subtle));
-  color: oklch(var(--ideasui-color-success));
+  @apply bg-success-subtle text-success;
 }
 .ideasui-avatar--soft.ideasui-avatar--warning {
-  background-color: oklch(var(--ideasui-color-warning-subtle));
-  color: oklch(var(--ideasui-color-warning));
+  @apply bg-warning-subtle text-warning;
 }
 .ideasui-avatar--soft.ideasui-avatar--danger {
-  background-color: oklch(var(--ideasui-color-danger-subtle));
-  color: oklch(var(--ideasui-color-danger));
+  @apply bg-danger-subtle text-danger;
 }
 
-/* ─── Variant: outline ────────────────────────────────────────── */
+/* ── Variant: outline ────────────────────────────────────────────────────── */
 .ideasui-avatar--outline {
-  background-color: transparent;
+  @apply bg-transparent;
 }
 .ideasui-avatar--outline.ideasui-avatar--primary {
-  border: 1px solid oklch(var(--ideasui-color-primary));
-  color: oklch(var(--ideasui-color-primary));
+  @apply border-primary text-primary border;
 }
 .ideasui-avatar--outline.ideasui-avatar--neutral {
-  border: 1px solid oklch(var(--ideasui-color-neutral));
-  color: oklch(var(--ideasui-color-neutral));
+  @apply border-neutral text-neutral border;
 }
 .ideasui-avatar--outline.ideasui-avatar--success {
-  border: 1px solid oklch(var(--ideasui-color-success));
-  color: oklch(var(--ideasui-color-success));
+  @apply border-success text-success border;
 }
 .ideasui-avatar--outline.ideasui-avatar--warning {
-  border: 1px solid oklch(var(--ideasui-color-warning));
-  color: oklch(var(--ideasui-color-warning));
+  @apply border-warning text-warning border;
 }
 .ideasui-avatar--outline.ideasui-avatar--danger {
-  border: 1px solid oklch(var(--ideasui-color-danger));
-  color: oklch(var(--ideasui-color-danger));
+  @apply border-danger text-danger border;
 }
 
-/* ─── Variant: ghost ──────────────────────────────────────────── */
+/* ── Variant: ghost ──────────────────────────────────────────────────────── */
 .ideasui-avatar--ghost {
-  background-color: transparent;
-  border-color: transparent;
+  @apply border-transparent bg-transparent;
 }
 .ideasui-avatar--ghost.ideasui-avatar--primary {
-  color: oklch(var(--ideasui-color-primary));
+  @apply text-primary;
 }
 .ideasui-avatar--ghost.ideasui-avatar--neutral {
-  color: oklch(var(--ideasui-color-neutral));
+  @apply text-neutral;
 }
 .ideasui-avatar--ghost.ideasui-avatar--success {
-  color: oklch(var(--ideasui-color-success));
+  @apply text-success;
 }
 .ideasui-avatar--ghost.ideasui-avatar--warning {
-  color: oklch(var(--ideasui-color-warning));
+  @apply text-warning;
 }
 .ideasui-avatar--ghost.ideasui-avatar--danger {
-  color: oklch(var(--ideasui-color-danger));
+  @apply text-danger;
 }
 
-/* ─── Image ───────────────────────────────────────────────────── */
+/* ── Elements: Image, Fallback, Icon ─────────────────────────────────────── */
 .ideasui-avatar__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  @apply size-full object-cover;
 }
 
-/* ─── Fallback ────────────────────────────────────────────────── */
 .ideasui-avatar__fallback {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @apply absolute inset-0 flex items-center justify-center;
 }
 
-/* ─── Icon ────────────────────────────────────────────────────── */
 .ideasui-avatar__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @apply flex items-center justify-center;
 }
 .ideasui-avatar__icon--xs {
-  width: 0.75rem;
-  height: 0.75rem;
+  @apply size-3;
 }
 .ideasui-avatar__icon--sm {
-  width: 0.875rem;
-  height: 0.875rem;
+  @apply size-3.5;
 }
 .ideasui-avatar__icon--md {
-  width: 1rem;
-  height: 1rem;
+  @apply size-4;
 }
 .ideasui-avatar__icon--lg {
-  width: 1.25rem;
-  height: 1.25rem;
+  @apply size-5;
 }
 .ideasui-avatar__icon--xl {
-  width: 1.5rem;
-  height: 1.5rem;
+  @apply size-6;
 }
 
-/* ─── Group ───────────────────────────────────────────────────── */
+/* ── Group & Overflow ────────────────────────────────────────────────────── */
 .ideasui-avatar-group {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  @apply flex flex-row items-center;
 }
 
-/* ─── Overflow indicator ──────────────────────────────────────── */
 .ideasui-avatar-group__overflow {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-weight: 600;
-  text-transform: uppercase;
-  user-select: none;
-  border-radius: 9999px;
-  background-color: oklch(var(--ideasui-color-surface-muted));
-  color: oklch(var(--ideasui-color-content-secondary));
-  box-shadow: 0 0 0 2px oklch(var(--ideasui-color-surface-default));
+  @apply bg-surface-muted text-content-secondary ring-surface relative inline-flex shrink-0 items-center justify-center rounded-full font-semibold uppercase ring-2 select-none;
 }
 .ideasui-avatar-group__overflow--xs {
-  width: 1.5rem;
-  height: 1.5rem;
-  font-size: 10px;
+  @apply size-6 text-[10px];
 }
 .ideasui-avatar-group__overflow--sm {
-  width: 2rem;
-  height: 2rem;
-  font-size: var(--ideasui-font-size-xs, 0.75rem);
+  @apply size-8 text-xs;
 }
 .ideasui-avatar-group__overflow--md {
-  width: 2.5rem;
-  height: 2.5rem;
-  font-size: var(--ideasui-font-size-sm, 0.875rem);
+  @apply size-10 text-sm;
 }
 .ideasui-avatar-group__overflow--lg {
-  width: 3rem;
-  height: 3rem;
-  font-size: var(--ideasui-font-size-base, 1rem);
+  @apply size-12 text-base;
 }
 .ideasui-avatar-group__overflow--xl {
-  width: 4rem;
-  height: 4rem;
-  font-size: var(--ideasui-font-size-lg, 1.125rem);
+  @apply size-16 text-lg;
 }

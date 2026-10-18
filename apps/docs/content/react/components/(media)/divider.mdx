@@ -1,0 +1,200 @@
+---
+title: Divider
+description: An accessible, theme-aware visual separator for content sections, list items, or layout regions with support for horizontal and vertical orientations, line style variants, and optional labels.
+category: media
+links:
+  npm: true
+  source: divider/src/divider.tsx
+  recipe: core/theme/src/recipes/divider/divider.ts
+  storybook: Components/Divider
+---
+
+<QuickNav
+  items={[
+    {
+      title: 'Basic Usage',
+      description: 'Horizontal and vertical visual separators.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'With Label',
+      description: 'Center, start, and end label placements.',
+      href: '#with-label',
+    },
+    {
+      title: 'Line Variants',
+      description: 'Solid, dashed, and dotted line styles.',
+      href: '#line-variants',
+    },
+    {
+      title: 'Layout Variants',
+      description: 'Full width, inset, and middle centered alignments.',
+      href: '#layout-variants',
+    },
+    {
+      title: 'Semantic Colors',
+      description: 'OKLCH color schemes from default to danger.',
+      href: '#semantic-colors',
+    },
+    {
+      title: 'Thickness Scale',
+      description: 'Stroke widths: sm (1px), md (2px), and lg (4px).',
+      href: '#thickness-scale',
+    },
+    {
+      title: 'Vertical Orientation',
+      description: 'Separating inline items within flex containers.',
+      href: '#vertical-orientation',
+    },
+    {
+      title: 'Accessibility',
+      description: 'Semantic separator role and decorative mode.',
+      href: '#accessibility',
+    },
+    {
+      title: 'Standalone CSS',
+      description: 'Using Divider without Tailwind CSS via BEM classes.',
+      href: '#standalone-css',
+    },
+    {
+      title: 'API Reference',
+      description: 'Interactive property table and TypeScript specifications.',
+      href: '#api-reference',
+    },
+  ]}
+/>
+
+## Basic Usage
+
+By default, `<Divider />` renders a semantic `<hr>` with a 1px solid neutral border separating stacked elements.
+
+<Preview name="divider-default" />
+
+```tsx
+import { Divider } from '@ideasui/react';
+
+export function Example() {
+  return (
+    <div className="flex flex-col gap-4">
+      <p>Content above</p>
+      <Divider />
+      <p>Content below</p>
+    </div>
+  );
+}
+```
+
+## With Label
+
+Use the `label` prop to render text, icons, or badges between content blocks. Control the line splits using `labelPlacement` (`start`, `center`, `end`).
+
+<Preview name="divider-with-label" />
+
+```tsx
+import { Divider } from '@ideasui/react';
+
+export function LabelExample() {
+  return (
+    <div className="flex flex-col gap-6">
+      <Divider label="OR" />
+      <Divider label="Personal Information" labelPlacement="start" />
+      <Divider label="See more" labelPlacement="end" />
+    </div>
+  );
+}
+```
+
+## Line Variants
+
+Choose between `solid` (default), `dashed`, or `dotted` border styles.
+
+<Preview name="divider-variants" />
+
+```tsx
+<Divider variant="solid" />
+<Divider variant="dashed" label="Dashed" />
+<Divider variant="dotted" label="Dotted" />
+```
+
+## Layout Variants
+
+Adjust the divider span and indentation using `variant="full"`, `variant="inset"` / `variant="inset-start"`, `variant="inset-end"`, or `variant="middle"` (or via the `layout` prop):
+
+- **`full`** (default): Spans 100% of the parent width or height.
+- **`inset` / `inset-start`**: Indented from the start edge (e.g. `ms-16`), aligning neatly with list icons or indented content blocks.
+- **`inset-end`**: Indented from the end edge (e.g. `me-16`), stopping before the right/trailing boundary.
+- **`middle`**: Indented equally from both ends (e.g. `mx-6` or `my-2.5`), providing a floating centered separator.
+
+<Preview name="divider-layout" />
+
+```tsx
+<Divider variant="full" />
+<Divider variant="inset" />
+<Divider variant="inset-end" />
+<Divider variant="middle" />
+```
+
+## Semantic Colors
+
+Dividers connect directly with the IdeasUI OKLCH theme token system: `default`, `primary`, `neutral`, `success`, `warning`, and `danger`.
+
+<Preview name="divider-colors" />
+
+```tsx
+<Divider color="default" label="default" />
+<Divider color="primary" label="primary" />
+<Divider color="neutral" label="neutral" />
+<Divider color="success" label="success" />
+<Divider color="warning" label="warning" />
+<Divider color="danger" label="danger" />
+```
+
+## Thickness Scale
+
+Configure stroke weight using `thickness` (`sm` = 1px, `md` = 2px, `lg` = 4px).
+
+<Preview name="divider-thickness" />
+
+```tsx
+<Divider color="primary" thickness="sm" />
+<Divider color="primary" thickness="md" />
+<Divider color="primary" thickness="lg" />
+```
+
+## Vertical Orientation
+
+Set `orientation="vertical"` to separate inline items in a navbar or toolbar. Ensure the parent container has a defined height or flex stretching.
+
+<Preview name="divider-vertical" />
+
+```tsx
+<div className="flex h-8 items-center gap-4">
+  <span>Dashboard</span>
+  <Divider orientation="vertical" />
+  <span>Analytics</span>
+  <Divider orientation="vertical" />
+  <span>Settings</span>
+</div>
+```
+
+## Accessibility
+
+The Divider component complies with **WCAG 2.1 AA** standards:
+
+- **Semantic Role**: Non-labeled horizontal dividers render native `<hr>` tags with `role="separator"` and `aria-orientation="horizontal"`. Vertical dividers render `<div>` elements with `role="separator"` and `aria-orientation="vertical"`.
+- **Decorative Mode**: Pass `decorative` to assign `role="none"` and `aria-hidden="true"`, hiding visual rules from assistive technology.
+- **Line Segments**: Segment lines surrounding labels are explicitly marked with `aria-hidden="true"`, ensuring screen readers announce only the meaningful label text.
+
+## Standalone CSS
+
+Divider can be styled using namespaced BEM classes without Tailwind CSS.
+
+<StandaloneCSS componentName="divider" />
+
+### BEM CSS Classes
+
+<BEMReferenceViewer componentName="divider" />
+
+## API Reference
+
+<APIReferenceViewer componentName="divider" />

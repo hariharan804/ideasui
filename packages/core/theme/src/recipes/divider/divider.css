@@ -1,0 +1,180 @@
+/**
+ * Divider Component CSS
+ * Source of truth for visual styling for the Divider component.
+ * Uses BEM selectors + Tailwind CSS v4 @apply directives.
+ */
+
+/* ── Base Block (without label) ──────────────────────────────────────────── */
+.ideasui-divider {
+  @apply m-0 block shrink-0 border-0 p-0;
+}
+
+/* Horizontal — no label */
+.ideasui-divider[data-orientation='horizontal'] {
+  @apply w-full border-t border-solid;
+}
+
+/* Vertical — no label */
+.ideasui-divider[data-orientation='vertical'] {
+  @apply mx-2 h-full min-h-[1.25rem] self-stretch border-l border-solid;
+}
+
+/* ── Root — with label ───────────────────────────────────────────────────── */
+.ideasui-divider--has-label {
+  @apply flex shrink-0 items-center border-0;
+}
+
+.ideasui-divider--has-label[data-orientation='horizontal'] {
+  @apply w-full flex-row;
+}
+.ideasui-divider--has-label[data-orientation='vertical'] {
+  @apply h-full flex-col self-stretch;
+}
+
+/* ── Line segments ───────────────────────────────────────────────────────── */
+.ideasui-divider__line {
+  @apply flex-1 border-0;
+}
+.ideasui-divider--has-label[data-orientation='horizontal'] .ideasui-divider__line {
+  @apply border-t border-solid;
+}
+.ideasui-divider--has-label[data-orientation='vertical'] .ideasui-divider__line {
+  @apply border-l border-solid;
+}
+
+/* ── Thickness: no label ─────────────────────────────────────────────────── */
+.ideasui-divider[data-orientation='horizontal'].ideasui-divider--sm {
+  @apply border-t-[1px];
+}
+.ideasui-divider[data-orientation='horizontal'].ideasui-divider--md {
+  @apply border-t-[2px];
+}
+.ideasui-divider[data-orientation='horizontal'].ideasui-divider--lg {
+  @apply border-t-[4px];
+}
+
+.ideasui-divider[data-orientation='vertical'].ideasui-divider--sm {
+  @apply border-l-[1px];
+}
+.ideasui-divider[data-orientation='vertical'].ideasui-divider--md {
+  @apply border-l-[2px];
+}
+.ideasui-divider[data-orientation='vertical'].ideasui-divider--lg {
+  @apply border-l-[4px];
+}
+
+/* ── Thickness: line segments with label ─────────────────────────────────── */
+.ideasui-divider--has-label[data-orientation='horizontal'] .ideasui-divider__line--sm {
+  @apply border-t-[1px];
+}
+.ideasui-divider--has-label[data-orientation='horizontal'] .ideasui-divider__line--md {
+  @apply border-t-[2px];
+}
+.ideasui-divider--has-label[data-orientation='horizontal'] .ideasui-divider__line--lg {
+  @apply border-t-[4px];
+}
+
+.ideasui-divider--has-label[data-orientation='vertical'] .ideasui-divider__line--sm {
+  @apply border-l-[1px];
+}
+.ideasui-divider--has-label[data-orientation='vertical'] .ideasui-divider__line--md {
+  @apply border-l-[2px];
+}
+.ideasui-divider--has-label[data-orientation='vertical'] .ideasui-divider__line--lg {
+  @apply border-l-[4px];
+}
+
+/* ── Line style variants ─────────────────────────────────────────────────── */
+.ideasui-divider--solid,
+.ideasui-divider__line--solid {
+  @apply border-solid;
+}
+.ideasui-divider--dashed,
+.ideasui-divider__line--dashed {
+  @apply border-dashed;
+}
+.ideasui-divider--dotted,
+.ideasui-divider__line--dotted {
+  @apply border-dotted;
+}
+
+/* ── Layout variants ─────────────────────────────────────────────────────── */
+.ideasui-divider--full {
+  @apply mx-0;
+}
+.ideasui-divider[data-orientation='horizontal'].ideasui-divider--full {
+  @apply w-full;
+}
+.ideasui-divider[data-orientation='vertical'].ideasui-divider--full {
+  @apply h-full;
+}
+
+.ideasui-divider[data-orientation='horizontal'].ideasui-divider--inset,
+.ideasui-divider[data-orientation='horizontal'].ideasui-divider--inset-start {
+  @apply ms-16 w-auto;
+}
+.ideasui-divider[data-orientation='vertical'].ideasui-divider--inset,
+.ideasui-divider[data-orientation='vertical'].ideasui-divider--inset-start {
+  @apply mt-4 h-[calc(100%-1rem)];
+}
+
+.ideasui-divider[data-orientation='horizontal'].ideasui-divider--inset-end {
+  @apply me-16 w-auto;
+}
+.ideasui-divider[data-orientation='vertical'].ideasui-divider--inset-end {
+  @apply mb-4 h-[calc(100%-1rem)];
+}
+
+.ideasui-divider[data-orientation='horizontal'].ideasui-divider--middle {
+  @apply mx-6 w-auto;
+}
+.ideasui-divider[data-orientation='vertical'].ideasui-divider--middle {
+  @apply my-2.5 h-[calc(100%-1.25rem)];
+}
+
+/* ── Color Schemes ───────────────────────────────────────────────────────── */
+.ideasui-divider--default,
+.ideasui-divider__line--default {
+  @apply border-border-strong;
+}
+
+.ideasui-divider--primary,
+.ideasui-divider__line--primary {
+  @apply border-primary;
+}
+
+.ideasui-divider--neutral,
+.ideasui-divider__line--neutral {
+  @apply border-neutral;
+}
+
+.ideasui-divider--success,
+.ideasui-divider__line--success {
+  @apply border-success;
+}
+
+.ideasui-divider--warning,
+.ideasui-divider__line--warning {
+  @apply border-warning;
+}
+
+.ideasui-divider--danger,
+.ideasui-divider__line--danger {
+  @apply border-danger;
+}
+
+/* ── Label ───────────────────────────────────────────────────────────────── */
+.ideasui-divider__label {
+  @apply text-content-secondary shrink-0 px-3 text-sm whitespace-nowrap select-none;
+}
+
+/* ── Label placement ─────────────────────────────────────────────────────── */
+.ideasui-divider--label-start {
+  @apply justify-start;
+}
+.ideasui-divider--label-center {
+  @apply justify-center;
+}
+.ideasui-divider--label-end {
+  @apply justify-end;
+}

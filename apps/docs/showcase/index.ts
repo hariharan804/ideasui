@@ -10,6 +10,7 @@ import * as TextareaDemos from './textarea';
 import * as TextDemos from './text';
 import * as ImageDemos from './image';
 import * as AvatarDemos from './avatar';
+import * as DividerDemos from './divider';
 
 export type DemoItem = {
   component: ComponentType<any>;
@@ -453,6 +454,35 @@ export const demos: Record<string, DemoItem> = {
   'avatar-custom-image': {
     component: AvatarDemos.CustomImage,
     file: 'avatar/custom-image.tsx',
+  },
+  // Divider demos
+  'divider-default': {
+    component: DividerDemos.DividerDefaultDemo,
+    file: 'divider/default.tsx',
+  },
+  'divider-with-label': {
+    component: DividerDemos.DividerWithLabelDemo,
+    file: 'divider/with-label.tsx',
+  },
+  'divider-variants': {
+    component: DividerDemos.DividerVariantsDemo,
+    file: 'divider/variants.tsx',
+  },
+  'divider-colors': {
+    component: DividerDemos.DividerColorsDemo,
+    file: 'divider/colors.tsx',
+  },
+  'divider-thickness': {
+    component: DividerDemos.DividerThicknessDemo,
+    file: 'divider/thickness.tsx',
+  },
+  'divider-layout': {
+    component: DividerDemos.DividerLayoutDemo,
+    file: 'divider/layout.tsx',
+  },
+  'divider-vertical': {
+    component: DividerDemos.DividerVerticalDemo,
+    file: 'divider/vertical.tsx',
   },
 };
 

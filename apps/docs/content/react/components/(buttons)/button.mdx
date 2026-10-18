@@ -212,18 +212,7 @@ Compound components allow individual parts of the Button to be customized or omi
 
 Button can also be used in projects that do not use Tailwind CSS.
 
-Install the standalone styles package:
-
-```bash
-npm install @ideasui/styles
-```
-
-Import the base styles and Button styles:
-
-```tsx
-import '@ideasui/styles/base.css';
-import '@ideasui/styles/components/button.css';
-```
+<StandaloneCSS componentName="button" />
 
 The Button component can then be used normally:
 
@@ -286,19 +275,7 @@ Pass granular HTML attributes, event handlers, and data attributes to individual
 
 ### BEM CSS Classes
 
-The Button component exposes BEM class names and granular slot class names:
-
-- **Block:** `.ideasui-btn` (`base` slot) — Main button container.
-- **Elements:**
-  - `.ideasui-btn__label` (`label` slot) — Text label slot.
-  - `.ideasui-btn__icon` (`startIcon` / `endIcon` slot) — Icon container slot.
-  - `.ideasui-btn__loader` (`spinner` slot) — Loading indicator slot.
-  - `.ideasui-btn__shortcut` (`shortcut` slot) — Keyboard shortcut slot.
-- **BEM Modifiers:**
-  - **Variants:** `.ideasui-btn--solid`, `.ideasui-btn--outline`, `.ideasui-btn--ghost`, `.ideasui-btn--soft`, `.ideasui-btn--link`, `.ideasui-btn--text`, `.ideasui-btn--elevated`, `.ideasui-btn--surface`
-  - **Colors:** `.ideasui-btn--primary`, `.ideasui-btn--secondary`, `.ideasui-btn--success`, `.ideasui-btn--warning`, `.ideasui-btn--danger`, `.ideasui-btn--info`
-  - **Sizes:** `.ideasui-btn--xs`, `.ideasui-btn--sm`, `.ideasui-btn--md`, `.ideasui-btn--lg`, `.ideasui-btn--xl`
-  - **States:** `.ideasui-btn--disabled`, `.ideasui-btn--loading`, `.ideasui-btn--icon-only`, `.ideasui-btn--full-width`
+<BEMReferenceViewer componentName="button" />
 
 ### Interactive States
 

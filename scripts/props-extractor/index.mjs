@@ -258,6 +258,24 @@ class PropsExtractor {
             .join(', ');
           return `${typeName}<${args}>`;
         }
+        // Expand local type aliases in sourceFile if they define union/literal choices
+        if (
+          sourceFile?.statements &&
+          !['ReactNode', 'CSSProperties', 'JSX', 'HTMLElement'].includes(typeName)
+        ) {
+          const typeAlias = sourceFile.statements.find(
+            (stmt) => ts.isTypeAliasDeclaration(stmt) && stmt.name.text === typeName,
+          );
+          if (typeAlias?.type) {
+            if (
+              ts.isUnionTypeNode(typeAlias.type) ||
+              ts.isLiteralTypeNode(typeAlias.type) ||
+              ts.isTypeReferenceNode(typeAlias.type)
+            ) {
+              return this.resolveType(typeAlias.type, sourceFile);
+            }
+          }
+        }
         return typeName || this.getRawText(typeNode, sourceFile);
       }
       // All complex types: return raw source text

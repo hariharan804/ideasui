@@ -1,4 +1,5 @@
 /* ### EXPORT RECIPES HERE ### */
+export * from './divider';
 export * from './avatar';
 export * from './image';
 export * from './switch';

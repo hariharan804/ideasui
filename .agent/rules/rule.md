@@ -51,10 +51,12 @@ You MUST follow these rules during development. Refer to `/rules` for full detai
 - No `axe` violations in tests.
 - [accessibility.md](../../rules/accessibility.md)
 
-## 🎨 Styling
+## 🎨 Styling & Recipes
 
 - Tailwind CSS v4 using tokens from `@ideasui/theme`.
-- Use recipes from `@ideasui/theme/recipes` via `tv()`.
+- Recipes in `packages/core/theme/src/recipes/` **must primarily use Tailwind utility tokens** via `tv()`.
+- Component styles (visuals, colors, sizes, states) live directly in the `tv()` recipe using semantic Tailwind classes (`bg-primary`, `border-border`, etc.).
+- Standalone CSS files in `recipes/` must also use `@apply` with Tailwind utility tokens instead of raw CSS properties.
 - [tailwind-theme.md](../../rules/tailwind-theme.md)
 
 ## 🎨 Design System & Theme Tokens

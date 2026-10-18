@@ -27,6 +27,23 @@ const APIReferenceViewer = dynamic(() =>
   import('@/components/mdx/api-reference-viewer').then((mod) => mod.APIReferenceViewer),
 ) as unknown as React.FC<{ componentName: string }>;
 
+const BEMReferenceViewer = dynamic(() =>
+  import('@/components/mdx/bem-reference-viewer').then((mod) => mod.BEMReferenceViewer),
+) as unknown as React.FC<{ componentName?: string; data?: unknown[] }>;
+
+const BEMTable = dynamic(() =>
+  import('@/components/ui/bem-table').then((mod) => mod.BEMTable),
+) as unknown as React.FC<{ data: unknown[] }>;
+
+const StandaloneCSS = dynamic(() =>
+  import('@/components/mdx/standalone-css').then((mod) => mod.StandaloneCSS),
+) as unknown as React.FC<{
+  componentName: string;
+  title?: string;
+  cssFile?: string;
+  showBEMTable?: boolean;
+}>;
+
 import { Pre } from 'fumadocs-ui/components/codeblock';
 import { CodeBlock } from '@/components/mdx/codeblock-client';
 import { cn } from '@ideasui/utils';
@@ -340,6 +357,9 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
               Item,
               InstallTabs,
               APIReferenceViewer,
+              BEMReferenceViewer,
+              BEMTable,
+              StandaloneCSS,
               QuickNav,
               FaqJsonLd,
               pre: MdxPreBlock,

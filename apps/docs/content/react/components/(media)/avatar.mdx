@@ -304,29 +304,11 @@ export function BotAvatar() {
 
 `Avatar` and `AvatarGroup` can also be used in non-Tailwind projects via the pre-compiled `@ideasui/styles` package.
 
-Install the standalone styles package:
-
-```bash
-pnpm add @ideasui/styles
-```
-
-Import base tokens and the component stylesheet:
-
-```css
-@import '@ideasui/styles/base.css';
-@import '@ideasui/styles/components/avatar.css';
-```
+<StandaloneCSS componentName="avatar" />
 
 ### BEM CSS Classes
 
-| Class Name                        | Target Element     | Description                                                          |
-| :-------------------------------- | :----------------- | :------------------------------------------------------------------- |
-| `.ideasui-avatar`                 | Root Container     | Base avatar container with flex alignment, size, radius, and variant |
-| `.ideasui-avatar__image`          | Image Element      | Image slot primitive with object-fit cover                           |
-| `.ideasui-avatar__fallback`       | Fallback Container | Absolute inset fallback displaying initials, custom icon, or SVG     |
-| `.ideasui-avatar__icon`           | Icon Slot Wrapper  | Flex wrapper for icon children                                       |
-| `.ideasui-avatar-group`           | Group Container    | Horizontal flex wrapper managing overlap spacing                     |
-| `.ideasui-avatar-group__overflow` | Overflow Badge     | Circular badge indicating remaining avatars count                    |
+<BEMReferenceViewer componentName="avatar" />
 
 ## API Reference
 

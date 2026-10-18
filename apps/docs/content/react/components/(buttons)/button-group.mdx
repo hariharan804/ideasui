@@ -131,18 +131,7 @@ Mix and match icons, shortcuts, and static labels to build application toolbars.
 
 Button Group can also be used in projects that do not use Tailwind CSS.
 
-Install the standalone styles package:
-
-```bash
-npm install @ideasui/styles
-```
-
-Import base styles and component CSS:
-
-```tsx
-import '@ideasui/styles/base.css';
-import '@ideasui/styles/components/button.css';
-```
+<StandaloneCSS componentName="button" title="Button Group" cssFile="button.css" />
 
 ### Custom Styling
 
@@ -157,13 +146,7 @@ Pass custom classes to the group container using `className`:
 
 ### BEM CSS Classes
 
-`ButtonGroup` exposes namespaced BEM class names:
-
-- **Block / Root:** `.ideasui-btn-group` (`button-group` slot) — Container element.
-- **BEM Modifiers:**
-  - **Attached:** `.ideasui-btn-group--attached`
-  - **Vertical:** `.ideasui-btn-group--vertical`
-  - **Full Width:** `.ideasui-btn-group--full-width`
+<BEMReferenceViewer componentName="buttonGroup" />
 
 ### CSS Attributes & Selectors
 

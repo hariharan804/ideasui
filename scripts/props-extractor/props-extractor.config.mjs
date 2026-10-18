@@ -271,6 +271,15 @@ export const extractConfig = {
         'AvatarIcon',
       ),
     ]),
+    divider: makeComponent('Divider', [
+      makeInterface(
+        'Divider',
+        'Divider Props',
+        'Accessible, theme-aware visual separator supporting horizontal and vertical orientations, line style variants, color tokens, and optional labels',
+        '../../packages/components/divider/src/divider.types.ts',
+        'DividerProps',
+      ),
+    ]),
   },
 };
 export default extractConfig;
