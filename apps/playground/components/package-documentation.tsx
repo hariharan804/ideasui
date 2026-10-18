@@ -191,10 +191,14 @@ const PackageDocumentation: FC<PackageDocumentationProperties> = ({ className })
     void loadPackages();
   }, []);
 
-  const handleCopyCode = (code: string): void => {
-    navigator.clipboard.writeText(code);
-    setCopiedCode(code);
-    setTimeout(() => setCopiedCode(null), 2000);
+  const handleCopyCode = async (code: string): Promise<void> => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopiedCode(code);
+      setTimeout(() => setCopiedCode(null), 2000);
+    } catch {
+      // Ignore clipboard write failure
+    }
   };
 
   if (loading) {

@@ -105,6 +105,10 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProperties>(
     }
 
     const groupClasses = cn(
+      'ideasui-btn-group',
+      isAttached && 'ideasui-btn-group--attached',
+      isVertical ? 'ideasui-btn-group--vertical' : 'ideasui-btn-group--horizontal',
+      fullWidth && 'ideasui-btn-group--full-width',
       fullWidth ? 'flex' : 'inline-flex',
       isVertical ? 'flex-col' : 'flex-row',
       gapClass,

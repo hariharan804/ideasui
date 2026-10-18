@@ -31,6 +31,7 @@ export function CtaSection() {
           {/* Subtle Decorative Grid Pattern */}
           <div className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent_75%)] opacity-15">
             <svg
+              aria-hidden="true"
               className="size-full"
               height="100%"
               width="100%"

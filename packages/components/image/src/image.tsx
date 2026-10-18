@@ -1,8 +1,14 @@
 'use client';
 
-import type { JSX, ReactNode } from 'react';
+import type { HTMLAttributeReferrerPolicy, JSX, ReactNode } from 'react';
 import type { ImageContentProps } from './image-elements';
-import type { ImageComponent, ImageProps, ImageRenderProps } from './image.types';
+import type {
+  ImageComponent,
+  ImageProps,
+  ImageRenderProps,
+  ImageSlotClassNames,
+  ImageSlotProps,
+} from './image.types';
 
 import { forwardRef, useId } from 'react';
 import { image as imageRecipe } from '@ideasui/theme/recipes';
@@ -28,8 +34,8 @@ import { useImageState } from './use-image-state';
 
 interface ImageSlotContentOptions {
   readonly styles: ReturnType<typeof imageRecipe>;
-  readonly classNames?: ImageProps['classNames'];
-  readonly slotProps?: ImageProps['slotProps'];
+  readonly classNames?: ImageSlotClassNames;
+  readonly slotProps?: ImageSlotProps;
   readonly blurDataURL?: string;
   readonly hasError: boolean;
   readonly isLoaded: boolean;
@@ -95,15 +101,15 @@ interface BuildRenderPropsOptions {
   readonly alt: string;
   readonly blurDataURL?: string;
   readonly className: string;
-  readonly crossOrigin?: ImageProps['crossOrigin'];
-  readonly decoding?: ImageProps['decoding'];
-  readonly fetchPriority?: ImageProps['fetchPriority'];
+  readonly crossOrigin?: 'anonymous' | 'use-credentials' | '';
+  readonly decoding?: 'async' | 'sync' | 'auto';
+  readonly fetchPriority?: 'high' | 'low' | 'auto';
   readonly height?: number;
-  readonly loading?: ImageProps['loading'];
+  readonly loading?: 'lazy' | 'eager';
   readonly onError: () => void;
   readonly onLoad: () => void;
   readonly priority: boolean;
-  readonly referrerPolicy?: ImageProps['referrerPolicy'];
+  readonly referrerPolicy?: HTMLAttributeReferrerPolicy;
   readonly sizes?: string;
   readonly src?: string;
   readonly srcSet?: string;

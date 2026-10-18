@@ -5,7 +5,7 @@ links:
   npm: true
   rac: https://react-spectrum.adobe.com/react-aria/Button.html
   source: button/src/button-group.tsx
-  recipe: core/theme/src/recipes/button.ts
+  recipe: core/theme/src/recipes/button/button.ts
   storybook: Components/ButtonGroup
 ---
 
@@ -129,9 +129,21 @@ Mix and match icons, shortcuts, and static labels to build application toolbars.
 
 ## Standalone CSS
 
-Button Group can also be used in projects that do not use Tailwind CSS.
+`ButtonGroup` can also be used in non-Tailwind projects via the pre-compiled `@ideasui/styles` package.
 
 <StandaloneCSS componentName="button" title="Button Group" cssFile="button.css" />
+
+### BEM CSS Classes
+
+`ButtonGroup` components expose standard BEM class names and layout selectors:
+
+- **Block / Root:** `.ideasui-btn-group` (`button-group` slot) — Main button group container element.
+- **BEM Modifiers:**
+  - **Attached:** `.ideasui-btn-group--attached` — Seamlessly joined buttons without gaps.
+  - **Orientation:** `.ideasui-btn-group--horizontal` (default flex-row), `.ideasui-btn-group--vertical` (flex-col).
+  - **Sizing:** `.ideasui-btn-group--full-width` — 100% container width with child buttons expanding equally.
+
+<BEMReferenceViewer componentName="buttonGroup" />
 
 ### Custom Styling
 
@@ -143,10 +155,6 @@ Pass custom classes to the group container using `className`:
   <Button>Second</Button>
 </ButtonGroup>
 ```
-
-### BEM CSS Classes
-
-<BEMReferenceViewer componentName="buttonGroup" />
 
 ### CSS Attributes & Selectors
 
@@ -184,6 +192,6 @@ page.locator('[data-attached="true"]');
 
 <APIReferenceViewer componentName="buttonGroup" />
 
-<Related component="button" />
+<Related component="buttongroup" />
 
 <RelatedShowcases component="ButtonGroup" />

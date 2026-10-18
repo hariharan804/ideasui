@@ -373,6 +373,20 @@
   @apply transition-none active:scale-100;
 }
 
+/* ── Button Group Block ───────────────────────────────────────────────────── */
+.ideasui-btn-group {
+  @apply isolate inline-flex;
+}
+.ideasui-btn-group.ideasui-btn-group--horizontal {
+  @apply flex-row;
+}
+.ideasui-btn-group.ideasui-btn-group--vertical {
+  @apply flex-col;
+}
+.ideasui-btn-group.ideasui-btn-group--full-width {
+  @apply flex w-full;
+}
+
 /* ── Group / Attached ─────────────────────────────────────────────────────── */
 .ideasui-btn.ideasui-btn--attached {
   @apply relative hover:z-10 focus-visible:z-20 active:scale-100 data-[hovered=true]:z-10 data-[pressed=true]:z-10;

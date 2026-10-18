@@ -87,17 +87,39 @@ const componentsMap: Record<string, ComponentInfo> = {
     status: 'new',
     title: 'Image',
   },
+  avatar: {
+    category: 'media',
+    description:
+      'A compound, accessible identity element representing a user, entity, or resource with image, initials, and icon fallbacks',
+    href: '/react/docs/components/avatar',
+    name: 'avatar',
+    status: '',
+    title: 'Avatar',
+  },
+  divider: {
+    category: 'media',
+    description:
+      'An accessible visual separator for content sections with horizontal and vertical orientations and optional labels',
+    href: '/react/docs/components/divider',
+    name: 'divider',
+    status: '',
+    title: 'Divider',
+  },
 };
 
-// Define relationships between components
+// Define relationships between components (minimum 3 related components per component)
 const componentRelationships: Record<string, string[]> = {
-  button: ['buttongroup'],
-  buttongroup: ['button'],
-  checkbox: ['radio', 'switch'],
-  inputfield: ['textarea'],
-  radio: ['checkbox', 'switch'],
-  switch: ['checkbox', 'radio'],
-  textarea: ['inputfield'],
+  avatar: ['image', 'divider', 'text'],
+  button: ['buttongroup', 'inputfield', 'text'],
+  buttongroup: ['button', 'inputfield', 'divider'],
+  checkbox: ['radio', 'switch', 'inputfield'],
+  divider: ['text', 'button', 'image'],
+  image: ['avatar', 'divider', 'text'],
+  inputfield: ['textarea', 'button', 'checkbox'],
+  radio: ['checkbox', 'switch', 'inputfield'],
+  switch: ['checkbox', 'radio', 'inputfield'],
+  text: ['button', 'divider', 'inputfield'],
+  textarea: ['inputfield', 'button', 'text'],
 };
 
 /**
@@ -109,14 +131,45 @@ export function getComponentInfo(componentName: string): ComponentInfo | undefin
   return componentsMap[normalizedName];
 }
 
+function fillMissingRelated(
+  result: ComponentInfo[],
+  normalizedName: string,
+  minCount: number,
+): void {
+  const usedNames = new Set(
+    result.map((item) => item.name.toLowerCase().replaceAll(/[\s_-]/g, '')),
+  );
+
+  usedNames.add(normalizedName);
+
+  for (const comp of Object.values(componentsMap)) {
+    if (result.length >= minCount) {
+      return;
+    }
+
+    const compKey = comp.name.toLowerCase().replaceAll(/[\s_-]/g, '');
+
+    if (!usedNames.has(compKey)) {
+      result.push(comp);
+      usedNames.add(compKey);
+    }
+  }
+}
+
 /**
- * Get related components for a specific component
+ * Get related components for a specific component (guarantees a minimum of 3 cards)
  */
-export function getRelatedComponents(componentName: string): ComponentInfo[] {
+export function getRelatedComponents(componentName: string, minCount = 3): ComponentInfo[] {
   const normalizedName = componentName.toLowerCase().replaceAll(/[\s_-]/g, '');
   const relationships = componentRelationships[normalizedName] || [];
 
-  return relationships
+  const result = relationships
     .map((name) => getComponentInfo(name))
-    .filter((info): info is ComponentInfo => !!info);
+    .filter(Boolean) as ComponentInfo[];
+
+  if (result.length < minCount) {
+    fillMissingRelated(result, normalizedName, minCount);
+  }
+
+  return result.slice(0, Math.max(minCount, 3));
 }

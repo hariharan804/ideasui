@@ -64,10 +64,14 @@ export default function ButtonPreview(): JSX.Element {
     return `<Button${propsString}>\n  ${buttonText}\n</Button>`;
   };
 
-  const handleCopyCode = (): void => {
-    navigator.clipboard.writeText(generateCode());
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopyCode = async (): Promise<void> => {
+    try {
+      await navigator.clipboard.writeText(generateCode());
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Ignore clipboard write failure
+    }
   };
 
   const handleResetSandbox = (): void => {
