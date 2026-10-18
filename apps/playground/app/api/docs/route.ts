@@ -5,7 +5,7 @@ import path from 'node:path';
 
 import { NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest): Promise<NextResponse> {
+export function GET(request: NextRequest): NextResponse {
   try {
     const file = request.nextUrl.searchParams.get('file');
 

@@ -372,7 +372,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
   );
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return source.generateParams();
 }
 
