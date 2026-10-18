@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Search, X, Layers } from 'lucide-react';
 import { cn } from '@ideasui/utils';
+import { InputField } from '@ideasui/react';
 import type { StatusChipStatus } from './status-chip';
 import { Item } from './item';
 import { getComponentInfo } from '@/components-registry';
@@ -37,7 +38,7 @@ const COMPONENT_GROUPS = [
   {
     category: 'Media',
     title: 'Media & Display',
-    components: ['image', 'avatar'],
+    components: ['image', 'avatar', 'divider'],
   },
   {
     category: 'Typography',
@@ -136,26 +137,28 @@ function CategoryToolbar({
 }>) {
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <div className="relative w-full max-w-sm">
-        <Search className="text-content-tertiary pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
-        <input
+      <div className="w-full max-w-sm">
+        <InputField
           aria-label="Filter components"
-          className="bg-surface-subtle/50 text-content-primary placeholder:text-content-muted border-border-subtle/80 focus:border-border-focus focus:bg-surface h-9.5 w-full rounded-xl border pr-8 pl-9 text-sm transition-all outline-none"
+          endContent={
+            searchQuery ? (
+              <button
+                aria-label="Clear filter"
+                className="text-content-tertiary hover:text-content-primary cursor-pointer p-0.5 transition-colors"
+                type="button"
+                onClick={() => onSearchChange('')}
+              >
+                <X className="h-4 w-4" />
+              </button>
+            ) : null
+          }
           placeholder="Filter components..."
-          type="text"
+          size="sm"
+          startContent={<Search className="text-content-tertiary h-4 w-4 shrink-0" />}
           value={searchQuery}
+          variant="outline"
           onChange={(e) => onSearchChange(e.target.value)}
         />
-        {searchQuery && (
-          <button
-            aria-label="Clear filter"
-            className="text-content-tertiary hover:text-content-primary absolute top-1/2 right-2.5 -translate-y-1/2"
-            type="button"
-            onClick={() => onSearchChange('')}
-          >
-            <X className="h-4 w-4" />
-          </button>
-        )}
       </div>
 
       <div className="text-content-muted flex items-center gap-2 text-xs font-medium">
