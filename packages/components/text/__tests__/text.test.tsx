@@ -198,5 +198,6 @@ describe('Text Component', () => {
     );
 
     await expectAccessible(container);
+    expect(container).toBeInTheDocument();
   });
 });

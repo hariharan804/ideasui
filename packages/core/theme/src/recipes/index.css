@@ -1,4 +1,6 @@
 /* ### IMPORT RECIPES HERE ### */
+@import './divider/divider.css';
+@import './avatar/avatar.css';
 @import './image/image.css';
 @import './switch/switch.css';
 @import './radio/radio.css';

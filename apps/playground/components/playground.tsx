@@ -21,6 +21,16 @@ const COMPONENT_LIST: ComponentItem[] = [
   // ### APPEND COMPONENT HERE ###
 
   {
+    name: 'Divider',
+    category: 'Core',
+  },
+
+  {
+    name: 'Avatar',
+    category: 'Core',
+  },
+
+  {
     name: 'Image',
     category: 'Core',
   },

@@ -36,7 +36,7 @@ export default function Layout({ children }: Readonly<{ children: ReactNode }>) 
         tabs: [
           {
             title: 'Getting Started',
-            url: ROUTES.docs.root,
+            url: ROUTES.docs.start,
             icon: <Rocket className="size-4" />,
           },
           {

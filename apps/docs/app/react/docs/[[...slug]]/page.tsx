@@ -10,7 +10,8 @@ import { Code2, BookOpen, Paintbrush, Sparkles, Box } from 'lucide-react';
 import { Figma } from '@/components/docs-ui/icons';
 import { siteConfig } from '@/config/site';
 import { CopyDropdown } from '@/components/docs-ui/copy-dropdown';
-import { ArticleJsonLd, BreadcrumbJsonLd, FaqJsonLd } from '@/components/seo';
+import { DocJsonLd, FaqJsonLd } from '@/components/seo';
+import { propsDocumentation } from '@/lib/docs/components-props';
 
 import dynamic from 'next/dynamic';
 
@@ -25,6 +26,23 @@ import { QuickNav } from '@/components/mdx/quick-nav';
 const APIReferenceViewer = dynamic(() =>
   import('@/components/mdx/api-reference-viewer').then((mod) => mod.APIReferenceViewer),
 ) as unknown as React.FC<{ componentName: string }>;
+
+const BEMReferenceViewer = dynamic(() =>
+  import('@/components/mdx/bem-reference-viewer').then((mod) => mod.BEMReferenceViewer),
+) as unknown as React.FC<{ componentName?: string; data?: unknown[] }>;
+
+const BEMTable = dynamic(() =>
+  import('@/components/ui/bem-table').then((mod) => mod.BEMTable),
+) as unknown as React.FC<{ data: unknown[] }>;
+
+const StandaloneCSS = dynamic(() =>
+  import('@/components/mdx/standalone-css').then((mod) => mod.StandaloneCSS),
+) as unknown as React.FC<{
+  componentName: string;
+  title?: string;
+  cssFile?: string;
+  showBEMTable?: boolean;
+}>;
 
 import { Pre } from 'fumadocs-ui/components/codeblock';
 import { CodeBlock } from '@/components/mdx/codeblock-client';
@@ -79,8 +97,21 @@ function MdxHrBlock({ className, ...properties }: React.ComponentProps<'hr'>) {
   return <hr {...properties} className={cn('border-border-subtle/30 my-8 border-t', className)} />;
 }
 
-function getPackageVersion(_componentSlug?: string): Promise<string> {
-  return Promise.resolve('0.0.2-beta.1');
+function toCamelCase(string_: string): string {
+  return string_.replaceAll(/-([a-z])/g, (_, letter: string) => letter.toUpperCase());
+}
+
+function getPackageVersion(componentSlug?: string): string {
+  if (componentSlug) {
+    const key = toCamelCase(componentSlug) as keyof typeof propsDocumentation;
+    const version = propsDocumentation[key]?.[0]?.version;
+
+    if (version) {
+      return version;
+    }
+  }
+
+  return '0.0.1-beta.1';
 }
 
 export default async function Page(properties: Readonly<{ params: Promise<{ slug?: string[] }> }>) {
@@ -100,7 +131,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
   const MdxContent = pageData.body;
 
   const componentSlug = parameters.slug.at(-1);
-  const packageVersion = await getPackageVersion(componentSlug);
+  const packageVersion = getPackageVersion(componentSlug);
 
   const filePath = page.absolutePath || path.join(process.cwd(), 'content/react', page.path);
   let rawMarkdown = '';
@@ -122,18 +153,27 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
   const schemaType = isComponentOrGuide ? 'TechArticle' : 'WebPage';
 
   const breadcrumbItems = [
+    { name: 'Home', path: '/' },
     { name: 'Docs', path: '/react/docs/start' },
-    ...slugList
-      .filter((segment, index) => !(index === 0 && segment === 'start'))
-      .map((segment) => ({
-        name: segment.charAt(0).toUpperCase() + segment.slice(1).replaceAll('-', ' '),
-        path: `/react/docs/${slugList.slice(0, slugList.indexOf(segment) + 1).join('/')}`,
-      })),
   ];
+
+  let cumulativePath = '/react/docs';
+
+  for (const segment of slugList) {
+    cumulativePath += `/${segment}`;
+    if (segment === 'start' && cumulativePath === '/react/docs/start') {
+      continue;
+    }
+    breadcrumbItems.push({
+      name: segment.charAt(0).toUpperCase() + segment.slice(1).replaceAll('-', ' '),
+      path: cumulativePath,
+    });
+  }
 
   return (
     <>
-      <ArticleJsonLd
+      <DocJsonLd
+        breadcrumbs={breadcrumbItems}
         dateModified={pageData.dateModified}
         datePublished={pageData.datePublished}
         description={pageData.description}
@@ -142,7 +182,6 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
         type={schemaType}
         version={packageVersion}
       />
-      <BreadcrumbJsonLd items={breadcrumbItems} />
       <DocsPage className="!pt-8 !pb-16" full={pageData.full} toc={pageData.toc}>
         {/* ── Executive Hero Header Card ────────────────────────────────────── */}
         <div className="from-primary-muted/60 via-secondary-muted/40 to-surface-subtle/80 relative mb-4 rounded-3xl bg-gradient-to-br p-5 backdrop-blur-md sm:px-8 sm:py-6">
@@ -184,8 +223,8 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
                   <span className="text-content-tertiary truncate text-[10px]">
                     {typeof pageData.links.npm === 'string' &&
                     !pageData.links.npm.startsWith('http') &&
-                    !pageData.links.npm.includes('true')
-                      ? `v${pageData.links.npm}`
+                    pageData.links.npm !== 'true'
+                      ? `v${pageData.links.npm.replace(/^v/, '')}`
                       : `v${packageVersion}`}
                   </span>
                 </div>
@@ -318,6 +357,9 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
               Item,
               InstallTabs,
               APIReferenceViewer,
+              BEMReferenceViewer,
+              BEMTable,
+              StandaloneCSS,
               QuickNav,
               FaqJsonLd,
               pre: MdxPreBlock,
@@ -330,30 +372,65 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
   );
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return source.generateParams();
 }
 
 export async function generateMetadata(properties: { params: Promise<{ slug?: string[] }> }) {
   const parameters = await properties.params;
-  const page = source.getPage(parameters.slug);
+  const slug = parameters.slug;
+
+  if (!slug || slug.length === 0) {
+    const docsCanonical = `${siteConfig.url}/react/docs/start`;
+    const fallbackTitle = `Documentation | ${siteConfig.name} — React Component Library`;
+
+    return {
+      title: 'Documentation',
+      description: 'IdeasUI documentation, getting started guides, and React components.',
+      openGraph: {
+        title: fallbackTitle,
+        description: 'IdeasUI documentation, getting started guides, and React components.',
+        type: 'article',
+        url: docsCanonical,
+        siteName: siteConfig.name,
+        images: [
+          {
+            url: siteConfig.ogImage,
+            width: 1200,
+            height: 630,
+            alt: `Documentation — ${siteConfig.name}`,
+          },
+        ],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        site: siteConfig.twitterHandle,
+        creator: siteConfig.twitterHandle,
+        title: fallbackTitle,
+        description: 'IdeasUI documentation, getting started guides, and React components.',
+        images: [siteConfig.ogImage],
+      },
+      alternates: {
+        canonical: docsCanonical,
+      },
+    };
+  }
+
+  const page = source.getPage(slug);
 
   if (!page) {
-    if (!parameters.slug || parameters.slug.length === 0) {
-      return {
-        title: 'Documentation',
-      };
-    }
     notFound();
   }
 
-  const canonicalUrl = `/react/docs/${parameters.slug?.join('/') ?? ''}`;
+  const slugPath = slug.join('/');
+  const canonicalUrl = `${siteConfig.url}/react/docs/${slugPath}`;
+  const fullTitle = `${page.data.title} | ${siteConfig.name} — React Component Library`;
 
   return {
     title: page.data.title,
     description: page.data.description,
     openGraph: {
-      title: page.data.title,
+      title: fullTitle,
       description: page.data.description,
       type: 'article',
       url: canonicalUrl,
@@ -371,7 +448,7 @@ export async function generateMetadata(properties: { params: Promise<{ slug?: st
       card: 'summary_large_image',
       site: siteConfig.twitterHandle,
       creator: siteConfig.twitterHandle,
-      title: page.data.title,
+      title: fullTitle,
       description: page.data.description,
       images: [siteConfig.ogImage],
     },

@@ -4,13 +4,6 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { siteConfig } from '@/config/site';
 
-export const metadata: Metadata = {
-  title: `${siteConfig.name} — Modern React & Tailwind CSS v4 Component Library`,
-  description: siteConfig.description,
-  alternates: {
-    canonical: '/',
-  },
-};
 import {
   InstallSnippet,
   HeroComponentPreview,
@@ -18,8 +11,41 @@ import {
   LandingNavbar,
   DottedHexagon,
 } from '@/components/landing';
-import { FaqJsonLd } from '@/components/seo';
+import { FaqJsonLd, WebsiteJsonLd } from '@/components/seo';
 import { HOME_FAQ_ITEMS } from '@/lib/constants';
+
+export const metadata: Metadata = {
+  title: {
+    absolute: `${siteConfig.name} — Modern React & Tailwind CSS v4 Component Library`,
+  },
+  description: siteConfig.description,
+  alternates: {
+    canonical: siteConfig.url,
+  },
+  openGraph: {
+    title: `${siteConfig.name} — Modern React & Tailwind CSS v4 Component Library`,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    type: 'website',
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} — Modern React & Tailwind CSS v4 Component Library`,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: siteConfig.twitterHandle,
+    creator: siteConfig.twitterHandle,
+    title: `${siteConfig.name} — Modern React & Tailwind CSS v4 Component Library`,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
+  },
+};
 
 const MarqueeStrip = dynamic(() => import('@/components/landing').then((mod) => mod.MarqueeStrip), {
   ssr: true,
@@ -40,6 +66,7 @@ const CtaSection = dynamic(() => import('@/components/landing').then((mod) => mo
 export default function HomePage() {
   return (
     <main className="bg-background text-content-primary flex min-h-screen flex-col overflow-x-hidden antialiased">
+      <WebsiteJsonLd />
       <FaqJsonLd items={HOME_FAQ_ITEMS} />
       <LandingNavbar />
       {/* ── 1. HERO SECTION ───────────────────────────────────────────── */}

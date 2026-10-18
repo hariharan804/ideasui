@@ -47,7 +47,6 @@ export const ThemeScript = memo<ThemeScriptProperties>((properties) => {
   return (
     <script
       dangerouslySetInnerHTML={{ __html: script }}
-      async
       suppressHydrationWarning
       data-testid="theme-script"
       id={id}

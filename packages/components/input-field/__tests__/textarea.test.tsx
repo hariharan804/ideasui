@@ -159,5 +159,6 @@ describe('Textarea', () => {
     );
 
     await expectAccessible(container);
+    expect(container).toBeInTheDocument();
   });
 });

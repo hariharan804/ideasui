@@ -1,0 +1,171 @@
+/**
+ * Avatar Component CSS
+ * Source of truth for visual styling for the Avatar component.
+ * Uses BEM selectors + Tailwind CSS v4 @apply directives.
+ */
+
+/* ── Avatar Root ─────────────────────────────────────────────────────────── */
+.ideasui-avatar {
+  @apply relative inline-flex shrink-0 items-center justify-center overflow-hidden font-semibold uppercase transition-opacity duration-150 select-none;
+}
+
+/* ── Shapes ──────────────────────────────────────────────────────────────── */
+.ideasui-avatar--circle {
+  @apply rounded-full;
+}
+.ideasui-avatar--square {
+  @apply rounded-lg;
+}
+
+/* ── Sizes ───────────────────────────────────────────────────────────────── */
+.ideasui-avatar--xs {
+  @apply size-6 text-[10px];
+}
+.ideasui-avatar--sm {
+  @apply size-8 text-xs;
+}
+.ideasui-avatar--md {
+  @apply size-10 text-sm;
+}
+.ideasui-avatar--lg {
+  @apply size-12 text-base;
+}
+.ideasui-avatar--xl {
+  @apply size-16 text-lg;
+}
+
+/* ── Bordered ────────────────────────────────────────────────────────────── */
+.ideasui-avatar--bordered {
+  @apply ring-offset-surface ring-2 ring-offset-2;
+}
+
+/* ── Disabled ────────────────────────────────────────────────────────────── */
+.ideasui-avatar--disabled {
+  @apply pointer-events-none opacity-50;
+}
+
+/* ── Variant: solid ──────────────────────────────────────────────────────── */
+.ideasui-avatar--solid.ideasui-avatar--primary {
+  @apply bg-primary text-on-primary;
+}
+.ideasui-avatar--solid.ideasui-avatar--neutral {
+  @apply bg-neutral text-on-neutral;
+}
+.ideasui-avatar--solid.ideasui-avatar--success {
+  @apply bg-success text-on-success;
+}
+.ideasui-avatar--solid.ideasui-avatar--warning {
+  @apply bg-warning text-on-warning;
+}
+.ideasui-avatar--solid.ideasui-avatar--danger {
+  @apply bg-danger text-on-danger;
+}
+
+/* ── Variant: soft ───────────────────────────────────────────────────────── */
+.ideasui-avatar--soft.ideasui-avatar--primary {
+  @apply bg-primary-subtle text-primary;
+}
+.ideasui-avatar--soft.ideasui-avatar--neutral {
+  @apply bg-surface-muted text-content-primary;
+}
+.ideasui-avatar--soft.ideasui-avatar--success {
+  @apply bg-success-subtle text-success;
+}
+.ideasui-avatar--soft.ideasui-avatar--warning {
+  @apply bg-warning-subtle text-warning;
+}
+.ideasui-avatar--soft.ideasui-avatar--danger {
+  @apply bg-danger-subtle text-danger;
+}
+
+/* ── Variant: outline ────────────────────────────────────────────────────── */
+.ideasui-avatar--outline {
+  @apply bg-transparent;
+}
+.ideasui-avatar--outline.ideasui-avatar--primary {
+  @apply border-primary text-primary border;
+}
+.ideasui-avatar--outline.ideasui-avatar--neutral {
+  @apply border-neutral text-neutral border;
+}
+.ideasui-avatar--outline.ideasui-avatar--success {
+  @apply border-success text-success border;
+}
+.ideasui-avatar--outline.ideasui-avatar--warning {
+  @apply border-warning text-warning border;
+}
+.ideasui-avatar--outline.ideasui-avatar--danger {
+  @apply border-danger text-danger border;
+}
+
+/* ── Variant: ghost ──────────────────────────────────────────────────────── */
+.ideasui-avatar--ghost {
+  @apply border-transparent bg-transparent;
+}
+.ideasui-avatar--ghost.ideasui-avatar--primary {
+  @apply text-primary;
+}
+.ideasui-avatar--ghost.ideasui-avatar--neutral {
+  @apply text-neutral;
+}
+.ideasui-avatar--ghost.ideasui-avatar--success {
+  @apply text-success;
+}
+.ideasui-avatar--ghost.ideasui-avatar--warning {
+  @apply text-warning;
+}
+.ideasui-avatar--ghost.ideasui-avatar--danger {
+  @apply text-danger;
+}
+
+/* ── Elements: Image, Fallback, Icon ─────────────────────────────────────── */
+.ideasui-avatar__image {
+  @apply size-full object-cover;
+}
+
+.ideasui-avatar__fallback {
+  @apply absolute inset-0 flex items-center justify-center;
+}
+
+.ideasui-avatar__icon {
+  @apply flex items-center justify-center;
+}
+.ideasui-avatar__icon--xs {
+  @apply size-3;
+}
+.ideasui-avatar__icon--sm {
+  @apply size-3.5;
+}
+.ideasui-avatar__icon--md {
+  @apply size-4;
+}
+.ideasui-avatar__icon--lg {
+  @apply size-5;
+}
+.ideasui-avatar__icon--xl {
+  @apply size-6;
+}
+
+/* ── Group & Overflow ────────────────────────────────────────────────────── */
+.ideasui-avatar-group {
+  @apply flex flex-row items-center;
+}
+
+.ideasui-avatar-group__overflow {
+  @apply bg-surface-muted text-content-secondary ring-surface relative inline-flex shrink-0 items-center justify-center rounded-full font-semibold uppercase ring-2 select-none;
+}
+.ideasui-avatar-group__overflow--xs {
+  @apply size-6 text-[10px];
+}
+.ideasui-avatar-group__overflow--sm {
+  @apply size-8 text-xs;
+}
+.ideasui-avatar-group__overflow--md {
+  @apply size-10 text-sm;
+}
+.ideasui-avatar-group__overflow--lg {
+  @apply size-12 text-base;
+}
+.ideasui-avatar-group__overflow--xl {
+  @apply size-16 text-lg;
+}

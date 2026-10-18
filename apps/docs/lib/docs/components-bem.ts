@@ -1,0 +1,972 @@
+export type BEMClassType = 'block' | 'element' | 'modifier';
+
+export interface BEMClassDefinition {
+  name: string;
+  target: string;
+  description: string;
+  type?: BEMClassType;
+}
+
+export interface ComponentBEMDocs {
+  componentName: string;
+  title?: string;
+  description?: string;
+  classes: BEMClassDefinition[];
+}
+
+export const bemDocumentation: Record<string, ComponentBEMDocs[]> = {
+  divider: [
+    {
+      componentName: 'Divider',
+      title: 'Divider BEM Classes',
+      description:
+        'Namespaced BEM classes and modifiers for standalone CSS styling and testing selectors.',
+      classes: [
+        {
+          name: '.ideasui-divider',
+          target: 'Root',
+          description: 'Base separator element (<hr> or <div>).',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-divider--horizontal',
+          target: 'Root',
+          description: 'Horizontal orientation layout.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-divider--vertical',
+          target: 'Root',
+          description: 'Vertical orientation layout.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-divider--has-label',
+          target: 'Root',
+          description: 'Flex container applied when label is present.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-divider__line',
+          target: 'Line Segment',
+          description: 'Border stroke segment before and after the label.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-divider__label',
+          target: 'Label',
+          description: 'Container wrapper for text, icon, or custom label content.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-divider--solid',
+          target: 'Modifier',
+          description: 'Solid line border style.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-divider--dashed',
+          target: 'Modifier',
+          description: 'Dashed line border style.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-divider--dotted',
+          target: 'Modifier',
+          description: 'Dotted line border style.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-divider--full',
+          target: 'Modifier',
+          description: 'Full span layout (100% width or height).',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-divider--inset',
+          target: 'Modifier',
+          description: 'Inset layout indented from the start edge.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-divider--inset-end',
+          target: 'Modifier',
+          description: 'Inset layout indented from the end edge.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-divider--middle',
+          target: 'Modifier',
+          description: 'Middle layout centered with equal margins on both ends.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-divider--sm',
+          target: 'Modifier',
+          description: '1px border thickness scale.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-divider--md',
+          target: 'Modifier',
+          description: '2px border thickness scale.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-divider--lg',
+          target: 'Modifier',
+          description: '4px border thickness scale.',
+          type: 'modifier',
+        },
+      ],
+    },
+  ],
+  button: [
+    {
+      componentName: 'Button',
+      title: 'Button BEM Classes',
+      description: 'Namespaced BEM classes and modifiers for Button and sub-slots.',
+      classes: [
+        {
+          name: '.ideasui-btn',
+          target: 'Root (base slot)',
+          description: 'Main button container element.',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-btn__label',
+          target: 'Label Slot',
+          description: 'Text label slot wrapper.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-btn__icon',
+          target: 'Icon Slot',
+          description: 'Icon container slot for startIcon / endIcon.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-btn__loader',
+          target: 'Spinner Slot',
+          description: 'Loading indicator slot.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-btn__shortcut',
+          target: 'Shortcut Slot',
+          description: 'Keyboard shortcut slot wrapper.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-btn--solid',
+          target: 'Modifier',
+          description: 'Solid filled background variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--outline',
+          target: 'Modifier',
+          description: 'Border outline variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--ghost',
+          target: 'Modifier',
+          description: 'Ghost variant with transparent background.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--soft',
+          target: 'Modifier',
+          description: 'Soft subtle tinted background variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--link',
+          target: 'Modifier',
+          description: 'Underlined link appearance variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--text',
+          target: 'Modifier',
+          description: 'Plain text appearance variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--elevated',
+          target: 'Modifier',
+          description: 'Elevated variant with subtle drop shadow.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--surface',
+          target: 'Modifier',
+          description: 'Surface background variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--primary',
+          target: 'Modifier',
+          description: 'Primary brand color scheme.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--secondary',
+          target: 'Modifier',
+          description: 'Secondary brand color scheme.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--success',
+          target: 'Modifier',
+          description: 'Success status color scheme.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--warning',
+          target: 'Modifier',
+          description: 'Warning status color scheme.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--danger',
+          target: 'Modifier',
+          description: 'Danger / destructive color scheme.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--info',
+          target: 'Modifier',
+          description: 'Information status color scheme.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--xs',
+          target: 'Modifier',
+          description: 'Extra small size scale.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--sm',
+          target: 'Modifier',
+          description: 'Small size scale.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--md',
+          target: 'Modifier',
+          description: 'Medium default size scale.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--lg',
+          target: 'Modifier',
+          description: 'Large size scale.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--xl',
+          target: 'Modifier',
+          description: 'Extra large size scale.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--disabled',
+          target: 'Modifier',
+          description: 'Disabled interaction state.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--loading',
+          target: 'Modifier',
+          description: 'Pending / loading interaction state.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--icon-only',
+          target: 'Modifier',
+          description: 'Square aspect ratio for icon-only buttons.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn--full-width',
+          target: 'Modifier',
+          description: '100% full container width layout.',
+          type: 'modifier',
+        },
+      ],
+    },
+  ],
+  buttonGroup: [
+    {
+      componentName: 'ButtonGroup',
+      title: 'Button Group BEM Classes',
+      description: 'Namespaced BEM classes and modifiers for Button.Group container.',
+      classes: [
+        {
+          name: '.ideasui-btn-group',
+          target: 'Root Container',
+          description: 'Main button group container element.',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-btn-group--attached',
+          target: 'Modifier',
+          description: 'Joined buttons without gaps and connected borders.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn-group--horizontal',
+          target: 'Modifier',
+          description: 'Horizontal flex row layout.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn-group--vertical',
+          target: 'Modifier',
+          description: 'Vertical flex column layout.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-btn-group--full-width',
+          target: 'Modifier',
+          description: '100% width with buttons expanding equally.',
+          type: 'modifier',
+        },
+      ],
+    },
+  ],
+  text: [
+    {
+      componentName: 'Text',
+      title: 'Text BEM Classes',
+      description: 'Namespaced BEM classes and typography modifiers for the Text component.',
+      classes: [
+        {
+          name: '.ideasui-text',
+          target: 'Root Element',
+          description: 'Main typography container element.',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-text--body',
+          target: 'Modifier',
+          description: 'Body typography variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-text--label',
+          target: 'Modifier',
+          description: 'Form label typography variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-text--caption',
+          target: 'Modifier',
+          description: 'Small caption typography variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-text--overline',
+          target: 'Modifier',
+          description: 'Uppercase tracking-wider overline variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-text--code',
+          target: 'Modifier',
+          description: 'Monospace code block typography variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-text--lead',
+          target: 'Modifier',
+          description: 'Lead introductory paragraph variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-text--helper',
+          target: 'Modifier',
+          description: 'Muted helper description variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-text--h1',
+          target: 'Modifier',
+          description: 'Heading level 1 display styling.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-text--h2',
+          target: 'Modifier',
+          description: 'Heading level 2 display styling.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-text--h3',
+          target: 'Modifier',
+          description: 'Heading level 3 display styling.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-text--truncate',
+          target: 'Modifier',
+          description: 'Single-line text truncation with ellipsis.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-text--line-clamp',
+          target: 'Modifier',
+          description: 'Multi-line clamp truncation with ellipsis.',
+          type: 'modifier',
+        },
+      ],
+    },
+  ],
+  inputField: [
+    {
+      componentName: 'InputField',
+      title: 'InputField BEM Classes',
+      description: 'Namespaced BEM classes and slots for InputField and text inputs.',
+      classes: [
+        {
+          name: '.ideasui-input-field',
+          target: 'Root Element',
+          description: 'Root container wrapper for the input field composite.',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-input-field__label',
+          target: 'Label Slot',
+          description: 'Visible label text element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-input-field__wrapper',
+          target: 'Wrapper Slot',
+          description: 'Interactive container wrapping input and adornments.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-input-field__input',
+          target: 'Input Slot',
+          description: 'Native HTML <input> element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-input-field__start-content',
+          target: 'StartContent Slot',
+          description: 'Leading icon or adornment container.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-input-field__end-content',
+          target: 'EndContent Slot',
+          description: 'Trailing icon or action adornment container.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-input-field__description',
+          target: 'Description Slot',
+          description: 'Helper guidance description text.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-input-field__error',
+          target: 'Error Slot',
+          description: 'Validation error alert message container.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-input-field__wrapper--outline',
+          target: 'Modifier',
+          description: 'Border outline visual variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-input-field__wrapper--filled',
+          target: 'Modifier',
+          description: 'Subtle solid filled background variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-input-field__wrapper--flushed',
+          target: 'Modifier',
+          description: 'Bottom-border only flushed variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-input-field__wrapper--unstyled',
+          target: 'Modifier',
+          description: 'Unstyled reset variant without border or background.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-input-field--sm',
+          target: 'Modifier',
+          description: 'Compact small size scale.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-input-field--md',
+          target: 'Modifier',
+          description: 'Standard medium size scale.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-input-field--lg',
+          target: 'Modifier',
+          description: 'Large touch-friendly size scale.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-input-field--focused',
+          target: 'Modifier',
+          description: 'Keyboard or mouse focus state.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-input-field--invalid',
+          target: 'Modifier',
+          description: 'Validation error state with danger highlight.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-input-field--disabled',
+          target: 'Modifier',
+          description: 'Disabled non-interactive state.',
+          type: 'modifier',
+        },
+      ],
+    },
+  ],
+  checkbox: [
+    {
+      componentName: 'Checkbox',
+      title: 'Checkbox BEM Classes',
+      description: 'Namespaced BEM classes and slots for Checkbox and CheckboxGroup.',
+      classes: [
+        {
+          name: '.ideasui-checkbox',
+          target: 'Root Container',
+          description: 'Main label wrapper element (<label>).',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-checkbox__input',
+          target: 'Input Slot',
+          description: 'Hidden native <input type="checkbox"> element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-checkbox__indicator',
+          target: 'Indicator Slot',
+          description: 'Visual checkbox indicator square or circle.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-checkbox__icon',
+          target: 'Icon Slot',
+          description: 'Checkmark or indeterminate dash SVG icon.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-checkbox__label-text',
+          target: 'LabelText Slot',
+          description: 'Visible label text element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-checkbox-group',
+          target: 'Group Container',
+          description: 'Checkbox group fieldset element.',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-checkbox-group__label',
+          target: 'Group Label',
+          description: 'Checkbox group legend label element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-checkbox--solid',
+          target: 'Modifier',
+          description: 'Solid filled indicator variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-checkbox--outline',
+          target: 'Modifier',
+          description: 'Border outline indicator variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-checkbox--subtle',
+          target: 'Modifier',
+          description: 'Subtle tinted indicator variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-checkbox--selected',
+          target: 'Modifier',
+          description: 'Checked / active selection state.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-checkbox--indeterminate',
+          target: 'Modifier',
+          description: 'Partially selected indeterminate state.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-checkbox--disabled',
+          target: 'Modifier',
+          description: 'Disabled non-interactive state.',
+          type: 'modifier',
+        },
+      ],
+    },
+  ],
+  textarea: [
+    {
+      componentName: 'Textarea',
+      title: 'Textarea BEM Classes',
+      description: 'Namespaced BEM classes and modifiers for Textarea multi-line input.',
+      classes: [
+        {
+          name: '.ideasui-input-field',
+          target: 'Root Container',
+          description: 'Root container wrapping textarea composite.',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-input-field__label',
+          target: 'Label Slot',
+          description: 'Visible label element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-input-field__wrapper',
+          target: 'Wrapper Slot',
+          description: 'Outer input container wrapper.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-input-field__wrapper--textarea',
+          target: 'Modifier',
+          description: 'Multi-line wrapper layout modifier.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-input-field__textarea',
+          target: 'Textarea Slot',
+          description: 'Native HTML <textarea> element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-input-field__counter',
+          target: 'Counter Slot',
+          description: 'Character counter indicator.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-input-field__description',
+          target: 'Description Slot',
+          description: 'Helper guidance description text.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-input-field__error',
+          target: 'Error Slot',
+          description: 'Validation error alert container.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-input-field__textarea--resize-none',
+          target: 'Modifier',
+          description: 'Disables user resizing of the textarea.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-input-field__textarea--resize-vertical',
+          target: 'Modifier',
+          description: 'Allows only vertical user resizing.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-input-field__textarea--resize-horizontal',
+          target: 'Modifier',
+          description: 'Allows only horizontal user resizing.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-input-field__textarea--resize-both',
+          target: 'Modifier',
+          description: 'Allows both horizontal and vertical user resizing.',
+          type: 'modifier',
+        },
+      ],
+    },
+  ],
+  radio: [
+    {
+      componentName: 'Radio',
+      title: 'Radio BEM Classes',
+      description: 'Namespaced BEM classes and slots for Radio and RadioGroup.',
+      classes: [
+        {
+          name: '.ideasui-radio',
+          target: 'Root Container',
+          description: 'Main label wrapper element (<label>).',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-radio__input',
+          target: 'Input Slot',
+          description: 'Hidden native <input type="radio"> element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-radio__indicator',
+          target: 'Indicator Slot',
+          description: 'Custom visual radio circle indicator.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-radio__dot',
+          target: 'Dot Slot',
+          description: 'Inner dot indicator or custom check icon.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-radio__label-text',
+          target: 'LabelText Slot',
+          description: 'Visible label text element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-radio-group',
+          target: 'Group Container',
+          description: 'Radio group fieldset wrapper container.',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-radio-group__label',
+          target: 'Group Label',
+          description: 'Radio group legend label element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-radio--solid',
+          target: 'Modifier',
+          description: 'Solid filled radio indicator variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-radio--outline',
+          target: 'Modifier',
+          description: 'Outline radio indicator variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-radio--subtle',
+          target: 'Modifier',
+          description: 'Subtle tinted indicator variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-radio--selected',
+          target: 'Modifier',
+          description: 'Selected active radio state.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-radio--disabled',
+          target: 'Modifier',
+          description: 'Disabled non-interactive state.',
+          type: 'modifier',
+        },
+      ],
+    },
+  ],
+  switch: [
+    {
+      componentName: 'Switch',
+      title: 'Switch BEM Classes',
+      description: 'Namespaced BEM classes and slots for Switch and SwitchGroup.',
+      classes: [
+        {
+          name: '.ideasui-switch',
+          target: 'Root Container',
+          description: 'Main label wrapper element (<label>).',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-switch__input',
+          target: 'Input Slot',
+          description: 'Hidden native <input type="checkbox" role="switch"> element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-switch__track',
+          target: 'Track Slot',
+          description: 'Visual track container element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-switch__thumb',
+          target: 'Thumb Slot',
+          description: 'Animated sliding thumb element inside track.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-switch__thumb-icon',
+          target: 'ThumbIcon Slot',
+          description: 'Icon element inside the sliding thumb.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-switch__start-icon',
+          target: 'StartIcon Slot',
+          description: 'Active state icon displayed inside track.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-switch__end-icon',
+          target: 'EndIcon Slot',
+          description: 'Inactive state icon displayed inside track.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-switch__label-text',
+          target: 'Label Slot',
+          description: 'Visible label text element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-switch-group',
+          target: 'Group Container',
+          description: 'Switch group fieldset wrapper container.',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-switch--solid',
+          target: 'Modifier',
+          description: 'Solid filled track variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-switch--outline',
+          target: 'Modifier',
+          description: 'Border outline track variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-switch--soft',
+          target: 'Modifier',
+          description: 'Soft tinted track variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-switch--selected',
+          target: 'Modifier',
+          description: 'Checked / active toggle state.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-switch--disabled',
+          target: 'Modifier',
+          description: 'Disabled non-interactive state.',
+          type: 'modifier',
+        },
+      ],
+    },
+  ],
+  avatar: [
+    {
+      componentName: 'Avatar',
+      title: 'Avatar BEM Classes',
+      description: 'Namespaced BEM classes and slots for Avatar and AvatarGroup.',
+      classes: [
+        {
+          name: '.ideasui-avatar',
+          target: 'Root Container',
+          description: 'Base avatar container with flex alignment, size, radius, and variant.',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-avatar__image',
+          target: 'Image Element',
+          description: 'Image slot primitive with object-fit cover.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-avatar__fallback',
+          target: 'Fallback Container',
+          description: 'Absolute inset fallback displaying initials, custom icon, or SVG.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-avatar__icon',
+          target: 'Icon Slot Wrapper',
+          description: 'Flex wrapper for icon children.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-avatar-group',
+          target: 'Group Container',
+          description: 'Horizontal flex wrapper managing overlap spacing.',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-avatar-group__overflow',
+          target: 'Overflow Badge',
+          description: 'Circular badge indicating remaining avatars count.',
+          type: 'element',
+        },
+      ],
+    },
+  ],
+  image: [
+    {
+      componentName: 'Image',
+      title: 'Image BEM Classes',
+      description: 'Namespaced BEM classes and slots for Image component.',
+      classes: [
+        {
+          name: '.ideasui-image',
+          target: 'Root Wrapper',
+          description: 'Outer container managing aspect ratio, radius, shadow, and zoom.',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-image__img',
+          target: '<img> Element',
+          description: 'Main image primitive.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-image__blur',
+          target: '<img> LQIP',
+          description: 'Low-quality blurred placeholder.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-image__skeleton',
+          target: '<div> Skeleton',
+          description: 'Shimmer loading overlay.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-image__fallback',
+          target: '<div> Fallback',
+          description: 'Error container displaying icon or custom children.',
+          type: 'element',
+        },
+      ],
+    },
+  ],
+};
+
+export default bemDocumentation;

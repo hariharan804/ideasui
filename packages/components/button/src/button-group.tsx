@@ -16,16 +16,20 @@ export interface ButtonGroupProperties
   extends Omit<HTMLAttributes<HTMLDivElement>, 'color'>, ButtonGroupContextType {
   /**
    * The size of the buttons in the group.
+   * @default 'md'
    */
-  size?: NonNullable<ButtonGroupContextType['size']>;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   /**
    * The color scheme of the buttons in the group.
+   * @default 'primary'
    */
-  color?: NonNullable<ButtonGroupContextType['color']>;
+  color?:
+    'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral';
   /**
    * The visual style of the buttons in the group.
+   * @default 'solid'
    */
-  variant?: NonNullable<ButtonGroupContextType['variant']>;
+  variant?: 'solid' | 'outline' | 'ghost' | 'soft' | 'link' | 'text' | 'elevated' | 'surface';
   /**
    * Whether the buttons in the group should be disabled.
    */

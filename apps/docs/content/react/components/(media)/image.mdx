@@ -211,28 +211,11 @@ export default function NextImageDemo() {
 
 `Image` can also be used in non-Tailwind projects via the pre-compiled `@ideasui/styles` package.
 
-Install the standalone styles package:
-
-```bash
-pnpm add @ideasui/styles
-```
-
-Import base tokens and the component stylesheet:
-
-```css
-@import '@ideasui/styles/base.css';
-@import '@ideasui/styles/components/image.css';
-```
+<StandaloneCSS componentName="image" />
 
 ### BEM CSS Classes
 
-| Class Name                 | Target Element   | Description                                                     |
-| :------------------------- | :--------------- | :-------------------------------------------------------------- |
-| `.ideasui-image`           | Root Wrapper     | Outer container managing aspect ratio, radius, shadow, and zoom |
-| `.ideasui-image__img`      | `<img>` Element  | Main image primitive                                            |
-| `.ideasui-image__blur`     | `<img>` LQIP     | Low-quality blurred placeholder                                 |
-| `.ideasui-image__skeleton` | `<div>` Skeleton | Shimmer loading overlay                                         |
-| `.ideasui-image__fallback` | `<div>` Fallback | Error container displaying icon or custom children              |
+<BEMReferenceViewer componentName="image" />
 
 ## API Reference
 

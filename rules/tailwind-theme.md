@@ -1,17 +1,14 @@
 # Tailwind CSS v4 & Theme Rules
 
-## 🎨 Theme Integration
+## 🎨 Theme Integration & Recipes
 
-### Using IdeasUI Theme Plugin
+### Recipes Must Primarily Use Tailwind Utility Tokens
 
-```ts
-// tailwind.config.ts
-import ideasUIPlugin from '@ideasui/theme/plugin';
+All recipes under `packages/core/theme/src/recipes/` must be written in TypeScript using **Tailwind Variants (`tv()`)** and composed primarily of Tailwind utility classes.
 
-export default {
-  plugins: [ideasUIPlugin()],
-};
-```
+- Component visuals, variants, colors, sizes, and states belong directly in `tv()` recipe definitions.
+- Use **only** semantic Tailwind utility tokens (e.g., `bg-primary`, `bg-surface`, `border-border`, `text-content-primary`). Never use raw palette colors like `blue-600` or the `dark:` prefix.
+- Standalone CSS (`*.css`) files are strictly for non-Tailwind consumers or low-level CSS resets.
 
 ### CSS Variables
 

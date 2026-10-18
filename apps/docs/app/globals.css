@@ -15,11 +15,6 @@
 @source '../../../packages/core/theme/src/recipes/**/*.ts';
 @source '../../../packages/components/*/src/**/*.{js,ts,jsx,tsx}';
 
-html {
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-
 html.dark,
 [data-theme='dark'] {
   color-scheme: dark;
@@ -172,6 +167,7 @@ html:not(.dark):not([data-theme='dark']) {
 html {
   @apply bg-background scroll-smooth antialiased transition duration-300;
   height: 100%;
+  -webkit-overflow-scrolling: touch;
   scroll-padding-top: 120px;
 }
 

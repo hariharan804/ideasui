@@ -10,6 +10,7 @@ export type ArticleJsonLdProps = {
   dateModified?: string;
   keywords?: string[];
   version?: string;
+  image?: string;
 };
 
 /**
@@ -25,6 +26,7 @@ export function ArticleJsonLd({
   dateModified,
   keywords,
   version,
+  image,
 }: Readonly<ArticleJsonLdProps>) {
   const url = path.startsWith('http') ? path : new URL(path, siteConfig.url).toString();
 
@@ -33,6 +35,7 @@ export function ArticleJsonLd({
     '@type': type,
     headline: title,
     description: description || siteConfig.description,
+    image: [image || siteConfig.ogImage],
     url,
     mainEntityOfPage: {
       '@type': 'WebPage',

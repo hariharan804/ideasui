@@ -9,6 +9,8 @@ import * as SwitchDemos from './switch';
 import * as TextareaDemos from './textarea';
 import * as TextDemos from './text';
 import * as ImageDemos from './image';
+import * as AvatarDemos from './avatar';
+import * as DividerDemos from './divider';
 
 export type DemoItem = {
   component: ComponentType<any>;
@@ -415,6 +417,72 @@ export const demos: Record<string, DemoItem> = {
   'image-error-fallback': {
     component: ImageDemos.ErrorFallback,
     file: 'image/error-fallback.tsx',
+  },
+  // Avatar demos
+  'avatar-default': {
+    component: AvatarDemos.Default,
+    file: 'avatar/default.tsx',
+  },
+  'avatar-initials': {
+    component: AvatarDemos.Initials,
+    file: 'avatar/initials.tsx',
+  },
+  'avatar-variants': {
+    component: AvatarDemos.Variants,
+    file: 'avatar/variants.tsx',
+  },
+  'avatar-sizes': {
+    component: AvatarDemos.Sizes,
+    file: 'avatar/sizes.tsx',
+  },
+  'avatar-shapes': {
+    component: AvatarDemos.Shapes,
+    file: 'avatar/shapes.tsx',
+  },
+  'avatar-bordered': {
+    component: AvatarDemos.Bordered,
+    file: 'avatar/bordered.tsx',
+  },
+  'avatar-group': {
+    component: AvatarDemos.Group,
+    file: 'avatar/group.tsx',
+  },
+  'avatar-icon-fallback': {
+    component: AvatarDemos.IconFallback,
+    file: 'avatar/icon-fallback.tsx',
+  },
+  'avatar-custom-image': {
+    component: AvatarDemos.CustomImage,
+    file: 'avatar/custom-image.tsx',
+  },
+  // Divider demos
+  'divider-default': {
+    component: DividerDemos.DividerDefaultDemo,
+    file: 'divider/default.tsx',
+  },
+  'divider-with-label': {
+    component: DividerDemos.DividerWithLabelDemo,
+    file: 'divider/with-label.tsx',
+  },
+  'divider-variants': {
+    component: DividerDemos.DividerVariantsDemo,
+    file: 'divider/variants.tsx',
+  },
+  'divider-colors': {
+    component: DividerDemos.DividerColorsDemo,
+    file: 'divider/colors.tsx',
+  },
+  'divider-thickness': {
+    component: DividerDemos.DividerThicknessDemo,
+    file: 'divider/thickness.tsx',
+  },
+  'divider-layout': {
+    component: DividerDemos.DividerLayoutDemo,
+    file: 'divider/layout.tsx',
+  },
+  'divider-vertical': {
+    component: DividerDemos.DividerVerticalDemo,
+    file: 'divider/vertical.tsx',
   },
 };
 

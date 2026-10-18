@@ -19,6 +19,7 @@ export interface ComponentDoc {
   title: string;
   component: string;
   description: string;
+  version?: string;
   props: PropInfo[];
 }
 
@@ -32,6 +33,8 @@ export interface PropsDocumentation {
   radio: ComponentDoc[];
   switch: ComponentDoc[];
   image: ComponentDoc[];
+  avatar: ComponentDoc[];
+  divider: ComponentDoc[];
 }
 
 /**
@@ -45,6 +48,8 @@ export interface PropsDocumentation {
  * - Radio: RadioProps, RadioGroupProps, RadioGroupLabelProps, RadioGroupDescriptionProps, RadioGroupErrorProps
  * - Switch: SwitchProps, SwitchGroupProps
  * - Image: ImageProps, ImageFallbackProps
+ * - Avatar: AvatarProps, AvatarGroupProps, AvatarImageProps, AvatarFallbackProps, AvatarIconProps
+ * - Divider: DividerProps
  */
 export const propsDocumentation: PropsDocumentation = {
   button: [
@@ -53,6 +58,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Button Props',
       component: '<Button />',
       description: 'Primary button component with variants and sizes',
+      version: '0.0.2-beta.1',
       props: [
         {
           name: 'isLoading',
@@ -178,6 +184,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Button Label Props',
       component: '<Button.Label />',
       description: 'Label component inside the button',
+      version: '0.0.2-beta.1',
       props: [],
     },
     {
@@ -185,6 +192,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Button Icon Props',
       component: '<Button.Icon />',
       description: 'Icon component inside the button',
+      version: '0.0.2-beta.1',
       props: [
         {
           name: 'children',
@@ -209,6 +217,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Button Spinner Props',
       component: '<Button.Spinner />',
       description: 'Spinner component inside the button',
+      version: '0.0.2-beta.1',
       props: [
         {
           name: 'label',
@@ -225,6 +234,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Button Shortcut Props',
       component: '<Button.Shortcut />',
       description: 'Shortcut component inside the button',
+      version: '0.0.2-beta.1',
       props: [
         {
           name: 'children',
@@ -243,28 +253,29 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Button Group Props',
       component: '<Button.Group />',
       description: 'Group component for layout of multiple buttons',
+      version: '0.0.2-beta.1',
       props: [
         {
           name: 'size',
-          type: "NonNullable<ButtonGroupContextType['size']>",
+          type: '"xs" | "sm" | "md" | "lg" | "xl"',
           required: false,
-          defaultValue: null,
+          defaultValue: "'md'",
           deprecated: false,
           description: 'The size of the buttons in the group.',
         },
         {
           name: 'color',
-          type: "NonNullable<ButtonGroupContextType['color']>",
+          type: '"primary" | "secondary" | "tertiary" | "success" | "warning" | "danger" | "info" | "neutral"',
           required: false,
-          defaultValue: null,
+          defaultValue: "'primary'",
           deprecated: false,
           description: 'The color scheme of the buttons in the group.',
         },
         {
           name: 'variant',
-          type: "NonNullable<ButtonGroupContextType['variant']>",
+          type: '"solid" | "outline" | "ghost" | "soft" | "link" | "text" | "elevated" | "surface"',
           required: false,
-          defaultValue: null,
+          defaultValue: "'solid'",
           deprecated: false,
           description: 'The visual style of the buttons in the group.',
         },
@@ -310,6 +321,7 @@ export const propsDocumentation: PropsDocumentation = {
       component: '<Text />',
       description:
         'Theme-aware typography primitive supporting semantic tokens, line clamping, and slots',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'classNames',
@@ -338,7 +350,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'variant',
-          type: 'TextVariant',
+          type: '"body" | "label" | "caption" | "overline" | "code" | "lead" | "helper" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6"',
           required: false,
           defaultValue: "'body'",
           deprecated: false,
@@ -347,7 +359,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'size',
-          type: 'TextSize',
+          type: '"xs" | "sm" | "md" | "lg" | "xl" | "2xl"',
           required: false,
           defaultValue: null,
           deprecated: false,
@@ -356,7 +368,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'weight',
-          type: 'TextWeight',
+          type: '"regular" | "medium" | "semibold" | "bold"',
           required: false,
           defaultValue: null,
           deprecated: false,
@@ -365,7 +377,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'color',
-          type: 'TextColor',
+          type: '"primary" | "secondary" | "tertiary" | "muted" | "inverse" | "success" | "warning" | "danger" | "info"',
           required: false,
           defaultValue: "'primary'",
           deprecated: false,
@@ -373,7 +385,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'align',
-          type: 'TextAlign',
+          type: '"start" | "center" | "end" | "justify"',
           required: false,
           defaultValue: "'start'",
           deprecated: false,
@@ -428,6 +440,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'InputField Props',
       component: '<InputField />',
       description: 'Root wrapper and shorthand single-component interface for input fields',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'id',
@@ -447,7 +460,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'variant',
-          type: 'InputFieldVariant',
+          type: '"outline" | "filled" | "flushed" | "unstyled" | "shadow"',
           required: false,
           defaultValue: "'outline'",
           deprecated: false,
@@ -455,7 +468,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'labelVariant',
-          type: 'InputFieldLabelVariant',
+          type: '"default" | "inside-fixed" | "inside-floating" | "floating" | "inside"',
           required: false,
           defaultValue: "'default'",
           deprecated: false,
@@ -463,7 +476,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'size',
-          type: 'InputFieldSize',
+          type: '"sm" | "md" | "lg"',
           required: false,
           defaultValue: "'md'",
           deprecated: false,
@@ -471,7 +484,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'shadow',
-          type: 'InputFieldShadow | boolean',
+          type: '"none" | "xs" | "sm" | "md" | "lg" | "xl" | boolean',
           required: false,
           defaultValue: "'none' (or 'sm' when variant=\"shadow\")",
           deprecated: false,
@@ -669,7 +682,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'inputFilter',
-          type: 'InputFieldInputFilter',
+          type: '"numeric" | "decimal" | "alpha" | "alphanumeric"',
           required: false,
           defaultValue: null,
           deprecated: false,
@@ -750,6 +763,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'InputField Label Props',
       component: '<InputField.Label />',
       description: 'Label component for the input field',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'className',
@@ -774,6 +788,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'InputField Input Props',
       component: '<InputField.Input />',
       description: 'Native HTML input primitive wrapper',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'inputRef',
@@ -820,7 +835,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'inputFilter',
-          type: 'InputFieldInputFilter',
+          type: '"numeric" | "decimal" | "alpha" | "alphanumeric"',
           required: false,
           defaultValue: null,
           deprecated: false,
@@ -834,6 +849,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'InputField Description Props',
       component: '<InputField.Description />',
       description: 'Helper description text component for the input field',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'className',
@@ -858,6 +874,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'InputField Error Props',
       component: '<InputField.Error />',
       description: 'Error message text component for validation states',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'className',
@@ -884,6 +901,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Checkbox Props',
       component: '<Checkbox />',
       description: 'Checkbox component supporting single, group, and custom icon usage',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'classNames',
@@ -905,7 +923,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'variant',
-          type: 'CheckboxVariant',
+          type: '"solid" | "outline" | "subtle" | "ghost" | "soft" | "customIcon"',
           required: false,
           defaultValue: "'solid'",
           deprecated: false,
@@ -913,7 +931,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'color',
-          type: 'CheckboxColor',
+          type: '"primary" | "neutral" | "success" | "warning" | "danger"',
           required: false,
           defaultValue: "'primary'",
           deprecated: false,
@@ -921,7 +939,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'size',
-          type: 'CheckboxSize',
+          type: '"sm" | "md" | "lg"',
           required: false,
           defaultValue: "'md'",
           deprecated: false,
@@ -929,7 +947,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'radius',
-          type: 'CheckboxRadius',
+          type: '"none" | "sm" | "md" | "lg" | "full"',
           required: false,
           defaultValue: null,
           deprecated: false,
@@ -1066,6 +1084,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'CheckboxGroup Props',
       component: '<CheckboxGroup />',
       description: 'Group component managing selection state for child checkboxes',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'value',
@@ -1093,7 +1112,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'variant',
-          type: 'CheckboxVariant',
+          type: '"solid" | "outline" | "subtle" | "ghost" | "soft" | "customIcon"',
           required: false,
           defaultValue: "'solid'",
           deprecated: false,
@@ -1101,7 +1120,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'color',
-          type: 'CheckboxColor',
+          type: '"primary" | "neutral" | "success" | "warning" | "danger"',
           required: false,
           defaultValue: "'primary'",
           deprecated: false,
@@ -1109,7 +1128,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'size',
-          type: 'CheckboxSize',
+          type: '"sm" | "md" | "lg"',
           required: false,
           defaultValue: "'md'",
           deprecated: false,
@@ -1117,7 +1136,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'radius',
-          type: 'CheckboxRadius',
+          type: '"none" | "sm" | "md" | "lg" | "full"',
           required: false,
           defaultValue: null,
           deprecated: false,
@@ -1199,6 +1218,7 @@ export const propsDocumentation: PropsDocumentation = {
       component: '<Textarea />',
       description:
         'Standalone shorthand and wrapper component for multi-line inputs with auto-resize, character counter, and variants',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'label',
@@ -1354,7 +1374,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'resize',
-          type: 'TextareaResize',
+          type: '"none" | "vertical" | "horizontal" | "both"',
           required: false,
           defaultValue: "'none'",
           deprecated: false,
@@ -1481,6 +1501,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Textarea Input Props',
       component: '<Textarea.Input />',
       description: 'Multi-line textarea element component with auto-resize and counter features',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'startContent',
@@ -1524,7 +1545,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'resize',
-          type: 'TextareaResize',
+          type: '"none" | "vertical" | "horizontal" | "both"',
           required: false,
           defaultValue: "'none'",
           deprecated: false,
@@ -1588,6 +1609,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Radio Props',
       component: '<Radio />',
       description: 'Radio control component for selecting a single option from a list',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'classNames',
@@ -1609,7 +1631,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'variant',
-          type: 'RadioVariant',
+          type: '"solid" | "outline" | "subtle" | "ghost" | "soft"',
           required: false,
           defaultValue: "'outline'",
           deprecated: false,
@@ -1617,7 +1639,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'color',
-          type: 'RadioColor',
+          type: '"primary" | "neutral" | "success" | "warning" | "danger"',
           required: false,
           defaultValue: "'primary'",
           deprecated: false,
@@ -1625,7 +1647,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'size',
-          type: 'RadioSize',
+          type: '"sm" | "md" | "lg"',
           required: false,
           defaultValue: "'md'",
           deprecated: false,
@@ -1633,7 +1655,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'radius',
-          type: 'RadioRadius',
+          type: '"none" | "sm" | "md" | "lg" | "full"',
           required: false,
           defaultValue: "'full'",
           deprecated: false,
@@ -1752,6 +1774,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'RadioGroup Props',
       component: '<RadioGroup />',
       description: 'Group container managing single selection state across child radios',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'name',
@@ -1787,7 +1810,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'variant',
-          type: 'RadioVariant',
+          type: '"solid" | "outline" | "subtle" | "ghost" | "soft"',
           required: false,
           defaultValue: "'outline'",
           deprecated: false,
@@ -1795,7 +1818,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'color',
-          type: 'RadioColor',
+          type: '"primary" | "neutral" | "success" | "warning" | "danger"',
           required: false,
           defaultValue: "'primary'",
           deprecated: false,
@@ -1803,7 +1826,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'size',
-          type: 'RadioSize',
+          type: '"sm" | "md" | "lg"',
           required: false,
           defaultValue: "'md'",
           deprecated: false,
@@ -1811,7 +1834,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'radius',
-          type: 'RadioRadius',
+          type: '"none" | "sm" | "md" | "lg" | "full"',
           required: false,
           defaultValue: "'full'",
           deprecated: false,
@@ -1899,6 +1922,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'RadioGroupLabel Props',
       component: '<RadioGroupLabel />',
       description: 'Label component rendered above the radio group',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'className',
@@ -1923,6 +1947,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'RadioGroupDescription Props',
       component: '<RadioGroupDescription />',
       description: 'Accessible description text component rendered below the radio group',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'className',
@@ -1947,6 +1972,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'RadioGroupError Props',
       component: '<RadioGroupError />',
       description: 'Error message component rendered below the radio group when invalid',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'className',
@@ -1974,6 +2000,7 @@ export const propsDocumentation: PropsDocumentation = {
       component: '<Switch />',
       description:
         'Accessible, theme-aware toggle primitive supporting standalone usage, controlled state, visual variants, track labels, and group selection',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'classNames',
@@ -1995,7 +2022,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'variant',
-          type: 'SwitchVariant',
+          type: '"solid" | "outline" | "soft" | "contrast"',
           required: false,
           defaultValue: "'solid'",
           deprecated: false,
@@ -2003,7 +2030,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'thumbVariant',
-          type: 'SwitchThumbVariant',
+          type: '"solid" | "flat" | "gradient" | "bordered" | "contrast" | "dark"',
           required: false,
           defaultValue: "'solid'",
           deprecated: false,
@@ -2011,7 +2038,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'thumbShape',
-          type: 'SwitchThumbShape',
+          type: '"full" | "pill" | "square" | "rectangle"',
           required: false,
           defaultValue: "'full'",
           deprecated: false,
@@ -2019,7 +2046,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'thumbSize',
-          type: 'SwitchThumbSize',
+          type: '"contained" | "extended"',
           required: false,
           defaultValue: "'contained'",
           deprecated: false,
@@ -2028,7 +2055,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'color',
-          type: 'SwitchColor',
+          type: '"primary" | "neutral" | "success" | "warning" | "danger"',
           required: false,
           defaultValue: "'primary'",
           deprecated: false,
@@ -2036,7 +2063,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'size',
-          type: 'SwitchSize',
+          type: '"sm" | "md" | "lg"',
           required: false,
           defaultValue: "'md'",
           deprecated: false,
@@ -2044,7 +2071,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'labelPlacement',
-          type: 'SwitchLabelPlacement',
+          type: '"start" | "end"',
           required: false,
           defaultValue: "'end'",
           deprecated: false,
@@ -2186,6 +2213,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'SwitchGroup Props',
       component: '<SwitchGroup />',
       description: 'Group container managing toggle selection state across child switches',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'value',
@@ -2213,7 +2241,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'variant',
-          type: 'SwitchVariant',
+          type: '"solid" | "outline" | "soft" | "contrast"',
           required: false,
           defaultValue: "'solid'",
           deprecated: false,
@@ -2221,7 +2249,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'color',
-          type: 'SwitchColor',
+          type: '"primary" | "neutral" | "success" | "warning" | "danger"',
           required: false,
           defaultValue: "'primary'",
           deprecated: false,
@@ -2229,7 +2257,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'size',
-          type: 'SwitchSize',
+          type: '"sm" | "md" | "lg"',
           required: false,
           defaultValue: "'md'",
           deprecated: false,
@@ -2237,7 +2265,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'labelPlacement',
-          type: 'SwitchLabelPlacement',
+          type: '"start" | "end"',
           required: false,
           defaultValue: "'end'",
           deprecated: false,
@@ -2319,6 +2347,7 @@ export const propsDocumentation: PropsDocumentation = {
       component: '<Image />',
       description:
         'Framework-agnostic image primitive supporting custom renderers, LQIP blur, skeleton loading, fallback, and responsive aspect ratios',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'src',
@@ -2435,7 +2464,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'objectFit',
-          type: 'ImageObjectFit',
+          type: '"cover" | "contain" | "fill" | "none" | "scale-down"',
           required: false,
           defaultValue: "'cover'",
           deprecated: false,
@@ -2443,7 +2472,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'objectPosition',
-          type: 'ImageObjectPosition',
+          type: '"center" | "top" | "bottom" | "left" | "right" | (string & {})',
           required: false,
           defaultValue: "'center'",
           deprecated: false,
@@ -2452,7 +2481,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'aspectRatio',
-          type: 'ImageAspectRatio',
+          type: '"square" | "video" | "auto" | (string & {})',
           required: false,
           defaultValue: "'auto'",
           deprecated: false,
@@ -2461,7 +2490,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'radius',
-          type: 'ImageRadius',
+          type: '"none" | "sm" | "md" | "lg" | "xl" | "full"',
           required: false,
           defaultValue: "'none'",
           deprecated: false,
@@ -2469,7 +2498,7 @@ export const propsDocumentation: PropsDocumentation = {
         },
         {
           name: 'shadow',
-          type: 'ImageShadow',
+          type: '"none" | "sm" | "md" | "lg"',
           required: false,
           defaultValue: "'none'",
           deprecated: false,
@@ -2584,6 +2613,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'ImageFallback Props',
       component: '<ImageFallback />',
       description: 'Fallback container component shown when image fails to load or src is missing',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'children',
@@ -2609,6 +2639,554 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: null,
           deprecated: false,
           description: 'Inline styles applied to the fallback element.',
+        },
+      ],
+    },
+  ],
+  avatar: [
+    {
+      componentName: 'Avatar',
+      title: 'Avatar Props',
+      component: '<Avatar />',
+      description:
+        'Accessible, theme-aware identity element representing a user, entity, or resource with image, initials, or icon fallback',
+      version: '0.0.1-beta.1',
+      props: [
+        {
+          name: 'src',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Image source URL. When provided, renders `AvatarImage` internally.',
+        },
+        {
+          name: 'name',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Full name used to generate initials fallback (up to 2 chars). Also used as `alt` text for the image when `alt` is not provided.',
+        },
+        {
+          name: 'initials',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Explicit initials to display in fallback. Overrides initials generated from `name`.',
+        },
+        {
+          name: 'icon',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Shorthand custom icon element displayed in fallback when image is not available.',
+        },
+        {
+          name: 'fallback',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Shorthand fallback content (SVG, element, or text) displayed when image is not available.',
+        },
+        {
+          name: 'alt',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: "Alt text for the image. Defaults to `name` if provided, otherwise `''`.",
+        },
+        {
+          name: 'as',
+          type: '(props: AvatarImageRenderProps) => JSX.Element',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Custom image renderer — replaces the default `<img>` element. Receives `{ src, alt, className, onError }` and must render an image element. Use this to integrate Next.js `<Image>`, Gatsby `<GatsbyImage>`, or any other optimized image component.',
+        },
+        {
+          name: 'variant',
+          type: '"solid" | "soft" | "outline" | "ghost"',
+          required: false,
+          defaultValue: "'soft'",
+          deprecated: false,
+          description: 'Visual style variant.',
+        },
+        {
+          name: 'color',
+          type: '"primary" | "neutral" | "success" | "warning" | "danger"',
+          required: false,
+          defaultValue: "'neutral'",
+          deprecated: false,
+          description: 'Color scheme of the avatar fallback background.',
+        },
+        {
+          name: 'size',
+          type: '"xs" | "sm" | "md" | "lg" | "xl"',
+          required: false,
+          defaultValue: "'md'",
+          deprecated: false,
+          description: 'Size scale of the avatar.',
+        },
+        {
+          name: 'shape',
+          type: '"circle" | "square"',
+          required: false,
+          defaultValue: "'circle'",
+          deprecated: false,
+          description: 'Shape of the avatar.',
+        },
+        {
+          name: 'isBordered',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Renders a ring border around the avatar.',
+        },
+        {
+          name: 'isDisabled',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Marks the avatar as disabled (reduced opacity, no pointer events).',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()`.',
+        },
+        {
+          name: 'classNames',
+          type: 'AvatarSlotClassNames',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS classes for individual avatar slots.',
+        },
+        {
+          name: 'slotProps',
+          type: 'AvatarSlotProps',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom props forwarded to individual avatar slots.',
+        },
+        {
+          name: 'style',
+          type: 'CSSProperties',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Inline styles applied to the root element.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Child sub-components (`AvatarImage`, `AvatarFallback`). When omitted, `Avatar` auto-renders image + fallback from props.',
+        },
+      ],
+    },
+    {
+      componentName: 'AvatarGroup',
+      title: 'AvatarGroup Props',
+      component: '<AvatarGroup />',
+      description:
+        'Group component stacking multiple avatars with overlap and automatic overflow counter badge',
+      version: '0.0.1-beta.1',
+      props: [
+        {
+          name: 'max',
+          type: 'number',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Maximum number of avatars to display before showing overflow count. When undefined, all avatars are shown.',
+        },
+        {
+          name: 'spacing',
+          type: 'string',
+          required: false,
+          defaultValue: "'-0.5rem'",
+          deprecated: false,
+          description: 'Negative margin between avatars (overlap amount).',
+        },
+        {
+          name: 'size',
+          type: '"xs" | "sm" | "md" | "lg" | "xl"',
+          required: false,
+          defaultValue: "'md'",
+          deprecated: false,
+          description: 'Size propagated to all child Avatars.',
+        },
+        {
+          name: 'variant',
+          type: '"solid" | "soft" | "outline" | "ghost"',
+          required: false,
+          defaultValue: "'soft'",
+          deprecated: false,
+          description: 'Variant propagated to all child Avatars.',
+        },
+        {
+          name: 'color',
+          type: '"primary" | "neutral" | "success" | "warning" | "danger"',
+          required: false,
+          defaultValue: "'neutral'",
+          deprecated: false,
+          description: 'Color propagated to all child Avatars.',
+        },
+        {
+          name: 'isBordered',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Whether all avatars in the group are bordered.',
+        },
+        {
+          name: 'label',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Accessible label for the group (used as `aria-label`).',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()`.',
+        },
+        {
+          name: 'classNames',
+          type: 'AvatarGroupSlotClassNames',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS classes for individual group slots.',
+        },
+        {
+          name: 'slotProps',
+          type: 'AvatarGroupSlotProps',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom props forwarded to individual group slots.',
+        },
+        {
+          name: 'style',
+          type: 'CSSProperties',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Inline styles applied to the root wrapper element.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: true,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Child `Avatar` components.',
+        },
+      ],
+    },
+    {
+      componentName: 'AvatarImage',
+      title: 'AvatarImage Props',
+      component: '<AvatarImage />',
+      description:
+        'Image sub-component supporting native img, custom as renderer, and inline SVG children',
+      version: '0.0.1-beta.1',
+      props: [
+        {
+          name: 'src',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Image source URL. Required when rendering a native `<img>` or a custom `as` renderer. Omit when passing an inline SVG component as `children`.',
+        },
+        {
+          name: 'alt',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Alt text for the image. Defaults to the parent `Avatar` `name` when not provided.',
+        },
+        {
+          name: 'onError',
+          type: '(event?: unknown) => void',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Callback fired when image fails to load.',
+        },
+        {
+          name: 'as',
+          type: '(props: AvatarImageRenderProps) => JSX.Element',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            "Custom image renderer — replaces the default `<img>` element. Receives `{ src, alt, className, onError }` and must render an image element. Use this to integrate Next.js `<Image>`, Gatsby `<GatsbyImage>`, or any other optimized image component. // Next.js Image as={({ src, alt, className }) => ( <NextImage src={src!} alt={alt ?? ''} fill className={className} /> )}",
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Inline SVG component rendered directly inside the avatar. Use when you have an SVG avatar asset and do not need a URL-based image. When `children` is provided, `src` and `as` are ignored. <AvatarImage><BotAvatarSvg /></AvatarImage>',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: '',
+        },
+      ],
+    },
+    {
+      componentName: 'AvatarFallback',
+      title: 'AvatarFallback Props',
+      component: '<AvatarFallback />',
+      description:
+        'Fallback sub-component rendering initials, inline SVG, AvatarIcon, or default person SVG',
+      version: '0.0.1-beta.1',
+      props: [
+        {
+          name: 'initials',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Initials text to display. Auto-generated from `name` on `Avatar` when not provided.',
+        },
+        {
+          name: 'icon',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Shorthand icon element to display inside fallback. Automatically wrapped in AvatarIcon.',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: '',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Fallback content. Accepts: - An inline SVG component (e.g. `<BotAvatarSvg />`) - An `<AvatarIcon>` wrapper with any icon - Any `ReactNode` When omitted, renders `icon`, `initials`, or the default person SVG.',
+        },
+      ],
+    },
+    {
+      componentName: 'AvatarIcon',
+      title: 'AvatarIcon Props',
+      component: '<AvatarIcon />',
+      description: 'Decorative icon slot wrapper inside fallback',
+      version: '0.0.1-beta.1',
+      props: [
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: '',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: true,
+          defaultValue: null,
+          deprecated: false,
+          description: '',
+        },
+      ],
+    },
+  ],
+  divider: [
+    {
+      componentName: 'Divider',
+      title: 'Divider Props',
+      component: '<Divider />',
+      description:
+        'Accessible, theme-aware visual separator supporting horizontal and vertical orientations, line style variants, color tokens, and optional labels',
+      version: '0.0.1-beta.1',
+      props: [
+        {
+          name: 'orientation',
+          type: '"horizontal" | "vertical"',
+          required: false,
+          defaultValue: "'horizontal'",
+          deprecated: false,
+          description: 'Orientation of the divider line.',
+        },
+        {
+          name: 'variant',
+          type: '"solid" | "dashed" | "dotted" | "full" | "inset" | "inset-start" | "inset-end" | "middle"',
+          required: false,
+          defaultValue: "'solid'",
+          deprecated: false,
+          description:
+            "Visual style or layout variant of the divider line: - Line styles: `'solid'` | `'dashed'` | `'dotted'` - Layout variants: `'full'` | `'inset'` | `'inset-start'` | `'inset-end'` | `'middle'`",
+        },
+        {
+          name: 'layout',
+          type: '"full" | "inset" | "inset-start" | "inset-end" | "middle"',
+          required: false,
+          defaultValue: "'full'",
+          deprecated: false,
+          description:
+            'Layout span of the divider line: - `full` — spans full width/height of parent (default) - `inset` / `inset-start` — indented from the start (left in LTR) - `inset-end` — indented from the end (right in LTR) - `middle` — centered with equal margins on both sides',
+        },
+        {
+          name: 'lineStyle',
+          type: '"solid" | "dashed" | "dotted"',
+          required: false,
+          defaultValue: "'solid'",
+          deprecated: false,
+          description: 'Border style of the line segments: - `solid` | `dashed` | `dotted`',
+        },
+        {
+          name: 'full',
+          type: 'boolean',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Shorthand for full width/height layout (`layout="full"`).',
+        },
+        {
+          name: 'inset',
+          type: 'boolean | "start" | "end"',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Shorthand for inset layout: - `true` | `\'start\'` — indents from start (`layout="inset-start"`) - `\'end\'` — indents from end (`layout="inset-end"`)',
+        },
+        {
+          name: 'insetEnd',
+          type: 'boolean',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Shorthand for end-indented layout (`layout="inset-end"`).',
+        },
+        {
+          name: 'middle',
+          type: 'boolean',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Shorthand for middle layout (`layout="middle"`).',
+        },
+        {
+          name: 'color',
+          type: '"default" | "primary" | "neutral" | "success" | "warning" | "danger"',
+          required: false,
+          defaultValue: "'default'",
+          deprecated: false,
+          description: 'Color scheme of the divider line.',
+        },
+        {
+          name: 'thickness',
+          type: '"sm" | "md" | "lg"',
+          required: false,
+          defaultValue: "'sm'",
+          deprecated: false,
+          description:
+            'Thickness scale of the divider line: - `sm` → 1px - `md` → 2px - `lg` → 4px',
+        },
+        {
+          name: 'label',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Optional label rendered inside the divider. Accepts text, icon, or any ReactNode. When provided, the divider renders as a flex container with line segments.',
+        },
+        {
+          name: 'labelPlacement',
+          type: '"start" | "center" | "end"',
+          required: false,
+          defaultValue: "'center'",
+          deprecated: false,
+          description:
+            'Placement of the label along the divider line. Only applies when `label` is provided.',
+        },
+        {
+          name: 'decorative',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description:
+            'When `true`, the divider is purely decorative — `role="none"` and `aria-hidden="true"` are applied, hiding the element from assistive technologies. When `false` (default), `role="separator"` is applied.',
+        },
+        {
+          name: 'classNames',
+          type: 'DividerClassNames',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom class names for individual component slots.',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Additional CSS class name merged into the root slot.',
+        },
+        {
+          name: 'style',
+          type: 'CSSProperties',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Inline styles applied to the root element.',
         },
       ],
     },

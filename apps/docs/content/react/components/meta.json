@@ -16,6 +16,8 @@
     "---Typography---",
     "(typography)/text",
     "---Media & Display---",
-    "(media)/image"
+    "(media)/image",
+    "(media)/avatar",
+    "(media)/divider"
   ]
 }

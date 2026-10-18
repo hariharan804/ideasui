@@ -209,6 +209,50 @@ class PropsExtractor {
 
     return { description, defaultValue, deprecated, reason };
   }
+  resolveLiteralType(typeNode) {
+    if (ts.isStringLiteral(typeNode.literal)) return `"${typeNode.literal.text}"`;
+    if (ts.isNumericLiteral(typeNode.literal)) return typeNode.literal.text;
+    if (typeNode.literal.kind === ts.SyntaxKind.TrueKeyword) return 'true';
+    if (typeNode.literal.kind === ts.SyntaxKind.FalseKeyword) return 'false';
+    return typeNode.literal.text;
+  }
+
+  resolveTypeAlias(typeName, sourceFile) {
+    if (
+      !sourceFile?.statements ||
+      ['ReactNode', 'CSSProperties', 'JSX', 'HTMLElement'].includes(typeName)
+    ) {
+      return null;
+    }
+    const typeAlias = sourceFile.statements.find(
+      (stmt) => ts.isTypeAliasDeclaration(stmt) && stmt.name.text === typeName,
+    );
+    if (!typeAlias?.type) return null;
+    if (
+      ts.isUnionTypeNode(typeAlias.type) ||
+      ts.isLiteralTypeNode(typeAlias.type) ||
+      ts.isTypeReferenceNode(typeAlias.type)
+    ) {
+      return this.resolveType(typeAlias.type, sourceFile);
+    }
+    return null;
+  }
+
+  resolveTypeReference(typeNode, sourceFile) {
+    const typeName = ts.isQualifiedName(typeNode.typeName)
+      ? this.resolveQualifiedName(typeNode.typeName)
+      : typeNode.typeName.text;
+    if (typeNode.typeArguments?.length) {
+      const args = typeNode.typeArguments.map((a) => this.resolveType(a, sourceFile)).join(', ');
+      return `${typeName}<${args}>`;
+    }
+    const expandedAlias = this.resolveTypeAlias(typeName, sourceFile);
+    if (expandedAlias) {
+      return expandedAlias;
+    }
+    return typeName || this.getRawText(typeNode, sourceFile);
+  }
+
   // ─── Type Resolution ─────────────────────────────────────────────────────
   resolveType(typeNode, sourceFile) {
     switch (typeNode.kind) {
@@ -243,23 +287,9 @@ class PropsExtractor {
       case ts.SyntaxKind.ParenthesizedType:
         return `(${this.resolveType(typeNode.type, sourceFile)})`;
       case ts.SyntaxKind.LiteralType:
-        if (ts.isStringLiteral(typeNode.literal)) return `"${typeNode.literal.text}"`;
-        if (ts.isNumericLiteral(typeNode.literal)) return typeNode.literal.text;
-        if (typeNode.literal.kind === ts.SyntaxKind.TrueKeyword) return 'true';
-        if (typeNode.literal.kind === ts.SyntaxKind.FalseKeyword) return 'false';
-        return typeNode.literal.text;
-      case ts.SyntaxKind.TypeReference: {
-        const typeName = ts.isQualifiedName(typeNode.typeName)
-          ? this.resolveQualifiedName(typeNode.typeName)
-          : typeNode.typeName.text;
-        if (typeNode.typeArguments?.length) {
-          const args = typeNode.typeArguments
-            .map((a) => this.resolveType(a, sourceFile))
-            .join(', ');
-          return `${typeName}<${args}>`;
-        }
-        return typeName || this.getRawText(typeNode, sourceFile);
-      }
+        return this.resolveLiteralType(typeNode);
+      case ts.SyntaxKind.TypeReference:
+        return this.resolveTypeReference(typeNode, sourceFile);
       // All complex types: return raw source text
       case ts.SyntaxKind.FunctionType:
       case ts.SyntaxKind.ConstructorType:
@@ -316,8 +346,21 @@ class PropsExtractor {
     }
     return results;
   }
+  getPackageVersion(filePath, configPath) {
+    try {
+      const resolved = path.resolve(path.dirname(configPath), filePath);
+      const pkgPath = path.resolve(path.dirname(resolved), '../package.json');
+      if (fs.existsSync(pkgPath)) {
+        const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+        if (pkg.version) return pkg.version;
+      }
+    } catch {
+      // Continue
+    }
+    return '0.0.1-beta.1';
+  }
   // ─── Output ──────────────────────────────────────────────────────────────
-  buildOutput(config, results) {
+  buildOutput(config, results, configPath) {
     const output = {};
     for (const [key] of Object.entries(config.interfaces)) {
       const result = results[key];
@@ -327,13 +370,14 @@ class PropsExtractor {
         title: iface.title,
         component: `<${iface.resolvedComponentName} />`,
         description: iface.description,
+        version: this.getPackageVersion(iface.filePath, configPath),
         props: iface.props,
       }));
     }
     return output;
   }
-  writeOutput(outputPath, config, results) {
-    const output = this.buildOutput(config, results);
+  writeOutput(outputPath, config, results, configPath) {
+    const output = this.buildOutput(config, results, configPath);
     const componentList = Object.values(config.interfaces)
       .map((c) => ` * - ${c.componentName}: ${c.interfaces.map((i) => i.interfaceName).join(', ')}`)
       .join('\n');
@@ -360,6 +404,7 @@ class PropsExtractor {
       `  title: string;`,
       `  component: string;`,
       `  description: string;`,
+      `  version?: string;`,
       `  props: PropInfo[];`,
       `}\n`,
       `export interface PropsDocumentation {`,
@@ -447,7 +492,7 @@ Config format:
   const outputDir = path.resolve(path.dirname(configPath), config.output.path);
   if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
   const outputPath = path.join(outputDir, config.output.filename);
-  extractor.writeOutput(outputPath, config, results);
+  extractor.writeOutput(outputPath, config, results, configPath);
   console.log(`\n✅ Generated: ${outputPath}`);
   console.log(`\nSummary:`);
   let totalProps = 0;

@@ -143,6 +143,7 @@ Full details → `rules/naming-conventions.md`
 | Task               | Workflow                               |
 | ------------------ | -------------------------------------- |
 | Create a component | `.agent/workflows/create-component.md` |
+| Component audit    | `.agent/workflows/component-audit.md`  |
 | Run / write tests  | `.agent/workflows/testing.md`          |
 | Release a version  | `.agent/workflows/release.md`          |
 | Fix build issues   | `.agent/workflows/troubleshooting.md`  |

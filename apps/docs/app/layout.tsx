@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 
 import { Inter } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
@@ -8,6 +8,18 @@ import { ThemeProvider, ThemeScript } from '@ideasui/theme';
 import { siteConfig } from '@/config/site';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
+
+import { CustomSearchDialogClient } from '@/components/docs-ui/search-dialog-wrapper';
+import { GoogleAnalytics } from '@/components/docs-ui/google-analytics';
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#090a0f' },
+  ],
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -37,7 +49,7 @@ export const metadata: Metadata = {
   creator: 'IdeasUI',
   publisher: 'IdeasUI',
   alternates: {
-    canonical: './',
+    canonical: siteConfig.url,
   },
   icons: {
     icon: [
@@ -75,29 +87,11 @@ export const metadata: Metadata = {
   },
 };
 
-import { WebsiteJsonLd } from '@/components/seo';
-import { CustomSearchDialogClient } from '@/components/docs-ui/search-dialog-wrapper';
-import { GoogleAnalytics } from '@/components/docs-ui/google-analytics';
-
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html suppressHydrationWarning className={inter.className} lang="en">
       <head>
-        <link href="https://api.github.com" rel="preconnect" />
-        <link href="https://api.github.com" rel="dns-prefetch" />
         <ThemeScript defaultTheme="light" />
-        <WebsiteJsonLd />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(function(registrations) {
-    for (let registration of registrations) {
-      registration.unregister();
-    }
-  });
-}`,
-          }}
-        />
       </head>
       <body>
         <RootProvider
