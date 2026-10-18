@@ -193,7 +193,7 @@ describe('Avatar Component', () => {
       let avatar = screen.getByRole('img');
 
       expect(avatar).toHaveClass('bg-primary');
-      expect(avatar).toHaveClass('text-white');
+      expect(avatar).toHaveClass('text-on-primary');
 
       rerender(<Avatar color="success" name="B" variant="soft" />);
       avatar = screen.getByRole('img');
