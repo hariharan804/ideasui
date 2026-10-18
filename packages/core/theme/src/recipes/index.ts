@@ -1,4 +1,5 @@
 /* ### EXPORT RECIPES HERE ### */
+export * from './avatar';
 export * from './image';
 export * from './switch';
 export * from './radio';

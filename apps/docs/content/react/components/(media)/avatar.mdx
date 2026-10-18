@@ -1,0 +1,333 @@
+---
+title: Avatar
+description: A compound, accessible identity element representing a user, entity, or resource with image, initials, and icon fallbacks, plus group stacking with overflow counter badge.
+category: media
+links:
+  npm: true
+  source: avatar/src/avatar.tsx
+  recipe: core/theme/src/recipes/avatar/avatar.ts
+  storybook: Components/Avatar
+---
+
+<QuickNav
+  items={[
+    {
+      title: 'Basic Usage',
+      description: 'Image with automatic initials and icon fallback.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'Initials Fallback',
+      description: 'Auto-generated uppercase initials from the name prop.',
+      href: '#initials-fallback',
+    },
+    {
+      title: 'Variants & Colors',
+      description: 'Solid, soft, outline, and ghost visual styles.',
+      href: '#variants--colors',
+    },
+    {
+      title: 'Sizes & Shapes',
+      description: 'Size scale from xs to xl and circle or square shapes.',
+      href: '#sizes--shapes',
+    },
+    {
+      title: 'Bordered Ring',
+      description: 'Border ring with surface-aware offset.',
+      href: '#bordered-ring',
+    },
+    {
+      title: 'Avatar Group',
+      description: 'Stacked avatars with overlap and overflow indicator.',
+      href: '#avatar-group',
+    },
+    {
+      title: 'Icon Fallback',
+      description: 'Custom icon wrapper via AvatarIcon inside AvatarFallback.',
+      href: '#icon-fallback',
+    },
+    {
+      title: 'Custom Image & SVG',
+      description: 'Inline SVG or custom renderer (e.g. Next.js Image) via as prop.',
+      href: '#custom-image--svg',
+    },
+    {
+      title: 'Standalone CSS',
+      description: 'Use Avatar without Tailwind CSS via @ideasui/styles.',
+      href: '#standalone-css',
+    },
+    {
+      title: 'API Reference',
+      description: 'Complete Avatar component and sub-components props reference.',
+      href: '#api-reference',
+    },
+  ]}
+/>
+
+## Installation
+
+<InstallTabs pkg="@ideasui/avatar" />
+
+## Import
+
+```tsx
+// Master bundle (recommended)
+import { Avatar, AvatarGroup, AvatarImage, AvatarFallback, AvatarIcon } from '@ideasui/react';
+
+// Individual package
+import { Avatar, AvatarGroup, AvatarImage, AvatarFallback, AvatarIcon } from '@ideasui/avatar';
+```
+
+## Basic Usage
+
+The `Avatar` component represents a user or entity. When `src` is provided, it displays the image and automatically falls back to initials or the default person icon if the image fails to load.
+
+<Preview name="avatar-default" />
+
+```tsx
+import { Avatar } from '@ideasui/react';
+
+export default function BasicAvatar() {
+  return (
+    <Avatar
+      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150"
+      name="Jane Doe"
+      size="lg"
+    />
+  );
+}
+```
+
+## Initials Fallback
+
+When no image `src` is provided (or if the image fails), `Avatar` automatically derives up to two uppercase initials from the `name` prop.
+
+<Preview name="avatar-initials" />
+
+```tsx
+import { Avatar } from '@ideasui/react';
+
+export default function InitialsAvatar() {
+  return (
+    <div className="flex gap-4">
+      <Avatar name="Jane Doe" color="neutral" />
+      <Avatar name="John Smith" color="primary" />
+      <Avatar name="Alice Brown" color="success" />
+      <Avatar name="Carol White" color="warning" />
+      <Avatar name="Dave Miller" color="danger" />
+    </div>
+  );
+}
+```
+
+## Variants & Colors
+
+`Avatar` provides four visual variants: `solid`, `soft`, `outline`, and `ghost`, across all five semantic color schemes: `primary`, `neutral`, `success`, `warning`, and `danger`.
+
+<Preview name="avatar-variants" />
+
+```tsx
+import { Avatar } from '@ideasui/react';
+
+export default function VariantsAvatar() {
+  return (
+    <div className="flex gap-4">
+      <Avatar variant="solid" color="primary" name="Solid" />
+      <Avatar variant="soft" color="primary" name="Soft" />
+      <Avatar variant="outline" color="primary" name="Outline" />
+      <Avatar variant="ghost" color="primary" name="Ghost" />
+    </div>
+  );
+}
+```
+
+## Sizes & Shapes
+
+Choose from five size options (`xs`, `sm`, `md`, `lg`, `xl`) and two shapes (`circle` and `square`).
+
+<Preview name="avatar-sizes" />
+
+```tsx
+import { Avatar } from '@ideasui/react';
+
+export default function SizesAvatar() {
+  return (
+    <div className="flex items-end gap-4">
+      <Avatar size="xs" color="primary" name="XS" />
+      <Avatar size="sm" color="primary" name="SM" />
+      <Avatar size="md" color="primary" name="MD" />
+      <Avatar size="lg" color="primary" name="LG" />
+      <Avatar size="xl" color="primary" name="XL" />
+    </div>
+  );
+}
+```
+
+<Preview name="avatar-shapes" />
+
+```tsx
+import { Avatar } from '@ideasui/react';
+
+export default function ShapesAvatar() {
+  return (
+    <div className="flex gap-4">
+      <Avatar shape="circle" size="lg" name="Jane Doe" src="/user.jpg" />
+      <Avatar shape="square" size="lg" name="Jane Doe" src="/user.jpg" />
+    </div>
+  );
+}
+```
+
+## Bordered Ring
+
+Add `isBordered` to render a 2px outer ring with a 2px surface offset. The ring automatically matches the avatar's semantic color scheme.
+
+<Preview name="avatar-bordered" />
+
+```tsx
+import { Avatar } from '@ideasui/react';
+
+export default function BorderedAvatar() {
+  return (
+    <div className="flex gap-4">
+      <Avatar isBordered color="primary" name="Primary" src="/user1.jpg" />
+      <Avatar isBordered color="success" name="Success" src="/user2.jpg" />
+      <Avatar isBordered color="warning" name="Warning" src="/user3.jpg" />
+      <Avatar isBordered color="danger" name="Danger" src="/user4.jpg" />
+    </div>
+  );
+}
+```
+
+## Avatar Group
+
+Use `AvatarGroup` to stack multiple avatars with negative margin overlap. Set `max` to limit the displayed avatars and automatically render an accessible `+{n}` overflow counter.
+
+<Preview name="avatar-group" />
+
+```tsx
+import { Avatar, AvatarGroup } from '@ideasui/react';
+
+export default function GroupAvatar() {
+  return (
+    <AvatarGroup max={4} isBordered label="Project team members">
+      <Avatar name="User 1" src="/user1.jpg" />
+      <Avatar name="User 2" src="/user2.jpg" />
+      <Avatar name="User 3" src="/user3.jpg" />
+      <Avatar name="User 4" src="/user4.jpg" />
+      <Avatar name="Carol White" />
+      <Avatar name="David Smith" />
+      <Avatar name="Eva Green" />
+    </AvatarGroup>
+  );
+}
+```
+
+## Icon Fallback
+
+When neither `name` nor `src` is specified, `Avatar` displays a built-in default person icon. You can also supply custom icons using `AvatarFallback` and `AvatarIcon`.
+
+<Preview name="avatar-icon-fallback" />
+
+```tsx
+import { Avatar, AvatarFallback, AvatarIcon } from '@ideasui/react';
+import { User } from 'lucide-react';
+
+export default function IconFallbackAvatar() {
+  return (
+    <div className="flex gap-4">
+      {/* Default built-in person icon */}
+      <Avatar aria-label="Unknown user" size="lg" />
+
+      {/* Custom icon */}
+      <Avatar aria-label="Admin user" color="primary" size="lg">
+        <AvatarFallback>
+          <AvatarIcon>
+            <User className="size-5" />
+          </AvatarIcon>
+        </AvatarFallback>
+      </Avatar>
+    </div>
+  );
+}
+```
+
+## Custom Image & SVG
+
+`AvatarImage` supports three rendering modes:
+
+1. **Native `<img>` (default):** Pass `src` string.
+2. **Inline SVG:** Pass SVG component as `children` (no `src` needed).
+3. **Custom Renderer (`as` prop):** Integrate Next.js `<Image>`, Gatsby, etc.
+
+<Preview name="avatar-custom-image" />
+
+```tsx
+import { Avatar, AvatarImage } from '@ideasui/react';
+import NextImage from 'next/image';
+
+// Next.js Image integration
+export function NextJsAvatar() {
+  return (
+    <Avatar name="Jane Doe" size="lg">
+      <AvatarImage
+        src="/user.jpg"
+        alt="Jane Doe"
+        as={({ src, alt, className }) => (
+          <NextImage src={src!} alt={alt ?? ''} fill className={className} />
+        )}
+      />
+    </Avatar>
+  );
+}
+
+// Inline SVG asset
+export function BotAvatar() {
+  return (
+    <Avatar name="Bot" color="primary" size="lg">
+      <AvatarImage>
+        <BotAvatarSvg />
+      </AvatarImage>
+    </Avatar>
+  );
+}
+```
+
+## Accessibility
+
+- **`role="img"`**: Automatically applied to the `Avatar` root with `aria-label={name}` so assistive technologies announce the identity.
+- **`role="group"`**: Applied to `AvatarGroup` with `aria-label={label}`.
+- **Overflow Indicator**: The `+{n}` overflow indicator badge provides `aria-label="{n} more"` for screen readers.
+- **Hidden Decorative Elements**: Fallback text, SVGs, and `AvatarIcon` wrappers are marked `aria-hidden="true"`, ensuring accessible names remain unambiguous.
+
+## Standalone CSS
+
+`Avatar` and `AvatarGroup` can also be used in non-Tailwind projects via the pre-compiled `@ideasui/styles` package.
+
+Install the standalone styles package:
+
+```bash
+pnpm add @ideasui/styles
+```
+
+Import base tokens and the component stylesheet:
+
+```css
+@import '@ideasui/styles/base.css';
+@import '@ideasui/styles/components/avatar.css';
+```
+
+### BEM CSS Classes
+
+| Class Name                        | Target Element     | Description                                                          |
+| :-------------------------------- | :----------------- | :------------------------------------------------------------------- |
+| `.ideasui-avatar`                 | Root Container     | Base avatar container with flex alignment, size, radius, and variant |
+| `.ideasui-avatar__image`          | Image Element      | Image slot primitive with object-fit cover                           |
+| `.ideasui-avatar__fallback`       | Fallback Container | Absolute inset fallback displaying initials, custom icon, or SVG     |
+| `.ideasui-avatar__icon`           | Icon Slot Wrapper  | Flex wrapper for icon children                                       |
+| `.ideasui-avatar-group`           | Group Container    | Horizontal flex wrapper managing overlap spacing                     |
+| `.ideasui-avatar-group__overflow` | Overflow Badge     | Circular badge indicating remaining avatars count                    |
+
+## API Reference
+
+<APIReferenceViewer componentName="avatar" />

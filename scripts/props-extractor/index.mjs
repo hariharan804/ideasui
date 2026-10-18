@@ -316,8 +316,21 @@ class PropsExtractor {
     }
     return results;
   }
+  getPackageVersion(filePath, configPath) {
+    try {
+      const resolved = path.resolve(path.dirname(configPath), filePath);
+      const pkgPath = path.resolve(path.dirname(resolved), '../package.json');
+      if (fs.existsSync(pkgPath)) {
+        const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+        if (pkg.version) return pkg.version;
+      }
+    } catch {
+      // Continue
+    }
+    return '0.0.1-beta.1';
+  }
   // ─── Output ──────────────────────────────────────────────────────────────
-  buildOutput(config, results) {
+  buildOutput(config, results, configPath) {
     const output = {};
     for (const [key] of Object.entries(config.interfaces)) {
       const result = results[key];
@@ -327,13 +340,14 @@ class PropsExtractor {
         title: iface.title,
         component: `<${iface.resolvedComponentName} />`,
         description: iface.description,
+        version: this.getPackageVersion(iface.filePath, configPath),
         props: iface.props,
       }));
     }
     return output;
   }
-  writeOutput(outputPath, config, results) {
-    const output = this.buildOutput(config, results);
+  writeOutput(outputPath, config, results, configPath) {
+    const output = this.buildOutput(config, results, configPath);
     const componentList = Object.values(config.interfaces)
       .map((c) => ` * - ${c.componentName}: ${c.interfaces.map((i) => i.interfaceName).join(', ')}`)
       .join('\n');
@@ -360,6 +374,7 @@ class PropsExtractor {
       `  title: string;`,
       `  component: string;`,
       `  description: string;`,
+      `  version?: string;`,
       `  props: PropInfo[];`,
       `}\n`,
       `export interface PropsDocumentation {`,
@@ -447,7 +462,7 @@ Config format:
   const outputDir = path.resolve(path.dirname(configPath), config.output.path);
   if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
   const outputPath = path.join(outputDir, config.output.filename);
-  extractor.writeOutput(outputPath, config, results);
+  extractor.writeOutput(outputPath, config, results, configPath);
   console.log(`\n✅ Generated: ${outputPath}`);
   console.log(`\nSummary:`);
   let totalProps = 0;

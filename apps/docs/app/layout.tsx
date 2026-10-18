@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 
 import { Inter } from 'next/font/google';
 import { RootProvider } from 'fumadocs-ui/provider/next';
@@ -11,6 +11,15 @@ const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 import { CustomSearchDialogClient } from '@/components/docs-ui/search-dialog-wrapper';
 import { GoogleAnalytics } from '@/components/docs-ui/google-analytics';
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#090a0f' },
+  ],
+  width: 'device-width',
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

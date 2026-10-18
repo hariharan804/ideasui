@@ -230,6 +230,47 @@ export const extractConfig = {
         'ImageFallback',
       ),
     ]),
+    avatar: makeComponent('Avatar', [
+      makeInterface(
+        'Avatar',
+        'Avatar Props',
+        'Accessible, theme-aware identity element representing a user, entity, or resource with image, initials, or icon fallback',
+        '../../packages/components/avatar/src/avatar.types.ts',
+        'AvatarProps',
+      ),
+      makeInterface(
+        'AvatarGroup',
+        'AvatarGroup Props',
+        'Group component stacking multiple avatars with overlap and automatic overflow counter badge',
+        '../../packages/components/avatar/src/avatar.types.ts',
+        'AvatarGroupProps',
+        'AvatarGroup',
+      ),
+      makeInterface(
+        'AvatarImage',
+        'AvatarImage Props',
+        'Image sub-component supporting native img, custom as renderer, and inline SVG children',
+        '../../packages/components/avatar/src/avatar.types.ts',
+        'AvatarImageProps',
+        'AvatarImage',
+      ),
+      makeInterface(
+        'AvatarFallback',
+        'AvatarFallback Props',
+        'Fallback sub-component rendering initials, inline SVG, AvatarIcon, or default person SVG',
+        '../../packages/components/avatar/src/avatar.types.ts',
+        'AvatarFallbackProps',
+        'AvatarFallback',
+      ),
+      makeInterface(
+        'AvatarIcon',
+        'AvatarIcon Props',
+        'Decorative icon slot wrapper inside fallback',
+        '../../packages/components/avatar/src/avatar.types.ts',
+        'AvatarIconProps',
+        'AvatarIcon',
+      ),
+    ]),
   },
 };
 export default extractConfig;

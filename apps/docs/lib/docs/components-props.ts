@@ -19,6 +19,7 @@ export interface ComponentDoc {
   title: string;
   component: string;
   description: string;
+  version?: string;
   props: PropInfo[];
 }
 
@@ -32,6 +33,7 @@ export interface PropsDocumentation {
   radio: ComponentDoc[];
   switch: ComponentDoc[];
   image: ComponentDoc[];
+  avatar: ComponentDoc[];
 }
 
 /**
@@ -45,6 +47,7 @@ export interface PropsDocumentation {
  * - Radio: RadioProps, RadioGroupProps, RadioGroupLabelProps, RadioGroupDescriptionProps, RadioGroupErrorProps
  * - Switch: SwitchProps, SwitchGroupProps
  * - Image: ImageProps, ImageFallbackProps
+ * - Avatar: AvatarProps, AvatarGroupProps, AvatarImageProps, AvatarFallbackProps, AvatarIconProps
  */
 export const propsDocumentation: PropsDocumentation = {
   button: [
@@ -53,6 +56,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Button Props',
       component: '<Button />',
       description: 'Primary button component with variants and sizes',
+      version: '0.0.2-beta.1',
       props: [
         {
           name: 'isLoading',
@@ -178,6 +182,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Button Label Props',
       component: '<Button.Label />',
       description: 'Label component inside the button',
+      version: '0.0.2-beta.1',
       props: [],
     },
     {
@@ -185,6 +190,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Button Icon Props',
       component: '<Button.Icon />',
       description: 'Icon component inside the button',
+      version: '0.0.2-beta.1',
       props: [
         {
           name: 'children',
@@ -209,6 +215,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Button Spinner Props',
       component: '<Button.Spinner />',
       description: 'Spinner component inside the button',
+      version: '0.0.2-beta.1',
       props: [
         {
           name: 'label',
@@ -225,6 +232,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Button Shortcut Props',
       component: '<Button.Shortcut />',
       description: 'Shortcut component inside the button',
+      version: '0.0.2-beta.1',
       props: [
         {
           name: 'children',
@@ -243,6 +251,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Button Group Props',
       component: '<Button.Group />',
       description: 'Group component for layout of multiple buttons',
+      version: '0.0.2-beta.1',
       props: [
         {
           name: 'size',
@@ -310,6 +319,7 @@ export const propsDocumentation: PropsDocumentation = {
       component: '<Text />',
       description:
         'Theme-aware typography primitive supporting semantic tokens, line clamping, and slots',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'classNames',
@@ -428,6 +438,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'InputField Props',
       component: '<InputField />',
       description: 'Root wrapper and shorthand single-component interface for input fields',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'id',
@@ -750,6 +761,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'InputField Label Props',
       component: '<InputField.Label />',
       description: 'Label component for the input field',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'className',
@@ -774,6 +786,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'InputField Input Props',
       component: '<InputField.Input />',
       description: 'Native HTML input primitive wrapper',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'inputRef',
@@ -834,6 +847,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'InputField Description Props',
       component: '<InputField.Description />',
       description: 'Helper description text component for the input field',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'className',
@@ -858,6 +872,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'InputField Error Props',
       component: '<InputField.Error />',
       description: 'Error message text component for validation states',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'className',
@@ -884,6 +899,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Checkbox Props',
       component: '<Checkbox />',
       description: 'Checkbox component supporting single, group, and custom icon usage',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'classNames',
@@ -1066,6 +1082,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'CheckboxGroup Props',
       component: '<CheckboxGroup />',
       description: 'Group component managing selection state for child checkboxes',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'value',
@@ -1199,6 +1216,7 @@ export const propsDocumentation: PropsDocumentation = {
       component: '<Textarea />',
       description:
         'Standalone shorthand and wrapper component for multi-line inputs with auto-resize, character counter, and variants',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'label',
@@ -1481,6 +1499,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Textarea Input Props',
       component: '<Textarea.Input />',
       description: 'Multi-line textarea element component with auto-resize and counter features',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'startContent',
@@ -1588,6 +1607,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'Radio Props',
       component: '<Radio />',
       description: 'Radio control component for selecting a single option from a list',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'classNames',
@@ -1752,6 +1772,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'RadioGroup Props',
       component: '<RadioGroup />',
       description: 'Group container managing single selection state across child radios',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'name',
@@ -1899,6 +1920,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'RadioGroupLabel Props',
       component: '<RadioGroupLabel />',
       description: 'Label component rendered above the radio group',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'className',
@@ -1923,6 +1945,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'RadioGroupDescription Props',
       component: '<RadioGroupDescription />',
       description: 'Accessible description text component rendered below the radio group',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'className',
@@ -1947,6 +1970,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'RadioGroupError Props',
       component: '<RadioGroupError />',
       description: 'Error message component rendered below the radio group when invalid',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'className',
@@ -1974,6 +1998,7 @@ export const propsDocumentation: PropsDocumentation = {
       component: '<Switch />',
       description:
         'Accessible, theme-aware toggle primitive supporting standalone usage, controlled state, visual variants, track labels, and group selection',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'classNames',
@@ -2186,6 +2211,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'SwitchGroup Props',
       component: '<SwitchGroup />',
       description: 'Group container managing toggle selection state across child switches',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'value',
@@ -2319,6 +2345,7 @@ export const propsDocumentation: PropsDocumentation = {
       component: '<Image />',
       description:
         'Framework-agnostic image primitive supporting custom renderers, LQIP blur, skeleton loading, fallback, and responsive aspect ratios',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'src',
@@ -2584,6 +2611,7 @@ export const propsDocumentation: PropsDocumentation = {
       title: 'ImageFallback Props',
       component: '<ImageFallback />',
       description: 'Fallback container component shown when image fails to load or src is missing',
+      version: '0.0.1-beta.1',
       props: [
         {
           name: 'children',
@@ -2609,6 +2637,375 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: null,
           deprecated: false,
           description: 'Inline styles applied to the fallback element.',
+        },
+      ],
+    },
+  ],
+  avatar: [
+    {
+      componentName: 'Avatar',
+      title: 'Avatar Props',
+      component: '<Avatar />',
+      description:
+        'Accessible, theme-aware identity element representing a user, entity, or resource with image, initials, or icon fallback',
+      version: '0.0.1-beta.1',
+      props: [
+        {
+          name: 'src',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Image source URL. When provided, renders `AvatarImage` internally.',
+        },
+        {
+          name: 'name',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Full name used to generate initials fallback (up to 2 chars). Also used as `alt` text for the image when `alt` is not provided.',
+        },
+        {
+          name: 'initials',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Explicit initials to display in fallback. Overrides initials generated from `name`.',
+        },
+        {
+          name: 'icon',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Shorthand custom icon element displayed in fallback when image is not available.',
+        },
+        {
+          name: 'fallback',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Shorthand fallback content (SVG, element, or text) displayed when image is not available.',
+        },
+        {
+          name: 'alt',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: "Alt text for the image. Defaults to `name` if provided, otherwise `''`.",
+        },
+        {
+          name: 'as',
+          type: '(props: AvatarImageRenderProps) => JSX.Element',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Custom image renderer — replaces the default `<img>` element. Receives `{ src, alt, className, onError }` and must render an image element. Use this to integrate Next.js `<Image>`, Gatsby `<GatsbyImage>`, or any other optimized image component.',
+        },
+        {
+          name: 'variant',
+          type: 'AvatarVariant',
+          required: false,
+          defaultValue: "'soft'",
+          deprecated: false,
+          description: 'Visual style variant.',
+        },
+        {
+          name: 'color',
+          type: 'AvatarColor',
+          required: false,
+          defaultValue: "'neutral'",
+          deprecated: false,
+          description: 'Color scheme of the avatar fallback background.',
+        },
+        {
+          name: 'size',
+          type: 'AvatarSize',
+          required: false,
+          defaultValue: "'md'",
+          deprecated: false,
+          description: 'Size scale of the avatar.',
+        },
+        {
+          name: 'shape',
+          type: 'AvatarShape',
+          required: false,
+          defaultValue: "'circle'",
+          deprecated: false,
+          description: 'Shape of the avatar.',
+        },
+        {
+          name: 'isBordered',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Renders a ring border around the avatar.',
+        },
+        {
+          name: 'isDisabled',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Marks the avatar as disabled (reduced opacity, no pointer events).',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()`.',
+        },
+        {
+          name: 'style',
+          type: 'CSSProperties',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Inline styles applied to the root element.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Child sub-components (`AvatarImage`, `AvatarFallback`). When omitted, `Avatar` auto-renders image + fallback from props.',
+        },
+      ],
+    },
+    {
+      componentName: 'AvatarGroup',
+      title: 'AvatarGroup Props',
+      component: '<AvatarGroup />',
+      description:
+        'Group component stacking multiple avatars with overlap and automatic overflow counter badge',
+      version: '0.0.1-beta.1',
+      props: [
+        {
+          name: 'max',
+          type: 'number',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Maximum number of avatars to display before showing overflow count. When undefined, all avatars are shown.',
+        },
+        {
+          name: 'spacing',
+          type: 'string',
+          required: false,
+          defaultValue: "'-0.5rem'",
+          deprecated: false,
+          description: 'Negative margin between avatars (overlap amount).',
+        },
+        {
+          name: 'size',
+          type: 'AvatarSize',
+          required: false,
+          defaultValue: "'md'",
+          deprecated: false,
+          description: 'Size propagated to all child Avatars.',
+        },
+        {
+          name: 'variant',
+          type: 'AvatarVariant',
+          required: false,
+          defaultValue: "'soft'",
+          deprecated: false,
+          description: 'Variant propagated to all child Avatars.',
+        },
+        {
+          name: 'color',
+          type: 'AvatarColor',
+          required: false,
+          defaultValue: "'neutral'",
+          deprecated: false,
+          description: 'Color propagated to all child Avatars.',
+        },
+        {
+          name: 'isBordered',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description: 'Whether all avatars in the group are bordered.',
+        },
+        {
+          name: 'label',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Accessible label for the group (used as `aria-label`).',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()`.',
+        },
+        {
+          name: 'style',
+          type: 'CSSProperties',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Inline styles applied to the root wrapper element.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: true,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Child `Avatar` components.',
+        },
+      ],
+    },
+    {
+      componentName: 'AvatarImage',
+      title: 'AvatarImage Props',
+      component: '<AvatarImage />',
+      description:
+        'Image sub-component supporting native img, custom as renderer, and inline SVG children',
+      version: '0.0.1-beta.1',
+      props: [
+        {
+          name: 'src',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Image source URL. Required when rendering a native `<img>` or a custom `as` renderer. Omit when passing an inline SVG component as `children`.',
+        },
+        {
+          name: 'alt',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Alt text for the image. Defaults to the parent `Avatar` `name` when not provided.',
+        },
+        {
+          name: 'onError',
+          type: '(event?: unknown) => void',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Callback fired when image fails to load.',
+        },
+        {
+          name: 'as',
+          type: '(props: AvatarImageRenderProps) => JSX.Element',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            "Custom image renderer — replaces the default `<img>` element. Receives `{ src, alt, className, onError }` and must render an image element. Use this to integrate Next.js `<Image>`, Gatsby `<GatsbyImage>`, or any other optimized image component. // Next.js Image as={({ src, alt, className }) => ( <NextImage src={src!} alt={alt ?? ''} fill className={className} /> )}",
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Inline SVG component rendered directly inside the avatar. Use when you have an SVG avatar asset and do not need a URL-based image. When `children` is provided, `src` and `as` are ignored. <AvatarImage><BotAvatarSvg /></AvatarImage>',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: '',
+        },
+      ],
+    },
+    {
+      componentName: 'AvatarFallback',
+      title: 'AvatarFallback Props',
+      component: '<AvatarFallback />',
+      description:
+        'Fallback sub-component rendering initials, inline SVG, AvatarIcon, or default person SVG',
+      version: '0.0.1-beta.1',
+      props: [
+        {
+          name: 'initials',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Initials text to display. Auto-generated from `name` on `Avatar` when not provided.',
+        },
+        {
+          name: 'icon',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Shorthand icon element to display inside fallback. Automatically wrapped in AvatarIcon.',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: '',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Fallback content. Accepts: - An inline SVG component (e.g. `<BotAvatarSvg />`) - An `<AvatarIcon>` wrapper with any icon - Any `ReactNode` When omitted, renders `icon`, `initials`, or the default person SVG.',
+        },
+      ],
+    },
+    {
+      componentName: 'AvatarIcon',
+      title: 'AvatarIcon Props',
+      component: '<AvatarIcon />',
+      description: 'Decorative icon slot wrapper inside fallback',
+      version: '0.0.1-beta.1',
+      props: [
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: '',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: true,
+          defaultValue: null,
+          deprecated: false,
+          description: '',
         },
       ],
     },

@@ -1,0 +1,247 @@
+/**
+ * Avatar Component CSS
+ * Standalone BEM CSS for Avatar and AvatarGroup components.
+ */
+
+/* ─── Avatar root ─────────────────────────────────────────────── */
+.ideasui-avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  user-select: none;
+  overflow: hidden;
+  transition: opacity 150ms ease;
+}
+
+/* ─── Shapes ──────────────────────────────────────────────────── */
+.ideasui-avatar--circle {
+  border-radius: 9999px;
+}
+.ideasui-avatar--square {
+  border-radius: 0.5rem;
+}
+
+/* ─── Sizes ───────────────────────────────────────────────────── */
+.ideasui-avatar--xs {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 10px;
+}
+.ideasui-avatar--sm {
+  width: 2rem;
+  height: 2rem;
+  font-size: var(--ideasui-font-size-xs, 0.75rem);
+}
+.ideasui-avatar--md {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: var(--ideasui-font-size-sm, 0.875rem);
+}
+.ideasui-avatar--lg {
+  width: 3rem;
+  height: 3rem;
+  font-size: var(--ideasui-font-size-base, 1rem);
+}
+.ideasui-avatar--xl {
+  width: 4rem;
+  height: 4rem;
+  font-size: var(--ideasui-font-size-lg, 1.125rem);
+}
+
+/* ─── Bordered ────────────────────────────────────────────────── */
+.ideasui-avatar--bordered {
+  box-shadow:
+    0 0 0 2px oklch(var(--ideasui-color-surface-default)),
+    0 0 0 4px currentColor;
+}
+
+/* ─── Disabled ────────────────────────────────────────────────── */
+.ideasui-avatar--disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ─── Variant: solid ──────────────────────────────────────────── */
+.ideasui-avatar--solid.ideasui-avatar--primary {
+  background-color: oklch(var(--ideasui-color-primary));
+  color: white;
+}
+.ideasui-avatar--solid.ideasui-avatar--neutral {
+  background-color: oklch(var(--ideasui-color-neutral));
+  color: white;
+}
+.ideasui-avatar--solid.ideasui-avatar--success {
+  background-color: oklch(var(--ideasui-color-success));
+  color: white;
+}
+.ideasui-avatar--solid.ideasui-avatar--warning {
+  background-color: oklch(var(--ideasui-color-warning));
+  color: white;
+}
+.ideasui-avatar--solid.ideasui-avatar--danger {
+  background-color: oklch(var(--ideasui-color-danger));
+  color: white;
+}
+
+/* ─── Variant: soft ───────────────────────────────────────────── */
+.ideasui-avatar--soft.ideasui-avatar--primary {
+  background-color: oklch(var(--ideasui-color-primary-subtle));
+  color: oklch(var(--ideasui-color-primary));
+}
+.ideasui-avatar--soft.ideasui-avatar--neutral {
+  background-color: oklch(var(--ideasui-color-neutral-subtle));
+  color: oklch(var(--ideasui-color-neutral));
+}
+.ideasui-avatar--soft.ideasui-avatar--success {
+  background-color: oklch(var(--ideasui-color-success-subtle));
+  color: oklch(var(--ideasui-color-success));
+}
+.ideasui-avatar--soft.ideasui-avatar--warning {
+  background-color: oklch(var(--ideasui-color-warning-subtle));
+  color: oklch(var(--ideasui-color-warning));
+}
+.ideasui-avatar--soft.ideasui-avatar--danger {
+  background-color: oklch(var(--ideasui-color-danger-subtle));
+  color: oklch(var(--ideasui-color-danger));
+}
+
+/* ─── Variant: outline ────────────────────────────────────────── */
+.ideasui-avatar--outline {
+  background-color: transparent;
+}
+.ideasui-avatar--outline.ideasui-avatar--primary {
+  border: 1px solid oklch(var(--ideasui-color-primary));
+  color: oklch(var(--ideasui-color-primary));
+}
+.ideasui-avatar--outline.ideasui-avatar--neutral {
+  border: 1px solid oklch(var(--ideasui-color-neutral));
+  color: oklch(var(--ideasui-color-neutral));
+}
+.ideasui-avatar--outline.ideasui-avatar--success {
+  border: 1px solid oklch(var(--ideasui-color-success));
+  color: oklch(var(--ideasui-color-success));
+}
+.ideasui-avatar--outline.ideasui-avatar--warning {
+  border: 1px solid oklch(var(--ideasui-color-warning));
+  color: oklch(var(--ideasui-color-warning));
+}
+.ideasui-avatar--outline.ideasui-avatar--danger {
+  border: 1px solid oklch(var(--ideasui-color-danger));
+  color: oklch(var(--ideasui-color-danger));
+}
+
+/* ─── Variant: ghost ──────────────────────────────────────────── */
+.ideasui-avatar--ghost {
+  background-color: transparent;
+  border-color: transparent;
+}
+.ideasui-avatar--ghost.ideasui-avatar--primary {
+  color: oklch(var(--ideasui-color-primary));
+}
+.ideasui-avatar--ghost.ideasui-avatar--neutral {
+  color: oklch(var(--ideasui-color-neutral));
+}
+.ideasui-avatar--ghost.ideasui-avatar--success {
+  color: oklch(var(--ideasui-color-success));
+}
+.ideasui-avatar--ghost.ideasui-avatar--warning {
+  color: oklch(var(--ideasui-color-warning));
+}
+.ideasui-avatar--ghost.ideasui-avatar--danger {
+  color: oklch(var(--ideasui-color-danger));
+}
+
+/* ─── Image ───────────────────────────────────────────────────── */
+.ideasui-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ─── Fallback ────────────────────────────────────────────────── */
+.ideasui-avatar__fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Icon ────────────────────────────────────────────────────── */
+.ideasui-avatar__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ideasui-avatar__icon--xs {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+.ideasui-avatar__icon--sm {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+.ideasui-avatar__icon--md {
+  width: 1rem;
+  height: 1rem;
+}
+.ideasui-avatar__icon--lg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.ideasui-avatar__icon--xl {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* ─── Group ───────────────────────────────────────────────────── */
+.ideasui-avatar-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* ─── Overflow indicator ──────────────────────────────────────── */
+.ideasui-avatar-group__overflow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  user-select: none;
+  border-radius: 9999px;
+  background-color: oklch(var(--ideasui-color-surface-muted));
+  color: oklch(var(--ideasui-color-content-secondary));
+  box-shadow: 0 0 0 2px oklch(var(--ideasui-color-surface-default));
+}
+.ideasui-avatar-group__overflow--xs {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 10px;
+}
+.ideasui-avatar-group__overflow--sm {
+  width: 2rem;
+  height: 2rem;
+  font-size: var(--ideasui-font-size-xs, 0.75rem);
+}
+.ideasui-avatar-group__overflow--md {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: var(--ideasui-font-size-sm, 0.875rem);
+}
+.ideasui-avatar-group__overflow--lg {
+  width: 3rem;
+  height: 3rem;
+  font-size: var(--ideasui-font-size-base, 1rem);
+}
+.ideasui-avatar-group__overflow--xl {
+  width: 4rem;
+  height: 4rem;
+  font-size: var(--ideasui-font-size-lg, 1.125rem);
+}

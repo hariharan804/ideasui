@@ -11,6 +11,7 @@ import { Figma } from '@/components/docs-ui/icons';
 import { siteConfig } from '@/config/site';
 import { CopyDropdown } from '@/components/docs-ui/copy-dropdown';
 import { DocJsonLd, FaqJsonLd } from '@/components/seo';
+import { propsDocumentation } from '@/lib/docs/components-props';
 
 import dynamic from 'next/dynamic';
 
@@ -79,8 +80,21 @@ function MdxHrBlock({ className, ...properties }: React.ComponentProps<'hr'>) {
   return <hr {...properties} className={cn('border-border-subtle/30 my-8 border-t', className)} />;
 }
 
-function getPackageVersion(_componentSlug?: string): Promise<string> {
-  return Promise.resolve('0.0.2-beta.1');
+function toCamelCase(string_: string): string {
+  return string_.replaceAll(/-([a-z])/g, (_, letter: string) => letter.toUpperCase());
+}
+
+function getPackageVersion(componentSlug?: string): string {
+  if (componentSlug) {
+    const key = toCamelCase(componentSlug) as keyof typeof propsDocumentation;
+    const version = propsDocumentation[key]?.[0]?.version;
+
+    if (version) {
+      return version;
+    }
+  }
+
+  return '0.0.1-beta.1';
 }
 
 export default async function Page(properties: Readonly<{ params: Promise<{ slug?: string[] }> }>) {
@@ -100,7 +114,7 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
   const MdxContent = pageData.body;
 
   const componentSlug = parameters.slug.at(-1);
-  const packageVersion = await getPackageVersion(componentSlug);
+  const packageVersion = getPackageVersion(componentSlug);
 
   const filePath = page.absolutePath || path.join(process.cwd(), 'content/react', page.path);
   let rawMarkdown = '';
@@ -192,8 +206,8 @@ export default async function Page(properties: Readonly<{ params: Promise<{ slug
                   <span className="text-content-tertiary truncate text-[10px]">
                     {typeof pageData.links.npm === 'string' &&
                     !pageData.links.npm.startsWith('http') &&
-                    !pageData.links.npm.includes('true')
-                      ? `v${pageData.links.npm}`
+                    pageData.links.npm !== 'true'
+                      ? `v${pageData.links.npm.replace(/^v/, '')}`
                       : `v${packageVersion}`}
                   </span>
                 </div>
