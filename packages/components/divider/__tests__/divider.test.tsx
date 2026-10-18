@@ -250,12 +250,14 @@ describe('Divider Component', () => {
       const { container } = render(<Divider />);
 
       await expectAccessible(container);
+      expect(container).toBeInTheDocument();
     });
 
     it('horizontal divider with label has zero a11y violations', async () => {
       const { container } = render(<Divider label="OR" />);
 
       await expectAccessible(container);
+      expect(container).toBeInTheDocument();
     });
 
     it('vertical divider in flex container has zero a11y violations', async () => {
@@ -268,18 +270,21 @@ describe('Divider Component', () => {
       );
 
       await expectAccessible(container);
+      expect(container).toBeInTheDocument();
     });
 
     it('decorative divider has zero a11y violations', async () => {
       const { container } = render(<Divider decorative />);
 
       await expectAccessible(container);
+      expect(container).toBeInTheDocument();
     });
 
     it('divider with start label placement has zero a11y violations', async () => {
       const { container } = render(<Divider label="Section Heading" labelPlacement="start" />);
 
       await expectAccessible(container);
+      expect(container).toBeInTheDocument();
     });
   });
 });

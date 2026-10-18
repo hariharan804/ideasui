@@ -3,7 +3,7 @@
 import type { AvatarGroupProps } from './avatar.types';
 import type { CSSProperties, JSX } from 'react';
 
-import { Children, forwardRef, isValidElement } from 'react';
+import { Children, forwardRef, isValidElement, useMemo } from 'react';
 import { avatarGroup as avatarGroupRecipe } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -23,6 +23,7 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
       classNames,
       slotProps,
       style,
+      role = 'group',
       children,
       ...properties
     },
@@ -34,11 +35,17 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
 
     const groupStyles = avatarGroupRecipe({ size });
 
+    const contextValue = useMemo(
+      () => ({ size, variant, color, isBordered }),
+      [size, variant, color, isBordered],
+    );
+
     return (
-      <AvatarGroupContext.Provider value={{ size, variant, color, isBordered }}>
+      <AvatarGroupContext.Provider value={contextValue}>
         <div
           ref={reference}
           aria-label={label}
+          role={role}
           {...slotProps?.root}
           {...properties}
           className={cn(
@@ -48,7 +55,6 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
             slotProps?.root?.className,
           )}
           data-slot="avatar-group"
-          role="group"
           style={style}
         >
           {visibleChildren.map((child, index) => (

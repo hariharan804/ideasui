@@ -1,6 +1,11 @@
 'use client';
 
-import type { AvatarComponent, AvatarProps } from './avatar.types';
+import type {
+  AvatarComponent,
+  AvatarProps,
+  AvatarSlotClassNames,
+  AvatarSlotProps,
+} from './avatar.types';
 import type { JSX, ReactNode } from 'react';
 
 import { forwardRef, useState } from 'react';
@@ -52,8 +57,8 @@ interface RenderFallbackOptions {
   initials?: string;
   name?: string;
   styles: ReturnType<typeof avatarRecipe>;
-  classNames?: AvatarProps['classNames'];
-  slotProps?: AvatarProps['slotProps'];
+  classNames?: AvatarSlotClassNames;
+  slotProps?: AvatarSlotProps;
 }
 
 function renderAvatarFallback(options: RenderFallbackOptions): ReactNode {

@@ -209,6 +209,50 @@ class PropsExtractor {
 
     return { description, defaultValue, deprecated, reason };
   }
+  resolveLiteralType(typeNode) {
+    if (ts.isStringLiteral(typeNode.literal)) return `"${typeNode.literal.text}"`;
+    if (ts.isNumericLiteral(typeNode.literal)) return typeNode.literal.text;
+    if (typeNode.literal.kind === ts.SyntaxKind.TrueKeyword) return 'true';
+    if (typeNode.literal.kind === ts.SyntaxKind.FalseKeyword) return 'false';
+    return typeNode.literal.text;
+  }
+
+  resolveTypeAlias(typeName, sourceFile) {
+    if (
+      !sourceFile?.statements ||
+      ['ReactNode', 'CSSProperties', 'JSX', 'HTMLElement'].includes(typeName)
+    ) {
+      return null;
+    }
+    const typeAlias = sourceFile.statements.find(
+      (stmt) => ts.isTypeAliasDeclaration(stmt) && stmt.name.text === typeName,
+    );
+    if (!typeAlias?.type) return null;
+    if (
+      ts.isUnionTypeNode(typeAlias.type) ||
+      ts.isLiteralTypeNode(typeAlias.type) ||
+      ts.isTypeReferenceNode(typeAlias.type)
+    ) {
+      return this.resolveType(typeAlias.type, sourceFile);
+    }
+    return null;
+  }
+
+  resolveTypeReference(typeNode, sourceFile) {
+    const typeName = ts.isQualifiedName(typeNode.typeName)
+      ? this.resolveQualifiedName(typeNode.typeName)
+      : typeNode.typeName.text;
+    if (typeNode.typeArguments?.length) {
+      const args = typeNode.typeArguments.map((a) => this.resolveType(a, sourceFile)).join(', ');
+      return `${typeName}<${args}>`;
+    }
+    const expandedAlias = this.resolveTypeAlias(typeName, sourceFile);
+    if (expandedAlias) {
+      return expandedAlias;
+    }
+    return typeName || this.getRawText(typeNode, sourceFile);
+  }
+
   // ─── Type Resolution ─────────────────────────────────────────────────────
   resolveType(typeNode, sourceFile) {
     switch (typeNode.kind) {
@@ -243,41 +287,9 @@ class PropsExtractor {
       case ts.SyntaxKind.ParenthesizedType:
         return `(${this.resolveType(typeNode.type, sourceFile)})`;
       case ts.SyntaxKind.LiteralType:
-        if (ts.isStringLiteral(typeNode.literal)) return `"${typeNode.literal.text}"`;
-        if (ts.isNumericLiteral(typeNode.literal)) return typeNode.literal.text;
-        if (typeNode.literal.kind === ts.SyntaxKind.TrueKeyword) return 'true';
-        if (typeNode.literal.kind === ts.SyntaxKind.FalseKeyword) return 'false';
-        return typeNode.literal.text;
-      case ts.SyntaxKind.TypeReference: {
-        const typeName = ts.isQualifiedName(typeNode.typeName)
-          ? this.resolveQualifiedName(typeNode.typeName)
-          : typeNode.typeName.text;
-        if (typeNode.typeArguments?.length) {
-          const args = typeNode.typeArguments
-            .map((a) => this.resolveType(a, sourceFile))
-            .join(', ');
-          return `${typeName}<${args}>`;
-        }
-        // Expand local type aliases in sourceFile if they define union/literal choices
-        if (
-          sourceFile?.statements &&
-          !['ReactNode', 'CSSProperties', 'JSX', 'HTMLElement'].includes(typeName)
-        ) {
-          const typeAlias = sourceFile.statements.find(
-            (stmt) => ts.isTypeAliasDeclaration(stmt) && stmt.name.text === typeName,
-          );
-          if (typeAlias?.type) {
-            if (
-              ts.isUnionTypeNode(typeAlias.type) ||
-              ts.isLiteralTypeNode(typeAlias.type) ||
-              ts.isTypeReferenceNode(typeAlias.type)
-            ) {
-              return this.resolveType(typeAlias.type, sourceFile);
-            }
-          }
-        }
-        return typeName || this.getRawText(typeNode, sourceFile);
-      }
+        return this.resolveLiteralType(typeNode);
+      case ts.SyntaxKind.TypeReference:
+        return this.resolveTypeReference(typeNode, sourceFile);
       // All complex types: return raw source text
       case ts.SyntaxKind.FunctionType:
       case ts.SyntaxKind.ConstructorType:

@@ -410,12 +410,14 @@ describe('Avatar Component', () => {
       const { container } = render(<Avatar name="Jane Doe" />);
 
       await expectAccessible(container);
+      expect(container).toBeInTheDocument();
     });
 
     it('avatar with src and name has zero a11y violations', async () => {
       const { container } = render(<Avatar name="Jane Doe" src="/user.jpg" />);
 
       await expectAccessible(container);
+      expect(container).toBeInTheDocument();
     });
 
     it('avatar with icon fallback has zero a11y violations', async () => {
@@ -430,6 +432,7 @@ describe('Avatar Component', () => {
       );
 
       await expectAccessible(container);
+      expect(container).toBeInTheDocument();
     });
 
     it('avatar group has zero a11y violations', async () => {
@@ -443,12 +446,14 @@ describe('Avatar Component', () => {
       );
 
       await expectAccessible(container);
+      expect(container).toBeInTheDocument();
     });
 
     it('disabled avatar has zero a11y violations', async () => {
       const { container } = render(<Avatar isDisabled name="Jane Doe" />);
 
       await expectAccessible(container);
+      expect(container).toBeInTheDocument();
     });
   });
 });
