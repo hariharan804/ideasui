@@ -1117,6 +1117,136 @@ export const bemDocumentation: Record<string, ComponentBEMDocs[]> = {
       ],
     },
   ],
+  chip: [
+    {
+      componentName: 'Chip',
+      title: 'Chip BEM Classes',
+      description: 'Namespaced BEM classes and modifiers for standalone CSS styling of Chip.',
+      classes: [
+        {
+          name: '.ideasui-chip',
+          target: 'Root',
+          description: 'Base container element (<span> or <button>).',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-chip__label',
+          target: 'Label',
+          description: 'Text label wrapper with automatic truncation.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-chip__start-content',
+          target: 'Start Content',
+          description: 'Leading adornment container for avatar or icon.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-chip__end-content',
+          target: 'End Content',
+          description: 'Trailing adornment container for dismiss button or custom element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-chip__avatar',
+          target: 'Avatar',
+          description: 'Built-in avatar container with initials fallback.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-chip__icon',
+          target: 'Icon',
+          description: 'Semantic icon wrapper marked as aria-hidden.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-chip__dismiss',
+          target: 'Dismiss Button',
+          description: 'Interactive button trigger to remove dismissible chips.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-chip--sm',
+          target: 'Size',
+          description: 'Small size variant (20px height).',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-chip--md',
+          target: 'Size',
+          description: 'Medium size variant (24px height).',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-chip--lg',
+          target: 'Size',
+          description: 'Large size variant (32px height).',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-chip--solid',
+          target: 'Variant',
+          description: 'Solid filled background variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-chip--soft',
+          target: 'Variant',
+          description: 'Subtle tinted background variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-chip--outline',
+          target: 'Variant',
+          description: 'Bordered transparent background variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-chip--ghost',
+          target: 'Variant',
+          description: 'Transparent background with hover tint variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-chip--selectable',
+          target: 'Mode',
+          description: 'Interactive selectable toggle button mode.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-chip--selected',
+          target: 'State',
+          description: 'Active selection ring state.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-chip--disabled',
+          target: 'State',
+          description: 'Reduced opacity and non-interactive disabled state.',
+          type: 'modifier',
+        },
+      ],
+    },
+    {
+      componentName: 'ChipGroup',
+      title: 'ChipGroup BEM Classes',
+      description: 'Namespaced BEM classes for ChipGroup multi-chip container.',
+      classes: [
+        {
+          name: '.ideasui-chip-group',
+          target: 'Root',
+          description: 'Flex container managing layout and spacing for chip collections.',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-chip-group--disabled',
+          target: 'State',
+          description: 'Disables all user interaction on the group.',
+          type: 'modifier',
+        },
+      ],
+    },
+  ],
 };
 
 export default bemDocumentation;

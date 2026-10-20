@@ -11,6 +11,7 @@ import * as TextDemos from './text';
 import * as ImageDemos from './image';
 import * as AvatarDemos from './avatar';
 import * as DividerDemos from './divider';
+import * as ChipDemos from './chip';
 
 export type DemoItem = {
   component: ComponentType<any>;
@@ -483,6 +484,51 @@ export const demos: Record<string, DemoItem> = {
   'divider-vertical': {
     component: DividerDemos.DividerVerticalDemo,
     file: 'divider/vertical.tsx',
+  },
+  // Chip demos
+  'chip-default': {
+    component: ChipDemos.Default,
+    file: 'chip/default.tsx',
+  },
+  'chip-variants': {
+    component: ChipDemos.Variants,
+    file: 'chip/variants.tsx',
+  },
+  'chip-colors': {
+    component: ChipDemos.Colors,
+    file: 'chip/colors.tsx',
+  },
+  'chip-sizes': {
+    component: ChipDemos.Sizes,
+    file: 'chip/sizes.tsx',
+  },
+  'chip-modes': {
+    component: ChipDemos.Modes,
+    file: 'chip/modes.tsx',
+  },
+  'chip-avatar': {
+    component: ChipDemos.Avatar,
+    file: 'chip/avatar.tsx',
+  },
+  'chip-icon': {
+    component: ChipDemos.Icon,
+    file: 'chip/icon.tsx',
+  },
+  'chip-dismissible': {
+    component: ChipDemos.Dismissible,
+    file: 'chip/dismissible.tsx',
+  },
+  'chip-group': {
+    component: ChipDemos.Group,
+    file: 'chip/group.tsx',
+  },
+  'chip-single-select': {
+    component: ChipDemos.SingleSelect,
+    file: 'chip/single-select.tsx',
+  },
+  'chip-disabled': {
+    component: ChipDemos.Disabled,
+    file: 'chip/disabled.tsx',
   },
 };
 

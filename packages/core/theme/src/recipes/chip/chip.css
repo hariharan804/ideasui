@@ -1,0 +1,175 @@
+/**
+ * Chip Component CSS
+ * Source of truth for visual styling for the Chip component.
+ * Uses BEM selectors + Tailwind CSS v4 @apply directives.
+ */
+
+/* ─── Root ────────────────────────────────────────────────────── */
+.ideasui-chip {
+  @apply relative inline-flex cursor-default items-center rounded-full border border-transparent leading-none font-medium whitespace-nowrap transition-colors duration-150 select-none;
+}
+
+.ideasui-chip:focus-visible {
+  @apply ring-border-focus ring-offset-surface ring-2 ring-offset-1 outline-none;
+}
+
+/* ─── Sizes ───────────────────────────────────────────────────── */
+.ideasui-chip--sm {
+  @apply h-5 gap-0.5 px-2 text-xs;
+}
+.ideasui-chip--md {
+  @apply h-6 gap-1 px-2.5 text-xs;
+}
+.ideasui-chip--lg {
+  @apply h-8 gap-1.5 px-3 text-sm;
+}
+
+/* ─── Variant: solid ──────────────────────────────────────────── */
+.ideasui-chip--solid.ideasui-chip--primary {
+  @apply bg-primary text-on-primary;
+}
+.ideasui-chip--solid.ideasui-chip--neutral {
+  @apply bg-neutral text-on-neutral;
+}
+.ideasui-chip--solid.ideasui-chip--success {
+  @apply bg-success text-on-success;
+}
+.ideasui-chip--solid.ideasui-chip--warning {
+  @apply bg-warning text-on-warning;
+}
+.ideasui-chip--solid.ideasui-chip--danger {
+  @apply bg-danger text-on-danger;
+}
+
+/* ─── Variant: soft ───────────────────────────────────────────── */
+.ideasui-chip--soft.ideasui-chip--primary {
+  @apply bg-primary-subtle text-primary;
+}
+.ideasui-chip--soft.ideasui-chip--neutral {
+  @apply bg-neutral-subtle text-neutral;
+}
+.ideasui-chip--soft.ideasui-chip--success {
+  @apply bg-success-subtle text-success;
+}
+.ideasui-chip--soft.ideasui-chip--warning {
+  @apply bg-warning-subtle text-warning;
+}
+.ideasui-chip--soft.ideasui-chip--danger {
+  @apply bg-danger-subtle text-danger;
+}
+
+/* ─── Variant: outline ────────────────────────────────────────── */
+.ideasui-chip--outline.ideasui-chip--primary {
+  @apply border-primary text-primary bg-transparent;
+}
+.ideasui-chip--outline.ideasui-chip--neutral {
+  @apply border-neutral text-neutral bg-transparent;
+}
+.ideasui-chip--outline.ideasui-chip--success {
+  @apply border-success text-success bg-transparent;
+}
+.ideasui-chip--outline.ideasui-chip--warning {
+  @apply border-warning text-warning bg-transparent;
+}
+.ideasui-chip--outline.ideasui-chip--danger {
+  @apply border-danger text-danger bg-transparent;
+}
+
+/* ─── Variant: ghost ──────────────────────────────────────────── */
+.ideasui-chip--ghost {
+  @apply border-transparent bg-transparent;
+}
+.ideasui-chip--ghost.ideasui-chip--primary {
+  @apply text-primary hover:bg-primary-subtle;
+}
+.ideasui-chip--ghost.ideasui-chip--neutral {
+  @apply text-neutral hover:bg-neutral-subtle;
+}
+.ideasui-chip--ghost.ideasui-chip--success {
+  @apply text-success hover:bg-success-subtle;
+}
+.ideasui-chip--ghost.ideasui-chip--warning {
+  @apply text-warning hover:bg-warning-subtle;
+}
+.ideasui-chip--ghost.ideasui-chip--danger {
+  @apply text-danger hover:bg-danger-subtle;
+}
+
+/* ─── Selectable mode ─────────────────────────────────────────── */
+.ideasui-chip--selectable {
+  @apply cursor-pointer select-none;
+}
+.ideasui-chip--selectable[data-selected],
+.ideasui-chip--selectable.ideasui-chip--selected {
+  @apply ring-offset-surface ring-2 ring-current ring-offset-1;
+}
+
+/* ─── Disabled ────────────────────────────────────────────────── */
+.ideasui-chip--disabled {
+  @apply pointer-events-none cursor-not-allowed opacity-50;
+}
+
+/* ─── Label ───────────────────────────────────────────────────── */
+.ideasui-chip__label {
+  @apply truncate;
+}
+
+/* ─── Start / End Content ─────────────────────────────────────── */
+.ideasui-chip__start-content,
+.ideasui-chip__end-content {
+  @apply inline-flex shrink-0 items-center;
+}
+
+/* ─── Avatar ──────────────────────────────────────────────────── */
+.ideasui-chip__avatar {
+  @apply bg-surface-muted text-content-secondary inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full font-semibold uppercase;
+}
+.ideasui-chip__avatar--sm {
+  @apply size-3.5 text-[8px];
+}
+.ideasui-chip__avatar--md {
+  @apply size-4 text-[9px];
+}
+.ideasui-chip__avatar--lg {
+  @apply size-5 text-[10px];
+}
+.ideasui-chip__avatar img,
+.ideasui-chip__avatar-image {
+  @apply h-full w-full object-cover;
+}
+
+/* ─── Icon ────────────────────────────────────────────────────── */
+.ideasui-chip__icon {
+  @apply flex shrink-0 items-center text-current;
+}
+.ideasui-chip__icon--sm {
+  @apply size-3;
+}
+.ideasui-chip__icon--md {
+  @apply size-3.5;
+}
+.ideasui-chip__icon--lg {
+  @apply size-4;
+}
+
+/* ─── Dismiss button ──────────────────────────────────────────── */
+.ideasui-chip__dismiss {
+  @apply inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full text-current opacity-60 transition-opacity duration-100 hover:bg-black/10 hover:opacity-100 focus-visible:ring-1 focus-visible:ring-current focus-visible:outline-none;
+}
+.ideasui-chip__dismiss--sm {
+  @apply size-3;
+}
+.ideasui-chip__dismiss--md {
+  @apply size-3.5;
+}
+.ideasui-chip__dismiss--lg {
+  @apply size-4;
+}
+
+/* ─── Group ───────────────────────────────────────────────────── */
+.ideasui-chip-group {
+  @apply flex flex-wrap gap-2;
+}
+.ideasui-chip-group--disabled {
+  @apply pointer-events-none opacity-50;
+}

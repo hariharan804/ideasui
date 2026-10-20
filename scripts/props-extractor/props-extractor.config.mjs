@@ -280,6 +280,47 @@ export const extractConfig = {
         'DividerProps',
       ),
     ]),
+    chip: makeComponent('Chip', [
+      makeInterface(
+        'Chip',
+        'Chip Props',
+        'Compact interactive element for tags, filters, and selections',
+        '../../packages/components/chip/src/chip.types.ts',
+        'ChipProps',
+      ),
+      makeInterface(
+        'ChipGroup',
+        'ChipGroup Props',
+        'Group component managing multi-chip selection state',
+        '../../packages/components/chip/src/chip.types.ts',
+        'ChipGroupProps',
+        'ChipGroup',
+      ),
+      makeInterface(
+        'ChipAvatar',
+        'ChipAvatar Props',
+        'Avatar adornment for Chip with image and initials fallback',
+        '../../packages/components/chip/src/chip.types.ts',
+        'ChipAvatarProps',
+        'ChipAvatar',
+      ),
+      makeInterface(
+        'ChipIcon',
+        'ChipIcon Props',
+        'Icon wrapper sub-component for Chip adornments',
+        '../../packages/components/chip/src/chip.types.ts',
+        'ChipIconProps',
+        'ChipIcon',
+      ),
+      makeInterface(
+        'ChipDismiss',
+        'ChipDismiss Props',
+        'Dismiss button sub-component with built-in accessible close icon',
+        '../../packages/components/chip/src/chip.types.ts',
+        'ChipDismissProps',
+        'ChipDismiss',
+      ),
+    ]),
   },
 };
 export default extractConfig;
