@@ -31,7 +31,7 @@ export const chip = tv({
       'inline-flex items-center justify-center shrink-0',
       'rounded-full cursor-pointer',
       'text-current opacity-60',
-      'hover:opacity-100 hover:bg-black/10',
+      'hover:opacity-100 hover:bg-current/15',
       'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-current',
       'transition-opacity duration-100',
     ],
@@ -40,7 +40,7 @@ export const chip = tv({
   variants: {
     variant: {
       solid: {
-        root: 'ideasui-chip--solid bg-primary text-white border border-transparent',
+        root: 'ideasui-chip--solid bg-primary text-on-primary border border-transparent',
       },
       soft: {
         root: 'ideasui-chip--soft bg-primary-subtle text-primary border border-transparent',
@@ -112,11 +112,11 @@ export const chip = tv({
 
   compoundVariants: [
     // solid + color
-    { variant: 'solid', color: 'primary', class: { root: 'bg-primary text-white' } },
-    { variant: 'solid', color: 'neutral', class: { root: 'bg-neutral text-white' } },
-    { variant: 'solid', color: 'success', class: { root: 'bg-success text-white' } },
-    { variant: 'solid', color: 'warning', class: { root: 'bg-warning text-white' } },
-    { variant: 'solid', color: 'danger', class: { root: 'bg-danger text-white' } },
+    { variant: 'solid', color: 'primary', class: { root: 'bg-primary text-on-primary' } },
+    { variant: 'solid', color: 'neutral', class: { root: 'bg-neutral text-on-neutral' } },
+    { variant: 'solid', color: 'success', class: { root: 'bg-success text-on-success' } },
+    { variant: 'solid', color: 'warning', class: { root: 'bg-warning text-on-warning' } },
+    { variant: 'solid', color: 'danger', class: { root: 'bg-danger text-on-danger' } },
 
     // soft + color
     { variant: 'soft', color: 'primary', class: { root: 'bg-primary-subtle text-primary' } },

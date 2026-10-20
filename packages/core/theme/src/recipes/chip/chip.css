@@ -154,7 +154,7 @@
 
 /* ─── Dismiss button ──────────────────────────────────────────── */
 .ideasui-chip__dismiss {
-  @apply -mr-0.5 inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full text-current opacity-60 transition-opacity duration-100 hover:bg-black/10 hover:opacity-100 focus-visible:ring-1 focus-visible:ring-current focus-visible:outline-none;
+  @apply -mr-0.5 inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full text-current opacity-60 transition-opacity duration-100 hover:bg-current/15 hover:opacity-100 focus-visible:ring-1 focus-visible:ring-current focus-visible:outline-none;
 }
 .ideasui-chip__dismiss--sm {
   @apply size-3;
