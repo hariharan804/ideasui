@@ -18,6 +18,7 @@
     "---Media & Display---",
     "(media)/image",
     "(media)/avatar",
-    "(media)/divider"
+    "(media)/divider",
+    "(media)/chip"
   ]
 }

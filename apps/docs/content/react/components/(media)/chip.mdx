@@ -1,0 +1,408 @@
+---
+title: Chip
+description: A compact, theme-aware interactive element representing tags, filters, selections, or dismissible items with rich adornments and WCAG 2.1 AA accessibility.
+category: media
+links:
+  npm: true
+  source: chip/src/chip.tsx
+  recipe: core/theme/src/recipes/chip/chip.ts
+  storybook: Components/Chip
+---
+
+<QuickNav
+  items={[
+    {
+      title: 'Basic Usage',
+      description: 'Display tags and badges with default styles.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'Interaction Modes',
+      description: 'Static, selectable, and dismissible interaction models.',
+      href: '#interaction-modes',
+    },
+    {
+      title: 'Visual Variants',
+      description: 'Solid, soft, outline, and ghost visual styles.',
+      href: '#visual-variants',
+    },
+    {
+      title: 'Color Schemes',
+      description: 'Primary, neutral, success, warning, and danger colors.',
+      href: '#color-schemes',
+    },
+    {
+      title: 'Sizes',
+      description: 'Small (20px), medium (24px), and large (32px) scales.',
+      href: '#sizes',
+    },
+    {
+      title: 'Adornments',
+      description: 'Avatar and icon wrappers for rich metadata.',
+      href: '#adornments',
+    },
+    {
+      title: 'Dismissible Chips',
+      description: 'Removable tags with keyboard shortcuts and dismiss button.',
+      href: '#dismissible-chips',
+    },
+    {
+      title: 'Chip Group',
+      description: 'Multi-select and single-select filter groups.',
+      href: '#chip-group',
+    },
+    {
+      title: 'Disabled State',
+      description: 'Non-interactive reduced opacity state.',
+      href: '#disabled-state',
+    },
+    {
+      title: 'Accessibility',
+      description: 'WCAG 2.1 AA keyboard navigation and screen reader semantics.',
+      href: '#accessibility',
+    },
+    {
+      title: 'Standalone CSS',
+      description: 'Use Chip without Tailwind CSS via @ideasui/styles.',
+      href: '#standalone-css',
+    },
+    {
+      title: 'API Reference',
+      description: 'Complete prop reference for Chip and its sub-components.',
+      href: '#api-reference',
+    },
+  ]}
+/>
+
+## Installation
+
+<InstallTabs pkg="@ideasui/chip" />
+
+## Import
+
+```tsx
+// Master bundle (recommended)
+import { Chip, ChipGroup, ChipAvatar, ChipIcon, ChipDismiss } from '@ideasui/react';
+
+// Individual package
+import { Chip, ChipGroup, ChipAvatar, ChipIcon, ChipDismiss } from '@ideasui/chip';
+```
+
+## Basic Usage
+
+The `Chip` component represents compact attributes, tags, categories, or choices. By default, it renders in `static` mode with `soft` variant and `neutral` color.
+
+<Preview name="chip-default" />
+
+```tsx
+import { Chip } from '@ideasui/react';
+
+export default function BasicUsage() {
+  return (
+    <div className="flex gap-3">
+      <Chip>React</Chip>
+      <Chip color="primary">Next.js</Chip>
+      <Chip color="success">Tailwind CSS</Chip>
+    </div>
+  );
+}
+```
+
+## Interaction Modes
+
+The `mode` prop determines the DOM element and interaction capabilities:
+
+- `static` (default): Renders as a `<span>` for display-only tags.
+- `selectable`: Renders as a focusable `<button type="button">` with `aria-pressed` for toggleable filters.
+- `dismissible`: Renders with keyboard support (`Delete`/`Backspace`) and an accessible close button (`ChipDismiss`).
+
+<Preview name="chip-modes" />
+
+```tsx
+import { useState } from 'react';
+import { Chip } from '@ideasui/react';
+
+export default function ModesExample() {
+  const [selected, setSelected] = useState(true);
+
+  return (
+    <div className="flex gap-3">
+      <Chip mode="static">Static Tag</Chip>
+      <Chip mode="selectable" isSelected={selected} onChange={setSelected} color="primary">
+        {selected ? 'Active Filter' : 'Inactive Filter'}
+      </Chip>
+      <Chip mode="dismissible" onDismiss={() => console.log('Dismissed')} color="danger">
+        Removable
+      </Chip>
+    </div>
+  );
+}
+```
+
+## Visual Variants
+
+Chip supports 4 visual variants: `solid`, `soft`, `outline`, and `ghost`.
+
+<Preview name="chip-variants" />
+
+```tsx
+import { Chip } from '@ideasui/react';
+
+export default function VariantsExample() {
+  return (
+    <div className="flex gap-3">
+      <Chip variant="solid" color="primary">
+        Solid
+      </Chip>
+      <Chip variant="soft" color="primary">
+        Soft
+      </Chip>
+      <Chip variant="outline" color="primary">
+        Outline
+      </Chip>
+      <Chip variant="ghost" color="primary">
+        Ghost
+      </Chip>
+    </div>
+  );
+}
+```
+
+## Color Schemes
+
+Use semantic theme colors: `primary`, `neutral`, `success`, `warning`, and `danger`. Colors automatically adapt to light and dark modes with WCAG 2.1 AA compliant contrast.
+
+<Preview name="chip-colors" />
+
+```tsx
+import { Chip } from '@ideasui/react';
+
+export default function ColorsExample() {
+  return (
+    <div className="flex gap-2">
+      <Chip color="primary">Primary</Chip>
+      <Chip color="neutral">Neutral</Chip>
+      <Chip color="success">Success</Chip>
+      <Chip color="warning">Warning</Chip>
+      <Chip color="danger">Danger</Chip>
+    </div>
+  );
+}
+```
+
+## Sizes
+
+Choose between `sm` (20px), `md` (24px, default), and `lg` (32px). Adornments (avatars, icons, and dismiss buttons) scale proportionally with the chip size.
+
+<Preview name="chip-sizes" />
+
+```tsx
+import { Chip } from '@ideasui/react';
+
+export default function SizesExample() {
+  return (
+    <div className="flex items-center gap-3">
+      <Chip size="sm" color="primary">
+        Small (sm)
+      </Chip>
+      <Chip size="md" color="primary">
+        Medium (md)
+      </Chip>
+      <Chip size="lg" color="primary">
+        Large (lg)
+      </Chip>
+    </div>
+  );
+}
+```
+
+## Adornments
+
+Enhance chips with `startContent` or `endContent`. Built-in `ChipAvatar` automatically falls back to initials when no image URL is provided or when an image fails to load.
+
+<Preview name="chip-avatar" />
+
+```tsx
+import { Chip, ChipAvatar } from '@ideasui/react';
+
+export default function AvatarExample() {
+  return (
+    <div className="flex gap-3">
+      <Chip startContent={<ChipAvatar name="Jane Doe" />}>Jane Doe</Chip>
+      <Chip
+        startContent={
+          <ChipAvatar
+            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100"
+            name="Sarah Connor"
+          />
+        }
+        color="primary"
+        size="lg"
+      >
+        Sarah Connor
+      </Chip>
+    </div>
+  );
+}
+```
+
+You can also use `ChipIcon` to wrap arbitrary icons:
+
+<Preview name="chip-icon" />
+
+```tsx
+import { Chip, ChipIcon } from '@ideasui/react';
+
+export default function IconExample() {
+  return (
+    <div className="flex gap-3">
+      <Chip startContent={<ChipIcon>★</ChipIcon>} color="warning">
+        Featured
+      </Chip>
+      <Chip startContent={<ChipIcon>✓</ChipIcon>} color="success">
+        Verified
+      </Chip>
+    </div>
+  );
+}
+```
+
+## Dismissible Chips
+
+In `mode="dismissible"`, `Chip` automatically provides an accessible `ChipDismiss` button with `aria-label` and keyboard deletion support (`Delete` or `Backspace`).
+
+<Preview name="chip-dismissible" />
+
+```tsx
+import { useState } from 'react';
+import { Chip } from '@ideasui/react';
+
+export default function DismissibleExample() {
+  const [tags, setTags] = useState(['React', 'TypeScript', 'Tailwind']);
+
+  const removeTag = (tagToRemove: string) => {
+    setTags((prev) => prev.filter((t) => t !== tagToRemove));
+  };
+
+  return (
+    <div className="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <Chip key={tag} mode="dismissible" color="primary" onDismiss={() => removeTag(tag)}>
+          {tag}
+        </Chip>
+      ))}
+    </div>
+  );
+}
+```
+
+## Chip Group
+
+Use `ChipGroup` to manage single-choice or multi-choice selection states. State is managed either controlled (`value` + `onChange`) or uncontrolled (`defaultValue`).
+
+### Multiple Selection (Filter Group)
+
+<Preview name="chip-group" />
+
+```tsx
+import { useState } from 'react';
+import { Chip, ChipGroup } from '@ideasui/react';
+
+export default function FilterGroupExample() {
+  const [selected, setSelected] = useState(['react', 'tailwind']);
+
+  return (
+    <ChipGroup
+      selectionMode="multiple"
+      value={selected}
+      onChange={setSelected}
+      label="Technologies"
+      color="primary"
+    >
+      <Chip value="react">React</Chip>
+      <Chip value="vue">Vue</Chip>
+      <Chip value="tailwind">Tailwind</Chip>
+      <Chip value="nextjs">Next.js</Chip>
+    </ChipGroup>
+  );
+}
+```
+
+### Single Selection
+
+<Preview name="chip-single-select" />
+
+```tsx
+import { useState } from 'react';
+import { Chip, ChipGroup } from '@ideasui/react';
+
+export default function SingleSelectExample() {
+  const [size, setSize] = useState(['md']);
+
+  return (
+    <ChipGroup
+      selectionMode="single"
+      value={size}
+      onChange={setSize}
+      label="Choose size"
+      variant="outline"
+      color="primary"
+    >
+      <Chip value="sm">Small</Chip>
+      <Chip value="md">Medium</Chip>
+      <Chip value="lg">Large</Chip>
+    </ChipGroup>
+  );
+}
+```
+
+## Disabled State
+
+Disable individual chips or the entire `ChipGroup` with `isDisabled`.
+
+<Preview name="chip-disabled" />
+
+```tsx
+import { Chip } from '@ideasui/react';
+
+export default function DisabledExample() {
+  return (
+    <div className="flex gap-3">
+      <Chip isDisabled color="primary">
+        Disabled Static
+      </Chip>
+      <Chip isDisabled mode="selectable" color="primary">
+        Disabled Selectable
+      </Chip>
+      <Chip isDisabled mode="dismissible" onDismiss={() => {}} color="danger">
+        Disabled Dismissible
+      </Chip>
+    </div>
+  );
+}
+```
+
+## Accessibility
+
+The Chip component complies with **WCAG 2.1 AA** standards:
+
+- **Static Mode**: Rendered as a semantic `<span>` — decorative and ignored by tab indexing.
+- **Selectable Mode**: Rendered as a focusable `<button type="button">` with `aria-pressed` state announced as pressed/unpressed by assistive technology. Full keyboard support (`Space`/`Enter` toggles selection).
+- **Dismissible Mode**: Focusable with keyboard shortcuts (`Delete` or `Backspace` trigger `onDismiss`). Inner `ChipDismiss` provides an explicit `aria-label` (defaults to `"Remove {children}"`).
+- **Group Semantics**: `ChipGroup` provides `role="group"` with an explicit `aria-label` to announce group context to screen readers.
+- **Adornments**: `ChipAvatar` and `ChipIcon` elements are explicitly marked with `aria-hidden="true"`, ensuring the chip's text label provides the accessible name.
+- **Focus Rings**: High-contrast 2px focus ring rendered via `:focus-visible` with surface-aware offset.
+
+## Standalone CSS
+
+`Chip` and `ChipGroup` can also be used in non-Tailwind projects via the pre-compiled `@ideasui/styles` package.
+
+<StandaloneCSS componentName="chip" />
+
+### BEM CSS Classes
+
+<BEMReferenceViewer componentName="chip" />
+
+## API Reference
+
+<APIReferenceViewer componentName="chip" />
