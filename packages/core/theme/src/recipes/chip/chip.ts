@@ -76,19 +76,19 @@ export const chip = tv({
         root: 'ideasui-chip--sm h-5 px-2 text-xs rounded-full gap-0.5',
         avatar: 'ideasui-chip__avatar--sm size-3.5 text-[8px]',
         icon: 'ideasui-chip__icon--sm size-3',
-        dismiss: 'ideasui-chip__dismiss--sm size-3',
+        dismiss: 'ideasui-chip__dismiss--sm size-3 -mr-0.5',
       },
       md: {
         root: 'ideasui-chip--md h-6 px-2.5 text-xs rounded-full gap-1',
         avatar: 'ideasui-chip__avatar--md size-4 text-[9px]',
         icon: 'ideasui-chip__icon--md size-3.5',
-        dismiss: 'ideasui-chip__dismiss--md size-3.5',
+        dismiss: 'ideasui-chip__dismiss--md size-3.5 -mr-0.5',
       },
       lg: {
         root: 'ideasui-chip--lg h-8 px-3 text-sm rounded-full gap-1.5',
         avatar: 'ideasui-chip__avatar--lg size-5 text-[10px]',
         icon: 'ideasui-chip__icon--lg size-4',
-        dismiss: 'ideasui-chip__dismiss--lg size-4',
+        dismiss: 'ideasui-chip__dismiss--lg size-4 -mr-1',
       },
     },
 

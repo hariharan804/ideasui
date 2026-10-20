@@ -8,8 +8,19 @@ import { chip as chipRecipe } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
 const XIcon = (): JSX.Element => (
-  <svg aria-hidden="true" className="size-full" fill="none" focusable="false" viewBox="0 0 12 12">
-    <path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" strokeLinecap="round" strokeWidth="1.5" />
+  <svg
+    aria-hidden="true"
+    className="size-2.5 shrink-0"
+    fill="none"
+    focusable="false"
+    viewBox="0 0 12 12"
+  >
+    <path
+      d="M2.5 2.5l7 7M9.5 2.5l-7 7"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeWidth="1.25"
+    />
   </svg>
 );
 
