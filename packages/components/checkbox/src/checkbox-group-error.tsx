@@ -3,7 +3,7 @@
 import type { CheckboxGroupErrorProps } from './checkbox.types';
 import type { JSX } from 'react';
 
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { checkboxGroup } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -13,7 +13,7 @@ export const CheckboxGroupError = forwardRef<HTMLParagraphElement, CheckboxGroup
   (properties, reference): JSX.Element | null => {
     const { className, children, ...otherProperties } = properties;
     const { isInvalid, groupErrorId } = useRequiredCheckboxGroupContext();
-    const styles = checkboxGroup();
+    const styles = useMemo(() => checkboxGroup(), []);
 
     if (!isInvalid) {
       return null;

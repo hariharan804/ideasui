@@ -3,7 +3,7 @@
 import type { ImageFallbackProps } from './image.types';
 import type { JSX } from 'react';
 
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { image as imageRecipe } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -34,7 +34,7 @@ const DefaultBrokenIcon = (): JSX.Element => (
 
 export const ImageFallback = forwardRef<HTMLDivElement, ImageFallbackProps>(
   ({ children, className, style, ...properties }, reference): JSX.Element => {
-    const styles = imageRecipe();
+    const styles = useMemo(() => imageRecipe(), []);
     const isDecorative = !children && !properties['aria-label'] && !properties['aria-labelledby'];
 
     return (

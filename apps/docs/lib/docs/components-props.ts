@@ -3327,6 +3327,14 @@ export const propsDocumentation: PropsDocumentation = {
           description: 'Granular slot class overrides.',
         },
         {
+          name: 'slotProps',
+          type: 'ChipSlotProps',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Granular HTML props customization for individual slots.',
+        },
+        {
           name: 'style',
           type: 'CSSProperties',
           required: false,

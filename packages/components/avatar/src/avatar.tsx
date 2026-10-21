@@ -8,7 +8,7 @@ import type {
 } from './avatar.types';
 import type { JSX, ReactNode } from 'react';
 
-import { forwardRef, useState } from 'react';
+import { forwardRef, useCallback, useMemo, useState } from 'react';
 import { avatar as avatarRecipe } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -139,14 +139,22 @@ const AvatarBase = forwardRef<HTMLSpanElement, AvatarProps>(
 
     const showImage = src && !imgError;
 
-    const styles = avatarRecipe({
-      variant: resolved.variant,
-      color: resolved.color,
-      size: resolved.size,
-      shape,
-      isBordered: resolved.isBordered,
-      isDisabled,
-    });
+    const handleImageError = useCallback(() => {
+      setImgError(true);
+    }, []);
+
+    const styles = useMemo(
+      () =>
+        avatarRecipe({
+          variant: resolved.variant,
+          color: resolved.color,
+          size: resolved.size,
+          shape,
+          isBordered: resolved.isBordered,
+          isDisabled,
+        }),
+      [resolved.variant, resolved.color, resolved.size, shape, resolved.isBordered, isDisabled],
+    );
 
     return (
       <span
@@ -169,7 +177,7 @@ const AvatarBase = forwardRef<HTMLSpanElement, AvatarProps>(
                 {...slotProps?.image}
                 className={cn(styles.image(), classNames?.image, slotProps?.image?.className)}
                 src={src}
-                onError={() => setImgError(true)}
+                onError={handleImageError}
               />
             ) : null}
             {!showImage &&

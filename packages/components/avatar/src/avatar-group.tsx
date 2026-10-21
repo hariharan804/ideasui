@@ -29,11 +29,16 @@ export const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
     },
     reference,
   ): JSX.Element => {
-    const childArray = Children.toArray(children).filter(isValidElement);
-    const visibleChildren = max === undefined ? childArray : childArray.slice(0, max);
-    const overflowCount = max === undefined ? 0 : Math.max(0, childArray.length - max);
+    const { visibleChildren, overflowCount } = useMemo(() => {
+      const childArray = Children.toArray(children).filter(isValidElement);
 
-    const groupStyles = avatarGroupRecipe({ size });
+      return {
+        visibleChildren: max === undefined ? childArray : childArray.slice(0, max),
+        overflowCount: max === undefined ? 0 : Math.max(0, childArray.length - max),
+      };
+    }, [children, max]);
+
+    const groupStyles = useMemo(() => avatarGroupRecipe({ size }), [size]);
 
     const contextValue = useMemo(
       () => ({ size, variant, color, isBordered }),

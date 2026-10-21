@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react';
 
-import { Children, isValidElement, useState } from 'react';
+import { Children, isValidElement, useCallback, useState } from 'react';
 
 export interface UseImageStateOptions {
   readonly src?: string;
@@ -42,16 +42,16 @@ export function useImageState(options: UseImageStateOptions): UseImageStateResul
       (child.type as { displayName?: string })?.displayName === 'IdeasUI.ImageFallback',
   );
 
-  const handleLoad = (): void => {
+  const handleLoad = useCallback((): void => {
     setIsLoaded(true);
     setBlurVisible(false);
     onLoad?.();
-  };
+  }, [onLoad]);
 
-  const handleError = (): void => {
+  const handleError = useCallback((): void => {
     setHasError(true);
     onError?.();
-  };
+  }, [onError]);
 
   const hasFallback = Boolean(fallback) || hasFallbackChild;
 

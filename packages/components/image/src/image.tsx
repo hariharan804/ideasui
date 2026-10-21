@@ -10,7 +10,7 @@ import type {
   ImageSlotProps,
 } from './image.types';
 
-import { forwardRef, useId } from 'react';
+import { forwardRef, useId, useMemo } from 'react';
 import { image as imageRecipe } from '@ideasui/theme/recipes';
 import { omit } from '@ideasui/utils';
 
@@ -97,27 +97,85 @@ function renderImageSlotContent(options: ImageSlotContentOptions): ReactNode {
   );
 }
 
-interface BuildRenderPropsOptions {
-  readonly alt: string;
+interface BuildMainImagePropsOptions {
+  readonly resolved: ReturnType<typeof resolveResolvedProps>;
+  readonly imgClass: string;
   readonly blurDataURL?: string;
-  readonly className: string;
   readonly crossOrigin?: 'anonymous' | 'use-credentials' | '';
-  readonly decoding?: 'async' | 'sync' | 'auto';
   readonly fetchPriority?: 'high' | 'low' | 'auto';
   readonly height?: number;
   readonly loading?: 'lazy' | 'eager';
-  readonly onError: () => void;
-  readonly onLoad: () => void;
-  readonly priority: boolean;
+  readonly handleError: () => void;
+  readonly handleLoad: () => void;
   readonly referrerPolicy?: HTMLAttributeReferrerPolicy;
+  readonly renderImage?: ImageProps['renderImage'];
   readonly sizes?: string;
+  readonly slotProps?: ImageSlotProps;
   readonly src?: string;
   readonly srcSet?: string;
   readonly width?: number;
 }
 
-function buildRenderProps(options: BuildRenderPropsOptions): ImageRenderProps {
-  return options;
+function buildMainImageProps(options: BuildMainImagePropsOptions): ImageContentProps {
+  const {
+    resolved,
+    imgClass,
+    blurDataURL,
+    crossOrigin,
+    fetchPriority,
+    height,
+    loading,
+    handleError,
+    handleLoad,
+    referrerPolicy,
+    renderImage,
+    sizes,
+    slotProps,
+    src,
+    srcSet,
+    width,
+  } = options;
+
+  const renderProps: ImageRenderProps = {
+    alt: resolved.alt,
+    blurDataURL,
+    className: imgClass,
+    crossOrigin,
+    decoding: resolved.decoding,
+    fetchPriority,
+    height,
+    loading,
+    onError: handleError,
+    onLoad: handleLoad,
+    priority: resolved.priority,
+    referrerPolicy,
+    sizes,
+    src,
+    srcSet,
+    width,
+  };
+
+  return {
+    alt: resolved.alt,
+    crossOrigin,
+    decoding: resolved.decoding,
+    fetchPriority,
+    handleError,
+    handleLoad,
+    height,
+    imgClass,
+    imgStyle: { objectPosition: resolved.objectPosition, ...slotProps?.img?.style },
+    loading,
+    priority: resolved.priority,
+    referrerPolicy,
+    renderImage,
+    renderProps,
+    sizes,
+    slotProps,
+    src,
+    srcSet,
+    width,
+  };
 }
 
 const ImageBase = forwardRef<HTMLDivElement, ImageProps>((props, reference): JSX.Element => {
@@ -156,15 +214,27 @@ const ImageBase = forwardRef<HTMLDivElement, ImageProps>((props, reference): JSX
     src,
   });
 
-  const styles = imageRecipe({
-    aspectRatio: resolveStandardAspectRatio(resolved.aspectRatio),
-    isLoaded,
-    isLoading: resolved.isLoading,
-    isZoomed: resolved.isZoomed,
-    objectFit: resolved.objectFit,
-    radius: resolved.radius,
-    shadow: resolved.shadow,
-  });
+  const styles = useMemo(
+    () =>
+      imageRecipe({
+        aspectRatio: resolveStandardAspectRatio(resolved.aspectRatio),
+        isLoaded,
+        isLoading: resolved.isLoading,
+        isZoomed: resolved.isZoomed,
+        objectFit: resolved.objectFit,
+        radius: resolved.radius,
+        shadow: resolved.shadow,
+      }),
+    [
+      resolved.aspectRatio,
+      isLoaded,
+      resolved.isLoading,
+      resolved.isZoomed,
+      resolved.objectFit,
+      resolved.radius,
+      resolved.shadow,
+    ],
+  );
 
   const restProps = omit(
     props as unknown as Record<string, unknown>,
@@ -186,20 +256,20 @@ const ImageBase = forwardRef<HTMLDivElement, ImageProps>((props, reference): JSX
     slotProps?.img?.className,
   );
 
-  const renderProps = buildRenderProps({
-    alt: resolved.alt,
+  const mainImageProps = buildMainImageProps({
     blurDataURL,
-    className: imgClass,
     crossOrigin,
-    decoding: resolved.decoding,
     fetchPriority,
+    handleError,
+    handleLoad,
     height,
+    imgClass,
     loading,
-    onError: handleError,
-    onLoad: handleLoad,
-    priority: resolved.priority,
     referrerPolicy,
+    renderImage,
+    resolved,
     sizes,
+    slotProps,
     src,
     srcSet,
     width,
@@ -225,27 +295,7 @@ const ImageBase = forwardRef<HTMLDivElement, ImageProps>((props, reference): JSX
     hasError,
     isLoaded,
     isLoading: resolved.isLoading,
-    mainImageProps: {
-      alt: resolved.alt,
-      crossOrigin,
-      decoding: resolved.decoding,
-      fetchPriority,
-      handleError,
-      handleLoad,
-      height,
-      imgClass,
-      imgStyle: { objectPosition: resolved.objectPosition, ...slotProps?.img?.style },
-      loading,
-      priority: resolved.priority,
-      referrerPolicy,
-      renderImage,
-      renderProps,
-      sizes,
-      slotProps,
-      src,
-      srcSet,
-      width,
-    },
+    mainImageProps,
     showFallback,
     slotProps,
     src,

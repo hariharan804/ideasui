@@ -9,7 +9,7 @@ import type {
 } from './checkbox.types';
 import type { ChangeEvent, ForwardedRef, JSX, ReactNode } from 'react';
 
-import { forwardRef, useCallback, useEffect, useId, useRef, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { checkbox as checkboxRecipe } from '@ideasui/theme/recipes';
 import { cn, mergeRefs, omit, renderIcon } from '@ideasui/utils';
 
@@ -146,13 +146,12 @@ function useCheckboxControl(
   properties: CheckboxProps,
   reference: ForwardedRef<HTMLInputElement>,
 ): UseCheckboxControlReturn {
+  const { defaultSelected, isIndeterminate, isSelected, onChange, value } = properties;
   const group = useCheckboxGroupContext();
   const internalInputRef = useRef<HTMLInputElement | null>(null);
   const inputId = useId();
 
-  const [internalSelected, setInternalSelected] = useState<boolean>(
-    properties.defaultSelected ?? false,
-  );
+  const [internalSelected, setInternalSelected] = useState<boolean>(defaultSelected ?? false);
 
   const combinedRef = useCallback(
     (node: HTMLInputElement | null) => {
@@ -166,27 +165,30 @@ function useCheckboxControl(
 
   useEffect(() => {
     if (internalInputRef.current) {
-      internalInputRef.current.indeterminate = properties.isIndeterminate ?? false;
+      internalInputRef.current.indeterminate = isIndeterminate ?? false;
     }
-  }, [properties.isIndeterminate]);
+  }, [isIndeterminate]);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (resolved.isReadOnly) {
-      return;
-    }
-
-    const checked = event.target.checked;
-
-    if (resolved.isGroupControlled && properties.value !== undefined) {
-      group?.onGroupChange?.(properties.value, checked);
-    } else {
-      if (properties.isSelected === undefined) {
-        setInternalSelected(checked);
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      if (resolved.isReadOnly) {
+        return;
       }
 
-      properties.onChange?.(checked);
-    }
-  };
+      const checked = event.target.checked;
+
+      if (resolved.isGroupControlled && value !== undefined) {
+        group?.onGroupChange?.(value, checked);
+      } else {
+        if (isSelected === undefined) {
+          setInternalSelected(checked);
+        }
+
+        onChange?.(checked);
+      }
+    },
+    [group, isSelected, onChange, resolved.isGroupControlled, resolved.isReadOnly, value],
+  );
 
   return { setRefs: combinedRef, inputId, resolved, handleChange };
 }
@@ -359,14 +361,25 @@ function renderCheckboxLayout({
 const CheckboxBase = forwardRef<HTMLInputElement, CheckboxProps>(
   (properties, reference): JSX.Element => {
     const control = useCheckboxControl(properties, reference);
-    const styles = checkboxRecipe({
-      variant: control.resolved.variant,
-      color: control.resolved.color,
-      size: control.resolved.size,
-      radius: control.resolved.radius,
-      isDisabled: control.resolved.isDisabled,
-      isInvalid: control.resolved.isInvalid,
-    });
+    const styles = useMemo(
+      () =>
+        checkboxRecipe({
+          variant: control.resolved.variant,
+          color: control.resolved.color,
+          size: control.resolved.size,
+          radius: control.resolved.radius,
+          isDisabled: control.resolved.isDisabled,
+          isInvalid: control.resolved.isInvalid,
+        }),
+      [
+        control.resolved.variant,
+        control.resolved.color,
+        control.resolved.size,
+        control.resolved.radius,
+        control.resolved.isDisabled,
+        control.resolved.isInvalid,
+      ],
+    );
 
     return renderCheckboxLayout({
       properties,

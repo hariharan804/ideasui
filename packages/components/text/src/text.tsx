@@ -1,7 +1,7 @@
 import type { TextElement, TextProps, TextVariant } from './text.types';
 import type { CSSProperties, JSX } from 'react';
 
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { text } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -59,25 +59,26 @@ export const Text = forwardRef<HTMLElement, TextProps>((props, reference): JSX.E
     ? ({ ...slotProps?.base?.style, ...style, '--ideasui-line-clamp': lineClamp } as CSSProperties)
     : { ...slotProps?.base?.style, ...style };
 
+  const textClassName = useMemo(
+    () =>
+      text({
+        variant,
+        size,
+        weight,
+        color,
+        align,
+        truncate: isTruncated,
+        lineClamp: isLineClamped,
+      }),
+    [variant, size, weight, color, align, isTruncated, isLineClamped],
+  );
+
   return (
     <Component
       ref={reference}
       {...slotProps?.base}
       {...properties}
-      className={cn(
-        text({
-          variant,
-          size,
-          weight,
-          color,
-          align,
-          truncate: isTruncated,
-          lineClamp: isLineClamped,
-        }),
-        className,
-        classNames?.base,
-        slotProps?.base?.className,
-      )}
+      className={cn(textClassName, className, classNames?.base, slotProps?.base?.className)}
       data-slot="text"
       slot={slot ?? undefined}
       style={computedStyle}

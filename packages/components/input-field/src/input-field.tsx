@@ -144,17 +144,31 @@ export const InputFieldBase = forwardRef<HTMLDivElement, InputFieldProps>(
       hasEndContent,
     );
 
-    const styles = inputField({
-      variant,
-      labelVariant: resolvedLabelVariant,
-      size,
-      shadow: resolvedShadow,
-      isDisabled,
-      isInvalid,
-      isFocused,
-      isFloating,
-      hasStartContent,
-    });
+    const styles = useMemo(
+      () =>
+        inputField({
+          variant,
+          labelVariant: resolvedLabelVariant,
+          size,
+          shadow: resolvedShadow,
+          isDisabled,
+          isInvalid,
+          isFocused,
+          isFloating,
+          hasStartContent,
+        }),
+      [
+        variant,
+        resolvedLabelVariant,
+        size,
+        resolvedShadow,
+        isDisabled,
+        isInvalid,
+        isFocused,
+        isFloating,
+        hasStartContent,
+      ],
+    );
 
     const contextValue = useMemo(
       () => ({

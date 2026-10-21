@@ -37,7 +37,10 @@ export const SwitchGroup = forwardRef<HTMLFieldSetElement, SwitchGroupProps>(
     const groupDescriptionId = useId();
     const groupErrorId = useId();
 
-    const groupStyles = switchGroup({ orientation, isInvalid, isDisabled });
+    const groupStyles = useMemo(
+      () => switchGroup({ orientation, isInvalid, isDisabled }),
+      [orientation, isInvalid, isDisabled],
+    );
 
     const onGroupChange = useCallback(
       (itemValue: string, checked: boolean) => {

@@ -278,6 +278,7 @@ describe('Chip Component Suite', () => {
     it('static chip has zero a11y violations', async () => {
       const { container } = render(<Chip>Accessible Static</Chip>);
 
+      expect(screen.getByText('Accessible Static')).toBeInTheDocument();
       await expectAccessible(container);
     });
 
@@ -288,6 +289,7 @@ describe('Chip Component Suite', () => {
         </Chip>,
       );
 
+      expect(screen.getByRole('button', { name: 'Accessible Selectable' })).toBeInTheDocument();
       await expectAccessible(container);
     });
 
@@ -298,6 +300,7 @@ describe('Chip Component Suite', () => {
         </Chip>,
       );
 
+      expect(screen.getByText('Accessible Dismissible')).toBeInTheDocument();
       await expectAccessible(container);
     });
 
@@ -309,6 +312,7 @@ describe('Chip Component Suite', () => {
         </ChipGroup>,
       );
 
+      expect(screen.getByText('React')).toBeInTheDocument();
       await expectAccessible(container);
     });
 
@@ -317,6 +321,7 @@ describe('Chip Component Suite', () => {
         <Chip startContent={<ChipAvatar name="John Doe" />}>John Doe</Chip>,
       );
 
+      expect(screen.getByText('John Doe')).toBeInTheDocument();
       await expectAccessible(container);
     });
   });

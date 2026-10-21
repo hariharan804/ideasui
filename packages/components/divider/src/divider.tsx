@@ -8,7 +8,7 @@ import type {
 } from './divider.types';
 import type { JSX } from 'react';
 
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { divider as dividerRecipe } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -99,15 +99,19 @@ export const Divider = forwardRef<HTMLElement, DividerProps>(
     const resolvedVariant = resolveDividerLineStyle(variant, lineStyle);
 
     const hasLabel = label !== undefined && label !== null && label !== '';
-    const styles = dividerRecipe({
-      orientation,
-      variant: resolvedVariant,
-      layout: resolvedLayout,
-      color,
-      thickness,
-      labelPlacement,
-      hasLabel,
-    });
+    const styles = useMemo(
+      () =>
+        dividerRecipe({
+          orientation,
+          variant: resolvedVariant,
+          layout: resolvedLayout,
+          color,
+          thickness,
+          labelPlacement,
+          hasLabel,
+        }),
+      [orientation, resolvedVariant, resolvedLayout, color, thickness, labelPlacement, hasLabel],
+    );
 
     const ariaProps = decorative
       ? ({ role: 'none', 'aria-hidden': 'true' } as const)

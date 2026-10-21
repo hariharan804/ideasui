@@ -14,7 +14,7 @@ import type {
 } from './chip.types';
 import type { ChipReturnType } from '@ideasui/theme/recipes';
 
-import { forwardRef, useState } from 'react';
+import { forwardRef, useCallback, useMemo, useState } from 'react';
 import { chip as chipRecipe } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -29,6 +29,7 @@ interface RenderContentParameters {
   classNames?: ChipClassNames;
   dismissLabel?: string;
   endContent?: ReactNode;
+  handleDismiss?: (event: MouseEvent<HTMLButtonElement>) => void;
   onDismiss?: () => void;
   resolvedMode: string;
   slotProps?: ChipSlotProps;
@@ -42,6 +43,7 @@ function renderChipContent(parameters: RenderContentParameters): JSX.Element {
     classNames,
     dismissLabel,
     endContent,
+    handleDismiss,
     onDismiss,
     resolvedMode,
     slotProps,
@@ -93,10 +95,7 @@ function renderChipContent(parameters: RenderContentParameters): JSX.Element {
           {...slotProps?.dismiss}
           className={cn(styles.dismiss(), classNames?.dismiss, slotProps?.dismiss?.className)}
           label={dismissLabel ?? fallbackLabel}
-          onClick={(event: MouseEvent<HTMLButtonElement>): void => {
-            event.stopPropagation();
-            onDismiss?.();
-          }}
+          onClick={handleDismiss}
         />
       ) : null}
     </>
@@ -168,7 +167,7 @@ const ChipBase = forwardRef<HTMLElement, ChipProps>(
         ? (group?.selectedValues?.includes(value) ?? false)
         : (isSelected ?? internalSelected);
 
-    const handleSelect = (): void => {
+    const handleSelect = useCallback((): void => {
       if (config.isDisabled || config.mode !== 'selectable') {
         return;
       }
@@ -182,23 +181,50 @@ const ChipBase = forwardRef<HTMLElement, ChipProps>(
       } else {
         onChange?.(next);
       }
-    };
+    }, [
+      config.isDisabled,
+      config.mode,
+      resolvedSelected,
+      isGroupControlled,
+      value,
+      group,
+      isSelected,
+      onChange,
+    ]);
 
-    const handleKeyDown = (event: KeyboardEvent<HTMLElement>): void => {
-      if (config.mode === 'dismissible' && (event.key === 'Delete' || event.key === 'Backspace')) {
-        event.preventDefault();
+    const handleKeyDown = useCallback(
+      (event: KeyboardEvent<HTMLElement>): void => {
+        if (
+          config.mode === 'dismissible' &&
+          (event.key === 'Delete' || event.key === 'Backspace')
+        ) {
+          event.preventDefault();
+          onDismiss?.();
+        }
+      },
+      [config.mode, onDismiss],
+    );
+
+    const styles = useMemo(
+      () =>
+        chipRecipe({
+          color: config.color,
+          isDisabled: config.isDisabled,
+          isSelected: resolvedSelected,
+          mode: config.mode,
+          size: config.size,
+          variant: config.variant,
+        }),
+      [config.color, config.isDisabled, resolvedSelected, config.mode, config.size, config.variant],
+    );
+
+    const handleDismiss = useCallback(
+      (event: MouseEvent<HTMLButtonElement>): void => {
+        event.stopPropagation();
         onDismiss?.();
-      }
-    };
-
-    const styles = chipRecipe({
-      color: config.color,
-      isDisabled: config.isDisabled,
-      isSelected: resolvedSelected,
-      mode: config.mode,
-      size: config.size,
-      variant: config.variant,
-    });
+      },
+      [onDismiss],
+    );
 
     const sharedProps = {
       className: cn(styles.root(), classNames?.root, className),
@@ -215,6 +241,7 @@ const ChipBase = forwardRef<HTMLElement, ChipProps>(
       classNames,
       dismissLabel,
       endContent,
+      handleDismiss,
       onDismiss,
       resolvedMode: config.mode,
       slotProps,

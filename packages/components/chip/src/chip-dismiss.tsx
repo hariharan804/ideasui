@@ -3,7 +3,7 @@
 import type { ChipDismissProps } from './chip.types';
 import type { JSX } from 'react';
 
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { chip as chipRecipe } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -26,7 +26,7 @@ const XIcon = (): JSX.Element => (
 
 export const ChipDismiss = forwardRef<HTMLButtonElement, ChipDismissProps>(
   ({ className, label = 'Remove', ...properties }, reference): JSX.Element => {
-    const styles = chipRecipe();
+    const styles = useMemo(() => chipRecipe(), []);
 
     return (
       <button
