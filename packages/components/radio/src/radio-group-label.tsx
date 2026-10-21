@@ -3,7 +3,7 @@
 import type { RadioGroupLabelProps } from './radio.types';
 import type { JSX } from 'react';
 
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { radioGroup } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -13,7 +13,10 @@ export const RadioGroupLabel = forwardRef<HTMLLegendElement, RadioGroupLabelProp
   (properties, reference): JSX.Element => {
     const { className, children, ...otherProperties } = properties;
     const { groupLabelId, isInvalid, isDisabled } = useRequiredRadioGroupContext();
-    const groupStyles = radioGroup({ isInvalid, isDisabled });
+    const groupStyles = useMemo(
+      () => radioGroup({ isInvalid, isDisabled }),
+      [isInvalid, isDisabled],
+    );
 
     return (
       <legend

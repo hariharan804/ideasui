@@ -11,7 +11,7 @@ import type {
 } from './switch.types';
 import type { ChangeEvent, ForwardedRef, JSX, ReactNode } from 'react';
 
-import { forwardRef, useCallback, useId, useRef, useState } from 'react';
+import { forwardRef, useCallback, useId, useMemo, useRef, useState } from 'react';
 import { switchRecipe } from '@ideasui/theme/recipes';
 import { cn, mergeRefs, omit, renderIcon } from '@ideasui/utils';
 
@@ -194,13 +194,12 @@ function useSwitchControl(
   properties: SwitchProps,
   reference: ForwardedRef<HTMLInputElement>,
 ): UseSwitchControlReturn {
+  const { defaultSelected, isSelected, onChange, value } = properties;
   const group = useSwitchGroupContext();
   const internalInputRef = useRef<HTMLInputElement | null>(null);
   const inputId = useId();
 
-  const [internalSelected, setInternalSelected] = useState<boolean>(
-    properties.defaultSelected ?? false,
-  );
+  const [internalSelected, setInternalSelected] = useState<boolean>(defaultSelected ?? false);
 
   const combinedRef = useCallback(
     (node: HTMLInputElement | null) => {
@@ -212,23 +211,26 @@ function useSwitchControl(
 
   const resolved = resolveProps(properties, group, internalSelected);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (resolved.isReadOnly) {
-      return;
-    }
-
-    const checked = event.target.checked;
-
-    if (resolved.isGroupControlled && properties.value !== undefined) {
-      group?.onGroupChange?.(properties.value, checked);
-    } else {
-      if (properties.isSelected === undefined) {
-        setInternalSelected(checked);
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      if (resolved.isReadOnly) {
+        return;
       }
 
-      properties.onChange?.(checked);
-    }
-  };
+      const checked = event.target.checked;
+
+      if (resolved.isGroupControlled && value !== undefined) {
+        group?.onGroupChange?.(value, checked);
+      } else {
+        if (isSelected === undefined) {
+          setInternalSelected(checked);
+        }
+
+        onChange?.(checked);
+      }
+    },
+    [resolved.isReadOnly, resolved.isGroupControlled, value, isSelected, onChange, group],
+  );
 
   return { setRefs: combinedRef, inputId, resolved, handleChange };
 }
@@ -370,19 +372,34 @@ function renderSwitchLayout({
 
 const SwitchBase = forwardRef<HTMLInputElement, SwitchProps>(
   (properties, reference): JSX.Element => {
+    const { thumbShape, thumbSize, thumbVariant } = properties;
     const control = useSwitchControl(properties, reference);
 
-    const styles = switchRecipe({
-      variant: control.resolved.variant,
-      thumbVariant: properties.thumbVariant,
-      thumbShape: properties.thumbShape,
-      thumbSize: properties.thumbSize,
-      color: control.resolved.color,
-      size: control.resolved.size,
-      labelPlacement: control.resolved.labelPlacement,
-      isDisabled: control.resolved.isDisabled,
-      isInvalid: control.resolved.isInvalid,
-    });
+    const styles = useMemo(
+      () =>
+        switchRecipe({
+          variant: control.resolved.variant,
+          thumbVariant,
+          thumbShape,
+          thumbSize,
+          color: control.resolved.color,
+          size: control.resolved.size,
+          labelPlacement: control.resolved.labelPlacement,
+          isDisabled: control.resolved.isDisabled,
+          isInvalid: control.resolved.isInvalid,
+        }),
+      [
+        control.resolved.variant,
+        thumbVariant,
+        thumbShape,
+        thumbSize,
+        control.resolved.color,
+        control.resolved.size,
+        control.resolved.labelPlacement,
+        control.resolved.isDisabled,
+        control.resolved.isInvalid,
+      ],
+    );
 
     return renderSwitchLayout({
       properties,

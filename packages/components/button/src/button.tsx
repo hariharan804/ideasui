@@ -16,7 +16,7 @@ import type { ReactNode, JSX } from 'react';
 
 import { Button as ButtonPrimitive } from 'react-aria-components';
 import { cn, getAccessibleName, mergePropsWithContext } from '@ideasui/utils';
-import { createContext, forwardRef, useContext } from 'react';
+import { createContext, forwardRef, useContext, useMemo } from 'react';
 import { button } from '@ideasui/theme/recipes';
 
 import { useButtonGroupContext } from './button-group-context';
@@ -292,24 +292,44 @@ const ButtonBase = forwardRef<HTMLButtonElement, ButtonProperties>(
     const defaultDivider = !isBorderlessVariant && merged.isAttached ? 'full' : 'none';
     const divider = merged.divider || defaultDivider;
 
-    const styles = button({
-      variant: merged.variant,
-      size: merged.size,
-      color: merged.color,
-      radius: merged.radius,
-      fullWidth: merged.fullWidth,
-      isIconOnly: merged.isIconOnly,
-      isDisabled: mergedDisabled,
-      isLoading,
-      disableAnimation: merged.disableAnimation,
-      isAttached: merged.isAttached,
-      isVertical: merged.isVertical,
-      elevation: merged.elevation,
-      divider,
-    });
+    const styles = useMemo(
+      () =>
+        button({
+          variant: merged.variant,
+          size: merged.size,
+          color: merged.color,
+          radius: merged.radius,
+          fullWidth: merged.fullWidth,
+          isIconOnly: merged.isIconOnly,
+          isDisabled: mergedDisabled,
+          isLoading,
+          disableAnimation: merged.disableAnimation,
+          isAttached: merged.isAttached,
+          isVertical: merged.isVertical,
+          elevation: merged.elevation,
+          divider,
+        }),
+      [
+        merged.variant,
+        merged.size,
+        merged.color,
+        merged.radius,
+        merged.fullWidth,
+        merged.isIconOnly,
+        mergedDisabled,
+        isLoading,
+        merged.disableAnimation,
+        merged.isAttached,
+        merged.isVertical,
+        merged.elevation,
+        divider,
+      ],
+    );
 
-    // Context value - React Compiler will optimize this automatically
-    const contextValue = { styles, classNames, slotProps };
+    const contextValue = useMemo(
+      () => ({ styles, classNames, slotProps }),
+      [styles, classNames, slotProps],
+    );
 
     // Ensure we have an accessible name when loading or icon-only
     const ariaLabel = getAccessibleName(merged, typeof children === 'function' ? null : children);

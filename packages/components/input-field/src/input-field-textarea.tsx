@@ -3,7 +3,7 @@
 import type { InputFieldTextareaProps } from './textarea.types';
 import type { JSX, FocusEvent, ChangeEvent, ReactNode, ForwardedRef, Ref } from 'react';
 
-import { forwardRef, useEffect, useRef, useState, useMemo } from 'react';
+import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { cn } from '@ideasui/utils';
 
 import { useInputFieldContext } from './input-field-context';
@@ -182,25 +182,34 @@ function useTextareaHandlers(options: TextareaHandlerOptions): TextareaHandlers 
     adjustHeight,
   } = options;
 
-  const handleFocus = (event: FocusEvent<HTMLTextAreaElement>): void => {
-    setIsFocused?.(true);
-    onFocus?.(event);
-  };
+  const handleFocus = useCallback(
+    (event: FocusEvent<HTMLTextAreaElement>): void => {
+      setIsFocused?.(true);
+      onFocus?.(event);
+    },
+    [onFocus, setIsFocused],
+  );
 
-  const handleBlur = (event: FocusEvent<HTMLTextAreaElement>): void => {
-    setIsFocused?.(false);
-    onBlur?.(event);
-  };
+  const handleBlur = useCallback(
+    (event: FocusEvent<HTMLTextAreaElement>): void => {
+      setIsFocused?.(false);
+      onBlur?.(event);
+    },
+    [onBlur, setIsFocused],
+  );
 
-  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-    const nextValue = event.target.value;
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement>): void => {
+      const nextValue = event.target.value;
 
-    setHasValue?.(Boolean(nextValue));
-    setUncontrolledCount(nextValue.length);
-    adjustHeight();
-    onChange?.(event);
-    onValueChange?.(nextValue);
-  };
+      setHasValue?.(Boolean(nextValue));
+      setUncontrolledCount(nextValue.length);
+      adjustHeight();
+      onChange?.(event);
+      onValueChange?.(nextValue);
+    },
+    [adjustHeight, onChange, onValueChange, setHasValue, setUncontrolledCount],
+  );
 
   return { handleFocus, handleBlur, handleChange };
 }

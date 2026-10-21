@@ -1,7 +1,7 @@
 'use client';
 
 import type { AvatarImageProps } from './avatar.types';
-import type { JSX, SyntheticEvent } from 'react';
+import type { JSX } from 'react';
 
 import { forwardRef } from 'react';
 import { cn } from '@ideasui/utils';
@@ -33,12 +33,7 @@ export const AvatarImage = forwardRef<HTMLImageElement, AvatarImageProps>(
     if (Renderer) {
       return (
         <span className="absolute inset-0 h-full w-full" data-slot="avatar-image">
-          <Renderer
-            alt={alt}
-            className={imageClass}
-            src={src}
-            onError={onError ? () => onError() : undefined}
-          />
+          <Renderer alt={alt} className={imageClass} src={src} onError={onError} />
         </span>
       );
     }
@@ -51,9 +46,7 @@ export const AvatarImage = forwardRef<HTMLImageElement, AvatarImageProps>(
         className={imageClass}
         data-slot="avatar-image"
         src={src}
-        onError={(event: SyntheticEvent<HTMLImageElement, Event>) => {
-          onError?.(event);
-        }}
+        onError={onError}
         {...properties}
       />
     );

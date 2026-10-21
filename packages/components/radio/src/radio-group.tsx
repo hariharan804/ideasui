@@ -42,7 +42,10 @@ export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(
     const groupDescriptionId = useId();
     const groupErrorId = useId();
 
-    const groupStyles = radioGroup({ orientation, isInvalid, isDisabled });
+    const groupStyles = useMemo(
+      () => radioGroup({ orientation, isInvalid, isDisabled }),
+      [orientation, isInvalid, isDisabled],
+    );
 
     const onGroupChange = useCallback(
       (itemValue: string) => {

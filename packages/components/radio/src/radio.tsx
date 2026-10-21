@@ -7,9 +7,9 @@ import type {
   RadioReturnType,
   RadioVariant,
 } from './radio.types';
-import type { ChangeEvent, ForwardedRef, JSX, ReactNode } from 'react';
+import type { ChangeEvent, ForwardedRef, JSX, MouseEvent, ReactNode } from 'react';
 
-import { forwardRef, useCallback, useId, useRef, useState } from 'react';
+import { forwardRef, useCallback, useId, useMemo, useRef, useState } from 'react';
 import { radio as radioRecipe } from '@ideasui/theme/recipes';
 import { cn, mergeRefs, omit, renderIcon } from '@ideasui/utils';
 
@@ -104,7 +104,7 @@ interface UseRadioControlReturn {
   setRefs: (node: HTMLInputElement | null) => void;
   inputId: string;
   resolved: ResolvedProps;
-  handleClick: (event: React.MouseEvent<HTMLInputElement>) => void;
+  handleClick: (event: MouseEvent<HTMLInputElement>) => void;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -112,13 +112,12 @@ function useRadioControl(
   properties: RadioProps,
   reference: ForwardedRef<HTMLInputElement>,
 ): UseRadioControlReturn {
+  const { defaultSelected, isSelected, onChange, onClick, value } = properties;
   const group = useRadioGroupContext();
   const internalInputRef = useRef<HTMLInputElement | null>(null);
   const inputId = useId();
 
-  const [internalSelected, setInternalSelected] = useState<boolean>(
-    properties.defaultSelected ?? false,
-  );
+  const [internalSelected, setInternalSelected] = useState<boolean>(defaultSelected ?? false);
 
   const combinedRef = useCallback(
     (node: HTMLInputElement | null) => {
@@ -130,43 +129,60 @@ function useRadioControl(
 
   const resolved = resolveProps(properties, group, internalSelected);
 
-  const handleClick = (event: React.MouseEvent<HTMLInputElement>): void => {
-    (properties as { onClick?: (e: React.MouseEvent<HTMLInputElement>) => void }).onClick?.(event);
+  const handleClick = useCallback(
+    (event: MouseEvent<HTMLInputElement>): void => {
+      onClick?.(event);
 
-    if (resolved.isDisabled || resolved.isReadOnly) {
-      return;
-    }
+      if (resolved.isDisabled || resolved.isReadOnly) {
+        return;
+      }
 
-    if (resolved.isSelected && resolved.isToggleable) {
-      event.preventDefault();
-      if (resolved.isGroupControlled && properties.value !== undefined) {
-        group?.onGroupChange?.('');
-      } else {
-        if (properties.isSelected === undefined) {
-          setInternalSelected(false);
+      if (resolved.isSelected && resolved.isToggleable) {
+        event.preventDefault();
+        if (resolved.isGroupControlled && value !== undefined) {
+          group?.onGroupChange?.('');
+        } else {
+          if (isSelected === undefined) {
+            setInternalSelected(false);
+          }
+          onChange?.(false);
         }
-        properties.onChange?.(false);
       }
-    }
-  };
+    },
+    [
+      group,
+      isSelected,
+      onChange,
+      onClick,
+      resolved.isDisabled,
+      resolved.isGroupControlled,
+      resolved.isReadOnly,
+      resolved.isSelected,
+      resolved.isToggleable,
+      value,
+    ],
+  );
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (resolved.isReadOnly) {
-      return;
-    }
-
-    const checked = event.target.checked;
-
-    if (resolved.isGroupControlled && properties.value !== undefined) {
-      group?.onGroupChange?.(properties.value);
-    } else {
-      if (properties.isSelected === undefined) {
-        setInternalSelected(checked);
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      if (resolved.isReadOnly) {
+        return;
       }
 
-      properties.onChange?.(checked);
-    }
-  };
+      const checked = event.target.checked;
+
+      if (resolved.isGroupControlled && value !== undefined) {
+        group?.onGroupChange?.(value);
+      } else {
+        if (isSelected === undefined) {
+          setInternalSelected(checked);
+        }
+
+        onChange?.(checked);
+      }
+    },
+    [group, isSelected, onChange, resolved.isGroupControlled, resolved.isReadOnly, value],
+  );
 
   return { setRefs: combinedRef, inputId, resolved, handleClick, handleChange };
 }
@@ -324,14 +340,25 @@ function renderRadioLayout({
 
 const RadioBase = forwardRef<HTMLInputElement, RadioProps>((properties, reference): JSX.Element => {
   const control = useRadioControl(properties, reference);
-  const styles = radioRecipe({
-    variant: control.resolved.variant,
-    color: control.resolved.color,
-    size: control.resolved.size,
-    radius: control.resolved.radius,
-    isDisabled: control.resolved.isDisabled,
-    isInvalid: control.resolved.isInvalid,
-  });
+  const styles = useMemo(
+    () =>
+      radioRecipe({
+        variant: control.resolved.variant,
+        color: control.resolved.color,
+        size: control.resolved.size,
+        radius: control.resolved.radius,
+        isDisabled: control.resolved.isDisabled,
+        isInvalid: control.resolved.isInvalid,
+      }),
+    [
+      control.resolved.variant,
+      control.resolved.color,
+      control.resolved.size,
+      control.resolved.radius,
+      control.resolved.isDisabled,
+      control.resolved.isInvalid,
+    ],
+  );
 
   return renderRadioLayout({
     properties,

@@ -3,13 +3,13 @@
 import type { ChipIconProps } from './chip.types';
 import type { JSX } from 'react';
 
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { chip as chipRecipe } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
 export const ChipIcon = forwardRef<HTMLSpanElement, ChipIconProps>(
   ({ className, children, ...properties }, reference): JSX.Element => {
-    const styles = chipRecipe();
+    const styles = useMemo(() => chipRecipe(), []);
 
     return (
       <span

@@ -3,7 +3,7 @@
 import type { CheckboxGroupLabelProps } from './checkbox.types';
 import type { JSX } from 'react';
 
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { checkboxGroup } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -13,7 +13,7 @@ export const CheckboxGroupLabel = forwardRef<HTMLSpanElement, CheckboxGroupLabel
   (properties, reference): JSX.Element => {
     const { className, children, ...otherProperties } = properties;
     const { isDisabled, isRequired, groupLabelId } = useRequiredCheckboxGroupContext();
-    const styles = checkboxGroup();
+    const styles = useMemo(() => checkboxGroup(), []);
 
     return (
       <span

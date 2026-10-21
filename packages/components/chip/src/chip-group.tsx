@@ -3,7 +3,7 @@
 import type { ChipGroupProps } from './chip.types';
 import type { JSX } from 'react';
 
-import { forwardRef, useState, useCallback } from 'react';
+import { forwardRef, useState, useCallback, useMemo } from 'react';
 import { chipGroup } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -31,7 +31,7 @@ export const ChipGroup = forwardRef<HTMLDivElement, ChipGroupProps>(
     const [internalValue, setInternalValue] = useState<string[]>(defaultValue);
     const selectedValues = value ?? internalValue;
 
-    const groupStyles = chipGroup({ isDisabled });
+    const groupStyles = useMemo(() => chipGroup({ isDisabled }), [isDisabled]);
 
     const onGroupChange = useCallback(
       (itemValue: string, selected: boolean) => {
@@ -52,25 +52,27 @@ export const ChipGroup = forwardRef<HTMLDivElement, ChipGroupProps>(
       [selectionMode, selectedValues, value, onChange],
     );
 
+    const contextValue = useMemo(
+      () => ({
+        color,
+        isDisabled,
+        onGroupChange,
+        selectedValues,
+        selectionMode,
+        size,
+        variant,
+      }),
+      [color, isDisabled, onGroupChange, selectedValues, selectionMode, size, variant],
+    );
+
     return (
-      <ChipGroupContext.Provider
-        value={{
-          selectionMode,
-          variant,
-          color,
-          size,
-          isDisabled,
-          selectedValues,
-          onGroupChange,
-        }}
-      >
+      <ChipGroupContext.Provider value={contextValue}>
         <div
           ref={reference}
           aria-label={label}
           className={cn(groupStyles.root(), className)}
           data-disabled={isDisabled || undefined}
           data-slot="chip-group"
-          role="group"
           style={style}
           {...properties}
         >

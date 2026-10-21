@@ -3,7 +3,7 @@
 import type { InputFieldInputFilter, InputFieldInputProps } from './input-field.types';
 import type { JSX, FocusEvent, ChangeEvent, SyntheticEvent, InputHTMLAttributes } from 'react';
 
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useCallback, useEffect, useRef } from 'react';
 import { cn } from '@ideasui/utils';
 
 import { useInputFieldContext } from './input-field-context';
@@ -194,31 +194,43 @@ export const InputFieldInput = forwardRef<HTMLInputElement, InputFieldInputProps
       }
     };
 
-    const handleFocus = (event: FocusEvent<HTMLInputElement>): void => {
-      setIsFocused?.(true);
-      onFocus?.(event);
-    };
+    const handleFocus = useCallback(
+      (event: FocusEvent<HTMLInputElement>): void => {
+        setIsFocused?.(true);
+        onFocus?.(event);
+      },
+      [onFocus, setIsFocused],
+    );
 
-    const handleBlur = (event: FocusEvent<HTMLInputElement>): void => {
-      setIsFocused?.(false);
-      onBlur?.(event);
-    };
+    const handleBlur = useCallback(
+      (event: FocusEvent<HTMLInputElement>): void => {
+        setIsFocused?.(false);
+        onBlur?.(event);
+      },
+      [onBlur, setIsFocused],
+    );
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-      applyInputFilter(event.target, effectiveInputFilter);
-      setHasValue?.(event.target.value.length > 0);
-      onChange?.(event);
-    };
+    const handleChange = useCallback(
+      (event: ChangeEvent<HTMLInputElement>): void => {
+        applyInputFilter(event.target, effectiveInputFilter);
+        setHasValue?.(event.target.value.length > 0);
+        onChange?.(event);
+      },
+      [effectiveInputFilter, onChange, setHasValue],
+    );
 
-    const handleInput = (event: SyntheticEvent<HTMLInputElement>): void => {
-      const target = event.target as HTMLInputElement;
+    const handleInput = useCallback(
+      (event: SyntheticEvent<HTMLInputElement>): void => {
+        const target = event.target as HTMLInputElement;
 
-      applyInputFilter(target, effectiveInputFilter);
-      setHasValue?.(target.value.length > 0);
-      if (onInput) {
-        (onInput as (e: SyntheticEvent<HTMLInputElement>) => void)(event);
-      }
-    };
+        applyInputFilter(target, effectiveInputFilter);
+        setHasValue?.(target.value.length > 0);
+        if (onInput) {
+          (onInput as (e: SyntheticEvent<HTMLInputElement>) => void)(event);
+        }
+      },
+      [effectiveInputFilter, onInput, setHasValue],
+    );
 
     const finalInputId = id ?? contextInputId;
 

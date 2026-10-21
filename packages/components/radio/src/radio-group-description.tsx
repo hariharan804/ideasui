@@ -3,7 +3,7 @@
 import type { RadioGroupDescriptionProps } from './radio.types';
 import type { JSX } from 'react';
 
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { radioGroup } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -13,7 +13,10 @@ export const RadioGroupDescription = forwardRef<HTMLParagraphElement, RadioGroup
   (properties, reference): JSX.Element | null => {
     const { className, children, ...otherProperties } = properties;
     const { groupDescriptionId, isInvalid, isDisabled } = useRequiredRadioGroupContext();
-    const groupStyles = radioGroup({ isInvalid, isDisabled });
+    const groupStyles = useMemo(
+      () => radioGroup({ isInvalid, isDisabled }),
+      [isInvalid, isDisabled],
+    );
 
     if (isInvalid) {
       return null;

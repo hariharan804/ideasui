@@ -3,7 +3,7 @@
 import type { SwitchGroupLabelProps } from './switch.types';
 import type { JSX } from 'react';
 
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { switchGroup } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
@@ -12,7 +12,7 @@ import { useRequiredSwitchGroupContext } from './switch-context';
 export const SwitchGroupLabel = forwardRef<HTMLSpanElement, SwitchGroupLabelProps>(
   ({ className, children, ...properties }, reference): JSX.Element => {
     const { isDisabled, isRequired, groupLabelId } = useRequiredSwitchGroupContext();
-    const styles = switchGroup();
+    const styles = useMemo(() => switchGroup(), []);
 
     return (
       <span

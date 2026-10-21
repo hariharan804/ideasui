@@ -37,7 +37,10 @@ export const CheckboxGroup = forwardRef<HTMLFieldSetElement, CheckboxGroupProps>
     const groupDescriptionId = useId();
     const groupErrorId = useId();
 
-    const groupStyles = checkboxGroup({ orientation, isInvalid, isDisabled });
+    const groupStyles = useMemo(
+      () => checkboxGroup({ orientation, isInvalid, isDisabled }),
+      [orientation, isInvalid, isDisabled],
+    );
 
     const onGroupChange = useCallback(
       (itemValue: string, checked: boolean) => {
