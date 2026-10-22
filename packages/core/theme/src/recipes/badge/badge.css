@@ -1,0 +1,150 @@
+/**
+ * Badge Component CSS
+ * Source of truth for visual styling for the Badge component.
+ * Uses BEM selectors + Tailwind CSS v4 @apply directives.
+ */
+
+/* ─── Badge root ──────────────────────────────────────────────── */
+.ideasui-badge {
+  @apply inline-flex items-center justify-center rounded-full border border-transparent leading-none font-semibold whitespace-nowrap transition-opacity duration-150;
+}
+
+/* ─── Sizes ───────────────────────────────────────────────────── */
+.ideasui-badge--sm {
+  @apply h-4 min-w-4 px-1 text-[10px];
+}
+.ideasui-badge--md {
+  @apply h-5 min-w-5 px-1.5 text-xs;
+}
+.ideasui-badge--lg {
+  @apply h-6 min-w-6 px-2 text-xs;
+}
+
+/* ─── Dot mode ────────────────────────────────────────────────── */
+.ideasui-badge--dot {
+  @apply min-w-0 p-0;
+}
+.ideasui-badge--dot.ideasui-badge--sm {
+  @apply size-2;
+}
+.ideasui-badge--dot.ideasui-badge--md {
+  @apply size-2.5;
+}
+.ideasui-badge--dot.ideasui-badge--lg {
+  @apply size-3;
+}
+
+/* ─── Invisible ───────────────────────────────────────────────── */
+.ideasui-badge--invisible {
+  @apply pointer-events-none opacity-0;
+}
+
+/* ─── Variant: solid ──────────────────────────────────────────── */
+.ideasui-badge--solid.ideasui-badge--primary {
+  @apply bg-primary text-on-primary;
+}
+.ideasui-badge--solid.ideasui-badge--neutral {
+  @apply bg-neutral text-on-neutral;
+}
+.ideasui-badge--solid.ideasui-badge--success {
+  @apply bg-success text-on-success;
+}
+.ideasui-badge--solid.ideasui-badge--warning {
+  @apply bg-warning text-on-warning;
+}
+.ideasui-badge--solid.ideasui-badge--danger {
+  @apply bg-danger text-on-danger;
+}
+
+/* ─── Variant: soft ───────────────────────────────────────────── */
+.ideasui-badge--soft.ideasui-badge--primary {
+  @apply bg-primary-subtle text-primary;
+}
+.ideasui-badge--soft.ideasui-badge--neutral {
+  @apply bg-neutral-subtle text-neutral;
+}
+.ideasui-badge--soft.ideasui-badge--success {
+  @apply bg-success-subtle text-success;
+}
+.ideasui-badge--soft.ideasui-badge--warning {
+  @apply bg-warning-subtle text-warning;
+}
+.ideasui-badge--soft.ideasui-badge--danger {
+  @apply bg-danger-subtle text-danger;
+}
+
+/* ─── Variant: outline ────────────────────────────────────────── */
+.ideasui-badge--outline {
+  @apply bg-transparent;
+}
+.ideasui-badge--outline.ideasui-badge--primary {
+  @apply border-primary text-primary;
+}
+.ideasui-badge--outline.ideasui-badge--neutral {
+  @apply border-neutral text-neutral;
+}
+.ideasui-badge--outline.ideasui-badge--success {
+  @apply border-success text-success;
+}
+.ideasui-badge--outline.ideasui-badge--warning {
+  @apply border-warning text-warning;
+}
+.ideasui-badge--outline.ideasui-badge--danger {
+  @apply border-danger text-danger;
+}
+
+/* ─── Variant: ghost ──────────────────────────────────────────── */
+.ideasui-badge--ghost {
+  @apply border-transparent bg-transparent;
+}
+.ideasui-badge--ghost.ideasui-badge--primary {
+  @apply text-primary;
+}
+.ideasui-badge--ghost.ideasui-badge--neutral {
+  @apply text-neutral;
+}
+.ideasui-badge--ghost.ideasui-badge--success {
+  @apply text-success;
+}
+.ideasui-badge--ghost.ideasui-badge--warning {
+  @apply text-warning;
+}
+.ideasui-badge--ghost.ideasui-badge--danger {
+  @apply text-danger;
+}
+
+/* ─── Anchor wrapper ──────────────────────────────────────────── */
+.ideasui-badge-anchor {
+  @apply relative inline-flex shrink-0;
+}
+
+/* ─── Badge wrapper (positioned) ─────────────────────────────── */
+.ideasui-badge-anchor__wrapper {
+  @apply absolute z-10;
+}
+
+/* Placements */
+.ideasui-badge-anchor__wrapper--top-right {
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%) translateX(var(--badge-offset-x, 0px))
+    translateY(var(--badge-offset-y, 0px));
+}
+.ideasui-badge-anchor__wrapper--top-left {
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%) translateX(var(--badge-offset-x, 0px))
+    translateY(var(--badge-offset-y, 0px));
+}
+.ideasui-badge-anchor__wrapper--bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%) translateX(var(--badge-offset-x, 0px))
+    translateY(var(--badge-offset-y, 0px));
+}
+.ideasui-badge-anchor__wrapper--bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 50%) translateX(var(--badge-offset-x, 0px))
+    translateY(var(--badge-offset-y, 0px));
+}

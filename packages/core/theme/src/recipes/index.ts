@@ -1,4 +1,5 @@
 /* ### EXPORT RECIPES HERE ### */
+export * from './badge';
 export * from './chip';
 export * from './divider';
 export * from './avatar';

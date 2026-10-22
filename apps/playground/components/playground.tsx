@@ -21,6 +21,11 @@ const COMPONENT_LIST: ComponentItem[] = [
   // ### APPEND COMPONENT HERE ###
 
   {
+    name: 'Badge',
+    category: 'Core',
+  },
+
+  {
     name: 'Chip',
     category: 'Core',
   },

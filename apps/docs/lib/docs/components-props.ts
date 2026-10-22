@@ -36,6 +36,7 @@ export interface PropsDocumentation {
   avatar: ComponentDoc[];
   divider: ComponentDoc[];
   chip: ComponentDoc[];
+  badge: ComponentDoc[];
 }
 
 /**
@@ -52,6 +53,7 @@ export interface PropsDocumentation {
  * - Avatar: AvatarProps, AvatarGroupProps, AvatarImageProps, AvatarFallbackProps, AvatarIconProps
  * - Divider: DividerProps
  * - Chip: ChipProps, ChipGroupProps, ChipAvatarProps, ChipIconProps, ChipDismissProps
+ * - Badge: BadgeProps, BadgeAnchorProps
  */
 export const propsDocumentation: PropsDocumentation = {
   button: [
@@ -3546,6 +3548,182 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: null,
           deprecated: false,
           description: 'Custom CSS class name.',
+        },
+      ],
+    },
+  ],
+  badge: [
+    {
+      componentName: 'Badge',
+      title: 'Badge Props',
+      component: '<Badge />',
+      description:
+        'Accessible, theme-aware compact indicator supporting standalone counts, status labels, dot indicators, and invisible mode',
+      version: '0.0.1-beta.1',
+      props: [
+        {
+          name: 'variant',
+          type: '"solid" | "soft" | "outline" | "ghost"',
+          required: false,
+          defaultValue: "'solid'",
+          deprecated: false,
+          description: 'Visual style variant of the badge.',
+        },
+        {
+          name: 'color',
+          type: '"primary" | "neutral" | "success" | "warning" | "danger"',
+          required: false,
+          defaultValue: "'primary'",
+          deprecated: false,
+          description: 'Color scheme of the badge.',
+        },
+        {
+          name: 'size',
+          type: '"sm" | "md" | "lg"',
+          required: false,
+          defaultValue: "'md'",
+          deprecated: false,
+          description: 'Size scale of the badge.',
+        },
+        {
+          name: 'isDot',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description:
+            'Renders the badge as a small dot with no text content. When `true`, `children` and `max` are ignored.',
+        },
+        {
+          name: 'max',
+          type: 'number',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description:
+            'Maximum numeric value to display. When `children` exceeds this value, renders `{max}+` instead. Only applies when `children` is a number or numeric string.',
+        },
+        {
+          name: 'isInvisible',
+          type: 'boolean',
+          required: false,
+          defaultValue: 'false',
+          deprecated: false,
+          description:
+            'Hides the badge visually and from layout without removing it from the DOM. Useful for animated show/hide transitions.',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()`.',
+        },
+        {
+          name: 'classNames',
+          type: 'BadgeClassNames',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Granular class overrides for component slots.',
+        },
+        {
+          name: 'slotProps',
+          type: 'BadgeSlotProps',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom props forwarded to component slots.',
+        },
+        {
+          name: 'style',
+          type: 'CSSProperties',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Inline styles applied to the root element.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Badge content — count, label, or icon. Ignored when `isDot=true`.',
+        },
+      ],
+    },
+    {
+      componentName: 'BadgeAnchor',
+      title: 'BadgeAnchor Props',
+      component: '<BadgeAnchor />',
+      description: 'Layout wrapper that positions a Badge absolutely over its child element',
+      version: '0.0.1-beta.1',
+      props: [
+        {
+          name: 'badge',
+          type: 'ReactNode',
+          required: true,
+          defaultValue: null,
+          deprecated: false,
+          description: 'The `Badge` element to overlay on the child.',
+        },
+        {
+          name: 'placement',
+          type: '"top-right" | "top-left" | "bottom-right" | "bottom-left"',
+          required: false,
+          defaultValue: "'top-right'",
+          deprecated: false,
+          description: 'Placement of the badge relative to the child element.',
+        },
+        {
+          name: 'offset',
+          type: '{ readonly x?: number; readonly y?: number }',
+          required: false,
+          defaultValue: '{ x: 0, y: 0 }',
+          deprecated: false,
+          description: 'Offset applied to the badge position. Useful for fine-tuning overlap.',
+        },
+        {
+          name: 'className',
+          type: 'string',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom CSS class names merged via `cn()` on the anchor wrapper.',
+        },
+        {
+          name: 'classNames',
+          type: 'BadgeAnchorClassNames',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Granular class overrides for anchor slots.',
+        },
+        {
+          name: 'slotProps',
+          type: 'BadgeAnchorSlotProps',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Custom props forwarded to anchor slots.',
+        },
+        {
+          name: 'style',
+          type: 'CSSProperties',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Inline styles applied to the anchor wrapper element.',
+        },
+        {
+          name: 'children',
+          type: 'ReactNode',
+          required: true,
+          defaultValue: null,
+          deprecated: false,
+          description: 'The element being badged (avatar, icon button, etc.).',
         },
       ],
     },

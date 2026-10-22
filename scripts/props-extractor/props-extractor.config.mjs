@@ -321,6 +321,23 @@ export const extractConfig = {
         'ChipDismiss',
       ),
     ]),
+    badge: makeComponent('Badge', [
+      makeInterface(
+        'Badge',
+        'Badge Props',
+        'Accessible, theme-aware compact indicator supporting standalone counts, status labels, dot indicators, and invisible mode',
+        '../../packages/components/badge/src/badge.types.ts',
+        'BadgeProps',
+      ),
+      makeInterface(
+        'BadgeAnchor',
+        'BadgeAnchor Props',
+        'Layout wrapper that positions a Badge absolutely over its child element',
+        '../../packages/components/badge/src/badge.types.ts',
+        'BadgeAnchorProps',
+        'BadgeAnchor',
+      ),
+    ]),
   },
 };
 export default extractConfig;

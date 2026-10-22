@@ -490,6 +490,28 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  packages/components/badge:
+    dependencies:
+      '@ideasui/theme':
+        specifier: workspace:*
+        version: link:../../core/theme
+      '@ideasui/utils':
+        specifier: workspace:*
+        version: link:../../utils
+    devDependencies:
+      clean-package:
+        specifier: ^2.2.0
+        version: 2.2.0
+      react:
+        specifier: 19.2.4
+        version: 19.2.4
+      react-dom:
+        specifier: 19.2.4
+        version: 19.2.4(react@19.2.4)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/components/button:
     dependencies:
       '@ideasui/theme':
@@ -696,6 +718,9 @@ importers:
       '@ideasui/avatar':
         specifier: workspace:*
         version: link:../../components/avatar
+      '@ideasui/badge':
+        specifier: workspace:*
+        version: link:../../components/badge
       '@ideasui/button':
         specifier: workspace:*
         version: link:../../components/button
@@ -2202,6 +2227,7 @@ packages:
   '@opentelemetry/sdk-trace-base@2.8.0':
     resolution: {integrity: sha512-mhU4jp+vW0mGbFRd+GeXHvmfA4aDqWjBjLC3pE5XMpLs0IE2ryYb019Ts2AQrOq67gaTF25D91+fgvEHDZEnuQ==}
     engines: {node: ^18.19.0 || >=20.6.0}
+    deprecated: Use @opentelemetry/sdk-trace package
     peerDependencies:
       '@opentelemetry/api': '>=1.3.0 <1.10.0'
 

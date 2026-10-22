@@ -1,0 +1,356 @@
+---
+title: Badge
+description: Accessible, theme-aware compact indicator supporting standalone counts, status labels, dot indicators, and anchored overlays.
+category: media
+links:
+  npm: true
+  source: badge/src/badge.tsx
+  recipe: core/theme/src/recipes/badge/badge.ts
+  storybook: Components/Badge
+---
+
+<QuickNav
+  items={[
+    {
+      title: 'Basic Usage',
+      description: 'Display counts and status labels with default styles.',
+      href: '#basic-usage',
+    },
+    {
+      title: 'Visual Variants',
+      description: 'Solid, soft, outline, and ghost styling options.',
+      href: '#visual-variants',
+    },
+    {
+      title: 'Color Schemes',
+      description: 'Primary, neutral, success, warning, and danger semantic palettes.',
+      href: '#color-schemes',
+    },
+    {
+      title: 'Sizes',
+      description: 'Small (16px), medium (20px), and large (24px) size scales.',
+      href: '#sizes',
+    },
+    {
+      title: 'Dot Mode',
+      description: 'Small indicator circle for status indicators without text.',
+      href: '#dot-mode',
+    },
+    {
+      title: 'Max Count',
+      description: 'Cap numeric counts with a {max}+ threshold display.',
+      href: '#max-count',
+    },
+    {
+      title: 'Invisible Mode',
+      description: 'Visually hide the badge without unmounting to preserve layout.',
+      href: '#invisible-mode',
+    },
+    {
+      title: 'Anchored Overlay',
+      description: 'Position badges relative to avatars, icons, and buttons.',
+      href: '#anchored-overlay',
+    },
+    {
+      title: 'Notification Counter',
+      description: 'Accessible notification badge pattern with live updates.',
+      href: '#notification-counter',
+    },
+    {
+      title: 'Accessibility',
+      description: 'WCAG 2.1 AA screen reader semantics and contrast standards.',
+      href: '#accessibility',
+    },
+    {
+      title: 'Standalone CSS',
+      description: 'Use Badge without Tailwind CSS via @ideasui/styles.',
+      href: '#standalone-css',
+    },
+    {
+      title: 'API Reference',
+      description: 'Complete prop reference for Badge and BadgeAnchor.',
+      href: '#api-reference',
+    },
+  ]}
+/>
+
+## Installation
+
+<InstallTabs pkg="@ideasui/badge" />
+
+## Import
+
+```tsx
+// Master bundle (recommended)
+import { Badge, BadgeAnchor } from '@ideasui/react';
+
+// Individual package
+import { Badge, BadgeAnchor } from '@ideasui/badge';
+```
+
+## Basic Usage
+
+The `Badge` component renders a compact status indicator, counter, or label. By default, it uses the `solid` variant with `primary` color.
+
+<Preview name="badge-default" />
+
+```tsx
+import { Badge } from '@ideasui/react';
+
+export default function BasicUsage() {
+  return (
+    <div className="flex gap-4">
+      <Badge color="primary">New</Badge>
+      <Badge color="danger">5</Badge>
+      <Badge variant="soft" color="success">
+        Active
+      </Badge>
+    </div>
+  );
+}
+```
+
+## Visual Variants
+
+Use the `variant` prop to adjust the visual weight. Supported variants are `solid`, `soft`, `outline`, and `ghost`.
+
+<Preview name="badge-variants" />
+
+```tsx
+import { Badge } from '@ideasui/react';
+
+export default function Variants() {
+  return (
+    <div className="flex gap-4">
+      <Badge variant="solid" color="primary">
+        Solid
+      </Badge>
+      <Badge variant="soft" color="primary">
+        Soft
+      </Badge>
+      <Badge variant="outline" color="primary">
+        Outline
+      </Badge>
+      <Badge variant="ghost" color="primary">
+        Ghost
+      </Badge>
+    </div>
+  );
+}
+```
+
+## Color Schemes
+
+Badges support five semantic OKLCH color schemes: `primary`, `neutral`, `success`, `warning`, and `danger`.
+
+<Preview name="badge-colors" />
+
+```tsx
+import { Badge } from '@ideasui/react';
+
+export default function Colors() {
+  return (
+    <div className="flex flex-wrap gap-2">
+      <Badge color="primary">Primary</Badge>
+      <Badge color="neutral">Neutral</Badge>
+      <Badge color="success">Success</Badge>
+      <Badge color="warning">Warning</Badge>
+      <Badge color="danger">Danger</Badge>
+    </div>
+  );
+}
+```
+
+## Sizes
+
+Badge comes in three sizes: `sm` (16px height), `md` (20px height, default), and `lg` (24px height).
+
+<Preview name="badge-sizes" />
+
+```tsx
+import { Badge } from '@ideasui/react';
+
+export default function Sizes() {
+  return (
+    <div className="flex items-center gap-4">
+      <Badge size="sm" color="danger">
+        9
+      </Badge>
+      <Badge size="md" color="danger">
+        99
+      </Badge>
+      <Badge size="lg" color="danger">
+        999
+      </Badge>
+    </div>
+  );
+}
+```
+
+## Dot Mode
+
+Set `isDot` to render a small circle indicator with no text. When `isDot` is `true`, `children` and `max` are ignored, and `aria-hidden="true"` is automatically applied.
+
+<Preview name="badge-dot" />
+
+```tsx
+import { Badge } from '@ideasui/react';
+
+export default function DotMode() {
+  return (
+    <div className="flex items-center gap-6">
+      <Badge isDot color="primary" size="sm" />
+      <Badge isDot color="success" size="md" />
+      <Badge isDot color="warning" size="md" />
+      <Badge isDot color="danger" size="lg" />
+      <Badge isDot color="neutral" size="md" />
+    </div>
+  );
+}
+```
+
+## Max Count
+
+Use the `max` prop to specify an upper numerical bound. When `children` exceeds `max`, `{max}+` is displayed.
+
+<Preview name="badge-max-count" />
+
+```tsx
+import { Badge } from '@ideasui/react';
+
+export default function MaxCount() {
+  return (
+    <div className="flex items-center gap-4">
+      <Badge color="danger" max={9}>
+        5
+      </Badge>
+      <Badge color="danger" max={9}>
+        12
+      </Badge>
+      <Badge color="danger" max={99}>
+        120
+      </Badge>
+      <Badge color="danger" max={999}>
+        1500
+      </Badge>
+    </div>
+  );
+}
+```
+
+## Invisible Mode
+
+Set `isInvisible` to visually hide the badge without unmounting it from the DOM. This ensures layout stability during animations and transitions.
+
+<Preview name="badge-invisible" />
+
+```tsx
+import { useState } from 'react';
+import { Badge } from '@ideasui/react';
+
+export default function InvisibleMode() {
+  const [isInvisible, setIsInvisible] = useState(false);
+
+  return (
+    <div className="flex items-center gap-4">
+      <Badge color="danger" isInvisible={isInvisible}>
+        5
+      </Badge>
+      <button
+        type="button"
+        onClick={() => setIsInvisible((v) => !v)}
+        className="text-primary text-sm underline"
+      >
+        Toggle Visibility
+      </button>
+    </div>
+  );
+}
+```
+
+## Anchored Overlay
+
+Use `BadgeAnchor` to position a badge on any corner of a target element (such as an Avatar or IconButton). Supported placements are `top-right` (default), `top-left`, `bottom-right`, and `bottom-left`.
+
+<Preview name="badge-anchored" />
+
+```tsx
+import { Badge, BadgeAnchor } from '@ideasui/react';
+
+export default function AnchoredBadge() {
+  return (
+    <div className="flex gap-8">
+      <BadgeAnchor
+        badge={
+          <Badge color="danger" size="sm">
+            3
+          </Badge>
+        }
+        placement="top-right"
+      >
+        <div className="bg-surface-muted size-10 rounded-full" />
+      </BadgeAnchor>
+
+      <BadgeAnchor badge={<Badge isDot color="success" size="md" />} placement="bottom-right">
+        <div className="bg-surface-muted size-10 rounded-full" />
+      </BadgeAnchor>
+    </div>
+  );
+}
+```
+
+## Notification Counter
+
+For real-time count announcements, pair `BadgeAnchor` with a visually hidden screen reader live region (`aria-live="polite"`).
+
+<Preview name="badge-notification" />
+
+```tsx
+import { useState } from 'react';
+import { Badge, BadgeAnchor } from '@ideasui/react';
+
+export default function NotificationCounter() {
+  const [count, setCount] = useState(5);
+
+  return (
+    <div className="flex items-center gap-4">
+      <span className="sr-only" aria-live="polite" aria-atomic="true">
+        {count > 0 ? `${count} unread notifications` : 'No unread notifications'}
+      </span>
+      <BadgeAnchor
+        badge={
+          <Badge color="danger" max={99} isInvisible={count === 0}>
+            {count}
+          </Badge>
+        }
+      >
+        <div className="bg-surface-muted size-10 rounded-full" />
+      </BadgeAnchor>
+    </div>
+  );
+}
+```
+
+## Accessibility
+
+The Badge component complies with **WCAG 2.1 AA** standards:
+
+- **Non-interactive**: Rendered as a semantic `<span>` element. It carries no interactive ARIA roles and cannot receive focus directly.
+- **Dot Badges**: Automatically marked with `aria-hidden="true"` as decorative indicators. Parent containers provide the accessible name.
+- **Invisible Badges**: Marked with `aria-hidden="true"` and `pointer-events-none` when `isInvisible` is active so hidden elements are not voiced.
+- **Text & Contrast**: Uses OKLCH semantic tokens that guarantee 4.5:1 contrast against surface backgrounds.
+- **Motion Reduction**: Transitions respect `prefers-reduced-motion` settings.
+
+## Standalone CSS
+
+Badge can be used in non-Tailwind projects via the pre-compiled `@ideasui/styles` package.
+
+<StandaloneCSS componentName="badge" />
+
+### BEM CSS Classes
+
+<BEMReferenceViewer componentName="badge" />
+
+## API Reference
+
+<APIReferenceViewer componentName="badge" />
