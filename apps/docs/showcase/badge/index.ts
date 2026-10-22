@@ -6,4 +6,7 @@ export { default as Dot } from './dot';
 export { default as MaxCount } from './max-count';
 export { default as Invisible } from './invisible';
 export { default as Anchored } from './anchored';
+export { default as AnchorOrigin } from './anchor-origin';
+export { default as Overlap } from './overlap';
+export { default as AvatarStatus } from './avatar-status';
 export { default as Notification } from './notification';

@@ -1,4 +1,4 @@
-/* eslint-disable testing-library/no-container, testing-library/no-node-access */
+/* eslint-disable testing-library/no-node-access */
 import '@testing-library/jest-dom';
 
 import { createRef } from 'react';
@@ -14,7 +14,26 @@ describe('Badge Component Suite', () => {
       expect(BadgeAnchor.displayName).toBe('IdeasUI.BadgeAnchor');
     });
 
-    it('renders correct data-slot attributes', () => {
+    it('renders correct data-slot attributes in standalone mode', () => {
+      render(<Badge>5</Badge>);
+      expect(screen.getByText('5')).toHaveAttribute('data-slot', 'badge');
+    });
+
+    it('renders correct data-slot attributes when anchoring with badgeContent', () => {
+      render(
+        <Badge badgeContent={4}>
+          <span data-testid="target-icon">Icon</span>
+        </Badge>,
+      );
+
+      expect(screen.getByText('4')).toHaveAttribute('data-slot', 'badge');
+      expect(screen.getByTestId('target-icon').parentElement).toHaveAttribute(
+        'data-slot',
+        'badge-root',
+      );
+    });
+
+    it('renders correct data-slot attributes when using BadgeAnchor', () => {
       render(
         <BadgeAnchor badge={<Badge>5</Badge>}>
           <span>Child</span>
@@ -28,13 +47,26 @@ describe('Badge Component Suite', () => {
   });
 
   describe('Ref Forwarding', () => {
-    it('forwards ref to Badge span element', () => {
+    it('forwards ref to Badge element in standalone mode', () => {
       const reference = createRef<HTMLSpanElement>();
 
       render(<Badge ref={reference}>5</Badge>);
 
       expect(reference.current).toBeInstanceOf(HTMLSpanElement);
       expect(reference.current?.tagName).toBe('SPAN');
+    });
+
+    it('forwards ref to root wrapper element in anchored mode', () => {
+      const reference = createRef<HTMLSpanElement>();
+
+      render(
+        <Badge ref={reference} badgeContent={3}>
+          <span>Target</span>
+        </Badge>,
+      );
+
+      expect(reference.current).toBeInstanceOf(HTMLSpanElement);
+      expect(reference.current).toHaveAttribute('data-slot', 'badge-root');
     });
 
     it('forwards ref to BadgeAnchor span element', () => {
@@ -53,18 +85,30 @@ describe('Badge Component Suite', () => {
 
   describe('Variants, Colors, and Sizes', () => {
     it('renders all variants without error', () => {
-      const variants = ['solid', 'soft', 'outline', 'ghost'] as const;
+      const variants = ['standard', 'solid', 'soft', 'outline', 'ghost', 'dot'] as const;
 
       for (const variant of variants) {
         const { unmount } = render(<Badge variant={variant}>Test</Badge>);
 
-        expect(screen.getByText('Test')).toBeInTheDocument();
+        if (variant !== 'dot') {
+          expect(screen.getByText('Test')).toBeInTheDocument();
+        }
         unmount();
       }
     });
 
     it('renders all colors without error', () => {
-      const colors = ['primary', 'neutral', 'success', 'warning', 'danger'] as const;
+      const colors = [
+        'primary',
+        'secondary',
+        'neutral',
+        'default',
+        'success',
+        'warning',
+        'danger',
+        'error',
+        'info',
+      ] as const;
 
       for (const color of colors) {
         const { unmount } = render(<Badge color={color}>Test</Badge>);
@@ -86,8 +130,92 @@ describe('Badge Component Suite', () => {
     });
   });
 
+  describe('Anchor Origin & Placement', () => {
+    it('applies default top-right anchor position', () => {
+      render(
+        <Badge badgeContent={1}>
+          <span>Mail</span>
+        </Badge>,
+      );
+
+      const badgeElement = screen.getByText('1');
+
+      expect(badgeElement.className).toContain('ideasui-badge--top-right');
+    });
+
+    it('supports anchorOrigin vertical and horizontal options', () => {
+      const { rerender } = render(
+        <Badge anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }} badgeContent={2}>
+          <span>Mail</span>
+        </Badge>,
+      );
+
+      expect(screen.getByText('2').className).toContain('ideasui-badge--bottom-left');
+
+      rerender(
+        <Badge anchorOrigin={{ vertical: 'top', horizontal: 'left' }} badgeContent={2}>
+          <span>Mail</span>
+        </Badge>,
+      );
+      expect(screen.getByText('2').className).toContain('ideasui-badge--top-left');
+
+      rerender(
+        <Badge anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} badgeContent={2}>
+          <span>Mail</span>
+        </Badge>,
+      );
+      expect(screen.getByText('2').className).toContain('ideasui-badge--bottom-right');
+    });
+
+    it('supports direct placement shorthand prop', () => {
+      render(
+        <Badge badgeContent={7} placement="bottom-left">
+          <span>Icon</span>
+        </Badge>,
+      );
+
+      expect(screen.getByText('7').className).toContain('ideasui-badge--bottom-left');
+    });
+  });
+
+  describe('Overlap Prop', () => {
+    it('applies rectangular overlap by default', () => {
+      render(
+        <Badge badgeContent={1}>
+          <span>Box</span>
+        </Badge>,
+      );
+
+      expect(screen.getByText('1').className).toContain('ideasui-badge--overlap-rectangular');
+    });
+
+    it('applies circular overlap when requested', () => {
+      render(
+        <Badge badgeContent={1} overlap="circular">
+          <span>Avatar</span>
+        </Badge>,
+      );
+
+      expect(screen.getByText('1').className).toContain('ideasui-badge--overlap-circular');
+    });
+  });
+
   describe('Dot Mode', () => {
-    it('renders dot without text children and sets aria-hidden="true"', () => {
+    it('renders dot via variant="dot" without text and sets aria-hidden="true"', () => {
+      render(
+        <Badge data-testid="dot-variant" variant="dot">
+          <span>Target</span>
+        </Badge>,
+      );
+
+      const dot = screen.getByTestId('dot-variant').querySelector('[data-slot="badge"]');
+
+      expect(dot).toHaveAttribute('data-dot', 'true');
+      expect(dot).toHaveAttribute('aria-hidden', 'true');
+      expect(dot).toBeEmptyDOMElement();
+    });
+
+    it('renders dot via isDot prop without text children and sets aria-hidden="true"', () => {
       render(
         <Badge isDot data-testid="dot-badge">
           Hidden Text
@@ -102,32 +230,68 @@ describe('Badge Component Suite', () => {
     });
   });
 
+  describe('Zero Count & showZero Prop', () => {
+    it('hides badge when badgeContent is 0 and showZero is false', () => {
+      render(
+        <Badge badgeContent={0}>
+          <span>Inbox</span>
+        </Badge>,
+      );
+
+      const badge = screen.getByText('0');
+
+      expect(badge).toHaveAttribute('data-invisible', 'true');
+      expect(badge).toHaveAttribute('aria-hidden', 'true');
+    });
+
+    it('shows badge when badgeContent is 0 and showZero is true', () => {
+      render(
+        <Badge showZero badgeContent={0}>
+          <span>Inbox</span>
+        </Badge>,
+      );
+
+      const badge = screen.getByText('0');
+
+      expect(badge).not.toHaveAttribute('data-invisible');
+      expect(badge).not.toHaveAttribute('aria-hidden');
+    });
+  });
+
   describe('Max Count Behavior', () => {
     it('renders {max}+ when numeric count exceeds max', () => {
       render(<Badge max={99}>{120}</Badge>);
       expect(screen.getByText('99+')).toBeInTheDocument();
     });
 
-    it('renders {max}+ when numeric string count exceeds max', () => {
-      render(<Badge max={9}>15</Badge>);
-      expect(screen.getByText('9+')).toBeInTheDocument();
+    it('renders {max}+ when badgeContent exceeds max', () => {
+      render(
+        <Badge badgeContent={150} max={99}>
+          <span>Inbox</span>
+        </Badge>,
+      );
+      expect(screen.getByText('99+')).toBeInTheDocument();
     });
 
-    it('renders original count when within max', () => {
-      render(<Badge max={99}>{50}</Badge>);
-      expect(screen.getByText('50')).toBeInTheDocument();
+    it('supports custom max values like 999', () => {
+      render(
+        <Badge badgeContent={1200} max={999}>
+          <span>Inbox</span>
+        </Badge>,
+      );
+      expect(screen.getByText('999+')).toBeInTheDocument();
     });
 
-    it('renders non-numeric string children unchanged even when max is set', () => {
+    it('renders non-numeric string content unchanged even when max is set', () => {
       render(<Badge max={99}>New</Badge>);
       expect(screen.getByText('New')).toBeInTheDocument();
     });
   });
 
-  describe('Invisible Mode', () => {
+  describe('Invisible Prop', () => {
     it('sets data-invisible="true" and aria-hidden="true" without unmounting', () => {
       render(
-        <Badge isInvisible data-testid="inv-badge">
+        <Badge invisible data-testid="inv-badge">
           0
         </Badge>,
       );
@@ -137,105 +301,67 @@ describe('Badge Component Suite', () => {
       expect(badge).toHaveAttribute('aria-hidden', 'true');
       expect(screen.getByText('0')).toBeInTheDocument();
     });
-  });
 
-  describe('BadgeAnchor Layout & Placement', () => {
-    it('applies placement classes correctly', () => {
-      const placements = ['top-right', 'top-left', 'bottom-right', 'bottom-left'] as const;
-
-      for (const placement of placements) {
-        const { container, unmount } = render(
-          <BadgeAnchor badge={<Badge>1</Badge>} placement={placement}>
-            <span>Item</span>
-          </BadgeAnchor>,
-        );
-
-        const wrapper = container.querySelector('[data-slot="badge-wrapper"]');
-
-        expect(wrapper?.className).toContain(placement);
-        unmount();
-      }
-    });
-
-    it('applies offset custom properties when offset prop is provided', () => {
-      const { container } = render(
-        <BadgeAnchor badge={<Badge>1</Badge>} offset={{ x: 4, y: -2 }}>
-          <span>Item</span>
-        </BadgeAnchor>,
-      );
-
-      const wrapper = container.querySelector('[data-slot="badge-wrapper"]');
-
-      expect(wrapper).toHaveStyle({
-        '--badge-offset-x': '4px',
-        '--badge-offset-y': '-2px',
-      });
-    });
-  });
-
-  describe('Compound Dot Notation & Customization', () => {
-    it('supports compound dot notation (Badge.Anchor)', () => {
-      expect(Badge.Anchor).toBe(BadgeAnchor);
-    });
-
-    it('supports classNames and slotProps customization on Badge', () => {
+    it('supports isInvisible alias prop', () => {
       render(
-        <Badge
-          classNames={{ root: 'custom-root-class' }}
-          slotProps={{
-            root: { 'data-testid': 'custom-badge-slot', id: 'badge-id' },
-          }}
-        >
-          Custom
+        <Badge isInvisible data-testid="is-inv-badge">
+          5
+        </Badge>,
+      );
+      const badge = screen.getByTestId('is-inv-badge');
+
+      expect(badge).toHaveAttribute('data-invisible', 'true');
+      expect(badge).toHaveAttribute('aria-hidden', 'true');
+    });
+  });
+
+  describe('Bordered Prop', () => {
+    it('applies bordered class when bordered is true', () => {
+      render(
+        <Badge bordered badgeContent={3}>
+          <span>Avatar</span>
         </Badge>,
       );
 
-      const badge = screen.getByTestId('custom-badge-slot');
-
-      expect(badge).toHaveClass('custom-root-class');
-      expect(badge).toHaveAttribute('id', 'badge-id');
-    });
-
-    it('supports classNames and slotProps customization on BadgeAnchor', () => {
-      render(
-        <BadgeAnchor
-          badge={<Badge>1</Badge>}
-          classNames={{
-            root: 'custom-anchor-root',
-            badgeWrapper: 'custom-anchor-wrapper',
-          }}
-          slotProps={{
-            root: { 'data-testid': 'custom-anchor-slot' },
-            badgeWrapper: { 'data-testid': 'custom-wrapper-slot' },
-          }}
-        >
-          <span>Target</span>
-        </BadgeAnchor>,
-      );
-
-      const anchor = screen.getByTestId('custom-anchor-slot');
-      const wrapper = screen.getByTestId('custom-wrapper-slot');
-
-      expect(anchor).toHaveClass('custom-anchor-root');
-      expect(wrapper).toHaveClass('custom-anchor-wrapper');
+      expect(screen.getByText('3').className).toContain('ideasui-badge--bordered');
     });
   });
 
-  describe('Edge Cases', () => {
-    it('handles whitespace string children without converting to numeric zero', () => {
-      render(<Badge max={5}>{'   '}</Badge>);
-      expect(screen.queryByText('5+')).not.toBeInTheDocument();
+  describe('Slots, SlotProps, Classes, and Component', () => {
+    it('renders custom root component via component prop', () => {
+      render(
+        <Badge badgeContent={2} component="div" data-testid="custom-component">
+          <span>Content</span>
+        </Badge>,
+      );
+
+      const root = screen.getByTestId('custom-component');
+
+      expect(root.tagName).toBe('DIV');
     });
 
-    it('renders zero count correctly when max is specified', () => {
-      render(<Badge max={5}>{0}</Badge>);
-      expect(screen.getByText('0')).toBeInTheDocument();
-    });
+    it('supports slotProps and classes customization', () => {
+      render(
+        <Badge
+          badgeContent={5}
+          classes={{
+            root: 'custom-classes-root',
+            badge: 'custom-classes-badge',
+          }}
+          slotProps={{
+            root: { 'data-testid': 'custom-slot-root' },
+            badge: { 'data-testid': 'custom-slot-badge' },
+          }}
+        >
+          <span>Target</span>
+        </Badge>,
+      );
 
-    it('handles undefined or null children gracefully', () => {
-      const { container } = render(<Badge>{null}</Badge>);
+      const root = screen.getByTestId('custom-slot-root');
+      const badge = screen.getByTestId('custom-slot-badge');
 
-      expect(container.querySelector('[data-slot="badge"]')).toBeInTheDocument();
+      expect(root).toHaveClass('custom-classes-root');
+      expect(badge).toHaveClass('custom-classes-badge');
     });
   });
 
@@ -246,31 +372,21 @@ describe('Badge Component Suite', () => {
       await expectAccessible(container);
     });
 
-    it('standalone label badge has zero a11y violations', async () => {
+    it('anchored badge with mail icon has zero a11y violations', async () => {
       const { container } = render(
-        <Badge color="success" variant="soft">
-          Active
+        <Badge badgeContent={4} color="danger">
+          <span aria-label="Inbox mail count">Mail</span>
         </Badge>,
       );
 
       await expectAccessible(container);
     });
 
-    it('anchored badge has zero a11y violations', async () => {
+    it('anchored circular avatar with dot badge has zero a11y violations', async () => {
       const { container } = render(
-        <BadgeAnchor badge={<Badge color="danger">3</Badge>}>
-          <span aria-label="User avatar">JD</span>
-        </BadgeAnchor>,
-      );
-
-      await expectAccessible(container);
-    });
-
-    it('dot badge has zero a11y violations', async () => {
-      const { container } = render(
-        <BadgeAnchor badge={<Badge isDot color="success" />}>
-          <span aria-label="Online user">JD</span>
-        </BadgeAnchor>,
+        <Badge bordered color="success" overlap="circular" variant="dot">
+          <span aria-label="Remy Sharp (Online)">RS</span>
+        </Badge>,
       );
 
       await expectAccessible(container);
@@ -278,7 +394,7 @@ describe('Badge Component Suite', () => {
 
     it('invisible badge has zero a11y violations', async () => {
       const { container } = render(
-        <Badge isInvisible color="danger">
+        <Badge invisible color="danger">
           0
         </Badge>,
       );

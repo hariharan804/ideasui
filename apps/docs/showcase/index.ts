@@ -565,6 +565,18 @@ export const demos: Record<string, DemoItem> = {
     component: BadgeDemos.Anchored,
     file: 'badge/anchored.tsx',
   },
+  'badge-anchor-origin': {
+    component: BadgeDemos.AnchorOrigin,
+    file: 'badge/anchor-origin.tsx',
+  },
+  'badge-overlap': {
+    component: BadgeDemos.Overlap,
+    file: 'badge/overlap.tsx',
+  },
+  'badge-avatar-status': {
+    component: BadgeDemos.AvatarStatus,
+    file: 'badge/avatar-status.tsx',
+  },
   'badge-notification': {
     component: BadgeDemos.Notification,
     file: 'badge/notification.tsx',

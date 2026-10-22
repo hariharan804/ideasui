@@ -1,36 +1,106 @@
 import type {
   CSSProperties,
+  ElementType,
   ForwardRefExoticComponent,
   HTMLAttributes,
   ReactNode,
   RefAttributes,
 } from 'react';
 
-export type BadgeVariant = 'solid' | 'soft' | 'outline' | 'ghost';
-export type BadgeColor = 'primary' | 'neutral' | 'success' | 'warning' | 'danger';
+export type BadgeVariant =
+  'standard' | 'dot' | 'solid' | 'soft' | 'outline' | 'ghost' | (string & {});
+
+export type BadgeColor =
+  | 'primary'
+  | 'secondary'
+  | 'neutral'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'info'
+  | 'default'
+  | 'error'
+  | (string & {});
+
 export type BadgeSize = 'sm' | 'md' | 'lg';
+
 export type BadgePlacement = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+
+export type BadgeOverlap = 'rectangular' | 'circular';
+
+export interface BadgeAnchorOrigin {
+  /**
+   * Vertical position of the anchor.
+   * @default 'top'
+   */
+  readonly vertical?: 'top' | 'bottom';
+
+  /**
+   * Horizontal position of the anchor.
+   * @default 'right'
+   */
+  readonly horizontal?: 'left' | 'right';
+}
 
 /**
  * Slot class overrides for Badge.
  */
 export interface BadgeClassNames {
-  /** Class name applied to the badge root element. */
-  root?: string;
+  /** Class name applied to the badge root element (wrapper when children exist, or badge when standalone). */
+  readonly root?: string;
+  /** Class name applied to the badge indicator element. */
+  readonly badge?: string;
+}
+
+/**
+ * Custom components used for each slot inside Badge.
+ */
+export interface BadgeSlots {
+  /** Component used for the root element. */
+  readonly root?: ElementType;
+  /** Component used for the badge indicator element. */
+  readonly badge?: ElementType;
 }
 
 /**
  * Custom slot props for Badge.
  */
 export interface BadgeSlotProps {
-  /** Props forwarded to the root span element. */
-  root?: HTMLAttributes<HTMLSpanElement> & { [key: `data-${string}`]: unknown };
+  /** Props forwarded to the root element. */
+  readonly root?: HTMLAttributes<HTMLSpanElement> & { readonly [key: `data-${string}`]: unknown };
+  /** Props forwarded to the badge indicator element. */
+  readonly badge?: HTMLAttributes<HTMLSpanElement> & { readonly [key: `data-${string}`]: unknown };
 }
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   /**
-   * Visual style variant of the badge.
-   * @default 'solid'
+   * The anchor of the badge relative to the wrapped child.
+   * @default { vertical: 'top', horizontal: 'right' }
+   */
+  readonly anchorOrigin?: BadgeAnchorOrigin;
+
+  /**
+   * Placement shorthand of the badge relative to the wrapped child.
+   * @default 'top-right'
+   */
+  readonly placement?: BadgePlacement;
+
+  /**
+   * The content rendered within the badge.
+   * When `children` are present, `badgeContent` is rendered inside the badge indicator.
+   */
+  readonly badgeContent?: ReactNode;
+
+  /**
+   * Wrapped shape the badge should overlap.
+   * Use `'circular'` when the badged element is circular (e.g. Avatar).
+   * @default 'rectangular'
+   */
+  readonly overlap?: BadgeOverlap;
+
+  /**
+   * The variant to use.
+   * @default 'standard'
    */
   readonly variant?: BadgeVariant;
 
@@ -47,35 +117,53 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   readonly size?: BadgeSize;
 
   /**
-   * Renders the badge as a small dot with no text content.
-   * When `true`, `children` and `max` are ignored.
+   * If true, the badge is invisible.
+   * Scales and hides the badge with smooth transition without unmounting.
    * @default false
    */
-  readonly isDot?: boolean;
+  readonly invisible?: boolean;
 
   /**
-   * Maximum numeric value to display. When `children` exceeds this value,
-   * renders `{max}+` instead. Only applies when `children` is a number or
-   * numeric string.
-   */
-  readonly max?: number;
-
-  /**
-   * Hides the badge visually and from layout without removing it from the DOM.
-   * Useful for animated show/hide transitions.
+   * Alias for `invisible`.
    * @default false
    */
   readonly isInvisible?: boolean;
 
   /**
-   * Custom CSS class names merged via `cn()`.
+   * Controls whether the badge is hidden when `badgeContent` is zero.
+   * @default false
    */
-  readonly className?: string;
+  readonly showZero?: boolean;
 
   /**
-   * Granular class overrides for component slots.
+   * Max count to show. When numeric count exceeds this value, renders `{max}+`.
+   * @default 99
    */
-  readonly classNames?: BadgeClassNames;
+  readonly max?: number;
+
+  /**
+   * Renders the badge as a compact status indicator dot without text content.
+   * Equivalent to `variant="dot"`.
+   * @default false
+   */
+  readonly isDot?: boolean;
+
+  /**
+   * Adds a high-contrast surface ring around the badge indicator.
+   * @default false
+   */
+  readonly bordered?: boolean;
+
+  /**
+   * The component used for the root node. Either a string to use an HTML element or a component.
+   * @default 'span'
+   */
+  readonly component?: ElementType;
+
+  /**
+   * Custom components used for each slot inside Badge.
+   */
+  readonly slots?: BadgeSlots;
 
   /**
    * Custom props forwarded to component slots.
@@ -83,13 +171,28 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   readonly slotProps?: BadgeSlotProps;
 
   /**
+   * Override or extend the styles applied to the component slots (MUI classes compatibility).
+   */
+  readonly classes?: BadgeClassNames;
+
+  /**
+   * Granular class overrides for component slots.
+   */
+  readonly classNames?: BadgeClassNames;
+
+  /**
+   * Custom CSS class names merged via `cn()`.
+   */
+  readonly className?: string;
+
+  /**
    * Inline styles applied to the root element.
    */
   readonly style?: CSSProperties;
 
   /**
-   * Badge content — count, label, or icon.
-   * Ignored when `isDot=true`.
+   * The element to which the badge is anchored.
+   * If omitted and `badgeContent` is not provided, `children` is treated as the badge content.
    */
   readonly children?: ReactNode;
 }
@@ -99,9 +202,9 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
  */
 export interface BadgeAnchorClassNames {
   /** Class name applied to the anchor wrapper element. */
-  root?: string;
+  readonly root?: string;
   /** Class name applied to the inner positioned badge wrapper element. */
-  badgeWrapper?: string;
+  readonly badgeWrapper?: string;
 }
 
 /**
@@ -109,9 +212,11 @@ export interface BadgeAnchorClassNames {
  */
 export interface BadgeAnchorSlotProps {
   /** Props forwarded to the anchor root span element. */
-  root?: HTMLAttributes<HTMLSpanElement> & { [key: `data-${string}`]: unknown };
+  readonly root?: HTMLAttributes<HTMLSpanElement> & { readonly [key: `data-${string}`]: unknown };
   /** Props forwarded to the inner positioned badge wrapper element. */
-  badgeWrapper?: HTMLAttributes<HTMLSpanElement> & { [key: `data-${string}`]: unknown };
+  readonly badgeWrapper?: HTMLAttributes<HTMLSpanElement> & {
+    readonly [key: `data-${string}`]: unknown;
+  };
 }
 
 export interface BadgeAnchorProps extends HTMLAttributes<HTMLSpanElement> {

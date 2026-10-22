@@ -1,6 +1,6 @@
 ---
 title: Badge
-description: Accessible, theme-aware compact indicator supporting standalone counts, status labels, dot indicators, and anchored overlays.
+description: Accessible, theme-aware badge component supporting anchored overlays, dot status indicators, overlap curves, visibility transitions, and OKLCH color palettes.
 category: media
 links:
   npm: true
@@ -13,8 +13,38 @@ links:
   items={[
     {
       title: 'Basic Usage',
-      description: 'Display counts and status labels with default styles.',
+      description: 'Overlay counts and badges directly onto icons, avatars, and buttons.',
       href: '#basic-usage',
+    },
+    {
+      title: 'Anchor Origin',
+      description: 'Position badges at top-right, top-left, bottom-right, or bottom-left.',
+      href: '#anchor-origin',
+    },
+    {
+      title: 'Dot Badge',
+      description: 'Small indicator circle for status indicators without text.',
+      href: '#dot-badge',
+    },
+    {
+      title: 'Visibility',
+      description: 'Visually hide the badge with smooth scaling without unmounting.',
+      href: '#visibility',
+    },
+    {
+      title: 'Badge Overlap',
+      description: 'Adjust placement geometry for rectangular or circular wrapped shapes.',
+      href: '#badge-overlap',
+    },
+    {
+      title: 'Avatar Status Indicators',
+      description: 'Bordered status dots on circular avatars for online/offline states.',
+      href: '#avatar-status-indicators',
+    },
+    {
+      title: 'Max Count',
+      description: 'Cap numeric counts with a {max}+ threshold display.',
+      href: '#max-count',
     },
     {
       title: 'Visual Variants',
@@ -23,38 +53,13 @@ links:
     },
     {
       title: 'Color Schemes',
-      description: 'Primary, neutral, success, warning, and danger semantic palettes.',
+      description: 'Primary, secondary, neutral, success, warning, and danger palettes.',
       href: '#color-schemes',
     },
     {
       title: 'Sizes',
       description: 'Small (16px), medium (20px), and large (24px) size scales.',
       href: '#sizes',
-    },
-    {
-      title: 'Dot Mode',
-      description: 'Small indicator circle for status indicators without text.',
-      href: '#dot-mode',
-    },
-    {
-      title: 'Max Count',
-      description: 'Cap numeric counts with a {max}+ threshold display.',
-      href: '#max-count',
-    },
-    {
-      title: 'Invisible Mode',
-      description: 'Visually hide the badge without unmounting to preserve layout.',
-      href: '#invisible-mode',
-    },
-    {
-      title: 'Anchored Overlay',
-      description: 'Position badges relative to avatars, icons, and buttons.',
-      href: '#anchored-overlay',
-    },
-    {
-      title: 'Notification Counter',
-      description: 'Accessible notification badge pattern with live updates.',
-      href: '#notification-counter',
     },
     {
       title: 'Accessibility',
@@ -68,7 +73,7 @@ links:
     },
     {
       title: 'API Reference',
-      description: 'Complete prop reference for Badge and BadgeAnchor.',
+      description: 'Complete prop reference for Badge.',
       href: '#api-reference',
     },
   ]}
@@ -90,7 +95,7 @@ import { Badge, BadgeAnchor } from '@ideasui/badge';
 
 ## Basic Usage
 
-The `Badge` component renders a compact status indicator, counter, or label. By default, it uses the `solid` variant with `primary` color.
+The `Badge` component generates a small badge to the top-right of its child(ren). Wrap your icon, button, or avatar with `<Badge>` and supply `badgeContent`.
 
 <Preview name="badge-default" />
 
@@ -99,11 +104,168 @@ import { Badge } from '@ideasui/react';
 
 export default function BasicUsage() {
   return (
-    <div className="flex gap-4">
-      <Badge color="primary">New</Badge>
-      <Badge color="danger">5</Badge>
-      <Badge variant="soft" color="success">
-        Active
+    <div className="flex items-center gap-6">
+      <Badge badgeContent={4} color="primary">
+        <MailIcon />
+      </Badge>
+      <Badge badgeContent={12} color="secondary">
+        <MailIcon />
+      </Badge>
+      <Badge color="success" variant="dot">
+        <MailIcon />
+      </Badge>
+    </div>
+  );
+}
+```
+
+## Anchor Origin
+
+Use the `anchorOrigin` prop to place the badge at any corner of the wrapped child element: `{ vertical: 'top' | 'bottom', horizontal: 'left' | 'right' }`.
+
+<Preview name="badge-anchor-origin" />
+
+```tsx
+import { Badge } from '@ideasui/react';
+
+export default function AnchorOriginDemo() {
+  return (
+    <div className="flex gap-8">
+      <Badge anchorOrigin={{ vertical: 'top', horizontal: 'right' }} badgeContent={4}>
+        <MailIcon />
+      </Badge>
+      <Badge anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }} badgeContent={4}>
+        <MailIcon />
+      </Badge>
+    </div>
+  );
+}
+```
+
+## Dot Badge
+
+Use `variant="dot"` for a compact status indicator without a numeric count.
+
+<Preview name="badge-dot" />
+
+```tsx
+import { Badge } from '@ideasui/react';
+
+export default function DotBadgeDemo() {
+  return (
+    <div className="flex items-center gap-8">
+      <Badge color="secondary" variant="dot">
+        <BellIcon />
+      </Badge>
+      <Badge color="primary" variant="dot">
+        <MailIcon />
+      </Badge>
+    </div>
+  );
+}
+```
+
+## Visibility
+
+Control badge visibility using the `invisible` prop. When invisible, the badge smoothly scales down and fades out without unmounting from the DOM.
+
+<Preview name="badge-invisible" />
+
+```tsx
+import { useState } from 'react';
+import { Badge } from '@ideasui/react';
+
+export default function VisibilityDemo() {
+  const [invisible, setInvisible] = useState(false);
+
+  return (
+    <div className="flex items-center gap-6">
+      <Badge badgeContent={4} color="secondary" invisible={invisible}>
+        <MailIcon />
+      </Badge>
+      <button onClick={() => setInvisible((v) => !v)} className="text-sm underline">
+        Toggle Visibility
+      </button>
+    </div>
+  );
+}
+```
+
+## Badge Overlap
+
+When badging a circular element (such as an Avatar), set `overlap="circular"` so the badge aligns with the circle's diagonal curve.
+
+<Preview name="badge-overlap" />
+
+```tsx
+import { Badge } from '@ideasui/react';
+
+export default function OverlapDemo() {
+  return (
+    <div className="flex items-center gap-8">
+      {/* Rectangular overlap */}
+      <Badge badgeContent={1} color="secondary" overlap="rectangular">
+        <div className="bg-primary size-10 rounded-sm" />
+      </Badge>
+
+      {/* Circular overlap */}
+      <Badge badgeContent={1} color="secondary" overlap="circular">
+        <div className="bg-primary size-10 rounded-full" />
+      </Badge>
+    </div>
+  );
+}
+```
+
+## Avatar Status Indicators
+
+Combine `overlap="circular"`, `bordered`, and `anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}` to build online/offline status indicators on user avatars.
+
+<Preview name="badge-avatar-status" />
+
+```tsx
+import { Badge } from '@ideasui/react';
+
+export default function AvatarStatusDemo() {
+  return (
+    <Badge
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      bordered
+      color="success"
+      overlap="circular"
+      variant="dot"
+    >
+      <div className="bg-surface-muted flex size-10 items-center justify-center rounded-full font-bold">
+        RS
+      </div>
+    </Badge>
+  );
+}
+```
+
+## Max Count
+
+Use the `max` prop to specify an upper numerical bound (default: 99). When the numeric value of `badgeContent` exceeds `max`, `{max}+` is displayed.
+
+<Preview name="badge-max-count" />
+
+```tsx
+import { Badge } from '@ideasui/react';
+
+export default function MaxCount() {
+  return (
+    <div className="flex items-center gap-6">
+      <Badge badgeContent={5} color="danger" max={9}>
+        <MailIcon />
+      </Badge>
+      <Badge badgeContent={12} color="danger" max={9}>
+        <MailIcon />
+      </Badge>
+      <Badge badgeContent={120} color="danger" max={99}>
+        <MailIcon />
+      </Badge>
+      <Badge badgeContent={1500} color="danger" max={999}>
+        <MailIcon />
       </Badge>
     </div>
   );
@@ -112,7 +274,7 @@ export default function BasicUsage() {
 
 ## Visual Variants
 
-Use the `variant` prop to adjust the visual weight. Supported variants are `solid`, `soft`, `outline`, and `ghost`.
+Use the `variant` prop to adjust the visual styling. Supported variants are `standard` (or `solid`), `soft`, `outline`, `ghost`, and `dot`.
 
 <Preview name="badge-variants" />
 
@@ -141,7 +303,7 @@ export default function Variants() {
 
 ## Color Schemes
 
-Badges support five semantic OKLCH color schemes: `primary`, `neutral`, `success`, `warning`, and `danger`.
+Badges support semantic OKLCH color schemes: `primary`, `secondary`, `neutral`, `success`, `warning`, `danger`, and `info`.
 
 <Preview name="badge-colors" />
 
@@ -152,10 +314,12 @@ export default function Colors() {
   return (
     <div className="flex flex-wrap gap-2">
       <Badge color="primary">Primary</Badge>
+      <Badge color="secondary">Secondary</Badge>
       <Badge color="neutral">Neutral</Badge>
       <Badge color="success">Success</Badge>
       <Badge color="warning">Warning</Badge>
       <Badge color="danger">Danger</Badge>
+      <Badge color="info">Info</Badge>
     </div>
   );
 }
@@ -187,157 +351,13 @@ export default function Sizes() {
 }
 ```
 
-## Dot Mode
-
-Set `isDot` to render a small circle indicator with no text. When `isDot` is `true`, `children` and `max` are ignored, and `aria-hidden="true"` is automatically applied.
-
-<Preview name="badge-dot" />
-
-```tsx
-import { Badge } from '@ideasui/react';
-
-export default function DotMode() {
-  return (
-    <div className="flex items-center gap-6">
-      <Badge isDot color="primary" size="sm" />
-      <Badge isDot color="success" size="md" />
-      <Badge isDot color="warning" size="md" />
-      <Badge isDot color="danger" size="lg" />
-      <Badge isDot color="neutral" size="md" />
-    </div>
-  );
-}
-```
-
-## Max Count
-
-Use the `max` prop to specify an upper numerical bound. When `children` exceeds `max`, `{max}+` is displayed.
-
-<Preview name="badge-max-count" />
-
-```tsx
-import { Badge } from '@ideasui/react';
-
-export default function MaxCount() {
-  return (
-    <div className="flex items-center gap-4">
-      <Badge color="danger" max={9}>
-        5
-      </Badge>
-      <Badge color="danger" max={9}>
-        12
-      </Badge>
-      <Badge color="danger" max={99}>
-        120
-      </Badge>
-      <Badge color="danger" max={999}>
-        1500
-      </Badge>
-    </div>
-  );
-}
-```
-
-## Invisible Mode
-
-Set `isInvisible` to visually hide the badge without unmounting it from the DOM. This ensures layout stability during animations and transitions.
-
-<Preview name="badge-invisible" />
-
-```tsx
-import { useState } from 'react';
-import { Badge } from '@ideasui/react';
-
-export default function InvisibleMode() {
-  const [isInvisible, setIsInvisible] = useState(false);
-
-  return (
-    <div className="flex items-center gap-4">
-      <Badge color="danger" isInvisible={isInvisible}>
-        5
-      </Badge>
-      <button
-        type="button"
-        onClick={() => setIsInvisible((v) => !v)}
-        className="text-primary text-sm underline"
-      >
-        Toggle Visibility
-      </button>
-    </div>
-  );
-}
-```
-
-## Anchored Overlay
-
-Use `BadgeAnchor` to position a badge on any corner of a target element (such as an Avatar or IconButton). Supported placements are `top-right` (default), `top-left`, `bottom-right`, and `bottom-left`.
-
-<Preview name="badge-anchored" />
-
-```tsx
-import { Badge, BadgeAnchor } from '@ideasui/react';
-
-export default function AnchoredBadge() {
-  return (
-    <div className="flex gap-8">
-      <BadgeAnchor
-        badge={
-          <Badge color="danger" size="sm">
-            3
-          </Badge>
-        }
-        placement="top-right"
-      >
-        <div className="bg-surface-muted size-10 rounded-full" />
-      </BadgeAnchor>
-
-      <BadgeAnchor badge={<Badge isDot color="success" size="md" />} placement="bottom-right">
-        <div className="bg-surface-muted size-10 rounded-full" />
-      </BadgeAnchor>
-    </div>
-  );
-}
-```
-
-## Notification Counter
-
-For real-time count announcements, pair `BadgeAnchor` with a visually hidden screen reader live region (`aria-live="polite"`).
-
-<Preview name="badge-notification" />
-
-```tsx
-import { useState } from 'react';
-import { Badge, BadgeAnchor } from '@ideasui/react';
-
-export default function NotificationCounter() {
-  const [count, setCount] = useState(5);
-
-  return (
-    <div className="flex items-center gap-4">
-      <span className="sr-only" aria-live="polite" aria-atomic="true">
-        {count > 0 ? `${count} unread notifications` : 'No unread notifications'}
-      </span>
-      <BadgeAnchor
-        badge={
-          <Badge color="danger" max={99} isInvisible={count === 0}>
-            {count}
-          </Badge>
-        }
-      >
-        <div className="bg-surface-muted size-10 rounded-full" />
-      </BadgeAnchor>
-    </div>
-  );
-}
-```
-
 ## Accessibility
 
 The Badge component complies with **WCAG 2.1 AA** standards:
 
 - **Non-interactive**: Rendered as a semantic `<span>` element. It carries no interactive ARIA roles and cannot receive focus directly.
 - **Dot Badges**: Automatically marked with `aria-hidden="true"` as decorative indicators. Parent containers provide the accessible name.
-- **Invisible Badges**: Marked with `aria-hidden="true"` and `pointer-events-none` when `isInvisible` is active so hidden elements are not voiced.
+- **Invisible Badges**: Marked with `aria-hidden="true"` and `pointer-events-none` when `invisible` is active so hidden elements are not voiced.
 - **Text & Contrast**: Uses OKLCH semantic tokens that guarantee 4.5:1 contrast against surface backgrounds.
 - **Motion Reduction**: Transitions respect `prefers-reduced-motion` settings.
 

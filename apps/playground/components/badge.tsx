@@ -1,193 +1,303 @@
 'use client';
 
 import type { JSX } from 'react';
+import type { BadgeAnchorOrigin } from '@ideasui/react';
 
 import { useState } from 'react';
-import { Badge, BadgeAnchor } from '@ideasui/react';
+import { Badge } from '@ideasui/react';
 
-function AvatarPlaceholder({ name }: { readonly name: string }): JSX.Element {
+function MailIcon(): JSX.Element {
   return (
-    <span
-      aria-label={name}
-      className="bg-surface-muted text-content-primary inline-flex size-10 items-center justify-center rounded-full text-sm font-semibold"
+    <svg
+      aria-hidden="true"
+      className="text-content-secondary size-6"
+      fill="currentColor"
+      viewBox="0 0 24 24"
     >
-      {name
-        .split(' ')
-        .map((part) => part[0])
-        .join('')
-        .slice(0, 2)
-        .toUpperCase()}
-    </span>
+      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+    </svg>
   );
 }
 
+function BellIcon(): JSX.Element {
+  return (
+    <svg
+      aria-hidden="true"
+      className="text-content-secondary size-6"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
+    </svg>
+  );
+}
+
+interface UserItem {
+  readonly id: string;
+  readonly name: string;
+  readonly initials: string;
+  readonly status: 'online' | 'offline';
+}
+
+const USERS: readonly UserItem[] = [
+  { id: '1', name: 'Remy Sharp', initials: 'R', status: 'online' },
+  { id: '2', name: 'Travis Howard', initials: 'T', status: 'offline' },
+  { id: '3', name: 'Cindy Baker', initials: 'C', status: 'online' },
+];
+
 export default function BadgePreview(): JSX.Element {
-  const [isInvisible, setIsInvisible] = useState(false);
+  const [vertical, setVertical] = useState<'top' | 'bottom'>('top');
+  const [horizontal, setHorizontal] = useState<'left' | 'right'>('right');
+  const [showUnread, setShowUnread] = useState(true);
   const [count, setCount] = useState(5);
 
+  const anchorOrigin: BadgeAnchorOrigin = { vertical, horizontal };
+
   return (
-    <div className="space-y-10 p-6">
+    <div className="space-y-12 p-8">
       <div>
         <h1 className="text-content-primary mb-2 text-3xl font-bold">Badge Component</h1>
         <p className="text-content-secondary">
-          Accessible, theme-aware compact indicator supporting standalone counts, status labels, dot
-          indicators, and anchored overlays.
+          Accessible, theme-aware native badge component supporting anchored overlays, dot
+          indicators, overlap curves, visibility transitions, and full WCAG 2.1 AA accessibility.
         </p>
       </div>
 
-      {/* Visual Variants */}
-      <div className="space-y-4">
-        <h2 className="text-content-primary text-xl font-semibold">Variants</h2>
-        <div className="flex flex-wrap items-center gap-4">
-          <Badge color="primary" variant="solid">
-            Solid
-          </Badge>
-          <Badge color="primary" variant="soft">
-            Soft
-          </Badge>
-          <Badge color="primary" variant="outline">
-            Outline
-          </Badge>
-          <Badge color="primary" variant="ghost">
-            Ghost
-          </Badge>
+      {/* 1. Anchor Origin (Matching Screenshot 1) */}
+      <div className="border-border bg-surface space-y-6 rounded-2xl border p-6 shadow-sm">
+        <div>
+          <h2 className="text-content-primary text-xl font-semibold">Anchor Origin</h2>
+          <p className="text-content-secondary text-sm">
+            Control the badge corner position using{' '}
+            <code className="text-primary">anchorOrigin</code>.
+          </p>
         </div>
-      </div>
 
-      {/* Semantic Color Schemes */}
-      <div className="space-y-4">
-        <h2 className="text-content-primary text-xl font-semibold">Color Schemes</h2>
-        <div className="space-y-3">
-          {(['solid', 'soft', 'outline'] as const).map((variant) => (
-            <div key={variant} className="flex flex-wrap items-center gap-3">
-              {(['primary', 'neutral', 'success', 'warning', 'danger'] as const).map((color) => (
-                <Badge key={color} color={color} variant={variant}>
-                  {color.charAt(0).toUpperCase() + color.slice(1)}
-                </Badge>
-              ))}
+        <div className="flex gap-16">
+          <div className="space-y-2">
+            <span className="text-primary text-sm font-semibold">Vertical</span>
+            <div className="flex flex-col gap-2">
+              <label className="text-content-primary flex cursor-pointer items-center gap-2 text-sm">
+                <input
+                  checked={vertical === 'top'}
+                  className="accent-primary"
+                  name="demo-vertical"
+                  type="radio"
+                  value="top"
+                  onChange={() => setVertical('top')}
+                />
+                <span>Top</span>
+              </label>
+              <label className="text-content-primary flex cursor-pointer items-center gap-2 text-sm">
+                <input
+                  checked={vertical === 'bottom'}
+                  className="accent-primary"
+                  name="demo-vertical"
+                  type="radio"
+                  value="bottom"
+                  onChange={() => setVertical('bottom')}
+                />
+                <span>Bottom</span>
+              </label>
             </div>
-          ))}
+          </div>
+
+          <div className="space-y-2">
+            <span className="text-primary text-sm font-semibold">Horizontal</span>
+            <div className="flex flex-col gap-2">
+              <label className="text-content-primary flex cursor-pointer items-center gap-2 text-sm">
+                <input
+                  checked={horizontal === 'right'}
+                  className="accent-primary"
+                  name="demo-horizontal"
+                  type="radio"
+                  value="right"
+                  onChange={() => setHorizontal('right')}
+                />
+                <span>Right</span>
+              </label>
+              <label className="text-content-primary flex cursor-pointer items-center gap-2 text-sm">
+                <input
+                  checked={horizontal === 'left'}
+                  className="accent-primary"
+                  name="demo-horizontal"
+                  type="radio"
+                  value="left"
+                  onChange={() => setHorizontal('left')}
+                />
+                <span>Left</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div className="border-border bg-surface-subtle flex flex-wrap items-center gap-10 rounded-xl border p-6">
+          <Badge anchorOrigin={anchorOrigin} color="secondary" variant="dot">
+            <MailIcon />
+          </Badge>
+          <Badge anchorOrigin={anchorOrigin} badgeContent={1} color="secondary">
+            <MailIcon />
+          </Badge>
+          <Badge anchorOrigin={anchorOrigin} badgeContent={12} color="secondary">
+            <MailIcon />
+          </Badge>
+          <Badge anchorOrigin={anchorOrigin} badgeContent={99} color="secondary">
+            <MailIcon />
+          </Badge>
+          <Badge anchorOrigin={anchorOrigin} badgeContent={1000} color="secondary" max={999}>
+            <MailIcon />
+          </Badge>
         </div>
       </div>
 
-      {/* Sizes */}
-      <div className="space-y-4">
-        <h2 className="text-content-primary text-xl font-semibold">Sizes</h2>
-        <div className="flex flex-wrap items-center gap-4">
-          <Badge color="danger" size="sm">
-            9
+      {/* 2. Dot Badge (Matching Screenshot 2) */}
+      <div className="border-border bg-surface space-y-4 rounded-2xl border p-6 shadow-sm">
+        <div>
+          <h2 className="text-content-primary text-xl font-semibold">Dot Badge</h2>
+          <p className="text-content-secondary text-sm">
+            Use <code className="text-primary">variant=&quot;dot&quot;</code> for a compact status
+            indicator without a count.
+          </p>
+        </div>
+        <div className="border-border bg-surface-subtle flex items-center gap-8 rounded-xl border p-6">
+          <Badge color="secondary" variant="dot">
+            <BellIcon />
           </Badge>
-          <Badge color="danger" size="md">
-            99
+          <Badge color="primary" variant="dot">
+            <MailIcon />
           </Badge>
-          <Badge color="danger" size="lg">
-            999
+          <Badge color="success" variant="dot">
+            <BellIcon />
           </Badge>
         </div>
       </div>
 
-      {/* Max Count */}
-      <div className="space-y-4">
-        <h2 className="text-content-primary text-xl font-semibold">Max Count Display</h2>
-        <div className="flex flex-wrap items-center gap-4">
-          <Badge color="danger" max={9}>
-            5
-          </Badge>
-          <Badge color="danger" max={9}>
-            12
-          </Badge>
-          <Badge color="danger" max={99}>
-            120
-          </Badge>
-          <Badge color="danger" max={999}>
-            1500
-          </Badge>
+      {/* 3. Visibility (Matching Screenshot 3) */}
+      <div className="border-border bg-surface space-y-4 rounded-2xl border p-6 shadow-sm">
+        <div>
+          <h2 className="text-content-primary text-xl font-semibold">Visibility</h2>
+          <p className="text-content-secondary text-sm">
+            Control badge visibility with the <code className="text-primary">invisible</code> prop.
+          </p>
         </div>
-      </div>
-
-      {/* Dot Mode */}
-      <div className="space-y-4">
-        <h2 className="text-content-primary text-xl font-semibold">Dot Indicators</h2>
-        <div className="flex flex-wrap items-center gap-4">
-          <Badge isDot color="primary" size="sm" />
-          <Badge isDot color="success" size="md" />
-          <Badge isDot color="warning" size="md" />
-          <Badge isDot color="danger" size="lg" />
-          <Badge isDot color="neutral" size="md" />
-        </div>
-      </div>
-
-      {/* Invisible Mode */}
-      <div className="space-y-4">
-        <h2 className="text-content-primary text-xl font-semibold">Invisible Mode</h2>
-        <div className="flex items-center gap-4">
-          <Badge color="danger" isInvisible={isInvisible}>
-            5
+        <div className="border-border bg-surface-subtle flex items-center gap-10 rounded-xl border p-6">
+          <Badge badgeContent={4} color="secondary" invisible={!showUnread}>
+            <MailIcon />
           </Badge>
-          <Badge color="success" isInvisible={!isInvisible}>
-            Active
-          </Badge>
-          <button
-            className="text-primary hover:text-primary/80 text-sm font-medium underline"
-            type="button"
-            onClick={() => setIsInvisible((previous) => !previous)}
-          >
-            Toggle Invisible
-          </button>
-        </div>
-      </div>
 
-      {/* Anchored Overlays */}
-      <div className="space-y-4">
-        <h2 className="text-content-primary text-xl font-semibold">BadgeAnchor Placements</h2>
-        <div className="flex flex-wrap gap-8 p-4">
-          {(['top-right', 'top-left', 'bottom-right', 'bottom-left'] as const).map((placement) => (
-            <BadgeAnchor
-              key={placement}
-              badge={
-                <Badge color="danger" size="sm">
-                  3
-                </Badge>
-              }
-              placement={placement}
+          <div className="text-content-primary inline-flex items-center gap-3 text-sm font-medium">
+            <button
+              aria-checked={showUnread}
+              aria-label="Show unread count"
+              className={`focus-visible:ring-primary relative inline-flex h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ease-in-out focus-visible:ring-2 focus-visible:outline-none ${
+                showUnread ? 'bg-primary' : 'bg-surface-muted'
+              }`}
+              role="switch"
+              type="button"
+              onClick={() => setShowUnread((previous) => !previous)}
             >
-              <AvatarPlaceholder name="Jane Doe" />
-            </BadgeAnchor>
-          ))}
-
-          <BadgeAnchor badge={<Badge isDot color="success" size="md" />} placement="bottom-right">
-            <AvatarPlaceholder name="Online User" />
-          </BadgeAnchor>
+              <span
+                className={`bg-surface mt-0.5 inline-block size-5 transform rounded-full shadow transition duration-200 ease-in-out ${
+                  showUnread ? 'translate-x-5' : 'translate-x-0.5'
+                }`}
+              />
+            </button>
+            <span>Show unread count</span>
+          </div>
         </div>
       </div>
 
-      {/* Interactive Notification Counter Pattern */}
-      <div className="space-y-4">
-        <h2 className="text-content-primary text-xl font-semibold">Notification Counter Pattern</h2>
-        <div className="flex items-center gap-6">
-          <span aria-atomic="true" aria-live="polite" className="sr-only">
-            {count > 0 ? `${count} unread notifications` : 'No unread notifications'}
-          </span>
-          <BadgeAnchor
-            badge={
-              <Badge color="danger" isInvisible={count === 0} max={99}>
-                {count}
-              </Badge>
-            }
-          >
-            <AvatarPlaceholder name="Notifications" />
-          </BadgeAnchor>
-          <span className="text-content-secondary text-sm">{count} unread</span>
+      {/* 4. Badge Overlap (Matching Screenshot 4) */}
+      <div className="border-border bg-surface space-y-4 rounded-2xl border p-6 shadow-sm">
+        <div>
+          <h2 className="text-content-primary text-xl font-semibold">Badge Overlap</h2>
+          <p className="text-content-secondary text-sm">
+            Use the <code className="text-primary">overlap=&quot;circular&quot;</code> prop when the
+            wrapped element is circular.
+          </p>
+        </div>
+        <div className="border-border bg-surface-subtle flex items-center gap-10 rounded-xl border p-6">
+          <Badge badgeContent={1} color="secondary" overlap="rectangular">
+            <div className="bg-primary size-10 rounded-sm" />
+          </Badge>
+          <Badge color="secondary" overlap="rectangular" variant="dot">
+            <div className="bg-primary size-10 rounded-sm" />
+          </Badge>
+          <Badge badgeContent={1} color="secondary" overlap="circular">
+            <div className="bg-primary size-10 rounded-full" />
+          </Badge>
+          <Badge color="secondary" overlap="circular" variant="dot">
+            <div className="bg-primary size-10 rounded-full" />
+          </Badge>
+        </div>
+      </div>
+
+      {/* 5. Avatar Status Indicators (Matching Screenshot 5) */}
+      <div className="border-border bg-surface space-y-4 rounded-2xl border p-6 shadow-sm">
+        <div>
+          <h2 className="text-content-primary text-xl font-semibold">Avatar Status Indicators</h2>
+          <p className="text-content-secondary text-sm">
+            Bordered circular dot indicators positioned at{' '}
+            <code className="text-primary">bottom-right</code> on avatars.
+          </p>
+        </div>
+        <div className="border-border bg-surface-subtle flex justify-start rounded-xl border p-6">
+          <div className="border-border bg-surface divide-border flex w-full max-w-sm flex-col divide-y rounded-xl border p-2 shadow-sm">
+            {USERS.map((user) => {
+              const isOnline = user.status === 'online';
+
+              return (
+                <div key={user.id} className="flex items-center gap-4 p-3">
+                  <Badge
+                    bordered
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    color={isOnline ? 'success' : 'neutral'}
+                    overlap="circular"
+                    variant="dot"
+                  >
+                    <div
+                      aria-label={user.name}
+                      className="bg-surface-muted text-content-secondary flex size-11 items-center justify-center rounded-full text-base font-semibold"
+                    >
+                      {user.initials}
+                    </div>
+                  </Badge>
+
+                  <div className="flex flex-col">
+                    <span className="text-content-primary font-medium">{user.name}</span>
+                    <span className="text-content-secondary text-xs capitalize">{user.status}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* 6. Notification Counter Pattern */}
+      <div className="border-border bg-surface space-y-4 rounded-2xl border p-6 shadow-sm">
+        <div>
+          <h2 className="text-content-primary text-xl font-semibold">Interactive Counter</h2>
+          <p className="text-content-secondary text-sm">
+            Shows automatic hide on zero via default{' '}
+            <code className="text-primary">showZero=&#123;false&#125;</code>.
+          </p>
+        </div>
+        <div className="border-border bg-surface-subtle flex items-center gap-6 rounded-xl border p-6">
+          <Badge badgeContent={count} color="danger" max={99}>
+            <MailIcon />
+          </Badge>
+          <span className="text-content-secondary text-sm">{count} unread notifications</span>
           <div className="flex gap-2">
             <button
-              className="border-border hover:bg-surface-subtle text-content-primary rounded-md border px-3 py-1 text-sm font-medium"
+              className="border-border hover:bg-surface text-content-primary rounded-md border px-3 py-1 text-sm font-medium transition-colors"
               type="button"
               onClick={() => setCount((c) => c + 1)}
             >
               Add
             </button>
             <button
-              className="border-border hover:bg-surface-subtle text-danger rounded-md border px-3 py-1 text-sm font-medium"
+              className="border-border hover:bg-surface text-danger rounded-md border px-3 py-1 text-sm font-medium transition-colors"
               type="button"
               onClick={() => setCount((c) => Math.max(0, c - 1))}
             >
