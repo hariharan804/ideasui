@@ -25,13 +25,19 @@ apps/
 ### Allowed Dependency Direction
 
 ```
-components → theme, utils, hooks
-hooks      → utils
-utils      → (nothing)
-theme      → utils
+composite components → primitive components (DAG only, via @ideasui/<name>)
+components           → theme, utils, hooks
+hooks                → utils
+utils                → (nothing)
+theme                → utils
 ```
 
-**Never** import one component from another component's `src/`.
+#### Component Reusability & Dependency Rules:
+
+- **Allowed:** Higher-level/composite components can depend on and reuse lower-level primitive components via `@ideasui/<component>` (declared in `package.json` with `"workspace:*"`). For example, `@ideasui/avatar` reuses `@ideasui/image`.
+- **Strictly Forbidden:** Circular dependencies between components (e.g., A → B → A).
+- **Strictly Forbidden:** Importing from another component's internal `src/` path (e.g. `import ... from '../../image/src'`). Always import from the package entrypoint (`@ideasui/image`).
+- **Strictly Forbidden:** Components importing from the umbrella `@ideasui/react` barrel bundle.
 
 ---
 

@@ -19,6 +19,7 @@
     "(media)/image",
     "(media)/avatar",
     "(media)/divider",
-    "(media)/chip"
+    "(media)/chip",
+    "(media)/badge"
   ]
 }

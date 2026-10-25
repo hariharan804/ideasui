@@ -165,7 +165,7 @@ const AvatarBase = forwardRef<HTMLSpanElement, AvatarProps>(
         className={cn(styles.root(), classNames?.root, className, slotProps?.root?.className)}
         data-disabled={isDisabled || undefined}
         data-slot="avatar"
-        role="img"
+        role={properties.role ?? 'img'}
         style={style}
       >
         {children ?? (

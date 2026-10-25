@@ -59,6 +59,7 @@ MDX pages must follow a consistent section structure:
 - **Rule 3:** Create demo components in `apps/docs/showcase/[component-name]/[demo-name].tsx`.
 - **Rule 4:** Export all demos in `apps/docs/showcase/[component-name]/index.ts`.
 - **Rule 5:** Register all demos in `apps/docs/showcase/index.ts` under `demos` dictionary.
+- **Rule 6 (Dogfooding Library Components):** Always import and use existing IdeasUI components (e.g., `Switch`, `Button`, `Avatar`, `InputField`, `Badge`, `Chip`, etc. from `@ideasui/react`) for demo controls, toggles, form fields, and interactive actions. NEVER build raw HTML controls (like `<button role="switch">`, raw `<input>`, or custom styled mock toggles) when an equivalent IdeasUI component exists.
 
 ````tsx
 <Preview name="checkbox-controlled" />

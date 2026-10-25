@@ -1247,6 +1247,149 @@ export const bemDocumentation: Record<string, ComponentBEMDocs[]> = {
       ],
     },
   ],
+  badge: [
+    {
+      componentName: 'Badge',
+      title: 'Badge BEM Classes',
+      description:
+        'Namespaced BEM classes and modifiers for standalone CSS styling and testing selectors.',
+      classes: [
+        {
+          name: '.ideasui-badge',
+          target: 'Root',
+          description: 'Base badge indicator element (<span>).',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-badge--solid',
+          target: 'Root',
+          description: 'Solid background visual variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge--soft',
+          target: 'Root',
+          description: 'Subtle tinted background visual variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge--outline',
+          target: 'Root',
+          description: 'Border outline visual variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge--ghost',
+          target: 'Root',
+          description: 'Transparent background visual variant.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge--primary',
+          target: 'Root',
+          description: 'Primary color scheme modifier.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge--neutral',
+          target: 'Root',
+          description: 'Neutral color scheme modifier.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge--success',
+          target: 'Root',
+          description: 'Success color scheme modifier.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge--warning',
+          target: 'Root',
+          description: 'Warning color scheme modifier.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge--danger',
+          target: 'Root',
+          description: 'Danger color scheme modifier.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge--sm',
+          target: 'Root',
+          description: 'Small size scale modifier (16px height).',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge--md',
+          target: 'Root',
+          description: 'Medium size scale modifier (20px height).',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge--lg',
+          target: 'Root',
+          description: 'Large size scale modifier (24px height).',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge--dot',
+          target: 'Root',
+          description: 'Dot mode indicator modifier without text content.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge--invisible',
+          target: 'Root',
+          description: 'Visually hidden modifier without unmounting.',
+          type: 'modifier',
+        },
+      ],
+    },
+    {
+      componentName: 'BadgeAnchor',
+      title: 'BadgeAnchor BEM Classes',
+      description: 'Namespaced BEM classes for positioning Badge over child elements.',
+      classes: [
+        {
+          name: '.ideasui-badge-anchor',
+          target: 'Root',
+          description: 'Relative container wrapper for the target element.',
+          type: 'block',
+        },
+        {
+          name: '.ideasui-badge-anchor__wrapper',
+          target: 'Wrapper',
+          description: 'Absolute positioned wrapper holding the Badge element.',
+          type: 'element',
+        },
+        {
+          name: '.ideasui-badge-anchor__wrapper--top-right',
+          target: 'Wrapper',
+          description: 'Top-right anchor placement modifier.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge-anchor__wrapper--top-left',
+          target: 'Wrapper',
+          description: 'Top-left anchor placement modifier.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge-anchor__wrapper--bottom-right',
+          target: 'Wrapper',
+          description: 'Bottom-right anchor placement modifier.',
+          type: 'modifier',
+        },
+        {
+          name: '.ideasui-badge-anchor__wrapper--bottom-left',
+          target: 'Wrapper',
+          description: 'Bottom-left anchor placement modifier.',
+          type: 'modifier',
+        },
+      ],
+    },
+  ],
 };
 
 export default bemDocumentation;

@@ -49,12 +49,14 @@ packages/components/button/
 - `@ideasui/utils` - Utility functions (like `cn`).
 - `@ideasui/hooks` - Shared React hooks.
 - `react-aria` / `@react-aria/*` - Accessibility primitives.
+- `@ideasui/<component>` - Lower-level primitive components for composition (DAG only, e.g., `@ideasui/avatar` using `@ideasui/image`).
 
 ### Forbidden
 
 - ❌ Direct CSS imports (use the Tailwind theme system).
-- ❌ Circular dependencies between packages.
-- ❌ Direct imports from other components' `src/` (always use `@ideasui/<package>`).
+- ❌ Circular dependencies between packages (A → B → A).
+- ❌ Direct imports from other components' private `src/` (always import from `@ideasui/<package>`).
+- ❌ Importing from the umbrella barrel `@ideasui/react` bundle inside any component package.
 
 ## 🎨 Styling & Recipes
 

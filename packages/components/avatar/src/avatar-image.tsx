@@ -4,6 +4,7 @@ import type { AvatarImageProps } from './avatar.types';
 import type { JSX } from 'react';
 
 import { forwardRef } from 'react';
+import { Image } from '@ideasui/image';
 import { cn } from '@ideasui/utils';
 
 export const AvatarImage = forwardRef<HTMLImageElement, AvatarImageProps>(
@@ -38,16 +39,26 @@ export const AvatarImage = forwardRef<HTMLImageElement, AvatarImageProps>(
       );
     }
 
-    // Mode 3: native <img> (default)
+    // Mode 3: Reusable IdeasUI Image
     return (
-      <img
-        ref={reference}
+      <Image
         alt={alt}
-        className={imageClass}
-        data-slot="avatar-image"
+        className={cn('h-full w-full', className)}
+        data-slot="avatar-image-wrapper"
+        objectFit="cover"
+        renderImage={({ alt: imageAlt, className: imgClassName, src: imageSrc }) => (
+          <img
+            ref={reference}
+            alt={imageAlt ?? alt}
+            className={cn(imageClass, imgClassName)}
+            data-slot="avatar-image"
+            src={imageSrc ?? src}
+            onError={onError}
+            {...properties}
+          />
+        )}
         src={src}
         onError={onError}
-        {...properties}
       />
     );
   },

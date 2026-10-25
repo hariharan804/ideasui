@@ -12,6 +12,7 @@ import * as ImageDemos from './image';
 import * as AvatarDemos from './avatar';
 import * as DividerDemos from './divider';
 import * as ChipDemos from './chip';
+import * as BadgeDemos from './badge';
 
 export type DemoItem = {
   component: ComponentType<any>;
@@ -529,6 +530,56 @@ export const demos: Record<string, DemoItem> = {
   'chip-disabled': {
     component: ChipDemos.Disabled,
     file: 'chip/disabled.tsx',
+  },
+
+  // Badge demos
+  'badge-default': {
+    component: BadgeDemos.Default,
+    file: 'badge/default.tsx',
+  },
+  'badge-variants': {
+    component: BadgeDemos.Variants,
+    file: 'badge/variants.tsx',
+  },
+  'badge-colors': {
+    component: BadgeDemos.Colors,
+    file: 'badge/colors.tsx',
+  },
+  'badge-sizes': {
+    component: BadgeDemos.Sizes,
+    file: 'badge/sizes.tsx',
+  },
+  'badge-dot': {
+    component: BadgeDemos.Dot,
+    file: 'badge/dot.tsx',
+  },
+  'badge-max-count': {
+    component: BadgeDemos.MaxCount,
+    file: 'badge/max-count.tsx',
+  },
+  'badge-invisible': {
+    component: BadgeDemos.Invisible,
+    file: 'badge/invisible.tsx',
+  },
+  'badge-anchored': {
+    component: BadgeDemos.Anchored,
+    file: 'badge/anchored.tsx',
+  },
+  'badge-anchor-origin': {
+    component: BadgeDemos.AnchorOrigin,
+    file: 'badge/anchor-origin.tsx',
+  },
+  'badge-overlap': {
+    component: BadgeDemos.Overlap,
+    file: 'badge/overlap.tsx',
+  },
+  'badge-avatar-status': {
+    component: BadgeDemos.AvatarStatus,
+    file: 'badge/avatar-status.tsx',
+  },
+  'badge-notification': {
+    component: BadgeDemos.Notification,
+    file: 'badge/notification.tsx',
   },
 };
 

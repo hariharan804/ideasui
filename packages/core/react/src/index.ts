@@ -1,4 +1,5 @@
 export * from '@ideasui/button';
+export * from '@ideasui/badge';
 export * from '@ideasui/chip';
 export * from '@ideasui/divider';
 export * from '@ideasui/avatar';

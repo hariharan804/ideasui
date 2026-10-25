@@ -3,48 +3,29 @@
 import type { ChipAvatarProps } from './chip.types';
 import type { JSX } from 'react';
 
-import { forwardRef, useCallback, useMemo, useState } from 'react';
+import { forwardRef, useMemo } from 'react';
+import { Avatar } from '@ideasui/avatar';
 import { chip as chipRecipe } from '@ideasui/theme/recipes';
 import { cn } from '@ideasui/utils';
 
-function getInitials(name: string): string {
-  return name
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() ?? '')
-    .join('');
-}
-
 export const ChipAvatar = forwardRef<HTMLSpanElement, ChipAvatarProps>(
-  ({ alt, className, name, src, ...properties }, reference): JSX.Element => {
-    const [imgError, setImgError] = useState(false);
+  ({ alt, className, color, name, src, ...properties }, reference): JSX.Element => {
     const styles = useMemo(() => chipRecipe(), []);
-    const handleImageError = useCallback((): void => {
-      setImgError(true);
-    }, []);
-    const initials = useMemo(() => (name ? getInitials(name) : ''), [name]);
-    const showImage = Boolean(src && !imgError);
 
     return (
-      <span
+      <Avatar
         ref={reference}
+        alt={alt}
         aria-hidden="true"
         className={cn(styles.avatar(), className)}
+        color={color}
         data-slot="chip-avatar"
+        name={name}
+        role="presentation"
+        size="xs"
+        src={src}
         {...properties}
-      >
-        {showImage ? (
-          <img
-            alt={alt ?? name ?? ''}
-            className={cn(styles.avatarImage())}
-            src={src}
-            onError={handleImageError}
-          />
-        ) : (
-          <span>{initials}</span>
-        )}
-      </span>
+      />
     );
   },
 );

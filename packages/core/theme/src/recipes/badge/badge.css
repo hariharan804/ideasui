@@ -1,0 +1,219 @@
+/**
+ * Badge Component CSS
+ * Source of truth for visual styling for the Badge component.
+ * Uses BEM selectors + Tailwind CSS v4 @apply directives.
+ */
+
+/* ─── Badge Root (Container when anchored) ─────────────────────── */
+.ideasui-badge-root {
+  @apply relative inline-flex shrink-0;
+}
+
+/* ─── Badge Element ────────────────────────────────────────────── */
+.ideasui-badge {
+  @apply inline-flex items-center justify-center rounded-full border border-transparent leading-none font-semibold whitespace-nowrap transition-[transform,opacity] duration-200 ease-in-out;
+}
+
+/* ─── Sizes ───────────────────────────────────────────────────── */
+.ideasui-badge--sm {
+  @apply h-4 min-w-4 px-1 text-[10px];
+}
+.ideasui-badge--md {
+  @apply h-5 min-w-5 px-1.5 text-xs;
+}
+.ideasui-badge--lg {
+  @apply h-6 min-w-6 px-2 text-xs;
+}
+
+/* ─── Dot mode ────────────────────────────────────────────────── */
+.ideasui-badge--dot {
+  @apply min-w-0 rounded-full p-0;
+}
+.ideasui-badge--dot.ideasui-badge--sm {
+  @apply size-2;
+}
+.ideasui-badge--dot.ideasui-badge--md {
+  @apply size-2.5;
+}
+.ideasui-badge--dot.ideasui-badge--lg {
+  @apply size-3;
+}
+
+/* ─── Bordered / Ring ─────────────────────────────────────────── */
+.ideasui-badge--bordered {
+  @apply ring-surface ring-2;
+}
+
+/* ─── Invisible / Visible ─────────────────────────────────────── */
+.ideasui-badge--invisible {
+  @apply pointer-events-none scale-0 opacity-0;
+}
+
+/* ─── Placements (Anchored mode) ──────────────────────────────── */
+.ideasui-badge--top-right {
+  @apply origin-top-right;
+}
+.ideasui-badge--top-left {
+  @apply origin-top-left;
+}
+.ideasui-badge--bottom-right {
+  @apply origin-bottom-right;
+}
+.ideasui-badge--bottom-left {
+  @apply origin-bottom-left;
+}
+
+/* Rectangular overlap */
+.ideasui-badge--overlap-rectangular.ideasui-badge--top-right {
+  @apply top-0 right-0 translate-x-1/2 -translate-y-1/2;
+}
+.ideasui-badge--overlap-rectangular.ideasui-badge--top-left {
+  @apply top-0 left-0 -translate-x-1/2 -translate-y-1/2;
+}
+.ideasui-badge--overlap-rectangular.ideasui-badge--bottom-right {
+  @apply right-0 bottom-0 translate-x-1/2 translate-y-1/2;
+}
+.ideasui-badge--overlap-rectangular.ideasui-badge--bottom-left {
+  @apply bottom-0 left-0 -translate-x-1/2 translate-y-1/2;
+}
+
+/* Circular overlap (14% diagonal offset) */
+.ideasui-badge--overlap-circular.ideasui-badge--top-right {
+  @apply top-[14%] right-[14%] translate-x-1/2 -translate-y-1/2;
+}
+.ideasui-badge--overlap-circular.ideasui-badge--top-left {
+  @apply top-[14%] left-[14%] -translate-x-1/2 -translate-y-1/2;
+}
+.ideasui-badge--overlap-circular.ideasui-badge--bottom-right {
+  @apply right-[14%] bottom-[14%] translate-x-1/2 translate-y-1/2;
+}
+.ideasui-badge--overlap-circular.ideasui-badge--bottom-left {
+  @apply bottom-[14%] left-[14%] -translate-x-1/2 translate-y-1/2;
+}
+
+/* ─── Variant: solid / standard ───────────────────────────────── */
+.ideasui-badge--solid.ideasui-badge--primary,
+.ideasui-badge--standard.ideasui-badge--primary {
+  @apply bg-primary text-on-primary;
+}
+.ideasui-badge--solid.ideasui-badge--secondary,
+.ideasui-badge--standard.ideasui-badge--secondary {
+  @apply bg-secondary text-on-secondary;
+}
+.ideasui-badge--solid.ideasui-badge--neutral,
+.ideasui-badge--standard.ideasui-badge--neutral {
+  @apply bg-neutral text-on-neutral;
+}
+.ideasui-badge--solid.ideasui-badge--success,
+.ideasui-badge--standard.ideasui-badge--success {
+  @apply bg-success text-on-success;
+}
+.ideasui-badge--solid.ideasui-badge--warning,
+.ideasui-badge--standard.ideasui-badge--warning {
+  @apply bg-warning text-on-warning;
+}
+.ideasui-badge--solid.ideasui-badge--danger,
+.ideasui-badge--standard.ideasui-badge--danger {
+  @apply bg-danger text-on-danger;
+}
+.ideasui-badge--solid.ideasui-badge--info,
+.ideasui-badge--standard.ideasui-badge--info {
+  @apply bg-info text-on-info;
+}
+
+/* ─── Variant: soft ───────────────────────────────────────────── */
+.ideasui-badge--soft.ideasui-badge--primary {
+  @apply bg-primary-subtle text-primary;
+}
+.ideasui-badge--soft.ideasui-badge--secondary {
+  @apply bg-secondary-subtle text-secondary;
+}
+.ideasui-badge--soft.ideasui-badge--neutral {
+  @apply bg-neutral-subtle text-neutral;
+}
+.ideasui-badge--soft.ideasui-badge--success {
+  @apply bg-success-subtle text-success;
+}
+.ideasui-badge--soft.ideasui-badge--warning {
+  @apply bg-warning-subtle text-warning;
+}
+.ideasui-badge--soft.ideasui-badge--danger {
+  @apply bg-danger-subtle text-danger;
+}
+.ideasui-badge--soft.ideasui-badge--info {
+  @apply bg-info-subtle text-info;
+}
+
+/* ─── Variant: outline ────────────────────────────────────────── */
+.ideasui-badge--outline {
+  @apply bg-transparent;
+}
+.ideasui-badge--outline.ideasui-badge--primary {
+  @apply border-primary text-primary;
+}
+.ideasui-badge--outline.ideasui-badge--secondary {
+  @apply border-secondary text-secondary;
+}
+.ideasui-badge--outline.ideasui-badge--neutral {
+  @apply border-neutral text-neutral;
+}
+.ideasui-badge--outline.ideasui-badge--success {
+  @apply border-success text-success;
+}
+.ideasui-badge--outline.ideasui-badge--warning {
+  @apply border-warning text-warning;
+}
+.ideasui-badge--outline.ideasui-badge--danger {
+  @apply border-danger text-danger;
+}
+.ideasui-badge--outline.ideasui-badge--info {
+  @apply border-info text-info;
+}
+
+/* ─── Variant: ghost ──────────────────────────────────────────── */
+.ideasui-badge--ghost {
+  @apply border-transparent bg-transparent;
+}
+.ideasui-badge--ghost.ideasui-badge--primary {
+  @apply text-primary;
+}
+.ideasui-badge--ghost.ideasui-badge--secondary {
+  @apply text-secondary;
+}
+.ideasui-badge--ghost.ideasui-badge--neutral {
+  @apply text-neutral;
+}
+.ideasui-badge--ghost.ideasui-badge--success {
+  @apply text-success;
+}
+.ideasui-badge--ghost.ideasui-badge--warning {
+  @apply text-warning;
+}
+.ideasui-badge--ghost.ideasui-badge--danger {
+  @apply text-danger;
+}
+.ideasui-badge--ghost.ideasui-badge--info {
+  @apply text-info;
+}
+
+/* ─── Backwards Compatibility: Anchor wrapper ─────────────────── */
+.ideasui-badge-anchor {
+  @apply relative inline-flex shrink-0;
+}
+
+.ideasui-badge-anchor__wrapper {
+  @apply absolute z-10;
+}
+
+.ideasui-badge-anchor__wrapper--top-right {
+  @apply top-0 right-0 translate-x-1/2 -translate-y-1/2;
+}
+.ideasui-badge-anchor__wrapper--top-left {
+  @apply top-0 left-0 -translate-x-1/2 -translate-y-1/2;
+}
+.ideasui-badge-anchor__wrapper--bottom-right {
+  @apply right-0 bottom-0 translate-x-1/2 translate-y-1/2;
+}
+.ideasui-badge-anchor__wrapper--bottom-left {
+  @apply bottom-0 left-0 -translate-x-1/2 translate-y-1/2;
+}
