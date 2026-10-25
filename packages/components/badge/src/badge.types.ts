@@ -232,6 +232,13 @@ export interface BadgeAnchorProps extends HTMLAttributes<HTMLSpanElement> {
   readonly placement?: BadgePlacement;
 
   /**
+   * Wrapped shape the badge should overlap.
+   * Use `'circular'` when the badged element is circular (e.g. Avatar).
+   * @default 'rectangular'
+   */
+  readonly overlap?: BadgeOverlap;
+
+  /**
    * Offset applied to the badge position. Useful for fine-tuning overlap.
    * @default { x: 0, y: 0 }
    */

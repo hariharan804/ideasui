@@ -207,7 +207,7 @@ export interface ChipGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, 'on
   readonly children: ReactNode;
 }
 
-export interface ChipAvatarProps extends HTMLAttributes<HTMLSpanElement> {
+export interface ChipAvatarProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'color'> {
   /**
    * Image source URL.
    */
@@ -222,6 +222,11 @@ export interface ChipAvatarProps extends HTMLAttributes<HTMLSpanElement> {
    * Alt text for the image. Defaults to `name` if provided.
    */
   readonly alt?: string;
+
+  /**
+   * Color scheme for the avatar.
+   */
+  readonly color?: ChipColor;
 
   /**
    * Custom CSS class name.

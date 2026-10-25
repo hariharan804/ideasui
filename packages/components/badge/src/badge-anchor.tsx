@@ -12,6 +12,7 @@ export const BadgeAnchor = forwardRef<HTMLSpanElement, BadgeAnchorProps>(
     {
       badge,
       placement = 'top-right',
+      overlap = 'rectangular',
       offset,
       className,
       classNames,
@@ -22,12 +23,11 @@ export const BadgeAnchor = forwardRef<HTMLSpanElement, BadgeAnchorProps>(
     },
     reference,
   ): JSX.Element => {
-    const styles = badgeRecipe({ placement });
+    const styles = badgeRecipe({ placement, overlap });
 
     const offsetStyle: CSSProperties = offset
       ? ({
-          '--badge-offset-x': `${offset.x ?? 0}px`,
-          '--badge-offset-y': `${offset.y ?? 0}px`,
+          transform: `translate(${offset.x ?? 0}px, ${offset.y ?? 0}px)`,
         } as CSSProperties)
       : {};
 

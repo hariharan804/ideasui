@@ -92,6 +92,14 @@ export { Button } from './button';
 export type { ButtonProps } from './button.types';
 ```
 
+### Component Composition & Internal Reuse
+
+- Primitive components (e.g., `@ideasui/image`, `@ideasui/button`) can be composed and reused inside higher-level components (e.g., `@ideasui/avatar`).
+- Declare the dependency in `package.json` using `"workspace:*"`.
+- Import the component using its official package name: `import { Image } from '@ideasui/image';`.
+- **FORBIDDEN:** Do not import across packages using relative paths into private `src/` (e.g., `../../image/src/...`).
+- **FORBIDDEN:** Do not import from the umbrella `@ideasui/react` bundle inside any component package to avoid circular dependency loops.
+
 ## 🎨 Theme System
 
 ### ThemeProvider Installation

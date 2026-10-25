@@ -168,6 +168,28 @@ export const badge = tv({
       class: { badge: 'bottom-[14%] left-[14%] -translate-x-1/2 translate-y-1/2' },
     },
 
+    // Circular overlap placements for BadgeAnchor badgeWrapper
+    {
+      overlap: 'circular',
+      placement: 'top-right',
+      class: { badgeWrapper: 'top-[14%] right-[14%]' },
+    },
+    {
+      overlap: 'circular',
+      placement: 'top-left',
+      class: { badgeWrapper: 'top-[14%] left-[14%]' },
+    },
+    {
+      overlap: 'circular',
+      placement: 'bottom-right',
+      class: { badgeWrapper: 'bottom-[14%] right-[14%]' },
+    },
+    {
+      overlap: 'circular',
+      placement: 'bottom-left',
+      class: { badgeWrapper: 'bottom-[14%] left-[14%]' },
+    },
+
     // solid / standard / dot + color
     { variant: 'solid', color: 'primary', class: { badge: 'bg-primary text-on-primary' } },
     { variant: 'standard', color: 'primary', class: { badge: 'bg-primary text-on-primary' } },

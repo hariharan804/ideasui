@@ -48,7 +48,7 @@ links:
     },
     {
       title: 'Visual Variants',
-      description: 'Solid, soft, outline, and ghost styling options.',
+      description: 'Standard numeric count and dot status indicators.',
       href: '#visual-variants',
     },
     {
@@ -173,19 +173,19 @@ Control badge visibility using the `invisible` prop. When invisible, the badge s
 
 ```tsx
 import { useState } from 'react';
-import { Badge } from '@ideasui/react';
+import { Badge, Switch } from '@ideasui/react';
 
 export default function VisibilityDemo() {
-  const [invisible, setInvisible] = useState(false);
+  const [showUnread, setShowUnread] = useState(true);
 
   return (
     <div className="flex items-center gap-6">
-      <Badge badgeContent={4} color="secondary" invisible={invisible}>
+      <Badge badgeContent={4} color="secondary" invisible={!showUnread}>
         <MailIcon />
       </Badge>
-      <button onClick={() => setInvisible((v) => !v)} className="text-sm underline">
-        Toggle Visibility
-      </button>
+      <Switch isSelected={showUnread} onChange={setShowUnread}>
+        Show unread count
+      </Switch>
     </div>
   );
 }
@@ -274,7 +274,7 @@ export default function MaxCount() {
 
 ## Visual Variants
 
-Use the `variant` prop to adjust the visual styling. Supported variants are `standard` (or `solid`), `soft`, `outline`, `ghost`, and `dot`.
+Use the `variant` prop to adjust the visual styling: `standard` for numeric badges (default) or `dot` for compact status indicators.
 
 <Preview name="badge-variants" />
 
@@ -283,18 +283,12 @@ import { Badge } from '@ideasui/react';
 
 export default function Variants() {
   return (
-    <div className="flex gap-4">
-      <Badge variant="solid" color="primary">
-        Solid
+    <div className="flex gap-8">
+      <Badge badgeContent={4} color="primary" variant="standard">
+        <MailIcon />
       </Badge>
-      <Badge variant="soft" color="primary">
-        Soft
-      </Badge>
-      <Badge variant="outline" color="primary">
-        Outline
-      </Badge>
-      <Badge variant="ghost" color="primary">
-        Ghost
+      <Badge color="primary" variant="dot">
+        <MailIcon />
       </Badge>
     </div>
   );
@@ -312,14 +306,28 @@ import { Badge } from '@ideasui/react';
 
 export default function Colors() {
   return (
-    <div className="flex flex-wrap gap-2">
-      <Badge color="primary">Primary</Badge>
-      <Badge color="secondary">Secondary</Badge>
-      <Badge color="neutral">Neutral</Badge>
-      <Badge color="success">Success</Badge>
-      <Badge color="warning">Warning</Badge>
-      <Badge color="danger">Danger</Badge>
-      <Badge color="info">Info</Badge>
+    <div className="flex flex-wrap gap-8">
+      <Badge badgeContent={4} color="primary">
+        <MailIcon />
+      </Badge>
+      <Badge badgeContent={4} color="secondary">
+        <MailIcon />
+      </Badge>
+      <Badge badgeContent={4} color="neutral">
+        <MailIcon />
+      </Badge>
+      <Badge badgeContent={4} color="success">
+        <MailIcon />
+      </Badge>
+      <Badge badgeContent={4} color="warning">
+        <MailIcon />
+      </Badge>
+      <Badge badgeContent={4} color="danger">
+        <MailIcon />
+      </Badge>
+      <Badge badgeContent={4} color="info">
+        <MailIcon />
+      </Badge>
     </div>
   );
 }
@@ -336,15 +344,15 @@ import { Badge } from '@ideasui/react';
 
 export default function Sizes() {
   return (
-    <div className="flex items-center gap-4">
-      <Badge size="sm" color="danger">
-        9
+    <div className="flex items-center gap-8">
+      <Badge badgeContent={4} color="primary" size="sm">
+        <MailIcon />
       </Badge>
-      <Badge size="md" color="danger">
-        99
+      <Badge badgeContent={4} color="primary" size="md">
+        <MailIcon />
       </Badge>
-      <Badge size="lg" color="danger">
-        999
+      <Badge badgeContent={4} color="primary" size="lg">
+        <MailIcon />
       </Badge>
     </div>
   );

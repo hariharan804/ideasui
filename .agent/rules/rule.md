@@ -31,11 +31,14 @@ You MUST follow these rules during development. Refer to `/rules` for full detai
 - Components in `packages/components/` must have a flat structure: `src/[component].tsx`, `src/[component].types.ts`, `src/index.ts`.
 - [project-structure.md](../../rules/project-structure.md)
 
-## 📦 Dependency Rules
+## 📦 Dependency & Reusability Rules
 
 - Components can depend on: `@ideasui/theme`, `@ideasui/utils`, `@ideasui/hooks`.
-- **Forbidden:** Circular dependencies, or components depending on other components directly.
-- Use `workspace:*` for internal dependencies.
+- **Component-to-Component Reuse (DAG):** Higher-level/composite components can depend on lower-level primitive components via `@ideasui/<component>` (`"workspace:*"`). E.g., `@ideasui/avatar` reuses `@ideasui/image`.
+- **Forbidden:** Circular dependencies (A → B → A).
+- **Forbidden:** Cross-package direct imports from another component's private `src/` directory (always import from `@ideasui/<name>`).
+- **Forbidden:** Components importing from the umbrella `@ideasui/react` barrel bundle.
+- Use `workspace:*` for all internal monorepo package dependencies.
 
 ## ⚖️ Quality & Complexity
 
@@ -91,6 +94,7 @@ You MUST follow these rules during development. Refer to `/rules` for full detai
 - **Navigation:** Include `<QuickNav items={...} />` matching all major `##` headings.
 - **Live Demos:** Use `<Preview name="[component]-[demo]" />`. Never embed inline JSX components directly in MDX body text.
 - **Showcase Components:** Define demo components in `apps/docs/showcase/[component-name]/[demo].tsx` and register them in `apps/docs/showcase/index.ts`.
+- **Showcase Component Dogfooding:** Always use existing IdeasUI components (e.g. `Switch`, `Button`, `Avatar`, `InputField` from `@ideasui/react`) across all showcase demos instead of building custom raw HTML controls or mock toggles.
 - **API Reference:** Always use `<APIReferenceViewer componentName="[camelCaseName]" />`. NEVER write manual Markdown/HTML prop tables.
 - **Standalone CSS:** Every component MDX file MUST include a `## Standalone CSS` section and a `### BEM CSS Classes` subsection.
 - **Props Dictionary:** Register component prop metadata in `apps/docs/lib/docs/components-props.ts`.

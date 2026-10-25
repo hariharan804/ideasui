@@ -2,7 +2,7 @@
 
 import type { JSX } from 'react';
 import { useState } from 'react';
-import { Badge } from '@ideasui/react';
+import { Badge, Switch } from '@ideasui/react';
 
 function MailIcon(): JSX.Element {
   return (
@@ -26,25 +26,9 @@ export default function BadgeInvisibleDemo(): JSX.Element {
         <MailIcon />
       </Badge>
 
-      <div className="text-content-primary inline-flex items-center gap-3 text-sm font-medium">
-        <button
-          aria-checked={showUnread}
-          aria-label="Show unread count"
-          className={`focus-visible:ring-primary relative inline-flex h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ease-in-out focus-visible:ring-2 focus-visible:outline-none ${
-            showUnread ? 'bg-primary' : 'bg-surface-muted'
-          }`}
-          role="switch"
-          type="button"
-          onClick={() => setShowUnread((previous) => !previous)}
-        >
-          <span
-            className={`bg-surface mt-0.5 inline-block size-5 transform rounded-full shadow transition duration-200 ease-in-out ${
-              showUnread ? 'translate-x-5' : 'translate-x-0.5'
-            }`}
-          />
-        </button>
-        <span>Show unread count</span>
-      </div>
+      <Switch isSelected={showUnread} onChange={setShowUnread}>
+        Show unread count
+      </Switch>
     </div>
   );
 }

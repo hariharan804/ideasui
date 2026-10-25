@@ -3492,6 +3492,14 @@ export const propsDocumentation: PropsDocumentation = {
           description: 'Alt text for the image. Defaults to `name` if provided.',
         },
         {
+          name: 'color',
+          type: '"primary" | "neutral" | "success" | "warning" | "danger"',
+          required: false,
+          defaultValue: null,
+          deprecated: false,
+          description: 'Color scheme for the avatar.',
+        },
+        {
           name: 'className',
           type: 'string',
           required: false,
@@ -3761,6 +3769,15 @@ export const propsDocumentation: PropsDocumentation = {
           defaultValue: "'top-right'",
           deprecated: false,
           description: 'Placement of the badge relative to the child element.',
+        },
+        {
+          name: 'overlap',
+          type: '"rectangular" | "circular"',
+          required: false,
+          defaultValue: "'rectangular'",
+          deprecated: false,
+          description:
+            "Wrapped shape the badge should overlap. Use `'circular'` when the badged element is circular (e.g. Avatar).",
         },
         {
           name: 'offset',

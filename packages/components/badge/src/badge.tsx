@@ -3,9 +3,33 @@
 import type { JSX, ReactNode, Ref } from 'react';
 import type { BadgeAnchorOrigin, BadgeComponent, BadgePlacement, BadgeProps } from './badge.types';
 
-import { forwardRef } from 'react';
+import { forwardRef, isValidElement } from 'react';
 import { badge as badgeRecipe } from '@ideasui/theme/recipes';
-import { cn } from '@ideasui/utils';
+import { cn, omit } from '@ideasui/utils';
+
+const BADGE_PROPS_TO_OMIT: (keyof BadgeProps)[] = [
+  'anchorOrigin',
+  'placement',
+  'badgeContent',
+  'overlap',
+  'variant',
+  'color',
+  'size',
+  'invisible',
+  'isInvisible',
+  'showZero',
+  'max',
+  'isDot',
+  'bordered',
+  'component',
+  'slots',
+  'slotProps',
+  'classes',
+  'classNames',
+  'className',
+  'style',
+  'children',
+];
 
 import { BadgeAnchor } from './badge-anchor';
 
@@ -79,7 +103,9 @@ function parseBadgeOptions(props: BadgeProps): ParsedBadgeOptions {
   const isDot = Boolean(props.isDot || props.variant === 'dot');
   const variant = props.variant === 'standard' || !props.variant ? 'solid' : props.variant;
   const placement = resolvePlacement(props.anchorOrigin, props.placement);
-  const hasWrapped = props.children !== undefined && (props.badgeContent !== undefined || isDot);
+  const hasWrapped =
+    props.children !== undefined &&
+    (props.badgeContent !== undefined || (isDot && isValidElement(props.children)));
   const content = hasWrapped ? props.badgeContent : (props.badgeContent ?? props.children);
   const invisible = resolveInvisible(
     Boolean(props.invisible || props.isInvisible),
@@ -103,6 +129,7 @@ function renderAnchoredBadge(
   opts: ParsedBadgeOptions,
   styles: ReturnType<typeof badgeRecipe>,
   renderedContent: ReactNode,
+  restProperties: Record<string, unknown>,
   reference: Ref<HTMLSpanElement>,
 ): JSX.Element {
   const RootElement = props.slots?.root ?? props.component ?? 'span';
@@ -120,6 +147,7 @@ function renderAnchoredBadge(
       )}
       data-slot="badge-root"
       style={{ ...props.style, ...props.slotProps?.root?.style }}
+      {...restProperties}
       {...props.slotProps?.root}
     >
       {props.children}
@@ -148,6 +176,7 @@ function renderStandaloneBadge(
   opts: ParsedBadgeOptions,
   styles: ReturnType<typeof badgeRecipe>,
   renderedContent: ReactNode,
+  restProperties: Record<string, unknown>,
   reference: Ref<HTMLSpanElement>,
 ): JSX.Element {
   const BadgeElement = props.slots?.badge ?? 'span';
@@ -170,6 +199,7 @@ function renderStandaloneBadge(
       data-invisible={opts.isActuallyInvisible || undefined}
       data-slot="badge"
       style={{ ...props.style, ...props.slotProps?.root?.style, ...props.slotProps?.badge?.style }}
+      {...restProperties}
       {...props.slotProps?.root}
       {...props.slotProps?.badge}
     >
@@ -199,11 +229,16 @@ const BadgeBase = forwardRef<HTMLSpanElement, BadgeProps>((props, reference): JS
     opts.isDotEffective,
   );
 
+  const restProperties = omit(
+    props as unknown as Record<string, unknown>,
+    BADGE_PROPS_TO_OMIT as unknown as (keyof Record<string, unknown>)[],
+  );
+
   if (opts.hasWrappedChild) {
-    return renderAnchoredBadge(props, opts, styles, renderedContent, reference);
+    return renderAnchoredBadge(props, opts, styles, renderedContent, restProperties, reference);
   }
 
-  return renderStandaloneBadge(props, opts, styles, renderedContent, reference);
+  return renderStandaloneBadge(props, opts, styles, renderedContent, restProperties, reference);
 });
 
 BadgeBase.displayName = 'IdeasUI.Badge';
